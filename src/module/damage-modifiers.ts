@@ -2,30 +2,7 @@ import { Alignment, DamageImmunities, LabeledValue } from '@actor/actorDataDefin
 import { combineMaps, groupBy, max, toNumber } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 
-/**
- * Looks through all values and only keeps the highest ones
- * @param values
- */
-export function mergeResistancesOrWeaknesses(values: LabeledValue[]): LabeledValue[] {
-    const valuesByType = groupBy(values, (value) => value.type);
-    return Array.from(valuesByType.entries()).flatMap(([, value]) => {
-        // fire resistance 5 and fire resistance 10 collapse to fire resistance 10
-        // physical 5 (except silver) and physical 5 (except adamantine) are kept
-        const groupedByException = groupBy(value, (value) => value.exceptions ?? null);
-        return Array.from(groupedByException.entries()).map(([, value]) => {
-            return max(value, (val) => toNumber(val.value) ?? 0);
-        });
-    });
-}
-
-/**
- * Only keeps unique immunities
- * @param values
- * @param additionalImmunities
- */
-export function mergeImmunities(values: DamageImmunities, additionalImmunities: string[] = []): string[] {
-    return Array.from(new Set(values.value.concat(values.custom).concat(...additionalImmunities)));
-}
+export type Alive = 'living' | 'undead' | 'neither';
 
 export type DamageType =
     | 'acid'
@@ -48,34 +25,50 @@ export type DamageType =
     | 'good'
     | 'evil';
 
-export type Alive = 'living' | 'undead' | 'neither';
-
-const damageTypes = new Set();
-damageTypes.add('acid');
-damageTypes.add('bludgeoning');
-damageTypes.add('cold');
-damageTypes.add('fire');
-damageTypes.add('force');
-damageTypes.add('electricity');
-damageTypes.add('sonic');
-damageTypes.add('negative');
-damageTypes.add('piercing');
-damageTypes.add('poison');
-damageTypes.add('positive');
-damageTypes.add('bleed');
-damageTypes.add('mental');
-damageTypes.add('precision');
-damageTypes.add('slashing');
-damageTypes.add('chaotic');
-damageTypes.add('lawful');
-damageTypes.add('good');
-damageTypes.add('evil');
+const allDamageTypes = new Set();
+allDamageTypes.add('acid');
+allDamageTypes.add('bludgeoning');
+allDamageTypes.add('cold');
+allDamageTypes.add('fire');
+allDamageTypes.add('force');
+allDamageTypes.add('electricity');
+allDamageTypes.add('sonic');
+allDamageTypes.add('negative');
+allDamageTypes.add('piercing');
+allDamageTypes.add('poison');
+allDamageTypes.add('positive');
+allDamageTypes.add('bleed');
+allDamageTypes.add('mental');
+allDamageTypes.add('precision');
+allDamageTypes.add('slashing');
+allDamageTypes.add('chaotic');
+allDamageTypes.add('lawful');
+allDamageTypes.add('good');
+allDamageTypes.add('evil');
 
 export function isDamageType(value: string): value is DamageType {
-    return damageTypes.has(value);
+    return allDamageTypes.has(value);
 }
 
-type Damage = Map<DamageType, number>;
+export type DamageExceptions = Set<AttackTrait & DamageType>[];
+
+export interface Resistance {
+    damageType: string;
+    value: number;
+    doubleResistanceVsNonMagical: boolean;
+    except: DamageExceptions;
+}
+
+export interface Weakness {
+    damageType: string;
+    value: number;
+    except: DamageExceptions;
+}
+
+export interface Immunity {
+    damageType: string;
+    except: DamageExceptions;
+}
 
 export type AttackTrait =
     | 'nonlethal'
@@ -91,10 +84,30 @@ export type AttackTrait =
     | 'unarmed'
     | 'spell';
 
-interface SplashDamage {
+const allAttackTraits = new Set<string>();
+allAttackTraits.add('nonlethal');
+allAttackTraits.add('magical');
+allAttackTraits.add('adamantine');
+allAttackTraits.add('coldiron');
+allAttackTraits.add('ghostTouch');
+allAttackTraits.add('darkwood');
+allAttackTraits.add('mithral');
+allAttackTraits.add('silver');
+allAttackTraits.add('orichalcum');
+allAttackTraits.add('vorpal');
+allAttackTraits.add('unarmed');
+allAttackTraits.add('spell');
+
+export function isAttackTrait(value: string): value is DamageType {
+    return allAttackTraits.has(value);
+}
+
+export interface SplashDamage {
     type: DamageType;
     value: number;
 }
+
+export type Damage = Map<DamageType, number>;
 
 function combineDamages(damages: Damage[]): Damage {
     return damages.reduce((previous, current) => {
@@ -134,9 +147,9 @@ function ifImmunityApplies(
     applyImmunity: () => void,
 ) {
     const immunities = immunitiesByType.get(damageType) ?? [];
-    const allDamageTypes = new Set(damage.keys());
+    const damageTypes = new Set(damage.keys());
     const applicableImmunities = immunities.filter(
-        (immunity) => !exceptionApplies(immunity.except, attackTraits, allDamageTypes),
+        (immunity) => !exceptionApplies(immunity.except, attackTraits, damageTypes),
     );
     if (applicableImmunities.length > 0) {
         applyImmunity();
@@ -242,26 +255,6 @@ export function removeUndeadLivingDamage(damage: Damage, alive: Alive) {
         damage.delete('negative');
         damage.delete('positive');
     }
-}
-
-type DamageExceptions = Set<AttackTrait & DamageType>[];
-
-export interface Resistance {
-    damageType: string;
-    value: number;
-    doubleResistanceVsNonMagical: boolean;
-    except: DamageExceptions;
-}
-
-export interface Weakness {
-    damageType: string;
-    value: number;
-    except: DamageExceptions;
-}
-
-export interface Immunity {
-    damageType: string;
-    except: DamageExceptions;
 }
 
 /**
@@ -473,4 +466,29 @@ export function calculateDamage({
     // combineDamage()
     // TODO: check here for critical hit resistance
     return 0;
+}
+
+/**
+ * Looks through all values and only keeps the highest ones
+ * @param values
+ */
+export function mergeResistancesOrWeaknesses(values: LabeledValue[]): LabeledValue[] {
+    const valuesByType = groupBy(values, (value) => value.type);
+    return Array.from(valuesByType.entries()).flatMap(([, value]) => {
+        // fire resistance 5 and fire resistance 10 collapse to fire resistance 10
+        // physical 5 (except silver) and physical 5 (except adamantine) are kept
+        const groupedByException = groupBy(value, (value) => value.exceptions ?? null);
+        return Array.from(groupedByException.entries()).map(([, value]) => {
+            return max(value, (val) => toNumber(val.value) ?? 0);
+        });
+    });
+}
+
+/**
+ * Only keeps unique immunities
+ * @param values
+ * @param additionalImmunities
+ */
+export function mergeImmunities(values: DamageImmunities, additionalImmunities: string[] = []): string[] {
+    return Array.from(new Set(values.value.concat(values.custom).concat(...additionalImmunities)));
 }
