@@ -51,14 +51,17 @@ export function isDamageType(value: string): value is DamageType {
     return allDamageTypes.has(value);
 }
 
-export function isPhysicalDamageType(value: string): boolean {
-    return value === 'piercing' || value === 'bludgeoning' || value === 'slashing';
+const physicalDamage = new Set<DamageType>();
+physicalDamage.add('piercing');
+physicalDamage.add('bludgeoning');
+physicalDamage.add('slashing');
+
+function isPhysicalDamageType(value: DamageType): boolean {
+    return physicalDamage.has(value);
 }
 
-const physicalDamage: DamageType[] = ['piercing', 'bludgeoning', 'slashing'];
-
 export function getMainDamageType(damage: Damage): DamageType {
-    return physicalDamage.filter((type) => damage.has(type))[0] ?? damage.keys()[0] ?? 'untyped';
+    return Array.from(physicalDamage).filter((type) => damage.has(type))[0] ?? damage.keys()[0] ?? 'untyped';
 }
 
 export type DamageExceptions = Set<AttackTrait & DamageType>[];
@@ -453,7 +456,7 @@ function applyWeaknesses({
             attackTraits,
             applicableModifierTypes: ['vorpal weapons'],
             sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, physicalDamage),
+            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, Array.from(physicalDamage)),
         });
     }
 
