@@ -93,9 +93,6 @@ export type AttackTrait =
     | 'silver'
     | 'orichalcum'
     | 'vorpal'
-    | 'magic'
-    // use the magic trait if it was a spell attack, exclude it if it was a spell attack that wasn't relevant
-    // for instance a Will-o’-Wisp would exclude magic missile
     | 'unarmed';
 
 const allAttackTraits = new Set<string>();
@@ -266,17 +263,6 @@ function applyImmunities({
             damage,
             attackTraits,
             applicableModifierTypes: ['nonlethal attacks'],
-            applyModifier: () => damage.clear(),
-        });
-    }
-
-    // same for magic
-    if (attackTraits.has('magic')) {
-        ifModifierApplies({
-            modifiersByType: immunitiesByType,
-            damage,
-            attackTraits,
-            applicableModifierTypes: ['magic'],
             applyModifier: () => damage.clear(),
         });
     }
