@@ -175,6 +175,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             // archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
             bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
         };
+        const pfsBoons: FeatData[] = [];
+        const deityBoonsCurses: FeatData[] = [];
 
         // Actions
         const actions = {
@@ -508,13 +510,20 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 allFeatSlots[slotIndex].feat = feat;
             } else {
                 let featType = feat.data.featType.value || 'bonus';
-                if (!['ancestryfeature', 'classfeature'].includes(featType)) {
-                    featType = 'bonus';
-                }
 
-                if (featType in featSlots) {
-                    const slots: FeatSlot = featSlots[featType];
-                    slots.bonusFeats.push(feat);
+                if (['pfsboon'].includes(featType)) {
+                    pfsBoons.push(feat);
+                } else if (['deityboon', 'curse'].includes(featType)) {
+                    deityBoonsCurses.push(feat);
+                } else {
+                    if (!['ancestryfeature', 'classfeature'].includes(featType)) {
+                        featType = 'bonus';
+                    }
+
+                    if (featType in featSlots) {
+                        const slots: FeatSlot = featSlots[featType];
+                        slots.bonusFeats.push(feat);
+                    }
                 }
             }
         }
@@ -537,6 +546,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
 
         actorData.featSlots = featSlots;
+        actorData.pfsBoons = pfsBoons;
+        actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
         actorData.readonlyActions = readonlyActions;
