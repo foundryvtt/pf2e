@@ -131,7 +131,6 @@ export function identifyItem(
 export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): string {
     const traits = getTraits(itemData);
     let iconName = 'adventuring_gear';
-    console.log(itemData);
     switch (itemData.type) {
         case 'weapon':
             if (traits.has('bomb')) {
