@@ -156,10 +156,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         // Spellcasting Entries
         const spellcastingEntries = [];
 
+        let backgroundItemId = undefined;
+
         // Feats
         interface FeatSlot {
             label: string;
-            feats: { id: string; level: number; feat?: FeatData }[];
+            feats: { id: string; level: string; feat?: FeatData }[];
             bonusFeats: FeatData[];
         }
         const tempFeats: FeatData[] = [];
@@ -429,6 +431,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 }
             }
 
+            // background
+            else if (i.type === 'background') {
+                backgroundItemId = i._id;
+            }
+
             // class
             else if (i.type === 'class') {
                 const classItem = i as ClassData;
@@ -438,7 +445,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                     }
                     return featLevels
                         .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
-                        .map((level) => ({ id: `${prefix}-${level}`, level: level }));
+                        .map((level) => ({ id: `${prefix}-${level}`, level: `${level}` }));
                 };
 
                 featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, 'ancestry');
@@ -446,6 +453,13 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, 'skill');
                 featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, 'general');
             }
+        }
+
+        if (backgroundItemId !== undefined) {
+            featSlots.skill.feats.unshift({
+                id: backgroundItemId,
+                level: game.i18n.localize('PF2E.FeatBackgroundShort'),
+            });
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
@@ -831,6 +845,31 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onDropItemCreate(itemData);
     }
 
+    protected _isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
+        const featType = feat.data?.featType?.value;
+        if (featType === 'archetype') {
+            if (feat.data.traits.value.includes('skill')) {
+                return featSlotType === 'skill';
+            } else {
+                return featSlotType === 'class';
+            }
+        }
+
+        if (featSlotType === 'general') {
+            return ['general', 'skill'].includes(featType);
+        }
+
+        return featSlotType === featType;
+    }
+
+    protected _getNearestSlotId(event: ElementDragEvent) {
+        const data = $(event.target).closest('.item').data();
+        if (!data) {
+            return { slotId: undefined, featType: undefined };
+        }
+        return data;
+    }
+
     /** @override */
     protected async _onDropItem(
         event: ElementDragEvent,
@@ -847,13 +886,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
 
-        const { slotId, featType } =
-            event.target !== null
-                ? $(event.target).closest('.item').data()
-                : { slotId: undefined, featType: undefined };
+        const { slotId, featType } = this._getNearestSlotId(event);
 
         if (itemData.type === 'feat') {
-            if (slotId !== undefined && featType === itemData.data?.featType?.value) {
+            if (slotId !== undefined && this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
                     this.actor.createEmbeddedEntity('OwnedItem', itemData),
@@ -881,12 +917,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         itemData: ItemData,
     ): Promise<(ItemData | null)[] | ItemData | null> {
         if (itemData.type === 'feat') {
-            const { slotId, featType } =
-                event.target !== null
-                    ? $(event.target).closest('.item').data()
-                    : { slotId: undefined, featType: undefined };
+            const { slotId, featType } = this._getNearestSlotId(event);
 
-            if (itemData.data?.featType?.value === featType) {
+            if (this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 this.actor.updateEmbeddedEntity('OwnedItem', [
                     {
                         _id: itemData._id,
