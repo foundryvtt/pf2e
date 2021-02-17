@@ -179,7 +179,8 @@ function exceptionApplies(
  * @param attackTraits traits of the attack, only used to determine if an exception applies
  * @param applicableDamageTypes which values from the given modifiersByType map should be used to find the highest one
  * @param applyModifier callback that receives the highest applicable modifier
- * @param sortField callback that returns a number to sort all applicable modifiers by value, optional
+ * @param modifierValue callback that returns the final value, 0 if absent; used to sort and passed into the
+ * applyModifier callback
  */
 function ifModifierApplies<T extends HasDamageExceptions>({
     modifiersByType,
@@ -187,20 +188,21 @@ function ifModifierApplies<T extends HasDamageExceptions>({
     attackTraits,
     applicableModifierTypes,
     applyModifier,
-    sortField = () => 0,
+    modifierValue = () => 0,
 }: {
     modifiersByType: Map<string, T[]>;
     damage: Damage;
     attackTraits: Set<AttackTrait>;
     applicableModifierTypes: string[];
-    applyModifier: (modifier: T) => void;
-    sortField?: (modifier: T) => number;
+    applyModifier: (value: number) => void;
+    modifierValue?: (modifier: T) => number;
 }) {
     const modifiers = applicableModifierTypes.flatMap((damageType) => modifiersByType.get(damageType) ?? []);
     const damageTypes = new Set(damage.keys());
     const highestApplicableModifier = modifiers
         .filter((immunity) => !exceptionApplies(immunity.except, attackTraits, damageTypes))
-        .sort((a, b) => sortField(a) - sortField(b))
+        .map((value) => modifierValue(value))
+        .sort()
         .reverse()[0];
     if (highestApplicableModifier !== undefined) {
         applyModifier(highestApplicableModifier);
@@ -455,8 +457,8 @@ function applyWeaknesses({
             damage,
             attackTraits,
             applicableModifierTypes: ['vorpal weapons'],
-            sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, Array.from(physicalDamage)),
+            modifierValue: (modifier) => modifier.value,
+            applyModifier: (value) => addDamageIfPresent(damage, value, Array.from(physicalDamage)),
         });
     }
 
@@ -466,8 +468,8 @@ function applyWeaknesses({
             damage,
             attackTraits,
             applicableModifierTypes: ['critical hits'],
-            sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => damage.set('untyped', modifier.value),
+            modifierValue: (modifier) => modifier.value,
+            applyModifier: (value) => damage.set('untyped', value),
         });
     }
 
@@ -477,8 +479,8 @@ function applyWeaknesses({
             damage,
             attackTraits,
             applicableModifierTypes: ['splash-damage'],
-            sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, [splashDamage.type]),
+            modifierValue: (modifier) => modifier.value,
+            applyModifier: (value) => addDamageIfPresent(damage, value, [splashDamage.type]),
         });
     }
 
@@ -488,8 +490,8 @@ function applyWeaknesses({
             damage,
             attackTraits,
             applicableModifierTypes: ['area-damage'],
-            sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, [areaDamage]),
+            modifierValue: (modifier) => modifier.value,
+            applyModifier: (value) => addDamageIfPresent(damage, value, [areaDamage]),
         });
     }
 
@@ -505,27 +507,22 @@ function applyWeaknesses({
             damage,
             attackTraits,
             applicableModifierTypes: applicableTypes,
-            sortField: (modifier) => modifier.value,
-            applyModifier: (modifier) => addDamageIfPresent(damage, modifier.value, [damageType]),
+            modifierValue: (modifier) => modifier.value,
+            applyModifier: (value) => addDamageIfPresent(damage, value, [damageType]),
         });
     });
 }
 
-function reduceResistance(
+function calculateResistance(
     reduceResistances: Map<string, number>,
     applicableResistanceTypes: string[],
-    resistanceValue: number,
+    attackTraits: Set<AttackTrait>,
+    modifier: Resistance,
 ): number {
+    const value =
+        modifier.doubleResistanceVsNonMagical && !attackTraits.has('magical') ? modifier.value * 2 : modifier.value;
     const ignoreResistanceBy = Math.max(...applicableResistanceTypes.map((type) => reduceResistances.get(type) ?? 0));
-    return Math.max(0, resistanceValue - ignoreResistanceBy);
-}
-
-function addDoubleResistanceIfRequired(modifier: Resistance, attackTraits: Set<AttackTrait>): number {
-    if (modifier.doubleResistanceVsNonMagical && !attackTraits.has('magical')) {
-        return modifier.value * 2;
-    } else {
-        return modifier.value;
-    }
+    return Math.max(0, value - ignoreResistanceBy);
 }
 
 function applyResistances({
@@ -551,10 +548,9 @@ function applyResistances({
         damage,
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
-        sortField: (modifier) => addDoubleResistanceIfRequired(modifier, attackTraits),
-        applyModifier: (modifier) => {
-            const resistance = addDoubleResistanceIfRequired(modifier, attackTraits);
-            const value = reduceResistance(reduceResistances, ['precision-damage'], resistance);
+        modifierValue: (modifier) =>
+            calculateResistance(reduceResistances, ['precision-damage'], attackTraits, modifier),
+        applyModifier: (value) => {
             addDamageIfPresent(damage, value, [mainDamageType]);
             damage.delete('precision');
         },
@@ -572,10 +568,9 @@ function applyResistances({
             damage,
             attackTraits,
             applicableModifierTypes: applicableTypes,
-            sortField: (modifier) => addDoubleResistanceIfRequired(modifier, attackTraits),
-            applyModifier: (modifier) => {
-                const resistance = addDoubleResistanceIfRequired(modifier, attackTraits);
-                const value = reduceResistance(reduceResistances, applicableTypes, resistance);
+            modifierValue: (modifier) =>
+                calculateResistance(reduceResistances, applicableTypes, attackTraits, modifier),
+            applyModifier: (value) => {
                 addDamageIfPresent(damage, value, [damageType]);
             },
         });
@@ -590,9 +585,9 @@ function applyResistances({
             damage,
             attackTraits,
             applicableModifierTypes: ['critical-hits'],
-            sortField: (modifier) => addDoubleResistanceIfRequired(modifier, attackTraits),
-            applyModifier: (modifier) => {
-                const value = reduceResistance(reduceResistances, ['critical-hits'], modifier.value);
+            modifierValue: (modifier) =>
+                calculateResistance(reduceResistances, ['critical-hits'], attackTraits, modifier),
+            applyModifier: (value) => {
                 totalDamage = Math.max(0, totalDamage - value);
             },
         });
