@@ -132,64 +132,64 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
     const traits = getTraits(itemData);
     let iconName = 'adventuring_gear';
     console.log(itemData);
-    switch (itemData.type){
-        case "weapon":
-            if (traits.has('bomb')){
+    switch (itemData.type) {
+        case 'weapon':
+            if (traits.has('bomb')) {
                 iconName = 'alchemical_bomb';
-            } else if(traits.has('staff')){
+            } else if(traits.has('staff')) {
                 iconName = 'staves';
-            } else if (traits.has('artifact')){
+            } else if (traits.has('artifact')) {
                 iconName = 'artifact';
             } else {
                 iconName = 'weapon';
             }
             break;
-        case "armor":
-            iconName = itemData.data.armorType.value === 'shield' ? 'shields' : 'armor'
+        case 'armor':
+            iconName = itemData.data.armorType.value === 'shield' ? 'shields' : 'armor';
             break;
-        case "consumable":
-            switch (itemData.data.consumableType.value){
-                case "ammo":
-                    iconName = "ammunition";
+        case 'consumable':
+            switch (itemData.data.consumableType.value) {
+                case 'ammo':
+                    iconName = 'ammunition';
                     break;
-                case "oil":
+                case 'oil':
                     iconName = 'oils';
                     break;
-                case "scroll":
-                    iconName = 'infernal-contracts'
+                case 'scroll':
+                    iconName = 'infernal-contracts';
                     break;
-                case "talasman": // TODO Typo in consumableType value. Will not modify due to possible side effects
+                case 'talasman': // TODO Typo in consumableType value. Will not modify due to possible side effects
                     iconName = 'talisman';
                     break;
-                case "elixir":
-                case "mutagen":
+                case 'elixir':
+                case 'mutagen':
                     iconName = 'alchemical_elixir';
                     break;
-                case "poison":
+                case 'poison':
                     iconName = 'alchemical_poison';
                     break;
-                case "tool":
+                case 'tool':
                     iconName = 'alchemical_tool';
                     break;
-                case "wand":
-                    iconName = "wands";
+                case 'wand':
+                    iconName = 'wands';
                     break;
-                case "potion":
-                    iconName = "potions";
+                case 'potion':
+                    iconName = 'potions';
                     break;
-                case "snare":
-                case "other":
+                case 'snare':
+                case 'other':
                 default:
-                    if (traits.has('drug')){
+                    if (traits.has('drug')) {
                         iconName = 'drugs';
                     } else {
-                        iconName = 'other-consumables'
+                        iconName = 'other-consumables';
                     }
                     break;
             }
             break;
-        case "equipment":
-            if (traits.has('precious')){
+        case 'equipment':
+            if (traits.has('precious')) {
                 iconName = 'material-chunk';
             }
             break;
@@ -200,4 +200,3 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
 
     return `systems/pf2e/icons/unidentified_item_icons/${iconName}.webp`;
 }
-
