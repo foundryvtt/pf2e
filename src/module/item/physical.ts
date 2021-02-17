@@ -1,5 +1,6 @@
 import { PF2EItem } from './item';
 import { isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
     /** @override */
@@ -31,6 +32,7 @@ export class PF2EPhysicalItem extends PF2EItem {
                 _id: this.id,
                 'data.identification.status': value ? 'identified' : 'unidentified',
                 'data.identification.identified.name': this.data.name,
+                'data.identification.identified.img': this.data.img,
             });
         }
     }
@@ -67,11 +69,14 @@ export class PF2EPhysicalItem extends PF2EItem {
                 name = translateFallback(name, `PF2E.identification.UnidentifiedItem`);
 
                 diff.name = name;
+                
+                diff.img = getUnidentifiedPlaceholderImage(itemData);
             }
 
             // ensure an "identified" name so the item can always be restored
             if (status !== 'identified' && !getProperty(itemData, 'data.identification.identified')) {
                 diff['data.identification.identified.name'] = itemData.name;
+                diff['data.identification.identified.img'] = itemData.img;
             }
 
             // load data of referenced item - if any
