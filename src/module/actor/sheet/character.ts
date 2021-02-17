@@ -845,8 +845,21 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onDropItemCreate(itemData);
     }
 
-    protected _isFeatValidInFeatSlot(_slotId: string, featType: string, feat: FeatData) {
-        return featType === feat.data?.featType?.value;
+    protected _isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
+        const featType = feat.data?.featType?.value;
+        if (featType === 'archetype') {
+            if (feat.data.traits.value.includes('skill')) {
+                return featSlotType === 'skill';
+            } else {
+                return featSlotType === 'class';
+            }
+        }
+
+        if (featSlotType === 'general') {
+            return ['general', 'skill'].includes(featType);
+        }
+
+        return featSlotType === featType;
     }
 
     protected _getNearestSlotId(event: ElementDragEvent) {
