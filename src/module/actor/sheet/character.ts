@@ -846,13 +846,15 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
-
-        const { slotId, featType } =
-            event.target !== null
-                ? $(event.target).closest('.item').data()
-                : { slotId: undefined, featType: undefined };
-
+        
         if (itemData.type === 'feat') {
+            
+            // Placing it inside since physical items don't have such data
+            const { slotId, featType } =
+                event.target !== null
+                    ? $(event.target).closest('.item').data()
+                    : { slotId: undefined, featType: undefined };
+            
             if (slotId !== undefined && featType === itemData.data?.featType?.value) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
