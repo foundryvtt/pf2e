@@ -136,7 +136,7 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
         case 'weapon':
             if (traits.has('bomb')) {
                 iconName = 'alchemical_bomb';
-            } else if(traits.has('staff')) {
+            } else if (traits.has('staff')) {
                 iconName = 'staves';
             } else if (traits.has('artifact')) {
                 iconName = 'artifact';

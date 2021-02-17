@@ -848,7 +848,6 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const itemData = duplicate(item.data);
 
         if (itemData.type === 'feat') {
-
             // Placing it inside since physical items don't have such data
             const { slotId, featType } =
                 event.target !== null
