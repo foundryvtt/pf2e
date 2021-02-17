@@ -2,10 +2,10 @@
     <div class="char-details">
         <h1 class="char-name">
             <input name="name" type="text" value="{{actor.name}}"
-                placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}" />
+                placeholder="{{localize 'PF2E.CharacterNamePlaceholder'}}" data-dtype="String" />
         </h1>
         <div class="traits-bar">
-            {{#if isNotCommon}}  
+            {{#if isNotCommon}}
                 <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
             {{/if}} 
             <span class="trait size">{{actorSize}}</span>
