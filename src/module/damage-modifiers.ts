@@ -127,11 +127,6 @@ export function isAttackTrait(value: string): value is DamageType {
     return allAttackTraits.has(value);
 }
 
-export interface SplashDamage {
-    type: DamageType;
-    value: number;
-}
-
 export type Damage = Map<DamageType, number>;
 
 function sumDamage(damage: Damage): number {
@@ -214,19 +209,17 @@ function applyImmunities({
     normalDamage,
     criticalDamage,
     additionalCriticalDamage,
-    ignoreImmunities,
     attackTraits,
     immunities,
     splashDamage,
 }: {
     isCriticalHit: boolean;
     normalDamage: Damage;
-    splashDamage?: SplashDamage;
+    splashDamage?: DamageType;
     criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
     additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage
     attackTraits: Set<AttackTrait>;
     immunities: Immunity[];
-    ignoreImmunities: Set<string>;
 }) {
     // replace object-immunities with their respective immunities
     const expandedImmunities = immunities.flatMap((immunity) => {
@@ -239,15 +232,9 @@ function applyImmunities({
         }
     });
     const immunitiesByType = groupBy(expandedImmunities, (immunity: Immunity) => immunity.damageType);
-    ignoreImmunities.forEach((ignoredImmunity) => immunitiesByType.delete(ignoredImmunity));
 
-    // splash damage and additional critical damage like deadly always get added
+    // additional critical damage like deadly always get added
     let damage = combineDamages([normalDamage, additionalCriticalDamage]);
-    if (splashDamage !== undefined) {
-        const splash = new Map();
-        splash.set(splashDamage.type, splashDamage.value);
-        damage = combineDamages([damage, splash]);
-    }
 
     // check if critical damage is ignored otherwise combine it with normal damage
     if (isCriticalHit) {
@@ -440,7 +427,7 @@ function applyWeaknesses({
     damage: Damage;
     isCriticalHit: boolean;
     areaDamage?: DamageType;
-    splashDamage?: SplashDamage;
+    splashDamage?: DamageType;
     attackTraits: Set<AttackTrait>;
     weaknesses: Weakness[];
 }) {
@@ -480,7 +467,7 @@ function applyWeaknesses({
             attackTraits,
             applicableModifierTypes: ['splash-damage'],
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => addDamageIfPresent(damage, value, [splashDamage.type]),
+            applyModifier: (value) => addDamageIfPresent(damage, value, [splashDamage]),
         });
     }
 
@@ -514,29 +501,26 @@ function applyWeaknesses({
 }
 
 function calculateResistance(
-    reduceResistances: Map<string, number>,
     applicableResistanceTypes: string[],
     attackTraits: Set<AttackTrait>,
     modifier: Resistance,
 ): number {
-    const value =
-        modifier.doubleResistanceVsNonMagical && !attackTraits.has('magical') ? modifier.value * 2 : modifier.value;
-    const ignoreResistanceBy = Math.max(...applicableResistanceTypes.map((type) => reduceResistances.get(type) ?? 0));
-    return Math.max(0, value - ignoreResistanceBy);
+    return Math.max(
+        0,
+        modifier.doubleResistanceVsNonMagical && !attackTraits.has('magical') ? modifier.value * 2 : modifier.value,
+    );
 }
 
 function applyResistances({
     damage,
     isCriticalHit,
     attackTraits,
-    reduceResistances,
     resistances,
     mainDamageType,
 }: {
     damage: Damage;
     isCriticalHit: boolean;
     attackTraits: Set<AttackTrait>;
-    reduceResistances: Map<string, number>;
     resistances: Resistance[];
     mainDamageType: DamageType;
 }): number {
@@ -548,8 +532,7 @@ function applyResistances({
         damage,
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
-        modifierValue: (modifier) =>
-            calculateResistance(reduceResistances, ['precision-damage'], attackTraits, modifier),
+        modifierValue: (modifier) => calculateResistance(['precision-damage'], attackTraits, modifier),
         applyModifier: (value) => {
             addDamageIfPresent(damage, value, [mainDamageType]);
             damage.delete('precision');
@@ -568,8 +551,7 @@ function applyResistances({
             damage,
             attackTraits,
             applicableModifierTypes: applicableTypes,
-            modifierValue: (modifier) =>
-                calculateResistance(reduceResistances, applicableTypes, attackTraits, modifier),
+            modifierValue: (modifier) => calculateResistance(applicableTypes, attackTraits, modifier),
             applyModifier: (value) => {
                 addDamageIfPresent(damage, value, [damageType]);
             },
@@ -585,8 +567,7 @@ function applyResistances({
             damage,
             attackTraits,
             applicableModifierTypes: ['critical-hits'],
-            modifierValue: (modifier) =>
-                calculateResistance(reduceResistances, ['critical-hits'], attackTraits, modifier),
+            modifierValue: (modifier) => calculateResistance(['critical-hits'], attackTraits, modifier),
             applyModifier: (value) => {
                 totalDamage = Math.max(0, totalDamage - value);
             },
@@ -597,6 +578,18 @@ function applyResistances({
 
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
+ * @param normalDamage non critical damage, includes splash damage
+ * @param criticalDamage usually the same as normalDamage when critting except when double dice are rolled instead of doubling
+ * @param additionalCriticalDamage includes damage that triggers off a critical, e.g. deadly
+ * @param splashDamage type of splash damage that is dealt, needed for swarms
+ * @param areaDamage pass in the type of the damage if it originates from a spell cone/line/emanation, needed for swarms
+ * @param attackTraits traits that are present on the attack; does not include energy types, check the enum values
+ * @param alive whether we need to apply positive/negative damage
+ * @param alive whether we need to apply alignment damage
+ * @param immunities a list of immunities; one type can be present multiple times, we use the highest one
+ * @param weaknesses a list of weaknesses; one type can be present multiple times, we use the highest one
+ * @param resistances a list of resistances; one type can be present multiple times, we use the highest one
+ * @return the final calculated damage
  */
 export function calculateDamage({
     areaDamage,
@@ -604,8 +597,6 @@ export function calculateDamage({
     splashDamage,
     criticalDamage,
     additionalCriticalDamage,
-    reduceResistances,
-    ignoreImmunities,
     attackTraits,
     alive,
     alignment,
@@ -615,11 +606,9 @@ export function calculateDamage({
 }: {
     areaDamage?: DamageType;
     normalDamage: Damage;
-    splashDamage?: SplashDamage;
-    criticalDamage: Damage; // separate parameter because you can double damage or just roll double dice
-    additionalCriticalDamage: Damage; // damage which gets added after doubling the previous damage, e.g. deadly
-    reduceResistances: Map<string, number>; // oracle and druid have metamagic that allows them to ignore resistance up to a value
-    ignoreImmunities: Set<string>;
+    splashDamage?: DamageType;
+    criticalDamage: Damage;
+    additionalCriticalDamage: Damage;
     attackTraits: Set<AttackTrait>;
     alive: Alive;
     immunities: Immunity[];
@@ -636,13 +625,12 @@ export function calculateDamage({
         additionalCriticalDamage,
         attackTraits,
         immunities,
-        ignoreImmunities,
         splashDamage,
     });
     removeUndeadLivingDamage(damage, alive);
     removeAlignmentDamage(damage, alignment);
     applyWeaknesses({ isCriticalHit, damage, weaknesses, attackTraits, splashDamage, areaDamage });
-    return applyResistances({ damage, resistances, reduceResistances, isCriticalHit, attackTraits, mainDamageType });
+    return applyResistances({ damage, resistances, isCriticalHit, attackTraits, mainDamageType });
 }
 
 /**
