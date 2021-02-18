@@ -769,7 +769,20 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Mauler",
+                        "predicate": {
+                            "all": [
+                                "target:grabbed"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 3
+                    }
+                ],
                 "skill_requirement": {
                     "skill": {
                         "rank": "",
@@ -989,8 +1002,9 @@
                         "key": "PF2E.RuleElement.FlatModifier",
                         "label": "In Icy or Snowy Areas",
                         "predicate": {
-                            "all": [
-                                "terrain:icy"
+                            "any": [
+                                "terrain:ice",
+                                "terrain:snow"
                             ]
                         },
                         "selector": "stealth",
@@ -1009,8 +1023,12 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+14 in icy or snowy areas",
+                        "label": "+14 in icy areas",
                         "options": "terrain:ice"
+                    },
+                    "1": {
+                        "label": "+14 in snowy areas",
+                        "options": "terrain:snow"
                     }
                 }
             },
