@@ -23,9 +23,12 @@ const ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr'; // Effec
                 messageContent = 'Lowers their shield';
             } else {
                 effect.img = shield.img;
-                effect.data.rules.find(
+                const rule = effect.data.rules.find(
                     (r) => r.selector === 'ac' && r.key === 'PF2E.RuleElement.FlatModifier',
-                )?.value = shield.data.armor.value;
+                );
+                if (rule) {
+                    rule.value = shield.data.armor.value;
+                }
                 token.actor.createOwnedItem(effect);
                 messageContent = 'Raises their shield';
             }
