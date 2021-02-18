@@ -579,7 +579,7 @@ function applyResistances({
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  * @param normalDamage non critical damage, includes splash damage
- * @param criticalDamage usually the same as normalDamage when critting except when double dice are rolled instead of doubling
+ * @param criticalDamage passed in on a critical hit, usually the same as normalDamage excluding splash damage
  * @param additionalCriticalDamage includes damage that triggers off a critical, e.g. deadly
  * @param splashDamage type of splash damage that is dealt, needed for swarms
  * @param areaDamage pass in the type of the damage if it originates from a spell cone/line/emanation, needed for swarms
