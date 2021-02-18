@@ -235,6 +235,7 @@ export interface WeaponDetailsData extends MagicDetailsData {
         critDamage: string;
         critDamageType: string;
     };
+    selectedAmmoId?: string;
 }
 
 export interface ArmorDetailsData extends MagicDetailsData {
