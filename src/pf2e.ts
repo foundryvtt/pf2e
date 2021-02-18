@@ -268,6 +268,7 @@ Hooks.once('setup', () => {
  */
 Hooks.once('ready', () => {
     console.log('PF2e System | Readying Pathfinder 2nd Edition System');
+    console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
     // Determine whether a system migration is required and feasible
     const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
