@@ -3,7 +3,7 @@
     <!-- HEADER -->
     <header class="sheet-header">
         <h1 class="charname">
-            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}"/>
+            <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize "PF2E.CharacterNamePlaceholder"}}" data-dtype="String" />
         </h1>
 
         <div class="editsheet">
@@ -13,7 +13,7 @@
         <h1 class="charlevel">
             <div class="level">
                 <label>{{localize "PF2E.LevelLabel"}}</label>
-                <input name="data.details.level.value" type="text" value="{{data.details.level.value}}"
+                <input name="data.details.level.value" type="number" value="{{data.details.level.value}}"
                         data-dtype="Number" placeholder="1"/>
             </div>
             <div class="creature-adjustment traits-bar">
@@ -32,17 +32,17 @@
             <h3 class="ac-title pf-heading">{{localize "PF2E.DefencesLabel"}}</h3>
             <ol class="npc-defence-list">
                 <span class="armor-class" title="{{localize "PF2E.ArmorClassLabel"}}">
-                    <input name="data.attributes.ac.base" type="text" value="{{data.attributes.ac.base}}"
+                    <input name="data.attributes.ac.base" type="number" value="{{data.attributes.ac.base}}"
                             data-dtype="Number" placeholder="10"/>
                 </span>
                 <span class="shield-value" title="{{localize "PF2E.ShieldACBonusTitle"}}">
-                    <input name="data.attributes.shield.ac" type="text" value="{{data.attributes.shield.ac}}"
-                            data-dtype="Number" placeholder="+0"/>
-                </span> 
+                    <input name="data.attributes.shield.ac" type="number" value="{{data.attributes.shield.ac}}"
+                            data-dtype="Number" placeholder="0"/>
+                </span>
                 <div class="hp-current pf-container">
                     <h4 class="hp-current pf-title">{{localize "PF2E.CurrentHitPointsShortLabel"}}</h4>
                     <span class="hp-current pf-value pf-large" title="{{localize "PF2E.CurrentHPTitle"}}">
-                            <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
+                            <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}"
                                     data-dtype="Number" placeholder="10"/>
                         </span>
                     </div>
@@ -59,28 +59,28 @@
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldCurrentTitle"}}">{{localize "PF2E.ShieldCurrentLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldCurrentTitle"}}">
-                            <input name="data.attributes.shield.value" type="text" value="{{data.attributes.shield.value}}"
+                            <input name="data.attributes.shield.value" type="number" value="{{data.attributes.shield.value}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldMaxTitle"}}">{{localize "PF2E.ShieldMaxLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldMaxTitle"}}">
-                            <input name="data.attributes.shield.max" type="text" value="{{data.attributes.shield.max}}"
-                                    data-dtype="String" placeholder="0"/>
+                            <input name="data.attributes.shield.max" type="number" value="{{data.attributes.shield.max}}"
+                                    data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
-                        <h4 class="defense-item pf-title" title="Your shields Broken Threshold">{{localize "PF2E.ShieldBTLabel"}}</h4>
+                        <h4 class="defense-item pf-title" title="Your shield's Broken Threshold">{{localize "PF2E.ShieldBTLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldBTTitle"}}">
-                            <input name="data.attributes.shield.brokenThreshold" type="text" value="{{data.attributes.shield.brokenThreshold}}"
-                                    data-dtype="String" placeholder="0"/>
+                            <input name="data.attributes.shield.brokenThreshold" type="number" value="{{data.attributes.shield.brokenThreshold}}"
+                                    data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
                     <div class="defense-container pf-justify-center">
                         <h4 class="defense-item pf-title" title="{{localize "PF2E.ShieldHardnessTitle"}}">{{localize "PF2E.ShieldHardnessLabel"}}</h4>
                         <span class="defense-item-value pf-value pf-small" title="{{localize "PF2E.ShieldHardnessTitle"}}">
-                            <input name="data.attributes.shield.hardness" type="text" value="{{data.attributes.shield.hardness}}"
+                            <input name="data.attributes.shield.hardness" type="number" value="{{data.attributes.shield.hardness}}"
                                     data-dtype="Number" placeholder="0"/>
                         </span>
                     </div>
@@ -132,7 +132,7 @@
                     
                     <li class="npc-defense" data-attribute="perception">
                         <span class="defense-score">
-                        <input name="data.attributes.perception.base" type="text" value="{{data.attributes.perception.base}}"
+                        <input name="data.attributes.perception.base" type="number" value="{{data.attributes.perception.base}}"
                             data-dtype="Number" placeholder="0"/>
                         </span>
                         <h4 class="attribute-name rollable">{{localize "PF2E.PerceptionLabel"}}</h4>                             
@@ -153,7 +153,7 @@
                 {{#each data.saves as |save sid|}}
                     <li class="npc-defense" data-save="{{sid}}" title="{{save.breakdown}}">
                         <span class="defense-score">
-                                <input name="data.saves.{{sid}}.base" type="text" value="{{save.base}}"
+                                <input name="data.saves.{{sid}}.base" type="number" value="{{save.base}}"
                                 data-dtype="Number" placeholder="0"/>
                         </span>
                         <h4 class="save-name rollable">{{save.label}}</h4>
@@ -374,14 +374,14 @@
                                 <li class="npc-defense" data-spelldc-attribute="dc">
             
                                     <span class="defense-score spelldc-input">
-                                        <input name="data.items.{{eid}}.data.spelldc.dc" type="text" value="{{entry.data.spelldc.dc}}"
+                                        <input name="data.items.{{eid}}.data.spelldc.dc" type="number" value="{{entry.data.spelldc.dc}}"
                                                 data-dtype="Number" placeholder="0"/>
                                     </span>
                                     <h4 class="spelldc-name">{{localize "PF2E.SpellSaveLabel"}}</h4>
                                 </li>
                                 <li class="npc-defense" data-spelldc-attribute="value">
                                         <span class="defense-score spelldc-input">
-                                            <input name="data.items.{{eid}}.data.spelldc.value" type="text" value="{{entry.data.spelldc.value}}"
+                                            <input name="data.items.{{eid}}.data.spelldc.value" type="number" value="{{entry.data.spelldc.value}}"
                                                     data-dtype="Number" placeholder="0"/>
                                         </span>
                                         <h4 class="spelldc-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
@@ -404,11 +404,11 @@
                                                 {{#unless entry.data.tradition.ritual}}
                                                     {{#unless section.isCantrip}}
                                                     <span class="spell-slots-input">
-                                                        <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                                        <input type="number" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number" />
                                                     </span>
                                                     <span class="flex0"> / </span>
                                                     <span class="spell-max-input">
-                                                        <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                        <input type="number" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
                                                     </span>
                                                     {{else}}
                                                     <span class="spell-slots">&infin;</span>
@@ -473,15 +473,15 @@
                             
                                             {{#if section.isFocus}}
                                             <span class="spell-slots-input">
-                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
+                                                <input type="number" name="data.items.{{eid}}.data.slots.slot{{lvl}}.value" value="{{section.uses}}" placeholder="0" data-dtype="Number" />
                                             </span>
                                             <span class="flex0"> / </span>
                                             <span class="spell-max-input">
-                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                <input type="number" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
                                             </span>
                                             {{else}}
                                             <span class="spell-max-input">
-                                                <input type="text" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
+                                                <input type="number" name="data.items.{{eid}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number" />
                                             </span>
                                             {{/if}}
                                         </div>
@@ -639,7 +639,7 @@
                             </div>
                             
                             <div class="skill-input">
-                                <input name="item-value-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="text" data-dtype="Number" value="{{lore.data.mod.value}}" placeholder="0"/>
+                                <input name="item-value-skill-{{lore._id}}" data-item-id="{{lore._id}}" type="number" data-dtype="Number" value="{{lore.data.mod.value}}" placeholder="0"/>
                             </div>
                             
                             <div class="item-name item-name-input">
@@ -665,7 +665,7 @@
                     {{#each data.abilities as |ability id|}}
                             <li class="npc-defense" data-ability="{{id}}">
                                 <span class="defense-score">
-                                <input name="data.abilities.{{id}}.mod" type="text" value="{{numberFormat ability.mod decimals=0 sign=true}}"
+                                <input name="data.abilities.{{id}}.mod" type="number" value="{{numberFormat ability.mod decimals=0 sign=true}}"
                                     data-dtype="Number" placeholder="+0"/>
                                 </span>
                                 <h4 class="ability-name rollable">{{id}}</h4>
