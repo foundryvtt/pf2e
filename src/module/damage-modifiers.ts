@@ -534,7 +534,7 @@ function applyResistances({
         applicableModifierTypes: ['precision-damage'],
         modifierValue: (modifier) => calculateResistance(['precision-damage'], attackTraits, modifier),
         applyModifier: (value) => {
-            addDamageIfPresent(damage, value, [mainDamageType]);
+            addDamageIfPresent(damage, -value, [mainDamageType]);
             damage.delete('precision');
         },
     });
@@ -553,7 +553,7 @@ function applyResistances({
             applicableModifierTypes: applicableTypes,
             modifierValue: (modifier) => calculateResistance(applicableTypes, attackTraits, modifier),
             applyModifier: (value) => {
-                addDamageIfPresent(damage, value, [damageType]);
+                addDamageIfPresent(damage, -value, [damageType]);
             },
         });
     });
