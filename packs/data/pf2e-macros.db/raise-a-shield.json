@@ -1,0 +1,14 @@
+{
+    "_id": "4hfQEMiEOBbqelAh",
+    "actorIds": [],
+    "author": "uAvrJeywnWLwQIhl",
+    "command": "// 'Raise Shield' macro that will raised a shield the character has equipped\nlet messageContent = ''\nif (!actor) {\n    ui.notifications.warn(\"You must have an actor selected.\");\n}\n\nconst ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr'; // Effect: Raise a Shield\n(async () => {\n    const effect = duplicate(await fromUuid(ITEM_UUID));\n    effect.flags.core = effect.flags.core ?? {};\n    effect.flags.core.sourceId = effect.flags.core.sourceId ?? ITEM_UUID;\n    for (let token of canvas.tokens.controlled) {\n        const shield = token.actor.data.items.filter(item => item.type === 'armor')\n            .filter(armor => armor.data.armorType.value === 'shield')\n            .find(shield => shield.data.equipped.value);\n        if (shield) {\n            let existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);\n            if (existing) {\n                token.actor.deleteOwnedItem(existing._id);\n                messageContent = 'Lowers their shield'\n            } else {\n                effect.img = shield.img;\n                effect.data.rules[0].value = shield.data.armor.value;\n                token.actor.createOwnedItem(effect);\n                messageContent = 'Raises their shield'\n            };\n\n        } else ui.notifications.warn(\"You must have a shield equipped.\");\n    }\n})();\n// create the message\nif (messageContent !== '') {\n    let chatData = {\n        content: messageContent,\n    };\n    ChatMessage.create(chatData, {});\n}",
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/shield.jpg",
+    "name": "Raise a Shield",
+    "permission": {
+        "default": 0
+    },
+    "scope": "global",
+    "type": "script"
+}
