@@ -585,7 +585,7 @@ function applyResistances({
  * @param areaDamage pass in the type of the damage if it originates from a spell cone/line/emanation, needed for swarms
  * @param attackTraits traits that are present on the attack; does not include energy types, check the enum values
  * @param alive whether we need to apply positive/negative damage
- * @param alive whether we need to apply alignment damage
+ * @param alignment whether we need to apply alignment damage
  * @param immunities a list of immunities; one type can be present multiple times, we use the highest one
  * @param weaknesses a list of weaknesses; one type can be present multiple times, we use the highest one
  * @param resistances a list of resistances; one type can be present multiple times, we use the highest one
