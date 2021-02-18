@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import copyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
@@ -103,6 +103,9 @@ const config: Configuration = {
     bail: isProductionBuild,
     watch: !isProductionBuild,
     plugins: [
+        new DefinePlugin({
+            BUILD_MODE: JSON.stringify(buildMode)
+        }),
         new CleanWebpackPlugin(),
         new copyWebpackPlugin({
             patterns: [{ from: 'static/' }, { from: 'system.json' }],
