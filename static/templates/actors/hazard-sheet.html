@@ -16,8 +16,7 @@
     <h1 class="charlevel">
         <div class="level">
             <label>{{localize 'PF2E.LevelLabel'}}</label>
-            <input name="data.details.level" type="text" value="{{data.details.level}}"
-                    data-dtype="Number" placeholder="1"/>
+            <input name="data.details.level" type="number" value="{{data.details.level}}" data-dtype="Number" placeholder="1" />
         </div>
     </h1>
 </header>
@@ -27,25 +26,21 @@
 
     <!-- ABILITY SCORES -->
     <div class="abilities" data-group="sidebar" data-tab="abilities">
-        
         <h3 class="ac-title pf-heading">{{localize 'PF2E.DefencesLabel'}}</h3>
         <ol class="npc-defence-list">
             <span class="armor-class" title="{{localize 'PF2E.ArmorClassLabel'}}">
-                <input name="data.attributes.ac.value" type="text" value="{{data.attributes.ac.value}}"
-                        data-dtype="Number" placeholder="10"/>
+                <input name="data.attributes.ac.value" type="number" value="{{data.attributes.ac.value}}" data-dtype="Number" placeholder="10" />
             </span>
             <div class="hp-current pf-container">
                 <h4 class="hp-current pf-title">{{localize 'PF2E.CurrentHitPointsShortLabel'}}</h4>
                 <span class="hp-current pf-value pf-large" title="{{localize 'PF2E.CurrentHPTitle'}}">
-                    <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
-                            data-dtype="Number" placeholder="10"/>
+                    <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="10" />
                 </span>
             </div>
             <div class="hp-max pf-container">
                 <h4 class="hp-max pf-title">{{localize 'PF2E.MaxHitPointsShortLabel'}}</h4>
                 <span class="hp-max pf-value pf-large" title="{{localize 'PF2E.MaxHPTitle'}}">
-                    <input name="data.attributes.hp.max" type="text" value="{{data.attributes.hp.max}}"
-                            data-dtype="Number" placeholder="10"/>
+                    <input name="data.attributes.hp.max" type="number" value="{{data.attributes.hp.max}}" data-dtype="Number" placeholder="10" />
                 </span>
             </div>
         </ol>
@@ -54,8 +49,7 @@
                 <div class="defense-container pf-justify-center">
                     <h4 class="defense-item pf-title" title="{{localize 'PF2E.HazardHardnessTitle'}}">{{localize 'PF2E.HazardHardnessLabel'}}</h4>
                     <span class="defense-item-value pf-value pf-small" title="{{localize 'PF2E.HazardHardnessTitle'}}">
-                        <input name="data.attributes.hardness" type="text" value="{{data.attributes.hardness}}"
-                                data-dtype="Number" placeholder="0"/>
+                        <input name="data.attributes.hardness" type="number" value="{{data.attributes.hardness}}" data-dtype="Number" placeholder="0" />
                     </span>
                 </div>
             </li>
@@ -105,8 +99,7 @@
         <ol class="defense-list">
             <li class="npc-defense" data-attribute="stealth">
                 <span class="defense-score">
-                    <input name="data.attributes.stealth.value" type="text" value="{{data.attributes.stealth.value}}"
-                        data-dtype="Number" placeholder="0"/>
+                    <input name="data.attributes.stealth.value" type="number" value="{{data.attributes.stealth.value}}" data-dtype="Number" placeholder="0" />
                 </span>
                 <h4 class="attribute-name rollable">{{localize 'PF2E.StealthLabel'}}</h4>
             </li>
@@ -117,8 +110,7 @@
             {{#each data.saves as |save sid|}}
                 <li class="npc-defense" data-save="{{sid}}">
                     <span class="defense-score">
-                            <input name="data.saves.{{sid}}.value" type="text" value="{{save.value}}"
-                            data-dtype="Number" placeholder="0"/>
+                            <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
                     </span>
                     <h4 class="save-name rollable">{{save.label}}</h4>
                 </li>
