@@ -810,15 +810,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     onAddCustomModifier(event) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         const stat = $(event.currentTarget).attr('data-stat');
-        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
+        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
         const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
-        }
-        if (!modifier || Number.isNaN(modifier)) {
-            errors.push('Modifier value must be a number.');
         }
         if (!name || !name.trim()) {
             errors.push('Name is required.');
