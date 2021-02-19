@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": "+10",
+                "mod": 10,
                 "value": 30
             },
             "wis": {
@@ -35,12 +35,15 @@
         },
         "attributes": {
             "ac": {
+                "breakdown": "Base Armor Class 10, Base Modifier +29, Dexterity +5",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "44"
+                "name": "ac",
+                "totalModifier": 34,
+                "value": 44
             },
             "allSaves": {
                 "value": ""
@@ -60,11 +63,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "360",
+                "max": 360,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "360"
+                "value": 360
             },
             "init": {
                 "bonus": 0,
@@ -79,9 +82,11 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Wisdom +6",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 35,
                 "value": 35
             },
             "resolve": {
@@ -102,9 +107,14 @@
                 "value": 0
             },
             "speed": {
+                "breakdown": "Base Land Speed 40",
+                "name": "Land Speed",
                 "otherSpeeds": [],
                 "special": "",
-                "value": "40 feet"
+                "total": 40,
+                "totalModifier": 0,
+                "type": "land",
+                "value": 40
             }
         },
         "currency": {
@@ -121,6 +131,8 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -150,7 +162,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "19"
+                "value": 19
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=690",
             "recallKnowledgeText": "Recall Knowledge - Humanoid : DC 49",
@@ -204,26 +216,32 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Constitution +7",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 36,
                 "value": 36
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "breakdown": "Base Modifier +27, Dexterity +5",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 32,
                 "value": 32
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +25, Wisdom +6",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 31,
                 "value": 31
             }
         },
@@ -236,134 +254,235 @@
             "acr": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Dexterity +5",
+                "expanded": "acrobatics",
                 "item": 0,
+                "itemID": "8yZkRd9wXjTN3B3M",
+                "label": "Acrobatics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Acrobatics",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "arcana",
                 "item": 0,
+                "label": "Arcana",
+                "lore": false,
                 "mod": 0,
+                "name": "Arcana",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ath": {
                 "ability": "str",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Strength +10",
+                "expanded": "athletics",
                 "item": 0,
+                "itemID": "Hj3XCFt0nezKeMzS",
+                "label": "Athletics",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 39,
+                "value": 39,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "crafting",
                 "item": 0,
+                "label": "Crafting",
+                "lore": false,
                 "mod": 0,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +5",
+                "expanded": "deception",
                 "item": 0,
+                "label": "Deception",
+                "lore": false,
                 "mod": 0,
+                "name": "Deception",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +5",
+                "expanded": "diplomacy",
                 "item": 0,
+                "label": "Diplomacy",
+                "lore": false,
                 "mod": 0,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Charisma +5",
+                "expanded": "intimidation",
                 "item": 0,
+                "itemID": "RLYyHLv97u0LsWoW",
+                "label": "Intimidation",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +6",
+                "expanded": "medicine",
                 "item": 0,
+                "label": "Medicine",
+                "lore": false,
                 "mod": 0,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +6",
+                "expanded": "nature",
                 "item": 0,
+                "label": "Nature",
+                "lore": false,
                 "mod": 0,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "occultism",
                 "item": 0,
+                "label": "Occultism",
+                "lore": false,
                 "mod": 0,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Charisma +5",
+                "expanded": "performance",
                 "item": 0,
+                "label": "Performance",
+                "lore": false,
                 "mod": 0,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Wisdom +6",
+                "expanded": "religion",
                 "item": 0,
+                "label": "Religion",
+                "lore": false,
                 "mod": 0,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 6,
+                "value": 6,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "society",
                 "item": 0,
+                "label": "Society",
+                "lore": false,
                 "mod": 0,
+                "name": "Society",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "ste": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +29, Dexterity +5",
+                "expanded": "stealth",
                 "item": 0,
+                "itemID": "KuDbfqr5rn107o7s",
+                "label": "Stealth",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Stealth",
+                "rank": 1,
+                "totalModifier": 34,
+                "value": 34,
+                "visible": true
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
+                "breakdown": "Base Modifier +27, Wisdom +6",
+                "expanded": "survival",
                 "item": 0,
+                "itemID": "Vm8ymLFZFFz4wjBi",
+                "label": "Survival",
+                "lore": false,
                 "mod": 0,
-                "rank": 0,
-                "value": 0
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 33,
+                "value": 33,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
                 "armor": 1,
-                "breakdown": "",
+                "breakdown": "Base Modifier +0, Dexterity +5",
+                "expanded": "thievery",
                 "item": 0,
+                "label": "Thievery",
+                "lore": false,
                 "mod": 0,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             }
         },
         "spells": {
@@ -428,7 +547,7 @@
                 ]
             },
             "rarity": {
-                "value": "rare"
+                "value": "unique"
             },
             "senses": {
                 "value": "darkvision, keen hearing 120 feet"
@@ -444,8 +563,18 @@
             }
         }
     },
+    "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -462,7 +591,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -480,12 +609,12 @@
                     "damageType": "bludgeoning",
                     "die": "4d8+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d8+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -502,6 +631,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -560,9 +692,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -583,6 +717,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -602,7 +737,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -620,12 +755,12 @@
                     "damageType": "piercing",
                     "die": "4d10+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d10+18",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -642,6 +777,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -700,9 +838,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -723,6 +863,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -742,7 +883,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -760,12 +901,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -782,6 +923,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -840,9 +984,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -850,9 +996,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "brutal",
-                        "range increment 150 feet"
+                        "range-increment-150"
                     ]
                 },
                 "usage": {
@@ -865,6 +1012,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -896,10 +1044,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -916,6 +1066,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Keen Hearing",
@@ -937,7 +1088,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "60 feet, DC 38.<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <b>Critical Success</b> The creature is unaffected by the presence.<br /> <b>Success</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <b>Critical Failure</b> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4."
+                    "value": "<p>60 feet, DC 38.</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -945,10 +1096,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -965,108 +1124,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Frightful Presence",
             "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "ijNZqnIXgFC378Vg",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "Grendel gains an extra reaction at the start of each of his turns that he can use only to make an Attack of Opportunity with his claw. He can't use more than one Attack of Opportunity triggered by the same action."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "aJDXMjZfj5Xv4Nm4",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<b>Trigger</b> The monster is reduced to 0 HP. <b>Effect</b> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{Wounded} 3, it can no longer use this ability."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Ferocity",
-            "sort": 700000,
             "type": "action"
         },
         {
@@ -1076,7 +1138,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -1084,7 +1146,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied}; <b>Effect</b> The persistent damage or condition from the triggering effect doesn't affect Grendel."
+                    "value": "<p><strong>Trigger</strong> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied};</p>\n<p><strong>Effect</strong> The persistent damage or condition from the triggering effect doesn't affect Grendel.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1092,10 +1154,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1112,8 +1182,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Unstoppable",
             "sort": 800000,
             "type": "action"
@@ -1141,10 +1212,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1161,6 +1234,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Hands of the Murderer",
@@ -1177,12 +1251,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> Grendel is grabbing a creature; <b>Effect</b> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes 2d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect."
+                    "value": "<p><strong>Requirements</strong> Grendel is grabbing a creature;</p>\n<p><strong>Effect</strong> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes [[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1190,10 +1264,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1212,59 +1294,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Tooth Grind",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "2OFUCSMwLtD6PXwF",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Throw Rock",
-            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1290,10 +1324,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1310,6 +1346,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Improved Grab",
@@ -1337,6 +1374,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1347,6 +1386,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -1374,6 +1414,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1384,6 +1426,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1411,6 +1454,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1421,6 +1466,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
@@ -1448,6 +1494,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1458,6 +1506,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -1485,6 +1534,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1495,11 +1546,189 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
             "sort": 1700000,
             "type": "lore"
+        },
+        {
+            "_id": "RR6VL0DNRoOd3DNz",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> Grendel is reduced to 0 HP.</p>\n<p><strong>Effect</strong> Grendel avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{wounded 3}, it can no longer use this ability</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "ferocity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Ferocity",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "gc8APIBNlW4qQDQb",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><span style=\"color: var(--body);\">Grendel gains an extra reaction at the start of each of his turns that he can use only to make an Attack of Opportunity with his claw. He can't use more than one Attack of Opportunity triggered by the same action.</span></p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "attack-of-opportunity",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Attack of Opportunity",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "tUO2Aa40ij9EGQJi",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "throw-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Throw Rock",
+            "sort": 2000000,
+            "type": "action"
         }
     ],
     "name": "Grendel",
@@ -1507,7 +1736,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "cPX0NmB242FqSRxa",
         "actorLink": false,
         "bar1": {
@@ -1526,6 +1754,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Grendel",
         "randomImg": false,
