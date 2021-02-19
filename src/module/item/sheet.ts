@@ -250,10 +250,52 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
 
+        const durationString = (duration: ActiveEffectDuration): string => {
+            type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
+            const [key, quantity] =
+                Object.entries(duration).find(
+                    (keyValue: [string, number | string | null]): keyValue is [string, number | null] =>
+                        keyValue[0] !== 'startTime' && typeof keyValue[1] === 'number',
+                ) ?? (['', null] as const);
+
+            if (quantity === null) {
+                return game.i18n.translations.PF2E.ActiveEffects.Duration.Permanent;
+            }
+            const unit =
+                quantity === 1
+                    ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
+                    : ((key.slice(0, 1).toUpperCase() + key.slice(1)) as UnitLabel);
+            return game.i18n.format(game.i18n.translations.PF2E.ActiveEffects.Duration[unit ?? 'seconds'], {
+                quantity,
+            });
+        };
+
+        interface ActiveEffectSheetData {
+            id: string;
+            name: string;
+            duration: string;
+            enabled: boolean;
+        }
+        const actor = this.item.actor;
+        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`;
+        const effects =
+            actor instanceof PF2EActor
+                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
+                : this.item.effects.entries;
+
+        data.activeEffects = effects.map(
+            (effect): ActiveEffectSheetData => ({
+                id: effect.id,
+                name: effect.data.label,
+                duration: durationString(effect.data.duration),
+                enabled: !effect.data.disabled,
+            }),
+        );
+
         return data;
     }
 
-    assignPropertySlots(data, number) {
+    assignPropertySlots(data, number: number) {
         const slots = [1, 2, 3, 4];
 
         for (const slot of slots) {
@@ -343,24 +385,30 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
     /**
      * Activate listeners for interactive item sheet events
      */
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html); // Checkbox changes
 
-        html.find('input[type="checkbox"]').change((event) => this._onSubmit(event)); // Trait Selector
+        html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
+            if (event.originalEvent instanceof MouseEvent) {
+                this._onSubmit(event.originalEvent); // Trait Selector
+            }
+        });
 
-        html.find('.trait-selector').click((ev) => this.onTraitSelector(ev)); // Add Damage Roll
+        html.find('.trait-selector').on('click', (ev) => this.onTraitSelector(ev)); // Add Damage Roll
 
-        html.find('.add-damage').click((ev) => {
+        html.find('.add-damage').on('click', (ev) => {
             this._addDamageRoll(ev);
         }); // Remove Damage Roll
 
-        html.find('.delete-damage').click((ev) => {
+        html.find('.delete-damage').on('click', (ev) => {
             this._deleteDamageRoll(ev);
         });
 
         html.find('.add-rule-element').on('click', async (event) => {
             event.preventDefault();
-            await this._onSubmit(event); // submit any unsaved changes
+            if (event.originalEvent instanceof MouseEvent) {
+                await this._onSubmit(event.originalEvent); // submit any unsaved changes
+            }
             const rules = (this.item.data.data as any).rules ?? [];
             return this.item.update({
                 'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
@@ -368,7 +416,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         });
         html.find('.rules').on('click', '.remove-rule-element', async (event) => {
             event.preventDefault();
-            await this._onSubmit(event); // submit any unsaved changes
+            if (event.originalEvent instanceof MouseEvent) {
+                await this._onSubmit(event.originalEvent); // submit any unsaved changes
+            }
             const rules = duplicate((this.item.data.data as any).rules ?? []) as any[];
             const index = event.currentTarget.dataset.ruleIndex;
             if (rules && rules.length > Number(index)) {
@@ -377,7 +427,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             }
         });
 
-        html.find('.add-skill-variant').on('click', (event) => {
+        html.find('.add-skill-variant').on('click', (_event) => {
             const variants = (this.actor?.items?.get(this?.entity?.id)?.data.data as LoreDetailsData)?.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
@@ -387,6 +437,46 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         html.find('.skill-variants').on('click', '.remove-skill-variant', (event) => {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
+        });
+
+        // Active Effect controls
+        const $aeControls = html.find('table.active-effects td.controls');
+
+        const actor = this.item.actor;
+        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`;
+        const effect =
+            actor instanceof PF2EActor
+                ? actor.effects.entries.find((effect) => effect.data.origin === origin)
+                : this.item.effects.entries.find((effect) => effect.id === $aeControls.data('effect-id'));
+
+        $aeControls.find('input[data-action="enable"]').on('change', (event) => {
+            event.preventDefault();
+
+            if (effect instanceof ActiveEffect) {
+                const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
+                const refresh = () => this.render();
+                if (actor instanceof PF2EActor) {
+                    actor.updateEmbeddedEntity('ActiveEffect', { _id: effect.id, disabled: isDisabled }).then(refresh);
+                } else {
+                    effect.update({ disabled: isDisabled }).then(refresh);
+                }
+            }
+        });
+
+        $aeControls.find('a[data-action="edit"]').on('click', () => {
+            if (effect instanceof ActiveEffect) {
+                effect.sheet.render(true);
+            }
+        });
+
+        $aeControls.find('a[data-action="delete"]').on('click', () => {
+            if (effect instanceof ActiveEffect) {
+                if (actor instanceof PF2EActor) {
+                    actor.deleteEmbeddedEntity('ActiveEffect', effect.id);
+                } else {
+                    effect.delete();
+                }
+            }
         });
     }
 

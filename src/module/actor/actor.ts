@@ -866,18 +866,18 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: string,
-        data: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ItemData | ItemData[]> {
         const updateData = Array.isArray(data) ? data : [data];
