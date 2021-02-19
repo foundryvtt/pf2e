@@ -1,5 +1,5 @@
 import { PF2EActor, UserPF2e } from './actor';
-import { LootData } from './actorDataDefinitions';
+import { LootData } from './actor-data-definitions';
 import { PF2EPhysicalItem } from '../item/physical';
 import { PF2EItem } from '../item/item';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treasure';

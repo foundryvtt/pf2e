@@ -1,4 +1,4 @@
-import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './dataDefinitions';
+import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './data-definitions';
 import { PF2EPhysicalItem } from './physical';
 
 /**

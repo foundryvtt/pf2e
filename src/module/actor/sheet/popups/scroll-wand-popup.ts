@@ -1,5 +1,5 @@
-import { PF2EActor } from '../actor';
-import { SpellData } from 'src/module/item/dataDefinitions';
+import { PF2EActor } from '../../actor';
+import { SpellData } from '@item/data-definitions';
 
 /**
  * @category Other
@@ -11,10 +11,11 @@ export class ScrollWandPopup extends FormApplication<PF2EActor> {
     constructor(
         object: PF2EActor,
         options: FormApplicationOptions,
-        spellData: SpellData,
         callback: (a: number, b: string, c: SpellData) => void,
+        spellData: SpellData,
     ) {
         super(object, options);
+
         this.spellData = spellData;
         this.onSubmitCallback = callback;
     }

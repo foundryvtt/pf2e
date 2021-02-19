@@ -26,7 +26,7 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
 import * as enJSON from '../../static/lang/en.json';
 
 export const PF2ECONFIG = {
