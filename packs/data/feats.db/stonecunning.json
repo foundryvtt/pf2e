@@ -61,7 +61,11 @@
                 "label": "GM: To Notice Unusual Stonework",
                 "predicate": {
                     "all": [
-                        "unusual-stonework-gm"
+                        "terrain:unusual-stonework"
+                        "secret" //possibly need to be omitted at some point
+                    ], 
+                    "not": [
+                        "action:seek"
                     ]
                 },
                 "selector": "perception",
