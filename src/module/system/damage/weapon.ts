@@ -8,10 +8,10 @@ import {
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory } from './damage';
-import { WeaponData } from '@item/dataDefinitions';
-import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actorDataDefinitions';
+import { WeaponData } from '@item/data-definitions';
+import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actor-data-definitions';
 import { PF2RollNote } from '../../notes';
-import { PF2Striking, PF2WeaponPotency } from '../../rules/rulesDataDefinitions';
+import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definitions';
 
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
@@ -177,7 +177,7 @@ export class PF2WeaponDamage {
         // determine ability modifier
         let ability: AbilityString;
         {
-            let modifier: number = 0;
+            let modifier = 0;
             const melee =
                 ['melee', 'reach', ''].includes(weapon.data?.range?.value?.trim()) ||
                 traits.some((t) => t.name.startsWith('thrown'));

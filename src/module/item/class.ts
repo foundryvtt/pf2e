@@ -1,5 +1,5 @@
 import { PF2ECharacter } from '../actor/character';
-import { ABCFeatureEntryData, ClassData, FeatData } from './dataDefinitions';
+import { ABCFeatureEntryData, ClassData, FeatData } from './data-definitions';
 import { PF2EItem } from './item';
 import { PF2EFeat } from './others';
 
@@ -9,12 +9,12 @@ export class PF2EClass extends PF2EItem {
     static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData | undefined> {
         const feat = await (async (): Promise<CompendiumEntity | undefined> => {
             if (entry.pack) {
-                const pack = game.packs.get(entry.pack);
+                const pack = game.packs.get<Compendium<PF2EFeat>>(entry.pack);
                 if (pack === null) {
                     console.error(`Failed to load pack ${entry.pack}`);
                     return undefined;
                 }
-                return pack.getEntity(entry.id);
+                return (await pack.getEntity(entry.id)) ?? undefined;
             }
             return game.items.get(entry.id) ?? undefined;
         })();

@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 1.11.7
+### Bug Fixes
+* (Trollderim) Add missing return statement for items in IdentifyPopup
+* (nikolaj-a) Fix drag and drop of effects from the item directory to the hotbar
+* (stwlam) Make spellcasting entry name input at least long enough to show default names
+
+### Content Changes
+* (TMun) Move Grolna from Agents of Edgewatch bestiary compendium to equipment compendium
+
+
 ## Version 1.11.6
 ### Bug Fixes
 * (stwlam) Prevent error from being thrown when unnamed effects are in the token HUD status effects menu
@@ -659,7 +669,7 @@ Note that this release will change the default for the Quick Rolls client settin
 * (fryguy) Remove character helper class
 * (fryguy) Separate PF2EActor prepareXData functions into their own subclasses instead of having it all in the same file
 * (stwlam) Add missing @type dependencies
-* (stwlam) Rename ActorData in actorDataDefinitions.ts so it doesn't collide with ActorData in actor.d.ts
+* (stwlam) Rename ActorData in actor-data-definitions.ts so it doesn't collide with ActorData in actor.d.ts
 * (stwlam) Remove discarded item/actor construction in favor of checking options
 
 

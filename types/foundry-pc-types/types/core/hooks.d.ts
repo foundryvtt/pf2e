@@ -6,6 +6,7 @@ interface DropCanvasData {
     x: number;
     y: number;
     actorId?: string;
+    tokenId?: string;
 }
 
 declare type HookCallback<P extends any[]> = (...args: P) => boolean | void | Promise<boolean | void>;

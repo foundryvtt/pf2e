@@ -1,9 +1,9 @@
-import { ActorDataPF2e } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
 
 /**
  * This is the base class for a migration.
- * If you make a change to the database schema (i.e. anything in template.json or dataDefinitions.ts),
+ * If you make a change to the database schema (i.e. anything in template.json or data-definitions.ts),
  * you should create a migration. To do so, there are several steps:
  * - Bump the schema number in system.json
  * - Make a class that inherits this base class and implements `updateActor` or `updateItem` using the
@@ -24,7 +24,7 @@ export class MigrationBase {
      * Setting requiresFlush to true will indicate that the migration runner should not call any more
      * migrations after this in a batch. Use this if you are adding items to actors for instance.
      */
-    requiresFlush: boolean = false;
+    requiresFlush = false;
 
     /**
      * Update the actor to the latest schema version.

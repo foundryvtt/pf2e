@@ -10,7 +10,7 @@ declare interface BaseEntityData {
     type?: number | string;
     data: EntityDescriptionData;
     flags: any;
-    folder: string | null;
+    folder: string | null | undefined;
     permission: any;
     img: string;
 }
@@ -83,7 +83,7 @@ declare class Entity {
      */
     compendium: Compendium;
 
-    constructor(data: BaseEntityData, options?: any);
+    constructor(data: BaseEntityData, options?: EntityConstructorOptions);
 
     /**
      * Configure the attributes of this Entity class

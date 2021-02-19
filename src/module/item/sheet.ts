@@ -2,7 +2,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData } from './dataDefinitions';
+import { LoreDetailsData } from './data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -222,10 +222,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.armorTraits = CONFIG.PF2E.armorTraits;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'tool') {
-            // Tool-specific data
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'lore') {
             // Lore-specific data

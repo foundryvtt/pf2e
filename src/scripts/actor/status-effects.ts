@@ -1,6 +1,6 @@
-import { TokenPF2e } from '@actor/actor';
+import { PF2EActor, TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
+import { ConditionData } from '@item/data-definitions';
 
 /**
  * Class PF2eStatus which defines the data structure of a status effects
@@ -347,7 +347,7 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
         if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const statusName = f.attr('data-effect');
+            const statusName = f.attr('data-effect') ?? 'undefined';
             if (typeof statusName === 'string' && statusName in PF2e.DB.condition) {
                 statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
             }
@@ -394,20 +394,26 @@ export class PF2eStatusEffects {
      *
      * @param event    The window click event
      */
-    static async _setStatusValue(event) {
+    static async _setStatusValue(
+        this: TokenPF2e & { statusEffectChanged: boolean },
+        event: JQuery.ClickEvent | JQuery.ContextMenuEvent,
+    ): Promise<void> {
         event.preventDefault();
-        const token: any = this;
 
         if (event.shiftKey) {
-            PF2eStatusEffects._onToggleOverlay(event, token);
+            PF2eStatusEffects._onToggleOverlay(event, this);
             return;
         }
 
         const f = $(event.currentTarget);
         const status = f.attr('data-condition') ?? 'undefined';
 
-        const condition: ConditionData = token.actor.data.items.find(
-            (i: ConditionData) =>
+        if (!(this.actor instanceof PF2EActor)) {
+            return;
+        }
+
+        const condition = this.actor.data.items.find(
+            (i): i is ConditionData =>
                 i.flags.pf2e?.condition &&
                 i.type === 'condition' &&
                 i.name === status &&
@@ -423,41 +429,41 @@ export class PF2eStatusEffects {
 
                 const conditionIds: string[] = [];
 
-                token.statusEffectChanged = true;
+                this.statusEffectChanged = true;
 
-                token.actor.data.items
+                this.actor.data.items
                     .filter(
-                        (i: ConditionData) =>
+                        (i): i is ConditionData =>
                             i.flags.pf2e?.condition && i.type === 'condition' && i.data.base === status,
                     )
-                    .forEach((i: ConditionData) => conditionIds.push(i._id));
+                    .forEach((i) => conditionIds.push(i._id));
 
-                await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
+                await PF2eConditionManager.removeConditionFromToken(conditionIds, this);
             } else if (condition) {
-                token.statusEffectChanged = true;
-                await PF2eConditionManager.updateConditionValue(condition._id, token, condition.data.value.value - 1);
-                if (token.data.actorLink) {
-                    PF2eStatusEffects._updateHUD(f.parent().parent(), token);
+                this.statusEffectChanged = true;
+                await PF2eConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
+                if (this.data.actorLink) {
+                    PF2eStatusEffects._updateHUD(f.parent().parent(), this);
                 }
             }
         } else if (event.type === 'click') {
-            token.statusEffectChanged = true;
+            this.statusEffectChanged = true;
             if (condition) {
-                await PF2eConditionManager.updateConditionValue(condition._id, token, condition.data.value.value + 1);
+                await PF2eConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
 
-                if (token.data.actorLink) {
-                    PF2eStatusEffects._updateHUD(f.parent().parent(), token);
+                if (this.data.actorLink) {
+                    PF2eStatusEffects._updateHUD(f.parent().parent(), this);
                 }
             } else {
                 const newCondition = PF2eConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
 
-                await PF2eConditionManager.addConditionToToken(newCondition, token);
+                await PF2eConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }
 
-    static async _toggleStatus(event) {
+    static async _toggleStatus(event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
         event.preventDefault();
         const token = this as any;
         if (event.shiftKey) {

@@ -1,6 +1,6 @@
-import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '@item/dataDefinitions';
-import { PF2EItem } from '@item/item';
-import { getArmorBonus, getResiliencyBonus } from '@item/runes';
+import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '@item/data-definitions';
+import { PF2EItem } from '../item/item';
+import { getArmorBonus, getResiliencyBonus } from '../item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -24,9 +24,9 @@ import {
     CharacterStrikeTrait,
     SkillData,
     RawCharacterData,
-} from './actorDataDefinitions';
+} from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
-import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
+import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '../utils';
 import { adaptRoll } from '../system/rolls';
 
@@ -602,7 +602,7 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [

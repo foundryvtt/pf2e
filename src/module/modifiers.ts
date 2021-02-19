@@ -1,5 +1,5 @@
 import { DamageDieSize } from './system/damage/damage';
-import { AbilityString } from '@actor/actorDataDefinitions';
+import { AbilityString } from '@actor/actor-data-definitions';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',
@@ -121,7 +121,7 @@ export class PF2Modifier {
         name: string,
         modifier: number,
         type: string,
-        enabled: boolean = true,
+        enabled = true,
         source: string | undefined = undefined,
         notes: string | undefined = undefined,
     ) {
