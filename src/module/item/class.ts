@@ -1,5 +1,5 @@
 import { PF2ECharacter } from '../actor/character';
-import { ABCFeatureEntryData, ClassData, FeatData } from './dataDefinitions';
+import { ABCFeatureEntryData, ClassData, FeatData } from './data-definitions';
 import { PF2EItem } from './item';
 import { PF2EFeat } from './others';
 

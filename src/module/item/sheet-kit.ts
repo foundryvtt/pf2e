@@ -4,7 +4,7 @@
 import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { TraitSelector5e } from '../system/trait-selector';
-import { KitData } from './dataDefinitions';
+import { KitData } from './data-definitions';
 
 /**
  * @category Other
