@@ -116,21 +116,23 @@
       /* Sheet Tabs */
       /* Tags */
 
-      input[type="text"] {
-        width: calc(100% - 2px);
-        height: calc(100% - 2px);
-        background: none;
-        padding: 0;
-        margin: 1px 0;
-        color: #444;
-        border: 1px solid transparent;
+      input {
+        &[type="text"], &[type="number"] {
+          width: calc(100% - 2px);
+          height: calc(100% - 2px);
+          background: none;
+          padding: 0;
+          margin: 1px 0;
+          color: #444;
+          border: 1px solid transparent;
 
-        &:hover, &:focus {
-          border: 1px solid #111;
+          &:hover, &:focus {
+            border: 1px solid #111;
 
-          /* box-shadow: 0 0 8px red;
-           */
-          box-shadow: 0 0 10px #00005a;
+            /* box-shadow: 0 0 8px red;
+             */
+            box-shadow: 0 0 10px #00005a;
+          }
         }
       }
 
@@ -406,10 +408,12 @@
               flex: 1;
             }
 
-            input[type="text"] {
-              flex: 0 0 26px;
-              height: 20px;
-              text-align: center;
+            input {
+              &[type="text"], &[type="number"] {
+                flex: 0 0 26px;
+                height: 20px;
+                text-align: center;
+              }
             }
           }
         }
@@ -444,10 +448,12 @@
               flex: 1;
             }
 
-            input[type="text"] {
-              flex: 1;
-              text-align: right;
-              height: 16px;
+            input {
+              &[type="text"], &[type="number"] {
+                flex: 1;
+                text-align: right;
+                height: 16px;
+              }
             }
           }
         }
@@ -639,7 +645,7 @@
             }
 
             input {
-              &[type="text"] {
+              &[type="text"], &[type="number"] {
                 height: 20px;
                 max-width: 20px;
                 margin: 0;
@@ -2529,10 +2535,12 @@
       margin: 2px 0;
     }
 
-    .sheet-body input[type="text"] {
-      background: rgba(255, 255, 255, 0.5);
-      border: 1px solid #aaa;
-      padding: 3px;
+    .sheet-body input {
+      &[type="text"], &[type="number"] {
+        background: rgba(255, 255, 255, 0.5);
+        border: 1px solid #aaa;
+        padding: 3px;
+      }
     }
 
     .sheet-header {
@@ -2938,13 +2946,15 @@ button > i.far {
   flex-wrap: wrap;
 }
 
-.pf2e.sheet form .npc-detail-text input[type="text"] {
-  background: rgba(255, 255, 255, 0.8);
-  color: black;
-  border: 1px solid black;
-}
+.pf2e.sheet form .npc-detail-text {
+  input {
+    &[type="text"], &[type="number"] {
+      background: rgba(255, 255, 255, 0.8);
+      color: black;
+      border: 1px solid black;
+    }
+  }
 
-.npc-detail-text {
   textarea {
     height: fit-content;
     overflow-y: hidden;
