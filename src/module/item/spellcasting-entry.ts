@@ -13,4 +13,12 @@ export class SpellcastingEntry {
     get ability() {
         return this.data.data.ability.value || 'int';
     }
+
+    get isSpontaneous(): boolean {
+        return this.data.data.prepared.value === 'spontaneous';
+    }
+
+    get isInnate(): boolean {
+        return this.data.data.prepared.value === 'innate';
+    }
 }

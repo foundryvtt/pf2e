@@ -1,6 +1,7 @@
 import { ConfigPF2e, PF2ECONFIG } from './scripts/config';
+import { PF2E } from './scripts/hooks';
 import { rollActionMacro, rollItemMacro } from './scripts/init';
-import { registerSettings } from './module/settings/settings';
+import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
 import { registerHandlebarsHelpers } from './module/handlebars';
@@ -25,7 +26,7 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
-import { WorldClockApplication } from './module/system/world-clock-application';
+import { WorldClock } from './module/system/world-clock';
 import { EffectPanel } from './module/system/effect-panel';
 import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
@@ -38,8 +39,10 @@ import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
+import { PF2RuleElements } from './module/rules/rules';
 
-require('./styles/pf2e.scss');
+import * as enJSON from '../static/lang/en.json';
+import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
@@ -54,14 +57,20 @@ require('./module/custom-elements/custom-elements');
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     pf2e: {
         actions: { [key: string]: Function };
-        worldclock?: WorldClockApplication;
+        worldClock?: WorldClock;
         effectPanel?: EffectPanel;
         rollItemMacro?: typeof rollItemMacro;
         rollActionMacro: typeof rollActionMacro;
     };
+
     socket: SocketIO.Socket & {
         emit(message: Pick<SocketEventCallback, 0>): void;
         on(event: string, ...message: SocketEventCallback): void;
+    };
+
+    i18n: Localization & {
+        readonly translations: Localization['translations'] & typeof enJSON;
+        _fallback: { PF2E?: unknown };
     };
 }
 
@@ -72,8 +81,10 @@ declare global {
     let PF2e: PF2eSystem;
 }
 
+PF2E.Hooks.listen();
+
 Hooks.once('init', () => {
-    console.log('PF2e | Initializing Pathfinder 2nd Edition System');
+    console.log('PF2e System | Initializing Pathfinder 2nd Edition System');
 
     CONFIG.PF2E = PF2ECONFIG;
 
@@ -88,15 +99,6 @@ Hooks.once('init', () => {
     CONFIG.ui.combat = PF2eCombatTracker;
     // Assign the PF2e CompendiumDirectory
     CONFIG.ui.compendium = CompendiumDirectoryPF2e;
-
-    // configure the bundled TinyMCE editor with PF2-specific options
-    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
-    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-        title: 'Icons A D T F R',
-        inline: 'span',
-        classes: ['pf2-icon'],
-        wrapper: true,
-    });
 
     // configure the bundled TinyMCE editor with PF2-specific options
     CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
@@ -265,6 +267,9 @@ Hooks.once('setup', () => {
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
  */
 Hooks.once('ready', () => {
+    console.log('PF2e System | Readying Pathfinder 2nd Edition System');
+    console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
+
     // Determine whether a system migration is required and feasible
     const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
     const COMPATIBLE_MIGRATION_VERSION = 0.411;
@@ -283,12 +288,7 @@ Hooks.once('ready', () => {
         }
     }
 
-    // world clock singleton application
-    if (game.user.isGM) {
-        game.pf2e.worldclock = new WorldClockApplication();
-    }
-
-    // effect panel singleton application
+    // Effect Panel singleton application
     game[game.system.id].effectPanel = new EffectPanel();
     if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
         game.pf2e.effectPanel.render(true);
@@ -520,6 +520,18 @@ Hooks.on('updateUser', (user, diff, options, id) => {
     game[game.system.id].effectPanel?.refresh();
 });
 
+Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => {
+    const actor = game.actors.get(token.actorId);
+    if (actor) {
+        actor.items.forEach((item: PF2EItem) => {
+            const rules = PF2RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+            for (const rule of rules) {
+                rule.onCreateToken(actor.data, item.data, token);
+            }
+        });
+    }
+});
+
 Hooks.on('preUpdateToken', (scene, token, data, options, userID) => {
     if (!token.actorLink && data.actorData?.items) {
         // Preparation for synthetic actors to fake some of the other hooks in the 'updateToken' hook where this data is
@@ -587,7 +599,7 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
                 name: 'effectpanel',
                 title: 'CONTROLS.EffectPanel',
                 icon: 'fas fa-star',
-                onClick: (toggled) => {
+                onClick: (toggled: boolean) => {
                     if (toggled) {
                         game[game.system.id].effectPanel?.render(true);
                     } else {
@@ -602,15 +614,15 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
                 name: 'worldclock',
                 title: 'CONTROLS.WorldClock',
                 icon: 'fas fa-clock',
-                visible: game.user.isGM,
-                onClick: () => game[game.system.id]?.worldclock?.render(true),
+                visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+                onClick: () => game.pf2e.worldClock!.render(true),
                 button: true,
             },
         );
 });
 
-Hooks.on('updateWorldTime', (total, diff) => {
-    const worldclock = game.pf2e.worldclock;
+Hooks.on('updateWorldTime', (_total: number, _diff: number) => {
+    const worldclock = game.pf2e.worldClock;
     if (worldclock) {
         worldclock.render(false);
     }

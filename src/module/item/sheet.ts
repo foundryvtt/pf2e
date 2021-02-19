@@ -73,10 +73,10 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
         data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
         data.usage = CONFIG.PF2E.usageTraits; // usage data
+        data.stackGroups = CONFIG.PF2E.stackGroups;
 
         if (type === 'treasure') {
             data.currencies = CONFIG.PF2E.currencies;
-            data.stackGroups = CONFIG.PF2E.stackGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'consumable') {
@@ -222,10 +222,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.armorTraits = CONFIG.PF2E.armorTraits;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'tool') {
-            // Tool-specific data
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'lore') {
             // Lore-specific data

@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import copyWebpackPlugin from 'copy-webpack-plugin';
 import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
@@ -33,6 +33,19 @@ const optimization: Optimization = isProductionBuild
               }),
               new CssMinimizerPlugin(),
           ],
+          splitChunks: {
+              chunks: 'all',
+              cacheGroups: {
+                  default: {
+                      name: 'main',
+                      test: 'src/pf2e.ts',
+                  },
+                  vendor: {
+                      name: 'vendor',
+                      test: /node_modules/,
+                  },
+              },
+          },
       }
     : undefined;
 
@@ -51,6 +64,9 @@ const config: Configuration = {
                             configFile: path.resolve(__dirname, 'tsconfig.json'),
                             experimentalWatchApi: !isProductionBuild,
                             happyPackMode: true,
+                            compilerOptions: {
+                                noEmit: false,
+                            },
                         },
                     },
                 ],
@@ -87,6 +103,9 @@ const config: Configuration = {
     bail: isProductionBuild,
     watch: !isProductionBuild,
     plugins: [
+        new DefinePlugin({
+            BUILD_MODE: JSON.stringify(buildMode)
+        }),
         new CleanWebpackPlugin(),
         new copyWebpackPlugin({
             patterns: [{ from: 'static/' }, { from: 'system.json' }],
@@ -107,7 +126,7 @@ const config: Configuration = {
     },
     output: {
         path: outDir,
-        filename: 'main.bundle.js',
+        filename: '[name].bundle.js',
     },
 };
 

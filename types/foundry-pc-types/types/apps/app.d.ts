@@ -33,6 +33,13 @@ interface ApplicationOptions {
     [key: string]: any;
 }
 
+interface ApplicationHeaderButton {
+    label: string;
+    class: string;
+    icon: string;
+    onclick: ((event: Event) => void) | null;
+}
+
 interface RenderOptions {
     /** The left positioning attribute */
     left?: number;
@@ -228,8 +235,8 @@ declare class Application {
 
     /**
      * Customize how inner HTML is replaced when the application is refreshed
-     * @param element	The original HTML element
-     * @param html		New updated HTML
+     * @param element   The original HTML element
+     * @param html      New updated HTML
      */
     protected _replaceHTML(element: JQuery, html: JQuery | HTMLElement, options: Record<string, unknown>): void;
 
@@ -239,18 +246,16 @@ declare class Application {
     protected _injectHTML(html: JQuery, options: Record<string, unknown>): void;
 
     /**
-     * Specify the set of config buttons which should appear in the Application header
-     * Buttons should be returned as an Array of Objects with the following keys:
-     * label: The button label
-     * icon: A font-awesome glyph icon
-     * class: the css class of the button
-     * onclick: the button click handler
+     * Specify the set of config buttons which should appear in the Application header.
+     * Buttons should be returned as an Array of objects.
+     * The header buttons which are added to the application can be modified by the getApplicationHeaderButtons hook.
+     * @fires Application#hook:getApplicationHeaderButtons
      */
-    protected _getHeaderButtons(): any[];
+    protected _getHeaderButtons(): ApplicationHeaderButton[];
 
     /* -------------------------------------------- */
     /* Event Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
@@ -284,19 +289,19 @@ declare class Application {
      * Callback actions which occur at the beginning of a drag start workflow.
      * @param event	The originating DragEvent
      */
-    protected _onDragStart(event: DragEvent): void;
+    protected _onDragStart(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is over a drop target.
      * @param event	The originating DragEvent
      */
-    protected _onDragOver(event: DragEvent): void;
+    protected _onDragOver(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is dropped on a target.
      * @param event	The originating DragEvent
      */
-    protected _onDrop(event: DragEvent): void;
+    protected _onDrop(event: ElementDragEvent): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -306,7 +311,7 @@ declare class Application {
      * Close the application and un-register references to it within UI mappings
      * This function returns a Promise which resolves once the window closing animation concludes
      */
-    close(): Promise<any>;
+    close(): Promise<unknown>;
 
     /**
      * Minimize the pop-out window, collapsing it to a small tab

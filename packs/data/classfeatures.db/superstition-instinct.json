@@ -19,15 +19,190 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Superstition Instinct (vs. magic)",
+                "predicate": {
+                    "all": [
+                        "magic",
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Superstition Instinct (vs. magic)",
+                "predicate": {
+                    "all": [
+                        "magic",
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is a spellcaster",
+                "property": "flags.pf2e.rollOptions.all.target:caster"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 4
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 8
+                        },
+                        {
+                            "start": 15,
+                            "value": 12
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "caster-rage-agile",
+                "predicate": {
+                    "all": [
+                        "target:caster",
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "value": 2
+                        },
+                        {
+                            "end": 14,
+                            "start": 7,
+                            "value": 4
+                        },
+                        {
+                            "start": 15,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 14,
+                            "value": 2
+                        },
+                        {
+                            "start": 15,
+                            "value": 8
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile"
+                    ],
+                    "not": [
+                        "target:caster",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 14,
+                            "value": 1
+                        },
+                        {
+                            "start": 15,
+                            "value": 4
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

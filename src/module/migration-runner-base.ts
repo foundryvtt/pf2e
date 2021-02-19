@@ -85,4 +85,17 @@ export class MigrationRunnerBase {
 
         return current;
     }
+
+    async getUpdatedUser(userData: UserData, migrations: MigrationBase[]): Promise<UserData> {
+        const current = duplicate(userData);
+        for (const migration of migrations) {
+            try {
+                await migration.updateUser(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
 }

@@ -71,6 +71,15 @@ export abstract class PF2RuleElement {
     onAfterPrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
 
     /**
+     * Run before a new token is created of the actor that holds the item.
+     *
+     * @param actorData the actor data of the actor that holds the item
+     * @param item the item data of the item containing the rule element
+     * @param token the token data of the token to be created
+     */
+    onCreateToken(actorData: ActorData, item: ItemData, token: TokenData) {}
+
+    /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent
      * falls back to the item name that holds the rule
      *

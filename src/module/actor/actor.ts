@@ -93,6 +93,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'perception',
     'initiative',
     'skill-check',
+    'counteract-check',
 ]);
 
 /**
@@ -125,6 +126,33 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     get defaultImg(): string {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
+    }
+
+    /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
+     *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
+     @override */
+    static create<A extends PF2EActor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: Partial<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A>;
+    static create<A extends PF2EActor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: Partial<A['data']>[] | Partial<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A[] | A>;
+    static async create<ActorType extends PF2EActor>(
+        data: Partial<ActorType['data']>[] | Partial<ActorType['data']>,
+        options: EntityCreateOptions = {},
+    ): Promise<ActorType[] | ActorType> {
+        const createData = Array.isArray(data) ? data : [data];
+        for (const datum of createData) {
+            if (datum.type === 'loot') {
+                // Make loot actors interactable by default
+                datum.permission = { default: CONST.ENTITY_PERMISSIONS.LIMITED };
+            }
+        }
+        return super.create(data, options) as Promise<ActorType>;
     }
 
     /**
@@ -563,8 +591,8 @@ export class PF2EActor extends Actor<PF2EItem> {
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${item.name} Skill Check`;
 
-        let rollMod: number = 0;
-        let itemBonus: number = 0;
+        let rollMod = 0;
+        let itemBonus = 0;
         if (item.actor && item.actor.data && item.actor.data.type === 'character') {
             const rank = data.data.proficient?.value || 0;
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
@@ -667,12 +695,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
      * @return {Promise}
      */
-    static async applyDamage(
-        roll: JQuery,
-        multiplier: number,
-        attribute: string = 'attributes.hp',
-        modifier: number = 0,
-    ) {
+    static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
         if (canvas.tokens.controlled.length > 0) {
             const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
             const messageSender = roll.find('.message-sender').text();
@@ -844,22 +867,17 @@ export class PF2EActor extends Actor<PF2EItem> {
         embeddedName: string,
         updateData: EntityUpdateData,
         options?: EntityUpdateOptions,
-    ): Promise<this['data']>;
-    updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
+    ): Promise<ItemData>;
     updateEmbeddedEntity(
         embeddedName: string,
         updateData: EntityUpdateData | EntityUpdateData[],
         options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
+    ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
         embeddedName: string,
         data: EntityUpdateData | EntityUpdateData[],
         options = {},
-    ): Promise<this['data'] | this['data'][]> {
+    ): Promise<ItemData | ItemData[]> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
             const item = this.items.get(datum._id);
@@ -881,12 +899,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
      * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(
-        attribute: string,
-        value: number,
-        isDelta: boolean = false,
-        isBar: boolean = true,
-    ): Promise<this> {
+    async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
         if (value === undefined || value === null || Number.isNaN(value)) {
             return Promise.reject();
         }
@@ -978,7 +991,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId?: string): {
                     request(): Promise<void>;
                 };
-            } = require('./loot').LootTransfer;
+            } = require('./loot').LootTransfer; // eslint-disable-line @typescript-eslint/no-var-requires
             const lootTransfer = new LootTransfer(source, target, quantity, containerId);
             await lootTransfer.request();
 
@@ -1017,6 +1030,10 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
 
         const result = await targetActor.createOwnedItem(newItemData);
+        if (result === null) {
+            return;
+        }
+
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
 
         return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);

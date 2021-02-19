@@ -1,3 +1,5 @@
+declare type TranslationDictionaryValue = string | { [key: string]: TranslationDictionaryValue };
+
 /**
  * A helper class which assists with localization and string translation
  */
@@ -10,13 +12,12 @@ declare class Localization {
     /**
      * The translation dictionary for the target language
      */
-    translations: any;
+    translations: Record<string, TranslationDictionaryValue>;
 
     /**
      * Fallback translations if the target keys are not found
-     * @type {Object}
      */
-    _fallback: any;
+    _fallback: {};
 
     constructor();
 
@@ -71,5 +72,5 @@ declare class Localization {
      * const stringId = "MY_TEST_STRING"; // "Your name is {name}"
      * game.i18n.format("MY_TEST_STRING", {name: "Andrew"}); // Produces "Your name is Andrew"
      */
-    format(stringId: string, data?: { [key: string]: string | number | null }): string;
+    format(stringId: string, data?: { [key: string]: string | number | boolean | null }): string;
 }

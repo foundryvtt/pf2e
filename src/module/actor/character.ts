@@ -86,11 +86,13 @@ export class PF2ECharacter extends PF2EActor {
 
         // Calculate HP and SP
         {
-            const modifiers = [new PF2Modifier('PF2E.AncestryHP', data.attributes.ancestryhp, PF2ModifierType.UNTYPED)];
+            const ancestryHP = data.attributes.ancestryhp ?? 0;
+            const classHP = data.attributes.classhp ?? 0;
+            const modifiers = [new PF2Modifier('PF2E.AncestryHP', ancestryHP, PF2ModifierType.UNTYPED)];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
-                const halfClassHp = Math.floor(data.attributes.classhp / 2);
+                const halfClassHp = Math.floor(classHP / 2);
 
                 data.attributes.sp.max =
                     (halfClassHp + data.abilities.con.mod) * data.details.level.value +
@@ -102,17 +104,13 @@ export class PF2ECharacter extends PF2EActor {
                 );
             } else {
                 modifiers.push(
-                    new PF2Modifier(
-                        'PF2E.ClassHP',
-                        data.attributes.classhp * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
-                    ),
+                    new PF2Modifier('PF2E.ClassHP', classHP * data.details.level.value, PF2ModifierType.UNTYPED),
                 );
                 modifiers.push(
                     new PF2Modifier(
                         'PF2E.AbilityCon',
                         data.abilities.con.mod * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
+                        PF2ModifierType.ABILITY,
                     ),
                 );
             }
@@ -399,6 +397,7 @@ export class PF2ECharacter extends PF2EActor {
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
             stat.value = stat.totalModifier;
+            stat.notes = notes;
             stat.roll = adaptRoll((args) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', {
                     skillName: game.i18n.localize(CONFIG.PF2E.skills[skillName]),
@@ -564,6 +563,7 @@ export class PF2ECharacter extends PF2EActor {
                     weaponType: { value: 'unarmed' },
                     bonus: { value: 0 },
                     damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
+                    group: { value: 'brawling' },
                     range: { value: 'melee' },
                     traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
                     equipped: {
@@ -602,7 +602,7 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [
@@ -618,8 +618,13 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
+                    const traits = PF2EActor.traits(item?.data?.traits?.value);
+                    const melee =
+                        ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
+                        traits.some((t) => t.startsWith('thrown'));
                     const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
-                        .concat(...PF2EActor.traits(item?.data?.traits?.value)) // always add weapon traits as options
+                        .concat(...traits) // always add weapon traits as options
+                        .concat(melee ? 'melee' : 'ranged')
                         .concat(`${ability}-attack`);
                     ensureProficiencyOption(defaultOptions, proficiencyRank);
                     const notes = [] as PF2RollNote[];

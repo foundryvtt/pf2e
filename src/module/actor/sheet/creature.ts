@@ -1,4 +1,10 @@
-import { Coins, calculateWealth, calculateTotalWealth } from '../../item/treasure';
+import {
+    Coins,
+    calculateWealth,
+    calculateTotalWealth,
+    calculateValueOfCurrency,
+    coinValueInCopper,
+} from '../../item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
 import { PF2EActor } from '../actor';
@@ -193,11 +199,14 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
 
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
+            const currency = calculateValueOfCurrency(sheetData.actor.items);
+            sheetData.totalCurrency = ActorSheetPF2eCreature.parseCoinsToActorSheetData(currency);
+
             const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = ActorSheetPF2eCreature.parseCoinsToActorSheetData(treasure);
+            sheetData.totalTreasureGold = (coinValueInCopper(treasure) / 100).toFixed(2);
 
             const totalWealth = calculateTotalWealth(sheetData.actor.items);
-            sheetData.totalWealth = ActorSheetPF2eCreature.parseCoinsToActorSheetData(totalWealth);
+            sheetData.totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
         }
 
         // Update traits

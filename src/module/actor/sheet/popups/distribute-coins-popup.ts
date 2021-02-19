@@ -1,9 +1,4 @@
-import {
-    addCoinsSimple,
-    attemptToRemoveCoinsByValue,
-    calculateValueOfCurrency,
-    removeCoinsSimple,
-} from '@item/treasure';
+import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure';
 import { PF2EActor } from '../../actor';
 import { PF2ECharacter } from '@actor/character';
 
@@ -77,7 +72,7 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
                     ui.notifications.warn('Nothing to distribute');
                     return;
                 }
-                removeCoinsSimple(thisActor, {
+                removeCoins(thisActor, {
                     coins: {
                         pp: coinShare.pp * playerCount,
                         gp: coinShare.gp * playerCount,
@@ -94,7 +89,7 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
             const each = playerCount > 1 ? 'each ' : '';
             message += `${each}from ${thisActor.name} to `;
             for await (const actor of selectedActors) {
-                await addCoinsSimple(actor, { coins: coinShare, combineStacks: true });
+                await addCoins(actor, { coins: coinShare, combineStacks: true });
                 const index = selectedActors.indexOf(actor);
                 if (index === 0) message += `${actor.name}`;
                 else if (index < playerCount - 1) message += `, ${actor.name}`;

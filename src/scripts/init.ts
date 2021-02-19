@@ -1,6 +1,7 @@
 import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { PF2EEffect } from '@item/effect';
+import * as MonkeyPatch from './🐵🩹';
 
 /**
  * Create a Macro from an Item drop.
@@ -165,10 +166,13 @@ if (a) {
 }
 
 async function createToggleEffectMacro(pack: string, effect: PF2EEffect, slot: number) {
+    const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
-const ITEM_UUID = 'Compendium.${pack}.${effect.id}'; // ${effect.data.name}
+const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 (async () => {
   const effect = duplicate(await fromUuid(ITEM_UUID));
+  effect.flags.core = effect.flags.core ?? {};
+  effect.flags.core.sourceId = effect.flags.core.sourceId ?? ITEM_UUID;
   for await (const token of canvas.tokens.controlled) {
     let existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
@@ -241,24 +245,7 @@ Hooks.on('canvasInit', async () => {
         });
     };
 
-    // Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition
-    if (game.data.version === '0.7.9' && Token.prototype._getBorderColor !== undefined) {
-        Token.prototype._getBorderColor = function (this: Token) {
-            const colors = CONFIG.Canvas.dispositionColors;
-            if (this._controlled) return colors.CONTROLLED;
-            else if (this._hover) {
-                const disposition =
-                    typeof this.data.disposition === 'string'
-                        ? parseInt(this.data.disposition, 10)
-                        : this.data.disposition;
-                if (!game.user.isGM && this.owner) return colors.CONTROLLED;
-                else if (this.actor?.hasPlayerOwner) return colors.PARTY;
-                else if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) return colors.FRIENDLY;
-                else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) return colors.NEUTRAL;
-                else return colors.HOSTILE;
-            } else return null;
-        };
-    }
+    MonkeyPatch.apply();
 });
 
 /* -------------------------------------------- */
@@ -268,8 +255,9 @@ Hooks.on('canvasInit', async () => {
 Hooks.on('hotbarDrop', async (bar, data, slot) => {
     // check for item link
     let item: PF2EItem | undefined;
-    if (data.type === 'Item' && data.pack && data.id) {
-        item = (await fromUuid(`Compendium.${data.pack}.${data.id}`)) as PF2EItem;
+    if (data.type === 'Item' && data.id) {
+        const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
+        item = (await fromUuid(`${prefix}.${data.id}`)) as PF2EItem;
     }
 
     if (item instanceof PF2EEffect) {

@@ -1,23 +1,30 @@
-// @TODO: Add types
-
-declare let socket: any;
-declare let keyboard: any;
-declare let ui: {
+declare const socket: SocketIO.Socket | null;
+declare const keyboard: KeyboardManager;
+declare const ui: {
+    actors: ActorDirectory;
+    combat: CombatTracker;
+    controls: SceneControls;
     notifications: Notifications;
     tables: RollTableDirectory;
-    combat: CombatTracker;
-    actors: ActorDirectory;
+    windows: Record<number, Application>;
 };
 
 /**
  * The core Game instance which encapsulates the data, settings, and states relevant for managing the game experience.
- * The singleton instance of the Game class is available as the global variable ``game``.
+ * The singleton instance of the Game class is available as the global variable game.
  *
- * @param worldData  An object of all the World data vended by the server when the client first connects
- * @param userId     The ID of the currently active user, retrieved from their session cookie
- * @param socket     The open web-socket which should be used to transact game-state data
+ * @param view      The named view which is active for this game instance.
+ * @param data      An object of all the World data vended by the server when the client first connects
+ * @param sessionId The ID of the currently active client session retrieved from the browser cookie
+ * @param socket    The open web-socket which should be used to transact game-state data
  */
 declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item> {
+    /**
+     * The named view which is currently active.
+     * Game views include: join, setup, players, license, game, stream
+     */
+    view: string;
+
     /** The object of world data passed from the server */
     data: any;
 
@@ -28,10 +35,10 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     keyboard: KeyboardManager;
 
     /** A mapping of installed modules */
-    modules: Map<any, any>;
+    modules: Map<string, { active: boolean }>;
 
     /** The user role permissions setting */
-    permissions: any;
+    permissions: Record<string, number[]>;
 
     /** The client session id which is currently active */
     sessionId: string;
@@ -41,6 +48,11 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
 
     /** A reference to the open Socket.io connection */
     socket: SocketIO.Socket;
+
+    /**
+     * A singleton GameTime instance which manages the progression of time within the game world.
+     */
+    time: GameTime;
 
     /** The id of the active game user */
     userId: string;
@@ -77,9 +89,9 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: CompendiumCollection;
+    packs: Collection<Compendium>;
 
-    constructor(worldData: object, userId: string, socket: SocketIO.Socket);
+    constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 
     /**
      * Fetch World data and return a Game instance

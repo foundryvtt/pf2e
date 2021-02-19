@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,6 +42,24 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Fast Movement (while raging)",
+                "predicate": {
+                    "all": [
+                        "rage"
+                    ]
+                },
+                "roll-options": [
+                    "land-speed",
+                    "all"
+                ],
+                "selector": "land-speed",
+                "type": "status",
+                "value": 10
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -58,6 +77,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Fast Movement",

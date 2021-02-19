@@ -36,6 +36,10 @@ export const stacks: StackDefinitions = {
         size: 7,
         lightBulk: 1,
     },
+    sacks: {
+        size: 5,
+        lightBulk: 1,
+    },
     coins: {
         size: 1000,
         lightBulk: 10,

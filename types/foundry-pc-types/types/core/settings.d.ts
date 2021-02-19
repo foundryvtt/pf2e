@@ -11,7 +11,7 @@ declare interface ClientSettingsData {
 }
 
 declare interface SettingsMenuConstructor {
-    new (object: {}, options?: FormApplicationOptions): FormApplication;
+    new (object?: {}, options?: FormApplicationOptions): FormApplication;
     registerSettings(): void;
 }
 
@@ -31,6 +31,11 @@ declare interface SettingsMenuData {
 declare class ClientSettings {
     /** An object of registered game settings for this scope */
     settings: Map<string, ClientSettingsData>;
+
+    /**
+     * Registered settings menus which trigger secondary applications
+     */
+    menus: Map<string, { type: SettingsMenuConstructor }>;
 
     /**
      * The storage interfaces used for persisting settings
@@ -125,7 +130,7 @@ declare class ClientSettings {
      * @param key   The setting key to retrieve
      * @param value The data to assign to the setting key
      */
-    set<T extends unknown>(module: string, key: string, value: T): Promise<T>;
+    set(module: string, key: string, value: unknown): Promise<unknown>;
 
     /**
      * Update the setting storage with a new value

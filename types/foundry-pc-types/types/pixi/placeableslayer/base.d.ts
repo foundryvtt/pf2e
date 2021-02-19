@@ -1,4 +1,4 @@
-declare interface LayerOptions {
+declare interface LayerOptions extends CanvasLayerOptions {
     canDragCreate: boolean;
     controllableObjects: boolean;
     rotatableObjects: boolean;

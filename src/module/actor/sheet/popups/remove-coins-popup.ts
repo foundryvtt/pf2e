@@ -1,4 +1,4 @@
-import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoinsSimple, Coins } from '@item/treasure';
+import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure';
 import { PF2EActor } from '../../actor';
 
 interface PopupFormData extends Coins {
@@ -39,7 +39,7 @@ export class RemoveCoinsPopup extends FormApplication<PF2EActor> {
                 coinsToRemove.sp <= actorCoins.sp &&
                 coinsToRemove.cp <= actorCoins.cp
             ) {
-                removeCoinsSimple(actor, { coins: coinsToRemove });
+                removeCoins(actor, { coins: coinsToRemove });
             } else {
                 ui.notifications.warn('Insufficient coins');
             }

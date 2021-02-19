@@ -27,8 +27,12 @@ import {
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
 import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
+import * as enJSON from '../../static/lang/en.json';
 
 export const PF2ECONFIG = {
+    // Localization keys and English translation values
+    translations: enJSON.PF2E,
+
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
@@ -183,6 +187,7 @@ export const PF2ECONFIG = {
         fortification: 'PF2E.ArmorPropertyRuneFortification',
         winged: 'PF2E.ArmorPropertyRuneWinged',
         rockBraced: 'PF2E.ArmorPropertyRuneRockBraced',
+        soaring: 'PF2E.ArmorPropertyRuneSoaring',
         antimagic: 'PF2E.ArmorPropertyRuneAntimagic',
         majorSlick: 'PF2E.ArmorPropertyRuneMajorSlick',
         ethereal: 'PF2E.ArmorPropertyRuneEthereal',
@@ -209,6 +214,7 @@ export const PF2ECONFIG = {
         pacifying: 'PF2E.WeaponPropertyRunePacifying',
         fearsome: 'PF2E.WeaponPropertyRuneFearsome',
         shifting: 'PF2E.WeaponPropertyRuneShifting',
+        conducting: 'PF2E.WeaponPropertyRuneConducting',
         wounding: 'PF2E.WeaponPropertyRuneWounding',
         bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
         corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
@@ -296,6 +302,7 @@ export const PF2ECONFIG = {
         rations: 'PF2E.StackGroupRations',
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
+        sacks: 'PF2E.StackGroupSacks',
     }, // Weakness Types
 
     weaknessTypes: {
@@ -553,29 +560,46 @@ export const PF2ECONFIG = {
     }, // Class Traits
 
     ancestryTraits: {
+        aasimar: 'PF2E.TraitAasimar',
+        android: 'PF2E.TraitAndroid',
+        aphorite: 'PF2E.TraitAphorite',
+        azarketi: 'PF2E.TraitAzarketi',
+        beastkin: 'PF2E.TraitBeastkin',
+        catfolk: 'PF2E.TraitCatfolk',
+        changeling: 'PF2E.TraitChangeling',
+        conrasu: 'PF2E.TraitConrasu',
+        dhampir: 'PF2E.TraitDhampir',
+        duskwalker: 'PF2E.TraitDuskwalker',
         dwarf: 'PF2E.TraitDwarf',
         elf: 'PF2E.TraitElf',
+        fetchling: 'PF2E.TraitFetchling',
+        fleshwarp: 'PF2E.TraitFleshwarp',
+        ganzi: 'PF2E.TraitGanzi',
+        geniekin: 'PF2E.TraitGeniekin',
         gnome: 'PF2E.TraitGnome',
         goblin: 'PF2E.TraitGoblin',
+        grippli: 'PF2E.TraitGrippli',
         'half-elf': 'PF2E.TraitHalfElf',
         halfling: 'PF2E.TraitHalfling',
         'half-orc': 'PF2E.TraitHalfOrc',
         human: 'PF2E.TraitHuman',
         hobgoblin: 'PF2E.TraitHobgoblin',
+        kitsune: 'PF2E.TraitKitsune',
+        kobold: 'PF2E.TraitKobold',
+        ifrit: 'PF2E.TraitIfrit',
         leshy: 'PF2E.TraitLeshy',
         lizardfolk: 'PF2E.TraitLizardfolk',
-        aasimar: 'PF2E.TraitAasimar',
-        catfolk: 'PF2E.TraitCatfolk',
-        changeling: 'PF2E.TraitChangeling',
-        dhampir: 'PF2E.TraitDhampir',
-        duskwalker: 'PF2E.TraitDuskwalker',
-        geniekin: 'PF2E.TraitGeniekin',
-        kobold: 'PF2E.TraitKobold',
         orc: 'PF2E.TraitOrc',
+        oread: 'PF2E.TraitOread',
         ratfolk: 'PF2E.TraitRatfolk',
         shoony: 'PF2E.TraitShoony',
+        sprite: 'PF2E.TraitSprite',
+        strix: 'PF2E.TraitStrix',
+        suli: 'PF2E.TraitSuli',
+        sylph: 'PF2E.TraitSylph',
         tengu: 'PF2E.TraitTengu',
         tiefling: 'PF2E.TraitTiefling',
+        undine: 'PF2E.TraitUndine',
     }, // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
     ancestryItemTraits: {
@@ -622,6 +646,7 @@ export const PF2ECONFIG = {
         ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
         good: 'PF2E.TraitGood',
         grapple: 'PF2E.TraitGrapple',
+        hampering: 'PF2E.TraitHampering',
         improvised: 'PF2E.TraitImprovised',
         intelligent: 'PF2E.TraitIntelligent',
         invested: 'PF2E.TraitInvested',
@@ -1011,8 +1036,10 @@ export const PF2ECONFIG = {
     hazardTraits: {
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
+        curse: 'PF2E.TraitCurse',
         haunt: 'PF2E.TraitHaunt',
         inhaled: 'PF2E.TraitInhaled',
+        magic: 'PF2E.TraitMagic',
         magical: 'PF2E.TraitMagical',
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
@@ -1412,14 +1439,14 @@ export const PF2ECONFIG = {
     // Feat Types
 
     featTypes: {
-        bonus: 'PF2E.FeatTypeBonus',
         ancestry: 'PF2E.FeatTypeAncestry',
-        skill: 'PF2E.FeatTypeSkill',
-        general: 'PF2E.FeatTypeGeneral',
+        ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
         class: 'PF2E.FeatTypeClass',
         classfeature: 'PF2E.FeatTypeClassfeature',
+        skill: 'PF2E.FeatTypeSkill',
+        general: 'PF2E.FeatTypeGeneral',
         archetype: 'PF2E.FeatTypeArchetype',
-        ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
+        bonus: 'PF2E.FeatTypeBonus',
         pfsboon: 'PF2E.FeatPFSBoonHeader',
         deityboon: 'PF2E.FeatDeityBoonHeader',
         curse: 'PF2E.FeatCurseHeader',
@@ -1812,6 +1839,14 @@ export const PF2ECONFIG = {
         },
     },
 
+    // Year offsets relative to the current actual year
+    worldClock: {
+        AR: { yearOffset: 2700 },
+        IC: { yearOffset: 5200 },
+        AD: { yearOffset: -95 },
+        CE: { yearOffset: 0 },
+    },
+
     monsterAbilities: () => {
         return {
             'All-Around Vision': {
@@ -2061,6 +2096,41 @@ export const PF2ECONFIG = {
                     '<b>Source</b> <a href="https://paizo.com/products/btq01y0m?Pathfinder-Bestiary" target="_blank" class="external-link"><i>Bestiary pg. 344</i></a><br>This sense allows a monster to feel vibrations caused by movement through a liquid. It\'s an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid.',
             },
         };
+    },
+
+    SETTINGS: {
+        worldClock: {
+            name: 'PF2E.SETTINGS.WorldClock.Name',
+            label: 'PF2E.SETTINGS.WorldClock.Label',
+            hint: 'PF2E.SETTINGS.WorldClock.Hint',
+            dateTheme: {
+                name: 'PF2E.SETTINGS.WorldClock.DateTheme.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.DateTheme.Hint',
+                AR: 'PF2E.SETTINGS.WorldClock.DateTheme.AR',
+                AD: 'PF2E.SETTINGS.WorldClock.DateTheme.AD',
+                CE: 'PF2E.SETTINGS.WorldClock.DateTheme.CE',
+            },
+            timeConvention: {
+                name: 'PF2E.SETTINGS.WorldClock.TimeConvention.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.TimeConvention.Hint',
+                twentyFour: 'PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour',
+                twelve: 'PF2E.SETTINGS.WorldClock.TimeConvention.Twelve',
+            },
+            playersCanView: {
+                name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Hint',
+            },
+            syncDarkness: {
+                name: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Hint',
+                globalLightOn: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOn',
+                globalLightOff: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOff',
+            },
+            worldCreatedOn: {
+                name: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint',
+            },
+        },
     },
 
     Actor: {

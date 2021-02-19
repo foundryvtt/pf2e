@@ -19,24 +19,40 @@
             "value": "class"
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
-        "prerequisites": {
-            "value": [
-                "enigma muse",
-                "expert in Occultism"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "enigma muse",
+            "expert in Occultism"
+        ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ritual Researcher (ritual casting)",
+                "predicate": {
+                    "all": [
+                        "ritual"
+                    ],
+                    "any": [
+                        "primary-check",
+                        "secondary-check"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
                 "uncommon",
@@ -44,6 +60,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Ritual Researcher",

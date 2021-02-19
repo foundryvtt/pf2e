@@ -61,7 +61,7 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery }) => {
     });
 };
 
-function applyChanges($html) {
+async function applyChanges($html) {
     for (const token of canvas.tokens.controlled) {
         var { med } = token.actor.data.data.skills;
         const { name } = token;
@@ -69,12 +69,37 @@ function applyChanges($html) {
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
-        if (skill === 'cra') {
-            med = token.actor.data.data.skills['cra'];
+
+        // Handle Rule Interpretation
+        if (game.user.isGM) {
+            await game.settings.set(
+                'pf2e',
+                'RAI.TreatWoundsAltSkills',
+                $html.find('[name="strict_rules"]')[0]?.checked,
+            );
         }
-        const usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
-        if (skill === 'nat') {
-            med = token.actor.data.data.skills['nat'];
+
+        var usedProf = 0;
+
+        if (game.settings.get('pf2e', 'RAI.TreatWoundsAltSkills')) {
+            if (skill === 'cra') {
+                med = token.actor.data.data.skills['cra'];
+            }
+            if (skill === 'nat') {
+                med = token.actor.data.data.skills['nat'];
+            }
+            usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
+        } else {
+            usedProf = requestedProf <= med.rank ? requestedProf : med.rank;
+            if (skill === 'cra') {
+                med = token.actor.data.data.skills['cra'];
+            }
+            if (skill === 'nat') {
+                med = token.actor.data.data.skills['nat'];
+                if (usedProf === 0) {
+                    usedProf = 1;
+                }
+            }
         }
         const medicBonus = CheckFeat('medic-dedication') ? (usedProf - 1) * 5 : 0;
         const roll = [
@@ -92,8 +117,8 @@ function applyChanges($html) {
 if (token === undefined) {
     ui.notifications.warn('No token is selected.');
 } else {
-    const chirurgeon = CheckFeat('chirurgeon')
-    const naturalMedicine = CheckFeat('natural-medicine')
+    const chirurgeon = CheckFeat('chirurgeon');
+    const naturalMedicine = CheckFeat('natural-medicine');
     const dialog = new Dialog({
         title: 'Treat Wounds',
         content: `
@@ -109,17 +134,10 @@ ${
 <select id="skill" name="skill">
 <option value="med">Medicine</option>
 
-${
-    chirurgeon
-        ? `<option value="cra">Crafting</option>`
+${chirurgeon ? `<option value="cra">Crafting</option>` : ``}
+${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
+`
         : ``
-}
-${
-    naturalMedicine
-        ? `<option value="nat">Nature</option>`
-        : ``
-}
-` : ``
 }
 </select>
 </div>
@@ -141,6 +159,16 @@ ${
         ? `<div class="form-group">
 <label>Risky Surgery</label>
 <input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
+</div>`
+        : ``
+}
+${
+    game.user.isGM
+        ? `<div class="form-group">
+<label>strict rules</label>
+<input type="checkbox" id="strict_rules" name="strict_rules"` +
+          (game.settings.get('pf2e', 'RAI.TreatWoundsAltSkills') ? ` checked` : ``) +
+          `></input>
 </div>`
         : ``
 }
