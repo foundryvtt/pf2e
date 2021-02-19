@@ -201,7 +201,7 @@
                     <div class="npc-bio-item trait-size pf-container">
                         <label class="pf-title">{{localize "PF2E.Speed"}}</label>
                         <span class="pf-value pf-small pf-width-100" title="{{localize "PF2E.SpeedTitle"}}">
-                            <input type="text" name="data.attributes.speed.value" data-dtype="String"
+                            <input type="number" name="data.attributes.speed.value" data-dtype="Number"
                                 value="{{data.attributes.speed.value}}" placeholder="None"/>
                         </span>
                     </div>
@@ -665,7 +665,7 @@
                     {{#each data.abilities as |ability id|}}
                             <li class="npc-defense" data-ability="{{id}}">
                                 <span class="defense-score">
-                                <input name="data.abilities.{{id}}.mod" type="number" value="{{numberFormat ability.mod decimals=0 sign=true}}"
+                                <input name="data.abilities.{{id}}.mod" type="number" value="{{numberFormat ability.mod decimals=0}}"
                                     data-dtype="Number" placeholder="+0"/>
                                 </span>
                                 <h4 class="ability-name rollable">{{id}}</h4>
