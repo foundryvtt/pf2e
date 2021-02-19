@@ -15,7 +15,7 @@ import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
-import { SpellcastingEntry } from '@item/spellcastingEntry';
+import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { PF2ECondition } from '@item/others';
 
 /**

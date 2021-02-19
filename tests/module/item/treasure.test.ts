@@ -1,6 +1,6 @@
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
-import { TreasureData } from '../../../src/module/item/dataDefinitions';
+import { TreasureData } from '@item/data-definitions';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
