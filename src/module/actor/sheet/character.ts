@@ -166,18 +166,17 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
         const tempFeats: FeatData[] = [];
         const featSlots: { [key: string]: FeatSlot } = {
-            ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
             ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [], bonusFeats: [] },
-            archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
-            bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
-            class: { label: 'PF2E.FeatClassHeader', feats: [], bonusFeats: [] },
             classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [], bonusFeats: [] },
+            ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
+            class: { label: 'PF2E.FeatClassHeader', feats: [], bonusFeats: [] },
             skill: { label: 'PF2E.FeatSkillHeader', feats: [], bonusFeats: [] },
             general: { label: 'PF2E.FeatGeneralHeader', feats: [], bonusFeats: [] },
-            pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [], bonusFeats: [] },
-            deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [], bonusFeats: [] },
-            curse: { label: 'PF2E.FeatCurseHeader', feats: [], bonusFeats: [] },
+            // archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
+            bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
         };
+        const pfsBoons: FeatData[] = [];
+        const deityBoonsCurses: FeatData[] = [];
 
         // Actions
         const actions = {
@@ -499,15 +498,33 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
 
         // put the feats in their feat slots
+        const allFeatSlots = Object.values(featSlots).flatMap((x) => x.feats);
         for (const feat of tempFeats) {
-            const featType = feat.data.featType.value || 'bonus';
-            if (!(featType in featSlots)) continue;
-            const slots: FeatSlot = featSlots[featType];
-            const slotIndex = slots.feats.findIndex((x) => x.id === feat.data.location);
+            let slotIndex = allFeatSlots.findIndex((x) => x.id === feat.data.location);
+            if (slotIndex !== -1 && allFeatSlots[slotIndex].feat !== undefined) {
+                console.error(`Foundry VTT | Duplicate feats in same index! ${feat.name}`);
+                slotIndex = -1;
+            }
+
             if (slotIndex !== -1) {
-                slots.feats[slotIndex].feat = feat;
+                allFeatSlots[slotIndex].feat = feat;
             } else {
-                slots.bonusFeats.push(feat);
+                let featType = feat.data.featType.value || 'bonus';
+
+                if (['pfsboon'].includes(featType)) {
+                    pfsBoons.push(feat);
+                } else if (['deityboon', 'curse'].includes(featType)) {
+                    deityBoonsCurses.push(feat);
+                } else {
+                    if (!['ancestryfeature', 'classfeature'].includes(featType)) {
+                        featType = 'bonus';
+                    }
+
+                    if (featType in featSlots) {
+                        const slots: FeatSlot = featSlots[featType];
+                        slots.bonusFeats.push(feat);
+                    }
+                }
             }
         }
 
@@ -529,6 +546,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
 
         actorData.featSlots = featSlots;
+        actorData.pfsBoons = pfsBoons;
+        actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
         actorData.readonlyActions = readonlyActions;
