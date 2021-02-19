@@ -22,7 +22,7 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
-} from '@item/dataDefinitions';
+} from '@item/data-definitions';
 import {
     CharacterData,
     NpcData,
@@ -32,14 +32,14 @@ import {
     ActorDataPF2e,
     VehicleData,
     HazardData,
-} from './actorDataDefinitions';
+} from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
     PF2Striking,
     PF2WeaponPotency,
-} from '../rules/rulesDataDefinitions';
+} from '../rules/rules-data-definitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';

@@ -1,5 +1,5 @@
-import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
-import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
+import { AbilityString, Proficency } from '@actor/actor-data-definitions';
+import { PF2RuleElementData } from '../rules/rules-data-definitions';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 

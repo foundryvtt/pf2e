@@ -1,4 +1,4 @@
-import { ItemData, Rarity, Size } from '../item/dataDefinitions';
+import { ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 

@@ -1,8 +1,8 @@
-import { ItemData, ConditionData } from './item/dataDefinitions';
+import { ItemData, ConditionData } from '@item/data-definitions';
 import { PF2ECondition } from './item/others';
 import { TokenPF2e } from './actor/actor';
 import { PF2Modifier } from './modifiers';
-import { PF2eStatusEffects } from '../scripts/actor/statusEffects';
+import { PF2eStatusEffects } from '../scripts/actor/status-effects';
 
 /**
  * A helper class to manage PF2e Conditions.

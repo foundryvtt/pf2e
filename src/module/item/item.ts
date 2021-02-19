@@ -13,10 +13,10 @@ import {
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
-import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
+import { ItemData, ItemTraits, SpellcastingEntryData } from './data-definitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-import { canCastConsumable } from './spellConsumables';
-import { AbilityString } from '@actor/actorDataDefinitions';
+import { canCastConsumable } from './spell-consumables';
+import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2Check } from '../system/rolls';
 
 /**
