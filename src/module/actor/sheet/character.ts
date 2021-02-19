@@ -6,7 +6,7 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '@item/data-definitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
 import { PF2EClass } from '../../item/class';
