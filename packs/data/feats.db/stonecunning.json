@@ -29,8 +29,9 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "label": "Prerequisites",
             "type": "String",
@@ -41,7 +42,32 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Notice Unusual Stonework",
+                "predicate": {
+                    "all": [
+                        "stonework"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Secret Roll: To Notice Unusual Stonework",
+                "predicate": {
+                    "all": [
+                        "gm-stonework"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": -2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +85,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Stonecunning",
