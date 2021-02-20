@@ -10,7 +10,7 @@ declare interface BaseEntityData {
     type?: number | string;
     data: EntityDescriptionData;
     flags: any;
-    folder: string | null;
+    folder: string | null | undefined;
     permission: any;
     img: string;
 }

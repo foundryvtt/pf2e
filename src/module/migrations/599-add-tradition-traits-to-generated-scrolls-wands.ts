@@ -1,4 +1,4 @@
-import { ItemData } from '@item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { MigrationBase } from './base';
 
 export class Migration599AddTraditionTraits extends MigrationBase {

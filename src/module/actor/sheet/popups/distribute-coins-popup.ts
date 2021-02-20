@@ -1,5 +1,5 @@
-import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '../../item/treasure';
-import { PF2EActor } from '../actor';
+import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure';
+import { PF2EActor } from '../../actor';
 import { PF2ECharacter } from '@actor/character';
 
 interface PopupData extends FormApplicationData<PF2EActor> {

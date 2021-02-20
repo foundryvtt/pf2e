@@ -2,7 +2,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData } from './dataDefinitions';
+import { LoreDetailsData } from './data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -23,6 +23,8 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             },
         ];
         options.resizable = false;
+        options.submitOnChange = true;
+
         return options;
     }
     /* -------------------------------------------- */
@@ -386,18 +388,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
-    }
-
-    /**
-     * Always submit on a form field change. Added because tabbing between fields
-     * wasn't working.
-     */
-    _onChangeInput(event) {
-        // Unclear where the event conflict is between _onChangeInput and another.
-        // But if FormApplication._onSubmit() is not called by _onChangeInput, then Items (Actions/Feats/etc)
-        // of NPCs can be edited without problems.
-        // hooking - adding this back in as it breaks editing item details (specifically editing damage parts when it is removed)
-        return this._onSubmit(event);
     }
 
     _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {

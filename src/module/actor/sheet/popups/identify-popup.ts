@@ -1,6 +1,6 @@
-import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '../../item/identification';
-import { PF2EPhysicalItem } from '../../item/physical';
-import { PF2EActor } from '../actor';
+import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
+import { PF2EPhysicalItem } from '@item/physical';
+import { PF2EActor } from '../../actor';
 
 /**
  * @category Other

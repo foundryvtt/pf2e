@@ -1,21 +1,21 @@
-import { RemoveCoinsPopup } from './RemoveCoinsPopup';
+import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '../../item/treasure';
-import { AddCoinsPopup } from './AddCoinsPopup';
+import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
-import { MoveLootPopup } from './loot/MoveLootPopup';
+import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '../../item/dataDefinitions';
+import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
-import { IdentifyItemPopup } from './IdentifyPopup';
+import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { ScrollWandPopup } from './scroll-wand-popup';
-import { createConsumableFromSpell, SpellConsumableTypes } from '../../item/spellConsumables';
-import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ScrollWandPopup } from './popups/scroll-wand-popup';
+import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
-import { SpellcastingEntry } from '@item/spellcastingEntry';
+import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { PF2ECondition } from '@item/others';
 
 /**
@@ -37,6 +37,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 '.actions-pane',
                 '.spellbook-pane',
                 '.skillstab-pane',
+                '.pfs-pane',
             ],
         });
     }
@@ -526,6 +527,18 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
             const options = this.actor.getRollOptions(['all', 'damage-roll']);
             this.actor.data.data.actions[Number(actionIndex)].critical({ event, options });
+        });
+
+        html.find('.spell-attack').on('click', (event) => {
+            if (!['character'].includes(this.actor.data.type)) {
+                throw Error('This sheet only works for characters');
+            }
+            const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
+            const entry = this.actor.data.items.find((item) => item._id === index) as SpellcastingEntryData;
+            if (entry?.data?.attack?.roll) {
+                const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+                entry.data.attack.roll({ event, options });
+            }
         });
 
         // for spellcasting checks
@@ -1365,7 +1378,6 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 const popup = new ScrollWandPopup(
                     this.actor,
                     {},
-                    itemData,
                     async (heightenedLevel, itemType, spellData) => {
                         const consumableType =
                             itemType == 'wand' ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
@@ -1373,6 +1385,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                         const item = await createConsumableFromSpell(consumableType, spellData, heightenedLevel);
                         return this._onDropItemCreate(item);
                     },
+                    itemData,
                 );
                 popup.render(true);
                 return itemData;
