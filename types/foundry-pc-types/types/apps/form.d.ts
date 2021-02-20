@@ -4,6 +4,8 @@ declare class FormDataExtended extends FormData {
     toObject(): any;
 }
 
+declare interface FormApplicationOptions extends ApplicationOptions {}
+
 declare interface FormApplicationData<O extends {} = {}> {
     object: O;
     options?: FormApplicationOptions;
