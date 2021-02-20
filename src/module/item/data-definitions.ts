@@ -1,5 +1,6 @@
 import { AbilityString, Proficency } from '@actor/actor-data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
+import { PF2RollNote } from '../notes';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -570,6 +571,19 @@ export interface SpellDetailsData extends ItemDescriptionData {
     trickMagicItemData?: TrickMagicItemCastData;
 }
 
+export interface SpellAttackRollModifier {
+    breakdown: string;
+    notes: PF2RollNote[];
+    roll: Function;
+    value: number;
+}
+
+export interface SpellDifficultyClass {
+    breakdown: string;
+    notes: PF2RollNote[];
+    value: number;
+}
+
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     ability: {
         value: AbilityString | '';
@@ -580,6 +594,8 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
         item: number;
         mod: number;
     };
+    attack?: SpellAttackRollModifier;
+    dc?: SpellDifficultyClass;
     tradition: {
         value: string;
     };

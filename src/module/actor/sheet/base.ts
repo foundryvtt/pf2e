@@ -529,6 +529,18 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.actor.data.data.actions[Number(actionIndex)].critical({ event, options });
         });
 
+        html.find('.spell-attack').on('click', (event) => {
+            if (!['character'].includes(this.actor.data.type)) {
+                throw Error('This sheet only works for characters');
+            }
+            const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
+            const entry = this.actor.data.items.find((item) => item._id === index) as SpellcastingEntryData;
+            if (entry?.data?.attack?.roll) {
+                const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+                entry.data.attack.roll({ event, options });
+            }
+        });
+
         // for spellcasting checks
         html.find('.spellcasting.rollable').click((event) => {
             event.preventDefault();

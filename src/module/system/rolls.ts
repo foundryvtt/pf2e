@@ -13,6 +13,8 @@ export interface RollParameters {
     dc?: PF2CheckDC;
     /** Callback called when the roll occurs. */
     callback?: (roll: Roll) => void;
+    /** Other roll-specific options */
+    [keys: string]: any;
 }
 
 interface RerollOptions {
