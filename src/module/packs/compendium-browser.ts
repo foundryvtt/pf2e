@@ -761,19 +761,27 @@ class CompendiumBrowser extends Application {
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
         });
 
-        html.on('click', '.purchase-item', (_ev) => {
+        html.on('click', '.take-item', (_ev) => {
             const entry = _ev.currentTarget.closest('.spell').dataset;
             const id = entry.entryId;
 
-            PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
-                const userCharacter = game.user?.character;
+            this.addPhysicalItesToSelectedTokens(id);
+        });
+    }
 
-                if (item !== null && userCharacter !== undefined) {
-                    userCharacter.createOwnedItem(item.data);
+    private addPhysicalItesToSelectedTokens(id: string) {
+        PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
+            for (const token of canvas.tokens.controlled) {
+                const userHasPermissions = token.actor?.owner ?? false;
+                const tokenType = token.actor?.data?.type ?? 'undefined';
+                const tokenMayContainEquipment = tokenType === 'character' || tokenType === 'loot';
+
+                if (item !== null && userHasPermissions && tokenMayContainEquipment) {
+                    token.actor!.createOwnedItem(item.data);
                 } else {
-                    ui.notifications.warn(game.i18n.format('PF2E.ErrorMessage.NoActorAssignedToUser'), {});
+                    ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
                 }
-            });
+            }
         });
     }
 
