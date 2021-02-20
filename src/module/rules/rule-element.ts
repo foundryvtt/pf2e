@@ -1,6 +1,6 @@
-import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
-import { PF2RuleElementSynthetics } from './rulesDataDefinitions';
+import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
+import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
 export interface Bracket {
     start?: number;

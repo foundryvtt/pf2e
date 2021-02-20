@@ -1,8 +1,8 @@
-import { PF2EActor } from '../../module/actor/actor';
+import { PF2EActor } from '@actor/actor';
 
 class ChatDamageButtonsPF2e extends Application {
     init() {
-        Hooks.on('renderChatMessage', (message, html, data) => {
+        Hooks.on('renderChatMessage', (message, html, _data) => {
             const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
             if (damageRoll || !message.isRoll || message.roll?.dice[0]?.faces === 20) return;
 
@@ -102,7 +102,7 @@ class ChatDamageButtonsPF2e extends Application {
             });
         });
 
-        Hooks.on('renderChatMessage', (message, html, data) => {
+        Hooks.on('renderChatMessage', (message, html, _data) => {
             const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
             if (!damageRoll) return;
 

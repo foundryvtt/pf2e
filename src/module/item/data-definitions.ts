@@ -1,5 +1,5 @@
-import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
-import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
+import { AbilityString, Proficency } from '@actor/actor-data-definitions';
+import { PF2RuleElementData } from '../rules/rules-data-definitions';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -478,6 +478,12 @@ export interface ActionDetailsData extends ItemDescriptionData {
     };
 }
 
+export interface TrickMagicItemCastData {
+    ability: AbilityString;
+    data: { spelldc: { value: number; dc: number } };
+    _id: '';
+}
+
 export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string;
@@ -561,6 +567,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
+    trickMagicItemData?: TrickMagicItemCastData;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {

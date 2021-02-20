@@ -2,7 +2,8 @@ import { ActorSheetPF2eCreature } from './creature';
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
-import { RecallKnowledgePopup } from './RecallKnowledgePopup';
+import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
+import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
 
 /**
  * @category Actor
@@ -11,7 +12,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet']),
+            classes: options.classes!.concat(['pf2e', 'actor', 'npc-sheet']),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -23,13 +24,10 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
     /**
      * Get the correct HTML template path to use for rendering this particular sheet
-     * @type {String}
      */
-    get template() {
+    get template(): string {
         const path = 'systems/pf2e/templates/actors/';
         return `${path}npc-sheet.html`;
-        /*     if ( !game.user.isGM && this.actor.limited ) return path + "limited-sheet.html";
-    return path + "npc-sheet.html"; */
     }
 
     /* -------------------------------------------- */
@@ -90,13 +88,13 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
         // Spellbook
         // const spellbook = {};
-        const tempSpellbook = [];
-        const spellcastingEntriesList = [];
+        const tempSpellbook: SpellData[] = [];
+        const spellcastingEntriesList: string[] = [];
         const spellbooks: any = [];
         spellbooks.unassigned = {};
 
         // Spellcasting Entries
-        const spellcastingEntries = [];
+        const spellcastingEntries: SpellcastingEntryData[] = [];
 
         // Skills
         const lores = [];
@@ -205,7 +203,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             }
         }
 
-        const embeddedEntityUpdate = [];
+        const embeddedEntityUpdate: EntityUpdateData[] = [];
 
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
         for (const i of tempSpellbook) {
@@ -260,10 +258,10 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         }
 
         for (const entry of spellcastingEntries) {
-            if (entry.data.prepared.preparedSpells && spellbooks[entry._id]) {
+            if ((entry.data.prepared as any).preparedSpells && spellbooks[entry._id]) {
                 this._preparedSpellSlots(entry, spellbooks[entry._id]);
             }
-            entry.spellbook = spellbooks[entry._id];
+            (entry as any).spellbook = spellbooks[entry._id];
         }
 
         actorData.spellcastingEntries = spellcastingEntries;
@@ -275,13 +273,13 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
     /**
      * Activate event listeners using the prepared sheet HTML
-     * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+     * @param html The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // NPC Weapon Rolling
-        html.find('button:not(.recall-knowledge-breakdown)').click((ev) => {
+        html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
 
@@ -338,7 +336,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         if (!this.options.editable) return;
 
         // NPC SKill Rolling
-        html.find('.item .npc-skill-name').click((event) => {
+        html.find('.item .npc-skill-name').on('click', (event) => {
             event.preventDefault();
             const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
@@ -353,7 +351,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             this.actor.data.data.skills[shortform]?.roll({ event, options: opts }); // eslint-disable-line no-unused-expressions
         });
 
-        html.find('.skill-input').change(async (event) => {
+        html.find<HTMLInputElement>('.skill-input').on('change', async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
             await this.actor.updateEmbeddedEntity('OwnedItem', {
                 _id: itemId,
@@ -361,7 +359,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             });
         });
 
-        html.find('.spelldc-input').change(async (event) => {
+        html.find<HTMLInputElement>('.spelldc-input').on('change', async (event) => {
             event.preventDefault();
 
             const li = $(event.currentTarget).parents('.item-container');

@@ -8,16 +8,16 @@ import { registerHandlebarsHelpers } from './module/handlebars';
 import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
-import { PlayerConfigPF2e } from './module/user/playerconfig';
+import { PlayerConfigPF2e } from './module/user/player-config';
 import { PF2eSystem } from './module/pf2e-system';
 import { registerActors } from './module/register-actors';
 import { registerSheets } from './module/register-sheets';
-import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from './module/system/pf2e-combar-tracker';
 import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from './scripts/actor/statusEffects';
+import { PF2eStatusEffects } from './scripts/actor/status-effects';
 import { PF2eConditionManager } from './module/conditions';
-import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
+import { ActorDataPF2e, FamiliarData } from '@actor/actor-data-definitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -34,23 +34,24 @@ import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { MigrationRunner } from './module/migration-runner';
 import { Migrations } from './module/migrations';
-import { ItemData } from './module/item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 
-require('./styles/pf2e.scss');
+import * as enJSON from '../static/lang/en.json';
+import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
-require('./scripts/actor/statusEffects.ts');
+require('./scripts/actor/status-effects.ts');
 require('./scripts/dice.ts');
-require('./scripts/chat/chatdamagebuttonsPF2e.ts');
+require('./scripts/chat/chat-damage-buttons-pf2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
-require('./scripts/actor/sheet/itemBehaviour.ts');
-require('./scripts/system/canvasDropHandler');
+require('./scripts/actor/sheet/item-behaviour.ts');
+require('./scripts/system/canvas-drop-handler');
 require('./module/custom-elements/custom-elements');
 
 interface GamePF2e extends Game<PF2EActor, PF2EItem> {
@@ -65,6 +66,11 @@ interface GamePF2e extends Game<PF2EActor, PF2EItem> {
     socket: SocketIO.Socket & {
         emit(message: Pick<SocketEventCallback, 0>): void;
         on(event: string, ...message: SocketEventCallback): void;
+    };
+
+    i18n: Localization & {
+        readonly translations: Localization['translations'] & typeof enJSON;
+        _fallback: { PF2E?: unknown };
     };
 }
 
@@ -262,6 +268,7 @@ Hooks.once('setup', () => {
  */
 Hooks.once('ready', () => {
     console.log('PF2e System | Readying Pathfinder 2nd Edition System');
+    console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
 
     // Determine whether a system migration is required and feasible
     const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');

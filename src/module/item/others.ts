@@ -17,7 +17,7 @@ import {
     StatusData,
     TreasureData,
     WeaponData,
-} from './dataDefinitions';
+} from './data-definitions';
 
 export class PF2EBackpack extends PF2EPhysicalItem {
     data!: BackpackData;
