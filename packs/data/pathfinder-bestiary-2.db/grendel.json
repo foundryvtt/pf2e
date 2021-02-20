@@ -4,32 +4,32 @@
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": null,
+                "mod": 5,
                 "value": 20
             },
             "con": {
                 "min": 3,
-                "mod": null,
+                "mod": 7,
                 "value": 24
             },
             "dex": {
                 "min": 3,
-                "mod": null,
+                "mod": 5,
                 "value": 20
             },
             "int": {
                 "min": 3,
-                "mod": null,
+                "mod": 0,
                 "value": 10
             },
             "str": {
                 "min": 3,
-                "mod": null,
+                "mod": 10,
                 "value": 30
             },
             "wis": {
                 "min": 3,
-                "mod": null,
+                "mod": 6,
                 "value": 22
             }
         },
@@ -79,7 +79,6 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
                 "item": 0,
                 "rank": 0,
                 "value": 35
@@ -104,7 +103,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": "40 feet"
+                "value": 40
             }
         },
         "currency": {
@@ -407,9 +406,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -450,16 +446,7 @@
     },
     "effects": [],
     "flags": {
-        "pf2e": {
-            "editNPC": {
-                "value": false
-            }
-        },
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
+        "pf2e_updatednpcsheet": {}
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -476,7 +463,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -494,12 +481,12 @@
                     "damageType": "bludgeoning",
                     "die": "4d8+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d8+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -622,7 +609,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -640,12 +627,12 @@
                     "damageType": "piercing",
                     "die": "4d10+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d10+18",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -768,7 +755,7 @@
                 },
                 "bonus": {
                     "total": 37,
-                    "value": 37
+                    "value": "37"
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -786,12 +773,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+18"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+18",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -881,9 +868,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "brutal",
-                        "range increment 150 feet"
+                        "range-increment-150"
                     ]
                 },
                 "usage": {
@@ -972,7 +960,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>60 feet, DC 38.</p>\n<p><br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /><strong>Critical Success</strong> The creature is unaffected by the presence.<br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>60 feet, DC 38.</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1030,7 +1018,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied};</p>\n<p><strong>Effect</strong> The persistent damage or condition from the triggering effect doesn't affect Grendel.</p>"
+                    "value": "<p><strong>Trigger</strong> Grendel would take @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} or gain one of the following conditions: @Compendium[pf2e.conditionitems.Blinded]{Blinded}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Confused]{Confused}, @Compendium[pf2e.conditionitems.Controlled]{Controlled}, @Compendium[pf2e.conditionitems.Dazzled]{Dazzled}, @Compendium[pf2e.conditionitems.Deafened]{Deafened}, @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Drained]{Drained}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, @Compendium[pf2e.conditionitems.Fleeing]{Fleeing}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}, @Compendium[pf2e.conditionitems.Petrified]{Petrified}, @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, @Compendium[pf2e.conditionitems.Stunned]{Stunned}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied}</p>\n<p><strong>Effect</strong> The persistent damage or condition from the triggering effect doesn't affect Grendel.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1146,7 +1134,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> Grendel is grabbing a creature;</p>\n<p><strong>Effect</strong> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes [[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect.</p>"
+                    "value": "<p><strong>Requirements</strong> Grendel is grabbing a creature</p>\n<p><strong>Effect</strong> Grendel makes a bludgeoning jaws Strike against the creature he's grabbing. On a hit, the creature also takes [[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becomes @Compendium[pf2e.conditionitems.Wounded]{Wounded} 1, or increases its wounded value by 1 if already wounded. On a critical hit, the creature instead becomes wounded 2, or increases its wounded value by 2 if already wounded. If a creature dies from Tooth Grind, Grendel regains 40 HP; this is a healing effect.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1189,58 +1177,6 @@
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Tooth Grind",
             "sort": 1000000,
-            "type": "action"
-        },
-        {
-            "_id": "imdXMs3LjQv3IDlE",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "free"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed. <br /><b>Effect</b> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Improved Grab",
-            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1444,7 +1380,66 @@
             "type": "lore"
         },
         {
-            "_id": "onoyjqCzHbbxphEC",
+            "_id": "HLdbvDSBlrvunWbP",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{grabbed}.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
+                "slug": "inproved-grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
+            "name": "Inproved Grab",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "nnzVZjfywd2nKuT4",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1458,7 +1453,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span style=\"color: var(--body);\">Grendel gains an extra reaction at the start of each of his turns that he can use only to make an Attack of Opportunity with his claw. He can't use more than one Attack of Opportunity triggered by the same action.</span></p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the Grendel's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> Grendel attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, Grendel disrupts that action. This Strike doesn't count toward Grendel's multiple attack penalty, and his multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1499,11 +1494,11 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "dXyM7NIHYu4l1pk0",
+            "_id": "tnfmzqyS8gXankq5",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -1558,11 +1553,11 @@
             },
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "action"
         },
         {
-            "_id": "qFzfnbr6rh2HG9i3",
+            "_id": "jNZcQ5xxkdgox1CB",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1576,7 +1571,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
+                    "value": "<p>Grendel picks up a rock within reach or retrieves a stowed rock and throws it, making a ranged Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1617,7 +1612,7 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Throw Rock",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "action"
         }
     ],
