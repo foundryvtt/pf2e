@@ -239,7 +239,13 @@ export class PF2ECharacter extends PF2EActor {
                 WISDOM.withScore(data.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank),
             ];
-            const notes = [] as PF2RollNote[];
+            const activeEffects = this.effects.entries.filter((effect) =>
+                effect.data.changes.some((change) => change.key.startsWith('data.attributes.perception.rank')),
+            );
+            modifiers[1].automation.key = activeEffects.length > 0 ? 'data.attributes.perception.rank' : null;
+            modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
+
+            const notes: PF2RollNote[] = [];
             if (data.attributes.perception.item) {
                 modifiers.push(
                     new PF2Modifier(

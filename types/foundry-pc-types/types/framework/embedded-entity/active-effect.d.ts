@@ -172,7 +172,7 @@ declare class ActiveEffect extends EmbeddedEntity {
    * @param options Configuration options which modify the request.
    * @return The deleted ActiveEffect _id.
    */
-  delete(options: EntityDeleteOptions): Promise<string>;
+  delete(options?: EntityDeleteOptions): Promise<string>;
 
   /* -------------------------------------------- */
   /*  Factory Methods                             */

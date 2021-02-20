@@ -26,7 +26,8 @@ declare interface EntityConstructorOptions {
     [key: string]: unknown;
 }
 
-declare type EntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
+declare type EntityUpdateData = BaseEntityData | { [key: string]: unknown };
+declare type EmbeddedEntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
 
 declare interface EntityUpdateOptions {
     diff?: boolean;
@@ -435,12 +436,12 @@ declare class Entity {
      */
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: EntityUpdateData,
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData>;
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: EntityUpdateData[],
+        updateData: EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData | BaseEntityData[]>;
 
