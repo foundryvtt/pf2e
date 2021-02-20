@@ -2,7 +2,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
+import { LoreDetailsData, isPhysicalItem, MartialData, WeaponData } from './data-definitions';
 import { LocalizationPF2e } from '../system/localization';
 
 /**
@@ -51,6 +51,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         mergeObject(data, {
             type,
             hasSidebar: true,
+            hasMystify: game.user.isGM && isPhysicalItem(data),
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
