@@ -69,7 +69,6 @@ export class PF2EPhysicalItem extends PF2EItem {
                 name = translateFallback(name, `PF2E.identification.UnidentifiedItem`);
 
                 diff.name = name;
-
                 diff.img = getUnidentifiedPlaceholderImage(itemData);
             }
 
