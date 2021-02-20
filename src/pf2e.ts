@@ -621,14 +621,6 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
         );
 });
 
-Hooks.on('updateWorldTime', (_total: number, _diff: number) => {
-    const worldclock = game.pf2e.worldClock;
-    if (worldclock) {
-        worldclock.render(false);
-    }
-    game.pf2e.effectPanel.refresh();
-});
-
 Hooks.on('updateCombat', (combat, diff, options, userID) => {
     game.pf2e.effectPanel.refresh();
 });
