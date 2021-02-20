@@ -72,6 +72,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            img: string;
         };
     };
     identified: {
