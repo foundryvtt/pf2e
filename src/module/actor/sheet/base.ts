@@ -23,7 +23,7 @@ import { PF2ECondition } from '@item/others';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType, PF2EItem> {
+export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {

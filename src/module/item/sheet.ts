@@ -8,12 +8,12 @@ import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
  * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
-export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
+export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;
         options.height = 460;
-        options.classes = options.classes!.concat(['pf2e', 'item']);
+        options.classes = options.classes.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
         options.tabs = [
             {

@@ -1,11 +1,10 @@
 import { SKILL_DICTIONARY } from '../actor';
-import { PF2EItem } from '../../item/item';
 import { PF2EFamiliar } from '../familiar';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
+export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -39,8 +38,8 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar, PF2EItem> {
         return sheet;
     }
 
-    // Events
-    activateListeners(html) {
+    /** @override */
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // rollable stats

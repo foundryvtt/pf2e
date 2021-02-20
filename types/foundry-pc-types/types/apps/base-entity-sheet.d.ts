@@ -1,15 +1,26 @@
+declare interface BaseEntitySheetOptions extends FormApplicationOptions {
+    classes: string[];
+    template: string;
+    viewPermission: number;
+}
+
 declare interface BaseEntitySheetData<E extends Entity> extends FormApplicationData<E> {
-    entity?: E;
-    owner?: boolean;
-    limited?: boolean;
-    editable?: boolean;
-    cssClass?: string;
+    cssClass: string;
+    editable: boolean;
+    entity: E['data'];
+    limited: boolean;
+    options: FormApplicationOptions;
+    owner: boolean;
+    title: string;
 }
 
 /**
  * A simple implementation of the FormApplication pattern which is specialized in editing Entity instances
  */
 declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication<EntityType> {
+    /** @override */
+    static get defaultOptions(): BaseEntitySheetOptions;
+
     /**
      * A convenience accessor for the object property of the inherited FormApplication instance
      */

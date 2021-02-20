@@ -1,22 +1,18 @@
-/// <reference types="jquery"/>
-/// <reference types="socket.io"/>
-/// <reference types="tinymce"/>
-
 import './types/constants';
 
 // Apps
 
 import './types/apps/app';
-import './types/apps/baseentitysheet';
+import './types/apps/base-entity-sheet';
 import './types/apps/form';
 import './types/apps/i18n';
 import './types/apps/templates';
 import './types/apps/chat-popout';
 
 import './types/apps/forms/active-effect-config';
-import './types/apps/forms/actor';
+import './types/apps/forms/actor-sheet';
 import './types/apps/forms/forms';
-import './types/apps/forms/item';
+import './types/apps/forms/item-sheet';
 import './types/apps/forms/permission';
 import './types/apps/forms/roll-table-config';
 import './types/apps/forms/scene';

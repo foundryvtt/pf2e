@@ -1,6 +1,5 @@
 declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
-    item?: I;
-    data?: any;
+    item: I;
 }
 
 /**
@@ -11,15 +10,13 @@ declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Item.sheetClass``.
  *
- * @param item				The Item instance being displayed within the sheet.
- * @param options			Additional options which modify the rendering of the item.
- * @param options.editable	Is the item editable? Default is true.
+ * @param item              The Item instance being displayed within the sheet.
+ * @param options           Additional options which modify the rendering of the item.
+ * @param options.editable  Is the item editable? Default is true.
  */
-declare class ItemSheet<ItemType extends Item = Item, ActorType extends Actor = Actor> extends BaseEntitySheet<ItemType> {
-    /**
-     * Assign the default options which are supported by this Application
-     */
-    static get defaultOptions(): FormApplicationOptions;
+declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<ItemType> {
+    /** @override */
+    static get defaultOptions(): BaseEntitySheetOptions;
 
     /**
      * A convenience reference to the Item entity
@@ -29,12 +26,12 @@ declare class ItemSheet<ItemType extends Item = Item, ActorType extends Actor = 
     /**
      * The Actor instance which owns this item. This may be null if the item is unowned.
      */
-    get actor(): ActorType;
+    get actor(): Required<ItemType['actor']>;
 
     /**
      * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
      */
-    getData(): ItemSheetData<this['item']>;
+    getData(): ItemSheetData<ItemType>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events
