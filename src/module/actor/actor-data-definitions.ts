@@ -1,5 +1,5 @@
 import { ItemData, Rarity, Size } from '@item/data-definitions';
-import { PF2CheckModifier, PF2DamageDice, PF2Modifier, PF2StatisticModifier } from '../modifiers';
+import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 
 /** A type representing the possible ability strings. */
@@ -549,7 +549,6 @@ export interface RawNpcData extends ActorSystemData {
 export interface RawHazardData {
     /** Traits, languages, and other information. */
     traits: BaseTraitsData & Pick<CreatureTraitsData, 'rarity'>;
-
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
@@ -557,7 +556,6 @@ export interface RawHazardData {
 /** The raw information contained within the actor data object for loot actors. */
 export interface RawLootData extends ActorSystemData {
     lootSheetType: 'Merchant' | 'Loot';
-
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
