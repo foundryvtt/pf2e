@@ -669,7 +669,7 @@ Note that this release will change the default for the Quick Rolls client settin
 * (fryguy) Remove character helper class
 * (fryguy) Separate PF2EActor prepareXData functions into their own subclasses instead of having it all in the same file
 * (stwlam) Add missing @type dependencies
-* (stwlam) Rename ActorData in actorDataDefinitions.ts so it doesn't collide with ActorData in actor.d.ts
+* (stwlam) Rename ActorData in actor-data-definitions.ts so it doesn't collide with ActorData in actor.d.ts
 * (stwlam) Remove discarded item/actor construction in favor of checking options
 
 

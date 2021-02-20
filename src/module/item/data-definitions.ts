@@ -1,5 +1,6 @@
-import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
-import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
+import { AbilityString, Proficency } from '@actor/actor-data-definitions';
+import { PF2RuleElementData } from '../rules/rules-data-definitions';
+import { PF2RollNote } from '../notes';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -71,6 +72,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            img: string;
         };
     };
     identified: {
@@ -478,6 +480,12 @@ export interface ActionDetailsData extends ItemDescriptionData {
     };
 }
 
+export interface TrickMagicItemCastData {
+    ability: AbilityString;
+    data: { spelldc: { value: number; dc: number } };
+    _id: '';
+}
+
 export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string;
@@ -561,6 +569,20 @@ export interface SpellDetailsData extends ItemDescriptionData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
+    trickMagicItemData?: TrickMagicItemCastData;
+}
+
+export interface SpellAttackRollModifier {
+    breakdown: string;
+    notes: PF2RollNote[];
+    roll: Function;
+    value: number;
+}
+
+export interface SpellDifficultyClass {
+    breakdown: string;
+    notes: PF2RollNote[];
+    value: number;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
@@ -573,6 +595,8 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
         item: number;
         mod: number;
     };
+    attack?: SpellAttackRollModifier;
+    dc?: SpellDifficultyClass;
     tradition: {
         value: string;
     };

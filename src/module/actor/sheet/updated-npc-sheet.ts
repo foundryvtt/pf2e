@@ -477,7 +477,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
      * Activate event listeners using the prepared sheet HTML
      * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
         if (!this.options.editable) return;
 
@@ -491,7 +491,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             element.style.height = `${element.scrollHeight}px`;
         });
 
-        html.find('.isNPCEditable').change((ev) => {
+        html.find<HTMLInputElement>('.isNPCEditable').change((ev) => {
             this.actor.setFlag('pf2e', 'editNPC', { value: ev.target.checked });
         });
 

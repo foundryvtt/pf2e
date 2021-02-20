@@ -3,10 +3,10 @@ import { ActorSheetPF2e } from './base';
 import { PF2ELoot } from '../loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
-import { DistributeCoinsPopup } from './DistributeCoinsPopup';
+import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, ItemData } from '../../item/dataDefinitions';
-import { LootNPCsPopup } from './loot/LootNPCsPopup';
+import { isPhysicalItem, ItemData } from '@item/data-definitions';
+import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**
  * @category Actor

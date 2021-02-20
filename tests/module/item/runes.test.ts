@@ -1,5 +1,5 @@
 import {getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus} from '../../../src/module/item/runes';
-import {ArmorDetailsData, WeaponData, WeaponDetailsData} from '../../../src/module/item/dataDefinitions';
+import {ArmorDetailsData, WeaponData, WeaponDetailsData} from '@item/data-definitions';
 
 describe('test runes', () => {
     test('should get rune property slots', () => {

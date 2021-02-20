@@ -25,6 +25,10 @@ export function registerHandlebarsHelpers() {
         return args.some((v) => !!v) ? opts : opts.inverse;
     });
 
+    Handlebars.registerHelper('disabled', (condition: unknown) => {
+        return condition ? 'disabled' : '';
+    });
+
     Handlebars.registerHelper('not', (arg) => {
         return !arg;
     });
@@ -41,9 +45,9 @@ export function registerHandlebarsHelpers() {
         return (max / 100) * value;
     });
 
-    Handlebars.registerHelper('strip_tags', (value, options) => {
+    Handlebars.registerHelper('strip_tags', (value) => {
         // eslint-disable-next-line camelcase
-        function strip_tags(input, allowed?) {
+        function strip_tags(input: unknown, allowed?: string): string {
             const _phpCastString = (phpValue: unknown): string => {
                 if (typeof phpValue === 'string') {
                     return phpValue;
@@ -98,13 +102,14 @@ export function registerHandlebarsHelpers() {
                 before = after;
                 after = before
                     .replace(commentsAndPhpTags, '')
-                    .replace(tags, ($0, $1) => (allowed.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
+                    .replace(tags, ($0, $1) => (allowed!.indexOf(`<${$1.toLowerCase()}>`) > -1 ? $0 : ''));
 
                 // return once no more tags are removed
                 if (before === after) {
                     return after;
                 }
             } while (before !== after);
+            return '';
         }
 
         return strip_tags(String(value));

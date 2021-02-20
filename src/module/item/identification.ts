@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isLevelItem, PhysicalItemData } from './dataDefinitions';
+import { isLevelItem, PhysicalItemData } from './data-definitions';
 import { isBlank, toNumber } from '../utils';
 import { parseTraits } from '../traits';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
@@ -126,4 +126,77 @@ export function identifyItem(
     } else {
         return new GenericIdentifyDCs(baseDc);
     }
+}
+
+export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): string {
+    const traits = getTraits(itemData);
+    let iconName = 'adventuring_gear';
+    switch (itemData.type) {
+        case 'weapon':
+            if (traits.has('bomb')) {
+                iconName = 'alchemical_bomb';
+            } else if (traits.has('staff')) {
+                iconName = 'staves';
+            } else if (traits.has('artifact')) {
+                iconName = 'artifact';
+            } else {
+                iconName = 'weapon';
+            }
+            break;
+        case 'armor':
+            iconName = itemData.data.armorType.value === 'shield' ? 'shields' : 'armor';
+            break;
+        case 'consumable':
+            switch (itemData.data.consumableType.value) {
+                case 'ammo':
+                    iconName = 'ammunition';
+                    break;
+                case 'oil':
+                    iconName = 'oils';
+                    break;
+                case 'scroll':
+                    iconName = 'infernal-contracts';
+                    break;
+                case 'talisman':
+                case 'talasman': // TODO Typo in consumableType value. Will not modify due to possible side effects
+                    iconName = 'talisman';
+                    break;
+                case 'elixir':
+                case 'mutagen':
+                    iconName = 'alchemical_elixir';
+                    break;
+                case 'poison':
+                    iconName = 'alchemical_poison';
+                    break;
+                case 'tool':
+                    iconName = 'alchemical_tool';
+                    break;
+                case 'wand':
+                    iconName = 'wands';
+                    break;
+                case 'potion':
+                    iconName = 'potions';
+                    break;
+                case 'snare':
+                case 'other':
+                default:
+                    if (traits.has('drug')) {
+                        iconName = 'drugs';
+                    } else {
+                        iconName = 'other-consumables';
+                    }
+                    break;
+            }
+            break;
+        case 'equipment':
+            if (traits.has('precious')) {
+                iconName = 'material-chunk';
+            }
+            break;
+        default:
+            iconName = 'adventuring_gear';
+            break;
+    }
+
+    return `systems/pf2e/icons/unidentified_item_icons/${iconName}.webp`;
 }
