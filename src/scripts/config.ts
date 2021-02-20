@@ -1524,7 +1524,9 @@ export const PF2ECONFIG = {
         lowLightVision: 'PF2E.SensesLowLightVision',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        tremorsense: 'PF2E.SensesTremorsense',
         lifesense: 'PF2E.SensesLifesense',
+        wavesense: 'PF2E.SensesWavesense',
     }, // Creature Sizes
 
     bulkTypes: {
