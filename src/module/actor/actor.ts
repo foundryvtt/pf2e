@@ -32,6 +32,7 @@ import {
     ActorDataPF2e,
     VehicleData,
     HazardData,
+    AbilityString,
 } from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
@@ -1316,7 +1317,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }, [] as string[]);
     }
 
-    getAbilityMod(ability: string): number {
+    getAbilityMod(ability: AbilityString): number {
         return this.data.data.abilities[ability].mod;
     }
 
