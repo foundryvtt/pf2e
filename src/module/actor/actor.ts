@@ -760,11 +760,12 @@ export class PF2EActor extends Actor<PF2EItem> {
                 const itemTraits = item?.data?.data?.traits?.value;
 
                 if (actor?.data.data.saves[save]?.roll) {
-                    let opts = actor.getRollOptions(['all', 'saving-throw', save]);
+                    const options = actor.getRollOptions(['all', 'saving-throw', save]);
+                    options.push('magical', 'spell');
                     if (itemTraits) {
-                        opts = opts.concat(itemTraits);
+                        options.push(...itemTraits);
                     }
-                    actor.data.data.saves[save].roll(ev, opts);
+                    actor.data.data.saves[save].roll({ event: ev, options });
                 } else {
                     actor?.rollSave(ev, save);
                 }
