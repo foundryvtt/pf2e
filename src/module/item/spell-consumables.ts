@@ -103,3 +103,26 @@ export function calculateTrickMagicItemCheckDC(
         .map((s) => [TraditionSkills[s], DC]);
     return Object.fromEntries(skills);
 }
+
+export function calculateTrickMagicItemCastData(actor: PF2EActor, skill: string): TrickMagicItemCastData {
+    const highestMentalStat = ['int', 'wis', 'cha']
+        .map((s) => {
+            return { stat: s, mod: actor.getAbilityMod(s as AbilityString) };
+        })
+        .reduce((highest, next) => {
+            if (next.mod > highest.mod) {
+                return next;
+            } else {
+                return highest;
+            }
+        }).stat as AbilityString;
+    const spellDC =
+        actor.data.data.details.level.value +
+        Math.max(0, actor.data.data.skills[skill].rank - 2) * 2 +
+        actor.getAbilityMod(highestMentalStat);
+    return {
+        ability: highestMentalStat,
+        data: { spelldc: { value: spellDC, dc: spellDC + 10 } },
+        _id: '',
+    };
+}
