@@ -2,7 +2,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData } from './data-definitions';
+import { isPhysicalItem, LoreDetailsData } from './data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -50,6 +50,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         mergeObject(data, {
             type,
             hasSidebar: true,
+            hasMystify: game.user.isGM && isPhysicalItem(data),
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
