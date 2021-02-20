@@ -218,7 +218,7 @@ Hooks.on('canvasInit', async () => {
      */
     SquareGrid.prototype.measureDistances = function measureDistances(
         segments: Segment[],
-        options: MeasureDistancesOptions,
+        options: MeasureDistancesOptions = {},
     ) {
         if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
 
