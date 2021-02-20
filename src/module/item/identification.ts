@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isLevelItem, PhysicalItemData } from './dataDefinitions';
+import { isLevelItem, PhysicalItemData } from './data-definitions';
 import { isBlank, toNumber } from '../utils';
 import { parseTraits } from '../traits';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';

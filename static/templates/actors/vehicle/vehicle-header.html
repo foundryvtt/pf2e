@@ -7,7 +7,7 @@
         <div class="traits-bar">
             {{#if isNotCommon}}
                 <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
-            {{/if}} 
+            {{/if}}
             <span class="trait size">{{actorSize}}</span>
             <!-- Put Trait #each here-->
             {{#each actor.data.traits.traits.selected as |trait id|}}
@@ -20,7 +20,7 @@
             <label>
                 {{localize 'PF2E.vehicle.VehicleLevelLabel'}}
             </label>
-            <input name="data.details.level.value" type="text" value="{{data.details.level.value}}" data-dtype="Number"
+            <input name="data.details.level.value" type="number" value="{{data.details.level.value}}" data-dtype="Number"
                 placeholder="1" size="2" />
         </div>
     </div>

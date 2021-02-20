@@ -1,4 +1,4 @@
-import { PhysicalItemData } from '@item/dataDefinitions';
+import { PhysicalItemData } from '@item/data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2EActor } from '../../actor';
 
