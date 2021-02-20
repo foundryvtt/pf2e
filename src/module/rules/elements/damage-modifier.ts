@@ -1,8 +1,7 @@
 import { PF2RuleElement } from '../rules';
 import { RuleValue } from '../rule-element';
-import { CharacterData, FamiliarData, LabeledValue, NpcData } from '../../actor/actorDataDefinitions';
 import { RulePredicate } from '../../modifiers';
-import { mergeLabeledValues } from '../../damage-modifiers';
+import { FamiliarData, LabeledValue, NpcData, CharacterData } from '@actor/actor-data-definitions';
 
 interface RuleConfiguration {
     type: 'resistance' | 'immunity' | 'weakness';
@@ -18,15 +17,16 @@ function mergeLabeledValues(
     value: number,
     exceptions: string | undefined,
 ): LabeledValue[] {
-    const damageOrResistanceTypes = Object.assign({}, CONFIG.PF2E.resistanceTypes, CONFIG.PF2E.weaknessTypes);
-    return mergeLabeledValues(
-        values.concat({
-            label: damageOrResistanceTypes[damageType],
-            value: value,
-            type: damageType,
-            exceptions: exceptions,
-        }),
-    );
+    // const damageOrResistanceTypes = Object.assign({}, CONFIG.PF2E.resistanceTypes, CONFIG.PF2E.weaknessTypes);
+    // return mergeLabeledValues(
+    //     values.concat({
+    //         label: damageOrResistanceTypes[damageType],
+    //         value: value,
+    //         type: damageType,
+    //         exceptions: exceptions,
+    //     }),
+    // );
+    return [];
 }
 
 /**

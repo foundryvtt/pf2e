@@ -1,6 +1,6 @@
-import { Alignment, DamageImmunities, LabeledValue } from '@actor/actorDataDefinitions';
 import { combineMaps, groupBy, max, sum, toNumber } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
+import { Alignment, DamageImmunities, LabeledValue } from '@actor/actor-data-definitions';
 
 export type Alive = 'living' | 'undead' | 'neither';
 
