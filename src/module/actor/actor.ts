@@ -205,7 +205,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
-        const notes = [] as PF2RollNote[];
+        const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;

@@ -203,7 +203,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             }
         }
 
-        const embeddedEntityUpdate: EntityUpdateData[] = [];
+        const embeddedEntityUpdate: EmbeddedEntityUpdateData[] = [];
 
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
         for (const i of tempSpellbook) {

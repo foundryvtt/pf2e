@@ -89,6 +89,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     items: Collection<ItemType>;
 
+    /**
+     * A set that tracks which keys in the data model were modified by active effects
+     */
+    overrides: Record<string, any>;
+
     /** The item's collection of ActiveEffects */
     effects: Collection<ActiveEffect>;
 

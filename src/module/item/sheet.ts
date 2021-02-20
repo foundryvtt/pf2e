@@ -2,7 +2,7 @@ import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData } from './data-definitions';
+import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -13,7 +13,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         const options = super.defaultOptions;
         options.width = 630;
         options.height = 460;
-        options.classes = options.classes.concat(['pf2e', 'item']);
+        options.classes = options.classes!.concat(['pf2e', 'item']);
         options.template = 'systems/pf2e/templates/items/item-sheet.html';
         options.tabs = [
             {
@@ -38,7 +38,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         const data: any = super.getData();
         // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
         // This works because the actor's items are already updated by the time the ItemSheet rerenders.
-        const updatedData = this?.actor?.items?.get(this?.entity?.id)?.data;
+        const updatedData = this?.actor?.items?.get(this?.entity?.id ?? '')?.data;
         if (updatedData) {
             data.item = updatedData;
             data.data = updatedData.data;
@@ -105,7 +105,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             this._prepareTraits(data.data.traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
-            const martialSkills = [];
+            const martialSkills: MartialData[] = [];
 
             if (this.actor) {
                 for (const i of this.actor.data.items) {
@@ -115,11 +115,11 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
 
             data.martialSkills = martialSkills; // Weapon Data
 
-            const weaponPreciousMaterials = { ...CONFIG.PF2E.preciousMaterials };
-            delete weaponPreciousMaterials.dragonhide;
+            const materials: Partial<typeof CONFIG.PF2E.preciousMaterials> = duplicate(CONFIG.PF2E.preciousMaterials);
+            delete materials.dragonhide;
             const slots = getPropertySlots(data);
             this.assignPropertySlots(data, slots);
-            data.preciousMaterials = weaponPreciousMaterials;
+            data.preciousMaterials = materials;
             data.weaponPotencyRunes = CONFIG.PF2E.weaponPotencyRunes;
             data.weaponStrikingRunes = CONFIG.PF2E.weaponStrikingRunes;
             data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
@@ -173,7 +173,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             data.conditions = [];
         } else if (type === 'action') {
             // Action types
-            const actorWeapons = [];
+            const actorWeapons: WeaponData[] = [];
 
             if (this.actor) {
                 for (const i of this.actor.data.items) {
@@ -335,7 +335,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             title: a.parent().text().trim(),
             width: a.attr('data-width') || 'auto',
             has_placeholders: a.attr('data-has-placeholders') === 'true',
-            choices: CONFIG.PF2E[a.attr('data-options')],
+            choices: CONFIG.PF2E[a.attr('data-options') ?? ''],
         };
         new TraitSelector5e(this.item, options).render(true);
     }
@@ -359,10 +359,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         return img[action];
     }
 
-    async _addDamageRoll(event) {
+    async _addDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const newKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
-        console.log('newKey: ', newKey);
         const newDamageRoll = {
             damage: '',
             damageType: '',
@@ -372,9 +371,11 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
         });
     }
 
-    async _deleteDamageRoll(event) {
+    async _deleteDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
-        await this._onSubmit(event);
+        if (event.originalEvent) {
+            await this._onSubmit(event.originalEvent);
+        }
         const targetKey = $(event.target).parents('.damage-part').attr('data-damage-part');
         return this.item.update({
             [`data.damageRolls.-=${targetKey}`]: null,
@@ -410,7 +411,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
                 await this._onSubmit(event.originalEvent); // submit any unsaved changes
             }
             const rules = (this.item.data.data as any).rules ?? [];
-            return this.item.update({
+            this.item.update({
                 'data.rules': rules.concat([{ key: 'PF2E.RuleElement.Unrecognized' }]),
             });
         });
@@ -423,12 +424,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
             const index = event.currentTarget.dataset.ruleIndex;
             if (rules && rules.length > Number(index)) {
                 rules.splice(index, 1);
-                return this.item.update({ 'data.rules': rules });
+                this.item.update({ 'data.rules': rules });
             }
         });
 
         html.find('.add-skill-variant').on('click', (_event) => {
-            const variants = (this.actor?.items?.get(this?.entity?.id)?.data.data as LoreDetailsData)?.variants ?? {};
+            const variants =
+                (this.actor?.items?.get(this?.entity?.id ?? '')?.data.data as LoreDetailsData)?.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
