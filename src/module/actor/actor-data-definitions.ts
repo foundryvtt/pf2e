@@ -213,7 +213,7 @@ export interface BaseTraitsData {
         custom: string;
     };
     /** Damage immunities this actor has. */
-    di: { value: string[]; custom: string };
+    di: LabeledValue[];
     /** Damage resistances that this actor has. */
     dr: LabeledValue[];
     /** Damage vulnerabilities that this actor has. */

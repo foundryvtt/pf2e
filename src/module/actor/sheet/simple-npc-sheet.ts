@@ -1296,7 +1296,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             choices: CONFIG.PF2E.immunityTypes,
             has_values: false,
             allow_empty_values: true,
-            has_exceptions: false,
+            has_exceptions: true,
         };
 
         new TraitSelector5e(this.actor, options).render(true);
