@@ -308,12 +308,14 @@ export class PF2EItem extends Item<PF2EActor> {
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
         const data = duplicate(this.data.data);
 
-        const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
+        const spellcastingEntry =
+            this.actor?.data?.items?.find((item) => item._id === data.location.value) ??
+            this.actor?.getOwnedItem(data.location.value)?.data;
 
-        if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') return {};
+        if (!spellcastingEntry || spellcastingEntry.type !== 'spellcastingEntry') return {};
 
-        const spellDC = spellcastingEntry.data.data.spelldc.dc;
-        const spellAttack = spellcastingEntry.data.data.spelldc.value;
+        const spellDC = spellcastingEntry.data.dc?.value ?? spellcastingEntry.data.spelldc.dc;
+        const spellAttack = spellcastingEntry.data.attack?.value ?? spellcastingEntry.data.spelldc.value;
 
         // Spell saving throw text and DC
         data.isSave = data.spellType.value === 'save';
@@ -774,39 +776,51 @@ export class PF2EItem extends Item<PF2EActor> {
         const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value)?.data as
-            | SpellcastingEntryData
-            | undefined;
+        const spellcastingEntry =
+            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
+            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
         let useTrickData = false;
         if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
 
         if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
 
-        const spellAttack = useTrickData
-            ? trickMagicItemData?.data.spelldc.value
-            : spellcastingEntry?.data.spelldc.value;
-        const parts: number[] = [spellAttack ?? 0];
-        const title = `${this.name} - Spell Attack Roll`;
-
+        // calculate multiple attack penalty
         const map = this.calculateMap();
-        if (multiAttackPenalty === 2) parts.push(map.map2);
-        else if (multiAttackPenalty === 3) parts.push(map.map3);
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: rollData,
-            rollType: 'attack-roll',
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
+        if (spellcastingEntry.data?.attack?.roll) {
+            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+            const modifiers: PF2Modifier[] = [];
+            if (multiAttackPenalty > 1) {
+                modifiers.push(new PF2Modifier(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+            }
+            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+        } else {
+            const spellAttack = useTrickData
+                ? trickMagicItemData?.data.spelldc.value
+                : spellcastingEntry?.data.spelldc.value;
+            const parts: number[] = [spellAttack ?? 0];
+            const title = `${this.name} - Spell Attack Roll`;
+
+            if (multiAttackPenalty > 1) {
+                parts.push(map[`map${multiAttackPenalty}`]);
+            }
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: rollData,
+                rollType: 'attack-roll',
+                title,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                dialogOptions: {
+                    width: 400,
+                    top: event.clientY - 80,
+                    left: window.innerWidth - 710,
+                },
+            });
+        }
     }
 
     /* -------------------------------------------- */
@@ -1099,7 +1113,7 @@ export class PF2EItem extends Item<PF2EActor> {
         }
     }
 
-    calculateMap(): { map2: number; map3: number } {
+    calculateMap(): { label: string; map2: number; map3: number } {
         return PF2EItem.calculateMap(this.data);
     }
 

@@ -41,12 +41,12 @@
                 <ol class="skills-list spell-dc">
                     <li class="skill-grid">
                         {{#unless entry.data.tradition.focus}}
-                        <span class="skill-score spellcasting rollable" title="{{entry.data.spelldc.breakdown}}">{{numberFormat entry.data.spelldc.value decimals=0 sign=true}}</span>
-                        <h4 class="skill-name spellcasting rollable">{{localize "PF2E.SpellAttackLabel"}}</h4>
+                        <span class="skill-score spell-attack" title="{{entry.data.attack.breakdown}}">{{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
+                        <h4 class="skill-name spell-attack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.SpellAttackLabel"}}</h4>
                         {{/unless}}
 
-                        <span class="skill-score spellcasting rollable" title="{{entry.data.spelldc.breakdown}}">{{entry.data.spelldc.dc}}</span>
-                        <h4 class="skill-name spellcasting rollable">{{localize "PF2E.SpellSaveLabel"}}</h4>
+                        <span class="skill-score spellcasting" title="{{entry.data.dc.breakdown}}">{{entry.data.dc.value}}</span>
+                        <h4 class="skill-name spellcasting" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.SpellSaveLabel"}}</h4>
 
                         <div class="skill-container skill-proficiency">
                             <h4 class="pf-title" title="Left-Click to move forward one step. Right-Click to move backwards one step.">{{localize 'PF2E.ProficiencyLabel'}}</h4>
