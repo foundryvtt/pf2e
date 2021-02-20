@@ -132,11 +132,11 @@
         
         {{#if hasImmunities}}
         <span class="stat-list major-stat">
-          <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
-          {{#each data.traits.di.selected as |trait id|}}
-            <span class="stat-value">{{trait}}</span>
-          {{/each}}
-        </span>
+            <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
+            {{#each data.traits.di as |trait id|}}
+              <span class="stat-value">{{trait.label}}: {{#if trait.exceptions}} ({{trait.exceptions}}){{/if}}</span>
+            {{/each}}
+          </span>
         {{/if}}
 
         {{#if hasResistances}}

@@ -68,23 +68,22 @@
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.di.labels }} disabled {{/unless}}">
-        <div class="side-bar-label">
-            <i class="fas fa-ankh"></i>
-            <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
-        </div>
-        {{#if options.editable }}
-        <div class="immunities-controls controls" data-attribute="immunitiesTypes" for="data.traits.di">
-            <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if data.traits.di.labels }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
-        </div>
-        {{/if}}
+  <div class="side-bar-section-header {{#unless data.traits.di }} disabled {{/unless}}">
+    <div class="side-bar-label">
+      <i class="fas fa-ankh"></i>
+      <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
     </div>
-
-    <div class="side-bar-section-content">
-        {{#each data.traits.di.labels as |immunity key|}}
-        <div class="tag immunity" data-weakness="{{immunity.type}}">{{ immunity }}</div>
-        {{/each}}
+    {{#if options.editable }}
+    <div class="immunities-controls controls" data-attribute="immunitiesTypes" for="data.traits.di">
+      <a class="immunities-edit edit" data-options="immunitiesTypes" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if data.traits.di }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
     </div>
+    {{/if}}
+  </div>
+  <div class="side-bar-section-content">
+    {{#each data.traits.di as |immunity key|}}
+    <div class="tag immunity" data-weakness="{{immunity.type}}">{{ immunity.label }}</div>
+    {{/each}}
+  </div>
 </div>
 <div id="saves">
     {{#each data.saves as |save saveId|}}

@@ -364,42 +364,11 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _prepareImmunities(actorData) {
-        // Special case for NPCs from compendium
-        // Immunities come as a single string
-        // Once the change to immunities is done for the compendium data, this
-        // will no longer be needed can be deleted
-        const immunitiesCount = actorData.data.traits.di.value.length;
-        const firstImmunity = immunitiesCount > 0 ? actorData.data.traits.di.value[0] : '';
-        const hasCustomImmunities = firstImmunity === 'custom';
+        for (const key of Object.keys(actorData.data.traits.di)) {
+            const immunity = actorData.data.traits.di[key];
 
-        if (hasCustomImmunities) {
-            console.log('Detected a custom list of immunities. Trying to convert it into a list.');
-            const immunities = actorData.data.traits.di.selected.custom.split(',');
-
-            // Remove the first element in the array that is set to `custom`
-            // We will create the final list manually
-            actorData.data.traits.di.value.shift();
-
-            for (let immunity of immunities) {
-                immunity = immunity.trim();
-                actorData.data.traits.di.value.push(immunity);
-            }
+            immunity.label = CONFIG.PF2E.immunityTypes[immunity.type];
         }
-        // ---
-
-        // Try to localize values to show the correct text in the sheet
-        // Immunities are store as a simple string array, so we use parallel array
-        // for storing the label values, not like we do with resistances and weaknesses
-        const labels = [];
-
-        for (const id of Object.keys(actorData.data.traits.di.value)) {
-            const value = actorData.data.traits.di.value[id].trim();
-            const label = CONFIG.PF2E.immunityTypes[value] ?? value;
-
-            labels.push(label);
-        }
-
-        actorData.data.traits.di.labels = labels;
     }
 
     _prepareSaves(actorData) {

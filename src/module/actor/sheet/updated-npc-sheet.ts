@@ -87,7 +87,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             (sheetData.data.attributes.allSaves || {}).value && (sheetData.data.attributes.allSaves || {}).value !== '';
 
         // Immunities check
-        sheetData.hasImmunities = sheetData.data.traits.di.value.length ? sheetData.data.traits.di.value : false;
+        sheetData.hasImmunities = sheetData.data.traits.di.length ? Array.isArray(sheetData.data.traits.di) : false;
         // Resistances check
         sheetData.hasResistances = sheetData.data.traits.dr.length ? Array.isArray(sheetData.data.traits.dr) : false;
         // Weaknesses check
