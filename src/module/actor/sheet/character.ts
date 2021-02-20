@@ -282,6 +282,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 // collect list of entries to use later to match spells against.
                 spellcastingEntriesList.push(i._id);
 
+                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
                 const spellRank = i.data.proficiency?.value || 0;
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(
                     actorData.data.details.level.value,
@@ -304,6 +305,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
                 i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
+                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
                 i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
