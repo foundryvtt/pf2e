@@ -45,6 +45,14 @@
                                         {{/each}}
                                         <button type="button" class="tag damage-strike">{{localize 'Damage'}}</button>
                                         <button type="button" class="tag critical-strike">{{localize 'Critical'}}</button>
+                                        {{#if action.ammo}}
+                                        <select name="ammo-used">
+                                            <option value="">No ammo</option>
+                                            {{#each action.ammo as |item|}}
+                                            <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
+                                            {{/each}}
+                                        </select>
+                                        {{/if}}
                                     </div>
                                 </div>
                             </div>
