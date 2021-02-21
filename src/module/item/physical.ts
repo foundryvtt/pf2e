@@ -3,8 +3,8 @@ import { isPhysicalItem, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
-    /** @override */
     data!: PhysicalItemData;
+    _data!: PhysicalItemData;
 
     static isIdentified(itemData: any): boolean {
         return itemData.data?.identification?.status !== 'unidentified';
@@ -81,7 +81,7 @@ export class PF2EPhysicalItem extends PF2EItem {
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = await fromUuid(uuid);
+                const baseItem = await fromUuid(uuid) as PF2EItem | null;
                 if (baseItem?.data) {
                     const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
                     // probably more fields should be filtered out

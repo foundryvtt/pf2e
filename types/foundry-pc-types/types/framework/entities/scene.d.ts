@@ -16,6 +16,7 @@ declare interface SceneData extends BaseEntityData {
  */
 declare class Scene extends Entity {
     data: SceneData;
+    _data: SceneData;
 
     /**
      * Track whether the scene is the active view

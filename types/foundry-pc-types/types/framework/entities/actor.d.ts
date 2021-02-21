@@ -1,6 +1,7 @@
 declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
     type: string;
     img: string;
+    data: Record<string, unknown>;
     token: TokenData;
     items: D[];
     effects: ActiveEffectData[];
@@ -78,6 +79,7 @@ declare class Actors<ActorType extends Actor = Actor> extends EntityCollection<A
  */
 declare class Actor<ItemType extends Item = Item> extends Entity {
     data: ActorData<ItemType['data']>;
+    _data: ActorData<ItemType['data']>;
 
     /**
      * A reference to a placed Token which creates a synthetic Actor

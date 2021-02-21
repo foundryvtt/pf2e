@@ -1,17 +1,11 @@
 declare function fromUuid(uuid: string): Promise<Entity | null>;
 
-declare interface EntityDescriptionData {
-    [key: string]: any;
-}
-
 declare interface BaseEntityData {
     _id: string;
     name: string;
-    type?: number | string;
-    data: EntityDescriptionData;
-    flags: any;
+    flags: Record<string, any>;
     folder: string | null | undefined;
-    permission: any;
+    permission: Record<string, number>;
     img: string;
 }
 
@@ -61,7 +55,7 @@ declare interface EntityDeleteOptions {
 declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
     data: BaseEntityData;
-    _data: this['data'];
+    _data: BaseEntityData;
 
     /**
      * The original source data for the Entity provided upon initialization.
