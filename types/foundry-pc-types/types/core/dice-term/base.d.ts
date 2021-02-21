@@ -5,6 +5,11 @@ interface DiceTermConstructorParams {
     options?: Record<string, unknown>;
 }
 
+interface DiceTermRollOptions {
+    minimize?: boolean;
+    maximize?: boolean;
+}
+
 type ComparisonOperatorString = '=' | '<' | '<=' | '>' | '>=';
 declare abstract class DiceTerm {
     /**
@@ -103,14 +108,14 @@ declare abstract class DiceTerm {
      * @param [maximize] Apply the maximum possible result for each roll.
      * @returns The evaluated dice term
      */
-    evaluate({minimize, maximize}?: {minimize?: boolean, maximize?: boolean}): DiceTerm;
+    evaluate({minimize, maximize}?: DiceTermRollOptions): DiceTerm;
 
     /**
      * Roll the DiceTerm by mapping a random uniform draw against the faces of the dice term.
      * @param [minimize]    Apply the minimum possible result instead of a random result.
      * @param [maximize]    Apply the maximum possible result instead of a random result.
      */
-    roll({minimize, maximize}?: {minimize?: boolean, maximize?: boolean}): Record<string, DiceTerm>;
+    roll({minimize, maximize}?: DiceTermRollOptions): Record<string, DiceTerm>;
 
     /**
      * Return a string used as the label for each rolled result

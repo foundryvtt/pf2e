@@ -121,7 +121,7 @@ declare class ClientSettings {
      * @param module    The module namespace under which the setting is registered
      * @param key       The setting key to retrieve
      */
-    get(module: 'core', key: 'rollMode'): string;
+    get(module: 'core', key: 'rollMode'): RollMode;
     get(module: string, key: string): any;
 
     /**

@@ -49,8 +49,6 @@ import './types/apps/sidebar/sidebardirectory';
 import './types/core/audio';
 import './types/core/config';
 import './types/core/dicepool';
-import './types/core/diceterm';
-import './types/core/die';
 import './types/core/fonts';
 import './types/core/hooks';
 import './types/core/game-time';
@@ -62,6 +60,10 @@ import './types/core/socket';
 import './types/core/sorting';
 import './types/core/texteditor';
 import './types/core/video';
+
+import './types/core/dice-term/base';
+import './types/core/dice-term/coin';
+import './types/core/dice-term/die';
 
 // Framework
 

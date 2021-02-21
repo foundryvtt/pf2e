@@ -1,5 +1,3 @@
-// @TODO: Assign class types
-
 declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Item<ActorType>> {
     /**
      * Configure debugging flags to display additional information
@@ -34,6 +32,21 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
         entityClass: { new (data: CombatData, options?: object): Combat<ActorType> };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
+    };
+
+    /**
+     * Configuration for dice rolling behaviors in the Foundry VTT client
+     */
+    Dice: {
+        randomUniform: () => number;
+        types: (typeof DiceTerm)[],
+        rollModes: Record<RollMode, string>;
+        rolls: (typeof Roll)[];
+        terms: {
+            c: typeof Coin;
+            d: typeof Die;
+            f: typeof FateDie;
+        };
     };
 
     /**

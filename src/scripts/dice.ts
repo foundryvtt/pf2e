@@ -67,7 +67,7 @@ export class DicePF2e {
         fastForward?: boolean;
         onClose?: any;
         dialogOptions?: object;
-        rollMode?: string;
+        rollMode?: RollMode;
         rollType?: string;
     }) {
         // Inner roll function

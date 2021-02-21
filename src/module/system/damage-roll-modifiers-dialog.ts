@@ -31,10 +31,16 @@ interface DamageData {
     notes?: { text: string }[];
     numericModifiers: PF2Modifier[];
     outcome: string;
-    rollMode: string;
+    rollMode: RollMode;
     total: number;
     traits: string[];
     types: {};
+}
+
+interface DamageRollContext {
+    rollMode?: RollMode;
+    secret?: boolean;
+    outcome?: 'success' | 'criticalSuccess';
 }
 
 /**
@@ -74,7 +80,7 @@ export class DamageRollModifiersDialog extends Application {
      * @param context
      * @param callback
      */
-    constructor(damage: DamageData, context: object, callback: (rollData: any) => void) {
+    constructor(damage: DamageData, context: DamageRollContext, callback: (rollData: any) => void) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -92,11 +98,10 @@ export class DamageRollModifiersDialog extends Application {
      * @param context
      * @param callback
      */
-    static roll(damage: DamageData, context, callback: (rollData: any) => void) {
+    static roll(damage: DamageData, context: DamageRollContext = {}, callback: (rollData: any) => void) {
         const ctx = context ?? {};
 
-        ctx.rollMode =
-            ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
+        ctx.rollMode = ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode');
 
         let damageBaseModifier = '';
         if (damage.base.modifier) {

@@ -177,7 +177,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     activateListeners(html: JQuery) {
-        html.find('.roll').click((event) => {
+        html.find('.roll').on('click', () => {
             this.context.fate = html.find('input[type=radio][name=fate]:checked').val() as string;
             CheckModifiersDialog.roll(this.check, this.context, this.callback);
             this.close();
@@ -192,7 +192,7 @@ export class CheckModifiersDialog extends Application {
 
         html.find('.add-modifier-panel').on('click', '.add-modifier', (event) => this.onAddModifier(event));
 
-        html.find('[name=rollmode]').change((event) => this.onChangeRollMode(event));
+        html.find('[name=rollmode]').on('change', (event) => this.onChangeRollMode(event));
     }
 
     onAddModifier(event: JQuery.ClickEvent) {
