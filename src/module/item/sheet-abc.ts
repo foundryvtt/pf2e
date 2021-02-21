@@ -1,16 +1,15 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
-import { AbilityString } from '../actor/actorDataDefinitions';
+import { AbilityString } from '@actor/actor-data-definitions';
 import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './dataDefinitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './data-definitions';
 
 /**
  * @category Other
  */
-export class ABCItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
+export class ABCItemSheetPF2e extends ItemSheet<PF2EItem> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;

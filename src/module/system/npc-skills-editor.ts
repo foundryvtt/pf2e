@@ -1,5 +1,5 @@
 import { SKILL_EXPANDED } from '../actor/actor';
-import { NPCSkillData } from '../actor/actorDataDefinitions';
+import { NPCSkillData } from '@actor/actor-data-definitions';
 import { PF2ENPC } from '../actor/npc';
 import { PF2EItem } from '../item/item';
 
@@ -133,7 +133,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
     _onEditSkillClicked(eventData) {
         const skillId = $(eventData.currentTarget).parents('.skill').attr('data-skill');
 
-        let item = this.findSkillItem(skillId);
+        const item = this.findSkillItem(skillId);
 
         if (item === null) {
             console.error(`Unable to find item for skill ${skillId}. Can't edit the skill.`);
@@ -148,13 +148,10 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      * @param event
      * @param formData
      */
-    async _updateObject(event: Event, formData: any) {
+    async _updateObject(_event: Event, formData: any) {
         for (const [key, skillData] of Object.entries(formData as Record<any, any>)) {
-            let skillId: string;
-            let value: number;
-
-            skillId = key;
-            value = parseInt(skillData, 10);
+            const skillId = key;
+            const value = parseInt(skillData, 10);
 
             const skillItem = this.findSkillItem(skillId);
             const skillItemValue: number = skillItem !== null ? (skillItem.data.data as any).mod.value : 0;
@@ -168,7 +165,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
         }
     }
 
-    isLoreSkill(skillId) {
+    isLoreSkill(skillId: string): boolean {
         return !this.isRegularSkill(skillId);
     }
 
@@ -176,7 +173,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      * Checks if a skill is a regular skill or not.
      * @param skillId ID of the skill to check.
      */
-    isRegularSkill(skillId) {
+    isRegularSkill(skillId: string): boolean {
         for (const key of Object.keys(SKILL_EXPANDED)) {
             if (key === skillId) return true;
             if (SKILL_EXPANDED[key].shortform === skillId) return true;

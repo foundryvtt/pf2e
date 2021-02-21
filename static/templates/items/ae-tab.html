@@ -1,0 +1,22 @@
+<table class="active-effects">
+  <tr>
+    <th>{{localize 'Name'}}</th>
+    <th>{{localize 'PF2E.ActiveEffects.Duration.Label'}}</th>
+    <th>{{localize 'PF2E.ActiveEffects.Controls.Label'}}</th>
+  </tr>
+  {{#each activeEffects as |effect|}}
+  <tr>
+    <td class="name">{{effect.name}}</td>
+    <td class="duration">{{effect.duration}}</td>
+    <td class="controls" data-effect-id="{{effect.id}}">
+      <input type="checkbox"{{#if effect.enabled}}checked="checked"{{/if}} data-action="enable" title="{{#if effect.enabled }}{{localize 'PF2E.ActiveEffects.Controls.Disable'}}{{else}}{{localize 'PF2E.ActiveEffects.Controls.Enable'}}{{/if}}" />
+      <a data-action="edit" title="{{localize 'PF2E.ActiveEffects.Controls.Edit'}}">
+        <i class="fas fa-edit"></i>
+      </a>
+      <a data-action="delete" title="{{localize 'PF2E.ActiveEffects.Controls.Delete'}}">
+        <i class="fas fa-trash"></i>
+      </a>
+    </td>
+  </tr>
+  {{/each}}
+</table>

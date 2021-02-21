@@ -1,15 +1,14 @@
 /**
  * Override and extend the basic :class:`ItemSheet` implementation
  */
-import { PF2EActor } from '../actor/actor';
 import { PF2EItem } from './item';
 import { TraitSelector5e } from '../system/trait-selector';
-import { KitData } from './dataDefinitions';
+import { KitData } from './data-definitions';
 
 /**
  * @category Other
  */
-export class KitItemSheetPF2e extends ItemSheet<PF2EItem, PF2EActor> {
+export class KitItemSheetPF2e extends ItemSheet<PF2EItem> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;

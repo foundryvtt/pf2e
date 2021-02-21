@@ -123,6 +123,28 @@
     "ActionsActionsHeader": "Actions",
     "ActionsFreeActionsHeader": "Free Actions",
     "ActionsReactionsHeader": "Reactions",
+    "ActiveEffects": {
+      "Label": "Active Effects",
+      "Duration": {
+        "Label": "Duration",
+        "Permanent": "Permanent",
+        "Second": "{quantity} second",
+        "Round": "{quantity} round",
+        "Turn": "{quantity} turn",
+        "Seconds": "{quantity} seconds",
+        "Rounds": "{quantity} rounds",
+        "Turns": "{quantity} turns"
+      },
+      "Controls": {
+        "Label": "Controls",
+        "Disable": "Disable",
+        "Enable": "Enable",
+        "Edit": "Edit",
+        "Delete": "Delete"
+      },
+      "EnableAutomation": "Enable Automation",
+      "DisableAutomation": "Disable Automation"
+    },
     "ActorSizeGargantuan": "Gargantuan",
     "ActorSizeHuge": "Huge",
     "ActorSizeLarge": "Large",
@@ -133,6 +155,7 @@
     "AddCoinsCombineStacksLabel": "Combine Stacks",
     "AddCoinsTitle": "Add Coins",
     "AddModifierTitle": "Add Modifier",
+    "RemoveModifierTitle": "Remove Modifier",
     "AddShortLabel": "Add",
     "AddSpellTitle": "Add Spell",
     "AddSpellcastingEntryTitle": "Add Spellcasting Entry",
@@ -254,7 +277,7 @@
     },
     "Background": "Background",
     "BackgroundSkillFeats": "Skill Feats",
-    "BackgroundTitle": "Your characters background",
+    "BackgroundTitle": "Your character's background",
     "BackgroundItem": {
       "Summary": "Background Summary"
     },
@@ -334,7 +357,7 @@
     "ClassFeatures": "Class Features",
     "ClassHP": "Class HP",
     "ClassSummary": "Class Summary",
-    "ClassTitle": "Your characters class",
+    "ClassTitle": "Your character's class",
     "ClickToSetInitiative": "Click to set initiative to selected token(s).",
     "CompendiumBrowser": {
       "Title": "Compendium Browser",
@@ -344,7 +367,8 @@
       "TabFeat": "Feats",
       "TabHazard": "Hazards",
       "TabSpell": "Spells",
-      "TabSettings": "Load Packs"
+      "TabSettings": "Load Packs",
+      "TakeLabel": "Take"
     },
     "Condition": {
       "Summary": "Condition Summary",
@@ -424,6 +448,14 @@
     "ConsumableTypeWand": "Wand",
     "ConsumableUseLabel": "Use",
     "CoreSkillsHeader": "Core Skills",
+    "Counteract": "Counteract",
+    "CounteractDescription": {
+      "Hint": "If you're counteracting an affliction, the DC is in the affliction's stat block. If it's a spell, use the caster's DC. The GM can also calculate a DC based on the target effect's level.",
+      "CritSuccess": "Counteract the target if its counteract level is {level} or less.",
+      "Success": "Counteract the target if its counteract level is {level} or less.",
+      "Failure": "Counteract the target if its counteract level is less than {level}.",
+      "CritFailure": "You fail to counteract the target."
+    },
     "CreateActionTitle": "Create Action",
     "CreateAttackTitle": "Create Attack",
     "CreateFeatTitle": "Create Feat",
@@ -535,13 +567,16 @@
       "UnlimitedDuration": "Unlimited duration"
     },
     "EffectSummary": "Effect Summary",
+    "EmptySlot": "Empty Slot",
     "EquipmentEquippedLabel": "Equipped",
     "EquipmentSummary": "Equipment Summary",
     "EquippedBulkLabel": "Worn Bulk",
     "EquippedSameBulkValue": "Same as Carried",
     "ErrorMessage": {
       "CantMoveItemSource": "You are not allowed to move items from this character.",
-      "CantMoveItemDestination": "You are not allowed to move items to this character."
+      "CantMoveItemDestination": "You are not allowed to move items to this character.",
+      "NotEnoughAmmo": "You don't have enough ammo to make this strike",
+      "NoTokenSelected": "No valid token is selected."
     },
     "Ethnicity": "Ethnicity",
     "ExpendSpellTitle": "Expend Spell",
@@ -556,6 +591,7 @@
     "FeatActionsLabel": "Number of Actions",
     "FeatAncestryHeader": "Ancestry Feats",
     "FeatArchetypeHeader": "Archetype Feats",
+    "FeatBackgroundShort": "BG",
     "FeatBonusHeader": "Bonus Feats",
     "FeatBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
     "FeatClassHeader": "Class Feats",
@@ -563,6 +599,8 @@
     "FeatGeneralHeader": "General Feats",
     "FeatPFSBoonHeader": "Society Boons",
     "FeatDeityBoonHeader": "Deity Boons",
+    "FeatDeityboonHeader": "Deity Boons",
+    "FeatDeityBoonCursesHeader": "Deity Boons/Curses",
     "FeatCurseHeader": "Curses",
     "FeatLevelLabel": "Level",
     "FeatPrereqLabel": "Prerequisites",
@@ -573,8 +611,11 @@
     "FeatTypeBonus": "Bonus Feat",
     "FeatTypeClass": "Class Feat",
     "FeatTypeClassfeature": "Class Feature",
+    "FeatTypeCurse": "Curse",
+    "FeatTypeDeityboon": "Deity Boon",
     "FeatTypeGeneral": "General Feat",
     "FeatTypeLabel": "Feat Type",
+    "FeatTypePfsboon": "Society Boon",
     "FeatTypeSkill": "Skill Feat",
     "FeaturesAncestryHeader": "Ancestry Features",
     "FeaturesClassHeader": "Class Features",
@@ -611,7 +652,7 @@
     "Height": "Height",
     "HeightTitle": "Your height",
     "Heritage": "Heritage",
-    "HeritageTitle": "Your characters heritage",
+    "HeritageTitle": "Your character's heritage",
     "HeroPointLevel0": "Zero Hero Points",
     "HeroPointLevel1": "One Hero Point",
     "HeroPointLevel2": "Two Hero Points",
@@ -619,6 +660,8 @@
     "HeroPointsLabel": "Hero Points",
     "HitPointsHeader": "Hit Points",
     "HitPointsShortLabel": "HP",
+    "HitPointsDetailsLabel": "HP Details",
+    "HitPointsDetailsTitle": "Additional information related to Hit Points such as Fast Healing or Regeneration",
     "ImageLabel": "Image",
     "ImmunitiesLabel": "Immunities",
     "ImmunityTypeCriticalHits": "Critical Hits",
@@ -673,6 +716,7 @@
     "LanguageAlghollthu": "Algollthu",
     "LanguageAmurrun": "Amurrun",
     "LanguageAnadi": "Anadi",
+    "LanguageAndroffan": "Androffan",
     "LanguageAquan": "Aquan",
     "LanguageArboreal": "Arboreal",
     "LanguageAuran": "Auran",
@@ -1049,10 +1093,17 @@
           "GlobalLightOn": "ON",
           "GlobalLightOff": "OFF"
         },
-        "WorldCreatedOn": {
-          "Name": "World Creation Date (UTC)",
-          "Hint": "Set the date and time this Foundry world was created. This will not typically need to be changed."
-        }
+        "ResetWorldTime": {
+          "Name": "Reset World Date/Time",
+          "Button": "Reset",
+          "Hint": "Reset this world's time elapsed time to zero.",
+          "Confirm": {
+            "Question": "Are you sure you want to reset this world's elapsed time?",
+            "Warning1": "Time-dependent game effects may be impacted.",
+            "Warning2": "This action cannot be undone."
+          }
+        },
+        "DeferredToModule": "This setting is managed by the Calendar/Weather module."
       },
       "RAI": {
         "TreatWoundsAltSkills": {
@@ -1090,8 +1141,9 @@
     "SensesLowLightVision": "Low-Light Vision",
     "SensesLifesense": "Lifesense",
     "SensesScent": "Scent",
-    "SensesTitle": "Your characters senses",
+    "SensesTitle": "Your character's senses",
     "SensesTremorsense": "Tremorsense",
+    "SensesWavesense":  "Wavesense",
     "SettingsColorBlue": "Bluegray",
     "SettingsColorLabel": "Color Scheme",
     "SettingsColorNotes": "You can set the color scheme of system here, mostly used in the sheets.",
@@ -1158,12 +1210,12 @@
     "SkillIncreaseLevels": "Skill Increase Levels",
     "SpecialLabel": "Special",
     "SpecialSensesLabel": "Special Senses",
-    "SpecialSensesTitle": "Your characters special senses.",
+    "SpecialSensesTitle": "Your character's special senses",
     "Speed": "Speed",
     "SpeedFeet": "Speed (feet)",
     "SpeedBaseLabel": "Base {type} Speed",
     "SpeedLabel": "{type} Speed",
-    "SpeedTitle": "Your characters speed",
+    "SpeedTitle": "Your character's speed",
     "SpeedTypes": "Speed Types",
     "SpeedTypesBurrow": "Burrow",
     "SpeedTypesClimb": "Climb",
@@ -1174,6 +1226,12 @@
     "SpellAbilityLabel": "Spell Ability",
     "SpellAbilityModLabel": "+ Ability Mod",
     "SpellAreaLabel": "Area",
+    "SpellAttack": {
+      "arcane": "Arcane Spell Attack",
+      "divine": "Divine Spell Attack",
+      "occult": "Occult Spell Attack",
+      "primal": "Primal Spell Attack"
+    },
     "SpellAttackLabel": "Spell Attack",
     "SpellBasicSaveOption": "Basic",
     "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
@@ -1192,6 +1250,7 @@
     "SpellCostLabel": "Cost",
     "SpellDamageLabel": "Spell Damage",
     "SpellDamageTypeLabel": "Damage Type",
+    "SpellDCBase": "Base Spell DC 10",
     "SpellDurationLabel": "Duration",
     "SpellFocusLabel": "Focus",
     "SpellLabel": "Spell",
@@ -1963,6 +2022,10 @@
         "None": "None (Full Speed)",
         "HalfSpeed": "Other (Half Speed)"
       }
+    },
+    "TrickMagicItemPopup": {
+      "Label": "Select a skill to use for trick magic item",
+      "Title": "Trick Magic Item"
     },
     "UI": {
       "applyDamage": {

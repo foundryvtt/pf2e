@@ -1,6 +1,6 @@
 import { isBlank, toNumber } from '../utils';
 import { DamageCategory, DamageDieSize } from '../system/damage/damage';
-import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './dataDefinitions';
+import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -16,8 +16,9 @@ export function getPropertySlots(itemData: WeaponData | ArmorData): number {
 
 export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): string[] {
     const runes = [];
+    type RuneIndex = 'propertyRune1' | 'propertyRune2' | 'propertyRune3' | 'propertyRune4';
     for (let i = 1; i <= slots; i += 1) {
-        const rune = itemData.data[`propertyRune${i}`]?.value;
+        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value;
         if (!isBlank(rune)) {
             runes.push(rune);
         }

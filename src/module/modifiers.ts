@@ -1,5 +1,5 @@
 import { DamageDieSize } from './system/damage/damage';
-import { AbilityString } from '@actor/actorDataDefinitions';
+import { AbilityString } from '@actor/actor-data-definitions';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',
@@ -107,21 +107,26 @@ export class PF2Modifier {
     critical: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
+    /** Status of automation (rules or active effects) applied to this modifier */
+    automation: { key: string | null; enabled: boolean } = {
+        key: null,
+        enabled: false,
+    };
 
     /**
      * Create a new modifier.
-     * @param {string} name The name for the modifier; should generally be a localization key.
-     * @param {number} modifier The actual numeric benefit/penalty that this modifier provides.
-     * @param {string} type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
-     * @param {boolean} enabled If true, this modifier will be applied to the result; otherwise, it will not.
-     * @param {string} source The source which this modifier originates from, if any.
-     * @param {string} notes Any notes about this modifier.
+     * @param name The name for the modifier; should generally be a localization key.
+     * @param modifier The actual numeric benefit/penalty that this modifier provides.
+     * @param type The type of the modifier - modifiers of the same type do not stack (except for `untyped` modifiers).
+     * @param enabled If true, this modifier will be applied to the result; otherwise, it will not.
+     * @param source The source which this modifier originates from, if any.
+     * @param notes Any notes about this modifier.
      */
     constructor(
         name: string,
         modifier: number,
         type: string,
-        enabled: boolean = true,
+        enabled = true,
         source: string | undefined = undefined,
         notes: string | undefined = undefined,
     ) {
@@ -194,7 +199,7 @@ export const AbilityModifier = Object.freeze({
 // proficiency ranks
 export const UNTRAINED = Object.freeze({
     atLevel: (_level: number) => {
-        const modifier = game.settings.get('pf2e', 'proficiencyUntrainedModifier') ?? 0;
+        const modifier = (game.settings.get('pf2e', 'proficiencyUntrainedModifier') as number | null) ?? 0;
         return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
     },
 });
@@ -241,11 +246,11 @@ export const LEGENDARY = Object.freeze({
 export const ProficiencyModifier = Object.freeze({
     /**
      * Create a modifier for a given proficiency level of some ability.
-     * @param {number} level The level of the character which this modifier is being applied to.
-     * @param {number} rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
-     * @returns {PF2Modifier} The modifier for the given proficiency rank and character level.
+     * @param level The level of the character which this modifier is being applied to.
+     * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+     * @returns The modifier for the given proficiency rank and character level.
      */
-    fromLevelAndRank: (level: number, rank: number) => {
+    fromLevelAndRank: (level: number, rank: number): PF2Modifier => {
         switch (rank || 0) {
             case 0:
                 return UNTRAINED.atLevel(level);
@@ -354,8 +359,8 @@ export class PF2StatisticModifier {
     [key: string]: any;
 
     /**
-     * @param {string} name The name of this collection of statistic modifiers.
-     * @param {PF2Modifier[]} modifiers All relevant modifiers for this statistic.
+     * @param name The name of this collection of statistic modifiers.
+     * @param modifiers All relevant modifiers for this statistic.
      */
     constructor(name: string, modifiers: PF2Modifier[]) {
         this.name = name;

@@ -6,6 +6,7 @@ interface DropCanvasData {
     x: number;
     y: number;
     actorId?: string;
+    tokenId?: string;
 }
 
 declare type HookCallback<P extends any[]> = (...args: P) => boolean | void | Promise<boolean | void>;
@@ -33,6 +34,9 @@ declare type HookParamsRenderActorDirectory = HookParameters<
 declare type HookParamsRenderItemDirectory = HookParameters<
     'renderItemDirectory', [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
 >;
+declare type HookParamsUpdateWorldTime = HookParameters<
+    'updateWorldTime', [number, number]
+>;
 
 declare class Hooks {
     /**
@@ -52,6 +56,7 @@ declare class Hooks {
     static on(...args: HookParamsRenderCompendiumDirectory): number;
     static on(...args: HookParamsRenderActorDirectory): number;
     static on(...args: HookParamsRenderItemDirectory): number;
+    static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParameters<string, any>): number;
 
     /**
@@ -71,6 +76,7 @@ declare class Hooks {
     static once(...args: HookParamsRenderCompendiumDirectory): number;
     static once(...args: HookParamsRenderActorDirectory): number;
     static once(...args: HookParamsRenderItemDirectory): number;
+    static once(...args: HookParamsUpdateWorldTime): number;
     static once(...args: HookParameters<string, any>): number;
 
     /**

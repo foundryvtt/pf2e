@@ -1,6 +1,17 @@
-import { AncestryData, BackgroundData, ClassData, LoreData, MartialData, WeaponData } from '@item/dataDefinitions';
-import { PF2EItem } from '@item/item';
-import { getArmorBonus, getResiliencyBonus } from '@item/runes';
+import {
+    AncestryData,
+    BackgroundData,
+    ClassData,
+    ConsumableData,
+    LoreData,
+    MartialData,
+    SpellAttackRollModifier,
+    SpellcastingEntryData,
+    SpellDifficultyClass,
+    WeaponData,
+} from '@item/data-definitions';
+import { PF2EItem } from '../item/item';
+import { getArmorBonus, getResiliencyBonus } from '../item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -24,14 +35,15 @@ import {
     CharacterStrikeTrait,
     SkillData,
     RawCharacterData,
-} from './actorDataDefinitions';
+} from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
-import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rulesDataDefinitions';
+import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '../utils';
 import { adaptRoll } from '../system/rolls';
 
 export class PF2ECharacter extends PF2EActor {
     data!: CharacterData;
+    _data!: CharacterData;
 
     /** @override */
     static get defaultImg() {
@@ -229,7 +241,13 @@ export class PF2ECharacter extends PF2EActor {
                 WISDOM.withScore(data.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank),
             ];
-            const notes = [] as PF2RollNote[];
+            const activeEffects = this.effects.entries.filter((effect) =>
+                effect.data.changes.some((change) => change.key.startsWith('data.attributes.perception.rank')),
+            );
+            modifiers[1].automation.key = activeEffects.length > 0 ? 'data.attributes.perception.rank' : null;
+            modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
+
+            const notes: PF2RollNote[] = [];
             if (data.attributes.perception.item) {
                 modifiers.push(
                     new PF2Modifier(
@@ -578,6 +596,10 @@ export class PF2ECharacter extends PF2EActor {
                 unarmed.data.damage.die = 'd6';
             }
 
+            const ammo = (actorData.items ?? [])
+                .filter((item): item is ConsumableData => item.type === 'consumable')
+                .filter((item) => item.data.consumableType?.value === 'ammo');
+
             (actorData.items ?? [])
                 .filter((item): item is WeaponData => item.type === 'weapon')
                 .concat([unarmed])
@@ -602,7 +624,7 @@ export class PF2ECharacter extends PF2EActor {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    let proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [
@@ -614,7 +636,9 @@ export class PF2ECharacter extends PF2EActor {
                         'attack-roll',
                         'all',
                     ];
-                    if (item.data?.group?.value) {
+
+                    const itemGroup = item.data?.group?.value;
+                    if (itemGroup) {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
@@ -699,6 +723,9 @@ export class PF2ECharacter extends PF2EActor {
                     action.criticalSuccess = flavor.criticalSuccess;
                     action.success = flavor.success;
                     action.options = item?.data?.options?.value ?? [];
+
+                    action.selectedAmmoId = item.data.selectedAmmoId;
+                    if (itemGroup === 'bow' || itemGroup === 'sling') action.ammo = ammo;
 
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
@@ -844,6 +871,81 @@ export class PF2ECharacter extends PF2EActor {
                     data.actions.push(strike);
                 });
         }
+
+        (actorData.items ?? [])
+            .filter((item): item is SpellcastingEntryData => item.type === 'spellcastingEntry')
+            .forEach((spellcastingEntry) => {
+                const tradition = spellcastingEntry.data.tradition.value;
+                const rank = spellcastingEntry.data.proficiency.value;
+                const ability = (spellcastingEntry.data.ability.value || 'int') as AbilityString;
+                const baseModifiers = [
+                    AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
+                    ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank),
+                ];
+                const baseNotes = [] as PF2RollNote[];
+                [`${ability}-based`, 'all'].forEach((key) => {
+                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
+                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
+                });
+
+                {
+                    // add custom modifiers and roll notes relevant to the attack modifier for the spellcasting entry
+                    const modifiers = [...baseModifiers];
+                    const notes = [...baseNotes];
+                    [`${tradition}-spell-attack`, 'spell-attack', 'attack', 'attack-roll'].forEach((key) => {
+                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+                    });
+
+                    const attack: PF2StatisticModifier & Partial<SpellAttackRollModifier> = new PF2StatisticModifier(
+                        spellcastingEntry.name,
+                        modifiers,
+                    );
+                    attack.notes = notes;
+                    attack.value = attack.totalModifier;
+                    attack.breakdown = attack.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                        .join(', ');
+                    attack.roll = adaptRoll((args) => {
+                        const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
+                        const options = args.options ?? [];
+                        ensureProficiencyOption(options, rank);
+                        PF2Check.roll(
+                            new PF2CheckModifier(label, attack, args.modifiers ?? []),
+                            { actor: this, type: 'spell-attack-roll', options, dc: args.dc, notes },
+                            args.event,
+                            args.callback,
+                        );
+                    });
+                    spellcastingEntry.data.attack = attack as Required<SpellAttackRollModifier>;
+                }
+
+                {
+                    // add custom modifiers and roll notes relevant to the DC for the spellcasting entry
+                    const modifiers = [...baseModifiers];
+                    const notes = [...baseNotes];
+                    [`${tradition}-spell-dc`, 'spell-dc'].forEach((key) => {
+                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+                    });
+
+                    const dc: PF2StatisticModifier & Partial<SpellDifficultyClass> = new PF2StatisticModifier(
+                        spellcastingEntry.name,
+                        modifiers,
+                    );
+                    dc.notes = notes;
+                    dc.value = 10 + dc.totalModifier;
+                    dc.breakdown = [game.i18n.localize('PF2E.SpellDCBase')]
+                        .concat(
+                            dc.modifiers
+                                .filter((m) => m.enabled)
+                                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+                        )
+                        .join(', ');
+                    spellcastingEntry.data.dc = dc as Required<SpellDifficultyClass>;
+                }
+            });
 
         this.prepareInitiative(actorData, statisticsModifiers, rollNotes);
 

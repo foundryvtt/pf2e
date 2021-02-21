@@ -161,7 +161,7 @@ function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean
 }
 
 async function addFromCompendium(actor: ActorPlaceholder, compendiumId: string, quantity: number) {
-    const pack = game.packs.find<PF2EPhysicalItem>((p) => p.collection === 'pf2e.equipment-srd');
+    const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
     if (!pack) {
         throw Error('unable to get pack!');
     }

@@ -17,12 +17,6 @@ declare type CompendiumIndex = {
 
 declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | RollTable;
 
-declare interface CompendiumCollection extends Collection<Compendium> {
-    get<E extends CompendiumEntity>(id: string, { strict }?: { strict?: boolean }): Compendium<E> | null;
-    filter<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E>[];
-    find<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E> | null;
-}
-
 /**
  * The Compendium class provides an interface for interacting with compendium packs which are
  * collections of similar Entities which are stored outside of the world database but able to
@@ -116,11 +110,16 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * The Entity type which is allowed to be stored in this collection
      */
-    get entity(): string;
+    get entity(): 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+
+    /**
+     * A reference to the Entity class object contained within this Compendium pack
+     */
+    get cls(): typeof Actor | typeof Item | typeof JournalEntry | typeof Macro | typeof RollTable;
 
     /* ----------------------------------------- */
     /*  Methods
-    /* ----------------------------------------- */
+        /* ----------------------------------------- */
 
     /**
      * Create a new Compendium pack using provided
@@ -160,14 +159,22 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      *
      * @return A Promise containing the return entry data, or null
      */
-    getEntry(entryId: string): Promise<EntityType['data']>;
+    getEntry(entryId: string): Promise<EntityType['data'] | null>;
 
     /**
      * Get a single Compendium entry as an Entity instance
      * @param entryId The compendium entry ID to load and instantiate
      * @return A Promise containing the returned Entity, if it exists, otherwise null
      */
-    getEntity(entryId: string): Promise<EntityType>;
+    getEntity(entryId: string): Promise<EntityType | null>;
+
+    /**
+     * Fully import the contents of a Compendium pack into a World folder.
+     * @param {string|null} [folderId]  An existing Folder _id to use.
+     * @param {string} [folderName]     A new Folder name to create.
+     * @return {Promise<*>}
+     */
+    importAll({ folderId, folderName }?: { folderId?: string | null; folderName?: string }): Promise<Entity[]>;
 
     /**
      * Cast entry data to an Entity class

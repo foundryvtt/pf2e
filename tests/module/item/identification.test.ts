@@ -1,4 +1,4 @@
-import {PhysicalItemData, Rarity} from '../../../src/module/item/dataDefinitions';
+import {PhysicalItemData, Rarity} from '@item/data-definitions';
 import {identifyItem, isMagical} from '../../../src/module/item/identification';
 
 interface TestItemData {

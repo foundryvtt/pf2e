@@ -22,7 +22,8 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
-} from '@item/dataDefinitions';
+    isMagicDetailsData,
+} from '@item/data-definitions';
 import {
     CharacterData,
     NpcData,
@@ -32,14 +33,15 @@ import {
     ActorDataPF2e,
     VehicleData,
     HazardData,
-} from './actorDataDefinitions';
+    AbilityString,
+} from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
     PF2Striking,
     PF2WeaponPotency,
-} from '../rules/rulesDataDefinitions';
+} from '../rules/rules-data-definitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
@@ -93,6 +95,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'perception',
     'initiative',
     'skill-check',
+    'counteract-check',
 ]);
 
 /**
@@ -100,6 +103,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  */
 export class PF2EActor extends Actor<PF2EItem> {
     data!: ActorDataPF2e;
+    _data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
@@ -203,7 +207,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
-        const notes = [] as PF2RollNote[];
+        const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
@@ -590,8 +594,8 @@ export class PF2EActor extends Actor<PF2EItem> {
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${item.name} Skill Check`;
 
-        let rollMod: number = 0;
-        let itemBonus: number = 0;
+        let rollMod = 0;
+        let itemBonus = 0;
         if (item.actor && item.actor.data && item.actor.data.type === 'character') {
             const rank = data.data.proficient?.value || 0;
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
@@ -694,12 +698,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
      * @return {Promise}
      */
-    static async applyDamage(
-        roll: JQuery,
-        multiplier: number,
-        attribute: string = 'attributes.hp',
-        modifier: number = 0,
-    ) {
+    static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
         if (canvas.tokens.controlled.length > 0) {
             const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
             const messageSender = roll.find('.message-sender').text();
@@ -764,11 +763,12 @@ export class PF2EActor extends Actor<PF2EItem> {
                 const itemTraits = item?.data?.data?.traits?.value;
 
                 if (actor?.data.data.saves[save]?.roll) {
-                    let opts = actor.getRollOptions(['all', 'saving-throw', save]);
+                    const options = actor.getRollOptions(['all', 'saving-throw', save]);
+                    options.push('magical', 'spell');
                     if (itemTraits) {
-                        opts = opts.concat(itemTraits);
+                        options.push(...itemTraits);
                     }
-                    actor.data.data.saves[save].roll(ev, opts);
+                    actor.data.data.saves[save].roll({ event: ev, options });
                 } else {
                     actor?.rollSave(ev, save);
                 }
@@ -868,25 +868,20 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
-    ): Promise<this['data']>;
+    ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
-    updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
+    ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: string,
-        data: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
-    ): Promise<this['data'] | this['data'][]> {
+    ): Promise<ItemData | ItemData[]> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
             const item = this.items.get(datum._id);
@@ -908,12 +903,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
      * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(
-        attribute: string,
-        value: number,
-        isDelta: boolean = false,
-        isBar: boolean = true,
-    ): Promise<this> {
+    async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
         if (value === undefined || value === null || Number.isNaN(value)) {
             return Promise.reject();
         }
@@ -1005,7 +995,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId?: string): {
                     request(): Promise<void>;
                 };
-            } = require('./loot').LootTransfer;
+            } = require('./loot').LootTransfer; // eslint-disable-line @typescript-eslint/no-var-requires
             const lootTransfer = new LootTransfer(source, target, quantity, containerId);
             await lootTransfer.request();
 
@@ -1039,11 +1029,15 @@ export class PF2EActor extends Actor<PF2EItem> {
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if ('invested' in newItemData.data && typeof newItemData.data.invested?.value === 'boolean') {
+        if (isMagicDetailsData(newItemData.data)) {
             newItemData.data.invested.value = false;
         }
 
-        const result = await targetActor.createOwnedItem(newItemData);
+        const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
+        if (result === null) {
+            return;
+        }
+
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
 
         return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
@@ -1325,7 +1319,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }, [] as string[]);
     }
 
-    getAbilityMod(ability: string): number {
+    getAbilityMod(ability: AbilityString): number {
         return this.data.data.abilities[ability].mod;
     }
 
@@ -1336,9 +1330,11 @@ export class PF2EActor extends Actor<PF2EItem> {
 
 export class PF2EHazard extends PF2EActor {
     data!: HazardData;
+    _data!: HazardData;
 }
 export class PF2EVehicle extends PF2EActor {
     data!: VehicleData;
+    _data!: VehicleData;
 }
 
 export type TokenPF2e = Token<PF2EActor>;

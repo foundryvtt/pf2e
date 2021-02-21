@@ -1,17 +1,19 @@
 import { DateTime } from 'luxon';
+import { LocalizationPF2e } from '../system/localization';
 
 type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
 
 interface FormInputData extends ClientSettingsData {
     key: string;
     value: unknown;
+    isDisabled: boolean;
     isSelect: boolean;
     isCheckbox: boolean;
     isDateTime: boolean;
 }
-type TemplateData = FormApplicationData & {
+interface TemplateData extends FormApplicationData {
     settings: FormInputData[];
-};
+}
 
 interface UpdateData {
     dateTheme: string;
@@ -27,7 +29,7 @@ export class WorldClockSettings extends FormApplication {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
             id: 'world-clock-settings',
-            template: 'systems/pf2e/templates/system/settings/world-clock.html',
+            template: 'systems/pf2e/templates/system/settings/world-clock/index.html',
             width: 550,
             height: 'auto',
             closeOnSubmit: true,
@@ -36,7 +38,9 @@ export class WorldClockSettings extends FormApplication {
 
     /** @override */
     getData(): TemplateData {
-        const settings: FormInputData[] = Object.entries(WorldClockSettings.settings).map(([key, setting]) => {
+        const visibleSettings = Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn');
+
+        const settings: FormInputData[] = visibleSettings.map(([key, setting]) => {
             const value = ((): unknown => {
                 const rawValue = game.settings.get('pf2e', `worldClock.${key}`);
 
@@ -47,26 +51,51 @@ export class WorldClockSettings extends FormApplication {
                 return rawValue;
             })();
 
+            const usingCalendarWeather = game.pf2e.worldClock!.usingCalendarWeather;
             return {
                 ...setting,
                 key: key,
                 value: value,
-                user: game.user,
+                isDisabled: usingCalendarWeather && ['dateTheme', 'timeConvention'].includes(key as SettingsKey),
                 isSelect: 'choices' in setting,
                 isCheckbox: setting.type === Boolean,
                 isDateTime: setting.type === String && !('choices' in setting),
             };
         });
-        return mergeObject(super.getData(), { settings: settings });
+        return mergeObject(super.getData(), {
+            settings,
+            usingCalendarWeather: game.pf2e.worldClock!.usingCalendarWeather,
+        });
     }
 
     /** Register World Clock settings */
-    static registerSettings() {
+    static registerSettings(): void {
         game.settings.register('pf2e', 'worldClock.dateTheme', this.settings.dateTheme);
         game.settings.register('pf2e', 'worldClock.timeConvention', this.settings.timeConvention);
         game.settings.register('pf2e', 'worldClock.playersCanView', this.settings.playersCanView);
         game.settings.register('pf2e', 'worldClock.syncDarkness', this.settings.syncDarkness);
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
+    }
+
+    /** @override */
+    activateListeners($html: JQuery): void {
+        super.activateListeners($html);
+
+        const translations = new LocalizationPF2e().translations.PF2E.SETTINGS.WorldClock;
+        const title = translations.ResetWorldTime.Name;
+        renderTemplate('systems/pf2e/templates/system/settings/world-clock/confirm-reset.html').then((template) => {
+            $html.find('button.reset-world-time').on('click', () => {
+                Dialog.confirm({
+                    title: title,
+                    content: template,
+                    yes: () => {
+                        game.time.advance(-1 * game.time.worldTime);
+                        this.close();
+                    },
+                    defaultYes: false,
+                });
+            });
+        });
     }
 
     /** @override */
@@ -80,7 +109,7 @@ export class WorldClockSettings extends FormApplication {
         ];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
-            const newValue = key === 'worldCreatedOn' ? DateTime.fromISO(data[key]) : data[key];
+            const newValue = key === 'worldCreatedOn' ? DateTime.fromISO(data[key]).toUTC() : data[key];
             await game.settings.set('pf2e', settingKey, newValue);
         }
 

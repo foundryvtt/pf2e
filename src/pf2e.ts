@@ -1,6 +1,5 @@
-import { ConfigPF2e, PF2ECONFIG } from './scripts/config';
+import { PF2ECONFIG } from './scripts/config';
 import { PF2E } from './scripts/hooks';
-import { rollActionMacro, rollItemMacro } from './scripts/init';
 import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
@@ -8,16 +7,15 @@ import { registerHandlebarsHelpers } from './module/handlebars';
 import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
-import { PlayerConfigPF2e } from './module/user/playerconfig';
-import { PF2eSystem } from './module/pf2e-system';
+import { PlayerConfigPF2e } from './module/user/player-config';
 import { registerActors } from './module/register-actors';
 import { registerSheets } from './module/register-sheets';
-import { PF2eCombatTracker } from './module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from './module/system/pf2e-combar-tracker';
 import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from './scripts/actor/statusEffects';
+import { PF2eStatusEffects } from './scripts/actor/status-effects';
 import { PF2eConditionManager } from './module/conditions';
-import { ActorDataPF2e, FamiliarData } from './module/actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -26,54 +24,29 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
-import { WorldClock } from './module/system/world-clock';
 import { EffectPanel } from './module/system/effect-panel';
-import { activateSocketListener, SocketEventCallback } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
-import { MigrationRunner } from './module/migration-runner';
-import { Migrations } from './module/migrations';
-import { ItemData } from './module/item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
+import { updateMinionActors } from './scripts/actor/update-minions';
 
-require('./styles/pf2e.scss');
+import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
-require('./scripts/actor/statusEffects.ts');
+require('./scripts/actor/status-effects.ts');
 require('./scripts/dice.ts');
-require('./scripts/chat/chatdamagebuttonsPF2e.ts');
+require('./scripts/chat/chat-damage-buttons-pf2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
-require('./scripts/actor/sheet/itemBehaviour.ts');
-require('./scripts/system/canvasDropHandler');
+require('./scripts/actor/sheet/item-behaviour.ts');
+require('./scripts/system/canvas-drop-handler');
 require('./module/custom-elements/custom-elements');
-
-interface GamePF2e extends Game<PF2EActor, PF2EItem> {
-    pf2e: {
-        actions: { [key: string]: Function };
-        worldClock?: WorldClock;
-        effectPanel?: EffectPanel;
-        rollItemMacro?: typeof rollItemMacro;
-        rollActionMacro: typeof rollActionMacro;
-    };
-
-    socket: SocketIO.Socket & {
-        emit(message: Pick<SocketEventCallback, 0>): void;
-        on(event: string, ...message: SocketEventCallback): void;
-    };
-}
-
-declare global {
-    const game: GamePF2e;
-    const CONFIG: ConfigPF2e;
-    const canvas: Canvas<PF2EActor>;
-    let PF2e: PF2eSystem;
-}
 
 PF2E.Hooks.listen();
 
@@ -140,153 +113,9 @@ Hooks.once('init', () => {
     };
 });
 
-/* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: PF2EActor = undefined) {
-    game.actors.entities
-        .filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
-        .filter((minion) => !!minion.data.data?.master?.id)
-        .filter((minion) => !master || minion.data.data.master.id === master.data._id)
-        .filter((minion) => minion.can(game.user, 'update'))
-        .forEach((minion) => minion.update({ 'data.master.updated': new Date().toISOString() }));
-}
-
-Hooks.once('ready', () => {
-    PlayerConfigPF2e.init();
-    PlayerConfigPF2e.activateColorScheme();
-
-    // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-    _updateMinionActors();
-    activateSocketListener();
-});
-
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
 /* -------------------------------------------- */
-
-/**
- * This function runs after game data has been requested and loaded from the servers, so entities exist
- */
-Hooks.once('setup', () => {
-    (window as any).PF2e = new PF2eSystem();
-
-    // Localize CONFIG objects once up-front
-    const toLocalize = [
-        'abilities',
-        'skills',
-        'martialSkills',
-        'currencies',
-        'saves',
-        'armorTraits',
-        'preciousMaterialGrades',
-        'armorPotencyRunes',
-        'armorResiliencyRunes',
-        'armorPropertyRunes',
-        'weaponPotencyRunes',
-        'weaponStrikingRunes',
-        'weaponPropertyRunes',
-        'rarityTraits',
-        'damageTypes',
-        'weaponDamage',
-        'healingTypes',
-        'weaponTypes',
-        'weaponGroups',
-        'consumableTraits',
-        'weaponDescriptions',
-        'weaponTraits',
-        'traitsDescriptions',
-        'weaponHands',
-        'equipmentTraits',
-        'itemBonuses',
-        'damageDie',
-        'weaponRange',
-        'weaponMAP',
-        'weaponReload',
-        'armorTypes',
-        'armorGroups',
-        'consumableTypes',
-        'magicTraditions',
-        'preparationType',
-        'spellTraits',
-        'featTraits',
-        'areaTypes',
-        'areaSizes',
-        'classTraits',
-        'ancestryTraits',
-        'alignment',
-        'skillList',
-        'spellComponents',
-        'spellTypes',
-        'spellTraditions',
-        'spellSchools',
-        'spellLevels',
-        'featTypes',
-        'featActionTypes',
-        'actionTypes',
-        'actionTypes',
-        'actionsNumber',
-        'actionCategories',
-        'proficiencyLevels',
-        'heroPointLevels',
-        'actorSizes',
-        'bulkTypes',
-        'conditionTypes',
-        'immunityTypes',
-        'resistanceTypes',
-        'weaknessTypes',
-        'languages',
-        'monsterTraits',
-        'spellScalingModes',
-        'attackEffects',
-        'hazardTraits',
-        'attributes',
-        'speedTypes',
-        'senses',
-        'preciousMaterials',
-        'prerequisitePlaceholders',
-        'ancestryItemTraits',
-        'levels',
-        'dcAdjustments',
-    ];
-    for (const o of toLocalize) {
-        CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {
-            obj[e[0]] = game.i18n.localize(e[1]);
-            return obj;
-        }, {});
-    }
-});
-
-/* -------------------------------------------- */
-
-/**
- * Once the entire VTT framework is initialized, check to see if we should perform a data migration
- */
-Hooks.once('ready', () => {
-    console.log('PF2e System | Readying Pathfinder 2nd Edition System');
-
-    // Determine whether a system migration is required and feasible
-    const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
-    const COMPATIBLE_MIGRATION_VERSION = 0.411;
-
-    if (game.user.isGM) {
-        // Perform the migration
-        const migrationRunner = new MigrationRunner(Migrations.constructAll());
-        if (migrationRunner.needsMigration()) {
-            if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
-                ui.notifications.error(
-                    `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                    { permanent: true },
-                );
-            }
-            migrationRunner.runMigration();
-        }
-    }
-
-    // Effect Panel singleton application
-    game[game.system.id].effectPanel = new EffectPanel();
-    if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
-        game.pf2e.effectPanel.render(true);
-    }
-});
 
 // Activate global listeners
 Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
@@ -457,7 +286,7 @@ Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
 Hooks.on('updateActor', (actor, data, options, userID) => {
     if (userID === game.userId) {
         // ensure minion-type actors with the updated actor as master should also be updated
-        _updateMinionActors(actor);
+        updateMinionActors(actor);
     }
 });
 
@@ -612,14 +441,6 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
                 button: true,
             },
         );
-});
-
-Hooks.on('updateWorldTime', (_total: number, _diff: number) => {
-    const worldclock = game.pf2e.worldClock;
-    if (worldclock) {
-        worldclock.render(false);
-    }
-    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('updateCombat', (combat, diff, options, userID) => {

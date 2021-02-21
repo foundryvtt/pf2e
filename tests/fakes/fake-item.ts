@@ -1,4 +1,4 @@
-import { ItemData } from '@item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 
 export class FakeItem {
     _data: Partial<ItemData>;
