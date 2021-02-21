@@ -60,11 +60,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "145",
+                "max": 145,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "145"
+                "value": 145
             },
             "init": {
                 "bonus": 0,
@@ -109,7 +109,7 @@
                     }
                 ],
                 "special": "",
-                "value": "30 feet"
+                "value": 30
             }
         },
         "currency": {
@@ -155,7 +155,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "8"
+                "value": 8
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=654",
             "recallKnowledgeText": "Recall Knowledge - Elemental : DC 24",
@@ -431,9 +431,14 @@
             "rarity": {
                 "value": "common"
             },
-            "senses": {
-                "value": "darkvision, tremorsense (imprecise) 90 feet"
-            },
+            "senses": [
+                {
+                    "exceptions": "",
+                    "label": "Tremorsense",
+                    "type": "Tremorsense",
+                    "value": "90"
+                }
+            ],
             "size": {
                 "value": "lg"
             },
@@ -446,6 +451,7 @@
             }
         }
     },
+    "effects": [],
     "flags": {
         "pf2e_updatednpcsheet": {}
     },
@@ -458,8 +464,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "calcification"
+                        "Calcification"
                     ]
                 },
                 "bonus": {
@@ -482,12 +489,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+9"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+9",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -504,6 +511,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -562,9 +572,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -572,10 +584,11 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "forceful",
                         "reach-10",
-                        "versatile piercing"
+                        "versatile-p"
                     ]
                 },
                 "usage": {
@@ -585,6 +598,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -616,10 +630,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -640,6 +656,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Calcification",
@@ -669,10 +686,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -689,6 +708,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Earth Glide",
@@ -716,6 +736,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -726,6 +748,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -738,7 +761,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "sGI1gh7EPVSRadhY",
         "actorLink": false,
         "bar1": {
@@ -757,6 +779,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Granite Glyptodont",
         "randomImg": false,
