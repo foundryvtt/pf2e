@@ -100,13 +100,7 @@ export class WorldClockSettings extends FormApplication {
 
     /** @override */
     protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
-        const keys: (keyof UpdateData)[] = [
-            'dateTheme',
-            'timeConvention',
-            'playersCanView',
-            'syncDarkness',
-            'worldCreatedOn',
-        ];
+        const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
         for await (const key of keys) {
             const settingKey = `worldClock.${key}`;
             const newValue = key === 'worldCreatedOn' ? DateTime.fromISO(data[key]).toUTC() : data[key];
