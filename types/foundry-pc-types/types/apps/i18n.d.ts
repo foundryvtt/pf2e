@@ -17,7 +17,7 @@ declare class Localization {
     /**
      * Fallback translations if the target keys are not found
      */
-    _fallback: {};
+    _fallback: Record<string, TranslationDictionaryValue>;
 
     constructor();
 

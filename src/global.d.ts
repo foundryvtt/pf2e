@@ -1,3 +1,5 @@
+declare type TranslationsPF2e = typeof import('../static/lang/en.json');
+
 declare interface Game {
     pf2e: {
         actions: { [key: string]: Function };
@@ -13,8 +15,8 @@ declare interface Game {
     };
 
     i18n: Localization & {
-        readonly translations: Localization['translations'] & typeof import('../static/lang/en.json');
-        _fallback: { PF2E?: unknown };
+        readonly translations: Localization['translations'] & DeepPartial<TranslationsPF2e>;
+        _fallback: Localization['translations'] & TranslationsPF2e;
     };
 }
 declare const game: Game<import('./module/actor/actor').PF2EActor, import('./module/item/item').PF2EItem>;
