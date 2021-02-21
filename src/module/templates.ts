@@ -55,6 +55,7 @@ export function loadPF2ETemplates() {
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',
         'systems/pf2e/templates/items/rules-panel.html',
+        'systems/pf2e/templates/items/mystify-panel.html',
         'systems/pf2e/templates/items/action-details.html',
         'systems/pf2e/templates/items/action-sidebar.html',
         'systems/pf2e/templates/items/ancestry-details.html',
