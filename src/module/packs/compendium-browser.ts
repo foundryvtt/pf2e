@@ -1,4 +1,5 @@
 import { Progress } from '../progress';
+import { PF2EPhysicalItem } from '@item/physical';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -758,6 +759,30 @@ class CompendiumBrowser extends Application {
                 }
             }
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
+        });
+
+        html.on('click', '.take-item', (_ev) => {
+            const entry = _ev.currentTarget.closest('.spell').dataset;
+            const id = entry.entryId;
+
+            this.addPhysicalItesToSelectedTokens(id);
+        });
+    }
+
+    private addPhysicalItesToSelectedTokens(id: string) {
+        PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
+            for (const token of canvas.tokens.controlled) {
+                const userHasPermissions = token.actor?.can(game.user, 'update') ?? false;
+                const tokenType = token.actor?.data?.type ?? 'undefined';
+                const tokenMayContainEquipment =
+                    tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
+
+                if (item !== null && userHasPermissions && tokenMayContainEquipment) {
+                    token.actor!.createEmbeddedEntity('OwnedItem', item.data);
+                } else {
+                    ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                }
+            }
         });
     }
 
