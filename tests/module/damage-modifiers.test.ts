@@ -1,12 +1,12 @@
 import {
-    Alive,
     immunityToLabeledValue,
     mergeLabeledValues,
     parseExceptions,
     removeAlignmentDamage,
     removeUndeadLivingDamage,
 } from '../../src/module/damage-modifiers';
-import { Alignment, LabeledValue } from '../../src/module/actor/actorDataDefinitions';
+import { Living } from '../../src/module/living';
+import { Alignment, LabeledValue } from '@actor/actor-data-definitions';
 
 function createLabeledValue(type: string, value = 0, exceptions?: string, label = 'Label'): LabeledValue {
     return {
@@ -184,7 +184,7 @@ describe('Test Living/Undead Removal', () => {
             damage.set('bleed', 3);
             damage.set('negative', 3);
 
-            removeUndeadLivingDamage(damage, testCase.alive as Alive);
+            removeUndeadLivingDamage(damage, testCase.alive as Living);
             expect(Array.from(damage.keys()).sort()).toEqual(Array.from(testCase.expected).sort());
         });
     });

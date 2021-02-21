@@ -1,8 +1,7 @@
 import { combineMaps, groupBy, max, sum, toNumber } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 import { Alignment, DamageImmunities, LabeledValue } from '@actor/actor-data-definitions';
-
-export type Alive = 'living' | 'undead' | 'neither';
+import {Living} from "./living";
 
 export type DamageType =
     | 'acid'
@@ -299,10 +298,10 @@ export function removeAlignmentDamage(damage: Damage, alignment: Alignment) {
     }
 }
 
-export function removeUndeadLivingDamage(damage: Damage, alive: Alive) {
-    if (alive === 'living') {
+export function removeUndeadLivingDamage(damage: Damage, living: Living) {
+    if (living === 'living') {
         damage.delete('positive');
-    } else if (alive === 'undead') {
+    } else if (living === 'undead') {
         damage.delete('negative');
         // Another special type of physical damage is bleed damage.
         // This is persistent damage that represents loss of blood. As such, it has
@@ -598,7 +597,7 @@ export function calculateDamage({
     criticalDamage,
     additionalCriticalDamage,
     attackTraits,
-    alive,
+    living,
     alignment,
     immunities,
     resistances,
@@ -610,7 +609,7 @@ export function calculateDamage({
     criticalDamage: Damage;
     additionalCriticalDamage: Damage;
     attackTraits: Set<AttackTrait>;
-    alive: Alive;
+    living: Living;
     immunities: Immunity[];
     resistances: Resistance[];
     weaknesses: Weakness[];
@@ -627,7 +626,7 @@ export function calculateDamage({
         immunities,
         splashDamage,
     });
-    removeUndeadLivingDamage(damage, alive);
+    removeUndeadLivingDamage(damage, living);
     removeAlignmentDamage(damage, alignment);
     applyWeaknesses({ isCriticalHit, damage, weaknesses, attackTraits, splashDamage, areaDamage });
     return applyResistances({ damage, resistances, isCriticalHit, attackTraits, mainDamageType });
