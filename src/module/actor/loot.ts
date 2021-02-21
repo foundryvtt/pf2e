@@ -6,8 +6,8 @@ import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treas
 import { PF2ECharacter } from './character';
 
 export class PF2ELoot extends PF2EActor {
-    /** @override */
     data!: LootData;
+    _data!: LootData;
 
     get isLoot(): boolean {
         return this.data.data.lootSheetType === 'Loot';

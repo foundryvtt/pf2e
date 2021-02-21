@@ -5,6 +5,7 @@ import { PF2EFeat } from './others';
 
 export class PF2EClass extends PF2EItem {
     data!: ClassData;
+    _data!: ClassData;
 
     static async getClassItemData(entry: ABCFeatureEntryData): Promise<FeatData | undefined> {
         const feat = await (async (): Promise<CompendiumEntity | undefined> => {

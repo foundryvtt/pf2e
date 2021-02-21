@@ -22,6 +22,7 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
+    isMagicDetailsData,
 } from '@item/data-definitions';
 import {
     CharacterData,
@@ -102,6 +103,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  */
 export class PF2EActor extends Actor<PF2EItem> {
     data!: ActorDataPF2e;
+    _data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
@@ -1027,11 +1029,11 @@ export class PF2EActor extends Actor<PF2EItem> {
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if ('invested' in newItemData.data && typeof newItemData.data.invested?.value === 'boolean') {
+        if (isMagicDetailsData(newItemData.data)) {
             newItemData.data.invested.value = false;
         }
 
-        const result = await targetActor.createOwnedItem(newItemData);
+        const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
         if (result === null) {
             return;
         }
@@ -1328,9 +1330,11 @@ export class PF2EActor extends Actor<PF2EItem> {
 
 export class PF2EHazard extends PF2EActor {
     data!: HazardData;
+    _data!: HazardData;
 }
 export class PF2EVehicle extends PF2EActor {
     data!: VehicleData;
+    _data!: VehicleData;
 }
 
 export type TokenPF2e = Token<PF2EActor>;

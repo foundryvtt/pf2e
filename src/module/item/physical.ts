@@ -3,8 +3,8 @@ import { isPhysicalItem, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
-    /** @override */
     data!: PhysicalItemData;
+    _data!: PhysicalItemData;
 
     static isIdentified(itemData: any): boolean {
         return itemData.data?.identification?.status !== 'unidentified';
@@ -81,7 +81,7 @@ export class PF2EPhysicalItem extends PF2EItem {
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = await fromUuid(uuid);
+                const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
                 if (baseItem?.data) {
                     const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
                     // probably more fields should be filtered out
@@ -109,5 +109,14 @@ export class PF2EPhysicalItem extends PF2EItem {
     async update(diff: { [key: string]: unknown }, options = {}) {
         await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
+    }
+
+    static async createPhysicalItemFromCompendiumId(id: string): Promise<PF2EPhysicalItem | null> {
+        const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
+        if (!pack) {
+            throw Error('unable to get pack!');
+        }
+
+        return pack.getEntity(id);
     }
 }

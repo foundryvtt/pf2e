@@ -2,6 +2,7 @@ import {
     AncestryData,
     BackgroundData,
     ClassData,
+    ConsumableData,
     LoreData,
     MartialData,
     SpellAttackRollModifier,
@@ -42,6 +43,7 @@ import { adaptRoll } from '../system/rolls';
 
 export class PF2ECharacter extends PF2EActor {
     data!: CharacterData;
+    _data!: CharacterData;
 
     /** @override */
     static get defaultImg() {
@@ -594,6 +596,10 @@ export class PF2ECharacter extends PF2EActor {
                 unarmed.data.damage.die = 'd6';
             }
 
+            const ammo = (actorData.items ?? [])
+                .filter((item): item is ConsumableData => item.type === 'consumable')
+                .filter((item) => item.data.consumableType?.value === 'ammo');
+
             (actorData.items ?? [])
                 .filter((item): item is WeaponData => item.type === 'weapon')
                 .concat([unarmed])
@@ -630,7 +636,9 @@ export class PF2ECharacter extends PF2EActor {
                         'attack-roll',
                         'all',
                     ];
-                    if (item.data?.group?.value) {
+
+                    const itemGroup = item.data?.group?.value;
+                    if (itemGroup) {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
@@ -715,6 +723,9 @@ export class PF2ECharacter extends PF2EActor {
                     action.criticalSuccess = flavor.criticalSuccess;
                     action.success = flavor.success;
                     action.options = item?.data?.options?.value ?? [];
+
+                    action.selectedAmmoId = item.data.selectedAmmoId;
+                    if (itemGroup === 'bow' || itemGroup === 'sling') action.ammo = ammo;
 
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },

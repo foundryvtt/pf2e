@@ -25,8 +25,9 @@ declare class CombatEncounters<ActorType extends Actor> extends Collection<Comba
     viewed: Combat<ActorType>;
 }
 
-declare interface CombatantData<ActorType extends Actor> extends BaseEntityData {
+declare interface CombatantData<ActorType extends Actor> {
     _id: string;
+    name: string;
     actor: ActorType;
     tokenId: string;
     initiative: number | null;

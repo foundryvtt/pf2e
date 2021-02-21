@@ -2,14 +2,14 @@
  * Override and extend the basic :class:`Item` implementation
  */
 import { Spell } from './spell';
-import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
+import { getArmorBonus, getAttackBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
 import {
-    ProficiencyModifier,
-    PF2StatisticModifier,
-    PF2Modifier,
     AbilityModifier,
     ensureProficiencyOption,
+    PF2Modifier,
+    PF2StatisticModifier,
+    ProficiencyModifier,
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
@@ -25,6 +25,7 @@ import { PF2Check } from '../system/rolls';
  */
 export class PF2EItem extends Item<PF2EActor> {
     data!: ItemData;
+    _data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {
@@ -987,32 +988,38 @@ export class PF2EItem extends Item<PF2EActor> {
         }
 
         // Deduct consumed charges from the item
-        if (itemData.autoUse.value) {
-            const qty = itemData.quantity;
-            const chg = itemData.charges;
+        if (itemData.autoUse.value) this.consume();
+    }
 
-            // Deduct an item quantity
-            if (chg.value <= 1 && qty.value > 1) {
-                const options = {
-                    _id: this.data._id,
-                    'data.quantity.value': Math.max(qty.value - 1, 0),
-                    'data.charges.value': chg.max,
-                };
-                this.actor.updateEmbeddedEntity('OwnedItem', options);
-            }
+    consume() {
+        const item: ItemData = this.data;
+        if (item.type !== 'consumable') throw Error('Tried to consume non-consumable');
 
-            // Optionally destroy the item
-            else if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-                this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
-            }
+        const itemData = item.data;
+        const qty = itemData.quantity;
+        const chg = itemData.charges;
 
-            // Deduct the remaining charges
-            else {
-                this.actor.updateEmbeddedEntity('OwnedItem', {
-                    _id: this.data._id,
-                    'data.charges.value': Math.max(chg.value - 1, 0),
-                });
-            }
+        if (!this.actor) return;
+
+        // Optionally destroy the item
+        if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
+            this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
+        }
+        // Deduct one from quantity
+        else if (chg.value <= 1) {
+            const options = {
+                _id: this.data._id,
+                'data.quantity.value': Math.max(qty.value - 1, 0),
+                'data.charges.value': chg.max,
+            };
+            this.actor.updateEmbeddedEntity('OwnedItem', options);
+        }
+        // Deduct one charge
+        else {
+            this.actor.updateEmbeddedEntity('OwnedItem', {
+                _id: this.data._id,
+                'data.charges.value': Math.max(chg.value - 1, 0),
+            });
         }
     }
 

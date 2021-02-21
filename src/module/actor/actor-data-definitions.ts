@@ -1,4 +1,4 @@
-import { ItemData, Rarity, Size } from '@item/data-definitions';
+import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 
@@ -131,6 +131,11 @@ export interface RawCharacterStrike {
 
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction }[];
+
+    /** A list of ammo to choose for this attack */
+    ammo?: ConsumableData[];
+    /** Currently selected ammo id that will be consumed when rolling this action */
+    selectedAmmoId?: string;
 }
 
 /** Basic hitpoints data fields */
@@ -231,7 +236,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
     attitude: { value: string };
 }
 
-export interface ActorSystemData {
+export interface ActorSystemData extends Record<string, unknown> {
     traits: BaseTraitsData;
 }
 
