@@ -8,7 +8,6 @@ import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
 import { PlayerConfigPF2e } from './module/user/player-config';
-import { PF2eSystem } from './module/pf2e-system';
 import { registerActors } from './module/register-actors';
 import { registerSheets } from './module/register-sheets';
 import { PF2eCombatTracker } from './module/system/pf2e-combar-tracker';
@@ -137,100 +136,6 @@ Hooks.once('ready', () => {
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
-/* -------------------------------------------- */
-
-/**
- * This function runs after game data has been requested and loaded from the servers, so entities exist
- */
-Hooks.once('setup', () => {
-    (window as any).PF2e = new PF2eSystem();
-
-    // Localize CONFIG objects once up-front
-    const toLocalize = [
-        'abilities',
-        'skills',
-        'martialSkills',
-        'currencies',
-        'saves',
-        'armorTraits',
-        'preciousMaterialGrades',
-        'armorPotencyRunes',
-        'armorResiliencyRunes',
-        'armorPropertyRunes',
-        'weaponPotencyRunes',
-        'weaponStrikingRunes',
-        'weaponPropertyRunes',
-        'rarityTraits',
-        'damageTypes',
-        'weaponDamage',
-        'healingTypes',
-        'weaponTypes',
-        'weaponGroups',
-        'consumableTraits',
-        'weaponDescriptions',
-        'weaponTraits',
-        'traitsDescriptions',
-        'weaponHands',
-        'equipmentTraits',
-        'itemBonuses',
-        'damageDie',
-        'weaponRange',
-        'weaponMAP',
-        'weaponReload',
-        'armorTypes',
-        'armorGroups',
-        'consumableTypes',
-        'magicTraditions',
-        'preparationType',
-        'spellTraits',
-        'featTraits',
-        'areaTypes',
-        'areaSizes',
-        'classTraits',
-        'ancestryTraits',
-        'alignment',
-        'skillList',
-        'spellComponents',
-        'spellTypes',
-        'spellTraditions',
-        'spellSchools',
-        'spellLevels',
-        'featTypes',
-        'featActionTypes',
-        'actionTypes',
-        'actionTypes',
-        'actionsNumber',
-        'actionCategories',
-        'proficiencyLevels',
-        'heroPointLevels',
-        'actorSizes',
-        'bulkTypes',
-        'conditionTypes',
-        'immunityTypes',
-        'resistanceTypes',
-        'weaknessTypes',
-        'languages',
-        'monsterTraits',
-        'spellScalingModes',
-        'attackEffects',
-        'hazardTraits',
-        'attributes',
-        'speedTypes',
-        'senses',
-        'preciousMaterials',
-        'prerequisitePlaceholders',
-        'ancestryItemTraits',
-        'levels',
-        'dcAdjustments',
-    ];
-    for (const o of toLocalize) {
-        CONFIG.PF2E[o] = Object.entries(CONFIG.PF2E[o]).reduce((obj, e: any) => {
-            obj[e[0]] = game.i18n.localize(e[1]);
-            return obj;
-        }, {});
-    }
-});
-
 /* -------------------------------------------- */
 
 /**
