@@ -774,7 +774,8 @@ class CompendiumBrowser extends Application {
             for (const token of canvas.tokens.controlled) {
                 const userHasPermissions = token.actor?.hasPerm(game.user, 'OWNER') ?? false;
                 const tokenType = token.actor?.data?.type ?? 'undefined';
-                const tokenMayContainEquipment = tokenType === 'character' || tokenType === 'loot';
+                const tokenMayContainEquipment =
+                    tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
 
                 if (item !== null && userHasPermissions && tokenMayContainEquipment) {
                     token.actor!.createOwnedItem(item.data);
