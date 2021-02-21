@@ -44,7 +44,7 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
             }
         }
         if (itemData.length > 0) {
-            this.object.createOwnedItem(itemData);
+            this.object.createEmbeddedEntity('OwnedItem', itemData);
         }
     }
 

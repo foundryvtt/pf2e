@@ -81,7 +81,7 @@ export class PF2EPhysicalItem extends PF2EItem {
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = await fromUuid(uuid) as PF2EItem | null;
+                const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
                 if (baseItem?.data) {
                     const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
                     // probably more fields should be filtered out

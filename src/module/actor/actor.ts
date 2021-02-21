@@ -1033,7 +1033,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             newItemData.data.invested.value = false;
         }
 
-        const result = await targetActor.createOwnedItem(newItemData);
+        const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
         if (result === null) {
             return;
         }
