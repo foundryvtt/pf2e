@@ -3,7 +3,7 @@ declare class Journal extends EntityCollection<JournalEntry> {
     get entity(): 'JournalEntry';
 }
 
-declare interface JournalEntryData extends Omit<BaseEntityData, 'type'> {
+declare interface JournalEntryData extends BaseEntityData {
     content: string;
 }
 
@@ -12,6 +12,7 @@ declare interface JournalEntryData extends Omit<BaseEntityData, 'type'> {
  */
 declare class JournalEntry extends Entity {
     data: JournalEntryData;
+    _data: JournalEntryData;
 
     /**
      * Return a reference to the Note instance for this JournalEntry in the current Scene, if any

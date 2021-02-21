@@ -5,6 +5,7 @@ import { PF2EFeat } from './others';
 
 export class PF2EBackground extends PF2EItem {
     data!: BackgroundData;
+    _data!: BackgroundData;
 
     static async getBackgroundItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {

@@ -64,6 +64,8 @@ declare interface UserData extends BaseEntityData {
  */
 declare class User<ActorType extends Actor = Actor> extends Entity {
     data: UserData;
+    _data: UserData;
+
     /**
      * Track whether the user is currently active in the game
      */

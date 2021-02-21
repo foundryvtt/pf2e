@@ -9,8 +9,8 @@ import { PF2RollNote } from '../notes';
 import { adaptRoll } from '../system/rolls';
 
 export class PF2ENPC extends PF2EActor {
-    /** @override */
     data!: NpcData;
+    _data!: NpcData;
 
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {

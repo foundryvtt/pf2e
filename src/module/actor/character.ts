@@ -42,6 +42,7 @@ import { adaptRoll } from '../system/rolls';
 
 export class PF2ECharacter extends PF2EActor {
     data!: CharacterData;
+    _data!: CharacterData;
 
     /** @override */
     static get defaultImg() {
