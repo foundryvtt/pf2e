@@ -433,11 +433,7 @@
                         font-size: 10px;
                         margin-right: 4px;
                     }
-                    .spell-cast {
-                        grid-area: cast;
-                        height: 18px;
-                    }
-                    .spell-cast button {
+                    button.cast-spell {
                         grid-area: cast;
                         height: 18px;
                         padding: 8px;
@@ -457,6 +453,12 @@
                         align-items: center;
                         cursor: pointer;
                         width: 32px;
+
+                        &:disabled {
+                          cursor: not-allowed;
+                          color: lightgrey;
+                          background: var(--sub);
+                        }
                     }
                     .item-summary {
                         grid-area: content;

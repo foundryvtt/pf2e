@@ -723,10 +723,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         });
 
         // Spontaneous Spell slot increment handler:
-        html.find('.spell-slots-increment-down').on('click', (event) => {
-            const target = $(event.currentTarget);
-            const itemId = target.data().itemId;
-            const itemLevel = target.data().level;
+        html.find('.cast-spell').on('click', (event) => {
+            const $button = $(event.currentTarget);
+            const itemId = $button.data().itemId;
+            const itemLevel = $button.data().level;
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
@@ -745,6 +745,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (data.data.slots['slot' + itemLevel].value < 0) {
                 data.data.slots['slot' + itemLevel].value = 0;
             }
+
+            const $rollIcon = $button.siblings('div.item-name.rollable').children('div.item-image');
+            $rollIcon.trigger('click');
 
             item.update(data);
         });
