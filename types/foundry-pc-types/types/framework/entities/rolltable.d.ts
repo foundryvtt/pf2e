@@ -12,6 +12,7 @@ declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
 
 declare class RollTable extends Entity {
     data: RollTableData;
+    _data: RollTableData;
 
     /** @override */
     static get config(): {

@@ -1,8 +1,10 @@
 declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
     type: string;
     img: string;
+    data: Record<string, unknown>;
     token: TokenData;
     items: D[];
+    effects: ActiveEffectData[];
 }
 
 /**
@@ -77,6 +79,7 @@ declare class Actors<ActorType extends Actor = Actor> extends EntityCollection<A
  */
 declare class Actor<ItemType extends Item = Item> extends Entity {
     data: ActorData<ItemType['data']>;
+    _data: ActorData<ItemType['data']>;
 
     /**
      * A reference to a placed Token which creates a synthetic Actor
@@ -87,6 +90,14 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * Construct the Array of Item instances for the Actor
      */
     items: Collection<ItemType>;
+
+    /**
+     * A set that tracks which keys in the data model were modified by active effects
+     */
+    overrides: Record<string, any>;
+
+    /** The item's collection of ActiveEffects */
+    effects: Collection<ActiveEffect>;
 
     /** overload */
     get sheet(): ActorSheet<this>;
@@ -100,7 +111,10 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     static get config(): {
         baseEntity: Actor;
         collection: Actors;
-        embeddedEntities: { OwnedItem: string };
+        embeddedEntities: {
+            ActiveEffect: 'effects',
+            OwnedItem: 'items',
+        };
     };
 
     /* -------------------------------------------- */
@@ -180,13 +194,13 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemType['data']>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemType['data'] | ItemType['data'][]>;
 

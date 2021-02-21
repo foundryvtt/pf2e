@@ -225,7 +225,7 @@ export class PF2eStatusEffects {
         const token = canvas.tokens.get(tokenData._id);
 
         if (!token) {
-            throw Error('PF2E | StatusEffects | Could not find token with id: ${tokenData._id}');
+            throw Error(`PF2E | StatusEffects | Could not find token with id: ${tokenData._id}`);
         }
 
         const statusIcons = html.find('img.effect-control');
@@ -366,7 +366,7 @@ export class PF2eStatusEffects {
             const token = canvas.tokens.get(tokenData._id);
 
             if (!token) {
-                throw Error('PF2E | StatusEffects | Could not get token with id: ${tokenData._id}');
+                throw Error(`PF2E | StatusEffects | Could not get token with id: ${tokenData._id}`);
             }
 
             PF2eConditionManager.renderEffects(token);

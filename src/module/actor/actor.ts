@@ -22,6 +22,7 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
+    isMagicDetailsData,
 } from '@item/data-definitions';
 import {
     CharacterData,
@@ -102,6 +103,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
  */
 export class PF2EActor extends Actor<PF2EItem> {
     data!: ActorDataPF2e;
+    _data!: ActorDataPF2e;
 
     constructor(data: ActorDataPF2e, options?: any) {
         if (options?.pf2e?.ready) {
@@ -205,7 +207,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
-        const notes = [] as PF2RollNote[];
+        const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
@@ -828,18 +830,18 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: string,
-        data: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ItemData | ItemData[]> {
         const updateData = Array.isArray(data) ? data : [data];
@@ -989,11 +991,11 @@ export class PF2EActor extends Actor<PF2EItem> {
         const newItemData = duplicate(item.data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if ('invested' in newItemData.data && typeof newItemData.data.invested?.value === 'boolean') {
+        if (isMagicDetailsData(newItemData.data)) {
             newItemData.data.invested.value = false;
         }
 
-        const result = await targetActor.createOwnedItem(newItemData);
+        const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
         if (result === null) {
             return;
         }
@@ -1290,9 +1292,11 @@ export class PF2EActor extends Actor<PF2EItem> {
 
 export class PF2EHazard extends PF2EActor {
     data!: HazardData;
+    _data!: HazardData;
 }
 export class PF2EVehicle extends PF2EActor {
     data!: VehicleData;
+    _data!: VehicleData;
 }
 
 export type TokenPF2e = Token<PF2EActor>;

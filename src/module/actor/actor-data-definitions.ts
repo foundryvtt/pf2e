@@ -240,7 +240,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
     attitude: { value: string };
 }
 
-export interface ActorSystemData {
+export interface ActorSystemData extends Record<string, unknown> {
     traits: BaseTraitsData;
 }
 

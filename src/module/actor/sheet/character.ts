@@ -707,6 +707,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
+        html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
 
         html.find('.hover').tooltipster({
             animation: 'fade',
@@ -810,15 +811,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     onAddCustomModifier(event) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         const stat = $(event.currentTarget).attr('data-stat');
-        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
+        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
         const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
-        }
-        if (!modifier || Number.isNaN(modifier)) {
-            errors.push('Modifier value must be a number.');
         }
         if (!name || !name.trim()) {
             errors.push('Name is required.');
@@ -833,7 +831,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
     }
 
-    onRemoveCustomModifier(event) {
+    private onRemoveCustomModifier(event: JQuery.ClickEvent) {
         const stat = $(event.currentTarget).attr('data-stat');
         const name = $(event.currentTarget).attr('data-name');
         const errors: string[] = [];
@@ -848,6 +846,16 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         } else {
             this.actor.removeCustomModifier(stat, name);
         }
+    }
+
+    private onToggleAutomation(event: JQuery.ClickEvent) {
+        const $checkbox = $(event.target);
+        const toggleOff = !$checkbox.hasClass('disabled');
+        const effects = this.actor.effects.entries.filter((effect) =>
+            effect.data.changes.some((change) => change.key === $checkbox.data('automation-key')),
+        );
+        const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
+        this.actor.updateEmbeddedEntity('ActiveEffect', effectUpdates);
     }
 
     async _onDropItemCreate(itemData: ItemData): Promise<any> {

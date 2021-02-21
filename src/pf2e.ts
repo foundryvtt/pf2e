@@ -1,6 +1,5 @@
-import { ConfigPF2e, PF2ECONFIG } from './scripts/config';
+import { PF2ECONFIG } from './scripts/config';
 import { PF2E } from './scripts/hooks';
-import { rollActionMacro, rollItemMacro } from './scripts/init';
 import { registerSettings } from './module/settings';
 import { loadPF2ETemplates } from './module/templates';
 import { initiativeFormula } from './module/combat';
@@ -26,9 +25,8 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
-import { WorldClock } from './module/system/world-clock';
 import { EffectPanel } from './module/system/effect-panel';
-import { activateSocketListener, SocketEventCallback } from './scripts/socket';
+import { activateSocketListener } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
@@ -41,7 +39,6 @@ import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 
-import * as enJSON from '../static/lang/en.json';
 import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
@@ -52,33 +49,6 @@ require('./scripts/chat/chat-damage-buttons-pf2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/system/canvas-drop-handler');
 require('./module/custom-elements/custom-elements');
-
-interface GamePF2e extends Game<PF2EActor, PF2EItem> {
-    pf2e: {
-        actions: { [key: string]: Function };
-        worldClock?: WorldClock;
-        effectPanel?: EffectPanel;
-        rollItemMacro?: typeof rollItemMacro;
-        rollActionMacro: typeof rollActionMacro;
-    };
-
-    socket: SocketIO.Socket & {
-        emit(message: Pick<SocketEventCallback, 0>): void;
-        on(event: string, ...message: SocketEventCallback): void;
-    };
-
-    i18n: Localization & {
-        readonly translations: Localization['translations'] & typeof enJSON;
-        _fallback: { PF2E?: unknown };
-    };
-}
-
-declare global {
-    const game: GamePF2e;
-    const CONFIG: ConfigPF2e;
-    const canvas: Canvas<PF2EActor>;
-    let PF2e: PF2eSystem;
-}
 
 PF2E.Hooks.listen();
 

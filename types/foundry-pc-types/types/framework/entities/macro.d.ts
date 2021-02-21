@@ -38,8 +38,8 @@ declare interface MacroData extends BaseEntityData {
  * @see {@link Hotbar}        The Hotbar interface application
  */
 declare class Macro extends Entity {
-    /** @override */
     data: MacroData;
+    _data: MacroData;
 
     /** @override */
     static get config(): {
