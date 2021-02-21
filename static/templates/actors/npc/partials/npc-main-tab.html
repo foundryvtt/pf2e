@@ -10,7 +10,7 @@
                     {{#each data.abilities as |ability id|}}
                     <div class="ability-score labelled-field" data-attribute="{{id}}">
                         <label class="ability-score-label rollable"><a>{{ ability.localizedCode }}</a></label>
-                        <input class="ability-score-value" type="text" name="data.abilities.{{id}}.mod" value="{{ numberFormat ability.mod decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+                        <input class="ability-score-value" type="number" name="data.abilities.{{id}}.mod" value="{{ numberFormat ability.mod decimals=0 }}" data-dtype="Number" placeholder="0"/>
                     </div>
                     {{/each}}
                 </div>
@@ -56,7 +56,7 @@
             <div class="section-body">
                 <div id="perception" class="labelled-field" data-attribute="perception">
                     <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
-                    <input name="data.attributes.perception.base" type="text" value="{{ data.attributes.perception.readableValue }}" data-dtype="Number" placeholder="0"/>
+                    <input name="data.attributes.perception.base" type="number" value="{{ data.attributes.perception.readableValue }}" data-dtype="Number" placeholder="0"/>
                 </div>
                 <div>
                     {{#each data.traits.senses as |sense key|}}

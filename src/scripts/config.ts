@@ -26,9 +26,13 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
+import * as enJSON from '../../static/lang/en.json';
 
 export const PF2ECONFIG = {
+    // Localization keys and English translation values
+    translations: enJSON.PF2E,
+
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
@@ -1520,7 +1524,9 @@ export const PF2ECONFIG = {
         lowLightVision: 'PF2E.SensesLowLightVision',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        tremorsense: 'PF2E.SensesTremorsense',
         lifesense: 'PF2E.SensesLifesense',
+        wavesense: 'PF2E.SensesWavesense',
     }, // Creature Sizes
 
     bulkTypes: {
@@ -1835,55 +1841,12 @@ export const PF2ECONFIG = {
         },
     },
 
+    // Year offsets relative to the current actual year
     worldClock: {
-        title: 'PF2E.WorldClock.Title',
-        AR: {
-            yearOffset: 2700, // Relative to the current actual year
-            era: 'PF2E.WorldClock.AR.Era',
-            months: {
-                January: 'PF2E.WorldClock.AR.Months.January',
-                February: 'PF2E.WorldClock.AR.Months.February',
-                March: 'PF2E.WorldClock.AR.Months.March',
-                April: 'PF2E.WorldClock.AR.Months.April',
-                May: 'PF2E.WorldClock.AR.Months.May',
-                June: 'PF2E.WorldClock.AR.Months.June',
-                July: 'PF2E.WorldClock.AR.Months.July',
-                August: 'PF2E.WorldClock.AR.Months.August',
-                September: 'PF2E.WorldClock.AR.Months.September',
-                October: 'PF2E.WorldClock.AR.Months.October',
-                November: 'PF2E.WorldClock.AR.Months.November',
-                December: 'PF2E.WorldClock.AR.Months.December',
-            },
-            weekdays: {
-                Monday: 'PF2E.WorldClock.AR.Weekdays.Monday',
-                Tuesday: 'PF2E.WorldClock.AR.Weekdays.Tuesday',
-                Wednesday: 'PF2E.WorldClock.AR.Weekdays.Wednesday',
-                Thursday: 'PF2E.WorldClock.AR.Weekdays.Thursday',
-                Friday: 'PF2E.WorldClock.AR.Weekdays.Friday',
-                Saturday: 'PF2E.WorldClock.AR.Weekdays.Saturday',
-                Sunday: 'PF2E.WorldClock.AR.Weekdays.Sunday',
-            },
-        },
-        IC: {
-            yearOffset: 5200,
-            era: 'PF2E.WorldClock.IC.Era',
-        },
-        AD: {
-            yearOffset: -95,
-            era: 'PF2E.WorldClock.AD.Era',
-        },
-        CE: {
-            yearOffset: 0,
-            era: 'PF2E.WorldClock.CE.Era',
-        },
-        date: 'PF2E.WorldClock.Date',
-        time: 'PF2E.WorldClock.Time',
-        ordinalSuffixes: {
-            one: 'PF2E.WorldClock.OrdinalSuffixes.One',
-            two: 'PF2E.WorldClock.OrdinalSuffixes.Two',
-            few: 'PF2E.WorldClock.OrdinalSuffixes.Few',
-            other: 'PF2E.WorldClock.OrdinalSuffixes.Other',
-        },
+        AR: { yearOffset: 2700 },
+        IC: { yearOffset: 5200 },
+        AD: { yearOffset: -95 },
+        CE: { yearOffset: 0 },
     },
 
     monsterAbilities: () => {

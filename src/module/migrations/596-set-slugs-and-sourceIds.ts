@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemData } from '../item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { PF2EItem } from '../item/item';
 import { PF2EPhysicalItem } from '../item/physical';
 

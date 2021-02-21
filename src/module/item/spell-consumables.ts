@@ -1,5 +1,8 @@
+import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2EActor } from '../actor/actor';
-import { ConsumableData, SpellcastingEntryData, SpellData } from './dataDefinitions';
+import { calculateDC, DCOptions } from '../dc';
+import { parseTraits } from '../traits';
+import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 
 export enum SpellConsumableTypes {
     Scroll,
@@ -74,4 +77,52 @@ export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boole
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
             .filter((i) => spellData?.traditions?.value.includes(i.data.tradition.value)).length > 0
     );
+}
+
+export interface TrickMagicItemDifficultyData {
+    Arc?: number;
+    Rel?: number;
+    Occ?: number;
+    Nat?: number;
+}
+
+const TraditionSkills = {
+    arcane: 'Arc',
+    divine: 'Rel',
+    occult: 'Occ',
+    primal: 'Nat',
+};
+
+export function calculateTrickMagicItemCheckDC(
+    itemData: ConsumableData,
+    options: DCOptions = { proficiencyWithoutLevel: false },
+): TrickMagicItemDifficultyData {
+    const DC = calculateDC(itemData.data.level.value, options);
+    const skills: [string, number][] = parseTraits(itemData?.data?.traits?.value)
+        .filter((t) => ['arcane', 'primal', 'divine', 'occult'].includes(t))
+        .map((s) => [TraditionSkills[s], DC]);
+    return Object.fromEntries(skills);
+}
+
+export function calculateTrickMagicItemCastData(actor: PF2EActor, skill: string): TrickMagicItemCastData {
+    const highestMentalStat = ['int', 'wis', 'cha']
+        .map((s) => {
+            return { stat: s, mod: actor.getAbilityMod(s as AbilityString) };
+        })
+        .reduce((highest, next) => {
+            if (next.mod > highest.mod) {
+                return next;
+            } else {
+                return highest;
+            }
+        }).stat as AbilityString;
+    const spellDC =
+        actor.data.data.details.level.value +
+        Math.max(0, actor.data.data.skills[skill].rank - 2) * 2 +
+        actor.getAbilityMod(highestMentalStat);
+    return {
+        ability: highestMentalStat,
+        data: { spelldc: { value: spellDC, dc: spellDC + 10 } },
+        _id: '',
+    };
 }

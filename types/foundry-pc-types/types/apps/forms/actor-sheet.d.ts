@@ -1,7 +1,7 @@
-declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEntitySheetData<A> {
+declare interface ActorSheetData<A extends Actor> extends BaseEntitySheetData<A> {
     actor: A;
-    data: A['data']['data'];
-    items: I['data'][];
+    data: A['data'];
+    items: A['items'];
 }
 
 /**
@@ -18,12 +18,18 @@ declare interface ActorSheetData<A extends Actor, I extends Item> extends BaseEn
  */
 declare class ActorSheet<
     ActorType extends Actor = Actor,
-    ItemType extends Item = Item
+    ItemDataType extends CollectionElement<ActorType['items']>['data'] = CollectionElement<ActorType['items']>['data']
 > extends BaseEntitySheet<ActorType> {
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
     token: Token<ActorType>;
+
+    /** The _id of the sheet's Actor */
+    get id(): string;
+
+    /** @override */
+    get title(): string;
 
     /**
      * A convenience reference to the Actor entity
@@ -34,7 +40,7 @@ declare class ActorSheet<
      * Prepare data for rendering the Actor sheet
      * The prepared data object contains both the actor data as well as additional sheet options
      */
-    getData(): ActorSheetData<ActorType, ItemType>;
+    getData(): ActorSheetData<ActorType>;
 
     /**
      * Handle requests to configure the prototype Token for the Actor
@@ -72,7 +78,7 @@ declare class ActorSheet<
      * @param itemData     The item data requested for creation
      * @private
      */
-    protected _onDropItemCreate(itemData: ItemType['data']): Promise<ItemType['data'] | null>;
+    protected _onDropItemCreate(itemData: ItemDataType): Promise<ItemDataType | null>;
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
@@ -82,9 +88,7 @@ declare class ActorSheet<
      * Handle a drop event for an existing Owned Item to sort that item
      */
     protected _onSortItem(
-        event: DragEvent,
-        itemData: ItemType['data']
-    ): Promise<(ItemType['data'] | null)[] | ItemType['data'] | null>;
-
-    protected _getSortSiblings(source: any): any;
+        event: ElementDragEvent,
+        itemData: ItemDataType
+    ): Promise<(ItemDataType | null)[] | ItemDataType | null>;
 }

@@ -1,4 +1,7 @@
-interface ElementDragEvent extends DragEvent {
+declare type ArrayElement<ArrayType extends readonly unknown[]> =
+    ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
+declare interface ElementDragEvent extends DragEvent {
     target: HTMLElement;
     currentTarget: HTMLElement;
 }

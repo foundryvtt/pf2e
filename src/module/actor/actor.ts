@@ -22,7 +22,7 @@ import {
     PhysicalItemData,
     WeaponData,
     isPhysicalItem,
-} from '@item/dataDefinitions';
+} from '@item/data-definitions';
 import {
     CharacterData,
     NpcData,
@@ -32,14 +32,15 @@ import {
     ActorDataPF2e,
     VehicleData,
     HazardData,
-} from './actorDataDefinitions';
+    AbilityString,
+} from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
     PF2Striking,
     PF2WeaponPotency,
-} from '../rules/rulesDataDefinitions';
+} from '../rules/rules-data-definitions';
 import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
@@ -204,7 +205,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
-        const notes = [] as PF2RollNote[];
+        const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
@@ -760,11 +761,12 @@ export class PF2EActor extends Actor<PF2EItem> {
                 const itemTraits = item?.data?.data?.traits?.value;
 
                 if (actor?.data.data.saves[save]?.roll) {
-                    let opts = actor.getRollOptions(['all', 'saving-throw', save]);
+                    const options = actor.getRollOptions(['all', 'saving-throw', save]);
+                    options.push('magical', 'spell');
                     if (itemTraits) {
-                        opts = opts.concat(itemTraits);
+                        options.push(...itemTraits);
                     }
-                    actor.data.data.saves[save].roll(ev, opts);
+                    actor.data.data.saves[save].roll({ event: ev, options });
                 } else {
                     actor?.rollSave(ev, save);
                 }
@@ -864,18 +866,18 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: string,
-        data: EntityUpdateData | EntityUpdateData[],
+        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ItemData | ItemData[]> {
         const updateData = Array.isArray(data) ? data : [data];
@@ -1315,7 +1317,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }, [] as string[]);
     }
 
-    getAbilityMod(ability: string): number {
+    getAbilityMod(ability: AbilityString): number {
         return this.data.data.abilities[ability].mod;
     }
 

@@ -39,6 +39,7 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
 
 declare interface BaseItemData extends BaseEntityData {
     type: string;
+    effects: ActiveEffectData[];
 }
 
 declare interface ItemConstructorOptions<A extends Actor> extends EntityConstructorOptions {
@@ -50,6 +51,9 @@ declare type ItemCreateData<I extends Item> = DeepPartial<I['data']>;
 type _Actor = Actor<Item<_Actor>>;
 declare class Item<ActorType extends Actor = _Actor> extends Entity {
     data: BaseItemData;
+
+    /** The item's collection of ActiveEffects */
+    effects: Collection<ActiveEffect>;
 
     /** @overload */
     constructor(data: BaseEntityData, options?: ItemConstructorOptions<ActorType>);
@@ -64,7 +68,7 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
     static get config(): {
         baseEntity: Item;
         collection: Items;
-        embeddedEntities: {};
+        embeddedEntities: { ActiveEffect: 'effects' };
     };
 
     /** @override */
