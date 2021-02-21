@@ -175,4 +175,3 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
     }
     return result;
 }
-
