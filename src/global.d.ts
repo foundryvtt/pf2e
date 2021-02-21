@@ -19,6 +19,10 @@ declare interface Game {
         _fallback: Localization['translations'] & TranslationsPF2e;
     };
 }
+
+declare interface Window {
+    PF2e: import('./module/pf2e-system').PF2eSystem;
+}
 declare const game: Game<import('./module/actor/actor').PF2EActor, import('./module/item/item').PF2EItem>;
 declare const CONFIG: import('./scripts/config').ConfigPF2e;
 declare const canvas: Canvas<import('./module/actor/actor').PF2EActor>;
