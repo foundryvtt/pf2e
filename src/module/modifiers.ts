@@ -410,9 +410,9 @@ export class PF2StatisticModifier {
  */
 export class PF2CheckModifier extends PF2StatisticModifier {
     /**
-     * @param {string} name The name of this check modifier.
-     * @param {PF2StatisticModifier} statistic The statistic modifier to copy fields from.
-     * @param {PF2Modifier[]} modifiers Additional modifiers to add to this check.
+     * @param name The name of this check modifier.
+     * @param statistic The statistic modifier to copy fields from.
+     * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: PF2StatisticModifier, modifiers: PF2Modifier[] = []) {
         super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone

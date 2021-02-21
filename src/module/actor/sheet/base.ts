@@ -907,7 +907,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         );
 
         // Action Rolling (strikes)
-        html.find('[data-action-index].item .item-image.action-strike').click((event) => {
+        html.find('[data-action-index].item .item-image.action-strike').on('click', (event) => {
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
@@ -915,7 +915,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.actor.data.data.actions[Number(actionIndex)].roll({ event, options: opts });
         });
 
-        html.find('[data-variant-index].variant-strike').click((event) => {
+        html.find('[data-variant-index].variant-strike').on('click', (event) => {
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');

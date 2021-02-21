@@ -1,3 +1,42 @@
+import { PF2Modifier } from '../modifiers';
+
+interface BaseDamageData {
+    category: string;
+    damageType: string;
+    diceNumber: number;
+    dieSize: string;
+    modifier?: number;
+    traits: string[];
+}
+
+interface DamageFormula {
+    data: {
+        effectiveDamageDice: number;
+    };
+    formula: string;
+    partials: Record<string, Record<string, string>>;
+}
+
+interface DamageData {
+    name: string;
+    base: BaseDamageData;
+    baseDamageDice: {};
+    diceModifiers: PF2Modifier[];
+    diceResults: {};
+    effectDice: string[];
+    formula: {
+        success: DamageFormula;
+        criticalSuccess: DamageFormula;
+    };
+    notes?: { text: string }[];
+    numericModifiers: PF2Modifier[];
+    outcome: string;
+    rollMode: string;
+    total: number;
+    traits: string[];
+    types: {};
+}
+
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
  */
@@ -26,16 +65,16 @@ export class DamageRollModifiersDialog extends Application {
         sonic: 'volume-up',
     });
 
-    damage: object;
+    damage: DamageData;
     context: object;
-    callback: any;
+    callback: (rollData: any) => void;
 
     /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
+     * @param damage
+     * @param context
+     * @param callback
      */
-    constructor(damage, context, callback) {
+    constructor(damage: DamageData, context: object, callback: (rollData: any) => void) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -49,11 +88,11 @@ export class DamageRollModifiersDialog extends Application {
     }
 
     /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
+     * @param damage
+     * @param context
+     * @param callback
      */
-    static roll(damage, context, callback) {
+    static roll(damage: DamageData, context, callback: (rollData: any) => void) {
         const ctx = context ?? {};
 
         ctx.rollMode =
@@ -82,7 +121,7 @@ export class DamageRollModifiersDialog extends Application {
         }${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierStyle =
             'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
-        const modifierBreakdown = []
+        const modifierBreakdown = ([] as PF2Modifier[])
             .concat(damage.diceModifiers)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)

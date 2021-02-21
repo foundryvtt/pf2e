@@ -169,10 +169,10 @@ export class PF2Check {
  */
 export class PF2DamageRoll {
     /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {jQuery.Event} event
-     * @param {function} callback
+     * @param damage
+     * @param context
+     * @param event
+     * @param callback
      */
     static roll(damage, context: any = {}, event, callback?) {
         if (context?.options?.length > 0) {
