@@ -15,7 +15,7 @@ import { PF2Check } from './module/system/rolls';
 import { DicePF2e } from './scripts/dice';
 import { PF2eStatusEffects } from './scripts/actor/status-effects';
 import { PF2eConditionManager } from './module/conditions';
-import { ActorDataPF2e, FamiliarData } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import {
     AbilityModifier,
     PF2CheckModifier,
@@ -25,12 +25,9 @@ import {
     ProficiencyModifier,
 } from './module/modifiers';
 import { EffectPanel } from './module/system/effect-panel';
-import { activateSocketListener } from './scripts/socket';
 import { earnIncome } from './module/earn-income';
 import { calculateXP } from './module/xp';
 import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
-import { MigrationRunner } from './module/migration-runner';
-import { Migrations } from './module/migrations';
 import { ItemData } from '@item/data-definitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import { PF2Actions } from './module/system/actions/actions';
@@ -39,6 +36,7 @@ import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 
 import './styles/pf2e.scss';
+import { updateMinionActors } from './scripts/actor/updateMinions';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
@@ -115,60 +113,9 @@ Hooks.once('init', () => {
     };
 });
 
-/* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-function _updateMinionActors(master: PF2EActor = undefined) {
-    game.actors.entities
-        .filter((actor): actor is PF2EActor & { data: FamiliarData } => ['familiar'].includes(actor.data.type))
-        .filter((minion) => !!minion.data.data?.master?.id)
-        .filter((minion) => !master || minion.data.data.master.id === master.data._id)
-        .filter((minion) => minion.can(game.user, 'update'))
-        .forEach((minion) => minion.update({ 'data.master.updated': new Date().toISOString() }));
-}
-
-Hooks.once('ready', () => {
-    PlayerConfigPF2e.init();
-    PlayerConfigPF2e.activateColorScheme();
-
-    // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-    _updateMinionActors();
-    activateSocketListener();
-});
-
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
 /* -------------------------------------------- */
-
-/**
- * Once the entire VTT framework is initialized, check to see if we should perform a data migration
- */
-Hooks.once('ready', () => {
-    console.log('PF2e System | Readying Pathfinder 2nd Edition System');
-    console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
-
-    // Determine whether a system migration is required and feasible
-    const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
-    const COMPATIBLE_MIGRATION_VERSION = 0.411;
-
-    if (game.user.isGM) {
-        // Perform the migration
-        const migrationRunner = new MigrationRunner(Migrations.constructAll());
-        if (migrationRunner.needsMigration()) {
-            if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
-                ui.notifications.error(
-                    `Your PF2E system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.`,
-                    { permanent: true },
-                );
-            }
-            migrationRunner.runMigration();
-        }
-    }
-
-    // Effect Panel singleton application
-    game[game.system.id].effectPanel = new EffectPanel();
-    if (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true) {
-        game.pf2e.effectPanel.render(true);
-    }
-});
 
 // Activate global listeners
 Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
@@ -339,7 +286,7 @@ Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
 Hooks.on('updateActor', (actor, data, options, userID) => {
     if (userID === game.userId) {
         // ensure minion-type actors with the updated actor as master should also be updated
-        _updateMinionActors(actor);
+        updateMinionActors(actor);
     }
 });
 

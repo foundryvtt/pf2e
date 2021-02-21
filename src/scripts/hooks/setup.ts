@@ -1,5 +1,4 @@
 import { PF2eSystem } from '../../module/pf2e-system';
-import { WorldClock } from '../../module/system/world-clock';
 
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
@@ -92,7 +91,5 @@ export function listen() {
                 return obj;
             }, {});
         }
-
-        game.pf2e.worldClock = new WorldClock();
     });
 }
