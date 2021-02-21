@@ -183,7 +183,7 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
  * @param values must have at list one value
  * @param sortValue
  */
-export function max<T>(values: T[], sortValue: (value: T) => number): T {
+export function maxBy<T>(values: T[], sortValue: (value: T) => number): T {
     let maxIndex = 0;
     let maxValue = Number.MIN_VALUE;
     for (let i = 0; i < values.length; i += 1) {
