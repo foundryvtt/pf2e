@@ -34,9 +34,9 @@ import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
+import { updateMinionActors } from './scripts/actor/update-minions';
 
 import './styles/pf2e.scss';
-import { updateMinionActors } from './scripts/actor/updateMinions';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/init.ts');
