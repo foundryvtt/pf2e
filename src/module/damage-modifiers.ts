@@ -162,7 +162,8 @@ function exceptionApplies(
 /**
  * This function is responsible for going through a list of possible modifiers, evaluating them against their
  * exceptions based on the given attackTraits and damage types present in the damage parameter and retrieving
- * the highest applicable value
+ * the highest applicable value. For Immunities we default to 0 as value and only test if the returned
+ * value isn't undefined.
  *
  * @param modifiersByType immunities/resistances/weaknesses grouped by damage type
  * @param damageTypes the dealt damage types
