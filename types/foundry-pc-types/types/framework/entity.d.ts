@@ -1,17 +1,11 @@
 declare function fromUuid(uuid: string): Promise<Entity | null>;
 
-declare interface EntityDescriptionData {
-    [key: string]: any;
-}
-
 declare interface BaseEntityData {
     _id: string;
     name: string;
-    type?: number | string;
-    data: EntityDescriptionData;
-    flags: any;
-    folder: string | null;
-    permission: any;
+    flags: Record<string, any>;
+    folder: string | null | undefined;
+    permission: Record<string, number>;
     img: string;
 }
 
@@ -26,7 +20,8 @@ declare interface EntityConstructorOptions {
     [key: string]: unknown;
 }
 
-declare type EntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
+declare type EntityUpdateData = BaseEntityData | { [key: string]: unknown };
+declare type EmbeddedEntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
 
 declare interface EntityUpdateOptions {
     diff?: boolean;
@@ -60,7 +55,7 @@ declare interface EntityDeleteOptions {
 declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
     data: BaseEntityData;
-    _data: this['data'];
+    _data: BaseEntityData;
 
     /**
      * The original source data for the Entity provided upon initialization.
@@ -83,7 +78,7 @@ declare class Entity {
      */
     compendium: Compendium;
 
-    constructor(data: BaseEntityData, options?: any);
+    constructor(data: BaseEntityData, options?: EntityConstructorOptions);
 
     /**
      * Configure the attributes of this Entity class
@@ -435,12 +430,12 @@ declare class Entity {
      */
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: EntityUpdateData,
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData>;
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: EntityUpdateData[],
+        updateData: EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<BaseEntityData | BaseEntityData[]>;
 

@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemData } from '../item/dataDefinitions';
+import { ItemData } from '@item/data-definitions';
 import { PF2EItem } from '../item/item';
 import { PF2EPhysicalItem } from '../item/physical';
 
@@ -20,7 +20,9 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     constructor() {
         super();
         this.itemPacks = new Map(
-            game.packs.filter<PF2EItem>((pack) => pack.entity === 'Item').map((pack) => [pack.collection, pack]),
+            game.packs
+                .filter<Compendium<PF2EItem>>((pack) => pack.entity === 'Item')
+                .map((pack) => [pack.collection, pack]),
         );
     }
 

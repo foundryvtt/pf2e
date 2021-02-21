@@ -1,7 +1,7 @@
 import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { PF2EEffect } from '@item/effect';
-import { MonkeyPatch } from './🐵🩹';
+import * as MonkeyPatch from './🐵🩹';
 
 /**
  * Create a Macro from an Item drop.
@@ -218,7 +218,7 @@ Hooks.on('canvasInit', async () => {
      */
     SquareGrid.prototype.measureDistances = function measureDistances(
         segments: Segment[],
-        options: MeasureDistancesOptions,
+        options: MeasureDistancesOptions = {},
     ) {
         if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
 

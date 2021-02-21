@@ -2,20 +2,30 @@
  * Override and extend the basic :class:`Item` implementation
  */
 import { Spell } from './spell';
-import { getAttackBonus, getArmorBonus, getStrikingDice } from './runes';
+import { getArmorBonus, getAttackBonus, getStrikingDice } from './runes';
 import { addSign } from '../utils';
-import { ProficiencyModifier, PF2StatisticModifier } from '../modifiers';
+import {
+    AbilityModifier,
+    ensureProficiencyOption,
+    PF2Modifier,
+    PF2StatisticModifier,
+    ProficiencyModifier,
+} from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor } from '../actor/actor';
-import { ItemData, ItemTraits, SpellcastingEntryData } from './dataDefinitions';
+import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
 import { parseTraits, TraitChatEntry } from '../traits';
-import { canCastConsumable } from './spellConsumables';
+import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
+import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
+import { AbilityString } from '@actor/actor-data-definitions';
+import { PF2Check } from '../system/rolls';
 
 /**
  * @category PF2
  */
 export class PF2EItem extends Item<PF2EActor> {
     data!: ItemData;
+    _data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {
@@ -299,12 +309,14 @@ export class PF2EItem extends Item<PF2EActor> {
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
         const data = duplicate(this.data.data);
 
-        const spellcastingEntry = this.actor.getOwnedItem(data.location.value);
+        const spellcastingEntry =
+            this.actor?.data?.items?.find((item) => item._id === data.location.value) ??
+            this.actor?.getOwnedItem(data.location.value)?.data;
 
-        if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') return {};
+        if (!spellcastingEntry || spellcastingEntry.type !== 'spellcastingEntry') return {};
 
-        const spellDC = spellcastingEntry.data.data.spelldc.dc;
-        const spellAttack = spellcastingEntry.data.data.spelldc.value;
+        const spellDC = spellcastingEntry.data.dc?.value ?? spellcastingEntry.data.spelldc.dc;
+        const spellAttack = spellcastingEntry.data.attack?.value ?? spellcastingEntry.data.spelldc.value;
 
         // Spell saving throw text and DC
         data.isSave = data.spellType.value === 'save';
@@ -514,10 +526,9 @@ export class PF2EItem extends Item<PF2EActor> {
         let twohandedTrait = false;
         let twohandedDie = '';
         let thrownTrait = false;
-        const len = traits.length;
-        const critRegex = '(\\bdeadly\\b|\\bfatal\\b)-(d\\d+)';
-        const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
-        const thrownRegex = '(\\bthrown\\b)-(\\d+)';
+        const critRegex = /\b(deadly|fatal)-(d\d+)/;
+        const twohandedRegex = /\b(two-hand)-(d\d+)/;
+        const thrownRegex = /\b(thrown)-(\d+)/;
         const hasThiefRacket =
             this.actor.data.items.filter((e) => e.type === 'feat' && e.name === 'Thief Racket').length > 0;
         const strikingDice = getStrikingDice(itemData);
@@ -525,14 +536,17 @@ export class PF2EItem extends Item<PF2EActor> {
         if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
 
         // Find detailed trait information
-        for (let i = 0; i < len; i++) {
-            if (traits[i].match(critRegex)) {
-                critTrait = traits[i].match(critRegex)[1];
-                critDie = traits[i].match(critRegex)[2];
-            } else if (traits[i].match(twohandedRegex)) {
+        for (const trait of traits) {
+            const critMatch = critRegex.exec(trait);
+            const twoHandedMatch = twohandedRegex.exec(trait);
+            const thrownMatch = thrownRegex.exec(trait);
+            if (Array.isArray(critMatch) && typeof critMatch[1] === 'string' && typeof critMatch[2] === 'string') {
+                critTrait = critMatch[1];
+                critDie = critMatch[2];
+            } else if (Array.isArray(twoHandedMatch) && typeof twoHandedMatch[2] === 'string') {
                 twohandedTrait = true;
-                twohandedDie = traits[i].match(twohandedRegex)[2];
-            } else if (traits[i].match(thrownRegex)) {
+                twohandedDie = twoHandedMatch[2];
+            } else if (Array.isArray(thrownMatch)) {
                 thrownTrait = true;
             }
         }
@@ -757,36 +771,57 @@ export class PF2EItem extends Item<PF2EActor> {
             item = item.data.spell.data;
         }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
+        if (!this.actor) throw new Error('Attempted to cast a spell without an actor');
 
         // Prepare roll data
+        const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry = this.actor.getOwnedItem(itemData.location.value);
-        if (spellcastingEntry.data.type !== 'spellcastingEntry')
+        const spellcastingEntry =
+            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
+            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
+        let useTrickData = false;
+        if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
+
+        if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
 
-        const spellAttack = spellcastingEntry.data.data.spelldc.value;
-        const parts: number[] = [spellAttack];
-        const title = `${this.name} - Spell Attack Roll`;
-
+        // calculate multiple attack penalty
         const map = this.calculateMap();
-        if (multiAttackPenalty === 2) parts.push(map.map2);
-        else if (multiAttackPenalty === 3) parts.push(map.map3);
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: rollData,
-            rollType: 'attack-roll',
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
+        if (spellcastingEntry.data?.attack?.roll) {
+            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+            const modifiers: PF2Modifier[] = [];
+            if (multiAttackPenalty > 1) {
+                modifiers.push(new PF2Modifier(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+            }
+            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+        } else {
+            const spellAttack = useTrickData
+                ? trickMagicItemData?.data.spelldc.value
+                : spellcastingEntry?.data.spelldc.value;
+            const parts: number[] = [spellAttack ?? 0];
+            const title = `${this.name} - Spell Attack Roll`;
+
+            if (multiAttackPenalty > 1) {
+                parts.push(map[`map${multiAttackPenalty}`]);
+            }
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: rollData,
+                rollType: 'attack-roll',
+                title,
+                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                dialogOptions: {
+                    width: 400,
+                    top: event.clientY - 80,
+                    left: window.innerWidth - 710,
+                },
+            });
+        }
     }
 
     /* -------------------------------------------- */
@@ -824,7 +859,11 @@ export class PF2EItem extends Item<PF2EActor> {
         if (dtype && !isHeal) title += ` (${dtype})`;
 
         // Add item to roll data
-        rollData.mod = rollData.abilities[spell.spellcastingEntry.ability].mod;
+        if (!spell.spellcastingEntry.data && spell.data.data.trickMagicItemData) {
+            rollData.mod = rollData.abilities[spell.data.data.trickMagicItemData.ability].mod;
+        } else {
+            rollData.mod = rollData.abilities[spell.spellcastingEntry.ability].mod;
+        }
         rollData.item = itemData;
 
         // Call the roll helper utility
@@ -843,24 +882,94 @@ export class PF2EItem extends Item<PF2EActor> {
         });
     }
 
+    /**
+     * Roll Counteract check
+     * Rely upon the DicePF2e.d20Roll logic for the core implementation
+     */
+    rollCounteract(event) {
+        let item: ItemData = this.data;
+        if (item.type === 'consumable' && item.data.spell?.data) {
+            item = item.data.spell.data;
+        }
+        if (item.type !== 'spell') throw new Error('Wrong item type!');
+
+        const itemData = item.data;
+        const spellcastingEntry = this.actor?.getOwnedItem(itemData.location.value);
+        if (!spellcastingEntry || spellcastingEntry.data.type !== 'spellcastingEntry')
+            throw new Error('Spell points to location that is not a spellcasting type');
+
+        const modifiers: PF2Modifier[] = [];
+        const ability: AbilityString = item.data.ability?.value || 'int';
+        const score = this.actor.data.data.abilities[ability]?.value ?? 0;
+        modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
+
+        const proficiencyRank = spellcastingEntry.data.data.proficiency.value ?? 0;
+        modifiers.push(ProficiencyModifier.fromLevelAndRank(this.actor.data.data.details.level.value, proficiencyRank));
+
+        const rollOptions = ['all', 'counteract-check'];
+        const extraOptions = [];
+        const traits = item.data.traits.value;
+
+        let flavor = '<hr/>';
+        flavor += `<h3>${game.i18n.localize('PF2E.Counteract')}</h3>`;
+        flavor += `<hr/>`;
+
+        const addFlavor = (success: string, level: number) => {
+            const title = game.i18n.localize(`PF2E.${success}`);
+            const desc = game.i18n.format(`PF2E.CounteractDescription.${success}`, {
+                level: level,
+            });
+            flavor += `<b>${title}</b> ${desc}<br>`;
+        };
+        flavor += `<p>${game.i18n.localize('PF2E.CounteractDescription.Hint')}</p>`;
+        flavor += '<p>';
+        addFlavor('CritSuccess', itemData.level.value + 3);
+        addFlavor('Success', itemData.level.value + 1);
+        addFlavor('Failure', itemData.level.value);
+        addFlavor('CritFailure', 0);
+        flavor += '</p>';
+        const check = new PF2StatisticModifier(flavor, modifiers);
+        const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
+        ensureProficiencyOption(finalOptions, proficiencyRank);
+        PF2Check.roll(
+            check,
+            {
+                actor: this.actor,
+                type: 'counteract-check',
+                options: finalOptions,
+                traits,
+            },
+            event,
+        );
+    }
+
     /* -------------------------------------------- */
 
     /**
      * Use a consumable item
      */
-    rollConsumable(ev) {
+    async rollConsumable(ev) {
         const item: ItemData = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
+        if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
 
         const itemData = item.data;
         // Submit the roll to chat
         if (
             ['scroll', 'wand'].includes(item.data.consumableType.value) &&
             item.data.spell?.data &&
-            this.actor instanceof PF2EActor &&
-            canCastConsumable(this.actor, item)
+            this.actor instanceof PF2EActor
         ) {
-            this._castEmbeddedSpell();
+            if (canCastConsumable(this.actor, item)) {
+                this._castEmbeddedSpell();
+            } else {
+                const DC = calculateTrickMagicItemCheckDC(item);
+                const popup = new TrickMagicItemPopup(this.actor, DC);
+                popup.render(true);
+                const trickMagicItemData = await popup.result;
+                if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
+                else return;
+            }
         } else {
             const cv = itemData.consume.value;
             const content = `Uses ${this.name}`;
@@ -879,47 +988,54 @@ export class PF2EItem extends Item<PF2EActor> {
         }
 
         // Deduct consumed charges from the item
-        if (itemData.autoUse.value) {
-            const qty = itemData.quantity;
-            const chg = itemData.charges;
+        if (itemData.autoUse.value) this.consume();
+    }
 
-            // Deduct an item quantity
-            if (chg.value <= 1 && qty.value > 1) {
-                const options = {
-                    _id: this.data._id,
-                    'data.quantity.value': Math.max(qty.value - 1, 0),
-                    'data.charges.value': chg.max,
-                };
-                this.actor.updateEmbeddedEntity('OwnedItem', options);
-            }
+    consume() {
+        const item: ItemData = this.data;
+        if (item.type !== 'consumable') throw Error('Tried to consume non-consumable');
 
-            // Optionally destroy the item
-            else if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-                this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
-            }
+        const itemData = item.data;
+        const qty = itemData.quantity;
+        const chg = itemData.charges;
 
-            // Deduct the remaining charges
-            else {
-                this.actor.updateEmbeddedEntity('OwnedItem', {
-                    _id: this.data._id,
-                    'data.charges.value': Math.max(chg.value - 1, 0),
-                });
-            }
+        if (!this.actor) return;
+
+        // Optionally destroy the item
+        if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
+            this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
+        }
+        // Deduct one from quantity
+        else if (chg.value <= 1) {
+            const options = {
+                _id: this.data._id,
+                'data.quantity.value': Math.max(qty.value - 1, 0),
+                'data.charges.value': chg.max,
+            };
+            this.actor.updateEmbeddedEntity('OwnedItem', options);
+        }
+        // Deduct one charge
+        else {
+            this.actor.updateEmbeddedEntity('OwnedItem', {
+                _id: this.data._id,
+                'data.charges.value': Math.max(chg.value - 1, 0),
+            });
         }
     }
 
-    protected async _castEmbeddedSpell() {
+    protected async _castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData) {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
         const spellData = this.data.data.spell.data.data;
-        let spellcastingEntries = actor.data.items.filter(
+        let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
         // Filter to only spellcasting entries that are eligible to cast this consumable
         spellcastingEntries = spellcastingEntries
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
             .filter((i) => spellData.traditions.value.includes(i.data.tradition.value));
+        if (spellcastingEntries.length === 0 && trickMagicItemData) spellcastingEntries = [trickMagicItemData];
         if (spellcastingEntries.length > 0) {
             const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
             let maxBonus = 0;
@@ -930,10 +1046,7 @@ export class PF2EItem extends Item<PF2EActor> {
                     bestEntry = i;
                 }
             }
-            this.actor.updateOwnedItem({
-                _id: this.data._id,
-                'data.spell.data.data.location.value': spellcastingEntries[bestEntry]._id,
-            });
+            this.data.data.spell.data.data.trickMagicItemData = trickMagicItemData;
             this.data.data.spell.data.data.location.value = spellcastingEntries[bestEntry]._id;
             spellData.isSave = spellData.spellType.value === 'save';
             if (spellData.isSave) {
@@ -1007,7 +1120,7 @@ export class PF2EItem extends Item<PF2EActor> {
         }
     }
 
-    calculateMap(): { map2: number; map3: number } {
+    calculateMap(): { label: string; map2: number; map3: number } {
         return PF2EItem.calculateMap(this.data);
     }
 
@@ -1075,11 +1188,14 @@ export class PF2EItem extends Item<PF2EActor> {
             // Get the Item
             if (!actor) return;
             const itemId = card.attr('data-item-id') ?? '';
-            let item = (actor as PF2EActor).getOwnedItem(itemId);
-            let itemData = item?.data;
-            if (item === undefined && itemId && !itemData) {
-                itemData = JSON.parse($(ev.target).parents('.item-card').attr('data-embedded-item') ?? '');
+            let item, itemData;
+            const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
+            if (embeddedItem) {
+                itemData = JSON.parse(embeddedItem);
                 item = new PF2EItem(itemData as any, { actor });
+            } else {
+                item = (actor as PF2EActor).getOwnedItem(itemId);
+                itemData = item?.data;
             }
             if (item && itemData) {
                 const strike: PF2StatisticModifier = actor.data.data?.actions?.find(
@@ -1127,6 +1243,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
                 else if (action === 'spellAttack3') item.rollSpellAttack(ev, 3);
                 else if (action === 'spellDamage') item.rollSpellDamage(ev);
+                else if (action === 'spellCounteract') item.rollCounteract(ev);
                 // Consumable usage
                 else if (action === 'consume') item.rollConsumable(ev);
                 else if (action === 'save') PF2EActor.rollSave(ev, item);

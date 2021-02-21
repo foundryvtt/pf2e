@@ -3,18 +3,17 @@ import { ActorSheetPF2e } from './base';
 import { PF2ELoot } from '../loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
-import { DistributeCoinsPopup } from './DistributeCoinsPopup';
-import { PF2EItem } from '../../item/item';
+import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem } from '../../item/dataDefinitions';
-import { LootNPCsPopup } from './loot/LootNPCsPopup';
+import { isPhysicalItem, ItemData } from '@item/data-definitions';
+import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**
  * @category Actor
  */
 export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
     /** @override */
-    constructor(actor: PF2ELoot, options: { editable: boolean }) {
+    constructor(actor: PF2ELoot, options: FormApplicationOptions = {}) {
         options.editable = true;
         super(actor, options);
     }
@@ -139,12 +138,12 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
 
     // Events
 
-    private _distributeCoins(event) {
+    private _distributeCoins(event: JQuery.ClickEvent) {
         event.preventDefault();
         new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
-    private _lootNPCs(event) {
+    private _lootNPCs(event: JQuery.ClickEvent) {
         event.preventDefault();
         if (canvas?.tokens?.controlled?.filter((token) => token.actor._id !== this.actor._id).length > 0) {
             new LootNPCsPopup(this.actor, {}).render(true);
@@ -166,7 +165,10 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
     }
 
     /** @override */
-    protected async _onDropItem(event: DragEvent, data: { actorId: string }): Promise<PF2EItem> {
+    protected async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData,
+    ): Promise<(ItemData | null)[] | ItemData | null> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === data.actorId && !this.actor.hasPerm(game.user, 'OWNER')) {

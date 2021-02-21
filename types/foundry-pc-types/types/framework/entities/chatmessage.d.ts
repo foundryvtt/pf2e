@@ -1,12 +1,6 @@
-declare class Messages extends Collection<ChatMessage> {
-    entities: ChatMessage[];
-
-    /**
-     * Elements of the Messages collection are instances of the ChatMessage class
-     */
-    get object(): ChatMessage;
-
-    values(): IterableIterator<ChatMessage>;
+declare class Messages extends EntityCollection<ChatMessage> {
+    /** @override */
+    get entity(): 'ChatMessage';
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers

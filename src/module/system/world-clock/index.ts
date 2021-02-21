@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
+import { LocalizationPF2e } from '../localization';
 
 interface WorldClockData {
     date: string;
@@ -10,19 +11,29 @@ interface WorldClockData {
 
 export class WorldClock extends Application {
     /** Localization keys */
-    private readonly translations = CONFIG.PF2E.worldClock;
+    private readonly translations = new LocalizationPF2e().translations.PF2E.WorldClock;
 
-    private readonly animateDarkness = animateDarkness;
+    readonly animateDarkness = animateDarkness;
+
+    /** Whether the Calendar/Weather module is installed and active */
+    readonly usingCalendarWeather = ((): boolean => {
+        const calendarWeather = game.modules.get('calendar-weather');
+        return calendarWeather !== undefined && calendarWeather.active;
+    })();
 
     /** @override */
     constructor() {
         super();
 
-        /* Save world creation datetime if equal to default (i.e., server time at first retrieval of the setting) */
+        /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const settingValue = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
         const defaultValue = game.settings.settings.get('pf2e.worldClock.worldCreatedOn')?.default;
         if (typeof settingValue === 'string' && settingValue === defaultValue) {
             game.settings.set('pf2e', 'worldClock.worldCreatedOn', settingValue);
+        }
+
+        if (this.usingCalendarWeather) {
+            console.debug('PF2e System | Deferring to Calendar/Weather module for date/time management');
         }
     }
 
@@ -48,7 +59,7 @@ export class WorldClock extends Application {
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
         const value = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
-        return typeof value === 'string' ? DateTime.fromISO(value) : DateTime.utc();
+        return typeof value === 'string' ? DateTime.fromISO(value).toUTC() : DateTime.utc();
     }
 
     /** The current date and time of the game world */
@@ -70,7 +81,7 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case 'AR': // Absalom Reckoning
-                return game.i18n.localize(this.translations.AR.era);
+                return this.translations.AR.Era;
             case 'AD': // Earth on the Material Plane
                 return this.worldTime.toFormat('G');
             default:
@@ -85,9 +96,9 @@ export class WorldClock extends Application {
 
         switch (this.dateTheme) {
             case 'AR':
-                return actualYear + this.translations.AR.yearOffset;
+                return actualYear + CONFIG.PF2E.worldClock.AR.yearOffset;
             case 'AD':
-                return Math.abs(actualYear + this.translations.AD.yearOffset);
+                return Math.abs(actualYear + CONFIG.PF2E.worldClock.AD.yearOffset);
             default:
                 // 'CE'
                 return actualYear;
@@ -97,9 +108,10 @@ export class WorldClock extends Application {
     /** The month in the game */
     private get month(): string {
         switch (this.dateTheme) {
-            case 'AR':
+            case 'AR': {
                 const month = this.worldTime.setLocale('en-US').monthLong;
-                return game.i18n.localize(this.translations.AR.months[month]);
+                return this.translations.AR.Months[month];
+            }
             default:
                 return this.worldTime.monthLong;
         }
@@ -108,9 +120,10 @@ export class WorldClock extends Application {
     /** The day of the week in the game */
     private get weekday(): string {
         switch (this.dateTheme) {
-            case 'AR':
+            case 'AR': {
                 const weekday = this.worldTime.setLocale('en-US').weekdayLong;
-                return game.i18n.localize(this.translations.AR.weekdays[weekday]);
+                return this.translations.AR.Weekdays[weekday];
+            }
             default:
                 return this.worldTime.weekdayLong;
         }
@@ -121,17 +134,27 @@ export class WorldClock extends Application {
         const rule = new Intl.PluralRules(game.i18n.lang, {
             type: 'ordinal',
         }).select(this.worldTime.day);
-        const translationKey = this.translations.ordinalSuffixes[rule];
-
-        return game.i18n.localize(translationKey);
+        const ruleKey = rule[0].toUpperCase() + rule.slice(1);
+        return this.translations.OrdinalSuffixes[ruleKey];
     }
 
     /** @override */
     getData(options?: ApplicationOptions): WorldClockData {
+        if (this.usingCalendarWeather) {
+            // Allow the Calendar/Weather module to manage the value and appearance of the date/time
+            const $app = $('#calendar-time-container');
+            const calendarDate = $app.find('span#calendar-date').text().trim();
+            const weekday = $app.find('span#calendar-weekday').text().trim();
+            const date = `${weekday}, ${calendarDate}`;
+            const time = $app.find('div#start-stop-clock .calendar-time-disp').text().trim();
+
+            return { date, time, options, user: game.user };
+        }
+
         const date =
             this.dateTheme === 'CE'
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)
-                : game.i18n.format(this.translations.date, {
+                : game.i18n.format(this.translations.Date, {
                       era: this.era,
                       year: this.year,
                       month: this.month,
@@ -176,28 +199,19 @@ export class WorldClock extends Application {
     protected activateListeners($html: JQuery) {
         super.activateListeners($html);
 
-        const getFormElements = ($button: JQuery): JQuery =>
-            $button.parents('.window-content').find('button, datetime-local, input, select');
-
-        $html.on('click', 'button[data-advance-time]', async (event) => {
+        $html.on('click', 'button[data-advance-time]', (event) => {
             const $button = $(event.currentTarget);
             const increment = Number($button.data('advanceTime') ?? 0);
-            const oldTime = this.worldTime.plus(0);
-            await game.time.advance(increment);
-
-            // Disable the form and animate the change in the scene's darkness level
-            await this.animateDarkness(getFormElements($button), oldTime);
+            if (increment !== 0) {
+                game.time.advance(increment);
+            }
         });
 
-        $html.on('click', 'button[name="advance"]', async (event) => {
+        $html.on('click', 'button[name="advance"]', () => {
             const value = $html.find('input[type=number][name="diff-value"]').val();
             const unit = $html.find('select[name="diff-unit"]').val();
             const increment = Number(value) * Number(unit);
-            const oldTime = this.worldTime.plus(0);
-            await game.time.advance(increment);
-
-            // Disable the form and animate the change in the scene's darkness level
-            await this.animateDarkness(getFormElements($(event.currentTarget)), oldTime);
+            game.time.advance(increment);
         });
     }
 }

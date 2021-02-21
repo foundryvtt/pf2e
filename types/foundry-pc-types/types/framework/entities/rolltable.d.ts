@@ -1,7 +1,6 @@
-declare class RollTables extends Collection<RollTable> {
-    entities: RollTable[];
-
-    values(): IterableIterator<RollTable>;
+declare class RollTables extends EntityCollection<RollTable> {
+    /** @override */
+    get entity(): 'RollTable';
 }
 
 declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
@@ -13,6 +12,7 @@ declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
 
 declare class RollTable extends Entity {
     data: RollTableData;
+    _data: RollTableData;
 
     /** @override */
     static get config(): {

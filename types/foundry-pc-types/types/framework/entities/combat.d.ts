@@ -4,8 +4,6 @@
 declare class CombatEncounters<ActorType extends Actor> extends Collection<Combat<ActorType>> {
     entities: Combat<ActorType>[];
 
-    values(): IterableIterator<Combat<ActorType>>;
-
     /**
      * The currently active Combat instance
      */
@@ -27,8 +25,9 @@ declare class CombatEncounters<ActorType extends Actor> extends Collection<Comba
     viewed: Combat<ActorType>;
 }
 
-declare interface CombatantData<ActorType extends Actor> extends BaseEntityData {
+declare interface CombatantData<ActorType extends Actor> {
     _id: string;
+    name: string;
     actor: ActorType;
     tokenId: string;
     initiative: number | null;

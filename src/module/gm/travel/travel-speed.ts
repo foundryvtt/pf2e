@@ -275,7 +275,7 @@ function toTravelDuration(
 export function calculateTravelDuration(
     journey: Trip[],
     velocity: Velocity,
-    hustleDurationInMinutes: number = 0,
+    hustleDurationInMinutes = 0,
 ): TravelDuration {
     const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
     const feetPerMinute = toFeetPerMinute(velocity);

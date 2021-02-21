@@ -3,13 +3,13 @@ import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2Check } from '../system/rolls';
-import { FamiliarData } from './actorDataDefinitions';
+import { FamiliarData } from './actor-data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { adaptRoll } from '../system/rolls';
 
 export class PF2EFamiliar extends PF2EActor {
-    /** @override */
     data!: FamiliarData;
+    _data!: FamiliarData;
 
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {

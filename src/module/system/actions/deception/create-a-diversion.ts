@@ -18,10 +18,11 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             title += 'Trick';
             traits.push('manipulate');
             break;
-        default:
+        default: {
             const msg = game.i18n.format('PF2E.ActionsWarning.DeceptionUnknownVariant', { variant: options.variant });
             ui.notifications.error(msg);
             return;
+        }
     }
     PF2Actions.simpleRollActionCheck(
         options.actors,

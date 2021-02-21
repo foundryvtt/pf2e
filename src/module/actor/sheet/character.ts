@@ -6,10 +6,11 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, SpellData, ItemData, SpellcastingEntryData } from '../../item/dataDefinitions';
+import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '@item/data-definitions';
 import { PF2EAncestry } from '../../item/ancestry';
 import { PF2EBackground } from '../../item/background';
 import { PF2EClass } from '../../item/class';
+import { PF2EItem } from '@item/item';
 
 /**
  * @category Other
@@ -155,20 +156,27 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         // Spellcasting Entries
         const spellcastingEntries = [];
 
+        let backgroundItemId = undefined;
+
         // Feats
-        const feats = {
-            ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [] },
-            ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [] },
-            archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [] },
-            bonus: { label: 'PF2E.FeatBonusHeader', feats: [] },
-            class: { label: 'PF2E.FeatClassHeader', feats: [] },
-            classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [] },
-            skill: { label: 'PF2E.FeatSkillHeader', feats: [] },
-            general: { label: 'PF2E.FeatGeneralHeader', feats: [] },
-            pfsboon: { label: 'PF2E.FeatPFSBoonHeader', feats: [] },
-            deityboon: { label: 'PF2E.FeatDeityBoonHeader', feats: [] },
-            curse: { label: 'PF2E.FeatCurseHeader', feats: [] },
+        interface FeatSlot {
+            label: string;
+            feats: { id: string; level: string; feat?: FeatData }[];
+            bonusFeats: FeatData[];
+        }
+        const tempFeats: FeatData[] = [];
+        const featSlots: { [key: string]: FeatSlot } = {
+            ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [], bonusFeats: [] },
+            classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [], bonusFeats: [] },
+            ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
+            class: { label: 'PF2E.FeatClassHeader', feats: [], bonusFeats: [] },
+            skill: { label: 'PF2E.FeatSkillHeader', feats: [], bonusFeats: [] },
+            general: { label: 'PF2E.FeatGeneralHeader', feats: [], bonusFeats: [] },
+            // archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
+            bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
         };
+        const pfsBoons: FeatData[] = [];
+        const deityBoonsCurses: FeatData[] = [];
 
         // Actions
         const actions = {
@@ -274,6 +282,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 // collect list of entries to use later to match spells against.
                 spellcastingEntriesList.push(i._id);
 
+                // TODO: remove below when trick magic item has been converted to use the custom modifiers version
                 const spellRank = i.data.proficiency?.value || 0;
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(
                     actorData.data.details.level.value,
@@ -296,6 +305,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
                 i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
+                // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
                 i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
@@ -318,10 +328,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             // Feats
             else if (i.type === 'feat') {
-                const featType = i.data.featType.value || 'bonus';
                 const actionType = i.data.actionType.value || 'passive';
 
-                feats[featType].feats.push(i);
+                tempFeats.push(i);
+
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
                     i.img = PF2ECharacter.getActionGraphics(
@@ -387,7 +397,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             }
 
             // Actions
-            if (i.type === 'action') {
+            else if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
                 i.img = PF2ECharacter.getActionGraphics(
                     actionType,
@@ -421,6 +431,36 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                     actorData.hasOffensiveActions = true;
                 }
             }
+
+            // background
+            else if (i.type === 'background') {
+                backgroundItemId = i._id;
+            }
+
+            // class
+            else if (i.type === 'class') {
+                const classItem = i as ClassData;
+                const mapFeatLevels = (featLevels: number[], prefix: string) => {
+                    if (!featLevels) {
+                        return [];
+                    }
+                    return featLevels
+                        .filter((featSlotLevel: number) => actorData.data.details.level.value >= featSlotLevel)
+                        .map((level) => ({ id: `${prefix}-${level}`, level: `${level}` }));
+                };
+
+                featSlots.ancestry.feats = mapFeatLevels(classItem.data.ancestryFeatLevels?.value, 'ancestry');
+                featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, 'class');
+                featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, 'skill');
+                featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, 'general');
+            }
+        }
+
+        if (backgroundItemId !== undefined) {
+            featSlots.skill.feats.unshift({
+                id: backgroundItemId,
+                level: game.i18n.localize('PF2E.FeatBackgroundShort'),
+            });
         }
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
@@ -459,6 +499,37 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
         }
 
+        // put the feats in their feat slots
+        const allFeatSlots = Object.values(featSlots).flatMap((x) => x.feats);
+        for (const feat of tempFeats) {
+            let slotIndex = allFeatSlots.findIndex((x) => x.id === feat.data.location);
+            if (slotIndex !== -1 && allFeatSlots[slotIndex].feat !== undefined) {
+                console.error(`Foundry VTT | Duplicate feats in same index! ${feat.name}`);
+                slotIndex = -1;
+            }
+
+            if (slotIndex !== -1) {
+                allFeatSlots[slotIndex].feat = feat;
+            } else {
+                let featType = feat.data.featType.value || 'bonus';
+
+                if (['pfsboon'].includes(featType)) {
+                    pfsBoons.push(feat);
+                } else if (['deityboon', 'curse'].includes(featType)) {
+                    deityBoonsCurses.push(feat);
+                } else {
+                    if (!['ancestryfeature', 'classfeature'].includes(featType)) {
+                        featType = 'bonus';
+                    }
+
+                    if (featType in featSlots) {
+                        const slots: FeatSlot = featSlots[featType];
+                        slots.bonusFeats.push(feat);
+                    }
+                }
+            }
+        }
+
         // assign mode to actions
         Object.values(actions)
             .flatMap((section) => section.actions)
@@ -475,7 +546,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             actorData.orphanedSpells = true;
             actorData.orphanedSpellbook = spellbooks.unassigned;
         }
-        actorData.feats = feats;
+
+        actorData.featSlots = featSlots;
+        actorData.pfsBoons = pfsBoons;
+        actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
         actorData.readonlyActions = readonlyActions;
@@ -633,6 +707,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         html.find('.add-modifier').on('click', '.fas.fa-minus-circle', (event) => this.onDecrementModifierValue(event));
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
+        html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
 
         html.find('.hover').tooltipster({
             animation: 'fade',
@@ -661,7 +736,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (item.data.type !== 'spellcastingEntry') {
                 return;
             }
-            let data: SpellcastingEntryData = duplicate(item.data);
+            const data = duplicate(item.data);
 
             if (data.data.slots == null) {
                 return;
@@ -689,7 +764,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 return;
             }
 
-            let data: SpellcastingEntryData = duplicate(item.data);
+            const data = duplicate(item.data);
 
             if (data.data.slots == null) {
                 return;
@@ -736,15 +811,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
     onAddCustomModifier(event) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         const stat = $(event.currentTarget).attr('data-stat');
-        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val());
+        const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
         const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
-        }
-        if (!modifier || Number.isNaN(modifier)) {
-            errors.push('Modifier value must be a number.');
         }
         if (!name || !name.trim()) {
             errors.push('Name is required.');
@@ -759,7 +831,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
     }
 
-    onRemoveCustomModifier(event) {
+    private onRemoveCustomModifier(event: JQuery.ClickEvent) {
         const stat = $(event.currentTarget).attr('data-stat');
         const name = $(event.currentTarget).attr('data-name');
         const errors: string[] = [];
@@ -776,6 +848,16 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
     }
 
+    private onToggleAutomation(event: JQuery.ClickEvent) {
+        const $checkbox = $(event.target);
+        const toggleOff = !$checkbox.hasClass('disabled');
+        const effects = this.actor.effects.entries.filter((effect) =>
+            effect.data.changes.some((change) => change.key === $checkbox.data('automation-key')),
+        );
+        const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
+        this.actor.updateEmbeddedEntity('ActiveEffect', effectUpdates);
+    }
+
     async _onDropItemCreate(itemData: ItemData): Promise<any> {
         if (itemData.type === 'ancestry') {
             return PF2EAncestry.addToActor(this.actor, itemData);
@@ -790,6 +872,104 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
 
         return super._onDropItemCreate(itemData);
+    }
+
+    protected _isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
+        const featType = feat.data?.featType?.value;
+        if (featType === 'archetype') {
+            if (feat.data.traits.value.includes('skill')) {
+                return featSlotType === 'skill';
+            } else {
+                return featSlotType === 'class';
+            }
+        }
+
+        if (featSlotType === 'general') {
+            return ['general', 'skill'].includes(featType);
+        }
+
+        return featSlotType === featType;
+    }
+
+    protected _getNearestSlotId(event: ElementDragEvent) {
+        const data = $(event.target).closest('.item').data();
+        if (!data) {
+            return { slotId: undefined, featType: undefined };
+        }
+        return data;
+    }
+
+    /** @override */
+    protected async _onDropItem(
+        event: ElementDragEvent,
+        data: DropCanvasData,
+    ): Promise<(ItemData | null)[] | ItemData | null> {
+        const actor = this.actor;
+        const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token?.id);
+        if (isSameActor) {
+            return super._onDropItem(event, data);
+        }
+
+        event.preventDefault();
+
+        const item = await PF2EItem.fromDropData(data);
+        const itemData = duplicate(item.data);
+
+        const { slotId, featType } = this._getNearestSlotId(event);
+
+        if (itemData.type === 'feat') {
+            if (slotId !== undefined && this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
+                itemData.data.location = slotId;
+                const items = await Promise.all([
+                    this.actor.createEmbeddedEntity('OwnedItem', itemData),
+                    this.actor.updateEmbeddedEntity(
+                        'OwnedItem',
+                        this.actor.items
+                            .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
+                            .map((x) => ({ _id: x._id, 'data.location': '' })),
+                    ),
+                ]);
+                return items.flatMap((item) => item);
+            }
+        }
+
+        return super._onDropItem(event, data);
+    }
+
+    /**
+     * Handle a drop event for an existing Owned Item to sort that item
+     * @param event
+     * @param itemData
+     */
+    protected async _onSortItem(
+        event: ElementDragEvent,
+        itemData: ItemData,
+    ): Promise<(ItemData | null)[] | ItemData | null> {
+        if (itemData.type === 'feat') {
+            const { slotId, featType } = this._getNearestSlotId(event);
+
+            if (this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
+                this.actor.updateEmbeddedEntity('OwnedItem', [
+                    {
+                        _id: itemData._id,
+                        'data.location': slotId,
+                    },
+                    ...this.actor.items
+                        .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
+                        .map((x) => ({ _id: x._id, 'data.location': '' })),
+                ]);
+                return itemData;
+            } else {
+                // if they're dragging it away from a slot
+                if (itemData.data.location) {
+                    return this.actor.updateEmbeddedEntity('OwnedItem', {
+                        _id: itemData._id,
+                        'data.location': '',
+                    });
+                }
+            }
+        }
+        return super._onSortItem(event, itemData);
     }
 
     _onSubmit(event: any): Promise<any> {
