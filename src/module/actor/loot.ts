@@ -1,13 +1,13 @@
 import { PF2EActor, UserPF2e } from './actor';
-import { LootData } from './actorDataDefinitions';
+import { LootData } from './actor-data-definitions';
 import { PF2EPhysicalItem } from '../item/physical';
 import { PF2EItem } from '../item/item';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treasure';
 import { PF2ECharacter } from './character';
 
 export class PF2ELoot extends PF2EActor {
-    /** @override */
     data!: LootData;
+    _data!: LootData;
 
     get isLoot(): boolean {
         return this.data.data.lootSheetType === 'Loot';

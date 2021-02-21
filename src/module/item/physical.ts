@@ -1,9 +1,10 @@
 import { PF2EItem } from './item';
-import { isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import { isPhysicalItem, PhysicalItemData } from './data-definitions';
+import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
-    /** @override */
     data!: PhysicalItemData;
+    _data!: PhysicalItemData;
 
     static isIdentified(itemData: any): boolean {
         return itemData.data?.identification?.status !== 'unidentified';
@@ -31,6 +32,7 @@ export class PF2EPhysicalItem extends PF2EItem {
                 _id: this.id,
                 'data.identification.status': value ? 'identified' : 'unidentified',
                 'data.identification.identified.name': this.data.name,
+                'data.identification.identified.img': this.data.img,
             });
         }
     }
@@ -67,17 +69,19 @@ export class PF2EPhysicalItem extends PF2EItem {
                 name = translateFallback(name, `PF2E.identification.UnidentifiedItem`);
 
                 diff.name = name;
+                diff.img = getUnidentifiedPlaceholderImage(itemData);
             }
 
             // ensure an "identified" name so the item can always be restored
             if (status !== 'identified' && !getProperty(itemData, 'data.identification.identified')) {
                 diff['data.identification.identified.name'] = itemData.name;
+                diff['data.identification.identified.img'] = itemData.img;
             }
 
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = await fromUuid(uuid);
+                const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
                 if (baseItem?.data) {
                     const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
                     // probably more fields should be filtered out

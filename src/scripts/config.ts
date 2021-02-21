@@ -26,7 +26,7 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
 import * as enJSON from '../../static/lang/en.json';
 
 export const PF2ECONFIG = {
@@ -1524,7 +1524,9 @@ export const PF2ECONFIG = {
         lowLightVision: 'PF2E.SensesLowLightVision',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        tremorsense: 'PF2E.SensesTremorsense',
         lifesense: 'PF2E.SensesLifesense',
+        wavesense: 'PF2E.SensesWavesense',
     }, // Creature Sizes
 
     bulkTypes: {

@@ -1,6 +1,6 @@
 import { PF2EActor, TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
-import { ConditionData } from '../../module/item/dataDefinitions';
+import { ConditionData } from '@item/data-definitions';
 
 /**
  * Class PF2eStatus which defines the data structure of a status effects
@@ -225,7 +225,7 @@ export class PF2eStatusEffects {
         const token = canvas.tokens.get(tokenData._id);
 
         if (!token) {
-            throw Error('PF2E | StatusEffects | Could not find token with id: ${tokenData._id}');
+            throw Error(`PF2E | StatusEffects | Could not find token with id: ${tokenData._id}`);
         }
 
         const statusIcons = html.find('img.effect-control');
@@ -347,7 +347,7 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
         if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const statusName = f.attr('data-effect');
+            const statusName = f.attr('data-effect') ?? 'undefined';
             if (typeof statusName === 'string' && statusName in PF2e.DB.condition) {
                 statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
             }
@@ -366,7 +366,7 @@ export class PF2eStatusEffects {
             const token = canvas.tokens.get(tokenData._id);
 
             if (!token) {
-                throw Error('PF2E | StatusEffects | Could not get token with id: ${tokenData._id}');
+                throw Error(`PF2E | StatusEffects | Could not get token with id: ${tokenData._id}`);
             }
 
             PF2eConditionManager.renderEffects(token);

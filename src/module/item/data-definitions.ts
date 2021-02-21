@@ -1,5 +1,6 @@
-import { AbilityString, Proficency } from '../actor/actorDataDefinitions';
-import { PF2RuleElementData } from '../rules/rulesDataDefinitions';
+import { AbilityString, Proficency } from '@actor/actor-data-definitions';
+import { PF2RuleElementData } from '../rules/rules-data-definitions';
+import { PF2RollNote } from '../notes';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -13,7 +14,7 @@ export interface ItemTraits {
     custom: string;
 }
 
-export interface ItemDescriptionData {
+export interface ItemDescriptionData extends Record<string, unknown> {
     description: {
         value: string;
         chat: string;
@@ -71,6 +72,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            img: string;
         };
     };
     identified: {
@@ -136,7 +138,7 @@ export interface ActivatedEffectData {
     };
 }
 
-export interface MagicItemData extends PhysicalDetailsData {
+export interface MagicDetailsData extends PhysicalDetailsData {
     invested?: {
         value: boolean;
     };
@@ -166,7 +168,7 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export interface WeaponDetailsData extends MagicItemData {
+export interface WeaponDetailsData extends MagicDetailsData {
     weaponType: {
         value: string;
     };
@@ -235,7 +237,7 @@ export interface WeaponDetailsData extends MagicItemData {
     };
 }
 
-export interface ArmorDetailsData extends MagicItemData {
+export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
         value: number;
     };
@@ -291,7 +293,7 @@ export interface KitEntryData {
     items?: { [key: number]: KitEntryData };
 }
 
-export interface MeleeDetailsData extends MagicItemData {
+export interface MeleeDetailsData extends MagicDetailsData {
     attack: {
         value: string;
     };
@@ -304,7 +306,7 @@ export interface MeleeDetailsData extends MagicItemData {
     };
 }
 
-export interface ConsumableDetailsData extends MagicItemData {
+export interface ConsumableDetailsData extends MagicDetailsData {
     consumableType: {
         value: string;
     };
@@ -478,6 +480,12 @@ export interface ActionDetailsData extends ItemDescriptionData {
     };
 }
 
+export interface TrickMagicItemCastData {
+    ability: AbilityString;
+    data: { spelldc: { value: number; dc: number } };
+    _id: '';
+}
+
 export interface SpellDetailsData extends ItemDescriptionData {
     spellType: {
         value: string;
@@ -561,6 +569,20 @@ export interface SpellDetailsData extends ItemDescriptionData {
     spellLvl?: string;
     properties?: (number | string)[];
     item?: string;
+    trickMagicItemData?: TrickMagicItemCastData;
+}
+
+export interface SpellAttackRollModifier {
+    breakdown: string;
+    notes: PF2RollNote[];
+    roll: Function;
+    value: number;
+}
+
+export interface SpellDifficultyClass {
+    breakdown: string;
+    notes: PF2RollNote[];
+    value: number;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
@@ -573,6 +595,8 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
         item: number;
         mod: number;
     };
+    attack?: SpellAttackRollModifier;
+    dc?: SpellDifficultyClass;
     tradition: {
         value: string;
     };
@@ -806,7 +830,7 @@ export interface ConsumableData
     type: 'consumable';
 }
 
-export interface EquipmentData extends BasePhysicalItemData<ActivatedEffectData & MagicItemData> {
+export interface EquipmentData extends BasePhysicalItemData<ActivatedEffectData & MagicDetailsData> {
     type: 'equipment';
 }
 
@@ -885,8 +909,17 @@ export type ItemData =
     | EffectData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
-export function isPhysicalItem(item: ItemData): item is PhysicalItemData {
-    return 'quantity' in item.data;
+export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData {
+    return 'quantity' in itemData.data;
+}
+
+export function isMagicDetailsData(itemDataData: ItemDescriptionData): itemDataData is Required<MagicDetailsData> {
+    return (
+        typeof itemDataData.invested == 'object' &&
+        itemDataData.invested !== null &&
+        'value' in itemDataData.invested &&
+        typeof (itemDataData.invested as { value: unknown }).value == 'boolean'
+    );
 }
 
 export function isLevelItem(item: ItemData): item is ItemData & BaseItemDataPF2e<ItemDescriptionData & ItemLevelData> {

@@ -1,10 +1,11 @@
 import { PF2ECharacter } from '../actor/character';
-import { ABCFeatureEntryData, AncestryData, FeatData } from './dataDefinitions';
+import { ABCFeatureEntryData, AncestryData, FeatData } from './data-definitions';
 import { PF2EItem } from './item';
 import { PF2EFeat } from './others';
 
 export class PF2EAncestry extends PF2EItem {
     data!: AncestryData;
+    _data!: AncestryData;
 
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {

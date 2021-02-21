@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
+import { LocalizationPF2e } from '../localization';
 
 interface WorldClockData {
     date: string;
@@ -10,21 +11,29 @@ interface WorldClockData {
 
 export class WorldClock extends Application {
     /** Localization keys */
-    private get translations() {
-        return game.i18n.translations.PF2E.WorldClock;
-    }
+    private readonly translations = new LocalizationPF2e().translations.PF2E.WorldClock;
 
     private readonly animateDarkness = animateDarkness;
+
+    /** Whether the Calendar/Weather module is installed and active */
+    readonly usingCalendarWeather = ((): boolean => {
+        const calendarWeather = game.modules.get('calendar-weather');
+        return calendarWeather !== undefined && calendarWeather.active;
+    })();
 
     /** @override */
     constructor() {
         super();
 
-        /* Save world creation datetime if equal to default (i.e., server time at first retrieval of the setting) */
+        /* Save world creation date/time if equal to default (i.e., server time at first retrieval of the setting) */
         const settingValue = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
         const defaultValue = game.settings.settings.get('pf2e.worldClock.worldCreatedOn')?.default;
         if (typeof settingValue === 'string' && settingValue === defaultValue) {
             game.settings.set('pf2e', 'worldClock.worldCreatedOn', settingValue);
+        }
+
+        if (this.usingCalendarWeather) {
+            console.debug('PF2e System | Deferring to Calendar/Weather module for date/time management');
         }
     }
 
@@ -50,7 +59,7 @@ export class WorldClock extends Application {
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
         const value = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
-        return typeof value === 'string' ? DateTime.fromISO(value) : DateTime.utc();
+        return typeof value === 'string' ? DateTime.fromISO(value).toUTC() : DateTime.utc();
     }
 
     /** The current date and time of the game world */
@@ -72,7 +81,7 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case 'AR': // Absalom Reckoning
-                return game.i18n.localize(this.translations.AR.Era);
+                return this.translations.AR.Era;
             case 'AD': // Earth on the Material Plane
                 return this.worldTime.toFormat('G');
             default:
@@ -101,7 +110,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const month = this.worldTime.setLocale('en-US').monthLong;
-                return game.i18n.localize(this.translations.AR.Months[month]);
+                return this.translations.AR.Months[month];
             }
             default:
                 return this.worldTime.monthLong;
@@ -113,7 +122,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const weekday = this.worldTime.setLocale('en-US').weekdayLong;
-                return game.i18n.localize(this.translations.AR.Weekdays[weekday]);
+                return this.translations.AR.Weekdays[weekday];
             }
             default:
                 return this.worldTime.weekdayLong;
@@ -126,11 +135,22 @@ export class WorldClock extends Application {
             type: 'ordinal',
         }).select(this.worldTime.day);
         const ruleKey = rule[0].toUpperCase() + rule.slice(1);
-        return game.i18n.localize(this.translations.OrdinalSuffixes[ruleKey]);
+        return this.translations.OrdinalSuffixes[ruleKey];
     }
 
     /** @override */
     getData(options?: ApplicationOptions): WorldClockData {
+        if (this.usingCalendarWeather) {
+            // Allow the Calendar/Weather module to manage the value and appearance of the date/time
+            const $app = $('#calendar-time-container');
+            const calendarDate = $app.find('span#calendar-date').text().trim();
+            const weekday = $app.find('span#calendar-weekday').text().trim();
+            const date = `${weekday}, ${calendarDate}`;
+            const time = $app.find('div#start-stop-clock .calendar-time-disp').text().trim();
+
+            return { date, time, options, user: game.user };
+        }
+
         const date =
             this.dateTheme === 'CE'
                 ? this.worldTime.toLocaleString(DateTime.DATE_HUGE)

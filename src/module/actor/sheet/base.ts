@@ -1,29 +1,29 @@
-import { RemoveCoinsPopup } from './RemoveCoinsPopup';
+import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '../../item/treasure';
-import { AddCoinsPopup } from './AddCoinsPopup';
+import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '../../item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
-import { MoveLootPopup } from './loot/MoveLootPopup';
+import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '../../system/trait-selector';
 import { PF2EItem } from '../../item/item';
-import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '../../item/dataDefinitions';
+import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
-import { IdentifyItemPopup } from './IdentifyPopup';
+import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { ScrollWandPopup } from './scroll-wand-popup';
-import { createConsumableFromSpell, SpellConsumableTypes } from '../../item/spellConsumables';
-import { ActorDataPF2e } from '@actor/actorDataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ScrollWandPopup } from './popups/scroll-wand-popup';
+import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
-import { SpellcastingEntry } from '@item/spellcastingEntry';
-import { PF2ECondition } from '@item/others';
+import { SpellcastingEntry } from '@item/spellcasting-entry';
+import { PF2ECondition, PF2ESpell } from '@item/others';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType, PF2EItem> {
+export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -37,6 +37,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 '.actions-pane',
                 '.spellbook-pane',
                 '.skillstab-pane',
+                '.pfs-pane',
             ],
         });
     }
@@ -528,6 +529,18 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.actor.data.data.actions[Number(actionIndex)].critical({ event, options });
         });
 
+        html.find('.spell-attack').on('click', (event) => {
+            if (!['character'].includes(this.actor.data.type)) {
+                throw Error('This sheet only works for characters');
+            }
+            const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
+            const entry = this.actor.data.items.find((item) => item._id === index) as SpellcastingEntryData;
+            if (entry?.data?.attack?.roll) {
+                const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+                entry.data.attack.roll({ event, options });
+            }
+        });
+
         // for spellcasting checks
         html.find('.spellcasting.rollable').click((event) => {
             event.preventDefault();
@@ -823,16 +836,15 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         );
 
         // Increase Item Quantity
-        html.find('.item-increase-quantity').click((event) => {
+        html.find('.item-increase-quantity').on('click', (event) => {
             const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const item = this.actor.getOwnedItem(itemId)?.data;
-            if (!item) return;
-            if (!('quantity' in item.data)) {
-                throw new Error('Tried to update quantity on item that does not have quantity');
+            const item = this.actor.getOwnedItem(itemId);
+            if (!(item instanceof PF2EPhysicalItem)) {
+                throw new Error('PF2e System | Tried to update quantity on item that does not have quantity');
             }
             this.actor.updateEmbeddedEntity('OwnedItem', {
                 _id: itemId,
-                'data.quantity.value': Number(item.data.quantity.value) + 1,
+                'data.quantity.value': Number(item.data.data.quantity.value) + 1,
             });
         });
 
@@ -840,28 +852,29 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         html.find('.item-decrease-quantity').on('click', (event) => {
             const li = $(event.currentTarget).parents('.item');
             const itemId = li.attr('data-item-id') ?? '';
-            const item = this.actor.getOwnedItem(itemId)?.data;
+            const item = this.actor.getOwnedItem(itemId);
             if (!(item instanceof PF2EPhysicalItem)) {
                 throw new Error('Tried to update quantity on item that does not have quantity');
             }
-            if (Number(item.data.quantity.value) > 0) {
+            if (Number(item.data.data.quantity.value) > 0) {
                 this.actor.updateEmbeddedEntity('OwnedItem', {
                     _id: itemId,
-                    'data.quantity.value': Number(item.data.quantity.value) - 1,
+                    'data.quantity.value': Number(item.data.data.quantity.value) - 1,
                 });
             }
         });
 
         // Toggle Spell prepared value
-        html.find('.item-prepare').click((ev) => {
+        html.find('.item-prepare').on('click', (ev) => {
             const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId).data;
-            if (!('prepared' in item.data)) {
+            const item = this.actor.getOwnedItem(itemId ?? '');
+            if (!(item instanceof PF2ESpell)) {
                 throw new Error('Tried to update prepared on item that does not have prepared');
             }
-            item.data.prepared.value = !item.data.prepared.value;
-            this.actor.updateEmbeddedEntity('OwnedItem', item);
+            this.actor.updateEmbeddedEntity('OwnedItem', {
+                _id: item.id,
+                'data.prepared.value': !item.data.data.prepared.value,
+            });
         });
 
         // Item Dragging
@@ -1341,12 +1354,20 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
-            if (dropSlotType === 'spellLevel') {
+            if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
+                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+                if (typeof dropID !== 'string') {
+                    throw Error('PF2e System | Unexpected error while adding spell to spellcastingEntry');
+                }
+                itemData.data.location = { value: dropID };
+                this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
+                return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            } else if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
                     this._moveSpell(itemData, itemId, level);
-                    return this.actor.createOwnedItem(itemData);
+                    return this.actor.createEmbeddedEntity('OwnedItem', itemData);
                 }
             } else if (dropSlotType === 'spell') {
                 const { containerId } = $(event.target).closest('.item-container').data();
@@ -1354,18 +1375,12 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
                 if (typeof containerId === 'string' && typeof spellLvl === 'number') {
                     this._moveSpell(itemData, containerId, spellLvl);
-                    return this.actor.createOwnedItem(itemData);
+                    return this.actor.createEmbeddedEntity('OwnedItem', itemData);
                 }
-            } else if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-                itemData.data.location = { value: dropID };
-                this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
-                return this.actor.createEmbeddedEntity('OwnedItem', itemData);
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
                     {},
-                    itemData,
                     async (heightenedLevel, itemType, spellData) => {
                         const consumableType =
                             itemType == 'wand' ? SpellConsumableTypes.Wand : SpellConsumableTypes.Scroll;
@@ -1373,6 +1388,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                         const item = await createConsumableFromSpell(consumableType, spellData, heightenedLevel);
                         return this._onDropItemCreate(item);
                     },
+                    itemData,
                 );
                 popup.render(true);
                 return itemData;
@@ -1384,7 +1400,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return null;
         } else if (itemData.type === 'kit') {
             await addKit(itemData, async (newItems) => {
-                const items = await actor.createOwnedItem(newItems);
+                const items = await actor.createEmbeddedEntity('OwnedItem', newItems);
                 if (Array.isArray(items)) {
                     return items.flatMap((i) => (i === null ? [] : i._id));
                 }
@@ -1439,13 +1455,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         if (sourceActor === null || targetActor === null) {
             return Promise.reject(new Error('PF2e System | Unexpected missing actor(s)'));
         }
-        if (item === null) {
-            return Promise.reject(new Error('PF2e System | Unexpected missing item'));
+        if (!(item instanceof PF2EPhysicalItem)) {
+            return Promise.reject(new Error('PF2e System | Missing or invalid item'));
         }
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0] !== undefined ? container[0].dataset.itemId?.trim() : undefined;
-        const sourceItemQuantity = 'quantity' in item.data.data ? Number(item.data.data.quantity.value) : 0;
+        const sourceItemQuantity = Number(item.data.data.quantity.value);
         // If more than one item can be moved, show a popup to ask how many to move
         if (sourceItemQuantity > 1) {
             const popup = new MoveLootPopup(sourceActor, { maxQuantity: sourceItemQuantity }, (quantity) => {
@@ -1467,11 +1483,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
         const spellcastingEntryData = this.actor.getOwnedItem(targetLocation)?.data;
 
-        if (!spellcastingEntryData || spellcastingEntryData.type !== 'spellcastingEntry') {
-            throw new Error(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
+        if (spellcastingEntryData?.type !== 'spellcastingEntry') {
+            throw new Error(`PF2e System | SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
         }
 
-        const spellcastingEntry = new SpellcastingEntry(spellcastingEntryData as SpellcastingEntryData);
+        const spellcastingEntry = new SpellcastingEntry(spellcastingEntryData);
 
         spellData.data.location = {
             value: targetLocation,
@@ -1652,7 +1668,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         } else {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
         }
-        // this.actor.createOwnedItem(data, {renderSheet: true});
+
         this.actor.createEmbeddedEntity('OwnedItem', data);
     }
 

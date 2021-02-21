@@ -1,4 +1,4 @@
-import { PhysicalItemData } from '@item/dataDefinitions';
+import { PhysicalItemData } from '@item/data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2EActor } from '../../actor';
 
@@ -44,7 +44,7 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
             }
         }
         if (itemData.length > 0) {
-            this.object.createOwnedItem(itemData);
+            this.object.createEmbeddedEntity('OwnedItem', itemData);
         }
     }
 

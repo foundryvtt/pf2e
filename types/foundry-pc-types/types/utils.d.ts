@@ -1,9 +1,12 @@
-interface ElementDragEvent extends DragEvent {
+declare type ArrayElement<ArrayType extends readonly unknown[]> =
+    ArrayType extends readonly (infer ElementType)[] ? ElementType : never;
+
+declare interface ElementDragEvent extends DragEvent {
     target: HTMLElement;
     currentTarget: HTMLElement;
 }
 declare type DeepPartial<T> = {
-    [P in keyof T]?: DeepPartial<T[P]>;
+  [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
 };
 
 /**

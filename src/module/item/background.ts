@@ -1,10 +1,11 @@
 import { PF2ECharacter } from '../actor/character';
-import { ABCFeatureEntryData, BackgroundData, FeatData } from './dataDefinitions';
+import { ABCFeatureEntryData, BackgroundData, FeatData } from './data-definitions';
 import { PF2EItem } from './item';
 import { PF2EFeat } from './others';
 
 export class PF2EBackground extends PF2EItem {
     data!: BackgroundData;
+    _data!: BackgroundData;
 
     static async getBackgroundItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
