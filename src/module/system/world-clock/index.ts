@@ -1,5 +1,6 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
+import { LocalizationPF2e } from '../localization';
 
 interface WorldClockData {
     date: string;
@@ -10,9 +11,7 @@ interface WorldClockData {
 
 export class WorldClock extends Application {
     /** Localization keys */
-    private get translations() {
-        return game.i18n.translations.PF2E.WorldClock;
-    }
+    private readonly translations = new LocalizationPF2e().translations.PF2E.WorldClock;
 
     private readonly animateDarkness = animateDarkness;
 
@@ -60,7 +59,7 @@ export class WorldClock extends Application {
     /** Setting: Date and time of the Foundry world's creation date */
     get worldCreatedOn(): DateTime {
         const value = game.settings.get('pf2e', 'worldClock.worldCreatedOn');
-        return typeof value === 'string' ? DateTime.fromISO(value) : DateTime.utc();
+        return typeof value === 'string' ? DateTime.fromISO(value).toUTC() : DateTime.utc();
     }
 
     /** The current date and time of the game world */
@@ -82,7 +81,7 @@ export class WorldClock extends Application {
     private get era(): string {
         switch (this.dateTheme) {
             case 'AR': // Absalom Reckoning
-                return game.i18n.localize(this.translations.AR.Era);
+                return this.translations.AR.Era;
             case 'AD': // Earth on the Material Plane
                 return this.worldTime.toFormat('G');
             default:
@@ -111,7 +110,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const month = this.worldTime.setLocale('en-US').monthLong;
-                return game.i18n.localize(this.translations.AR.Months[month]);
+                return this.translations.AR.Months[month];
             }
             default:
                 return this.worldTime.monthLong;
@@ -123,7 +122,7 @@ export class WorldClock extends Application {
         switch (this.dateTheme) {
             case 'AR': {
                 const weekday = this.worldTime.setLocale('en-US').weekdayLong;
-                return game.i18n.localize(this.translations.AR.Weekdays[weekday]);
+                return this.translations.AR.Weekdays[weekday];
             }
             default:
                 return this.worldTime.weekdayLong;
@@ -136,7 +135,7 @@ export class WorldClock extends Application {
             type: 'ordinal',
         }).select(this.worldTime.day);
         const ruleKey = rule[0].toUpperCase() + rule.slice(1);
-        return game.i18n.localize(this.translations.OrdinalSuffixes[ruleKey]);
+        return this.translations.OrdinalSuffixes[ruleKey];
     }
 
     /** @override */

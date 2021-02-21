@@ -3,6 +3,7 @@ import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
+import { LocalizationPF2e } from '../system/localization';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -251,6 +252,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
 
         const durationString = (duration: ActiveEffectDuration): string => {
+            const translations = new LocalizationPF2e().translations.PF2E;
             type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
             const [key, quantity] =
                 Object.entries(duration).find(
@@ -259,13 +261,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 ) ?? (['', null] as const);
 
             if (quantity === null) {
-                return game.i18n.translations.PF2E.ActiveEffects.Duration.Permanent;
+                return translations.ActiveEffects.Duration.Permanent;
             }
             const unit =
                 quantity === 1
                     ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
                     : ((key.slice(0, 1).toUpperCase() + key.slice(1)) as UnitLabel);
-            return game.i18n.format(game.i18n.translations.PF2E.ActiveEffects.Duration[unit ?? 'seconds'], {
+            return game.i18n.format(translations.ActiveEffects.Duration[unit ?? 'seconds'], {
                 quantity,
             });
         };
