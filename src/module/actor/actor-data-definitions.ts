@@ -459,7 +459,7 @@ export type NPCSkillData = PF2StatisticModifier &
         expanded: string;
     };
 
-export type Alignment = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
+export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
 
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData extends ActorSystemData {
@@ -483,7 +483,7 @@ export interface RawNpcData extends ActorSystemData {
     /** Details about this actor, such as alignment or ancestry. */
     details: {
         /** The alignment this creature has. */
-        alignment: { value: Alignment };
+        alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
