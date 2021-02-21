@@ -34,7 +34,9 @@ import {
     VehicleData,
     HazardData,
     AbilityString,
+    AnimalCompanionData,
 } from './actor-data-definitions';
+
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
@@ -407,7 +409,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected _prepareCustomModifiers(
-        actorData: CharacterData | NpcData | FamiliarData,
+        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
         rules: PF2RuleElement[],
     ): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
@@ -447,7 +449,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
 
         // Character-specific custom modifiers & custom damage dice.
-        if (['character', 'familiar', 'npc'].includes(actorData.type)) {
+        if (['character', 'familiar', 'npc', 'animalcompanion'].includes(actorData.type)) {
             const { data } = actorData;
 
             // Custom Modifiers (which affect d20 rolls and damage).

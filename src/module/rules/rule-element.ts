@@ -1,4 +1,4 @@
-import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { AnimalCompanionData, CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
@@ -60,7 +60,10 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(
+        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
+        synthetics: PF2RuleElementSynthetics,
+    ) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -68,7 +71,10 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(
+        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
+        synthetics: PF2RuleElementSynthetics,
+    ) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.

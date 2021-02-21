@@ -59,6 +59,8 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/action-sidebar.html',
         'systems/pf2e/templates/items/ancestry-details.html',
         'systems/pf2e/templates/items/ancestry-sidebar.html',
+        'systems/pf2e/templates/items/ac_ancestry-details.html',
+        'systems/pf2e/templates/items/ac_ancestry-sidebar.html',
         'systems/pf2e/templates/items/armor-details.html',
         'systems/pf2e/templates/items/armor-sidebar.html',
         'systems/pf2e/templates/items/background-details.html',

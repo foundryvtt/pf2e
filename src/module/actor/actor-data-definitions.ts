@@ -240,6 +240,151 @@ export interface ActorSystemData extends Record<string, unknown> {
     traits: BaseTraitsData;
 }
 
+export interface RawAnimalCompanionData extends ActorSystemData {
+    master: {
+        id: string;
+        name: string;
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
+    /** The three save types. */
+    saves: {
+        fortitude: SaveData;
+        reflex: SaveData;
+        will: SaveData;
+    };
+
+    /** Tracks proficiencies for martial skills. */
+    martial: {
+        unarmored: MartialData;
+        light: MartialData;
+        medium: MartialData;
+        heavy: MartialData;
+        simple: MartialData;
+        martial: MartialData;
+        advanced: MartialData;
+        unarmed: MartialData;
+    };
+
+    /** Various details about the character, such as level, experience, etc. */
+    details: {
+        /** Character ancestry (their race, generally). */
+        ancestry: { value: string };
+        /** The diety that the character worships (and an image of the diety symbol). */
+
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    /** Various character attributes.  */
+    attributes: {
+        /** The perception skill. */
+        perception: PerceptionData;
+
+        /** Creature armor class, used to defend against attacks. */
+        ac: ArmorClassData;
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap: DexterityModifierCapData[];
+
+        /** The amount of bonus HP gained per level (due a feat or similar). */
+        levelbonushp: number;
+        /** The amount of HP provided per level by the character's class. */
+        classhp: number;
+        /** The amount of HP provided at level 1 by the character's ancestry. */
+        ancestryhp: number;
+        /** A flat bonus (i.e., not scaling with level) to hit points. */
+        flatbonushp: number;
+        /** A flat-bonus (i.e., not scaling with level) to stamina points. */
+        flatbonussp: number;
+        /** Used in variant stamina rules; how much bonus SP is gained per level. */
+        levelbonussp?: number;
+
+        /** The current dying level (and maximum) for this character. */
+        dying: { value: number; max: number };
+        /** The current wounded level (and maximum) for this character. */
+        wounded: { value: number; max: number };
+        /** The current doomed level (and maximum) for this character. */
+        doomed: { value: number; max: number };
+
+        /** Data related to character hitpoints. */
+        hp: HitPointsData;
+
+        /** Data related to character stamina, when using the variant stamina rules. */
+        sp: {
+            /** The current number of stamina points. */
+            value: number;
+            /** The minimum number of stamina points (almost always '0'). */
+            min: number;
+            /** The maximum number of stamina points. */
+            max: number;
+            /** Any details about stamina points. */
+            details: string;
+        };
+
+        /** Records the various land/swim/fly speeds that this actor has. */
+        speed: {
+            /** The actor's primary speed (usually walking/stride speed). */
+            value: string;
+            /** @deprecated Any special speeds this actor has; prefer using `otherSpeeds`. */
+            special: string;
+            /** Other speeds that this actor can use (such as swim, climb, etc). */
+            otherSpeeds: LabeledValue[];
+        };
+
+        /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+        resolve: { value: number };
+    };
+
+    /** Custom character traits, such as damage resistances/immunities. */
+    traits: CreatureTraitsData;
+
+    /** Player skills, used for various skill checks. */
+    skills: {
+        acr: SkillData;
+        arc: SkillData;
+        ath: SkillData;
+        cra: SkillData;
+        dec: SkillData;
+        dip: SkillData;
+        itm: SkillData;
+        med: SkillData;
+        nat: SkillData;
+        occ: SkillData;
+        prf: SkillData;
+        rel: SkillData;
+        soc: SkillData;
+        ste: SkillData;
+        sur: SkillData;
+        thi: SkillData;
+    };
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+}
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends ActorSystemData {
     /** The six primary ability scores. */
@@ -602,6 +747,10 @@ export interface CharacterData extends ActorEntityData<RawCharacterData> {
     type: 'character';
 }
 
+export interface AnimalCompanionData extends ActorEntityData<RawAnimalCompanionData> {
+    type: 'animalcompanion';
+}
+
 /** Wrapper type for npc-specific data. */
 export interface NpcData extends ActorEntityData<RawNpcData> {
     type: 'npc';
@@ -626,4 +775,11 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
     type: 'vehicle';
 }
 
-export type ActorDataPF2e = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
+export type ActorDataPF2e =
+    | CharacterData
+    | NpcData
+    | HazardData
+    | LootData
+    | FamiliarData
+    | VehicleData
+    | AnimalCompanionData;

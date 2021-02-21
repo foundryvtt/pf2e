@@ -4,7 +4,13 @@
 import { PF2EItem } from './item';
 import { AbilityString } from '@actor/actor-data-definitions';
 import { TraitSelector5e } from '../system/trait-selector';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData } from './data-definitions';
+import {
+    ABCFeatureEntryData,
+    AnimalCompanionAncestryData,
+    AncestryData,
+    BackgroundData,
+    ClassData,
+} from './data-definitions';
 
 /**
  * @category Other
@@ -69,6 +75,14 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem> {
                 Object.entries(itemData.flaws).map(([k, b]) => [k, this.getLocalizedAbilities(b)]),
             );
 
+            data.size = CONFIG.PF2E.actorSizes[itemData.size];
+            data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
+        } else if (this.item.data.type === 'ac_ancestry') {
+            const itemData = (<AnimalCompanionAncestryData>data.item).data;
+            data.actorSizes = CONFIG.PF2E.actorSizes;
+            data.rarityChoices = CONFIG.PF2E.rarityTraits;
+            data.hp = itemData.hp;
+            data.hpperlevel = itemData.hpperlevel;
             data.size = CONFIG.PF2E.actorSizes[itemData.size];
             data.rarity = CONFIG.PF2E.rarityTraits[itemData.traits.rarity.value];
         } else if (this.item.data.type === 'background') {

@@ -13,7 +13,7 @@ const migrations = [new Migration595AddItemSize()];
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
 type CompendiumEntityPF2e = PF2EActor | PF2EItem | Exclude<CompendiumEntity, Actor | Item>;
-const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle'];
+const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle', 'animalcompanion'];
 const itemTypes = [
     'backpack',
     'treasure',

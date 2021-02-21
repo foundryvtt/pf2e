@@ -5,6 +5,7 @@ import { PF2ENPC } from '../module/actor/npc';
 import { PF2EFamiliar } from '../module/actor/familiar';
 import { PF2EItem } from '../module/item/item';
 import { PF2EAncestry } from '../module/item/ancestry';
+import { PF2EAnimalCompanionAncestry } from '../module/item/ac_ancestry';
 import { PF2EBackground } from '../module/item/background';
 import { PF2EClass } from '../module/item/class';
 import {
@@ -28,6 +29,7 @@ import {
 import { PF2EEffect } from '../module/item/effect';
 import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
 import * as enJSON from '../../static/lang/en.json';
+import { PF2EAnimalCompanion } from '@actor/animalcompanion';
 
 export const PF2ECONFIG = {
     // Localization keys and English translation values
@@ -2143,6 +2145,7 @@ export const PF2ECONFIG = {
             hazard: PF2EHazard,
             loot: PF2ELoot,
             familiar: PF2EFamiliar,
+            animalcompanion: PF2EAnimalCompanion,
             vehicle: PF2EVehicle,
         },
     },
@@ -2159,6 +2162,7 @@ export const PF2ECONFIG = {
             equipment: PF2EEquipment,
             effect: PF2EEffect,
             ancestry: PF2EAncestry,
+            ac_ancestry: PF2EAnimalCompanionAncestry,
             background: PF2EBackground,
             class: PF2EClass,
             feat: PF2EFeat,

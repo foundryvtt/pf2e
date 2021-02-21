@@ -25,5 +25,8 @@ export function registerSheets() {
         makeDefault: true,
     });
     Items.registerSheet('pf2e', KitItemSheetPF2e, { types: ['kit'], makeDefault: true });
-    Items.registerSheet('pf2e', ABCItemSheetPF2e, { types: ['ancestry', 'background', 'class'], makeDefault: true });
+    Items.registerSheet('pf2e', ABCItemSheetPF2e, {
+        types: ['ancestry', 'ac_ancestry', 'background', 'class'],
+        makeDefault: true,
+    });
 }

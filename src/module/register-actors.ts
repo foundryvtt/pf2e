@@ -6,6 +6,7 @@ import { ActorSheetPF2eLoot } from './actor/sheet/loot';
 import { ActorSheetPF2eFamiliar } from './actor/sheet/familiar';
 import { ActorSheetPF2eVehicle } from './actor/sheet/vehicle';
 import { ActorSheetPF2eSimpleNPC } from './actor/sheet/simple-npc-sheet';
+import { ActorSheetPF2EAnimalCompanion } from '@actor/sheet/animalcompanion';
 
 export function registerActors() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -49,6 +50,12 @@ export function registerActors() {
     // Register Familiar Sheet
     Actors.registerSheet('pf2e', ActorSheetPF2eFamiliar, {
         types: ['familiar'],
+        makeDefault: true,
+    });
+
+    // Register Animal Companion Sheet
+    Actors.registerSheet('pf2e', ActorSheetPF2EAnimalCompanion, {
+        types: ['animalcompanion'],
         makeDefault: true,
     });
 

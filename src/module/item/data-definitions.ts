@@ -349,6 +349,23 @@ export interface ABCFeatureEntryData {
     level: number;
 }
 
+export interface AnimalCompanionAncestryDetailsData extends ItemDescriptionData {
+    hp: number;
+    hpperlevel: number;
+    abilities: {
+        strmod: number;
+        dexmod: number;
+        conmod: number;
+        intmod: number;
+        wismod: number;
+        chamod: number;
+    };
+    trainedskill: string;
+    speed: number;
+    otherspeeds: { label: string; value: number }[];
+    size: Size;
+}
+
 export interface AncestryDetailsData extends ItemDescriptionData {
     additionalLanguages: {
         count: number; // plus int
@@ -835,6 +852,9 @@ export interface EquipmentData extends BasePhysicalItemData<ActivatedEffectData 
     type: 'equipment';
 }
 
+export interface AnimalCompanionAncestryData extends BaseItemDataPF2e<AnimalCompanionAncestryDetailsData> {
+    type: 'ac_ancestry';
+}
 export interface AncestryData extends BaseItemDataPF2e<AncestryDetailsData> {
     type: 'ancestry';
 }
@@ -907,7 +927,8 @@ export type ItemData =
     | AncestryData
     | BackgroundData
     | ClassData
-    | EffectData;
+    | EffectData
+    | AnimalCompanionAncestryData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData {
