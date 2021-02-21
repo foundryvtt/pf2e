@@ -224,7 +224,7 @@ function applyImmunities({
             return [immunity];
         }
     });
-    const immunitiesByType = groupBy(expandedImmunities, (immunity: Immunity) => immunity.damageType);
+    const modifiersByType = groupBy(expandedImmunities, (immunity: Immunity) => immunity.damageType);
 
     // additional critical damage like deadly always get added
     let damage = combineDamages([normalDamage, additionalCriticalDamage]);
@@ -232,7 +232,7 @@ function applyImmunities({
     // check if critical damage is ignored otherwise combine it with normal damage
     if (isCriticalHit) {
         ifModifierApplies({
-            modifiersByType: immunitiesByType,
+            modifiersByType,
             damage,
             attackTraits,
             applicableModifierTypes: ['critical-hits'],
@@ -244,7 +244,7 @@ function applyImmunities({
     // if nonlethal trait is present and monster is immune, throw away everything
     if (attackTraits.has('nonlethal')) {
         ifModifierApplies({
-            modifiersByType: immunitiesByType,
+            modifiersByType,
             damage,
             attackTraits,
             applicableModifierTypes: ['nonlethal attacks'],
@@ -254,7 +254,7 @@ function applyImmunities({
 
     // check if precision damage is ignored, needed separately because weakness string is different from damage type
     ifModifierApplies({
-        modifiersByType: immunitiesByType,
+        modifiersByType,
         damage,
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
@@ -266,7 +266,7 @@ function applyImmunities({
         .filter((damageType) => damageType !== 'precision')
         .forEach((damageType) => {
             ifModifierApplies({
-                modifiersByType: immunitiesByType,
+                modifiersByType,
                 damage,
                 attackTraits,
                 applicableModifierTypes: [damageType],
@@ -521,7 +521,7 @@ function applyResistances({
 
     // precision damage resistance applies first because it spills into the damage afterwards
     ifModifierApplies({
-        modifiersByType: modifiersByType,
+        modifiersByType,
         damage,
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
