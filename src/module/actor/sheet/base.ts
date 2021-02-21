@@ -1354,7 +1354,15 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
-            if (dropSlotType === 'spellLevel') {
+            if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
+                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+                if (typeof dropID !== 'string') {
+                    throw Error('PF2e System | Unexpected error while adding spell to spellcastingEntry');
+                }
+                itemData.data.location = { value: dropID };
+                this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
+                return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            } else if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
@@ -1369,11 +1377,6 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                     this._moveSpell(itemData, containerId, spellLvl);
                     return this.actor.createOwnedItem(itemData);
                 }
-            } else if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-                itemData.data.location = { value: dropID };
-                this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
-                return this.actor.createEmbeddedEntity('OwnedItem', itemData);
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
