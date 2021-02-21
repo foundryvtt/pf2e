@@ -1,0 +1,14 @@
+<div class="form-group">
+  <label>{{localize "PF2E.ImageLabel"}}</label>
+  <img src="{{item.img}}" />
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.ItemNamePlaceholder"}}</label>
+  <input type="text" value="{{ null }}" data-dtype="String"/>
+</div>
+
+<div class="form-group">
+  <label>{{localize "PF2E.ItemDescription"}}</label>
+  {{editor content=data.description.value target="data.description.value" button=true owner=owner editable=editable}}
+</div>
