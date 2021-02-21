@@ -1,7 +1,7 @@
 import { activateSocketListener } from '../socket';
 import { PlayerConfigPF2e } from '../../module/user/player-config';
 import { WorldClock } from '../../module/system/world-clock';
-import { updateMinionActors } from '../actor/updateMinions';
+import { updateMinionActors } from '../actor/update-minions';
 import { MigrationRunner } from '../..//module/migration-runner';
 import { Migrations } from '../../module/migrations';
 import { EffectPanel } from '../../module/system/effect-panel';
