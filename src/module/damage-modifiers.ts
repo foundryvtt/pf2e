@@ -161,42 +161,38 @@ function exceptionApplies(
 
 /**
  * This function is responsible for going through a list of possible modifiers, evaluating them against their
- * exceptions based on the given attackTraits and damage types present in the damage parameter, retrieving
- * the highest applicable value and calling the applyModifier callback
+ * exceptions based on the given attackTraits and damage types present in the damage parameter and retrieving
+ * the highest applicable value
  *
- * @param modifiersByType immunties/resistances/weaknesses grouped by damage type
- * @param damage the dealt damage
+ * @param modifiersByType immunities/resistances/weaknesses grouped by damage type
+ * @param damageTypes the dealt damage types
  * @param attackTraits traits of the attack, only used to determine if an exception applies
- * @param applicableDamageTypes which values from the given modifiersByType map should be used to find the highest one
+ * @param applicableModifierTypes which values from the given modifiersByType map should be used to find the highest
+ * one; used for instance to group physical damage together
  * @param applyModifier callback that receives the highest applicable modifier
  * @param modifierValue callback that returns the final value, 0 if absent; used to sort and passed into the
  * applyModifier callback
+ * @return value or undefined if no modifier has been found
  */
-function ifModifierApplies<T extends HasDamageExceptions>({
+function findHighestModifier<T extends HasDamageExceptions>({
     modifiersByType,
-    damage,
+    damageTypes,
     attackTraits,
     applicableModifierTypes,
-    applyModifier,
     modifierValue = () => 0,
 }: {
     modifiersByType: Map<string, T[]>;
-    damage: Damage;
+    damageTypes: Set<DamageType>;
     attackTraits: Set<AttackTrait>;
     applicableModifierTypes: string[];
-    applyModifier: (value: number) => void;
     modifierValue?: (modifier: T) => number;
-}) {
-    const modifiers = applicableModifierTypes.flatMap((damageType) => modifiersByType.get(damageType) ?? []);
-    const damageTypes = new Set(damage.keys());
-    const highestApplicableModifier = modifiers
+}): number | undefined {
+    return applicableModifierTypes
+        .flatMap((damageType) => modifiersByType.get(damageType) ?? [])
         .filter((immunity) => !exceptionApplies(immunity.except, attackTraits, damageTypes))
         .map((value) => modifierValue(value))
         .sort()
         .reverse()[0];
-    if (highestApplicableModifier !== undefined) {
-        applyModifier(highestApplicableModifier);
-    }
 }
 
 function applyImmunities({
@@ -231,47 +227,55 @@ function applyImmunities({
 
     // check if critical damage is ignored otherwise combine it with normal damage
     if (isCriticalHit) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['critical-hits'],
-            applyModifier: () => (criticalDamage = new Map()),
         });
+        if (modifier !== undefined) {
+            criticalDamage = new Map();
+        }
     }
     damage = combineDamages([damage, criticalDamage]);
 
     // if nonlethal trait is present and monster is immune, throw away everything
     if (attackTraits.has('nonlethal')) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['nonlethal attacks'],
-            applyModifier: () => damage.clear(),
         });
+        if (modifier !== undefined) {
+            damage.clear();
+        }
     }
 
     // check if precision damage is ignored, needed separately because weakness string is different from damage type
-    ifModifierApplies({
+    const precisionModifier = findHighestModifier({
         modifiersByType,
-        damage,
+        damageTypes: new Set(damage.keys()),
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
-        applyModifier: () => damage.delete('precision'),
     });
+    if (precisionModifier !== undefined) {
+        damage.delete('precision');
+    }
 
     // apply normal damage immunities
     Array.from(damage.keys())
         .filter((damageType) => damageType !== 'precision')
         .forEach((damageType) => {
-            ifModifierApplies({
+            const modifier = findHighestModifier({
                 modifiersByType,
-                damage,
+                damageTypes: new Set(damage.keys()),
                 attackTraits,
                 applicableModifierTypes: [damageType],
-                applyModifier: () => damage.delete(damageType),
             });
+            if (modifier !== undefined) {
+                damage.delete(damageType);
+            }
         });
 
     return damage;
@@ -432,47 +436,55 @@ function applyWeaknesses({
     const modifiersByType = groupBy(weaknesses, (weakness: Weakness) => weakness.damageType);
 
     if (attackTraits.has('vorpal')) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['vorpal weapons'],
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => addDamageIfPresent(damage, value, Array.from(physicalDamage)),
         });
+        if (modifier !== undefined) {
+            addDamageIfPresent(damage, modifier, Array.from(physicalDamage));
+        }
     }
 
     if (isCriticalHit) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['critical hits'],
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => damage.set('untyped', value),
         });
+        if (modifier !== undefined) {
+            damage.set('untyped', modifier);
+        }
     }
 
     if (splashDamageType !== undefined) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['splash-damage'],
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => addDamageIfPresent(damage, value, [splashDamageType]),
         });
+        if (modifier !== undefined) {
+            addDamageIfPresent(damage, modifier, [splashDamageType]);
+        }
     }
 
     if (areaDamageType !== undefined) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['area-damage'],
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => addDamageIfPresent(damage, value, [areaDamageType]),
         });
+        if (modifier !== undefined) {
+            addDamageIfPresent(damage, modifier, [areaDamageType]);
+        }
     }
 
     Array.from(damage.keys()).forEach((damageType) => {
@@ -482,14 +494,16 @@ function applyWeaknesses({
             // physical attacks also trigger weaknesses for materials if present
             physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
         }
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: applicableTypes,
             modifierValue: (modifier) => modifier.value,
-            applyModifier: (value) => addDamageIfPresent(damage, value, [damageType]),
         });
+        if (modifier !== undefined) {
+            addDamageIfPresent(damage, modifier, [damageType]);
+        }
     });
 }
 
@@ -520,17 +534,17 @@ function applyResistances({
     const modifiersByType = groupBy(resistances, (resistance: Resistance) => resistance.damageType);
 
     // precision damage resistance applies first because it spills into the damage afterwards
-    ifModifierApplies({
+    const precisionModifier = findHighestModifier({
         modifiersByType,
-        damage,
+        damageTypes: new Set(damage.keys()),
         attackTraits,
         applicableModifierTypes: ['precision-damage'],
         modifierValue: (modifier) => calculateResistance(['precision-damage'], attackTraits, modifier),
-        applyModifier: (value) => {
-            addDamageIfPresent(damage, -value, [precisionDamageType]);
-            damage.delete('precision');
-        },
     });
+    if (precisionModifier !== undefined) {
+        addDamageIfPresent(damage, -precisionModifier, [precisionDamageType]);
+        damage.delete('precision');
+    }
 
     Array.from(damage.keys()).forEach((damageType) => {
         const applicableTypes = [damageType, 'all'];
@@ -539,32 +553,30 @@ function applyResistances({
             // physical attacks also trigger resistances for materials if present
             physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
         }
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: applicableTypes,
             modifierValue: (modifier) => calculateResistance(applicableTypes, attackTraits, modifier),
-            applyModifier: (value) => {
-                addDamageIfPresent(damage, -value, [damageType]);
-            },
         });
+        addDamageIfPresent(damage, -modifier, [damageType]);
     });
 
     let totalDamage = sumDamage(damage);
 
     // critical hits resistance
     if (isCriticalHit) {
-        ifModifierApplies({
+        const modifier = findHighestModifier({
             modifiersByType,
-            damage,
+            damageTypes: new Set(damage.keys()),
             attackTraits,
             applicableModifierTypes: ['critical-hits'],
             modifierValue: (modifier) => calculateResistance(['critical-hits'], attackTraits, modifier),
-            applyModifier: (value) => {
-                totalDamage = Math.max(0, totalDamage - value);
-            },
         });
+        if (modifier !== undefined) {
+            totalDamage = Math.max(0, totalDamage - modifier);
+        }
     }
     return totalDamage;
 }
