@@ -772,7 +772,7 @@ class CompendiumBrowser extends Application {
     private addPhysicalItesToSelectedTokens(id: string) {
         PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
             for (const token of canvas.tokens.controlled) {
-                const userHasPermissions = token.actor?.owner ?? false;
+                const userHasPermissions = token.actor?.hasPerm(game.user, 'OWNER') ?? false;
                 const tokenType = token.actor?.data?.type ?? 'undefined';
                 const tokenMayContainEquipment = tokenType === 'character' || tokenType === 'loot';
 
