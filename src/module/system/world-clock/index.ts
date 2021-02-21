@@ -13,7 +13,7 @@ export class WorldClock extends Application {
     /** Localization keys */
     private readonly translations = new LocalizationPF2e().translations.PF2E.WorldClock;
 
-    private readonly animateDarkness = animateDarkness;
+    readonly animateDarkness = animateDarkness;
 
     /** Whether the Calendar/Weather module is installed and active */
     readonly usingCalendarWeather = ((): boolean => {
@@ -199,28 +199,19 @@ export class WorldClock extends Application {
     protected activateListeners($html: JQuery) {
         super.activateListeners($html);
 
-        const getFormElements = ($button: JQuery): JQuery =>
-            $button.parents('.window-content').find('button, datetime-local, input, select');
-
-        $html.on('click', 'button[data-advance-time]', async (event) => {
+        $html.on('click', 'button[data-advance-time]', (event) => {
             const $button = $(event.currentTarget);
             const increment = Number($button.data('advanceTime') ?? 0);
-            const oldTime = this.worldTime.plus(0);
-            await game.time.advance(increment);
-
-            // Disable the form and animate the change in the scene's darkness level
-            await this.animateDarkness(getFormElements($button), oldTime);
+            if (increment !== 0) {
+                game.time.advance(increment);
+            }
         });
 
-        $html.on('click', 'button[name="advance"]', async (event) => {
+        $html.on('click', 'button[name="advance"]', () => {
             const value = $html.find('input[type=number][name="diff-value"]').val();
             const unit = $html.find('select[name="diff-unit"]').val();
             const increment = Number(value) * Number(unit);
-            const oldTime = this.worldTime.plus(0);
-            await game.time.advance(increment);
-
-            // Disable the form and animate the change in the scene's darkness level
-            await this.animateDarkness(getFormElements($(event.currentTarget)), oldTime);
+            game.time.advance(increment);
         });
     }
 }
