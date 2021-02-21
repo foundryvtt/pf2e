@@ -2,18 +2,18 @@ import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definiti
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
-export interface BracketedValue {
+export interface Value {
     start?: number;
     end?: number;
     value: number;
 }
 
-export interface ComplexValue {
+export interface BracketedValue {
     field?: string;
-    brackets: BracketedValue[];
+    brackets: Value[];
 }
 
-export type RuleValue = string | number | ComplexValue;
+export type RuleValue = string | number | BracketedValue;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
