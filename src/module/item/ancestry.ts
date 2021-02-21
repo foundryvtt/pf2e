@@ -5,6 +5,7 @@ import { PF2EFeat } from './others';
 
 export class PF2EAncestry extends PF2EItem {
     data!: AncestryData;
+    _data!: AncestryData;
 
     static async getAncestryItemData(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {

@@ -25,6 +25,7 @@ import { PF2Check } from '../system/rolls';
  */
 export class PF2EItem extends Item<PF2EActor> {
     data!: ItemData;
+    _data!: ItemData;
 
     constructor(data: ItemData, options?: any) {
         if (options?.pf2e?.ready) {

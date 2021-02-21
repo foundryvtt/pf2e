@@ -39,6 +39,7 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
 
 declare interface BaseItemData extends BaseEntityData {
     type: string;
+    data: Record<string, unknown>;
     effects: ActiveEffectData[];
 }
 
@@ -51,6 +52,7 @@ declare type ItemCreateData<I extends Item> = DeepPartial<I['data']>;
 type _Actor = Actor<Item<_Actor>>;
 declare class Item<ActorType extends Actor = _Actor> extends Entity {
     data: BaseItemData;
+    _data: BaseItemData;
 
     /** The item's collection of ActiveEffects */
     effects: Collection<ActiveEffect>;
@@ -91,7 +93,7 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
     /**
      * A convenience reference to the item type (data.type) of this Item
      */
-    get type(): this['data']['type'];
+    get type(): string;
 
     /**
      * A boolean indicator for whether the current game user has ONLY limited visibility for this Entity.
