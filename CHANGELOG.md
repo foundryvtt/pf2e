@@ -1,5 +1,64 @@
 # Patch Notes:
 
+## Version 1.11.8
+### Bug Fixes
+* (fryguy) Fix feats tab not saving scroll position when making changes
+* (fryguy) Add migration to fix class item migration not filling out the levels fields correctly
+* (stwlam) Fix display of feat traits
+* (stwlam) Fix some traits for legacy damage rolls
+* (stwlam) Enforce numeric inputs on numeric input fields
+* (stwlam) Fix drag & drop of spells on an actor sheet with multiple spellcasting entries
+* (nikolaj-a) Fix missing default options parameter for measureDistances replacement method
+* (nikolaj-a) Fix health percentage calculation in limited PC sheet
+
+### New Features
+* (fryguy) Add drag & drop slots for feats based on the class data
+* (fryguy) Add counteract button to spells
+* (stwlam) Add Calendar/Weather module compatibility mode to WorldClock application
+* (stwlam) Have perception class features upgrade perception rank
+* (Mothringer) Trick Magic Item support for scrolls and wands
+* (Trollderim) Add take from compendium button for players
+* (tchapelot) Use different icons for different types of unidentified items
+* (andriusch) Allow using ammo when shooting bows/crossbows/slings
+* (nikolaj-a) Apply custom modifiers to spell attack and spell DC for PCs
+
+### Content Changes
+* (SLATE) Add missing enemies from PFS 1-16
+* (TMun) Add blightburn items from Extinction Curse 5 to equipment.db
+* (TMun) Add monsters from Chapter 3 of Extinction Curse 5
+* (TMun) Add greater darkvision to ancestry features. Closes #1047
+* (TMun) Add potion of Shared Memories from the APG. Closes #1088
+* (TMun) Fix feat prerequisite structure in feats starting with A, B and C, plus a few fixes of opportunity for data entry regarding formatting, as well as updates to "Eye for Treasure" and "Stonecunning"
+* (TMun) Add an empty ancestry, background and class to each compendium for drag and drop homebrew
+* (stwlam) Clean up reach, deadly, and fatal traits in NPC compendia
+* (Shandyan) Make hunters arrowhead work with hunt prey
+* (Shandyan) Instinctive Obfuscation feat added
+* (Shandyan) Fix predicate error for Hunter's Aim
+* (Shandyan) Spell effects for Bard Focus Spells
+* (Shandyan) Sorcerer Blood Magic, adding links from bloodline features
+* (Shandyan & ArthurTrumpet) Animal form spell effects
+* (SpartanCPA) Add a +5 flat untyped land speed bonus to the "Nimble Hooves" ancestry feat
+* (SpartanCPA) Remove rule elements from Clandestine Cloak base item. There is an attached effect that grants the same rules with an interact action
+* (SpartanCPA) Add Feat Effect for lvl 1 Dwarf feat "Avenge in Glory"
+* (SpartanCPA) Add compendium references and rule elements to Dwarf Ancestry feats
+* (SpartanCPA) Minor tweaks and fixes to Grendel and Polar Bear
+* (putty) Implement effect for inspiring marshal stance
+* (Drental) Macro for proper item bonus stacking in Mountain stance
+* (Drental) Add new raise a shield macro and effect
+
+### Core System Improvements
+* (stwlam) Ctrl-click to delete items without waiting for user confirmation
+* (stwlam) Hide worldCreatedOn setting and instead provide a worldTime reset button
+* (stwlam) Have the WorldClock synchronize darkness from external time advancements
+* (stwlam) Hide expend-spell button for cantrips
+* (stwlam) Prevent "Empty Slot (drag spell here)" in CRB sheet spellbook tab from breaking onto a second line
+* (fryguy) Reorganize feats tab
+* (fryguy) Add input for hp details field on old npc-edit sheet
+* (TMun) Add wavesense as new PC sense
+* (Dmitry) Switch the color icons for blinded and dazzled conditions
+* (nikolaj-a) Add spell and magical option to spell saves
+
+
 ## Version 1.11.7
 ### Bug Fixes
 * (Trollderim) Add missing return statement for items in IdentifyPopup
