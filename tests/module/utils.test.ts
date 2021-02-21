@@ -1,4 +1,4 @@
-import { add, addSign, applyNTimes, combineObjects, maxBy, padArray, toNumber, zip } from '../../src/module/utils';
+import { add, addSign, applyNTimes, combineObjects, padArray, toNumber, zip } from '../../src/module/utils';
 
 describe('should combine objects', () => {
     test('combine two empty objects', () => {
@@ -114,19 +114,5 @@ describe('repeated assignment', () => {
 
     test('2 times', () => {
         expect(applyNTimes((x) => x + 1, 2, 2)).toEqual(4);
-    });
-});
-
-describe('max', () => {
-    test('empty array is undefined', () => {
-        expect(maxBy([], () => 1)).toBe(undefined);
-    });
-
-    test('1 value', () => {
-        expect(maxBy([{ a: 1 }], (x) => x.a)).toEqual({ a: 1 });
-    });
-
-    test('3 values', () => {
-        expect(maxBy([{ a: 1 }, { a: 3 }, { a: 2 }], (x) => x.a)).toEqual({ a: 3 });
     });
 });
