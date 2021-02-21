@@ -778,7 +778,7 @@ class CompendiumBrowser extends Application {
                     tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
 
                 if (item !== null && userHasPermissions && tokenMayContainEquipment) {
-                    token.actor!.createOwnedItem(item.data);
+                    token.actor!.createEmbeddedEntity('OwnedItem', item.data);
                 } else {
                     ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
                 }
