@@ -178,7 +178,7 @@ export class PF2ECharacter extends PF2EActor {
                 AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes: PF2RollNote[] = [];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
             if (worn) {
@@ -842,8 +842,7 @@ export class PF2ECharacter extends PF2EActor {
                         );
                         PF2DamageRoll.roll(
                             damage,
-                            { type: 'damage-roll', outcome: 'success', options },
-                            args.event,
+                            { actor: this, type: 'damage-roll', outcome: 'success', options },
                             args.callback,
                         );
                     });
@@ -863,8 +862,7 @@ export class PF2ECharacter extends PF2EActor {
                         );
                         PF2DamageRoll.roll(
                             damage,
-                            { type: 'damage-roll', outcome: 'criticalSuccess', options },
-                            args.event,
+                            { actor: this, type: 'damage-roll', outcome: 'criticalSuccess', options },
                             args.callback,
                         );
                     });

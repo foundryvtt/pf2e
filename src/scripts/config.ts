@@ -27,11 +27,9 @@ import {
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
 import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
-import * as enJSON from '../../static/lang/en.json';
 
 export const PF2ECONFIG = {
-    // Localization keys and English translation values
-    translations: enJSON.PF2E,
+    buildMode: BUILD_MODE,
 
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'

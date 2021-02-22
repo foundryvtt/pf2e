@@ -68,8 +68,8 @@ export type Optional<T> = T | null | undefined;
 /**
  * Returns true if the string is null, undefined or only consists of 1..n spaces
  */
-export function isBlank(string: Optional<string>) {
-    return string === null || string === undefined || string.trim() === '';
+export function isBlank(text: Optional<string>): boolean {
+    return text === null || text === undefined || text.trim() === '';
 }
 
 /**

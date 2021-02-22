@@ -34,7 +34,7 @@ async function createItemMacro(item: PF2EItem, slot: number): Promise<void> {
  */
 export function rollItemMacro(itemId: string): ReturnType<PF2EItem['roll']> | void {
     const speaker = ChatMessage.getSpeaker();
-    let actor: PF2EActor;
+    let actor: PF2EActor | null = null;
     if (speaker.token) actor = game.actors.tokens[speaker.token];
     if (!actor) actor = game.actors.get(speaker.actor);
     const item = actor ? actor.items.find((i) => i._id === itemId) : null;

@@ -1,8 +1,11 @@
 import { AbilityString, Proficency } from '@actor/actor-data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
+import { DamageDieSize } from '../system/damage/damage';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
+
+export type PropertyRune = keyof typeof CONFIG.PF2E.weaponPropertyRunes;
 
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 
@@ -213,25 +216,25 @@ export interface WeaponDetailsData extends MagicDetailsData {
         value: string;
     };
     propertyRune1: {
-        value: string;
+        value: PropertyRune | '';
     };
     propertyRune2: {
-        value: string;
+        value: PropertyRune | '';
     };
     propertyRune3: {
-        value: string;
+        value: PropertyRune | '';
     };
     propertyRune4: {
-        value: string;
+        value: PropertyRune | '';
     };
     property1: {
         // Refers to custom damage, *not* property runes
         value: string;
         dice: number;
-        die: string;
+        die: DamageDieSize;
         damageType: string;
         critDice: number;
-        critDie: string;
+        critDie: DamageDieSize;
         critDamage: string;
         critDamageType: string;
     };
@@ -298,12 +301,29 @@ export interface MeleeDetailsData extends MagicDetailsData {
     attack: {
         value: string;
     };
+    damage: {
+        damageType?: string;
+        die?: string;
+        dice?: number;
+        modifier?: number;
+    };
     damageRolls: any;
     bonus: {
         value: number;
     };
+    bonusDamage?: never;
+    splashDamage?: {
+        value: string;
+    };
+    group: never;
     attackEffects: {
         value: any[];
+    };
+    range?: {
+        value: string;
+    };
+    weaponType?: {
+        value: 'melee' | 'ranged';
     };
 }
 

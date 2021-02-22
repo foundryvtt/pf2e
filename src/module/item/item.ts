@@ -620,7 +620,6 @@ export class PF2EItem extends Item<PF2EActor> {
             parts,
             partsCritOnly,
             critical,
-            actor: this.actor ? this.actor : undefined,
             data: rollData,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor ? this.actor : undefined }),
@@ -719,7 +718,6 @@ export class PF2EItem extends Item<PF2EActor> {
             event,
             parts,
             critical,
-            actor: this.actor,
             data: rollData,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
@@ -871,7 +869,6 @@ export class PF2EItem extends Item<PF2EActor> {
             event,
             parts,
             data: rollData,
-            actor: this.actor,
             title,
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
@@ -966,7 +963,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 const DC = calculateTrickMagicItemCheckDC(item);
                 const popup = new TrickMagicItemPopup(this.actor, DC);
                 popup.render(true);
-                const trickMagicItemData = await popup.result;
+                const trickMagicItemData = popup.result;
                 if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 else return;
             }

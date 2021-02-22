@@ -90,21 +90,21 @@ export class PF2Modifier {
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** The source which this modifier originates from, if any. */
-    source: string;
+    source?: string;
     /** Any notes about this modifier. */
-    notes: string;
+    notes?: string;
     /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
     ignored: boolean;
     /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType: string;
+    damageType?: string;
     /** The damage category */
-    damageCategory: string;
+    damageCategory?: string;
     /** A predicate which determines when this modifier is active. */
     predicate: any;
     /** If true, this modifier is only active on a critical hit. */
-    critical: boolean;
+    critical?: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
@@ -308,8 +308,8 @@ function applyStacking(
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
  * provided modifiers, setting the 'enabled' field based on whether or not the modifiers are active.
  *
- * @param {PF2Modifier[]} modifiers The list of modifiers to apply stacking rules for.
- * @returns {number} The total modifier provided by the given list of modifiers.
+ * @param modifiers The list of modifiers to apply stacking rules for.
+ * @returns The total modifier provided by the given list of modifiers.
  */
 function applyStackingRules(modifiers: PF2Modifier[]): number {
     let total = 0;
@@ -354,7 +354,7 @@ export class PF2StatisticModifier {
     /** The list of modifiers which affect the statistic. */
     _modifiers: PF2Modifier[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier: number;
+    totalModifier!: number;
     /** Allow decorating this object with any needed extra fields. */
     [key: string]: any;
 
@@ -367,7 +367,7 @@ export class PF2StatisticModifier {
         this._modifiers = modifiers || [];
         {
             // de-duplication
-            const seen = [];
+            const seen: PF2Modifier[] = [];
             this._modifiers.filter((m) => {
                 const found = seen.find((o) => o.name === m.name) !== undefined;
                 if (!found) seen.push(m);
@@ -380,7 +380,7 @@ export class PF2StatisticModifier {
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly PF2Modifier[] {
-        return Object.freeze([].concat(this._modifiers));
+        return Object.freeze(Array.isArray(this._modifiers) ? this._modifiers : []);
     }
 
     /** Add a modifier to this collection. */
@@ -434,7 +434,7 @@ export class PF2ModifierPredicate {
     not: string[];
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: { all?: string[]; any?: string[]; not?: string[] }, options: string[]): boolean {
+    static test(predicate: { all?: string[]; any?: string[]; not?: string[] } = {}, options: string[] = []): boolean {
         const { all, any, not } = predicate ?? {};
 
         let active = true;
@@ -462,11 +462,32 @@ export class PF2ModifierPredicate {
     }
 }
 
+type DamageOverride = {
+    damageType?: string;
+    dieSize: DamageDieSize;
+};
+
+export interface DamageDiceModifier {
+    label?: string;
+    name: string;
+    selector?: string;
+    diceNumber: number;
+    dieSize?: DamageDieSize;
+    category?: string;
+    critical?: boolean;
+    damageType?: string;
+    enabled: boolean;
+    ignored?: boolean;
+    traits?: string[];
+    predicate?: PF2ModifierPredicate;
+    override?: DamageOverride | boolean;
+}
+
 /**
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class PF2DamageDice {
+export class PF2DamageDice implements DamageDiceModifier {
     /** The selector used to determine when   */
     selector: string;
     /** The name of this damage dice; used as an identifier. */
@@ -484,15 +505,15 @@ export class PF2DamageDice {
     /** The damage type of these damage dice. */
     damageType?: string;
     /** Any traits which these dice add to the overall damage. */
-    traits: string[];
+    traits?: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
-    override?: boolean;
+    override?: DamageOverride | boolean;
     /** If true, these custom dice are being ignored in the damage calculation. */
-    ignored: boolean;
+    ignored?: boolean;
     /** If true, these custom dice should be considered in the damage calculation. */
     enabled: boolean;
     /** If true, these dice are user-provided/custom. */
-    custom: boolean;
+    custom?: boolean;
     /** A predicate which limits when this damage dice is actually applied. */
     predicate?: PF2ModifierPredicate;
 
@@ -509,7 +530,7 @@ export class PF2DamageDice {
         }
         this.label = param?.label;
         this.diceNumber = param?.diceNumber ?? 0; // zero dice is allowed
-        this.dieSize = param?.dieSize;
+        this.dieSize = param?.dieSize ?? 'd6';
         this.critical = param?.critical ?? false;
         this.category = param?.category;
         this.damageType = param?.damageType;

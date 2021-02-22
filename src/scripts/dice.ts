@@ -16,7 +16,7 @@ export class FormulaPreservingRoll extends Roll {
  */
 export class DicePF2e {
     _rolled: any;
-    terms: any;
+    terms: string[] = [];
     _formula: any;
     /**
      * A standardized helper function for managing core PF2e "d20 rolls"
@@ -24,31 +24,25 @@ export class DicePF2e {
      * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
      * This chooses the default options of a normal attack with no bonus, Advantage, or Disadvantage respectively
      *
-     * @param {Event} event           The triggering event which initiated the roll
-     * @param {Array} parts           The dice roll component parts, excluding the initial d20
-     * @param {Actor} actor           The Actor making the d20 roll
-     * @param {Object} data           Actor or item data against which to parse the roll
-     * @param {String} template       The HTML template used to render the roll dialog
-     * @param {String} title          The dice roll UI window title
-     * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
-     * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-     * @param {Boolean} advantage     Allow rolling with advantage (and therefore also with disadvantage)
-     * @param {Boolean} situational   Allow for an arbitrary situational bonus field
-     * @param {Boolean} fastForward   Allow fast-forward advantage selection
-     * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-     * @param {Object} dialogOptions  Modal dialog options
+     * @param event         The triggering event which initiated the roll
+     * @param parts         The dice roll component parts, excluding the initial d20
+     * @param data          Actor or item data against which to parse the roll
+     * @param template      The HTML template used to render the roll dialog
+     * @param title         The dice roll UI window title
+     * @param speaker       The ChatMessage speaker to pass when creating the chat
+     * @param flavor        A callable function for determining the chat message flavor given parts and data
+     * @param fastForward   Allow fast-forward advantage selection
+     * @param onClose       Callback for actions to take when the dialog form is closed
+     * @param dialogOptions Modal dialog options
      */
     static async d20Roll({
         event,
         parts,
         data,
-        template,
+        template = 'systems/pf2e/templates/chat/roll-dialog.html',
         title,
         speaker,
         flavor,
-        advantage = true,
-        situational = true,
-        fastForward = true,
         onClose,
         dialogOptions,
         rollMode,
@@ -62,9 +56,6 @@ export class DicePF2e {
         title: string;
         speaker: object;
         flavor?: any;
-        advantage?: boolean;
-        situational?: boolean;
-        fastForward?: boolean;
         onClose?: any;
         dialogOptions?: object;
         rollMode?: RollMode;
@@ -73,7 +64,7 @@ export class DicePF2e {
         // Inner roll function
         rollMode = rollMode || game.settings.get('core', 'rollMode');
         const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
-        const _roll = (rollParts, adv, form?) => {
+        const _roll = (rollParts: unknown[], adv: number, form?: JQuery) => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
@@ -111,7 +102,7 @@ export class DicePF2e {
                     },
                 },
                 {
-                    rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+                    rollMode: form ? (form.find('[name="rollMode"]').val() as RollMode) : rollMode,
                 },
             );
             return roll;
@@ -133,7 +124,6 @@ export class DicePF2e {
             if (parts.indexOf('@statusBonus') === -1) parts = parts.concat(['@statusBonus']);
 
             // Render modal dialog
-            template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
             const dialogData = {
                 data,
                 rollMode,
@@ -141,7 +131,7 @@ export class DicePF2e {
                 rollModes: CONFIG.Dice.rollModes,
             };
             const content = await renderTemplate(template, dialogData);
-            let roll;
+            let roll: Roll;
             return new Promise((resolve) => {
                 new Dialog(
                     {
@@ -189,26 +179,25 @@ export class DicePF2e {
      * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
      * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
      *
-     * @param {Event} event           The triggering event which initiated the roll
-     * @param {Array} partsCritOnly   The dice roll component parts only added on a crit
-     * @param {Array} parts           The dice roll component parts
-     * @param {Actor} actor           The Actor making the damage roll
-     * @param {Object} data           Actor or item data against which to parse the roll
-     * @param {String} template       The HTML template used to render the roll dialog
-     * @param {String} title          The dice roll UI window title
-     * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
-     * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-     * @param {Boolean} critical      Allow critical hits to be chosen
-     * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-     * @param {Object} dialogOptions  Modal dialog options
+     * @param event         The triggering event which initiated the roll
+     * @param partsCritOnly The dice roll component parts only added on a crit
+     * @param parts         The dice roll component parts
+     * @param actor         The Actor making the damage roll
+     * @param data          Actor or item data against which to parse the roll
+     * @param template      The HTML template used to render the roll dialog
+     * @param title         The dice roll UI window title
+     * @param speaker       The ChatMessage speaker to pass when creating the chat
+     * @param flavor        A callable function for determining the chat message flavor given parts and data
+     * @param critical      Allow critical hits to be chosen
+     * @param onClose       Callback for actions to take when the dialog form is closed
+     * @param dialogOptions Modal dialog options
      */
     static damageRoll({
         event,
         partsCritOnly = [],
         parts,
-        actor,
         data,
-        template,
+        template = 'systems/pf2e/templates/chat/roll-dialog.html',
         title,
         speaker,
         flavor,
@@ -218,12 +207,11 @@ export class DicePF2e {
     }: {
         event: JQuery.Event;
         partsCritOnly?: any[];
-        parts: any[];
-        actor?: PF2EActor;
+        parts: (string | number)[];
         data: any;
         template?: string;
         title: string;
-        speaker: object;
+        speaker: ChatMessageData['speaker'];
         flavor?: any;
         critical?: boolean;
         onClose?: any;
@@ -233,7 +221,7 @@ export class DicePF2e {
         const rollMode = game.settings.get('core', 'rollMode');
         const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
         let rolled = false;
-        const _roll = (rollParts, crit, form?) => {
+        const _roll = (rollParts: unknown[], crit: boolean, form?: JQuery) => {
             // Don't include situational bonuses unless they are defined
             if (form) {
                 data.itemBonus = form.find('[name="itemBonus"]').val();
@@ -242,7 +230,7 @@ export class DicePF2e {
             }
             for (const key of ['itemBonus', 'statusBonus', 'circumstanceBonus']) {
                 if (!data[key] || data[key] === 0) {
-                    let index;
+                    let index: number;
                     const part = `@${key}`;
 
                     index = rollParts.indexOf(part);
@@ -272,7 +260,7 @@ export class DicePF2e {
                     flavor: flav,
                 },
                 {
-                    rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+                    rollMode: form ? (form.find('[name="rollMode"]').val() as RollMode) : rollMode,
                 },
             );
             rolled = true;
@@ -292,7 +280,6 @@ export class DicePF2e {
         if (!parts.includes('@statusBonus')) parts.push('@statusBonus');
 
         // Construct dialog data
-        template = template || 'systems/pf2e/templates/chat/roll-dialog.html';
         const dialogData = {
             data,
             rollMode,
@@ -301,12 +288,12 @@ export class DicePF2e {
         };
 
         // Render modal dialog
-        let roll;
+        let roll: Roll;
         return new Promise((resolve) => {
             renderTemplate(template, dialogData).then((content) => {
                 new Dialog(
                     {
-                        title,
+                        title: title ?? '',
                         content,
                         buttons: {
                             critical: {
@@ -335,13 +322,13 @@ export class DicePF2e {
         });
     }
 
-    alter(add, multiply) {
+    alter(add: number, multiply: number) {
         const rgx = new RegExp(Roll.rgx.dice, 'g');
         if (this._rolled) throw new Error('You may not alter a Roll which has already been rolled');
 
         // Update dice roll terms
         this.terms = this.terms.map((t) =>
-            t.replace(rgx, (match, nd, d, mods) => {
+            t.replace(rgx, (_match, nd, d, mods) => {
                 nd = nd * (multiply || 1) + (add || 0);
                 mods = mods || '';
                 return `${nd}d${d}${mods}`;
@@ -358,7 +345,7 @@ export class DicePF2e {
  * Highlight critical success or failure on d20 rolls
  */
 Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
-    if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
+    if (!message.roll || message.getFlag(game.system.id, 'damageRoll')) return;
     const dice: any = message.roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
 
@@ -383,7 +370,7 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
 
             html.find('.dice-total').append(btnContainer);
 
-            setInitiativeButton.click((ev) => {
+            setInitiativeButton.on('click', (ev) => {
                 ev.stopPropagation();
                 PF2EActor.setCombatantInitiative(html);
             });

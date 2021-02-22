@@ -1,6 +1,7 @@
 import { isBlank, toNumber } from '../utils';
 import { DamageCategory, DamageDieSize } from '../system/damage/damage';
-import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
+import { ArmorData, ArmorDetailsData, ItemData, PropertyRune, WeaponData, WeaponDetailsData } from './data-definitions';
+import { DamageDiceModifier } from '../modifiers';
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -14,13 +15,13 @@ export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     return slots;
 }
 
-export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): string[] {
-    const runes = [];
+export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): PropertyRune[] {
+    const runes: PropertyRune[] = [];
     type RuneIndex = 'propertyRune1' | 'propertyRune2' | 'propertyRune3' | 'propertyRune4';
     for (let i = 1; i <= slots; i += 1) {
-        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value;
+        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value as PropertyRune | '';
         if (!isBlank(rune)) {
-            runes.push(rune);
+            runes.push(rune as PropertyRune);
         }
     }
     return runes;
@@ -57,24 +58,17 @@ export function getResiliencyBonus(itemData: ArmorDetailsData): number {
     return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
 }
 
-interface DiceModifier {
-    name: string;
-    diceNumber: number;
-    dieSize: DamageDieSize;
-    category: string;
-    damageType: string;
-    enabled: boolean;
-    traits: string[];
-}
-
 interface RuneDiceModifier {
     diceNumber?: number;
     dieSize?: DamageDieSize;
     damageType?: string;
 }
 
-function toModifier(rune, { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier): DiceModifier {
-    const traits = [];
+function toModifier(
+    rune: PropertyRune,
+    { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier,
+): DamageDiceModifier {
+    const traits: string[] = [];
     if (damageType !== undefined) {
         traits.push(damageType);
     }
@@ -108,18 +102,24 @@ runeDamageModifiers.set('greaterFrost', { damageType: 'cold' });
 runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
 runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
-export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifier[] {
-    const diceModifiers = [];
+export function getPropertyRuneModifiers(itemData: ItemData): DamageDiceModifier[] {
+    const diceModifiers: DamageDiceModifier[] = [];
+    if (itemData.type !== 'weapon' && itemData.type !== 'armor') {
+        return diceModifiers;
+    }
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
-        if (runeDamageModifiers.has(rune)) {
-            const modifierConfig = runeDamageModifiers.get(rune);
+        const modifierConfig = runeDamageModifiers.get(rune);
+        if (modifierConfig) {
             diceModifiers.push(toModifier(rune, modifierConfig));
         }
     }
     return diceModifiers;
 }
 
-export function hasGhostTouchRune(itemData: WeaponData): boolean {
+export function hasGhostTouchRune(itemData: ItemData): boolean {
+    if (itemData.type !== 'weapon') {
+        return false;
+    }
     const runes = new Set(getPropertyRunes(itemData, getPropertySlots(itemData)));
     return runes.has('ghostTouch');
 }

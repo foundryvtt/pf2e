@@ -1,7 +1,9 @@
-import { PF2Modifier } from '../modifiers';
+import { PF2EActor } from '@actor/actor';
+import { DamageDiceModifier, PF2Modifier } from '../modifiers';
+import { PF2RollNote } from '../notes';
 
 interface BaseDamageData {
-    category: string;
+    category?: string;
     damageType: string;
     diceNumber: number;
     dieSize: string;
@@ -17,18 +19,18 @@ interface DamageFormula {
     partials: Record<string, Record<string, string>>;
 }
 
-interface DamageData {
+export interface DamageRollData {
     name: string;
     base: BaseDamageData;
     baseDamageDice: {};
-    diceModifiers: PF2Modifier[];
+    diceModifiers: DamageDiceModifier[];
     diceResults: {};
-    effectDice: string[];
+    effectDice: number;
     formula: {
         success: DamageFormula;
         criticalSuccess: DamageFormula;
     };
-    notes?: { text: string }[];
+    notes?: PF2RollNote[];
     numericModifiers: PF2Modifier[];
     outcome: string;
     rollMode: RollMode;
@@ -37,11 +39,16 @@ interface DamageData {
     types: {};
 }
 
-interface DamageRollContext {
+export interface DamageRollContext {
+    actor: PF2EActor;
+    outcome?: 'success' | 'criticalSuccess';
     rollMode?: RollMode;
     secret?: boolean;
-    outcome?: 'success' | 'criticalSuccess';
+    type?: 'damage-roll';
+    options: string[];
 }
+
+export type DamageRollCallback = (rollData: any) => void;
 
 /**
  * Dialog for excluding certain modifiers before rolling for damage.
@@ -71,16 +78,16 @@ export class DamageRollModifiersDialog extends Application {
         sonic: 'volume-up',
     });
 
-    damage: DamageData;
+    damage: DamageRollData;
     context: object;
-    callback: (rollData: any) => void;
+    callback?: DamageRollCallback;
 
     /**
      * @param damage
      * @param context
      * @param callback
      */
-    constructor(damage: DamageData, context: DamageRollContext, callback: (rollData: any) => void) {
+    constructor(damage: DamageRollData, context: DamageRollContext, callback?: DamageRollCallback) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -98,10 +105,9 @@ export class DamageRollModifiersDialog extends Application {
      * @param context
      * @param callback
      */
-    static roll(damage: DamageData, context: DamageRollContext = {}, callback: (rollData: any) => void) {
-        const ctx = context ?? {};
-
-        ctx.rollMode = ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode');
+    static roll(damage: DamageRollData, context: DamageRollContext, callback?: DamageRollCallback) {
+        context.rollMode =
+            context.rollMode ?? (context.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode');
 
         let damageBaseModifier = '';
         if (damage.base.modifier) {
@@ -109,7 +115,7 @@ export class DamageRollModifiersDialog extends Application {
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
         }
 
-        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${ctx.outcome ?? 'success'}`);
+        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${context.outcome ?? 'success'}`);
         let flavor = `<b>${damage.name}</b> (${outcome})`;
         if (damage.traits) {
             const traits = damage.traits
@@ -127,10 +133,10 @@ export class DamageRollModifiersDialog extends Application {
         const modifierStyle =
             'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
         const modifierBreakdown = ([] as PF2Modifier[])
-            .concat(damage.diceModifiers)
+            // .concat(damage.diceModifiers)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
-            .filter((m) => !m.critical || ctx.outcome === 'criticalSuccess')
+            .filter((m) => !m.critical || context.outcome === 'criticalSuccess')
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 const modifier =
@@ -146,10 +152,10 @@ export class DamageRollModifiersDialog extends Application {
         const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
         flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[ctx.outcome ?? 'success']);
+        const formula = duplicate(damage.formula[context.outcome ?? 'success']);
         const rollData: any = {
-            outcome: ctx.outcome ?? 'success',
-            rollMode: ctx.rollMode ?? 'roll',
+            outcome: context.outcome ?? 'success',
+            rollMode: context.rollMode ?? 'roll',
             traits: damage.traits ?? [],
             types: {},
             total: 0,
@@ -216,14 +222,13 @@ export class DamageRollModifiersDialog extends Application {
             roll.terms = [pool];
             roll.results = [pool.total];
             roll._total = pool.total;
-            roll._rolled = true;
             return roll;
         })();
 
         ChatMessage.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                speaker: ChatMessage.getSpeaker(),
+                speaker: ChatMessage.getSpeaker({ actor: context.actor }),
                 flavor,
                 content: content.trim(),
                 roll,
@@ -237,7 +242,7 @@ export class DamageRollModifiersDialog extends Application {
                 },
             },
             {
-                rollMode: ctx.rollMode ?? 'roll',
+                rollMode: context.rollMode ?? 'roll',
             },
         );
         Hooks.call(`${game.system.id}.damageRoll`, rollData);

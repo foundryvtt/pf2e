@@ -1,7 +1,13 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
-import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
+import {
+    DamageRollModifiersDialog,
+    DamageRollData,
+    DamageRollContext,
+    DamageRollCallback,
+} from './damage-roll-modifiers-dialog';
 import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
+import { PF2RollNote } from '../notes';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -32,10 +38,10 @@ export class PF2Check {
     static roll(
         check: PF2StatisticModifier,
         context: CheckModifiersContext = {},
-        event: JQuery.Event | undefined,
+        event?: JQuery.Event,
         callback?: (roll: Roll) => void,
     ) {
-        if (context?.options?.length > 0) {
+        if (context.options?.length ?? 0 > 0) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
                 modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, context.options);
@@ -43,13 +49,13 @@ export class PF2Check {
             check.applyStackingRules();
 
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o) => o.toLowerCase()).includes('secret')) {
+            if (context.options?.map((o) => o.toLowerCase())?.includes('secret')) {
                 context.secret = true;
             }
         }
 
         if (context) {
-            const visible = (note) => PF2ModifierPredicate.test(note.predicate, context.options ?? []);
+            const visible = (note: PF2RollNote): boolean => PF2ModifierPredicate.test(note.predicate, context.options);
             context.notes = (context?.notes ?? []).filter(visible);
         }
 
@@ -67,13 +73,19 @@ export class PF2Check {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessage, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(
+        message: ChatMessage,
+        { heroPoint = false, keep = 'new' }: RerollOptions = {},
+    ): Promise<void> {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
             return;
         }
+        if (!message.roll) {
+            return;
+        }
 
-        const actor = game.actors.get(message.data.speaker.actor);
+        const actor = game.actors.get(message.data.speaker.actor ?? '');
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
@@ -104,7 +116,11 @@ export class PF2Check {
         let [oldRollClass, newRollClass] = ['pf2e-reroll-discard', ''];
 
         // Check if we should keep the old roll instead.
-        if ((keep === 'best' && oldRoll.total > newRoll.total) || (keep === 'worst' && oldRoll.total < newRoll.total)) {
+        if (
+            typeof oldRoll.total === 'number' &&
+            typeof newRoll.total === 'number' &&
+            ((keep === 'best' && oldRoll.total > newRoll.total) || (keep === 'worst' && oldRoll.total < newRoll.total))
+        ) {
             // If so, switch the css classes and keep the old roll.
             [oldRollClass, newRollClass] = [newRollClass, oldRollClass];
             keepRoll = oldRoll;
@@ -174,7 +190,7 @@ export class PF2DamageRoll {
      * @param event
      * @param callback
      */
-    static roll(damage, context: any = {}, event, callback?) {
+    static roll(damage: DamageRollData, context: DamageRollContext, callback?: DamageRollCallback) {
         if (context?.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o) => o.toLowerCase()).includes('secret')) {

@@ -445,8 +445,7 @@ export class PF2ENPC extends PF2EActor {
                     );
                     PF2DamageRoll.roll(
                         damage,
-                        { type: 'damage-roll', outcome: 'success', options },
-                        args.event,
+                        { actor: this, type: 'damage-roll', outcome: 'success', options },
                         args.callback,
                     );
                 });
@@ -464,8 +463,7 @@ export class PF2ENPC extends PF2EActor {
                     );
                     PF2DamageRoll.roll(
                         damage,
-                        { type: 'damage-roll', outcome: 'criticalSuccess', options },
-                        args.event,
+                        { actor: this, type: 'damage-roll', outcome: 'criticalSuccess', options },
                         args.callback,
                     );
                 });

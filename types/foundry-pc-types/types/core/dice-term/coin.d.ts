@@ -10,7 +10,7 @@ declare class Coin extends DiceTerm {
     static MODIFIERS: { c: 'call' };
 
     /** @override */
-    roll(options?: DiceTermRollOptions): Record<string, DiceTerm>;
+    roll(options?: DiceTermRollOptions): Record<string, Coin>;
 
     /** @override */
     static getResultLabel(result: string): string;

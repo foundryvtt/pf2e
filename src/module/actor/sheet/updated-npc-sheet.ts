@@ -410,7 +410,6 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         DicePF2e.damageRoll({
             event,
             parts,
-            actor: item.actor,
             data: rollData,
             title,
             speaker: ChatMessage.getSpeaker({ actor: item.actor }),

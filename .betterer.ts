@@ -1,5 +1,4 @@
 import { typescript } from '@betterer/typescript';
-import { eslint } from '@betterer/eslint';
 
 export default {
     'stricter compilation': typescript('./tsconfig.json', {

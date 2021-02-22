@@ -25,7 +25,7 @@ declare class Messages extends EntityCollection<ChatMessage> {
 }
 
 declare interface ChatMessageData extends BaseEntityData {
-    type: number;
+    type: (typeof CONST.CHAT_MESSAGE_TYPES)[keyof typeof CONST.CHAT_MESSAGE_TYPES];
     blind?: boolean;
     content: string;
     flavor?: string;
@@ -99,7 +99,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * Return the Roll instance contained in this chat message, if one is present
      */
-    get roll(): Roll;
+    get roll(): Roll | false;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
