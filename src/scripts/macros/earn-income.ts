@@ -3,9 +3,9 @@
  */
 
 import { ProficiencyRank } from '@item/data-definitions';
-import { Coins } from './item/treasure';
-import { calculateDC, DCOptions } from './dc';
-import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from './degree-of-success';
+import { Coins } from '../../module/item/treasure';
+import { calculateDC, DCOptions } from '../../module/dc';
+import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from '../../module/degree-of-success';
 
 // you have to be at least trained to earn income
 type TrainedProficiencies = Exclude<ProficiencyRank, 'untrained'>;

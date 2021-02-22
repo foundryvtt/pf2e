@@ -4,7 +4,7 @@ declare class Messages extends EntityCollection<ChatMessage> {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-    /* -------------------------------------------- */
+        /* -------------------------------------------- */
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
@@ -24,8 +24,10 @@ declare class Messages extends EntityCollection<ChatMessage> {
     flush(): Promise<any>;
 }
 
+declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES]
+
 declare interface ChatMessageData extends BaseEntityData {
-    type: number;
+    type: ChatMessageType;
     blind?: boolean;
     content: string;
     flavor?: string;
@@ -39,6 +41,10 @@ declare interface ChatMessageData extends BaseEntityData {
     roll?: Roll | string;
     user: string;
     whisper?: string[] | User[];
+}
+
+declare interface MessageCreateOptions extends EntityCreateOptions {
+    rollMode?: RollMode | null;
 }
 
 /**
@@ -55,7 +61,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * If the Message contains a dice roll, store it here
      */
-    protected _roll: any;
+    protected _roll: Roll | null;
 
     /**
      * Configure the attributes of the ChatMessage Entity
@@ -63,7 +69,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     static get config(): {
         baseEntity: ChatMessage;
         collection: Messages;
-        embeddedEntities: any;
+        embeddedEntities: Record<string, never>;
     };
 
     /* -------------------------------------------- */
@@ -103,8 +109,18 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
+    static create<C extends ChatMessage>(
+        this: new (data: C['data'], options?: EntityConstructorOptions) => C,
+        data: Partial<C['data']>,
+        options?: MessageCreateOptions,
+    ): Promise<C>;
+    static create<C extends Entity>(
+        this: new (data: C['data'], options?: EntityConstructorOptions) => C,
+        data: Partial<C['data']>[] | Partial<C['data']>,
+        options?: MessageCreateOptions,
+    ): Promise<C[] | C>;
     /**
      * Preprocess the data object used to create a new Chat Message to automatically convert some Objects to the
      * data format expected by the database handler.
@@ -113,7 +129,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-	/* -------------------------------------------- */
+        /* -------------------------------------------- */
 
     /**
      * Export the content of the chat message into a standardized log format
@@ -123,8 +139,8 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * Given a string whisper target, return an Array of the user IDs which should be targeted for the whisper
      *
-     * @param name	The target name of the whisper target
-     * @return		An array of User instances
+     * @param name  The target name of the whisper target
+     * @return      An array of User instances
      */
     static getWhisperRecipients(name: string): User[];
 
@@ -204,7 +220,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
 
     /**
      * Obtain an Actor instance which represents the speaker of this message (if any)
-     * @param speaker	The speaker data object
+     * @param speaker   The speaker data object
      */
     static getSpeakerActor<S extends Scene, T extends Token>(speaker: { scene: S; token: T }): T['actor'] | null;
     static getSpeakerActor<A extends Actor>(speaker: { actor: A }): A | null;
