@@ -325,7 +325,7 @@ export function removePositiveOrNegativeDamage(damage: Damage, living: Living) {
 }
 
 /**
- * Applies a weakness or resistance to an existing damage value; if that 
+ * Applies a weakness or resistance to an existing damage value; if that
  * damage is not present in the damage map, nothing is added
  *
  * @param damage complete damage
