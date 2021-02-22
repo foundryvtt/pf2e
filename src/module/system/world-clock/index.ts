@@ -30,6 +30,8 @@ export class WorldClock extends Application {
         const defaultValue = game.settings.settings.get('pf2e.worldClock.worldCreatedOn')?.default;
         if (typeof settingValue === 'string' && settingValue === defaultValue) {
             game.settings.set('pf2e', 'worldClock.worldCreatedOn', settingValue);
+        } else if (!DateTime.fromISO(settingValue).isValid) {
+            game.settings.set('pf2e', 'worldClock.worldCreatedOn', defaultValue);
         }
 
         if (this.usingCalendarWeather) {

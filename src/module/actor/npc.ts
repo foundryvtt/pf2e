@@ -1,5 +1,5 @@
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from '@item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
@@ -16,13 +16,24 @@ export class PF2ENPC extends PF2EActor {
     prepareDerivedData(): void {
         super.prepareDerivedData();
         const actorData = this.data;
+        const { data } = actorData;
 
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
         );
 
-        const { data } = actorData;
+        // Toggles
+        (data as any).toggles = {
+            actions: [
+                {
+                    label: 'PF2E.TargetFlatFootedLabel',
+                    inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`,
+                    checked: this.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
+                },
+            ],
+        };
+
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
@@ -420,7 +431,8 @@ export class PF2ENPC extends PF2EActor {
                         }),
                     },
                 ];
-                action.damage = (event, options = [], callback?) => {
+                action.damage = adaptRoll((args) => {
+                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,
@@ -431,9 +443,15 @@ export class PF2ENPC extends PF2EActor {
                         options,
                         rollNotes,
                     );
-                    PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
-                };
-                action.critical = (event, options = [], callback?) => {
+                    PF2DamageRoll.roll(
+                        damage,
+                        { type: 'damage-roll', outcome: 'success', options },
+                        args.event,
+                        args.callback,
+                    );
+                });
+                action.critical = adaptRoll((args) => {
+                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,
@@ -447,10 +465,10 @@ export class PF2ENPC extends PF2EActor {
                     PF2DamageRoll.roll(
                         damage,
                         { type: 'damage-roll', outcome: 'criticalSuccess', options },
-                        event,
-                        callback,
+                        args.event,
+                        args.callback,
                     );
-                };
+                });
 
                 data.actions.push(action);
             }

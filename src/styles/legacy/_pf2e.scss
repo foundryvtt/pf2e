@@ -2985,6 +2985,38 @@ button > i.far {
     grid: "defense" auto;
   }
 
+  &.updatedNPCSheet form .inventory-list.toggles-list {
+      min-height: min-content;
+      width: 100%;
+
+      .actions-options {
+          display: flex;
+          flex-wrap: wrap;
+          margin: 0 1rem;
+          padding: 0.5rem 1rem;
+
+          .actions-option {
+              display: flex;
+              align-items: center;
+              width: 100%;
+
+              label {
+                  width: 100%;
+
+                  * {
+                      display: inline;
+                      vertical-align: middle;
+                  }
+
+                  input {
+                      margin: 0;
+                      padding: 0;
+                  }
+              }
+          }
+      }
+  }
+
   &.updatedNPCSheet form .inventory-list .item {
     .item-name h4 {
       flex: 2;
@@ -3282,6 +3314,7 @@ li.item.hover-container {
 
   .stat-list {
     display: inline-flex;
+    flex-wrap: wrap;
   }
 
   .skill-variants {
