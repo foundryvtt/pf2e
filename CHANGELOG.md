@@ -1,5 +1,19 @@
 # Patch Notes:
 
+## Version 1.11.9
+### Bug Fixes
+* (stwlam) Refrain from updating worldCreatedOn setting from World-Clock settings form
+* (stwlam) Show numeric value in perception input on simple NPC sheet
+* (stwlam) Fix immunities not wrapping in default NPC sheet
+* (Trollderim) Fix missing reroll option when going through the roll dialog
+
+### New Features
+* (nikolaj-a) Add toggles to default NPC sheet
+
+### Content Changes
+* (TMun) Corrects investigator skill feat and skill increases (were swapped) in class item
+
+
 ## Version 1.11.8
 ### Bug Fixes
 * (fryguy) Fix feats tab not saving scroll position when making changes
