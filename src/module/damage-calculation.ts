@@ -309,7 +309,7 @@ export function removeAlignmentDamage(damage: Damage, alignment: AlignmentString
     }
 }
 
-export function removeUndeadLivingDamage(damage: Damage, living: Living) {
+export function removePositiveOrNegativeDamage(damage: Damage, living: Living) {
     if (living === 'living') {
         damage.delete('positive');
     } else if (living === 'undead') {
@@ -325,7 +325,8 @@ export function removeUndeadLivingDamage(damage: Damage, living: Living) {
 }
 
 /**
- * Applies a weakness or resistance to an existing damage value
+ * Applies a weakness or resistance to an existing damage value; if that 
+ * damage is not present in the damage map, nothing is added
  *
  * @param damage complete damage
  * @param value increases damage of positive, reduces damage if negative. If the result
@@ -569,7 +570,7 @@ export function calculateDamage({
         immunities,
         areaDamageType,
     });
-    removeUndeadLivingDamage(damage, living);
+    removePositiveOrNegativeDamage(damage, living);
     removeAlignmentDamage(damage, alignment);
     applyWeaknesses({ isCriticalHit, damage, weaknesses, attackTraits, splashDamageType, areaDamageType });
     return applyResistances({ damage, resistances, isCriticalHit, attackTraits, precisionDamageType });
