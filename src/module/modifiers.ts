@@ -419,6 +419,12 @@ export class PF2CheckModifier extends PF2StatisticModifier {
     }
 }
 
+export interface RulePredicate {
+    all?: string[];
+    any?: string[];
+    not?: string[];
+}
+
 /**
  * Encapsulates logic to determine if a modifier should be active or not for a specific roll based
  * on a list of string values. This will often be based on traits, but that is not required - sneak
@@ -434,7 +440,7 @@ export class PF2ModifierPredicate {
     not: string[];
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: { all?: string[]; any?: string[]; not?: string[] }, options: string[]): boolean {
+    static test(predicate: RulePredicate, options: string[]): boolean {
         const { all, any, not } = predicate ?? {};
 
         let active = true;
@@ -450,7 +456,7 @@ export class PF2ModifierPredicate {
         return active;
     }
 
-    constructor(param?: { all?: string[]; any?: string[]; not?: string[] }) {
+    constructor(param?: RulePredicate) {
         this.all = param?.all ?? [];
         this.any = param?.any ?? [];
         this.not = param?.not ?? [];
