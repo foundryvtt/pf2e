@@ -2,7 +2,7 @@ import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definiti
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
-export interface Value {
+export interface Bracket {
     start?: number;
     end?: number;
     value: number;
@@ -10,7 +10,7 @@ export interface Value {
 
 export interface BracketedValue {
     field?: string;
-    brackets: Value[];
+    brackets: Bracket[];
 }
 
 export type RuleValue = string | number | BracketedValue;
