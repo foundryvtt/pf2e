@@ -374,6 +374,22 @@
    	 {{/each}}
     </ol>
 
+    <ol class="inventory-list toggles-list">
+      <li class="item action-header">
+        <h3 class="pf-heading pf-actions">Toggles (Experimental)</h3>
+      </li>
+      <li class="actions-options">
+        {{#each data.toggles.actions as |toggle idx|}}
+        <div class="actions-option">
+          <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+            <span>{{localize toggle.label}}</span>
+          </label>
+        </div>
+        {{/each}}
+      </li>
+    </ol>
+
     <ol class="actions-list inventory-list directory-list strikes-list">
       <li class="item action-header">
         <h3 class="pf-heading pf-actions">{{localize 'PF2E.StrikesLabel'}} (Experimental)</h3>
