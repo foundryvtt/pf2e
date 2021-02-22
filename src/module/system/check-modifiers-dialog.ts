@@ -67,6 +67,7 @@ export class CheckModifiersDialog extends Application {
             dice = '2d20kh';
             options.push('PF2E.TraitFortune');
         }
+        const reRollPossible = ctx.fate !== 'fortune' && ctx.fate !== 'misfortune';
 
         const speaker: { actor?: PF2EActor } = {};
         if (ctx.actor) {
@@ -146,7 +147,7 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !ctx.fate,
+                        canReroll: reRollPossible,
                         context: ctx,
                         unsafe: flavor,
                     },
