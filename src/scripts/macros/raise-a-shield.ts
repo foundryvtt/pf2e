@@ -2,13 +2,23 @@ import { PF2EActor, TokenPF2e } from '@actor/actor';
 import { PF2ECharacter } from '@actor/character';
 import { PF2ENPC } from '@actor/npc';
 import { PF2EEffect } from '@item/effect';
+import { LocalizationPF2e } from '../../module/system/localization';
 
-export async function raiseShield({
+/** Effect: Raise a Shield */
+const ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr';
+
+const TEMPLATES = {
+    flavor: './systems/pf2e/templates/chat/action/flavor.html',
+    content: './systems/pf2e/templates/chat/action/content.html',
+};
+
+/** A macro for the Raise a Shield action */
+export async function raiseAShield({
     assignedActor,
     token,
 }: {
     assignedActor: PF2EActor;
-    token: TokenPF2e | undefined;
+    token?: TokenPF2e;
 }): Promise<void> {
     // 'Raise Shield' macro that will raised a shield the character has equipped
     const actor = token?.actor ?? assignedActor;
@@ -17,23 +27,23 @@ export async function raiseShield({
         return;
     }
 
-    const ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr'; // Effect: Raise a Shield
-    const effect = (await fromUuid(ITEM_UUID)) as PF2EEffect;
     const shield = actor.itemTypes.armor
         .filter((armor) => armor.data.data.armorType.value === 'shield')
         .find((shield) => shield.data.data.equipped.value === true);
 
-    const speaker = ChatMessage.getSpeaker({ actor: actor });
-    const messageContent = await (async (): Promise<string | null> => {
+    const effect = await (async (): Promise<PF2EEffect | null> => {
         if (shield) {
             const existingEffect = actor.itemTypes.effect.find(
                 (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
             );
             if (existingEffect) {
                 await actor.deleteOwnedItem(existingEffect._id);
-                return `${speaker.alias} lowers their shield.`;
+                return null;
             } else {
-                effect.data.img = shield.img;
+                const effect = await fromUuid(ITEM_UUID);
+                if (!(effect instanceof PF2EEffect)) {
+                    throw Error('PF2e System | Raise a Shield effect not found');
+                }
                 const rule = effect.data.data.rules?.find(
                     (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
                 );
@@ -41,7 +51,7 @@ export async function raiseShield({
                     rule.value = shield.data.data.armor.value;
                 }
                 await actor.createEmbeddedEntity('OwnedItem', effect.data);
-                return `${speaker.alias} raises their shield.`;
+                return effect;
             }
         } else {
             ui.notifications.warn('You must have a shield equipped.');
@@ -49,14 +59,25 @@ export async function raiseShield({
         }
     })();
 
-    if (messageContent) {
+    if (effect) {
+        const speaker = ChatMessage.getSpeaker({ actor: actor });
+        const translations = new LocalizationPF2e().translations.PF2E.Actions.RaiseAShield;
+        const title = translations.Title;
+        const content = await renderTemplate(TEMPLATES.content, {
+            imgPath: effect.img,
+            message: game.i18n.format(translations.Content, { actor: speaker.alias }),
+        });
+        const flavor = await renderTemplate(TEMPLATES.flavor, {
+            action: { title, typeNumber: 1 },
+        });
+
         await ChatMessage.create(
             {
                 type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-                content: messageContent,
                 speaker,
+                flavor,
+                content,
             },
-            {},
         );
     }
 }

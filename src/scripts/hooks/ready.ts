@@ -8,7 +8,7 @@ import { EffectPanel } from '../../module/system/effect-panel';
 import { calculateXP } from '../macros/xp';
 import { launchTravelSheet } from '../../module/gm/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '../init';
-import { raiseShield } from '../macros/raise-a-shield';
+import { raiseAShield } from '../macros/raise-a-shield';
 import { earnIncome } from '../macros/earn-income';
 import { PF2Actions } from '../../module/system/actions/actions';
 
@@ -39,7 +39,7 @@ export function listen() {
         game.pf2e = {
             actions: {
                 earnIncome,
-                raiseShield,
+                raiseAShield,
             },
             rollItemMacro,
             rollActionMacro,
