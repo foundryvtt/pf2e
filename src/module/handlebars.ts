@@ -42,7 +42,7 @@ export function registerHandlebarsHelpers() {
     });
 
     Handlebars.registerHelper('percentage', (value, max) => {
-        return (max / 100) * value;
+        return (value * 100) / max;
     });
 
     Handlebars.registerHelper('strip_tags', (value) => {

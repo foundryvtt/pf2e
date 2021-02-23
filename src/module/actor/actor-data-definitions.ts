@@ -1,4 +1,4 @@
-import { ItemData, Rarity, Size } from '@item/data-definitions';
+import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 
@@ -131,6 +131,11 @@ export interface RawCharacterStrike {
 
     /** A list of attack variants which apply the Multiple Attack Penalty. */
     variants: { label: string; roll: RollFunction }[];
+
+    /** A list of ammo to choose for this attack */
+    ammo?: ConsumableData[];
+    /** Currently selected ammo id that will be consumed when rolling this action */
+    selectedAmmoId?: string;
 }
 
 /** Basic hitpoints data fields */
@@ -204,6 +209,11 @@ export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
+export interface DamageImmunities {
+    value: string[];
+    custom: string;
+}
+
 export interface BaseTraitsData {
     /** The character size (such as 'med'). */
     size: { value: Size };
@@ -213,7 +223,7 @@ export interface BaseTraitsData {
         custom: string;
     };
     /** Damage immunities this actor has. */
-    di: { value: string[]; custom: string };
+    di: DamageImmunities;
     /** Damage resistances that this actor has. */
     dr: LabeledValue[];
     /** Damage vulnerabilities that this actor has. */
@@ -454,6 +464,8 @@ export type NPCSkillData = PF2StatisticModifier &
         expanded: string;
     };
 
+export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
+
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNpcData extends ActorSystemData {
     /** The six primary ability scores. */
@@ -476,7 +488,7 @@ export interface RawNpcData extends ActorSystemData {
     /** Details about this actor, such as alignment or ancestry. */
     details: {
         /** The alignment this creature has. */
-        alignment: { value: string };
+        alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
