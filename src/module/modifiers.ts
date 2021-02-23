@@ -522,7 +522,9 @@ export class PF2DiceModifier {
         this.override = param.override;
         this.custom = param.custom ?? false;
 
-        if (this.damageType) this.category ??= DamageCategory.fromDamageType(this.damageType);
+        if (this.damageType) {
+            this.category ??= DamageCategory.fromDamageType(this.damageType);
+        }
 
         this.predicate = new PF2ModifierPredicate(param?.predicate ?? {}); // options is the old name for this field
         this.ignored = PF2ModifierPredicate.test(this.predicate, []);
