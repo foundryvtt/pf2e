@@ -2,6 +2,19 @@ import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definiti
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
+export interface Bracket {
+    start?: number;
+    end?: number;
+    value: number;
+}
+
+export interface BracketedValue {
+    field?: string;
+    brackets: Bracket[];
+}
+
+export type RuleValue = string | number | BracketedValue;
+
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
  * in the item's Rules tab which has to be enabled using the "Advanced Rule Element UI" system setting.
@@ -142,7 +155,7 @@ export abstract class PF2RuleElement {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: any, ruleData: any, item: any, actorData: any, defaultValue: any = 0): any {
+    resolveValue(valueData: RuleValue, ruleData: any, item: any, actorData: any, defaultValue: any = 0): any {
         let value = valueData;
         if (typeof valueData === 'object') {
             let bracket = getProperty(actorData, 'data.details.level.value');
@@ -175,7 +188,7 @@ export abstract class PF2RuleElement {
         if (typeof value === 'string') {
             const roll = new Roll(value, { ...actorData.data, item: item.data });
             roll.roll();
-            value = roll.total;
+            value = roll.total!;
         }
 
         if (Number.isInteger(Number(value))) {
