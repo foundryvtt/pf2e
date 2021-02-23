@@ -561,6 +561,7 @@ export const PF2ECONFIG = {
 
     ancestryTraits: {
         aasimar: 'PF2E.TraitAasimar',
+        aberration: 'PF2E.TraitAberration',
         android: 'PF2E.TraitAndroid',
         aphorite: 'PF2E.TraitAphorite',
         azarketi: 'PF2E.TraitAzarketi',
@@ -1747,6 +1748,7 @@ export const PF2ECONFIG = {
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
+        androffan: 'PF2E.LanguageAndroffan',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',

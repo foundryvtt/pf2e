@@ -299,11 +299,11 @@
                 display: flex;
                 align-items: center;
                 flex-wrap: nowrap;
+                
                 button {
                     margin: 0;
                     border: none;
                     cursor: pointer;
-                    @include micro;
                     padding: 5px;
                     color: white;
                     width: 70px;
@@ -312,7 +312,6 @@
                     border-radius: 2px;
                     flex: 0;
                     white-space: nowrap;
-                    margin-left: 4px;
                     flex: 0;
 
                     &:first-child {
@@ -323,6 +322,11 @@
                         box-shadow: none;
                         text-shadow: 0 0 2px white;
                     }
+                }
+
+                select, button {
+                    @include micro;
+                    margin-left: 4px;
                 }
             }
         }

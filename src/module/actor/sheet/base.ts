@@ -928,7 +928,31 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const variantIndex = $(event.currentTarget).attr('data-variant-index');
             const options = this.actor.getRollOptions(['all', 'attack-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].variants[Number(variantIndex)].roll({ event, options });
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+
+            if (action.selectedAmmoId) {
+                const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
+                if (ammo instanceof PF2EPhysicalItem) {
+                    if (ammo.quantity < 1) {
+                        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
+                        return;
+                    }
+                    ammo.consume();
+                }
+            }
+
+            action.variants[Number(variantIndex)].roll({ event, options });
+        });
+
+        html.find('[name="ammo-used"]').on('change', (event) => {
+            event.stopPropagation();
+
+            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const weapon = this.actor.getOwnedItem(action.item);
+            const ammo = this.actor.getOwnedItem($(event.currentTarget).val() as string);
+
+            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
         });
 
         // Item Rolling

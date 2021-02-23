@@ -57,20 +57,41 @@ async function runAnimation(transition: DarknessTransition) {
 }
 
 /** Animate the increase or decrease of the scene darkness level in the syncDarkness setting is enabled */
-export async function animateDarkness(this: WorldClock, $formElements: JQuery, oldTime: DateTime): Promise<void> {
+export async function animateDarkness(this: WorldClock, timeDiff: number): Promise<void> {
     if (!this.syncDarkness || !canvas.lighting.globalLight) {
         return;
     }
-    const newTime = this.worldTime;
+
+    const fromAboutTime = (): DateTime => {
+        const aboutTimeDate = (window as any).Gametime.DTNow() as {
+            days: number;
+            hours: number;
+            minutes: number;
+            months: number;
+            seconds: number;
+            years: number;
+        };
+
+        const dt = DateTime.fromObject({
+            year: aboutTimeDate.years,
+            month: aboutTimeDate.months + 1,
+            day: aboutTimeDate.days,
+            hour: aboutTimeDate.hours,
+            minute: aboutTimeDate.minutes,
+            second: aboutTimeDate.seconds,
+        });
+        return dt;
+    };
+
+    const newTime = this.usingCalendarWeather ? fromAboutTime() : this.worldTime;
+    const oldTime = newTime.minus({ seconds: timeDiff });
+
     const fullInterval = Interval.fromDateTimes(oldTime, newTime);
     if (!fullInterval.isValid) {
         // Don't attempt to calculate an animation if reversing time
         await runAnimation({ target: darknessLevelAtTime(newTime), duration: 100, interval: fullInterval });
         return;
     }
-
-    // Disable world clock form while animating the darkness change
-    $formElements.attr({ disabled: true });
 
     const compactInterval = (() => {
         if (fullInterval.length('hours') > 24) {
@@ -105,7 +126,4 @@ export async function animateDarkness(this: WorldClock, $formElements: JQuery, o
     for await (const transition of transitions) {
         await runAnimation(transition);
     }
-
-    // Done!
-    $formElements.attr({ disabled: false });
 }

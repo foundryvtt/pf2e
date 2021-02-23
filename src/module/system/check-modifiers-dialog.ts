@@ -146,7 +146,7 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !ctx.fate,
+                        canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
                         context: ctx,
                         unsafe: flavor,
                     },

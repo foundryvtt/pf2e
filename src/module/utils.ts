@@ -63,6 +63,32 @@ export function combineObjects<K extends keyof any, V>(
     return combinedObject;
 }
 
+/**
+ * Similar to combineObjects, just for maps
+ * @param first
+ * @param second
+ * @param mergeFunction
+ */
+export function combineMaps<K, V>(
+    first: Map<K, V>,
+    second: Map<K, V>,
+    mergeFunction: (first: V, second: V) => V,
+): Map<K, V> {
+    const combinedKeys = new Set([...first.keys(), ...second.keys()]);
+
+    const combinedMap = new Map();
+    for (const name of combinedKeys) {
+        if (first.has(name) && second.has(name)) {
+            combinedMap.set(name, mergeFunction(first.get(name) as V, second.get(name) as V));
+        } else if (first.has(name)) {
+            combinedMap.set(name, first.get(name) as V);
+        } else if (second.has(name)) {
+            combinedMap.set(name, second.get(name) as V);
+        }
+    }
+    return combinedMap;
+}
+
 export type Optional<T> = T | null | undefined;
 
 /**
