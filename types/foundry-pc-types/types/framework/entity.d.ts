@@ -20,7 +20,7 @@ declare interface EntityConstructorOptions {
     [key: string]: unknown;
 }
 
-declare type EntityUpdateData = BaseEntityData | { [key: string]: unknown };
+declare type EntityUpdateData<D extends BaseEntityData> = Partial<D> | { [key: string]: unknown };
 declare type EmbeddedEntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
 
 declare interface EntityUpdateOptions {
@@ -326,7 +326,14 @@ declare class Entity {
      * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
      * const updated = await Entity.update(data); // Returns an Array of Entities, updated in the database
      */
-    update(data: object, options?: EntityUpdateOptions): Promise<this>;
+    update(
+        data: EntityUpdateData<this['data']>,
+        options?: EntityUpdateOptions,
+    ): Promise<this>;
+    update(
+        data: EntityUpdateData<this['data']>[] | EntityUpdateData<this['data']>,
+        options?: EntityUpdateOptions,
+    ): Promise<this[] | this>;
 
     /**
      * Delete the current Entity.
