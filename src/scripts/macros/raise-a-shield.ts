@@ -70,13 +70,11 @@ export async function raiseAShield({
             action: { title, typeNumber: 1 },
         });
 
-        await ChatMessage.create(
-            {
-                type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-                speaker,
-                flavor,
-                content,
-            },
-        );
+        await ChatMessage.create({
+            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            speaker,
+            flavor,
+            content,
+        });
     }
 }
