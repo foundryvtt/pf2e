@@ -1174,7 +1174,7 @@ export class PF2EItem extends Item<PF2EActor> {
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
                 let token: Token | undefined;
-                if (sceneId === canvas.scene._id) token = canvas.tokens.get(tokenId);
+                if (sceneId === canvas.scene?._id) token = canvas.tokens.get(tokenId);
                 else {
                     const scene = game.scenes.get(sceneId);
                     if (!scene) return;
