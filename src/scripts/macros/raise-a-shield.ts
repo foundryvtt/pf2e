@@ -31,40 +31,39 @@ export async function raiseAShield({
         .filter((armor) => armor.data.data.armorType.value === 'shield')
         .find((shield) => shield.data.data.equipped.value === true);
 
-    const effect = await (async (): Promise<PF2EEffect | null> => {
+    const isSuccess = await (async (): Promise<boolean> => {
         if (shield) {
             const existingEffect = actor.itemTypes.effect.find(
                 (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
             );
             if (existingEffect) {
                 await actor.deleteOwnedItem(existingEffect._id);
-                return null;
+                return false;
             } else {
                 const effect = await fromUuid(ITEM_UUID);
                 if (!(effect instanceof PF2EEffect)) {
                     throw Error('PF2e System | Raise a Shield effect not found');
                 }
-                const rule = effect.data.data.rules?.find(
+                effect.data.img = shield.img;
+                const rule = effect.data.data.rules!.find(
                     (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
                 );
-                if (rule) {
-                    rule.value = shield.data.data.armor.value;
-                }
+                rule!.value = shield.data.data.armor.value;
                 await actor.createEmbeddedEntity('OwnedItem', effect.data);
-                return effect;
+                return true;
             }
         } else {
             ui.notifications.warn('You must have a shield equipped.');
-            return null;
+            return false;
         }
     })();
 
-    if (effect) {
+    if (isSuccess) {
         const speaker = ChatMessage.getSpeaker({ actor: actor });
         const translations = new LocalizationPF2e().translations.PF2E.Actions.RaiseAShield;
         const title = translations.Title;
         const content = await renderTemplate(TEMPLATES.content, {
-            imgPath: effect.img,
+            imgPath: shield!.img,
             message: game.i18n.format(translations.Content, { actor: speaker.alias }),
         });
         const flavor = await renderTemplate(TEMPLATES.flavor, {
