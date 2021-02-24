@@ -1931,7 +1931,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.actor.setFlag('pf2e', 'areaEffectScene', null);
 
             console.log(`PF2e | Existing MeasuredTemplate ${templateData.id} from Scene ${templateScene} found`);
-            if (canvas.templates.objects.children) {
+            if (canvas.scene && canvas.templates.objects.children) {
                 for (const placeable of canvas.templates.objects.children) {
                     console.log(
                         `PF2e | Placeable Found - id: ${placeable.data._id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
@@ -2029,7 +2029,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
                     // Save MeasuredTemplate information to actor flags
                     this.actor.setFlag('pf2e', 'areaEffectId', templateData);
-                    this.actor.setFlag('pf2e', 'areaEffectScene', canvas.scene._id);
+                    this.actor.setFlag('pf2e', 'areaEffectScene', canvas.scene!._id);
                 });
             }
         }

@@ -1,5 +1,33 @@
 # Patch Notes:
 
+## Version 1.11.10
+### Bug Fixes
+* (stwlam) Prevent non-GMs from updating the scene after darkness animation
+* (stwlam) Allow actor-speed values to be textual until a migration and UI updates can be made
+* (stwlam) Move raise-a-shield macro to typescript codebase, send out action card on use
+
+### Content Changes
+* (Shandyan>) Barbarian Animal Instinct and Animal Skin updates
+* (Shandyan & ArthurTrumpet) Adding Insect Form from ArthurTrumpet
+* (Shandyan & ArthurTrumpet) Added dinosaur form from ArthurTrumpet
+* (SpartanCPA) Add ToggleProperty to "Everstand Stance" feat that interacts with Shield weapons to increase damage
+* (SpartanCPA) Correct the formatting on the dagger in the compendium
+* (SpartanCPA) Fix sneak attack on Polar Bear
+* (SpartanCPA) Add Sneak Attack rule elements to the relevant NPC gallery creatures
+* (SpartanCPA) Correct Vomit Swarm targeting
+* (SpartanCPA) Add Bulwark rule element to Full Plate
+* (stwlam) Add fancy class icons
+* (TMun) Lost Omens Ancestry Guide
+    * Add 6 new classes
+    * Add 58 new heritages and ancestry features
+    * Add 385 new feats, renames 5 feats
+    * Add 7 new actions
+    * Add new uncommon language (Giant)
+    * Add 2 new runes
+    * Add 9 new weapons
+* (TMun) Corrects item level and price of Greater Mask of the Banshee. Closes #1099
+
+
 ## Version 1.11.9
 ### Bug Fixes
 * (stwlam) Refrain from updating worldCreatedOn setting from World-Clock settings form

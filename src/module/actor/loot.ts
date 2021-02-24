@@ -81,8 +81,8 @@ export interface LootTransferData {
 
 export class LootTransfer implements LootTransferData {
     private templatePaths = {
-        flavor: '/systems/pf2e/templates/chat/interact/flavor.html',
-        content: '/systems/pf2e/templates/chat/interact/content.html',
+        flavor: './systems/pf2e/templates/chat/action/flavor.html',
+        content: './systems/pf2e/templates/chat/action/content.html',
     };
 
     constructor(

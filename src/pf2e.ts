@@ -25,12 +25,8 @@ import {
     ProficiencyModifier,
 } from './module/modifiers';
 import { EffectPanel } from './module/system/effect-panel';
-import { earnIncome } from './module/earn-income';
-import { calculateXP } from './module/xp';
-import { launchTravelSheet } from './module/gm/travel/travel-speed-sheet';
 import { ItemData } from '@item/data-definitions';
 import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
-import { PF2Actions } from './module/system/actions/actions';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
@@ -102,15 +98,6 @@ Hooks.once('init', () => {
     (window as any).PF2Check = PF2Check;
 
     // expose actions until we know how to include them on the sheet
-    game.pf2e.actions = {
-        earnIncome,
-    };
-    PF2Actions.exposeActions(game.pf2e.actions);
-
-    (game.pf2e as any).gm = {
-        calculateXP,
-        launchTravelSheet,
-    };
 });
 
 /* -------------------------------------------- */
