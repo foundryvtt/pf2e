@@ -18,7 +18,7 @@
 * (SpartanCPA) Add Bulwark rule element to Full Plate
 * (stwlam) Add fancy class icons
 * (TMun) Lost Omens Ancestry Guide
-    * Add 6 new classes
+    * Add 6 new ancestries
     * Add 58 new heritages and ancestry features
     * Add 385 new feats, renames 5 feats
     * Add 7 new actions
