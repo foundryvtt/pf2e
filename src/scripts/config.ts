@@ -251,6 +251,7 @@ export const PF2ECONFIG = {
         chaotic: 'PF2E.DamageTypeChaotic',
         cold: 'PF2E.DamageTypeCold',
         electricity: 'PF2E.DamageTypeElectricity',
+        energy: 'PF2E.DamageTypeEnergy',
         evil: 'PF2E.DamageTypeEvil',
         fire: 'PF2E.DamageTypeFire',
         force: 'PF2E.DamageTypeForce',
