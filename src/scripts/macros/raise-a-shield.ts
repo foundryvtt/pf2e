@@ -1,7 +1,7 @@
 import { PF2ECharacter } from '@actor/character';
 import { PF2ENPC } from '@actor/npc';
 import { PF2EEffect } from '@item/effect';
-import { ActionDefaultOptions } from 'src/module/system/actions/actions';
+import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 import { LocalizationPF2e } from '../../module/system/localization';
 
 /** Effect: Raise a Shield */
