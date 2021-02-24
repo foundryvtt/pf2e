@@ -4,7 +4,7 @@ declare class Messages extends EntityCollection<ChatMessage> {
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
-        /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
@@ -129,7 +129,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-        /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Export the content of the chat message into a standardized log format
