@@ -1,7 +1,7 @@
-import { PF2EActor, TokenPF2e } from '@actor/actor';
 import { PF2ECharacter } from '@actor/character';
 import { PF2ENPC } from '@actor/npc';
 import { PF2EEffect } from '@item/effect';
+import { ActionDefaultOptions } from 'src/module/system/actions/actions';
 import { LocalizationPF2e } from '../../module/system/localization';
 
 /** Effect: Raise a Shield */
@@ -13,23 +13,19 @@ const TEMPLATES = {
 };
 
 /** A macro for the Raise a Shield action */
-export async function raiseAShield({
-    assignedActor,
-    token,
-}: {
-    assignedActor: PF2EActor;
-    token?: TokenPF2e;
-}): Promise<void> {
-    // 'Raise Shield' macro that will raised a shield the character has equipped
-    const actor = token?.actor ?? assignedActor;
-    if (canvas.tokens.controlled.length > 1 || !(actor instanceof PF2ECharacter || actor instanceof PF2ENPC)) {
-        ui.notifications.warn('PF2e System | This macro must be called with exactly one character or NPC.');
-        return;
+export async function raiseAShield(options: ActionDefaultOptions): Promise<void> {
+    const translations = new LocalizationPF2e().translations.PF2E.Actions.RaiseAShield;
+
+    const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
+    const actor = actors[0];
+    if (actors.length > 1 || !(actor instanceof PF2ECharacter || actor instanceof PF2ENPC)) {
+        throw Error(`PF2e System | ${translations.BadArgs}.`);
     }
 
     const shield = actor.itemTypes.armor
         .filter((armor) => armor.data.data.armorType.value === 'shield')
         .find((shield) => shield.data.data.equipped.value === true);
+    const speaker = ChatMessage.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield) {
@@ -53,14 +49,12 @@ export async function raiseAShield({
                 return true;
             }
         } else {
-            ui.notifications.warn('You must have a shield equipped.');
+            ui.notifications.warn(game.i18n.format(translations.NoShieldEquipped, { actor: speaker.alias }));
             return false;
         }
     })();
 
     if (isSuccess) {
-        const speaker = ChatMessage.getSpeaker({ actor: actor });
-        const translations = new LocalizationPF2e().translations.PF2E.Actions.RaiseAShield;
         const title = translations.Title;
         const content = await renderTemplate(TEMPLATES.content, {
             imgPath: shield!.img,
