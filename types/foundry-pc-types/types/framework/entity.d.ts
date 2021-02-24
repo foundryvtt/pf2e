@@ -45,8 +45,8 @@ declare interface EntityDeleteOptions {
  * Entities are instantiated by providing their base data, and an optional Array of Application instances which should
  * be automatically refreshed when the Entity experiences an update.
  *
- * @param data		The data Object with which to create the Entity
- * @param options	Additional options which modify the created Entity behavior
+ * @param data      The data Object with which to create the Entity
+ * @param options   Additional options which modify the created Entity behavior
  *
  * @example
  * let actorData = {name: "John Doe", type: "character", img: "icons/mystery-man.png"};
@@ -119,22 +119,22 @@ declare class Entity {
 
     /**
      * Prepare data for a single Embedded Entity which exists within the parent Entity.
-     * @param embeddedName	The name of the Embedded Entity type
-     * @param data			The data used to initialize it
-     * @returns				The Embedded Entity object
+     * @param embeddedName  The name of the Embedded Entity type
+     * @param data          The data used to initialize it
+     * @returns             The Embedded Entity object
      */
     private _constructEmbeddedEntity(embeddedName: string, data: object): void;
 
     /**
      * Obtain a reference to the Array of source data within the data object for a certain Embedded Entity name
-     * @param embeddedName	The name of the Embedded Entity type
-     * @return				The Array of source data where Embedded Entities of this type are stored
+     * @param embeddedName  The name of the Embedded Entity type
+     * @return              The Array of source data where Embedded Entities of this type are stored
      */
     getEmbeddedCollection(embeddedName: string): Array<any>;
 
     /* -------------------------------------------- */
     /*  Properties
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Return a reference to the Collection instance which stores Entity instances of this type. This property is
@@ -240,7 +240,7 @@ declare class Entity {
 
     /* -------------------------------------------- */
     /* Methods
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Render all of the Application instances which are connected to this Entity by calling their respective
@@ -251,11 +251,11 @@ declare class Entity {
 
     /**
      * Test whether a provided User a specific permission level (or greater) over the Entity instance
-     * @param user			The user to test for permission
-     * @param permission	The permission level or level name to test
-     * @param exact			Tests for an exact permission level match, by default this method tests for
-     *						an equal or greater permission level.
-     * @return				Whether or not the user has the permission for this Entity.
+     * @param user          The user to test for permission
+     * @param permission    The permission level or level name to test
+     * @param exact         Tests for an exact permission level match, by default this method tests for
+     *                      an equal or greater permission level.
+     * @return              Whether or not the user has the permission for this Entity.
      *
      * @example <caption>Test whether a specific user has a certain permission</caption>
      * // These two are equivalent
@@ -326,10 +326,7 @@ declare class Entity {
      * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
      * const updated = await Entity.update(data); // Returns an Array of Entities, updated in the database
      */
-    update(
-        data: EntityUpdateData<this['data']>,
-        options?: EntityUpdateOptions,
-    ): Promise<this>;
+    update(data: EntityUpdateData<this['data']>, options?: EntityUpdateOptions): Promise<this>;
     update(
         data: EntityUpdateData<this['data']>[] | EntityUpdateData<this['data']>,
         options?: EntityUpdateOptions,
@@ -365,9 +362,9 @@ declare class Entity {
 
     /**
      * Get an Embedded Entity by it's ID from a named collection in the parent
-     * @param collection	The named collection of embedded entities
-     * @param id			The numeric ID of the child to retrieve
-     * @return				Retrieved data for the requested child, or null
+     * @param collection    The named collection of embedded entities
+     * @param id            The numeric ID of the child to retrieve
+     * @return              Retrieved data for the requested child, or null
      */
     getEmbeddedEntity(collection: string, id: number, { strict }: { strict?: boolean }): any;
 
@@ -513,9 +510,9 @@ declare class Entity {
      * Get the value of a "flag" for this Entity
      * See the setFlag method for more details on flags
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		The flag value
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @return      The flag value
      */
     getFlag(scope: string, key: string): any;
 
@@ -532,19 +529,19 @@ declare class Entity {
      *
      * Flag values can assume almost any data type. Setting a flag value to null will delete that flag.
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @param value	The flag value
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @param value The flag value
      *
-     * @return		A Promise resolving to the updated Entity
+     * @return      A Promise resolving to the updated Entity
      */
     setFlag(scope: string, key: string, value: any): Promise<Entity>;
 
     /**
      * Remove a flag assigned to the Entity
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		A Promise resolving to the updated Entity
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @return      A Promise resolving to the updated Entity
      */
     unsetFlag(scope: string, key: string): Promise<Entity>;
 
@@ -572,14 +569,14 @@ declare class Entity {
 
     /* -------------------------------------------- */
     /*  Saving and Loading
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Clone an Entity, creating a new Entity using the current data as well as provided creation overrides.
      *
-     * @param createData	Additional data which overrides current Entity data at the time of creation
-     * @param options		Additional creation options passed to the Entity.create method
-     * @returns				A Promise which resolves to the created clone Entity
+     * @param createData    Additional data which overrides current Entity data at the time of creation
+     * @param options       Additional creation options passed to the Entity.create method
+     * @returns             A Promise which resolves to the created clone Entity
      */
     clone(createData?: object, options?: EntityCreateOptions): Promise<this>;
 
@@ -601,8 +598,8 @@ declare class Entity {
 
     /**
      * Import data and update this entity
-     * @param json	JSON data string
-     * @return		The updated Entity
+     * @param json  JSON data string
+     * @return      The updated Entity
      */
     importFromJSON(json: string): Promise<this>;
 
