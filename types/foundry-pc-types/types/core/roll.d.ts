@@ -1,5 +1,7 @@
 type TermUnion = Roll | DicePool | DiceTerm | number | string;
 
+type RollMode = 'blindroll' | 'gmroll' | 'roll' | 'selfroll';
+
 /**
  * This class provides an interface and API for conducting dice rolls.
  * The basic structure for a dice roll is a string formula and an object of data against which to parse it.

@@ -3,9 +3,9 @@
  */
 
 import { ProficiencyRank } from '@item/data-definitions';
-import { Coins } from './item/treasure';
-import { calculateDC, DCOptions } from './dc';
-import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from './degree-of-success';
+import { Coins } from '../../module/item/treasure';
+import { calculateDC, DCOptions } from '../../module/dc';
+import { calculateDegreeOfSuccess, DegreeOfSuccess, DieRoll } from '../../module/degree-of-success';
 
 // you have to be at least trained to earn income
 type TrainedProficiencies = Exclude<ProficiencyRank, 'untrained'>;
@@ -53,8 +53,11 @@ const earnIncomeTable = {
     21: { failure: {}, rewards: buildRewards({ gp: 50 }, { gp: 90 }, { gp: 175 }, { gp: 300 }) },
 };
 
-function getIncomeForLevel(level: number) {
-    return earnIncomeTable[Math.clamped(level, 0, 21)];
+type IncomeLevelMap = typeof earnIncomeTable;
+type IncomeEarnerLevel = keyof IncomeLevelMap;
+type IncomeForLevel = IncomeLevelMap[IncomeEarnerLevel];
+function getIncomeForLevel(level: number): IncomeForLevel {
+    return earnIncomeTable[Math.clamped(level, 0, 21) as IncomeEarnerLevel];
 }
 
 export interface EarnIncomeResult {
@@ -83,9 +86,9 @@ export interface EarnIncomeOptions {
 }
 
 export function multiplyIncome(income: Partial<Coins>, factor: number): Partial<Coins> {
-    const result = {};
+    const result: Partial<Coins> = {};
     for (const [key, value] of Object.entries(income)) {
-        result[key] = value * factor;
+        result[key as keyof Partial<Coins>] = value! * factor;
     }
     return result;
 }
