@@ -18,7 +18,6 @@ declare abstract class CanvasLayer extends PIXI.Container {
 
     constructor();
 
-
     /**
      * Customize behaviors of this CanvasLayer by modifying some behaviors at a class level.
      * @property zIndex        The zIndex sorting of this layer relative to other layers

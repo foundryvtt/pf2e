@@ -5,7 +5,7 @@ declare interface ClientSettingsData {
     hint?: string;
     config?: boolean;
     type?: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;
-    range?: this['type'] extends NumberConstructor ? {min: number; max: number; step: number; } : undefined;
+    range?: this['type'] extends NumberConstructor ? { min: number; max: number; step: number } : undefined;
     choices?: Record<string, string> | Record<number, string>;
     onChange?: (choice?: string) => void | Promise<void>;
 }
@@ -116,7 +116,7 @@ declare class ClientSettings {
      */
     registerMenu(module: string, key: string, data: SettingsMenuData): void;
 
-      /**
+    /**
      * Get the value of a game setting for a certain module and setting key
      * @param module    The module namespace under which the setting is registered
      * @param key       The setting key to retrieve

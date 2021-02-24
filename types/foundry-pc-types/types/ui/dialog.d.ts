@@ -66,35 +66,42 @@ interface ConfirmDialog {
 declare class Dialog extends Application {
     constructor(dialogData: DialogData, options?: ApplicationOptions);
 
-  /* -------------------------------------------- */
-  /*  Factory Methods                             */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Factory Methods                             */
+    /* -------------------------------------------- */
 
-  /**
-   * A helper factory method to create simple confirmation dialog windows which consist of simple yes/no prompts.
-   * If you require more flexibility, a custom Dialog instance is preferred.
-   *
-   * @param title       The confirmation window title
-   * @param content     The confirmation message
-   * @param yes         Callback function upon yes
-   * @param no          Callback function upon no
-   * @param render      A function to call when the dialog is rendered
-   * @param defaultYes  Make "yes" the default choice?
-   * @param rejectClose Reject the Promise if the Dialog is closed without making a choice.
-   * @param options    Additional rendering options passed to the Dialog
-   *
-   * @return A promise which resolves once the user makes a choice or closes the window
-   *
-   * @example
-   * let d = Dialog.confirm({
-   *  title: "A Yes or No Question",
-   *  content: "<p>Choose wisely.</p>",
-   *  yes: () => console.log("You chose ... wisely"),
-   *  no: () => console.log("You chose ... poorly"),
-   *  defaultYes: false
-   * });
-   */
-    static confirm(
-        { title, content, yes, no, render, defaultYes, rejectClose, options }?: ConfirmDialog,
-    ): Promise<Dialog>;
+    /**
+     * A helper factory method to create simple confirmation dialog windows which consist of simple yes/no prompts.
+     * If you require more flexibility, a custom Dialog instance is preferred.
+     *
+     * @param title       The confirmation window title
+     * @param content     The confirmation message
+     * @param yes         Callback function upon yes
+     * @param no          Callback function upon no
+     * @param render      A function to call when the dialog is rendered
+     * @param defaultYes  Make "yes" the default choice?
+     * @param rejectClose Reject the Promise if the Dialog is closed without making a choice.
+     * @param options    Additional rendering options passed to the Dialog
+     *
+     * @return A promise which resolves once the user makes a choice or closes the window
+     *
+     * @example
+     * let d = Dialog.confirm({
+     *  title: "A Yes or No Question",
+     *  content: "<p>Choose wisely.</p>",
+     *  yes: () => console.log("You chose ... wisely"),
+     *  no: () => console.log("You chose ... poorly"),
+     *  defaultYes: false
+     * });
+     */
+    static confirm({
+        title,
+        content,
+        yes,
+        no,
+        render,
+        defaultYes,
+        rejectClose,
+        options,
+    }?: ConfirmDialog): Promise<Dialog>;
 }

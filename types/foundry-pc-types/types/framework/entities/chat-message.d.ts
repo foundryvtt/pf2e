@@ -24,7 +24,7 @@ declare class Messages extends EntityCollection<ChatMessage> {
     flush(): Promise<any>;
 }
 
-declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES]
+declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES];
 
 declare interface ChatMessageData extends BaseEntityData {
     type: ChatMessageType;
