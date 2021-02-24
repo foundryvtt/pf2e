@@ -7,6 +7,10 @@ declare interface Game {
         effectPanel?: import('./module/system/effect-panel').EffectPanel;
         rollItemMacro?: typeof import('./scripts/init').rollItemMacro;
         rollActionMacro: typeof import('./scripts/init').rollActionMacro;
+        gm: {
+            calculateXP: Function;
+            launchTravelSheet: Function;
+        };
     };
 
     socket: SocketIO.Socket & {
@@ -18,6 +22,15 @@ declare interface Game {
         readonly translations: Localization['translations'] & DeepPartial<TranslationsPF2e>;
         _fallback: Localization['translations'] & TranslationsPF2e;
     };
+}
+
+declare type ItemTypeMap = {
+    [K in keyof import('./scripts/config').ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
+        import('./scripts/config').ConfigPF2e['PF2E']['Item']['entityClasses'][K]
+    >[];
+};
+declare interface Actor {
+    itemTypes: ItemTypeMap;
 }
 
 declare interface Window {

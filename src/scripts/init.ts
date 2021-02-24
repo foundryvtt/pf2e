@@ -199,17 +199,6 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 }
 
 /**
- * Activate certain behaviors on FVTT ready hook
- */
-Hooks.once('init', () => {
-    game.pf2e = {
-        actions: {},
-        rollItemMacro,
-        rollActionMacro,
-    };
-});
-
-/**
  * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
  */
 Hooks.on('canvasInit', async () => {

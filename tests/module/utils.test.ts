@@ -1,4 +1,4 @@
-import { add, addSign, combineObjects, padArray, applyNTimes, toNumber, zip } from '../../src/module/utils';
+import { add, addSign, applyNTimes, combineObjects, padArray, toNumber, zip } from '../../src/module/utils';
 
 describe('should combine objects', () => {
     test('combine two empty objects', () => {

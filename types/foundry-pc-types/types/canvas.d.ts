@@ -13,7 +13,7 @@ declare class Canvas<ActorType extends Actor = Actor> {
     grid: GridLayer;
     hud: HeadsUpDisplay;
     lighting: LightingLayer;
-    scene: Scene;
+    scene: Scene | null;
     tokens: TokenLayer<ActorType>;
     templates: TemplateLayer;
 }
