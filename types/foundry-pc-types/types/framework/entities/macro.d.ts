@@ -12,8 +12,8 @@ declare class Macros extends EntityCollection<Macro> {
 
     /**
      * Determine whether a given User is allowed to use JavaScript macros
-     * @param user	The User entity to test
-     * @return		Can the User use scripts?
+     * @param user  The User entity to test
+     * @return      Can the User use scripts?
      */
     static canUseScripts(user: User): boolean;
 

@@ -5,6 +5,8 @@ import { PF2RollNote } from '../notes';
 export interface PF2RuleElementData {
     key: string;
     data?: any;
+    selector?: string;
+    value?: unknown;
 }
 
 export interface PF2WeaponPotency {

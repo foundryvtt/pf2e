@@ -5,36 +5,36 @@
  *
  * Hover Events:
  *
- * 	_handleMouseOver
- * 		action: hoverIn
- * 	_handleMouseOut
- * 		action: hoverOut
+ *  _handleMouseOver
+ *      action: hoverIn
+ *  _handleMouseOut
+ *      action: hoverOut
  *
  * Left Click and Double-Click
  *
- * 	_handleMouseDown
- * 		action: clickLeft
- * 		action: clickLeft2
+ *  _handleMouseDown
+ *      action: clickLeft
+ *      action: clickLeft2
  *
  * Right Click and Double-Click
  *
- * 	_handleRightDown
- * 		action: clickRight
- * 		action: clickRight2
+ *  _handleRightDown
+ *      action: clickRight
+ *      action: clickRight2
  *
  * Drag and Drop
  *
- * 	_handleMouseMove
- * 		action: dragLeftStart
- * 		action: dragLeftMove
- * 		action: dragRightStart
- * 		action: dragLeftMove
- * 	_handleMouseUp
- * 		action: dragLeftDrop
- * 		action: dragRightDrop
- * 	_handleDragCancel
- * 		action: dragLeftCancel
- * 		action: dragRightCancel
+ *  _handleMouseMove
+ *      action: dragLeftStart
+ *      action: dragLeftMove
+ *      action: dragRightStart
+ *      action: dragLeftMove
+ *  _handleMouseUp
+ *      action: dragLeftDrop
+ *      action: dragRightDrop
+ *  _handleDragCancel
+ *      action: dragLeftCancel
+ *      action: dragRightCancel
  */
 declare class MouseInteractionManager {
     object: PlaceableObject;
@@ -93,16 +93,16 @@ declare class MouseInteractionManager {
 
     /**
      * Test whether the current user has permission to perform a step of the workflow
-     * @param action	The action being attempted
-     * @param event		The event being handled
-     * @return			Can the action be performed?
+     * @param action    The action being attempted
+     * @param event     The event being handled
+     * @return          Can the action be performed?
      */
     can(action: string, event: Event): boolean;
 
     /**
      * Execute a callback function associated with a certain action in the workflow
-     * @param action	The action being attempted
-     * @param event		The event being handled
+     * @param action    The action being attempted
+     * @param event     The event being handled
      */
     callback(action: string, event: Event): any;
 
