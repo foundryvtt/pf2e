@@ -17,26 +17,24 @@ declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
 declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
 declare type HookParamsRenderChatLog = HookParameters<
-    'renderChatLog', [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
+    'renderChatLog',
+    [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
 >;
-declare type HookParamsRenderChatPopout = HookParameters<
-    'renderChatPopout', [ChatPopout, JQuery, {}]
->;
-declare type HookParamsRenderChatMessage = HookParameters<
-    'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]
->;
+declare type HookParamsRenderChatPopout = HookParameters<'renderChatPopout', [ChatPopout, JQuery, {}]>;
+declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
 declare type HookParamsRenderCompendiumDirectory = HookParameters<
-    'renderCompendiumDirectory', [CompendiumDirectory, JQuery, ReturnType<CompendiumDirectory['getData']>]
+    'renderCompendiumDirectory',
+    [CompendiumDirectory, JQuery, ReturnType<CompendiumDirectory['getData']>]
 >;
 declare type HookParamsRenderActorDirectory = HookParameters<
-    'renderActorDirectory', [ActorDirectory, JQuery, ReturnType<ActorDirectory['getData']>]
+    'renderActorDirectory',
+    [ActorDirectory, JQuery, ReturnType<ActorDirectory['getData']>]
 >;
 declare type HookParamsRenderItemDirectory = HookParameters<
-    'renderItemDirectory', [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
+    'renderItemDirectory',
+    [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
 >;
-declare type HookParamsUpdateWorldTime = HookParameters<
-    'updateWorldTime', [number, number]
->;
+declare type HookParamsUpdateWorldTime = HookParameters<'updateWorldTime', [number, number]>;
 
 declare class Hooks {
     /**

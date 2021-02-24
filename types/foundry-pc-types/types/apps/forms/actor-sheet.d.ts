@@ -89,6 +89,6 @@ declare class ActorSheet<
      */
     protected _onSortItem(
         event: ElementDragEvent,
-        itemData: ItemDataType
+        itemData: ItemDataType,
     ): Promise<(ItemDataType | null)[] | ItemDataType | null>;
 }

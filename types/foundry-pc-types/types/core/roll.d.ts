@@ -91,11 +91,11 @@ declare class Roll {
      */
     protected _identifyTerms(formula: string, { step }?: { step?: number }): TermUnion[];
 
-      /**
-   * Prepare the data structure used for the Roll.
-   * This is factored out to allow for custom Roll classes to do special data preparation using provided input.
-   * @param data Provided roll data
-   */
+    /**
+     * Prepare the data structure used for the Roll.
+     * This is factored out to allow for custom Roll classes to do special data preparation using provided input.
+     * @param data Provided roll data
+     */
     protected _prepareData(data: { [key: string]: unknown }): { [key: string]: unknown };
 
     /* -------------------------------------------- */
@@ -140,7 +140,7 @@ declare class Roll {
      * console.log(r.result); // 5 + 4 + 2
      * console.log(r.total);  // 11
      */
-    evaluate({minimize, maximize}?: { minimize?: boolean, maximize?: boolean }): Roll;
+    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Roll;
 
     /**
      * Get an Array of any Die objects which were rolled as part of the evaluation of this roll
@@ -274,7 +274,7 @@ declare class Roll {
      * @param formula A candidate formula to validate
      * @return Is the provided input a valid dice formula?
      */
-    static validate(formula: string): boolean
+    static validate(formula: string): boolean;
 
     /**
      * Clean a dice roll formula, returning the formatted string with proper spacing
@@ -287,7 +287,7 @@ declare class Roll {
      * @param terms  The input array of terms
      * @return The cleaned array of terms
      */
-    static cleanTerms(terms: DiceTerm|string|number[]): (Roll|DicePool|DiceTerm|number|string)[];
+    static cleanTerms(terms: DiceTerm | string | number[]): (Roll | DicePool | DiceTerm | number | string)[];
 
     /**
      * Acquire data object representing the most-likely current actor.
