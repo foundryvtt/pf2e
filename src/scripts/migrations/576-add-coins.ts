@@ -6,11 +6,11 @@ export class Migration576AddCoins extends MigrationBase {
     static version = 0.576;
     requiresFlush = true;
 
-    async addCoin(actor: ActorDataPF2e, treasureId: string, denomination: string, quantity: number) {
+    async addCoin(actor: ActorDataPF2e, treasureId: string, denomination: string, quantity: number): Promise<void> {
         if (quantity !== null && `${quantity}`.trim() !== '0') {
-            console.log(`Adding ${quantity} of ${denomination} to actors ${actor.name}'s inventory`);
+            console.debug(`Adding ${quantity} of ${denomination} to actors ${actor.name}'s inventory`);
             const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
-            const item = await pack.getEntity(treasureId);
+            const item = await pack!.getEntity(treasureId);
             if (item === null) {
                 return Promise.reject(new Error(`PF2e System | Unexpected missing inventory item: ${treasureId}`));
             }

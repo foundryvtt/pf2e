@@ -1,6 +1,8 @@
 import { MigrationBase } from './base';
 import { ItemData } from '@item/data-definitions';
 
+type EffectID = keyof typeof Migration601SplitEffectCompendia.effectLocations;
+
 export class Migration601SplitEffectCompendia extends MigrationBase {
     static version = 0.601;
 
@@ -191,7 +193,13 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
             item.data.description.value = item.data.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
                 function (_full, first, _replace, dot, itemId, rest): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId + rest;
+                    return (
+                        first +
+                        Migration601SplitEffectCompendia.effectLocations[itemId as EffectID] +
+                        dot +
+                        itemId +
+                        rest
+                    );
                 },
             );
         }
@@ -199,7 +207,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
             item.flags.core.sourceId = (item.flags.core.sourceId as string).replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
                 function (_full, first, _replace, dot, itemId): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                    return first + Migration601SplitEffectCompendia.effectLocations[itemId as EffectID] + dot + itemId;
                 },
             );
         }
@@ -210,7 +218,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
             macro.data.command = macro.data.command.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
                 function (_full, first, _replace, dot, itemId): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                    return first + Migration601SplitEffectCompendia.effectLocations[itemId as EffectID] + dot + itemId;
                 },
             );
         });
