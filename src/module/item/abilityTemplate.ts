@@ -21,15 +21,15 @@ export class AbilityTemplate extends MeasuredTemplate {
             actualShape = 'cone';
         } else if (templateShape === 'emanation' || templateShape === 'Emanation') {
             actualShape = 'circle';
-        } else if (templateShape === 'burst' || templateShape === 'Burst') {
-            actualShape = 'circle';
+        } else if (templateShape === 'line' || templateShape === 'Line') {
+            actualShape = 'ray';
         } else {
             return null;
         }
 
         // Prepare template data
         const templateData = {
-            t: templateShape,
+            t: actualShape,
             user: game.user._id,
             distance: templateSize,
             direction: 0,
@@ -42,11 +42,6 @@ export class AbilityTemplate extends MeasuredTemplate {
         switch (templateShape) {
             case 'cone':
                 templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
-                break;
-            case 'rect': // 5e rectangular AoEs are always cubes
-                templateData.distance = Math.hypot(target.value, target.value);
-                templateData.width = target.value;
-                templateData.direction = 45;
                 break;
             case 'ray': // 5e rays are most commonly 1 square (5 ft) in width
                 templateData.width = target.width ?? canvas.dimensions.distance;
