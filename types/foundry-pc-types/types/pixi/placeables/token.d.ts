@@ -86,7 +86,7 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     hitArea: PIXI.Rectangle;
 
     /** @override */
-    get layer(): TokenLayer<ActorType>
+    get layer(): TokenLayer<ActorType>;
 
     /**
      * A Ray which represents the Token's current movement path

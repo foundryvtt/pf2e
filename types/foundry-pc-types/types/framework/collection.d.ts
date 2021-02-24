@@ -87,8 +87,8 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
 }
 
 interface CollectionConstructor<V extends unknown> {
-    new(): Collection<V>;
-    new<V>(entries?: readonly (readonly [V])[] | null): Collection<V>;
+    new (): Collection<V>;
+    new <V>(entries?: readonly (readonly [V])[] | null): Collection<V>;
     readonly prototype: Collection<V>;
 }
 

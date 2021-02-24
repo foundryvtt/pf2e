@@ -23,5 +23,4 @@ declare class Folder extends Entity {
         data: Partial<F['data']>[] | Partial<F['data']>,
         options?: EntityCreateOptions,
     ): Promise<F[] | F>;
-
 }

@@ -75,12 +75,12 @@ declare class LightingLayer extends PlaceablesLayer {
     /* -------------------------------------------- */
 
     /** @override */
-    static get layerOptions(): (typeof PlaceablesLayer)['layerOptions'] & {
-        rotatableObjects: true,
-        objectClass: AmbientLight,
-        quadtree: true,
-        sheetClass: LightConfig,
-        zIndex: 200
+    static get layerOptions(): typeof PlaceablesLayer['layerOptions'] & {
+        rotatableObjects: true;
+        objectClass: AmbientLight;
+        quadtree: true;
+        sheetClass: LightConfig;
+        zIndex: 200;
     };
     /**
      * Configure the lighting channels which are inputs to the ShadowMap
