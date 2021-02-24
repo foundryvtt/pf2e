@@ -2,7 +2,7 @@
  * Rules are implemented as described in https://2e.aonprd.com/Rules.aspx?ID=575
  * including the variant rules for proficiency without level https://2e.aonprd.com/Rules.aspx?ID=1371
  */
-import { DCOptions } from './dc';
+import { DCOptions } from '../../module/dc';
 
 // level without proficiency variant
 const xpVariantCreatureDifferences = new Map<number, number>();
@@ -51,7 +51,7 @@ function getXPFromMap(partyLevel: number, entityLevel: number, values: Map<numbe
     const difference = entityLevel + 1 - (partyLevel + 1);
     const range = Math.floor(values.size / 2);
     const boundedDifference = Math.clamped(difference, 0 - range, range);
-    return values.get(boundedDifference);
+    return values.get(boundedDifference) ?? 0;
 }
 
 function calculateCreatureXP(partyLevel: number, npcLevel: number, dcOptions: DCOptions): number {

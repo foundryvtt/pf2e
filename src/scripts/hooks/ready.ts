@@ -5,6 +5,12 @@ import { updateMinionActors } from '../actor/update-minions';
 import { MigrationRunner } from '../..//module/migration-runner';
 import { Migrations } from '../../module/migrations';
 import { EffectPanel } from '../../module/system/effect-panel';
+import { calculateXP } from '../macros/xp';
+import { launchTravelSheet } from '../../module/gm/travel/travel-speed-sheet';
+import { rollActionMacro, rollItemMacro } from '../init';
+import { raiseAShield } from '../macros/raise-a-shield';
+import { earnIncome } from '../macros/earn-income';
+import { PF2Actions } from '../../module/system/actions/actions';
 
 export function listen() {
     Hooks.once('ready', () => {
@@ -30,13 +36,26 @@ export function listen() {
             }
         }
 
+        game.pf2e = {
+            actions: {
+                earnIncome,
+                raiseAShield,
+            },
+            rollItemMacro,
+            rollActionMacro,
+            gm: {
+                calculateXP,
+                launchTravelSheet,
+            },
+            effectPanel: new EffectPanel(),
+            worldClock: new WorldClock(),
+        };
+        PF2Actions.exposeActions(game.pf2e.actions);
+
         // Effect Panel singleton application
-        game[game.system.id].effectPanel = new EffectPanel();
         if (game.pf2e.effectPanel && (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true)) {
             game.pf2e.effectPanel.render(true);
         }
-
-        game.pf2e.worldClock = new WorldClock();
 
         PlayerConfigPF2e.init();
         PlayerConfigPF2e.activateColorScheme();
