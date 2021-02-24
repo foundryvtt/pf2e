@@ -1,6 +1,6 @@
 import { compendiumBrowser } from '../packs/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
-import { Migrations } from '../migrations';
+import { Migrations } from '../../scripts/migrations';
 import { WorldClockSettings } from './world-clock';
 
 export function registerSettings() {

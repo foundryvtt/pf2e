@@ -1,6 +1,6 @@
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ItemData } from '@item/data-definitions';
-import { MigrationBase } from './migrations/base';
+import { MigrationBase } from '../scripts/migrations/base';
 
 interface ItemsDiff {
     inserted: any[];

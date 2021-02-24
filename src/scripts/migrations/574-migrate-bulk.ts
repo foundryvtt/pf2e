@@ -1,4 +1,4 @@
-import { calculateCarriedArmorBulk, fixWeight } from '../item/bulk';
+import { calculateCarriedArmorBulk, fixWeight } from '@item/bulk';
 import { MigrationBase } from './base';
 
 export class Migration574MigrateBulk extends MigrationBase {

@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { toNumber } from '../utils';
+import { toNumber } from '../../module/utils';
 
 export class Migration582AddPotencyRune extends MigrationBase {
     static version = 0.582;

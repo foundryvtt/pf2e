@@ -1,7 +1,7 @@
 import { PF2EActor, UserPF2e } from './actor/actor';
 import { PF2EItem } from './item/item';
 import { MigrationRunnerBase } from './migration-runner-base';
-import { MigrationBase } from './migrations/base';
+import { MigrationBase } from '../scripts/migrations/base';
 
 export class MigrationRunner extends MigrationRunnerBase {
     latestVersion: number;
