@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": 4,
+                "mod": "+4",
                 "value": 18
             },
             "wis": {
@@ -36,7 +36,7 @@
         "attributes": {
             "ac": {
                 "check": 0,
-                "details": "21 with shield raised",
+                "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
@@ -79,6 +79,7 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
+                "breakdown": "",
                 "item": 0,
                 "rank": 0,
                 "value": 7
@@ -103,7 +104,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": 20
+                "value": "20 feet"
             }
         },
         "currency": {
@@ -448,6 +449,11 @@
         "pf2e": {
             "editNPC": {
                 "value": false
+            },
+            "rollOptions": {
+                "all": {
+                    "target:flatFooted": false
+                }
             }
         },
         "pf2e_updatednpcsheet": {
@@ -469,7 +475,7 @@
                 },
                 "bonus": {
                     "total": 9,
-                    "value": "9"
+                    "value": 9
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -614,7 +620,7 @@
                 },
                 "bonus": {
                     "total": 6,
-                    "value": "6"
+                    "value": 6
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -1011,7 +1017,7 @@
             "type": "lore"
         },
         {
-            "_id": "e4bU6eby3m8LqZe9",
+            "_id": "HlQMJcQRRF6R23rg",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1025,7 +1031,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the guard's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The guard attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the guard disrupts that action. This Strike doesn't count toward the guard's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the guard's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee @Compendium[pf2e.actionspf2e.Strike]{Strike} against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the guard disrupts that action. This Strike doesn't count toward the guard's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1070,7 +1076,7 @@
             "type": "action"
         },
         {
-            "_id": "4x5SDv0fEbe7ib2J",
+            "_id": "DHcURmARutdwLKmt",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1129,7 +1135,7 @@
             "type": "action"
         },
         {
-            "_id": "aYboyoOmnX8O5euG",
+            "_id": "bol3nFbFk0gXhnBT",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1332,7 +1338,7 @@
             "type": "weapon"
         },
         {
-            "_id": "5bpNl1EEgykq6GnP",
+            "_id": "Kf9w0S1CWT0gSsVo",
             "data": {
                 "armor": {
                     "label": "AC Bonus",
@@ -1353,7 +1359,7 @@
                 "check": {
                     "label": "Check Penalty",
                     "type": "String",
-                    "value": "-3"
+                    "value": -3
                 },
                 "collapsed": {
                     "value": false
@@ -1371,7 +1377,7 @@
                 "dex": {
                     "label": "Dex Modifier Cap",
                     "type": "String",
-                    "value": "0"
+                    "value": 0
                 },
                 "equipped": {
                     "label": "Equipped",
@@ -1483,6 +1489,18 @@
                             ],
                             "field": "actor|data.abilities.str.value"
                         }
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Bulwark",
+                        "predicate": {
+                            "all": [
+                                "damaging-effect"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "type": "ability",
+                        "value": 3
                     }
                 ],
                 "size": {
@@ -1505,7 +1523,7 @@
                 "strength": {
                     "label": "Required Strength",
                     "type": "String",
-                    "value": "18"
+                    "value": 18
                 },
                 "traits": {
                     "custom": "",
@@ -1539,7 +1557,7 @@
             "type": "armor"
         },
         {
-            "_id": "DmZWbpkKLOknENhs",
+            "_id": "86j5EDUeEkpLxXZx",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1743,7 +1761,7 @@
             "type": "weapon"
         },
         {
-            "_id": "dD2Kq3dDJM866n81",
+            "_id": "1nTnA04mVDd329bd",
             "data": {
                 "armor": {
                     "label": "AC Bonus",

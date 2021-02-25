@@ -187,8 +187,8 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     /**
      * Toggle the pause state of the game
      * Trigger the `pauseGame` Hook when the paused state changes
-     * @param pause	The new pause state
-     * @param push	Push the pause state change to other connected clients?
+     * @param pause The new pause state
+     * @param push  Push the pause state change to other connected clients?
      */
     togglePause(pause: boolean, push?: boolean): void;
 

@@ -62,7 +62,7 @@ declare abstract class DiceTerm {
      */
     FLAVOR_TEXT_REGEX: string;
 
-    constructor({number, faces, modifiers, options}: DiceTermConstructorParams);
+    constructor({ number, faces, modifiers, options }: DiceTermConstructorParams);
 
     /**
      * Return the dice expression portion of the full term formula, excluding any flavor text.
@@ -103,14 +103,14 @@ declare abstract class DiceTerm {
      * @param [maximize] Apply the maximum possible result for each roll.
      * @returns The evaluated dice term
      */
-    evaluate({minimize, maximize}?: {minimize?: boolean, maximize?: boolean}): DiceTerm;
+    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): DiceTerm;
 
     /**
      * Roll the DiceTerm by mapping a random uniform draw against the faces of the dice term.
      * @param [minimize]    Apply the minimum possible result instead of a random result.
      * @param [maximize]    Apply the maximum possible result instead of a random result.
      */
-    roll({minimize, maximize}?: {minimize?: boolean, maximize?: boolean}): Record<string, DiceTerm>;
+    roll({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Record<string, DiceTerm>;
 
     /**
      * Return a string used as the label for each rolled result
@@ -150,7 +150,7 @@ declare abstract class DiceTerm {
     private static _keepOrDrop(
         results: Record<string, unknown>[],
         number: number,
-        {keep, highest}?: { keep?: boolean, highest?: boolean }
+        { keep, highest }?: { keep?: boolean; highest?: boolean },
     ): Record<string, unknown>[];
 
     /**
@@ -160,7 +160,7 @@ declare abstract class DiceTerm {
         results: Record<string, unknown>[],
         comparison: ComparisonOperatorString,
         target: number,
-        { flagSuccess, flagFailure }?: { flagSuccess?: boolean, flagFailure?: boolean}
+        { flagSuccess, flagFailure }?: { flagSuccess?: boolean; flagFailure?: boolean },
     ): void;
 
     /**
@@ -170,7 +170,7 @@ declare abstract class DiceTerm {
         results: Record<string, unknown>[],
         comparison: ComparisonOperatorString,
         target: number,
-        { deductFailure, invertFailure }?: { deductFailure?: boolean, invertFailure?: boolean }
+        { deductFailure, invertFailure }?: { deductFailure?: boolean; invertFailure?: boolean },
     ): void;
 
     /* -------------------------------------------- */

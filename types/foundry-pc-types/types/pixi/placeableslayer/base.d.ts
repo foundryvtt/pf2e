@@ -389,7 +389,7 @@ declare abstract class PlaceablesLayer<PlaceableType extends PlaceableObject = P
      */
     protected _onMouseDown(
         event: PIXI.interaction.InteractionEvent,
-        { isRuler, isCtrlRuler, isSelect }?: { isRuler?: boolean, isCtrlRuler?: boolean, isSelect?: boolean }
+        { isRuler, isCtrlRuler, isSelect }?: { isRuler?: boolean; isCtrlRuler?: boolean; isSelect?: boolean },
     ): void;
 
     /**

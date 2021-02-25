@@ -54,7 +54,9 @@ declare class ChatLog extends SidebarTab {
     /* -------------------------------------------- */
 
     /** @override */
-    getData(options?: { stream?: boolean }): {
+    getData(options?: {
+        stream?: boolean;
+    }): {
         user: User;
         rollMode: number;
         rollModes: number[];
@@ -84,7 +86,7 @@ declare class ChatLog extends SidebarTab {
      * @param messageId The ChatMessage entity to remove from the log
      * @param [deleteAll] Is this part of a flush operation to delete all messages?
      */
-    deleteMessage(messageId: string, { deleteAll }?: { deleteAll?: boolean}): void;
+    deleteMessage(messageId: string, { deleteAll }?: { deleteAll?: boolean }): void;
 
     /**
      * Trigger a notification that alerts the user visually and audibly that a new chat log message has been posted

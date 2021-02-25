@@ -21,8 +21,8 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
      */
     static registerSheet<S extends ItemSheet>(
         scope: string,
-        sheetClass: new(object: S['item'], options?: FormApplicationOptions) => S,
-        options: { types: string[]; makeDefault?: boolean; },
+        sheetClass: new (object: S['item'], options?: FormApplicationOptions) => S,
+        options: { types: string[]; makeDefault?: boolean },
     ): void;
 
     /**
@@ -34,7 +34,7 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
     /**
      * Return an Array of currently registered sheet classes for this Entity type
      */
-    static get registeredSheets(): (typeof ItemSheet)[];
+    static get registeredSheets(): typeof ItemSheet[];
 }
 
 declare interface BaseItemData extends BaseEntityData {

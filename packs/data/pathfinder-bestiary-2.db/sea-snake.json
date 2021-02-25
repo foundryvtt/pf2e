@@ -79,6 +79,7 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
+                "breakdown": "",
                 "item": 0,
                 "rank": 0,
                 "value": 5
@@ -108,7 +109,7 @@
                     }
                 ],
                 "special": "",
-                "value": 15
+                "value": "15 feet"
             }
         },
         "currency": {
@@ -410,6 +411,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -441,7 +445,21 @@
     },
     "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            },
+            "rollOptions": {
+                "all": {
+                    "target:flatFooted": false
+                }
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -459,7 +477,7 @@
                 },
                 "bonus": {
                     "total": 7,
-                    "value": "7"
+                    "value": 7
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -617,6 +635,12 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -660,7 +684,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the sea snake's reach uses a move action</p>\n<p><strong>Effect</strong> The sea snake makes a bite Strike against the attacker.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the sea snake's reach uses a move action</p>\n<p><strong>Effect</strong> The sea snake makes a bite @Compendium[pf2e.actionspf2e.Strike]{Strike} against the attacker.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -720,7 +744,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 16 Fortitude</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage (1 round)&nbsp;</p>\n<p><strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 16 Fortitude</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -792,7 +816,7 @@
                         "label": "To Swim",
                         "predicate": {
                             "all": [
-                                "swim"
+                                "swimming"
                             ]
                         },
                         "selector": "athletics",
@@ -812,7 +836,7 @@
                 "variants": {
                     "0": {
                         "label": "+6 to Swim",
-                        "options": "swim"
+                        "options": "swimming"
                     }
                 }
             },

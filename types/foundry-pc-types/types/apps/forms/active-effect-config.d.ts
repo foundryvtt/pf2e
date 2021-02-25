@@ -4,26 +4,29 @@ declare interface ActiveEffectConfigOptions extends FormApplicationOptions {
     template: string;
     width: number;
     height: string;
-    tabs: [{
-        navSelector: '.tabs';
-        contentSelector: 'form'
-        initial: 'details';
-    }]
+    tabs: [
+        {
+            navSelector: '.tabs';
+            contentSelector: 'form';
+            initial: 'details';
+        },
+    ];
 }
 
 declare class ActiveEffectConfig extends FormApplication<ActiveEffect> {
-
     /** @override */
     static get defaultOptions(): ActiveEffectConfigOptions;
 
     /** @override */
-    getData(options?: FormApplicationOptions): FormApplicationData<ActiveEffect> & {
+    getData(
+        options?: FormApplicationOptions,
+    ): FormApplicationData<ActiveEffect> & {
         effect: ActiveEffectConfig['object']['data'];
         isActorEffect: boolean;
         isItemEffect: boolean;
         submitText: string;
         modes: Record<number, string>;
-    }
+    };
 
     /**
      * Provide centralized handling of mouse clicks on control buttons.
@@ -40,6 +43,7 @@ declare class ActiveEffectConfig extends FormApplication<ActiveEffect> {
 
     /** @override */
     protected _updateObject(
-        event: Event, formData: Record<string, unknown> & { changes?: ActiveEffectData['changes'] }
+        event: Event,
+        formData: Record<string, unknown> & { changes?: ActiveEffectData['changes'] },
     ): ReturnType<ActiveEffect['update']>;
 }
