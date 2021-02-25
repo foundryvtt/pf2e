@@ -124,10 +124,10 @@ if (token === undefined) {
         content: `
 <div>Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.</div>
 <hr/>
-<form>
 ${
     chirurgeon || naturalMedicine
         ? `
+<form>
 <div class="form-group">
 <label>Treat Wounds Skill:</label>
 
@@ -136,11 +136,13 @@ ${
 
 ${chirurgeon ? `<option value="cra">Crafting</option>` : ``}
 ${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
+</select>
+</div>
+</form>
 `
         : ``
 }
-</select>
-</div>
+<form>
 <div class="form-group">
 <label>Medicine DC:</label>
 <select id="dc-type" name="dc-type">
@@ -150,26 +152,29 @@ ${naturalMedicine ? `<option value="nat">Nature</option>` : ``}
 <option value="4">Legendary DC 40, +50 Healing</option>
 </select>
 </div>
+</form>
+<form>
 <div class="form-group">
 <label>DC Modifier:</label>
 <input id="modifier" name="modifier" type="number"/>
 </div>
+</form>
 ${
     CheckFeat('risky-surgery')
-        ? `<div class="form-group">
+        ? `<form><div class="form-group">
 <label>Risky Surgery</label>
 <input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
-</div>`
+</div></form>`
         : ``
 }
 ${
     game.user.isGM
-        ? `<div class="form-group">
-<label>strict rules</label>
+        ? `<form><div class="form-group">
+<label>Allow higher DC from alternate skills?</label>
 <input type="checkbox" id="strict_rules" name="strict_rules"` +
           (game.settings.get('pf2e', 'RAI.TreatWoundsAltSkills') ? ` checked` : ``) +
           `></input>
-</div>`
+</div></form>`
         : ``
 }
 </form>
