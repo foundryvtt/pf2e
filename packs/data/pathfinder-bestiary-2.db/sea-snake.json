@@ -60,11 +60,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "15",
+                "max": 15,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "15"
+                "value": 15
             },
             "init": {
                 "bonus": 0,
@@ -155,7 +155,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "0"
+                "value": 0
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=807",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 14",
@@ -411,6 +411,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -440,8 +443,18 @@
             }
         }
     },
+    "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -452,8 +465,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "sea snake venom"
+                        "Sea Snake Venom"
                     ]
                 },
                 "bonus": {
@@ -476,12 +490,12 @@
                     "damageType": "piercing",
                     "die": "1d8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d8",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -498,6 +512,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -556,9 +573,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -578,6 +597,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -609,10 +629,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -629,6 +651,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deep Breath",
@@ -642,7 +665,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -650,7 +673,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature within the sea snake's reach uses a move action; <b>Effect</b> The sea snake makes a bite Strike against the attacker."
+                    "value": "<p><strong>Trigger</strong> A creature within the sea snake's reach uses a move action</p>\n<p><strong>Effect</strong> The sea snake makes a bite @Compendium[pf2e.actionspf2e.Strike]{Strike} against the attacker.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -658,10 +681,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -680,9 +705,10 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Lash Out ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Lash Out",
             "sort": 300000,
             "type": "action"
         },
@@ -701,7 +727,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 16 Fortitude; <b>Maximum Duration</b> 4 rounds; <b>Stage 1</b> [[/r 1d6 # poison damage]] poison damage (1 round); <b>Stage 2</b> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)"
+                    "value": "<p><strong>Saving Throw</strong> DC 16 Fortitude</p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -709,10 +735,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -731,6 +759,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Sea Snake Venom",
@@ -758,6 +787,20 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "swimming"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -766,8 +809,15 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+6 to Swim",
+                        "options": "swimming"
+                    }
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -795,6 +845,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -805,6 +857,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -832,6 +885,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -842,6 +897,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
@@ -854,7 +910,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "6EX8nxH3zRotLRJG",
         "actorLink": false,
         "bar1": {
@@ -873,6 +928,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Sea Snake",
         "randomImg": false,
