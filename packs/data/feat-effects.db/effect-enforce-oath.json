@@ -1,0 +1,142 @@
+{
+    "_id": "LF8xzzFsFJKxejqv",
+    "data": {
+        "description": {
+            "value": "<p>Granted by LINK.</p>\n<p>&nbsp;</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 2
+        },
+        "rarity": {
+            "value": "common"
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is subject of your Enforce Oath",
+                "property": "flags.pf2e.rollOptions.all.enforce-oath"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "oath-target",
+                "predicate": {
+                    "all": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "oath-target",
+                "predicate": {
+                    "all": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "oath-target",
+                "predicate": {
+                    "all": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "attack",
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "not-oath-target",
+                "predicate": {
+                    "not": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "not-oath-target",
+                "predicate": {
+                    "not": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "saving-throw",
+                    "all"
+                ],
+                "selector": "saving-throw",
+                "type": "status",
+                "value": -1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "name": "not-oath-target",
+                "predicate": {
+                    "not": [
+                        "enforce-oath"
+                    ]
+                },
+                "roll-options": [
+                    "attack",
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/abyssal-pact.jpg",
+    "name": "Effect: Enforce Oath",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}
