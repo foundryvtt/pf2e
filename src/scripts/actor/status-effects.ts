@@ -377,7 +377,7 @@ export class PF2eStatusEffects {
      * Updating all tokens on the canvas with the actors status effects.
      */
     static _hookOnCanvasReady() {
-        const scene = canvas.scene;
+        const scene = canvas.scene!;
 
         for (const tokenData of scene.data.tokens) {
             const token = canvas.tokens.get(tokenData._id);

@@ -71,7 +71,7 @@ import './types/framework/entity';
 import './types/framework/entity-collection';
 
 import './types/framework/entities/actor';
-import './types/framework/entities/chatmessage';
+import './types/framework/entities/chat-message';
 import './types/framework/entities/combat';
 import './types/framework/entities/folder';
 import './types/framework/entities/item';
