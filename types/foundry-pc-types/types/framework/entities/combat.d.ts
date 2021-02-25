@@ -1,9 +1,7 @@
 /**
  * The Collection of Combat entities
  */
-declare class CombatEncounters<ActorType extends Actor> extends Collection<Combat<ActorType>> {
-    entities: Combat<ActorType>[];
-
+declare class CombatEncounters<ActorType extends Actor> extends EntityCollection<Combat<ActorType>> {
     /**
      * The currently active Combat instance
      */
@@ -15,14 +13,17 @@ declare class CombatEncounters<ActorType extends Actor> extends Collection<Comba
     combats: Combat<ActorType>[];
 
     /**
-     * A reference to the world combat configuration settings
+     * Provide the settings object which configures the Combat entity
      */
-    settings: any;
+    get settings(): {};
 
     /**
      * The currently viewed Combat encounter
      */
     viewed: Combat<ActorType>;
+
+    /** @override */
+    get entity(): 'Folder';
 }
 
 declare interface CombatantData<ActorType extends Actor> {
@@ -50,13 +51,21 @@ declare interface CombatData<ActorType extends Actor = Actor> extends BaseEntity
     turn: number;
 }
 
+declare interface CombatClassConfig extends EntityClassConfig<Combat<Actor>> {
+    collection: CombatEncounters<Actor>;
+    embeddedEntities: {
+        Combatant: 'combatants';
+    };
+}
+
 /**
  * The Combat Entity defines a particular combat encounter which can occur within the game session
  * Combat instances belong to the CombatEncounters collection
  */
 declare class Combat<ActorType extends Actor> extends Entity {
-    /** @override */
     data: CombatData<ActorType>;
+    _data: CombatData<ActorType>;
+
     /**
      * Get the data object for the Combatant who has the current turn
      */
@@ -78,11 +87,6 @@ declare class Combat<ActorType extends Actor> extends Entity {
     scene: Scene;
 
     /**
-     * Return the object of settings which modify the Combat Tracker behavior
-     */
-    settings: any;
-
-    /**
      * Has this combat encounter been started?
      */
     started: boolean;
@@ -96,6 +100,9 @@ declare class Combat<ActorType extends Actor> extends Entity {
      * Track the sorted turn order of this combat encounter
      */
     turns: any[];
+
+    /** @override */
+    static get config(): CombatClassConfig;
 
     /**
      * Set the current Combat encounter as active within the Scene. Deactivate all other Combat encounters within the viewed Scene and set this one as active
