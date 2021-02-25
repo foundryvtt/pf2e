@@ -7,6 +7,14 @@ declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseE
     effects: ActiveEffectData[];
 }
 
+declare interface ActorClassConfig extends EntityClassConfig<Actor> {
+    collection: Actors;
+    embeddedEntities: {
+        ActiveEffect: 'effects';
+        OwnedItem: 'items';
+    };
+}
+
 /**
  * The Collection of Actor entities.
  *
@@ -108,14 +116,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     protected _tokenImages: string[] | null;
 
     /** @override */
-    static get config(): {
-        baseEntity: Actor;
-        collection: Actors;
-        embeddedEntities: {
-            ActiveEffect: 'effects';
-            OwnedItem: 'items';
-        };
-    };
+    static get config(): ActorClassConfig;
 
     /* -------------------------------------------- */
     /*  Data Preparation                            */
@@ -257,6 +258,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     getOwnedItem(itemId: string): ItemType | null;
 
+    // Signature overload
+    getEmbeddedEntity(collection: 'OwnedItem', id: string, { strict }?: { strict?: boolean }): ItemType['data'];
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
+    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+
     /**
      * Create a new item owned by this Actor.
      * @param itemData              Data for the newly owned item
@@ -283,7 +289,10 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * @param options   Item update options
      * @return          A Promise resolving to the updated Item object
      */
-    updateOwnedItem(itemData: EntityUpdateData, options?: EntityUpdateOptions): Promise<ItemType['data']>;
+    updateOwnedItem(
+        itemData: EntityUpdateData<ItemType['data']>,
+        options?: EntityUpdateOptions,
+    ): Promise<ItemType['data']>;
 
     /**
      * Delete an owned item by its id. This redirects its arguments to the deleteEmbeddedEntity method.

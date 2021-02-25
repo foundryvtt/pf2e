@@ -98,6 +98,12 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'counteract-check',
 ]);
 
+interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
+    pf2e?: {
+        ready?: boolean;
+    };
+}
+
 /**
  * @category Actor
  */
@@ -105,8 +111,9 @@ export class PF2EActor extends Actor<PF2EItem> {
     data!: ActorDataPF2e;
     _data!: ActorDataPF2e;
 
-    constructor(data: ActorDataPF2e, options?: any) {
-        if (options?.pf2e?.ready) {
+    constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
+        if (options.pf2e?.ready) {
+            delete options.pf2e.ready;
             super(data, options);
         } else {
             try {
@@ -121,9 +128,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
-        const [typeName] = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(
-            ([_key, cls]) => cls.name === this.name,
-        );
+        const typeName = Object.values(CONFIG.PF2E.Actor.entityClasses).find((cls) => cls.name === this.name);
         return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 

@@ -16,6 +16,13 @@ declare class Playlists extends EntityCollection<Playlist> {
     protected _onUpdateScene(scene: Scene, data: object, options: object): void;
 }
 
+declare interface PlaylistClassConfig extends EntityClassConfig<Playlist> {
+    collection: Playlists;
+    embeddedEntities: {
+        PlaylistSound: 'sounds';
+    };
+}
+
 declare class Playlist extends Entity {
     /**
      * Each sound which is played within the Playlist has a created Howl instance.
@@ -29,11 +36,7 @@ declare class Playlist extends Entity {
     playbackOrder: any[];
 
     /** @override */
-    static get config(): {
-        baseEntity: Playlist;
-        collection: Playlists;
-        embeddedEntities: { PlaylistSound: string };
-    };
+    static get config(): PlaylistClassConfig;
 
     /**
      * Set up the Howl object by calling the core AudioHelper utility

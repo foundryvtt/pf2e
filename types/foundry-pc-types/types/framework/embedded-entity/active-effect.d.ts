@@ -162,7 +162,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param options Configuration options which modify the request.
      * @return The updated ActiveEffect data.
      */
-    update(data: EntityUpdateData, options?: EntityUpdateOptions): Promise<ActiveEffectData>;
+    update(data: Record<string, unknown>, options?: EntityUpdateOptions): Promise<ActiveEffectData>;
 
     /**
      * A convenience method for deleting an ActiveEffect instance in an parent Actor or Item.

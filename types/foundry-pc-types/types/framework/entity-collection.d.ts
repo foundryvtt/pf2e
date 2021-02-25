@@ -67,7 +67,7 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
      * and not the base implementation of that entity type.
      */
     get object(): {
-        new (data: E['data'], options?: {}): E;
+        new (...args: any[]): E;
         create(data: Partial<E['data']>, options?: {}): Promise<E>;
         entity: string;
     };
@@ -99,7 +99,7 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
     importFromCollection(
         collection: string,
         entryId: string,
-        updateData?: EntityUpdateData | {},
+        updateData?: EntityUpdateData<E['data']> | {},
         options?: EntityCreateOptions,
     ): Promise<E | null>;
 
@@ -119,7 +119,9 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
      * @return An array of updated data once the operation is complete
      */
     updateAll(
-        transformation: (updateData: EntityUpdateData) => DeepPartial<E['data']> | EntityUpdateData,
+        transformation: (
+            updateData: EntityUpdateData<E['data']>,
+        ) => DeepPartial<E['data']> | EntityUpdateData<E['data']>,
         condition?: (entity: E) => boolean,
         options?: EntityUpdateOptions,
     ): Promise<(E['data'] | null)[]>;

@@ -43,6 +43,13 @@ declare interface BaseItemData extends BaseEntityData {
     effects: ActiveEffectData[];
 }
 
+declare interface ItemClassConfig extends EntityClassConfig<Item> {
+    collection: Items;
+    embeddedEntities: {
+        ActiveEffect: 'effects';
+    };
+}
+
 declare interface ItemConstructorOptions<A extends Actor> extends EntityConstructorOptions {
     actor?: A;
 }
@@ -60,18 +67,8 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
     /** @overload */
     constructor(data: BaseEntityData, options?: ItemConstructorOptions<ActorType>);
 
-    /**
-     * Configure the attributes of the ChatMessage Entity
-     *
-     * @returns baseEntity          The parent class which directly inherits from the Entity interface.
-     * @returns collection          The Collection class to which Entities of this type belong.
-     * @returns embeddedEntities    The names of any Embedded Entities within the Entity data structure.
-     */
-    static get config(): {
-        baseEntity: Item;
-        collection: Items;
-        embeddedEntities: { ActiveEffect: 'effects' };
-    };
+    /** @override */
+    static get config(): ItemClassConfig;
 
     /** @override */
     prepareData(): void;
@@ -128,4 +125,8 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
         itemData: ItemCreateData<I>,
         actor: A,
     ): Promise<I>;
+
+    // Signature overload
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
+    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
 }
