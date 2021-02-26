@@ -23,7 +23,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 initial: 'description',
             },
         ];
-        options.resizable = false;
+        options.resizable = true;
         options.submitOnChange = true;
 
         return options;
