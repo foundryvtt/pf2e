@@ -26,13 +26,9 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
-import * as enJSON from '../../static/lang/en.json';
+import { PF2eCombatTracker } from '../module/system/combat-tracker';
 
 export const PF2ECONFIG = {
-    // Localization keys and English translation values
-    translations: enJSON.PF2E,
-
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
@@ -2212,11 +2208,6 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descrip
 
 export interface ConfigPF2e extends Config<PF2EActor, PF2EItem> {
     PF2E: typeof PF2ECONFIG;
-    Combat: Config<PF2EActor, PF2EItem>['Combat'] & {
-        initiative: {
-            decimals: number;
-        };
-    };
     time: {
         roundTime: number;
     };

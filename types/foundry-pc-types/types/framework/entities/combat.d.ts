@@ -169,6 +169,15 @@ declare class Combat<ActorType extends Actor> extends Entity {
     rollAll(...args: Parameters<this['rollInitiative']>): Promise<Combat<ActorType>>;
 
     /**
+     * Acquire the default dice formula which should be used to roll initiative for a particular combatant.
+     * Modules or systems could choose to override or extend this to accommodate special situations.
+     * @param combatant Data for the specific combatant for whom to acquire an initiative formula. This
+     *                                is not used by default, but provided to give flexibility for modules and systems.
+     * @return The initiative formula to use for this combatant.
+     */
+    protected _getInitiativeFormula(combatant: CombatantData<ActorType>): string;
+
+    /**
      * Roll initiative for one or multiple Combatants within the Combat entity
      * @param ids A Combatant id or Array of ids for which to roll
      * @param formula A non-default initiative formula to roll. Otherwise the system default is used.
