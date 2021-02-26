@@ -36,6 +36,10 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
         entityClass: { new (data: CombatData, options?: object): Combat<ActorType> };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
+        initiative: {
+            decimals: number;
+            formula: ((combatant: CombatantData<ActorType>) => string) | null;
+        };
     };
 
     /**
