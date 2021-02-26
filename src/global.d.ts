@@ -46,7 +46,11 @@ declare interface Window {
     PF2CheckModifier: typeof import('./module/modifiers').PF2CheckModifier;
     PF2Check: typeof import('./module/system/rolls').PF2Check;
 }
-declare const game: Game<import('./module/actor/actor').PF2EActor, import('./module/item/item').PF2EItem>;
+declare const game: Game<
+    import('./module/actor/actor').PF2EActor,
+    import('./module/item/item').PF2EItem,
+    import('./module/combat').PF2ECombat
+>;
 declare const CONFIG: import('./scripts/config').ConfigPF2e;
 declare const canvas: Canvas<import('./module/actor/actor').PF2EActor>;
 declare let PF2e: import('./module/pf2e-system').PF2eSystem;
