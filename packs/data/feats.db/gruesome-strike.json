@@ -19,17 +19,148 @@
             "value": "class"
         },
         "level": {
-            "value": "12"
+            "value": 12
         },
-        "prerequisites": {
-            "value": [
-                "tenets of evil",
-                "champion's reaction that grants extra damage with your Strikes"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "tenets of evil",
+            "champion's reaction that grants extra damage with your Strikes"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.damage-roll.gruesome-strike"
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Gruesome Strike",
+                "name": "gruesome-ic-neg",
+                "predicate": {
+                    "all": [
+                        "gruesome-strike"
+                    ],
+                    "any": [
+                        "iron-command-negative",
+                        "selfish-shield-negative"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Gruesome Strike",
+                "name": "gruesome-ic-evil",
+                "predicate": {
+                    "all": [
+                        "gruesome-strike"
+                    ],
+                    "any": [
+                        "iron-command-evil",
+                        "selfish-shield-evil"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Gruesome Strike",
+                "name": "gruesome-ds-neg",
+                "predicate": {
+                    "all": [
+                        "destructive-vengeance-negative",
+                        "gruesome-strike"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 2
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 4
+                        },
+                        {
+                            "start": 16,
+                            "value": 6
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Gruesome Strike",
+                "name": "gruesome-ds-evil",
+                "predicate": {
+                    "all": [
+                        "destructive-vengeance-evil",
+                        "gruesome-strike"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 2
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 4
+                        },
+                        {
+                            "start": 16,
+                            "value": 6
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +174,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Gruesome Strike",

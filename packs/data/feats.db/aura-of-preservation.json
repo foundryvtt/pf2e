@@ -13,14 +13,15 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your aura protects against the twisting powers of aberrations. You and all allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>\n<p>You also gain a +1 status bonus to Fortitude saves against morph or polymorph effects and Will saves against mental effects; this bonus increases to +2 against aberrations' morph, polymorph, or mental effects.</p>"
+            "value": "<p>Your aura protects against the twisting powers of aberrations. You and all allies within 15 feet gain a +1 status bonus to Fortitude and Will saves against effects from aberrations.</p>\n<p>You also gain a +1 status bonus to Fortitude saves against morph or polymorph effects and Will saves against mental effects; this bonus increases to +2 against aberrations' morph, polymorph, or mental effects.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Aura of Preservation]{Effect: Aura of Preservation}</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "14"
+            "value": 14
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "Esoteric Oath"
@@ -29,6 +30,83 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. aberrations",
+                "predicate": {
+                    "all": [
+                        "target:aberration"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. aberrations",
+                "predicate": {
+                    "all": [
+                        "target:aberration"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. morph & polymorph",
+                "predicate": {
+                    "any": [
+                        "morph",
+                        "polymorph"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. mental",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. morph & polymorph from aberrations",
+                "predicate": {
+                    "all": [
+                        "mental",
+                        "target:aberration"
+                    ]
+                },
+                "selector": "fortitude",
+                "type": "status",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Vs. mental from aberrations",
+                "predicate": {
+                    "all": [
+                        "mental",
+                        "target:aberration"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -41,6 +119,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Aura Of Preservation",
