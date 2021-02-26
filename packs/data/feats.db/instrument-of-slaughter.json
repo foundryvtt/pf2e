@@ -19,17 +19,33 @@
             "value": "class"
         },
         "level": {
-            "value": "16"
+            "value": 16
         },
-        "prerequisites": {
-            "value": [
-                "divine ally (blade)",
-                "tenets of evil"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "divine ally (blade)",
+            "tenets of evil"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "destructive-vengeance-negative",
+                        "destructive-vengeance-evil",
+                        "selfish-shield-negative",
+                        "selfish-shield-evil",
+                        "iron-command-negative",
+                        "iron-command-evil"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you critically hit an enemy with the weapon inhabited by your blade ally while dealing extra damage from your champion's reaction, the target takes persistent bleed damage equal to two of the weapon's damage dice.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -43,6 +59,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Instrument Of Slaughter",

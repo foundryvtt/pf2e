@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>You call upon divine power and make a weapon or unarmed Strike against a foe you have witnessed harming an ally or innocent. The Strike deals two extra weapon damage dice if the target of your Strike is evil. Whether or not the target is evil, you can convert all the physical damage from the attack into good damage, and if you are a paladin, the Strike applies all effects that normally apply on a Retributive Strike (such as divine smite).</p>"
+            "value": "<p>You call upon divine power and make a weapon or unarmed Strike against a foe you have witnessed harming an ally or innocent.</p>\n<p>The Strike deals two extra weapon damage dice if the target of your Strike is evil.</p>\n<p>Whether or not the target is evil, you can convert all the physical damage from the attack into good damage, and if you are a paladin, the Strike applies all effects that normally apply on a Retributive Strike (such as divine smite).</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -31,12 +31,30 @@
             "type": "String",
             "value": 12
         },
+        "location": "",
         "prerequisites": [
             "paladin cause"
         ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Blade of Justice",
+                "property": "flags.pf2e.rollOptions.damage-roll.blade-justice"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "blade-justice"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
