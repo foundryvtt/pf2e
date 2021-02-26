@@ -46,6 +46,9 @@ export class PF2ECharacter extends PF2EActor {
     _data!: CharacterData;
 
     /** @override */
+    static readonly type = 'character';
+
+    /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
     }

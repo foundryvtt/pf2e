@@ -11,6 +11,9 @@ export class PF2EFamiliar extends PF2EActor {
     data!: FamiliarData;
     _data!: FamiliarData;
 
+    /** @override */
+    static readonly type = 'familiar';
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
