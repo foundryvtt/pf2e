@@ -22,7 +22,7 @@ import { PF2eStatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
 import * as MonkeyPatch from '../🐵🩹';
-import { initiativeFormula } from '../../module/combat';
+import { PF2ECombat } from '../../module/combat';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -30,9 +30,11 @@ export function listen(): void {
 
         CONFIG.PF2E = PF2ECONFIG;
 
-        // Assign actor/item classes.
+        // Assign document classes.
         CONFIG.Item.entityClass = PF2EItem;
         CONFIG.Actor.entityClass = PF2EActor;
+        CONFIG.Combat.entityClass = PF2ECombat;
+
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
         // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
@@ -61,8 +63,6 @@ export function listen(): void {
         registerActors();
         registerSheets();
         registerHandlebarsHelpers();
-
-        CONFIG.Combat.initiative.formula = initiativeFormula;
 
         // expose a few things to the global world, so that other modules can use our stuff
         // instead of being locked in our world after we started building with webpack

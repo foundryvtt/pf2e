@@ -26,8 +26,7 @@ declare class CombatEncounters<ActorType extends Actor> extends EntityCollection
     get entity(): 'Folder';
 }
 
-declare interface CombatantData<ActorType extends Actor> {
-    _id: string;
+declare interface CombatantData<ActorType extends Actor> extends EmbeddedEntityData {
     name: string;
     actor: ActorType;
     tokenId: string;
@@ -39,6 +38,7 @@ declare interface CombatantData<ActorType extends Actor> {
     players: User<ActorType>[];
     resource: number;
     visible: boolean;
+    users: User[];
 }
 
 declare interface CombatData<ActorType extends Actor = Actor> extends BaseEntityData {

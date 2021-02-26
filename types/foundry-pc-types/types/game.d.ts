@@ -18,7 +18,11 @@ declare const ui: {
  * @param sessionId The ID of the currently active client session retrieved from the browser cookie
  * @param socket    The open web-socket which should be used to transact game-state data
  */
-declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item> {
+declare class Game<
+    ActorType extends Actor = Actor,
+    ItemType extends Item = Item,
+    CombatType extends Combat<ActorType> = Combat<ActorType>
+> {
     /**
      * The named view which is currently active.
      * Game views include: join, setup, players, license, game, stream
@@ -172,7 +176,7 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     /**
      * A convenience accessor for the currently active Combat encounter
      */
-    get combat(): Combat<ActorType>;
+    get combat(): CombatType;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused

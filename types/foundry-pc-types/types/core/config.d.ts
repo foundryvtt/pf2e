@@ -33,7 +33,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Combat entity class
      */
     Combat: {
-        entityClass: { new (data: CombatData, options?: object): Combat<ActorType> };
+        entityClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
         initiative: {
