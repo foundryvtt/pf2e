@@ -115,7 +115,13 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * A reference to the Entity class object contained within this Compendium pack
      */
-    get cls(): typeof Actor | typeof Item | typeof JournalEntry | typeof Macro | typeof RollTable;
+    get cls(): {
+        new(...args: any[]): CompendiumEntity | CompendiumEntity[];
+        create(
+            data: Partial<EntityType['data']> | Partial<EntityType['data']>[],
+            options?: EntityCreateOptions
+        ): Promise<CompendiumEntity | CompendiumEntity[]>;
+    }
 
     /* ----------------------------------------- */
     /*  Methods
@@ -170,11 +176,10 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
 
     /**
      * Fully import the contents of a Compendium pack into a World folder.
-     * @param {string|null} [folderId]  An existing Folder _id to use.
-     * @param {string} [folderName]     A new Folder name to create.
-     * @return {Promise<*>}
+     * @param An existing Folder _id to use.
+     * @param [folderName] A new Folder name to create.
      */
-    importAll({ folderId, folderName }?: { folderId?: string | null; folderName?: string }): Promise<Entity[]>;
+    importAll({ folderId, folderName }?: { folderId?: string | null; folderName?: string }): Promise<CompendiumEntity | CompendiumEntity[]>;
 
     /**
      * Cast entry data to an Entity class
