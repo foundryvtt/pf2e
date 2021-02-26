@@ -1,15 +1,15 @@
-import { PF2EItem } from './module/item/item';
-import { PF2EActor } from './module/actor/actor';
-import { PF2ENPC } from './module/actor/npc';
-import { PF2Check } from './module/system/rolls';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { EffectPanel } from './module/system/effect-panel';
-import { ItemData } from '@item/data-definitions';
 import DOMPurify from 'dompurify';
+import { PF2Check } from './module/system/rolls';
+import { EffectPanel } from './module/system/effect-panel';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
+import { ItemData } from '@item/data-definitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { PF2EItem } from './module/item/item';
+import { PF2EActor } from './module/actor/actor';
+import { PF2ENPC } from './module/actor/npc';
 
 import './styles/pf2e.scss';
 
