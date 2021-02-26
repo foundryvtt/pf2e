@@ -116,12 +116,12 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * A reference to the Entity class object contained within this Compendium pack
      */
     get cls(): {
-        new(...args: any[]): CompendiumEntity | CompendiumEntity[];
+        new (...args: any[]): CompendiumEntity | CompendiumEntity[];
         create(
             data: Partial<EntityType['data']> | Partial<EntityType['data']>[],
-            options?: EntityCreateOptions
+            options?: EntityCreateOptions,
         ): Promise<CompendiumEntity | CompendiumEntity[]>;
-    }
+    };
 
     /* ----------------------------------------- */
     /*  Methods
@@ -179,7 +179,13 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * @param An existing Folder _id to use.
      * @param [folderName] A new Folder name to create.
      */
-    importAll({ folderId, folderName }?: { folderId?: string | null; folderName?: string }): Promise<CompendiumEntity | CompendiumEntity[]>;
+    importAll({
+        folderId,
+        folderName,
+    }?: {
+        folderId?: string | null;
+        folderName?: string;
+    }): Promise<CompendiumEntity | CompendiumEntity[]>;
 
     /**
      * Cast entry data to an Entity class

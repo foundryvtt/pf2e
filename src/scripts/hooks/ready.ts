@@ -11,8 +11,10 @@ import { rollActionMacro, rollItemMacro } from '../init';
 import { raiseAShield } from '../macros/raise-a-shield';
 import { earnIncome } from '../macros/earn-income';
 import { PF2Actions } from '../../module/system/actions/actions';
+import { PF2eConditionManager } from '../../module/conditions';
+import { PF2eStatusEffects } from '../actor/status-effects';
 
-export function listen() {
+export function listen(): void {
     Hooks.once('ready', () => {
         /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
         console.log('PF2e System | Readying Pathfinder 2nd Edition System');
@@ -63,5 +65,10 @@ export function listen() {
         // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
         updateMinionActors();
         activateSocketListener();
+
+        // Requires ConditionManager to be fully loaded.
+        PF2eConditionManager.init().then(() => {
+            PF2eStatusEffects.init();
+        });
     });
 }

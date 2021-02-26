@@ -35,6 +35,16 @@ declare interface Actor {
 
 declare interface Window {
     PF2e: import('./module/pf2e-system').PF2eSystem;
+    DicePF2e: typeof import('./scripts/dice').DicePF2e;
+    PF2eStatusEffects: typeof import('./scripts/actor/status-effects').PF2eStatusEffects;
+    PF2eConditionManager: typeof import('./module/conditions').PF2eConditionManager;
+    PF2ModifierType: typeof import('./module/modifiers').PF2ModifierType;
+    PF2Modifier: typeof import('./module/modifiers').PF2Modifier;
+    AbilityModifier: typeof import('./module/modifiers').AbilityModifier;
+    ProficiencyModifier: typeof import('./module/modifiers').ProficiencyModifier;
+    PF2StatisticModifier: typeof import('./module/modifiers').PF2StatisticModifier;
+    PF2CheckModifier: typeof import('./module/modifiers').PF2CheckModifier;
+    PF2Check: typeof import('./module/system/rolls').PF2Check;
 }
 declare const game: Game<import('./module/actor/actor').PF2EActor, import('./module/item/item').PF2EItem>;
 declare const CONFIG: import('./scripts/config').ConfigPF2e;
