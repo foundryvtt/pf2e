@@ -12,6 +12,9 @@ export class PF2ENPC extends PF2EActor {
     data!: NpcData;
     _data!: NpcData;
 
+    /** @override */
+    static readonly type = 'npc';
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
