@@ -1,21 +1,21 @@
 {
-    "_id": "wiNeCuB0DXt2ReAx",
+    "_id": "y9LKYQu371nHe3DM",
     "data": {
         "abilities": {
             "cha": {
                 "min": 3,
                 "mod": 5,
-                "value": 10
+                "value": 20
             },
             "con": {
                 "min": 3,
                 "mod": 1,
-                "value": 10
+                "value": 12
             },
             "dex": {
                 "min": 3,
                 "mod": 2,
-                "value": 10
+                "value": 14
             },
             "int": {
                 "min": 3,
@@ -25,22 +25,26 @@
             "str": {
                 "min": 3,
                 "mod": 1,
-                "value": 10
+                "value": 12
             },
             "wis": {
                 "min": 3,
                 "mod": 1,
-                "value": 10
+                "value": 12
             }
         },
         "attributes": {
             "ac": {
+                "base": 23,
+                "breakdown": "Base Armor Class 10, Base Modifier +11, Dexterity +2",
                 "check": 0,
                 "details": "",
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": "23"
+                "name": "ac",
+                "totalModifier": 13,
+                "value": 23
             },
             "allSaves": {
                 "value": ""
@@ -79,9 +83,12 @@
             "levelbonussp": 0,
             "perception": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +11, Wisdom +1",
                 "item": 0,
+                "name": "perception",
                 "rank": 0,
+                "totalModifier": 12,
                 "value": 12
             },
             "resolve": {
@@ -89,9 +96,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -102,8 +109,13 @@
                 "value": 0
             },
             "speed": {
+                "breakdown": "Base Land Speed 25",
+                "name": "Land Speed",
                 "otherSpeeds": [],
                 "special": "",
+                "total": 25,
+                "totalModifier": 0,
+                "type": "land",
                 "value": "25 feet"
             }
         },
@@ -122,6 +134,7 @@
             }
         },
         "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -164,20 +177,20 @@
                 "data": {
                     "slots": {
                         "slot1": {
-                            "max": "4",
-                            "value": "4"
+                            "max": 4,
+                            "value": 4
                         },
                         "slot2": {
-                            "max": "4",
-                            "value": "4"
+                            "max": 4,
+                            "value": 4
                         },
                         "slot3": {
-                            "max": "4",
-                            "value": "4"
+                            "max": 4,
+                            "value": 4
                         },
                         "slot4": {
-                            "max": "3",
-                            "value": "3"
+                            "max": 3,
+                            "value": 3
                         }
                     },
                     "spelldc": {
@@ -190,20 +203,20 @@
                 "data": {
                     "slots": {
                         "slot1": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot2": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot3": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot4": {
-                            "max": "2",
-                            "value": "2"
+                            "max": 3,
+                            "value": 3
                         }
                     },
                     "spelldc": {
@@ -258,26 +271,35 @@
         "saves": {
             "fortitude": {
                 "ability": "con",
-                "breakdown": "",
+                "base": 12,
+                "breakdown": "Base Modifier +11, Constitution +1",
                 "item": 0,
+                "name": "fortitude",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 12,
                 "value": 12
             },
             "reflex": {
                 "ability": "dex",
-                "breakdown": "",
+                "base": 13,
+                "breakdown": "Base Modifier +11, Dexterity +2",
                 "item": 0,
+                "name": "reflex",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 13,
                 "value": 13
             },
             "will": {
                 "ability": "wis",
-                "breakdown": "",
+                "base": 14,
+                "breakdown": "Base Modifier +13, Wisdom +1",
                 "item": 0,
+                "name": "will",
                 "rank": 0,
                 "saveDetail": "",
+                "totalModifier": 14,
                 "value": 14
             }
         },
@@ -289,135 +311,209 @@
         "skills": {
             "acr": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 15,
+                "breakdown": "Base Modifier +13, Dexterity +2",
+                "expanded": "acrobatics",
+                "itemID": "4SWmtuSqdsYNSKeK",
+                "label": "Acrobatics",
+                "lore": false,
+                "name": "Acrobatics",
+                "rank": 1,
+                "totalModifier": 15,
+                "value": 15,
+                "visible": true
             },
             "arc": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 12,
+                "breakdown": "Base Modifier +12, Intelligence +0",
+                "expanded": "arcana",
+                "itemID": "YZQNmClKX6fAcTlJ",
+                "label": "Arcana",
+                "lore": false,
+                "name": "Arcana",
+                "rank": 1,
+                "totalModifier": 12,
+                "value": 12,
+                "visible": true
             },
             "ath": {
                 "ability": "str",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 13,
+                "breakdown": "Base Modifier +12, Strength +1",
+                "expanded": "athletics",
+                "itemID": "8MtL0JZqGsfc7EaG",
+                "label": "Athletics",
+                "lore": false,
+                "name": "Athletics",
+                "rank": 1,
+                "totalModifier": 13,
+                "value": 13,
+                "visible": true
             },
             "cra": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "crafting",
+                "label": "Crafting",
+                "lore": false,
+                "name": "Crafting",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "dec": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 15,
+                "breakdown": "Base Modifier +10, Charisma +5",
+                "expanded": "deception",
+                "itemID": "R58UdnD5a85pmv14",
+                "label": "Deception",
+                "lore": false,
+                "name": "Deception",
+                "rank": 1,
+                "totalModifier": 15,
+                "value": 15,
+                "visible": true
             },
             "dip": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +5",
+                "expanded": "diplomacy",
+                "label": "Diplomacy",
+                "lore": false,
+                "name": "Diplomacy",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "itm": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 17,
+                "breakdown": "Base Modifier +12, Charisma +5",
+                "expanded": "intimidation",
+                "itemID": "OSoNpH5bvG34cXqR",
+                "label": "Intimidation",
+                "lore": false,
+                "name": "Intimidation",
+                "rank": 1,
+                "totalModifier": 17,
+                "value": 17,
+                "visible": true
             },
             "med": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "medicine",
+                "label": "Medicine",
+                "lore": false,
+                "name": "Medicine",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "nat": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "nature",
+                "label": "Nature",
+                "lore": false,
+                "name": "Nature",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "occ": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Intelligence +0",
+                "expanded": "occultism",
+                "label": "Occultism",
+                "lore": false,
+                "name": "Occultism",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 0,
+                "value": 0,
+                "visible": false
             },
             "prf": {
                 "ability": "cha",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Charisma +5",
+                "expanded": "performance",
+                "label": "Performance",
+                "lore": false,
+                "name": "Performance",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 5,
+                "value": 5,
+                "visible": false
             },
             "rel": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Wisdom +1",
+                "expanded": "religion",
+                "label": "Religion",
+                "lore": false,
+                "name": "Religion",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 1,
+                "value": 1,
+                "visible": false
             },
             "soc": {
                 "ability": "int",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 9,
+                "breakdown": "Base Modifier +9, Intelligence +0",
+                "expanded": "society",
+                "itemID": "h6BPXDBfNv5JGdTG",
+                "label": "Society",
+                "lore": false,
+                "name": "Society",
+                "rank": 1,
+                "totalModifier": 9,
+                "value": 9,
+                "visible": true
             },
             "ste": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "stealth",
+                "label": "Stealth",
+                "lore": false,
+                "name": "Stealth",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             },
             "sur": {
                 "ability": "wis",
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
-                "rank": 0,
-                "value": 0
+                "base": 12,
+                "breakdown": "Base Modifier +11, Wisdom +1",
+                "expanded": "survival",
+                "itemID": "CcLKwxqMLcsWm5Ik",
+                "label": "Survival",
+                "lore": false,
+                "name": "Survival",
+                "rank": 1,
+                "totalModifier": 12,
+                "value": 12,
+                "visible": true
             },
             "thi": {
                 "ability": "dex",
-                "armor": 1,
-                "breakdown": "",
-                "item": 0,
-                "mod": 0,
+                "breakdown": "Base Modifier +0, Dexterity +2",
+                "expanded": "thievery",
+                "label": "Thievery",
+                "lore": false,
+                "name": "Thievery",
                 "rank": 0,
-                "value": 0
+                "totalModifier": 2,
+                "value": 2,
+                "visible": false
             }
         },
         "spells": {
@@ -459,7 +555,18 @@
             }
         },
         "statusEffects": [],
+        "toggles": {
+            "actions": [
+                {
+                    "inputName": "flags.pf2e.rollOptions.all.target:flatFooted",
+                    "label": "PF2E.TargetFlatFootedLabel"
+                }
+            ]
+        },
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -498,7 +605,12 @@
     "flags": {
         "pf2e": {
             "editNPC": {
-                "value": true
+                "value": false
+            },
+            "rollOptions": {
+                "all": {
+                    "target:flatFooted": false
+                }
             }
         },
         "pf2e_updatednpcsheet": {
@@ -507,6 +619,7 @@
             }
         }
     },
+    "img": "icons/svg/mystery-man.svg",
     "items": [
         {
             "_id": "22saQWACDGfXp2ry",
@@ -602,6 +715,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -692,9 +806,9 @@
                         "value": 0
                     },
                     "slot4": {
-                        "max": 2,
+                        "max": 3,
                         "prepared": [],
-                        "value": 2
+                        "value": 3
                     },
                     "slot5": {
                         "max": 0,
@@ -722,6 +836,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -798,6 +913,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -849,6 +967,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -961,6 +1080,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1012,6 +1134,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1123,6 +1246,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1174,6 +1300,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1285,6 +1412,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1336,6 +1466,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1447,6 +1578,9 @@
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1498,6 +1632,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1609,6 +1744,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1660,6 +1798,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1771,6 +1910,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1822,6 +1964,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -1934,6 +2077,9 @@
                     "type": "String",
                     "value": "sustained up to 1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1985,6 +2131,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2096,6 +2243,9 @@
                     "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2147,6 +2297,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2259,6 +2410,9 @@
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2310,6 +2464,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2422,6 +2577,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2473,6 +2631,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -2586,6 +2745,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -2647,6 +2809,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2728,6 +2891,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -2789,6 +2955,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2866,6 +3033,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -2927,6 +3097,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2982,6 +3153,7 @@
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3039,6 +3211,7 @@
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3090,6 +3263,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3129,6 +3303,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3168,6 +3343,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3207,6 +3383,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3246,6 +3423,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3285,6 +3463,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3324,6 +3503,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3408,6 +3588,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -3514,6 +3697,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3558,7 +3742,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/equipment/weapons/light-mace.png",
-            "name": "Light Mace (+1)",
+            "name": "+1 Light Mace",
             "sort": 3600000,
             "type": "weapon"
         },
@@ -3612,6 +3796,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -3663,6 +3850,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3778,6 +3966,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -3829,6 +4020,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3941,6 +4133,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -3992,6 +4187,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4103,6 +4299,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4154,6 +4353,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4265,6 +4465,9 @@
                     "type": "String",
                     "value": "varies"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4316,6 +4519,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4431,6 +4635,9 @@
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4482,6 +4689,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4594,6 +4802,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4645,6 +4856,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4758,6 +4970,9 @@
                     "type": "String",
                     "value": "sustained"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4800,6 +5015,7 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -4902,6 +5118,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -4944,6 +5163,7 @@
                     "type": "String",
                     "value": "div"
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -5054,6 +5274,9 @@
                     "type": "String",
                     "value": "until the start of your next turn"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -5105,6 +5328,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -5169,12 +5393,12 @@
             "type": "spell"
         }
     ],
-    "name": "Zunkri",
+    "name": "Xulgath Mage",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "wiNeCuB0DXt2ReAx",
+        "actorId": "y9LKYQu371nHe3DM",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
