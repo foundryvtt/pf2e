@@ -402,12 +402,12 @@ declare class Entity {
      * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns an Array of EmbeddedEntities, saved to the Actor
      * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
      */
-    createEmbeddedEntity<E extends BaseEntityData>(
+    createEmbeddedEntity<E extends BaseEntityData | EmbeddedEntityData>(
         embeddedName: string,
         data: Partial<E>[] | E[],
         options?: EntityCreateOptions,
     ): Promise<E | E[] | null>;
-    createEmbeddedEntity<E extends BaseEntityData>(
+    createEmbeddedEntity<E extends BaseEntityData | EmbeddedEntityData>(
         embeddedName: string,
         data: Partial<E> | E,
         options?: EntityCreateOptions,
