@@ -56,28 +56,18 @@
       <label>{{localize "PF2E.Size"}}</label>
       <select name="data.size.value" data-dtype="String">
         {{#select data.size.value}}
-        {{#each sizes as |name value|}}
-        <option value="{{value}}">{{name}}</option>
-        {{/each}}
+          {{#each sizes as |name value|}}
+            <option value="{{value}}">{{name}}</option>
+          {{/each}}
         {{/select}}
       </select>
     </div>
+    <ol class="item-tags">
+      {{#each weaponTraits}}
+        <li class="tag">{{this}}</li>
+      {{/each}}
+      {{#if data.equipped.value}}
+        <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
+      {{/if}}
+    </ol>
 </div>
-
-{{#if weaponTraits.length }}
-<ol class="item-tags">
-{{#each weaponTraits}}
-    <li class="tag">{{this}}</li>
-{{/each}}
-</ol>
-{{/if}}
-
-<ol class="item-tags">
-<!--     {{#if data.proficient.value}}
-    <li class="tag">Proficient</li>
-    {{/if}}
-
-    {{#if data.attuned.value}}
-    <li class="tag">Attuned</li>
-    {{/if}} -->
-</ol>
