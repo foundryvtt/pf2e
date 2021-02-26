@@ -24,7 +24,7 @@ export class KitItemSheetPF2e extends ItemSheet<PF2EItem> {
         ];
         options.scrollY = ['.item-details'];
         options.dragDrop = [{ dropSelector: '.item-details' }];
-        options.resizable = false;
+        options.resizable = true;
         return options;
     }
 
