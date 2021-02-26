@@ -7,12 +7,19 @@ declare interface JournalEntryData extends BaseEntityData {
     content: string;
 }
 
+declare interface JournalEntryClassConfig extends EntityClassConfig<JournalEntry> {
+    collection: Journal;
+}
+
 /**
  * The JournalEntry class
  */
 declare class JournalEntry extends Entity {
     data: JournalEntryData;
     _data: JournalEntryData;
+
+    /** @override */
+    static get config(): JournalEntryClassConfig;
 
     /**
      * Return a reference to the Note instance for this JournalEntry in the current Scene, if any

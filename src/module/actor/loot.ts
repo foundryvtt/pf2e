@@ -20,7 +20,7 @@ export class PF2ELoot extends PF2EActor {
     /** Anyone with Limited permission can update a loot actor
      * @override
      */
-    static can(user: User, action: string, target: PF2ELoot): boolean {
+    static can(user: User, action: UserAction, target: PF2ELoot): boolean {
         if (action === 'update') {
             return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }

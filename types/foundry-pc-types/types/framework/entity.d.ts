@@ -5,8 +5,12 @@ declare interface BaseEntityData {
     name: string;
     flags: Record<string, any>;
     folder: string | null | undefined;
-    permission: Record<string, number>;
+    permission: Record<string, typeof CONST.USER_ROLES[keyof typeof CONST.USER_ROLES]>;
     img: string;
+}
+
+declare interface EntityConstructorOptions {
+    [key: string]: unknown;
 }
 
 declare interface EntityCreateOptions {
@@ -16,8 +20,12 @@ declare interface EntityCreateOptions {
     [key: string]: unknown;
 }
 
-declare interface EntityConstructorOptions {
-    [key: string]: unknown;
+declare interface EntityClassConfig<E extends Entity> {
+    baseEntity: { new (...args: any[]): E };
+    collection: EntityCollection<E>;
+    embeddedEntities: Record<string, string>;
+    label: string;
+    permissions: { [userId: string]: keyof typeof CONST.USER_PERMISSIONS };
 }
 
 declare type EntityUpdateData<D extends BaseEntityData> = Partial<D> | { [key: string]: unknown };
@@ -86,11 +94,7 @@ declare class Entity {
      * @property collection   The Collection instance to which Entities of this type belong.
      * @property embeddedEntities  The names of any Embedded Entities within the Entity data structure.
      */
-    static get config(): {
-        baseEntity: Entity;
-        collection: Collection<Entity>;
-        embeddedEntities: any;
-    };
+    static get config(): EntityClassConfig<Entity>;
 
     /**
      * A Universally Unique Identifier (uuid) for this Entity instance
@@ -363,10 +367,14 @@ declare class Entity {
     /**
      * Get an Embedded Entity by it's ID from a named collection in the parent
      * @param collection    The named collection of embedded entities
-     * @param id            The numeric ID of the child to retrieve
+     * @param id            The ID of the child to retrieve
      * @return              Retrieved data for the requested child, or null
      */
-    getEmbeddedEntity(collection: string, id: number, { strict }: { strict?: boolean }): any;
+    getEmbeddedEntity(
+        collection: keyof typeof Entity['config']['embeddedEntities'],
+        id: string,
+        { strict }?: { strict?: boolean },
+    ): BaseEntityData;
 
     /**
      * Create one or multiple EmbeddedEntities within this parent Entity.
@@ -617,7 +625,7 @@ declare class Entity {
      * Test whether a given User has permission to perform some action on this Entity
      * @alias Entity.can
      */
-    static can(user: User, action: string, target: Entity): boolean;
+    static can(user: User, action: UserAction, target: Entity): boolean;
 
     /**
      * Activate the Socket event listeners used to receive responses from events which modify database documents

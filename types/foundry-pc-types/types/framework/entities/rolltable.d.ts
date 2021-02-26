@@ -3,6 +3,13 @@ declare class RollTables extends EntityCollection<RollTable> {
     get entity(): 'RollTable';
 }
 
+declare interface RollTableClassConfig extends EntityClassConfig<RollTable> {
+    collection: RollTables;
+    embeddedEntities: {
+        TableResult: 'results';
+    };
+}
+
 declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
     displayRoll: boolean;
     formula: boolean;
@@ -15,11 +22,7 @@ declare class RollTable extends Entity {
     _data: RollTableData;
 
     /** @override */
-    static get config(): {
-        baseEntity: RollTable;
-        collection: RollTables;
-        embeddedEntities: { TableResult: string };
-    };
+    static get config(): RollTableClassConfig;
 
     /**
      * A convenience accessor for the array of TableResult embedded documents
@@ -32,14 +35,13 @@ declare class RollTable extends Entity {
 
     /**
      * Draw a result from the RollTable based on the table formula or a provided Roll instance
-     * @param {Roll|null} roll          An existing Roll instance to use for drawing from the table
-     * @param {Array<any>} results      One or more table results which have been drawn
+     * @param roll        An existing Roll instance to use for drawing from the table
+     * @param results     One or more table results which have been drawn
      *
-     * @param {boolean} displayChat     Whether to automatically display the results in chat
-     * @param {string|null} rollMode        The chat roll mode to use when displaying the result
+     * @param displayChat Whether to automatically display the results in chat
+     * @param rollMode    The chat roll mode to use when displaying the result
      *
-     * @return {Promise<{roll: Roll, results: any[]}>}   A Promise which resolves to an object containing the
-     *                                                          executed roll and the produced results
+     * @return A Promise which resolves to an object containing the executed roll and the produced results
      */
     draw({
         roll,
