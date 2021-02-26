@@ -60,11 +60,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "35",
+                "max": 35,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "35"
+                "value": 35
             },
             "init": {
                 "bonus": 0,
@@ -150,7 +150,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=655",
             "recallKnowledgeText": "Recall Knowledge - Elemental : DC 16",
@@ -406,6 +406,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -451,8 +454,18 @@
             }
         }
     },
+    "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -485,20 +498,16 @@
                     "damageType": "piercing",
                     "die": "1d4+3"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4+3",
                         "damageType": "piercing"
-                    },
-                    {
-                        "damage": "1d4",
-                        "damageType": "persistentfire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d4]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -511,6 +520,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -569,9 +581,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -591,6 +605,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -606,7 +621,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -614,7 +629,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger </b>An adjacent ally is targeted by an effect that deals fire damage; <b>Effect </b>The ember fox drapes itself across its ally, granting the ally fire resistance 10 against the incoming attack."
+                    "value": "<p><strong>Trigger </strong>An adjacent ally is targeted by an effect that deals fire damage</p>\n<p><strong>Effect </strong>The ember fox drapes itself across its ally, granting the ally fire resistance 10 against the incoming attack.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -622,10 +637,18 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -642,9 +665,10 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Cloak in Embers ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Cloak in Embers",
             "sort": 200000,
             "type": "action"
         },
@@ -669,6 +693,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -679,6 +705,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -706,6 +733,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -716,6 +745,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -743,6 +773,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -753,6 +785,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -765,7 +798,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "6ic6oNCpWjkVAsIN",
         "actorLink": false,
         "bar1": {
@@ -784,6 +816,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Ember Fox",
         "randomImg": false,
