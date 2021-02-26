@@ -19,7 +19,7 @@
             "label": "Description",
             "type": "String",
             "unidentified": "",
-            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>"
+            "value": "<p>Your aura protects against necromantic effects. You and all allies within 15 feet gain resistance 5 to negative energy and a +1 status bonus to saves against necromancy effects.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Aura of Life]{Effect: Aura of Life}</p>"
         },
         "featType": {
             "label": "Feat Type",
@@ -31,12 +31,26 @@
             "type": "String",
             "value": 14
         },
+        "location": "",
         "prerequisites": [
             "Shining Oath"
         ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "necromancy"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
