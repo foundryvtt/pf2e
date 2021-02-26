@@ -109,7 +109,7 @@
                     }
                 ],
                 "special": "",
-                "value": 50
+                "value": "50 feet"
             }
         },
         "currency": {
@@ -411,6 +411,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -433,14 +436,9 @@
             "rarity": {
                 "value": "common"
             },
-            "senses": [
-                {
-                    "exceptions": "",
-                    "label": "Tremorsense",
-                    "type": "Tremorsense",
-                    "value": "60"
-                }
-            ],
+            "senses": {
+                "value": "darkvision, tremorsense (imprecise) 60 feet"
+            },
             "size": {
                 "value": "lg"
             },
@@ -455,7 +453,25 @@
     },
     "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            },
+            "rollOptions": {
+                "attack-roll": {
+                    "tilting-strike": false
+                },
+                "damage-roll": {
+                    "lancing-charge": false,
+                    "tilting-strike": false
+                }
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -825,7 +841,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Lancing Charge",
+                        "predicate": {
+                            "all": [
+                                "lancing-charge"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.lancing-charge"
+                    }
+                ],
                 "skill_requirement": {
                     "skill": {
                         "rank": "",
@@ -875,7 +908,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger </strong>The earthen destrier tramples a creature</p>\n<p><strong>Effect </strong>The earthen destrier makes a lance arm @Compendium[pf2e.actionspf2e.Strike]{Strike} against the creature it's trampling at a -5 penalty.</p>"
+                    "value": "<p><strong>Trigger </strong>The earthen destrier tramples a creature</p>\n<p><strong>Effect </strong>The earthen destrier makes a lance arm Strike against the creature it's trampling at a -5 penalty.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -883,7 +916,22 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "tilting-strike"
+                            ]
+                        },
+                        "selector": "attack-roll",
+                        "value": -5
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.tilting-strike"
+                    }
+                ],
                 "skill_requirement": {
                     "skill": {
                         "rank": "",
