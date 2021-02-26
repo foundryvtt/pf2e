@@ -1,9 +1,12 @@
-export const initiativeFormula = (combatant) => {
+import { PF2EActor } from '@actor/actor';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+
+export const initiativeFormula = (combatant: CombatantData<PF2EActor>): string => {
     const { actor } = combatant;
     if (!actor) return '1d20';
     const actorType = actor.data.type;
-    const data = actor ? actor.data.data : {};
-    let bonus;
+    const data: Partial<ActorDataPF2e['data']> = actor ? actor.data.data : {};
+    let bonus: number;
     const modifierEnabledInit = data.attributes?.initiative?.totalModifier;
     if (actorType === 'hazard') {
         bonus = data.attributes.stealth.value;
