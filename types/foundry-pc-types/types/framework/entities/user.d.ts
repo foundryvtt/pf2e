@@ -43,6 +43,14 @@ declare interface UserData extends BaseEntityData {
     color: string;
 }
 
+declare interface UserClassConfig extends EntityClassConfig<User> {
+    collection: Users;
+}
+
+declare type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
+
+declare type UserAction = 'create' | 'update' | 'delete';
+
 /**
  * The User entity
  * Each player who connects to a Foundry Virtual Tabletop session is a User.
@@ -82,11 +90,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     viewedScene: string;
 
     /** @override */
-    static get config(): {
-        baseEntity: User;
-        collection: Users;
-        embeddedEntities: {};
-    };
+    static get config(): UserClassConfig;
 
     /**
      * Return the User avatar icon or the controlled actor's image
@@ -99,16 +103,10 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     get character(): ActorType | undefined;
 
     /**
-     * @override
-     * @deprecated
-     */
-    get permission(): number;
-
-    /**
      * A convenience shortcut for the permissions object of the current User
-     * @type {Object}
+     * @override
      */
-    get permissions(): any;
+    get permissions(): Record<UserPermission, boolean>;
 
     /**
      * A flag for whether the current User is a Trusted Player
@@ -182,14 +180,14 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      * @param activityData.sceneId  The id of the Scene currently being viewed by the User
      * @param activityData.targets  An id of Token ids which are targeted by the User
      */
-    broadCastActivity(activityData?: UserActivityData): void;
+    broadcastActivity(activityData?: UserActivityData): void;
 
     /**
      * Assign a Macro to a numbered hotbar slot between 1 and 50
-     * @param {Macro|null} macro  The Macro entity to assign
-     * @param {number} slot       The integer Hotbar slot to fill
-     * @param {number} [fromSlot] An optional origin slot from which the Macro is being shifted
-     * @return {Promise}          A Promise which resolves once the User update is complete
+     * @param macro      The Macro entity to assign
+     * @param slot       The integer Hotbar slot to fill
+     * @param [fromSlot] An optional origin slot from which the Macro is being shifted
+     * @return A Promise which resolves once the User update is complete
      */
     assignHotbarMacro(macro: Macro | null, slot: number, { fromSlot }?: { fromSlot?: number }): Promise<User>;
 

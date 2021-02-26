@@ -43,6 +43,10 @@ declare interface ChatMessageData extends BaseEntityData {
     whisper?: string[] | User[];
 }
 
+declare interface ChatMessageClassConfig extends EntityClassConfig<ChatMessage> {
+    collection: Messages;
+}
+
 declare interface MessageCreateOptions extends EntityCreateOptions {
     rollMode?: RollMode | null;
 }
@@ -66,11 +70,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * Configure the attributes of the ChatMessage Entity
      */
-    static get config(): {
-        baseEntity: ChatMessage;
-        collection: Messages;
-        embeddedEntities: Record<string, never>;
-    };
+    static get config(): ChatMessageClassConfig;
 
     /* -------------------------------------------- */
     /*  Properties and Attributes

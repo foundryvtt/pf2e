@@ -1,3 +1,18 @@
+declare interface SceneClassConfig extends EntityClassConfig<Scene> {
+    collection: Scenes;
+    embeddedEntities: {
+        AmbientLight: 'lights';
+        AmbientSound: 'sounds';
+        Drawing: 'drawings';
+        Note: 'notes';
+        MeasuredTemplate: 'templates';
+        Tile: 'tiles';
+        Token: 'tokens';
+        Wall: 'walls';
+        [key: string]: string;
+    };
+}
+
 /**
  * The collection of Scene entities
  */
@@ -34,6 +49,9 @@ declare class Scene extends Entity {
               y: number;
               scale: number;
           };
+
+    /** @override */
+    static get config(): SceneClassConfig;
 
     /** @override */
     prepareData(): void;

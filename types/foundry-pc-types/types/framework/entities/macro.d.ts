@@ -28,6 +28,11 @@ declare interface MacroData extends BaseEntityData {
     command: string;
     scope: string;
 }
+
+declare interface MacroClassConfig extends EntityClassConfig<Macro> {
+    collection: Macros;
+}
+
 /**
  * The Macro entity which implements a triggered chat or script expression which can be quickly activated by the user.
  * All users have permission to create and use chat-based Macros, but users must be given special permission to use
@@ -42,14 +47,10 @@ declare class Macro extends Entity {
     _data: MacroData;
 
     /** @override */
-    static get config(): {
-        baseEntity: Macro;
-        collection: Macros;
-        embeddedEntities: [];
-    };
+    static get config(): MacroClassConfig;
 
     /**
      * Execute the Macro command
      */
-    execute(): Promise<any>;
+    execute(): void;
 }

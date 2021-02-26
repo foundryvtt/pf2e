@@ -13,7 +13,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Actor entity class
      */
     Actor: {
-        entityClass: { new (data: ActorType['data'], options?: object): ActorType };
+        entityClass: { new (data: ActorType['data'], options?: EntityConstructorOptions): ActorType };
         collection: Actors<ActorType>;
         sheetClasses: typeof ActorSheet;
     };
@@ -22,7 +22,9 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: { new (data: ItemType['data'], options?: object): ItemType };
+        entityClass: {
+            new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType;
+        };
         collection: Items<ItemType>;
         sheetClasses: typeof ItemSheet;
     };

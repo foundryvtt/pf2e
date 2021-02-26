@@ -12,13 +12,19 @@ import {
     ProficiencyModifier,
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EActor } from '../actor/actor';
+import { PF2EActor, TokenPF2e } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
 import { parseTraits, TraitChatEntry } from '../traits';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2Check } from '../system/rolls';
+
+interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<PF2EActor> {
+    pf2e?: {
+        ready?: boolean;
+    };
+}
 
 /**
  * @category PF2
@@ -27,8 +33,9 @@ export class PF2EItem extends Item<PF2EActor> {
     data!: ItemData;
     _data!: ItemData;
 
-    constructor(data: ItemData, options?: any) {
-        if (options?.pf2e?.ready) {
+    constructor(data: ItemData, options: ItemConstructorOptionsPF2e = {}) {
+        if (options.pf2e?.ready) {
+            delete options.pf2e.ready;
             super(data, options);
         } else {
             try {
@@ -1169,11 +1176,11 @@ export class PF2EItem extends Item<PF2EActor> {
             if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
-            let actor: PF2EActor | Actor<Item<_Actor>> | null;
+            let actor: PF2EActor | null;
             const tokenKey = card.attr('data-token-id');
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
-                let token: Token | undefined;
+                let token: TokenPF2e | undefined;
                 if (sceneId === canvas.scene?._id) token = canvas.tokens.get(tokenId);
                 else {
                     const scene = game.scenes.get(sceneId);
@@ -1182,19 +1189,22 @@ export class PF2EItem extends Item<PF2EActor> {
                     if (tokenData) token = new Token(tokenData);
                 }
                 if (!token) return;
-                actor = Actor.fromToken(token);
+                actor = PF2EActor.fromToken(token);
             } else actor = game.actors.get(card.attr('data-actor-id'));
 
             // Get the Item
             if (!actor) return;
             const itemId = card.attr('data-item-id') ?? '';
-            let item, itemData;
+            let item: PF2EItem | null = null;
+            let itemData: ItemData | undefined = undefined;
             const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
             if (embeddedItem) {
-                itemData = JSON.parse(embeddedItem);
-                item = new PF2EItem(itemData as any, { actor });
+                itemData = JSON.parse(embeddedItem) as ItemData | undefined;
+                if (itemData) {
+                    item = new PF2EItem(itemData, { actor });
+                }
             } else {
-                item = (actor as PF2EActor).getOwnedItem(itemId);
+                item = actor.getOwnedItem(itemId);
                 itemData = item?.data;
             }
             if (item && itemData) {
