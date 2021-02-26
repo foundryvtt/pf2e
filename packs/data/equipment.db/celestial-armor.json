@@ -20,7 +20,7 @@
         "check": {
             "label": "Check Penalty",
             "type": "String",
-            "value": "0"
+            "value": 0
         },
         "collapsed": {
             "value": false
@@ -38,7 +38,7 @@
         "dex": {
             "label": "Dex Modifier Cap",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
         "equipped": {
             "label": "Equipped",
@@ -58,6 +58,9 @@
         },
         "hp": {
             "value": null
+        },
+        "identification": {
+            "status": "identified"
         },
         "identified": {
             "value": true
@@ -170,6 +173,28 @@
                 "selector": "diplomacy",
                 "type": "item",
                 "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 15,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
             }
         ],
         "size": {
@@ -191,7 +216,7 @@
         "strength": {
             "label": "Required Strength",
             "type": "String",
-            "value": "16"
+            "value": 16
         },
         "traits": {
             "custom": "",
