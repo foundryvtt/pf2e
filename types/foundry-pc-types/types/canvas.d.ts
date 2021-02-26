@@ -16,4 +16,6 @@ declare class Canvas<ActorType extends Actor = Actor> {
     scene: Scene | null;
     tokens: TokenLayer<ActorType>;
     templates: TemplateLayer;
+    stage: any;
+    app: any;
 }

@@ -1,4 +1,4 @@
-import { Spell } from './spell';
+import { PF2EItem } from './item';
 
 /**
  * A helper class for building MeasuredTemplates for 5e spells and abilities
@@ -10,9 +10,9 @@ export class AbilityTemplate extends MeasuredTemplate {
      * @param {Spell} item               The Item object for which to construct the template
      * @return {AbilityTemplate|null}     The template object, or null if the item does not produce a template
      */
-    static fromItem(item: Spell): AbilityTemplate {
-        const templateShape = item.data.data.area.areaType;
-        const templateSize = item.data.data.area.value;
+    static async fromItem(item: PF2EItem): Promise<AbilityTemplate|null> {
+        const templateShape = item.data.data.area?.areaType ?? null;
+        const templateSize = item.data.data.area?.value ?? null;
         let actualShape: string;
         if (!templateSize) return null;
         if (templateShape === 'burst' || templateShape === 'Burst') {
@@ -28,7 +28,7 @@ export class AbilityTemplate extends MeasuredTemplate {
         }
 
         // Prepare template data
-        const templateData = {
+        const templateData: Partial<MeasuredTemplateData> = {
             t: actualShape,
             user: game.user._id,
             distance: templateSize,
@@ -38,23 +38,12 @@ export class AbilityTemplate extends MeasuredTemplate {
             fillColor: game.user.data.color,
         };
 
-        // Additional type-specific data
-        switch (templateShape) {
-            case 'cone':
-                templateData.angle = CONFIG.MeasuredTemplate.defaults.angle;
-                break;
-            case 'ray': // 5e rays are most commonly 1 square (5 ft) in width
-                templateData.width = target.width ?? canvas.dimensions.distance;
-                break;
-            default:
-                break;
-        }
-
         // Return the template constructed from the item data
-        const template = new this(templateData, game.scenes);
-        template.item = item;
-        template.actorSheet = item.actor?.sheet || null;
-        return template;
+        const template = await MeasuredTemplate.create(templateData);
+        const abilityTemplateData: MeasuredTemplateData = template.data;
+        template.destroy();
+        const abilityTemplate = new this(abilityTemplateData, canvas.scene);
+        return abilityTemplate;
     }
 
     /* -------------------------------------------- */
@@ -63,18 +52,16 @@ export class AbilityTemplate extends MeasuredTemplate {
      * Creates a preview of the spell template
      */
     drawPreview() {
-        const initialLayer = canvas.activeLayer;
+        // ToDO:
+        //const initialLayer = canvas.activeLayer;
 
         // Draw the template and switch to the template layer
         this.draw();
         this.layer.activate();
         this.layer.preview.addChild(this);
 
-        // Hide the sheet that originated the preview
-        if (this.actorSheet) this.actorSheet.minimize();
-
         // Activate interactivity
-        this.activatePreviewListeners(initialLayer);
+        this.activatePreviewListeners();
     }
 
     /* -------------------------------------------- */
@@ -83,8 +70,13 @@ export class AbilityTemplate extends MeasuredTemplate {
      * Activate listeners for the template preview
      * @param {CanvasLayer} initialLayer  The initially active CanvasLayer to re-activate after the workflow is complete
      */
-    activatePreviewListeners(initialLayer) {
-        const handlers = {};
+    activatePreviewListeners() {
+        const handlers = {
+            mm: (event) => {},
+            mw: (event) => {},
+            rc: (event) => {},
+            lc: (event) => {},
+        };
         let moveTime = 0;
 
         // Update placement (mouse-move)
@@ -107,8 +99,6 @@ export class AbilityTemplate extends MeasuredTemplate {
             canvas.stage.off('mousedown', handlers.lc);
             canvas.app.view.oncontextmenu = null;
             canvas.app.view.onwheel = null;
-            initialLayer.activate();
-            this.actorSheet.maximize();
         };
 
         // Confirm the workflow (left-click)

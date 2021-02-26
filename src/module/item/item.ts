@@ -19,6 +19,7 @@ import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consu
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2Check } from '../system/rolls';
+import { AbilityTemplate } from './abilityTemplate';
 
 /**
  * @category PF2
@@ -67,6 +68,12 @@ export class PF2EItem extends Item<PF2EActor> {
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
+
+        // create Template
+        if (this.data.type === 'spell') {
+            const abilityTemplate = await AbilityTemplate.fromItem(this);
+            abilityTemplate?.drawPreview();
+        }
 
         // Basic chat message data
         const chatData: any = {

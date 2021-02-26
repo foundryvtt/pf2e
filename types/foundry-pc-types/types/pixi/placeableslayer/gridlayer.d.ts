@@ -3,4 +3,6 @@
  */
 declare class GridLayer extends PlaceablesLayer {
     grid: BaseGrid;
+    getSnappedPosition: Function;
+    type: number;
 }
