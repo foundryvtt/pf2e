@@ -572,7 +572,6 @@ export const PF2ECONFIG = {
         dwarf: 'PF2E.TraitDwarf',
         elf: 'PF2E.TraitElf',
         fetchling: 'PF2E.TraitFetchling',
-        fey: 'PF2E.TraitFey',
         fleshwarp: 'PF2E.TraitFleshwarp',
         ganzi: 'PF2E.TraitGanzi',
         geniekin: 'PF2E.TraitGeniekin',
@@ -603,6 +602,7 @@ export const PF2ECONFIG = {
     }, // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
     ancestryItemTraits: {
+        fey: 'PF2E.TraitFey',
         humanoid: 'PF2E.TraitHumanoid',
         plant: 'PF2E.TraitPlant',
     },
@@ -929,6 +929,8 @@ export const PF2ECONFIG = {
         finisher: 'PF2E.TraitFinisher',
         lineage: 'PF2E.TraitLineage',
         vigilante: 'PF2E.TraitVigilante',
+        heritage: 'PF2E.TraitHeritage',
+        'versatile heritage': 'PF2E.TraitVersatileHeritage',
     },
 
     monsterTraits: {
