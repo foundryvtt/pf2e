@@ -1,36 +1,15 @@
-import { PF2ECONFIG } from './scripts/config';
-import { PF2E } from './scripts/hooks';
-import { registerSettings } from './module/settings';
-import { loadPF2ETemplates } from './module/templates';
-import { initiativeFormula } from './module/combat';
-import { registerHandlebarsHelpers } from './module/handlebars';
 import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
-import { PlayerConfigPF2e } from './module/user/player-config';
-import { registerActors } from './module/register-actors';
-import { registerSheets } from './module/register-sheets';
-import { PF2eCombatTracker } from './module/system/pf2e-combar-tracker';
 import { PF2Check } from './module/system/rolls';
-import { DicePF2e } from './scripts/dice';
-import { PF2eStatusEffects } from './scripts/actor/status-effects';
-import { PF2eConditionManager } from './module/conditions';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import {
-    AbilityModifier,
-    PF2CheckModifier,
-    PF2Modifier,
-    PF2ModifierType,
-    PF2StatisticModifier,
-    ProficiencyModifier,
-} from './module/modifiers';
 import { EffectPanel } from './module/system/effect-panel';
 import { ItemData } from '@item/data-definitions';
-import { CompendiumDirectoryPF2e } from './module/apps/ui/compendium-directory';
 import DOMPurify from 'dompurify';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
+import { PF2E } from './scripts/hooks';
 
 import './styles/pf2e.scss';
 
@@ -45,60 +24,6 @@ require('./scripts/system/canvas-drop-handler');
 require('./module/custom-elements/custom-elements');
 
 PF2E.Hooks.listen();
-
-Hooks.once('init', () => {
-    console.log('PF2e System | Initializing Pathfinder 2nd Edition System');
-
-    CONFIG.PF2E = PF2ECONFIG;
-
-    // Assign actor/item classes.
-    CONFIG.Item.entityClass = PF2EItem;
-    CONFIG.Actor.entityClass = PF2EActor;
-    // Automatically advance world time by 6 seconds each round
-    CONFIG.time.roundTime = 6;
-    // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-    CONFIG.Combat.initiative.decimals = 1;
-    // Assign the PF2e Combat Tracker
-    CONFIG.ui.combat = PF2eCombatTracker;
-    // Assign the PF2e CompendiumDirectory
-    CONFIG.ui.compendium = CompendiumDirectoryPF2e;
-
-    // configure the bundled TinyMCE editor with PF2-specific options
-    CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
-    CONFIG.TinyMCE.content_css = (CONFIG.TinyMCE.content_css ?? []).concat(`systems/${game.system.id}/styles/pf2e.css`);
-    CONFIG.TinyMCE.style_formats = (CONFIG.TinyMCE.style_formats ?? []).concat({
-        title: 'Icons A D T F R',
-        inline: 'span',
-        classes: ['pf2-icon'],
-        wrapper: true,
-    });
-
-    PlayerConfigPF2e.hookOnRenderSettings();
-
-    registerSettings();
-    loadPF2ETemplates();
-    registerActors();
-    registerSheets();
-    registerHandlebarsHelpers();
-    // @ts-ignore
-    Combat.prototype._getInitiativeFormula = initiativeFormula;
-
-    // expose a few things to the global world, so that other modules can use our stuff
-    // instead of being locked in our world after we started building with webpack
-    // which enforced modules being private
-    (window as any).DicePF2e = DicePF2e;
-    (window as any).PF2eStatusEffects = PF2eStatusEffects;
-    (window as any).PF2eConditionManager = PF2eConditionManager;
-    (window as any).PF2ModifierType = PF2ModifierType;
-    (window as any).PF2Modifier = PF2Modifier;
-    (window as any).AbilityModifier = AbilityModifier;
-    (window as any).ProficiencyModifier = ProficiencyModifier;
-    (window as any).PF2StatisticModifier = PF2StatisticModifier;
-    (window as any).PF2CheckModifier = PF2CheckModifier;
-    (window as any).PF2Check = PF2Check;
-
-    // expose actions until we know how to include them on the sheet
-});
 
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
