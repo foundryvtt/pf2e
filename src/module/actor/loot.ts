@@ -9,6 +9,9 @@ export class PF2ELoot extends PF2EActor {
     data!: LootData;
     _data!: LootData;
 
+    /** @override */
+    static readonly type = 'loot';
+
     get isLoot(): boolean {
         return this.data.data.lootSheetType === 'Loot';
     }

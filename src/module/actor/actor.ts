@@ -111,6 +111,9 @@ export class PF2EActor extends Actor<PF2EItem> {
     data!: ActorDataPF2e;
     _data!: ActorDataPF2e;
 
+    /** The Actor class's type. Set to a meaningful value in the subclasses */
+    static readonly type: string = '???';
+
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -126,10 +129,14 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
     }
 
+    /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
+    get type(): string {
+        return ((this.constructor as unknown) as { type: string }).type;
+    }
+
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
-        const typeName = Object.values(CONFIG.PF2E.Actor.entityClasses).find((cls) => cls.name === this.name);
-        return `systems/pf2e/icons/default-icons/${typeName}.svg`;
+        return `systems/pf2e/icons/default-icons/${this.type}.svg`;
     }
 
     get defaultImg(): string {
@@ -389,7 +396,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     async createEmbeddedEntity<I extends ItemData>(
         embeddedName: string,
         data: I | I[],
-        options?: EntityCreateOptions,
+        options: EntityCreateOptions = {},
     ): Promise<I | I[] | null> {
         const createData = Array.isArray(data) ? data : [data];
         for (const datum of createData) {
@@ -1336,10 +1343,16 @@ export class PF2EActor extends Actor<PF2EItem> {
 export class PF2EHazard extends PF2EActor {
     data!: HazardData;
     _data!: HazardData;
+
+    /** @override */
+    static readonly type = 'hazard';
 }
 export class PF2EVehicle extends PF2EActor {
     data!: VehicleData;
     _data!: VehicleData;
+
+    /** @override */
+    static readonly type = 'vehicle';
 }
 
 export type TokenPF2e = Token<PF2EActor>;
