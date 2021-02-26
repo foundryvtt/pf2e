@@ -19,5 +19,5 @@ declare class Canvas<ActorType extends Actor = Actor> {
 }
 
 declare type DrawnCanvas<A extends Actor = Actor> = {
-  [K in keyof Canvas<A>]-?: NonNullable<Canvas<A>[K]>;
+  [K in keyof Canvas<A>]?: NonNullable<Canvas<A>[K]>;
 }
