@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 12
+                "value": "12"
             },
             "allSaves": {
                 "value": ""
@@ -109,7 +109,7 @@
                     }
                 ],
                 "special": "",
-                "value": 10
+                "value": "10 feet"
             }
         },
         "currency": {
@@ -455,7 +455,7 @@
     "flags": {
         "pf2e": {
             "editNPC": {
-                "value": false
+                "value": true
             }
         },
         "pf2e_updatednpcsheet": {
@@ -473,9 +473,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
-                        "Slime Rot"
+                        "slime rot"
                     ]
                 },
                 "bonus": {
@@ -498,12 +497,12 @@
                     "damageType": "bludgeoning",
                     "die": "1d8+3"
                 },
-                "damageRolls": {
-                    "0": {
+                "damageRolls": [
+                    {
                         "damage": "1d8+3",
                         "damageType": "bludgeoning"
                     }
-                },
+                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -635,12 +634,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -684,7 +677,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 18 Fortitude</p>\n<p><strong>Onset</strong> [[/r 1d4]] days</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained} 1, enfeebled 2, and sickened 2 (1 day)</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> drained 2 plus @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (no Perception check to wake up) (1 day);</p>\n<p><strong>Stage 6</strong> dead, and the body erupts to release a new slime mold</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 18 Fortitude</p>\n<p><strong>Onset</strong> [[/r 1d4]] days</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 and @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (1 day)</p>\n<p><strong>Stage 2</strong> as stage 1 (1 day)</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Drained]{Drained} 1, enfeebled 2, and sickened 2 (1 day)</p>\n<p><strong>Stage 4</strong> as stage 3 (1 day)</p>\n<p><strong>Stage 5</strong> drained 2 plus @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} (no Perception check to wake up) (1 day)</p>\n<p><strong>Stage 6</strong> dead, and the body erupts to release a new slime mold</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -793,11 +786,11 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "Amid Decaying Plant Matter or Fungus",
+                        "label": "Amid Decaying Plant Matter of Fungus",
                         "predicate": {
                             "any": [
                                 "terrain:fungus",
-								"terrain:plant"
+                                "terrain:plant"
                             ]
                         },
                         "selector": "stealth",
@@ -817,7 +810,7 @@
                 "variants": {
                     "0": {
                         "label": "+8 amid decaying plant matter or fungus",
-                        "options": "terrain:fungus,terrain:plant"
+                        "options": "terrain:plant,terrain:fungus"
                     }
                 }
             },

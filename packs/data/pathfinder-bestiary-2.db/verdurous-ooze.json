@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": 5,
+                "mod": "+5",
                 "value": 20
             },
             "wis": {
@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 12
+                "value": "12"
             },
             "allSaves": {
                 "value": ""
@@ -104,7 +104,7 @@
             "speed": {
                 "otherSpeeds": [],
                 "special": "",
-                "value": 15
+                "value": "15 feet"
             }
         },
         "currency": {
@@ -495,16 +495,16 @@
                     "damageType": "bludgeoning",
                     "die": "2d6+7"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+7",
                         "damageType": "bludgeoning"
                     },
-                    {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "acid"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -636,12 +636,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -685,7 +679,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature that hits a verdurous ooze with a metal weapon or unarmed attack must attempt a DC 21 Reflex save. On a failure, the weapon or creature takes [[/r 2d4 # acid damage]] acid damage (after dealing damage to the ooze as normal). thrown weapons take this damage automatically with no save.</p>"
+                    "value": "A creature that hits a verdurous ooze with a metal weapon or unarmed attack must attempt a DC 21 Reflex save. On a failure, the weapon or creature takes [[/r 2d4 # acid damage]] acid damage (after dealing damage to the ooze as normal). thrown weapons take this damage automatically with no save."
                 },
                 "rarity": {
                     "value": "common"
@@ -694,12 +688,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -745,7 +733,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>20 feet.</p>\n<p>The verdurous ooze constantly emits supernatural vapors that cause nearby plants to grow rapidly and writhe and grasp at anything and everything within the emanation. This area becomes difficult terrain for non-verdurous ooze creatures. When a creature starts its turn in this aura, it must succeed at a DC 21 Reflex save or take a -10-foot circumstance penalty to its Speeds until it leaves the emanation.</p>"
+                    "value": "20 feet. The verdurous ooze constantly emits supernatural vapors that cause nearby plants to grow rapidly and writhe and grasp at anything and everything within the emanation. This area becomes difficult terrain for non-verdurous ooze creatures. When a creature starts its turn in this aura, it must succeed at a DC 21 Reflex save or take a -10-foot circumstance penalty to its Speeds until it leaves the emanation."
                 },
                 "rarity": {
                     "value": "common"
@@ -754,12 +742,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -807,7 +789,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a verdurous ooze that has 10 or more HP is hit by an attack that would deal piercing or slashing damage, it splits into two identical oozes, each with half the original's HP. One ooze is in the same space as the original, and the other is in an adjacent, unoccupied space. If no adjacent space is unoccupied, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or heavy to push).</p>"
+                    "value": "When a verdurous ooze that has [[/r 10 # or more HP is hit by an attack that would deal piercing or slashing damage]] or more HP is hit by an attack that would deal piercing or slashing damage, it splits into two identical oozes, each with half the original's HP. One ooze is in the same space as the original, and the other is in an adjacent, unoccupied space. If no adjacent space is unoccupied, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or heavy to push)."
                 },
                 "rarity": {
                     "value": "common"
@@ -816,12 +798,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -910,7 +886,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Sleep Gas",
-            "sort": 1250000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -937,12 +913,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
@@ -1038,8 +1008,8 @@
                         "label": "In Tall Grass or Undergrowth",
                         "predicate": {
                             "any": [
-                                "terrain:grass",
-                                "terrain:undergrowth"
+                                "terrain:undergrowth",
+                                "terrain:grass"
                             ]
                         },
                         "selector": "stealth",
@@ -1071,7 +1041,7 @@
             "type": "lore"
         },
         {
-            "_id": "58qPF15uqsE9vbEj",
+            "_id": "okXnipjpQrYq6vGT",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1085,7 +1055,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>[[/r 2d6 # bludgeoning]] bludgeoning plus [[/r 1d6 # acid]] acid, DC 24</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 2d6 #bludgeoning]] bludgeoning plus [[/r 1d6 # acid]] acid, DC 24</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{grabbed} or @Compendium[pf2e.conditionitems.Restrained]{restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1126,11 +1096,11 @@
             },
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Constrict",
-            "sort": 1200000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "8El4KFpvgKJ0sGqT",
+            "_id": "k8uRKWJkW8KHtabq",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1144,7 +1114,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The verdurous ooze's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The verdurous ooze automatically Grabs the target until the end of the verdurous ooze's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the verdurous ooze attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the verdurous ooze's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the verdurous ooze&nbsp;moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"

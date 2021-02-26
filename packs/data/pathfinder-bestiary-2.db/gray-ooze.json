@@ -24,7 +24,7 @@
             },
             "str": {
                 "min": 3,
-                "mod": 5,
+                "mod": "+5",
                 "value": 20
             },
             "wis": {
@@ -40,7 +40,7 @@
                 "dex": 0,
                 "item": 0,
                 "min": 0,
-                "value": 14
+                "value": "14"
             },
             "allSaves": {
                 "value": ""
@@ -109,7 +109,7 @@
                     }
                 ],
                 "special": "",
-                "value": 10
+                "value": "10 feet"
             }
         },
         "currency": {
@@ -468,6 +468,11 @@
         "pf2e": {
             "editNPC": {
                 "value": false
+            },
+            "rollOptions": {
+                "all": {
+                    "target:flatFooted": false
+                }
             }
         },
         "pf2e_updatednpcsheet": {
@@ -509,16 +514,16 @@
                     "damageType": "bludgeoning",
                     "die": "1d6+5"
                 },
-                "damageRolls": {
-                    "0": {
+                "damageRolls": [
+                    {
                         "damage": "1d6+5",
                         "damageType": "bludgeoning"
                     },
-                    "1": {
+                    {
                         "damage": "1d6",
                         "damageType": "acid"
                     }
-                },
+                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -695,7 +700,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature enters a space occupied by a gray ooze</p>\n<p><strong>Requirements</strong> Initiative has not yet been rolled</p>\n<p><strong>Effect</strong> The gray ooze automatically notices the creature, then makes a pseudopod @Compendium[pf2e.actionspf2e.Strike]{Strike} against one creature adjacent to itself before rolling initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters a space occupied by a gray ooze</p>\n<p><strong>Requirements</strong> Initiative has not yet been rolled</p>\n<p><strong>Effect</strong> The gray ooze automatically notices the creature, then makes a pseudopod Strike against one creature adjacent to itself before rolling initiative.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -851,19 +856,7 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "In Moist Environments",
-                        "predicate": {
-                            "any": [
-                                "terrain:moist"
-                            ]
-                        },
-                        "selector": "stealth",
-                        "value": 2
-                    }
-                ],
+                "rules": [],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -873,12 +866,6 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
-                },
-                "variants": {
-                    "0": {
-                        "label": "+12 in moist environments",
-                        "options": "terrain:moist"
-                    }
                 }
             },
             "effects": [],
@@ -889,7 +876,7 @@
             "type": "lore"
         },
         {
-            "_id": "SHWx0BgldR34eu2O",
+            "_id": "8nLUnVkKYxkXvAZs",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -903,7 +890,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>[[/r 1d6 # bludgeoning]] bludgeoning plus [[/r 1d6 # acid]] acid, DC 21</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 1d6 # bludgeoning]] bludgeoning plus [[/r 1d6 # acid]] acid, DC 21</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{grabbed} or @Compendium[pf2e.conditionitems.Restrained]{restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -948,7 +935,7 @@
             "type": "action"
         },
         {
-            "_id": "CXricHhsRXjoG3dg",
+            "_id": "rA2rDDvXjf2Cfr4w",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -962,7 +949,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The gray ooze's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The gray ooze automatically Grabs the target until the end of the gray ooze's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the gray ooze attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the gray ooze's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the gray ooze&nbsp;moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
