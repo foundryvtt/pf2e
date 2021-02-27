@@ -70,5 +70,20 @@ export function listen(): void {
         PF2eConditionManager.init().then(() => {
             PF2eStatusEffects.init();
         });
+
+        // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
+        $('body').on('dragstart', 'a.entity-link', (event: JQuery.DragStartEvent) => {
+            const name = event?.currentTarget?.innerText?.trim() ?? '';
+            const match = name.match(/[0-9]+/);
+            if (match !== null) {
+                const value = Number(match[0]);
+                const dataTransfer = event?.originalEvent?.dataTransfer;
+                if (dataTransfer) {
+                    const data = JSON.parse(dataTransfer.getData('text/plain'));
+                    data.value = value;
+                    dataTransfer.setData('text/plain', JSON.stringify(data));
+                }
+            }
+        });
     });
 }
