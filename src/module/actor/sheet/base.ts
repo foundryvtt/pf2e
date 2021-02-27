@@ -1433,6 +1433,10 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return itemData;
         } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
             const condition = itemData as ConditionData;
+            const value: number = (data as any).value;
+            if (value && condition.data.value.isValued) {
+                condition.data.value.value = value;
+            }
             const token = actor.token
                 ? actor.token
                 : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
