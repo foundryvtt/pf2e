@@ -302,4 +302,24 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     deleteOwnedItem(itemId: string[], options?: object): Promise<ItemType[] | ItemType>;
     deleteOwnedItem(itemId: string, options?: object): Promise<ItemType>;
+
+    /** @override */
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
 }
