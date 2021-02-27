@@ -666,7 +666,7 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
 }
 
 export interface AnimalCompanionData extends ActorEntityData<RawAnimalCompanionData> {
-    type: 'animalcompanion';
+    type: 'animalCompanion';
 }
 
 export type ActorDataPF2e =
