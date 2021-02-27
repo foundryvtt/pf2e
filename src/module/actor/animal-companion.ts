@@ -1,10 +1,13 @@
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
 import { PF2EActor } from './actor';
-import { AnimalCompanionData } from './actor-data-definitions';
+import { RawAnimalCompanionData, AnimalCompanionData } from './actor-data-definitions';
 
 export class PF2EAnimalCompanion extends PF2EActor {
     data!: AnimalCompanionData;
+
+    /** @override */
+    static readonly type = 'animalCompanion';
 
     /** @override */
     static get defaultImg() {
@@ -17,14 +20,20 @@ export class PF2EAnimalCompanion extends PF2EActor {
 
         const actorData = this.data;
         const { data } = actorData;
+        this._getDataFromMaster(data);
+    }
 
+    _getDataFromMaster(data: RawAnimalCompanionData): void {
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master.id);
 
         if (master instanceof PF2ECharacter || master instanceof PF2ENPC) {
-            data.master.level = master.data.data.details.level ?? void 0;
             data.master.name = master.name;
-            //to make logic from character work seemlessly(ish)
+            data.master.level = master.data.data.details.level;
+            data.details.level = data.master.level;
+        } else {
+            //No master, but we still need valid values
+            data.master.level = { value: 1, min: 1 };
             data.details.level = data.master.level;
         }
     }
