@@ -78,6 +78,6 @@ export function listen(): void {
         window.PF2CheckModifier = PF2CheckModifier;
         window.PF2Check = PF2Check;
 
-        MonkeyPatch.patchCompendiumImports;
+        MonkeyPatch.patchCompendiumImports();
     });
 }
