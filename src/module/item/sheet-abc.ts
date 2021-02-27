@@ -39,6 +39,7 @@ export class ABCItemSheetPF2e extends ItemSheet<PF2EItem> {
         const data: any = {
             ...super.getData(),
             type,
+            buildMode: BUILD_MODE,
             hasSidebar: this.item.data.type !== 'class',
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: true,
