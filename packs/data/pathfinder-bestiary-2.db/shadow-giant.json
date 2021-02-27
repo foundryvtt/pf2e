@@ -451,11 +451,6 @@
             "editNPC": {
                 "value": false
             },
-            "rollOptions": {
-                "all": {
-                    "target:flatFooted": false
-                }
-            }
         },
         "pf2e_updatednpcsheet": {
             "npcNotes": {
@@ -1181,6 +1176,7 @@
                         "label": "To Hide in dim light",
                         "predicate": {
                             "all": [
+                                "action:hide",
                                 "light:dim"
                             ]
                         },
@@ -1201,7 +1197,7 @@
                 "variants": {
                     "0": {
                         "label": "+23 to Hide in dim light",
-                        "options": "light:dim"
+                        "options": "action:hide,light:dim"
                     }
                 }
             },
