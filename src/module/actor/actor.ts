@@ -34,6 +34,7 @@ import {
     VehicleData,
     HazardData,
     AbilityString,
+    AnimalCompanionData,
 } from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
@@ -419,7 +420,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected _prepareCustomModifiers(
-        actorData: CharacterData | NpcData | FamiliarData,
+        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
         rules: PF2RuleElement[],
     ): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
