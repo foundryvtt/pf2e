@@ -618,7 +618,7 @@ export class PF2ECharacter extends PF2EActor {
                         // naive check for finesse, which should later be changed to take conditions like
                         // enfeebled and clumsy into consideration
                         if (
-                            (item.data.traits?.value || []).includes('finesse') &&
+                            item.data.traits.value.includes('finesse') &&
                             data.abilities.dex.mod > data.abilities[ability].mod
                         ) {
                             ability = 'dex';
@@ -645,7 +645,7 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
-                    const traits = PF2EActor.traits(item?.data?.traits?.value);
+                    const traits = item.data.traits.value;
                     const melee =
                         ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
                         traits.some((t) => t.startsWith('thrown'));
@@ -733,7 +733,7 @@ export class PF2ECharacter extends PF2EActor {
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
                     ].concat(
-                        PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
+                        item.data.traits.value.map((trait) => {
                             const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                             const option: CharacterStrikeTrait = {
                                 name: trait,

@@ -4,6 +4,7 @@ import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
 import { LocalizationPF2e } from '../system/localization';
+import { ConfigPF2e } from 'src/scripts/config';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -68,6 +69,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
 
+        const itemData = duplicate(this.item.data);
+        const traits = itemData.data.traits.value.filter((trait) => !!trait);
+
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
         data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
@@ -103,7 +107,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 spellScalingModes: CONFIG.PF2E.spellScalingModes,
             });
 
-            this._prepareTraits(data.data.traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
+            this._prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
@@ -126,7 +130,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.weaponTraits = CONFIG.PF2E.weaponTraits;
+
+            const weaponData = this.item.data;
+            const rarity = weaponData.data.rarity.value;
+            data.weaponTraits = [CONFIG.PF2E.rarityTraits[rarity]]
+                .concat(traits)
+                .map((trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait);
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
