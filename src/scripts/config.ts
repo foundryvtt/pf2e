@@ -619,6 +619,7 @@ export const PF2ECONFIG = {
         bomb: 'PF2E.TraitBomb',
         brutal: 'PF2E.TraitBrutal',
         chaotic: 'PF2E.TraitChaotic',
+        climbing: 'PF2E.TraitClimbing',
         cold: 'PF2E.TraitCold',
         coldiron: 'PF2E.TraitColdiron',
         concealable: 'PF2E.TraitConcealable',
