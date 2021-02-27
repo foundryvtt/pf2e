@@ -1020,12 +1020,13 @@ export class PF2ECharacter extends PF2EActor {
         options: EntityCreateOptions,
         userId: string,
     ): void {
+        super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
+
         if ('type' in child) {
-            const item = new PF2EItem(child, { actor: this });
+            const item = this.items.get(child._id);
             if (item instanceof PF2EAncestry || item instanceof PF2EBackground || item instanceof PF2EClass) {
                 item.addFeatures(this);
             }
         }
-        super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
     }
 }
