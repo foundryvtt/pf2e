@@ -14,11 +14,11 @@ import {
 import { DicePF2e } from '../../scripts/dice';
 import { PF2EActor, TokenPF2e } from '../actor/actor';
 import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
-import { parseTraits, TraitChatEntry } from '../traits';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2Check } from '../system/rolls';
+import { ConfigPF2e } from 'src/scripts/config';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<PF2EActor> {
     pf2e?: {
@@ -57,6 +57,13 @@ export class PF2EItem extends Item<PF2EActor> {
     /** The sluggified name of the item **/
     get slug(): string {
         return this.data.data.slug;
+    }
+
+    /** @override */
+    prepareData(): void {
+        // Remove any empty-string traits that somehow got snuck their way in
+        this._data.data.traits.value = this._data.data.traits.value.filter((trait) => !!trait);
+        super.prepareData();
     }
 
     /**
@@ -156,9 +163,9 @@ export class PF2EItem extends Item<PF2EActor> {
     _weaponChatData() {
         const data: any = duplicate(this.data.data);
         const actorData = this.actor.data;
-        const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
-        const twohandedTrait = data.traits.value.find((trait) => trait.match(twohandedRegex)) !== undefined;
+        const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
+        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         if (this.data.type !== 'weapon') {
             throw new Error('tried to create a weapon chat data for a non-weapon item');
@@ -215,7 +222,6 @@ export class PF2EItem extends Item<PF2EActor> {
         data.wieldedTwoHands = !!data.hands.value;
         data.isFinesse = isFinesse;
         data.properties = properties.filter((p) => !!p);
-        data.traits = traits.filter((p) => !!p);
 
         const map = this.calculateMap();
         data.map2 = map.map2;
@@ -227,12 +233,12 @@ export class PF2EItem extends Item<PF2EActor> {
 
     _meleeChatData() {
         const data: any = duplicate(this.data.data);
-        const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         const isAgile = (data.traits.value || []).includes('agile');
         data.map2 = isAgile ? '-4' : '-5';
         data.map3 = isAgile ? '-8' : '-10';
-        data.traits = traits.filter((p) => !!p);
+
         return data;
     }
 
@@ -281,21 +287,25 @@ export class PF2EItem extends Item<PF2EActor> {
 
     /* -------------------------------------------- */
 
-    static traitChatData(itemTraits: ItemTraits, traitList: Record<string, string>): TraitChatEntry[] {
-        let traits = parseTraits(itemTraits.value);
-        const customTraits = parseTraits(itemTraits.custom);
+    static traitChatData(
+        itemTraits: ItemTraits,
+        traitList: Record<string, string>,
+    ): { label: string; description: string }[] {
+        let traits = itemTraits.value;
+        const customTraits = itemTraits.custom.trim().split(/\s*[,;|]\s*/);
 
         if (customTraits.length > 0) {
             traits = traits.concat(customTraits);
         }
 
-        const traitChatLabels = [];
-
-        for (const trait of traits) {
-            const traitsObject = new TraitChatEntry(trait, traitList);
-
-            traitChatLabels.push(traitsObject);
-        }
+        const traitChatLabels = traits.map((trait) => {
+            const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
+            return {
+                label,
+                description:
+                    CONFIG.PF2E.traitsDescriptions[trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']] ?? '',
+            };
+        });
 
         return traitChatLabels;
     }
