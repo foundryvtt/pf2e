@@ -60,11 +60,11 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "95",
+                "max": 95,
                 "min": 0,
                 "temp": 0,
                 "tempmax": 0,
-                "value": "95"
+                "value": 95
             },
             "init": {
                 "bonus": 0,
@@ -150,7 +150,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "7"
+                "value": 7
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=812",
             "recallKnowledgeText": "Recall Knowledge - Undead : DC 23",
@@ -406,6 +406,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -454,8 +457,18 @@
             }
         }
     },
+    "effects": [],
     "flags": {
-        "pf2e_updatednpcsheet": {}
+        "pf2e": {
+            "editNPC": {
+                "value": false
+            }
+        },
+        "pf2e_updatednpcsheet": {
+            "npcNotes": {
+                "value": ""
+            }
+        }
     },
     "img": "icons/svg/mystery-man.svg",
     "items": [
@@ -466,13 +479,12 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "spectral corruption"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
                 "bonus": {
                     "total": 18,
-                    "value": 18
+                    "value": 16
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -490,12 +502,12 @@
                     "damageType": "negative",
                     "die": "6d6"
                 },
-                "damageRolls": [
-                    {
-                        "damage": "6d6",
+                "damageRolls": {
+                    "0": {
+                        "damage": "2d8+8",
                         "damageType": "negative"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -512,6 +524,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -570,9 +585,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -591,6 +608,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -622,10 +640,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -647,6 +667,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Frightful Presence",
@@ -676,10 +697,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -698,6 +721,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Pain Starvation",
@@ -727,10 +751,12 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -747,6 +773,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Sunlight Powerlessness",
@@ -768,7 +795,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When the specter damages a living creature with its vile touch Strike, the specter gains 5 temporary Hit Points and the target creature must attempt a DC 25 Will save to avoid becoming corrupted. <br /><b>Critical Success</b> The creature is unaffected and is temporarily immune to spectral corruption for 1 minute. <br /><b>Success</b> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 for 1 hour. <br /><b>Failure</b> The creature succumbs to the corruption and becomes a spectral thrall. The creature is controlled by the specter, obeying the specter's telepathic or spoken orders, though a spectral thrall does not obey obviously self-destructive orders. It can attempt a new Will save at the end of each of its turns; on a success, it is no longer controlled by the specter but becomes stupefied 2 for 1 hour. <br /><b>Critical Failure</b> As failure, but the creature remains a thrall to the specter until the curse is removed or until the specter succumbs to pain starvation; it can't attempt new Will saves to recover on its own."
+                    "value": "<p>The specter makes a vile touch Strike. If it damages a living creature, the specter gains 5 temporary Hit Points and the target creature must attempt a&nbsp;DC 24&nbsp;Will save to avoid becoming corrupted.</p>\n<p><strong>Critical Success </strong>The creature is unaffected and is temporarily immune to spectral corruption for 1 minute.</p>\n<p><strong>Success </strong>The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 for 1 hour.</p>\n<p><strong>Failure </strong>The creature succumbs to the corruption and becomes a spectral thrall temporarily. The creature is @Compendium[pf2e.conditionitems.Controlled]{Controlled} by the specter, obeying the specter's telepathic or spoken orders, though a spectral thrall does not obey obviously self-destructive orders. This lasts until the end of the thrall&rsquo;s next turn, at which point it is no longer controlled but becomes stupefied 2 for 1 hour.</p>\n<p><strong>Critical Failure </strong>As failure, but the duration is unlimited. The thrall can attempt a new Will save at the end of each of its turns; on a success, it is no longer controlled by the specter but becomes stupefied 2 for 1 hour.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -776,14 +803,23 @@
                 "requirements": {
                     "value": ""
                 },
+                "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
                 "skill_requirements": {
                     "rank": "",
                     "skill": ""
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "value": [
                         "curse",
                         "divine",
@@ -802,6 +838,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Spectral Corruption",
@@ -829,6 +866,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -839,6 +878,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -866,6 +906,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -876,6 +918,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
@@ -903,6 +946,8 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -913,6 +958,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -925,7 +971,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "HNEUSYnInffvGPHK",
         "actorLink": false,
         "bar1": {
@@ -944,6 +989,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Specter",
         "randomImg": false,
