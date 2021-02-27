@@ -602,6 +602,7 @@ export const PF2ECONFIG = {
     }, // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
     ancestryItemTraits: {
+        amphibious: 'PF2E.TraitAmphibious',
         fey: 'PF2E.TraitFey',
         humanoid: 'PF2E.TraitHumanoid',
         plant: 'PF2E.TraitPlant',
