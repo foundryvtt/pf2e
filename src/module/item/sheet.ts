@@ -38,6 +38,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
 
     getData() {
         const data: any = super.getData();
+        data.buildMode = BUILD_MODE;
         // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
         // This works because the actor's items are already updated by the time the ItemSheet rerenders.
         const updatedData = this?.actor?.items?.get(this?.entity?.id ?? '')?.data;
