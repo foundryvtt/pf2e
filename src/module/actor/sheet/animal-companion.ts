@@ -1,6 +1,6 @@
 import { ActorSheetPF2eCreature } from './creature';
 import { ItemData } from '../../item/data-definitions';
-import { PF2EAnimalCompanion } from '../../actor/animalcompanion';
+import { PF2EAnimalCompanion } from '../animal-companion';
 
 /**
  * @category Other
