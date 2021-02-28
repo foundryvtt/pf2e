@@ -483,9 +483,18 @@ declare class Entity {
 
     /**
      * Handle Embedded Entity creation within this Entity with specific callback steps.
-     * This callback function is triggered by Collection._createEmbeddedEntity once the source data is updated.
+     * This function is triggered once per EmbeddedEntity which is updated.
+     * It therefore may run multiple times per creation workflow.
+     * Any steps defined here should run on a per-EmbeddedEntity basis.
+     * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
+     * @private
      */
-    protected _onCreateEmbeddedEntity(response: any): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: string,
+        child: BaseEntityData | EmbeddedEntityData,
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
 
     /**
      * Handle Embedded Entity update within this Entity with specific callback steps.

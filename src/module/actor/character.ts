@@ -3,6 +3,7 @@ import {
     BackgroundData,
     ClassData,
     ConsumableData,
+    ItemData,
     LoreData,
     MartialData,
     SpellAttackRollModifier,
@@ -40,6 +41,9 @@ import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '../utils';
 import { adaptRoll } from '../system/rolls';
+import { PF2EAncestry } from '@item/ancestry';
+import { PF2EBackground } from '@item/background';
+import { PF2EClass } from '@item/class';
 
 export class PF2ECharacter extends PF2EActor {
     data!: CharacterData;
@@ -988,6 +992,41 @@ export class PF2ECharacter extends PF2EActor {
         if (classData) {
             actorData.data.details.class.value = classData.name;
             actorData.data.attributes.classhp = classData.data.hp;
+        }
+    }
+
+    /** @override */
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void {
+        super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
+
+        if ('type' in child) {
+            const item = this.items.get(child._id);
+            if (item instanceof PF2EAncestry || item instanceof PF2EBackground || item instanceof PF2EClass) {
+                item.addFeatures(this);
+            }
         }
     }
 }
