@@ -1,20 +1,26 @@
-const fs = require('fs');
-const path = require('path');
-const process = require('process');
-const Datastore = require('nedb-promises');
-const yargs = require('yargs');
-const { JSDOM } = require('jsdom');
+import * as fs from 'fs';
+import * as path from 'path';
+import * as process from 'process';
+import Datastore from 'nedb-promises';
+import yargs from 'yargs';
+import { JSDOM } from 'jsdom';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
 
 const { window } = new JSDOM('');
 const $ = require('jquery')(window);
 
 // show error message without needless traceback
-const throwPackError = (message) => {
+const PackError = (message: string) => {
     console.error(`Error: ${message}`);
     process.exit(1);
 };
 
-const args = yargs(process.argv.slice(2))
+interface ExtractArgs {
+    foundryConfig?: string;
+    packDb: string;
+}
+const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
         yargs
             .positional('packDb', {
@@ -32,8 +38,11 @@ const args = yargs(process.argv.slice(2))
             ]);
     })
     .check((argv) => {
-        if (!(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())) {
-            throw Error(`Error: No config file found at "${argv.foundryConfig}"`);
+        if (
+            typeof argv.foundryConfig === 'string' &&
+            !(fs.existsSync(argv.foundryConfig) && fs.statSync(argv.foundryConfig).isFile())
+        ) {
+            argv.foundryConfig = undefined;
         }
         return true;
     })
@@ -41,22 +50,21 @@ const args = yargs(process.argv.slice(2))
     .version(false)
     .parse();
 
-const config = (() => {
-    const content = fs.readFileSync(args.foundryConfig, { encoding: 'utf-8' });
+const packsPath = (() => {
     try {
-        return JSON.parse(content);
+        const content = fs.readFileSync(args.foundryConfig ?? '', { encoding: 'utf-8' });
+        return JSON.parse(content).dataPath.join('Data/systems/pf2e/packs');
     } catch (_error) {
-        throwPackError(`${args.foundryConfig} is not well-formed JSON.`);
-        return undefined; // make eslint happy until eslint-config-airbnb-base is tossed
+        return path.resolve(process.cwd(), 'dist/packs');
     }
 })();
 
-const packsPath = path.resolve(config.dataPath, 'Data/systems/pf2e/packs');
 const tempDataPath = path.resolve(process.cwd(), 'packs/temp-data');
 const dataPath = path.resolve(process.cwd(), 'packs/data');
-const packsMetadata = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8')).packs;
+const packsMetadata = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), 'system.json'), 'utf-8'))
+    .packs as CompendiumMetadata[];
 
-const idsToNames = new Map();
+const idsToNames: Map<string, Map<string, string>> = new Map();
 
 const linkPatterns = {
     world: /@(?:Item|JournalEntry|Actor)\[[^\]]+\]|@Compendium\[world\.[^\]]+\]/g,
@@ -64,34 +72,44 @@ const linkPatterns = {
     components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/,
 };
 
-function entityIdChanged(newEntity, packDir, fileName) {
-    const oldFile = path.resolve(dataPath, packDir, fileName);
-    if (fs.existsSync(oldFile)) {
-        const oldEntity = JSON.parse(fs.readFileSync(oldFile));
+type CompendiumEntityPF2e =
+    | (Actor & { data: ActorDataPF2e })
+    | (Item & { data: ItemData })
+    | JournalEntry
+    | Macro
+    | RollTable;
+type PackEntry = CompendiumEntityPF2e['data'];
 
-        return !(oldEntity._id === newEntity._id);
-    } else {
-        return false;
-    }
-}
-
-/** Walk object tree and make appropriate deletions */
-function pruneTree(entityData, topLevel = {}) {
-    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
-    for (const key in entityData) {
-        if (key === '_id') {
-            topLevel = entityData;
-        } else if (['_modifiers', '_sheetTab'].includes(key)) {
-            delete entityData[key];
-        } else if (key === 'containerId' && !physicalItemTypes.includes(topLevel.type)) {
-            delete entityData[key];
-        } else if (entityData[key] instanceof Object) {
-            pruneTree(entityData[key], topLevel);
+function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
+    if (fs.existsSync(jsonPath)) {
+        const oldEntity = JSON.parse(fs.readFileSync(jsonPath, { encoding: 'utf-8' })) as PackEntry;
+        if (oldEntity._id !== newEntity._id) {
+            throw PackError(
+                `The ID of entity "${newEntity.name}" (${newEntity._id}) does not match the current ID ` +
+                    `(${oldEntity._id}). Entities that are already in the system must keep their current ID.`,
+            );
         }
     }
 }
 
-function sluggify(entityName) {
+/** Walk object tree and make appropriate deletions */
+function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
+    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
+    type EntityKey = keyof PackEntry;
+    for (const key in entityData) {
+        if (key === '_id') {
+            topLevel = entityData;
+        } else if (['_modifiers', '_sheetTab'].includes(key)) {
+            delete entityData[key as EntityKey];
+        } else if (key === 'containerId' && 'type' in topLevel && !physicalItemTypes.includes(topLevel.type)) {
+            delete entityData[key as EntityKey];
+        } else if (entityData[key as EntityKey] instanceof Object) {
+            pruneTree(entityData[key as EntityKey] as PackEntry, topLevel);
+        }
+    }
+}
+
+function sluggify(entityName: string) {
     return entityName
         .toLowerCase()
         .replace(/[^a-z0-9]+/gi, ' ')
@@ -99,37 +117,40 @@ function sluggify(entityName) {
         .replace(/\s+|-{2,}/g, '-');
 }
 
-function sanitizeEntity(entityData, packName) {
+function sanitizeEntity(entityData: PackEntry) {
     // Remove individual permissions
     entityData.permission = { default: entityData.permission.default ?? 0 };
 
-    delete entityData.sort;
+    delete (entityData as Partial<typeof entityData>).sort;
     delete entityData.flags.core;
 
-    const slug = entityData.data?.slug;
-    if (typeof slug === 'string') {
-        if (slug !== sluggify(entityData.name)) {
-            console.warn(
-                `Warning: Name change detected on ${entityData.name}. ` +
-                    'Please remember to create a slug migration before next release.',
-            );
+    if ('data' in entityData && 'slug' in entityData.data) {
+        const slug = entityData.data.slug;
+        if (typeof slug === 'string') {
+            if (slug !== sluggify(entityData.name)) {
+                console.warn(
+                    `Warning: Name change detected on ${entityData.name}. ` +
+                        'Please remember to create a slug migration before next release.',
+                );
+            }
+        }
+        if (slug) {
+            delete entityData.data.slug;
         }
     }
-    if (slug !== undefined) {
-        delete entityData.data.slug;
-    }
 
-    pruneTree(entityData);
+    pruneTree(entityData, entityData);
 
     // Clean up description HTML
-    if (typeof entityData.data?.description?.value === 'string') {
-        const $description = (() => {
-            const description = entityData.data.description.value;
+    const description: { value: string | null } =
+        'data' in entityData && 'description' in entityData.data ? entityData.data.description : null;
+    if (description) {
+        const $description = ((): JQuery | null => {
             try {
-                return $(description);
+                return $(description.value);
             } catch (_) {
                 try {
-                    return $(`<p>${description}</p>`);
+                    return $(`<p>${description.value}</p>`);
                 } catch (_error) {
                     console.warn(`Failed to parse description of ${entityData.name}`);
                     return null;
@@ -145,12 +166,12 @@ function sanitizeEntity(entityData, packName) {
         const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
         for (const selector of selectors) {
             $description.find(selector).each((_i, span) => {
-                $(span)
+                ($(span) as JQuery)
                     .contents()
                     .unwrap(selector)
                     .each((_j, node) => {
                         if (node.nodeName === '#text') {
-                            node.textContent = node.textContent.trim();
+                            node.textContent = node.textContent!.trim();
                         }
                     });
             });
@@ -172,18 +193,18 @@ function sanitizeEntity(entityData, packName) {
             .html()
             .replace(/<([hb]r)>/g, '<$1 />'); // Restore Foundry's self-closing tags
 
-        entityData.data.description.value = cleanDescription;
+        description.value = cleanDescription;
     }
 
     return entityData;
 }
 
-const newEntityIdMap = {};
+const newEntityIdMap: Record<string, string> = {};
 
-function convertLinks(entityData, packName) {
+function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     newEntityIdMap[entityData._id] = entityData.name;
 
-    const entityJson = JSON.stringify(sanitizeEntity(entityData, packName));
+    const entityJson = JSON.stringify(sanitizeEntity(entityData));
 
     // Link checks
 
@@ -198,28 +219,27 @@ function convertLinks(entityData, packName) {
 
     if (linksLackingLabels.length > 0) {
         const linkString = linksLackingLabels.map((match) => match[0]).join(', ');
-        throwPackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
+        throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
     }
 
     // Convert links by ID to links by name
 
-    const notFound = [];
+    const notFound: string[] = [];
     const convertedJson = compendiumLinks.reduce((partiallyConverted, linkById) => {
-        const [match, packId, entityId] = linkById.match(linkPatterns.components);
-
+        const match = linkPatterns.components.exec(linkById);
+        if (!Array.isArray(match)) {
+            throw PackError('Unexpected error looking for compendium link');
+        }
+        const [packId, entityId] = match.slice(1, 3);
         const packMap = idsToNames.get(packId);
         if (packMap === undefined) {
-            throwPackError(`Pack ${packId} has no ID-to-name map.`);
+            throw PackError(`Pack ${packId} has no ID-to-name map.`);
         }
 
-        const entityName = packMap.get(entityId);
+        const entityName = packMap.get(entityId) ?? newEntityIdMap[entityId];
         if (entityName === undefined) {
-            const newName = newEntityIdMap[entityId];
-            if (newName === undefined) {
-                notFound.push(match.replace(/\{$/, ''));
-            } else {
-                partiallyConverted.replace(entityId, newName);
-            }
+            notFound.push(match[0].replace(/\{$/, ''));
+            return partiallyConverted;
         }
 
         const replacePattern = new RegExp(`(?<!"_id":")${entityId}`);
@@ -235,17 +255,17 @@ function convertLinks(entityData, packName) {
         );
     }
 
-    return JSON.parse(convertedJson);
+    return JSON.parse(convertedJson) as PackEntry;
 }
 
-async function getAllData(filename) {
+async function getAllData(filename: string): Promise<PackEntry[]> {
     const packDB = Datastore.create({ filename, corruptAlertThreshold: 10 });
     await packDB.load();
 
-    return packDB.find({});
+    return packDB.find({}) as Promise<PackEntry[]>;
 }
 
-async function extractPack(filePath, packFilename) {
+async function extractPack(filePath: string, packFilename: string) {
     console.log(`Extracting pack: ${packFilename}`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
@@ -258,8 +278,8 @@ async function extractPack(filePath, packFilename) {
 
         // Pretty print JSON data
         const outData = (() => {
-            const allKeys = new Set();
-            const idKeys = [];
+            const allKeys: Set<string> = new Set();
+            const idKeys: string[] = [];
             JSON.stringify(preparedEntity, (key, value) => {
                 if (idPattern.test(key)) {
                     idKeys.push(key);
@@ -282,16 +302,10 @@ async function extractPack(filePath, packFilename) {
         const outFilePath = path.resolve(outPath, outFileName);
 
         if (fs.existsSync(outFilePath)) {
-            throwPackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
+            throw PackError(`Error: Duplicate name "${entityData.name}" in pack: ${packFilename}`);
         }
 
-        if (entityIdChanged(preparedEntity, packFilename, outFileName)) {
-            throwPackError(
-                `The ID "${entityData._id}" of entity "${entityData.name}" does not match ` +
-                    'the current ID. Entities that are already in the system must keep their ' +
-                    'current ID.',
-            );
-        }
+        assertEntityIdSame(preparedEntity, outFilePath);
 
         // Write the JSON file
         await fs.promises.writeFile(outFilePath, outData, 'utf-8');
@@ -306,10 +320,10 @@ function populateIdNameMap() {
     for (const packDir of packDirs) {
         const metadata = packsMetadata.find((pack) => path.basename(pack.path) === packDir);
         if (metadata === undefined) {
-            throwPackError(`Compendium at ${packDir} has metadata in the local system.json file.`);
+            throw PackError(`Compendium at ${packDir} has metadata in the local system.json file.`);
         }
 
-        const packMap = new Map();
+        const packMap: Map<string, string> = new Map();
         idsToNames.set(metadata.name, packMap);
 
         const filenames = fs.readdirSync(path.resolve(dataPath, packDir));
@@ -321,8 +335,7 @@ function populateIdNameMap() {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
-                    throwPackError(`File at ${filePath} could not be parsed: ${error.message}`);
-                    return undefined;
+                    throw PackError(`File at ${filePath} could not be parsed: ${error.message}`);
                 }
             })();
             packMap.set(entityData._id, entityData.name);
@@ -355,10 +368,10 @@ async function extractPacks() {
                 const dbFilename = path.basename(filePath);
 
                 if (!dbFilename.endsWith('.db')) {
-                    throwPackError(`Pack file is not a DB file: '${dbFilename}'`);
+                    throw PackError(`Pack file is not a DB file: '${dbFilename}'`);
                 }
                 if (!fs.existsSync(filePath)) {
-                    throwPackError(`File not found: '${dbFilename}'`);
+                    throw PackError(`File not found: '${dbFilename}'`);
                 }
 
                 const outDirPath = path.resolve(dataPath, dbFilename);
@@ -370,7 +383,6 @@ async function extractPacks() {
 
                 // Move ./packs/temp-data/[packname].db/ to ./packs/data/[packname].db/
                 fs.rmdirSync(outDirPath, { recursive: true });
-                console.log(`${tempOutDirPath}, ${outDirPath}`);
                 await fs.promises.rename(tempOutDirPath, outDirPath);
 
                 console.log(`Finished extracting ${entityCount} entities from pack ${dbFilename}`);
@@ -386,5 +398,6 @@ extractPacks()
         console.log(`Extraction complete (${grandTotal} total entities).`);
     })
     .catch((error) => {
-        console.error(throwPackError(error));
+        console.error(error);
+        process.exit(1);
     });
