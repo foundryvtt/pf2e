@@ -32,6 +32,9 @@
                 color: transparent;
             }
         }
+        &[type="number"] {
+          padding-bottom: 0;
+        }
     }
     select {
         width: calc(100% - 6px);
@@ -46,14 +49,17 @@
             @include p-reset;
             background-color: rgba($body-color, 0.1);
             height: 26px;
-            padding: 6px 4px;
+            padding: 8px 4px 6px;
             color: var(--body);
             font-family: $body-serif;
             font-size: 14px;
             font-weight: 700;
             width: calc(100% - 6px);
             i {
-                float: right;
+              position: relative;
+              right: -2px;
+              top: -2px;
+              float: right;
             }
 
             span.value {
