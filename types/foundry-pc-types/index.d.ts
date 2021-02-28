@@ -75,10 +75,10 @@ import './types/framework/entities/chat-message';
 import './types/framework/entities/combat';
 import './types/framework/entities/folder';
 import './types/framework/entities/item';
-import './types/framework/entities/journal';
+import './types/framework/entities/journal-entry';
 import './types/framework/entities/macro';
 import './types/framework/entities/playlist';
-import './types/framework/entities/rolltable';
+import './types/framework/entities/roll-table';
 import './types/framework/entities/scene';
 import './types/framework/entities/user';
 
