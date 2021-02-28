@@ -245,38 +245,6 @@ export interface ActorSystemData {
     traits: BaseTraitsData;
 }
 
-export interface RawAnimalCompanionData extends ActorSystemData {
-    master: {
-        id: string;
-        name: string;
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
-        };
-    };
-
-    details: {
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
-        };
-    };
-
-    /** Custom character traits, such as damage resistances/immunities. */
-    traits: CreatureTraitsData;
-
-    /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
-    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
-}
-
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends ActorSystemData {
     /** The six primary ability scores. */
@@ -665,15 +633,4 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
     type: 'vehicle';
 }
 
-export interface AnimalCompanionData extends ActorEntityData<RawAnimalCompanionData> {
-    type: 'animalCompanion';
-}
-
-export type ActorDataPF2e =
-    | CharacterData
-    | NpcData
-    | HazardData
-    | LootData
-    | FamiliarData
-    | VehicleData
-    | AnimalCompanionData;
+export type ActorDataPF2e = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
