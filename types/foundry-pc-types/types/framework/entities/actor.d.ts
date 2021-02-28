@@ -1,10 +1,11 @@
 declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
     type: string;
     img: string;
-    data: Record<string, unknown>;
+    data: {};
     token: TokenData;
     items: D[];
     effects: ActiveEffectData[];
+    sort: number;
 }
 
 declare interface ActorClassConfig extends EntityClassConfig<Actor> {
