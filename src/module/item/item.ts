@@ -140,10 +140,10 @@ export class PF2EItem extends Item<PF2EActor> {
             `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
             `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
             `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
-            data.traits.value,
+            ...data.traits.value,
             data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
         ];
-        data.properties = properties.filter((p) => p !== null);
+        data.properties = properties.filter((property) => property);
 
         data.traits = null;
         return data;
@@ -172,7 +172,7 @@ export class PF2EItem extends Item<PF2EActor> {
         }
 
         // calculate attackRoll modifier (for _onItemSummary)
-        const isFinesse = (data.traits.value || []).includes('finesse');
+        const isFinesse = data.traits.includes('finesse');
         const abl =
             isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
                 ? 'dex'
@@ -235,7 +235,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const data: any = duplicate(this.data.data);
         data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
-        const isAgile = (data.traits.value || []).includes('agile');
+        const isAgile = data.traits.includes('agile');
         data.map2 = isAgile ? '-4' : '-5';
         data.map3 = isAgile ? '-8' : '-10';
 
@@ -292,7 +292,7 @@ export class PF2EItem extends Item<PF2EActor> {
         traitList: Record<string, string>,
     ): { label: string; description: string }[] {
         let traits = itemTraits.value;
-        const customTraits = itemTraits.custom.trim().split(/\s*[,;|]\s*/);
+        const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
 
         if (customTraits.length > 0) {
             traits = traits.concat(customTraits);
@@ -368,16 +368,7 @@ export class PF2EItem extends Item<PF2EActor> {
             props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
         }
         data.properties = props.filter((p) => p !== null);
-
-        const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
-        // TODO: This line needs to be fixed as these types are not even vaguely compatible
-        data.traits = traits.filter((p) => p) as any;
-        // Toggling this off for now
-        /*     data.area = data.area.value ? {
-      "label": `Area: ${CONFIG.PF2E.areaSizes[data.area.value]} ${CONFIG.PF2E.areaTypes[data.area.areaType]}`,
-      "areaType": data.area.areaType,
-      "size": data.area.value
-    } : null; */
+        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
 
         return data;
     }
@@ -390,50 +381,29 @@ export class PF2EItem extends Item<PF2EActor> {
     _featChatData() {
         const data: any = duplicate(this.data.data);
 
-        /*     let traits = [];
-    if ((data.traits.value || []).length != 0) {
-      traits = duplicate(data.traits.value);
-      for(var i = 0 ; i < traits.length ; i++){
-        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
-      }
-    } */
-
         // Feat properties
         const props = [
             `Level ${data.level.value || 0}`,
             data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
         ];
-        // if (traits.length != 0) props = props.concat(traits);
 
         data.properties = props.filter((p) => p);
+        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
 
-        const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-        data.traits = traits.filter((p) => p);
         return data;
     }
 
     _actionChatData() {
         const data: any = duplicate(this.data.data);
 
-        /* let traits = [];
-    if ((data.traits.value || []).length != 0) {
-      traits = duplicate(data.traits.value);
-      for(var i = 0 ; i < traits.length ; i++){
-        traits[i] = traits[i].charAt(0).toUpperCase() + traits[i].substr(1);
-      }
-    } */
-
         let associatedWeapon: PF2EItem | null = null;
         if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
 
         // Feat properties
         const props = [CONFIG.PF2E.actionTypes[data.actionType.value], associatedWeapon ? associatedWeapon.name : null];
-        // if (traits.length != 0) props = props.concat(traits);
 
         data.properties = props.filter((p) => p);
-
-        const traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-        data.traits = traits.filter((p) => p);
+        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
 
         return data;
     }
@@ -458,7 +428,7 @@ export class PF2EItem extends Item<PF2EActor> {
      * Roll a Weapon Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollWeaponAttack(event, multiAttackPenalty?) {
+    rollWeaponAttack(event?: JQuery.TriggeredEvent, multiAttackPenalty?: number) {
         if (this.type === 'action') {
             throw new Error('Wrong item type!');
         }
@@ -476,7 +446,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const prof = itemData.weaponType.value || 'simple';
         let parts = ['@itemBonus', `@abilities.${abl}.mod`];
 
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
+        const title = `${this.name} - Attack Roll${multiAttackPenalty ?? 1 > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
         if (this.actor.data.type === 'npc') {
             parts = ['@itemBonus'];
@@ -506,7 +476,7 @@ export class PF2EItem extends Item<PF2EActor> {
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
                 width: 400,
-                top: event ? event.clientY - 80 : 400,
+                top: event && event.clientY ? event.clientY - 80 : 400,
                 left: window.innerWidth - 710,
             },
         });
@@ -518,7 +488,7 @@ export class PF2EItem extends Item<PF2EActor> {
      * Roll Weapon Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollWeaponDamage(event, critical = false) {
+    rollWeaponDamage(event: JQuery.TriggeredEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item: ItemData = this.data;
@@ -536,7 +506,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const dtype: string = CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
         // Get detailed trait information from item
-        const traits = itemData.traits.value || [];
+        const traits = itemData.traits.value;
         let critTrait = '';
         let critDie = '';
         let bonusDamage = 0;
@@ -601,7 +571,7 @@ export class PF2EItem extends Item<PF2EActor> {
         if (itemData.range.value === 'melee' || itemData.range.value === 'reach' || itemData.range.value === '') {
             // if a melee attack
             parts.push(abilityMod);
-        } else if ((itemData.traits.value || []).includes('propulsive')) {
+        } else if (itemData.traits.value.includes('propulsive')) {
             if (Math.sign(this.actor.data.data.abilities.str.mod) === 1) {
                 const halfStr = Math.floor(this.actor.data.data.abilities.str.mod / 2);
                 parts.push(halfStr);
@@ -643,7 +613,7 @@ export class PF2EItem extends Item<PF2EActor> {
             speaker: ChatMessage.getSpeaker({ actor: this.actor ? this.actor : undefined }),
             dialogOptions: {
                 width: 400,
-                top: event.clientY - 80,
+                top: event.clientY ? event.clientY - 80 : 400,
                 left: window.innerWidth - 710,
             },
         });
@@ -1093,9 +1063,8 @@ export class PF2EItem extends Item<PF2EActor> {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
             spellData.properties = props.filter((p) => p !== null);
+            spellData.traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
 
-            const traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits);
-            spellData.traits = traits.filter((p) => p) as any;
             spellData.item = JSON.stringify(this.data);
 
             const template = `systems/pf2e/templates/chat/spell-card.html`;
@@ -1144,7 +1113,7 @@ export class PF2EItem extends Item<PF2EActor> {
     static calculateMap(item: ItemData): { label: string; map2: number; map3: number } {
         if (['melee', 'weapon'].includes(item.type)) {
             // calculate multiple attack penalty tiers
-            const agile = (item.data.traits.value || []).includes('agile');
+            const agile = item.data.traits.value.includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;
             switch (alternateMAP) {
                 case '1':
