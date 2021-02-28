@@ -27,6 +27,7 @@ import {
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
 import { PF2eCombatTracker } from '../module/system/combat-tracker';
+import { PF2EAnimalCompanion } from '@actor/animal-companion';
 
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
@@ -2147,6 +2148,7 @@ export const PF2ECONFIG = {
             hazard: PF2EHazard,
             loot: PF2ELoot,
             familiar: PF2EFamiliar,
+            animalCompanion: PF2EAnimalCompanion,
             vehicle: PF2EVehicle,
         },
     },
