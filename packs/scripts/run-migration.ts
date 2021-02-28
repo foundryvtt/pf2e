@@ -66,7 +66,7 @@ async function getAllFiles(): Promise<string[]> {
             packFiles = fs.readdirSync(path.resolve(packsDataPath, pack));
         } catch (e) {
             console.error(e.message);
-            return;
+            return [];
         }
 
         for (const fileName of packFiles) {
