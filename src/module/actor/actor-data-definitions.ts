@@ -246,6 +246,16 @@ export interface ActorSystemData {
 }
 
 export interface RawAnimalCompanionData extends ActorSystemData {
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
     master: {
         id: string;
         name: string;
@@ -268,6 +278,12 @@ export interface RawAnimalCompanionData extends ActorSystemData {
         };
     };
 
+    attributes: {
+        hp: number;
+        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+        [key: string]: any;
+    };
+
     /** Custom character traits, such as damage resistances/immunities. */
     traits: CreatureTraitsData;
 
@@ -275,6 +291,9 @@ export interface RawAnimalCompanionData extends ActorSystemData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for characters. */
