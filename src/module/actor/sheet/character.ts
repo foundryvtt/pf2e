@@ -1,15 +1,12 @@
 import { ActorSheetPF2eCreature } from './creature';
-import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '../../item/bulk';
-import { calculateEncumbrance } from '../../item/encumbrance';
-import { getContainerMap } from '../../item/container';
+import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '@item/bulk';
+import { calculateEncumbrance } from '@item/encumbrance';
+import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
-import { PF2EPhysicalItem } from '../../item/physical';
+import { PF2EPhysicalItem } from '@item/physical';
 import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '@item/data-definitions';
-import { PF2EAncestry } from '../../item/ancestry';
-import { PF2EBackground } from '../../item/background';
-import { PF2EClass } from '../../item/class';
 import { PF2EItem } from '@item/item';
 
 /**
@@ -49,9 +46,11 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         await super._updateObject(event, formData);
 
         const updatedLevel = this.actor.data.data.details.level.value;
-        const actorHasClass = Array.from(this.actor.items.values()).some((item) => item instanceof PF2EClass);
-        if (updatedLevel != previousLevel && actorHasClass) {
-            await PF2EClass.ensureClassFeaturesForLevel(this.actor);
+        const actorClasses = this.actor.itemTypes.class;
+        if (updatedLevel != previousLevel && actorClasses.length > 0) {
+            for await (const actorClass of actorClasses) {
+                await actorClass.ensureClassFeaturesForLevel(this.actor);
+            }
         }
     }
 
@@ -858,17 +857,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         this.actor.updateEmbeddedEntity('ActiveEffect', effectUpdates);
     }
 
-    async _onDropItemCreate(itemData: ItemData): Promise<any> {
-        if (itemData.type === 'ancestry') {
-            return PF2EAncestry.addToActor(this.actor, itemData);
-        }
-
-        if (itemData.type === 'background') {
-            return PF2EBackground.addToActor(this.actor, itemData);
-        }
-
-        if (itemData.type === 'class') {
-            return PF2EClass.addToActor(this.actor, itemData);
+    protected async _onDropItemCreate(itemData: ItemData): Promise<ItemData | null> {
+        if (['ancestry', 'background', 'class'].includes(itemData.type)) {
+            return await this.actor.createEmbeddedEntity('OwnedItem', itemData);
         }
 
         return super._onDropItemCreate(itemData);
