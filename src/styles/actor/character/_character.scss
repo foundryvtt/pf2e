@@ -19,7 +19,7 @@
     input {
         font-family: $body-serif;
         font-weight: bold;
-        width: calc(100% - 8px);
+        width: calc(100% - 6px);
         border-bottom: 1px solid #d3ccbc;
         text-transform: capitalize;
         &::placeholder {
@@ -32,9 +32,12 @@
                 color: transparent;
             }
         }
+        &[type="number"] {
+          padding-bottom: 0;
+        }
     }
     select {
-        width: calc(100% - 8px);
+        width: calc(100% - 6px);
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
     }
@@ -46,15 +49,25 @@
             @include p-reset;
             background-color: rgba($body-color, 0.1);
             height: 26px;
-            padding: 6px;
+            padding: 8px 4px 6px;
             color: var(--body);
             font-family: $body-serif;
             font-size: 14px;
             font-weight: 700;
-            width: calc(100% - 8px);
-
+            width: calc(100% - 6px);
             i {
-                float: right;
+              position: relative;
+              right: -2px;
+              top: -2px;
+              float: right;
+            }
+
+            span.value {
+              display: inline-block;
+              max-width: 87%;
+              overflow: hidden;
+              text-overflow: ellipsis;
+              white-space: nowrap;
             }
         }
     }
@@ -262,8 +275,8 @@
             &_bonus-bulk {
               flex: 1 20%;
 
-              &.encumbrance {
-                  margin-right: 8px;
+              &.encumbered {
+                  margin-right: 7px;
               }
             }
 
