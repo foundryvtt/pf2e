@@ -87,9 +87,15 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
             itemData.data.hasCounteractCheck = { value: false };
         }
 
-        // Remove unused field
+        // Remove unused fields
         if (itemData.type === 'lore' && (('featType' in itemData.data) as { featType?: string })) {
             delete (itemData.data as { featType?: string }).featType;
+        }
+        if (
+            itemData.type === 'action' &&
+            (('skill_requirements' in itemData.data) as { skill_requirements?: unknown })
+        ) {
+            delete (itemData.data as { skill_requirements?: unknown }).skill_requirements;
         }
     }
 }

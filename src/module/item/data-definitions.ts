@@ -473,11 +473,6 @@ export interface ActionDetailsData extends ItemDescriptionData {
     trigger: {
         value: string;
     };
-    /* eslint-disable-next-line camelcase */
-    skill_requirements: {
-        skill: string;
-        rank: string;
-    };
 }
 
 export interface TrickMagicItemCastData {
