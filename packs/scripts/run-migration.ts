@@ -3,12 +3,14 @@ import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
 import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
+import { Migration605CatchUpToTemplateJSON } from '../../src/module/migrations/605-catch-up-to-template-json';
 import { ItemData } from '@item/data-definitions';
 import { PF2EActor } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { MigrationBase } from 'src/module/migrations/base';
 
-const migrations = [new Migration595AddItemSize()];
+const migrations: MigrationBase[] = [new Migration595AddItemSize(), new Migration605CatchUpToTemplateJSON()];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 

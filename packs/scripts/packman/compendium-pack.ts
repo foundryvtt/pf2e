@@ -209,7 +209,6 @@ export class CompendiumPack {
     private isEntityData(entityData: {}): entityData is PackEntityData {
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === 'string',
-            // type: (data: any) => typeof data.type === "string",
             flags: (data: unknown) => typeof data === 'object' && data !== null && 'flags' in data,
             permission: (data: { permission?: { default: unknown } }) =>
                 typeof data.permission === 'object' &&

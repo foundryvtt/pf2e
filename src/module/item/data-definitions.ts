@@ -33,8 +33,8 @@ export interface ItemDescriptionData {
     usage: {
         value: string;
     };
-    rules?: PF2RuleElementData[];
-    slug?: string | null;
+    rules: PF2RuleElementData[];
+    slug: string | null;
 }
 
 export interface PhysicalDetailsData extends ItemDescriptionData {
@@ -472,11 +472,6 @@ export interface ActionDetailsData extends ItemDescriptionData {
     };
     trigger: {
         value: string;
-    };
-    /* eslint-disable-next-line camelcase */
-    skill_requirements: {
-        skill: string;
-        rank: string;
     };
 }
 
