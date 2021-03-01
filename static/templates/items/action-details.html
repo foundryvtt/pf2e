@@ -33,27 +33,6 @@
     </select>
 </div>
 
-
-<div class="form-group">
-  <label>{{localize "PF2E.ActionSkillRequirementLabel"}}</label>
-  <select name="data.skill_requirement.skill.skill" data-dtype="String">
-    {{#select data.skill_requirement.skill.skill}}
-    <option value=""></option>
-    {{#each skills as |label skill|}}
-    <option value="{{skill}}">{{label}}</option>
-    {{/each}}
-    {{/select}}
-  </select>
-  <select name="data.skill_requirement.skill.rank" data-dtype="String">
-    {{#select data.skill_requirement.skill.rank}}
-    <option value=""></option>
-    {{#each proficiencies as |label proficiency_value|}}
-    <option value="{{proficiency_value}}">{{label}}</option>
-    {{/each}}
-    {{/select}}
-  </select>
-</div>
-
 <div class="form-group-stacked">
     <label for="data.traits">
         {{localize "PF2E.TraitsLabel"}}

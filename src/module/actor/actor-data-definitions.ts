@@ -146,10 +146,8 @@ export interface RawHitPointsData {
     min: number;
     /** The maximum number of hitpoints this character has. */
     max: number;
-    /** If non-null, the amount of temporary hitpoints this character has. */
+    /** If defined, the amount of temporary hitpoints this character has. */
     temp?: number;
-    /** The maximum number of temporary hitpoints this character can have. */
-    tempmax?: number;
     /** Any details about hit points. */
     details: string;
 }
@@ -454,8 +452,6 @@ export interface RawCharacterData extends ActorSystemData {
         speed: {
             /** The actor's primary speed (usually walking/stride speed). */
             value: string;
-            /** @deprecated Any special speeds this actor has; prefer using `otherSpeeds`. */
-            special: string;
             /** Other speeds that this actor can use (such as swim, climb, etc). */
             otherSpeeds: LabeledValue[];
         };
@@ -575,8 +571,6 @@ export interface RawNpcData extends ActorSystemData {
         speed: {
             /** The land speed for this actor. */
             value: string;
-            /** @deprecated Special movement speeds. */
-            special: string;
             /** A list of other movement speeds the actor possesses. */
             otherSpeeds: LabeledValue[];
         };
