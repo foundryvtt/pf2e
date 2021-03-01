@@ -33,8 +33,8 @@ export interface ItemDescriptionData {
     usage: {
         value: string;
     };
-    rules?: PF2RuleElementData[];
-    slug?: string | null;
+    rules: PF2RuleElementData[];
+    slug: string | null;
 }
 
 export interface PhysicalDetailsData extends ItemDescriptionData {
