@@ -123,6 +123,11 @@ function sanitizeEntity(entityData: PackEntry) {
 
     delete (entityData as Partial<typeof entityData>).sort;
     delete entityData.flags.core;
+    delete entityData.flags.pf2e;
+    delete entityData.flags.pf2e_updatednpcsheet;
+    if ('type' in entityData && entityData.type === 'condition') {
+        entityData.flags = { pf2e: { condition: true } };
+    }
 
     if ('data' in entityData && 'slug' in entityData.data) {
         const slug = entityData.data.slug;
