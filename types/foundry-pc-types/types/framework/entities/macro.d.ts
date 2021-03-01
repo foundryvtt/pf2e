@@ -27,6 +27,7 @@ declare interface MacroData extends BaseEntityData {
     author: string;
     command: string;
     scope: string;
+    sort: number;
 }
 
 declare interface MacroClassConfig extends EntityClassConfig<Macro> {

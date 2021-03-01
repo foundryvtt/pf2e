@@ -3,7 +3,8 @@ import { PF2EItem } from './item';
 import { getPropertySlots } from './runes';
 import { TraitSelector5e } from '../system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
-import { LocalizationPF2e } from '../system/localization';
+import { LocalizePF2e } from '../system/localization';
+import { ConfigPF2e } from 'src/scripts/config';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -37,6 +38,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
 
     getData() {
         const data: any = super.getData();
+        data.buildMode = BUILD_MODE;
         // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
         // This works because the actor's items are already updated by the time the ItemSheet rerenders.
         const updatedData = this?.actor?.items?.get(this?.entity?.id ?? '')?.data;
@@ -67,6 +69,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             ].includes(type),
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
+
+        const itemData = duplicate(this.item.data);
+        const traits = itemData.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
@@ -103,7 +108,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 spellScalingModes: CONFIG.PF2E.spellScalingModes,
             });
 
-            this._prepareTraits(data.data.traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
+            this._prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
@@ -126,7 +131,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.weaponPropertyRunes = CONFIG.PF2E.weaponPropertyRunes;
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
-            data.weaponTraits = CONFIG.PF2E.weaponTraits;
+
+            const weaponData = this.item.data;
+            const rarity = weaponData.data.rarity.value;
+            data.weaponTraits = [CONFIG.PF2E.rarityTraits[rarity]]
+                .concat(traits)
+                .map((trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait);
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
@@ -252,7 +262,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
 
         const durationString = (duration: ActiveEffectDuration): string => {
-            const translations = new LocalizationPF2e().translations.PF2E;
+            const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
             type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
             const [key, quantity] =
                 Object.entries(duration).find(
@@ -261,13 +271,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 ) ?? (['', null] as const);
 
             if (quantity === null) {
-                return translations.ActiveEffects.Duration.Permanent;
+                return translations.Duration.Permanent;
             }
             const unit =
                 quantity === 1
                     ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
                     : ((key.slice(0, 1).toUpperCase() + key.slice(1)) as UnitLabel);
-            return game.i18n.format(translations.ActiveEffects.Duration[unit ?? 'seconds'], {
+            return game.i18n.format(translations.Duration[unit ?? 'seconds'], {
                 quantity,
             });
         };

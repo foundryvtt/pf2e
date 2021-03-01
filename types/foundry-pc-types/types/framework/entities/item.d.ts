@@ -39,8 +39,9 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
 
 declare interface BaseItemData extends BaseEntityData {
     type: string;
-    data: Record<string, unknown>;
+    data: {};
     effects: ActiveEffectData[];
+    sort: number;
 }
 
 declare interface ItemClassConfig extends EntityClassConfig<Item> {

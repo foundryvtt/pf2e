@@ -1,10 +1,11 @@
 declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
     type: string;
     img: string;
-    data: Record<string, unknown>;
+    data: {};
     token: TokenData;
     items: D[];
     effects: ActiveEffectData[];
+    sort: number;
 }
 
 declare interface ActorClassConfig extends EntityClassConfig<Actor> {
@@ -302,4 +303,24 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     deleteOwnedItem(itemId: string[], options?: object): Promise<ItemType[] | ItemType>;
     deleteOwnedItem(itemId: string, options?: object): Promise<ItemType>;
+
+    /** @override */
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string
+    ): void;
 }

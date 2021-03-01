@@ -14,7 +14,7 @@ export interface ItemTraits {
     custom: string;
 }
 
-export interface ItemDescriptionData extends Record<string, unknown> {
+export interface ItemDescriptionData {
     description: {
         value: string;
         chat: string;
@@ -914,7 +914,9 @@ export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData
     return 'quantity' in itemData.data;
 }
 
-export function isMagicDetailsData(itemDataData: ItemDescriptionData): itemDataData is Required<MagicDetailsData> {
+export function isMagicDetailsData(
+    itemDataData: ItemDescriptionData & Partial<MagicDetailsData>,
+): itemDataData is Required<MagicDetailsData> {
     return (
         typeof itemDataData.invested == 'object' &&
         itemDataData.invested !== null &&

@@ -241,8 +241,59 @@ export interface CreatureTraitsData extends BaseTraitsData {
     attitude: { value: string };
 }
 
-export interface ActorSystemData extends Record<string, unknown> {
+export interface ActorSystemData {
     traits: BaseTraitsData;
+}
+
+export interface RawAnimalCompanionData extends ActorSystemData {
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
+    master: {
+        id: string;
+        name: string;
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    details: {
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    attributes: {
+        hp: number;
+        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+        [key: string]: any;
+    };
+
+    /** Custom character traits, such as damage resistances/immunities. */
+    traits: CreatureTraitsData;
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for characters. */
@@ -633,4 +684,15 @@ export interface VehicleData extends ActorEntityData<RawVehicleData> {
     type: 'vehicle';
 }
 
-export type ActorDataPF2e = CharacterData | NpcData | HazardData | LootData | FamiliarData | VehicleData;
+export interface AnimalCompanionData extends ActorEntityData<RawAnimalCompanionData> {
+    type: 'animalCompanion';
+}
+
+export type ActorDataPF2e =
+    | CharacterData
+    | NpcData
+    | HazardData
+    | LootData
+    | FamiliarData
+    | VehicleData
+    | AnimalCompanionData;

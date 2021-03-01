@@ -34,6 +34,7 @@ import {
     VehicleData,
     HazardData,
     AbilityString,
+    AnimalCompanionData,
 } from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
@@ -42,7 +43,6 @@ import {
     PF2Striking,
     PF2WeaponPotency,
 } from '../rules/rules-data-definitions';
-import { parseTraits } from '../traits';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
 
@@ -303,11 +303,6 @@ export class PF2EActor extends Actor<PF2EItem> {
             .find((shield) => shield.data.equipped.value);
     }
 
-    /** Convert a comma-delimited list of traits into an array of traits. */
-    static traits(source: string | string[]): string[] {
-        return parseTraits(source);
-    }
-
     /* -------------------------------------------- */
 
     onCreateOwnedItem(child, options, userId) {
@@ -419,7 +414,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected _prepareCustomModifiers(
-        actorData: CharacterData | NpcData | FamiliarData,
+        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
         rules: PF2RuleElement[],
     ): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
@@ -486,22 +481,23 @@ export class PF2EActor extends Actor<PF2EItem> {
         };
     }
 
-    getStrikeDescription(item: WeaponData) {
+    getStrikeDescription(weaponData: WeaponData) {
         const flavor = {
             description: 'PF2E.Strike.Default.Description',
             criticalSuccess: 'PF2E.Strike.Default.CriticalSuccess',
             success: 'PF2E.Strike.Default.Success',
         };
-        if (PF2EActor.traits(item?.data?.traits?.value).includes('unarmed')) {
+        const traits = weaponData.data.traits.value;
+        if (traits.includes('unarmed')) {
             flavor.description = 'PF2E.Strike.Unarmed.Description';
             flavor.success = 'PF2E.Strike.Unarmed.Success';
-        } else if (PF2EActor.traits(item?.data?.traits?.value).find((trait) => trait.startsWith('thrown'))) {
+        } else if (traits.find((trait) => trait.startsWith('thrown'))) {
             flavor.description = 'PF2E.Strike.Combined.Description';
             flavor.success = 'PF2E.Strike.Combined.Success';
-        } else if (item?.data?.range?.value === 'melee') {
+        } else if (weaponData.data.range?.value === 'melee') {
             flavor.description = 'PF2E.Strike.Melee.Description';
             flavor.success = 'PF2E.Strike.Melee.Success';
-        } else if ((item?.data?.range?.value ?? 0) > 0) {
+        } else if ((parseInt(weaponData.data.range?.value, 10) || 0) > 0) {
             flavor.description = 'PF2E.Strike.Ranged.Description';
             flavor.success = 'PF2E.Strike.Ranged.Success';
         }

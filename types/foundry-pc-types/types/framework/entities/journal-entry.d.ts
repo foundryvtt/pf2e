@@ -5,6 +5,7 @@ declare class Journal extends EntityCollection<JournalEntry> {
 
 declare interface JournalEntryData extends BaseEntityData {
     content: string;
+    sort: number;
 }
 
 declare interface JournalEntryClassConfig extends EntityClassConfig<JournalEntry> {

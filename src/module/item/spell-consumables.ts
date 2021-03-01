@@ -1,7 +1,6 @@
 import { AbilityString } from '@actor/actor-data-definitions';
 import { PF2EActor } from '../actor/actor';
 import { calculateDC, DCOptions } from '../dc';
-import { parseTraits } from '../traits';
 import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 
 export enum SpellConsumableTypes {
@@ -98,7 +97,7 @@ export function calculateTrickMagicItemCheckDC(
     options: DCOptions = { proficiencyWithoutLevel: false },
 ): TrickMagicItemDifficultyData {
     const DC = calculateDC(itemData.data.level.value, options);
-    const skills: [string, number][] = parseTraits(itemData?.data?.traits?.value)
+    const skills: [string, number][] = itemData.data.traits.value
         .filter((t) => ['arcane', 'primal', 'divine', 'occult'].includes(t))
         .map((s) => [TraditionSkills[s], DC]);
     return Object.fromEntries(skills);
