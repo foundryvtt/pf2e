@@ -153,7 +153,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param options Configuration options which modify the request.
      * @return The created ActiveEffect data.
      */
-    create(options: EntityCreateOptions): Promise<ActiveEffectData>;
+    create(options?: EntityCreateOptions): Promise<ActiveEffectData>;
 
     /**
      * A convenience method for updating an ActiveEffect instance in an parent Actor or Item.
@@ -181,7 +181,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param args Initialization arguments passed to the ActiveEffect constructor.
      * @return The constructed ActiveEffect instance.
      */
-    static create(data: Partial<ActiveEffectData>, parent: Entity): Promise<ActiveEffect>;
+    static create(data: Partial<ActiveEffectData>, parent: Actor | Item): ActiveEffect;
 
     /**
      * A helper function to handle obtaining dropped ActiveEffect data from a dropped data transfer event.
