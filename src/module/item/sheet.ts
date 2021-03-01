@@ -263,16 +263,21 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
 
         const durationString = (duration: ActiveEffectDuration): string => {
             const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
-            type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
-            const [key, quantity] =
-                Object.entries(duration).find(
-                    (keyValue: [string, number | string | null]): keyValue is [string, number | null] =>
-                        keyValue[0] !== 'startTime' && typeof keyValue[1] === 'number',
-                ) ?? (['', null] as const);
+            type DurationEntry = [string, number | string | null];
+            const durationEntries: DurationEntry[] = Object.entries(duration).filter((entry: DurationEntry) =>
+                ['rounds', 'seconds', 'turns'].includes(entry[0]),
+            );
 
-            if (quantity === null) {
+            const [key, quantity] =
+                durationEntries.find(
+                    (entry: DurationEntry): entry is [string, number | null] => typeof entry[1] === 'number',
+                ) ?? (['permanent', null] as const);
+
+            if (key === 'permanent') {
                 return translations.Duration.Permanent;
             }
+
+            type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
             const unit =
                 quantity === 1
                     ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
@@ -284,25 +289,31 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
 
         interface ActiveEffectSheetData {
             id: string;
+            iconPath: string | null;
             name: string;
             duration: string;
             enabled: boolean;
         }
         const actor = this.item.actor;
-        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`;
+        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
         const effects =
             actor instanceof PF2EActor
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
-        data.activeEffects = effects.map(
-            (effect): ActiveEffectSheetData => ({
-                id: effect.id,
-                name: effect.data.label,
-                duration: durationString(effect.data.duration),
-                enabled: !effect.data.disabled,
-            }),
-        );
+        data.activeEffects = {
+            showList: BUILD_MODE === 'development' || effects.length > 0,
+            canCreate: BUILD_MODE === 'development' && actor === null && !this.item.uuid.match(/Compendium/),
+            effects: effects.map(
+                (effect): ActiveEffectSheetData => ({
+                    id: effect.id,
+                    iconPath: effect.data.icon ?? null,
+                    name: effect.data.label,
+                    duration: durationString(effect.data.duration),
+                    enabled: !effect.data.disabled,
+                }),
+            ),
+        };
 
         return data;
     }
@@ -454,18 +465,48 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         });
 
         // Active Effect controls
-        const $aeControls = html.find('table.active-effects td.controls');
+        html.find('.tab.effects table th a[data-action="create"]').on('click', () => {
+            const ae = ActiveEffect.create(
+                {
+                    label: 'New Effect',
+                    icon: 'systems/pf2e/icons/default-icons/effect.svg',
+                    origin: this.item.uuid,
+                    disabled: false,
+                    duration: {
+                        rounds: undefined,
+                        seconds: undefined,
+                    },
+                },
+                this.item,
+            );
+            ae.create().then((effectData) => {
+                this.render();
+                this.item.effects.get(effectData._id)!.sheet.render(true);
+            });
+        });
+
+        const $aeControls = html.find('.tab.effects table tbody td.controls');
 
         const actor = this.item.actor;
-        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`;
-        const effect =
-            actor instanceof PF2EActor
-                ? actor.effects.entries.find((effect) => effect.data.origin === origin)
-                : this.item.effects.entries.find((effect) => effect.id === $aeControls.data('effect-id'));
+        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
+
+        const getEffects = (): ActiveEffect[] => {
+            return actor instanceof PF2EActor
+                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
+                : this.item.effects.entries;
+        };
+        const getEffectId = (target: HTMLElement): string | undefined => {
+            return $(target).closest('tr').data('effect-id');
+        };
+        const effects = getEffects();
+        effects;
 
         $aeControls.find('input[data-action="enable"]').on('change', (event) => {
             event.preventDefault();
 
+            const effects = getEffects();
+            const effectId = getEffectId(event.target);
+            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
                 const refresh = () => this.render();
@@ -477,13 +518,18 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             }
         });
 
-        $aeControls.find('a[data-action="edit"]').on('click', () => {
+        $aeControls.find('a[data-action="edit"]').on('click', (event) => {
+            const effects = getEffects();
+            const effectId = getEffectId(event.target);
+            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 effect.sheet.render(true);
             }
         });
-
-        $aeControls.find('a[data-action="delete"]').on('click', () => {
+        $aeControls.find('a[data-action="delete"]').on('click', (event) => {
+            const effects = getEffects();
+            const effectId = getEffectId(event.target);
+            const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 if (actor instanceof PF2EActor) {
                     actor.deleteEmbeddedEntity('ActiveEffect', effect.id);
