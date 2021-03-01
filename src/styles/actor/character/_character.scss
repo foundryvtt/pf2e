@@ -1,6 +1,6 @@
 .character {
     h3 {
-        margin-top: 1em;
+        margin-top: 0.75em;
         font-family: $serif;
         font-weight: 600;
         color: var(--primary);
@@ -34,12 +34,17 @@
         }
         &[type="number"] {
           padding-bottom: 0;
+          padding-left: 4px;
         }
     }
     select {
         width: calc(100% - 6px);
         background-color: var(--alt);
         border: 1px solid darken($alt-color, 8);
+    }
+
+    hr {
+      margin: 10px 6px 10px 0;
     }
 
     .pc {
@@ -208,12 +213,13 @@
             margin-bottom: 8px;
 
             span {
-                width: 100%;
+              width: 100%;
             }
 
             &_ethnicity,
             &_nationality {
-                flex: 50%;
+              flex: 50%;
+              margin-bottom: 0;
             }
 
             label,
