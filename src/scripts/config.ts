@@ -1454,8 +1454,8 @@ export const PF2ECONFIG = {
         pfsboon: 'PF2E.FeatPFSBoonHeader',
         deityboon: 'PF2E.FeatDeityBoonHeader',
         curse: 'PF2E.FeatCurseHeader',
-    }, // Feat Action Types
-
+    },
+    // Feat Action Types
     featActionTypes: {
         passive: 'PF2E.FeatActionTypePassive',
         action: 'PF2E.FeatActionTypeAction',
