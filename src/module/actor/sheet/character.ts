@@ -63,7 +63,6 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         // Temporary HP
         const { hp } = sheetData.data.attributes;
         if (hp.temp === 0) delete hp.temp;
-        if (hp.tempmax === 0) delete hp.tempmax;
 
         const ancestryItem = this.actor.items.find((x) => x.type === 'ancestry');
         sheetData.ancestryItemId = ancestryItem ? ancestryItem.id : '';
