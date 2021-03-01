@@ -19,8 +19,9 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 ""
@@ -29,6 +30,22 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Against effects that would make you Immobilized, Paralyzed, or Slowed",
+                "predicate": {
+                    "any": [
+                        "effect:slowed",
+                        "effect:immobilized",
+                        "effect:paralyzed"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,6 +59,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Elven Verve",
