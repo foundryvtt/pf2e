@@ -433,7 +433,6 @@ export interface FeatDetailsData extends ItemDescriptionData {
 }
 
 export interface LoreDetailsData extends ItemDescriptionData {
-    featType: string;
     mod: {
         value: 0;
     };
