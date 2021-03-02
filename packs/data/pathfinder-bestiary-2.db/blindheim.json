@@ -413,6 +413,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -565,6 +568,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -710,6 +714,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -752,12 +757,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Bright light shines from the blindheim's eyes in a 30-foot emanation (also creating dim light to 60 feet). Each creature in the bright light when the blindheim uses this action, or who enters it while the light continues, must attempt a DC 18 Fortitude save. It is then temporarily immune for 1 hour. This light remains until the blindheim dims its eyes by using this action again. <br /><b>Critical Success </b>The creature is unaffected. <br /><b>Success </b>The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round. <br /><b>Failure </b>The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1d4 rounds. <br /><b>Critical Failure </b>The creature is blinded for 1 hour."
+                    "value": "<p>Bright light shines from the blindheim's eyes in a 30-foot emanation (also creating dim light to 60 feet). Each creature in the bright light when the blindheim uses this action, or who enters it while the light continues, must attempt a DC 18 Fortitude save. It is then temporarily immune for 1 hour. This light remains until the blindheim dims its eyes by using this action again. </p>\n<p><strong>Critical Success </strong>The creature is unaffected. </p>\n<p><strong>Success </strong>The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round. </p>\n<p><strong>Failure </strong>The creature is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for [[/r 1d4]] rounds. </p>\n<p><strong>Critical Failure </strong>The creature is blinded for 1 hour.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -766,6 +771,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -791,7 +797,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Spotlight",
             "sort": 300000,
             "type": "action"
@@ -817,6 +823,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -858,7 +865,21 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Leap or Swim",
+                        "predicate": {
+                            "any": [
+                                "action:leap",
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -871,6 +892,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+9 to Leap or Swim",
+                        "options": "action:leap, action:swim"
+                    }
                 }
             },
             "effects": [],
@@ -901,6 +928,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -928,7 +956,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "B8dOh27iarR7rZI3",
         "actorLink": false,
         "bar1": {
@@ -947,6 +974,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Blindheim",
         "randomImg": false,
