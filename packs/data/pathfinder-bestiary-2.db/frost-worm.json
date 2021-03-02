@@ -409,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -480,20 +483,16 @@
                     "damageType": "piercing",
                     "die": "3d8+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d8+10",
                         "damageType": "piercing"
-                    },
-                    {
-                        "damage": "2d6",
-                        "damageType": "persistentcold"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -571,6 +570,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -624,6 +624,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -670,7 +671,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "5 feet. A creature that enters or begins its turn in the emanation takes [[/r 3d6 # cold damage]] cold damage (DC 29 basic Reflex save)."
+                    "value": "<p>5 feet.</p>\n<p>A creature that enters or begins its turn in the emanation takes [[/r 3d6 # cold damage]] cold damage (DC 29 basic Reflex save).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -679,6 +680,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -718,7 +720,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -726,7 +728,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger </b>The frost worm takes piercing or slashing damage; <b>Effect </b>The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r 7d6 # cold damage]] cold damage (DC 29 basic Reflex save)."
+                    "value": "<p><strong>Trigger </strong>The frost worm takes piercing or slashing damage;</p>\n<p><strong>Effect </strong>The frost worm's freezing blood sprays out on a random creature within 10 feet of the frost worm. That creature takes [[/r 7d6 # cold damage]] cold damage (DC 29 basic Reflex save).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -735,6 +737,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -759,8 +762,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Freezing Blood ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Freezing Blood",
             "sort": 400000,
             "type": "action"
         },
@@ -774,12 +777,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The frost worm exhales a blast of frost, dealing [[/r 13d6 # cold damage]] cold damage to creatures in a 50-foot cone (DC 32 basic Reflex save). It can't use Breath Weapon again for 1d4 rounds."
+                    "value": "<p>The frost worm exhales a blast of frost, dealing [[/r 13d6 # cold damage]] cold damage to creatures in a 50-foot cone (DC 32 basic Reflex save).</p>\n<p>It can't use Breath Weapon again for [[/r 1d4 # recharge]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -788,6 +791,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -814,7 +818,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 500000,
             "type": "action"
@@ -829,12 +833,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a DC 32 Will save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected. <br /><b>Success</b> The creature is unaffected and is immune to Worm Trill for 24 hours. <br /><b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm. <br /><b>Critical Failure </b>As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature."
+                    "value": "<p>The frost worm emits a hypnotic trill. Each non-frost worm creature within 100 feet must attempt a DC 32 Will save. The effects of Worm Trill last for 1 round, but if the frost worm uses this ability again on subsequent rounds, it extends this duration by 1 round for any creature already affected. </p>\n<p><strong>Success</strong> The creature is unaffected and is immune to Worm Trill for 24 hours. </p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by the frost worm. </p>\n<p><strong>Critical Failure </strong>As failure, but the fascinated condition doesn't end if the frost worm uses hostile actions against the creature.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -843,6 +847,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -871,7 +876,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Worm Trill",
             "sort": 600000,
             "type": "action"
@@ -897,6 +902,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -938,7 +944,21 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Ice and Snow",
+                        "predicate": {
+                            "any": [
+                                "terrain:icy",
+                                "terrain:snow"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -951,6 +971,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in ice and snow",
+                        "options": "terrain:icy,terrain:snow"
+                    }
                 }
             },
             "effects": [],
@@ -966,7 +992,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "mpBOeFrbtx1wMrNn",
         "actorLink": false,
         "bar1": {
@@ -985,6 +1010,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Frost Worm",
         "randomImg": false,
