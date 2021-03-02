@@ -79,9 +79,10 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar> {
         // item controls
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-edit', (event) => {
             const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
-            const Item = CONFIG.Item.entityClass;
-            new Item(this.actor.getOwnedItem(itemID).data, { actor: this.actor }).sheet.render(true);
-            return false;
+            const item = this.actor.items.get(itemID ?? '');
+            if (item) {
+                item.sheet.render(true);
+            }
         });
 
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {

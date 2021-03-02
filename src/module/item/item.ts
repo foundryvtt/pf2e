@@ -1180,7 +1180,7 @@ export class PF2EItem extends Item<PF2EActor> {
             if (embeddedItem) {
                 itemData = JSON.parse(embeddedItem) as ItemData | undefined;
                 if (itemData) {
-                    item = new PF2EItem(itemData, { actor });
+                    item = actor.items.get(itemData._id);
                 }
             } else {
                 item = actor.getOwnedItem(itemId);

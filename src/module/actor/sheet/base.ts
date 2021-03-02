@@ -709,12 +709,12 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         });
 
         // Update Inventory Item
-        html.find('.item-edit').click((ev) => {
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-            const Item = CONFIG.Item.entityClass;
-            // const item = new Item(this.actor.items.find(i => i.id === itemId), {actor: this.actor});
-            const item = new Item(this.actor.getOwnedItem(itemId).data, { actor: this.actor });
-            item.sheet.render(true);
+        html.find('.item-edit').on('click', (event) => {
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+            const item = this.actor.items.get(itemId ?? '');
+            if (item) {
+                item.sheet.render(true);
+            }
         });
 
         // Toggle identified
