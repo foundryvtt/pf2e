@@ -7,7 +7,7 @@ declare class FormDataExtended extends FormData {
 declare interface FormApplicationOptions extends ApplicationOptions {}
 
 declare interface FormApplicationData<O extends {} = {}> {
-    object: O;
+    object?: O;
     options?: FormApplicationOptions;
     title: string;
 }
@@ -102,7 +102,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      *
      * @param html The rendered template ready to have listeners attached
      */
-    protected activateListeners(html: JQuery): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * If the form is not editable, disable its input fields
