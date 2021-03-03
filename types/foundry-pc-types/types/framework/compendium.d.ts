@@ -234,7 +234,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * Register event listeners for Compendium directories
      */
-    protected activateListeners(html: JQuery | HTMLElement): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * Handle compendium filtering through search field
