@@ -1733,6 +1733,7 @@ export const PF2ECONFIG = {
         'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
         emotion: 'PF2E.DamageTypeEmotion',
         possession: 'PF2E.DamageTypePosession',
+        auditory: 'PF2E.ImmunityTypeAuditory',
     }, // Languages, alphabetical by common, uncommon, secret
 
     languages: {
