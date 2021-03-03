@@ -16,25 +16,27 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
     /* -------------------------------------------- */
 
     /**
-     * Register an Item sheet class as a candidate which can be used to display Items of a given type
-     * See EntitySheetConfig.registerSheet for details
-     */
-    static registerSheet<S extends ItemSheet>(
-        scope: string,
-        sheetClass: new (object: S['item'], options?: FormApplicationOptions) => S,
-        options: { types: string[]; makeDefault?: boolean },
-    ): void;
-
-    /**
      * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet<TS extends typeof ItemSheet>(scope: string, sheetClass: TS): void;
+    static unregisterSheet(scope: string, sheetClass: typeof ItemSheet): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type
      */
     static get registeredSheets(): typeof ItemSheet[];
+}
+
+declare namespace Items {
+    /**
+     * Register an Item sheet class as a candidate which can be used to display Items of a given type
+     * See EntitySheetConfig.registerSheet for details
+     */
+    function registerSheet(
+        scope: string,
+        sheetClass: typeof ItemSheet,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
 }
 
 declare interface BaseItemData extends BaseEntityData {
@@ -43,6 +45,8 @@ declare interface BaseItemData extends BaseEntityData {
     effects: ActiveEffectData[];
     sort: number;
 }
+
+type ItemUpdateData = EntityUpdateData<BaseItemData>;
 
 declare interface ItemClassConfig extends EntityClassConfig<Item> {
     collection: Items;

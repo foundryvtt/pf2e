@@ -33,6 +33,34 @@ declare interface Actor {
     itemTypes: ItemTypeMap;
 }
 
+declare namespace Items {
+    function registerSheet(
+        scope: string,
+        sheetClass: typeof import('@item/sheet/base').ItemSheetPF2e,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
+    function registerSheet<S extends typeof import('@item/sheet/kit').KitSheetPF2e>(
+        scope: string,
+        sheetClass: S,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
+    function registerSheet<S extends typeof import('@item/sheet/ancestry').AncestrySheetPF2e>(
+        scope: string,
+        sheetClass: S,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
+    function registerSheet<S extends typeof import('@item/sheet/background').BackgroundSheetPF2e>(
+        scope: string,
+        sheetClass: S,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
+    function registerSheet<S extends typeof import('@item/sheet/class').ClassSheetPF2e>(
+        scope: string,
+        sheetClass: S,
+        options: { types: string[]; makeDefault?: boolean },
+    ): void;
+}
+
 declare interface Window {
     PF2e: import('./module/pf2e-system').PF2eSystem;
     DicePF2e: typeof import('./scripts/dice').DicePF2e;
