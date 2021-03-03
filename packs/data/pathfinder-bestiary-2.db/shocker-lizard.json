@@ -413,6 +413,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -564,6 +567,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -625,12 +629,12 @@
                     "damageType": "electricity",
                     "die": "2d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6",
                         "damageType": "electricity"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -712,6 +716,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -725,7 +730,7 @@
                     },
                     "value": [
                         "nonlethal",
-                        "range increment 5 feet"
+						"range-increment-5"
                     ]
                 },
                 "usage": {
@@ -771,6 +776,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -815,7 +821,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A shocker lizard within 20 feet makes a shock Strike or uses Discharge; <b>Effect</b> The shocker lizard lends some of its electrical power to the nearby lizard. This either causes the other lizard's shock Strike to lose the nonlethal trait or increases the DC of its Discharge to 20."
+                    "value": "<p><strong>Trigger</strong> A shocker lizard within 20 feet makes a shock Strike or uses Discharge;</p>\n<p><strong>Effect</strong> The shocker lizard lends some of its electrical power to the nearby lizard. This either causes the other lizard's shock Strike to lose the nonlethal trait or increases the DC of its Discharge to 20.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -824,6 +830,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -848,7 +855,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Amplify Voltage",
             "sort": 400000,
             "type": "action"
@@ -863,12 +870,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The shocker lizard releases a blast of lightning from its body. Creatures within a 10-foot emanation take [[/r 3d6 # electricity damage]] electricity damage (DC 18 basic Reflex save). The shocker lizard can't use Discharge for 1d4 rounds."
+                    "value": "<p>The shocker lizard releases a blast of lightning from its body. Creatures within a 10-foot emanation take [[/r 3d6 # electricity damage]] electricity damage (DC 18 basic Reflex save).</p>\n<p>The shocker lizard can't use Discharge for [[/r 1d4 # recharge]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -877,6 +884,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -901,7 +909,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Discharge",
             "sort": 500000,
             "type": "action"
@@ -916,12 +924,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The shocker lizard hunkers down and begins to spark with electricity, which it releases in a 10-foot emanation that deals [[/r 3d8 # electricity damage]] electricity damage (DC 18 basic Reflex save). The shocker lizard can't use Shocking Burst again for 1 minute.<br /> Up to four shocker lizards can combine their Shocking Bursts. In this case, the lizards can delay the release of their electricity until any other shocker lizard within 30 feet completes its Shocking Burst. The combined Shocking Bursts create an emanation with the combined area from all participating shocker lizards. For each additional shocker lizard that joins the burst, the damage increases by 3d8 and the save DC increases by 1 (to a maximum of four lizards dealing 12d8 damage with a DC 21 save)."
+                    "value": "<p>The shocker lizard hunkers down and begins to spark with electricity, which it releases in a 10-foot emanation that deals [[/r 3d8 # electricity damage]] electricity damage (DC 18 basic Reflex save).</p>\n<p>The shocker lizard can't use Shocking Burst again for 1 minute.</p>\n<p>Up to four shocker lizards can combine their Shocking Bursts. In this case, the lizards can delay the release of their electricity until any other shocker lizard within 30 feet completes its Shocking Burst. The combined Shocking Bursts create an emanation with the combined area from all participating shocker lizards. For each additional shocker lizard that joins the burst, the damage increases by 3d8 and the save DC increases by 1 (to a maximum of four lizards dealing [[/r 12d8]] damage with a DC 21 save).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -930,6 +938,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -956,7 +965,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Shocking Burst",
             "sort": 600000,
             "type": "action"
@@ -982,6 +991,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1024,6 +1034,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1066,6 +1077,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1093,7 +1105,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "HI7SecILsRTmOtky",
         "actorLink": false,
         "bar1": {
@@ -1112,6 +1123,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Shocker Lizard",
         "randomImg": false,

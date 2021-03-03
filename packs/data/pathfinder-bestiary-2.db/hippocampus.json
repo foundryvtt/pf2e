@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -559,6 +563,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -591,13 +596,13 @@
             "type": "melee"
         },
         {
-            "_id": "inb1DgV48vplLuDL",
+            "_id": "dMnk9Tg466bHhqAO",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -605,7 +610,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "DC 17"
+                    "value": "<p>DC 17</p>\n<p>Most monsters that serve as mounts can attempt to buck off unwanted or annoying riders, but most mounts will not use this reaction against a trusted creature unless the mounts are spooked or mistreated.</p>\n<p><strong>Trigger</strong> A creature @Compendium[pf2e.actionspf2e.Mount]{mounts} or uses the @Compendium[pf2e.actionspf2e.Command an Animal]{Command an Animal} action while riding the monster.</p>\n<p><strong>Effect</strong> The triggering creature must succeed at a Reflex saving throw against the listed DC or fall off the creature and land @Compendium[pf2e.conditionitems.Prone]{prone}. If the save is a critical failure, the triggering creature also takes [[/roll 1d6]] bludgeoning damage in addition to the normal damage for the fall.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -614,6 +619,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "buck",
                 "source": {
                     "value": ""
                 },
@@ -627,16 +633,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.nZMQh4AaBr291TUf"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Buck",
             "sort": 200000,
             "type": "action"
@@ -665,6 +672,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -713,6 +721,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -755,6 +764,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -782,7 +792,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "z39LYFGYmOsoGVSh",
         "actorLink": false,
         "bar1": {
@@ -801,6 +810,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Hippocampus",
         "randomImg": false,

@@ -409,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -471,12 +474,12 @@
                     "damageType": "piercing",
                     "die": "1d4+2"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4+2",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -558,6 +561,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -611,6 +615,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -648,12 +653,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The snapping turtle damaged a creature with a jaws Strike in its previous action; <b>Effect</b> The snapping turtle clenches its jaws down and automatically deals an additional [[/r 1d4 # bludgeoning damage]] bludgeoning damage to the creature it just bit."
+                    "value": "<p><strong>Requirements</strong> The snapping turtle damaged a creature with a jaws Strike in its previous action;</p>\n<p><strong>Effect</strong> The snapping turtle clenches its jaws down and automatically deals an additional [[/r 1d4 # bludgeoning damage]] bludgeoning damage to the creature it just bit.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -662,6 +667,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -684,7 +690,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Clench Jaws",
             "sort": 300000,
             "type": "action"
@@ -699,7 +705,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -712,7 +718,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "shell-defense"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.shell-defense"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -735,7 +757,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Shell Defense",
             "sort": 400000,
             "type": "action"
@@ -761,6 +783,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -802,7 +825,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Water",
+                        "predicate": {
+                            "all": [
+                                "terrain:water"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -815,6 +851,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+5 in Water",
+                        "options": "terrain:water"
+                    }
                 }
             },
             "effects": [],
@@ -830,7 +872,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "UcUlBj3brC80A8gq",
         "actorLink": false,
         "bar1": {
@@ -849,6 +890,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Snapping Turtle",
         "randomImg": false,

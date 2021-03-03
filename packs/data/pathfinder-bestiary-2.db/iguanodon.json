@@ -404,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -467,12 +470,12 @@
                     "damageType": "piercing",
                     "die": "2d8+9"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+9",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -550,10 +553,24 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "damageType": "slashing",
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Gouging Lunge",
+                        "predicate": {
+                            "all": [
+                                "gouging-lunge"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -566,7 +583,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly d10",
+                        "deadly-d10",
                         "reach-10"
                     ]
                 },
@@ -702,6 +719,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -743,12 +761,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The iguanodon makes a thumb spike Strike at an adjacent foe and then Strides up to 15 feet, dragging its thumb spike across the foe to gouge out a brutal wound. If this Strike hits, it deals an extra [[/r 1d8 # points of slashing damage]] points of slashing damage and the following Stride does not trigger reactions from the creature struck. This thumb spike Strike counts as two attacks when calculating the iguanodon's multiple attack penalty."
+                    "value": "<p>The iguanodon makes a thumb spike Strike at an adjacent foe and then Strides up to 15 feet, dragging its thumb spike across the foe to gouge out a brutal wound. If this Strike hits, it deals an extra 1d8 points of slashing damage and the following Stride does not trigger reactions from the creature struck. This thumb spike Strike counts as two attacks when calculating the iguanodon's multiple attack penalty.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -756,7 +774,13 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.gouging-lunge"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -779,7 +803,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Gouging Lunge",
             "sort": 300000,
             "type": "action"
@@ -805,6 +829,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -832,7 +857,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "SsR4wiSWA7xhlkH9",
         "actorLink": false,
         "bar1": {
@@ -851,6 +875,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Iguanodon",
         "randomImg": false,
