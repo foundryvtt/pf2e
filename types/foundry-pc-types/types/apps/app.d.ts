@@ -261,7 +261,7 @@ declare class Application {
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
      * the application
      */
-    protected activateListeners(html: JQuery): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * Handle changes to the active tab in a configured Tabs controller
