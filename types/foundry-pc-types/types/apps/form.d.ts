@@ -89,7 +89,6 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     get isEditable(): boolean;
 
-    /** @override */
     getData(options?: FormApplicationOptions): FormApplicationData<ObjectType>;
 
     /* -------------------------------------------- */

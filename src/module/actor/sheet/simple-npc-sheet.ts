@@ -659,7 +659,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             const mustBePrepared = entry.data.prepared.preparedSpells && spellbook;
 
             if (mustBePrepared) {
-                this._preparedSpellSlots(entry, spellbook);
+                this.preparedSpellSlots(entry, spellbook);
             }
 
             entry.spellbook = spellbook;

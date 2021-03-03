@@ -4,10 +4,10 @@ declare interface BaseEntitySheetOptions extends FormApplicationOptions {
     viewPermission: number;
 }
 
-declare interface BaseEntitySheetData<E extends Entity> extends FormApplicationData<E> {
+declare interface BaseEntitySheetData<D extends BaseEntityData> {
     cssClass: string;
     editable: boolean;
-    entity: E['data'];
+    entity: D;
     limited: boolean;
     options: FormApplicationOptions;
     owner: boolean;
@@ -30,7 +30,7 @@ declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication
      * Default data preparation logic for the entity sheet
      * @override
      */
-    getData(options?: FormApplicationOptions): BaseEntitySheetData<EntityType>;
+    getData(options?: FormApplicationOptions): BaseEntitySheetData<EntityType['data']>;
 
     /** @override */
     protected _updateObject(event: Event, formData: {}): Promise<void>;
