@@ -496,11 +496,20 @@ declare class Entity {
         userId: string
     ): void;
 
-    /**
-     * Handle Embedded Entity update within this Entity with specific callback steps.
-     * This callback function is triggered by Collection._updateEmbeddedEntity once the source data is updated.
-     */
-    protected _onUpdateEmbeddedEntity(response: any): void;
+  /**
+   * Handle Embedded Entity updates within this Entity with specific callback steps.
+   * This function is triggered once per EmbeddedEntity which is updated.
+   * It therefore may run multiple times per creation workflow.
+   * Any steps defined here should run on a per-EmbeddedEntity basis.
+   * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
+   */
+    protected _onUpdateEmbeddedEntity(
+        embeddedName: string,
+        child: BaseEntityData | EmbeddedEntityData,
+        updateData: EntityUpdateData<BaseEntityData> | EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string
+    ): void;
 
     /**
      * Handle Embedded Entity deletion within this Entity with specific callback steps.
