@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -461,8 +465,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "mucus"
+                        "Mucus"
                     ]
                 },
                 "bonus": {
@@ -485,12 +490,12 @@
                     "damageType": "slashing",
                     "die": "2d10+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d10+10",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -572,6 +577,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -610,8 +616,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "mucus"
+                        "Mucus"
                     ]
                 },
                 "bonus": {
@@ -634,12 +641,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d8+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+10",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -721,6 +728,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -759,8 +767,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "mucus"
+                        "Mucus"
                     ]
                 },
                 "bonus": {
@@ -783,20 +792,16 @@
                     "damageType": "aciddamage",
                     "die": "3d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d6",
-                        "damageType": "aciddamage"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "acidsplashdamage"
+                        "damageType": "acid"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 # acid splash]] Acid Splash Damage</p>"
                 },
                 "equipped": {
                     "value": false
@@ -874,6 +879,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -887,7 +893,7 @@
                     },
                     "value": [
                         "brutal",
-                        "range increment 50 feet",
+                        "range-increment-50",
                         "splash"
                     ]
                 },
@@ -934,6 +940,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -976,7 +983,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Any creature hit by the giant slug or that moves into its mucus trail is coated in sticky, caustic mucus. It takes 1d4 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and takes a -5-foot status penalty to its Speeds while the damage persists."
+                    "value": "<p>Any creature hit by the giant slug or that moves into its mucus trail is coated in sticky, caustic mucus. It takes [[/r 1d4]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage} and takes a -5-foot status penalty to its Speeds while the damage persists.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -985,6 +992,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1036,6 +1044,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1064,7 +1073,7 @@
             "type": "action"
         },
         {
-            "_id": "f2oBf0FhELPtDfWN",
+            "_id": "GIop4yLHoN44KXN5",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1073,12 +1082,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Large or smaller, foot, DC 27<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC."
+                    "value": "<p>Large or smaller, foot, DC 27</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1087,6 +1096,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
@@ -1100,16 +1110,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
             "sort": 700000,
             "type": "action"
@@ -1135,6 +1146,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1162,7 +1174,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "g1htYgARxNKxc7MV",
         "actorLink": false,
         "bar1": {
@@ -1181,6 +1192,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Slug",
         "randomImg": false,

@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -473,12 +477,12 @@
                     "damageType": "slashing",
                     "die": "1d8+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d8+4",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -560,6 +564,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -596,8 +601,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "giant ant venom"
+                        "Giant Ant Venom"
                     ]
                 },
                 "bonus": {
@@ -620,12 +626,12 @@
                     "damageType": "piercing",
                     "die": "1d6+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -707,6 +713,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -753,7 +760,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 18 Fortitude; <b>Maximum Duration</b> 4 rounds; <b>Stage 1</b> 1d8 poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <b>Stage 2</b> 1d10 poison and enfeebled 2 (1 round); <b>Stage 3</b> 1d12 poison and enfeebled 3 (1 round)"
+                    "value": "<p><strong>Saving Throw</strong> DC 18 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 4 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d8]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d10]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d12]] poison and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -762,6 +769,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -801,12 +809,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The giant ant has a Large or smaller creature grabbed; <b>Effect</b> The giant ant Strides up to its full Speed, carrying the grabbed creature with it. It is @Compendium[pf2e.conditionitems.Encumbered]{Encumbered} if the grabbed creature is Medium or larger."
+                    "value": "<p><strong>Requirements</strong> The giant ant has a Large or smaller creature grabbed;</p>\n<p><strong>Effect</strong> The giant ant Strides up to its full Speed, carrying the grabbed creature with it. It is @Compendium[pf2e.conditionitems.Encumbered]{Encumbered} if the grabbed creature is Medium or larger.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -815,6 +823,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -837,13 +846,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Haul Away",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "Q43wDbXrcOOen9ip",
+            "_id": "Zt3p0OLPOAG0F5xm",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -852,12 +861,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -866,6 +875,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -879,16 +889,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 500000,
             "type": "action"
@@ -914,6 +925,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -956,6 +968,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -983,7 +996,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "URYQ5goPCmrQvJf5",
         "actorLink": false,
         "bar1": {
@@ -1002,6 +1014,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Ant",
         "randomImg": false,
