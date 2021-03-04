@@ -568,6 +568,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     properties?: (number | string)[];
     item?: string;
     trickMagicItemData?: TrickMagicItemCastData;
+    isSignatureSpell?: boolean;
 }
 
 export interface SpellAttackRollModifier {
@@ -676,6 +677,9 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
             value: 0;
             max: 0;
         };
+    };
+    signatureSpells: {
+        value: string[];
     };
 }
 

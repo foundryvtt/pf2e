@@ -197,7 +197,19 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         } catch (err) {
             console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell);
         }
-        spellbook[spellLvl].spells.push(spell);
+
+        const prepared = spellcastingEntry.data?.prepared?.value;
+        const signatureSpells = spellcastingEntry.data?.signatureSpells?.value ?? [];
+
+        if (prepared === 'spontaneous' && signatureSpells.includes(spell._id)) {
+            spell.data.isSignatureSpell = true;
+
+            for (let i = 1; i <= maxSpellLevelToShow; i++) {
+                spellbook[i].spells.push(spell);
+            }
+        } else {
+            spellbook[spellLvl].spells.push(spell);
+        }
     }
 
     /**
@@ -1056,6 +1068,10 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.render();
         });
 
+        html.find('.toggle-signature-spell').on('click', (event) => {
+            this._onToggleSignatureSpell(event);
+        });
+
         // Select all text in an input field on focus
         html.find<HTMLInputElement>('input[type=text], input[type=number]').on('focus', (event) => {
             event.currentTarget.select();
@@ -1219,6 +1235,42 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return true;
         }
         return false;
+    }
+
+    private _onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+        const { containerId } = event.target.closest('.item-container').dataset;
+        const { itemId } = event.target.closest('.item').dataset;
+
+        if (!containerId || !itemId) {
+            return;
+        }
+
+        const container = this.actor.getOwnedItem(containerId);
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (!container || container.type !== 'spellcastingEntry' || !item || item.type !== 'spell') {
+            return;
+        }
+
+        const spellcastingEntry = container.data as SpellcastingEntryData;
+        const spell = item.data as SpellData;
+        const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
+
+        if (signatureSpells.includes(spell._id)) {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell._id);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry._id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        } else {
+            const updatedSignatureSpells = signatureSpells.concat([spell._id]);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry._id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        }
     }
 
     /* -------------------------------------------- */
