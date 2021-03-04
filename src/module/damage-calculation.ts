@@ -47,38 +47,8 @@ export function isDamageType(value: string): value is DamageType {
     return allDamageTypes.has(value);
 }
 
-const physicalDamage = new Set<DamageType>();
-physicalDamage.add('piercing');
-physicalDamage.add('bludgeoning');
-physicalDamage.add('slashing');
-
-function isPhysicalDamageType(value: DamageType): boolean {
-    return physicalDamage.has(value);
-}
-
-export type DamageExceptions = Set<AttackTrait & DamageType>[];
-
-interface HasDamageExceptions {
-    except: DamageExceptions;
-}
-
-export interface Resistance extends HasDamageExceptions {
-    damageType: string;
-    value: number;
-    doubleResistanceVsNonMagical: boolean;
-}
-
-export interface Weakness extends HasDamageExceptions {
-    damageType: string;
-    value: number;
-}
-
-export interface Immunity extends HasDamageExceptions {
-    damageType: string;
-}
-
 export type AttackTrait =
-    | 'nonlethal attacks'
+    | 'area-damage'
     | 'magical'
     | 'adamantine'
     | 'coldiron'
@@ -87,13 +57,12 @@ export type AttackTrait =
     | 'mithral'
     | 'silver'
     | 'orichalcum'
-    | 'vorpal'
+    | 'nonlethal attacks'
+    | 'vorpal weapons'
     | 'unarmed';
 
-type CombinedTraits = AttackTrait | DamageType | 'all' | 'physical';
-
 const allAttackTraits = new Set<string>();
-allAttackTraits.add('nonlethal');
+allAttackTraits.add('area-damage');
 allAttackTraits.add('magical');
 allAttackTraits.add('adamantine');
 allAttackTraits.add('coldiron');
@@ -102,64 +71,275 @@ allAttackTraits.add('darkwood');
 allAttackTraits.add('mithral');
 allAttackTraits.add('silver');
 allAttackTraits.add('orichalcum');
-allAttackTraits.add('vorpal');
+allAttackTraits.add('nonlethal attacks');
+allAttackTraits.add('vorpal weapons');
 allAttackTraits.add('unarmed');
-allAttackTraits.add('spell');
 
-export type Damage = Map<
-    DamageType,
-    {
-        normal: number;
-        critical: number;
-        precision: number;
-        traits: Set<AttackTrait>;
-    }
->;
+type CombinedTraits =
+    | AttackTrait
+    | DamageType
+    | 'all'
+    | 'physical'
+    | 'non-magical'
+    | 'critical-hits'
+    | 'splash-damage'
+    | 'precision-damage'
+    | 'precision'; // FIXME: different values in config.ts
 
-/**
- * A single trait or damage combination can disable all resistance/weaknesses/immunities.
- * @param exceptions parsed except block
- * @param combinedTraits all traits applicable for the damage pool
- * @return true if the current exception applies
- */
-function exceptionApplies(exceptions: DamageExceptions, combinedTraits: Set<string>): boolean {
-    return exceptions.some((traitCombination) =>
-        Array.from(traitCombination).every((trait) => {
-            if (trait === 'non-magical') {
-                return !combinedTraits.has('magical');
-            } else {
-                return combinedTraits.has(trait);
-            }
-        }),
-    );
+const allCombinedTraits = new Set<string>(...allAttackTraits, ...allDamageTypes);
+allCombinedTraits.add('all');
+allCombinedTraits.add('physical');
+allCombinedTraits.add('non-magical');
+allCombinedTraits.add('critical-hits');
+allCombinedTraits.add('splash-damage');
+allCombinedTraits.add('precision-damage');
+allCombinedTraits.add('precision');
+
+function isCombinedTrait(trait: string): trait is CombinedTraits {
+    return allCombinedTraits.has(trait);
 }
 
-function denormalizeTraits(damageType: DamageType, attackTraits: Set<AttackTrait>): Set<CombinedTraits> {
+export class DamageValues {
+    private readonly normal: number;
+    private readonly precision: number;
+    private readonly critical: number;
+    private readonly criticalPrecision;
+    private readonly splash: number;
+    private readonly traits: Set<AttackTrait>;
+
+    constructor({
+        normal = 0,
+        precision = 0,
+        critical = 0,
+        criticalPrecision = 0,
+        splash = 0,
+        traits,
+    }: {
+        normal?: number;
+        precision?: number;
+        critical?: number;
+        criticalPrecision?: number;
+        splash?: number;
+        traits: Set<AttackTrait>;
+    }) {
+        this.normal = normal;
+        this.precision = precision;
+        this.critical = critical;
+        this.criticalPrecision = criticalPrecision;
+        this.splash = splash;
+        this.traits = traits;
+    }
+
+    sum(): number {
+        return this.normal + this.precision + this.critical + this.criticalPrecision + this.splash;
+    }
+
+    sumPrecision() {
+        return this.precision + this.criticalPrecision;
+    }
+
+    sumCritical() {
+        return this.critical + this.criticalPrecision;
+    }
+
+    sumSplash() {
+        return this.splash;
+    }
+
+    getTraits() {
+        return denormalizeTraits(this.traits);
+    }
+
+    withoutCritical() {
+        return this.copy({
+            critical: 0,
+            criticalPrecision: 0,
+        });
+    }
+
+    withoutPrecision() {
+        return this.copy({
+            precision: 0,
+            criticalPrecision: 0,
+        });
+    }
+
+    addDamage(value: number): DamageValues {
+        return this.copy({ normal: this.normal + value });
+    }
+
+    copy({
+        normal,
+        precision,
+        critical,
+        criticalPrecision,
+        splash,
+        traits,
+    }: {
+        normal?: number;
+        precision?: number;
+        critical?: number;
+        criticalPrecision?: number;
+        splash?: number;
+        traits?: Set<AttackTrait>;
+    }): DamageValues {
+        return new DamageValues({
+            normal: normal ?? this.normal,
+            precision: precision ?? this.precision,
+            critical: critical ?? this.critical,
+            criticalPrecision: criticalPrecision ?? this.criticalPrecision,
+            splash: splash ?? this.splash,
+            traits: traits ?? this.traits,
+        });
+    }
+}
+
+export type Damage = Map<DamageType, DamageValues>;
+
+export type DamageExceptions = Set<CombinedTraits>[];
+
+interface HasValue {
+    /**
+     * Due to the "take the highest one" rule we need to actually figure out how much critical, precision and splash damage
+     * resistance would actually reduce
+     * @param damage
+     * @param damageType
+     */
+    calculateValue(damage: Damage, damageType: DamageType): number;
+}
+
+class Modifier {
+    protected exceptions: DamageExceptions;
+    protected type: string;
+
+    constructor(exceptions: DamageExceptions, type: string) {
+        this.exceptions = exceptions;
+        this.type = type;
+    }
+
+    /**
+     * A single trait or damage combination can disable all resistance/weaknesses/immunities.
+     * @param damageTraits all traits applicable for the damage pool
+     * @return true if the current exception applies
+     */
+    exceptionApplies(damageTraits: Set<string>): boolean {
+        return this.exceptions.some((traitCombination) =>
+            Array.from(traitCombination).every((trait) => {
+                return damageTraits.has(trait);
+            }),
+        );
+    }
+
+    getType(): string {
+        return this.type;
+    }
+}
+
+export class Resistance extends Modifier implements HasValue {
+    private readonly damageType: string;
+    private readonly value: number;
+    private readonly doubleResistanceVsNonMagical: boolean;
+
+    constructor({
+        type,
+        value,
+        doubleResistanceVsNonMagical,
+        exceptions,
+    }: {
+        type: string;
+        value: number;
+        doubleResistanceVsNonMagical: boolean;
+        exceptions: DamageExceptions;
+    }) {
+        super(exceptions, type);
+        this.value = value;
+        this.doubleResistanceVsNonMagical = doubleResistanceVsNonMagical;
+    }
+
+    calculateValue(damage: Damage, damageType: DamageType): number {
+        const damageValues = damage.get(damageType);
+        const isNonMagical = getAllAttackTraits(damage).has('non-magical');
+        const adjustedValue = this.doubleResistanceVsNonMagical && isNonMagical ? this.value * 2 : this.value;
+        if (this.damageType === 'critical-hits') {
+            return Math.min(adjustedValue, damageValues.sumCritical());
+        } else if (this.damageType.startsWith('precision')) {
+            return Math.min(adjustedValue, damageValues.sumPrecision());
+        } else if (this.damageType === 'splash-damage') {
+            return Math.min(adjustedValue, damageValues.sumSplash());
+        } else {
+            return adjustedValue;
+        }
+    }
+}
+
+export class Weakness extends Modifier implements HasValue {
+    private readonly value: number;
+
+    constructor({ type, value, exceptions }: { type: string; value: number; exceptions: DamageExceptions }) {
+        super(exceptions, type);
+        this.value = value;
+    }
+
+    calculateValue(): number {
+        return this.value;
+    }
+}
+
+export class Immunity extends Modifier {
+    copy({ type, exceptions }: { type?: string; exceptions?: DamageExceptions }): Immunity {
+        return new Immunity(exceptions ?? this.exceptions, type ?? this.type);
+    }
+}
+
+/**
+ * Find and add all related traits
+ * @param traits
+ */
+function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     const result: Set<CombinedTraits> = new Set<CombinedTraits>();
     result.add('all');
-    if (isPhysicalDamageType(damageType)) {
+    if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning')) {
         result.add('physical');
     }
-    Array.from(attackTraits).forEach((trait) => result.add(trait));
+    if (!traits.has('magical')) {
+        result.add('non-magical');
+    }
+    Array.from(traits).forEach((trait) => result.add(trait));
     return result;
 }
 
 /**
- * Find out which modifiers apply for the given damage traits
- *
- * @param modifiersByType modifiers grouped by damage type
- * @param damageTraits all traits that should considered for this pool of damage
- * @param allAttackTraits all damage types and traits present for this attack
+ * The except block not only looks at the current attack traits (e.g. piercing adamantine)
+ * but also at all other damage traits present for the current attack (e.g. cold, ghostTouch, etc)
+ * @param damage
+ */
+function getAllAttackTraits(damage: Damage): Set<CombinedTraits> {
+    const damageTypes = Array.from(damage.keys());
+    const damageTraits = Array.from(damage.values()).flatMap((value) => Array.from(value.getTraits()));
+    const combined: CombinedTraits[] = [...damageTraits, ...damageTypes];
+    return denormalizeTraits(new Set(combined));
+}
+
+/**
+ * Given a damage type pool, find out which modifiers are relevant by checking their exceptions
  * @return a list of modifiers filtered by their except blocks
  */
-function filterModifiers<T extends HasDamageExceptions>(
-    modifiersByType: Map<string, T[]>,
-    damageTraits: Set<string>,
-    allAttackTraits: Set<string>,
+function filterModifiers<T extends Modifier>(
+    damage: Damage,
+    damageType: DamageType,
+    modifiersByType: Map<CombinedTraits, T[]>,
 ): T[] {
-    return Array.from(damageTraits)
-        .flatMap((trait) => modifiersByType.get(trait) ?? [])
-        .filter((modifier) => !exceptionApplies(modifier.except, allAttackTraits));
+    const allAttackTraits = getAllAttackTraits(damage);
+    return (
+        Array.from(damage.get(damageType).getTraits())
+            // calculation for critical hits, precision and splash damage is different since these are
+            // part of the actual damage object and need to be capped at their value, e.g.
+            // resistance 7 splash damage and 5 splash damage will only reduce 5 total
+            // therefore these modifiers will always be looked up if they're present
+            .concat('critical-hits', 'precision-damage', 'precision', 'splash-damage')
+            .flatMap((trait) => modifiersByType.get(trait) ?? [])
+            .filter((modifier) => !modifier.exceptionApplies(allAttackTraits))
+    );
 }
 
 /**
@@ -168,59 +348,15 @@ function filterModifiers<T extends HasDamageExceptions>(
  *
  * @return value or undefined if no modifier has been found
  */
-function findHighestModifier<T extends HasDamageExceptions>(
-    modifiersByType: Map<string, T[]>,
-    damageTraits: Set<string>,
-    allAttackTraits: Set<string>,
-    modifierValue: (modifier: T) => number,
+function findHighestModifier<T extends Weakness | Resistance>(
+    damage: Damage,
+    damageType: DamageType,
+    modifiersByType: Map<CombinedTraits, T[]>,
 ): number | undefined {
-    return filterModifiers(modifiersByType, damageTraits, allAttackTraits)
-        .map((value) => modifierValue(value))
+    return filterModifiers(damage, damageType, modifiersByType)
+        .map((modifier) => modifier.calculateValue(damage, damageType))
         .sort((a, b) => a - b) // https://i.redd.it/5ik1hby4ngk61.png
         .reverse()[0];
-}
-
-function applyImmunities(damage: Damage, allAttackTraits: Set<string>, immunities: Immunity[]): void {
-    // replace object-immunities with their respective immunities
-    const denormalizedImmunities = immunities.flatMap((immunity) => {
-        if (immunity.damageType === 'object-immunities') {
-            return ['bleed', 'poison', 'nonlethal attacks', 'mental'].map((type) => {
-                return { damageType: type, except: immunity.except };
-            });
-        } else {
-            return [immunity];
-        }
-    });
-
-    const modifiersByType = groupBy(denormalizedImmunities, (immunity: Immunity) => immunity.damageType);
-
-    Array.from(damage.entries()).forEach(([damageType, value]) => {
-        // critical hits immunity completely removes critical damage
-        const attackTraits = value.traits;
-        if (
-            filterModifiers(modifiersByType.get('critical-hits') ?? [], denormalizeTraits(damageType, attackTraits))
-                .length > 0
-        ) {
-            value.critical = 0;
-        }
-
-        // precision immunity completely removes precision damage
-        if (
-            filterModifiers(modifiersByType.get('precision-damage') ?? [], denormalizeTraits(damageType, attackTraits))
-                .length > 0
-        ) {
-            value.precision = 0;
-        }
-
-        if (
-            filterModifiers(modifiersByType.get(damageType) ?? [], denormalizeTraits(damageType, attackTraits)).length >
-            0
-        ) {
-            value.normal = 0;
-            value.precision = 0;
-            value.critical = 0;
-        }
-    });
 }
 
 export function removeAlignmentDamage(damage: Damage, alignment: AlignmentString) {
@@ -253,187 +389,85 @@ export function removePositiveOrNegativeDamage(damage: Damage, living: Living) {
     }
 }
 
-/**
- * Applies a weakness or resistance to an existing damage value; if that
- * damage is not present in the damage map, nothing is added
- *
- * @param damage complete damage
- * @param value increases damage of positive, reduces damage if negative. If the result
- * value is ever 0 or negative, the damage type will be removed from the damage
- * map
- * @param damageTypes a list of types to increase damage; usually an array with 1 element
- * but can be multiple in case of slashing, bludgeoning or piercing
- */
-function addDamageIfPresent(damage: Damage, value: number, damageTypes: DamageType[]) {
-    for (const damageType of damageTypes) {
-        const damageValue = damage.get(damageType);
-        if (damageValue !== undefined) {
-            const targetValue = damageValue + value;
-            if (targetValue > 0) {
-                damage.set(damageType, targetValue);
+function applyImmunities(damage: Damage, immunities: Immunity[]): void {
+    // replace object-immunities with their respective immunities
+    const denormalizedImmunities = immunities
+        .flatMap((immunity) => {
+            if (immunity.getType() === 'object-immunities') {
+                return ['bleed', 'poison', 'nonlethal attacks', 'mental'].map((type) => {
+                    return immunity.copy({ type });
+                });
             } else {
-                damage.delete(damageType);
+                return [immunity];
             }
-        }
-    }
-}
+        })
+        // only keep relevant immunities
+        .filter((immunity) => isCombinedTrait(immunity.getType()));
 
-function applyWeaknesses({
-    damage,
-    allAttackTraits,
-    weaknesses,
-    splashDamageType,
-    areaDamageType,
-}: {
-    damage: Damage;
-    allAttackTraits: Set<string>;
-    areaDamageType?: DamageType;
-    splashDamageType?: DamageType;
-    weaknesses: Weakness[];
-}): void {
-    const modifiersByType = groupBy(weaknesses, (weakness: Weakness) => weakness.damageType);
-    const damageTypes = new Set(damage.keys());
-
-    if (attackTraits.has('vorpal')) {
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: damageTypes,
-            attackTraits,
-            applicableModifierTypes: ['vorpal weapons'],
-            modifierValue: (modifier) => modifier.value,
-        });
-        if (modifier !== undefined) {
-            addDamageIfPresent(damage, modifier, Array.from(physicalDamage));
-        }
-    }
-
-    if (isCriticalHit) {
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: damageTypes,
-            attackTraits,
-            applicableModifierTypes: ['critical hits'],
-            modifierValue: (modifier) => modifier.value,
-        });
-        if (modifier !== undefined) {
-            damage.set('untyped', modifier);
-        }
-    }
-
-    if (splashDamageType !== undefined) {
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: damageTypes,
-            attackTraits,
-            applicableModifierTypes: ['splash-damage'],
-            modifierValue: (modifier) => modifier.value,
-        });
-        if (modifier !== undefined) {
-            addDamageIfPresent(damage, modifier, [splashDamageType]);
-        }
-    }
-
-    if (areaDamageType !== undefined) {
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: damageTypes,
-            attackTraits,
-            applicableModifierTypes: ['area-damage'],
-            modifierValue: (modifier) => modifier.value,
-        });
-        if (modifier !== undefined) {
-            addDamageIfPresent(damage, modifier, [areaDamageType]);
-        }
-    }
-
-    Array.from(damage.keys()).forEach((damageType) => {
-        const applicableTypes = [damageType, 'all'];
-        if (isPhysicalDamageType(damageType)) {
-            applicableTypes.push('physical');
-            // physical attacks also trigger weaknesses for materials if present
-            physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
-        }
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: damageTypes,
-            attackTraits,
-            applicableModifierTypes: applicableTypes,
-            modifierValue: (modifier) => modifier.value,
-        });
-        if (modifier !== undefined) {
-            addDamageIfPresent(damage, modifier, [damageType]);
-        }
-    });
-}
-
-function calculateResistance(
-    applicableResistanceTypes: string[],
-    attackTraits: Set<AttackTrait>,
-    modifier: Resistance,
-): number {
-    return Math.max(
-        0,
-        modifier.doubleResistanceVsNonMagical && !attackTraits.has('magical') ? modifier.value * 2 : modifier.value,
+    const modifiersByType = groupBy(
+        denormalizedImmunities,
+        (immunity: Immunity) => immunity.getType() as CombinedTraits,
     );
+
+    for (const type of Array.from(damage.keys())) {
+        let damageValues = damage.get(type);
+        const applicableModifiers = filterModifiers(damage, type, modifiersByType);
+        applicableModifiers.forEach((modifier) => {
+            // there's no splash damage immunity
+            if (modifier.getType() === 'critical-hits') {
+                damageValues = damageValues.withoutCritical();
+            } else if (modifier.getType().startsWith('precision')) {
+                damageValues = damageValues.withoutPrecision();
+            }
+        });
+        const isImmune = applicableModifiers.some(
+            (immunity) => immunity.getType() !== 'critical-hits' && !immunity.getType().startsWith('precision'),
+        );
+        if (isImmune) {
+            damage.delete(type);
+        } else {
+            damage.set(type, damageValues);
+        }
+    }
 }
 
-function applyResistances(damage: Damage, allAttackTraits: Set<string>, resistances: Resistance[]): void {
-    const modifiersByType = groupBy(resistances, (resistance: Resistance) => resistance.damageType);
+function applyWeaknesses(damage: Damage, weaknesses: Weakness[]): void {
+    const usableModifiers = weaknesses.filter((weakness) => isCombinedTrait(weakness.getType()));
+    const modifiersByType = groupBy(usableModifiers, (weakness: Weakness) => weakness.getType() as CombinedTraits);
 
-    // precision damage resistance applies first because it spills into the damage afterwards
-    const precisionModifier = findHighestModifier({
-        modifiersByType,
-        damageTypes: new Set(damage.keys()),
-        attackTraits,
-        applicableModifierTypes: ['precision-damage'],
-        modifierValue: (modifier) => calculateResistance(['precision-damage'], attackTraits, modifier),
-    });
-    if (precisionModifier !== undefined) {
-        addDamageIfPresent(damage, -precisionModifier, [precisionDamageType]);
-        damage.delete('precision');
-    }
-
-    Array.from(damage.keys()).forEach((damageType) => {
-        const applicableTypes = [damageType, 'all'];
-        if (isPhysicalDamageType(damageType)) {
-            applicableTypes.push('physical');
-            // physical attacks also trigger resistances for materials if present
-            physicalAttackTraits.filter((type) => attackTraits.has(type)).forEach((type) => applicableTypes.push(type));
-        }
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: new Set(damage.keys()),
-            attackTraits,
-            applicableModifierTypes: applicableTypes,
-            modifierValue: (modifier) => calculateResistance(applicableTypes, attackTraits, modifier),
-        });
-        addDamageIfPresent(damage, -modifier, [damageType]);
-    });
-
-    let totalDamage = sumDamage(damage);
-
-    // critical hits resistance
-    if (isCriticalHit) {
-        const modifier = findHighestModifier({
-            modifiersByType,
-            damageTypes: new Set(damage.keys()),
-            attackTraits,
-            applicableModifierTypes: ['critical-hits'],
-            modifierValue: (modifier) => calculateResistance(['critical-hits'], attackTraits, modifier),
-        });
-        if (modifier !== undefined) {
-            totalDamage = Math.max(0, totalDamage - modifier);
+    for (const type of Array.from(damage.keys())) {
+        const damageValues = damage.get(type);
+        const highestModifier = findHighestModifier(damage, type, modifiersByType);
+        if (highestModifier !== undefined) {
+            damage.set(type, damageValues.addDamage(highestModifier));
         }
     }
-    return totalDamage;
+}
+
+function applyResistances(damage: Damage, resistances: Resistance[]): number {
+    const usableModifiers = resistances.filter((resistance) => isCombinedTrait(resistance.getType()));
+    const modifiersByType = groupBy(
+        usableModifiers,
+        (resistance: Resistance) => resistance.getType() as CombinedTraits,
+    );
+
+    return sum(
+        Array.from(damage.keys()).map((type) => {
+            const damageValues = damage.get(type);
+            const highestModifier = findHighestModifier(damage, type, modifiersByType);
+            if (highestModifier === undefined) {
+                return damageValues.sum();
+            } else {
+                return Math.max(0, damageValues.sum() - highestModifier);
+            }
+        }),
+    );
 }
 
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  * @param damage damage split up by parts
  * @param precisionDamageType type of damage to which it should be added
- * @param splashDamageType type of splash damage that is dealt, needed for swarms, only relevant for weaknesses
- * @param areaDamageType pass in the type of the damage if it originates from a spell cone/line/emanation, needed for swarms, only relevant for weaknesses
  * @param living whether we need to apply positive/negative damage
  * @param alignment whether we need to apply alignment damage
  * @param immunities a list of immunities; one type can be present multiple times, we use the highest one
@@ -442,8 +476,6 @@ function applyResistances(damage: Damage, allAttackTraits: Set<string>, resistan
  * @return the final calculated damage
  */
 export function calculateDamage({
-    areaDamageType,
-    splashDamageType,
     damage,
     living,
     alignment,
@@ -451,8 +483,6 @@ export function calculateDamage({
     resistances,
     weaknesses,
 }: {
-    areaDamageType?: DamageType;
-    splashDamageType?: DamageType;
     damage: Damage;
     living: Living;
     immunities: Immunity[];
@@ -460,23 +490,14 @@ export function calculateDamage({
     weaknesses: Weakness[];
     alignment: AlignmentString;
 }): number {
-    const allAttackTraits = new Set<string>();
+    // make a damage copy since we are going to modify the map
     const copiedDamage: Damage = new Map();
-    // make a damage copy since we are going to modify the map and objects directly
     Array.from(damage.entries()).forEach(([type, value]) => {
-        value.traits.forEach((trait) => allAttackTraits.add(trait));
-        copiedDamage.set(type, { ...value, traits: new Set(value.traits) });
+        copiedDamage.set(type, value);
     });
     removePositiveOrNegativeDamage(copiedDamage, living);
     removeAlignmentDamage(copiedDamage, alignment);
-    applyImmunities(copiedDamage, allAttackTraits, immunities);
-    applyWeaknesses({
-        damage: copiedDamage,
-        allAttackTraits,
-        weaknesses,
-        splashDamageType,
-        areaDamageType,
-    });
-    applyResistances(copiedDamage, allAttackTraits, resistances);
-    return sum(Array.from(copiedDamage.values()).map((value) => value.precision + value.critical + value.normal));
+    applyImmunities(copiedDamage, immunities);
+    applyWeaknesses(copiedDamage, weaknesses);
+    return applyResistances(copiedDamage, resistances);
 }
