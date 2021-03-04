@@ -428,7 +428,6 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
                 return [immunity];
             }
         })
-        // only keep relevant immunities
         .filter((immunity) => isCombinedTrait(immunity.getType()));
 
     const modifiersByType = groupBy(flattenedImmunities, (immunity: Immunity) => immunity.getType() as CombinedTraits);
@@ -502,17 +501,17 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
  */
 export function calculateDamage({
     damage,
-    living,
-    alignment,
     immunities,
     resistances,
     weaknesses,
+    living,
+    alignment,
 }: {
     damage: Damage;
-    living: Living;
     immunities: Immunity[];
     resistances: Resistance[];
     weaknesses: Weakness[];
+    living: Living;
     alignment: AlignmentString;
 }): number {
     // make a damage copy since we are going to modify the map
