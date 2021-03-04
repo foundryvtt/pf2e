@@ -314,6 +314,11 @@ function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning')) {
         result.add('physical');
     }
+    // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
+    // creatures with weakness to silver
+    if (traits.has('mithral')) {
+        result.add('silver');
+    }
     if (!traits.has('magical')) {
         result.add('non-magical');
     }
