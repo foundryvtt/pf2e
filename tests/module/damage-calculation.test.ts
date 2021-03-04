@@ -291,4 +291,47 @@ describe('test damage calculation', () => {
             }),
         ).toBe(16);
     });
+
+    test('one damage exception covers all, except when they are removed by immunities', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set(
+            'bleed',
+            new DamageValues({
+                normal: 64,
+            }),
+        );
+        damage.set(
+            'slashing',
+            new DamageValues({
+                normal: 1,
+                traits: new Set(['vorpal weapons']),
+            }),
+        );
+        expect(
+            calculateDamage({
+                damage,
+                immunities: [new Immunity({ type: 'object-immunities' })],
+                weaknesses: [
+                    // does not trigger because bleed damage is removed by immunity
+                    new Weakness({ type: 'bleed', value: 32, exceptions: [new Set(['physical'])] }),
+                    // does not trigger because physical damage exception
+                    new Weakness({ type: 'slashing', value: 128, exceptions: [new Set(['physical'])] }),
+                    new Weakness({ type: 'slashing', value: 8 }),
+                ],
+                resistances: [
+                    new Resistance({
+                        type: 'all',
+                        value: 2,
+                        exceptions: [new Set(['piercing', 'physical'])],
+                    }),
+                    // does not trigger because the exception removes it although the value is higher
+                    new Resistance({
+                        type: 'all',
+                        value: 4,
+                        exceptions: [new Set(['piercing', 'physical']), new Set(['vorpal weapons', 'slashing'])],
+                    }),
+                ],
+            }),
+        ).toBe(7);
+    });
 });
