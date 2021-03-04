@@ -438,19 +438,19 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
 
     for (const type of Array.from(damage.keys())) {
         let damageValues = damage.get(type)!;
+        let isImmune = false;
         const applicableModifiers = filterModifiers(damage, type, modifiersByType);
-        applicableModifiers.forEach((modifier) => {
+        for (const modifier of applicableModifiers) {
             if (modifier.getType() === 'critical-hits') {
                 damageValues = damageValues.withoutCritical();
             } else if (modifier.getType().startsWith('precision')) {
                 damageValues = damageValues.withoutPrecision();
             } else if (modifier.getType() === 'splash-damage') {
                 damageValues = damageValues.withoutSplash();
+            } else {
+                isImmune = true;
             }
-        });
-        const isImmune = applicableModifiers.some(
-            (immunity) => immunity.getType() !== 'critical-hits' && !immunity.getType().startsWith('precision'),
-        );
+        }
         if (isImmune) {
             damage.delete(type);
         } else {
