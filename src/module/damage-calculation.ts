@@ -418,7 +418,7 @@ export function removePositiveOrNegativeDamage(damage: Damage, living: Living) {
 
 function applyImmunities(damage: Damage, immunities: Immunity[]): void {
     // replace object-immunities with their respective immunities
-    const denormalizedImmunities = immunities
+    const flattenedImmunities = immunities
         .flatMap((immunity) => {
             if (immunity.getType() === 'object-immunities') {
                 return ['bleed', 'poison', 'nonlethal attacks', 'mental'].map((type) => {
@@ -431,10 +431,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         // only keep relevant immunities
         .filter((immunity) => isCombinedTrait(immunity.getType()));
 
-    const modifiersByType = groupBy(
-        denormalizedImmunities,
-        (immunity: Immunity) => immunity.getType() as CombinedTraits,
-    );
+    const modifiersByType = groupBy(flattenedImmunities, (immunity: Immunity) => immunity.getType() as CombinedTraits);
 
     for (const type of Array.from(damage.keys())) {
         let damageValues = damage.get(type)!;
