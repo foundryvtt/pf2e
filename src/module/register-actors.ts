@@ -59,9 +59,11 @@ export function registerActors() {
         makeDefault: true,
     });
 
-    // Register Vehicle Sheet
-    Actors.registerSheet('pf2e', ActorSheetPF2eAnimalCompanion, {
-        types: ['animalCompanion'],
-        makeDefault: true,
-    });
+    if (BUILD_MODE === 'development') {
+        // Register AnimalCompanion Sheet
+        Actors.registerSheet('pf2e', ActorSheetPF2eAnimalCompanion, {
+            types: ['animalCompanion'],
+            makeDefault: true,
+        });
+    }
 }
