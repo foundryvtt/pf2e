@@ -496,11 +496,11 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  *
  * @param damage damage split up by parts
- * @param living whether we need to apply positive/negative damage
- * @param alignment whether we need to apply alignment damage
  * @param immunities a list of immunities; one type can be present multiple times, we use the highest one
  * @param weaknesses a list of weaknesses; one type can be present multiple times, we use the highest one
  * @param resistances a list of resistances; one type can be present multiple times, we use the highest one
+ * @param living whether we need to apply positive/negative damage
+ * @param alignment whether we need to apply alignment damage
  * @return the final calculated damage
  */
 export function calculateDamage({
