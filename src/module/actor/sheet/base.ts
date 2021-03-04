@@ -758,8 +758,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                                 list.push(i._id);
                             });
 
-                        await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                        if (this.token) {
+                            await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                        } else {
+                            await this.actor.deleteEmbeddedEntity('OwnedItem', list);
+                        }
                     };
+
                     if (event.ctrlKey) {
                         deleteCondition();
                         return;
