@@ -239,6 +239,35 @@ class Modifier {
     }
 }
 
+export class Immunity extends Modifier {
+    copy({ type, exceptions }: { type?: string; exceptions?: DamageExceptions }): Immunity {
+        return new Immunity(exceptions ?? this.exceptions, type ?? this.type);
+    }
+}
+
+export class Weakness extends Modifier implements HasValue {
+    private readonly value: number;
+
+    constructor({ type, value, exceptions }: { type: string; value: number; exceptions: DamageExceptions }) {
+        super(exceptions, type);
+        this.value = value;
+    }
+
+    calculateValue(damage: Damage, damageType: DamageType): number {
+        const damageValues = damage.get(damageType);
+        // if no damage is dealt, no weakness is triggered
+        if (this.type === 'critical-hits') {
+            return damageValues.sumCritical() > 0 ? this.value : 0;
+        } else if (this.type.startsWith('precision')) {
+            return damageValues.sumPrecision() > 0 ? this.value : 0;
+        } else if (this.type === 'splash-damage') {
+            return damageValues.sumSplash() > 0 ? this.value : 0;
+        } else {
+            return damageValues.sum() > 0 ? this.value : 0;
+        }
+    }
+}
+
 export class Resistance extends Modifier implements HasValue {
     private readonly value: number;
     private readonly doubleResistanceVsNonMagical: boolean;
@@ -272,35 +301,6 @@ export class Resistance extends Modifier implements HasValue {
         } else {
             return adjustedValue;
         }
-    }
-}
-
-export class Weakness extends Modifier implements HasValue {
-    private readonly value: number;
-
-    constructor({ type, value, exceptions }: { type: string; value: number; exceptions: DamageExceptions }) {
-        super(exceptions, type);
-        this.value = value;
-    }
-
-    calculateValue(damage: Damage, damageType: DamageType): number {
-        const damageValues = damage.get(damageType);
-        // if no damage is dealt, no weakness is triggered
-        if (this.type === 'critical-hits') {
-            return damageValues.sumCritical() > 0 ? this.value : 0;
-        } else if (this.type.startsWith('precision')) {
-            return damageValues.sumPrecision() > 0 ? this.value : 0;
-        } else if (this.type === 'splash-damage') {
-            return damageValues.sumSplash() > 0 ? this.value : 0;
-        } else {
-            return damageValues.sum() > 0 ? this.value : 0;
-        }
-    }
-}
-
-export class Immunity extends Modifier {
-    copy({ type, exceptions }: { type?: string; exceptions?: DamageExceptions }): Immunity {
-        return new Immunity(exceptions ?? this.exceptions, type ?? this.type);
     }
 }
 
