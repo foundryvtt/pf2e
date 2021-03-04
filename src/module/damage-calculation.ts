@@ -117,15 +117,15 @@ export class DamageValues {
         critical = 0,
         criticalPrecision = 0,
         splash = 0,
-        traits,
+        traits = new Set(),
     }: {
         normal?: number;
         precision?: number;
         critical?: number;
         criticalPrecision?: number;
         splash?: number;
-        traits: Set<AttackTrait>;
-    }) {
+        traits?: Set<AttackTrait>;
+    } = {}) {
         this.normal = normal;
         this.precision = precision;
         this.critical = critical;
@@ -254,7 +254,7 @@ export class Weakness extends Modifier implements HasValue {
     }
 
     calculateValue(damage: Damage, damageType: DamageType): number {
-        const damageValues = damage.get(damageType);
+        const damageValues = damage.get(damageType) ?? new DamageValues();
         // if no damage is dealt, no weakness is triggered
         if (this.type === 'critical-hits') {
             return damageValues.sumCritical() > 0 ? this.value : 0;
@@ -289,7 +289,7 @@ export class Resistance extends Modifier implements HasValue {
     }
 
     calculateValue(damage: Damage, damageType: DamageType): number {
-        const damageValues = damage.get(damageType);
+        const damageValues = damage.get(damageType) ?? new DamageValues();
         const isNonMagical = getAllAttackTraits(damage).has('non-magical');
         const adjustedValue = this.doubleResistanceVsNonMagical && isNonMagical ? this.value * 2 : this.value;
         if (this.type === 'critical-hits') {
@@ -351,7 +351,7 @@ function filterModifiers<T extends Modifier>(
 ): T[] {
     const allAttackTraits = getAllAttackTraits(damage);
     return (
-        Array.from(damage.get(damageType).getTraits())
+        Array.from(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>())
             // calculation for critical hits, precision and splash damage is different since these are
             // part of the actual damage object and need to be capped at their value, e.g.
             // resistance 7 splash damage and 5 splash damage will only reduce 5 total
@@ -430,7 +430,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
     );
 
     for (const type of Array.from(damage.keys())) {
-        let damageValues = damage.get(type);
+        let damageValues = damage.get(type)!;
         const applicableModifiers = filterModifiers(damage, type, modifiersByType);
         applicableModifiers.forEach((modifier) => {
             // there's no splash damage immunity
@@ -456,7 +456,7 @@ function applyWeaknesses(damage: Damage, weaknesses: Weakness[]): void {
     const modifiersByType = groupBy(usableModifiers, (weakness: Weakness) => weakness.getType() as CombinedTraits);
 
     for (const type of Array.from(damage.keys())) {
-        const damageValues = damage.get(type);
+        const damageValues = damage.get(type)!;
         const highestModifier = findHighestModifier(damage, type, modifiersByType);
         if (highestModifier !== undefined) {
             damage.set(type, damageValues.addDamage(highestModifier));
@@ -473,7 +473,7 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
 
     return sum(
         Array.from(damage.keys()).map((type) => {
-            const damageValues = damage.get(type);
+            const damageValues = damage.get(type)!;
             const highestModifier = findHighestModifier(damage, type, modifiersByType);
             if (highestModifier === undefined) {
                 return damageValues.sum();
