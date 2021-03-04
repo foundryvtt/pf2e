@@ -321,7 +321,7 @@ export class Resistance extends Modifier implements HasValue {
 function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     const result: Set<CombinedTraits> = new Set<CombinedTraits>();
     result.add('all');
-    if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning')) {
+    if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning') || traits.has('bleed')) {
         result.add('physical');
     }
     // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
@@ -363,7 +363,13 @@ function filterModifiers<T extends Modifier>(
     return (
         Array.from(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>())
             // always include modifiers that are part of each damage
-            .concat('critical-hits', 'precision-damage', 'precision', 'splash-damage', damageType)
+            .concat(
+                'critical-hits',
+                'precision-damage',
+                'precision',
+                'splash-damage',
+                ...denormalizeTraits(new Set([damageType])),
+            )
             .flatMap((trait) => modifiersByType.get(trait) ?? [])
             .filter((modifier) => !modifier.exceptionApplies(allAttackTraits))
     );

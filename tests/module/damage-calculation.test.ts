@@ -187,4 +187,67 @@ describe('test damage calculation', () => {
             }),
         ).toBe(3);
     });
+
+    test('alignment damage', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('evil', new DamageValues({ normal: 1 }));
+        damage.set('good', new DamageValues({ normal: 2 }));
+        damage.set('chaotic', new DamageValues({ normal: 4 }));
+        damage.set('lawful', new DamageValues({ normal: 8 }));
+        expect(
+            calculateDamage({
+                damage,
+                alignment: 'CE',
+            }),
+        ).toBe(10);
+    });
+
+    test('positive damage on living creatures', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('positive', new DamageValues({ normal: 1 }));
+        damage.set('negative', new DamageValues({ normal: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                living: 'living',
+            }),
+        ).toBe(2);
+    });
+
+    test('positive damage on undead creatures', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('positive', new DamageValues({ normal: 1 }));
+        damage.set('negative', new DamageValues({ normal: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                living: 'undead',
+            }),
+        ).toBe(1);
+    });
+
+    test('positive damage on constructs', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('positive', new DamageValues({ normal: 1 }));
+        damage.set('negative', new DamageValues({ normal: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                living: 'neither',
+            }),
+        ).toBe(0);
+    });
+
+    test('resistance to physical damage, vulnerable to bleed', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('bleed', new DamageValues({ normal: 8 }));
+        damage.set('piercing', new DamageValues({ normal: 5 }));
+        expect(
+            calculateDamage({
+                damage,
+                weaknesses: [new Weakness({ type: 'bleed', value: 4 })],
+                resistances: [new Resistance({ type: 'physical', value: 3 })],
+            }),
+        ).toBe(11);
+    });
 });
