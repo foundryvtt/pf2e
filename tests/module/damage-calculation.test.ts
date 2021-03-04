@@ -43,6 +43,57 @@ describe('test damage calculation', () => {
         ).toBe(5);
     });
 
+    test('double resistance against non magical', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 4, precision: 2, critical: 3, criticalPrecision: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [
+                    new Resistance({
+                        type: 'precision',
+                        value: 6,
+                    }),
+                    new Resistance({
+                        type: 'piercing',
+                        value: 5,
+                        doubleResistanceVsNonMagical: true,
+                    }),
+                ],
+            }),
+        ).toBe(1);
+    });
+
+    test('double resistance against non magical not triggered if magical', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set(
+            'piercing',
+            new DamageValues({
+                normal: 4,
+                precision: 2,
+                critical: 3,
+                criticalPrecision: 2,
+                traits: new Set(['magical']),
+            }),
+        );
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [
+                    new Resistance({
+                        type: 'precision',
+                        value: 6,
+                    }),
+                    new Resistance({
+                        type: 'piercing',
+                        value: 5,
+                        doubleResistanceVsNonMagical: true,
+                    }),
+                ],
+            }),
+        ).toBe(6);
+    });
+
     test('exceptions do not apply resistance', () => {
         const damage = new Map<DamageType, DamageValues>();
         damage.set('piercing', new DamageValues({ normal: 3, precision: 2, critical: 3, criticalPrecision: 2 }));
