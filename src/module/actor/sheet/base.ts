@@ -17,6 +17,7 @@ import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-con
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { PF2ECondition, PF2ESpell } from '@item/others';
+import { LocalizePF2e } from '@system/localization';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -1442,7 +1443,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 await PF2eConditionManager.addConditionToToken(condition, token);
                 return itemData;
             } else {
-                ui.notifications.error('You do not control this actor.');
+                const translations = LocalizePF2e.translations.PF2E;
+                const message = actor.can(game.user, 'update')
+                    ? translations.ErrorMessage.ActorMustHaveToken
+                    : translations.ErrorMessage.NoUpdatePermission;
+                ui.notifications.error(message);
                 return null;
             }
         }
