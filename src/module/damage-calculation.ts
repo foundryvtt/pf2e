@@ -75,6 +75,10 @@ allAttackTraits.add('nonlethal attacks');
 allAttackTraits.add('vorpal weapons');
 allAttackTraits.add('unarmed');
 
+export function isAttackTrait(trait: string): trait is AttackTrait {
+    return allAttackTraits.has(trait);
+}
+
 type CombinedTraits =
     | AttackTrait
     | DamageType
