@@ -250,4 +250,18 @@ describe('test damage calculation', () => {
             }),
         ).toBe(11);
     });
+
+    test('immune to critical hits', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set(
+            'bleed',
+            new DamageValues({ normal: 1, critical: 2, criticalPrecision: 4, precision: 8, splash: 16 }),
+        );
+        expect(
+            calculateDamage({
+                damage,
+                immunities: [new Immunity({ type: 'critical-hits' })],
+            }),
+        ).toBe(25);
+    });
 });
