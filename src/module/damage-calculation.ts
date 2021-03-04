@@ -281,13 +281,13 @@ export class Resistance extends Modifier implements HasValue {
     constructor({
         type,
         value,
-        doubleResistanceVsNonMagical,
-        exceptions,
+        doubleResistanceVsNonMagical = false,
+        exceptions = [],
     }: {
         type: string;
         value: number;
-        doubleResistanceVsNonMagical: boolean;
-        exceptions: DamageExceptions;
+        doubleResistanceVsNonMagical?: boolean;
+        exceptions?: DamageExceptions;
     }) {
         super(exceptions, type);
         this.value = value;
@@ -363,7 +363,7 @@ function filterModifiers<T extends Modifier>(
     return (
         Array.from(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>())
             // always include modifiers that are part of each damage
-            .concat('critical-hits', 'precision-damage', 'precision', 'splash-damage')
+            .concat('critical-hits', 'precision-damage', 'precision', 'splash-damage', damageType)
             .flatMap((trait) => modifiersByType.get(trait) ?? [])
             .filter((modifier) => !modifier.exceptionApplies(allAttackTraits))
     );
@@ -501,18 +501,18 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
  */
 export function calculateDamage({
     damage,
-    immunities,
-    resistances,
-    weaknesses,
-    living,
-    alignment,
+    immunities = [],
+    resistances = [],
+    weaknesses = [],
+    living = 'living',
+    alignment = 'N',
 }: {
     damage: Damage;
-    immunities: Immunity[];
-    resistances: Resistance[];
-    weaknesses: Weakness[];
-    living: Living;
-    alignment: AlignmentString;
+    immunities?: Immunity[];
+    resistances?: Resistance[];
+    weaknesses?: Weakness[];
+    living?: Living;
+    alignment?: AlignmentString;
 }): number {
     // make a damage copy since we are going to modify the map
     const copiedDamage: Damage = new Map();
