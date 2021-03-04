@@ -240,7 +240,6 @@ class Modifier {
 }
 
 export class Resistance extends Modifier implements HasValue {
-    private readonly damageType: string;
     private readonly value: number;
     private readonly doubleResistanceVsNonMagical: boolean;
 
@@ -264,11 +263,11 @@ export class Resistance extends Modifier implements HasValue {
         const damageValues = damage.get(damageType);
         const isNonMagical = getAllAttackTraits(damage).has('non-magical');
         const adjustedValue = this.doubleResistanceVsNonMagical && isNonMagical ? this.value * 2 : this.value;
-        if (this.damageType === 'critical-hits') {
+        if (this.type === 'critical-hits') {
             return Math.min(adjustedValue, damageValues.sumCritical());
-        } else if (this.damageType.startsWith('precision')) {
+        } else if (this.type.startsWith('precision')) {
             return Math.min(adjustedValue, damageValues.sumPrecision());
-        } else if (this.damageType === 'splash-damage') {
+        } else if (this.type === 'splash-damage') {
             return Math.min(adjustedValue, damageValues.sumSplash());
         } else {
             return adjustedValue;
@@ -284,8 +283,18 @@ export class Weakness extends Modifier implements HasValue {
         this.value = value;
     }
 
-    calculateValue(): number {
-        return this.value;
+    calculateValue(damage: Damage, damageType: DamageType): number {
+        const damageValues = damage.get(damageType);
+        // if no damage is dealt, no weakness is triggered
+        if (this.type === 'critical-hits') {
+            return damageValues.sumCritical() > 0 ? this.value : 0;
+        } else if (this.type.startsWith('precision')) {
+            return damageValues.sumPrecision() > 0 ? this.value : 0;
+        } else if (this.type === 'splash-damage') {
+            return damageValues.sumSplash() > 0 ? this.value : 0;
+        } else {
+            return damageValues.sum() > 0 ? this.value : 0;
+        }
     }
 }
 
