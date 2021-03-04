@@ -168,6 +168,12 @@ export class DamageValues {
         });
     }
 
+    withoutSplash() {
+        return this.copy({
+            splash: 0,
+        });
+    }
+
     addDamage(value: number): DamageValues {
         return this.copy({ normal: this.normal + value });
     }
@@ -292,6 +298,10 @@ export class Resistance extends Modifier implements HasValue {
         const damageValues = damage.get(damageType) ?? new DamageValues();
         const isNonMagical = getAllAttackTraits(damage).has('non-magical');
         const adjustedValue = this.doubleResistanceVsNonMagical && isNonMagical ? this.value * 2 : this.value;
+        // calculation for critical hits, precision and splash damage is different since these are
+        // part of the actual damage object and need to be capped at their value, e.g.
+        // resistance 7 splash damage and 5 splash damage will only reduce 5 total
+        // therefore these modifiers will always be looked up if they're present
         if (this.type === 'critical-hits') {
             return Math.min(adjustedValue, damageValues.sumCritical());
         } else if (this.type.startsWith('precision')) {
@@ -352,10 +362,7 @@ function filterModifiers<T extends Modifier>(
     const allAttackTraits = getAllAttackTraits(damage);
     return (
         Array.from(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>())
-            // calculation for critical hits, precision and splash damage is different since these are
-            // part of the actual damage object and need to be capped at their value, e.g.
-            // resistance 7 splash damage and 5 splash damage will only reduce 5 total
-            // therefore these modifiers will always be looked up if they're present
+            // always include modifiers that are part of each damage
             .concat('critical-hits', 'precision-damage', 'precision', 'splash-damage')
             .flatMap((trait) => modifiersByType.get(trait) ?? [])
             .filter((modifier) => !modifier.exceptionApplies(allAttackTraits))
@@ -433,11 +440,12 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         let damageValues = damage.get(type)!;
         const applicableModifiers = filterModifiers(damage, type, modifiersByType);
         applicableModifiers.forEach((modifier) => {
-            // there's no splash damage immunity
             if (modifier.getType() === 'critical-hits') {
                 damageValues = damageValues.withoutCritical();
             } else if (modifier.getType().startsWith('precision')) {
                 damageValues = damageValues.withoutPrecision();
+            } else if (modifier.getType() === 'splash-damage') {
+                damageValues = damageValues.withoutSplash();
             }
         });
         const isImmune = applicableModifiers.some(
