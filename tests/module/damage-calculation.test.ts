@@ -251,6 +251,18 @@ describe('test damage calculation', () => {
         ).toBe(11);
     });
 
+    test('resistance to all damage', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('bleed', new DamageValues({ normal: 8 }));
+        damage.set('piercing', new DamageValues({ normal: 5 }));
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [new Resistance({ type: 'all', value: 3 })],
+            }),
+        ).toBe(7);
+    });
+
     test('immune to critical hits', () => {
         const damage = new Map<DamageType, DamageValues>();
         damage.set(
