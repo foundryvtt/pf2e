@@ -264,4 +264,19 @@ describe('test damage calculation', () => {
             }),
         ).toBe(25);
     });
+
+    test('object immunities', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('bleed', new DamageValues({ normal: 1 }));
+        damage.set('poison', new DamageValues({ normal: 2 }));
+        damage.set('piercing', new DamageValues({ normal: 4, traits: new Set(['nonlethal attacks']) }));
+        damage.set('mental', new DamageValues({ normal: 8 }));
+        damage.set('piercing', new DamageValues({ normal: 16 }));
+        expect(
+            calculateDamage({
+                damage,
+                immunities: [new Immunity({ type: 'object-immunities' })],
+            }),
+        ).toBe(16);
+    });
 });
