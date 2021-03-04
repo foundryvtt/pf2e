@@ -49,7 +49,6 @@ export function isDamageType(value: string): value is DamageType {
 
 export type AttackTrait =
     | 'area-damage'
-    | 'magical'
     | 'adamantine'
     | 'coldiron'
     | 'ghostTouch'
@@ -57,8 +56,9 @@ export type AttackTrait =
     | 'mithral'
     | 'silver'
     | 'orichalcum'
-    | 'nonlethal attacks'
     | 'vorpal weapons'
+    | 'magical'
+    | 'nonlethal attacks' // has to be present on every damage type pool!
     | 'unarmed';
 
 const allAttackTraits = new Set<string>();
@@ -491,8 +491,8 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
 
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
+ *
  * @param damage damage split up by parts
- * @param precisionDamageType type of damage to which it should be added
  * @param living whether we need to apply positive/negative damage
  * @param alignment whether we need to apply alignment damage
  * @param immunities a list of immunities; one type can be present multiple times, we use the highest one
