@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -444,8 +448,8 @@
     "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
-        {
-            "_id": "uMwj4P6nAiAvX1xD",
+		{
+            "_id": "IS3gEsPD4NPPUSOk",
             "data": {
                 "brokenThreshold": {
                     "value": 0
@@ -461,10 +465,8 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to Grapple a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a DC 16 Athletics check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded as a Concentrate action that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll against a Medium or smaller creature within 20 feet. On a hit, the target is flat-footed and takes a -10- foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -482,13 +484,13 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": "0"
                 },
                 "maxHp": {
                     "value": 0
@@ -503,10 +505,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 gp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": "1"
                 },
                 "rarity": {
                     "value": "common"
@@ -515,6 +517,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": "net",
                 "source": {
                     "value": ""
                 },
@@ -526,25 +529,48 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-two-hands"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "net",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.T8EopYZLT137CsdW"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.jpg",
+            "name": "Net",
             "sort": 100000,
             "type": "equipment"
         },
         {
-            "_id": "3iBhq1kwnXzIQHnS",
+            "_id": "IU4BIjbp2aJTgtrV",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -557,17 +583,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>A long metal shaft ending with a metal spike, a spear can be used one‑handed as a melee weapon and can be thrown.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "spear"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -580,12 +624,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -594,6 +640,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": ""
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -601,44 +650,110 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "1 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "20"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "spear",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
+                    "label": "Weapon Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "type": "String",
+                    "value": [
+                        "thrown-20"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "spear",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tOhoGvmCMw4JpWcS"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/spear.png",
+            "name": "Spear",
             "sort": 200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "90V4TwzjxTH7bK7r",
@@ -669,12 +784,12 @@
                     "damageType": "piercing",
                     "die": "1d6+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -756,6 +871,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -814,12 +930,12 @@
                     "damageType": "piercing",
                     "die": "1d6+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -901,6 +1017,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -961,12 +1078,12 @@
                     "damageType": "piercing",
                     "die": "1d6+3"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+3",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1048,6 +1165,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1060,7 +1178,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "thrown 20 feet"
+                        "thrown-20"
                     ]
                 },
                 "usage": {
@@ -1106,6 +1224,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1143,12 +1262,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements </b>The bog strider is holding a net in two hands; <b>Effect </b>The bog strider hurls their net to hamper a foe. They make a ranged Strike (with a +10 modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and takes a -10-foot circumstance penalty to its Speeds. On a critical hit, the creature is instead @Compendium[pf2e.conditionitems.Restrained]{Restrained}. The DC to @Compendium[pf2e.actionspf2e.Escape]{Escape} the net is 16. A creature adjacent to the target can @Compendium[pf2e.actionspf2e.Interact]{Interact} with the net to remove it from the target."
+                    "value": "<p><strong>Requirements </strong>The bog strider is holding a net in two hands;</p>\n<p><strong>Effect </strong>The bog strider hurls their net to hamper a foe. They make a ranged Strike (with a +10 modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and takes a -10-foot circumstance penalty to its Speeds. On a critical hit, the creature is instead @Compendium[pf2e.conditionitems.Restrained]{Restrained}. The DC to @Compendium[pf2e.actionspf2e.Escape]{Escape} the net is 16. A creature adjacent to the target can @Compendium[pf2e.actionspf2e.Interact]{Interact} with the net to remove it from the target.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1157,6 +1276,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1179,7 +1299,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Hurl Net",
             "sort": 700000,
             "type": "action"
@@ -1208,6 +1328,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1258,7 +1379,13 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.water-stride"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1306,7 +1433,24 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Leap while Water Striding or Swimming",
+                        "predicate": {
+                            "all": [
+                                "action:leap"
+                            ],
+                            "any": [
+                                "action:swim",
+                                "water-stride"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1319,6 +1463,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to Leap while Water Striding or Swimming",
+                        "options": "action:leap"
+                    }
                 }
             },
             "effects": [],
@@ -1349,6 +1499,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1391,6 +1542,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1411,6 +1563,59 @@
             "name": "Survival",
             "sort": 1200000,
             "type": "lore"
+        },
+        {
+            "_id": "eVlxUKYnPRCGVP58",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This sense allows a monster to feel vibrations caused by movement through a liquid. It's an imprecise sense with a limited range (listed in the ability). Wavesense functions only if monster and the subject are in the same body of liquid, and only if the subject is moving through the liquid.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "wavesense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.VdSMQ6yRZ3YXNXHL"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Wavesense",
+            "sort": 1300000,
+            "type": "action"
         }
     ],
     "name": "Bog Strider",
@@ -1418,7 +1623,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "SG8fOxo4SS7bXpav",
         "actorLink": false,
         "bar1": {
@@ -1437,6 +1641,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bog Strider",
         "randomImg": false,
