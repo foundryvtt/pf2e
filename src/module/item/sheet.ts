@@ -132,11 +132,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
-            const weaponData = this.item.data;
-            const rarity = weaponData.data.rarity.value;
-            data.weaponTraits = [CONFIG.PF2E.rarityTraits[rarity]]
-                .concat(traits)
-                .map((trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait);
+            data.weaponTraits = traits.map(
+                (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
+            );
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
