@@ -222,7 +222,7 @@ class Modifier {
     protected exceptions: DamageExceptions;
     protected type: string;
 
-    constructor(exceptions: DamageExceptions, type: string) {
+    constructor({ exceptions = [], type }: { exceptions?: DamageExceptions; type: string }) {
         this.exceptions = exceptions;
         this.type = type;
     }
@@ -247,15 +247,15 @@ class Modifier {
 
 export class Immunity extends Modifier {
     copy({ type, exceptions }: { type?: string; exceptions?: DamageExceptions }): Immunity {
-        return new Immunity(exceptions ?? this.exceptions, type ?? this.type);
+        return new Immunity({ exceptions: exceptions ?? this.exceptions, type: type ?? this.type });
     }
 }
 
 export class Weakness extends Modifier implements HasValue {
     private readonly value: number;
 
-    constructor({ type, value, exceptions }: { type: string; value: number; exceptions: DamageExceptions }) {
-        super(exceptions, type);
+    constructor({ type, value, exceptions = [] }: { type: string; value: number; exceptions?: DamageExceptions }) {
+        super({ exceptions, type });
         this.value = value;
     }
 
@@ -289,7 +289,7 @@ export class Resistance extends Modifier implements HasValue {
         doubleResistanceVsNonMagical?: boolean;
         exceptions?: DamageExceptions;
     }) {
-        super(exceptions, type);
+        super({ exceptions, type });
         this.value = value;
         this.doubleResistanceVsNonMagical = doubleResistanceVsNonMagical;
     }

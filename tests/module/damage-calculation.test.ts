@@ -1,4 +1,11 @@
-import { calculateDamage, DamageType, DamageValues, Resistance } from '../../src/module/damage-calculation';
+import {
+    calculateDamage,
+    DamageType,
+    DamageValues,
+    Immunity,
+    Resistance,
+    Weakness,
+} from '../../src/module/damage-calculation';
 
 describe('test damage calculation', () => {
     test('simple damage', () => {
@@ -55,6 +62,29 @@ describe('test damage calculation', () => {
                     }),
                 ],
             }),
-        ).toBe(6);
+        ).toBe(6); // chosen resistance is precision which only reduces 4 however
+    });
+
+    test('weakness not triggered because all damage is reduced', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 0, precision: 2, critical: 0, criticalPrecision: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                immunities: [new Immunity({ type: 'precision' })],
+                weaknesses: [new Weakness({ value: 5, type: 'piercing' })],
+            }),
+        ).toBe(0);
+    });
+
+    test('precision spills over into piercing', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 0, precision: 2, critical: 0, criticalPrecision: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                weaknesses: [new Weakness({ value: 5, type: 'piercing' })],
+            }),
+        ).toBe(9);
     });
 });
