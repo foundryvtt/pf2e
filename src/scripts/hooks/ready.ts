@@ -85,5 +85,11 @@ export function listen(): void {
                 }
             }
         });
+
+        // Until it's ready, only show the Animal Companion actor type in dev mode
+        if (BUILD_MODE === 'production') {
+            const index = game.system.entityTypes.Actor.indexOf('animalCompanion');
+            game.system.entityTypes.Actor.splice(index, 1);
+        }
     });
 }
