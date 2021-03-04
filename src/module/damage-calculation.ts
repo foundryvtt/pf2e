@@ -322,7 +322,9 @@ function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     if (!traits.has('magical')) {
         result.add('non-magical');
     }
-    Array.from(traits).forEach((trait) => result.add(trait));
+    for (const trait of traits) {
+        result.add(trait);
+    }
     return result;
 }
 
