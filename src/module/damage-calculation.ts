@@ -90,7 +90,7 @@ type CombinedTraits =
     | 'precision-damage'
     | 'precision'; // FIXME: different values in config.ts
 
-const allCombinedTraits = new Set<string>(...allAttackTraits, ...allDamageTypes);
+const allCombinedTraits = new Set<string>([...allAttackTraits, ...allDamageTypes]);
 allCombinedTraits.add('all');
 allCombinedTraits.add('physical');
 allCombinedTraits.add('non-magical');
