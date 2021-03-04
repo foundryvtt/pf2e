@@ -360,19 +360,17 @@ function filterModifiers<T extends Modifier>(
     modifiersByType: Map<CombinedTraits, T[]>,
 ): T[] {
     const allAttackTraits = getAllAttackTraits(damage);
-    return (
-        Array.from(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>())
-            // always include modifiers that are part of each damage
-            .concat(
-                'critical-hits',
-                'precision-damage',
-                'precision',
-                'splash-damage',
-                ...denormalizeTraits(new Set([damageType])),
-            )
-            .flatMap((trait) => modifiersByType.get(trait) ?? [])
-            .filter((modifier) => !modifier.exceptionApplies(allAttackTraits))
-    );
+    const damageTraits: Set<CombinedTraits> = new Set([
+        'critical-hits',
+        'precision-damage',
+        'precision',
+        'splash-damage',
+        ...denormalizeTraits(new Set([damageType])),
+        ...(damage.get(damageType)?.getTraits() ?? new Set<AttackTrait>()),
+    ]);
+    return Array.from(damageTraits)
+        .flatMap((trait) => modifiersByType.get(trait) ?? [])
+        .filter((modifier) => !modifier.exceptionApplies(allAttackTraits));
 }
 
 /**
