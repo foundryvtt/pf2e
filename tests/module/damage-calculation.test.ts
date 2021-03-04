@@ -138,4 +138,53 @@ describe('test damage calculation', () => {
             }),
         ).toBe(9);
     });
+
+    test('resistance to critical hits triggers per damage pool', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ critical: 3 }));
+        damage.set('fire', new DamageValues({ critical: 6 }));
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [new Resistance({ value: 5, type: 'critical-hits' })],
+            }),
+        ).toBe(1);
+    });
+
+    test('weakness to critical hits triggers per damage pool', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ critical: 3 }));
+        damage.set('fire', new DamageValues({ critical: 6 }));
+        expect(
+            calculateDamage({
+                damage,
+                weaknesses: [new Weakness({ value: 5, type: 'critical-hits' })],
+            }),
+        ).toBe(19);
+    });
+
+    test('resistance to critical hits does not triggers if no critical hit damage is present', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 0, precision: 2 }));
+        damage.set('fire', new DamageValues({ normal: 0, precision: 3 }));
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [new Resistance({ value: 5, type: 'critical-hits' })],
+            }),
+        ).toBe(5);
+    });
+
+    test('immune to non lethal has to be set on all damage types', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 2, traits: new Set(['nonlethal attacks']) }));
+        damage.set('fire', new DamageValues({ normal: 2, traits: new Set(['nonlethal attacks']) }));
+        damage.set('cold', new DamageValues({ normal: 3 }));
+        expect(
+            calculateDamage({
+                damage,
+                immunities: [new Immunity({ type: 'nonlethal attacks' })],
+            }),
+        ).toBe(3);
+    });
 });
