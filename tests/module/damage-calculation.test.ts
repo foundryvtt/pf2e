@@ -35,4 +35,26 @@ describe('test damage calculation', () => {
             }),
         ).toBe(5);
     });
+
+    test('exceptions do not apply resistance', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('piercing', new DamageValues({ normal: 3, precision: 2, critical: 3, criticalPrecision: 2 }));
+        expect(
+            calculateDamage({
+                damage,
+                resistances: [
+                    new Resistance({
+                        type: 'precision',
+                        value: 6,
+                        exceptions: [new Set(['adamantine'])],
+                    }),
+                    new Resistance({
+                        type: 'piercing',
+                        value: 5,
+                        exceptions: [new Set(['physical'])],
+                    }),
+                ],
+            }),
+        ).toBe(6);
+    });
 });

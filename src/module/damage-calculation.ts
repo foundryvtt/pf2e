@@ -79,7 +79,7 @@ export function isAttackTrait(trait: string): trait is AttackTrait {
     return allAttackTraits.has(trait);
 }
 
-type CombinedTraits =
+export type CombinedTraits =
     | AttackTrait
     | DamageType
     | 'all'
