@@ -114,7 +114,7 @@ export class DamageValues {
     private readonly normal: number;
     private readonly precision: number;
     private readonly critical: number;
-    private readonly criticalPrecision;
+    private readonly criticalPrecision: number;
     private readonly splash: number;
     private readonly traits: Set<AttackTrait>;
 
