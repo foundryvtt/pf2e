@@ -1,22 +1,23 @@
 import { RemoveCoinsPopup } from './popups/remove-coins-popup';
-import { sellAllTreasure, sellTreasure } from '../../item/treasure';
+import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
-import { addKit } from '../../item/kits';
+import { addKit } from '@item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { TraitSelector5e } from '../../system/trait-selector';
-import { PF2EItem } from '../../item/item';
+import { TraitSelector5e } from '@system/trait-selector';
+import { PF2EItem } from '@item/item';
 import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
-import { PF2EPhysicalItem } from '../../item/physical';
+import { PF2EPhysicalItem } from '@item/physical';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { PF2ECondition, PF2ESpell } from '@item/others';
+import { LocalizePF2e } from '@system/localization';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -200,15 +201,12 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         spellbook[spellLvl].spells.push(spell);
     }
 
-    /* -------------------------------------------- */
-
     /**
      * Insert prepared spells into the spellbook object when rendering the character sheet
-     * @param {Object} spellcastingEntry    The spellcasting entry data being prepared
-     * @param {Object} spellbook            The spellbook data being prepared
-     * @private
+     * @param spellcastingEntry    The spellcasting entry data being prepared
+     * @param spellbook            The spellbook data being prepared
      */
-    _preparedSpellSlots(spellcastingEntry, spellbook) {
+    protected preparedSpellSlots(spellcastingEntry: any, spellbook: any) {
         // let isNPC = this.actorType === "npc";
 
         for (const [key, spl] of Object.entries(spellbook as Record<any, any>)) {
@@ -761,8 +759,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                                 list.push(i._id);
                             });
 
-                        await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                        if (this.token) {
+                            await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                        } else {
+                            await this.actor.deleteEmbeddedEntity('OwnedItem', list);
+                        }
                     };
+
                     if (event.ctrlKey) {
                         deleteCondition();
                         return;
@@ -1445,7 +1448,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 await PF2eConditionManager.addConditionToToken(condition, token);
                 return itemData;
             } else {
-                ui.notifications.error('You do not control this actor.');
+                const translations = LocalizePF2e.translations.PF2E;
+                const message = actor.can(game.user, 'update')
+                    ? translations.ErrorMessage.ActorMustHaveToken
+                    : translations.ErrorMessage.NoUpdatePermission;
+                ui.notifications.error(message);
                 return null;
             }
         }
@@ -2039,24 +2046,24 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         }
     }
 
-    _onSubmit(event: any): Promise<any> {
+    /** @override */
+    protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         // Limit HP value to data.attributes.hp.max value
-        if (event?.currentTarget?.name === 'data.attributes.hp.value') {
-            event.currentTarget.value = Math.clamped(
-                Number(event.currentTarget.value),
-                Number(this.actor.data.data.attributes.hp?.min ?? 0),
-                Number(this.actor.data.data.attributes.hp?.max ?? 0),
-            );
+        if (!(event.currentTarget instanceof HTMLInputElement)) {
+            return super._onSubmit(event, options);
         }
 
-        return super._onSubmit(event);
-    }
+        const $target = $(event.currentTarget ?? {});
+        if ($target.attr('name') === 'data.attributes.hp.value') {
+            $target.attr({
+                value: Math.clamped(
+                    parseInt($target.attr('value') ?? '0', 10),
+                    0,
+                    this.actor.data.data.attributes.hp?.max ?? 0,
+                ),
+            });
+        }
 
-    /**
-     * Always submit on a form field change. Added because tabbing between fields
-     * wasn't working.
-     */
-    _onChangeInput(event) {
-        this._onSubmit(event);
+        return super._onSubmit(event, options);
     }
 }

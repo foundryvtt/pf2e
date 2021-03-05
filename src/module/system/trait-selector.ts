@@ -6,8 +6,8 @@ import { PF2EItem } from '../item/item';
  * @category Other
  */
 export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
-    searchString: any;
-    _filterTimeout: any;
+    searchString: string | null;
+    _filterTimeout: number | null;
 
     constructor(object: PF2EActor | PF2EItem, options?: FormApplicationOptions) {
         super(object, options);
@@ -17,7 +17,6 @@ export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
 
         /**
          * A filtering timeout function reference used to rate limit string filtering operations
-         * @type {number|null}
          */
         this._filterTimeout = null;
     }
@@ -38,9 +37,8 @@ export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
 
     /**
      * Return a reference to the target attribute
-     * @type {String}
      */
-    get attribute() {
+    get attribute(): string {
         return this.options.name;
     }
 
@@ -197,16 +195,15 @@ export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
     /**
      * Handle trait filtering through search field
      * Toggle the visibility of indexed trait entries by name match
-     * @private
      */
-    _onFilterResults(event) {
+    private _onFilterResults(event: Event) {
         event.preventDefault();
-        const input = event.currentTarget;
+        const input = event.currentTarget as HTMLFormElement;
         if (this._filterTimeout) {
             clearTimeout(this._filterTimeout);
             this._filterTimeout = null;
         }
-        this._filterTimeout = setTimeout(() => this.search(input.value), 100);
+        this._filterTimeout = window.setTimeout(() => this.search(input.value), 100);
     }
 
     /* -------------------------------------------- */

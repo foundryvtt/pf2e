@@ -163,7 +163,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     }?: {
         scene?: Scene;
         actor?: Actor;
-        token?: Token;
+        token?: Token | null;
         alias?: string;
     }): {
         scene: string | null;

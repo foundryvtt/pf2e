@@ -1,6 +1,7 @@
 import { AbilityString, Proficency } from '@actor/actor-data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
+import { ConfigPF2e } from '@scripts/config';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -413,9 +414,11 @@ export interface ClassDetailsData extends ItemDescriptionData {
     abilityBoostLevels: { value: number[] };
 }
 
+export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
+
 export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
-        value: string;
+        value: FeatType;
     };
     actionType: {
         value: string;
