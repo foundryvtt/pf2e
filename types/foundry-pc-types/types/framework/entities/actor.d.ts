@@ -8,8 +8,8 @@ declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseE
     sort: number;
 }
 
-declare interface ActorClassConfig extends EntityClassConfig<Actor> {
-    collection: Actors;
+declare interface ActorClassConfig<A extends Actor> extends EntityClassConfig<A> {
+    collection: Actors<A>;
     embeddedEntities: {
         ActiveEffect: 'effects';
         OwnedItem: 'items';
@@ -25,7 +25,7 @@ declare interface ActorClassConfig extends EntityClassConfig<Actor> {
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors<ActorType extends Actor = Actor> extends EntityCollection<ActorType> {
+declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType> {
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.
@@ -43,10 +43,10 @@ declare class Actors<ActorType extends Actor = Actor> extends EntityCollection<A
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<S extends ActorSheet>(
+    static registerSheet<A extends Actor>(
         scope: string,
-        sheetClass: new (object: S['actor'], options?: FormApplicationOptions) => S,
-        options: { types: string[]; makeDefault?: boolean },
+        sheetClass: new (actor: A, options?: FormApplicationOptions) => A['sheet'],
+        options?: RegisterSheetOptions,
     ): void;
 
     /**
@@ -87,9 +87,6 @@ declare class Actors<ActorType extends Actor = Actor> extends EntityCollection<A
  * let actor = game.actors.get(actorId);
  */
 declare class Actor<ItemType extends Item = Item> extends Entity {
-    data: ActorData<ItemType['data']>;
-    _data: ActorData<ItemType['data']>;
-
     /**
      * A reference to a placed Token which creates a synthetic Actor
      */
@@ -105,11 +102,8 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     overrides: Record<string, any>;
 
-    /** The item's collection of ActiveEffects */
+    /** The actor's collection of ActiveEffects */
     effects: Collection<ActiveEffect>;
-
-    /** overload */
-    get sheet(): ActorSheet<this>;
 
     /**
      * Cache an Array of allowed Token images if using a wildcard path
@@ -117,7 +111,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     protected _tokenImages: string[] | null;
 
     /** @override */
-    static get config(): ActorClassConfig;
+    static get config(): ActorClassConfig<Actor>;
 
     /* -------------------------------------------- */
     /*  Data Preparation                            */
@@ -309,18 +303,23 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
         embeddedName: 'ActiveEffect',
         child: ActiveEffectData,
         options: EntityCreateOptions,
-        userId: string
+        userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'OwnedItem',
         child: ItemType['data'],
         options: EntityCreateOptions,
-        userId: string
+        userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
         child: ActiveEffectData | ItemType['data'],
         options: EntityCreateOptions,
-        userId: string
+        userId: string,
     ): void;
+}
+
+declare interface Actor<ItemType extends Item = Item> {
+    data: ActorData<ItemType['data']>;
+    _data: ActorData<ItemType['data']>;
 }

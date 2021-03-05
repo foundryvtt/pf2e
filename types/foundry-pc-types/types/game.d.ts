@@ -176,7 +176,7 @@ declare class Game<
         data: {
             author: string;
             authors: string[];
-            availability: 0;
+            availability: number;
             bugs: string;
             changelog: string;
             compatibleCoreVersion: string;
@@ -262,7 +262,4 @@ declare class Game<
      * Activate Event Listeners which apply to every Game View
      */
     activateListeners(): void;
-
-    //Added so developers can easily add system/module specific stuff to the game object
-    [key: string]: any;
 }

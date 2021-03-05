@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
-import { LocalizePF2e } from '../localization';
+import { LocalizePF2e } from '../localize';
 
 interface WorldClockData {
     date: string;

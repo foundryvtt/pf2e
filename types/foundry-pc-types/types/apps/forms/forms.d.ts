@@ -1,5 +1,3 @@
-// @TODO:
-
 /**
  * Configure the Combat tracker to display additional information as appropriate
  */
@@ -66,17 +64,6 @@ declare class PlaylistConfig extends FormApplication {
  * @param options   Additional application rendering options
  */
 declare class PlaylistSoundConfig extends FormApplication {
-    /** @override */
-    protected _updateObject(event: Event, formData: {}): Promise<void>;
-}
-
-/**
- * Entity Sheet Configuration Application
- *
- * @param entity    The Entity object for which the sheet is being configured
- * @param options   Additional Application options
- */
-declare class EntitySheetConfig extends FormApplication {
     /** @override */
     protected _updateObject(event: Event, formData: {}): Promise<void>;
 }
