@@ -106,7 +106,7 @@ const allCombinedTraits = new Set<string>([
     'precision',
 ]);
 
-function isCombinedTrait(trait: string): trait is CombinedTraits {
+export function isCombinedTrait(trait: string): trait is CombinedTraits {
     return allCombinedTraits.has(trait);
 }
 
