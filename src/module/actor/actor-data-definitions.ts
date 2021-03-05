@@ -628,7 +628,9 @@ interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
     items: ItemData[];
 }
 
-interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {}
+interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {
+    type: 'character' | 'npc' | 'animalCompanion' | 'familiar';
+}
 
 /** Wrapper type for character-specific data. */
 export interface CharacterData extends BaseCreatureData<RawCharacterData> {
