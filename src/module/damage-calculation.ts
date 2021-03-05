@@ -87,6 +87,7 @@ export type CombinedTraits =
     | 'non-magical'
     | 'critical-hits'
     | 'splash-damage'
+    | 'energy'
     | 'precision-damage'
     | 'precision'; // FIXME: different values in config.ts
 
@@ -97,6 +98,7 @@ allCombinedTraits.add('non-magical');
 allCombinedTraits.add('critical-hits');
 allCombinedTraits.add('splash-damage');
 allCombinedTraits.add('precision-damage');
+allCombinedTraits.add('energy');
 allCombinedTraits.add('precision');
 
 function isCombinedTrait(trait: string): trait is CombinedTraits {
@@ -323,6 +325,18 @@ function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     result.add('all');
     if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning') || traits.has('bleed')) {
         result.add('physical');
+    }
+    if (
+        traits.has('acid') ||
+        traits.has('cold') ||
+        traits.has('electricity') ||
+        traits.has('fire') ||
+        traits.has('sonic') ||
+        traits.has('positive') ||
+        traits.has('negative') ||
+        traits.has('force')
+    ) {
+        result.add('energy');
     }
     // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
     // creatures with weakness to silver
