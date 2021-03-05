@@ -7,7 +7,7 @@ import { PF2EBackground } from '@item/background';
 import { PF2EClass } from '@item/class';
 import { PF2EItem } from '@item/item';
 import { TraitSelector5e } from '@system/trait-selector';
-import { LocalizePF2e } from '@system/localization';
+import { LocalizePF2e } from '@system/localize';
 import { ABCSheetData } from './data-types';
 import { ConfigPF2e } from '@scripts/config';
 

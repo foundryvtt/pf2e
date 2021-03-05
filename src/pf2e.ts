@@ -225,7 +225,7 @@ function createOwnedItem(parent, child, options, userID) {
             parent.onCreateOwnedItem(child, options, userID);
         }
 
-        game[game.system.id].effectPanel?.refresh();
+        game.pf2e.effectPanel?.refresh();
     }
 }
 
@@ -237,7 +237,7 @@ function deleteOwnedItem(parent, child, options, userID) {
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
-        game[game.system.id].effectPanel?.refresh();
+        game.pf2e.effectPanel?.refresh();
     }
 }
 
@@ -245,13 +245,13 @@ Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
     if (parent instanceof PF2EActor) {
-        game[game.system.id].effectPanel?.refresh();
+        game.pf2e.effectPanel?.refresh();
     }
 });
 
 // effect panel
 Hooks.on('updateUser', (user, diff, options, id) => {
-    game[game.system.id].effectPanel?.refresh();
+    game.pf2e.effectPanel?.refresh();
 });
 
 Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => {
@@ -315,7 +315,7 @@ Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
         }
     }
 
-    game[game.system.id].effectPanel?.refresh();
+    game.pf2e.effectPanel?.refresh();
 });
 
 Hooks.on('controlToken', (_token: Token, _selected: boolean) => {
@@ -335,9 +335,9 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
                 icon: 'fas fa-star',
                 onClick: (toggled: boolean) => {
                     if (toggled) {
-                        game[game.system.id].effectPanel?.render(true);
+                        game.pf2e.effectPanel?.render(true);
                     } else {
-                        game[game.system.id].effectPanel?.close();
+                        game.pf2e.effectPanel?.close();
                     }
                     game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
                 },

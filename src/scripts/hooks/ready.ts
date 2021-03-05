@@ -1,18 +1,18 @@
-import { activateSocketListener } from '../socket';
+import { activateSocketListener } from '@scripts/socket';
 import { PlayerConfigPF2e } from '../../module/user/player-config';
-import { WorldClock } from '../../module/system/world-clock';
-import { updateMinionActors } from '../actor/update-minions';
-import { MigrationRunner } from '../..//module/migration-runner';
+import { updateMinionActors } from '@scripts/actor/update-minions';
+import { MigrationRunner } from '../../module/migration-runner';
 import { Migrations } from '../../module/migrations';
-import { EffectPanel } from '../../module/system/effect-panel';
-import { calculateXP } from '../macros/xp';
-import { launchTravelSheet } from '../../module/gm/travel/travel-speed-sheet';
-import { rollActionMacro, rollItemMacro } from '../init';
-import { raiseAShield } from '../macros/raise-a-shield';
-import { earnIncome } from '../macros/earn-income';
-import { PF2Actions } from '../../module/system/actions/actions';
+import { calculateXP } from '@scripts/macros/xp';
+import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
+import { rollActionMacro, rollItemMacro } from '@scripts/init';
+import { raiseAShield } from '@scripts/macros/raise-a-shield';
+import { earnIncome } from '@scripts/macros/earn-income';
+import { PF2Actions } from '@system/actions/actions';
 import { PF2eConditionManager } from '../../module/conditions';
-import { PF2eStatusEffects } from '../actor/status-effects';
+import { PF2eStatusEffects } from '@scripts/actor/status-effects';
+import { WorldClock } from '@system/world-clock';
+import { EffectPanel } from '@system/effect-panel';
 
 export function listen(): void {
     Hooks.once('ready', () => {
