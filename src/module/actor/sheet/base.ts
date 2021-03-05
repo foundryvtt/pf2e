@@ -198,10 +198,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell);
         }
 
-        const prepared = spellcastingEntry.data.prepared.value;
-        const signatureSpells = spellcastingEntry.data.signatureSpells.value;
+        const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
+        const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
+        const isCantrip = spell.data.level.value === 0;
+        const isFocusSpell = spell.data.traditions.value.includes('focus');
+        const isRitual = spell.data.traditions.value.includes('ritual');
 
-        if (prepared === 'spontaneous' && signatureSpells.includes(spell._id)) {
+        if (isSpontaneous && signatureSpells.includes(spell._id) && !isCantrip && !isFocusSpell && !isRitual) {
             spell.data.isSignatureSpell = true;
 
             for (let i = spell.data.level.value; i <= maxSpellLevelToShow; i++) {
@@ -1252,17 +1255,25 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return;
         }
 
-        const signatureSpells = spellcastingEntry.data.data.signatureSpells.value;
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
 
-        if (signatureSpells.includes(spell.id)) {
-            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
+        if (!signatureSpells.includes(spell.id)) {
+            const isCantrip = spell.data.data.level.value === 0;
+            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
+            const isRitual = spell.data.data.traditions.value.includes('ritual');
+
+            if (isCantrip || isFocusSpell || isRitual) {
+                return;
+            }
+
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
 
             this.actor.updateOwnedItem({
                 _id: spellcastingEntry.id,
                 'data.signatureSpells.value': updatedSignatureSpells,
             });
         } else {
-            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
 
             this.actor.updateOwnedItem({
                 _id: spellcastingEntry.id,
