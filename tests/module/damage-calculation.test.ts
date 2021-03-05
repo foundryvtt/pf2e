@@ -322,7 +322,7 @@ describe('test damage calculation', () => {
                     new Resistance({
                         type: 'all',
                         value: 2,
-                        exceptions: [new Set(['piercing', 'physical'])],
+                        exceptions: [new Set(['piercing', 'vorpal weapons'])],
                     }),
                     // does not trigger because the exception removes it although the value is higher
                     new Resistance({
