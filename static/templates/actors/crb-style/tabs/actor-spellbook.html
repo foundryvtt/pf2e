@@ -135,9 +135,7 @@
 
                             {{#if ../../../owner}}
                             <div class="item-controls">
-                                {{#unless entry.data.tradition.ritual}}
-                                {{#unless entry.data.tradition.focus}}
-                                {{#unless section.isCantrip}}
+                                {{#if (and (eq entry.data.prepared.value "spontaneous") (not section.isCantrip))}}
                                 <a class="item-control toggle-signature-spell" title="{{localize 'PF2E.ToggleSignatureSpellTitle'}}">
                                     {{#if item.data.isSignatureSpell}}
                                     <i class="fas fa-star"></i>
@@ -145,9 +143,7 @@
                                     <i class="far fa-star"></i>
                                     {{/if}}
                                 </a>
-                                {{/unless}}
-                                {{/unless}}
-                                {{/unless}}
+                                {{/if}}
                                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
                                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                             </div>

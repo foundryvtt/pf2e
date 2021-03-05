@@ -36,6 +36,7 @@ import { Migration602UpdateDiehardFeat } from './602-update-diehard-feat';
 import { Migration603ResetQuickRollDefault } from './603-reset-quick-roll-default';
 import { Migration604FixClassItem } from './604-fix-class-items';
 import { Migration605CatchUpToTemplateJSON } from './605-catch-up-to-template-json';
+import { Migration606SignatureSpells } from './606-signature-spells';
 
 export class Migrations {
     private static list = [
@@ -76,6 +77,7 @@ export class Migrations {
         Migration603ResetQuickRollDefault,
         Migration604FixClassItem,
         Migration605CatchUpToTemplateJSON,
+        Migration606SignatureSpells,
     ];
 
     static get latestVersion(): number {

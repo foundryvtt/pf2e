@@ -16,7 +16,7 @@ import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
-import { PF2ECondition, PF2ESpell } from '@item/others';
+import { PF2ECondition, PF2ESpell, PF2ESpellcastingEntry } from '@item/others';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -198,13 +198,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell);
         }
 
-        const prepared = spellcastingEntry.data?.prepared?.value;
-        const signatureSpells = spellcastingEntry.data?.signatureSpells?.value ?? [];
+        const prepared = spellcastingEntry.data.prepared.value;
+        const signatureSpells = spellcastingEntry.data.signatureSpells.value;
 
         if (prepared === 'spontaneous' && signatureSpells.includes(spell._id)) {
             spell.data.isSignatureSpell = true;
 
-            for (let i = 1; i <= maxSpellLevelToShow; i++) {
+            for (let i = spell.data.level.value; i <= maxSpellLevelToShow; i++) {
                 spellbook[i].spells.push(spell);
             }
         } else {
@@ -1245,29 +1245,27 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return;
         }
 
-        const container = this.actor.getOwnedItem(containerId);
-        const item = this.actor.getOwnedItem(itemId);
+        const spellcastingEntry = this.actor.getOwnedItem(containerId);
+        const spell = this.actor.getOwnedItem(itemId);
 
-        if (!container || container.type !== 'spellcastingEntry' || !item || item.type !== 'spell') {
+        if (!(spellcastingEntry instanceof PF2ESpellcastingEntry) || !(spell instanceof PF2ESpell)) {
             return;
         }
 
-        const spellcastingEntry = container.data as SpellcastingEntryData;
-        const spell = item.data as SpellData;
-        const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells.value;
 
-        if (signatureSpells.includes(spell._id)) {
-            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell._id);
+        if (signatureSpells.includes(spell.id)) {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
 
             this.actor.updateOwnedItem({
-                _id: spellcastingEntry._id,
+                _id: spellcastingEntry.id,
                 'data.signatureSpells.value': updatedSignatureSpells,
             });
         } else {
-            const updatedSignatureSpells = signatureSpells.concat([spell._id]);
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
 
             this.actor.updateOwnedItem({
-                _id: spellcastingEntry._id,
+                _id: spellcastingEntry.id,
                 'data.signatureSpells.value': updatedSignatureSpells,
             });
         }
