@@ -23,25 +23,26 @@ export type DamageType =
     | 'good'
     | 'evil';
 
-const allDamageTypes = new Set<string>();
-allDamageTypes.add('acid');
-allDamageTypes.add('bludgeoning');
-allDamageTypes.add('cold');
-allDamageTypes.add('fire');
-allDamageTypes.add('force');
-allDamageTypes.add('electricity');
-allDamageTypes.add('sonic');
-allDamageTypes.add('negative');
-allDamageTypes.add('piercing');
-allDamageTypes.add('poison');
-allDamageTypes.add('positive');
-allDamageTypes.add('bleed');
-allDamageTypes.add('mental');
-allDamageTypes.add('slashing');
-allDamageTypes.add('chaotic');
-allDamageTypes.add('lawful');
-allDamageTypes.add('good');
-allDamageTypes.add('evil');
+const allDamageTypes = new Set<string>([
+    'acid',
+    'bludgeoning',
+    'cold',
+    'fire',
+    'force',
+    'electricity',
+    'sonic',
+    'negative',
+    'piercing',
+    'poison',
+    'positive',
+    'bleed',
+    'mental',
+    'slashing',
+    'chaotic',
+    'lawful',
+    'good',
+    'evil',
+]);
 
 export function isDamageType(value: string): value is DamageType {
     return allDamageTypes.has(value);
@@ -61,19 +62,20 @@ export type AttackTrait =
     | 'nonlethal attacks' // has to be present on every damage type pool!
     | 'unarmed';
 
-const allAttackTraits = new Set<string>();
-allAttackTraits.add('area-damage');
-allAttackTraits.add('magical');
-allAttackTraits.add('adamantine');
-allAttackTraits.add('coldiron');
-allAttackTraits.add('ghostTouch');
-allAttackTraits.add('darkwood');
-allAttackTraits.add('mithral');
-allAttackTraits.add('silver');
-allAttackTraits.add('orichalcum');
-allAttackTraits.add('nonlethal attacks');
-allAttackTraits.add('vorpal weapons');
-allAttackTraits.add('unarmed');
+const allAttackTraits = new Set<string>([
+    'area-damage',
+    'magical',
+    'adamantine',
+    'coldiron',
+    'ghostTouch',
+    'darkwood',
+    'mithral',
+    'silver',
+    'orichalcum',
+    'nonlethal attacks',
+    'vorpal weapons',
+    'unarmed',
+]);
 
 export function isAttackTrait(trait: string): trait is AttackTrait {
     return allAttackTraits.has(trait);
@@ -91,15 +93,18 @@ export type CombinedTraits =
     | 'precision-damage'
     | 'precision'; // FIXME: different values in config.ts
 
-const allCombinedTraits = new Set<string>([...allAttackTraits, ...allDamageTypes]);
-allCombinedTraits.add('all');
-allCombinedTraits.add('physical');
-allCombinedTraits.add('non-magical');
-allCombinedTraits.add('critical-hits');
-allCombinedTraits.add('splash-damage');
-allCombinedTraits.add('precision-damage');
-allCombinedTraits.add('energy');
-allCombinedTraits.add('precision');
+const allCombinedTraits = new Set<string>([
+    ...allAttackTraits,
+    ...allDamageTypes,
+    'all',
+    'physical',
+    'non-magical',
+    'critical-hits',
+    'splash-damage',
+    'precision-damage',
+    'energy',
+    'precision',
+]);
 
 function isCombinedTrait(trait: string): trait is CombinedTraits {
     return allCombinedTraits.has(trait);
