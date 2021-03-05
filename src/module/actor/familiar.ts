@@ -1,19 +1,14 @@
-import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
+import { SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
-import { PF2Check } from '../system/rolls';
+import { PF2Check } from '@system/rolls';
 import { FamiliarData } from './actor-data-definitions';
 import { PF2RuleElements } from '../rules/rules';
-import { adaptRoll } from '../system/rolls';
+import { adaptRoll } from '@system/rolls';
+import { PF2ECreature } from './creature';
 
-export class PF2EFamiliar extends PF2EActor {
-    data!: FamiliarData;
-    _data!: FamiliarData;
-
-    /** @override */
-    static readonly type = 'familiar';
-
+export class PF2EFamiliar extends PF2ECreature {
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -313,4 +308,9 @@ export class PF2EFamiliar extends PF2EActor {
             };
         }
     }
+}
+
+export interface PF2EFamiliar {
+    data: FamiliarData;
+    _data: FamiliarData;
 }

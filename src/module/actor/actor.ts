@@ -10,10 +10,10 @@ import {
     ProficiencyModifier,
 } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
-import { adaptRoll, PF2Check } from '../system/rolls';
+import { adaptRoll, PF2Check } from '@system/rolls';
 import { isCycle } from '@item/container';
-import { TraitSelector5e } from '../system/trait-selector';
-import { DicePF2e } from '../../scripts/dice';
+import { TraitSelector5e } from '@system/trait-selector';
+import { DicePF2e } from '@scripts/dice';
 import { PF2EItem } from '@item/item';
 import {
     ItemData,
@@ -108,12 +108,6 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
  * @category Actor
  */
 export class PF2EActor extends Actor<PF2EItem> {
-    data!: ActorDataPF2e;
-    _data!: ActorDataPF2e;
-
-    /** The Actor class's type. Set to a meaningful value in the subclasses */
-    static readonly type: string = '???';
-
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -136,7 +130,8 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
-        return `systems/pf2e/icons/default-icons/${this.type}.svg`;
+        const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
+        return match ? `systems/pf2e/icons/default-icons/${match[0]}.svg` : `icons/svg/mystery-man.svg`;
     }
 
     get defaultImg(): string {
@@ -1336,19 +1331,21 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export class PF2EHazard extends PF2EActor {
-    data!: HazardData;
-    _data!: HazardData;
-
-    /** @override */
-    static readonly type = 'hazard';
+export interface PF2EActor {
+    data: ActorDataPF2e;
+    _data: ActorDataPF2e;
 }
-export class PF2EVehicle extends PF2EActor {
-    data!: VehicleData;
-    _data!: VehicleData;
 
-    /** @override */
-    static readonly type = 'vehicle';
+export class PF2EHazard extends PF2EActor {}
+export interface PF2EHazard {
+    data: HazardData;
+    _data: HazardData;
+}
+
+export class PF2EVehicle extends PF2EActor {}
+export interface PF2EVehicle {
+    data: VehicleData;
+    _data: VehicleData;
 }
 
 export type TokenPF2e = Token<PF2EActor>;
