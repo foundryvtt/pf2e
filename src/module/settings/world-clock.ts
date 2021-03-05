@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { LocalizePF2e } from '../system/localization';
+import { LocalizePF2e } from '../system/localize';
 
 type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
 

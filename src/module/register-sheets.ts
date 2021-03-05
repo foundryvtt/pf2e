@@ -3,10 +3,11 @@ import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
+import { PF2EItem } from '@item/item';
 
 export function registerSheets() {
     Items.unregisterSheet('core', ItemSheet);
-    Items.registerSheet('pf2e', ItemSheetPF2e, {
+    Items.registerSheet<PF2EItem>('pf2e', ItemSheetPF2e, {
         types: [
             'weapon',
             'melee',

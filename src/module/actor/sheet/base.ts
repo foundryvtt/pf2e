@@ -17,7 +17,7 @@ import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-con
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { PF2ECondition, PF2ESpell } from '@item/others';
-import { LocalizePF2e } from '@system/localization';
+import { LocalizePF2e } from '@system/localize';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!

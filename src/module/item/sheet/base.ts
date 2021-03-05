@@ -2,8 +2,8 @@ import { PF2EActor } from '@actor/actor';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
-import { LocalizePF2e } from '@system/localization';
-import { ConfigPF2e } from 'src/scripts/config';
+import { LocalizePF2e } from '@system/localize';
+import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { PF2EItem } from '@item/item';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
@@ -558,7 +558,7 @@ export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType
         });
     }
 
-    /** @overide */
+    /** @override */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
