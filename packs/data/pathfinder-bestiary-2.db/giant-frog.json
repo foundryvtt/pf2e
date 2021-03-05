@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -560,6 +564,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -596,8 +601,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "tongue grab"
+                        "Tongue Grab"
                     ]
                 },
                 "bonus": {
@@ -699,6 +705,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -753,7 +760,19 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "avoid-fall"
+                            ]
+                        },
+                        "selector": "reflex",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -796,7 +815,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A creature hit by the giant frog's tongue becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the giant frog. The creature isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the frog's tongue. A creature can sever the tongue with a Strike against AC 13 that deals at least [[/r 2 # slashing damage]] slashing damage. This deals no damage to the frog but prevents it from using its tongue Strike until it regrows its tongue, which takes a week."
+                    "value": "<p>A creature hit by the giant frog's tongue becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the giant frog. The creature isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the frog's tongue. A creature can sever the tongue with a Strike against AC 13 that deals at least 2 slashing damage.</p>\n<p>This deals no damage to the frog but prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -805,6 +824,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -833,7 +853,7 @@
             "type": "action"
         },
         {
-            "_id": "1kDVHLXNZzw6fDNw",
+            "_id": "V7yL5WF6xEMuHMIf",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -842,12 +862,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -856,6 +876,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -869,16 +890,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 500000,
             "type": "action"
@@ -904,6 +926,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -945,7 +968,21 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To High Jump or Long Jump",
+                        "predicate": {
+                            "any": [
+                                "action:long-jump",
+                                "action:high-jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -958,6 +995,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to High Jump or Long Jump",
+                        "options": "action:high-jump,action:long-jump"
+                    }
                 }
             },
             "effects": [],
@@ -988,6 +1031,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1015,7 +1059,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "EWoJAp5LJeL1Qfye",
         "actorLink": false,
         "bar1": {
@@ -1034,6 +1077,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Frog",
         "randomImg": false,

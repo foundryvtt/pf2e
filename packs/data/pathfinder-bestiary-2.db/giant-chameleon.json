@@ -409,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -471,12 +474,12 @@
                     "damageType": "piercing",
                     "die": "1d10+7"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d10+7",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -558,6 +561,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -596,8 +600,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "tongue grab"
+                        "Tongue Grab"
                     ]
                 },
                 "bonus": {
@@ -699,6 +704,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -755,6 +761,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -806,6 +813,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -848,7 +856,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "If the giant chameleon hits a creature with a tongue Strike, that creature becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the giant chameleon. The target isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the giant chameleon's tongue. A creature can sever the tongue with an attack that hits AC 15 and deals at least [[/r 4 # slashing damage]] slashing damage. Though this doesn't deal any damage to the giant chameleon, it prevents it from using its tongue Strike until it regrows its tongue, which takes a week."
+                    "value": "<p>If the giant chameleon hits a creature with a tongue Strike, that creature becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the giant chameleon. The target isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the giant chameleon's tongue. A creature can sever the tongue with an attack that hits AC 15 and deals at least 4 slashing damage. Though this doesn't deal any damage to the giant chameleon, it prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -857,6 +865,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -905,6 +914,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -946,7 +956,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Hide",
+                        "predicate": {
+                            "all": [
+                                "action:hide"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -959,6 +982,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Hide",
+                        "options": "action:hide"
+                    }
                 }
             },
             "effects": [],
@@ -974,7 +1003,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "r9L6tdT44kYeN1FV",
         "actorLink": false,
         "bar1": {
@@ -993,6 +1021,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Chameleon",
         "randomImg": false,
