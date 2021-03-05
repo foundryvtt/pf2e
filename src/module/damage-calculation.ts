@@ -511,6 +511,10 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
     );
 }
 
+interface DamageOptions {
+    disregardTargetAlignment: boolean;
+}
+
 /**
  * Implementation of https://2e.aonprd.com/Rules.aspx?ID=342
  *
@@ -520,6 +524,8 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
  * @param resistances a list of resistances; one type can be present multiple times, we use the highest one
  * @param living whether we need to apply positive/negative damage
  * @param alignment whether we need to apply alignment damage
+ * @param damageOptions flags for damage calculation:
+ * * disregardTargetAlignment: if true, will remove the check for the target alignment and always deal alignment damage
  * @return the final calculated damage
  */
 export function calculateDamage({
@@ -529,6 +535,9 @@ export function calculateDamage({
     weaknesses = [],
     living = 'living',
     alignment = 'N',
+    damageOptions = {
+        disregardTargetAlignment: false,
+    },
 }: {
     damage: Damage;
     immunities?: Immunity[];
@@ -536,6 +545,7 @@ export function calculateDamage({
     weaknesses?: Weakness[];
     living?: Living;
     alignment?: AlignmentString;
+    damageOptions?: DamageOptions;
 }): number {
     // make a damage copy since we are going to modify the map
     const copiedDamage: Damage = new Map();
@@ -543,7 +553,9 @@ export function calculateDamage({
         copiedDamage.set(type, value);
     });
     removePositiveOrNegativeDamage(copiedDamage, living);
-    removeAlignmentDamage(copiedDamage, alignment);
+    if (!damageOptions.disregardTargetAlignment) {
+        removeAlignmentDamage(copiedDamage, alignment);
+    }
     applyImmunities(copiedDamage, immunities);
     applyWeaknesses(copiedDamage, weaknesses);
     return applyResistances(copiedDamage, resistances);
