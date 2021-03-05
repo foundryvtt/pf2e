@@ -665,6 +665,7 @@ export const PF2ECONFIG = {
         positive: 'PF2E.TraitPositive',
         propulsive: 'PF2E.TraitPropulsive',
         range: 'PF2E.TraitRange',
+        'range-increment-5': 'PF2E.TraitRangeIncrement5',
         'range-increment-10': 'PF2E.TraitRangeIncrement10',
         'range-increment-20': 'PF2E.TraitRangeIncrement20',
         'range-increment-30': 'PF2E.TraitRangeIncrement30',
@@ -1733,6 +1734,7 @@ export const PF2ECONFIG = {
         'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
         emotion: 'PF2E.DamageTypeEmotion',
         possession: 'PF2E.DamageTypePosession',
+        auditory: 'PF2E.ImmunityTypeAuditory',
     }, // Languages, alphabetical by common, uncommon, secret
 
     languages: {

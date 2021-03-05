@@ -1,57 +1,67 @@
-declare type TranslationsPF2e = typeof import('../static/lang/en.json');
+import { WorldClock } from '@system/world-clock';
+import { EffectPanel } from '@system/effect-panel';
+import { rollActionMacro, rollItemMacro } from '@scripts/init';
+import { calculateXP } from '@scripts/macros/xp';
+import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
+import { PF2EActor } from '@actor/actor';
+import { PF2EItem } from '@item/item';
+import { ConfigPF2e } from '@scripts/config';
+import { PF2eSystem } from './module/pf2e-system';
+import { PF2ECombat } from './module/combat';
+import { PF2Check } from '@system/rolls';
+import {
+    AbilityModifier,
+    PF2CheckModifier,
+    PF2Modifier,
+    PF2ModifierType,
+    PF2StatisticModifier,
+    ProficiencyModifier,
+} from './module/modifiers';
+import { PF2eConditionManager } from './module/conditions';
+import { PF2eStatusEffects } from '@scripts/actor/status-effects';
+import { DicePF2e } from '@scripts/dice';
 
-declare interface Game {
-    pf2e: {
-        actions: { [key: string]: Function };
-        worldClock?: import('./module/system/world-clock').WorldClock;
-        effectPanel?: import('./module/system/effect-panel').EffectPanel;
-        rollItemMacro?: typeof import('./scripts/init').rollItemMacro;
-        rollActionMacro: typeof import('./scripts/init').rollActionMacro;
-        gm: {
-            calculateXP: Function;
-            launchTravelSheet: Function;
-        };
-    };
-
-    socket: SocketIO.Socket & {
-        emit(message: Pick<import('./scripts/socket').SocketEventCallback, 0>): void;
-        on(event: string, ...message: import('./scripts/socket').SocketEventCallback): void;
-    };
-
-    i18n: Localization & {
-        readonly translations: Localization['translations'] & DeepPartial<TranslationsPF2e>;
-        _fallback: Localization['translations'] & TranslationsPF2e;
-    };
-}
-
-declare type ItemTypeMap = {
-    [K in keyof import('./scripts/config').ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
-        import('./scripts/config').ConfigPF2e['PF2E']['Item']['entityClasses'][K]
+type ItemTypeMap = {
+    [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
+        ConfigPF2e['PF2E']['Item']['entityClasses'][K]
     >[];
 };
-declare interface Actor {
-    itemTypes: ItemTypeMap;
-}
 
-declare interface Window {
-    PF2e: import('./module/pf2e-system').PF2eSystem;
-    DicePF2e: typeof import('./scripts/dice').DicePF2e;
-    PF2eStatusEffects: typeof import('./scripts/actor/status-effects').PF2eStatusEffects;
-    PF2eConditionManager: typeof import('./module/conditions').PF2eConditionManager;
-    PF2ModifierType: typeof import('./module/modifiers').PF2ModifierType;
-    PF2Modifier: typeof import('./module/modifiers').PF2Modifier;
-    AbilityModifier: typeof import('./module/modifiers').AbilityModifier;
-    ProficiencyModifier: typeof import('./module/modifiers').ProficiencyModifier;
-    PF2StatisticModifier: typeof import('./module/modifiers').PF2StatisticModifier;
-    PF2CheckModifier: typeof import('./module/modifiers').PF2CheckModifier;
-    PF2Check: typeof import('./module/system/rolls').PF2Check;
+declare global {
+    interface Game {
+        pf2e: {
+            actions: { [key: string]: Function };
+            worldClock?: WorldClock;
+            effectPanel?: EffectPanel;
+            rollActionMacro: typeof rollActionMacro;
+            rollItemMacro: typeof rollItemMacro;
+            gm: {
+                calculateXP: typeof calculateXP;
+                launchTravelSheet: typeof launchTravelSheet;
+            };
+        };
+    }
+
+    interface Actor {
+        itemTypes: ItemTypeMap;
+    }
+
+    interface Window {
+        PF2e: PF2eSystem;
+        DicePF2e: typeof DicePF2e;
+        PF2eStatusEffects: typeof PF2eStatusEffects;
+        PF2eConditionManager: typeof PF2eConditionManager;
+        PF2ModifierType: typeof PF2ModifierType;
+        PF2Modifier: typeof PF2Modifier;
+        AbilityModifier: typeof AbilityModifier;
+        ProficiencyModifier: typeof ProficiencyModifier;
+        PF2StatisticModifier: typeof PF2StatisticModifier;
+        PF2CheckModifier: typeof PF2CheckModifier;
+        PF2Check: typeof PF2Check;
+    }
+    const game: Game<PF2EActor, PF2EItem, PF2ECombat>;
+    const CONFIG: ConfigPF2e;
+    const canvas: Canvas<PF2EActor>;
+    let PF2e: PF2eSystem;
+    const BUILD_MODE: 'development' | 'production';
 }
-declare const game: Game<
-    import('./module/actor/actor').PF2EActor,
-    import('./module/item/item').PF2EItem,
-    import('./module/combat').PF2ECombat
->;
-declare const CONFIG: import('./scripts/config').ConfigPF2e;
-declare const canvas: Canvas<import('./module/actor/actor').PF2EActor>;
-declare let PF2e: import('./module/pf2e-system').PF2eSystem;
-declare const BUILD_MODE: 'development' | 'production';

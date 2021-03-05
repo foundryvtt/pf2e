@@ -171,7 +171,55 @@ declare class Game<
     /**
      * Metadata regarding the game System which powers this World
      */
-    get system(): any;
+    get system(): {
+        id: string;
+        data: {
+            author: string;
+            authors: string[];
+            availability: number;
+            bugs: string;
+            changelog: string;
+            compatibleCoreVersion: string;
+            description: string;
+            download: string;
+            esmodules: string[];
+            gridDistance: number;
+            gridUnits: string;
+            initiative: string;
+            keywords: string[];
+            languages: {
+                lang: string;
+                name: string;
+                path: string;
+            }[];
+            license: string;
+            manifest: string;
+            minimumCoreVersion: string;
+            name: string;
+            packs: {
+                entity: 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+                label: string;
+                module: string;
+                name: string;
+                path: string;
+                system: string;
+            }[];
+            readme: string;
+            schema: number;
+            scripts: string[];
+            socket: boolean;
+            styles: string[];
+            templateVersion: number;
+            title: string;
+            unavailable: boolean;
+            url: string;
+            version: string;
+        };
+        entityTypes: {
+            Actor: string[];
+            Item: string[];
+        };
+    };
 
     /**
      * A convenience accessor for the currently active Combat encounter
@@ -214,7 +262,4 @@ declare class Game<
      * Activate Event Listeners which apply to every Game View
      */
     activateListeners(): void;
-
-    //Added so developers can easily add system/module specific stuff to the game object
-    [key: string]: any;
 }

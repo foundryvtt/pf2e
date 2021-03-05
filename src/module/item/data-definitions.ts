@@ -282,7 +282,7 @@ export interface ArmorDetailsData extends MagicDetailsData {
 }
 
 export interface KitDetailsData extends PhysicalDetailsData {
-    items: { [key: number]: KitEntryData };
+    items: Record<string, KitEntryData>;
 }
 
 export interface KitEntryData {
@@ -359,7 +359,7 @@ export interface AncestryDetailsData extends ItemDescriptionData {
     boosts: { [key: string]: { value: AbilityString[] } };
     flaws: { [key: string]: { value: AbilityString[] } };
     hp: number;
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     languages: {
         value: string[];
         custom: string;
@@ -371,7 +371,7 @@ export interface AncestryDetailsData extends ItemDescriptionData {
 
 export interface BackgroundDetailsData extends ItemDescriptionData {
     boosts: { [key: string]: { value: AbilityString[] } };
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     trainedLore: string;
     trainedSkills: {
         value: string[];
@@ -380,7 +380,7 @@ export interface BackgroundDetailsData extends ItemDescriptionData {
 
 export interface ClassDetailsData extends ItemDescriptionData {
     keyAbility: { value: AbilityString[] };
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     hp: number;
     perception: Proficency;
     savingThrows: {

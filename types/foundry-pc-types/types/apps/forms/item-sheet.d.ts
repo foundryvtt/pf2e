@@ -10,14 +10,19 @@ declare interface ItemSheetData<D extends BaseItemData> extends BaseEntitySheetD
  *
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Item.sheetClass``.
- *
- * @param item              The Item instance being displayed within the sheet.
- * @param options           Additional options which modify the rendering of the item.
- * @param options.editable  Is the item editable? Default is true.
+
+ * @param item      The Item instance being displayed within the sheet.
+ * @param [options] Additional options which modify the rendering of the item.
  */
 declare class ItemSheet<ItemType extends Item> extends BaseEntitySheet<ItemType> {
     /** @override */
+    constructor(item: ItemType, options?: FormApplicationOptions);
+
+    /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
+
+    /** @override */
+    get id(): `item-${string}` | `actor-${string}-item-{string}`;
 
     /**
      * A convenience reference to the Item entity

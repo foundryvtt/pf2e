@@ -5,7 +5,7 @@
   "description": "",
   "scripts": {
     "build": "ts-node ./packs/scripts/build.ts && webpack --mode production",
-    "build:dev": "webpack",
+    "build:dev": "npm run build:packs && webpack",
     "build:packs": "ts-node ./packs/scripts/build.ts",
     "extractPacks": "ts-node ./packs/scripts/extract.ts",
     "pretest": "eslint ./src --ext .ts",

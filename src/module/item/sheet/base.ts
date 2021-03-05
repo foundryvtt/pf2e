@@ -1,16 +1,19 @@
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from './item';
-import { getPropertySlots } from './runes';
-import { TraitSelector5e } from '../system/trait-selector';
-import { LoreDetailsData, MartialData, WeaponData } from './data-definitions';
-import { LocalizePF2e } from '../system/localization';
-import { ConfigPF2e } from 'src/scripts/config';
+import { PF2EActor } from '@actor/actor';
+import { getPropertySlots } from '../runes';
+import { TraitSelector5e } from '@system/trait-selector';
+import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { LocalizePF2e } from '@system/localize';
+import { ConfigPF2e } from '@scripts/config';
+import { AESheetData, SheetOptions, SheetSelections } from './data-types';
+import { PF2EItem } from '@item/item';
+import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
-export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
+export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType> {
+    /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.width = 630;
@@ -24,28 +27,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 initial: 'description',
             },
         ];
-        options.resizable = true;
-        options.submitOnChange = true;
 
         return options;
     }
-    /* -------------------------------------------- */
 
-    /**
-     * Prepare item sheet data
-     * Start with the base item data and extending with additional properties for rendering.
-     */
-
+    /** @override */
     getData() {
         const data: any = super.getData();
-        data.buildMode = BUILD_MODE;
-        // Fix for #193 - super.getData() was returning the original item (before update) when rerendering an OwnedItem of a token.
-        // This works because the actor's items are already updated by the time the ItemSheet rerenders.
-        const updatedData = this?.actor?.items?.get(this?.entity?.id ?? '')?.data;
-        if (updatedData) {
-            data.item = updatedData;
-            data.data = updatedData.data;
-        }
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
 
@@ -102,13 +90,13 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 spellLevels: CONFIG.PF2E.spellLevels,
                 magicTraditions: CONFIG.PF2E.magicTraditions,
                 // spellBasic: CONFIG.PF2E.spellBasic,
-                spellComponents: this._formatSpellComponents(data.data),
+                spellComponents: this.formatSpellComponents(data.data),
                 areaSizes: CONFIG.PF2E.areaSizes,
                 areaTypes: CONFIG.PF2E.areaTypes,
                 spellScalingModes: CONFIG.PF2E.spellScalingModes,
             });
 
-            this._prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
+            this.prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
@@ -132,11 +120,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
-            const weaponData = this.item.data;
-            const rarity = weaponData.data.rarity.value;
-            data.weaponTraits = [CONFIG.PF2E.rarityTraits[rarity]]
-                .concat(traits)
-                .map((trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait);
+            data.weaponTraits = traits.map(
+                (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
+            );
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
@@ -151,10 +137,10 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.sizes = CONFIG.PF2E.actorSizes;
             data.isBomb = type === 'weapon' && data.data?.group?.value === 'bomb';
 
-            this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
+            this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
         } else if (type === 'melee') {
             // Melee Data
-            const actions = {};
+            const actions: Record<string, string> = {};
 
             if (this.actor) {
                 for (const i of this.actor.data.items) {
@@ -168,7 +154,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.detailsActive = true;
             data.weaponDamage = CONFIG.PF2E.damageTypes;
 
-            this._prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
+            this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
         } else if (type === 'feat') {
             // Feat types
             data.featTypes = CONFIG.PF2E.featTypes;
@@ -177,7 +163,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.categories = CONFIG.PF2E.actionCategories;
             data.featTags = [data.data.level.value, data.data.traits.value].filter((t) => !!t);
 
-            this._prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
+            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'condition') {
             // Condition types
 
@@ -199,7 +185,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             else if (actionType === 'free') actionImg = 'free';
             else if (actionType === 'passive') actionImg = 'passive';
 
-            data.item.img = this._getActionImg(actionImg);
+            data.item.img = this.getActionImg(actionImg.toString());
             data.categories = CONFIG.PF2E.actionCategories;
             data.weapons = actorWeapons;
             data.actionTypes = CONFIG.PF2E.actionTypes;
@@ -209,7 +195,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             data.proficiencies = CONFIG.PF2E.proficiencyLevels;
             data.actionTags = [data.data.traits.value].filter((t) => !!t);
 
-            this._prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
+            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'equipment') {
             // Equipment data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
@@ -245,9 +231,9 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 const scopes = new Set<string>();
 
                 data.item.data.rules
-                    .filter((rule) => rule.key === 'PF2E.RuleElement.EffectTarget')
-                    .forEach((rule) => {
-                        scopes.add((rule as any).scope);
+                    .filter((rule: PF2RuleElementData) => rule.key === 'PF2E.RuleElement.EffectTarget')
+                    .forEach((rule: PF2RuleElementData) => {
+                        scopes.add(rule.scope as string);
                     });
                 if (scopes) {
                     data.targets = this.actor.items
@@ -260,7 +246,20 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         }
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
+        data.activeEffects = this.getActiveEffectsData();
 
+        return data;
+    }
+
+    /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
+    protected getBaseData(): ItemSheetData<ItemType['data']> & { activeEffects: AESheetData } {
+        return {
+            ...super.getData(),
+            activeEffects: this.getActiveEffectsData(),
+        };
+    }
+
+    protected getActiveEffectsData(): AESheetData {
         const durationString = (duration: ActiveEffectDuration): string => {
             const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
             type DurationEntry = [string, number | string | null];
@@ -287,13 +286,6 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             });
         };
 
-        interface ActiveEffectSheetData {
-            id: string;
-            iconPath: string | null;
-            name: string;
-            duration: string;
-            enabled: boolean;
-        }
         const actor = this.item.actor;
         const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
         const effects =
@@ -301,25 +293,21 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
-        data.activeEffects = {
+        return {
             showList: BUILD_MODE === 'development' || effects.length > 0,
             canCreate: BUILD_MODE === 'development' && actor === null && !this.item.uuid.match(/Compendium/),
-            effects: effects.map(
-                (effect): ActiveEffectSheetData => ({
-                    id: effect.id,
-                    iconPath: effect.data.icon ?? null,
-                    name: effect.data.label,
-                    duration: durationString(effect.data.duration),
-                    enabled: !effect.data.disabled,
-                }),
-            ),
+            effects: effects.map((effect) => ({
+                id: effect.id,
+                iconPath: effect.data.icon ?? null,
+                name: effect.data.label,
+                duration: durationString(effect.data.duration),
+                enabled: !effect.data.disabled,
+            })),
         };
-
-        return data;
     }
 
-    assignPropertySlots(data, number: number) {
-        const slots = [1, 2, 3, 4];
+    assignPropertySlots(data: Record<string, boolean>, number: number) {
+        const slots = [1, 2, 3, 4] as const;
 
         for (const slot of slots) {
             if (number >= slot) {
@@ -328,9 +316,12 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         }
     }
 
-    _prepareTraits(traits, choices) {
+    protected prepareTraits(traits: any, choices: Record<string, string>): void {
+        if (traits === undefined) {
+            return;
+        }
         if (traits.selected) {
-            traits.selected = traits.value.reduce((obj, t) => {
+            traits.selected = traits.value.reduce((obj: any, t: string) => {
                 obj[t] = choices[t];
                 return obj;
             }, {});
@@ -340,37 +331,60 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
 
         if (traits.custom) traits.selected.custom = traits.custom;
     }
-    /* -------------------------------------------- */
 
-    _formatSpellComponents(data) {
+    /** Prepare form options on the item sheet */
+    protected prepareOptions(options: Record<string, string>, selections: SheetSelections): SheetOptions {
+        const sheetOptions = Object.entries(options).reduce((sheetOptions, [stringKey, label]) => {
+            const key = typeof selections.value[0] === 'number' ? Number(stringKey) : stringKey;
+            sheetOptions[key] = {
+                label,
+                selected: selections.value.includes(key),
+            };
+            return sheetOptions;
+        }, {} as SheetOptions);
+
+        if (selections.custom) {
+            sheetOptions.custom = {
+                label: selections.custom,
+                selected: true,
+            };
+        }
+
+        return sheetOptions;
+    }
+
+    private formatSpellComponents(data: any) {
         if (!data.components.value) return [];
-        const comps = data.components.value.split(',').map((c) => CONFIG.PF2E.spellComponents[c.trim()] || c.trim());
+        const comps = data.components.value
+            .split(',')
+            .map(
+                (component: string) =>
+                    CONFIG.PF2E.spellComponents[component.trim() as keyof ConfigPF2e['PF2E']['spellComponents']] ??
+                    component.trim(),
+            );
         if (data.materials.value) comps.push(data.materials.value);
         return comps;
     }
-    /* -------------------------------------------- */
 
-    onTraitSelector(event) {
+    protected onTraitSelector(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const a = $(event.currentTarget);
-        const options = {
+        const choices: any = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
+        const options: FormApplicationOptions = {
             name: a.parents('label').attr('for'),
             title: a.parent().text().trim(),
             width: a.attr('data-width') || 'auto',
             has_placeholders: a.attr('data-has-placeholders') === 'true',
-            choices: CONFIG.PF2E[a.attr('data-options') ?? ''],
+            choices: choices,
         };
         new TraitSelector5e(this.item, options).render(true);
     }
-    /* -------------------------------------------- */
 
     /**
      * Get the action image to use for a particular action type.
-     * @private
      */
-
-    _getActionImg(action) {
-        const img = {
+    protected getActionImg(action: string) {
+        const img: Record<string, string> = {
             0: 'icons/svg/mystery-man.svg',
             1: 'systems/pf2e/icons/actions/OneAction.png',
             2: 'systems/pf2e/icons/actions/TwoActions.png',
@@ -379,10 +393,10 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             reaction: 'systems/pf2e/icons/actions/Reaction.png',
             passive: 'icons/svg/mystery-man.svg',
         };
-        return img[action];
+        return img[action ?? '0'];
     }
 
-    async _addDamageRoll(event: JQuery.TriggeredEvent) {
+    private async addDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const newKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
         const newDamageRoll = {
@@ -394,7 +408,7 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         });
     }
 
-    async _deleteDamageRoll(event: JQuery.TriggeredEvent) {
+    private async deleteDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         if (event.originalEvent) {
             await this._onSubmit(event.originalEvent);
@@ -404,13 +418,15 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             [`data.damageRolls.-=${targetKey}`]: null,
         });
     }
-    /* -------------------------------------------- */
 
-    /**
-     * Activate listeners for interactive item sheet events
-     */
-    activateListeners(html: JQuery) {
-        super.activateListeners(html); // Checkbox changes
+    /** @override */
+    protected _canDragDrop(_selector: string) {
+        return this.item.owner;
+    }
+
+    /** @override */
+    activateListeners(html: JQuery): void {
+        super.activateListeners(html);
 
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
             if (event.originalEvent instanceof MouseEvent) {
@@ -418,14 +434,16 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
             }
         });
 
-        html.find('.trait-selector').on('click', (ev) => this.onTraitSelector(ev)); // Add Damage Roll
+        html.find('.trait-selector').on('click', (ev) => this.onTraitSelector(ev));
 
+        // Add Damage Roll
         html.find('.add-damage').on('click', (ev) => {
-            this._addDamageRoll(ev);
-        }); // Remove Damage Roll
+            this.addDamageRoll(ev);
+        });
 
+        // Remove Damage Roll
         html.find('.delete-damage').on('click', (ev) => {
-            this._deleteDamageRoll(ev);
+            this.deleteDamageRoll(ev);
         });
 
         html.find('.add-rule-element').on('click', async (event) => {
@@ -540,7 +558,8 @@ export class ItemSheetPF2e extends ItemSheet<PF2EItem> {
         });
     }
 
-    _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+    /** @override */
+    protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
         const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData

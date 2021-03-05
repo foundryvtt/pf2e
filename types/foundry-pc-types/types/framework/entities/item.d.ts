@@ -3,7 +3,7 @@
  * The items collection is accessible within the game as game.items
  */
 
-declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemType> {
+declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
     /* -------------------------------------------- */
     /*  Collection Properties                       */
     /* -------------------------------------------- */
@@ -19,17 +19,17 @@ declare class Items<ItemType extends Item = Item> extends EntityCollection<ItemT
      * Register an Item sheet class as a candidate which can be used to display Items of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<S extends ItemSheet>(
+    static registerSheet<I extends Item>(
         scope: string,
-        sheetClass: new (object: S['item'], options?: FormApplicationOptions) => S,
-        options: { types: string[]; makeDefault?: boolean },
+        sheetClass: new (item: I, options?: FormApplicationOptions) => I['sheet'],
+        options?: RegisterSheetOptions,
     ): void;
 
     /**
      * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet<TS extends typeof ItemSheet>(scope: string, sheetClass: TS): void;
+    static unregisterSheet(scope: string, sheetClass: typeof ItemSheet): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type
@@ -44,8 +44,10 @@ declare interface BaseItemData extends BaseEntityData {
     sort: number;
 }
 
-declare interface ItemClassConfig extends EntityClassConfig<Item> {
-    collection: Items;
+type ItemUpdateData = EntityUpdateData<BaseItemData>;
+
+declare interface ItemClassConfig<I extends Item> extends EntityClassConfig<I> {
+    collection: Items<I>;
     embeddedEntities: {
         ActiveEffect: 'effects';
     };
@@ -59,17 +61,11 @@ declare type ItemCreateData<I extends Item> = DeepPartial<I['data']>;
 
 type _Actor = Actor<Item<_Actor>>;
 declare class Item<ActorType extends Actor = _Actor> extends Entity {
-    data: BaseItemData;
-    _data: BaseItemData;
-
     /** The item's collection of ActiveEffects */
     effects: Collection<ActiveEffect>;
 
-    /** @overload */
-    constructor(data: BaseEntityData, options?: ItemConstructorOptions<ActorType>);
-
     /** @override */
-    static get config(): ItemClassConfig;
+    static get config(): ItemClassConfig<Item>;
 
     /** @override */
     prepareData(): void;
@@ -130,4 +126,9 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
     // Signature overload
     getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+}
+
+declare interface Item<ActorType extends Actor = _Actor> extends Entity {
+    data: BaseItemData;
+    _data: BaseItemData;
 }

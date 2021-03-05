@@ -10,8 +10,8 @@ import {
     TravelDuration,
     Trip,
 } from './travel-speed';
-import { Fraction, zip } from '../../utils';
-import { PF2EActor } from 'src/module/actor/actor';
+import { Fraction, zip } from '@utils';
+import { PF2EActor } from '@actor/actor';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -296,5 +296,5 @@ function toArray<T>(data: Record<number, T>): T[] {
 }
 
 export function launchTravelSheet(actors: PF2EActor[]): void {
-    new TravelSpeedSheet(null, { actors }).render(true);
+    new TravelSpeedSheet({}, { actors }).render(true);
 }

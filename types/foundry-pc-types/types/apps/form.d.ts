@@ -9,7 +9,7 @@ declare interface FormApplicationOptions extends ApplicationOptions {}
 declare interface FormApplicationData<O extends {} = {}> {
     object?: O;
     options?: FormApplicationOptions;
-    title: string;
+    title?: string;
 }
 
 declare interface OnSubmitFormOptions {

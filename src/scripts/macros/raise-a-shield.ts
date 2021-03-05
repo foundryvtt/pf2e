@@ -2,7 +2,7 @@ import { PF2ECharacter } from '@actor/character';
 import { PF2ENPC } from '@actor/npc';
 import { PF2EEffect } from '@item/effect';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
-import { LocalizePF2e } from '../../module/system/localization';
+import { LocalizePF2e } from '../../module/system/localize';
 
 /** Effect: Raise a Shield */
 const ITEM_UUID = 'Compendium.pf2e.equipment-effects.2YgXoHvJfrDHucMr';

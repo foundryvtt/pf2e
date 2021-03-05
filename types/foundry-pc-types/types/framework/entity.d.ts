@@ -184,13 +184,13 @@ declare class Entity {
      * let actor = game.entities.actors[0];
      * actor.sheet; // ActorSheet
      */
-    get sheet(): BaseEntitySheet<Entity>;
+    get sheet(): BaseEntitySheet<this>;
 
     /**
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
      * configuration sheet.
      */
-    protected get _sheetClass(): any;
+    protected get _sheetClass(): BaseEntitySheet<this>;
 
     /**
      * Return a reference to the Folder which this Entity belongs to, if any.
@@ -493,22 +493,22 @@ declare class Entity {
         embeddedName: string,
         child: BaseEntityData | EmbeddedEntityData,
         options: EntityCreateOptions,
-        userId: string
+        userId: string,
     ): void;
 
-  /**
-   * Handle Embedded Entity updates within this Entity with specific callback steps.
-   * This function is triggered once per EmbeddedEntity which is updated.
-   * It therefore may run multiple times per creation workflow.
-   * Any steps defined here should run on a per-EmbeddedEntity basis.
-   * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
-   */
+    /**
+     * Handle Embedded Entity updates within this Entity with specific callback steps.
+     * This function is triggered once per EmbeddedEntity which is updated.
+     * It therefore may run multiple times per creation workflow.
+     * Any steps defined here should run on a per-EmbeddedEntity basis.
+     * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
+     */
     protected _onUpdateEmbeddedEntity(
         embeddedName: string,
         child: BaseEntityData | EmbeddedEntityData,
         updateData: EntityUpdateData<BaseEntityData> | EmbeddedEntityUpdateData,
         options: EntityUpdateOptions,
-        userId: string
+        userId: string,
     ): void;
 
     /**
