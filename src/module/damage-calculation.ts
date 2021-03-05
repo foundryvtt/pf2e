@@ -141,19 +141,19 @@ export class DamageValues {
         this.traits = traits;
     }
 
-    sum(): number {
+    total(): number {
         return this.normal + this.precision + this.critical + this.criticalPrecision + this.splash;
     }
 
-    sumPrecision() {
+    totalPrecision() {
         return this.precision + this.criticalPrecision;
     }
 
-    sumCritical() {
+    totalCritical() {
         return this.critical + this.criticalPrecision;
     }
 
-    sumSplash() {
+    totalSplash() {
         return this.splash;
     }
 
@@ -270,13 +270,13 @@ export class Weakness extends Modifier implements HasValue {
         const damageValues = damage.get(damageType) ?? new DamageValues();
         // if no damage is dealt, no weakness is triggered
         if (this.type === 'critical-hits') {
-            return damageValues.sumCritical() > 0 ? this.value : 0;
+            return damageValues.totalCritical() > 0 ? this.value : 0;
         } else if (this.type.startsWith('precision')) {
-            return damageValues.sumPrecision() > 0 ? this.value : 0;
+            return damageValues.totalPrecision() > 0 ? this.value : 0;
         } else if (this.type === 'splash-damage') {
-            return damageValues.sumSplash() > 0 ? this.value : 0;
+            return damageValues.totalSplash() > 0 ? this.value : 0;
         } else {
-            return damageValues.sum() > 0 ? this.value : 0;
+            return damageValues.total() > 0 ? this.value : 0;
         }
     }
 }
@@ -310,11 +310,11 @@ export class Resistance extends Modifier implements HasValue {
         // resistance 7 splash damage and 5 splash damage will only reduce 5 total
         // therefore these modifiers will always be looked up if they're present
         if (this.type === 'critical-hits') {
-            return Math.min(adjustedValue, damageValues.sumCritical());
+            return Math.min(adjustedValue, damageValues.totalCritical());
         } else if (this.type.startsWith('precision')) {
-            return Math.min(adjustedValue, damageValues.sumPrecision());
+            return Math.min(adjustedValue, damageValues.totalPrecision());
         } else if (this.type === 'splash-damage') {
-            return Math.min(adjustedValue, damageValues.sumSplash());
+            return Math.min(adjustedValue, damageValues.totalSplash());
         } else {
             return adjustedValue;
         }
@@ -503,9 +503,9 @@ function applyResistances(damage: Damage, resistances: Resistance[]): number {
             const damageValues = damage.get(type)!;
             const highestModifier = findHighestModifier(damage, type, modifiersByType);
             if (highestModifier === undefined) {
-                return damageValues.sum();
+                return damageValues.total();
             } else {
-                return Math.max(0, damageValues.sum() - highestModifier);
+                return Math.max(0, damageValues.total() - highestModifier);
             }
         }),
     );
