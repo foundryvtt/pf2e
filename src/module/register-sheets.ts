@@ -1,6 +1,8 @@
-import { ItemSheetPF2e } from './item/sheet';
-import { ABCItemSheetPF2e } from './item/sheet-abc';
-import { KitItemSheetPF2e } from './item/sheet-kit';
+import { ItemSheetPF2e } from '@item/sheet/base';
+import { KitSheetPF2e } from '@item/sheet/kit';
+import { AncestrySheetPF2e } from '@item/sheet/ancestry';
+import { BackgroundSheetPF2e } from '@item/sheet/background';
+import { ClassSheetPF2e } from '@item/sheet/class';
 
 export function registerSheets() {
     Items.unregisterSheet('core', ItemSheet);
@@ -24,6 +26,8 @@ export function registerSheets() {
         ],
         makeDefault: true,
     });
-    Items.registerSheet('pf2e', KitItemSheetPF2e, { types: ['kit'], makeDefault: true });
-    Items.registerSheet('pf2e', ABCItemSheetPF2e, { types: ['ancestry', 'background', 'class'], makeDefault: true });
+    Items.registerSheet('pf2e', KitSheetPF2e, { types: ['kit'], makeDefault: true });
+    Items.registerSheet('pf2e', AncestrySheetPF2e, { types: ['ancestry'], makeDefault: true });
+    Items.registerSheet('pf2e', BackgroundSheetPF2e, { types: ['background'], makeDefault: true });
+    Items.registerSheet('pf2e', ClassSheetPF2e, { types: ['class'], makeDefault: true });
 }
