@@ -49,7 +49,15 @@ export function isDamageType(value: string): value is DamageType {
 }
 
 export type AttackTrait =
+    | 'light'
+    | 'salt water'
+    | 'salt'
+    | 'water'
+    | 'earth'
+    | 'fire'
+    | 'air'
     | 'area-damage'
+    | 'persistent-damage'
     | 'adamantine'
     | 'coldiron'
     | 'ghostTouch'
@@ -63,7 +71,15 @@ export type AttackTrait =
     | 'unarmed';
 
 const allAttackTraits = new Set<string>([
+    'light',
+    'salt',
+    'salt water',
+    'water',
+    'earth',
+    'fire',
+    'air',
     'area-damage',
+    'persistent-damage',
     'magical',
     'adamantine',
     'coldiron',
@@ -343,6 +359,9 @@ function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
     ) {
         result.add('energy');
     }
+    if (traits.has('salt water')) {
+        result.add('water');
+    }
     // Mithral weapons and armor are treated as if they were silver for the purpose of damaging
     // creatures with weakness to silver
     if (traits.has('mithral')) {
@@ -559,4 +578,89 @@ export function calculateDamage({
     applyImmunities(copiedDamage, immunities);
     applyWeaknesses(copiedDamage, weaknesses);
     return applyResistances(copiedDamage, resistances);
+}
+
+/**
+ * A spell can trigger multiple types of damage (e.g. https://2e.aonprd.com/Spells.aspx?ID=32) so there can be more
+ * than one result; the formula that should be rolled is damage for harm/heal or rounds for slowed
+ */
+export class GolemMagicImmunityResult {
+    private readonly slowedRoundsFormula?: string;
+    private readonly harmedFormula?: string;
+    private readonly healedFormula?: string;
+
+    constructor({
+        slowedRoundsFormula,
+        harmedFormula,
+        healedFormula,
+    }: { slowedRoundsFormula?: string; harmedFormula?: string; healedFormula?: string } = {}) {
+        this.slowedRoundsFormula = slowedRoundsFormula;
+        this.harmedFormula = harmedFormula;
+        this.healedFormula = healedFormula;
+    }
+
+    getSlowedRoundsFormula(): string | undefined {
+        return this.slowedRoundsFormula;
+    }
+
+    getHarmedFormula(): string | undefined {
+        return this.harmedFormula;
+    }
+
+    getHealedFormula(): string | undefined {
+        return this.healedFormula;
+    }
+}
+
+export interface MagicImmunity {
+    healedBy: {
+        type: DamageType | Set<CombinedTraits>;
+        formula: string;
+    };
+    harmedBy: {
+        type: DamageType | Set<CombinedTraits>;
+        formula: string;
+        areaOrPersistentFormula: string;
+    };
+    slowedBy: DamageType | Set<CombinedTraits>;
+}
+
+function isTriggeredBy(
+    damageType: DamageType,
+    values: DamageValues,
+    triggerType: DamageType | Set<CombinedTraits>,
+): boolean {
+    if (triggerType instanceof Set) {
+        return Array.from(triggerType).some((t) => values.getTraits().has(t));
+    } else {
+        return triggerType === damageType;
+    }
+}
+
+/**
+ * Only call this function if the damage originated from a spell and the target has magic immunity
+ *
+ * @param damage dealt spell damage
+ * @param immunity golem immunity
+ * @return
+ */
+export function golemAntiMagic(damage: Damage, immunity: MagicImmunity): GolemMagicImmunityResult {
+    const result = {};
+    for (const [type, damageValues] of damage.entries()) {
+        if (isTriggeredBy(type, damageValues, immunity.harmedBy.type)) {
+            if (
+                damage.get(type)!.getTraits().has('area-damage') ||
+                damage.get(type)!.getTraits().has('persistent-damage')
+            ) {
+                result['harmedFormula'] = immunity.harmedBy.areaOrPersistentFormula;
+            } else {
+                result['harmedFormula'] = immunity.harmedBy.formula;
+            }
+        } else if (isTriggeredBy(type, damageValues, immunity.healedBy.type)) {
+            result['healedFormula'] = immunity.healedBy.formula;
+        } else if (isTriggeredBy(type, damageValues, immunity.slowedBy)) {
+            result['slowedRoundsFormula'] = '2d6';
+        }
+    }
+    return new GolemMagicImmunityResult(result);
 }
