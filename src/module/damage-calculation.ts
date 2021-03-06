@@ -589,3 +589,54 @@ export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): Go
     }
     return new GolemMagicImmunityResult(result);
 }
+
+export interface ParsedException {
+    doubleResistanceVsNonMagical: boolean;
+    except: DamageExceptions;
+}
+
+/**
+ * Used to parse new stat blocks imported from AoN or migrate existing ones
+ *
+ * This method needs to deal with the following string value crap:
+ *
+ * * except magical silver
+ * * except force, ghost touch, or positive; double resistance vs. non-magical
+ * * except adamantine or bludgeoning
+ * * except cold iron
+ * * except magical
+ * * except unarmed attacks
+ * * except non-magical
+ * * except force or ghost touch
+ * @param exceptions string as listed above
+ */
+export function parseExceptions(exceptions: string | undefined): ParsedException {
+    if (exceptions === undefined) {
+        return {
+            doubleResistanceVsNonMagical: false,
+            except: [],
+        };
+    } else {
+        const sanitizedExceptions = exceptions
+            .toLocaleLowerCase()
+            .replace('except', '')
+            .replace(', or ', ' or ')
+            .replace(', ', ' or ')
+            .replace('unarmed attacks', 'unarmed')
+            .replace('ghost touch', 'ghostTouch')
+            .replace('cold iron', 'coldiron') // needed to match trait
+            .trim();
+
+        // double-resistance is trailing after the ; normal resistances are before that
+        const traitExceptions = sanitizedExceptions.split(';');
+        const traitCombinations = traitExceptions[0].split(' or ').map((value) => value.trim());
+        const doubleResistanceVsNonMagical = traitExceptions[1]?.trim() === 'double resistance vs. non-magical';
+        return {
+            doubleResistanceVsNonMagical,
+            except: traitCombinations.map((traitCombination) => {
+                // assume traits to be separated by space
+                return new Set(traitCombination.split(' '));
+            }) as DamageExceptions,
+        };
+    }
+}
