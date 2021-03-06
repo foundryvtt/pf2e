@@ -1,6 +1,7 @@
 import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
+import { DamageCalculationRuleData } from '../rules/elements/damage-calculation';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -487,6 +488,8 @@ export interface RawCharacterData extends ActorSystemData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+    /** Adds custom resistances, weaknesses and immunities */
+    damageCalculation: DamageCalculationRuleData[];
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
@@ -590,6 +593,8 @@ export interface RawNpcData extends ActorSystemData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+    /** Adds custom resistances, weaknesses and immunities */
+    damageCalculation: DamageCalculationRuleData[];
 
     /** Special strikes which the creature can take. */
     actions: CharacterStrike[];
@@ -616,6 +621,9 @@ export interface RawFamiliarData extends ActorSystemData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+    /** Adds custom resistances, weaknesses and immunities */
+    damageCalculation: DamageCalculationRuleData[];
+
     attributes: {
         hp: FamiliarHitPointsData;
         ac: { value: number; breakdown: string; check?: number };

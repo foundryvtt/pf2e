@@ -20,6 +20,7 @@ import { PF2WeaponPotencyRuleElement } from './elements/weapon-potency';
 import { PF2StrikingRuleElement } from './elements/striking';
 import { PF2MultipleAttackPenaltyRuleElement } from './elements/multiple-attack-penalty';
 import { PF2EffectTargetRuleElement } from './elements/effect-target';
+import { DamageCalculationRuleElement } from './elements/damage-calculation';
 
 export { PF2RuleElement };
 
@@ -52,6 +53,7 @@ export class PF2RuleElements {
             new PF2MultipleAttackPenaltyRuleElement(ruleData, item),
         'PF2E.RuleElement.EffectTarget': (ruleData, item) => new PF2EffectTargetRuleElement(ruleData, item),
         'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
+        'PF2E.RuleElement.DamageCalculation': (ruleData, item) => new DamageCalculationRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {};
