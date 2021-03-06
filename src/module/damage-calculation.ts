@@ -545,29 +545,21 @@ export class GolemMagicImmunityResult {
     }
 }
 
-export interface MagicImmunity {
+export interface GolemMagicImmunity {
     healedBy: {
-        type: DamageType | Set<CombinedTrait>;
+        type: Set<CombinedTrait>;
         formula: string;
     };
     harmedBy: {
-        type: DamageType | Set<CombinedTrait>;
+        type: Set<CombinedTrait>;
         formula: string;
         areaOrPersistentFormula: string;
     };
-    slowedBy: DamageType | Set<CombinedTrait>;
+    slowedBy: Set<CombinedTrait>;
 }
 
-function isTriggeredBy(
-    damageType: DamageType,
-    values: DamageValues,
-    triggerType: DamageType | Set<CombinedTrait>,
-): boolean {
-    if (triggerType instanceof Set) {
-        return Array.from(triggerType).some((t) => values.getTraits().has(t));
-    } else {
-        return triggerType === damageType;
-    }
+function isTriggeredBy(damageType: DamageType, values: DamageValues, triggerType: Set<CombinedTrait>): boolean {
+    return Array.from(triggerType).some((t) => values.getTraits().has(t));
 }
 
 /**
@@ -577,7 +569,7 @@ function isTriggeredBy(
  * @param immunity golem immunity
  * @return
  */
-export function golemAntiMagic(damage: Damage, immunity: MagicImmunity): GolemMagicImmunityResult {
+export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): GolemMagicImmunityResult {
     const result = {};
     for (const [type, damageValues] of damage.entries()) {
         if (isTriggeredBy(type, damageValues, immunity.harmedBy.type)) {
