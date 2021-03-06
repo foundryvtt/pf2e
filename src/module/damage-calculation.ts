@@ -3,74 +3,27 @@ import { isChaotic, isEvil, isGood, isLawful } from './alignment';
 import { AlignmentString } from '@actor/actor-data-definitions';
 import { Living } from './living';
 
-export type DamageType =
-    | 'acid'
-    | 'bludgeoning'
-    | 'cold'
-    | 'fire'
-    | 'force'
-    | 'electricity'
-    | 'sonic'
-    | 'negative'
-    | 'piercing'
-    | 'poison'
-    | 'positive'
-    | 'bleed'
-    | 'mental'
-    | 'slashing'
-    | 'chaotic'
-    | 'lawful'
-    | 'good'
-    | 'evil';
-
-const allDamageTypes = new Set<string>([
-    'acid',
-    'bludgeoning',
-    'cold',
-    'fire',
-    'force',
-    'electricity',
-    'sonic',
-    'negative',
-    'piercing',
-    'poison',
-    'positive',
-    'bleed',
+const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;
+const lifeEnergyDamageTypes = ['positive', 'negative'] as const;
+const energyDamageTypes = ['acid', 'cold', 'electricity', 'fire', 'sonic', 'force', ...lifeEnergyDamageTypes] as const;
+const alignmentDamageTypes = ['chaotic', 'lawful', 'good', 'evil'] as const;
+const damageTypes = new Set([
+    ...physicalDamageTypes,
+    ...energyDamageTypes,
+    ...alignmentDamageTypes,
     'mental',
-    'slashing',
-    'chaotic',
-    'lawful',
-    'good',
-    'evil',
-]);
+    'poison',
+] as const);
+
+export type SetElement<SetType extends Set<unknown>> = SetType extends Set<infer ElementType> ? ElementType : never;
+
+export type DamageType = SetElement<typeof damageTypes>;
 
 export function isDamageType(value: string): value is DamageType {
-    return allDamageTypes.has(value);
+    return damageTypes.has(value as DamageType);
 }
 
-export type AttackTrait =
-    | 'light'
-    | 'salt water'
-    | 'salt'
-    | 'water'
-    | 'earth'
-    | 'fire'
-    | 'air'
-    | 'area-damage'
-    | 'persistent-damage'
-    | 'adamantine'
-    | 'coldiron'
-    | 'ghostTouch'
-    | 'darkwood'
-    | 'mithral'
-    | 'silver'
-    | 'orichalcum'
-    | 'vorpal weapons'
-    | 'magical'
-    | 'nonlethal attacks' // has to be present on every damage type pool!
-    | 'unarmed';
-
-const allAttackTraits = new Set<string>([
+const attackTraits = new Set([
     'light',
     'salt',
     'salt water',
@@ -88,30 +41,20 @@ const allAttackTraits = new Set<string>([
     'mithral',
     'silver',
     'orichalcum',
-    'nonlethal attacks',
+    'nonlethal attacks', // has to be present on every damage type pool!
     'vorpal weapons',
     'unarmed',
-]);
+] as const);
+
+export type AttackTrait = SetElement<typeof attackTraits>;
 
 export function isAttackTrait(trait: string): trait is AttackTrait {
-    return allAttackTraits.has(trait);
+    return attackTraits.has(trait as AttackTrait);
 }
 
-export type CombinedTraits =
-    | AttackTrait
-    | DamageType
-    | 'all'
-    | 'physical'
-    | 'non-magical'
-    | 'critical-hits'
-    | 'splash-damage'
-    | 'energy'
-    | 'precision-damage'
-    | 'precision'; // FIXME: different values in config.ts
-
-const allCombinedTraits = new Set<string>([
-    ...allAttackTraits,
-    ...allDamageTypes,
+const combinedTraits = new Set([
+    ...attackTraits,
+    ...damageTypes,
     'all',
     'physical',
     'non-magical',
@@ -119,11 +62,13 @@ const allCombinedTraits = new Set<string>([
     'splash-damage',
     'precision-damage',
     'energy',
-    'precision',
-]);
+    'precision', // FIXME: different values in config.ts
+] as const);
 
-export function isCombinedTrait(trait: string): trait is CombinedTraits {
-    return allCombinedTraits.has(trait);
+export type CombinedTrait = SetElement<typeof combinedTraits>;
+
+export function isCombinedTrait(trait: string): trait is CombinedTrait {
+    return combinedTraits.has(trait as CombinedTrait);
 }
 
 export class DamageValues {
@@ -229,7 +174,7 @@ export class DamageValues {
 
 export type Damage = Map<DamageType, DamageValues>;
 
-export type DamageExceptions = Set<CombinedTraits>[];
+export type DamageExceptions = Set<CombinedTrait>[];
 
 interface HasValue {
     /**
@@ -341,22 +286,13 @@ export class Resistance extends Modifier implements HasValue {
  * Find and add all related traits
  * @param traits
  */
-function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
-    const result: Set<CombinedTraits> = new Set<CombinedTraits>();
+function denormalizeTraits(traits: Set<CombinedTrait>): Set<CombinedTrait> {
+    const result: Set<CombinedTrait> = new Set();
     result.add('all');
-    if (traits.has('piercing') || traits.has('slashing') || traits.has('bludgeoning') || traits.has('bleed')) {
+    if ([...physicalDamageTypes].some((damageType) => traits.has(damageType))) {
         result.add('physical');
     }
-    if (
-        traits.has('acid') ||
-        traits.has('cold') ||
-        traits.has('electricity') ||
-        traits.has('fire') ||
-        traits.has('sonic') ||
-        traits.has('positive') ||
-        traits.has('negative') ||
-        traits.has('force')
-    ) {
+    if ([...energyDamageTypes].some((damageType) => traits.has(damageType))) {
         result.add('energy');
     }
     if (traits.has('salt water')) {
@@ -381,10 +317,10 @@ function denormalizeTraits(traits: Set<CombinedTraits>): Set<CombinedTraits> {
  * but also at all other damage traits present for the current attack (e.g. cold, ghostTouch, etc)
  * @param damage
  */
-function getAllAttackTraits(damage: Damage): Set<CombinedTraits> {
+function getAllAttackTraits(damage: Damage): Set<CombinedTrait> {
     const damageTypes = Array.from(damage.keys());
     const damageTraits = Array.from(damage.values()).flatMap((value) => Array.from(value.getTraits()));
-    const combined: CombinedTraits[] = [...damageTraits, ...damageTypes];
+    const combined: CombinedTrait[] = [...damageTraits, ...damageTypes];
     return denormalizeTraits(new Set(combined));
 }
 
@@ -395,10 +331,10 @@ function getAllAttackTraits(damage: Damage): Set<CombinedTraits> {
 function filterModifiers<T extends Modifier>(
     damage: Damage,
     damageType: DamageType,
-    modifiersByType: Map<CombinedTraits, T[]>,
+    modifiersByType: Map<CombinedTrait, T[]>,
 ): T[] {
     const allAttackTraits = getAllAttackTraits(damage);
-    const damageTraits: Set<CombinedTraits> = new Set([
+    const damageTraits: Set<CombinedTrait> = new Set([
         'critical-hits',
         'precision-damage',
         'precision',
@@ -420,7 +356,7 @@ function filterModifiers<T extends Modifier>(
 function findHighestModifier<T extends Weakness | Resistance>(
     damage: Damage,
     damageType: DamageType,
-    modifiersByType: Map<CombinedTraits, T[]>,
+    modifiersByType: Map<CombinedTrait, T[]>,
 ): number | undefined {
     return filterModifiers(damage, damageType, modifiersByType)
         .map((modifier) => modifier.calculateValue(damage, damageType))
@@ -472,7 +408,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         })
         .filter((immunity) => isCombinedTrait(immunity.getType()));
 
-    const modifiersByType = groupBy(flattenedImmunities, (immunity: Immunity) => immunity.getType() as CombinedTraits);
+    const modifiersByType = groupBy(flattenedImmunities, (immunity: Immunity) => immunity.getType() as CombinedTrait);
 
     for (const type of Array.from(damage.keys())) {
         let damageValues = damage.get(type)!;
@@ -499,7 +435,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
 
 function applyWeaknesses(damage: Damage, weaknesses: Weakness[]): void {
     const usableModifiers = weaknesses.filter((weakness) => isCombinedTrait(weakness.getType()));
-    const modifiersByType = groupBy(usableModifiers, (weakness: Weakness) => weakness.getType() as CombinedTraits);
+    const modifiersByType = groupBy(usableModifiers, (weakness: Weakness) => weakness.getType() as CombinedTrait);
 
     for (const type of Array.from(damage.keys())) {
         const damageValues = damage.get(type)!;
@@ -512,10 +448,7 @@ function applyWeaknesses(damage: Damage, weaknesses: Weakness[]): void {
 
 function applyResistances(damage: Damage, resistances: Resistance[]): number {
     const usableModifiers = resistances.filter((resistance) => isCombinedTrait(resistance.getType()));
-    const modifiersByType = groupBy(
-        usableModifiers,
-        (resistance: Resistance) => resistance.getType() as CombinedTraits,
-    );
+    const modifiersByType = groupBy(usableModifiers, (resistance: Resistance) => resistance.getType() as CombinedTrait);
 
     return sum(
         Array.from(damage.keys()).map((type) => {
@@ -543,8 +476,8 @@ interface DamageOptions {
  * @param resistances a list of resistances; one type can be present multiple times, we use the highest one
  * @param living whether we need to apply positive/negative damage
  * @param alignment whether we need to apply alignment damage
- * @param damageOptions flags for damage calculation:
- * * disregardTargetAlignment: if true, will remove the check for the target alignment and always deal alignment damage
+ * @param damageOptions flags for damage calculation
+ * @param damageOptions.disregardTargetAlignment if true, will remove the check for the target alignment and always deal alignment damage
  * @return the final calculated damage
  */
 export function calculateDamage({
@@ -614,21 +547,21 @@ export class GolemMagicImmunityResult {
 
 export interface MagicImmunity {
     healedBy: {
-        type: DamageType | Set<CombinedTraits>;
+        type: DamageType | Set<CombinedTrait>;
         formula: string;
     };
     harmedBy: {
-        type: DamageType | Set<CombinedTraits>;
+        type: DamageType | Set<CombinedTrait>;
         formula: string;
         areaOrPersistentFormula: string;
     };
-    slowedBy: DamageType | Set<CombinedTraits>;
+    slowedBy: DamageType | Set<CombinedTrait>;
 }
 
 function isTriggeredBy(
     damageType: DamageType,
     values: DamageValues,
-    triggerType: DamageType | Set<CombinedTraits>,
+    triggerType: DamageType | Set<CombinedTrait>,
 ): boolean {
     if (triggerType instanceof Set) {
         return Array.from(triggerType).some((t) => values.getTraits().has(t));
