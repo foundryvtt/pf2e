@@ -513,7 +513,7 @@ export function calculateDamage({
     return applyResistances(copiedDamage, resistances);
 }
 
-interface GolemImmunityConstructor {
+export interface GolemImmunityConstructor {
     slowedRoundsFormula?: string;
     harmedFormula?: string;
     healedFormula?: string;
