@@ -513,6 +513,12 @@ export function calculateDamage({
     return applyResistances(copiedDamage, resistances);
 }
 
+interface GolemImmunityConstructor {
+    slowedRoundsFormula?: string;
+    harmedFormula?: string;
+    healedFormula?: string;
+}
+
 /**
  * A spell can trigger multiple types of damage (e.g. https://2e.aonprd.com/Spells.aspx?ID=32) so there can be more
  * than one result; the formula that should be rolled is damage for harm/heal or rounds for slowed
@@ -522,11 +528,7 @@ export class GolemMagicImmunityResult {
     private readonly harmedFormula?: string;
     private readonly healedFormula?: string;
 
-    constructor({
-        slowedRoundsFormula,
-        harmedFormula,
-        healedFormula,
-    }: { slowedRoundsFormula?: string; harmedFormula?: string; healedFormula?: string } = {}) {
+    constructor({ slowedRoundsFormula, harmedFormula, healedFormula }: GolemImmunityConstructor = {}) {
         this.slowedRoundsFormula = slowedRoundsFormula;
         this.harmedFormula = harmedFormula;
         this.healedFormula = healedFormula;
@@ -570,7 +572,7 @@ function isTriggeredBy(damageType: DamageType, values: DamageValues, triggeringT
  * @return
  */
 export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): GolemMagicImmunityResult {
-    const result = {};
+    const result: GolemImmunityConstructor = {};
     for (const [type, damageValues] of damage.entries()) {
         if (isTriggeredBy(type, damageValues, immunity.harmedBy.type)) {
             const traits = damage.get(type)!.getTraits();
