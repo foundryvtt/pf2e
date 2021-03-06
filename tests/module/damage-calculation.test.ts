@@ -2,6 +2,8 @@ import {
     calculateDamage,
     DamageType,
     DamageValues,
+    golemAntiMagic,
+    GolemMagicImmunity,
     Immunity,
     Resistance,
     Weakness,
@@ -339,5 +341,76 @@ describe('test damage calculation', () => {
                 ],
             }),
         ).toBe(7);
+    });
+});
+
+describe('test golem anti magic', () => {
+    const immunity: GolemMagicImmunity = {
+        harmedBy: {
+            areaOrPersistentFormula: '2d4',
+            formula: '3d4',
+            type: new Set(['earth', 'force']),
+        },
+        healedBy: {
+            formula: '4d4',
+            type: new Set(['fire']),
+        },
+        slowedBy: new Set(['cold']),
+    };
+
+    test('no triggering damage type', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('bleed', new DamageValues({ normal: 3 }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBeUndefined();
+        expect(result.getHarmedFormula()).toBeUndefined();
+        expect(result.getSlowedRoundsFormula()).toBeUndefined();
+    });
+
+    test('damaged by earth', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('bleed', new DamageValues({ normal: 3, traits: new Set(['earth']) }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBeUndefined();
+        expect(result.getHarmedFormula()).toBe('3d4');
+        expect(result.getSlowedRoundsFormula()).toBeUndefined();
+    });
+
+    test('damaged by force area damage', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('force', new DamageValues({ normal: 3, traits: new Set(['area-damage']) }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBeUndefined();
+        expect(result.getHarmedFormula()).toBe('2d4');
+        expect(result.getSlowedRoundsFormula()).toBeUndefined();
+    });
+
+    test('healed by fire damage', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('fire', new DamageValues({ normal: 3 }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBe('4d4');
+        expect(result.getHarmedFormula()).toBeUndefined();
+        expect(result.getSlowedRoundsFormula()).toBeUndefined();
+    });
+
+    test('slowed by cold damage', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('cold', new DamageValues({ normal: 3 }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBeUndefined();
+        expect(result.getHarmedFormula()).toBeUndefined();
+        expect(result.getSlowedRoundsFormula()).toBe('2d6');
+    });
+
+    test('trigger all types', () => {
+        const damage = new Map<DamageType, DamageValues>();
+        damage.set('cold', new DamageValues({ normal: 3 }));
+        damage.set('fire', new DamageValues({ normal: 3 }));
+        damage.set('force', new DamageValues({ normal: 3 }));
+        const result = golemAntiMagic(damage, immunity);
+        expect(result.getHealedFormula()).toBe('4d4');
+        expect(result.getHarmedFormula()).toBe('3d4');
+        expect(result.getSlowedRoundsFormula()).toBe('2d6');
     });
 });

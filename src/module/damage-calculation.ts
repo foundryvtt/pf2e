@@ -558,8 +558,8 @@ export interface GolemMagicImmunity {
     slowedBy: Set<CombinedTrait>;
 }
 
-function isTriggeredBy(damageType: DamageType, values: DamageValues, triggerType: Set<CombinedTrait>): boolean {
-    return Array.from(triggerType).some((t) => values.getTraits().has(t));
+function isTriggeredBy(damageType: DamageType, values: DamageValues, triggeringTraits: Set<CombinedTrait>): boolean {
+    return triggeringTraits.has(damageType) || Array.from(triggeringTraits).some((t) => values.getTraits().has(t));
 }
 
 /**
