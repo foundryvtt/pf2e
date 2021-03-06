@@ -573,10 +573,8 @@ export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): Go
     const result = {};
     for (const [type, damageValues] of damage.entries()) {
         if (isTriggeredBy(type, damageValues, immunity.harmedBy.type)) {
-            if (
-                damage.get(type)!.getTraits().has('area-damage') ||
-                damage.get(type)!.getTraits().has('persistent-damage')
-            ) {
+            const traits = damage.get(type)!.getTraits();
+            if (traits.has('area-damage') || traits.has('persistent-damage')) {
                 result['harmedFormula'] = immunity.harmedBy.areaOrPersistentFormula;
             } else {
                 result['harmedFormula'] = immunity.harmedBy.formula;
