@@ -563,7 +563,7 @@ function isTriggeredBy(damageType: DamageType, values: DamageValues, triggeringT
 }
 
 /**
- * Only call this function if the damage originated from a spell and the target has magic immunity
+ * Only call this function if the damage originated from a spell and the target has golem like magic immunity
  *
  * @param damage dealt spell damage
  * @param immunity golem immunity
