@@ -1,6 +1,7 @@
 import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
+import { DamageCalculationRuleData } from '../rules/elements/damage-calculation';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -251,6 +252,8 @@ export interface CreatureSystemData extends ActorSystemData {
     customModifiers: Record<string, PF2Modifier[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
+    /** Adds custom resistances, weaknesses and immunities */
+    damageCalculation: DamageCalculationRuleData[];
 }
 
 export interface RawAnimalCompanionData extends CreatureSystemData {
