@@ -16,7 +16,7 @@ import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
-import { PF2ECondition, PF2ESpell } from '@item/others';
+import { PF2ECondition, PF2ESpell, PF2ESpellcastingEntry } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 
 /**
@@ -198,7 +198,22 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         } catch (err) {
             console.log(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell);
         }
-        spellbook[spellLvl].spells.push(spell);
+
+        const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
+        const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
+        const isCantrip = spell.data.level.value === 0;
+        const isFocusSpell = spell.data.traditions.value.includes('focus');
+        const isRitual = spell.data.traditions.value.includes('ritual');
+
+        if (isSpontaneous && signatureSpells.includes(spell._id) && !isCantrip && !isFocusSpell && !isRitual) {
+            spell.data.isSignatureSpell = true;
+
+            for (let i = spell.data.level.value; i <= maxSpellLevelToShow; i++) {
+                spellbook[i].spells.push(spell);
+            }
+        } else {
+            spellbook[spellLvl].spells.push(spell);
+        }
     }
 
     /**
@@ -1062,6 +1077,10 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             this.render();
         });
 
+        html.find('.toggle-signature-spell').on('click', (event) => {
+            this._onToggleSignatureSpell(event);
+        });
+
         // Select all text in an input field on focus
         html.find<HTMLInputElement>('input[type=text], input[type=number]').on('focus', (event) => {
             event.currentTarget.select();
@@ -1225,6 +1244,48 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             return true;
         }
         return false;
+    }
+
+    private _onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+        const { containerId } = event.target.closest('.item-container').dataset;
+        const { itemId } = event.target.closest('.item').dataset;
+
+        if (!containerId || !itemId) {
+            return;
+        }
+
+        const spellcastingEntry = this.actor.getOwnedItem(containerId);
+        const spell = this.actor.getOwnedItem(itemId);
+
+        if (!(spellcastingEntry instanceof PF2ESpellcastingEntry) || !(spell instanceof PF2ESpell)) {
+            return;
+        }
+
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
+
+        if (!signatureSpells.includes(spell.id)) {
+            const isCantrip = spell.data.data.level.value === 0;
+            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
+            const isRitual = spell.data.data.traditions.value.includes('ritual');
+
+            if (isCantrip || isFocusSpell || isRitual) {
+                return;
+            }
+
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry.id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        } else {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry.id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        }
     }
 
     /* -------------------------------------------- */
