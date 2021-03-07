@@ -35,6 +35,7 @@
         },
         "attributes": {
             "ac": {
+                "breakdown": "",
                 "check": 0,
                 "details": "",
                 "dex": 0,
@@ -88,9 +89,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -120,6 +121,7 @@
             }
         },
         "customModifiers": {},
+        "damageDice": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +406,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -458,6 +463,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -476,6 +482,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -499,6 +506,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -517,6 +525,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -533,7 +542,7 @@
                     ]
                 },
                 "bonus": {
-                    "value": "20"
+                    "value": 20
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -634,6 +643,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -660,7 +670,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "fangs",
+            "name": "Fangs",
             "sort": 200000,
             "type": "melee"
         },
@@ -677,7 +687,7 @@
                     ]
                 },
                 "bonus": {
-                    "value": "17"
+                    "value": 17
                 },
                 "brokenThreshold": {
                     "value": 0
@@ -773,6 +783,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -801,7 +812,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "web",
+            "name": "Web",
             "sort": 300000,
             "type": "melee"
         },
@@ -820,7 +831,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b>Fortitude DC 25; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b>1d8 poison (1 round); <b>Stage 2</b> 1d8 poison and slowed 1 (1 round); <b>Stage 3</b> 1d8 poison and slowed 2 (1 round); <b>Stage 4</b> 2d8 poison and paralyzed (1d4 rounds)"
+                    "value": "<p><strong>Saving Throw</strong> Fortitude DC 25;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d8 #poison]] poison (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d8 #poison]] and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 1d8 #poison]] and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} (1 round);</p>\n<p><strong>Stage 4</strong> [[/r 2d8 #poison]] poison and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} ([[/r 1d4 #rounds]] rounds)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -829,6 +840,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -856,6 +868,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.png",
             "name": "Joro Spider Venom",
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -873,7 +886,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A creature hit by the joro spider's web Strike is immobilized and stuck to the nearest surface until it Escapes (DC 25)."
+                    "value": "<p>A creature hit by the joro spider's web Strike is immobilized and stuck to the nearest surface until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 25).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -882,6 +895,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -906,19 +920,20 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.png",
             "name": "Web Trap",
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "PQvhyd9PLOonye5x",
+            "_id": "NRUwbsWBSVtCGgrp",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
                 },
                 "actions": {
-                    "value": null
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
@@ -932,6 +947,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -945,15 +961,16 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
             "sort": 100000,
@@ -970,7 +987,9 @@
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -979,23 +998,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 1,
+        "height": 2,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Giant Joro Spiders",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 1
+        "width": 2
     },
     "type": "npc"
 }
