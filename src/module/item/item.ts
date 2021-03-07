@@ -336,7 +336,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const spellAttack = spellcastingEntry.data.attack?.value ?? spellcastingEntry.data.spelldc.value;
 
         // Spell saving throw text and DC
-        data.isSave = data.spellType.value === 'save';
+        data.isSave = data.spellType.value === 'save' || data.save.value !== '';
 
         if (data.isSave) {
             data.save.dc = spellDC;
@@ -1035,7 +1035,7 @@ export class PF2EItem extends Item<PF2EActor> {
             }
             this.data.data.spell.data.data.trickMagicItemData = trickMagicItemData;
             this.data.data.spell.data.data.location.value = spellcastingEntries[bestEntry]._id;
-            spellData.isSave = spellData.spellType.value === 'save';
+            spellData.isSave = spellData.spellType.value === 'save' || spellData.save.value !== '';
             if (spellData.isSave) {
                 spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.dc;
             } else spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.value;
