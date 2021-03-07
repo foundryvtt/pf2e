@@ -5,6 +5,7 @@ import {
     golemAntiMagic,
     GolemMagicImmunity,
     Immunity,
+    parseExceptions,
     Resistance,
     Weakness,
 } from '../../src/module/damage-calculation';
@@ -306,7 +307,7 @@ describe('test damage calculation', () => {
             'slashing',
             new DamageValues({
                 normal: 1,
-                traits: new Set(['vorpal weapons']),
+                traits: new Set(['vorpal']),
             }),
         );
         expect(
@@ -324,19 +325,19 @@ describe('test damage calculation', () => {
                     new Resistance({
                         type: 'all',
                         value: 2,
-                        exceptions: [new Set(['piercing', 'vorpal weapons'])],
+                        exceptions: [new Set(['piercing', 'vorpal'])],
                     }),
                     // does not trigger because the exception removes it although the value is higher
                     new Resistance({
                         type: 'all',
                         value: 8,
-                        exceptions: [new Set(['vorpal weapons'])],
+                        exceptions: [new Set(['vorpal'])],
                     }),
                     // does not trigger because the exception removes it although the value is higher
                     new Resistance({
                         type: 'all',
                         value: 4,
-                        exceptions: [new Set(['piercing', 'physical']), new Set(['vorpal weapons', 'slashing'])],
+                        exceptions: [new Set(['piercing', 'physical']), new Set(['vorpal', 'slashing'])],
                     }),
                 ],
             }),
@@ -412,5 +413,122 @@ describe('test golem anti magic', () => {
         expect(result.getHealedFormula()).toBe('4d4');
         expect(result.getHarmedFormula()).toBe('3d4');
         expect(result.getSlowedRoundsFormula()).toBe('2d6');
+    });
+});
+
+describe('Test Parsing Exceptions', () => {
+    /**
+     * This method needs to deal with the following string value crap:
+     * * physical 10 (except magical silver)
+     * * physical 24 (except bludgeoning adamantine)
+     * * physical 15 (except magic bludgeoning)
+     * * physical 20 (except vorpal adamantine)
+     * * all 5 (except force, ghost touch, or negative; double resistance vs. non-magical)
+     * * physical 12 (except adamantine or bludgeoning)
+     * * physical 15 (except cold iron)
+     * * physical 5 (except magical)
+     * * all 15 (except unarmed attacks)
+     * * all 15 (except non-magical)
+     * * all 5 (except force or ghost touch)
+     * @param exceptions
+     */
+    const testCases = [
+        {
+            exception: 'except magical silver',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['magical', 'silver'])],
+            },
+        },
+        {
+            exception: 'except bludgeoning adamantine',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['bludgeoning', 'adamantine'])],
+            },
+        },
+        {
+            exception: 'except magical bludgeoning',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['magical', 'bludgeoning'])],
+            },
+        },
+        {
+            exception: 'except force, ghost touch, or positive; double resistance vs. non-magical',
+            expected: {
+                doubleResistanceVsNonMagical: true,
+                except: [new Set(['force']), new Set(['ghostTouch']), new Set(['positive'])],
+            },
+        },
+        {
+            exception: 'except vorpal adamantine',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['vorpal', 'adamantine'])],
+            },
+        },
+        {
+            exception: 'except adamantine or bludgeoning',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['adamantine']), new Set(['bludgeoning'])],
+            },
+        },
+        {
+            exception: 'except cold iron',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['coldiron'])],
+            },
+        },
+        {
+            exception: 'except magical',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['magical'])],
+            },
+        },
+        {
+            exception: 'except unarmed attacks',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['unarmed'])],
+            },
+        },
+        {
+            exception: 'except non-magical',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['non-magical'])],
+            },
+        },
+        {
+            exception: 'except force or ghost touch',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [new Set(['force']), new Set(['ghostTouch'])],
+            },
+        },
+        {
+            exception: 'except tomato or patate',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [],
+            },
+        },
+        {
+            exception: '',
+            expected: {
+                doubleResistanceVsNonMagical: false,
+                except: [],
+            },
+        },
+    ];
+
+    testCases.forEach((testCase) => {
+        test(`test ${testCase.exception}`, () => {
+            expect(parseExceptions(testCase.exception)).toEqual(testCase.expected);
+        });
     });
 });

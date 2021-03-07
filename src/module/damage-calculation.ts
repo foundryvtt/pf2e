@@ -42,7 +42,7 @@ const attackTraits = new Set([
     'silver',
     'orichalcum',
     'nonlethal attacks', // has to be present on every damage type pool!
-    'vorpal weapons',
+    'vorpal',
     'unarmed',
 ] as const);
 
@@ -60,9 +60,8 @@ const combinedTraits = new Set([
     'non-magical',
     'critical-hits',
     'splash-damage',
-    'precision-damage',
     'energy',
-    'precision', // FIXME: different values in config.ts
+    'precision',
 ] as const);
 
 export type CombinedTrait = SetElement<typeof combinedTraits>;
@@ -232,7 +231,7 @@ export class Weakness extends Modifier implements HasValue {
         // if no damage is dealt, no weakness is triggered
         if (this.type === 'critical-hits') {
             return damageValues.totalCritical() > 0 ? this.value : 0;
-        } else if (this.type.startsWith('precision')) {
+        } else if (this.type === 'precision') {
             return damageValues.totalPrecision() > 0 ? this.value : 0;
         } else if (this.type === 'splash-damage') {
             return damageValues.totalSplash() > 0 ? this.value : 0;
@@ -272,7 +271,7 @@ export class Resistance extends Modifier implements HasValue {
         // therefore these modifiers will always be looked up if they're present
         if (this.type === 'critical-hits') {
             return Math.min(adjustedValue, damageValues.totalCritical());
-        } else if (this.type.startsWith('precision')) {
+        } else if (this.type === 'precision') {
             return Math.min(adjustedValue, damageValues.totalPrecision());
         } else if (this.type === 'splash-damage') {
             return Math.min(adjustedValue, damageValues.totalSplash());
@@ -336,7 +335,6 @@ function filterModifiers<T extends Modifier>(
     const allAttackTraits = getAllAttackTraits(damage);
     const damageTraits: Set<CombinedTrait> = new Set([
         'critical-hits',
-        'precision-damage',
         'precision',
         'splash-damage',
         ...denormalizeTraits(new Set([damageType])),
@@ -417,7 +415,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         for (const modifier of applicableModifiers) {
             if (modifier.getType() === 'critical-hits') {
                 damageValues = damageValues.withoutCritical();
-            } else if (modifier.getType().startsWith('precision')) {
+            } else if (modifier.getType() === 'precision') {
                 damageValues = damageValues.withoutPrecision();
             } else if (modifier.getType() === 'splash-damage') {
                 damageValues = damageValues.withoutSplash();
@@ -588,4 +586,59 @@ export function golemAntiMagic(damage: Damage, immunity: GolemMagicImmunity): Go
         }
     }
     return new GolemMagicImmunityResult(result);
+}
+
+export interface ParsedException {
+    doubleResistanceVsNonMagical: boolean;
+    except: DamageExceptions;
+}
+
+/**
+ * Used to parse new stat blocks imported from AoN or migrate existing ones
+ *
+ * This method needs to deal with the following string value crap:
+ *
+ * * except magical silver
+ * * except force, ghost touch, or positive; double resistance vs. non-magical
+ * * except adamantine or bludgeoning
+ * * except cold iron
+ * * except magical
+ * * except unarmed attacks
+ * * except non-magical
+ * * except force or ghost touch
+ * @param exceptions string as listed above
+ */
+export function parseExceptions(exceptions: string | undefined | null): ParsedException {
+    if (exceptions === undefined || exceptions === null) {
+        return {
+            doubleResistanceVsNonMagical: false,
+            except: [],
+        };
+    } else {
+        const sanitizedExceptions = exceptions
+            .toLocaleLowerCase()
+            .replace('except', '')
+            .replace(', or ', ' or ')
+            .replace(', ', ' or ')
+            .replace('unarmed attacks', 'unarmed')
+            .replace('ghost touch', 'ghostTouch')
+            .replace('cold iron', 'coldiron') // needed to match trait
+            .trim();
+
+        // double-resistance is trailing after the ; normal resistances are before that
+        const traitExceptions = sanitizedExceptions.split(';');
+        const traitCombinations = traitExceptions[0].split(' or ').map((value) => value.trim());
+        const doubleResistanceVsNonMagical = traitExceptions[1]?.trim() === 'double resistance vs. non-magical';
+        return {
+            doubleResistanceVsNonMagical,
+            except: traitCombinations
+                .map((traitCombination) => {
+                    // assume traits to be separated by space
+                    return new Set(
+                        traitCombination.split(' ').filter((traitCombination) => isCombinedTrait(traitCombination)),
+                    );
+                })
+                .filter((traits) => traits.size > 0) as DamageExceptions,
+        };
+    }
 }
