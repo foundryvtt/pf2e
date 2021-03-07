@@ -1,3 +1,10 @@
+let rollers = []
+if (canvas.tokens.controlled.length) {
+    rollers.push(...(canvas.tokens.controlled.map((token) => token.actor)));
+} else if (game.user.character) {
+    rollers.push(game.user.character);
+}
+
 function CheckFeat(slug) {
     if (token.actor.items.find((i) => i.data.data.slug === slug && i.type === 'feat')) {
         return true;
