@@ -336,7 +336,7 @@ export const PF2ECONFIG = {
         salt: 'PF2E.WeaknessTypeSalt',
         'salt water': 'PF2E.WeaknessTypeSaltWater',
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
-        'vorpal weapons': 'PF2E.WeaknessTypeVorpalWeapons',
+        vorpal: 'PF2E.WeaknessTypeVorpalWeapons',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
     }, // Weapon Damage Types
 
@@ -1657,7 +1657,6 @@ export const PF2ECONFIG = {
         'fear effects': 'PF2E.ImmunityTypeFearEffects',
         'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
         'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
-        'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
         magic: 'PF2E.ImmunityTypeMagic',
         sleep: 'PF2E.ImmunityTypeSleep',
         'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
