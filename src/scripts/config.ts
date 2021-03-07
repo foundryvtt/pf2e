@@ -336,7 +336,7 @@ export const PF2ECONFIG = {
         salt: 'PF2E.WeaknessTypeSalt',
         'salt water': 'PF2E.WeaknessTypeSaltWater',
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
-        vorpal: 'PF2E.WeaknessTypeVorpalWeapons',
+        vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
     }, // Weapon Damage Types
 
