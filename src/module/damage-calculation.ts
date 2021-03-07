@@ -42,7 +42,7 @@ const attackTraits = new Set([
     'silver',
     'orichalcum',
     'nonlethal attacks', // has to be present on every damage type pool!
-    'vorpal weapons',
+    'vorpal',
     'unarmed',
 ] as const);
 
@@ -60,9 +60,8 @@ const combinedTraits = new Set([
     'non-magical',
     'critical-hits',
     'splash-damage',
-    'precision-damage',
     'energy',
-    'precision', // FIXME: different values in config.ts
+    'precision',
 ] as const);
 
 export type CombinedTrait = SetElement<typeof combinedTraits>;
@@ -232,7 +231,7 @@ export class Weakness extends Modifier implements HasValue {
         // if no damage is dealt, no weakness is triggered
         if (this.type === 'critical-hits') {
             return damageValues.totalCritical() > 0 ? this.value : 0;
-        } else if (this.type.startsWith('precision')) {
+        } else if (this.type === 'precision') {
             return damageValues.totalPrecision() > 0 ? this.value : 0;
         } else if (this.type === 'splash-damage') {
             return damageValues.totalSplash() > 0 ? this.value : 0;
@@ -272,7 +271,7 @@ export class Resistance extends Modifier implements HasValue {
         // therefore these modifiers will always be looked up if they're present
         if (this.type === 'critical-hits') {
             return Math.min(adjustedValue, damageValues.totalCritical());
-        } else if (this.type.startsWith('precision')) {
+        } else if (this.type === 'precision') {
             return Math.min(adjustedValue, damageValues.totalPrecision());
         } else if (this.type === 'splash-damage') {
             return Math.min(adjustedValue, damageValues.totalSplash());
@@ -336,7 +335,6 @@ function filterModifiers<T extends Modifier>(
     const allAttackTraits = getAllAttackTraits(damage);
     const damageTraits: Set<CombinedTrait> = new Set([
         'critical-hits',
-        'precision-damage',
         'precision',
         'splash-damage',
         ...denormalizeTraits(new Set([damageType])),
@@ -417,7 +415,7 @@ function applyImmunities(damage: Damage, immunities: Immunity[]): void {
         for (const modifier of applicableModifiers) {
             if (modifier.getType() === 'critical-hits') {
                 damageValues = damageValues.withoutCritical();
-            } else if (modifier.getType().startsWith('precision')) {
+            } else if (modifier.getType() === 'precision') {
                 damageValues = damageValues.withoutPrecision();
             } else if (modifier.getType() === 'splash-damage') {
                 damageValues = damageValues.withoutSplash();
