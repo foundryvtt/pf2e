@@ -5,6 +5,7 @@ declare const ui: {
     combat: CombatTracker;
     controls: SceneControls;
     notifications: Notifications;
+    settings: Settings;
     tables: RollTableDirectory;
     windows: Record<number, Application>;
 };
