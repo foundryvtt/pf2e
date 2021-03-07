@@ -306,7 +306,7 @@ describe('test damage calculation', () => {
             'slashing',
             new DamageValues({
                 normal: 1,
-                traits: new Set(['vorpal weapons']),
+                traits: new Set(['vorpal']),
             }),
         );
         expect(
@@ -324,19 +324,19 @@ describe('test damage calculation', () => {
                     new Resistance({
                         type: 'all',
                         value: 2,
-                        exceptions: [new Set(['piercing', 'vorpal weapons'])],
+                        exceptions: [new Set(['piercing', 'vorpal'])],
                     }),
                     // does not trigger because the exception removes it although the value is higher
                     new Resistance({
                         type: 'all',
                         value: 8,
-                        exceptions: [new Set(['vorpal weapons'])],
+                        exceptions: [new Set(['vorpal'])],
                     }),
                     // does not trigger because the exception removes it although the value is higher
                     new Resistance({
                         type: 'all',
                         value: 4,
-                        exceptions: [new Set(['piercing', 'physical']), new Set(['vorpal weapons', 'slashing'])],
+                        exceptions: [new Set(['piercing', 'physical']), new Set(['vorpal', 'slashing'])],
                     }),
                 ],
             }),
