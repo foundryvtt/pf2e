@@ -1,8 +1,9 @@
 import { PF2RuleElement } from '../rules';
 import { RuleValue } from '../rule-element';
 import { RulePredicate } from '../../modifiers';
-import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { ActorDataPF2e, CreatureData } from '@actor/actor-data-definitions';
 import { CombinedTrait } from '../../damage-calculation';
+import { ItemData } from '@item/data-definitions';
 
 /**
  * Use this for automatic damage calculation
@@ -14,41 +15,49 @@ interface TypedDamageCalculation {
     doubleResistanceVsNonMagical?: boolean;
 }
 
-export function isTyped(value: TypedDamageCalculation | UntypedDamageCalculation): value is TypedDamageCalculation {
-    return 'type' in value;
-}
-
 /**
  * Use this for simple descriptions that can not be automated, e.g. Vampire Weaknesses
  */
-export interface UntypedDamageCalculation {
+interface UntypedDamageCalculation {
+    type?: never;
+    value?: never;
     label: string;
     description?: string;
 }
 
+export type DamageCalculation = TypedDamageCalculation | UntypedDamageCalculation;
+
 export interface DamageCalculationRuleData {
     type: 'resistance' | 'immunity' | 'weakness';
-    data: TypedDamageCalculation | UntypedDamageCalculation;
+    data: DamageCalculation;
     predicate: RulePredicate;
 }
 
 export class DamageCalculationRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData) {
-        const rule = duplicate(this.ruleData) as DamageCalculationRuleData;
+    onBeforePrepareData(actorData: CreatureData) {
+        const rule = duplicate(this.ruleData);
         const ruleValue = rule.data;
 
-        if (isTyped(ruleValue)) {
-            if (rule.type === 'resistance' || rule.type === 'weakness') {
-                ruleValue.value = super.resolveValue(ruleValue.value ?? 0, rule, this.item, actorData) as number;
-            }
+        if (typeof ruleValue.type === 'string' && (rule.type === 'resistance' || rule.type === 'weakness')) {
+            ruleValue.value = super.resolveValue(ruleValue.value ?? 0, rule, this.item, actorData);
         }
 
         const data = actorData.data;
-        if (data.damageCalculation === undefined || data.damageCalculation === null) {
+        if (!Array.isArray(data.damageCalculation)) {
             data.damageCalculation = [];
         }
 
         // TODO: evaluate predicate to check whether to add the rule
         data.damageCalculation.push(rule);
     }
+}
+
+export interface DamageCalculationRuleElement {
+    ruleData: DamageCalculationRuleData;
+    resolveValue(
+        valueData: RuleValue,
+        ruleData: DamageCalculationRuleData,
+        item: ItemData,
+        actorData: ActorDataPF2e,
+    ): number;
 }
