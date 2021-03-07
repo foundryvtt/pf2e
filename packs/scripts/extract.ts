@@ -139,9 +139,8 @@ function sanitizeEntity(entityData: PackEntry) {
                 );
             }
         }
-        if (slug) {
-            delete entityData.data.slug;
-        }
+
+        delete entityData.data.slug;
     }
 
     pruneTree(entityData, entityData);

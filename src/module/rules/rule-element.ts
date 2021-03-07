@@ -1,4 +1,4 @@
-import { AnimalCompanionData, CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { CreatureData } from '@actor/actor-data-definitions';
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
@@ -49,7 +49,7 @@ export abstract class PF2RuleElement {
      * multiple times onto a canvas. Works similar to actorUpdates and used if you want to change values on the token
      * object
      */
-    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onCreate(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
@@ -60,7 +60,7 @@ export abstract class PF2RuleElement {
      * @param actorUpdates see onCreate
      * @param tokens see onCreate
      */
-    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onDelete(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
@@ -73,10 +73,7 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(
-        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
-        synthetics: PF2RuleElementSynthetics,
-    ) {}
+    onBeforePrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -84,10 +81,7 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(
-        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
-        synthetics: PF2RuleElementSynthetics,
-    ) {}
+    onAfterPrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.

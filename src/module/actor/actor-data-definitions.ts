@@ -1,7 +1,6 @@
 import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
 import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
-import { DamageCalculationRuleData } from '../rules/elements/damage-calculation';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -244,7 +243,17 @@ export interface ActorSystemData {
     traits: BaseTraitsData;
 }
 
-export interface RawAnimalCompanionData extends ActorSystemData {
+export interface CreatureSystemData extends ActorSystemData {
+    /** Traits, languages, and other information. */
+    traits: CreatureTraitsData;
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+}
+
+export interface RawAnimalCompanionData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -283,20 +292,12 @@ export interface RawAnimalCompanionData extends ActorSystemData {
         [key: string]: any;
     };
 
-    /** Custom character traits, such as damage resistances/immunities. */
-    traits: CreatureTraitsData;
-
-    /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
-    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
-
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for characters. */
-export interface RawCharacterData extends ActorSystemData {
+export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -461,9 +462,6 @@ export interface RawCharacterData extends ActorSystemData {
         resolve: { value: number };
     };
 
-    /** Custom character traits, such as damage resistances/immunities. */
-    traits: CreatureTraitsData;
-
     /** Player skills, used for various skill checks. */
     skills: {
         acr: SkillData;
@@ -483,13 +481,6 @@ export interface RawCharacterData extends ActorSystemData {
         sur: SkillData;
         thi: SkillData;
     };
-
-    /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
-    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
-    /** Adds custom resistances, weaknesses and immunities */
-    damageCalculation: DamageCalculationRuleData[];
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
@@ -517,7 +508,7 @@ export type NPCSkillData = PF2StatisticModifier &
 export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
 
 /** The raw information contained within the actor data object for NPCs. */
-export interface RawNpcData extends ActorSystemData {
+export interface RawNpcData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -583,18 +574,8 @@ export interface RawNpcData extends ActorSystemData {
         familiarAbilities: PF2StatisticModifier;
     };
 
-    /** Traits, languages, and other information. */
-    traits: CreatureTraitsData;
-
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
     skills: Record<string, NPCSkillData>;
-
-    /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
-    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
-    /** Adds custom resistances, weaknesses and immunities */
-    damageCalculation: DamageCalculationRuleData[];
 
     /** Special strikes which the creature can take. */
     actions: CharacterStrike[];
@@ -616,14 +597,7 @@ export interface RawLootData extends ActorSystemData {
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
-export interface RawFamiliarData extends ActorSystemData {
-    /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
-    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
-    /** Adds custom resistances, weaknesses and immunities */
-    damageCalculation: DamageCalculationRuleData[];
-
+export interface RawFamiliarData extends CreatureSystemData {
     attributes: {
         hp: FamiliarHitPointsData;
         ac: { value: number; breakdown: string; check?: number };
@@ -638,9 +612,6 @@ export interface RawFamiliarData extends ActorSystemData {
         [key: string]: any;
     };
 
-    /** Traits, languages, and other information. */
-    traits: CreatureTraitsData;
-
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
@@ -652,49 +623,52 @@ export interface RawVehicleData extends ActorSystemData {
 }
 
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
-export interface ActorEntityData<T extends ActorSystemData> extends ActorData {
+interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
     data: T;
     items: ItemData[];
 }
 
+interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {
+    type: 'character' | 'npc' | 'animalCompanion' | 'familiar';
+}
+
 /** Wrapper type for character-specific data. */
-export interface CharacterData extends ActorEntityData<RawCharacterData> {
+export interface CharacterData extends BaseCreatureData<RawCharacterData> {
     type: 'character';
 }
 
 /** Wrapper type for npc-specific data. */
-export interface NpcData extends ActorEntityData<RawNpcData> {
+export interface NpcData extends BaseCreatureData<RawNpcData> {
     type: 'npc';
 }
 
 /** Wrapper type for hazard-specific data. */
-export interface HazardData extends ActorEntityData<RawHazardData> {
+export interface HazardData extends BaseActorDataPF2e<RawHazardData> {
     type: 'hazard';
 }
 
 /** Wrapper type for loot-specific data. */
-export interface LootData extends ActorEntityData<RawLootData> {
+export interface LootData extends BaseActorDataPF2e<RawLootData> {
     type: 'loot';
 }
 
-export interface FamiliarData extends ActorEntityData<RawFamiliarData> {
+export interface FamiliarData extends BaseCreatureData<RawFamiliarData> {
     type: 'familiar';
 }
 
 /** Wrapper type for vehicle-specific data. */
-export interface VehicleData extends ActorEntityData<RawVehicleData> {
+export interface VehicleData extends BaseActorDataPF2e<RawVehicleData> {
     type: 'vehicle';
 }
 
-export interface AnimalCompanionData extends ActorEntityData<RawAnimalCompanionData> {
+export interface AnimalCompanionData extends BaseCreatureData<RawAnimalCompanionData> {
     type: 'animalCompanion';
 }
 
-export type ActorDataPF2e =
-    | CharacterData
-    | NpcData
-    | HazardData
-    | LootData
-    | FamiliarData
-    | VehicleData
-    | AnimalCompanionData;
+export type CreatureData = CharacterData | NpcData | AnimalCompanionData | FamiliarData;
+
+export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
+
+export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
+    return ['character', 'npc', 'animalCompanion', 'familiar'].includes(actorData.type);
+}

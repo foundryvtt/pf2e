@@ -10,10 +10,10 @@ import {
     ProficiencyModifier,
 } from '../modifiers';
 import { PF2eConditionManager } from '../conditions';
-import { adaptRoll, PF2Check } from '../system/rolls';
+import { adaptRoll, PF2Check } from '@system/rolls';
 import { isCycle } from '@item/container';
-import { TraitSelector5e } from '../system/trait-selector';
-import { DicePF2e } from '../../scripts/dice';
+import { TraitSelector5e } from '@system/trait-selector';
+import { DicePF2e } from '@scripts/dice';
 import { PF2EItem } from '@item/item';
 import {
     ItemData,
@@ -26,15 +26,14 @@ import {
 } from '@item/data-definitions';
 import {
     CharacterData,
-    NpcData,
     InitiativeData,
     DexterityModifierCapData,
-    FamiliarData,
     ActorDataPF2e,
     VehicleData,
     HazardData,
     AbilityString,
-    AnimalCompanionData,
+    isCreatureData,
+    CreatureData,
 } from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
@@ -108,12 +107,6 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
  * @category Actor
  */
 export class PF2EActor extends Actor<PF2EItem> {
-    data!: ActorDataPF2e;
-    _data!: ActorDataPF2e;
-
-    /** The Actor class's type. Set to a meaningful value in the subclasses */
-    static readonly type: string = '???';
-
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -136,7 +129,8 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
-        return `systems/pf2e/icons/default-icons/${this.type}.svg`;
+        const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
+        return match ? `systems/pf2e/icons/default-icons/${match[0]}.svg` : `icons/svg/mystery-man.svg`;
     }
 
     get defaultImg(): string {
@@ -145,29 +139,69 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
      *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
-     @override */
+     * @override
+     */
     static create<A extends PF2EActor>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        data: Partial<A['data']>,
+        data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A>;
     static create<A extends PF2EActor>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        data: Partial<A['data']>[] | Partial<A['data']>,
+        data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A[] | A>;
-    static async create<ActorType extends PF2EActor>(
-        data: Partial<ActorType['data']>[] | Partial<ActorType['data']>,
+    static async create<A extends PF2EActor>(
+        data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
-    ): Promise<ActorType[] | ActorType> {
+    ): Promise<A[] | A> {
         const createData = Array.isArray(data) ? data : [data];
         for (const datum of createData) {
-            if (datum.type === 'loot') {
-                // Make loot actors interactable by default
-                datum.permission = { default: CONST.ENTITY_PERMISSIONS.LIMITED };
+            // Set the default image according to the actor's type
+            datum.img ??= CONFIG.PF2E.Actor.entityClasses[datum.type].defaultImg;
+
+            if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+                // Set wounds, advantage, and display name visibility
+                const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName') as string;
+                const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar') as number;
+                const merged = mergeObject(datum, {
+                    permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                    token: {
+                        bar1: { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
+                        displayName: nameMode, // Default display name to be on owner hover
+                        displayBars: barMode, // Default display bars to be on owner hover
+                        name: datum.name, // Set token name to actor name
+                    },
+                });
+
+                switch (merged.type) {
+                    case 'animalCompanion':
+                    case 'character':
+                    case 'familiar':
+                        // Default characters and their minions to having tokens with vision and an actor link
+                        merged.token.actorLink = true;
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                        merged.token.vision = true;
+                        break;
+                    case 'loot':
+                        // Make loot actors interactable and neutral disposition
+                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                        break;
+                    case 'npc':
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        break;
+                    default:
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                }
+
+                // Swap out the initial pre-create actor data for the expanded copy
+                const index = createData.indexOf(datum);
+                createData[index] = merged;
             }
         }
-        return super.create(data, options) as Promise<ActorType>;
+
+        return super.create(data, options) as Promise<A[] | A>;
     }
 
     /**
@@ -306,25 +340,23 @@ export class PF2EActor extends Actor<PF2EItem> {
     /* -------------------------------------------- */
 
     onCreateOwnedItem(child, options, userId) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
-        if (!this.can(game.user, 'update')) return;
+        if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
-            rule.onCreate(<CharacterData | NpcData>this.data, child, actorUpdates, Object.values(tokens));
+            rule.onCreate(this.data, child, actorUpdates, Object.values(tokens));
         }
         this._updateAllTokens(actorUpdates, tokens);
     }
 
     onDeleteOwnedItem(child, options, userId) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) return;
-        if (!this.can(game.user, 'update')) return;
+        if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
-            rule.onDelete(<CharacterData | NpcData>this.data, child, actorUpdates, Object.values(tokens));
+            rule.onDelete(this.data, child, actorUpdates, Object.values(tokens));
         }
         this._updateAllTokens(actorUpdates, tokens);
     }
@@ -413,10 +445,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected _prepareCustomModifiers(
-        actorData: CharacterData | NpcData | FamiliarData | AnimalCompanionData,
-        rules: PF2RuleElement[],
-    ): PF2RuleElementSynthetics {
+    protected _prepareCustomModifiers(actorData: CreatureData, rules: PF2RuleElement[]): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const statisticsModifiers: Record<string, PF2Modifier[]> = {};
         const damageDice: Record<string, PF2DamageDice[]> = {};
@@ -1151,7 +1180,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     ) {
         // TODO: Consider adding another 'addCustomModifier' function in the future which takes a full PF2Modifier object,
         // similar to how addDamageDice operates.
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom modifiers only work for characters, NPCs, and familiars');
         }
 
@@ -1180,7 +1209,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Removes a custom modifier by name. */
     async removeCustomModifier(stat: string, modifier: number | string) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom modifiers only work for characters, NPCs, and familiars');
         }
 
@@ -1199,10 +1228,10 @@ export class PF2EActor extends Actor<PF2EItem> {
     /**
      * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
      *
-     * @param {DexterityModifierCapData} dexCap
+     * @param dexCap
      */
     async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
         }
         if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
@@ -1219,7 +1248,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Removes a previously added Dexterity modifier cap to AC.
      */
     async removeDexterityModifierCap(source: string) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
         }
         if (!source) {
@@ -1235,7 +1264,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Adds custom damage dice. */
     async addDamageDice(param: PF2DamageDice) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom damage dice only work for characters, NPCs, and familiars');
         }
 
@@ -1256,7 +1285,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Removes damage dice by name. */
     async removeDamageDice(selector: string, dice: number | string) {
-        if (!['character', 'npc', 'familiar'].includes(this.data.type)) {
+        if (!isCreatureData(this.data)) {
             throw Error('Custom damage dice only work for characters, NPCs, and familiars');
         }
 
@@ -1336,19 +1365,21 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export class PF2EHazard extends PF2EActor {
-    data!: HazardData;
-    _data!: HazardData;
-
-    /** @override */
-    static readonly type = 'hazard';
+export interface PF2EActor {
+    data: ActorDataPF2e;
+    _data: ActorDataPF2e;
 }
-export class PF2EVehicle extends PF2EActor {
-    data!: VehicleData;
-    _data!: VehicleData;
 
-    /** @override */
-    static readonly type = 'vehicle';
+export class PF2EHazard extends PF2EActor {}
+export interface PF2EHazard {
+    data: HazardData;
+    _data: HazardData;
+}
+
+export class PF2EVehicle extends PF2EActor {}
+export interface PF2EVehicle {
+    data: VehicleData;
+    _data: VehicleData;
 }
 
 export type TokenPF2e = Token<PF2EActor>;

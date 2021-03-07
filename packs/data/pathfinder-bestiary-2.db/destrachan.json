@@ -404,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -479,16 +482,16 @@
                     "damageType": "piercing",
                     "die": "2d8+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+10",
                         "damageType": "piercing"
                     },
-                    {
+                    "1": {
                         "damage": "1d8",
                         "damageType": "sonic"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -570,6 +573,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -628,12 +632,12 @@
                     "damageType": "slashing",
                     "die": "2d8+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+10",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -715,6 +719,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -770,6 +775,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -807,12 +813,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The destrachan emits a harsh sonic cry that deals [[/r 9d6 # sonic damage]] sonic damage (DC 26 basic Reflex save) in either a 60-foot cone or a 30-foot burst. It can't use Destructive Harmonics again for 1d4 rounds."
+                    "value": "<p>The destrachan emits a harsh sonic cry that deals [[/r 9d6 #sonic]] sonic damage (DC 26 basic Reflex save) in either a 60-foot cone or a 30-foot burst.</p>\n<p>It can't use Destructive Harmonics again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -821,6 +827,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -848,7 +855,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Destructive Harmonics",
             "sort": 400000,
             "type": "action"
@@ -863,12 +870,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The destrachan emits a sonic cry in either a 60-foot cone or a 30-foot burst. This discordant ululation resonates along the nerves and bones of living creatures in the area, manifesting as waves of incapacitating pain washing over the victims. Each living creature in the area must attempt a DC 26 Fortitude save. The destrachan can't use Painful Harmonics again for 1d4 rounds. <br /><b>Critical Success </b>The creature is unaffected. <br /><b>Success </b>The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 for 1 round. <br /><b>Failure </b>The creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 3 rounds and @Compendium[pf2e.conditionitems.Stunned]{Stunned} 2. <br /><b>Critical Failure </b>The creature is deafened for 1 minute and stunned 3."
+                    "value": "<p>The destrachan emits a sonic cry in either a 60-foot cone or a 30-foot burst. This discordant ululation resonates along the nerves and bones of living creatures in the area, manifesting as waves of incapacitating pain washing over the victims. Each living creature in the area must attempt a DC 26 Fortitude save.</p>\n<p>The destrachan can't use Painful Harmonics again for [[/r 1d4 #rounds]] rounds. </p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected. </p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} for 1 round. </p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 3 rounds and @Compendium[pf2e.conditionitems.Stunned]{Stunned 2}. </p>\n<p><strong>Critical Failure</strong> The creature is deafened for 1 minute and @Compendium[pf2e.conditionitems.Stunned]{Stunned 3}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -877,6 +884,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -904,7 +912,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Painful Harmonics",
             "sort": 500000,
             "type": "action"
@@ -919,12 +927,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The destrachan focuses its harmonics against a single item within 60 feet that is made of crystal, metal, stone, or wood. The target object takes [[/r 7d8 # sonic damage]] sonic damage. If the item is attended, its bearer can attempt a DC 26 basic Reflex save for the item. The destrachan can't use Shattering Harmonics again for 1d4 rounds."
+                    "value": "<p>The destrachan focuses its harmonics against a single item within 60 feet that is made of crystal, metal, stone, or wood. The target object takes [[/r 7d8 #sonic]] sonic damage. If the item is attended, its bearer can attempt a DC 26 basic Reflex save for the item.</p>\n<p>The destrachan can't use Shattering Harmonics again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -933,6 +941,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -959,7 +968,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Shattering Harmonics",
             "sort": 600000,
             "type": "action"
@@ -985,6 +994,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1027,6 +1037,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1069,6 +1080,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1089,6 +1101,66 @@
             "name": "Survival",
             "sort": 900000,
             "type": "lore"
+        },
+        {
+            "_id": "449Q2FxfxpPGXwSx",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "vs Sonic",
+                        "predicate": {
+                            "all": [
+                                "sonic"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+4 Status Bonus to Saves vs Sonic",
+            "sort": 1000000,
+            "type": "action"
         }
     ],
     "name": "Destrachan",
@@ -1096,7 +1168,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "xUtl7Nkb6iJpPUMK",
         "actorLink": false,
         "bar1": {
@@ -1115,6 +1186,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Destrachan",
         "randomImg": false,

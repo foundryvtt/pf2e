@@ -5,7 +5,7 @@ declare interface BaseEntityData {
     name: string;
     flags: Record<string, any>;
     folder: string | null | undefined;
-    permission: Record<string, typeof CONST.USER_ROLES[keyof typeof CONST.USER_ROLES]>;
+    permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
     img: string;
 }
 

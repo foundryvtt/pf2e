@@ -323,3 +323,18 @@ declare interface Actor<ItemType extends Item = Item> {
     data: ActorData<ItemType['data']>;
     _data: ActorData<ItemType['data']>;
 }
+
+declare type PreCreate<D extends ActorData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
+
+declare namespace Actor {
+    function create<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: PreCreate<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A>;
+    function create<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: PreCreate<A['data']> | PreCreate<A['data']>[],
+        options?: EntityCreateOptions,
+    ): Promise<A[] | A>;
+}

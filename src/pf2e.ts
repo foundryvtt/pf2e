@@ -6,7 +6,6 @@ import { PF2RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
 import { ItemData } from '@item/data-definitions';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { PF2EItem } from './module/item/item';
 import { PF2EActor } from './module/actor/actor';
 import { PF2ENPC } from './module/actor/npc';
@@ -155,35 +154,6 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
         },
     );
     return options;
-});
-
-Hooks.on('preCreateActor', (actorData: Partial<ActorDataPF2e>, _dir: ActorDirectory) => {
-    actorData.img = (() => {
-        if (actorData.img !== undefined) {
-            return actorData.img;
-        }
-        return CONFIG.PF2E.Actor.entityClasses[actorData.type].defaultImg;
-    })();
-
-    if (game.settings.get('pf2e', 'defaultTokenSettings')) {
-        // Set wounds, advantage, and display name visibility
-        const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
-        const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
-        mergeObject(actorData, {
-            'token.bar1': { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
-            'token.displayName': nameMode, // Default display name to be on owner hover
-            'token.displayBars': barMode, // Default display bars to be on owner hover
-            'token.disposition': CONST.TOKEN_DISPOSITIONS.HOSTILE, // Default disposition to hostile
-            'token.name': actorData.name, // Set token name to actor name
-        });
-
-        // Default characters to HasVision = true and Link Data = true
-        if (actorData.type === 'character') {
-            actorData.token.vision = true;
-            actorData.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
-            actorData.token.actorLink = true;
-        }
-    }
 });
 
 Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
