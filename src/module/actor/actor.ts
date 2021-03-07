@@ -139,29 +139,69 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
      *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
-     @override */
+     * @override
+     */
     static create<A extends PF2EActor>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        data: Partial<A['data']>,
+        data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A>;
     static create<A extends PF2EActor>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        data: Partial<A['data']>[] | Partial<A['data']>,
+        data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A[] | A>;
-    static async create<ActorType extends PF2EActor>(
-        data: Partial<ActorType['data']>[] | Partial<ActorType['data']>,
+    static async create<A extends PF2EActor>(
+        data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
-    ): Promise<ActorType[] | ActorType> {
+    ): Promise<A[] | A> {
         const createData = Array.isArray(data) ? data : [data];
         for (const datum of createData) {
-            if (datum.type === 'loot') {
-                // Make loot actors interactable by default
-                datum.permission = { default: CONST.ENTITY_PERMISSIONS.LIMITED };
+            // Set the default image according to the actor's type
+            datum.img ??= CONFIG.PF2E.Actor.entityClasses[datum.type].defaultImg;
+
+            if (game.settings.get('pf2e', 'defaultTokenSettings')) {
+                // Set wounds, advantage, and display name visibility
+                const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName') as string;
+                const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar') as number;
+                const merged = mergeObject(datum, {
+                    permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
+                    token: {
+                        bar1: { attribute: 'attributes.hp' }, // Default Bar 1 to Wounds
+                        displayName: nameMode, // Default display name to be on owner hover
+                        displayBars: barMode, // Default display bars to be on owner hover
+                        name: datum.name, // Set token name to actor name
+                    },
+                });
+
+                switch (merged.type) {
+                    case 'animalCompanion':
+                    case 'character':
+                    case 'familiar':
+                        // Default characters and their minions to having tokens with vision and an actor link
+                        merged.token.actorLink = true;
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.FRIENDLY;
+                        merged.token.vision = true;
+                        break;
+                    case 'loot':
+                        // Make loot actors interactable and neutral disposition
+                        merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                        break;
+                    case 'npc':
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.HOSTILE;
+                        break;
+                    default:
+                        merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
+                }
+
+                // Swap out the initial pre-create actor data for the expanded copy
+                const index = createData.indexOf(datum);
+                createData[index] = merged;
             }
         }
-        return super.create(data, options) as Promise<ActorType>;
+
+        return super.create(data, options) as Promise<A[] | A>;
     }
 
     /**
