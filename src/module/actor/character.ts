@@ -11,8 +11,8 @@ import {
     SpellDifficultyClass,
     WeaponData,
 } from '@item/data-definitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getResiliencyBonus } from '../item/runes';
+import { PF2EItem } from '@item/item';
+import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -26,9 +26,9 @@ import {
     WISDOM,
 } from '../modifiers';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
-import { PF2WeaponDamage } from '../system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { PF2EActor, SKILL_DICTIONARY } from './actor';
+import { PF2WeaponDamage } from '@system/damage/weapon';
+import { PF2Check, PF2DamageRoll } from '@system/rolls';
+import { SKILL_DICTIONARY } from './actor';
 import {
     AbilityString,
     CharacterData,
@@ -39,19 +39,14 @@ import {
 } from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
-import { toNumber } from '../utils';
-import { adaptRoll } from '../system/rolls';
+import { toNumber } from '@utils';
+import { adaptRoll } from '@system/rolls';
 import { PF2EAncestry } from '@item/ancestry';
 import { PF2EBackground } from '@item/background';
 import { PF2EClass } from '@item/class';
+import { PF2ECreature } from './creature';
 
-export class PF2ECharacter extends PF2EActor {
-    data!: CharacterData;
-    _data!: CharacterData;
-
-    /** @override */
-    static readonly type = 'character';
-
+export class PF2ECharacter extends PF2ECreature {
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -1029,4 +1024,9 @@ export class PF2ECharacter extends PF2EActor {
             }
         }
     }
+}
+
+export interface PF2ECharacter {
+    data: CharacterData;
+    _data: CharacterData;
 }
