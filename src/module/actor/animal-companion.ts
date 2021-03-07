@@ -1,11 +1,9 @@
 import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
-import { PF2EActor } from './actor';
 import { RawAnimalCompanionData, AnimalCompanionData } from './actor-data-definitions';
+import { PF2ECreature } from './creature';
 
-export class PF2EAnimalCompanion extends PF2EActor {
-    data!: AnimalCompanionData;
-
+export class PF2EAnimalCompanion extends PF2ECreature {
     /** @override */
     static readonly type = 'animalCompanion';
 
@@ -37,4 +35,9 @@ export class PF2EAnimalCompanion extends PF2EActor {
             data.details.level = data.master.level;
         }
     }
+}
+
+export interface PF2EAnimalCompanion {
+    data: AnimalCompanionData;
+    _data: AnimalCompanionData;
 }

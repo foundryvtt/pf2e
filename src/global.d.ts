@@ -63,5 +63,14 @@ declare global {
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<PF2EActor>;
     let PF2e: PF2eSystem;
+
+    interface ClientSettings {
+        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
+    }
+
+    interface WorldSettingsStorage {
+        getItem(setting: 'pf2e.worldSchemaVersion'): string;
+    }
+
     const BUILD_MODE: 'development' | 'production';
 }

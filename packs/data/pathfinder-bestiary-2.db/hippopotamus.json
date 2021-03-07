@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -558,6 +562,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -705,6 +710,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -758,6 +764,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -786,7 +793,7 @@
             "type": "action"
         },
         {
-            "_id": "vXaefltpD9DEud5f",
+            "_id": "HWUmjgOASJXWhmgn",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -795,12 +802,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "30 feet<br /><b>Requirements</b> The monster is hiding in water and a creature that hasn't detected it is within the listed number of feet. <b>Effect</b> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike."
+                    "value": "<p>30 feet</p>\n<p><strong>Requirements</strong> The monster is hiding in water and a creature that hasn't detected it is within the listed number of feet.</p>\n<p><strong>Effect</strong> The monster moves up to its swim Speed + 10 feet toward the triggering creature, traveling on water and on land. Once the creature is in reach, the monster makes a Strike against it. The creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -809,6 +816,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "aquatic-ambush",
                 "source": {
                     "value": ""
                 },
@@ -822,16 +830,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.HBrBrUzjfvj2gDXB"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Aquatic Ambush",
             "sort": 400000,
             "type": "action"
@@ -860,6 +869,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -890,7 +900,7 @@
             "type": "action"
         },
         {
-            "_id": "06QiW8NcWl6EsDqi",
+            "_id": "G0pgg8gIhgw18USv",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -899,12 +909,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Medium or smaller, foot, DC 23<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC."
+                    "value": "<p>Medium or smaller, foot, DC 23</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -913,6 +923,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
@@ -926,16 +937,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
             "sort": 600000,
             "type": "action"
@@ -961,6 +973,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1002,7 +1015,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Water",
+                        "predicate": {
+                            "all": [
+                                "terrain:water"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1015,6 +1041,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 in Water",
+                        "options": "terrain:water"
+                    }
                 }
             },
             "effects": [],
@@ -1045,6 +1077,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1072,7 +1105,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "5CixyyBkCLj2VI8q",
         "actorLink": false,
         "bar1": {
@@ -1091,6 +1123,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Hippopotamus",
         "randomImg": false,

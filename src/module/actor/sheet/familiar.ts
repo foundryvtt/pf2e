@@ -21,21 +21,28 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar> {
     }
 
     getData() {
-        const sheet = super.getData();
-
+        const familiar = this.actor;
         // find all owners, which are the list of all potential masters
-        const owners = Object.entries(this.actor.data.permission)
-            .filter(([id, permission], idx) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
-            .map(([userID, _], idx) => game.users.get(userID));
-        (sheet as any).masters = game.actors.entities
+        const owners = Object.entries(familiar.data.permission)
+            .filter(([_id, permission]) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
+            .flatMap(([userID]) => game.users.get(userID) ?? []);
+        const masters = game.actors.entities
             .filter((actor) => ['character', 'npc'].includes(actor.data.type))
             .filter((actor) => actor.hasPerm(game.user, 'OWNER'))
             .filter((actor) => owners.some((owner) => actor.hasPerm(owner, 'OWNER')));
 
         // list of abilities that can be selected as spellcasting ability
-        (sheet as any).abilities = CONFIG.PF2E.abilities;
+        const abilities = CONFIG.PF2E.abilities;
 
-        return sheet;
+        const size = CONFIG.PF2E.actorSizes[familiar.data.data.traits.size.value] ?? null;
+
+        return {
+            ...super.getData(),
+            owners,
+            masters,
+            abilities,
+            size,
+        };
     }
 
     /** @override */
