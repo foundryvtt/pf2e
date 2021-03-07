@@ -730,6 +730,7 @@ export const PF2ECONFIG = {
         'versatile-p': 'PF2E.TraitVersatileP',
         'versatile-b': 'PF2E.TraitVersatileB',
         'volley-30': 'PF2E.TraitVolley30',
+        water: 'PF2E.TraitWater',
         'modular-b-P-or-s': 'PF2E.TraitModular',
     },
 
