@@ -32,7 +32,7 @@
             {{/select}}
           </select>
           <div><b>Master Level</b> {{data.master.level}}</div>
-          
+
           <div>
             <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
             <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
@@ -46,14 +46,14 @@
 
           <div title="{{data.master.familiarAbilities.breakdown}}"><b>Total # of Familiar Abilities</b> {{numberFormat data.master.familiarAbilities.value decimals=0}}</div>
         </div>
-  
+
       <div class="basic-stats">
         <h2>Familiar</h2>
         <label for="{{data._id}}-species"><b>Creature</b></label>
         <input id="{{data._id}}-species" name="data.details.creature.value" value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc."/>
         <div>
           <b>Size</b>
-          <span>{{localize (add 'PF2E.ActorSize' data.traits.size.label)}}</span>
+          <span>{{localize size}}</span>
         </div>
         <div title="{{data.attributes.perception.breakdown}}" data-perception-check>
           <b>Perception</b>
@@ -76,7 +76,7 @@
           </span>
         </div>
       </div>
-  
+
       <div class="defense">
         <h2>Defenses</h2>
         <label for="{{data._id}}-hit-points"><b>Hit Points</b></label>
@@ -94,13 +94,13 @@
         </div>
         {{/each}}
       </div>
-        
+
       <div class="offense" title="{{data.attack.breakdown}}" data-attack-roll>
         <h2>Offenses</h2>
         <b>Attack Roll</b>
         <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
       </div>
-  
+
       <div class="skills">
         <h2>Skills</h2>
         <div class="skill-list">
@@ -112,7 +112,7 @@
           {{/each}}
         </div>
       </div>
-      
+
       <div class="conditions">
         <h2>{{localize 'PF2E.ConditionsLabel'}}</h2>
         <ol class="item-list">
