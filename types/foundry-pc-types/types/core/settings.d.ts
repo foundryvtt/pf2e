@@ -24,6 +24,11 @@ declare interface SettingsMenuData {
     restricted: boolean;
 }
 
+declare interface ClientSettingsStorage extends Map<string, Storage | WorldSettingsStorage> {
+    get(key: 'client'): Storage;
+    get(key: 'world'): WorldSettingsStorage;
+}
+
 /**
  * An abstract interface for defining setting storage patterns
  * Each setting is a key/value pair
@@ -41,7 +46,7 @@ declare class ClientSettings {
      * The storage interfaces used for persisting settings
      * Each storage interface shares the same API as window.localStorage
      */
-    storage: Map<string, Window['localStorage'] | WorldSettingsStorage>;
+    storage: ClientSettingsStorage;
 
     constructor(worldSettings: ClientSettingsData);
 
@@ -146,7 +151,7 @@ declare class ClientSettings {
 declare class WorldSettingsStorage {
     constructor(settings: object);
 
-    getItem(key: string): any;
+    getItem(key: string): unknown;
 
-    setItem(key: string, value: any): void;
+    setItem(key: string, value: unknown): void;
 }
