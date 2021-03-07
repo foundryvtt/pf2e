@@ -195,8 +195,8 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
             .replace(/<([hb]r)>/g, '<$1 />') // Restore Foundry's self-closing tags
             .replace(/(<p>)[\s\r\n]/g, '<p>')
             .replace(/[\s\r\n]+(<\/p>)/g, '</p>')
-            .replace(/<b>\s*/g, '<strong>')
-            .replace(/\s*<\/b>/g, '</strong>')
+            .replace(/<(?:b|strong)>\s*/g, '<strong>')
+            .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
             .replace(/(<\/strong>)(\w)/g, '$1 $2')
             .replaceAll('<p></p>', '')
             .replace(/\s{2,}/g, ' ')
@@ -259,7 +259,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_id":")${entityId}`, 'g');
+        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, 'g');
         return partiallyConverted.replace(replacePattern, entityName);
     }, entityJson);
 
