@@ -69,7 +69,8 @@ declare global {
     }
 
     interface WorldSettingsStorage {
-        getItem(setting: 'pf2e.worldSchemaVersion'): string;
+        get(setting: 'pf2e.worldSchemaVersion'): string | undefined;
+        getItem(setting: 'pf2e.worldSchemaVersion'): string | null;
     }
 
     const BUILD_MODE: 'development' | 'production';
