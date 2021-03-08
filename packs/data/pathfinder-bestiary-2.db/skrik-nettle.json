@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -460,8 +464,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "skrik nettle venom"
+                        "Skrik Nettle Venom"
                     ]
                 },
                 "bonus": {
@@ -484,12 +489,12 @@
                     "damageType": "piercing",
                     "die": "2d8+6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+6",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -571,6 +576,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -628,6 +634,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -662,7 +669,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -670,7 +677,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> The skrik nettle takes piercing or slashing damage; <b>Effect</b> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom."
+                    "value": "<p><strong>Trigger</strong> The skrik nettle takes piercing or slashing damage;</p>\n<p><strong>Effect</strong> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -679,6 +686,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -701,13 +709,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Spill Venom ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Spill Venom",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "vkjrlqVeoPXsTlWr",
+            "_id": "TiwbvxPlw9YpIo3H",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -721,7 +729,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A monster with this ability regains the given number of Hit Points each round at the beginning of its turn."
+                    "value": "<p>A monster with this ability regains the given number of Hit Points each round at the beginning of its turn.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -730,6 +738,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -743,17 +752,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Fast Healing",
+            "name": "Fast Healing 5",
             "sort": 400000,
             "type": "action"
         },
@@ -767,7 +777,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -781,6 +791,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -806,7 +817,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Negate Levitation",
             "sort": 500000,
             "type": "action"
@@ -826,7 +837,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 27 Fortitude; <b>Maximum Duration</b> 6 rounds; <b>Stage 1</b> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1 and levitate upward 5 feet (1 round); <b>Stage 2</b> clumsy 2 and levitate upward 10 feet (1 round)<br /> A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by climbing (if the surface is vertical) or crawling (if the surface is horizontal, such as a ceiling). A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom."
+                    "value": "<p><strong>Saving Throw</strong> DC 27 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and levitate upward 5 feet (1 round);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and levitate upward 10 feet (1 round)</p>\n<p>A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an @Compendium[pf2e.actionspf2e.Interact]{Interact} action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by @Compendium[pf2e.actionspf2e.Climb]{Climbing} (if the surface is vertical) or @Compendium[pf2e.actionspf2e.Crawl]{Crawling} (if the surface is horizontal, such as a ceiling). A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -835,6 +846,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -887,6 +899,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -914,7 +927,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "LtaVzD7ADtWmBWap",
         "actorLink": false,
         "bar1": {
@@ -933,6 +945,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Skrik Nettle",
         "randomImg": false,
