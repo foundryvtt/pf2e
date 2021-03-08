@@ -146,7 +146,7 @@ export const PF2ECONFIG = {
         dragonhide: 'PF2E.PreciousMaterialDragonhide',
         mithral: 'PF2E.PreciousMaterialMithral',
         orichalcum: 'PF2E.PreciousMaterialOrichalcum',
-        silver: 'PF2E.PreciousMaterialSilver',     
+        silver: 'PF2E.PreciousMaterialSilver',
         'sovereign steel': 'PF2E.PreciousMaterialSovereignSteel',
         warpglass: 'PF2E.PreciousMaterialWarpglass',
     },
