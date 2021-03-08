@@ -24,26 +24,27 @@ export function isDamageType(value: string): value is DamageType {
 }
 
 const attackTraits = new Set([
-    'light',
-    'salt',
-    'salt water',
-    'water',
-    'earth',
-    'fire',
+    'adamantine',
     'air',
     'area-damage',
-    'persistent-damage',
-    'magical',
-    'adamantine',
     'coldiron',
-    'ghostTouch',
     'darkwood',
+    'earth',
+    'fire',
+    'ghostTouch',
+    'light',
+    'magical',
     'mithral',
+    'nonlethal attacks', // has to be present on every damage type pool!
+    'persistent-damage',
+    'salt',
+    'salt water',
     'silver',
     'orichalcum',
-    'nonlethal attacks', // has to be present on every damage type pool!
-    'vorpal',
     'unarmed',
+    'vorpal',
+    'warpglass',
+    'water',
 ] as const);
 
 export type AttackTrait = SetElement<typeof attackTraits>;
