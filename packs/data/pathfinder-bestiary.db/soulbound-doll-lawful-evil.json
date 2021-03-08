@@ -1,5 +1,5 @@
 {
-    "_id": "XQIY0nY5t2Pi9ytc",
+    "_id": "PchPjj44IRiELewQ",
     "data": {
         "abilities": {
             "cha": {
@@ -122,7 +122,7 @@
         "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "CN"
+                "value": "LE"
             },
             "ancestry": {
                 "value": ""
@@ -514,6 +514,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -775,7 +778,7 @@
             "type": "spell"
         },
         {
-            "_id": "jeDwvQ0xCoUQS1Wm",
+            "_id": "MAcSTRu08PSC4Y8q",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -789,7 +792,7 @@
                     "value": null
                 },
                 "areasize": {
-                    "value": "4 contiguous 5-foot squares or Targets 1 object of 1 Bulk or less"
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -805,27 +808,27 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": ""
+                    "value": "5d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": ""
+                    "value": "cold"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You conjure grease, with effects based on choosing area or target.</p>\n<ul>\n<li><strong>Area</strong> <strong>[4 contiguous 5-foot squares]</strong> All solid ground in the area is covered with grease. Each creature standing on the greasy surface must succeed at a Reflex save or an Acrobatics check against your spell DC or fall @Compendium[pf2e.conditionitems.Prone]{Prone}. Creatures using an action to move onto the greasy surface during the spell's duration must attempt either a Reflex save or an Acrobatics check to Balance. A creature that Steps or Crawls doesn't have to attempt a check or save.</li>\n<li><strong>Target</strong> <strong>[1 object of Bulk 1 or less]</strong> If you cast the spell on an unattended object, anyone trying to pick up the object must succeed at an Acrobatics check or Reflex save against your spell DC to do so. If you target an attended object, the creature that has the object must attempt an Acrobatics check or Reflex save. On a failure, the holder or wielder takes a -2 circumstance penalty to all checks that involve using the object; on a critical failure, the holder or wielder releases the item. The object lands in an adjacent square of the GM's choice. If you cast this spell on a worn object, the wearer gains a +2 circumstance bonus to Fortitude saves against attempts to grapple them.</li>\n</ul>"
+                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": "1 minute"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -851,7 +854,7 @@
                 "range": {
                     "label": "Range",
                     "type": "String",
-                    "value": "30 feet"
+                    "value": "120 feet"
                 },
                 "rarity": {
                     "value": "common"
@@ -861,16 +864,16 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": "reflex"
+                    "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
-                    "value": "con"
+                    "value": "evo"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -878,11 +881,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "grease",
+                "slug": "chilling-darkness",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=140"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=36"
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -893,7 +896,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "save"
+                    "value": "attack"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -903,7 +906,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 object of Bulk 1 or less"
+                    "value": "1 creature"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -914,8 +917,7 @@
                     "label": "Spell Traditions",
                     "type": "String",
                     "value": [
-                        "arcane",
-                        "primal"
+                        "divine"
                     ]
                 },
                 "traits": {
@@ -926,18 +928,22 @@
                     },
                     "type": "String",
                     "value": [
-                        "conjuration"
+                        "attack",
+                        "cold",
+                        "darkness",
+                        "evil",
+                        "evocation"
                     ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.Wu0xFpewMKRK3HG8"
+                    "sourceId": "Compendium.pf2e.spells-srd.sRfSBHWHdbIa0aGc"
                 }
             },
-            "img": "systems/pf2e/icons/spells/grease.jpg",
-            "name": "Grease",
+            "img": "systems/pf2e/icons/spells/chilling-darkness.jpg",
+            "name": "Chilling Darkness",
             "sort": 300000,
             "type": "spell"
         },
@@ -1594,9 +1600,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
             "sort": 700000,
@@ -1617,7 +1621,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits."
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1784,17 +1788,19 @@
             "type": "lore"
         }
     ],
-    "name": "Soulbound Doll [CN]",
+    "name": "Soulbound Doll (Lawful Evil)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "XQIY0nY5t2Pi9ytc",
+        "actorId": "PchPjj44IRiELewQ",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1803,23 +1809,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 0.75,
+        "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Soulbound Doll [CN]",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Soulbound Doll (Lawful Evil)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 0.75
+        "width": 1
     },
     "type": "npc"
 }

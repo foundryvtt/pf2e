@@ -1,5 +1,5 @@
 {
-    "_id": "WTU9W9EGSa6kBGRA",
+    "_id": "PGuDeJzIitRK8GJj",
     "data": {
         "abilities": {
             "cha": {
@@ -122,7 +122,7 @@
         "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "N"
+                "value": "CE"
             },
             "ancestry": {
                 "value": ""
@@ -514,6 +514,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -775,7 +778,7 @@
             "type": "spell"
         },
         {
-            "_id": "L1W8Iz7tC8CHLZiC",
+            "_id": "JUOVjO0E9fLs2r2z",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -794,7 +797,7 @@
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": "material, somatic, verbal"
+                    "value": "somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -805,24 +808,24 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "3d4"
+                    "value": "6d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "piercing"
+                    "value": "negative"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 5-foot-by-5-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": "1 minute"
+                    "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
@@ -851,26 +854,26 @@
                 "range": {
                     "label": "Range",
                     "type": "String",
-                    "value": "60 feet"
+                    "value": "touch"
                 },
                 "rarity": {
                     "value": "common"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "1d4",
+                    "formula": "2d6",
                     "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
-                    "value": "con"
+                    "value": "nec"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -878,11 +881,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "wall-of-thorns",
+                "slug": "vampiric-touch",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=366"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=354"
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -893,7 +896,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -903,18 +906,20 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": ""
+                    "value": "1 living creature"
                 },
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "3"
+                    "value": "2"
                 },
                 "traditions": {
                     "label": "Spell Traditions",
                     "type": "String",
                     "value": [
-                        "primal"
+                        "arcane",
+                        "divine",
+                        "occult"
                     ]
                 },
                 "traits": {
@@ -925,19 +930,20 @@
                     },
                     "type": "String",
                     "value": [
-                        "conjuration",
-                        "plant"
+                        "death",
+                        "necromancy",
+                        "negative"
                     ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.KsWhliKfUs3IpW3c"
+                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
                 }
             },
-            "img": "systems/pf2e/icons/spells/wall-of-thorns.jpg",
-            "name": "Wall of Thorns",
+            "img": "systems/pf2e/icons/spells/vampiric-touch.jpg",
+            "name": "Vampiric Touch",
             "sort": 300000,
             "type": "spell"
         },
@@ -1594,9 +1600,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
             "sort": 700000,
@@ -1617,7 +1621,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits."
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1784,17 +1788,19 @@
             "type": "lore"
         }
     ],
-    "name": "Soulbound Doll [TN]",
+    "name": "Soulbound Doll (Chaotic Evil)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "WTU9W9EGSa6kBGRA",
+        "actorId": "PGuDeJzIitRK8GJj",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1803,23 +1809,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 0.75,
+        "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Soulbound Doll [N]",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Soulbound Doll (Chaotic Evil)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 0.75
+        "width": 1
     },
     "type": "npc"
 }

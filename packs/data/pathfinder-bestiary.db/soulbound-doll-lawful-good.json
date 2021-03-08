@@ -1,5 +1,5 @@
 {
-    "_id": "IXB2D5FPi9gDkq3N",
+    "_id": "uVxYPqrGo951X0Nb",
     "data": {
         "abilities": {
             "cha": {
@@ -122,7 +122,7 @@
         "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "LE"
+                "value": "LG"
             },
             "ancestry": {
                 "value": ""
@@ -514,6 +514,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -775,7 +778,7 @@
             "type": "spell"
         },
         {
-            "_id": "MAcSTRu08PSC4Y8q",
+            "_id": "ZSQddyxGG28wJkoT",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -783,13 +786,13 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
+                    "areaType": "burst",
                     "label": "Area",
                     "type": "String",
-                    "value": null
+                    "value": 20
                 },
                 "areasize": {
-                    "value": ""
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -805,27 +808,27 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "5d6"
+                    "value": ""
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "cold"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
+                    "value": "<p>You designate an area in which creatures are compelled to speak only truth. Creatures within or entering the area have difficulty lying. Each potentially affected creature must attempt a Will save when the spell is cast or when the creature first enters the area. It uses the results of this initial save if it leaves and reenters the area. Affected creatures are aware of this enchantment; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes a -2 status penalty to Deception checks.</p>\n<p><strong>Failure</strong> The target can't speak any deliberate and intentional lies, and it takes a -2 status penalty to Deception checks.</p>\n<p><strong>Critical Failure</strong> The target can't speak any deliberate and intentional lies and takes a -4 status penalty to Deception checks.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": ""
+                    "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": true
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -851,7 +854,7 @@
                 "range": {
                     "label": "Range",
                     "type": "String",
-                    "value": "120 feet"
+                    "value": "30 feet"
                 },
                 "rarity": {
                     "value": "common"
@@ -861,16 +864,16 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
-                    "formula": "2d6",
-                    "mode": "level1"
+                    "formula": "",
+                    "mode": "none"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
-                    "value": "evo"
+                    "value": "enc"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -878,11 +881,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "chilling-darkness",
+                "slug": "zone-of-truth",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=36"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=379"
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -893,7 +896,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "attack"
+                    "value": "save"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -903,7 +906,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature"
+                    "value": ""
                 },
                 "time": {
                     "label": "Casting Time",
@@ -914,33 +917,32 @@
                     "label": "Spell Traditions",
                     "type": "String",
                     "value": [
-                        "divine"
+                        "divine",
+                        "occult"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
-                        "attack",
-                        "cold",
-                        "darkness",
-                        "evil",
-                        "evocation"
+                        "uncommon",
+                        "mental",
+                        "enchantment"
                     ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.sRfSBHWHdbIa0aGc"
+                    "sourceId": "Compendium.pf2e.spells-srd.aewxsale5xWEPKLk"
                 }
             },
-            "img": "systems/pf2e/icons/spells/chilling-darkness.jpg",
-            "name": "Chilling Darkness",
+            "img": "systems/pf2e/icons/spells/zone-of-truth.jpg",
+            "name": "Zone of Truth",
             "sort": 300000,
             "type": "spell"
         },
@@ -1597,9 +1599,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
             "sort": 700000,
@@ -1620,7 +1620,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits."
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1787,17 +1787,19 @@
             "type": "lore"
         }
     ],
-    "name": "Soulbound Doll [LE]",
+    "name": "Soulbound Doll (Lawful Good)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "IXB2D5FPi9gDkq3N",
+        "actorId": "uVxYPqrGo951X0Nb",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1806,23 +1808,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 0.75,
+        "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Soulbound Doll [LE]",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Soulbound Doll (Lawful Good)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 0.75
+        "width": 1
     },
     "type": "npc"
 }

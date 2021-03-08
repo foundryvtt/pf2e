@@ -1,5 +1,5 @@
 {
-    "_id": "LZlJhJvUPRaiyYTM",
+    "_id": "wGdslh7ArCx4p5Bb",
     "data": {
         "abilities": {
             "cha": {
@@ -122,7 +122,7 @@
         "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "CE"
+                "value": "NE"
             },
             "ancestry": {
                 "value": ""
@@ -514,6 +514,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -775,7 +778,7 @@
             "type": "spell"
         },
         {
-            "_id": "JUOVjO0E9fLs2r2z",
+            "_id": "PmrCfYJ1HOHF4R6O",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -783,18 +786,18 @@
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
+                    "areaType": "emanation",
                     "label": "Area",
                     "type": "String",
-                    "value": null
+                    "value": 30
                 },
                 "areasize": {
-                    "value": ""
+                    "value": "varies"
                 },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": "somatic, verbal"
+                    "value": "varies"
                 },
                 "cost": {
                     "label": "Cost",
@@ -805,7 +808,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "6d6"
+                    "value": "3d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -817,7 +820,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -851,7 +854,7 @@
                 "range": {
                     "label": "Range",
                     "type": "String",
-                    "value": "touch"
+                    "value": "varies"
                 },
                 "rarity": {
                     "value": "common"
@@ -864,7 +867,7 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "2d6",
+                    "formula": "1d8",
                     "mode": "level1"
                 },
                 "school": {
@@ -878,11 +881,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "vampiric-touch",
+                "slug": "harm",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=354"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -903,20 +906,18 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 living creature"
+                    "value": "1 living creature or 1 willing undead creature"
                 },
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "2"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "label": "Spell Traditions",
                     "type": "String",
                     "value": [
-                        "arcane",
-                        "divine",
-                        "occult"
+                        "divine"
                     ]
                 },
                 "traits": {
@@ -927,7 +928,6 @@
                     },
                     "type": "String",
                     "value": [
-                        "death",
                         "necromancy",
                         "negative"
                     ]
@@ -936,11 +936,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
                 }
             },
-            "img": "systems/pf2e/icons/spells/vampiric-touch.jpg",
-            "name": "Vampiric Touch",
+            "img": "systems/pf2e/icons/spells/harm.jpg",
+            "name": "Harm",
             "sort": 300000,
             "type": "spell"
         },
@@ -1597,9 +1597,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
             "sort": 700000,
@@ -1620,7 +1618,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits."
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1787,17 +1785,19 @@
             "type": "lore"
         }
     ],
-    "name": "Soulbound Doll [CE]",
+    "name": "Soulbound Doll (Neutral Evil)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "LZlJhJvUPRaiyYTM",
+        "actorId": "wGdslh7ArCx4p5Bb",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1806,23 +1806,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 0.75,
+        "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Soulbound Doll [CE]",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Soulbound Doll (Neutral Evil)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 0.75
+        "width": 1
     },
     "type": "npc"
 }

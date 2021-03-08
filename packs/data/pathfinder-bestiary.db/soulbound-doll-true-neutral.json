@@ -1,5 +1,5 @@
 {
-    "_id": "4WtugpvnWM2gqwiA",
+    "_id": "ggar4PH8PmLv0FpQ",
     "data": {
         "abilities": {
             "cha": {
@@ -122,7 +122,7 @@
         "customModifiers": {},
         "details": {
             "alignment": {
-                "value": "CG"
+                "value": "N"
             },
             "ancestry": {
                 "value": ""
@@ -514,6 +514,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -775,7 +778,7 @@
             "type": "spell"
         },
         {
-            "_id": "gpbYeB58kCOgLvdr",
+            "_id": "L1W8Iz7tC8CHLZiC",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -789,12 +792,12 @@
                     "value": null
                 },
                 "areasize": {
-                    "value": "varies"
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": "varies"
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -805,24 +808,24 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "3d8"
+                    "value": "3d4"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "positive"
+                    "value": "piercing"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>Over the course of a minute, you cause a thick wall of thorny brambles to grow from the ground. You create a 5-foot-thick wall of brambles and thorns in a straight line up to 60 feet long and 10 feet high. You must create the wall in an unbroken open space so its edges don't pass through any creatures or objects, or the spell is lost. The wall stands vertically. If you wish, the wall can be of a shorter length or height. Everything on each side of the wall has cover from creatures on the opposite side, and the wall's spaces are difficult terrain. For every move action a creature uses to enter at least one of the wall's spaces, that creature takes 3d4 piercing damage.</p>\n<p>Each 5-foot-by-5-foot section of the wall has AC 10, Hardness 10, and 20 Hit Points. It's immune to critical hits and precision damage. A destroyed section can be moved through freely.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The Hit Points of each section of the wall increase by 5, and the piercing damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": ""
+                    "value": "1 minute"
                 },
                 "hasCounteractCheck": {
                     "value": false
@@ -851,7 +854,7 @@
                 "range": {
                     "label": "Range",
                     "type": "String",
-                    "value": "varies"
+                    "value": "60 feet"
                 },
                 "rarity": {
                     "value": "common"
@@ -864,13 +867,13 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "1d8",
+                    "formula": "1d4",
                     "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
-                    "value": "nec"
+                    "value": "con"
                 },
                 "secondarycasters": {
                     "value": ""
@@ -878,11 +881,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": "heal",
+                "slug": "wall-of-thorns",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=366"
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -893,7 +896,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "heal"
+                    "value": "utility"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -903,19 +906,17 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 willing living creature or 1 undead"
+                    "value": ""
                 },
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "1 to 3"
+                    "value": "3"
                 },
                 "traditions": {
-                    "custom": "",
                     "label": "Spell Traditions",
                     "type": "String",
                     "value": [
-                        "divine",
                         "primal"
                     ]
                 },
@@ -927,20 +928,19 @@
                     },
                     "type": "String",
                     "value": [
-                        "healing",
-                        "necromancy",
-                        "positive"
+                        "conjuration",
+                        "plant"
                     ]
                 }
             },
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                    "sourceId": "Compendium.pf2e.spells-srd.KsWhliKfUs3IpW3c"
                 }
             },
-            "img": "systems/pf2e/icons/spells/heal.jpg",
-            "name": "Heal",
+            "img": "systems/pf2e/icons/spells/wall-of-thorns.jpg",
+            "name": "Wall of Thorns",
             "sort": 300000,
             "type": "spell"
         },
@@ -1597,9 +1597,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
             "sort": 700000,
@@ -1620,7 +1618,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits."
+                    "value": "<p>A soulbound doll shares fragments of its donor soul's personality, though none of that creature's memories. This causes a soulbound doll to match the donor soul's alignment and gain the corresponding alignment traits.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1787,17 +1785,19 @@
             "type": "lore"
         }
     ],
-    "name": "Soulbound Doll [CG]",
+    "name": "Soulbound Doll (True Neutral)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "4WtugpvnWM2gqwiA",
+        "actorId": "ggar4PH8PmLv0FpQ",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1806,23 +1806,27 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 0.75,
+        "height": 1,
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
-        "name": "Soulbound Doll [CG]",
+        "mirrorX": false,
+        "mirrorY": false,
+        "name": "Soulbound Doll (True Neutral)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
-        "width": 0.75
+        "width": 1
     },
     "type": "npc"
 }
