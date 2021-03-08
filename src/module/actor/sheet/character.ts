@@ -396,7 +396,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             // Actions
             else if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
+                const actionType = ['free', 'reaction', 'passive'].includes(i.data.actionType.value)
+                    ? i.data.actionType.value
+                    : 'action';
                 i.img = PF2ECharacter.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
