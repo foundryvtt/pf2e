@@ -12,6 +12,7 @@ import {
 import { PF2eConditionManager } from '../conditions';
 import { adaptRoll, PF2Check } from '@system/rolls';
 import { isCycle } from '@item/container';
+import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
 import { PF2EItem } from '@item/item';
 import {
@@ -33,11 +34,6 @@ import {
     AbilityString,
     isCreatureData,
     CreatureData,
-    SkillString,
-    SkillData,
-    SaveData,
-    SaveString,
-    AttributeString,
 } from './actor-data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
@@ -49,7 +45,7 @@ import {
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
 
-export const SKILL_DICTIONARY: Record<string, string> = Object.freeze({
+export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
     arc: 'arcana',
     ath: 'athletics',
@@ -68,12 +64,7 @@ export const SKILL_DICTIONARY: Record<string, string> = Object.freeze({
     thi: 'thievery',
 });
 
-interface SkillExpanded {
-    ability: AbilityString;
-    shortform: SkillString;
-}
-
-export const SKILL_EXPANDED: Record<string, SkillExpanded> = Object.freeze({
+export const SKILL_EXPANDED = Object.freeze({
     acrobatics: { ability: 'dex', shortform: 'acr' },
     arcana: { ability: 'int', shortform: 'arc' },
     athletics: { ability: 'str', shortform: 'ath' },
@@ -221,6 +212,27 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         // Synchronize the token image with the actor image, if the token does not currently have an image.
         this._prepareTokenImg();
+
+        // Prepare character & npc data; primarily attribute and action calculation.
+        const actorData = this.data;
+
+        if ('traits' in actorData.data) {
+            // TODO: Migrate trait storage format
+            const map = {
+                dr: CONFIG.PF2E.damageTypes,
+                di: CONFIG.PF2E.damageTypes,
+                dv: CONFIG.PF2E.damageTypes,
+                ci: CONFIG.PF2E.conditionTypes,
+                languages: CONFIG.PF2E.languages,
+            };
+            for (const [t, choices] of Object.entries(map)) {
+                const trait = actorData.data.traits[t];
+                if (trait === undefined) continue;
+                if (!(trait.value instanceof Array)) {
+                    trait.value = TraitSelector5e._backCompat(trait.value, choices);
+                }
+            }
+        }
     }
 
     _prepareTokenImg() {
@@ -239,7 +251,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         rollNotes: Record<string, PF2RollNote[]>,
     ) {
         const { data } = actorData;
-        const initSkill: SkillString | 'perception' = data.attributes?.initiative?.ability || 'perception';
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: PF2Modifier[] = [];
         const notes: PF2RollNote[] = [];
 
@@ -327,7 +339,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /* -------------------------------------------- */
 
-    onCreateOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
+    onCreateOwnedItem(child, options, userId) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
@@ -338,7 +350,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         this._updateAllTokens(actorUpdates, tokens);
     }
 
-    onDeleteOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
+    onDeleteOwnedItem(child, options, userId) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
@@ -354,12 +366,9 @@ export class PF2EActor extends Actor<PF2EItem> {
      * duplicated so it can easily be changed and used for updating the token instances.
      */
     protected _getTokenData(): Record<string, any> {
-        const tokens: Record<string, any> = {};
+        const tokens = {};
         if (this.isToken) {
-            const id = this?.token?.data?._id;
-            if (id) {
-                tokens[id] = duplicate(canvas.tokens.get(id)?.data);
-            }
+            tokens[this.token.data._id] = duplicate(canvas.tokens.get(this.token.data._id).data);
         } else {
             for (const scene of game.scenes.values()) {
                 scene
@@ -374,8 +383,8 @@ export class PF2EActor extends Actor<PF2EItem> {
         return tokens;
     }
 
-    async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>): Promise<any[]> {
-        const promises: Promise<any>[] = [];
+    async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>) {
+        const promises = [];
         if (actorUpdates && !isObjectEmpty(actorUpdates)) {
             promises.push(this.update(actorUpdates));
         }
@@ -384,7 +393,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 .getEmbeddedCollection('Token')
                 .filter(
                     (token) =>
-                        (this.isToken && token?._id === this.token?.data?._id) ||
+                        (this.isToken && token._id === this.token.data._id) ||
                         (token.actorLink && token.actorId === this.id),
                 )
                 .map((token) => tokens[token._id])
@@ -533,9 +542,9 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollSkill(event: JQuery.Event, skillName: SkillString) {
-        const skl: SkillData = this.data.data.skills[skillName];
-        const rank: string = CONFIG.PF2E.proficiencyLevels[skl.rank];
+    rollSkill(event: JQuery.Event, skillName: string) {
+        const skl = this.data.data.skills[skillName];
+        const rank = CONFIG.PF2E.proficiencyLevels[skl.rank];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${rank} ${CONFIG.PF2E.skills[skillName]} Skill Check`;
 
@@ -557,7 +566,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollRecovery(_event: JQuery.Event) {
+    rollRecovery(event: JQuery.Event) {
         if (this.data.type !== 'character') {
             throw Error('Recovery rolls are only applicable to characters');
         }
@@ -567,15 +576,14 @@ export class PF2EActor extends Actor<PF2EItem> {
         const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
         const recoveryDc = 10 + recoveryMod;
         const flatCheck = new Roll('1d20').roll();
-        const total = flatCheck.total ?? 0;
         const dc = recoveryDc + dying;
         let result = '';
 
-        if (total === 20 || total >= dc + 10) {
+        if (flatCheck.total === 20 || flatCheck.total >= dc + 10) {
             result = `${game.i18n.localize('PF2E.CritSuccess')} ${game.i18n.localize('PF2E.Recovery.critSuccess')}`;
-        } else if (total === 1 || total <= dc - 10) {
+        } else if (flatCheck.total === 1 || flatCheck.total <= dc - 10) {
             result = `${game.i18n.localize('PF2E.CritFailure')} ${game.i18n.localize('PF2E.Recovery.critFailure')}`;
-        } else if (flatCheck?.result ?? 0 >= dc) {
+        } else if (flatCheck.result >= dc) {
             result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
         } else {
             result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
@@ -655,8 +663,8 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollSave(event: JQuery.Event, saveName: SaveString) {
-        const save: SaveData = this.data.data.saves[saveName];
+    rollSave(event: JQuery.Event, saveName: string) {
+        const save = this.data.data.saves[saveName];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
 
@@ -678,7 +686,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollAbility(event: JQuery.Event, abilityName: AbilityString) {
+    rollAbility(event: JQuery.Event, abilityName: string) {
         const skl = this.data.data.abilities[abilityName];
         const parts = ['@mod'];
         const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
@@ -700,7 +708,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollAttribute(event: JQuery.Event, attributeName: AttributeString) {
+    rollAttribute(event: JQuery.Event, attributeName: string) {
         const skl = this.data.data.attributes[attributeName];
         const parts = ['@mod', '@itemBonus'];
         const flavor = `${CONFIG.PF2E.attributes[attributeName]} Check`;
@@ -761,9 +769,6 @@ export class PF2EActor extends Actor<PF2EItem> {
           </div>
           </div>
           `;
-                if (!t.actor) {
-                    return false;
-                }
 
                 t.actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
                     ChatMessage.create({
@@ -787,11 +792,11 @@ export class PF2EActor extends Actor<PF2EItem> {
      *
      * @return {Promise}
      */
-    static async rollSave(ev: JQuery.ClickEvent, item: PF2EItem) {
+    static async rollSave(ev, item) {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
-                const save = $(ev.currentTarget).attr('data-save') as SaveString;
+                const save = $(ev.currentTarget).attr('data-save');
                 const itemTraits = item?.data?.data?.traits?.value;
 
                 if (actor?.data.data.saves[save]?.roll) {
@@ -888,7 +893,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 console.log(`PF2e DEBUG | Updating spellcasting entry ${entryId} set showUnpreparedSpells to true.`);
             }
 
-            const currentLvlToDisplay: Record<number, boolean> = {};
+            const currentLvlToDisplay = {};
             currentLvlToDisplay[spellLevel] = true;
             await this.updateEmbeddedEntity('OwnedItem', {
                 _id: entryId,
@@ -941,15 +946,8 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
 
         if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
-            const updateActorData: any = {};
-            const updateShieldData = {
-                _id: '',
-                data: {
-                    hp: {
-                        value: 0,
-                    },
-                },
-            };
+            const updateActorData = {};
+            let updateShieldData;
             if (attribute === 'attributes.shield') {
                 const shield = this.getFirstEquippedShield();
                 if (shield) {
@@ -967,8 +965,10 @@ export class PF2EActor extends Actor<PF2EItem> {
                     shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
-                    updateShieldData._id = shield._id;
-                    updateShieldData.data.hp.value = shieldHitPoints;
+                    updateShieldData = {
+                        _id: shield._id,
+                        data: { hp: { value: shieldHitPoints } }, // unfolding is required when update is forced regardless of diff
+                    };
                 } else if (isDelta) {
                     attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
                 }
@@ -991,7 +991,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             }
 
             return this.update(updateActorData).then(() => {
-                if (updateShieldData._id !== '') {
+                if (updateShieldData) {
                     // this will trigger a second prepareData() call, but is necessary for persisting the shield state
                     this.updateOwnedItem(updateShieldData, { diff: false });
                 }
@@ -1118,7 +1118,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         sp: { value: number; temp: number };
         delta: number;
     }) {
-        const update: any = {};
+        const update = {};
         const { hp, sp } = args;
         let { delta } = args;
         if (hp.temp + delta >= 0) {
@@ -1149,7 +1149,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
-        const graphics: any = {
+        const graphics = {
             1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
             2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
             3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
@@ -1257,9 +1257,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
         if (this.data.data.attributes.dexCap) {
-            const updated = this.data.data.attributes.dexCap.filter(
-                (cap: DexterityModifierCapData) => cap.source !== source,
-            );
+            const updated = this.data.data.attributes.dexCap.filter((cap) => cap.source !== source);
             await this.update({ 'data.attributes.dexCap': updated });
         }
     }
