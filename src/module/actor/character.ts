@@ -35,7 +35,6 @@ import {
     CharacterStrike,
     CharacterStrikeTrait,
     SkillData,
-    SkillString,
     RawCharacterData,
 } from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
@@ -404,7 +403,7 @@ export class PF2ECharacter extends PF2ECreature {
             }
 
             // workaround for the shortform skill names
-            const expandedName = SKILL_DICTIONARY[skillName as SkillString];
+            const expandedName = SKILL_DICTIONARY[skillName];
 
             [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
