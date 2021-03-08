@@ -339,6 +339,7 @@ export const PF2ECONFIG = {
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
         vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
+        warpglass: 'PF2E.PreciousMaterialWarpglass',
     }, // Weapon Damage Types
 
     weaponDamage: {
