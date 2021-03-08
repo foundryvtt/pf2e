@@ -148,7 +148,7 @@ declare class ClientSettings {
 /**
  * A simple interface for World settings storage which imitates the API provided by localStorage
  */
-declare class WorldSettingsStorage {
+declare class WorldSettingsStorage extends Map<string, unknown> {
     constructor(settings: object);
 
     getItem(key: string): unknown;
