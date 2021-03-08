@@ -5,6 +5,7 @@ import { addKit } from '@item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { AttributeString, SaveString, SkillString, AbilityString } from '../actor-data-definitions';
 import { TraitSelector5e } from '@system/trait-selector';
 import { PF2EItem } from '@item/item';
 import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
@@ -572,7 +573,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Roll Save Checks
         html.find('.save-name').click((ev) => {
             ev.preventDefault();
-            const save = $(ev.currentTarget).parents('[data-save]')[0].getAttribute('data-save');
+            const save = $(ev.currentTarget).parents('[data-save]')[0].getAttribute('data-save') as SaveString;
             if (this.actor.data.data.saves[save]?.roll) {
                 const opts = this.actor.getRollOptions(['all', 'saving-throw', save]);
                 this.actor.data.data.saves[save].roll({ event: ev, options: opts });
@@ -586,14 +587,14 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             ev.preventDefault();
             const checkType = this.actor.data.data.attributes.initiative.ability;
             const opts = this.actor.getRollOptions(
-                ['all', 'initiative'].concat(SKILL_DICTIONARY[checkType] ?? checkType),
+                ['all', 'initiative'].concat(SKILL_DICTIONARY[checkType as SkillString] ?? checkType),
             );
             this.actor.data.data.attributes.initiative.roll({ event: ev, options: opts });
         });
 
         html.find('.attribute-name').click((ev) => {
             ev.preventDefault();
-            const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute');
+            const attribute = ev.currentTarget.parentElement.getAttribute('data-attribute') as AttributeString;
             const isSecret = ev.currentTarget.getAttribute('data-secret');
             if (this.actor.data.data.attributes[attribute]?.roll) {
                 const opts = this.actor.getRollOptions(['all', attribute]);
@@ -609,13 +610,13 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Roll Ability Checks
         html.find('.ability-name').click((ev) => {
             ev.preventDefault();
-            const ability = ev.currentTarget.parentElement.getAttribute('data-ability');
+            const ability = ev.currentTarget.parentElement.getAttribute('data-ability') as AbilityString;
             this.actor.rollAbility(ev, ability);
         });
 
         // Roll Skill Checks
         html.find('.skill-name.rollable, .skill-score.rollable').click((ev) => {
-            const skl = ev.currentTarget.parentElement.getAttribute('data-skill');
+            const skl = ev.currentTarget.parentElement.getAttribute('data-skill') as SkillString;
             if (this.actor.data.data.skills[skl]?.roll) {
                 const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skl] ?? skl]);
                 this.actor.data.data.skills[skl].roll({ event: ev, options: opts });

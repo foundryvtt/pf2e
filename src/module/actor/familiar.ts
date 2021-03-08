@@ -3,7 +3,7 @@ import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2Check } from '@system/rolls';
-import { FamiliarData } from './actor-data-definitions';
+import { FamiliarData, SkillString } from './actor-data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { PF2ECreature } from './creature';
@@ -254,7 +254,7 @@ export class PF2EFamiliar extends PF2ECreature {
                         ),
                     );
                 }
-                const expanded = SKILL_DICTIONARY[shortform];
+                const expanded = SKILL_DICTIONARY[shortform as SkillString];
                 const ability = SKILL_EXPANDED[expanded].ability;
                 [expanded, `${ability}-based`, 'skill-check', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
