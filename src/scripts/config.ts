@@ -614,6 +614,7 @@ export const PF2ECONFIG = {
     weaponTraits: {
         acid: 'PF2E.TraitAcid',
         adamantine: 'PF2E.PreciousMaterialAdamantine',
+        air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         agile: 'PF2E.TraitAgile',
         artifact: 'PF2E.TraitArtifact',
