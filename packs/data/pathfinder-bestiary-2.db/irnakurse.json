@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "15 feet"
+                "value": "15"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -404,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -471,12 +475,12 @@
                     "damageType": "piercing",
                     "die": "2d12+11"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+11",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -558,6 +562,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -596,8 +601,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "mind lash"
+                        "Mind Lash"
                     ]
                 },
                 "bonus": {
@@ -620,12 +626,12 @@
                     "damageType": "slashing",
                     "die": "2d8+11"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+11",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -707,6 +713,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -740,13 +747,13 @@
             "type": "melee"
         },
         {
-            "_id": "fAJKDhrroX62Lb0s",
+            "_id": "tgrOviq4c5SwyOdE",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -754,7 +761,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "[reaction]<br /><b>Trigger</b> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike."
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -763,6 +770,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -776,16 +784,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
             "sort": 300000,
             "type": "action"
@@ -805,7 +814,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A non-evil creature hit by an irnakurse's tentacle is overwhelmed with corrupted images of a ruined life and must succeed at a DC 28 Will save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned} 2 (or stunned 4 on a critical failure). After attempting this save, a creature is temporarily immune to Mind Lash for 24 hours."
+                    "value": "<p>A non-evil creature hit by an irnakurse's tentacle is overwhelmed with corrupted images of a ruined life and must succeed at a DC 28 Will save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} (or @Compendium[pf2e.conditionitems.Stunned]{Stunned 4} on a critical failure).</p>\n<p>After attempting this save, a creature is temporarily immune to Mind Lash for 24 hours.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -814,6 +823,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -847,7 +857,7 @@
             "type": "action"
         },
         {
-            "_id": "iXYfQDvrwhjEKpeu",
+            "_id": "MTm1NKAev5SjhWZJ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -856,12 +866,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "tentacle<br />A Rend entry lists a Strike the monster has. <b>Requirements</b> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <b>Effect</b> The monster automatically deals that Strike's damage again to the enemy."
+                    "value": "<p>Tentacle</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -870,6 +880,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -883,16 +894,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Rend",
             "sort": 500000,
             "type": "action"
@@ -907,12 +919,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Frequency</b> once per day; <b>Effect</b> The irnakurse unleashes an alien shriek of nightmarish horror and pain. All non-evil creatures within a 10-foot emanation must attempt a DC 28 Will save. The irnakurse can Sustain Soul Scream for up to 6 rounds; each time it does, it repeats the effect. <br /><b>Critical Success</b> The creature is unaffected, and is temporarily immune to Soul Scream for 24 hours. <br /><b>Success </b>The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round. <br /><b>Failure </b>The creature is stupefied 1. Further failed saves against Soul Scream increase the condition value by 1, to a maximum of stupefied 4. Each time the character gets a full night's rest, the stupefied condition gained from Soul Scream decreases by 1. <br /><b>Critical Failure </b>As failure, except the stupefied value increases by 2 instead of by 1."
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The irnakurse unleashes an alien shriek of nightmarish horror and pain. All non-evil creatures within a 10-foot emanation must attempt a DC 28 Will save. The irnakurse can Sustain Soul Scream for up to 6 rounds; each time it does, it repeats the effect. </p>\n<p><strong>Critical Success</strong> The creature is unaffected, and is temporarily immune to Soul Scream for 24 hours. </p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round. </p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1}. Further failed saves against Soul Scream increase the condition value by 1, to a maximum of stupefied 4. Each time the character gets a full night's rest, the stupefied condition gained from Soul Scream decreases by 1. </p>\n<p><strong>Critical Failure</strong> As failure, except the stupefied value increases by 2 instead of by 1.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -921,6 +933,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -950,7 +963,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Soul Scream",
             "sort": 600000,
             "type": "action"
@@ -965,7 +978,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
@@ -979,6 +992,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1001,7 +1015,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Storm of Tentacles",
             "sort": 700000,
             "type": "action"
@@ -1027,6 +1041,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1069,6 +1084,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1111,6 +1127,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1138,7 +1155,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "HhSoTr6mpwV09Y4k",
         "actorLink": false,
         "bar1": {
@@ -1157,6 +1173,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Irnakurse",
         "randomImg": false,
