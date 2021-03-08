@@ -6,6 +6,7 @@ interface DropCanvasData {
     x: number;
     y: number;
     actorId?: string;
+    tokenId?: string;
 }
 
 declare type HookCallback<P extends any[]> = (...args: P) => boolean | void | Promise<boolean | void>;
@@ -16,23 +17,28 @@ declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
 declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
 declare type HookParamsRenderChatLog = HookParameters<
-    'renderChatLog', [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
+    'renderChatLog',
+    [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
 >;
-declare type HookParamsRenderChatPopout = HookParameters<
-    'renderChatPopout', [ChatPopout, JQuery, {}]
->;
-declare type HookParamsRenderChatMessage = HookParameters<
-    'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]
->;
+declare type HookParamsRenderChatPopout = HookParameters<'renderChatPopout', [ChatPopout, JQuery, {}]>;
+declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
 declare type HookParamsRenderCompendiumDirectory = HookParameters<
-    'renderCompendiumDirectory', [CompendiumDirectory, JQuery, ReturnType<CompendiumDirectory['getData']>]
+    'renderCompendiumDirectory',
+    [CompendiumDirectory, JQuery, ReturnType<CompendiumDirectory['getData']>]
 >;
 declare type HookParamsRenderActorDirectory = HookParameters<
-    'renderActorDirectory', [ActorDirectory, JQuery, ReturnType<ActorDirectory['getData']>]
+    'renderActorDirectory',
+    [ActorDirectory, JQuery, ReturnType<ActorDirectory['getData']>]
 >;
 declare type HookParamsRenderItemDirectory = HookParameters<
-    'renderItemDirectory', [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
+    'renderItemDirectory',
+    [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
 >;
+declare type HookParamsRenderSettings = HookParameters<
+    'renderSettings',
+    [Settings, JQuery, ReturnType<Settings['getData']>]
+>;
+declare type HookParamsUpdateWorldTime = HookParameters<'updateWorldTime', [number, number]>;
 
 declare class Hooks {
     /**
@@ -52,6 +58,8 @@ declare class Hooks {
     static on(...args: HookParamsRenderCompendiumDirectory): number;
     static on(...args: HookParamsRenderActorDirectory): number;
     static on(...args: HookParamsRenderItemDirectory): number;
+    static on(...args: HookParamsRenderSettings): number;
+    static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParameters<string, any>): number;
 
     /**
@@ -71,6 +79,8 @@ declare class Hooks {
     static once(...args: HookParamsRenderCompendiumDirectory): number;
     static once(...args: HookParamsRenderActorDirectory): number;
     static once(...args: HookParamsRenderItemDirectory): number;
+    static once(...args: HookParamsRenderSettings): number;
+    static once(...args: HookParamsUpdateWorldTime): number;
     static once(...args: HookParameters<string, any>): number;
 
     /**

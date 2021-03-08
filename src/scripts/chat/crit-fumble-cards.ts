@@ -1,16 +1,16 @@
 class PF2eCritFumbleCards {
-    static critTable: any;
-    static fumbleTable: any;
+    static critTable: RollTable;
+    static fumbleTable: RollTable;
     static diceSoNice: boolean;
 
     static async init() {
-        const rollableTables = game.packs.get('pf2e.rollable-tables');
-        this.critTable = new RollTable(await rollableTables.getEntry('FTEpsIWWVrDj0jNG'));
-        this.fumbleTable = new RollTable(await rollableTables.getEntry('WzMGWMIrrPvSp75D'));
+        const rollableTables = game.packs.get<Compendium<RollTable>>('pf2e.rollable-tables');
+        this.critTable = (await rollableTables.getEntity('FTEpsIWWVrDj0jNG'))!;
+        this.fumbleTable = (await rollableTables.getEntity('WzMGWMIrrPvSp75D'))!;
 
         if (game.settings.get('pf2e', 'drawCritFumble')) {
             // Support diceSoNice module
-            this.diceSoNice = game.modules.get('dice-so-nice') && game.modules.get('dice-so-nice').active;
+            this.diceSoNice = !!game.modules.get('dice-so-nice')?.active;
             const hooksOn = this.diceSoNice ? 'diceSoNiceRollComplete' : 'createChatMessage';
 
             Hooks.on(hooksOn, this.handleRoll.bind(this));

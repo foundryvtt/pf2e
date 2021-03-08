@@ -2,7 +2,7 @@
  * An iterable container of Entity objects within the Foundry Virtual Tabletop framework.
  * Each Entity type has its own subclass of EntityCollection, which defines the abstract interface.
  */
-declare abstract class EntityCollection<E extends Entity> extends Collection<E> {
+declare abstract class EntityCollection<E extends Entity = Entity> extends Collection<E> {
     /**
      * The source data is, itself, a mapping of IDs to data objects
      */
@@ -66,7 +66,11 @@ declare abstract class EntityCollection<E extends Entity> extends Collection<E> 
      * This should always be an explicit reference to the class which is used in this game to represent the entity,
      * and not the base implementation of that entity type.
      */
-    get object(): new (data: E['data'], options: EntityConstructorOptions) => E;
+    get object(): {
+        new (...args: any[]): E;
+        create(data: Partial<E['data']>, options?: {}): Promise<E>;
+        entity: string;
+    };
 
     /* -------------------------------------------- */
     /*  EntityCollection Management Methods         */
@@ -95,8 +99,8 @@ declare abstract class EntityCollection<E extends Entity> extends Collection<E> 
     importFromCollection(
         collection: string,
         entryId: string,
-        updateData?: EntityUpdateData,
-        options?: EntityCreateOptions
+        updateData?: EntityUpdateData<E['data']> | {},
+        options?: EntityCreateOptions,
     ): Promise<E | null>;
 
     /**
@@ -104,7 +108,7 @@ declare abstract class EntityCollection<E extends Entity> extends Collection<E> 
      * @param  The original Compendium entry data
      * @return The processed data ready for Entity creation
      */
-    fromCompendium(data: E['data']): Omit<E['data'], '_id' | 'folder' | 'sort'>;
+    fromCompendium(data: E['data']): E['data'];
 
     /**
      * Update all objects in this EntityCollection with a provided transformation.
@@ -115,8 +119,10 @@ declare abstract class EntityCollection<E extends Entity> extends Collection<E> 
      * @return An array of updated data once the operation is complete
      */
     updateAll(
-        transformation: (updateData: EntityUpdateData) => DeepPartial<E['data']> | EntityUpdateData,
+        transformation: (
+            updateData: EntityUpdateData<E['data']>,
+        ) => DeepPartial<E['data']> | EntityUpdateData<E['data']>,
         condition?: (entity: E) => boolean,
-        options?: EntityUpdateOptions
+        options?: EntityUpdateOptions,
     ): Promise<(E['data'] | null)[]>;
 }

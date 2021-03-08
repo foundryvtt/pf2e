@@ -9,7 +9,7 @@ import {
     Terrain,
     TerrainSlowdown,
     Trip,
-} from '../../../../src/module/gm/travel/travel-speed';
+} from '@scripts/macros/travel/travel-speed';
 
 const terrainModifiers: TerrainSlowdown = {
     normal: { numerator: 1, denominator: 1 },

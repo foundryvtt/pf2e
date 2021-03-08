@@ -63,7 +63,6 @@
                 "max": 58,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 58
             },
             "init": {
@@ -108,7 +107,6 @@
                         "value": "20 feet"
                     }
                 ],
-                "special": "",
                 "value": 30
             }
         },
@@ -455,9 +453,7 @@
         }
     },
     "effects": [],
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -568,6 +564,10 @@
                     "value": "occult"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -671,6 +671,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "weight": {
@@ -779,6 +783,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
@@ -889,6 +897,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "range increment 10 feet"
                     ]
@@ -932,21 +944,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": "light-blindness",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -996,15 +1002,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1049,16 +1055,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1091,7 +1115,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1110,6 +1133,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1127,7 +1154,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1146,6 +1172,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1163,7 +1193,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1182,6 +1211,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1199,7 +1232,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1218,6 +1250,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1235,7 +1271,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1254,6 +1289,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1292,6 +1331,9 @@
                 },
                 "duration": {
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "value": "1"
@@ -1345,6 +1387,10 @@
                     "value": []
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1403,6 +1449,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1496,6 +1545,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -1567,6 +1617,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1659,6 +1712,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -1731,6 +1785,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1824,6 +1881,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -1896,6 +1954,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1989,6 +2050,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -2060,6 +2122,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2153,6 +2218,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -2224,6 +2290,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": "sustained"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2317,6 +2386,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -2389,6 +2459,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": "until the start of your next turn"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2483,6 +2556,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
@@ -2555,6 +2629,9 @@
                     "label": "Duration",
                     "type": "String",
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2648,6 +2725,7 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
                         "value": "common"

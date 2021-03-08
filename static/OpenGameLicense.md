@@ -115,14 +115,6 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #173: Doorway to the Red Star © 2021, Paizo Inc.; Authors: Michael Sayre
     *  Pathfinder Adventure Path #174: Shadows of the Ancients © 2021, Paizo Inc.; Authors: Saif Ansari
     *  Pathfinder Beginner Box © 2020, Paizo Inc.; Authors: Logan Bonner, Jason Bulmahn, Lyz Liddell, Mark Seifter
-    *  The Book of Fiends © 2003, Green Ronin Publishing; Authors: Aaron Loeb, Erik Mona, Chris Pramas, and Robert J. Schwalb.
-    *  Armies of the Abyss © 2002, Green Ronin Publishing; Authors: Erik Mona and Chris Pramas.
-    *  The Avatar's Handbook © 2003, Green Ronin Publishing; Authors: Jesse Decker and Chris Thomasson.
-    *  Book of the Righteous © 2002, Aaron Loeb.
-    *  Legions of Hell © 2001, Green Ronin Publishing; Author: Chris Pramas.
-    *  The Unholy Warrior's Handbook © 2003, Green Ronin Publishing; Author: Robert J. Schwalb.
-    *  Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
-    *  Grippli from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     *  Pathfinder Core Rulebook (Second Edition) © 2019, Paizo Inc.; Designers: Logan Bonner, Jason Bulmahn, Stephen Radney-MacFarland, and Mark Seifter.
     *  Pathfinder Gamemastery Guide © 2020, Paizo Inc.; Authors: Alexander Augunas, Jesse Benner, John Bennett, Logan Bonner, Clinton J. Boomer, Jason Bulmahn, James Case, Paris Crenshaw, Jesse Decker, Robert N. Emerson, Eleanor Ferron, Jaym Gates, Matthew Goetz, T.H. Gulliver, Kev Hamilton, Sasha Laranoa Harving, BJ Hensley, Vanessa Hoskins, Brian R. James, Jason LeMaitre, Lyz Liddell, Luis Loza, Colm Lundberg, Ron Lundeen, Stephen Radney-MacFarland, Jessica Redekop, Alistair Rigg, Mark Seifter, Owen K.C. Stephens, Amber Stewart, Christina Stiles, Landon Winkler, and Linda Zayas-Palmer.
     *  Pathfinder Advanced Player Guide © 2020, Paizo Inc.; Authors: Logan Bonner, Lyz Liddell, and Mark Seifter.
@@ -190,11 +182,13 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens
-    *  Genie, Marid from the Tome of Horrors Complete © 2011, Necromancer Games, Inc., published and distributed by Frog God Games; Author: Scott Greene, based on original material by Gary Gygax.
     *  Pathfinder Lost Omens Character Guide (Second Edition) © 2019, Paizo Inc.; Authors: John Compton, Sasha Lindley Hall, Amanda Hamon, Mike Kimmel, Luis Loza, Ron Lundeen, Matt Morris, Patchen Mortimer, Andrew Mullen, Mikhail Rekun, Micheal Sayre, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Gods & Magic (Second Edition) © 2020, Paizo Inc.; Authors: Robert Adducci, Amirali Attar Olyaee, Calder CaDavid, James Case, Adam Daigle, Katina Davis, Leo Glass, Joshua Grinlinton, James Jacobs, Virginia Jordan, Jason Keeley, Jacky Leung, Lyz Liddell, Ron Lundeen, Stephanie Lundeen, Jacob W. Michaels, Matt Morris, Dave Nelson, Samantha Phelan, Jennifer Povey, Jessica Redekop, Nathan Reinecke, Patrick Renie, David N. Ross, Simone D. Sallé, Michael Sayre, David Schwartz, Shahreena Shahrani, Isabelle Thorne, Marc Thuot, Jason Tondro, and Diego Valdez.
     *  Pathfinder Lost Omens World Guide (Second Edition) © 2019, Paizo Inc.; Authors: Tanya DePass, James Jacobs, Lyz Liddell, Ron Lundeen, Liane Merciel, Erik Mona, Mark Seifter, James L. Sutter.
     *  Pathfinder Lost Omens Legends (Second Edition) © 2020, Paizo Inc.; Authors: Amirali Attar Olyaee, Alexander Augunas, Kate Baker, Jason Bulmahn, Alexandria Bustion, Carlos Cabrera, Calder CaDavid, Jessica Catalan, Natalie Collazo, Ryan Costello, Jr, Greg Diaz, Fabby Garza Marroquín, Jaym Gates, Alice Grizzle, Steven Hammond, Nicolas Hornyak, James Jacobs, Michelle Jones, Kristina Sisto Kindel, Aaron Lascano, Ron Lundeen, Stephanie Lundeen, Sydney Meeker, Liane Merciel, Matt Morris, Patchen Mortimer, Hilary Moon Murphy, Dennis Muldoon, Andrew Mullen, Mikhail Rekun, Michael Sayre, Mark Seifter, Ashton Sperry, Owen K.C. Stephens, and Isabelle Thorne.
+	*  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
+    *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
+
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
     *  Pathfinder Critical Fumble Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.

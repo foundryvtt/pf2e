@@ -1,9 +1,9 @@
-import { ActorDataPF2e } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
 
 /**
  * This is the base class for a migration.
- * If you make a change to the database schema (i.e. anything in template.json or dataDefinitions.ts),
+ * If you make a change to the database schema (i.e. anything in template.json or data-definitions.ts),
  * you should create a migration. To do so, there are several steps:
  * - Bump the schema number in system.json
  * - Make a class that inherits this base class and implements `updateActor` or `updateItem` using the
@@ -12,7 +12,7 @@ import { ItemData } from '../item/dataDefinitions';
  * - Test that your changes work. We have unit tests in tests/module/migration.test.ts as well as you
  *   should add your migration to packs/run-migration
  */
-export class MigrationBase {
+export abstract class MigrationBase {
     /**
      * This is the schema version. Make sure it matches the new version in system.json
      */
@@ -24,21 +24,27 @@ export class MigrationBase {
      * Setting requiresFlush to true will indicate that the migration runner should not call any more
      * migrations after this in a batch. Use this if you are adding items to actors for instance.
      */
-    requiresFlush: boolean = false;
+    requiresFlush = false;
 
     /**
      * Update the actor to the latest schema version.
-     * @param {actor} actor This should be effectively a `ActorDataPF2e` from the previous version.
+     * @param actor This should be effectively a `ActorDataPF2e` from the previous version.
      */
-    async updateActor(actor: any) {}
+    async updateActor(actor: any): Promise<void> {}
 
     /**
      * Update the item to the latest schema version.
-     * @param {item} item Item to update. This should be an `ItemData` from the previous version
-     * @param {actor} actor If the item is part of an actor, this is set to the actor. For instance
+     * @param item Item to update. This should be an `ItemData` from the previous version.
+     * @param actor If the item is part of an actor, this is set to the actor. For instance
      * if you only want to update items that are on a npc you can do that here.
      */
-    async updateItem(item: ItemData, actor?: ActorDataPF2e) {}
+    async updateItem(item: ItemData, actor?: ActorDataPF2e): Promise<void> {}
+
+    /**
+     * Update the user to the latest schema version.
+     * @param userData User's data to update. This should be a `UserData` from the previous version.
+     */
+    async updateUser(_userData: UserData): Promise<void> {}
 
     /**
      * Run migrations for this schema version.

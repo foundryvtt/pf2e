@@ -8,7 +8,7 @@ import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../../module/recall-knowledge';
 import { PF2EItem } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
-import { NpcData } from '@actor/actorDataDefinitions';
+import { NpcData } from '@actor/actor-data-definitions';
 
 export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
@@ -659,8 +659,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             const mustBePrepared = entry.data.prepared.preparedSpells && spellbook;
 
             if (mustBePrepared) {
-                this._preparedSpellSlots(entry, spellbook);
-            } else {
+                this.preparedSpellSlots(entry, spellbook);
             }
 
             entry.spellbook = spellbook;

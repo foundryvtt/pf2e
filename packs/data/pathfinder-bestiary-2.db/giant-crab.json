@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "24",
+                "max": 24,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "24"
+                "value": 24
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "15 feet"
                     }
                 ],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -155,7 +154,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=588",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 16",
@@ -411,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -448,9 +450,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -506,6 +507,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -564,9 +568,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -574,6 +580,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -583,6 +593,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -614,14 +625,31 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.vulnerable-prone"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "vulnerable-prone"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -634,6 +662,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Vulnerable to Prone",
@@ -647,7 +676,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -655,7 +684,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger </b>A creature that the giant crab can see targets the crab with an attack; <b>Effect </b>The giant crab scuttles to the side and gains a +2 circumstance bonus to AC against the triggering attack. After the attack resolves, the crab can Stride up to its speed in a straight line as part of the reaction."
+                    "value": "<p><strong>Trigger</strong> A creature that the giant crab can see targets the crab with an attack;</p>\n<p><strong>Effect</strong> The giant crab scuttles to the side and gains a +2 circumstance bonus to AC against the triggering attack. After the attack resolves, the crab can Stride up to its speed in a straight line as part of the reaction.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -663,14 +692,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -683,14 +714,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Scuttle",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "dqYFWA1cPt90j9KG",
+            "_id": "iHR7yRqYeZST3uB5",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -699,12 +731,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "1d6+4 bludgeoning, DC 18<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC."
+                    "value": "<p>[[/r 1d6+4 # bludgeoning]] bludgeoning, DC 18</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{grabbed} or @Compendium[pf2e.conditionitems.Restrained]{restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -712,34 +744,38 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Constrict",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "l5iuSP0l7xdL1r7k",
+            "_id": "TfK9D77zOoU9jjxj",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -748,12 +784,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -761,28 +797,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 500000,
             "type": "action"
@@ -795,7 +835,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -808,16 +847,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -832,7 +878,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -845,16 +890,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -869,7 +921,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -882,16 +933,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -904,7 +962,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "l4UOJbphMT7jZ0xB",
         "actorLink": false,
         "bar1": {
@@ -923,6 +980,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Crab",
         "randomImg": false,

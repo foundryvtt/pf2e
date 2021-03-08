@@ -1,11 +1,12 @@
 import { CRBStyleCharacterActorSheetPF2E } from './actor/sheet/character';
 import { ActorSheetPF2eNPC } from './actor/sheet/npc';
-import { UpdatedNPCActorPF2ESheet } from './actor/sheet/updatednpcsheet';
+import { UpdatedNPCActorPF2ESheet } from '@actor/sheet/updated-npc-sheet';
 import { ActorSheetPF2eHazard } from './actor/sheet/hazard';
 import { ActorSheetPF2eLoot } from './actor/sheet/loot';
 import { ActorSheetPF2eFamiliar } from './actor/sheet/familiar';
 import { ActorSheetPF2eVehicle } from './actor/sheet/vehicle';
 import { ActorSheetPF2eSimpleNPC } from './actor/sheet/simple-npc-sheet';
+import { ActorSheetPF2eAnimalCompanion } from '@actor/sheet/animal-companion';
 
 export function registerActors() {
     Actors.unregisterSheet('core', ActorSheet);
@@ -57,4 +58,12 @@ export function registerActors() {
         types: ['vehicle'],
         makeDefault: true,
     });
+
+    if (BUILD_MODE === 'development') {
+        // Register AnimalCompanion Sheet
+        Actors.registerSheet('pf2e', ActorSheetPF2eAnimalCompanion, {
+            types: ['animalCompanion'],
+            makeDefault: true,
+        });
+    }
 }

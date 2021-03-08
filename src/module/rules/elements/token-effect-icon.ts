@@ -1,5 +1,5 @@
-import { ItemData } from '../../item/dataDefinitions';
-import { CharacterData, NpcData } from '../../actor/actorDataDefinitions';
+import { ItemData } from '@item/data-definitions';
+import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 /**
@@ -57,6 +57,13 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
         } else {
             // remove this item as a source for the token effect
             getProperty(actorUpdates, 'flags.pf2e.token.effects')[safeValue] = sources;
+        }
+    }
+
+    onCreateToken(actorData: CharacterData | NpcData, item: ItemData, token: TokenData) {
+        token.effects = token.effects ?? [];
+        if (!token.effects.includes(item.img)) {
+            token.effects.push(item.img);
         }
     }
 }

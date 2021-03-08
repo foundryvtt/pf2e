@@ -165,10 +165,13 @@ if (a) {
 }
 
 async function createToggleEffectMacro(pack: string, effect: PF2EEffect, slot: number) {
+    const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
-const ITEM_UUID = 'Compendium.${pack}.${effect.id}'; // ${effect.data.name}
+const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 (async () => {
   const effect = duplicate(await fromUuid(ITEM_UUID));
+  effect.flags.core = effect.flags.core ?? {};
+  effect.flags.core.sourceId = ITEM_UUID;
   for await (const token of canvas.tokens.controlled) {
     let existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
@@ -194,73 +197,6 @@ const ITEM_UUID = 'Compendium.${pack}.${effect.id}'; // ${effect.data.name}
     game.user.assignHotbarMacro(macro, slot);
 }
 
-/**
- * Activate certain behaviors on FVTT ready hook
- */
-Hooks.once('init', () => {
-    game.pf2e = {
-        actions: {},
-        rollItemMacro,
-        rollActionMacro,
-    };
-});
-
-/**
- * Activate certain behaviors on Canvas Initialization hook (thanks for MooMan for this snippet)
- */
-Hooks.on('canvasInit', async () => {
-    /**
-     * Double every other diagonal movement
-     */
-    SquareGrid.prototype.measureDistances = function measureDistances(
-        segments: Segment[],
-        options: MeasureDistancesOptions,
-    ) {
-        if (!options.gridSpaces) return BaseGrid.prototype.measureDistances.call(this, segments, options);
-
-        // Track the total number of diagonals
-        let nDiagonal = 0;
-        const d = canvas.dimensions;
-
-        // Iterate over measured segments
-        return segments.map((s) => {
-            const r = s.ray;
-
-            // Determine the total distance traveled
-            const nx = Math.abs(Math.ceil(r.dx / d.size));
-            const ny = Math.abs(Math.ceil(r.dy / d.size));
-
-            // Determine the number of straight and diagonal moves
-            const nd = Math.min(nx, ny);
-            const ns = Math.abs(ny - nx);
-            nDiagonal += nd;
-
-            const nd10 = Math.floor(nDiagonal / 2) - Math.floor((nDiagonal - nd) / 2);
-            const spaces = nd10 * 2 + (nd - nd10) + ns;
-            return spaces * canvas.dimensions.distance;
-        });
-    };
-
-    // Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition
-    if (game.data.version === '0.7.9') {
-        Token.prototype._getBorderColor = function (this: Token) {
-            const colors = CONFIG.Canvas.dispositionColors;
-            if (this._controlled) return colors.CONTROLLED;
-            else if (this._hover) {
-                const disposition =
-                    typeof this.data.disposition === 'string'
-                        ? parseInt(this.data.disposition, 10)
-                        : this.data.disposition;
-                if (!game.user.isGM && this.owner) return colors.CONTROLLED;
-                else if (this.actor?.hasPlayerOwner) return colors.PARTY;
-                else if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) return colors.FRIENDLY;
-                else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) return colors.NEUTRAL;
-                else return colors.HOSTILE;
-            } else return null;
-        };
-    }
-});
-
 /* -------------------------------------------- */
 /*  Hotbar Macros                               */
 /* -------------------------------------------- */
@@ -268,8 +204,9 @@ Hooks.on('canvasInit', async () => {
 Hooks.on('hotbarDrop', async (bar, data, slot) => {
     // check for item link
     let item: PF2EItem | undefined;
-    if (data.type === 'Item' && data.pack && data.id) {
-        item = (await fromUuid(`Compendium.${data.pack}.${data.id}`)) as PF2EItem;
+    if (data.type === 'Item' && data.id) {
+        const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
+        item = (await fromUuid(`${prefix}.${data.id}`)) as PF2EItem;
     }
 
     if (item instanceof PF2EEffect) {

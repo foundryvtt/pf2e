@@ -1,5 +1,194 @@
 # Patch Notes:
 
+## Version 1.11.10
+### Bug Fixes
+* (stwlam) Prevent non-GMs from updating the scene after darkness animation
+* (stwlam) Allow actor-speed values to be textual until a migration and UI updates can be made
+* (stwlam) Move raise-a-shield macro to typescript codebase, send out action card on use
+
+### Content Changes
+* (Shandyan>) Barbarian Animal Instinct and Animal Skin updates
+* (Shandyan & ArthurTrumpet) Adding Insect Form from ArthurTrumpet
+* (Shandyan & ArthurTrumpet) Added dinosaur form from ArthurTrumpet
+* (SpartanCPA) Add ToggleProperty to "Everstand Stance" feat that interacts with Shield weapons to increase damage
+* (SpartanCPA) Correct the formatting on the dagger in the compendium
+* (SpartanCPA) Fix sneak attack on Polar Bear
+* (SpartanCPA) Add Sneak Attack rule elements to the relevant NPC gallery creatures
+* (SpartanCPA) Correct Vomit Swarm targeting
+* (SpartanCPA) Add Bulwark rule element to Full Plate
+* (stwlam) Add fancy class icons
+* (TMun) Lost Omens Ancestry Guide
+    * Add 6 new ancestries
+    * Add 58 new heritages and ancestry features
+    * Add 385 new feats, renames 5 feats
+    * Add 7 new actions
+    * Add new uncommon language (Giant)
+    * Add 2 new runes
+    * Add 9 new weapons
+* (TMun) Corrects item level and price of Greater Mask of the Banshee. Closes #1099
+
+
+## Version 1.11.9
+### Bug Fixes
+* (stwlam) Refrain from updating worldCreatedOn setting from World-Clock settings form
+* (stwlam) Show numeric value in perception input on simple NPC sheet
+* (stwlam) Fix immunities not wrapping in default NPC sheet
+* (Trollderim) Fix missing reroll option when going through the roll dialog
+
+### New Features
+* (nikolaj-a) Add toggles to default NPC sheet
+
+### Content Changes
+* (TMun) Corrects investigator skill feat and skill increases (were swapped) in class item
+
+
+## Version 1.11.8
+### Bug Fixes
+* (fryguy) Fix feats tab not saving scroll position when making changes
+* (fryguy) Add migration to fix class item migration not filling out the levels fields correctly
+* (stwlam) Fix display of feat traits
+* (stwlam) Fix some traits for legacy damage rolls
+* (stwlam) Enforce numeric inputs on numeric input fields
+* (stwlam) Fix drag & drop of spells on an actor sheet with multiple spellcasting entries
+* (nikolaj-a) Fix missing default options parameter for measureDistances replacement method
+* (nikolaj-a) Fix health percentage calculation in limited PC sheet
+
+### New Features
+* (fryguy) Add drag & drop slots for feats based on the class data
+* (fryguy) Add counteract button to spells
+* (stwlam) Add Calendar/Weather module compatibility mode to WorldClock application
+* (stwlam) Have perception class features upgrade perception rank
+* (Mothringer) Trick Magic Item support for scrolls and wands
+* (Trollderim) Add take from compendium button for players
+* (tchapelot) Use different icons for different types of unidentified items
+* (andriusch) Allow using ammo when shooting bows/crossbows/slings
+* (nikolaj-a) Apply custom modifiers to spell attack and spell DC for PCs
+
+### Content Changes
+* (SLATE) Add missing enemies from PFS 1-16
+* (TMun) Add blightburn items from Extinction Curse 5 to equipment.db
+* (TMun) Add monsters from Chapter 3 of Extinction Curse 5
+* (TMun) Add greater darkvision to ancestry features. Closes #1047
+* (TMun) Add potion of Shared Memories from the APG. Closes #1088
+* (TMun) Fix feat prerequisite structure in feats starting with A, B and C, plus a few fixes of opportunity for data entry regarding formatting, as well as updates to "Eye for Treasure" and "Stonecunning"
+* (TMun) Add an empty ancestry, background and class to each compendium for drag and drop homebrew
+* (stwlam) Clean up reach, deadly, and fatal traits in NPC compendia
+* (Shandyan) Make hunters arrowhead work with hunt prey
+* (Shandyan) Instinctive Obfuscation feat added
+* (Shandyan) Fix predicate error for Hunter's Aim
+* (Shandyan) Spell effects for Bard Focus Spells
+* (Shandyan) Sorcerer Blood Magic, adding links from bloodline features
+* (Shandyan & ArthurTrumpet) Animal form spell effects
+* (SpartanCPA) Add a +5 flat untyped land speed bonus to the "Nimble Hooves" ancestry feat
+* (SpartanCPA) Remove rule elements from Clandestine Cloak base item. There is an attached effect that grants the same rules with an interact action
+* (SpartanCPA) Add Feat Effect for lvl 1 Dwarf feat "Avenge in Glory"
+* (SpartanCPA) Add compendium references and rule elements to Dwarf Ancestry feats
+* (SpartanCPA) Minor tweaks and fixes to Grendel and Polar Bear
+* (putty) Implement effect for inspiring marshal stance
+* (Drental) Macro for proper item bonus stacking in Mountain stance
+* (Drental) Add new raise a shield macro and effect
+
+### Core System Improvements
+* (stwlam) Ctrl-click to delete items without waiting for user confirmation
+* (stwlam) Hide worldCreatedOn setting and instead provide a worldTime reset button
+* (stwlam) Have the WorldClock synchronize darkness from external time advancements
+* (stwlam) Hide expend-spell button for cantrips
+* (stwlam) Prevent "Empty Slot (drag spell here)" in CRB sheet spellbook tab from breaking onto a second line
+* (fryguy) Reorganize feats tab
+* (fryguy) Add input for hp details field on old npc-edit sheet
+* (TMun) Add wavesense as new PC sense
+* (Dmitry) Switch the color icons for blinded and dazzled conditions
+* (nikolaj-a) Add spell and magical option to spell saves
+
+
+## Version 1.11.7
+### Bug Fixes
+* (Trollderim) Add missing return statement for items in IdentifyPopup
+* (nikolaj-a) Fix drag and drop of effects from the item directory to the hotbar
+* (stwlam) Make spellcasting entry name input at least long enough to show default names
+
+### Content Changes
+* (TMun) Move Grolna from Agents of Edgewatch bestiary compendium to equipment compendium
+
+
+## Version 1.11.6
+### Bug Fixes
+* (stwlam) Prevent error from being thrown when unnamed effects are in the token HUD status effects menu
+* (stwlam) 🐵🩹 EntityCollection class to fix Foundry bug occurring on Compendium import
+* (nikolaj-a) Ensure effects toggled from the hotbar has a source ID flag
+* (nikolaj-a) Remove duplicate action icon style from Tiny MCE. Closes #1057
+* (nikolaj-a) Initial support for NPC speed rule elements, including the `total` field for aligning with the PC structure
+* (nikolaj-a) Include roll notes for action shortcut skill checks
+* (nikolaj-a) Add the hard-coded fist strike to the brawling weapon group
+* (nikolaj-a) Add melee or ranged option to PC attack rolls
+
+### Content Changes
+* (Drental) Update spirit instinct to use normal rage damage as an option
+* (Drental) Fix ranger precision at level 11
+* (Drental) Nature gets access to treat wounds and crafting cannot set DC
+* (Shandyan) Added toggle to dragon barbarian rage
+* (Shandyan) Make Precision Ranger easier to use
+* (Shandyan) Corrected Sticky Bombs
+* (Shandyan) Add automatic effects to the following bard feats: discordant voice, ecletic skill, educate allies, know-it-all, ritual researcher, soulsight and well-versed. Add links to focus spells to all relevant bard feats.
+* (mirkoRainer) Add Grolna
+* (SpartanCPA) Add rule elements to the Necklace of Knives item to add two Dagger attacks (melee & ranged)
+* (SpartanCPA) Add rule element to the Sharp Fangs Ancestry Feat to add the 1d8 piercing Fangs strike
+* (SpartanCPA) Added a Compendium for monsters from Little Trouble in Big Absalom
+* (TMun) Add missing spike launcher from Abomination Vault. Closes #1075
+* (TMun) Adds new traits from Lost Omens Ancestry Guide
+* (TMun) Correct action on Kralgurn from Age of Aashes. Updates with new equipment. Closes #1077
+* (stwlam) Fix drag and drop of Abomination Vaults items to the actor sheet. Closes #1068
+* (fryguy) Fix bestiary mistakes in Agents of Edgewatch
+
+### Core System Improvements
+* (stwlam) Hide loot actors from actor directory unless a user has Observer permission
+* (stwlam) Clean up PlayerConfigPF2e, remove highlightDataUri setting
+* (stwlam) Default "Show Condition Chat Bubbles" setting to false
+* (stwlam) Add Time Convention setting to world clock
+* (stwlam) Make spellcasting entry names editable
+* (stwlam) Make item sheet form labels a darker gray
+* (In3luki) Add rule element token effect icons on token creation
+
+
+## Version 1.11.5
+
+Note that this release will change the default for the Quick Rolls client setting. This means that your setting might change if you have not previously set this explicitly.
+
+### Bug Fixes
+* (putty) Fix negligible bulk doubling for tiny items due to rule misunderstanding
+* (putty) Fix bulk calculation for sacks
+* (stwlam) Make the token border color monkey patch more resilient to broken Foundry installations
+* (stwlam) Prevent tall portrait images from overflowing on the CRB sheet
+* (TMun) Adds 'curse' and 'magic' traits to hazards (from Abomination Vaults)
+
+### New Features
+* (stwlam) Expand features of WorldClock application
+* (Maduin) Heighten spontaneous spells
+
+### Content Changes
+* (TMun & rectulo) Correct entry of Calistria minor curse to point to Giant Wasp Venom instead of Giant Wasp
+* (TMun & rectulo) Remove incorrect prerequisites for quick reversal
+* (TMun) Add missing ritual from AoA book 6 and spells from EC books 5 and 6. Closes #1061
+* (TMun) Add note rule element to level 17 Resolve
+* (TMun) Correct a typographic error in the Overflowing Sorrow spell. Closes #1070
+* (Shandyan) Automating alchemist features & feats
+* (Shandyan) Automation for Investigator
+* (Shandyan) Automating barbarian feature & feats
+* (Shandyan) Adding rules elements for Hunter's Aim, based on original version by Dods
+* (Drental) Add support for Natural Medicine (only substitutes the roll), Chirurgeon (also substitutes the max rank), Risky Surgery, Magic Hands, and Medic dedication
+* (Drental) Fix Rest for the Night macro to use the proper warn notification
+* (Drental) Split the spell effects compendium into consumable, equipment, feats, features, and spell effects compendia
+* (profounddark) Fix issue with Rage damage and agile not interacting correctly
+
+### Core System Improvements
+* (stwlam) Renamed skill tab to proficiencies and changed the icon to make it more indicative of its purpose for new players
+* (stwlam) Change Diehard feat to use an active effect
+* (stwlam) Default quickrolls in player config to 'off'
+* (stwlam) Set default permission of Limited for loot actor type
+* (fryguy) Consolidate coins & treasure information on the inventory of the PC sheet
+* (nikolaj-a) Create a macro to toggle an effect when a link to the effect is dragged to the hotbar.
+
+
 ## Version 1.11.4
 ### Bug Fixes
 * (abrault) Fix chat card for rerolls to properly show the previous result
@@ -581,7 +770,7 @@
 * (fryguy) Remove character helper class
 * (fryguy) Separate PF2EActor prepareXData functions into their own subclasses instead of having it all in the same file
 * (stwlam) Add missing @type dependencies
-* (stwlam) Rename ActorData in actorDataDefinitions.ts so it doesn't collide with ActorData in actor.d.ts
+* (stwlam) Rename ActorData in actor-data-definitions.ts so it doesn't collide with ActorData in actor.d.ts
 * (stwlam) Remove discarded item/actor construction in favor of checking options
 
 
@@ -988,7 +1177,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@overdox) Removing unused duplicate icons
 * (@Shandyan) Alchemical poison formatting
 * (@Shandyan) Compendium corrections (class features & spells)
-* (@TMun) Fixes missing details from errata and fixes class kit loadout (#769, #770) 
+* (@TMun) Fixes missing details from errata and fixes class kit loadout (#769, #770)
 * (@TMun) Fixes Toughness description per errata 1 (#759)
 * (@TMun) Repackage. Closes #788, #781, #779 and #78. Corrects part of #786
 * (@TMun) Adds heightening information to Synesthesia spell
@@ -1171,7 +1360,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 ### Core System Improvements
 * (@In3luki) Select the text in an input field on focus in the actor sheets
 * (@blacksmithgu) A _lot_ of internal changes to improve type definitions and clean up code.
-      
+
 
 ## Version 1.10.4
 ### Bug Fixes
@@ -1204,7 +1393,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 
 ### Core System Improvements
 * (@atnoslen) Refactor of the condition manager to improve then efficiency, and work better with the token HUD.
-* (@blacksmithgu) Added missing type definitions for the creature actors.  
+* (@blacksmithgu) Added missing type definitions for the creature actors.
 
 
 ## Version 1.10.2
@@ -1316,7 +1505,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@TMun) Compendium updates
     * Adds The Slithering enemies, traps and items
     * Adds remaining non-magical items from APG (#656, #659, #662, #664, #665, #666, #667, and #668)
-* (@TMun) Added APG class equipment kits 
+* (@TMun) Added APG class equipment kits
 
 
 ## Version 1.9.4
@@ -1545,7 +1734,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@cora) Added four hazards from Ages of Ashes 2 into the adventure path bestiary.
 * (@Shandyan) Compendium updates
     * Correcting the final (??) set of item/journal links for spells, items, feats etc.
-    * Replaced Aon links in actions, backgrounds and class compendium with links to other compendiums for actions, conditions, feats, equipment, spells, etc. 
+    * Replaced Aon links in actions, backgrounds and class compendium with links to other compendiums for actions, conditions, feats, equipment, spells, etc.
     * AoN links to skills, traits and other rules entries not in Foundry have been left in place (for now).
 * (@Shandyan) Updated spells.db to fix various errors
     * Made corrections to spells to address issue 554
@@ -1555,7 +1744,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (TMun#1625) Updated Iconics:
     * Inventory redone to use containers
     * All tokens have owner hover now set to hover
-    * Vision set to 5 dim/300dim/300bright for regular/low light/darkvision 
+    * Vision set to 5 dim/300dim/300bright for regular/low light/darkvision
     * All names in the prototype token have the (level x) removed
 * (@meditatingCybermind & TMun#1625) Added pfs/deity boons and curses
 
@@ -1645,7 +1834,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@abrault) Fixed total treasure and gold price disappearing from the char sheet
 
 
-## Version 1.5.0 
+## Version 1.5.0
 ### New Features
 * (@FS) Added a new compendium pack for Pathfinder Bestiary 2.
 
@@ -1657,7 +1846,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 
 ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/7b2ba2bbda6d7a1b1a27b9499d1a6d36/image.png "Updated Damage Rolls")
 
-* (@L4D15) Adds a new type of actor specifically designed to store loot. 
+* (@L4D15) Adds a new type of actor specifically designed to store loot.
     * Added support to move items between characters inventories (rather than copying).
     * Future features will be coming here for shops and an optimised UI.
 
@@ -1678,7 +1867,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
     * under spell-details on like 26, I have changed traditions to point to 'spellTraditions' rather than 'magicTraditions', because things like 'bludgeoning' and 'bleed' has nothing to do with the type of tradition. The list now shows only the four correct magical traditions: Arcane, Divine, Occult, Primal.
     * Spell sidebar will now also be displaying if there are primary or secondary checks on the ritual, or if it requires secondary casters.
     * Updated spell compendium with changes to rituals, focus cantrips and 1st level focus spells.
-* (@overdox) Added missing rituals: 
+* (@overdox) Added missing rituals:
     * Planar Binding
     * Animate Object
     * Atone
@@ -1702,7 +1891,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 
 ### Core System Improvements
 * (@In3luki) Improved status effect chat message logic to hide messages for hidden actors and to provide a configuration to disable.
-* (@overdox) Added a dropdown for selecting traits on consumables 
+* (@overdox) Added a dropdown for selecting traits on consumables
 * (@overdox) Added rarity to spells and new line for Primary Check for rituals
 * (iceman) Improve wording for compendium settings.
 
@@ -1737,7 +1926,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
     * Undeath's Blessing
     * Ravenous Reanimation
     * Daemonic Pact
-* (@overdox) Content fixes 
+* (@overdox) Content fixes
     * Moonlit Chain is now correctly set to low-grade silver
     * Dragonplate is now correctly set to standard-grade dragon hide
     * Crushing Despair is now named correctly #499 (closed)
@@ -1751,7 +1940,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@Shandyan) Updated errata for spells and fixed broken links
 
 ### Bug Fixes
- * (@In3luki) Fixed multiple status effect chat messages showing during combat
+* (@In3luki) Fixed multiple status effect chat messages showing during combat
 
 
 ### Core System Improvements
@@ -1777,11 +1966,11 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@xneoterrax) Improved styling of spellbook tab (thanks for your first contribution!!)
 * (@overdox) Added item usage selector to the equipment sidebar.
 * (@nikolaj-a) Changed the zero check modifiers to not be disabled.
-* (@nikolaj-a) Supply a default modifier name for one off modifiers added in the roll dialog, if none is specified by the user. 
+* (@nikolaj-a) Supply a default modifier name for one off modifiers added in the roll dialog, if none is specified by the user.
 * (@hooking) Updated Equipment Browser to show an items price.
 
 
-## Version 1.4.0 
+## Version 1.4.0
 ### New Features
 * (@In3luki) Added a setting to show the conditions of the active combatant in chat for each combat turn.
 * (@In3luki) Added an API to set conditions on a token programatically or via macros
@@ -1798,7 +1987,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 
 
 ### Bug Fixes
-* (@nikolaj-a) Fixed the heading of the modifiers tooltip for initiative to say initiative and the relevant skill name, instead of just saying perception all the time. 
+* (@nikolaj-a) Fixed the heading of the modifiers tooltip for initiative to say initiative and the relevant skill name, instead of just saying perception all the time.
 * (@In3luki) Fixed error in CUB installation check.
 
 
@@ -1814,7 +2003,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 ### Core System Improvements
 * (@mdizo) Improved styling of view modifier hover and workflow for adding custom modifiers.
 
-## Version 1.3.0 
+## Version 1.3.0
 ### New Features
 * (@nikolaj-a) Added functionality to add/remove modifiers for AC, Saving Throws, Initiative, Skills and Perception in the modifiers tooltip
 
@@ -1838,7 +2027,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@nikolaj-a) Introduce a context parameter to the check roll dialog, which will allow support for fate (fortune and misfortune) effects. Provide UI for supplying a fate effect before executing the roll.
 
 
-## Version 1.2.0 
+## Version 1.2.0
 ### New Features
 * (@putt1) Implemented a way to select all fundamental runes for weapons and armors.
     * Fixes deadly dice being doubled/trippled by attacks that have no striking rune but more than one damage die
@@ -1876,7 +2065,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@overdox) Content improvements:
     * Fix for the broken icon link on Perpetual Infusions (Bomber) #461 (closed)
     * Renamed the Core Rulebook SRD compendium journal to better reflect it's content #460 (closed) The new name is now Deities.
-* (@kenster421) Added Bestiary for Extinction Curse: 
+* (@kenster421) Added Bestiary for Extinction Curse:
     * Added Xulgath-family monsters
     * Added NPCs from EC01: The Show Must Go On
 * (@putt1) Added plaguestone hazards
@@ -1891,14 +2080,14 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 * (@nikolaj-a) Added link to show AC modifier tooltip as the AC calculation breakdown is not visible anywhere, and it can be hard to keep track of the source of all modifiers.
 * (@nikolaj-a) Added naive support for finesse on strikes, without taking into consideration conditions affecting the actor.
 * (@nikolaj-a) Applied extra CSS class to check modifier roll dialog to better enable styling.
-* (@nikolaj-a) Added an optional callback function parameter to the PF2Check roll and roll dialog to allow reacting to the roll result, like setting an initiative result. 
+* (@nikolaj-a) Added an optional callback function parameter to the PF2Check roll and roll dialog to allow reacting to the roll result, like setting an initiative result.
 * (@nikolaj-a) Added class DC back into sidebar
 * (@nikolaj-a) Improved the initiative chat message to show the skill used when players roll for initiative.
-![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a28bfcc03746f7dd5b92791e3ca87322/image.png "Initiative message now shows the skill rolled")
+  ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/a28bfcc03746f7dd5b92791e3ca87322/image.png "Initiative message now shows the skill rolled")
 * (@nikolaj-a) Updated save modifiers to use armor name as resiliency item bonus label
-![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
+  ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/f11fed405dc55ff0ab30f3b08326d64b/image.png "Resiliency item bonus to saves")
 * (@nikolaj-a) Added an expandable panel for strike action and outcome descriptions, as well as showing the strike traits.
-![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/03087cab175ddacb1fa9a863788fe72d/image.png "Strike expandable panel")
+  ![alt text](https://gitlab.com/hooking/foundry-vtt---pathfinder-2e/uploads/03087cab175ddacb1fa9a863788fe72d/image.png "Strike expandable panel")
 * (@Noires) Changed en.json structure to be easier readable, editable and compatible with i18n editor
 * (@Noires) Significantly improved the translation support for the new character sheet
 * (@mdizo) Laid some basic foundations for future responsive design work.
@@ -1911,16 +2100,16 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
 
 
 
-## Version 1.1.0 
+## Version 1.1.0
 ### New Features
-* (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits). 
-![alt text](img/adventurers_pack.gif "Adventurers Pack auto expands into this")
+* (@putt1) Added support for 'kits' in equipment system - items that can be dropped on an actor and expand into their contained parts (i.e. Adventurer's Pack and class kits).
+  ![alt text](img/adventurers_pack.gif "Adventurers Pack auto expands into this")
 * (@putt1) Add precious materials and runes for weapons and armors.
 
 ![alt text](img/weapon_details_runes.png "Precious materials and runes")
 
 ### Content Changes
-* (@overdox) Added class kits (available in the compendium) 
+* (@overdox) Added class kits (available in the compendium)
 
 ![alt text](img/classkits.png "Class Kits")
 * (@overdox) Set the correct bulk on the belt pouch and the bandolier
@@ -1957,7 +2146,7 @@ This is most likely the last version that will support version 0.6.6 of Foundry.
     * Expanded the bulk options all the way to 50
     * Added icons to all new equipment types
     * Added a set of 9 default icon types for {Armor, Weapon, Consumable, Equipment, Feats, Shield, Treasure, Backpack, Spell}
-All level 1 trough to level 28 should now have been added to the compendium
+      All level 1 trough to level 28 should now have been added to the compendium
 * (@Athenos) Updated Age of Ashes Bestiary
 * (tushycat#5011) Added bestiary icons to the system (these are not yet linked to bestiary actors but it is on it's way).
 
@@ -2126,7 +2315,7 @@ All level 1 trough to level 28 should now have been added to the compendium
 *  (@meditatingCybermind) Added a system configuration setting to factor in bulk for coins (or not).
 *  (@meditatingCybermind) Added the first system macro "Treat Wounds" which automates the treat wound check and healing result.
 *  (@nikolaj-a) Added initial support for Class DC to use the PF2Modifier system.
-*  (@nikolaj-a) Added initial support for custom PF2Modifiers - Provide methods for adding and removing custom modifiers that will properly hook into the modifier stacking rules. 
+*  (@nikolaj-a) Added initial support for custom PF2Modifiers - Provide methods for adding and removing custom modifiers that will properly hook into the modifier stacking rules.
 ### Content Changes
 *  (Athenos) Added compendium for Age of Ashes with books 4 through to 6 included.
 *  (@hooking) Moved the Age of Ashes bestiary entries out of the core bestiary as they are now included in a dedicated compendium.
@@ -2194,7 +2383,7 @@ All level 1 trough to level 28 should now have been added to the compendium
 *  (@acrowthe) Updated bomb compendium entries
 *  (@mdizo) Implemented new HTML UI (prettierc)
 *  (@putt1) Bulk for worn and carried items is now supported, ammunition and rations calculate the correct bulk, encumbrance limit is now shown; extradimensional traits for containers supported
-*  (@In3luki) Data migration ported from the D&D system 
+*  (@In3luki) Data migration ported from the D&D system
 *  (luke#4754) Fixed support for older characters with no associated list of status effects
 *  (@meditatingCybermind) Initial support for wands
 *  (@nikolaj-a) Initial support fot skill modifiers
@@ -2244,7 +2433,7 @@ All level 1 trough to level 28 should now have been added to the compendium
 *  v0.569.0: (mdizo#0928) Laid the foundation for the future CSS overhaul
 *  v0.569.0: (mdizo#0928) Enabled souremaps in Gulp and edited the system.json to point to the legacy pf2e.scss file.
 *  v0.569.0: (mdizo#0928) Fixed an extra comma in NPC movement speeds on readonly sheet
-Add extra character sheet implementation that extends the existing, but overrides the template. Add a new template file structure in a subfolder to allow for additional designs in the future.
+   Add extra character sheet implementation that extends the existing, but overrides the template. Add a new template file structure in a subfolder to allow for additional designs in the future.
 *  v0.569.0: (nikolaj-a) Add extra character sheet implementation that extends the existing, but overrides the template. Add a new template file structure in a subfolder to allow for additional designs in the future.
 *  v0.565.0: (Shandyan#5980) Fixed bestiary entries for the following level 11 creatures: (Black dragon, Deadly mantis, Elemental avalanche, Elemental hurricane, Elemental tsunami, Goliath spider, Stone golem)
 *  v0.565.0: (Shandyan#5980) Fixed bestiary entries for the following level 12 creatures: (Adult copper, Deculi, Gimmerling, Gogiteth, Great cyclops, Kolyarut, Lich, Rusalka, Sea serpent)
@@ -2327,10 +2516,10 @@ Add extra character sheet implementation that extends the existing, but override
 *  v0.561.0: (Trey) Added support for Spell Heightening +2/+3/+4 (prepared only)
 *  v0.561.0: (Trey) Configured automated testing of spells to use the spell compendium
 *  v0.561.0: (Arshea#4444) Fixed stamina point calculation errors
-*  v0.561.0: (Arshea#4444) Refactored HP autocalculation 
+*  v0.561.0: (Arshea#4444) Refactored HP autocalculation
 *  v0.561.0: Fixed migration code
 *  v0.561.0: (TheCraiggers) Fixed leather armor auto-equiping from the equipment compendium
-*  v0.559.0: Added the ability to modify NPC attack damage rolls 
+*  v0.559.0: Added the ability to modify NPC attack damage rolls
 *  v0.559.0: Consolidated all NPC attacks to use the new damage rolls method
 *  v0.559.0: Cleaned up a lot of duplicate/redundant code
 *  v0.559.0: Separated NPC attack and damage rolls from weapon attack and damage rolls
@@ -2425,7 +2614,7 @@ Add extra character sheet implementation that extends the existing, but override
 *  v0.546.0: (overdox#9174) Added new missing weapon trait
 *  v0.546.0: (overdox#9174) Added new spell icons
 *  v0.546.0: (overdox#9174) Fixed formatting and missing focus spell levels on some spells
-*  v0.545.0: (henry4k#8969) Added localization support for most text fields in the system. 
+*  v0.545.0: (henry4k#8969) Added localization support for most text fields in the system.
 *  v0.544.0: (overdox#9174) Added missing spells (issue #186) and fixed typo in talisman (issue #188)
 *  v0.543.1: Fixed bug when a world does not have any flags defined.
 *  v0.543.0: (Luki#1571) Implemented TabsV2 and migrated the system from TabsV1. Thanks heaps for the contribution!
@@ -2456,7 +2645,7 @@ Add extra character sheet implementation that extends the existing, but override
 *  v0.542.0: (overdox#9174) formating on actions and added missing actions
 *  v0.542.0: (overdox#9174) merged spells into a single compendium, fixed broken image links.
 *  v0.542.0: (overdox#9174) fixed problem with images on spells for spellslogm.db and reduced the overall size of the compendium file
-added new images for ancestry and class features
+   added new images for ancestry and class features
 *  v0.541.1: Fixed bug with initiative rolls for actors that do not have data.attributes.initiative (because they were created before the template change).
 *  v0.541.0: (yeroon#2590) Added Dying/Wounded/Doomed to the character sheet (with interaction to each other).
 *  v0.541.0: (yeroon#2590) Perception rolled from the Combat Tracker now also gets Initiative bonuses.
@@ -2503,8 +2692,8 @@ added new images for ancestry and class features
 *  v0.530: (Cranic) Added support for adjustable Multi-Attack Penalties on weapons.
 *  v0.529: Configured weapons to use a standard input field for attack bonus rather than select to cover different usecases out of the limited options in the select statement.
 *  v0.528: Updated licensing and usage information included in the readme.
-*  v0.527: Added a bonus damage field to weapons which can be used for Weapon Specialization, Rage damage bonuses or anything else. 
-*  v0.527: Fixed the Critical button on the read-only character sheet. 
+*  v0.527: Added a bonus damage field to weapons which can be used for Weapon Specialization, Rage damage bonuses or anything else.
+*  v0.527: Fixed the Critical button on the read-only character sheet.
 *  v0.526: Added a read-only sheet for characters (using the same style as the read-only NPC sheet) This sheet is optional at this stage so you need to enable it in the sheet options for the actor.
 *  v0.526: Added an Action Category field for actions and feats which allows them to be grouped into Offensive, Defensive and Interactive categories. Used for display grouping in the read-only sheet.
 *  v0.526: Updated the way prepared spell slots can be marked as expended. The slot can still be cleared as normal but now the slot can also be marked as expended which puts a strikethrough on the spell name (visual only) to indicate that the spell has been used.
@@ -2564,7 +2753,7 @@ added new images for ancestry and class features
 *  v0.464: (Trey#9048) Incorporated eslint and started moving the pf2e system to use es6 style modules.
 *  v0.464: (Trey#9048) Fixed an issue with the Action Browser compendium pack settings
 *  v0.463: (Trey#9048) Fixed issue with out dated system.json in deployment package.
-*  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker. 
+*  v0.462: Fixed bug when rolling initiative for NPCs using the combat tracker.
 *  v0.462: Set the placeholder for NPC perception, saves and attack bonus to 0 to reflect the actual values.
 *  v0.460: (Trey#9048) Added a new automated deployment process to build, package and publish pf2e system changes. Thanks!!!
 *  v0.456: (Trey#9048) Added Action Browser - a way to search and filter for actions from selected compendium packs. Thanks!
@@ -2572,14 +2761,14 @@ added new images for ancestry and class features
 *  v0.454: (Trey#9048) Fixed an issue with focus spell heightening.
 *  v0.452: (ohporter) Fixed dice roll dialogs rolling when cancelled. Thanks!
 *  v0.452: hotfix for hotbar items
-*  v0.451: (Trey#9048) Added a new feature: Spell Heightening which adds a damage formula to spell damage per heightened level. 
+*  v0.451: (Trey#9048) Added a new feature: Spell Heightening which adds a damage formula to spell damage per heightened level.
 *  v0.451: (Trey#9048) Enabled the drag and drop of actor items onto the FVTT hotbar.
-*  v0.451: (Trey#9048) Fixed form input fields not being saved correctly when changing from one input field to another. 
+*  v0.451: (Trey#9048) Fixed form input fields not being saved correctly when changing from one input field to another.
 *  v0.450: (Trey#9048) Further fixes initiative, adds Class Features as a feat type.
 *  v0.449: (Trey#9048) Fixed actor initiative fix. Thanks!!!
 *  v0.448: Fixed lore skill mod calculation for characters.
 *  v0.447: Fixed issues with orphaned spell migration and incorporated chat damage buttons as a core feature.
-*  v0.445: Added support for FVTT v0.4.5. 
+*  v0.445: Added support for FVTT v0.4.5.
 *  v0.442: Added support for FVTT v0.4.2. and added spellcasting entry of type Scroll to allow scrolls to be stored in the spellcasting tab if you wish.
 *  v0.441: Added support for FVTT v0.4.0. Please note this is the minimum support needed to get it working. A lot more work is required to bring the pf2e system in alignment with all changes.
 *  v0.439: (fryguy#3851) Added support for Thieves Racket and fixed the dice used in the Deadly weapon trait.
@@ -2618,7 +2807,7 @@ added new images for ancestry and class features
 *  v0.353: (FS#5443) Also fixed as issue with ad-hoc traits not rendering correctly. Thanks again! :)
 *  v0.353: Updated the display of traits in the item summary to only be styled if they have additional description information to show (UX behaviour)
 *  v0.353: (fryguy#3851) for fixing an issue with prepared spells not being removed correctly. Thanks!!
-*  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing 
+*  v0.352: Fixed bug with NPCs trying to calculate hero point icons and failing
 *  v0.351: Added Hero Points to character sheets
 *  v0.350: Added chat button to allow setting initiative for selected tokens.
 *  v0.349: Fix for NPC psuedo-lore skill rolls. Thanks FS#5443!
@@ -2634,13 +2823,13 @@ added new images for ancestry and class features
 *  v0.345: Added trait descriptions to all traits that display when hovered over a trait in item summaries
 *  v0.345: Added color coding to tags to represent if they have additional information or not
 *  v0.345: Removed less configuration
-*  v0.344: Fixed lore proficiencies so they can be cycled from the character sheet 
-*  v0.344: Fixed lore name and item bonus so it can be edited from the character sheet; also removed the edit button. 
-*  v0.344: Fixed issue with lore skill information not being saved on world restart. 
+*  v0.344: Fixed lore proficiencies so they can be cycled from the character sheet
+*  v0.344: Fixed lore name and item bonus so it can be edited from the character sheet; also removed the edit button.
+*  v0.344: Fixed issue with lore skill information not being saved on world restart.
 *  v0.344: Added Multi-Attack Penalty buttons to NPC sheet
 *  v0.344: Added Item Summary for NPC attackts
-*  v0.341: Added Deadly d6 and Jousting d6 weapon traits 
+*  v0.341: Added Deadly d6 and Jousting d6 weapon traits
 *  v0.340: Merged in fix for NPC skills from FS#5443 AND improvements for multi-attack penalties from fryguy#3851. Huge thanks to both of you!
 *  v0.339: Added weapon traits for Two-Handed, Deadly, Fatal, Versitle and Thown die sizes, damage types and distances.
-*  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs 
+*  v0.338: Included Feat (SRD) and Armor (SRD) compendium packs
 *  v0.337: Added Feat Browser

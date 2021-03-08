@@ -102,7 +102,6 @@ export class CompendiumPack {
         }
     }
 
-
     static loadJSON(dirPath: string): CompendiumPack {
         if (!dirPath.replace(/\/$/, '').endsWith('.db')) {
             const dirName = path.basename(dirPath);
@@ -209,10 +208,9 @@ export class CompendiumPack {
 
     private isEntityData(entityData: {}): entityData is PackEntityData {
         const checks = Object.entries({
-            name: (data: any) => typeof data.name === 'string',
-            // type: (data: any) => typeof data.type === "string",
-            flags: (data: unknown) => typeof data === 'object' && 'flags' in data,
-            permission: (data: any) =>
+            name: (data: { name?: unknown }) => typeof data.name === 'string',
+            flags: (data: unknown) => typeof data === 'object' && data !== null && 'flags' in data,
+            permission: (data: { permission?: { default: unknown } }) =>
                 typeof data.permission === 'object' &&
                 data.permission !== null &&
                 Object.keys(data.permission).length === 1 &&

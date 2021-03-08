@@ -1,34 +1,95 @@
 import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '../item/item';
+import { PF2EItem } from '@item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrike, CharacterStrikeTrait, NpcData } from './actorDataDefinitions';
+import { CharacterStrike, CharacterStrikeTrait, NpcData } from './actor-data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '../system/rolls';
 
 export class PF2ENPC extends PF2EActor {
-    /** @override */
     data!: NpcData;
+    _data!: NpcData;
+
+    /** @override */
+    static readonly type = 'npc';
 
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
         const actorData = this.data;
+        const { data } = actorData;
 
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
             [],
         );
 
-        const { data } = actorData;
+        // Toggles
+        (data as any).toggles = {
+            actions: [
+                {
+                    label: 'PF2E.TargetFlatFootedLabel',
+                    inputName: `flags.${game.system.id}.rollOptions.all.target:flatFooted`,
+                    checked: this.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
+                },
+            ],
+        };
+
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
         for (const abl of Object.values(actorData.data.abilities)) {
             abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
             abl.value = abl.mod * 2 + 10;
+        }
+
+        // Speeds
+        {
+            const label = game.i18n.localize('PF2E.SpeedTypesLand');
+            const base = parseInt(data.attributes.speed.value, 10) || 0;
+            const modifiers: PF2Modifier[] = [];
+            ['land-speed', 'speed'].forEach((key) => {
+                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            });
+            const stat = mergeObject(
+                new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers),
+                data.attributes.speed,
+                { overwrite: false },
+            );
+            stat.total = base + stat.totalModifier;
+            stat.type = 'land';
+            stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: label })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+                )
+                .join(', ');
+            data.attributes.speed = stat;
+        }
+        for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
+            const speed = data.attributes.speed.otherSpeeds[idx];
+            const base = typeof speed.value === 'string' ? parseInt(speed.value, 10) || 0 : 0;
+            const modifiers: PF2Modifier[] = [];
+            [`${speed.type.toLowerCase()}-speed`, 'speed'].forEach((key) => {
+                (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            });
+            const stat = mergeObject(
+                new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.type }), modifiers),
+                speed,
+                { overwrite: false },
+            );
+            stat.total = base + stat.totalModifier;
+            stat.breakdown = [`${game.i18n.format('PF2E.SpeedBaseLabel', { type: speed.type })} ${base}`]
+                .concat(
+                    stat.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+                )
+                .join(', ');
+            data.attributes.speed.otherSpeeds[idx] = stat;
         }
 
         // Armor Class
@@ -246,10 +307,10 @@ export class PF2ENPC extends PF2EActor {
                 const notes = [] as PF2RollNote[];
 
                 // traits
-                const traits = PF2EActor.traits(item?.data?.traits?.value);
+                const traits = item.data.traits.value;
 
                 // Determine the base ability score for this attack.
-                let ability;
+                let ability: string;
                 {
                     ability = (item.data as any).weaponType?.value === 'ranged' ? 'dex' : 'str';
                     const bonus = Number(item.data?.bonus?.value ?? 0);
@@ -324,7 +385,7 @@ export class PF2ENPC extends PF2EActor {
 
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     PF2Check.roll(
                         new PF2CheckModifier(`Strike: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes },
@@ -338,7 +399,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes },
@@ -349,7 +410,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `MAP ${map.map2}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED),
@@ -362,7 +423,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `MAP ${map.map3}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED),
@@ -373,7 +434,8 @@ export class PF2ENPC extends PF2EActor {
                         }),
                     },
                 ];
-                action.damage = (event, options = [], callback?) => {
+                action.damage = adaptRoll((args) => {
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,
@@ -384,9 +446,15 @@ export class PF2ENPC extends PF2EActor {
                         options,
                         rollNotes,
                     );
-                    PF2DamageRoll.roll(damage, { type: 'damage-roll', outcome: 'success', options }, event, callback);
-                };
-                action.critical = (event, options = [], callback?) => {
+                    PF2DamageRoll.roll(
+                        damage,
+                        { type: 'damage-roll', outcome: 'success', options },
+                        args.event,
+                        args.callback,
+                    );
+                });
+                action.critical = adaptRoll((args) => {
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,
@@ -400,10 +468,10 @@ export class PF2ENPC extends PF2EActor {
                     PF2DamageRoll.roll(
                         damage,
                         { type: 'damage-roll', outcome: 'criticalSuccess', options },
-                        event,
-                        callback,
+                        args.event,
+                        args.callback,
                     );
-                };
+                });
 
                 data.actions.push(action);
             }

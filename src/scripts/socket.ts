@@ -20,6 +20,12 @@ export function activateSocketListener() {
                     transfer.enact(sender);
                 }
                 break;
+            case 'refreshSceneControls':
+                if (!game.user.isGM && message.data.layer === ui.controls.control?.layer) {
+                    console.debug('PF2e System | Refreshing Scene Controls');
+                    ui.controls.initialize({ layer: message.data.layer });
+                }
+                break;
             default:
                 throw Error(`PF2e System | Received unrecognized socket emission: ${message.request}`);
         }

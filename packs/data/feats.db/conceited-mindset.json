@@ -19,8 +19,9 @@
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "tenets of evil"
@@ -29,19 +30,44 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Conceited Mindset (vs. mental)",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If you succeed at a save against a mental effect, you critically succeed instead; similarly, if you fail at a save against a mental effect, you critically fail instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
-                "value": "common"
+                "value": "uncommon"
             },
             "value": [
-                "uncommon",
                 "champion"
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Conceited Mindset",

@@ -2,11 +2,9 @@ import * as fs from 'fs-extra';
 import * as os from 'os';
 import * as path from 'path';
 import * as process from 'process';
-import { Configuration } from 'webpack';
+import { Configuration, DefinePlugin } from 'webpack';
 import copyWebpackPlugin from 'copy-webpack-plugin';
-import { CleanWebpackPlugin } from 'clean-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
-import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import WebpackBar from 'webpackbar';
@@ -33,6 +31,19 @@ const optimization: Optimization = isProductionBuild
               }),
               new CssMinimizerPlugin(),
           ],
+          splitChunks: {
+              chunks: 'all',
+              cacheGroups: {
+                  default: {
+                      name: 'main',
+                      test: 'src/pf2e.ts',
+                  },
+                  vendor: {
+                      name: 'vendor',
+                      test: /node_modules/,
+                  },
+              },
+          },
       }
     : undefined;
 
@@ -51,6 +62,9 @@ const config: Configuration = {
                             configFile: path.resolve(__dirname, 'tsconfig.json'),
                             experimentalWatchApi: !isProductionBuild,
                             happyPackMode: true,
+                            compilerOptions: {
+                                noEmit: false,
+                            },
                         },
                     },
                 ],
@@ -87,11 +101,12 @@ const config: Configuration = {
     bail: isProductionBuild,
     watch: !isProductionBuild,
     plugins: [
-        new CleanWebpackPlugin(),
+        new DefinePlugin({
+            BUILD_MODE: JSON.stringify(buildMode)
+        }),
         new copyWebpackPlugin({
             patterns: [{ from: 'static/' }, { from: 'system.json' }],
         }),
-        new ForkTsCheckerWebpackPlugin(),
         new MiniCssExtractPlugin({
             filename: 'styles/pf2e.css',
             insert: 'head',
@@ -102,12 +117,16 @@ const config: Configuration = {
         alias: {
             '@actor': path.resolve(__dirname, 'src/module/actor'),
             '@item': path.resolve(__dirname, 'src/module/item'),
+            '@scripts': path.resolve(__dirname, 'src/scripts'),
+            '@system': path.resolve(__dirname, 'src/module/system'),
+            '@utils': path.resolve(__dirname, 'src/module/utils.ts'),
         },
         extensions: ['.ts'],
     },
     output: {
+        clean: true,
         path: outDir,
-        filename: 'main.bundle.js',
+        filename: '[name].bundle.js',
     },
 };
 

@@ -21,7 +21,7 @@
         
         <span class="hp-current pf-large" title="{{localize "PF2E.MaxHitPointsShortLabel"}}: {{data.attributes.hp.max}}">
           <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
-          <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
+          <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
         </span>
         <div class="stats-line">
           <span class="inline-stats">
@@ -372,6 +372,22 @@
         </li>
         {{/each}}
    	 {{/each}}
+    </ol>
+
+    <ol class="inventory-list toggles-list">
+      <li class="item action-header">
+        <h3 class="pf-heading pf-actions">Toggles (Experimental)</h3>
+      </li>
+      <li class="actions-options">
+        {{#each data.toggles.actions as |toggle idx|}}
+        <div class="actions-option">
+          <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+            <span>{{localize toggle.label}}</span>
+          </label>
+        </div>
+        {{/each}}
+      </li>
     </ol>
 
     <ol class="actions-list inventory-list directory-list strikes-list">

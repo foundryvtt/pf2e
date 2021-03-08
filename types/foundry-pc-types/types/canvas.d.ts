@@ -12,7 +12,12 @@ declare class Canvas<ActorType extends Actor = Actor> {
     dimensions: CanvasDimensions | null;
     grid: GridLayer;
     hud: HeadsUpDisplay;
-    scene: Scene;
+    lighting: LightingLayer;
+    scene: Scene | null;
     tokens: TokenLayer<ActorType>;
     templates: TemplateLayer;
 }
+
+declare type DrawnCanvas<A extends Actor = Actor> = {
+    [K in keyof Canvas<A>]: NonNullable<Canvas<A>[K]>;
+};

@@ -6,7 +6,8 @@
       "hazard",
       "loot",
       "familiar",
-      "vehicle"
+      "vehicle",
+      "animalCompanion"
     ],
     "templates": {
       "common": {
@@ -90,7 +91,6 @@
             "min": 0,
             "max": 10,
             "temp": 0,
-            "tempmax": 0,
             "details": ""
           },
           "sp": {
@@ -103,8 +103,6 @@
           "levelbonushp": 0,
           "flatbonussp": 0,
           "levelbonussp": 0,
-          "ancestryhp": 0,
-          "classhp": 0,
           "bonusLimitBulk": 0,
           "bonusEncumbranceBulk": 0,
           "resolve": {
@@ -113,12 +111,6 @@
           "perception": {
             "rank": 0,
             "ability": "wis",
-            "item": 0,
-            "value": 0
-          },
-          "classDC": {
-            "rank": 0,
-            "ability": "str",
             "item": 0,
             "value": 0
           },
@@ -133,7 +125,6 @@
           },
           "speed": {
             "value": "25",
-            "special": "",
             "otherSpeeds": []
           }
         },
@@ -302,6 +293,12 @@
         "heroPoints": {
           "rank": 0,
           "max": 3
+        },
+        "classDC": {
+          "rank": 0,
+          "ability": "str",
+          "item": 0,
+          "value": 0
         }
       },
       "details": {
@@ -521,7 +518,6 @@
           "value": 10,
           "max": 10,
           "temp": 0,
-          "tempmax": 0,
           "details": ""
         },
         "hardness": 0,
@@ -567,6 +563,19 @@
         }
       },
       "lootSheetType": "Loot"
+    },
+    "animalCompanion": {
+      "templates": ["common"],
+      "master": {
+        "id": "",
+        "name": "",
+        "level": 0
+      },
+      "attributes": {
+        "hp": {
+          "value": 0
+        }
+      }
     },
     "familiar": {
       "templates": [],
@@ -614,7 +623,8 @@
           "value": "tiny"
         },
         "traits": {
-          "value": ["minion"]
+          "value": ["minion"],
+          "custom": ""
         }
       }
     },
@@ -674,7 +684,7 @@
           "custom": ""
         },
         "di": {
-          "value": ["critical-hits","object-immunities","precision-damage"],
+          "value": ["critical-hits","object-immunities","precision"],
           "custom": ""
         },
         "dr": [],
@@ -714,7 +724,11 @@
           "value": ""
         },
         "traits": {
-          "value": []
+          "value": [],
+          "rarity": {
+            "value": "common"
+          },
+          "custom": ""
         },
         "rarity": {
           "value": "common"
@@ -1101,12 +1115,6 @@
         "custom": ""
       },
       "items": {},
-      "traits": {
-        "rarity": {
-          "value": "common"
-        },
-        "value": []
-      },
       "vision": "normal"
     },
     "background": {
@@ -1121,12 +1129,6 @@
       "trainedLore": "",
       "trainedSkills": {
         "value": []
-      },
-      "traits": {
-        "rarity": {
-          "value": "common"
-        },
-        "value": []
       }
     },
     "class": {
@@ -1135,12 +1137,6 @@
       ],
       "keyAbility": { "value": [] },
       "items": {},
-      "traits": {
-        "rarity": {
-          "value": "common"
-        },
-        "value": []
-      },
       "hp": 0,
       "trainedSkills": {
         "value": [],
@@ -1179,7 +1175,7 @@
         "itemLevel"
       ],
       "featType": {
-        "value": ""
+        "value": "bonus"
       },
       "actionType": {
         "value": ""
@@ -1199,7 +1195,6 @@
       "templates": [
         "itemDescription"
       ],
-      "featType": "",
       "mod": {
         "value": 0
       },
@@ -1242,10 +1237,6 @@
       },
       "trigger": {
         "value": ""
-      },
-      "skill_requirements": {
-        "skill": "",
-        "rank": ""
       }
     },
     "spell": {
@@ -1314,6 +1305,9 @@
       },
       "location": {
         "value": ""
+      },
+      "hasCounteractCheck": {
+        "value": false
       }
     },
     "spellcastingEntry": {
@@ -1410,6 +1404,9 @@
           "value": 0,
           "max": 0
         }
+      },
+      "signatureSpells": {
+        "value": []
       }
     },
     "kit": {

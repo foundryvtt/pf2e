@@ -1,10 +1,6 @@
-declare class Playlists extends Collection<Playlist> {
-    entities: Playlist[];
-
+declare class Playlists extends EntityCollection<Playlist> {
     /** @override */
-    get object(): Playlist;
-
-    values(): IterableIterator<Playlist>;
+    get entity(): 'Playlist';
 
     /**
      * Return the subset of Playlist entities which are currently playing
@@ -13,11 +9,18 @@ declare class Playlists extends Collection<Playlist> {
 
     /**
      * Handle changes to a Scene to determine whether to trigger changes to Playlist entities.
-     * @param scene		The Scene entity being updated
-     * @param data		Incremental update data
-     * @param options	Update options
+     * @param scene     The Scene entity being updated
+     * @param data      Incremental update data
+     * @param options   Update options
      */
     protected _onUpdateScene(scene: Scene, data: object, options: object): void;
+}
+
+declare interface PlaylistClassConfig extends EntityClassConfig<Playlist> {
+    collection: Playlists;
+    embeddedEntities: {
+        PlaylistSound: 'sounds';
+    };
 }
 
 declare class Playlist extends Entity {
@@ -33,16 +36,12 @@ declare class Playlist extends Entity {
     playbackOrder: any[];
 
     /** @override */
-    static get config(): {
-        baseEntity: Playlist;
-        collection: Playlists;
-        embeddedEntities: { PlaylistSound: string };
-    };
+    static get config(): PlaylistClassConfig;
 
     /**
      * Set up the Howl object by calling the core AudioHelper utility
-     * @param sound	The PlaylistSound for which to create an audio object
-     * @return		The created audio object
+     * @param sound The PlaylistSound for which to create an audio object
+     * @return      The created audio object
      */
     protected _createAudio(sound: object): any;
 
@@ -51,7 +50,7 @@ declare class Playlist extends Entity {
      * Mark the concluded sound as no longer playing and possibly trigger playback for a subsequent sound depending on
      * the playlist mode.
      *
-     * @param soundId	The sound ID of the track which is ending playback
+     * @param soundId   The sound ID of the track which is ending playback
      */
     protected _onEnd(soundId: string): Promise<void>;
 
@@ -64,8 +63,8 @@ declare class Playlist extends Entity {
 
     /**
      * Get the next sound which should be played in the Playlist after the current sound completes
-     * @param soundId	The ID of the currently playing sound
-     * @return			The sound data for the next sound to play
+     * @param soundId   The ID of the currently playing sound
+     * @return          The sound data for the next sound to play
      */
     protected _getNextSound(soundId: string): any;
 
@@ -94,25 +93,25 @@ declare class Playlist extends Entity {
 
     /**
      * Play (or stop) a single sound from the Playlist
-     * @param sound	The sound object to begin playback
+     * @param sound The sound object to begin playback
      */
     playSound(sound: object): void;
 
     /**
      * Begin simultaneous playback for all sounds in the Playlist
-     * @return	A Promise which resolves once the Playlist update is complete
+     * @return  A Promise which resolves once the Playlist update is complete
      */
     playAll(): Promise<Playlist>;
 
     /**
      * End playback for any/all currently playing sounds within the Playlist
-     * @return	A Promise which resolves once the Playlist update is complete
+     * @return  A Promise which resolves once the Playlist update is complete
      */
     stopAll(): Promise<Playlist>;
 
     /**
      * Cycle the playlist mode
-     * @return	A promise which resolves to the updated Playlist instance
+     * @return  A promise which resolves to the updated Playlist instance
      */
     cycleMode(): Promise<Playlist>;
 }

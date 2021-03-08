@@ -105,7 +105,11 @@ export class CheckModifiersDialog extends Application {
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
 
-        let flavor = `<b>${check.name}</b>`;
+        let flavor = `<strong>${check.name}</strong>`;
+        if (ctx.type === 'spell-attack-roll' && game.modules.get('pf2qr')?.active) {
+            // Until the PF2eQR module uses the roll type instead of feeling around for "Attack Roll"
+            flavor = flavor.replace(/^<strong>/, '<strong data-pf2qr-hint="Attack Roll">');
+        }
 
         // Add the degree of success if a DC was supplied
         if (ctx.dc !== undefined) {
@@ -132,7 +136,7 @@ export class CheckModifiersDialog extends Application {
         }
 
         if (ctx.traits) {
-            const traits = ctx.traits.map((trait) => `<span class="tag">${trait}</span>`).join('');
+            const traits = ctx.traits.map((trait: string) => `<span class="tag">${trait}</span>`).join('');
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
         flavor += `<div class="tags">${modifierBreakdown}${optionBreakdown}</div>${notes}`;
@@ -146,7 +150,7 @@ export class CheckModifiersDialog extends Application {
                         canPopout: true,
                     },
                     pf2e: {
-                        canReroll: !ctx.fate,
+                        canReroll: !['fortune', 'misfortune'].includes(ctx.fate),
                         context: ctx,
                         unsafe: flavor,
                     },
@@ -177,7 +181,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     activateListeners(html: JQuery) {
-        html.find('.roll').click((event) => {
+        html.find('.roll').on('click', (_event) => {
             this.context.fate = html.find('input[type=radio][name=fate]:checked').val() as string;
             CheckModifiersDialog.roll(this.check, this.context, this.callback);
             this.close();

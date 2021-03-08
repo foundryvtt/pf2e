@@ -24,6 +24,7 @@
         "level": {
             "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
@@ -44,7 +45,6 @@
                     "all"
                 ],
                 "selector": "ac",
-                "type": "rage",
                 "value": -1
             },
             {
@@ -57,9 +57,14 @@
                     ],
                     "not": [
                         "ranged",
-                        "agile"
+                        "agile",
+                        "normal-rage"
                     ]
                 },
+                "roll-options": [
+                    "damage",
+                    "all"
+                ],
                 "selector": "damage",
                 "value": {
                     "brackets": [
@@ -90,9 +95,14 @@
                         "rage"
                     ],
                     "not": [
-                        "ranged"
+                        "ranged",
+                        "normal-rage"
                     ]
                 },
+                "roll-options": [
+                    "damage",
+                    "all"
+                ],
                 "selector": "damage",
                 "value": {
                     "brackets": [
@@ -111,6 +121,45 @@
                         }
                     ]
                 }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "normal-rage"
+                    ],
+                    "not": [
+                        "agile",
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Rage",
+                "name": "normal-rage-agile",
+                "predicate": {
+                    "all": [
+                        "rage",
+                        "agile",
+                        "normal-rage"
+                    ],
+                    "not": [
+                        "ranged"
+                    ]
+                },
+                "selector": "damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Deal normal rage damage",
+                "property": "flags.pf2e.rollOptions.damage-roll.normal-rage"
             }
         ],
         "source": {

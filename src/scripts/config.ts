@@ -26,7 +26,8 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/PF2eCombatTracker';
+import { PF2eCombatTracker } from '../module/system/combat-tracker';
+import { PF2EAnimalCompanion } from '@actor/animal-companion';
 
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
@@ -38,7 +39,7 @@ export const PF2ECONFIG = {
         effectsIconFolder: 'systems/pf2e/icons/conditions/',
         effectsIconFileType: 'png',
         keepFoundryStatusEffects: true,
-        foundryStatusEffects: [],
+        foundryStatusEffects: [] as string[],
     }, // Ability labels
 
     levels: {
@@ -183,6 +184,7 @@ export const PF2ECONFIG = {
         fortification: 'PF2E.ArmorPropertyRuneFortification',
         winged: 'PF2E.ArmorPropertyRuneWinged',
         rockBraced: 'PF2E.ArmorPropertyRuneRockBraced',
+        soaring: 'PF2E.ArmorPropertyRuneSoaring',
         antimagic: 'PF2E.ArmorPropertyRuneAntimagic',
         majorSlick: 'PF2E.ArmorPropertyRuneMajorSlick',
         ethereal: 'PF2E.ArmorPropertyRuneEthereal',
@@ -209,6 +211,7 @@ export const PF2ECONFIG = {
         pacifying: 'PF2E.WeaponPropertyRunePacifying',
         fearsome: 'PF2E.WeaponPropertyRuneFearsome',
         shifting: 'PF2E.WeaponPropertyRuneShifting',
+        conducting: 'PF2E.WeaponPropertyRuneConducting',
         wounding: 'PF2E.WeaponPropertyRuneWounding',
         bloodbane: 'PF2E.WeaponPropertyRuneBloodbane',
         corrosive: 'PF2E.WeaponPropertyRuneCorrosive',
@@ -245,6 +248,7 @@ export const PF2ECONFIG = {
         chaotic: 'PF2E.DamageTypeChaotic',
         cold: 'PF2E.DamageTypeCold',
         electricity: 'PF2E.DamageTypeElectricity',
+        energy: 'PF2E.DamageTypeEnergy',
         evil: 'PF2E.DamageTypeEvil',
         fire: 'PF2E.DamageTypeFire',
         force: 'PF2E.DamageTypeForce',
@@ -293,9 +297,11 @@ export const PF2ECONFIG = {
         arrows: 'PF2E.StackGroupArrows',
         slingBullets: 'PF2E.StackGroupSlingBullets',
         blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
+        taws: 'PF2E.StackGroupTaws',
         rations: 'PF2E.StackGroupRations',
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
+        sacks: 'PF2E.StackGroupSacks',
     }, // Weakness Types
 
     weaknessTypes: {
@@ -330,7 +336,7 @@ export const PF2ECONFIG = {
         salt: 'PF2E.WeaknessTypeSalt',
         'salt water': 'PF2E.WeaknessTypeSaltWater',
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
-        'vorpal weapons': 'PF2E.WeaknessTypeVorpalWeapons',
+        vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
     }, // Weapon Damage Types
 
@@ -553,32 +559,52 @@ export const PF2ECONFIG = {
     }, // Class Traits
 
     ancestryTraits: {
+        aasimar: 'PF2E.TraitAasimar',
+        aberration: 'PF2E.TraitAberration',
+        android: 'PF2E.TraitAndroid',
+        aphorite: 'PF2E.TraitAphorite',
+        azarketi: 'PF2E.TraitAzarketi',
+        beastkin: 'PF2E.TraitBeastkin',
+        catfolk: 'PF2E.TraitCatfolk',
+        changeling: 'PF2E.TraitChangeling',
+        conrasu: 'PF2E.TraitConrasu',
+        dhampir: 'PF2E.TraitDhampir',
+        duskwalker: 'PF2E.TraitDuskwalker',
         dwarf: 'PF2E.TraitDwarf',
         elf: 'PF2E.TraitElf',
+        fetchling: 'PF2E.TraitFetchling',
+        fleshwarp: 'PF2E.TraitFleshwarp',
+        ganzi: 'PF2E.TraitGanzi',
+        geniekin: 'PF2E.TraitGeniekin',
         gnome: 'PF2E.TraitGnome',
         goblin: 'PF2E.TraitGoblin',
+        grippli: 'PF2E.TraitGrippli',
         'half-elf': 'PF2E.TraitHalfElf',
         halfling: 'PF2E.TraitHalfling',
         'half-orc': 'PF2E.TraitHalfOrc',
         human: 'PF2E.TraitHuman',
         hobgoblin: 'PF2E.TraitHobgoblin',
+        kitsune: 'PF2E.TraitKitsune',
+        kobold: 'PF2E.TraitKobold',
+        ifrit: 'PF2E.TraitIfrit',
         leshy: 'PF2E.TraitLeshy',
         lizardfolk: 'PF2E.TraitLizardfolk',
-        aasimar: 'PF2E.TraitAasimar',
-        catfolk: 'PF2E.TraitCatfolk',
-        changeling: 'PF2E.TraitChangeling',
-        dhampir: 'PF2E.TraitDhampir',
-        duskwalker: 'PF2E.TraitDuskwalker',
-        geniekin: 'PF2E.TraitGeniekin',
-        kobold: 'PF2E.TraitKobold',
         orc: 'PF2E.TraitOrc',
+        oread: 'PF2E.TraitOread',
         ratfolk: 'PF2E.TraitRatfolk',
         shoony: 'PF2E.TraitShoony',
+        sprite: 'PF2E.TraitSprite',
+        strix: 'PF2E.TraitStrix',
+        suli: 'PF2E.TraitSuli',
+        sylph: 'PF2E.TraitSylph',
         tengu: 'PF2E.TraitTengu',
         tiefling: 'PF2E.TraitTiefling',
+        undine: 'PF2E.TraitUndine',
     }, // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
     ancestryItemTraits: {
+        amphibious: 'PF2E.TraitAmphibious',
+        fey: 'PF2E.TraitFey',
         humanoid: 'PF2E.TraitHumanoid',
         plant: 'PF2E.TraitPlant',
     },
@@ -595,6 +621,7 @@ export const PF2ECONFIG = {
         bomb: 'PF2E.TraitBomb',
         brutal: 'PF2E.TraitBrutal',
         chaotic: 'PF2E.TraitChaotic',
+        climbing: 'PF2E.TraitClimbing',
         cold: 'PF2E.TraitCold',
         coldiron: 'PF2E.TraitColdiron',
         concealable: 'PF2E.TraitConcealable',
@@ -622,6 +649,7 @@ export const PF2ECONFIG = {
         ghostTouch: 'PF2E.WeaponPropertyRuneGhostTouch',
         good: 'PF2E.TraitGood',
         grapple: 'PF2E.TraitGrapple',
+        hampering: 'PF2E.TraitHampering',
         improvised: 'PF2E.TraitImprovised',
         intelligent: 'PF2E.TraitIntelligent',
         invested: 'PF2E.TraitInvested',
@@ -637,6 +665,7 @@ export const PF2ECONFIG = {
         positive: 'PF2E.TraitPositive',
         propulsive: 'PF2E.TraitPropulsive',
         range: 'PF2E.TraitRange',
+        'range-increment-5': 'PF2E.TraitRangeIncrement5',
         'range-increment-10': 'PF2E.TraitRangeIncrement10',
         'range-increment-20': 'PF2E.TraitRangeIncrement20',
         'range-increment-30': 'PF2E.TraitRangeIncrement30',
@@ -678,6 +707,7 @@ export const PF2ECONFIG = {
         'reload-0': 'PF2E.TraitReload0',
         'reload-1': 'PF2E.TraitReload1',
         'reload-2': 'PF2E.TraitReload2',
+        resonant: 'PF2E.TraitResonant',
         shove: 'PF2E.TraitShove',
         silver: 'PF2E.PreciousMaterialSilver',
         staff: 'PF2E.TraitStaff',
@@ -700,6 +730,7 @@ export const PF2ECONFIG = {
         'versatile-p': 'PF2E.TraitVersatileP',
         'versatile-b': 'PF2E.TraitVersatileB',
         'volley-30': 'PF2E.TraitVolley30',
+        water: 'PF2E.TraitWater',
         'modular-b-P-or-s': 'PF2E.TraitModular',
     },
 
@@ -903,6 +934,8 @@ export const PF2ECONFIG = {
         finisher: 'PF2E.TraitFinisher',
         lineage: 'PF2E.TraitLineage',
         vigilante: 'PF2E.TraitVigilante',
+        heritage: 'PF2E.TraitHeritage',
+        'versatile heritage': 'PF2E.TraitVersatileHeritage',
     },
 
     monsterTraits: {
@@ -1011,8 +1044,10 @@ export const PF2ECONFIG = {
     hazardTraits: {
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
+        curse: 'PF2E.TraitCurse',
         haunt: 'PF2E.TraitHaunt',
         inhaled: 'PF2E.TraitInhaled',
+        magic: 'PF2E.TraitMagic',
         magical: 'PF2E.TraitMagical',
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
@@ -1412,19 +1447,19 @@ export const PF2ECONFIG = {
     // Feat Types
 
     featTypes: {
-        bonus: 'PF2E.FeatTypeBonus',
         ancestry: 'PF2E.FeatTypeAncestry',
-        skill: 'PF2E.FeatTypeSkill',
-        general: 'PF2E.FeatTypeGeneral',
+        ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
         class: 'PF2E.FeatTypeClass',
         classfeature: 'PF2E.FeatTypeClassfeature',
+        skill: 'PF2E.FeatTypeSkill',
+        general: 'PF2E.FeatTypeGeneral',
         archetype: 'PF2E.FeatTypeArchetype',
-        ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
+        bonus: 'PF2E.FeatTypeBonus',
         pfsboon: 'PF2E.FeatPFSBoonHeader',
         deityboon: 'PF2E.FeatDeityBoonHeader',
         curse: 'PF2E.FeatCurseHeader',
-    }, // Feat Action Types
-
+    },
+    // Feat Action Types
     featActionTypes: {
         passive: 'PF2E.FeatActionTypePassive',
         action: 'PF2E.FeatActionTypeAction',
@@ -1497,7 +1532,9 @@ export const PF2ECONFIG = {
         lowLightVision: 'PF2E.SensesLowLightVision',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
+        tremorsense: 'PF2E.SensesTremorsense',
         lifesense: 'PF2E.SensesLifesense',
+        wavesense: 'PF2E.SensesWavesense',
     }, // Creature Sizes
 
     bulkTypes: {
@@ -1620,7 +1657,6 @@ export const PF2ECONFIG = {
         'fear effects': 'PF2E.ImmunityTypeFearEffects',
         'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
         'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
-        'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
         magic: 'PF2E.ImmunityTypeMagic',
         sleep: 'PF2E.ImmunityTypeSleep',
         'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
@@ -1698,6 +1734,7 @@ export const PF2ECONFIG = {
         'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
         emotion: 'PF2E.DamageTypeEmotion',
         possession: 'PF2E.DamageTypePosession',
+        auditory: 'PF2E.ImmunityTypeAuditory',
     }, // Languages, alphabetical by common, uncommon, secret
 
     languages: {
@@ -1718,6 +1755,7 @@ export const PF2ECONFIG = {
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
+        androffan: 'PF2E.LanguageAndroffan',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',
@@ -1731,6 +1769,7 @@ export const PF2ECONFIG = {
         dziriak: 'PF2E.LanguageDziriak',
         erutaki: 'PF2E.LanguageErutaki',
         garundi: 'PF2E.LanguageGarundi',
+        giant: 'PF2E.LanguageGiant',
         gnoll: 'PF2E.LanguageGnoll',
         grippli: 'PF2E.LanguageGrippli',
         hallit: 'PF2E.LanguageHallit',
@@ -1810,6 +1849,14 @@ export const PF2ECONFIG = {
             insufficient: 'PF2E.loot.InsufficientCurrencyError',
             supervision: 'PF2E.loot.GMSupervisionError',
         },
+    },
+
+    // Year offsets relative to the current actual year
+    worldClock: {
+        AR: { yearOffset: 2700 },
+        IC: { yearOffset: 5200 },
+        AD: { yearOffset: -95 },
+        CE: { yearOffset: 0 },
     },
 
     monsterAbilities: () => {
@@ -2063,6 +2110,41 @@ export const PF2ECONFIG = {
         };
     },
 
+    SETTINGS: {
+        worldClock: {
+            name: 'PF2E.SETTINGS.WorldClock.Name',
+            label: 'PF2E.SETTINGS.WorldClock.Label',
+            hint: 'PF2E.SETTINGS.WorldClock.Hint',
+            dateTheme: {
+                name: 'PF2E.SETTINGS.WorldClock.DateTheme.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.DateTheme.Hint',
+                AR: 'PF2E.SETTINGS.WorldClock.DateTheme.AR',
+                AD: 'PF2E.SETTINGS.WorldClock.DateTheme.AD',
+                CE: 'PF2E.SETTINGS.WorldClock.DateTheme.CE',
+            },
+            timeConvention: {
+                name: 'PF2E.SETTINGS.WorldClock.TimeConvention.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.TimeConvention.Hint',
+                twentyFour: 'PF2E.SETTINGS.WorldClock.TimeConvention.TwentyFour',
+                twelve: 'PF2E.SETTINGS.WorldClock.TimeConvention.Twelve',
+            },
+            playersCanView: {
+                name: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.PlayersCanView.Hint',
+            },
+            syncDarkness: {
+                name: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.SyncDarkness.Hint',
+                globalLightOn: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOn',
+                globalLightOff: 'PF2E.SETTINGS.WorldClock.SyncDarkness.GlobalLightOff',
+            },
+            worldCreatedOn: {
+                name: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Name',
+                hint: 'PF2E.SETTINGS.WorldClock.WorldCreatedOn.Hint',
+            },
+        },
+    },
+
     Actor: {
         entityClasses: {
             character: PF2ECharacter,
@@ -2070,6 +2152,7 @@ export const PF2ECONFIG = {
             hazard: PF2EHazard,
             loot: PF2ELoot,
             familiar: PF2EFamiliar,
+            animalCompanion: PF2EAnimalCompanion,
             vehicle: PF2EVehicle,
         },
     },
@@ -2133,11 +2216,6 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descrip
 
 export interface ConfigPF2e extends Config<PF2EActor, PF2EItem> {
     PF2E: typeof PF2ECONFIG;
-    Combat: Config<PF2EActor, PF2EItem>['Combat'] & {
-        initiative: {
-            decimals: number;
-        };
-    };
     time: {
         roundTime: number;
     };

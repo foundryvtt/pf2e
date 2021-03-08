@@ -64,7 +64,6 @@
                 "max": 28,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 28
             },
             "init": {
@@ -105,7 +104,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -444,18 +442,7 @@
         }
     },
     "effects": [],
-    "flags": {
-        "pf2e": {
-            "editNPC": {
-                "value": false
-            }
-        },
-        "pf2e_updatednpcsheet": {
-            "npcNotes": {
-                "value": ""
-            }
-        }
-    },
+    "flags": {},
     "items": [
         {
             "_id": "OeI9TdZOVyciyh0n",
@@ -517,6 +504,9 @@
                 },
                 "hp": {
                     "value": null
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -639,6 +629,7 @@
                     "value": "10"
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Traits",
                     "rarity": {
                         "value": "common"
@@ -729,6 +720,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -951,6 +945,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1134,6 +1131,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1175,6 +1175,7 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -1192,7 +1193,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Eggshell Necklace",
             "sort": 400000,
             "type": "equipment"
@@ -1228,6 +1229,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -1270,6 +1274,7 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -1287,7 +1292,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
             "name": "Spike Trap",
             "sort": 500000,
             "type": "equipment"
@@ -1339,6 +1344,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1408,6 +1416,9 @@
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "finesse",
@@ -1426,7 +1437,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Shortsword",
             "sort": 600000,
             "type": "melee"
@@ -1478,6 +1489,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -1547,6 +1561,9 @@
                 },
                 "traits": {
                     "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "thrown-20"
                     ]
@@ -1563,7 +1580,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Spear",
             "sort": 700000,
             "type": "melee"
@@ -1592,20 +1609,14 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1649,20 +1660,14 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1705,21 +1710,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
                     }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                ],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1734,7 +1751,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sneak Attack",
             "sort": 1000000,
             "type": "action"
@@ -1763,20 +1780,14 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1791,7 +1802,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Spike Trap",
             "sort": 1100000,
             "type": "action"

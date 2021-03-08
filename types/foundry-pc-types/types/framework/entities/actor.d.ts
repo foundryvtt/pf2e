@@ -1,8 +1,19 @@
-declare interface ActorData extends BaseEntityData {
+declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
     type: string;
     img: string;
+    data: {};
     token: TokenData;
-    items: BaseItemData[];
+    items: D[];
+    effects: ActiveEffectData[];
+    sort: number;
+}
+
+declare interface ActorClassConfig<A extends Actor> extends EntityClassConfig<A> {
+    collection: Actors<A>;
+    embeddedEntities: {
+        ActiveEffect: 'effects';
+        OwnedItem: 'items';
+    };
 }
 
 /**
@@ -14,9 +25,7 @@ declare interface ActorData extends BaseEntityData {
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorType> {
-    entities: ActorType[];
-
+declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType> {
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.
@@ -24,9 +33,7 @@ declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorTy
     tokens: { [tokenID: string]: ActorType };
 
     /** @override */
-    get object(): ActorType;
-
-    values(): IterableIterator<ActorType>;
+    get entity(): 'Actor';
 
     /* -------------------------------------------- */
     /*  Sheet Registration Methods                  */
@@ -36,18 +43,22 @@ declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorTy
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet(...args: any): void;
+    static registerSheet<A extends Actor>(
+        scope: string,
+        sheetClass: new (actor: A, options?: FormApplicationOptions) => A['sheet'],
+        options?: RegisterSheetOptions,
+    ): void;
 
     /**
      * Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet(...args: any): void;
+    static unregisterSheet<TS extends typeof ActorSheet>(scope: string, sheetClass: TS): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type
      */
-    static get registeredSheets(): any[];
+    static get registeredSheets(): typeof ActorSheet[];
 }
 
 /**
@@ -76,8 +87,6 @@ declare class Actors<ActorType extends Actor = Actor> extends Collection<ActorTy
  * let actor = game.actors.get(actorId);
  */
 declare class Actor<ItemType extends Item = Item> extends Entity {
-    data: ActorData;
-
     /**
      * A reference to a placed Token which creates a synthetic Actor
      */
@@ -89,16 +98,20 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     items: Collection<ItemType>;
 
     /**
+     * A set that tracks which keys in the data model were modified by active effects
+     */
+    overrides: Record<string, any>;
+
+    /** The actor's collection of ActiveEffects */
+    effects: Collection<ActiveEffect>;
+
+    /**
      * Cache an Array of allowed Token images if using a wildcard path
      */
-    protected _tokenImages: any[];
+    protected _tokenImages: string[] | null;
 
     /** @override */
-    static get config(): {
-        baseEntity: Actor;
-        collection: Actors;
-        embeddedEntities: { OwnedItem: string };
-    };
+    static get config(): ActorClassConfig<Actor>;
 
     /* -------------------------------------------- */
     /*  Data Preparation                            */
@@ -109,6 +122,13 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     /** @override */
     prepareEmbeddedEntities(): void;
+
+    /**
+     * Prepare a Collection of OwnedItem instances which belong to this Actor.
+     * @param items The raw array of item objects
+     * @return The prepared owned items collection
+     */
+    protected _prepareOwnedItems(items: this['data']['items']): Collection<ItemType>;
 
     /**
      * First prepare any derived data which is actor-specific and does not depend on Items or Active Effects
@@ -153,7 +173,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      */
     static fromToken<A extends Actor>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        token: Token<A>
+        token: Token<A>,
     ): A | null;
 
     /**
@@ -170,29 +190,24 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData,
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
-    ): Promise<this['data']>;
+    ): Promise<ItemType['data']>;
     updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData[],
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
-    updateEmbeddedEntity(
-        embeddedName: string,
-        updateData: EntityUpdateData | EntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<this['data'] | this['data'][]>;
+    ): Promise<ItemType['data'] | ItemType['data'][]>;
 
     /**
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
      * If the canvas is not currently active, or there are no linked actors, the returned Array will be empty.
      *
-     * @param linked	Only return tokens which are linked to the Actor. Default (false) is to return all
-     *					tokens even those which are not linked.
+     * @param linked    Only return tokens which are linked to the Actor. Default (false) is to return all
+     *                  tokens even those which are not linked.
      *
-     * @return			An array of tokens in the current Scene which reference this Actor.
+     * @return          An array of tokens in the current Scene which reference this Actor.
      */
     getActiveTokens(linked?: boolean): Token<this>[];
 
@@ -204,10 +219,10 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
-     * @param attribute	The attribute path
-     * @param value		The target attribute value
-     * @param isDelta	Whether the number represents a relative change (true) or an absolute change (false)
-     * @param isBar		Whether the new value is part of an attribute bar, or just a direct value
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
     modifyTokenAttribute(attribute: string, value: number, isDelta?: boolean, isBar?: boolean): Promise<this>;
 
@@ -226,42 +241,100 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * Import a new owned Item from a compendium collection
      * The imported Item is then added to the Actor as an owned item.
      *
-     * @param collection	The name of the pack from which to import
-     * @param entryId		The ID of the compendium entry to import
+     * @param collection    The name of the pack from which to import
+     * @param entryId       The ID of the compendium entry to import
      */
     importItemFromCollection(collection: string, entryId: string): ItemType;
 
     /**
      * Get an owned item by it's ID, initialized as an Item entity class
-     * @param itemId	The ID of the owned item
-     * @return			An Item class instance for that owned item or null if the itemId does not exist
+     * @param itemId The ID of the owned item
+     * @return       An Item class instance for that owned item or null if the itemId does not exist
      */
     getOwnedItem(itemId: string): ItemType | null;
 
+    // Signature overload
+    getEmbeddedEntity(collection: 'OwnedItem', id: string, { strict }?: { strict?: boolean }): ItemType['data'];
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
+    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+
     /**
      * Create a new item owned by this Actor.
-     * @param itemData				Data for the newly owned item
-     * @param options				Item creation options
-     * @param options.renderSheet	Render the Item sheet for the newly created item data
-     * @return						A Promise containing the data of the newly created owned Item instance
+     * @param itemData              Data for the newly owned item
+     * @param options               Item creation options
+     * @param options.renderSheet   Render the Item sheet for the newly created item data
+     * @return                      A Promise containing the data of the newly created owned Item instance
      */
-    createOwnedItem<I extends ItemType['data']>(itemData: Partial<I>[] | I[], options?: object): Promise<I | I[]>;
-    createOwnedItem<I extends ItemType['data']>(itemData: Partial<I> | I, options?: object): Promise<I>;
+    createOwnedItem<D extends ItemType['data']>(
+        itemData: DeepPartial<D>,
+        options?: EntityCreateOptions,
+    ): Promise<D | null>;
+    createOwnedItem<D extends ItemType['data']>(
+        itemData: DeepPartial<D>[],
+        options?: EntityCreateOptions,
+    ): Promise<D | null | (D | null)[]>;
+    createOwnedItem<D extends ItemType['data']>(
+        itemData: DeepPartial<D> | DeepPartial<D>[],
+        options?: EntityCreateOptions,
+    ): Promise<D | null | (D | null)[]>;
 
     /**
      * Update an owned item using provided new data
-     * @param itemData	Data for the item to update
-     * @param options	Item update options
-     * @return			A Promise resolving to the updated Item object
+     * @param itemData  Data for the item to update
+     * @param options   Item update options
+     * @return          A Promise resolving to the updated Item object
      */
-    updateOwnedItem(itemData: object, options?: object): Promise<ItemType>;
+    updateOwnedItem(
+        itemData: EntityUpdateData<ItemType['data']>,
+        options?: EntityUpdateOptions,
+    ): Promise<ItemType['data']>;
 
     /**
      * Delete an owned item by its id. This redirects its arguments to the deleteEmbeddedEntity method.
-     * @param itemId	The ID of the item to delete
-     * @param options	Item deletion options
-     * @return			A Promise resolving to the deleted Owned Item data
+     * @param itemId    The ID of the item to delete
+     * @param options   Item deletion options
+     * @return          A Promise resolving to the deleted Owned Item data
      */
     deleteOwnedItem(itemId: string[], options?: object): Promise<ItemType[] | ItemType>;
     deleteOwnedItem(itemId: string, options?: object): Promise<ItemType>;
+
+    /** @override */
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+}
+
+declare interface Actor<ItemType extends Item = Item> {
+    data: ActorData<ItemType['data']>;
+    _data: ActorData<ItemType['data']>;
+}
+
+declare type PreCreate<D extends ActorData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
+
+declare namespace Actor {
+    function create<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: PreCreate<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A>;
+    function create<A extends Actor>(
+        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        data: PreCreate<A['data']> | PreCreate<A['data']>[],
+        options?: EntityCreateOptions,
+    ): Promise<A[] | A>;
 }

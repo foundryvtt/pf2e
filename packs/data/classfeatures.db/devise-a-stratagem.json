@@ -19,15 +19,40 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.all.devise-a-stratagem"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ],
+                    "any": [
+                        "agile",
+                        "finesse",
+                        "ranged"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "ability",
+                "value": "@abilities.int.mod"
+            }
+        ],
         "source": {
             "value": ""
         },

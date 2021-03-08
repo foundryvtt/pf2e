@@ -1,7 +1,6 @@
 import { MigrationBase } from './base';
-import { ItemData } from '../item/dataDefinitions';
+import { isPhysicalItem, ItemData } from '@item/data-definitions';
 import { PF2EItem } from '../item/item';
-import { PF2EPhysicalItem } from '../item/physical';
 
 type ItemMap = Map<string, PF2EItem>;
 type PackContent = Map<string, Promise<ItemMap>>;
@@ -20,7 +19,9 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     constructor() {
         super();
         this.itemPacks = new Map(
-            game.packs.filter<PF2EItem>((pack) => pack.entity === 'Item').map((pack) => [pack.collection, pack]),
+            game.packs
+                .filter<Compendium<PF2EItem>>((pack) => pack.entity === 'Item')
+                .map((pack) => [pack.collection, pack]),
         );
     }
 
@@ -51,11 +52,11 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     }
 
     /** Look through each pack and attempt to find the originating item */
-    private async findCompendiumItem(ownedItem: PF2EItem, collection?: string): Promise<PF2EItem | undefined> {
+    private async findCompendiumItem(itemData: ItemData, collection?: string): Promise<ItemData | undefined> {
         const itemName =
-            ownedItem instanceof PF2EPhysicalItem && !ownedItem.isIdentified
-                ? ownedItem.data.data.identification?.identified?.name || ownedItem.name
-                : ownedItem.name;
+            isPhysicalItem(itemData) && itemData.data.identification?.status === 'identified'
+                ? itemData.data.identification?.identified?.name || itemData.name
+                : itemData.name;
 
         const packs = typeof collection === 'string' ? [this.itemPacks.get(collection)] : this.itemPacks.values();
 
@@ -63,11 +64,11 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
             if (pack === undefined) continue;
             const content = await this.getPackContent(pack.collection);
             const packItem = Array.from(content.values()).find(
-                (packItem) => packItem.type === ownedItem.type && packItem.name === itemName,
+                (packItem) => packItem.type === itemData.type && packItem.name === itemName,
             );
 
             if (packItem instanceof PF2EItem) {
-                return packItem;
+                return packItem.data;
             }
         }
 
@@ -75,19 +76,18 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     }
 
     async updateItem(itemData: ItemData): Promise<void> {
-        const item = new PF2EItem(itemData);
-        const existingSourceId: string | undefined = item.getFlag('core', 'sourceId');
+        const existingSourceId: string | undefined = itemData.flags.core?.sourceId;
         const match = this.sourceIdPattern.exec(existingSourceId ?? '');
         const collection = Array.isArray(match) ? match[1] : undefined;
 
-        const sourcedItem = [collection, item.slug].every((maybeString) => typeof maybeString === 'string')
-            ? item
-            : await this.findCompendiumItem(item, collection);
+        const sourcedItemData = [collection, itemData.data.slug].every((maybeString) => typeof maybeString === 'string')
+            ? itemData
+            : await this.findCompendiumItem(itemData, collection);
 
-        if (sourcedItem instanceof PF2EItem) {
-            console.debug(`PF2e System | Setting slug and sourceId for ${item.name}`);
-            const sourceId = sourcedItem.getFlag('core', 'sourceId');
-            itemData.data.slug = sourcedItem.slug;
+        if (sourcedItemData) {
+            console.debug(`PF2e System | Setting slug and sourceId for ${itemData.name}`);
+            const sourceId = sourcedItemData.flags.core.sourceId;
+            itemData.data.slug = sourcedItemData.data.slug;
             itemData.flags.core = { sourceId: sourceId };
         }
     }

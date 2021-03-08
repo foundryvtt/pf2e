@@ -16,28 +16,31 @@ interface DialogButton {
 interface ConfirmDialog {
     title: string;
     content: string;
-    yes: Function;
-    no: Function;
+    yes: () => void | Promise<void>;
+    no?: () => void | Promise<void>;
+    render?: () => void | Promise<void>;
     defaultYes?: boolean;
+    rejectClose?: () => void | Promise<void>;
+    options?: ApplicationOptions;
 }
 
 /**
  * Create a modal dialog window displaying a title, a message, and a set of buttons which trigger callback functions.
  *
- * @param dialogData			An object of dialog data which configures how the modal window is rendered
- * @param dialogData.title		The window title
- * @param dialogData.content	HTML content
- * @param dialogData.close		Common callback operations to perform when the dialog is closed
- * @param dialogData.buttons	Action buttons which trigger callback functions.
- *								Buttons are defined as an Object with the format ``{name: buttonData}``.
- *								Valid keys for buttonData include:
+ * @param dialogData            An object of dialog data which configures how the modal window is rendered
+ * @param dialogData.title      The window title
+ * @param dialogData.content    HTML content
+ * @param dialogData.close      Common callback operations to perform when the dialog is closed
+ * @param dialogData.buttons    Action buttons which trigger callback functions.
+ *                              Buttons are defined as an Object with the format ``{name: buttonData}``.
+ *                              Valid keys for buttonData include:
  *
- * @param dialogData.buttons.button.icon		A button icon
- * @param dialogData.buttons.button.label		A button label
- * @param dialogData.buttons.button.callback	A callback function taking no arguments
+ * @param dialogData.buttons.button.icon        A button icon
+ * @param dialogData.buttons.button.label       A button label
+ * @param dialogData.buttons.button.callback    A callback function taking no arguments
  *
- * @param options			Dialog rendering options, see :class:`Application`
- * @param options.default	The name of the default button which should be triggered on Enter
+ * @param options           Dialog rendering options, see :class:`Application`
+ * @param options.default   The name of the default button which should be triggered on Enter
  *
  * @example
  * let d = new Dialog({
@@ -63,18 +66,42 @@ interface ConfirmDialog {
 declare class Dialog extends Application {
     constructor(dialogData: DialogData, options?: ApplicationOptions);
 
+    /* -------------------------------------------- */
+    /*  Factory Methods                             */
+    /* -------------------------------------------- */
+
     /**
-     * A helper function to reduce code duplication when creating confirmation dialog windows.
-     * These windows are limited in flexibility, for simple yes/no prompts.
+     * A helper factory method to create simple confirmation dialog windows which consist of simple yes/no prompts.
      * If you require more flexibility, a custom Dialog instance is preferred.
-     * @param title		The confirmation window title
-     * @param content	The confirmation message
-     * @param yes		Callback function upon yes
-     * @param no		Callback function upon no
-     * @param defaultYes
+     *
+     * @param title       The confirmation window title
+     * @param content     The confirmation message
+     * @param yes         Callback function upon yes
+     * @param no          Callback function upon no
+     * @param render      A function to call when the dialog is rendered
+     * @param defaultYes  Make "yes" the default choice?
+     * @param rejectClose Reject the Promise if the Dialog is closed without making a choice.
+     * @param options    Additional rendering options passed to the Dialog
+     *
+     * @return A promise which resolves once the user makes a choice or closes the window
+     *
+     * @example
+     * let d = Dialog.confirm({
+     *  title: "A Yes or No Question",
+     *  content: "<p>Choose wisely.</p>",
+     *  yes: () => console.log("You chose ... wisely"),
+     *  no: () => console.log("You chose ... poorly"),
+     *  defaultYes: false
+     * });
      */
-    static confirm(
-        { title, content, yes, no, defaultYes }?: ConfirmDialog,
-        options?: ApplicationOptions,
-    ): Promise<void>;
+    static confirm({
+        title,
+        content,
+        yes,
+        no,
+        render,
+        defaultYes,
+        rejectClose,
+        options,
+    }?: ConfirmDialog): Promise<Dialog>;
 }

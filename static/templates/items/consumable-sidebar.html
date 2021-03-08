@@ -3,12 +3,12 @@
 <div class="inventory-details">
     <div class="form-group">
         <label>{{localize "PF2E.LevelLabel"}}</label>
-        <input type="text" name="data.level.value" value="{{data.level.value}}" data-dtype="{{data.level.type}}"/>
+        <input type="number" name="data.level.value" value="{{data.level.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
         <label>{{localize "PF2E.QuantityLabel"}}</label>
-        <input type="text" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="{{data.quantity.type}}"/>
+        <input type="number" name="data.quantity.value" value="{{data.quantity.value}}" data-dtype="Number"/>
     </div>
 
     <div class="form-group">
@@ -21,7 +21,7 @@
             {{/select}}
         </select>
     </div>
-	<div class="form-group">
+  <div class="form-group">
         <label>{{localize "PF2E.Usage"}}</label>
         <select name="data.traits.usage.value" data-dtype="String">
             {{#select data.traits.usage.value}}
@@ -80,18 +80,20 @@
     </div>
 
     <div class="form-group">
-        <label>{{localize "PF2E.PriceLabel"}}</label>
-        <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="{{data.price.type}}"/>
+      <label>{{localize "PF2E.PriceLabel"}}</label>
+      <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
     </div>
-</div>
+    <ol class="item-tags">
+      <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
+      {{#if data.equipped.value}}
+        <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
+      {{/if}}
+    </ol>
 
-<ol class="item-tags">
-    <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
-</ol>
-
-<div class="form-group consumable-details">
-    <label>{{data.charges.label}}</label>
-    <input type="text" name="data.charges.value" value="{{data.charges.value}}" data-dtype="{{data.charges.type}}"/>
-    <span class="flex0">/</span>
-    <input type="text" name="data.charges.max" value="{{data.charges.max}}" data-dtype="{{data.charges.type}}"/>
+    <div class="form-group consumable-details">
+      <label>{{data.charges.label}}</label>
+      <input type="number" name="data.charges.value" value="{{data.charges.value}}" data-dtype="Number"/>
+      <span class="flex0">/</span>
+      <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
+    </div>
 </div>

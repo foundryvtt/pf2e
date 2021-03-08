@@ -63,7 +63,6 @@
                 "max": 46,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
                 "value": 46
             },
             "init": {
@@ -108,7 +107,6 @@
                         "value": "20 feet"
                     }
                 ],
-                "special": "",
                 "value": 30
             }
         },
@@ -443,9 +441,7 @@
         }
     },
     "effects": [],
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "flags": {},
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
@@ -527,6 +523,7 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -628,6 +625,7 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
                     "rarity": {
                         "value": "common"
                     },
@@ -744,6 +742,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "shove"
                     ]
@@ -854,6 +856,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
@@ -964,6 +970,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "deadly d8",
                         "range increment 50 feet",
@@ -1009,21 +1019,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": "light-blindness",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1073,21 +1077,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1133,16 +1131,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1191,15 +1207,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1245,21 +1261,15 @@
                     "value": ""
                 },
                 "rules": [],
-                "skill_requirement": {
-                    "skill": {
-                        "rank": "",
-                        "skill": ""
-                    }
-                },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
                 "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1290,7 +1300,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1309,6 +1318,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1326,7 +1339,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1345,6 +1357,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1362,7 +1378,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1381,6 +1396,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },
@@ -1398,7 +1417,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1417,6 +1435,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 }
             },

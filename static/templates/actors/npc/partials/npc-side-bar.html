@@ -6,7 +6,7 @@
             <i class="fas fa-shield-alt"></i>
             <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
         </div>
-        <input class="armor-value" type="text" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
+        <input class="armor-value" type="number" name="data.attributes.ac.base" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
     </div>
     <div class="side-bar-section-content">
         <input class="armor-details" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"/>
@@ -18,16 +18,16 @@
             <i class="fas fa-heart"></i>
             <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
             <div class="health-value">
-                <input id="health-current" type="text" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+                <input id="health-current" type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
                 <span class="health-divider">/</span>
-                <input id="health-max" type="text" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+                <input id="health-max" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
             </div>
         </div>
     </div>
     <div class="side-bar-section-content">
         <div id="hp-temp" class="labelled-field">
             <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
-            <input id="hp-temp-value" type="text" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+            <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
 </div>
@@ -90,7 +90,7 @@
     {{#each data.saves as |save saveId|}}
     <div class="save-container" data-save="{{saveId}}">
         <label class="attribute-label rollable"><a>{{ localize save.labelShort }}</a></label>
-        <input type="text" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 sign=true }}" data-dtype="Number" placeholder="0"/>
+        <input type="number" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 }}" data-dtype="Number" placeholder="0"/>
     </div>
     {{/each}}
 </div>
@@ -108,7 +108,7 @@
     </div>
     <div id="speed-section" class="side-bar-section-content">
         <div id="walk-speed">
-            <input type="text" name="data.attributes.speed.value" value="{{ data.attributes.speed.value }}" data-dtype="Number" placeholder="0"/>
+            <input type="text" name="data.attributes.speed.value" value="{{ data.attributes.speed.value }}" data-dtype="String" placeholder="0"/>
         </div>
         <div id="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}

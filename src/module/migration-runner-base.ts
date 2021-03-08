@@ -1,5 +1,5 @@
-import { ActorDataPF2e } from './actor/actorDataDefinitions';
-import { ItemData } from './item/dataDefinitions';
+import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
@@ -78,6 +78,19 @@ export class MigrationRunnerBase {
                 for (const item of current.items) {
                     await migration.updateItem(item);
                 }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedUser(userData: UserData, migrations: MigrationBase[]): Promise<UserData> {
+        const current = duplicate(userData);
+        for (const migration of migrations) {
+            try {
+                await migration.updateUser(current);
             } catch (err) {
                 console.error(err);
             }

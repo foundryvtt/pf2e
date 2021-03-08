@@ -1,4 +1,5 @@
 import { Progress } from '../progress';
+import { PF2EPhysicalItem } from '@item/physical';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -642,11 +643,12 @@ class CompendiumBrowser extends Application {
         return game.i18n.localize('PF2E.CompendiumBrowser.Title');
     }
 
-    activateListeners(html) {
+    /** @override */
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
         this.resetFilters(html);
 
-        html.on('click', '.clear-filters', (ev) => {
+        html.on('click', '.clear-filters', () => {
             this.resetFilters(html);
             this.filterSpells(html.find('.tab.active li'));
         });
@@ -658,13 +660,13 @@ class CompendiumBrowser extends Application {
             const compendium = entry.entryCompendium;
             const pack = game.packs.get(compendium);
             pack.getEntity(id).then((spell) => {
-                spell.sheet.render(true);
+                spell!.sheet.render(true);
             });
         });
 
         // make draggable
-        html.find('.draggable').each((i, li) => {
-            li.setAttribute('draggable', true);
+        html.find('.draggable').each((_i, li) => {
+            li.setAttribute('draggable', 'true');
             li.addEventListener(
                 'dragstart',
                 (event) => {
@@ -674,7 +676,7 @@ class CompendiumBrowser extends Application {
                         event.preventDefault();
                         return false;
                     }
-                    event.dataTransfer.setData(
+                    event.dataTransfer!.setData(
                         'text/plain',
                         JSON.stringify({
                             type: pack.entity,
@@ -706,7 +708,7 @@ class CompendiumBrowser extends Application {
             const byName = ev.target.value === 'true';
             const sortedList = this.sortSpells(spellList, byName);
             const ol = $(html.find('.tab.active ul'));
-            ol[0].innerHTML = [];
+            ol[0].innerHTML = '';
             for (const element of sortedList) {
                 ol[0].append(element);
             }
@@ -749,14 +751,38 @@ class CompendiumBrowser extends Application {
             this.filterSpells(html.find('.tab.active li'));
         });
 
-        html.on('click', 'button.save-settings', (ev) => {
-            const formData = new FormData(html.find('.compendium-browser-settings form')[0]);
+        html.on('click', 'button.save-settings', (_ev) => {
+            const formData = new FormData(html.find<HTMLFormElement>('.compendium-browser-settings form')[0]);
             for (const [t, packs] of Object.entries(this.settings) as [string, { [key: string]: PackInfo }][]) {
                 for (const [key, pack] of Object.entries(packs) as [string, PackInfo][]) {
                     pack.load = formData.has(`${t}-${key}`);
                 }
             }
             game.settings.set('pf2e', 'compendiumBrowserPacks', JSON.stringify(this.settings));
+        });
+
+        html.on('click', '.take-item', (_ev) => {
+            const entry = _ev.currentTarget.closest('.spell').dataset;
+            const id = entry.entryId;
+
+            this.addPhysicalItesToSelectedTokens(id);
+        });
+    }
+
+    private addPhysicalItesToSelectedTokens(id: string) {
+        PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
+            for (const token of canvas.tokens.controlled) {
+                const userHasPermissions = token.actor?.can(game.user, 'update') ?? false;
+                const tokenType = token.actor?.data?.type ?? 'undefined';
+                const tokenMayContainEquipment =
+                    tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
+
+                if (item !== null && userHasPermissions && tokenMayContainEquipment) {
+                    token.actor!.createEmbeddedEntity('OwnedItem', item.data);
+                } else {
+                    ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                }
+            }
         });
     }
 
@@ -916,7 +942,7 @@ class CompendiumBrowser extends Application {
         return true;
     }
 
-    resetFilters(html) {
+    resetFilters(html: JQuery) {
         this.sorters = {
             text: '',
             castingtime: 'null',
@@ -952,14 +978,16 @@ class CompendiumBrowser extends Application {
         html.find('.tab.browser input[type=checkbox]').prop('checked', false);
     }
 
-    sortSpells(list, byName) {
-        let mappedList;
-        if (byName) {
-            mappedList = list.map((i, li) => ({ value: $(li).find('.spell-name a')[0].innerHTML, li, i }));
-        } else {
-            // dataset are always strings so all number values will be truthy
-            mappedList = list.map((i, li) => ({ value: parseInt(li.dataset.level || -10, 10), li, i }));
+    sortSpells(list: JQuery, byName: boolean): HTMLElement[] {
+        interface LIMapping {
+            value: string | number;
+            li: HTMLElement;
+            i: number;
         }
+
+        const mappedList: LIMapping[] = byName
+            ? list.map((i, li) => ({ value: $(li).find('.spell-name a')[0].innerHTML, li, i })).toArray()
+            : list.map((i, li) => ({ value: parseInt(li.dataset.level || '-10', 10), li, i })).toArray();
 
         mappedList.sort((a, b) => {
             const aName = a.value;
@@ -968,7 +996,7 @@ class CompendiumBrowser extends Application {
             if (aName > bName) return 1;
             return a.i - b.i;
         });
-        return Array.prototype.map.call(mappedList, ({ li }) => li);
+        return mappedList.map((mapping) => mapping.li);
     }
 }
 

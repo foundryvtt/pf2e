@@ -1,6 +1,6 @@
 import { PF2EActor } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData, EffectData } from '../item/dataDefinitions';
+import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -104,7 +104,7 @@ export class EffectPanel extends Application {
         return data;
     }
 
-    protected activateListeners(html: JQuery) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons

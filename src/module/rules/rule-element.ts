@@ -1,6 +1,19 @@
-import { CharacterData, FamiliarData, NpcData } from '../actor/actorDataDefinitions';
-import { ItemData } from '../item/dataDefinitions';
-import { PF2RuleElementSynthetics } from './rulesDataDefinitions';
+import { CreatureData } from '@actor/actor-data-definitions';
+import { ItemData } from '@item/data-definitions';
+import { PF2RuleElementSynthetics } from './rules-data-definitions';
+
+export interface Bracket {
+    start?: number;
+    end?: number;
+    value: number;
+}
+
+export interface BracketedValue {
+    field?: string;
+    brackets: Bracket[];
+}
+
+export type RuleValue = string | number | BracketedValue;
 
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
@@ -36,7 +49,7 @@ export abstract class PF2RuleElement {
      * multiple times onto a canvas. Works similar to actorUpdates and used if you want to change values on the token
      * object
      */
-    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onCreate(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
@@ -47,7 +60,7 @@ export abstract class PF2RuleElement {
      * @param actorUpdates see onCreate
      * @param tokens see onCreate
      */
-    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onDelete(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
@@ -60,7 +73,7 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -68,7 +81,16 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
+
+    /**
+     * Run before a new token is created of the actor that holds the item.
+     *
+     * @param actorData the actor data of the actor that holds the item
+     * @param item the item data of the item containing the rule element
+     * @param token the token data of the token to be created
+     */
+    onCreateToken(actorData: ActorData, item: ItemData, token: TokenData) {}
 
     /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent
@@ -133,7 +155,7 @@ export abstract class PF2RuleElement {
      * @param defaultValue if no value is found, use that one
      * @return the evaluated value
      */
-    resolveValue(valueData: any, ruleData: any, item: any, actorData: any, defaultValue: any = 0): any {
+    resolveValue(valueData: RuleValue, ruleData: any, item: any, actorData: any, defaultValue: any = 0): any {
         let value = valueData;
         if (typeof valueData === 'object') {
             let bracket = getProperty(actorData, 'data.details.level.value');
@@ -166,7 +188,7 @@ export abstract class PF2RuleElement {
         if (typeof value === 'string') {
             const roll = new Roll(value, { ...actorData.data, item: item.data });
             roll.roll();
-            value = roll.total;
+            value = roll.total!;
         }
 
         if (Number.isInteger(Number(value))) {

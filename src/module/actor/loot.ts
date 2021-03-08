@@ -1,14 +1,11 @@
 import { PF2EActor, UserPF2e } from './actor';
-import { LootData } from './actorDataDefinitions';
-import { PF2EPhysicalItem } from '../item/physical';
-import { PF2EItem } from '../item/item';
-import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '../item/treasure';
+import { LootData } from './actor-data-definitions';
+import { PF2EPhysicalItem } from '@item/physical';
+import { PF2EItem } from '@item/item';
+import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { PF2ECharacter } from './character';
 
 export class PF2ELoot extends PF2EActor {
-    /** @override */
-    data!: LootData;
-
     get isLoot(): boolean {
         return this.data.data.lootSheetType === 'Loot';
     }
@@ -17,14 +14,21 @@ export class PF2ELoot extends PF2EActor {
         return this.data.data.lootSheetType === 'Merchant';
     }
 
-    /** Anyone with Observer permission can update a loot actor
+    /** Anyone with Limited permission can update a loot actor
      * @override
      */
-    static can(user: User, action: string, target: PF2ELoot): boolean {
+    static can(user: User, action: UserAction, target: PF2ELoot): boolean {
         if (action === 'update') {
-            return target.hasPerm(user, 'OBSERVER');
+            return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.can(user, action, target);
+    }
+
+    /** A user can see a loot actor in the actor directory only if they have at least Observer permission
+     * @override
+     */
+    get visible(): boolean {
+        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
     isLootableBy(user: User) {
@@ -43,7 +47,7 @@ export class PF2ELoot extends PF2EActor {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.data.data.lootSheetType === 'Merchant' && !this.getFlag('pf2e', 'editLoot.value')) {
-            let itemValue = extractPriceFromItem(item.data, quantity);
+            const itemValue = extractPriceFromItem(item.data, quantity);
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
                 return super.transferItemToActor(targetActor, item, quantity, containerId);
             } else {
@@ -56,6 +60,11 @@ export class PF2ELoot extends PF2EActor {
 
         return super.transferItemToActor(targetActor, item, quantity, containerId);
     }
+}
+
+export interface PF2ELoot {
+    data: LootData;
+    _data: LootData;
 }
 
 export interface LootTransferData {
@@ -74,8 +83,8 @@ export interface LootTransferData {
 
 export class LootTransfer implements LootTransferData {
     private templatePaths = {
-        flavor: '/systems/pf2e/templates/chat/interact/flavor.html',
-        content: '/systems/pf2e/templates/chat/interact/content.html',
+        flavor: './systems/pf2e/templates/chat/action/flavor.html',
+        content: './systems/pf2e/templates/chat/action/content.html',
     };
 
     constructor(

@@ -1,0 +1,674 @@
+import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
+import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
+import { RollParameters } from '../system/rolls';
+
+/** A type representing the possible ability strings. */
+export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
+
+export type Proficency = 0 | 1 | 2 | 3 | 4; // untrained, trained, expert, master, legendary
+
+/** A type representing the possible PFS factions. */
+export type PFSFactionString = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
+
+/** A type representing the possible PFS schools. */
+export type PFSSchoolString = 'none' | 'scrolls' | 'spells' | 'swords';
+
+/** A roll function which can be called to roll a given skill. */
+export type RollFunction = (
+    event: JQuery.Event | RollParameters,
+    options?: string[],
+    callback?: (roll: Roll) => void,
+) => void;
+
+/** Generic { value, label, type } type used in various places in data types. */
+export interface LabeledValue {
+    label: string;
+    value: number | string;
+    type: string;
+    exceptions?: string;
+}
+
+/** Data describing the value & modifier for a base ability score. */
+export interface AbilityData {
+    /** The raw value of this ability score; computed from the mod for npcs automatically. */
+    value: number;
+    /** The minimum value this ability score can have. */
+    min: number;
+    /** The modifier for this ability; computed from the value for characters automatically. */
+    mod: number;
+}
+
+/** Data describing the proficiency with a given martial type (such as armor proficiency). */
+export interface MartialData {
+    /** The proficiency rank in this martial skill (0 untrained - 4 legendary). */
+    rank: number;
+    /** The actual modifier for this martial type. */
+    value: number;
+    /** A breakdown describing the how the martial proficiency value is computed. */
+    breakdown: string;
+}
+
+/** Basic skill and save data (not including custom modifiers). */
+export interface RawSkillData {
+    /** The proficiency rank for this save. 0 (untrained) - 4 (legendary). */
+    rank: number;
+    /** The ability which this save scales off of. */
+    ability: AbilityString;
+    /** The raw modifier for this save (after applying all modifiers). */
+    value: number;
+    /** Any item-based bonuses to this save. */
+    item: number;
+    /** A breakdown of how the save value is determined. */
+    breakdown: string;
+    /** If set, this skill is affected by the armor check penalty. */
+    armor?: number;
+}
+
+/** Basic initiative-relevant data. */
+export interface RawInitiativeData {
+    /** What skill or ability is currently being used to compute initiative. */
+    ability: string;
+    /** The textual name for what type of initiative is being rolled (usually includes the skill). */
+    label: string;
+}
+
+/** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
+export interface DexterityModifierCapData {
+    /** The numeric value that constitutes the maximum Dexterity modifier. */
+    value: number;
+    /** The source of this Dex cap - usually the name of an armor, a monk stance, or a spell. */
+    source: string;
+}
+
+/** Any skill or similar which provides a roll option for rolling this save. */
+export interface Rollable {
+    /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
+    roll?: RollFunction;
+}
+
+export interface CharacterStrikeTrait {
+    /** The name of this action. */
+    name: string;
+    /** The label for this action which will be rendered on the UI. */
+    label: string;
+    /** If true, this trait is toggleable. */
+    toggle: boolean;
+    /** The roll this trait applies to, if relevant. */
+    rollName?: string;
+    /** The option that this trait applies to the roll (of type `rollName`). */
+    rollOption?: string;
+    /** An extra css class added to the UI marker for this trait. */
+    cssClass?: string;
+}
+
+/** An strike which a character can use. */
+export interface RawCharacterStrike {
+    /** The type of action; currently just 'strike'. */
+    type: 'strike';
+    /** The image URL for this strike (shown on the UI). */
+    imageUrl: string;
+    /** The glyph for this strike (how many actions it takes, reaction, etc). */
+    glyph: string;
+    /** A description of this strike. */
+    description: string;
+    /** A description of what happens on a critical success. */
+    criticalSuccess: string;
+    /** A description of what happens on a success. */
+    success: string;
+    /** Any traits this strike has. */
+    traits: CharacterStrikeTrait[];
+    /** Any options always applied to this strike. */
+    options: string[];
+
+    /** Alias for `attack`. */
+    roll?: RollFunction;
+    /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
+    attack?: RollFunction;
+    /** Roll normal (non-critical) damage for this weapon. */
+    damage?: RollFunction;
+    /** Roll critical damage for this weapon. */
+    critical?: RollFunction;
+
+    /** A list of attack variants which apply the Multiple Attack Penalty. */
+    variants: { label: string; roll: RollFunction }[];
+
+    /** A list of ammo to choose for this attack */
+    ammo?: ConsumableData[];
+    /** Currently selected ammo id that will be consumed when rolling this action */
+    selectedAmmoId?: string;
+}
+
+/** Basic hitpoints data fields */
+export interface RawHitPointsData {
+    /** The current amount of hitpoints the character has. */
+    value: number;
+    /** The minimum number of hitpoints this character can have; almost always 0. */
+    min: number;
+    /** The maximum number of hitpoints this character has. */
+    max: number;
+    /** If defined, the amount of temporary hitpoints this character has. */
+    temp?: number;
+    /** Any details about hit points. */
+    details: string;
+}
+
+/** Pathfinder Society Organized Play data fields */
+export interface RawPathfinderSocietyData {
+    /** Number assigned to the player. */
+    playerNumber: string;
+    /** Number assigned to the character. */
+    characterNumber: string;
+    /** Is the character currently affected by a level bump? */
+    levelBump: boolean;
+    /** Character's current fame */
+    fame: number;
+    /** Character's currently slotted faction */
+    currentFaction: PFSFactionString;
+
+    /** Character's Pathfinder school */
+    school: PFSSchoolString;
+
+    /** Character's Reputation with all the factions */
+    reputation: PathfinderSocietyReputation;
+}
+
+/** PFS faction reputation values */
+export interface PathfinderSocietyReputation {
+    EA: number;
+    GA: number;
+    HH: number;
+    VS: number;
+    RO: number;
+    VW: number;
+}
+
+/** Data related to character hitpoints. */
+export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
+export type FamiliarHitPointsData = Pick<RawHitPointsData, 'value' | 'max'>;
+
+/** The full data for charatcer initiative. */
+export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
+/** The full data for character perception rolls (which behave similarly to skills). */
+export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
+/** The full data for character AC; includes the armor check penalty. */
+export type ArmorClassData = PF2StatisticModifier &
+    RawSkillData & {
+        /** The armor check penalty imposed by the worn armor. */
+        check?: number;
+        /** The cap for the bonus that dexterity can give to AC, if any. If null, there is no cap. */
+        dexCap?: DexterityModifierCapData;
+    };
+/** The full data for the class DC; similar to SkillData, but is not rollable. */
+export type ClassDCData = PF2StatisticModifier & RawSkillData;
+/** The full skill data for a character; includes statistic modifier. */
+export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
+/** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
+export type SaveData = SkillData & { saveDetail?: string };
+/** The full data for a character action (used primarily for strikes.) */
+export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
+
+export interface DamageImmunities {
+    value: string[];
+    custom: string;
+}
+
+export interface BaseTraitsData {
+    /** The character size (such as 'med'). */
+    size: { value: Size };
+    /** Actual Pathfinder traits */
+    traits: {
+        value: string[];
+        custom: string;
+    };
+    /** Damage immunities this actor has. */
+    di: DamageImmunities;
+    /** Damage resistances that this actor has. */
+    dr: LabeledValue[];
+    /** Damage vulnerabilities that this actor has. */
+    dv: LabeledValue[];
+}
+
+export interface CreatureTraitsData extends BaseTraitsData {
+    /** A list of special senses this character has. */
+    senses: LabeledValue[];
+    /** Languages which this actor knows and can speak. */
+    languages: { value: string[]; selected: string[]; custom: string };
+    /** The rarity of this creature (common, uncommon, etc.) */
+    rarity: { value: Rarity };
+    /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
+    attitude: { value: string };
+}
+
+export interface ActorSystemData {
+    traits: BaseTraitsData;
+}
+
+export interface CreatureSystemData extends ActorSystemData {
+    /** Traits, languages, and other information. */
+    traits: CreatureTraitsData;
+
+    /** Maps roll types -> a list of modifiers which should affect that roll type. */
+    customModifiers: Record<string, PF2Modifier[]>;
+    /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
+    damageDice: Record<string, PF2DamageDice[]>;
+}
+
+export interface RawAnimalCompanionData extends CreatureSystemData {
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
+    master: {
+        id: string;
+        name: string;
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    details: {
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    attributes: {
+        hp: number;
+        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+        [key: string]: any;
+    };
+
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+/** The raw information contained within the actor data object for characters. */
+export interface RawCharacterData extends CreatureSystemData {
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
+    /** The three save types. */
+    saves: {
+        fortitude: SaveData;
+        reflex: SaveData;
+        will: SaveData;
+    };
+
+    /** Tracks proficiencies for martial skills. */
+    martial: {
+        unarmored: MartialData;
+        light: MartialData;
+        medium: MartialData;
+        heavy: MartialData;
+        simple: MartialData;
+        martial: MartialData;
+        advanced: MartialData;
+        unarmed: MartialData;
+    };
+
+    /** Various details about the character, such as level, experience, etc. */
+    details: {
+        /** The key ability which class saves (and other class-related things) scale off of. */
+        keyability: { value: AbilityString };
+
+        /** Character alignment (LN, N, NG, etc.) */
+        alignment: { value: string };
+        /** Character class ('barbarian', 'fighter', etc.) */
+        class: { value: string };
+        /** Character ancestry (their race, generally). */
+        ancestry: { value: string };
+        /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
+        heritage: { value: string };
+        /** The diety that the character worships (and an image of the diety symbol). */
+        deity: { value: string; image: string };
+        /** Character background - their occupation, upbringing, etc. */
+        background: { value: string };
+        /** How old the character is (user-provided field). */
+        age: { value: string };
+        /** Character height (user-provided field). */
+        height: { value: string };
+        /** Character weight (user-provided field). */
+        weight: { value: string };
+        /** Character gender/pronouns (user-provided field). */
+        gender: { value: string };
+        /** Character ethnicity (user-provided field). */
+        ethnicity: { value: string };
+        /** Character nationality (i.e, what nation they hail from; user-provided field). */
+        nationality: { value: string };
+        /** User-provided biography for their character; value is HTML. */
+        biography: { value: string; public?: string };
+
+        /** The amount of experience this character has. */
+        xp: {
+            /** The current experience value.  */
+            value: number;
+            /** The minimum amount of experience (almost always '0'). */
+            min: number;
+            /** The maximum amount of experience before level up (usually '1000', but may differ.) */
+            max: number;
+            /** COMPUTED: The percentage completion of the current level (value / max). */
+            pct: number;
+        };
+
+        /** Information about the current character level. */
+        level: {
+            /** The current level of this character. */
+            value: number;
+            /** The minimum level (almost always '1'). */
+            min: number;
+        };
+    };
+
+    /** Various character attributes.  */
+    attributes: {
+        /** The perception skill. */
+        perception: PerceptionData;
+        /** The class DC, used for saves related to class abilities. */
+        classDC: ClassDCData;
+        /** Creature armor class, used to defend against attacks. */
+        ac: ArmorClassData;
+        /** Initiative, used to determine turn order in combat. */
+        initiative: InitiativeData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap: DexterityModifierCapData[];
+
+        /** The amount of bonus HP gained per level (due a feat or similar). */
+        levelbonushp: number;
+        /** The amount of HP provided per level by the character's class. */
+        classhp: number;
+        /** The amount of HP provided at level 1 by the character's ancestry. */
+        ancestryhp: number;
+        /** A flat bonus (i.e., not scaling with level) to hit points. */
+        flatbonushp: number;
+        /** A flat-bonus (i.e., not scaling with level) to stamina points. */
+        flatbonussp: number;
+        /** Used in variant stamina rules; how much bonus SP is gained per level. */
+        levelbonussp?: number;
+
+        /** A bonus to the maximum amount of bulk that this character can carry. */
+        bonusLimitBulk: number;
+        /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
+        bonusEncumbranceBulk: number;
+
+        /** The current dying level (and maximum) for this character. */
+        dying: { value: number; max: number };
+        /** The current wounded level (and maximum) for this character. */
+        wounded: { value: number; max: number };
+        /** The current doomed level (and maximum) for this character. */
+        doomed: { value: number; max: number };
+        /** The current number of hero points (and maximum) for this character. */
+        heroPoints: { rank: number; max: number };
+
+        /** The number of familiar abilities this character's familiar has access to. */
+        familiarAbilities: PF2StatisticModifier;
+
+        /** Data related to character hitpoints. */
+        hp: HitPointsData;
+
+        /** Data related to character stamina, when using the variant stamina rules. */
+        sp: {
+            /** The current number of stamina points. */
+            value: number;
+            /** The minimum number of stamina points (almost always '0'). */
+            min: number;
+            /** The maximum number of stamina points. */
+            max: number;
+            /** Any details about stamina points. */
+            details: string;
+        };
+
+        /**
+         * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+         * allow for the shield health to be shown in a token.
+         */
+        shield: {
+            /** The current shield health. */
+            value: number;
+            /** The maximum shield health. */
+            max: number;
+        };
+
+        /** Records the various land/swim/fly speeds that this actor has. */
+        speed: {
+            /** The actor's primary speed (usually walking/stride speed). */
+            value: string;
+            /** Other speeds that this actor can use (such as swim, climb, etc). */
+            otherSpeeds: LabeledValue[];
+        };
+
+        /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+        resolve: { value: number };
+    };
+
+    /** Player skills, used for various skill checks. */
+    skills: {
+        acr: SkillData;
+        arc: SkillData;
+        ath: SkillData;
+        cra: SkillData;
+        dec: SkillData;
+        dip: SkillData;
+        itm: SkillData;
+        med: SkillData;
+        nat: SkillData;
+        occ: SkillData;
+        prf: SkillData;
+        rel: SkillData;
+        soc: SkillData;
+        ste: SkillData;
+        sur: SkillData;
+        thi: SkillData;
+    };
+
+    /** Pathfinder Society Organized Play */
+    pfs?: RawPathfinderSocietyData;
+
+    /** Special strikes which the character can take. */
+    actions: CharacterStrike[];
+}
+
+// NPCs have an additional 'base' field used for computing the modifiers.
+/** Normal armor class data, but with an additional 'base' value. */
+export type NPCArmorClassData = ArmorClassData & { base?: number };
+/** Normal save data, but with an additional 'base' value. */
+export type NPCSaveData = SaveData & { base?: number };
+/** Normal skill data, but with an additional 'base' value. */
+export type NPCPerceptionData = PerceptionData & { base?: number };
+/** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
+export type NPCSkillData = PF2StatisticModifier &
+    Rollable & {
+        base?: number;
+        visible?: boolean;
+        label: string;
+        expanded: string;
+    };
+
+export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
+
+/** The raw information contained within the actor data object for NPCs. */
+export interface RawNpcData extends CreatureSystemData {
+    /** The six primary ability scores. */
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
+
+    /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
+    saves: {
+        fortitude: NPCSaveData;
+        reflex: NPCSaveData;
+        will: NPCSaveData;
+    };
+
+    /** Details about this actor, such as alignment or ancestry. */
+    details: {
+        /** The alignment this creature has. */
+        alignment: { value: AlignmentString };
+        /** The race of this creature. */
+        ancestry: { value: string };
+        /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
+        level: { value: number; min: number };
+        /** Which sourcebook this creature comes from. */
+        source: { value: string };
+        /** The Archive of Nethys URL for this creature. */
+        nethysUrl: string;
+        /** Information about what is needed to recall knowledge about this creature. */
+        recallKnowledgeText: string;
+        /** Information which shows up on the sidebar of the creature. */
+        sidebarText: string;
+        /** The type of this creature (such as 'undead') */
+        creatureType: string;
+        /** Flavor / descriptive background text for this creature. */
+        flavorText: string;
+    };
+
+    /** Any special attributes for this NPC, such as AC or health. */
+    attributes: {
+        /** The armor class of this NPC. */
+        ac: NPCArmorClassData;
+        /** The perception score for this NPC. */
+        perception: NPCPerceptionData;
+
+        /** Dexterity modifier cap to AC. Undefined means no limit. */
+        dexCap?: DexterityModifierCapData[];
+
+        /** The hit points for this actor. */
+        hp: RawHitPointsData;
+
+        /** The movement speeds that this NPC has. */
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        };
+
+        /** Textual information about any special benefits that apply to all saves. */
+        allSaves: { value: string };
+        familiarAbilities: PF2StatisticModifier;
+    };
+
+    /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
+    skills: Record<string, NPCSkillData>;
+
+    /** Special strikes which the creature can take. */
+    actions: CharacterStrike[];
+}
+
+/** The raw information contained within the actor data object for hazards. */
+export interface RawHazardData {
+    /** Traits, languages, and other information. */
+    traits: BaseTraitsData & Pick<CreatureTraitsData, 'rarity'>;
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+/** The raw information contained within the actor data object for loot actors. */
+export interface RawLootData extends ActorSystemData {
+    lootSheetType: 'Merchant' | 'Loot';
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+/** The raw information contained within the actor data object for familiar actors. */
+export interface RawFamiliarData extends CreatureSystemData {
+    attributes: {
+        hp: FamiliarHitPointsData;
+        ac: { value: number; breakdown: string; check?: number };
+        perception: { value: number } & Partial<RawSkillData> & Rollable;
+        /** The movement speeds that this Familiar has. */
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        };
+        [key: string]: any;
+    };
+
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+/** The raw information contained within the actor data object for vehicle actors. */
+export interface RawVehicleData extends ActorSystemData {
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
+}
+
+/** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
+interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
+    data: T;
+    items: ItemData[];
+}
+
+interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {
+    type: 'character' | 'npc' | 'animalCompanion' | 'familiar';
+}
+
+/** Wrapper type for character-specific data. */
+export interface CharacterData extends BaseCreatureData<RawCharacterData> {
+    type: 'character';
+}
+
+/** Wrapper type for npc-specific data. */
+export interface NpcData extends BaseCreatureData<RawNpcData> {
+    type: 'npc';
+}
+
+/** Wrapper type for hazard-specific data. */
+export interface HazardData extends BaseActorDataPF2e<RawHazardData> {
+    type: 'hazard';
+}
+
+/** Wrapper type for loot-specific data. */
+export interface LootData extends BaseActorDataPF2e<RawLootData> {
+    type: 'loot';
+}
+
+export interface FamiliarData extends BaseCreatureData<RawFamiliarData> {
+    type: 'familiar';
+}
+
+/** Wrapper type for vehicle-specific data. */
+export interface VehicleData extends BaseActorDataPF2e<RawVehicleData> {
+    type: 'vehicle';
+}
+
+export interface AnimalCompanionData extends BaseCreatureData<RawAnimalCompanionData> {
+    type: 'animalCompanion';
+}
+
+export type CreatureData = CharacterData | NpcData | AnimalCompanionData | FamiliarData;
+
+export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
+
+export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
+    return ['character', 'npc', 'animalCompanion', 'familiar'].includes(actorData.type);
+}

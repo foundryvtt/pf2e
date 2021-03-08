@@ -17,12 +17,6 @@ declare type CompendiumIndex = {
 
 declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | RollTable;
 
-declare interface CompendiumCollection extends Collection<Compendium> {
-    get<E extends CompendiumEntity>(id: string, { strict }?: { strict?: boolean }): Compendium<E> | null;
-    filter<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E>[];
-    find<E extends CompendiumEntity>(condition: (args: Compendium<E>) => boolean): Compendium<E> | null;
-}
-
 /**
  * The Compendium class provides an interface for interacting with compendium packs which are
  * collections of similar Entities which are stored outside of the world database but able to
@@ -36,8 +30,8 @@ declare interface CompendiumCollection extends Collection<Compendium> {
  * name of the pack within that package. For example, in the D&D5e system, the compendium pack
  * which provides the spells available within the SRD has the collection name "dnd5e.spells".
  *
- * @param metadata	The compendium metadata, an object provided by game.data
- * @param options	Application rendering options
+ * @param metadata  The compendium metadata, an object provided by game.data
+ * @param options   Application rendering options
  *
  * @example
  * // Let's learn the collection names of all the compendium packs available within a game
@@ -104,6 +98,9 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
 
     constructor(metadata: object, options: object);
 
+    /** @override */
+    get title(): string;
+
     /**
      * The canonical Compendium name - comprised of the originating package and the pack name
      * @return The canonical collection name
@@ -113,17 +110,34 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * The Entity type which is allowed to be stored in this collection
      */
-    get entity(): string;
+    get entity(): 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+
+    /**
+     * A reference to the Entity class object contained within this Compendium pack
+     */
+    get cls(): {
+        new (...args: any[]): CompendiumEntity | CompendiumEntity[];
+        create(
+            data: Partial<EntityType['data']> | Partial<EntityType['data']>[],
+            options?: EntityCreateOptions,
+        ): Promise<CompendiumEntity | CompendiumEntity[]>;
+    };
 
     /* ----------------------------------------- */
     /*  Methods
-    /* ----------------------------------------- */
+        /* ----------------------------------------- */
 
     /**
      * Create a new Compendium pack using provided
      * @param metadata The compendium metadata used to create the new pack
      */
-    static create(metadata: object): Promise<Compendium>;
+    static create(metadata: CompendiumMetadata, options?: {}): Promise<Compendium>;
+
+    /**
+     * Duplicate a compendium pack to the current World
+     * @param label
+     */
+    duplicate({ label }?: { label?: string }): Promise<Compendium>;
 
     /**
      * Delete a world Compendium pack
@@ -151,14 +165,27 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      *
      * @return A Promise containing the return entry data, or null
      */
-    getEntry(entryId: string): Promise<EntityType['data']>;
+    getEntry(entryId: string): Promise<EntityType['data'] | null>;
 
     /**
      * Get a single Compendium entry as an Entity instance
      * @param entryId The compendium entry ID to load and instantiate
      * @return A Promise containing the returned Entity, if it exists, otherwise null
      */
-    getEntity(entryId: string): Promise<EntityType>;
+    getEntity(entryId: string): Promise<EntityType | null>;
+
+    /**
+     * Fully import the contents of a Compendium pack into a World folder.
+     * @param An existing Folder _id to use.
+     * @param [folderName] A new Folder name to create.
+     */
+    importAll({
+        folderId,
+        folderName,
+    }?: {
+        folderId?: string | null;
+        folderName?: string;
+    }): Promise<CompendiumEntity | CompendiumEntity[]>;
 
     /**
      * Cast entry data to an Entity class
@@ -167,30 +194,30 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
 
     /**
      * Import a new Entity into a Compendium pack
-     * @param entity	The Entity instance you wish to import
-     * @return			A Promise which resolves to the created Entity once the operation is complete
+     * @param entity    The Entity instance you wish to import
+     * @return          A Promise which resolves to the created Entity once the operation is complete
      */
     importEntity(entity: EntityType): Promise<EntityType>;
 
     /**
      * Create a new Entity within this Compendium Pack using provided data
-     * @param data	Data with which to create the entry
-     * @return		A Promise which resolves to the created Entity once the operation is complete
+     * @param data  Data with which to create the entry
+     * @return      A Promise which resolves to the created Entity once the operation is complete
      */
     createEntity(data: any): Promise<EntityType>;
 
     /**
      * Update a single Compendium entry programmatically by providing new data with which to update
-     * @param data		The incremental update with which to update the Entity. Must contain the _id
-     * @param options	Additional options which modify the update request
-     * @return			A Promise which resolves with the updated Entity once the operation is complete
+     * @param data      The incremental update with which to update the Entity. Must contain the _id
+     * @param options   Additional options which modify the update request
+     * @return          A Promise which resolves with the updated Entity once the operation is complete
      */
     updateEntity(data: any, options?: any): Promise<Entity>;
 
     /**
      * Delete a single Compendium entry by its provided _id
-     * @param id	The entry ID to delete
-     * @return		A Promise which resolves to the deleted entry ID once the operation is complete
+     * @param id    The entry ID to delete
+     * @return      A Promise which resolves to the deleted entry ID once the operation is complete
      */
     deleteEntity(id: string): Promise<string>;
 
@@ -207,7 +234,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * Register event listeners for Compendium directories
      */
-    protected activateListeners(html: JQuery | HTMLElement): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * Handle compendium filtering through search field

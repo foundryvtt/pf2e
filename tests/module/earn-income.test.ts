@@ -1,4 +1,4 @@
-import { earnIncome } from '../../src/module/earn-income';
+import { earnIncome } from '../../src/scripts/macros/earn-income';
 import { DegreeOfSuccess } from '../../src/module/degree-of-success';
 
 const options = {

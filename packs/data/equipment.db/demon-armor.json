@@ -20,13 +20,10 @@
         "check": {
             "label": "Check Penalty",
             "type": "String",
-            "value": "-3"
+            "value": -3
         },
         "collapsed": {
             "value": false
-        },
-        "size": {
-            "value": "med"
         },
         "containerId": {
             "value": ""
@@ -41,7 +38,7 @@
         "dex": {
             "label": "Dex Modifier Cap",
             "type": "String",
-            "value": "0"
+            "value": 0
         },
         "equipped": {
             "label": "Equipped",
@@ -61,6 +58,9 @@
         },
         "hp": {
             "value": null
+        },
+        "identification": {
+            "status": "identified"
         },
         "identified": {
             "value": true
@@ -127,17 +127,46 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Bulwark (vs. damaging effects)",
+                "label": "Bulwark",
                 "predicate": {
                     "all": [
-                        "damage"
+                        "damaging-effect"
                     ]
                 },
                 "selector": "reflex",
                 "type": "ability",
                 "value": 3
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "not": [
+                        "unburdened-iron"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "speed",
+                "type": "untyped",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": -10
+                        },
+                        {
+                            "start": 18,
+                            "value": -5
+                        }
+                    ],
+                    "field": "actor|data.abilities.str.value"
+                }
             }
         ],
+        "size": {
+            "value": "med"
+        },
         "source": {
             "label": "Source",
             "type": "String",
@@ -154,7 +183,7 @@
         "strength": {
             "label": "Required Strength",
             "type": "String",
-            "value": "18"
+            "value": 18
         },
         "traits": {
             "custom": "",

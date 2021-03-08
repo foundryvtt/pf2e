@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "30",
+                "max": 30,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "30"
+                "value": 30
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "10 feet"
                     }
                 ],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -155,7 +154,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "2"
+                "value": 2
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=562",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 16",
@@ -411,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -440,9 +442,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -496,6 +497,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -554,9 +558,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -564,6 +570,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -573,6 +583,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -633,6 +644,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -690,9 +704,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -700,6 +716,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
@@ -711,6 +731,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -720,13 +741,13 @@
             "type": "melee"
         },
         {
-            "_id": "7ahPQUqCuhapGJ9m",
+            "_id": "9jv63Z84MxjVX6iS",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -734,7 +755,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{wounded 3}, it can no longer use this ability</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -742,28 +763,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "ferocity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
             "sort": 300000,
             "type": "action"
@@ -778,12 +803,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The giant badger enters a state of pure rage that lasts for 1 minute, until there are no enemies it can perceive, or until it falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, whichever comes first. While raging, the giant badger has AC 17, its jaws Strike deals [[/r 1d8+8 # damage]] damage, and its claw Strike deals [[/r 1d6+6 # damage]] damage. While raging, the giant badger also can't use actions that have the concentrate trait except for @Compendium[pf2e.actionspf2e.Seek]{Seek}. After it has stopped raging, a giant badger can't use Badger Rage again for 1 minute."
+                    "value": "<p>The giant badger enters a state of pure rage that lasts for 1 minute, until there are no enemies it can perceive, or until it falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, whichever comes first. While raging, the giant badger has AC 17, its jaws Strike deals [[/r 1d8+8 # damage]] damage, and its claw Strike deals [[/r 1d6+6 # damage]] damage. While raging, the giant badger also can't use actions that have the concentrate trait except for @Compendium[pf2e.actionspf2e.Seek]{Seek}.</p>\n<p>After it has stopped raging, a giant badger can't use Badger Rage again for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -791,14 +816,56 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "badger-rage"
+                            ]
+                        },
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.badger-rage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "badger-rage"
+                            ],
+                            "not": [
+                                "agile"
+                            ]
+                        },
+                        "selector": "damage",
+                        "value": 4
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "name": "badger-rage-agile",
+                        "predicate": {
+                            "all": [
+                                "badger-rage",
+                                "agile"
+                            ]
+                        },
+                        "selector": "damage",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "concentrate",
                         "emotion",
@@ -815,8 +882,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Badger Rage",
             "sort": 400000,
             "type": "action"
@@ -829,7 +897,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -842,16 +909,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -866,7 +940,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -879,16 +952,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -901,7 +981,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "T9vzmpvpRL5xjrhd",
         "actorLink": false,
         "bar1": {
@@ -920,6 +999,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Giant Badger",
         "randomImg": false,

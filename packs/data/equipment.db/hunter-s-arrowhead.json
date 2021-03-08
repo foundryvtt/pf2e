@@ -10,9 +10,6 @@
         "collapsed": {
             "value": false
         },
-        "size": {
-            "value": "med"
-        },
         "containerId": {
             "value": ""
         },
@@ -32,6 +29,9 @@
         },
         "hp": {
             "value": 0
+        },
+        "identification": {
+            "status": "identified"
         },
         "identified": {
             "value": true
@@ -69,9 +69,12 @@
                 "label": "Hunter's Arrowhead (vs. hunted prey)",
                 "predicate": {
                     "any": [
-                        "target:hunted-prey"
+                        "hunted-prey"
                     ]
                 },
+                "roll-options": [
+                    "all"
+                ],
                 "selector": "survival",
                 "type": "item",
                 "value": 1
@@ -80,15 +83,21 @@
                 "key": "PF2E.RuleElement.FlatModifier",
                 "label": "Hunter's Arrowhead (vs. hunted prey)",
                 "predicate": {
-                    "any": [
-                        "target:hunted-prey"
+                    "all": [
+                        "hunted-prey"
                     ]
                 },
-                "selector": "attack",
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack-roll",
                 "type": "item",
                 "value": 1
             }
         ],
+        "size": {
+            "value": "med"
+        },
         "source": {
             "value": ""
         },

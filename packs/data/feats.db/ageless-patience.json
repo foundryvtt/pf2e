@@ -29,18 +29,26 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "5"
+            "value": 5
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                ""
-            ]
-        },
+        "location": "",
+        "prerequisites": [],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "ageless-patience"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -58,6 +66,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Ageless Patience",

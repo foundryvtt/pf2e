@@ -19,8 +19,9 @@
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "trained in Athletics"
@@ -29,10 +30,27 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "athletics",
+                "type": "ability",
+                "value": "@abilities.int.mod"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -41,6 +59,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Athletic Strategist",

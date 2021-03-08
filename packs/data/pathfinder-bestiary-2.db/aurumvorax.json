@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "170",
+                "max": 170,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "170"
+                "value": 170
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "10 feet"
                     }
                 ],
-                "special": "",
                 "value": "35 feet"
             }
         },
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -155,7 +154,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "9"
+                "value": 9
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=558",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 26",
@@ -411,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -440,9 +442,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -476,12 +477,12 @@
                     "damageType": "piercing",
                     "die": "2d10+12"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d10+12",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -498,6 +499,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -556,9 +560,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -566,6 +572,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -575,6 +585,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -637,6 +648,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -694,9 +708,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -704,6 +720,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile"
                     ]
@@ -715,6 +735,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -746,14 +767,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -766,6 +789,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Tenacious Stance",
@@ -773,13 +797,13 @@
             "type": "action"
         },
         {
-            "_id": "9hRHgXlmX1FbH7ww",
+            "_id": "iTVvlmvMKiOcRmTQ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -787,7 +811,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{wounded} value increases by 1. When it is @Compendium[pf2e.conditionitems.Wounded]{wounded 3}, it can no longer use this ability</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -795,28 +819,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "ferocity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
             "sort": 400000,
             "type": "action"
@@ -836,7 +864,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When an aurumvorax scores a critical hit, the target takes 1d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}."
+                    "value": "<p>When an aurumvorax scores a critical hit, the target takes [[/r 1d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -844,14 +872,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -864,6 +894,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Bleeding Critical",
@@ -880,12 +911,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The aurumvorax makes a jaws Strike against a creature it has grabbed. If the attack hits, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} if it is Medium or smaller. In addition, if the target is wearing armor with Hardness 10 or lower, the armor becomes @Compendium[pf2e.conditionitems.Broken]{Broken}. If this Strike breaks a creature's armor or damages a creature that is unarmored or wearing broken armor, the target also takes 1d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}. This Strike doesn't further damage armor that's already broken."
+                    "value": "<p>The aurumvorax makes a jaws Strike against a creature it has grabbed. If the attack hits, the target is knocked @Compendium[pf2e.conditionitems.Prone]{Prone} if it is Medium or smaller. In addition, if the target is wearing armor with Hardness 10 or lower, the armor becomes @Compendium[pf2e.conditionitems.Broken]{Broken}. If this Strike breaks a creature's armor or damages a creature that is unarmored or wearing broken armor, the target also takes [[/r 1d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}. This Strike doesn't further damage armor that's already broken.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -893,14 +924,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -913,8 +946,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Gnaw Metal",
             "sort": 600000,
             "type": "action"
@@ -942,14 +976,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -962,6 +998,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Rapid Rake",
@@ -969,7 +1006,7 @@
             "type": "action"
         },
         {
-            "_id": "cCBUMlEbkY9pqSMH",
+            "_id": "VFprYdFvs654DtJ6",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -978,12 +1015,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <b>Effect</b> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it."
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -991,28 +1028,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 800000,
             "type": "action"
@@ -1025,7 +1066,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1038,16 +1078,41 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": -14
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+6 to swim",
+                        "options": "action:swim"
+                    }
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1062,7 +1127,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1075,16 +1139,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -1097,7 +1168,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "zjPdqdQGNjO3Kto7",
         "actorLink": false,
         "bar1": {
@@ -1116,6 +1186,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Aurumvorax",
         "randomImg": false,

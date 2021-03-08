@@ -71,6 +71,12 @@
 
                 h3 {
                     justify-self: flex-start;
+
+                    input.item-name-input {
+                      color: white;
+                      max-width: 80%;
+                      font-weight: 500;
+                    }
                 }
             }
 
@@ -275,7 +281,7 @@
                         grid:
                             'name school action cast control' auto
                             'content content content content content' auto
-                            / 6fr 3fr 2fr 1fr 1fr;
+                            / 6fr 3fr 2fr 1fr 48px;
                         align-items: center;
                         justify-items: center;
                     }
@@ -410,6 +416,10 @@
                                     display: none;
                                 }
                             }
+                        }
+
+                        &.empty {
+                          grid-column: 1 / span 4;
                         }
                     }
 

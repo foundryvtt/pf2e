@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "16",
+                "max": 16,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "16"
+                "value": 16
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "swim 60 feet"
             }
         },
@@ -150,7 +148,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "0"
+                "value": 0
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=618",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 14",
@@ -406,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -435,9 +436,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -491,6 +491,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -549,9 +552,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -559,6 +564,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -568,6 +577,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -628,6 +638,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -685,9 +698,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -695,6 +710,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -704,6 +723,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -735,14 +755,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -755,6 +777,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Aquatic Echolocation",
@@ -784,14 +807,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -804,6 +829,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deep Breath",
@@ -820,12 +846,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The bottlenose dolphin @Compendium[pf2e.actionspf2e.Swim]{Swims} twice and then makes a snout Strike. As long as it moved at least 20 feet, it gains a +1 circumstance bonus to its attack roll. A Large or smaller creature hit by this attack must succeed at a DC 16 Fortitude save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 round."
+                    "value": "<p>The bottlenose dolphin @Compendium[pf2e.actionspf2e.Swim]{Swims} twice and then makes a snout Strike. As long as it moved at least 20 feet, it gains a +1 circumstance bonus to its attack roll. A Large or smaller creature hit by this attack must succeed at a DC 16 Fortitude save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -833,14 +859,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.attack-roll.ramming-speed"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "ramming-speed"
+                            ]
+                        },
+                        "selector": "attack-roll",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -853,8 +897,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Ramming Speed",
             "sort": 500000,
             "type": "action"
@@ -867,7 +912,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -880,16 +924,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -902,7 +953,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "8usfZlFqdD9cchPJ",
         "actorLink": false,
         "bar1": {
@@ -921,6 +971,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bottlenose Dolphin",
         "randomImg": false,

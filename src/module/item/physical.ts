@@ -1,9 +1,10 @@
 import { PF2EItem } from './item';
-import { isPhysicalItem, PhysicalItemData } from './dataDefinitions';
+import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
+import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
-    /** @override */
     data!: PhysicalItemData;
+    _data!: PhysicalItemData;
 
     static isIdentified(itemData: any): boolean {
         return itemData.data?.identification?.status !== 'unidentified';
@@ -31,6 +32,7 @@ export class PF2EPhysicalItem extends PF2EItem {
                 _id: this.id,
                 'data.identification.status': value ? 'identified' : 'unidentified',
                 'data.identification.identified.name': this.data.name,
+                'data.identification.identified.img': this.data.img,
             });
         }
     }
@@ -46,7 +48,7 @@ export class PF2EPhysicalItem extends PF2EItem {
                     getProperty(update, `data.identification.unidentified.name`) ??
                     getProperty(itemData, `data.identification.unidentified.name`);
 
-                const translateFallback = (translated, key) => {
+                const translateFallback = (translated: string, key: string) => {
                     if (translated) {
                         return translated;
                     } else {
@@ -67,22 +69,29 @@ export class PF2EPhysicalItem extends PF2EItem {
                 name = translateFallback(name, `PF2E.identification.UnidentifiedItem`);
 
                 diff.name = name;
+                diff.img = getUnidentifiedPlaceholderImage(itemData);
             }
 
             // ensure an "identified" name so the item can always be restored
             if (status !== 'identified' && !getProperty(itemData, 'data.identification.identified')) {
                 diff['data.identification.identified.name'] = itemData.name;
+                diff['data.identification.identified.img'] = itemData.img;
             }
 
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = await fromUuid(uuid);
-                if (baseItem?.data) {
-                    const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
+                const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
+                if (baseItem instanceof PF2EPhysicalItem) {
+                    // ensure we're not messing up another item accidentally
+                    const baseData: Omit<PhysicalItemData, '_id' | 'data'> & {
+                        _id?: string;
+                        data: Partial<PhysicalDetailsData>;
+                    } = duplicate(baseItem.data);
+
                     // probably more fields should be filtered out
-                    delete baseData?._id;
-                    delete baseData?.data?.identification;
+                    delete baseData._id;
+                    delete baseData.data.identification;
                     for (const [key, value] of Object.entries(flattenObject(baseData))) {
                         diff[key] = value;
                     }
@@ -105,5 +114,14 @@ export class PF2EPhysicalItem extends PF2EItem {
     async update(diff: { [key: string]: unknown }, options = {}) {
         await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
+    }
+
+    static async createPhysicalItemFromCompendiumId(id: string): Promise<PF2EPhysicalItem | null> {
+        const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
+        if (!pack) {
+            throw Error('unable to get pack!');
+        }
+
+        return pack.getEntity(id);
     }
 }

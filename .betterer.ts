@@ -1,14 +1,16 @@
 import { typescript } from '@betterer/typescript';
+import { eslint } from '@betterer/eslint';
 
 export default {
     'stricter compilation': typescript('./tsconfig.json', {
         strict: true,
-        noEmit: true,
+        noImplicitReturns: true,
+        noUnusedParameters: true,
     }).include(
-        './packs/packbuilder.ts',
+        './packs/scripts/*.ts',
+        './packs/scripts/packman/*.ts',
         './src/**/*.ts',
-        './static/macros/*.js',
         './tests/**/*.ts',
-        './webpack.config.ts'
+        './webpack.config.ts',
     ),
 };

@@ -9,7 +9,7 @@ import {
     stacks,
     weightToBulk,
 } from './bulk';
-import { PhysicalItemData, Size } from './dataDefinitions';
+import { PhysicalItemData, Size } from './data-definitions';
 import { groupBy } from '../utils';
 
 /**

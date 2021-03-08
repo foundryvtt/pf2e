@@ -33,6 +33,13 @@ interface ApplicationOptions {
     [key: string]: any;
 }
 
+interface ApplicationHeaderButton {
+    label: string;
+    class: string;
+    icon: string;
+    onclick: ((event: Event) => void) | null;
+}
+
 interface RenderOptions {
     /** The left positioning attribute */
     left?: number;
@@ -190,16 +197,16 @@ declare class Application {
      * Render the Application by evaluating it's HTML template against the object of data provided by the getData method
      * If the Application is rendered as a pop-out window, wrap the contained HTML in an outer frame with window controls
      *
-     * @param force		Add the rendered application to the DOM if it is not already present. If false, the
-     *					Application will only be re-rendered if it is already present.
-     * @param options	Additional rendering options which are applied to customize the way that the Application
-     *					is rendered in the DOM.
+     * @param force     Add the rendered application to the DOM if it is not already present. If false, the
+     *                  Application will only be re-rendered if it is already present.
+     * @param options   Additional rendering options which are applied to customize the way that the Application
+     *                  is rendered in the DOM.
      */
     render(force?: boolean, options?: RenderOptions): this;
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
-     * @param options	Provided rendering options, see the render function for details
+     * @param options   Provided rendering options, see the render function for details
      */
     protected _render(force?: boolean, options?: RenderOptions): void;
 
@@ -215,21 +222,21 @@ declare class Application {
 
     /**
      * Render the outer application wrapper
-     * @return	A promise resolving to the constructed jQuery object
+     * @return  A promise resolving to the constructed jQuery object
      */
     protected _renderOuter(options: RenderOptions): Promise<JQuery>;
 
     /**
      * Render the inner application content
-     * @param data	The data used to render the inner template
-     * @return		A promise resolving to the constructed jQuery object
+     * @param data  The data used to render the inner template
+     * @return      A promise resolving to the constructed jQuery object
      */
     protected _renderInner(data: Record<string, unknown>, options: RenderOptions): Promise<JQuery>;
 
     /**
      * Customize how inner HTML is replaced when the application is refreshed
-     * @param element	The original HTML element
-     * @param html		New updated HTML
+     * @param element   The original HTML element
+     * @param html      New updated HTML
      */
     protected _replaceHTML(element: JQuery, html: JQuery | HTMLElement, options: Record<string, unknown>): void;
 
@@ -239,64 +246,62 @@ declare class Application {
     protected _injectHTML(html: JQuery, options: Record<string, unknown>): void;
 
     /**
-     * Specify the set of config buttons which should appear in the Application header
-     * Buttons should be returned as an Array of Objects with the following keys:
-     * label: The button label
-     * icon: A font-awesome glyph icon
-     * class: the css class of the button
-     * onclick: the button click handler
+     * Specify the set of config buttons which should appear in the Application header.
+     * Buttons should be returned as an Array of objects.
+     * The header buttons which are added to the application can be modified by the getApplicationHeaderButtons hook.
+     * @fires Application#hook:getApplicationHeaderButtons
      */
-    protected _getHeaderButtons(): any[];
+    protected _getHeaderButtons(): ApplicationHeaderButton[];
 
     /* -------------------------------------------- */
     /* Event Listeners and Handlers
-	/* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Once the HTML for an Application has been rendered, activate event listeners which provide interactivity for
      * the application
      */
-    protected activateListeners(html: JQuery): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * Handle changes to the active tab in a configured Tabs controller
-     * @param event		A left click event
-     * @param tabs		The TabsV2 controller
-     * @param active	The new active tab name
+     * @param event     A left click event
+     * @param tabs      The TabsV2 controller
+     * @param active    The new active tab name
      */
     protected _onChangeTab(event: MouseEvent, tabs: Tabs, active: string): void;
 
     /**
      * Define whether a user is able to begin a dragstart workflow for a given drag selector
-     * @param selector	The candidate HTML selector for dragging
-     * @return			Can the current user drag this selector?
+     * @param selector  The candidate HTML selector for dragging
+     * @return          Can the current user drag this selector?
      */
     protected _canDragStart(selector: string): boolean;
 
     /**
      * Define whether a user is able to conclude a drag-and-drop workflow for a given drop selector
-     * @param selector	The candidate HTML selector for the drop target
-     * @return			Can the current user drop on this selector?
+     * @param selector  The candidate HTML selector for the drop target
+     * @return          Can the current user drop on this selector?
      */
     protected _canDragDrop(selector: string): boolean;
 
     /**
      * Callback actions which occur at the beginning of a drag start workflow.
-     * @param event	The originating DragEvent
+     * @param event The originating DragEvent
      */
-    protected _onDragStart(event: DragEvent): void;
+    protected _onDragStart(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is over a drop target.
-     * @param event	The originating DragEvent
+     * @param event The originating DragEvent
      */
-    protected _onDragOver(event: DragEvent): void;
+    protected _onDragOver(event: ElementDragEvent): void;
 
     /**
      * Callback actions which occur when a dragged element is dropped on a target.
-     * @param event	The originating DragEvent
+     * @param event The originating DragEvent
      */
-    protected _onDrop(event: DragEvent): void;
+    protected _onDrop(event: ElementDragEvent): void;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
@@ -306,19 +311,19 @@ declare class Application {
      * Close the application and un-register references to it within UI mappings
      * This function returns a Promise which resolves once the window closing animation concludes
      */
-    close(): Promise<any>;
+    close(): Promise<unknown>;
 
     /**
      * Minimize the pop-out window, collapsing it to a small tab
      * Take no action for applications which are not of the pop-out variety or apps which are already minimized
-     * @return	A Promise which resolves to true once the minimization action has completed
+     * @return  A Promise which resolves to true once the minimization action has completed
      */
     minimize(): Promise<boolean>;
 
     /**
      * Maximize the pop-out window, expanding it to its original size
      * Take no action for applications which are not of the pop-out variety or are already maximized
-     * @return	A Promise which resolves to true once the maximization action has completed
+     * @return  A Promise which resolves to true once the maximization action has completed
      */
     maximise(): Promise<boolean>;
 

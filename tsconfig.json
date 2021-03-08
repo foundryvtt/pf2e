@@ -3,7 +3,7 @@
       "target": "es2017",
       "module": "commonjs",
       "lib": ["esnext", "dom"],
-      "noImplicitAny": false,
+      "noEmit": true,
       "noImplicitThis": true,
       "noUnusedLocals": true,
       "forceConsistentCasingInFileNames": true,
@@ -14,7 +14,10 @@
       "resolveJsonModule": true,
       "paths": {
         "@actor/*": ["src/module/actor/*"],
-        "@item/*": ["src/module/item/*"]
+        "@item/*": ["src/module/item/*"],
+        "@scripts/*": ["src/scripts/*"],
+        "@system/*": ["src/module/system/*"],
+        "@utils": ["src/module/utils"]
       },
       "types": [
         "jquery",
@@ -22,6 +25,7 @@
         "jest",
         "node",
         "handlebars",
+        "socket.io",
         "foundry-pc-types"
       ],
       "typeRoots": ["node_modules/@types", "node_modules/handlebars", "types"]

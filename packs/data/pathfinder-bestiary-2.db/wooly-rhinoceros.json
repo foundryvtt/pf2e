@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "100",
+                "max": 100,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "100"
+                "value": 100
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "35 feet"
             }
         },
@@ -121,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -150,7 +149,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=789",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 22",
@@ -406,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -435,9 +437,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -469,16 +470,16 @@
                     "damageType": "piercing",
                     "die": "2d12+6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+6",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -491,6 +492,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -549,9 +553,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "label": "Rhinoceros Charge",
+                        "predicate": {
+                            "all": [
+                                "rhinoceros-charge"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -559,8 +577,12 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "reach 10 feet"
+                        "reach-10"
                     ]
                 },
                 "usage": {
@@ -570,6 +592,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -630,6 +653,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -687,9 +713,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -697,6 +725,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -706,6 +738,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -737,14 +770,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -757,6 +792,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Cold Adaptation",
@@ -764,13 +800,13 @@
             "type": "action"
         },
         {
-            "_id": "YROgDrBEHlA2UJ5n",
+            "_id": "s8QWVeVJXjVsVCtc",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -778,7 +814,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is wounded 3, it can no longer use this ability</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -786,28 +822,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "ferocity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
             "sort": 400000,
             "type": "action"
@@ -822,12 +862,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The wooly rhinoceros Strides twice, then makes a horn Strike. As long as the wooly rhinoceros moved at least 20 feet, the Strike's damage increases to 3d12+6. A Medium or smaller creature struck by this attack must succeed at a DC 24 Reflex save or be automatically Shoved back 5 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone} by the force of the blow."
+                    "value": "<p>The wooly rhinoceros Strides twice, then makes a horn Strike. As long as the wooly rhinoceros moved at least 20 feet, the Strike's damage increases to [[/r 3d12+6 #piercing]]. A Medium or smaller creature struck by this attack must succeed at a DC 24 Reflex save or be automatically @Compendium[pf2e.actionspf2e.Shove]{Shoved} back 5 feet and knocked @Compendium[pf2e.conditionitems.Prone]{Prone} by the force of the blow.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -835,14 +875,21 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.rhinoceros-charge"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -855,14 +902,15 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Rhinoceros Charge",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "hc3dFyeim0DH2SPN",
+            "_id": "tTEx1xVvwi1D7MJk",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -871,12 +919,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Medium or smaller, foot, DC 21<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC."
+                    "value": "<p>Medium or smaller, foot, DC 21</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -884,28 +932,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
             "sort": 600000,
             "type": "action"
@@ -918,7 +970,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -931,16 +982,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -955,7 +1013,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -968,16 +1025,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
@@ -990,7 +1054,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "dBUiB3Hyh0hN8Exc",
         "actorLink": false,
         "bar1": {
@@ -1009,6 +1072,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Wooly Rhinoceros",
         "randomImg": false,
