@@ -1471,7 +1471,6 @@ export const PF2ECONFIG = {
 
     actionTypes: {
         action: 'PF2E.ActionTypeAction',
-        single: 'PF2E.ActionTypeSingle',
         reaction: 'PF2E.ActionTypeReaction',
         free: 'PF2E.ActionTypeFree',
         passive: 'PF2E.ActionTypePassive',
