@@ -324,10 +324,21 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: Record<AbilityString, AbilityData>;
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
 
     /** The three save types. */
-    saves: Record<SaveString, SaveData>;
+    saves: {
+        fortitude: SaveData;
+        reflex: SaveData;
+        will: SaveData;
+    };
 
     /** Tracks proficiencies for martial skills. */
     martial: {
@@ -477,7 +488,24 @@ export interface RawCharacterData extends CreatureSystemData {
     };
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillString, SkillData>;
+    skills: {
+        acr: SkillData;
+        arc: SkillData;
+        ath: SkillData;
+        cra: SkillData;
+        dec: SkillData;
+        dip: SkillData;
+        itm: SkillData;
+        med: SkillData;
+        nat: SkillData;
+        occ: SkillData;
+        prf: SkillData;
+        rel: SkillData;
+        soc: SkillData;
+        ste: SkillData;
+        sur: SkillData;
+        thi: SkillData;
+    };
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;

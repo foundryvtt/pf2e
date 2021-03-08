@@ -1,6 +1,7 @@
 import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { PF2EEffect } from '@item/effect';
+import { SkillString } from '@actor/actor-data-definitions';
 
 /**
  * Create a Macro from an Item drop.
@@ -112,7 +113,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
     }
 }
 
-async function createSkillMacro(skill: string, skillName: string, actorId: string, slot: number) {
+async function createSkillMacro(skill: SkillString, skillName: string, actorId: string, slot: number) {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
 const a = game.actors.get('${actorId}');

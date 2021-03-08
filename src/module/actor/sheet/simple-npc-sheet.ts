@@ -8,7 +8,7 @@ import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../../module/recall-knowledge';
 import { PF2EItem } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
-import { NpcData } from '@actor/actor-data-definitions';
+import { NpcData, SkillString } from '@actor/actor-data-definitions';
 
 export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     static get defaultOptions() {
@@ -1017,7 +1017,11 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         if (skill === undefined) return;
 
         if (skill.roll) {
-            const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skillId] ?? skillId]);
+            const opts = this.actor.getRollOptions([
+                'all',
+                'skill-check',
+                SKILL_DICTIONARY[skillId as SkillString] ?? skillId,
+            ]);
             const extraOptions = $(event.currentTarget).attr('data-options');
 
             if (extraOptions) {

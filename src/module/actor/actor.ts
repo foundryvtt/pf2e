@@ -49,7 +49,7 @@ import {
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
 
-export const SKILL_DICTIONARY: Record<string, string> = Object.freeze({
+export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
     arc: 'arcana',
     ath: 'athletics',
@@ -244,7 +244,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
-            const skillFullName = SKILL_DICTIONARY[initSkill] ?? initSkill;
+            const skillFullName = SKILL_DICTIONARY[initSkill as SkillString] ?? initSkill;
             (statisticsModifiers[key] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => {
@@ -267,7 +267,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         stat.roll = adaptRoll((args) => {
-            const skillFullName = SKILL_DICTIONARY[stat.ability] ?? 'perception';
+            const skillFullName = SKILL_DICTIONARY[stat.ability as SkillString] ?? 'perception';
             const options = args.options ?? [];
             // push skill name to options if not already there
             if (!options.includes(skillFullName)) {
@@ -1144,12 +1144,14 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 
     static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
-        let actionImg: number | string = 0;
-        if (actionType === 'action') actionImg = actionCount ?? 1;
+        let actionImg: 0 | 1 | 2 | 3 | 'reaction' | 'free' | 'passive' = 0;
+        const count = actionCount === 1 || actionCount === 2 || actionCount === 3 ? actionCount : 0;
+        if (actionType === 'action') actionImg = count;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
-        const graphics: any = {
+        const graphics = {
+            0: { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' },
             1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
             2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
             3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
@@ -1157,7 +1159,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
             passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
         };
-        const actionGraphics = graphics[actionImg] ?? { imageUrl: 'icons/svg/mystery-man.svg', actionGlyph: '' };
+        const actionGraphics = graphics[actionImg];
         return {
             imageUrl: actionGraphics.imageUrl,
             actionGlyph: actionGraphics.actionGlyph,
