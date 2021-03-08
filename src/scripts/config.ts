@@ -140,14 +140,15 @@ export const PF2ECONFIG = {
     },
 
     preciousMaterials: {
-        coldIron: 'PF2E.PreciousMaterialColdIron',
-        silver: 'PF2E.PreciousMaterialSilver',
-        mithral: 'PF2E.PreciousMaterialMithral',
         adamantine: 'PF2E.PreciousMaterialAdamantine',
+        coldIron: 'PF2E.PreciousMaterialColdIron',
         darkwood: 'PF2E.PreciousMaterialDarkwood',
         dragonhide: 'PF2E.PreciousMaterialDragonhide',
+        mithral: 'PF2E.PreciousMaterialMithral',
         orichalcum: 'PF2E.PreciousMaterialOrichalcum',
+        silver: 'PF2E.PreciousMaterialSilver',
         'sovereign steel': 'PF2E.PreciousMaterialSovereignSteel',
+        warpglass: 'PF2E.PreciousMaterialWarpglass',
     },
 
     armorPotencyRunes: {
@@ -338,6 +339,7 @@ export const PF2ECONFIG = {
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
         vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
+        warpglass: 'PF2E.PreciousMaterialWarpglass',
     }, // Weapon Damage Types
 
     weaponDamage: {
