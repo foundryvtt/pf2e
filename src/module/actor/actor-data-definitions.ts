@@ -5,31 +5,6 @@ import { RollParameters } from '../system/rolls';
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
 
-/** A type representing the possible skill strings. */
-export type SkillString =
-    | 'acr'
-    | 'arc'
-    | 'ath'
-    | 'cra'
-    | 'dec'
-    | 'dip'
-    | 'itm'
-    | 'med'
-    | 'nat'
-    | 'occ'
-    | 'prf'
-    | 'rel'
-    | 'soc'
-    | 'ste'
-    | 'sur'
-    | 'thi';
-
-/** A type representing the possible save strings. */
-export type SaveString = 'reflex' | 'fortitude' | 'will';
-
-/** A type representing the possible attribute strings. */
-export type AttributeString = 'perception' | 'stealth' | 'initiative';
-
 export type Proficency = 0 | 1 | 2 | 3 | 4; // untrained, trained, expert, master, legendary
 
 /** A type representing the possible PFS factions. */
@@ -92,7 +67,7 @@ export interface RawSkillData {
 /** Basic initiative-relevant data. */
 export interface RawInitiativeData {
     /** What skill or ability is currently being used to compute initiative. */
-    ability: SkillString | 'perception';
+    ability: string;
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
     label: string;
 }
@@ -324,10 +299,21 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: Record<AbilityString, AbilityData>;
+    abilities: {
+        str: AbilityData;
+        dex: AbilityData;
+        con: AbilityData;
+        int: AbilityData;
+        wis: AbilityData;
+        cha: AbilityData;
+    };
 
     /** The three save types. */
-    saves: Record<SaveString, SaveData>;
+    saves: {
+        fortitude: SaveData;
+        reflex: SaveData;
+        will: SaveData;
+    };
 
     /** Tracks proficiencies for martial skills. */
     martial: {
@@ -477,7 +463,24 @@ export interface RawCharacterData extends CreatureSystemData {
     };
 
     /** Player skills, used for various skill checks. */
-    skills: Record<SkillString, SkillData>;
+    skills: {
+        acr: SkillData;
+        arc: SkillData;
+        ath: SkillData;
+        cra: SkillData;
+        dec: SkillData;
+        dip: SkillData;
+        itm: SkillData;
+        med: SkillData;
+        nat: SkillData;
+        occ: SkillData;
+        prf: SkillData;
+        rel: SkillData;
+        soc: SkillData;
+        ste: SkillData;
+        sur: SkillData;
+        thi: SkillData;
+    };
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;
@@ -572,7 +575,7 @@ export interface RawNpcData extends CreatureSystemData {
     };
 
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
-    skills: Record<SkillString | string, NPCSkillData>;
+    skills: Record<string, NPCSkillData>;
 
     /** Special strikes which the creature can take. */
     actions: CharacterStrike[];
