@@ -155,15 +155,15 @@ export class PF2EActor extends Actor<PF2EItem> {
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
     ): Promise<A[] | A> {
-        const createData = Array.isArray(data) ? data : [data];
+        const createData: PreCreate<ActorDataPF2e>[] = Array.isArray(data) ? data : [data];
         for (const datum of createData) {
             // Set the default image according to the actor's type
             datum.img ??= CONFIG.PF2E.Actor.entityClasses[datum.type].defaultImg;
 
             if (game.settings.get('pf2e', 'defaultTokenSettings')) {
                 // Set wounds, advantage, and display name visibility
-                const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName') as string;
-                const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar') as number;
+                const nameMode = game.settings.get('pf2e', 'defaultTokenSettingsName');
+                const barMode = game.settings.get('pf2e', 'defaultTokenSettingsBar');
                 const merged = mergeObject(datum, {
                     permission: datum.permission ?? { default: CONST.ENTITY_PERMISSIONS.NONE },
                     token: {
@@ -173,6 +173,11 @@ export class PF2EActor extends Actor<PF2EItem> {
                         name: datum.name, // Set token name to actor name
                     },
                 });
+
+                // Set default token dimensions for familiars and vehicles
+                const dimensionMap: Record<string, number> = { familiar: 0.5, vehicle: 2 };
+                merged.token.height ??= dimensionMap[datum.type] ?? 1;
+                merged.token.width ??= merged.token.height;
 
                 switch (merged.type) {
                     case 'animalCompanion':
