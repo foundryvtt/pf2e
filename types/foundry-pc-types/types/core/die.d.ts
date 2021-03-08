@@ -6,7 +6,6 @@
  * let die = new Die({faces: 6, number: 4}).evaluate();
  */
 declare class Die extends DiceTerm {
-
     /** @override */
     DENOMINATION: 'd';
 
@@ -49,7 +48,7 @@ declare class Die extends DiceTerm {
      * @param modifier The matched modifier query
      * @param recursive Explode recursively, such that new rolls can also explode?
      */
-    explode(modifier: string, { recursive }?: { recursive?: boolean }): void
+    explode(modifier: string, { recursive }?: { recursive?: boolean }): void;
 
     /**
      * @see {@link Die#explode}

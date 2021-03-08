@@ -33,7 +33,6 @@
             padding-left: 0.5em;
             margin-top: 0;
             grid-column: 1 / 5;
-            
             &:empty {
                 display: none;
             }
@@ -41,33 +40,40 @@
     }
 }
 
-.pf2e.item form .form-group-trait {
-    height: auto;
-    margin: 2px 0;
+.pf2e.item form {
+  .form-group {
+    &.form-group-trait {
+      height: auto;
+      margin: 2px 0;
 
-    label {
+      label {
         vertical-align: top;
+      }
+
+      > ul.abc-traits-list {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-wrap: wrap;
+
+        span.tag {
+          float: none;
+        }
+      }
     }
-}
 
-div.form-group-trait > ul.abc-traits-list {
-    list-style: none;
-    margin: 0;
-    padding: 0;
-    display: flex;
-    flex-wrap: wrap;
-
-    span.tag {
-        float: none;
+    &.other-weapons {
+      input { flex: 2; }
+      select { flex: 1; }
     }
-}
 
-.pf2e.item form .other-weapons {
-    input { flex: 2; }
-    select { flex: 1; }
-}
-
-.pf2e.item form .additional-language {
-    input { flex: 0.5; }
-    span { flex: 2.5; }
+    &.additional-language {
+      input { flex: 0.5; }
+      span {
+        flex: 2.5;
+        padding-left: 4px;
+      }
+    }
+  }
 }

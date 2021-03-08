@@ -1,3 +1,18 @@
+declare interface SceneClassConfig extends EntityClassConfig<Scene> {
+    collection: Scenes;
+    embeddedEntities: {
+        AmbientLight: 'lights';
+        AmbientSound: 'sounds';
+        Drawing: 'drawings';
+        Note: 'notes';
+        MeasuredTemplate: 'templates';
+        Tile: 'tiles';
+        Token: 'tokens';
+        Wall: 'walls';
+        [key: string]: string;
+    };
+}
+
 /**
  * The collection of Scene entities
  */
@@ -27,11 +42,16 @@ declare class Scene extends Entity {
      * Track the viewed position of each scene (while in memory only, not persisted)
      * When switching back to a previously viewed scene, we can automatically pan to the previous position.
      */
-    _viewPosition: {} | {
-        x: number;
-        y: number;
-        scale: number;
-    };
+    _viewPosition:
+        | {}
+        | {
+              x: number;
+              y: number;
+              scale: number;
+          };
+
+    /** @override */
+    static get config(): SceneClassConfig;
 
     /** @override */
     prepareData(): void;
@@ -69,9 +89,9 @@ declare class Scene extends Entity {
      */
     view(): Promise<void>;
 
-  /**
-   * Set this scene as currently active
-   * @return A Promise which resolves to the current scene once it has been successfully activated
-   */
+    /**
+     * Set this scene as currently active
+     * @return A Promise which resolves to the current scene once it has been successfully activated
+     */
     activate(): Promise<Scene>;
 }

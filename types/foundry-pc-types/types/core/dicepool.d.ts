@@ -40,7 +40,7 @@ declare class DicePool {
      */
     total: number;
 
-    constructor(options?: {rolls: Roll[], modifiers?: any[], options?: any});
+    constructor(options?: { rolls: Roll[]; modifiers?: any[]; options?: any });
 
     /**
      * For now, for testing purposes, choose the maximum result always
@@ -83,8 +83,8 @@ declare class DicePool {
 
     /**
      * Given a string formula, create and return an evaluated DicePool object
-     * @param formula	The string formula to parse
-     * @return			The evaluated DicePool object or null if the formula is invalid
+     * @param formula   The string formula to parse
+     * @return          The evaluated DicePool object or null if the formula is invalid
      */
     static fromFormula(formula: string): DicePool;
 
@@ -94,7 +94,7 @@ declare class DicePool {
 
     /**
      * Convert the DicePool instance into an Object which can be serialized to JSON
-     * @return	The converted data
+     * @return  The converted data
      */
     toJSON(): {
         class: string;
@@ -105,15 +105,15 @@ declare class DicePool {
 
     /**
      * Reconstruct a DicePool instance from a provided data Object
-     * @param data	The provided data
-     * @return		The constructed Dice Pool
+     * @param data  The provided data
+     * @return      The constructed Dice Pool
      */
     static fromData(data: any): DicePool;
 
     /**
      * Reconstruct a DicePool instance from a provided data Object
-     * @param json	The serialized JSON string
-     * @return		The constructed Dice Pool
+     * @param json  The serialized JSON string
+     * @return      The constructed Dice Pool
      */
     static fromJSON(json: string): DicePool;
 }

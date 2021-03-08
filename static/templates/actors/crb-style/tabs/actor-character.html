@@ -47,75 +47,74 @@
             />
         </div>
         <div class="detail-sheet">
-            <div class="pc pc_ancestry item" data-item-id="{{ancestryItemId}}">
-                <label for="pc_ancestry">
-                    {{localize 'PF2E.Ancestry'}}
-                </label>
-                <span title="{{localize 'PF2E.AncestryTitle'}}">
-                    <h3>
-                        {{data.details.ancestry.value}}
-                        {{#if ancestryItemId}}
-                        <a class="item-edit"><i class="fas fa-edit"></i></a>
-                        {{else}}
-                        <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
-                        {{/if}}
-                    </h3>
-                </span>
-            </div>
-            <div class="pc pc_heritage">
-                <label for="pc_heritage">
-                    {{localize 'PF2E.Heritage'}}
-                </label>
-                <span title="{{localize 'PF2E.HeritageTitle'}}">
-                    <input
-                        id="pc pc_heritage"
-                        name="data.details.heritage.value"
-                        type="text"
-                        value="{{data.details.heritage.value}}"
-                        data-dtype="String"
-                    />
-                </span>
-            </div>
-            <div class="pc pc_class item" data-item-id="{{classItemId}}">
-                <label for="pc_class">
-                    {{localize 'PF2E.Class'}}
-                </label>
-                <span title="{{localize 'PF2E.ClassTitle'}}">
-                    <h3>
-                        {{data.details.class.value}}
-                        {{#if classItemId}}
-                        <a class="item-edit"><i class="fas fa-edit"></i></a>
-                        {{else}}
-                        <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
-                        {{/if}}
-
-                    </h3>
-                </span>
-            </div>
-            <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
-                <label for="pc_background">
-                    {{localize 'PF2E.Background'}}
-                </label>
-                <span title="{{localize 'PF2E.BackgroundTitle'}}">
-                    <h3>
-                        {{data.details.background.value}}
-                        {{#if backgroundItemId}}
-                        <a class="item-edit"><i class="fas fa-edit"></i></a>
-                        {{else}}
-                        <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
-                        {{/if}}
-                    </h3>
-                </span>
-            </div>
+          <div class="pc pc_ancestry item" data-item-id="{{ancestryItemId}}">
+            <label for="pc_ancestry">
+              {{localize 'PF2E.Ancestry'}}
+            </label>
+            <span title="{{localize 'PF2E.AncestryTitle'}}">
+              <h3>
+                <span class="value">{{data.details.ancestry.value}}</span>
+                {{#if ancestryItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.ancestries"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
+          <div class="pc pc_heritage">
+            <label for="pc_heritage">
+              {{localize 'PF2E.Heritage'}}
+            </label>
+            <span title="{{localize 'PF2E.HeritageTitle'}}">
+              <input
+              id="pc pc_heritage"
+              name="data.details.heritage.value"
+              type="text"
+              value="{{data.details.heritage.value}}"
+              data-dtype="String"
+              />
+            </span>
+          </div>
+          <div class="pc pc_class item" data-item-id="{{classItemId}}">
+            <label for="pc_class">
+              {{localize 'PF2E.Class'}}
+            </label>
+            <span title="{{localize 'PF2E.ClassTitle'}}">
+              <h3>
+                <span class="value">{{data.details.class.value}}</span>
+                {{#if classItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.classes"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
+          <div class="pc pc_background item" data-item-id="{{backgroundItemId}}">
+            <label for="pc_background">
+              {{localize 'PF2E.Background'}}
+            </label>
+            <span title="{{localize 'PF2E.BackgroundTitle'}}">
+              <h3>
+                <span class="value">{{data.details.background.value}}</span>
+                {{#if backgroundItemId}}
+                  <a class="item-edit"><i class="fas fa-edit"></i></a>
+                {{else}}
+                  <a class="open-compendium" data-compendium="pf2e.backgrounds"><i class="fas fa-plus-circle"></i></a>
+                {{/if}}
+              </h3>
+            </span>
+          </div>
         </div>
     </section>
 
-    <hr style="margin-top: 1rem;">
+    <hr />
     <section class="character-background">
         {{> systems/pf2e/templates/actors/crb-style/character-background.html}}
     </section>
 
-    <hr>
+    <hr />
     <section class="character-traits">
         {{> systems/pf2e/templates/actors/crb-style/character-traits.html}}
     </section>
@@ -126,20 +125,14 @@
     </section>
 
     <footer>
-        <p>
-            This system for FoundryVTT uses trademarks and/or copyrights owned
-            by Paizo Inc., which are used under Paizo's Community Use Policy. We
-            are expressly prohibited from charging you to use or access this
-            content. This system for FoundryVTT is not published, endorsed, or
-            specifically approved by Paizo Inc. For more information about
-            Paizo's Community Use Policy, please visit
-            <a href="https://paizo.com/community/communityuse">
-                paizo.com/communityuse.
-            </a>
-            For more information about Paizo Inc. and Paizo products, please
-            visit
-            <a href="https://paizo.com/">paizo.com</a>
-            .
-        </p>
+      This system for FoundryVTT uses trademarks and/or copyrights owned
+      by Paizo Inc., which are used under Paizo's Community Use Policy. We
+      are expressly prohibited from charging you to use or access this
+      content. This system for FoundryVTT is not published, endorsed, or
+      specifically approved by Paizo Inc. For more information about
+      Paizo's Community Use Policy, please visit
+      <a href="https://paizo.com/community/communityuse">paizo.com/communityuse</a>.
+      For more information about Paizo Inc. and Paizo products, please
+      visit <a href="https://paizo.com/">paizo.com</a>.
     </footer>
 </div>

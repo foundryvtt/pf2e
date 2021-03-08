@@ -12,6 +12,9 @@ export class PF2ENPC extends PF2EActor {
     data!: NpcData;
     _data!: NpcData;
 
+    /** @override */
+    static readonly type = 'npc';
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -304,10 +307,10 @@ export class PF2ENPC extends PF2EActor {
                 const notes = [] as PF2RollNote[];
 
                 // traits
-                const traits = PF2EActor.traits(item?.data?.traits?.value);
+                const traits = item.data.traits.value;
 
                 // Determine the base ability score for this attack.
-                let ability;
+                let ability: string;
                 {
                     ability = (item.data as any).weaponType?.value === 'ranged' ? 'dex' : 'str';
                     const bonus = Number(item.data?.bonus?.value ?? 0);
@@ -382,7 +385,7 @@ export class PF2ENPC extends PF2EActor {
 
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     PF2Check.roll(
                         new PF2CheckModifier(`Strike: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes },
@@ -396,7 +399,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes },
@@ -407,7 +410,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `MAP ${map.map2}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map2, PF2ModifierType.UNTYPED),
@@ -420,7 +423,7 @@ export class PF2ENPC extends PF2EActor {
                     {
                         label: `MAP ${map.map3}`,
                         roll: adaptRoll((args) => {
-                            const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                            const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             PF2Check.roll(
                                 new PF2CheckModifier(`Strike: ${action.name}`, action, [
                                     new PF2Modifier('PF2E.MultipleAttackPenalty', map.map3, PF2ModifierType.UNTYPED),
@@ -432,7 +435,7 @@ export class PF2ENPC extends PF2EActor {
                     },
                 ];
                 action.damage = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,
@@ -451,7 +454,7 @@ export class PF2ENPC extends PF2EActor {
                     );
                 });
                 action.critical = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(PF2EActor.traits(item?.data?.traits?.value)); // always add all weapon traits as options
+                    const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = PF2WeaponDamage.calculateStrikeNPC(
                         item,
                         actorData,

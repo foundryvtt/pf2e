@@ -259,7 +259,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
         for (const entry of spellcastingEntries) {
             if ((entry.data.prepared as any).preparedSpells && spellbooks[entry._id]) {
-                this._preparedSpellSlots(entry, spellbooks[entry._id]);
+                this.preparedSpellSlots(entry, spellbooks[entry._id]);
             }
             (entry as any).spellbook = spellbooks[entry._id];
         }

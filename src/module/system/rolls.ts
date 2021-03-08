@@ -120,7 +120,9 @@ export class PF2Check {
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
             },
-            {},
+            {
+                rollMode: message.data.flags?.pf2e?.context?.rollMode ?? 'roll',
+            },
         );
         await newMessage.setFlag('pf2e', 'canReroll', false);
     }

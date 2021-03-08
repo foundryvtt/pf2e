@@ -1,5 +1,5 @@
 declare class FormDataExtended extends FormData {
-    constructor(form: HTMLElement, options?: { editors?: any[], dtypes?: any[] });
+    constructor(form: HTMLElement, options?: { editors?: any[]; dtypes?: any[] });
 
     toObject(): any;
 }
@@ -7,17 +7,16 @@ declare class FormDataExtended extends FormData {
 declare interface FormApplicationOptions extends ApplicationOptions {}
 
 declare interface FormApplicationData<O extends {} = {}> {
-    object: O;
+    object?: O;
     options?: FormApplicationOptions;
-    title: string;
+    title?: string;
 }
 
 declare interface OnSubmitFormOptions {
     updateData?: Record<string, unknown> | null;
-    preventClose?: boolean
+    preventClose?: boolean;
     preventRender?: boolean;
 }
-
 
 declare interface FormApplicationOptions extends ApplicationOptions {
     /**
@@ -51,9 +50,9 @@ declare interface FormApplicationOptions extends ApplicationOptions {
  * 2) The template used contains one (and only one) HTML <form> as it's outer-most element
  * 3) This abstract layer has no knowledge of what is being updated, so the implementation must define _updateObject
  *
- * @param object	Some object or entity which is the target to be updated.
+ * @param object    Some object or entity which is the target to be updated.
  *
- * @param options	Additional options which modify the rendering of the sheet.
+ * @param options   Additional options which modify the rendering of the sheet.
  */
 declare abstract class FormApplication<ObjectType extends {} = {}> extends Application {
     options: FormApplicationOptions;
@@ -90,7 +89,6 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     get isEditable(): boolean;
 
-    /** @override */
     getData(options?: FormApplicationOptions): FormApplicationData<ObjectType>;
 
     /* -------------------------------------------- */
@@ -103,7 +101,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      *
      * @param html The rendered template ready to have listeners attached
      */
-    protected activateListeners(html: JQuery): void;
+    activateListeners(html: JQuery): void;
 
     /**
      * If the form is not editable, disable its input fields
@@ -122,7 +120,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     protected _onSubmit(
         event: Event,
-        { updateData, preventClose, preventRender }?: OnSubmitFormOptions
+        { updateData, preventClose, preventRender }?: OnSubmitFormOptions,
     ): Promise<Record<string, unknown>>;
 
     /**
@@ -173,8 +171,8 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
 
     /**
      * Submit the contents of a Form Application, processing its content as defined by the Application
-     * @param updateData	Additional data updates to submit in addition to those parsed from the form
-     * @returns				Return a self-reference for convenient method chaining
+     * @param updateData    Additional data updates to submit in addition to those parsed from the form
+     * @returns             Return a self-reference for convenient method chaining
      */
     submit({ updateData }: { updateData?: any }): FormApplication;
 }

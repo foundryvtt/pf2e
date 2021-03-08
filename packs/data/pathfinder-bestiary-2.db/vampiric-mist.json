@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "35",
+                "max": 35,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "35"
+                "value": 35
             },
             "init": {
                 "bonus": 0,
@@ -103,7 +102,6 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
                 "value": "fly 40 feet"
             }
         },
@@ -150,7 +148,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "3"
+                "value": 3
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=845",
             "recallKnowledgeText": "Recall Knowledge - Aberration : DC 18",
@@ -406,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -451,9 +452,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -463,8 +463,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "blood siphon"
+                        "Blood Siphon"
                     ]
                 },
                 "bonus": {
@@ -487,20 +488,16 @@
                     "damageType": "slashingdamage",
                     "die": "2d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6",
-                        "damageType": "slashingdamage"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentbleeddamage"
+                        "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -513,6 +510,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -571,9 +571,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -581,6 +583,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "finesse"
@@ -593,6 +599,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -624,14 +631,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -644,6 +653,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Misty Form",
@@ -673,14 +683,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -693,6 +705,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Sense Blood",
@@ -714,7 +727,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When a vampiric mist damages a creature with a misty tendril Strike, the creature must attempt a DC 20 Fortitude save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw. Any temporary Hit Points the vampiric mist gains from Blood Siphon fade after 1 hour. <br /><b>Success</b> The creature is unaffected. <br /><b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained} 1, and the vampiric mist gains 5 temporary Hit Points. <br /><b>Critical Failure</b> The creature is drained 2. The vampiric mist gains 10 temporary Hit Points and takes on an intense red until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @Compendium[pf2e.conditionitems.Quickened]{Quickened}. It can use its extra action only to Strike."
+                    "value": "<p>When a vampiric mist damages a creature with a misty tendril Strike, the creature must attempt a DC 20 Fortitude save. If the Strike was a critical hit, the outcome of the creature's save is one degree worse than the result of the saving throw.</p>\n<p>Any temporary Hit Points the vampiric mist gains from Blood Siphon fade after 1 hour. </p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected. </p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 1}, and the vampiric mist gains 5 temporary Hit Points. </p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Drained]{Drained 2}. The vampiric mist gains 10 temporary Hit Points and takes on an intense red until the end of its next turn. During this time, it gains a +2 status bonus to AC and saves and is @Compendium[pf2e.conditionitems.Quickened]{Quickened}. It can use its extra action only to Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -722,14 +735,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -742,6 +757,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Blood Siphon",
@@ -756,7 +772,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -769,16 +784,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -793,7 +815,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -806,16 +827,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -828,7 +856,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "NQ6qRvpD9DIwVxt3",
         "actorLink": false,
         "bar1": {
@@ -847,6 +874,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Vampiric Mist",
         "randomImg": false,

@@ -12,7 +12,7 @@ import { ItemData } from '@item/data-definitions';
  * - Test that your changes work. We have unit tests in tests/module/migration.test.ts as well as you
  *   should add your migration to packs/run-migration
  */
-export class MigrationBase {
+export abstract class MigrationBase {
     /**
      * This is the schema version. Make sure it matches the new version in system.json
      */

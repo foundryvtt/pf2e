@@ -1,20 +1,27 @@
-export function apply() {
+type FolderableEntity = typeof CONST.FOLDER_ENTITY_TYPES[number];
+
+/** Patch EntityCollection and Compendium classes to fix Foundry bug causing new compendium entities to be created from
+ *  derived data
+ */
+export function patchCompendiumImports() {
     if (game.data.version === '0.7.9') {
-        // Monkey-patch EntityCollection class to fix Foundry bug causing new compendium entities to be created
-        // from derived data
-        EntityCollection.prototype.importFromCollection = async function <EntityType extends Entity = Entity>(
+        EntityCollection.prototype.importFromCollection = async function (
+            this: EntityCollection<CompendiumEntity>,
             collection: string,
             entryId: string,
-            updateData = {},
-            options = {},
-        ): Promise<EntityType> {
+            updateData: EntityUpdateData<CompendiumEntity['data']> = {},
+            options: EntityCreateOptions = {},
+        ): Promise<CompendiumEntity> {
             const entName = this.object.entity;
             const pack = game.packs.get(collection);
             if (!pack || pack.metadata.entity !== entName) return Promise.reject();
 
             // Prepare the source data from which to create the Entity
             const source = (await pack.getEntity(entryId))!;
-            const createData: Partial<EntityType['data']> = mergeObject(this.fromCompendium(source._data), updateData);
+            const createData: Partial<CompendiumEntity['data']> = mergeObject(
+                this.fromCompendium(source._data),
+                updateData,
+            );
             delete createData._id;
 
             // Create the Entity
@@ -23,13 +30,10 @@ export function apply() {
             return await this.object.create(createData, options);
         };
 
-        type FolderableEntity = typeof CONST.FOLDER_ENTITY_TYPES[number];
-
-        // Same for Compendium#importAll
-        Compendium.prototype.importAll = async function ({
-            folderId,
-            folderName,
-        }: { folderId?: string | null; folderName?: string } = {}): Promise<Entity[]> {
+        Compendium.prototype.importAll = async function (
+            this: Compendium<CompendiumEntity>,
+            { folderId, folderName }: { folderId?: string | null; folderName?: string } = {},
+        ): Promise<CompendiumEntity | CompendiumEntity[]> {
             // Step 1 - optionally, create a folder
             if (CONST.FOLDER_ENTITY_TYPES.includes(this.entity as FolderableEntity)) {
                 const f = folderId
@@ -44,17 +48,17 @@ export function apply() {
             }
 
             // Step 2 - load all content
-            const entities = await this.getContent<CompendiumEntity>();
+            const entities = await this.getContent();
             ui.notifications.info(
                 game.i18n.format('COMPENDIUM.ImportAllStart', {
                     number: entities.length,
                     type: this.entity,
-                    folder: folderName as string,
+                    folder: folderName!,
                 }),
             );
 
             // Step 3 - import all content
-            const created = await (this.cls as typeof Entity).create(
+            const created = await this.cls.create(
                 entities.map((e) => {
                     e._data.folder = folderId;
                     return e._data;
@@ -64,13 +68,17 @@ export function apply() {
                 game.i18n.format('COMPENDIUM.ImportAllFinish', {
                     number: (Array.isArray(created) ? created : [created]).length,
                     type: this.entity,
-                    folder: folderName as string,
+                    folder: folderName!,
                 }),
             );
-            return created as Entity[];
+            return created;
         };
+    }
+}
 
-        // Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition
+/** Monkey-patch Token class to fix Foundry bug causing incorrect border colors based on token disposition */
+export function patchTokenClasses(): void {
+    if (game.data.version === '0.7.9') {
         if (Token.prototype._getBorderColor !== undefined) {
             Token.prototype._getBorderColor = function (this: Token) {
                 const colors = CONFIG.Canvas.dispositionColors;
@@ -89,4 +97,13 @@ export function apply() {
             };
         }
     }
+
+    /**
+     * Setting a hook on TokenHUD.clear(), which clears the HUD by fading out it's active HTML and recording the new display state.
+     * The hook call passes the TokenHUD and Token objects.
+     */
+    TokenHUD.prototype.clear = function clear(this: TokenHUD) {
+        BasePlaceableHUD.prototype.clear.call(this);
+        Hooks.call('onTokenHUDClear', this, this.object);
+    };
 }

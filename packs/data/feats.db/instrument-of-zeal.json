@@ -29,19 +29,41 @@
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "16"
+            "value": 16
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                "divine ally (blade)",
-                "tenets of good"
-            ]
-        },
+        "location": "",
+        "prerequisites": [
+            "divine ally (blade)",
+            "tenets of good"
+        ],
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "any": [
+                        "blade-justice",
+                        "retributive-strike"
+                    ]
+                },
+                "selector": "damage"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "blade-justice",
+                        "retributive-strike"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> Whenever you critically hit a foe with Blade of Justice or a Retributive Strike, the target is slowed 1 on its next turn.</p>"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
@@ -59,6 +81,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Instrument of Zeal",

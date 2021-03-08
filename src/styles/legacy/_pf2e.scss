@@ -11,9 +11,6 @@
 :root {
   --primary-background:#454a7c;
 
-  /* --secondary-background: #b75b5b;
-   --tertiary-background: darkred;
-   */
   --secondary-background:gray;
   --tertiary-background:#454a7c;
   --alternate-background:darkgray;
@@ -99,7 +96,7 @@
     }
 
     .sheet-body {
-      height: calc(100% - 48px);
+      height: calc(100% - 35px);
       overflow: hidden;
       display: flex;
       flex-direction: column;
@@ -128,9 +125,6 @@
 
           &:hover, &:focus {
             border: 1px solid #111;
-
-            /* box-shadow: 0 0 8px red;
-             */
             box-shadow: 0 0 10px #00005a;
           }
         }
@@ -163,9 +157,6 @@
       &.editable .rollable:hover {
         color: #000;
         text-shadow: 0 0 10px #00005a;
-
-        /* text-shadow: 0 0 10px red;
-         */
         cursor: pointer;
       }
 
@@ -264,14 +255,9 @@
 
     .floatright {
       float: right;
-
-      /* width: calc(100% - 220px);
-       */
     }
 
     .sheet-upper {
-      /* width: 100%;
-       */
       height: 268px;
 
       .sheet-header {
@@ -306,11 +292,14 @@
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
-      overflow-y: auto;
-      overflow-x: hidden;
+      overflow: hidden;
 
       > * {
         flex: 1;
+      }
+
+      .sidebar-summary {
+        overflow-y: hidden;
       }
     }
 
@@ -325,6 +314,10 @@
 
       .sheet-lower {
         height: calc(100% - 220px - 32px);
+      }
+
+      section.sheet-body {
+        height: calc(100% - 48px);
       }
     }
 
@@ -2503,6 +2496,7 @@
       flex-direction: row;
       flex-wrap: wrap;
       justify-content: flex-start;
+      height: calc(100% - 35px);
 
       > * {
         flex: 1;
@@ -2510,12 +2504,8 @@
 
       .sheet-sidebar {
         flex: 0 0 220px;
-        height: 350px;
-      }
-
-      .sheet-body {
-        flex: 1;
-        height: 350px;
+        height: 100%;
+        overflow-y: auto;
       }
     }
 
@@ -2547,6 +2537,7 @@
       border-bottom: 1px solid var(--secondary-background);
 
       img {
+        border: none;
         flex: 0 0 64px;
         margin-right: 6px;
       }
@@ -2556,6 +2547,8 @@
       display: flex;
       flex-direction: column;
       flex-wrap: nowrap;
+      overflow-y: hidden;
+      clear: both;
 
       > * {
         flex: 1;
@@ -2594,7 +2587,9 @@
       }
 
       .inventory-details {
-        flex: 0;
+        overflow-y: auto;
+        padding-right: 4px;
+        max-height: fit-content;
 
         label {
           color: #353535;
@@ -2752,13 +2747,15 @@
     font-style: normal;
 
     .card-header {
-      padding: 3px 0;
+      padding: 2px 0;
       border-top: 2px groove #fff;
       border-bottom: 2px groove #fff;
 
       img {
         flex: 0 0 36px;
         margin-right: 5px;
+        height: 36px;
+        width: 36px;
       }
 
       h3 {
@@ -2768,8 +2765,16 @@
       }
     }
 
+    .tags {
+      margin: 3px 0 0;
+    }
+
     .card-content {
-      margin: 5px 0;
+      margin: 4px 0;
+
+      p {
+        margin: 4px 0;
+      }
     }
 
     .card-buttons {

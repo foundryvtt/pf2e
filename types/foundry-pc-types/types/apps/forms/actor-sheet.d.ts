@@ -1,7 +1,7 @@
-declare interface ActorSheetData<A extends Actor> extends BaseEntitySheetData<A> {
-    actor: A;
-    data: A['data'];
-    items: A['items'];
+declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetData<D> {
+    actor: D;
+    data: D['data'];
+    items: D['items'];
 }
 
 /**
@@ -17,16 +17,22 @@ declare interface ActorSheetData<A extends Actor> extends BaseEntitySheetData<A>
  * @param options.editable Is the Actor editable? Default is true.
  */
 declare class ActorSheet<
-    ActorType extends Actor = Actor,
+    ActorType extends Actor,
     ItemDataType extends CollectionElement<ActorType['items']>['data'] = CollectionElement<ActorType['items']>['data']
 > extends BaseEntitySheet<ActorType> {
+    /** @override */
+    constructor(actor: ActorType, options?: FormApplicationOptions);
+
+    /** @override */
+    static get defaultOptions(): BaseEntitySheetOptions;
+
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
-    token: Token<ActorType>;
+    token: Token<ActorType> | null;
 
-    /** The _id of the sheet's Actor */
-    get id(): string;
+    /** @override */
+    get id(): `actor-${string}` | `actor-${string}-${string}`;
 
     /** @override */
     get title(): string;
@@ -40,7 +46,7 @@ declare class ActorSheet<
      * Prepare data for rendering the Actor sheet
      * The prepared data object contains both the actor data as well as additional sheet options
      */
-    getData(): ActorSheetData<ActorType>;
+    getData(): ActorSheetData<ActorType['data']>;
 
     /**
      * Handle requests to configure the prototype Token for the Actor
@@ -89,6 +95,6 @@ declare class ActorSheet<
      */
     protected _onSortItem(
         event: ElementDragEvent,
-        itemData: ItemDataType
+        itemData: ItemDataType,
     ): Promise<(ItemDataType | null)[] | ItemDataType | null>;
 }

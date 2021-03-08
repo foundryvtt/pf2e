@@ -1,6 +1,6 @@
 import { DateTime } from 'luxon';
 import { animateDarkness } from './animate-darkness';
-import { LocalizationPF2e } from '../localization';
+import { LocalizePF2e } from '../localize';
 
 interface WorldClockData {
     date: string;
@@ -11,7 +11,7 @@ interface WorldClockData {
 
 export class WorldClock extends Application {
     /** Localization keys */
-    private readonly translations = new LocalizationPF2e().translations.PF2E.WorldClock;
+    private readonly translations = LocalizePF2e.translations.PF2E.WorldClock;
 
     readonly animateDarkness = animateDarkness;
 
@@ -198,7 +198,7 @@ export class WorldClock extends Application {
 
     /** @override */
     // Advance the world time by a static or input value
-    protected activateListeners($html: JQuery) {
+    activateListeners($html: JQuery) {
         super.activateListeners($html);
 
         $html.on('click', 'button[data-advance-time]', (event) => {

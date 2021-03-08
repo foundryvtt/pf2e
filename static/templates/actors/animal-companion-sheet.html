@@ -1,0 +1,19 @@
+<form class="{{cssClass}}" autocomplete="off">
+
+    <header class="sheet-header">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}"/>
+        <section class="header-details">
+            <h1 class="charname">
+                <input name="name" type="text" value="{{actor.name}}"/>
+            </h1>
+            
+            <div class="traits">
+                {{#each data.traits.traits.value as |trait idx|}}
+                <span>{{localize trait}}</span>
+                {{/each}}
+            </div>
+        </section>
+    </header>
+  
+</form>
+ 

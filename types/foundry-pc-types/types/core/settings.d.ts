@@ -5,7 +5,7 @@ declare interface ClientSettingsData {
     hint?: string;
     config?: boolean;
     type?: NumberConstructor | StringConstructor | BooleanConstructor | ObjectConstructor | FunctionConstructor;
-    range?: this['type'] extends NumberConstructor ? {min: number; max: number; step: number; } : undefined;
+    range?: this['type'] extends NumberConstructor ? { min: number; max: number; step: number } : undefined;
     choices?: Record<string, string> | Record<number, string>;
     onChange?: (choice?: string) => void | Promise<void>;
 }
@@ -22,6 +22,11 @@ declare interface SettingsMenuData {
     icon: string;
     type: SettingsMenuConstructor;
     restricted: boolean;
+}
+
+declare interface ClientSettingsStorage extends Map<string, Storage | WorldSettingsStorage> {
+    get(key: 'client'): Storage;
+    get(key: 'world'): WorldSettingsStorage;
 }
 
 /**
@@ -41,7 +46,7 @@ declare class ClientSettings {
      * The storage interfaces used for persisting settings
      * Each storage interface shares the same API as window.localStorage
      */
-    storage: Map<string, Window['localStorage'] | WorldSettingsStorage>;
+    storage: ClientSettingsStorage;
 
     constructor(worldSettings: ClientSettingsData);
 
@@ -116,7 +121,7 @@ declare class ClientSettings {
      */
     registerMenu(module: string, key: string, data: SettingsMenuData): void;
 
-      /**
+    /**
      * Get the value of a game setting for a certain module and setting key
      * @param module    The module namespace under which the setting is registered
      * @param key       The setting key to retrieve
@@ -143,10 +148,10 @@ declare class ClientSettings {
 /**
  * A simple interface for World settings storage which imitates the API provided by localStorage
  */
-declare class WorldSettingsStorage {
+declare class WorldSettingsStorage extends Map<string, unknown> {
     constructor(settings: object);
 
-    getItem(key: string): any;
+    getItem(key: string): unknown;
 
-    setItem(key: string, value: any): void;
+    setItem(key: string, value: unknown): void;
 }

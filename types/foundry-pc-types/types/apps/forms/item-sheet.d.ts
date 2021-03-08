@@ -1,5 +1,6 @@
-declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
-    item: I;
+declare interface ItemSheetData<D extends BaseItemData> extends BaseEntitySheetData<D> {
+    item: D;
+    data: D['data'];
 }
 
 /**
@@ -9,14 +10,19 @@ declare interface ItemSheetData<I extends Item> extends BaseEntitySheetData<I> {
  *
  * System modifications may elect to override this class to better suit their own game system by re-defining the value
  * ``CONFIG.Item.sheetClass``.
- *
- * @param item              The Item instance being displayed within the sheet.
- * @param options           Additional options which modify the rendering of the item.
- * @param options.editable  Is the item editable? Default is true.
+
+ * @param item      The Item instance being displayed within the sheet.
+ * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<ItemType> {
+declare class ItemSheet<ItemType extends Item> extends BaseEntitySheet<ItemType> {
+    /** @override */
+    constructor(item: ItemType, options?: FormApplicationOptions);
+
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
+
+    /** @override */
+    get id(): `item-${string}` | `actor-${string}-item-{string}`;
 
     /**
      * A convenience reference to the Item entity
@@ -26,16 +32,14 @@ declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<It
     /**
      * The Actor instance which owns this item. This may be null if the item is unowned.
      */
-    get actor(): Required<ItemType['actor']>;
+    get actor(): ItemType['actor'];
 
-    /**
-     * Customize the data provided to the item sheet for rendering. By default we just duplicate the item data.
-     */
-    getData(): ItemSheetData<ItemType>;
+    /** @override */
+    getData(): ItemSheetData<ItemType['data']>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events
      * @param html The HTML object returned by template rendering
      */
-    protected activateListeners(html: JQuery): void;
+    activateListeners(html: JQuery): void;
 }

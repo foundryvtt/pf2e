@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "155",
+                "max": 155,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "155"
+                "value": 155
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "50 feet"
                     }
                 ],
-                "special": "",
                 "value": "50 feet"
             }
         },
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -155,7 +154,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "9"
+                "value": 9
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=582",
             "recallKnowledgeText": "Recall Knowledge - Animal : DC 26",
@@ -411,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -440,9 +442,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -452,8 +453,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "titan centipede venom"
+                        "Titan Centipede Venom"
                     ]
                 },
                 "bonus": {
@@ -476,12 +478,12 @@
                     "damageType": "piercing",
                     "die": "2d10+12"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d10+12",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -498,6 +500,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -556,9 +561,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -566,6 +573,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "reach-20"
                     ]
@@ -577,6 +588,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -637,6 +649,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -694,9 +709,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -704,6 +721,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -713,6 +734,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -736,7 +758,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When a titan centipede scores a critical hit with its mandibles, the target is painfully pierced with barbed spines and bristles, taking 1d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} as long as the bleed damage continues."
+                    "value": "<p>When a titan centipede scores a critical hit with its mandibles, the target is painfully pierced with barbed spines and bristles, taking [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and becoming @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} as long as the bleed damage continues.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -744,14 +766,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -764,6 +788,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Impaling Critical",
@@ -785,7 +810,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw </b>DC 28 Fortitude; <b>Maximum Duration </b>6 rounds; <b>Stage 1</b> [[/r 2d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 2 (1 round); <b>Stage 2</b> [[/r 2d8 # poison damage]] poison damage, clumsy 2, and @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 (1 round); <b>Stage 3</b> [[/r 2d10 # poison damage]] poison damage, clumsy 2, and slowed 2 (1 round)"
+                    "value": "<p><strong>Saving Throw</strong> DC 28 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 2d8 #poison]] poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d10 #poison]] poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Slowed]{Slowed 2} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -793,14 +818,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "poison"
                     ]
@@ -815,6 +842,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Titan Centipede Venom",
@@ -822,7 +850,7 @@
             "type": "action"
         },
         {
-            "_id": "g8HIM8BmiXChatLF",
+            "_id": "jWc6dwkDJvfVXXtk",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -831,12 +859,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Huge or smaller, foot, DC 28<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC."
+                    "value": "<p>Huge or smaller, foot, DC 28</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -844,28 +872,32 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
             "sort": 500000,
             "type": "action"
@@ -893,14 +925,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -913,6 +947,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Undulate",
@@ -927,7 +962,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -940,16 +974,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -964,7 +1005,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -977,16 +1017,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -999,7 +1046,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "n1jTYFRCaqF1nQrf",
         "actorLink": false,
         "bar1": {
@@ -1018,6 +1064,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Titan Centipede",
         "randomImg": false,
