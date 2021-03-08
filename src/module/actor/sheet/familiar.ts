@@ -1,3 +1,4 @@
+import { SaveString, SkillAbbreviation } from '@actor/actor-data-definitions';
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2EFamiliar } from '../familiar';
 
@@ -51,13 +52,15 @@ export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar> {
 
         // rollable stats
         html.find('[data-saving-throw]:not([data-saving-throw=""])').on('click', '*', (event) => {
-            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw') as string;
+            const save = $(event.currentTarget).closest('[data-saving-throw]').attr('data-saving-throw') as SaveString;
             const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
             this.actor.data.data.saves[save].roll(event, options);
         });
 
         html.find('[data-skill-check]:not([data-skill-check=""])').on('click', '*', (event) => {
-            const skill = $(event.currentTarget).closest('[data-skill-check]').attr('data-skill-check') as string;
+            const skill = $(event.currentTarget)
+                .closest('[data-skill-check]')
+                .attr('data-skill-check') as SkillAbbreviation;
             const options = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[skill] ?? skill]);
             this.actor.data.data.skills[skill].roll(event, options);
         });

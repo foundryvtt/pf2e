@@ -3,7 +3,7 @@ import { PF2ECharacter } from './character';
 import { PF2ENPC } from './npc';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2Check } from '@system/rolls';
-import { FamiliarData } from './actor-data-definitions';
+import { FamiliarData, SkillAbbreviation } from './actor-data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { PF2ECreature } from './creature';
@@ -140,7 +140,9 @@ export class PF2EFamiliar extends PF2ECreature {
 
             // saving throws
             for (const [saveName, save] of Object.entries(master.data.data.saves)) {
-                const source = save.modifiers.filter((modifier) => !['status', 'circumstance'].includes(modifier.type));
+                const source = save.modifiers.filter(
+                    (modifier: PF2Modifier) => !['status', 'circumstance'].includes(modifier.type),
+                );
                 const modifiers = [
                     new PF2Modifier(
                         `PF2E.MasterSavingThrow.${saveName}`,
@@ -254,7 +256,7 @@ export class PF2EFamiliar extends PF2ECreature {
                         ),
                     );
                 }
-                const expanded = SKILL_DICTIONARY[shortform];
+                const expanded = SKILL_DICTIONARY[shortform as SkillAbbreviation];
                 const ability = SKILL_EXPANDED[expanded].ability;
                 [expanded, `${ability}-based`, 'skill-check', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])

@@ -1490,13 +1490,13 @@ export const PF2ECONFIG = {
         offensive: 'PF2E.ActionCategoryOffensive',
     }, // Proficiency Multipliers
 
-    proficiencyLevels: {
-        0: 'PF2E.ProficiencyLevel0', // untrained
-        1: 'PF2E.ProficiencyLevel1', // trained
-        2: 'PF2E.ProficiencyLevel2', // expert
-        3: 'PF2E.ProficiencyLevel3', // master
-        4: 'PF2E.ProficiencyLevel4', // legendary
-    }, // Proficiency Levels
+    proficiencyLevels: Object.freeze([
+        'PF2E.ProficiencyLevel0', // untrained
+        'PF2E.ProficiencyLevel1', // trained
+        'PF2E.ProficiencyLevel2', // expert
+        'PF2E.ProficiencyLevel3', // master
+        'PF2E.ProficiencyLevel4', // legendary
+    ]), // Proficiency Levels
 
     heroPointLevels: {
         0: 'PF2E.HeroPointLevel0',
