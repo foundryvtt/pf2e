@@ -5,6 +5,7 @@ import * as process from 'process';
 import { Configuration, DefinePlugin } from 'webpack';
 import copyWebpackPlugin from 'copy-webpack-plugin';
 import CssMinimizerPlugin from 'css-minimizer-webpack-plugin';
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin';
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 import TerserPlugin from 'terser-webpack-plugin';
 import WebpackBar from 'webpackbar';
@@ -62,6 +63,7 @@ const config: Configuration = {
                             configFile: path.resolve(__dirname, 'tsconfig.json'),
                             experimentalWatchApi: !isProductionBuild,
                             happyPackMode: true,
+                            transpileOnly: true,
                             compilerOptions: {
                                 noEmit: false,
                             },
@@ -101,6 +103,7 @@ const config: Configuration = {
     bail: isProductionBuild,
     watch: !isProductionBuild,
     plugins: [
+        new ForkTsCheckerWebpackPlugin(),
         new DefinePlugin({
             BUILD_MODE: JSON.stringify(buildMode)
         }),
