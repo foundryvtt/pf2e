@@ -1,5 +1,90 @@
 # Patch Notes:
 
+## Version 1.11.11
+### Bug Fixes
+* (stwlam) Filter out empty traits on roll cards
+* (stwlam) Fix memory leak when editing items from an actor
+* (stwlam) Fix condition removal when an actor sheet has no token
+* (stwlam) Provide more informative error messages on failure to apply conditions
+* (stwlam) Ensure worldSchemaVersion is saved on a world's first load to properly do future migrations
+* (stwlam) Fix display of size on familiar sheets. Closes #1107
+* (Trollderim) Add missing roll mode when rerolling from chat
+
+### New Features
+* (In3luki) Add the ability to provide a numeric value in entity links. Updated spells to include the condition value
+* (Maduin) Basic support for signature spells
+
+### Content Changes
+* (Drental) Increase clarity of the GM view on the treat wounds macro
+* (Drental) Fix _dimensional steps_ heightened text
+* (SpartanCPA) Oread Guard and Sea Snake brush-up
+* (SpartanCPA) Bestiary 2 Geniekin brush-up
+* (SpartanCPA) Bestiary 2 Oozes brush-up
+* (SpartanCPA) Bestiary 2 Elementals brush-up (first half)
+* (SpartanCPA) Bestiary 2 Sea and Shadow Drakes brush-up
+* (SpartanCPA) Bestiary 2 Giants brush-up (marsh, shadow, taiga, wood)
+* (SpartanCPA) Bestiary 2 Giant Animals brush-up
+* (SpartanCPA) Bestiary 2 errata (violet venom, yellow musk poison, ankou, basidirond, culdewen, thanadaemon, cockroach swarm, denizen of Leng, drainberry bush, dream spider, giant tick, jotund troll, ogre spider, ostiarius, skaveling, specter, stygira, two-headed troll, wereboar, weretiger, yellow musk creeper)
+* (SpartanCPA) Bestiary 2 Animals brush-up (starting with A through W)
+* (SpartanCPA) Bestiary 2 Aberrations brush-up
+* (SpartanCPA) Add Sneak Attack rule elements to monsters
+* (SpartanCPA) Add a +10 speed bonus to Scout's Speed archetype feat
+* (SpartanCPA) Add automation for Elf ancestry feats
+* (SpartanCPA) Yaashka and Zunkri in EC2 renamed to their generic Xulgath creature names
+* (SpartanCPA) Brush-up of specific, named armors, including Unburdened Iron support
+* (SpartanCPA) Correct level of Caustic Vapor hazard and Scarlet Triad Boss Shortsword. Closes #1115 and #1118
+* (SpartanCPA) Correct capitalization of conditions within the Bestiary Action Glossary, and add Greater Darkvision feature
+* (SpartanCPA) Fix luminous ward hazard data, and giant joro spider, duneshaker solifugid, oread guard, and shadow monster data for . Closes #1071, #1085, #1116, and #1117
+* (SpartanCPA) Remove AoN links from spells in compendium
+* (SpartanCPA) Add links to "Effect: Dueling Parry" within the feats
+* (TMun) Correct Fetchling base speed from 23 to 25
+* (TMun) Lost Omens Ancestry Guide fixes. Closes #1100, #1111 and #1112
+* (TMun) Web supplement for Lost Omens Ancestry Guide
+* (TMun) Change Terrifying Resistance flat modifier from +2 to +1. Closes #1123
+* (TMun) Add 'Range Increment 5' as a trait. Closes #1133
+* (TMun) Add water trait to valid attack traits. Closes #1153
+* (TMun) Add auditory to the immunities list. Closes #1137
+* (TMun) Correct Carnivorous Crystal AC. Closes #1138
+* (TMun) Abomination Vault 2 data entry. Add new spells, new archetype feats, and new equipment. Add eldritch researcher archetype, and rename bard know-it-all feat to prevent name clash
+* (TMun) Add rogue and ranger to Sense the Unseen feat. Closes #1140
+* (TMun) Fix caterwaul sling classification (simple vs martial), and fix prerequisite formatting for inspire defense feat. Closes #1142
+* (TMun) Change rarity from common to uncommon for Golden Body, Song of the Fallen, Reflecting Riposte, Enduring Debilitations and Steal Essence feats. Closes #1146, #1147, #1148 and #1149
+* (TMun & SpartanCPA) Correct EC spiked barricade trap. Fix level and accidental pluralization. Closes #1101
+* (Shandyan) Champion automation
+* (Shandyan) Add Vicious Evisceration feat
+* (Shandyan) Add link to Panache effect from the Panache class feature
+* (Shandyan & Raven) Shillelagh spell effect
+* (Shandyan & Raven) Point-Blank Shot feat automation
+* (Shandyan & Raven) Disrupting weapons automation
+* (Shandyan & putty) Add automation for rejuvenation touch, and create extra versions of Lay on Hands/Touch of Corruption for damage/healing
+* (Shandyan & Drental) Add spell effects for bane, death ward, forbidding ward, protection, ray of frost, soothe, and tanglefoot
+* (Shandyan & ArthurTrumpet) Add _pest form_ spell effect
+* (GravenImageRD) Fix Gloomseer feat having no prereq listed
+* (GravenImageRD) Add missing prereq to Dragon Spit feat
+* (GravenImageRD) Add missing skill trait to Battle Cry feat
+* (@malakani) Add fighter trait to Shield Warden. Closes #1120
+* (stwlam) Set typed default icons in adventure (path) bestiaries
+* (stwlam) Add traditions to Summon Instrument spell
+* (putty) Add Divine Ally (Blade) weapon rune effects
+* (Maduin) Parry effect
+
+### Core System Improvements
+* (stwlam) Hide distribute-loot buttons when a loot sheet is an edit mode
+* (stwlam) Add svg ancestry icons
+* (stwlam) Make item sheets resizable
+* (stwlam) Suppress css border around item-sheet icon
+* (stwlam) Hide overflow of ancestry/background/class on CRB sheet
+* (stwlam) Tweak the CRB sheet so a vertical scrollbar does not appear on the Character tab
+* (stwlam) Add means to create active effects from item sheets
+* (stwlam) Set typed default icons in PFS bestiaries and ability glossary
+* (stwlam) Add active effects to set rank from reflex-save class features
+* (stwlam) Do not show rarity in weapon sheet tag list
+* (stwlam) Set finer default token dispositions
+* (stwlam) Help the PF2QR module find spell attack rolls until the author can properly fix it
+* (stwlam) Hide most data on familiar sheets until a master is selected
+* (Maduin) Allow spells that require a spell attack roll and a saving throw
+
+
 ## Version 1.11.10
 ### Bug Fixes
 * (stwlam) Prevent non-GMs from updating the scene after darkness animation
