@@ -8,7 +8,7 @@ import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { ItemData } from '@item/data-definitions';
 
 const { window } = new JSDOM('');
-const $ = require('jquery')(window) as JQueryStatic;
+const $ = require('jquery')(window);
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -136,9 +136,6 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
 
             delete entityData.data.slug;
         }
-        if ('token' in entityData) {
-            delete (entityData as { token?: unknown }).token;
-        }
 
         entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
     }
@@ -170,7 +167,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
         for (const selector of selectors) {
             $description.find(selector).each((_i, span) => {
-                $(span)
+                ($(span) as JQuery)
                     .contents()
                     .unwrap(selector)
                     .each((_j, node) => {
