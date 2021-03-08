@@ -26,13 +26,10 @@ import {
     PF2EWeapon,
 } from '../module/item/others';
 import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/pf2e-combar-tracker';
-import * as enJSON from '../../static/lang/en.json';
+import { PF2eCombatTracker } from '../module/system/combat-tracker';
+import { PF2EAnimalCompanion } from '@actor/animal-companion';
 
 export const PF2ECONFIG = {
-    // Localization keys and English translation values
-    translations: enJSON.PF2E,
-
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
@@ -339,7 +336,7 @@ export const PF2ECONFIG = {
         salt: 'PF2E.WeaknessTypeSalt',
         'salt water': 'PF2E.WeaknessTypeSaltWater',
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
-        'vorpal weapons': 'PF2E.WeaknessTypeVorpalWeapons',
+        vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
     }, // Weapon Damage Types
 
@@ -576,7 +573,6 @@ export const PF2ECONFIG = {
         dwarf: 'PF2E.TraitDwarf',
         elf: 'PF2E.TraitElf',
         fetchling: 'PF2E.TraitFetchling',
-        fey: 'PF2E.TraitFey',
         fleshwarp: 'PF2E.TraitFleshwarp',
         ganzi: 'PF2E.TraitGanzi',
         geniekin: 'PF2E.TraitGeniekin',
@@ -607,6 +603,8 @@ export const PF2ECONFIG = {
     }, // List of Properties that come from ancestries (as opposed to traits that can apply to ancestries)
 
     ancestryItemTraits: {
+        amphibious: 'PF2E.TraitAmphibious',
+        fey: 'PF2E.TraitFey',
         humanoid: 'PF2E.TraitHumanoid',
         plant: 'PF2E.TraitPlant',
     },
@@ -623,6 +621,7 @@ export const PF2ECONFIG = {
         bomb: 'PF2E.TraitBomb',
         brutal: 'PF2E.TraitBrutal',
         chaotic: 'PF2E.TraitChaotic',
+        climbing: 'PF2E.TraitClimbing',
         cold: 'PF2E.TraitCold',
         coldiron: 'PF2E.TraitColdiron',
         concealable: 'PF2E.TraitConcealable',
@@ -666,6 +665,7 @@ export const PF2ECONFIG = {
         positive: 'PF2E.TraitPositive',
         propulsive: 'PF2E.TraitPropulsive',
         range: 'PF2E.TraitRange',
+        'range-increment-5': 'PF2E.TraitRangeIncrement5',
         'range-increment-10': 'PF2E.TraitRangeIncrement10',
         'range-increment-20': 'PF2E.TraitRangeIncrement20',
         'range-increment-30': 'PF2E.TraitRangeIncrement30',
@@ -730,6 +730,7 @@ export const PF2ECONFIG = {
         'versatile-p': 'PF2E.TraitVersatileP',
         'versatile-b': 'PF2E.TraitVersatileB',
         'volley-30': 'PF2E.TraitVolley30',
+        water: 'PF2E.TraitWater',
         'modular-b-P-or-s': 'PF2E.TraitModular',
     },
 
@@ -933,6 +934,8 @@ export const PF2ECONFIG = {
         finisher: 'PF2E.TraitFinisher',
         lineage: 'PF2E.TraitLineage',
         vigilante: 'PF2E.TraitVigilante',
+        heritage: 'PF2E.TraitHeritage',
+        'versatile heritage': 'PF2E.TraitVersatileHeritage',
     },
 
     monsterTraits: {
@@ -1455,8 +1458,8 @@ export const PF2ECONFIG = {
         pfsboon: 'PF2E.FeatPFSBoonHeader',
         deityboon: 'PF2E.FeatDeityBoonHeader',
         curse: 'PF2E.FeatCurseHeader',
-    }, // Feat Action Types
-
+    },
+    // Feat Action Types
     featActionTypes: {
         passive: 'PF2E.FeatActionTypePassive',
         action: 'PF2E.FeatActionTypeAction',
@@ -1654,7 +1657,6 @@ export const PF2ECONFIG = {
         'fear effects': 'PF2E.ImmunityTypeFearEffects',
         'critical-hits': 'PF2E.ImmunityTypeCriticalHits',
         'object-immunities': 'PF2E.ImmunityTypeObjectImmunities',
-        'precision-damage': 'PF2E.ImmunityTypePrecisionDamage',
         magic: 'PF2E.ImmunityTypeMagic',
         sleep: 'PF2E.ImmunityTypeSleep',
         'swarm-mind': 'PF2E.ImmunityTypeSwarmMind',
@@ -1732,6 +1734,7 @@ export const PF2ECONFIG = {
         'swarm attacks': 'PF2E.DamageTypeSwarmAttacks',
         emotion: 'PF2E.DamageTypeEmotion',
         possession: 'PF2E.DamageTypePosession',
+        auditory: 'PF2E.ImmunityTypeAuditory',
     }, // Languages, alphabetical by common, uncommon, secret
 
     languages: {
@@ -2149,6 +2152,7 @@ export const PF2ECONFIG = {
             hazard: PF2EHazard,
             loot: PF2ELoot,
             familiar: PF2EFamiliar,
+            animalCompanion: PF2EAnimalCompanion,
             vehicle: PF2EVehicle,
         },
     },
@@ -2212,11 +2216,6 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descrip
 
 export interface ConfigPF2e extends Config<PF2EActor, PF2EItem> {
     PF2E: typeof PF2ECONFIG;
-    Combat: Config<PF2EActor, PF2EItem>['Combat'] & {
-        initiative: {
-            decimals: number;
-        };
-    };
     time: {
         roundTime: number;
     };

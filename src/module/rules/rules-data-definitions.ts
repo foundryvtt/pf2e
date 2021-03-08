@@ -7,6 +7,7 @@ export interface PF2RuleElementData {
     data?: any;
     selector?: string;
     value?: unknown;
+    scope?: string;
 }
 
 export interface PF2WeaponPotency {

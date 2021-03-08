@@ -21,32 +21,61 @@
             "unidentified": "",
             "value": "<p><strong>Requirements</strong> You are wielding a ranged weapon</p>\n<hr />\n<p>You take aim to pick off nearby enemies quickly. When using a ranged volley weapon while you are in this stance, you don't take the penalty to your attack rolls from the volley trait. When using a ranged weapon that doesn't have the volley trait, you gain a +2 circumstance bonus to damage rolls on attacks against targets within the weapon's first range increment.</p>"
         },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
         "featType": {
             "label": "Feat Type",
             "type": "String",
             "value": "class"
         },
+        "identified": {
+            "value": true
+        },
         "level": {
             "label": "Feat Level",
             "type": "String",
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "label": "Prerequisites",
-            "type": "String",
-            "value": [
-                ""
-            ]
-        },
+        "location": "class-1",
+        "prerequisites": [],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "point-blank-shot",
+                        "ranged"
+                    ],
+                    "not": [
+                        "volley-30"
+                    ]
+                },
+                "selector": "damage",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "property": "flags.pf2e.rollOptions.damage-roll.point-blank-shot"
+            }
+        ],
         "source": {
             "label": "Source",
             "type": "String",
             "value": ""
         },
+        "start": {
+            "initiative": null,
+            "value": 103462347
+        },
+        "target": null,
         "traits": {
             "custom": "",
             "label": "Traits",
@@ -59,8 +88,12 @@
                 "open",
                 "stance"
             ]
+        },
+        "usage": {
+            "value": "held-in-one-hand"
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Point-Blank Shot",

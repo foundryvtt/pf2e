@@ -24,7 +24,7 @@ declare class Messages extends EntityCollection<ChatMessage> {
     flush(): Promise<any>;
 }
 
-declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES]
+declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES];
 
 declare interface ChatMessageData extends BaseEntityData {
     type: ChatMessageType;
@@ -41,6 +41,10 @@ declare interface ChatMessageData extends BaseEntityData {
     roll?: Roll | string;
     user: string;
     whisper?: string[] | User[];
+}
+
+declare interface ChatMessageClassConfig extends EntityClassConfig<ChatMessage> {
+    collection: Messages;
 }
 
 declare interface MessageCreateOptions extends EntityCreateOptions {
@@ -66,11 +70,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * Configure the attributes of the ChatMessage Entity
      */
-    static get config(): {
-        baseEntity: ChatMessage;
-        collection: Messages;
-        embeddedEntities: Record<string, never>;
-    };
+    static get config(): ChatMessageClassConfig;
 
     /* -------------------------------------------- */
     /*  Properties and Attributes
@@ -163,7 +163,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     }?: {
         scene?: Scene;
         actor?: Actor;
-        token?: Token;
+        token?: Token | null;
         alias?: string;
     }): {
         scene: string | null;

@@ -1,4 +1,7 @@
-declare class Folders extends Collection<Folder> {}
+declare class Folders extends EntityCollection<Folder> {
+    /** @override */
+    get entity(): 'Folder';
+}
 
 declare interface FolderData extends BaseEntityData {
     color: string;
@@ -6,6 +9,10 @@ declare interface FolderData extends BaseEntityData {
     sort: null;
     sorting: 'a' | 'm';
     type: 'Actor' | 'Item' | 'Scene' | 'JournalEntry' | 'RollTable';
+}
+
+declare interface FolderClassConfig extends EntityClassConfig<Folder> {
+    collection: Folders;
 }
 
 declare class Folder extends Entity {
@@ -23,5 +30,4 @@ declare class Folder extends Entity {
         data: Partial<F['data']>[] | Partial<F['data']>,
         options?: EntityCreateOptions,
     ): Promise<F[] | F>;
-
 }

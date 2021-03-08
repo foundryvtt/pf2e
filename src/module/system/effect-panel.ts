@@ -104,7 +104,7 @@ export class EffectPanel extends Application {
         return data;
     }
 
-    protected activateListeners(html: JQuery) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // handle right-click on condition and effect icons

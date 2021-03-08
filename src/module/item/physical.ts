@@ -1,5 +1,5 @@
 import { PF2EItem } from './item';
-import { isPhysicalItem, PhysicalItemData } from './data-definitions';
+import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export class PF2EPhysicalItem extends PF2EItem {
@@ -48,7 +48,7 @@ export class PF2EPhysicalItem extends PF2EItem {
                     getProperty(update, `data.identification.unidentified.name`) ??
                     getProperty(itemData, `data.identification.unidentified.name`);
 
-                const translateFallback = (translated, key) => {
+                const translateFallback = (translated: string, key: string) => {
                     if (translated) {
                         return translated;
                     } else {
@@ -82,11 +82,16 @@ export class PF2EPhysicalItem extends PF2EItem {
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
                 const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
-                if (baseItem?.data) {
-                    const baseData = duplicate(baseItem.data); // ensure we're not messing up another item accidentally
+                if (baseItem instanceof PF2EPhysicalItem) {
+                    // ensure we're not messing up another item accidentally
+                    const baseData: Omit<PhysicalItemData, '_id' | 'data'> & {
+                        _id?: string;
+                        data: Partial<PhysicalDetailsData>;
+                    } = duplicate(baseItem.data);
+
                     // probably more fields should be filtered out
-                    delete baseData?._id;
-                    delete baseData?.data?.identification;
+                    delete baseData._id;
+                    delete baseData.data.identification;
                     for (const [key, value] of Object.entries(flattenObject(baseData))) {
                         diff[key] = value;
                     }

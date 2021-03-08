@@ -1,5 +1,5 @@
 import { DateTime } from 'luxon';
-import { LocalizationPF2e } from '../system/localization';
+import { LocalizePF2e } from '../system/localize';
 
 type SettingsKey = 'dateTheme' | 'timeConvention' | 'playersCanView' | 'syncDarkness' | 'worldCreatedOn';
 
@@ -81,7 +81,7 @@ export class WorldClockSettings extends FormApplication {
     activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
-        const translations = new LocalizationPF2e().translations.PF2E.SETTINGS.WorldClock;
+        const translations = LocalizePF2e.translations.PF2E.SETTINGS.WorldClock;
         const title = translations.ResetWorldTime.Name;
         renderTemplate('systems/pf2e/templates/system/settings/world-clock/confirm-reset.html').then((template) => {
             $html.find('button.reset-world-time').on('click', () => {

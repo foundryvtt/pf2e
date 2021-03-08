@@ -19,8 +19,9 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "5"
+            "value": 5
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 ""
@@ -29,10 +30,42 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Against Control Effects",
+                "predicate": {
+                    "all": [
+                        "control-effects"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "To Determine if Under a Control Effect",
+                "predicate": {
+                    "all": [
+                        "control-effects"
+                    ]
+                },
+                "selector": "perception",
+                "type": "circumstance",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "selector": "saving-throw",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> When you roll a success on a saving throw against an effect that would make you controlled, you get a critical success instead.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -41,6 +74,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Ancestral Suspicion",

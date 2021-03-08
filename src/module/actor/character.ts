@@ -3,6 +3,7 @@ import {
     BackgroundData,
     ClassData,
     ConsumableData,
+    ItemData,
     LoreData,
     MartialData,
     SpellAttackRollModifier,
@@ -10,8 +11,8 @@ import {
     SpellDifficultyClass,
     WeaponData,
 } from '@item/data-definitions';
-import { PF2EItem } from '../item/item';
-import { getArmorBonus, getResiliencyBonus } from '../item/runes';
+import { PF2EItem } from '@item/item';
+import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -25,9 +26,9 @@ import {
     WISDOM,
 } from '../modifiers';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
-import { PF2WeaponDamage } from '../system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '../system/rolls';
-import { PF2EActor, SKILL_DICTIONARY } from './actor';
+import { PF2WeaponDamage } from '@system/damage/weapon';
+import { PF2Check, PF2DamageRoll } from '@system/rolls';
+import { SKILL_DICTIONARY } from './actor';
 import {
     AbilityString,
     CharacterData,
@@ -38,13 +39,14 @@ import {
 } from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
-import { toNumber } from '../utils';
-import { adaptRoll } from '../system/rolls';
+import { toNumber } from '@utils';
+import { adaptRoll } from '@system/rolls';
+import { PF2EAncestry } from '@item/ancestry';
+import { PF2EBackground } from '@item/background';
+import { PF2EClass } from '@item/class';
+import { PF2ECreature } from './creature';
 
-export class PF2ECharacter extends PF2EActor {
-    data!: CharacterData;
-    _data!: CharacterData;
-
+export class PF2ECharacter extends PF2ECreature {
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -615,7 +617,7 @@ export class PF2ECharacter extends PF2EActor {
                         // naive check for finesse, which should later be changed to take conditions like
                         // enfeebled and clumsy into consideration
                         if (
-                            (item.data.traits?.value || []).includes('finesse') &&
+                            item.data.traits.value.includes('finesse') &&
                             data.abilities.dex.mod > data.abilities[ability].mod
                         ) {
                             ability = 'dex';
@@ -642,7 +644,7 @@ export class PF2ECharacter extends PF2EActor {
                         selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
                     }
 
-                    const traits = PF2EActor.traits(item?.data?.traits?.value);
+                    const traits = item.data.traits.value;
                     const melee =
                         ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
                         traits.some((t) => t.startsWith('thrown'));
@@ -730,7 +732,7 @@ export class PF2ECharacter extends PF2EActor {
                     action.traits = [
                         { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
                     ].concat(
-                        PF2EActor.traits(item?.data?.traits?.value).map((trait) => {
+                        item.data.traits.value.map((trait) => {
                             const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                             const option: CharacterStrikeTrait = {
                                 name: trait,
@@ -987,4 +989,44 @@ export class PF2ECharacter extends PF2EActor {
             actorData.data.attributes.classhp = classData.data.hp;
         }
     }
+
+    /** @override */
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void;
+    protected _onCreateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemData,
+        options: EntityCreateOptions,
+        userId: string,
+    ): void {
+        super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
+
+        if ('type' in child) {
+            const item = this.items.get(child._id);
+            if (item instanceof PF2EAncestry || item instanceof PF2EBackground || item instanceof PF2EClass) {
+                item.addFeatures(this);
+            }
+        }
+    }
+}
+
+export interface PF2ECharacter {
+    data: CharacterData;
+    _data: CharacterData;
 }

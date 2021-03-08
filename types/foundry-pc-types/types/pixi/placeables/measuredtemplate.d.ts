@@ -9,7 +9,6 @@ interface MeasuredTemplateData extends PlaceableObjectData {
     texture: string;
 }
 
-
 /**
  * A MeasuredTemplate is an implementation of PlaceableObject which represents an area of the canvas grid which is
  * covered by some effect.

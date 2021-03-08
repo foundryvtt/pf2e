@@ -1,6 +1,7 @@
 import { AbilityString, Proficency } from '@actor/actor-data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
+import { ConfigPF2e } from '@scripts/config';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -14,7 +15,7 @@ export interface ItemTraits {
     custom: string;
 }
 
-export interface ItemDescriptionData extends Record<string, unknown> {
+export interface ItemDescriptionData {
     description: {
         value: string;
         chat: string;
@@ -33,8 +34,8 @@ export interface ItemDescriptionData extends Record<string, unknown> {
     usage: {
         value: string;
     };
-    rules?: PF2RuleElementData[];
-    slug?: string | null;
+    rules: PF2RuleElementData[];
+    slug: string | null;
 }
 
 export interface PhysicalDetailsData extends ItemDescriptionData {
@@ -281,7 +282,7 @@ export interface ArmorDetailsData extends MagicDetailsData {
 }
 
 export interface KitDetailsData extends PhysicalDetailsData {
-    items: { [key: number]: KitEntryData };
+    items: Record<string, KitEntryData>;
 }
 
 export interface KitEntryData {
@@ -358,7 +359,7 @@ export interface AncestryDetailsData extends ItemDescriptionData {
     boosts: { [key: string]: { value: AbilityString[] } };
     flaws: { [key: string]: { value: AbilityString[] } };
     hp: number;
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     languages: {
         value: string[];
         custom: string;
@@ -370,7 +371,7 @@ export interface AncestryDetailsData extends ItemDescriptionData {
 
 export interface BackgroundDetailsData extends ItemDescriptionData {
     boosts: { [key: string]: { value: AbilityString[] } };
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     trainedLore: string;
     trainedSkills: {
         value: string[];
@@ -379,7 +380,7 @@ export interface BackgroundDetailsData extends ItemDescriptionData {
 
 export interface ClassDetailsData extends ItemDescriptionData {
     keyAbility: { value: AbilityString[] };
-    items: { [key: number]: ABCFeatureEntryData };
+    items: Record<string, ABCFeatureEntryData>;
     hp: number;
     perception: Proficency;
     savingThrows: {
@@ -413,9 +414,11 @@ export interface ClassDetailsData extends ItemDescriptionData {
     abilityBoostLevels: { value: number[] };
 }
 
+export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
+
 export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
-        value: string;
+        value: FeatType;
     };
     actionType: {
         value: string;
@@ -433,7 +436,6 @@ export interface FeatDetailsData extends ItemDescriptionData {
 }
 
 export interface LoreDetailsData extends ItemDescriptionData {
-    featType: string;
     mod: {
         value: 0;
     };
@@ -473,11 +475,6 @@ export interface ActionDetailsData extends ItemDescriptionData {
     };
     trigger: {
         value: string;
-    };
-    /* eslint-disable-next-line camelcase */
-    skill_requirements: {
-        skill: string;
-        rank: string;
     };
 }
 
@@ -571,6 +568,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
     properties?: (number | string)[];
     item?: string;
     trickMagicItemData?: TrickMagicItemCastData;
+    isSignatureSpell?: boolean;
 }
 
 export interface SpellAttackRollModifier {
@@ -679,6 +677,9 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
             value: 0;
             max: 0;
         };
+    };
+    signatureSpells: {
+        value: string[];
     };
 }
 
@@ -914,7 +915,9 @@ export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData
     return 'quantity' in itemData.data;
 }
 
-export function isMagicDetailsData(itemDataData: ItemDescriptionData): itemDataData is Required<MagicDetailsData> {
+export function isMagicDetailsData(
+    itemDataData: ItemDescriptionData & Partial<MagicDetailsData>,
+): itemDataData is Required<MagicDetailsData> {
     return (
         typeof itemDataData.invested == 'object' &&
         itemDataData.invested !== null &&

@@ -116,9 +116,9 @@ declare abstract class PlaceableObject extends PIXI.Container {
 
     /**
      * Test whether a user can perform a certain interaction with regards to a Placeable Object
-     * @param user		The User performing the action
-     * @param action	The named action being attempted
-     * @return			Does the User have rights to perform the action?
+     * @param user      The User performing the action
+     * @param action    The named action being attempted
+     * @return          Does the User have rights to perform the action?
      */
     can(user: User, action: string): boolean;
 
@@ -204,9 +204,9 @@ declare abstract class PlaceableObject extends PIXI.Container {
 
     /** @extends {Entity.createEmbeddedEntity} */
     static create<P extends PlaceableObject>(
-        this: new(data: P['data'], scene: Scene) => P,
+        this: new (data: P['data'], scene: Scene) => P,
         data: Partial<P['data']> | P['data'],
-        options?: EntityCreateOptions
+        options?: EntityCreateOptions,
     ): Promise<P>;
 
     /** @extends {Entity.updateEmbeddedEntity} */
@@ -219,9 +219,9 @@ declare abstract class PlaceableObject extends PIXI.Container {
      * Get the value of a "flag" for this PlaceableObject
      * See the setFlag method for more details on flags
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		The flag value
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @return      The flag value
      */
     getFlag(scope: string, key: string): Record<string, unknown>;
 
@@ -238,19 +238,19 @@ declare abstract class PlaceableObject extends PIXI.Container {
      *
      * Flag values can assume almost any data type. Setting a flag value to null will delete that flag.
      *
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @param value	The flag value
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @param value The flag value
      *
-     * @return		A Promise resolving to the updated PlaceableObject
+     * @return      A Promise resolving to the updated PlaceableObject
      */
     setFlag(scope: string, key: string, value: unknown): Promise<this>;
 
     /**
      * Remove a flag assigned to the Entity
-     * @param scope	The flag scope which namespaces the key
-     * @param key	The flag key
-     * @return		A Promise resolving to the updated Entity
+     * @param scope The flag scope which namespaces the key
+     * @param key   The flag key
+     * @return      A Promise resolving to the updated Entity
      */
     unsetFlag(scope: string, key: string): Promise<Entity>;
 
@@ -275,52 +275,52 @@ declare abstract class PlaceableObject extends PIXI.Container {
 
     /**
      * Assume control over a PlaceableObject, flagging it as controlled and enabling downstream behaviors
-     * @param options				Additional options which modify the control request
-     * @param options.releaseOthers	Release any other controlled objects first
-     * @return						A flag denoting whether or not control was successful
+     * @param options               Additional options which modify the control request
+     * @param options.releaseOthers Release any other controlled objects first
+     * @return                      A flag denoting whether or not control was successful
      */
     control(options?: object): boolean;
 
     /**
      * Additional events which trigger once control of the object is established
-     * @param options	Optional parameters which apply for specific implementations
+     * @param options   Optional parameters which apply for specific implementations
      */
     protected _onControl(options?: object): void;
 
     /**
      * Release control over a PlaceableObject, removing it from the controlled set
-     * @return	A Boolean flag confirming the object was released.
+     * @return  A Boolean flag confirming the object was released.
      */
     release(options?: object): boolean;
 
     /**
      * Additional events which trigger once control of the object is released
-     * @param options	Options which modify the releasing workflow
+     * @param options   Options which modify the releasing workflow
      */
     protected _onRelease(options?: object): void;
 
     /**
      * Rotate the PlaceableObject to a certain angle of facing
-     * @param angle	The desired angle of rotation
-     * @param snap	Snap the angle of rotation to a certain target degree increment
-     * @return		A Promise which resolves once the rotation has completed
+     * @param angle The desired angle of rotation
+     * @param snap  Snap the angle of rotation to a certain target degree increment
+     * @return      A Promise which resolves once the rotation has completed
      */
     rotate(angle: number, snap: number): Promise<this>;
 
     /**
      * Determine a new angle of rotation for a PlaceableObject either from an explicit angle or from a delta offset.
-     * @param angle	An explicit angle, either this or delta must be provided
-     * @param delta	A relative angle delta, either this or the angle must be provided
-     * @param snap	A precision (in degrees) to which the resulting angle should snap. Default is 0.
-     * @return		The new rotation angle for the object
+     * @param angle An explicit angle, either this or delta must be provided
+     * @param delta A relative angle delta, either this or the angle must be provided
+     * @param snap  A precision (in degrees) to which the resulting angle should snap. Default is 0.
+     * @return      The new rotation angle for the object
      */
     protected _updateRotation({ angle, delta, snap }?: { angle?: number; delta?: number; snap?: number }): number;
 
     /**
      * Obtain the shifted position for the Object
-     * @param dx	The number of grid units to shift along the X-axis
-     * @param dy	The number of grid units to shift along the Y-axis
-     * @return		The target movement coordinates subject to some offset
+     * @param dx    The number of grid units to shift along the X-axis
+     * @param dy    The number of grid units to shift along the Y-axis
+     * @return      The target movement coordinates subject to some offset
      */
     protected _getShiftedPosition(dx: number, dy: number): { x: number; y: number };
 

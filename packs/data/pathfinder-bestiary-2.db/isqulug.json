@@ -59,12 +59,11 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 10 ",
-                "max": "230",
+                "details": "regeneration 10 (deactivated by cold)",
+                "max": 230,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "230"
+                "value": 230
             },
             "init": {
                 "bonus": 0,
@@ -108,8 +107,7 @@
                         "value": "25 feet"
                     }
                 ],
-                "special": "",
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -126,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -155,13 +154,57 @@
             },
             "level": {
                 "min": 1,
-                "value": "11"
+                "value": 11
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=705",
             "recallKnowledgeText": "Recall Knowledge - Aberration : DC 30",
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Exiles from Beyond</h3>These disgusting parasites originally manifested in the First World, but the fey denizens of that realm found them too awful to endure and exiled them to the Material Plane. Over time, the isqulugs sloughed off their fey features for new, more powerful bodies of their own. Reports of stranger variants flourishing in areas such as demon-defiled Tanglebriar and remote fungi-ridden vaults in Orv, however, suggest their foothold on Golarion has become more established than previously thought.",
             "source": {
                 "value": "Bestiary 2 pg. 149"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 30,
+                        "value": 22
+                    }
+                }
+            },
+            "boOcmJoGp5w8sRkS": {
+                "data": {
+                    "spelldc": {
+                        "dc": 30,
+                        "value": 22
+                    }
+                }
             }
         },
         "martial": {
@@ -411,6 +454,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -457,9 +503,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -491,6 +536,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -556,6 +602,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -569,12 +616,17 @@
                     "value": "primal"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Primal Innate Spells",
@@ -588,8 +640,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "isqulugia"
+                        "Isqulugia"
                     ]
                 },
                 "bonus": {
@@ -612,12 +665,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+11"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+11",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -634,6 +687,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -692,9 +748,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -702,6 +760,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "agile",
                         "reach-10"
@@ -714,6 +776,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -745,14 +808,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -765,6 +830,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Host Scent",
@@ -794,14 +860,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -814,6 +882,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "All-Around Vision",
@@ -821,10 +890,10 @@
             "type": "action"
         },
         {
-            "_id": "AHYiKbjGh08Gl5yL",
+            "_id": "10bWJD5tkpV6Sd6f",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "passive"
@@ -835,7 +904,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4."
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -843,29 +912,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
+            "name": "Regeneration 10 (Deactivated by cold)",
             "sort": 500000,
             "type": "action"
         },
@@ -892,14 +965,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -912,6 +987,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Swarm Mind",
@@ -928,12 +1004,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The isqulug expels larvae from the hivemind in its head in a 30-foot cone. Creatures in this area take [[/r 6d10 # piercing damage]] piercing damage as the swarm feeds on their flesh (DC 30 basic Reflex save). Any creature that takes damage is exposed to isqulugia. The isqulug becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1d4 rounds, during which it can't Expel Infestation."
+                    "value": "<p>The isqulug expels larvae from the hivemind in its head in a 30-foot cone. Creatures in this area take [[/r 6d10 #piercing]] piercing damage as the swarm feeds on their flesh (DC 30 basic Reflex save). Any creature that takes damage is exposed to isqulugia.</p>\n<p>The isqulug becomes @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for [[/r 1d4 #rounds]] rounds, during which it can't Expel Infestation.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -941,14 +1017,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -961,8 +1039,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Expel Infestation",
             "sort": 700000,
             "type": "action"
@@ -982,7 +1061,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "Isqulugia's @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} conditions can't be removed until this affliction is removed; <b>Saving Throw</b> DC 30 Fortitude; <b>Stage 1</b> sickened 1 (1 hour); <b>Stage 2</b> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and sickened 2 (1 day); <b>Stage 3</b> fatigued and slowed 1 (1 day); <b>Stage 4</b> paralyzed (1 day); <b>Stage 5</b>the creature dies, and its body violently transforms into a new isqulug. @Compendium[pf2e.spells-srd.Wish]{Wish}, similar magic, or a 9th-level @Compendium[pf2e.spells-srd.Resurrect]{Resurrect} ritual can return the victim to life. The new isqulug remains even if the victim is brought back to life."
+                    "value": "<p>Isqulugia's @Compendium[pf2e.conditionitems.Sickened]{Sickened}, @Compendium[pf2e.conditionitems.Slowed]{Slowed}, and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} conditions can't be removed until this affliction is removed;</p>\n<p><strong>Saving Throw</strong> DC 30 Fortitude;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (1 hour);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} and @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (1 day);</p>\n<p><strong>Stage 3</strong> fatigued and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} (1 day);</p>\n<p><strong>Stage 4</strong> paralyzed (1 day);</p>\n<p><strong>Stage 5</strong> the creature dies, and its body violently transforms into a new isqulug. @Compendium[pf2e.spells-srd.Wish]{Wish}, similar magic, or a 9th-level @Compendium[pf2e.spells-srd.Resurrect]{Resurrect} ritual can return the victim to life. The new isqulug remains even if the victim is brought back to life.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -990,14 +1069,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "disease",
                         "incapacitation",
@@ -1016,6 +1097,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Isqulugia",
@@ -1045,14 +1127,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1065,6 +1149,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Malleability",
@@ -1094,14 +1179,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1114,6 +1201,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Swamp Stride",
@@ -1128,7 +1216,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1141,16 +1228,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
@@ -1165,7 +1259,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1178,16 +1271,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -1202,7 +1302,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1215,16 +1314,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
@@ -1239,7 +1345,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1252,16 +1357,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
@@ -1269,7 +1381,7 @@
             "type": "lore"
         },
         {
-            "_id": "1pRwKaYyuIS0Ajk7",
+            "_id": "BicFzOLxSc2odaJk",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1281,6 +1393,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "40-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1308,12 +1423,15 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10- foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach and makes a melee unarmed attack using your spell attack modifier. If the attack succeeds, the vine pulls the target into the creepers and makes it @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
+                    "value": "<p>Dense, twitching creepers sprout from every surface and fill any bodies of water in the area. Any creature moving on the land, or Climbing or Swimming within the creepers, takes a -10- foot circumstance penalty to its Speeds while in the area. Once per round, you can make a vine lash out from any square within the expanse of creepers by using a single action, which has the concentrate trait. This vine has a 15-foot reach and makes a makes a melee spell attack roll against the target. If the attack succeeds, the vine pulls the target into the creepers and makes it @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} for 1 round or until the creature Escapes (against your spell DC), whichever comes first.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1333,6 +1451,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1341,6 +1462,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1356,10 +1478,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tangling-creepers",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=331"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1392,18 +1524,23 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "plant"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.JbAcSLu62TU1OgNF"
+                },
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
@@ -1415,7 +1552,7 @@
             "type": "spell"
         },
         {
-            "_id": "KKeCZ4ehyQLlOTum",
+            "_id": "onKzUwuCDx6o9ta3",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1427,6 +1564,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50 feet long by 50 feet wide"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1454,12 +1594,15 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of slow.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @Compendium[pf2e.spells-srd.Slow]{Slow}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1479,6 +1622,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1487,6 +1633,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1502,10 +1649,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "control-water",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1539,18 +1696,23 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
+                },
                 "dynamiceffects": {
                     "alwaysActive": false,
                     "equipActive": false
@@ -1562,7 +1724,7 @@
             "type": "spell"
         },
         {
-            "_id": "gYRnLy5VjBGU3kcW",
+            "_id": "IQMOpSM752wv7SBc",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1574,6 +1736,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "all squares in a 20-foot-radius burst that contain plants"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1608,10 +1773,13 @@
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "boOcmJoGp5w8sRkS"
@@ -1626,6 +1794,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1634,6 +1805,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1649,10 +1821,20 @@
                     "type": "String",
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "entangle",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=103"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1660,7 +1842,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -1685,25 +1867,31 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "plant",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J6vNvrUT3b1hx2iA"
+                }
+            },
             "img": "systems/pf2e/icons/spells/entangle.jpg",
             "name": "Entangle",
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "Q9PNyo3nJv1xSS6c",
+            "_id": "DMC7zL0GtKt3hi5r",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1715,6 +1903,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1742,17 +1933,20 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create an illusion that causes natural terrain to look, sound, feel, and smell like a different kind of terrain. This doesn't disguise any structures or creatures in the area. Any creature that touches the illusion or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened</strong>  Your image can also disguise structures or create illusory structures (but still doesn't disguise creatures).</p>"
+                    "value": "<p>You create an illusion that causes natural terrain to look, sound, feel, and smell like a different kind of terrain. This doesn't disguise any structures or creatures in the area. Any creature that touches the illusion or uses the Seek action to examine it can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> Your image can also disguise structures or create illusory structures (but still doesn't disguise creatures).</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": "until the next time you make your daily preparations"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "boOcmJoGp5w8sRkS"
@@ -1767,6 +1961,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1775,6 +1972,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1790,10 +1988,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hallucinatory-terrain",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=145"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1828,24 +2036,30 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
                     "type": "String",
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.HBJPsonQnWcC3qdX"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hallucinatory-terrain.jpg",
             "name": "Hallucinatory Terrain",
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "zNSczhwPktA2ODsC",
+            "_id": "yWKWiqRICZuAVeYr",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1857,6 +2071,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1884,17 +2101,20 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "boOcmJoGp5w8sRkS"
@@ -1909,6 +2129,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1917,6 +2140,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1932,10 +2156,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1969,25 +2203,31 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/obscuring-mist.jpg",
-            "name": "Obscuring Mist ",
+            "name": "Obscuring Mist (At will)",
             "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "mbDIIz6NDJHAVMSK",
+            "_id": "CW2XymFMw14lVf4v",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1999,6 +2239,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2026,12 +2269,15 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>\n<hr />\n<p><strong>Heightened</strong>  The duration increases to 1 hour.</p>"
+                    "value": "<p>The target can soar through the air, gaining a fly Speed equal to its Speed or 20 feet, whichever is greater.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration increases to 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": "5 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2051,6 +2297,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2059,6 +2308,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2074,10 +2324,20 @@
                     "type": "String",
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fly",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=125"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2112,24 +2372,30 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.A2JfEKe6BZcTG1S8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fly.jpg",
             "name": "Fly",
             "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "mKj8KOsn6GlqtgCn",
+            "_id": "ATunuUykHnDV9p7I",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2141,6 +2407,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2175,6 +2444,9 @@
                     "type": "String",
                     "value": "sustained"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2193,6 +2465,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2201,6 +2476,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2216,10 +2492,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2257,22 +2543,80 @@
                 "traits": {
                     "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "light",
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dancing-lights.jpg",
-            "name": "Dancing Lights - Cantrips ",
+            "name": "Dancing Lights",
             "sort": 2100000,
             "type": "spell"
+        },
+        {
+            "_id": "gBLhhD8L0FdbP5dP",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 2200000,
+            "type": "action"
         }
     ],
     "name": "Isqulug",
@@ -2280,7 +2624,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "kElZCC1zMQVftoi9",
         "actorLink": false,
         "bar1": {
@@ -2299,6 +2642,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Isqulug",
         "randomImg": false,

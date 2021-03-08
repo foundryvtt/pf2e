@@ -5,6 +5,7 @@ declare const ui: {
     combat: CombatTracker;
     controls: SceneControls;
     notifications: Notifications;
+    settings: Settings;
     tables: RollTableDirectory;
     windows: Record<number, Application>;
 };
@@ -18,7 +19,11 @@ declare const ui: {
  * @param sessionId The ID of the currently active client session retrieved from the browser cookie
  * @param socket    The open web-socket which should be used to transact game-state data
  */
-declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item> {
+declare class Game<
+    ActorType extends Actor = Actor,
+    ItemType extends Item = Item,
+    CombatType extends Combat<ActorType> = Combat<ActorType>
+> {
     /**
      * The named view which is currently active.
      * Game views include: join, setup, players, license, game, stream
@@ -167,12 +172,60 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     /**
      * Metadata regarding the game System which powers this World
      */
-    get system(): any;
+    get system(): {
+        id: string;
+        data: {
+            author: string;
+            authors: string[];
+            availability: number;
+            bugs: string;
+            changelog: string;
+            compatibleCoreVersion: string;
+            description: string;
+            download: string;
+            esmodules: string[];
+            gridDistance: number;
+            gridUnits: string;
+            initiative: string;
+            keywords: string[];
+            languages: {
+                lang: string;
+                name: string;
+                path: string;
+            }[];
+            license: string;
+            manifest: string;
+            minimumCoreVersion: string;
+            name: string;
+            packs: {
+                entity: 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+                label: string;
+                module: string;
+                name: string;
+                path: string;
+                system: string;
+            }[];
+            readme: string;
+            schema: number;
+            scripts: string[];
+            socket: boolean;
+            styles: string[];
+            templateVersion: number;
+            title: string;
+            unavailable: boolean;
+            url: string;
+            version: string;
+        };
+        entityTypes: {
+            Actor: string[];
+            Item: string[];
+        };
+    };
 
     /**
      * A convenience accessor for the currently active Combat encounter
      */
-    get combat(): Combat<ActorType>;
+    get combat(): CombatType;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused
@@ -187,8 +240,8 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
     /**
      * Toggle the pause state of the game
      * Trigger the `pauseGame` Hook when the paused state changes
-     * @param pause	The new pause state
-     * @param push	Push the pause state change to other connected clients?
+     * @param pause The new pause state
+     * @param push  Push the pause state change to other connected clients?
      */
     togglePause(pause: boolean, push?: boolean): void;
 
@@ -210,7 +263,4 @@ declare class Game<ActorType extends Actor = Actor, ItemType extends Item = Item
      * Activate Event Listeners which apply to every Game View
      */
     activateListeners(): void;
-
-    //Added so developers can easily add system/module specific stuff to the game object
-    [key: string]: any;
 }

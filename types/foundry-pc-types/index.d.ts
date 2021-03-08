@@ -11,6 +11,7 @@ import './types/apps/chat-popout';
 
 import './types/apps/forms/active-effect-config';
 import './types/apps/forms/actor-sheet';
+import './types/apps/forms/entity-sheet-config';
 import './types/apps/forms/forms';
 import './types/apps/forms/item-sheet';
 import './types/apps/forms/permission';
@@ -41,7 +42,8 @@ import './types/apps/sidebar/apps/combattracker';
 import './types/apps/sidebar/apps/compendiumdirectory';
 
 import './types/apps/sidebar/sidebar';
-import './types/apps/sidebar/sidebartab';
+import './types/apps/sidebar/sidebar-tab/base';
+import './types/apps/sidebar/sidebar-tab/settings';
 import './types/apps/sidebar/sidebardirectory';
 
 // Core
@@ -75,10 +77,10 @@ import './types/framework/entities/chat-message';
 import './types/framework/entities/combat';
 import './types/framework/entities/folder';
 import './types/framework/entities/item';
-import './types/framework/entities/journal';
+import './types/framework/entities/journal-entry';
 import './types/framework/entities/macro';
 import './types/framework/entities/playlist';
-import './types/framework/entities/rolltable';
+import './types/framework/entities/roll-table';
 import './types/framework/entities/scene';
 import './types/framework/entities/user';
 

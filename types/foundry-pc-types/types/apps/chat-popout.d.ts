@@ -9,7 +9,7 @@ declare class ChatPopout extends Application {
     /** @override */
     static get defaultOptions(): typeof Application['defaultOptions'] & {
         width: number;
-        height: string,
+        height: string;
         classes: ['chat-popout'];
     };
 

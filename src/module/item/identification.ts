@@ -8,13 +8,12 @@
 
 import { isLevelItem, PhysicalItemData } from './data-definitions';
 import { isBlank, toNumber } from '../utils';
-import { parseTraits } from '../traits';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
 
 const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
 
 function getTraits(itemData: PhysicalItemData): Set<string> {
-    return new Set(parseTraits(itemData?.data?.traits?.value));
+    return new Set(itemData.data.traits.value);
 }
 
 /**

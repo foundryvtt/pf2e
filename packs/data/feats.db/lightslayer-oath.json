@@ -19,8 +19,9 @@
             "value": "class"
         },
         "level": {
-            "value": "2"
+            "value": 2
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "tenets of evil"
@@ -29,10 +30,86 @@
         "rarity": {
             "value": "common"
         },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Used champion's reaction against a celestial",
+                "property": "flags.pf2e.rollOptions.damage-roll.lightslayer-oath"
+            },
+            {
+                "damageType": "negative",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lightslayer Oath",
+                "name": "lightslayer-neg",
+                "predicate": {
+                    "all": [
+                        "lightslayer-oath"
+                    ],
+                    "any": [
+                        "iron-command-negative",
+                        "selfish-shield-negative",
+                        "destructive-vengeance-negative"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            },
+            {
+                "damageType": "evil",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Lightslayer Oath",
+                "name": "lightslayer-evil",
+                "predicate": {
+                    "all": [
+                        "lightslayer-oath"
+                    ],
+                    "any": [
+                        "iron-command-evil",
+                        "selfish-shield-evil",
+                        "destructive-vengeance-evil"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "end": 15,
+                            "start": 9,
+                            "value": 2
+                        },
+                        {
+                            "start": 16,
+                            "value": 3
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
         "traits": {
+            "custom": "",
             "rarity": {
                 "value": "common"
             },
@@ -43,6 +120,7 @@
             ]
         }
     },
+    "effects": [],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Lightslayer Oath",

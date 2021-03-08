@@ -18,7 +18,6 @@
 
   <!-- BODY -->
   <section class="sheet-content">
-
     <div class="container">
       <div class="master">
         <h2>Master</h2>
@@ -31,52 +30,59 @@
             {{/each}}
             {{/select}}
           </select>
-          <div><b>Master Level</b> {{data.master.level}}</div>
-          
-          <div>
-            <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
-            <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
-              {{#select data.master.ability}}
-              {{#each abilities as |ability abbr|}}
-              <option value="{{abbr}}">{{ability}}</option>
-              {{/each}}
-              {{/select}}
-            </select>
-          </div>
+          {{#if data.master.id}}
+            <div><b>Master Level</b> {{data.master.level}}</div>
 
-          <div title="{{data.master.familiarAbilities.breakdown}}"><b>Total # of Familiar Abilities</b> {{numberFormat data.master.familiarAbilities.value decimals=0}}</div>
+            <div>
+              <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
+              <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
+                {{#select data.master.ability}}
+                {{#each abilities as |ability abbr|}}
+                <option value="{{abbr}}">{{ability}}</option>
+                {{/each}}
+                {{/select}}
+              </select>
+            </div>
+
+            <div title="{{data.master.familiarAbilities.breakdown}}">
+              <strong>Total # of Familiar Abilities</strong> {{numberFormat data.master.familiarAbilities.value decimals=0}}
+            </div>
+          {{/if}}
         </div>
-  
+
       <div class="basic-stats">
         <h2>Familiar</h2>
         <label for="{{data._id}}-species"><b>Creature</b></label>
         <input id="{{data._id}}-species" name="data.details.creature.value" value="{{data.details.creature.value}}" placeholder="Rat, imp, leshy, etc."/>
-        <div>
-          <b>Size</b>
-          <span>{{localize (add 'PF2E.ActorSize' data.traits.size.label)}}</span>
-        </div>
-        <div title="{{data.attributes.perception.breakdown}}" data-perception-check>
-          <b>Perception</b>
-          <span>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
-        </div>
-        <div>
-          <b>Senses</b>
-          <span class="tags">
-            {{#each data.traits.senses as |sense idx|}}
-            <span class="tag">{{localize sense.label}}{{#if sense.acuity}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
-            {{/each}}
-          </span>
-        </div>
-        <div>
-          <b>Speed</b>
-          <span class="tags">
-            {{#each data.attributes.speed.otherSpeeds}}
-            <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
-            {{/each}}
-          </span>
-        </div>
+        {{#if data.master.id}}
+          <div>
+            <b>Size</b>
+            <span>{{localize size}}</span>
+          </div>
+          <div title="{{data.attributes.perception.breakdown}}" data-perception-check>
+            <b>Perception</b>
+            <span>{{numberFormat data.attributes.perception.value decimals=0 sign=true}}</span>
+          </div>
+          <div>
+            <b>Senses</b>
+            <span class="tags">
+              {{#each data.traits.senses as |sense idx|}}
+                <span class="tag">{{localize sense.label}}{{#if sense.acuity}} ({{sense.acuity}}){{/if}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
+              {{/each}}
+            </span>
+          </div>
+          <div>
+            <b>Speed</b>
+            <span class="tags">
+              {{#each data.attributes.speed.otherSpeeds}}
+                <span class="tag" title="{{this.breakdown}}">{{localize this.label}} {{this.total}}</span>
+              {{/each}}
+            </span>
+          </div>
+        {{/if}}
       </div>
-  
+
+      {{#if data.master.id}}
       <div class="defense">
         <h2>Defenses</h2>
         <label for="{{data._id}}-hit-points"><b>Hit Points</b></label>
@@ -94,13 +100,13 @@
         </div>
         {{/each}}
       </div>
-        
+
       <div class="offense" title="{{data.attack.breakdown}}" data-attack-roll>
         <h2>Offenses</h2>
         <b>Attack Roll</b>
         <span>{{numberFormat data.attack.value decimals=0 sign=true}}</span>
       </div>
-  
+
       <div class="skills">
         <h2>Skills</h2>
         <div class="skill-list">
@@ -112,7 +118,7 @@
           {{/each}}
         </div>
       </div>
-      
+
       <div class="conditions">
         <h2>{{localize 'PF2E.ConditionsLabel'}}</h2>
         <ol class="item-list">
@@ -161,8 +167,7 @@
           {{/each}}
         </ol>
       </div>
-
     </div>
+    {{/if}}
   </section>
-
 </form>

@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "175",
+                "max": 175,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "175"
+                "value": 175
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": ""
                     }
                 ],
-                "special": "",
                 "value": "30 feet"
             }
         },
@@ -154,7 +152,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "10"
+                "value": 10
             },
             "nethysUrl": "",
             "recallKnowledgeText": "",
@@ -452,10 +450,9 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
-    "img": "icons/svg/mystery-man.svg",
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "NjJyrUWQep7Xf1ap",
@@ -486,6 +483,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -564,14 +562,19 @@
                     "value": "occult"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/spellcastingEntry.svg",
             "name": "Occult Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -630,6 +633,9 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
                     "value": false
                 },
@@ -687,6 +693,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
@@ -697,6 +704,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -706,10 +717,11 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -737,14 +749,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "aura",
                         "emotion",
@@ -764,8 +777,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Deepest Fear",
             "sort": 300000,
             "type": "action"
@@ -793,14 +807,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "necromancy",
                         "occult"
@@ -816,8 +831,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Devour Soul",
             "sort": 400000,
             "type": "action"
@@ -845,14 +861,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -865,8 +882,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Mobility",
             "sort": 500000,
             "type": "action"
@@ -894,14 +912,33 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -914,8 +951,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Sneak Attack",
             "sort": 600000,
             "type": "action"
@@ -943,14 +981,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "emotion",
                         "fear",
@@ -967,8 +1006,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Striking Fear",
             "sort": 700000,
             "type": "action"
@@ -996,14 +1036,15 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -1016,8 +1057,9 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Surprise Attack",
             "sort": 800000,
             "type": "action"
@@ -1030,7 +1072,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1043,18 +1084,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 900000,
             "type": "lore"
@@ -1067,7 +1114,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1080,18 +1126,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 1000000,
             "type": "lore"
@@ -1104,7 +1156,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1117,18 +1168,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1100000,
             "type": "lore"
@@ -1141,7 +1198,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1154,18 +1210,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1200000,
             "type": "lore"
@@ -1178,7 +1240,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1191,18 +1252,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
             "sort": 1300000,
             "type": "lore"
@@ -1215,7 +1282,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1228,18 +1294,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1400000,
             "type": "lore"
@@ -1252,7 +1324,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1265,18 +1336,24 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 1500000,
             "type": "lore"
@@ -1328,6 +1405,9 @@
                     "type": "String",
                     "value": "5 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1354,6 +1434,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1407,7 +1488,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "polymorph",
@@ -1418,6 +1503,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/gaseous-form.jpg",
             "name": "Gaseous Form",
@@ -1471,6 +1557,9 @@
                     "type": "String",
                     "value": "10 minutes"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1497,6 +1586,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1549,7 +1639,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "illusion"
@@ -1559,6 +1653,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
             "name": "Invisibility",
@@ -1612,6 +1707,9 @@
                     "type": "String",
                     "value": "1 day"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1638,6 +1736,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1690,7 +1789,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "illusion",
@@ -1701,6 +1804,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/nightmare.jpg",
             "name": "Nightmare",
@@ -1754,6 +1858,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1780,6 +1887,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1832,7 +1940,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "death",
@@ -1846,6 +1958,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/phantasmal-killer.jpg",
             "name": "Phantasmal Killer",
@@ -1899,6 +2012,9 @@
                     "type": "String",
                     "value": "varies"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -1925,6 +2041,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -1979,7 +2096,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "emotion",
@@ -1992,6 +2113,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/fear.jpg",
             "name": "Fear",
@@ -2045,6 +2167,9 @@
                     "type": "String",
                     "value": "1 round or sustained up to 1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2071,6 +2196,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2125,6 +2251,9 @@
                 "traits": {
                     "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "uncommon",
@@ -2137,6 +2266,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/mind-reading.jpg",
             "name": "Mind Reading",
@@ -2190,6 +2320,9 @@
                     "type": "String",
                     "value": "1 minute"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2216,6 +2349,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2268,7 +2402,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "transmutation"
@@ -2278,6 +2416,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/knock.jpg",
             "name": "Knock",
@@ -2331,6 +2470,9 @@
                     "type": "String",
                     "value": "sustained"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2357,6 +2499,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2409,7 +2552,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "auditory",
@@ -2421,6 +2568,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/ghost-sound.jpg",
             "name": "Ghost Sound - Cantrips ",
@@ -2474,6 +2622,9 @@
                     "type": "String",
                     "value": "see below"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2500,6 +2651,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2553,7 +2705,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "auditory",
@@ -2567,6 +2723,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/spells/message.jpg",
             "name": "Message - Cantrips ",
@@ -2620,6 +2777,9 @@
                     "type": "String",
                     "value": "1 hour"
                 },
+                "hasCounteractCheck": {
+                    "value": false
+                },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
@@ -2646,6 +2806,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -2699,7 +2860,11 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "type": "String",
                     "value": [
                         "divination"
@@ -2709,6 +2874,7 @@
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {
                 "dynamiceffects": {
                     "alwaysActive": false,
@@ -2742,7 +2908,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lockRotation": false,

@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "105",
+                "max": 105,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "105"
+                "value": 105
             },
             "init": {
                 "bonus": 0,
@@ -108,7 +107,6 @@
                         "value": "20 feet"
                     }
                 ],
-                "special": "",
                 "value": "25 feet"
             }
         },
@@ -155,7 +153,7 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=665",
             "recallKnowledgeText": "Recall Knowledge - Elemental : DC 22",
@@ -411,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -456,9 +457,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -490,20 +490,16 @@
                     "damageType": "slashing",
                     "die": "2d6+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+8",
                         "damageType": "slashing"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentcold"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Cold Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -516,6 +512,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -574,9 +573,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -584,8 +585,12 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
-                        "versatile bludgeoning"
+                        "versatile-b"
                     ]
                 },
                 "usage": {
@@ -595,6 +600,7 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
@@ -626,14 +632,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -646,6 +654,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Snow Vision",
@@ -659,7 +668,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -667,7 +676,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> An enemy hits the blizzardborn with an attack that deals physical damage; <b>Effect</b> A portion of the blizzardborn's body shatters into an explosion of razor sharp ice crystals and blinding snow that deals [[/r 2d6 # piercing damage]] piercing damage to opponents in a 5-foot emanation (DC 24 basic Reflex save). Anyone who fails is also @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 3 rounds on a critical failure)."
+                    "value": "<p><strong>Trigger</strong> An enemy hits the blizzardborn with an attack that deals physical damage</p>\n<p><strong>Effect</strong> A portion of the blizzardborn's body shatters into an explosion of razor sharp ice crystals and blinding snow that deals [[/r 2d6 # piercing damage]] piercing damage to opponents in a 5-foot emanation (DC 24 basic Reflex save). Anyone who fails is also @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round (or 3 rounds on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -675,14 +684,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -695,9 +706,10 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Shattering Ice ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Shattering Ice",
             "sort": 300000,
             "type": "action"
         },
@@ -724,14 +736,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
@@ -744,6 +758,7 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ice Burrow",
@@ -758,7 +773,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -771,16 +785,23 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
@@ -795,7 +816,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -808,16 +828,42 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Ice or Snow",
+                        "predicate": {
+                            "any": [
+                                "terrain:icy",
+                                "terrain:snow"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 in ice or snow",
+                        "options": "terrain:icy,terrain:snow"
+                    }
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
@@ -830,7 +876,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "2Kw49I6EZbKKlTtK",
         "actorLink": false,
         "bar1": {
@@ -849,6 +894,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Blizzardborn",
         "randomImg": false,

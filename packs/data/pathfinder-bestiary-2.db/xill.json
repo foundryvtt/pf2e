@@ -60,11 +60,10 @@
             "flatbonussp": 0,
             "hp": {
                 "details": "",
-                "max": "100",
+                "max": 100,
                 "min": 0,
                 "temp": 0,
-                "tempmax": 0,
-                "value": "100"
+                "value": 100
             },
             "init": {
                 "bonus": 0,
@@ -89,11 +88,11 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "10",
-                "hardness": "5",
-                "max": "20",
+                "brokenThreshold": 10,
+                "hardness": 5,
+                "max": 20,
                 "min": 0,
-                "value": "20"
+                "value": 20
             },
             "sp": {
                 "details": "",
@@ -103,8 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "special": "",
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -121,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -150,13 +149,61 @@
             },
             "level": {
                 "min": 1,
-                "value": "6"
+                "value": 6
             },
             "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=866",
             "recallKnowledgeText": "Recall Knowledge - Aberration : DC 24<br />Recall Knowledge - Ethereal : DC 24",
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> the Ether War</h3>Xills see Material Plane creatures as little more than incubators, but the need for fresh hosts never abates, for on their home plane, xills are constantly at war. Only the relative emptiness of the Ethereal Plane keeps their conflict with creatures like ether spiders from becoming too overwhelming and outpacing the speed at which new ranks of soldiers can replace those who have fallen.",
             "source": {
                 "value": "Bestiary 2 pg. 299"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
+            },
+            "jURll9yGhDX2eIFe": {
+                "data": {
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
             }
         },
         "martial": {
@@ -406,6 +453,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -438,9 +488,8 @@
             }
         }
     },
-    "flags": {
-        "pf2e_updatednpcsheet": {}
-    },
+    "effects": [],
+    "flags": {},
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
@@ -472,6 +521,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
                 },
@@ -537,6 +587,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -550,12 +601,17 @@
                     "value": "occult"
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Occult Innate Spells",
@@ -563,7 +619,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "8eoqBBB8KNbNevFh",
+            "_id": "3FetAQ4JLFhqwKCP",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -575,6 +631,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -590,7 +649,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d20"
+                    "value": ""
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -602,12 +661,15 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
                     "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
                 },
                 "level": {
                     "label": "Spell Level",
@@ -627,6 +689,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -635,6 +700,7 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "save": {
                     "basic": "",
                     "label": "Saving Throw",
@@ -650,10 +716,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "plane-shift",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -676,7 +752,7 @@
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": " 10 minutes"
+                    "value": "10 minutes"
                 },
                 "traditions": {
                     "label": "Spell Traditions",
@@ -689,26 +765,48 @@
                     ]
                 },
                 "traits": {
+                    "custom": "",
                     "label": "Spell Traits",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
-            "flags": {},
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.jpg",
-            "name": "Plane Shift ",
+            "name": "Plane Shift (Self only) (To Ethereal Plane or Material Plane only)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "LiqgmuMcNcu1ySR7",
+            "_id": "2SV41449ObBnW9QD",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "dex"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -721,17 +819,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This 5‑foot‑tall bow, usually made of a single piece of elm, hickory, or yew, has a powerful draw and is excellent at propelling arrows with great force and at an extreme distance. You must use two hands to fire a longbow, and it can't be used while mounted.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "bow"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -740,13 +856,18 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -755,6 +876,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": "1"
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -762,47 +886,135 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "6 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "100"
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
+                },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "longbow",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
-                    "value": []
+                    "custom": "",
+                    "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "deadly-d10",
+                        "volley-30"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "2"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 longbow ",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.MVAWttmT0QDa7LsV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longbow.png",
+            "name": "+1 Longbow",
             "sort": 300000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "RAKayrhxzKiyWEqb",
+            "_id": "rb1jeffx09EJc1X4",
             "data": {
+                "armor": {
+                    "label": "AC Bonus",
+                    "type": "Number",
+                    "value": 4
+                },
+                "armorType": {
+                    "label": "Armor Category",
+                    "type": "String",
+                    "value": "medium"
+                },
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "label": "Check Penalty",
+                    "type": "String",
+                    "value": "-2"
                 },
                 "collapsed": {
                     "value": false
@@ -815,34 +1027,58 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half‑plate armor (page 276) that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dex": {
+                    "label": "Dex Modifier Cap",
+                    "type": "String",
+                    "value": "1"
                 },
                 "equipped": {
+                    "label": "Equipped",
+                    "type": "Boolean",
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "2"
+                },
+                "group": {
+                    "label": "Group",
+                    "type": "String",
+                    "value": "plate"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {
+                    "label": "Armor Potency",
+                    "type": "String"
+                },
+                "potencyRune": {
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -851,42 +1087,131 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "8 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {
+                    "label": "Resilient",
+                    "type": "String"
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 15,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
+                "slug": "breastplate",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "speed": {
+                    "label": "Speed Penalty",
+                    "type": "String",
+                    "value": "-5 ft"
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strength": {
+                    "label": "Required Strength",
+                    "type": "String",
+                    "value": "16"
+                },
                 "traits": {
+                    "custom": "",
+                    "label": "Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "3"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "breastplate",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/breastplate.jpg",
+            "name": "Breastplate",
             "sort": 400000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "bcU3uVVRaJPoZzLG",
+            "_id": "9W8hqPJiuOnchV4S",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -899,17 +1224,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "(2)"
+                    "value": "<p>This one‑handed curved blade is sharp on one side.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "sword"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -918,13 +1261,18 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -933,6 +1281,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": ""
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -940,46 +1291,134 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
-                    "value": 1
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 2
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
+                },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "scimitar",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
-                    "value": []
+                    "custom": "",
+                    "label": "Weapon Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "scimitar (2)",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.grmaV4GdoGD7sKbn"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/scimitar.png",
+            "name": "Scimitar",
             "sort": 500000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "pjElHsDLChzDJZZT",
+            "_id": "YuAmqhswlFTuBUIH",
             "data": {
+                "armor": {
+                    "label": "AC Bonus",
+                    "type": "Number",
+                    "value": 2
+                },
+                "armorType": {
+                    "label": "Armor Category",
+                    "type": "String",
+                    "value": "shield"
+                },
                 "brokenThreshold": {
-                    "value": 0
+                    "value": 10
                 },
                 "bulkCapacity": {
+                    "value": ""
+                },
+                "check": {
+                    "label": "Check Penalty",
+                    "type": "String",
                     "value": ""
                 },
                 "collapsed": {
@@ -993,7 +1432,209 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
+                    "value": "<p>Like wooden shields, steel shields come in a variety of shapes and sizes. Though more expensive than wooden shields, they are much more durable.</p>\n<table style=\"height: 32px;\" border=\"1\">\n<tbody>\n<tr style=\"height: 15px;\">\n<td style=\"height: 15px; width: 115px;\">Hardness</td>\n<td style=\"height: 15px; width: 115px;\">HP</td>\n<td style=\"height: 15px; width: 116px;\">BT</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 115px;\">5</td>\n<td style=\"height: 17px; width: 115px;\">20</td>\n<td style=\"height: 17px; width: 116px;\">10</td>\n</tr>\n</tbody>\n</table>"
+                },
+                "dex": {
+                    "label": "Dex Modifier Cap",
+                    "type": "String",
                     "value": ""
+                },
+                "equipped": {
+                    "label": "Equipped",
+                    "type": "Boolean",
+                    "value": true
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Group",
+                    "type": "String",
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 5
+                },
+                "hp": {
+                    "value": 20
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "label": "Item Level",
+                    "type": "Number",
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 20
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potency": {
+                    "label": "Armor Potency",
+                    "type": "String"
+                },
+                "potencyRune": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "label": "Price",
+                    "type": "String",
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 1
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {
+                    "label": "Resilient",
+                    "type": "String"
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "steel-shield",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "speed": {
+                    "label": "Speed Penalty",
+                    "type": "String",
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strength": {
+                    "label": "Required Strength",
+                    "type": "String",
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Yr9yCuJiAlFh3QEB"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.jpg",
+            "name": "Steel Shield",
+            "sort": 600000,
+            "type": "armor"
+        },
+        {
+            "_id": "35m9XL9jnizkCijS",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "label": "Destroy on Empty",
+                    "type": "Boolean",
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "label": "Consume on Use",
+                    "type": "Boolean",
+                    "value": true
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "label": "Charges",
+                    "max": 1,
+                    "type": "Number",
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "label": "Consumable Type",
+                    "type": "String",
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "label": "Roll on Consume",
+                    "type": "String",
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -1007,13 +1648,18 @@
                 "hp": {
                     "value": 0
                 },
+                "identification": {
+                    "status": "identified"
+                },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -1029,38 +1675,81 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "label": "Quantity",
+                    "type": "Number",
+                    "value": 40
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "arrows",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
-                    "value": ""
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "L"
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "steel shield ",
-            "sort": 600000,
-            "type": "equipment"
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.jpg",
+            "name": "Arrows",
+            "sort": 700000,
+            "type": "consumable"
         },
         {
             "_id": "VTmtaRNVlzTpmhif",
@@ -1091,12 +1780,12 @@
                     "damageType": "slashing",
                     "die": "2d6+7"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+7",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1113,6 +1802,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -1171,9 +1863,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1181,6 +1875,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "forceful",
                         "sweep"
@@ -1193,12 +1891,13 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
             "name": "Scimitar",
-            "sort": 700000,
+            "sort": 800000,
             "type": "melee"
         },
         {
@@ -1208,8 +1907,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "xill paralysis"
+                        "Xill Paralysis"
                     ]
                 },
                 "bonus": {
@@ -1232,12 +1932,12 @@
                     "damageType": "piercing",
                     "die": "2d8+7"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+7",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1254,6 +1954,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -1312,9 +2015,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1322,6 +2027,10 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
@@ -1331,12 +2040,13 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
             "name": "Bite",
-            "sort": 800000,
+            "sort": 900000,
             "type": "melee"
         },
         {
@@ -1368,12 +2078,12 @@
                     "damageType": "piercing",
                     "die": "2d8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1390,6 +2100,9 @@
                 },
                 "hp": {
                     "value": 0
+                },
+                "identification": {
+                    "status": "identified"
                 },
                 "identified": {
                     "value": false
@@ -1448,9 +2161,11 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1458,12 +2173,16 @@
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "deadly-d10",
                         "magical",
-                        "range 100 feet",
-                        "reload 0",
-                        "volley 30 feet"
+                        "range-increment-100",
+                        "reload-0",
+                        "volley-30"
                     ]
                 },
                 "usage": {
@@ -1476,16 +2195,17 @@
                     "value": 0
                 }
             },
+            "effects": [],
             "flags": {
                 "pf2e_updatednpcsheet": {}
             },
             "img": "icons/svg/mystery-man.svg",
             "name": "Longbow",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "melee"
         },
         {
-            "_id": "YYFSrBhGo8xuTZ37",
+            "_id": "1grDmZEws4vAkyD0",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1499,7 +2219,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <b>Effect</b> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike."
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1507,34 +2227,38 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "QLUxZqlaDHgKW0NP",
+            "_id": "o94wCnov2WOjaM6O",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1548,7 +2272,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> The monster has its shield raised and takes damage from a physical attack. <b>Effect</b> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield."
+                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1556,30 +2280,34 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": "shield-block",
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.m4HQ2o5aPxjXf2kY"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Shield Block",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1592,7 +2320,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -1605,14 +2333,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "flourish"
                     ]
@@ -1627,10 +2357,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Double Slash",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
@@ -1643,12 +2374,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> The xill is adjacent to a @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, willing, or @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} creature; <b>Effect</b> The xill implants xill eggs in the creature's flesh."
+                    "value": "<p><strong>Requirements</strong> The xill is adjacent to a @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, willing, or @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} creature;</p>\n<p><strong>Effect</strong> The xill implants xill eggs in the creature's flesh.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1656,14 +2387,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "manipulate"
                     ]
@@ -1678,10 +2411,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Implant",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
@@ -1699,7 +2433,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The @Compendium[pf2e.conditionitems.Sickened]{Sickened} condition from xill eggs doesn't improve on its own until the disease is cured or runs its course. It can be cured with a 10-minute operation that requires a successful DC 26 Medicine check and deals [[/r 4d6 # slashing damage]] slashing damage to the host; <b>Saving Throw</b> DC 24 Fortitude; <b>Maximum Duration</b> 24 hours; <b>Stage 1</b> infested with no ill effect (8 hours); <b>Stage 2</b> sickened 1 (8 hours); <b>Stage 3</b> sickened 2 (4 hours); <b>Stage 4</b> sickened 2 and 2d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} as larval xills burrow out of the body and immediately fade away into the Ethereal Plane (1 hour)"
+                    "value": "<p>The @Compendium[pf2e.conditionitems.Sickened]{Sickened} condition from xill eggs doesn't improve on its own until the disease is cured or runs its course. It can be cured with a 10-minute operation that requires a successful DC 26 Medicine check and deals [[/r 4d6 #slashing]] slashing damage to the host;</p>\n<p><strong>Saving Throw</strong> DC 24 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 24 hours;</p>\n<p><strong>Stage 1</strong> infested with no ill effect (8 hours);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (8 hours);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} (4 hours);</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and [[/r 2d6 #perisistent damage]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} as larval xills burrow out of the body and immediately fade away into the Ethereal Plane (1 hour)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1707,14 +2441,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "disease"
                     ]
@@ -1729,10 +2465,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Xill Eggs",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -1750,7 +2487,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A creature hit by the xill's bite Strike must attempt a DC 24 Fortitude save. <br /><b>Critical Success</b> The creature is unaffected and is immune to xill paralysis for 1 minute. <br /><b>Success</b> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 round. <br /><b>Failure</b> The creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. <br /><b>Critical Failure</b> The creature is paralyzed. It can attempt a new save at the end of each of its turns to recover, and the save DC decreases by 1 each round."
+                    "value": "<p>A creature hit by the xill's bite Strike must attempt a DC 24 Fortitude save. </p>\n<p><strong>Critical Success</strong> The creature is unaffected and is immune to xill paralysis for 1 minute. </p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 round. </p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round. </p>\n<p><strong>Critical Failure</strong> The creature is paralyzed. It can attempt a new save at the end of each of its turns to recover, and the save DC decreases by 1 each round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1758,14 +2495,16 @@
                 "requirements": {
                     "value": ""
                 },
-                "skill_requirements": {
-                    "rank": "",
-                    "skill": ""
-                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": [
                         "incapacitation",
                         "occult"
@@ -1781,10 +2520,11 @@
                     "value": ""
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Xill Paralysis",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1795,7 +2535,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1808,20 +2547,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1832,7 +2578,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1845,20 +2590,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1869,7 +2621,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1882,20 +2633,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -1906,7 +2664,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1919,20 +2676,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -1943,7 +2707,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1956,20 +2719,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -1980,7 +2750,6 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "featType": "",
                 "item": {
                     "value": 0
                 },
@@ -1993,20 +2762,27 @@
                 "rarity": {
                     "value": "common"
                 },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 }
             },
+            "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Warfare Lore",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         }
     ],
@@ -2015,7 +2791,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "cd2IaNGpdmHHZnrN",
         "actorLink": false,
         "bar1": {
@@ -2034,6 +2809,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Xill",
         "randomImg": false,
