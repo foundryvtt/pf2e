@@ -1,8 +1,16 @@
+import { LocalizePF2e } from '@system/localize';
+import { registerSheets } from '../register-sheets';
+
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
  */
 export function listen() {
     Hooks.once('setup', () => {
+        LocalizePF2e.ready = true;
+
+        // Register actor and item sheets
+        registerSheets();
+
         // Localize CONFIG objects once up-front
         const toLocalize = [
             'abilities',
