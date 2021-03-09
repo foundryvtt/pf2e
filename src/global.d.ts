@@ -66,6 +66,8 @@ declare global {
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
     }
 
     interface WorldSettingsStorage {

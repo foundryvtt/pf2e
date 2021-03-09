@@ -1,5 +1,29 @@
 # Patch Notes:
 
+## Version 1.11.12
+### Bug Fixes
+* (stwlam) Restore scrolling to NPC edit-sheet sidebar. Closes #1159
+* (nikolaj-a) Fix "Single Action" selection crashing PC sheet. Closes #1163
+
+### Content Changes
+* (Shandyan) Corrections to Malicious Shadow heightening, Precise Strike damage, and adding Mask Familiar ability. Closes issues #762 , #1001 and #1157
+* (TMun) Add warpglass material
+* (TMun) Add new compendia for non-iconic pregens. Add pregens from Slithering and first one-shot. Add monsters from Abomination Vaults #2.
+* (TMun) Story crooner and Strix Defender labels were accidentally ancestry features instead of ancestry feats. Closes #1162
+* (TMun) Remove Dracolisk from Bestiary 2 and replace it with five colors of dracolisk for immunity/weakness/resistance compatibility. Closes #1150
+* (TMun) Fix a certain hazard from Little Trouble in Big Absalom - reaction was an attack instead of an action
+* (SpartanCPA) Add air to the list of weapon traits
+* (SpartanCPA) Break out Soulbound Doll into multiple entries by alignment
+* (SpartanCPA) Break out Petitioner into multiple entries by planar origin
+* (SpartanCPA) Break out Sinspawn into multiple entries by sin
+* (nikolaj-a) Add infused to the list of traits for consumables, equipment, and weapons
+
+### Core System Improvements
+* (stwlam) Set default token dimensions for familiars and vehicles
+* (stwlam) Add means of toggling quickD20Rolls from check-modifiers dialog
+* (nikolaj-a) Remove attack and damage buttons from PC inventory
+
+
 ## Version 1.11.11
 ### Bug Fixes
 * (stwlam) Filter out empty traits on roll cards

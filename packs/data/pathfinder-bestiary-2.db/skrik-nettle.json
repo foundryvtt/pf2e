@@ -124,7 +124,6 @@
                 "value": 0
             }
         },
-        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -410,9 +409,6 @@
         },
         "statusEffects": [],
         "traits": {
-            "attitude": {
-                "value": "hostile"
-            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -464,9 +460,8 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "custom": "",
                     "value": [
-                        "Skrik Nettle Venom"
+                        "skrik nettle venom"
                     ]
                 },
                 "bonus": {
@@ -489,12 +484,12 @@
                     "damageType": "piercing",
                     "die": "2d8+6"
                 },
-                "damageRolls": {
-                    "0": {
+                "damageRolls": [
+                    {
                         "damage": "2d8+6",
                         "damageType": "piercing"
                     }
-                },
+                ],
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -576,7 +571,6 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -602,9 +596,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Beak",
             "sort": 100000,
@@ -625,7 +617,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A flying skrik nettle can detect the movement of nearby creatures and objects from the tiny gusts of wind created by their movements. This is a precise sense at the listed range, but it works only against creatures and objects that moved through air in the previous round."
+                    "value": "<p>A flying skrik nettle can detect the movement of nearby creatures and objects from the tiny gusts of wind created by their movements. This is a precise sense at the listed range, but it works only against creatures and objects that moved through air in the previous round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -634,7 +626,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -669,7 +660,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "reaction"
+                    "value": "passive"
                 },
                 "actions": {
                     "value": ""
@@ -677,7 +668,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The skrik nettle takes piercing or slashing damage;</p>\n<p><strong>Effect</strong> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom.</p>"
+                    "value": "<p><strong>Trigger</strong> The skrik nettle takes piercing or slashing damage; <strong>Effect</strong> The skrik nettle ejects its venom onto an adjacent creature. That creature is exposed to skrik nettle venom.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -686,7 +677,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -709,13 +699,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
-            "name": "Spill Venom",
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Spill Venom ",
             "sort": 300000,
             "type": "action"
         },
         {
-            "_id": "TiwbvxPlw9YpIo3H",
+            "_id": "vkjrlqVeoPXsTlWr",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -738,7 +728,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -752,18 +741,17 @@
                 "trigger": {
                     "value": ""
                 },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
-                }
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Fast Healing 5",
+            "name": "Fast Healing",
             "sort": 400000,
             "type": "action"
         },
@@ -777,12 +765,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": "1"
+                    "value": 1
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The skrik nettle attempts to counteract (with a modifier of +17) a single effect currently levitating a creature it can detect with its motionsense."
+                    "value": "<p>The skrik nettle attempts to counteract (with a modifier of +17) a single effect currently levitating a creature it can detect with its motionsense.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -791,7 +779,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -817,7 +804,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Negate Levitation",
             "sort": 500000,
             "type": "action"
@@ -837,7 +824,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 27 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} and levitate upward 5 feet (1 round);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} and levitate upward 10 feet (1 round)</p>\n<p>A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an @Compendium[pf2e.actionspf2e.Interact]{Interact} action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by @Compendium[pf2e.actionspf2e.Climb]{Climbing} (if the surface is vertical) or @Compendium[pf2e.actionspf2e.Crawl]{Crawling} (if the surface is horizontal, such as a ceiling). A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom.</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 27 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1 and levitate upward 5 feet (1 round); <strong>Stage 2</strong> clumsy 2 and levitate upward 10 feet (1 round)<br /> A levitating creature takes a -2 circumstance penalty to attack rolls. It can spend an Interact action to stabilize itself and negate this penalty for the remainder of its turn. If it's adjacent to a fixed object or stable terrain, it can move across the surface by climbing (if the surface is vertical) or crawling (if the surface is horizontal, such as a ceiling). A flying creature can move normally but still increases its altitude as appropriate from the venom. A creature that can't fly falls as soon as it recovers from skrik nettle venom.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -846,7 +833,6 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -899,7 +885,6 @@
                     "value": "common"
                 },
                 "rules": [],
-                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -927,6 +912,7 @@
         "default": 0
     },
     "token": {
+        "actorData": {},
         "actorId": "LtaVzD7ADtWmBWap",
         "actorLink": false,
         "bar1": {
@@ -945,10 +931,6 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
-        "lightAnimation": {
-            "intensity": 5,
-            "speed": 5
-        },
         "lockRotation": false,
         "name": "Skrik Nettle",
         "randomImg": false,
