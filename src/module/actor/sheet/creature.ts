@@ -51,27 +51,6 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
                             '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i></button></span>',
                         );
                 }
-                buttons.append(
-                    `<button class="weapon_attack tag" data-action="weaponAttack">${game.i18n.localize(
-                        'PF2E.WeaponStrikeLabel',
-                    )} (+${chatData.attackRoll})</button>`,
-                );
-                buttons.append(
-                    `<button class="tag weapon_attack2" data-action="weaponAttack2">${chatData.map2}</button>`,
-                );
-                buttons.append(
-                    `<button class="tag weapon_attack3" data-action="weaponAttack3">${chatData.map3}</button>`,
-                );
-                buttons.append(
-                    `<button class="tag weapon_damage" data-action="weaponDamage">${game.i18n.localize(
-                        'PF2E.DamageLabel',
-                    )}</button>`,
-                );
-                buttons.append(
-                    `<button class="tag weapon_critical" data-action="weaponDamageCritical">${game.i18n.localize(
-                        'PF2E.CriticalDamageLabel',
-                    )}</button>`,
-                );
                 break;
             case 'spell':
                 if (chatData.isSave)
