@@ -19,8 +19,9 @@
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "Domain Initiate"
@@ -29,7 +30,28 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Spend a Focus Point on a Domain Spell",
+                "property": "flags.pf2e.rollOptions.ac.shield-of-faith"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "shield-of-faith"
+                    ]
+                },
+                "roll-options": [
+                    "ac",
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "status",
+                "value": 1
+            }
+        ],
         "source": {
             "value": ""
         },
