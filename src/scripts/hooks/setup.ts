@@ -1,12 +1,8 @@
-import { PF2eSystem } from '../../module/pf2e-system';
-
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
  */
 export function listen() {
     Hooks.once('setup', () => {
-        window.PF2e = new PF2eSystem();
-
         // Localize CONFIG objects once up-front
         const toLocalize = [
             'abilities',

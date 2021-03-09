@@ -6,7 +6,6 @@ import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { PF2EActor } from '@actor/actor';
 import { PF2EItem } from '@item/item';
 import { ConfigPF2e } from '@scripts/config';
-import { PF2eSystem } from './module/pf2e-system';
 import { PF2ECombat } from './module/combat';
 import { PF2Check } from '@system/rolls';
 import {
@@ -47,7 +46,6 @@ declare global {
     }
 
     interface Window {
-        PF2e: PF2eSystem;
         DicePF2e: typeof DicePF2e;
         PF2eStatusEffects: typeof PF2eStatusEffects;
         PF2eConditionManager: typeof PF2eConditionManager;
@@ -62,10 +60,11 @@ declare global {
     const game: Game<PF2EActor, PF2EItem, PF2ECombat>;
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<PF2EActor>;
-    let PF2e: PF2eSystem;
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
     }
 
     interface WorldSettingsStorage {

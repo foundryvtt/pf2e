@@ -6,13 +6,16 @@ import { ProficiencyModifier } from '../../modifiers';
 import { PF2eConditionManager } from '../../conditions';
 import { PF2ECharacter } from '../character';
 import { PF2EPhysicalItem } from '@item/physical';
-import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData } from '@item/data-definitions';
+import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { PF2EItem } from '@item/item';
+import { PF2ESpell, PF2ESpellcastingEntry } from '@item/others';
+import { ZeroToThree } from '@actor/actor-data-definitions';
 
 /**
  * @category Other
  */
 export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2ECharacter> {
+    /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'pc'],
@@ -31,9 +34,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return `systems/pf2e/templates/actors/${style}/actor-sheet.html`;
     }
 
-    async _updateObject(event: Event, formData: any): Promise<void> {
+    /** @override */
+    protected async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
-        const equippedShieldId: string = this.getEquippedShield(this.actor.data.items)?._id;
+        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
         if (equippedShieldId !== undefined) {
             const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
             if (shieldEntity) {
@@ -54,9 +58,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
     }
 
-    /**
-     * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
-     */
+    /** @override */
     getData() {
         const sheetData = super.getData();
 
@@ -74,12 +76,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         sheetData.classItemId = classItem ? classItem.id : '';
 
         // Update hero points label
-        sheetData.data.attributes.heroPoints.icon = this._getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
+        sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
         sheetData.data.attributes.heroPoints.hover =
             CONFIG.PF2E.heroPointLevels[sheetData.data.attributes.heroPoints.rank];
 
         // Update class dc label
-        sheetData.data.attributes.classDC.icon = this._getProficiencyIcon(sheetData.data.attributes.classDC.rank);
+        sheetData.data.attributes.classDC.icon = this.getProficiencyIcon(sheetData.data.attributes.classDC.rank);
         sheetData.data.attributes.classDC.hover = CONFIG.PF2E.proficiencyLevels[sheetData.data.attributes.classDC.rank];
 
         // Spell Details
@@ -89,12 +91,12 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         // Update dying icon and container width
         sheetData.data.attributes.dying.containerWidth = `width: ${sheetData.data.attributes.dying.max * 13}px;`;
-        sheetData.data.attributes.dying.icon = this._getDyingIcon(sheetData.data.attributes.dying.value);
+        sheetData.data.attributes.dying.icon = this.getDyingIcon(sheetData.data.attributes.dying.value);
 
         // Update wounded, maximum wounded, and doomed.
-        sheetData.data.attributes.wounded.icon = this._getWoundedIcon(sheetData.data.attributes.wounded.value);
+        sheetData.data.attributes.wounded.icon = this.getWoundedIcon(sheetData.data.attributes.wounded.value);
         sheetData.data.attributes.wounded.max = sheetData.data.attributes.dying.max - 1;
-        sheetData.data.attributes.doomed.icon = this._getDoomedIcon(sheetData.data.attributes.doomed.value);
+        sheetData.data.attributes.doomed.icon = this.getDoomedIcon(sheetData.data.attributes.doomed.value);
         sheetData.data.attributes.doomed.max = sheetData.data.attributes.dying.max - 1;
 
         sheetData.uid = this.id;
@@ -118,7 +120,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         sheetData.data.effects = {};
 
         sheetData.data.effects.conditions = PF2eConditionManager.getFlattenedConditions(
-            sheetData.actor.items.filter((i) => i.flags.pf2e?.condition && i.type === 'condition'),
+            sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
         // is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
@@ -131,9 +133,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
     /**
      * Organize and classify Items for Character sheets
-     * @private
      */
-    _prepareItems(actorData) {
+    protected prepareItems(actorData: any) {
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
@@ -305,7 +306,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
-                i.data.spelldc.icon = this._getProficiencyIcon(i.data.proficiency.value);
+                i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
                 i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
                 i.data.tradition.title = CONFIG.PF2E.magicTraditions[i.data.tradition.value];
                 i.data.prepared.title = CONFIG.PF2E.preparationType[i.data.prepared.value];
@@ -318,7 +319,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 if ((i.data.tradition || {}).value === 'focus') {
                     i.data.tradition.focus = true;
                     if (i.data.focus === undefined) i.data.focus = { points: 1, pool: 1 };
-                    i.data.focus.icon = this._getFocusIcon(i.data.focus);
+                    i.data.focus.icon = this.getFocusIcon(i.data.focus);
                 } else i.data.tradition.focus = false;
 
                 spellcastingEntries.push(i);
@@ -363,7 +364,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             // Lore Skills
             else if (i.type === 'lore') {
-                i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
+                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
                 i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
 
                 const rank = i.data.proficient?.value || 0;
@@ -380,7 +381,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             // Martial Skills
             else if (i.type === 'martial') {
-                i.data.icon = this._getProficiencyIcon((i.data.proficient || {}).value);
+                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
                 i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
 
                 const rank = i.data.proficient?.value || 0;
@@ -472,7 +473,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             if (spellcastingEntriesList.includes(i.data.location.value)) {
                 const location = i.data.location.value;
                 spellbooks[location] = spellbooks[location] || {};
-                this._prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], i);
             } else if (spellcastingEntriesList.length === 1) {
                 // if not BUT their is only one spellcasting entry then assign the spell to this entry.
                 const location = spellcastingEntriesList[0];
@@ -483,10 +484,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 // this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
                 embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
 
-                this._prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], i);
             } else {
                 // else throw it in the orphaned list.
-                this._prepareSpell(actorData, spellbooks.unassigned, i);
+                this.prepareSpell(actorData, spellbooks.unassigned, i);
             }
         }
 
@@ -605,7 +606,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             bonusLimitBulk += 2;
         }
         const equippedLiftingBelt =
-            actorData.items.find((item) => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
+            actorData.items.find((item: any) => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
         if (equippedLiftingBelt) {
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
@@ -624,21 +625,22 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         );
     }
 
-    getEquippedShield(items) {
+    getEquippedShield(items: ItemData[]): ArmorData | undefined {
         return items.find(
-            (item) => item.type === 'armor' && item.data.equipped.value && item.data.armorType.value === 'shield',
+            (itemData): itemData is ArmorData =>
+                itemData.type === 'armor' && itemData.data.equipped.value && itemData.data.armorType.value === 'shield',
         );
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Activate event listeners using the prepared sheet HTML
-     * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
+     * @param html The prepared HTML object ready to be rendered into the DOM
      */
-    activateListeners(html: JQuery<HTMLElement>) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         {
@@ -675,7 +677,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         });
 
         // filter strikes
-        html.find('.toggle-unready-strikes').on('click', (event) => {
+        html.find('.toggle-unready-strikes').on('click', () => {
             this.actor.setFlag(
                 game.system.id,
                 'showUnreadyStrikes',
@@ -697,7 +699,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 .addClass('active');
         });
 
-        html.find('.crb-trait-selector').on('click', (ev) => this._onCrbTraitSelector(ev));
+        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
@@ -715,12 +717,15 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             trigger: 'click',
             arrow: false,
             contentAsHTML: true,
-            debug: true,
+            debug: BUILD_MODE === 'development',
             interactive: true,
             side: ['right', 'bottom'],
             theme: 'crb-hover',
             minWidth: 120,
         });
+
+        // Toggle Dying Wounded
+        html.find('.dying-click').on('click contextmenu', this.onClickDying.bind(this));
 
         // Spontaneous Spell slot increment handler:
         html.find('.spell-slots-increment-down').on('click', (event) => {
@@ -773,14 +778,17 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
             item.update(data);
         });
+
+        html.find('.toggle-signature-spell').on('click', (event) => {
+            this.onToggleSignatureSpell(event);
+        });
     }
 
     /**
      * Get the font-awesome icon used to display a certain level of focus points
      * expection focus = { points: 1, pool: 1}
-     * @private
      */
-    _getFocusIcon(focus) {
+    private getFocusIcon(focus: { points: number; pool: number }) {
         const icons = {};
         const usedPoint = '<i class="fas fa-dot-circle"></i>';
         const unUsedPoint = '<i class="far fa-circle"></i>';
@@ -798,17 +806,17 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return icons[focus.points];
     }
 
-    onIncrementModifierValue(event) {
+    private onIncrementModifierValue(event: JQuery.ClickEvent) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         (parent.find('.add-modifier-value input[type=number]')[0] as HTMLInputElement).stepUp();
     }
 
-    onDecrementModifierValue(event) {
+    private onDecrementModifierValue(event: JQuery.ClickEvent) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         (parent.find('.add-modifier-value input[type=number]')[0] as HTMLInputElement).stepDown();
     }
 
-    onAddCustomModifier(event) {
+    private onAddCustomModifier(event: JQuery.ClickEvent) {
         const parent = $(event.currentTarget).parents('.add-modifier');
         const stat = $(event.currentTarget).attr('data-stat');
         const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
@@ -866,7 +874,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onDropItemCreate(itemData);
     }
 
-    protected _isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
+    private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
         const featType = feat.data?.featType?.value;
         if (featType === 'archetype') {
             if (feat.data.traits.value.includes('skill')) {
@@ -883,12 +891,82 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return featSlotType === featType;
     }
 
-    protected _getNearestSlotId(event: ElementDragEvent) {
+    /**
+     * Handle cycling of dying
+     */
+    private onClickDying(event: JQuery.TriggeredEvent) {
+        event.preventDefault();
+        const field = $(event.currentTarget).siblings('input[type="hidden"]');
+        const maxDying = this.object.data.data.attributes.dying.max;
+        const wounded = 0; // Don't automate wounded when clicking on dying until dying is also automated on damage from chat and Recovery rolls
+        const doomed = this.object.data.data.attributes.doomed.value;
+
+        // Get the current level and the array of levels
+        const level = parseFloat(`${field.val()}`);
+        let newLevel = level;
+
+        // Toggle next level - forward on click, backwards on right
+        if (event.type === 'click') {
+            newLevel = Math.clamped(level + 1 + wounded, 0, maxDying);
+            if (newLevel + doomed >= maxDying) newLevel = maxDying;
+        } else {
+            newLevel = Math.clamped(level - 1, 0, maxDying);
+            if (newLevel + doomed >= maxDying) newLevel -= doomed;
+        }
+
+        // Update the field value and save the form
+        field.val(newLevel);
+        this._onSubmit(event.originalEvent!);
+    }
+
+    private getNearestSlotId(event: ElementDragEvent) {
         const data = $(event.target).closest('.item').data();
         if (!data) {
             return { slotId: undefined, featType: undefined };
         }
         return data;
+    }
+
+    private onToggleSignatureSpell(event: JQuery.ClickEvent): void {
+        const { containerId } = event.target.closest('.item-container').dataset;
+        const { itemId } = event.target.closest('.item').dataset;
+
+        if (!containerId || !itemId) {
+            return;
+        }
+
+        const spellcastingEntry = this.actor.getOwnedItem(containerId);
+        const spell = this.actor.getOwnedItem(itemId);
+
+        if (!(spellcastingEntry instanceof PF2ESpellcastingEntry) || !(spell instanceof PF2ESpell)) {
+            return;
+        }
+
+        const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
+
+        if (!signatureSpells.includes(spell.id)) {
+            const isCantrip = spell.data.data.level.value === 0;
+            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
+            const isRitual = spell.data.data.traditions.value.includes('ritual');
+
+            if (isCantrip || isFocusSpell || isRitual) {
+                return;
+            }
+
+            const updatedSignatureSpells = signatureSpells.concat([spell.id]);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry.id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        } else {
+            const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
+
+            this.actor.updateOwnedItem({
+                _id: spellcastingEntry.id,
+                'data.signatureSpells.value': updatedSignatureSpells,
+            });
+        }
     }
 
     /** @override */
@@ -907,10 +985,10 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const item = await PF2EItem.fromDropData(data);
         const itemData = duplicate(item.data);
 
-        const { slotId, featType } = this._getNearestSlotId(event);
+        const { slotId, featType } = this.getNearestSlotId(event);
 
         if (itemData.type === 'feat') {
-            if (slotId !== undefined && this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
+            if (slotId !== undefined && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
                     this.actor.createEmbeddedEntity('OwnedItem', itemData),
@@ -938,9 +1016,9 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         itemData: ItemData,
     ): Promise<(ItemData | null)[] | ItemData | null> {
         if (itemData.type === 'feat') {
-            const { slotId, featType } = this._getNearestSlotId(event);
+            const { slotId, featType } = this.getNearestSlotId(event);
 
-            if (this._isFeatValidInFeatSlot(slotId, featType, itemData)) {
+            if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 this.actor.updateEmbeddedEntity('OwnedItem', [
                     {
                         _id: itemData._id,
@@ -964,7 +1042,8 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         return super._onSortItem(event, itemData);
     }
 
-    _onSubmit(event: any): Promise<any> {
+    /** @override */
+    protected _onSubmit(event: any): Promise<Record<string, unknown>> {
         // Limit SP value to data.attributes.sp.max value
         if (event?.currentTarget?.name === 'data.attributes.sp.value') {
             event.currentTarget.value = Math.clamped(
@@ -975,5 +1054,88 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         }
 
         return super._onSubmit(event);
+    }
+
+    /**
+     * Get the font-awesome icon used to display a certain level of dying
+     */
+    private getDyingIcon(level: number) {
+        const maxDying = this.object.data.data.attributes.dying.max || 4;
+        const doomed = this.object.data.data.attributes.doomed.value || 0;
+        const circle = '<i class="far fa-circle"></i>';
+        const cross = '<i class="fas fa-times-circle"></i>';
+        const skull = '<i class="fas fa-skull"></i>';
+        const redOpen = '<span>';
+        const redClose = '</span>';
+        const icons: Record<number, string> = {};
+
+        for (let dyingLevel = 0; dyingLevel <= maxDying; dyingLevel++) {
+            icons[dyingLevel] = dyingLevel === maxDying ? redOpen : '';
+            for (let column = 1; column <= maxDying; column++) {
+                if (column >= maxDying - doomed || dyingLevel === maxDying) {
+                    icons[dyingLevel] += skull;
+                } else if (dyingLevel < column) {
+                    icons[dyingLevel] += circle;
+                } else {
+                    icons[dyingLevel] += cross;
+                }
+            }
+            icons[dyingLevel] += dyingLevel === maxDying ? redClose : '';
+        }
+
+        return icons[level];
+    }
+
+    /**
+     * Get the font-awesome icon used to display a certain level of wounded
+     */
+    private getWoundedIcon(level: number) {
+        const maxDying = this.object.data.data.attributes.dying.max || 4;
+        const icons: Record<number, string> = {};
+        const usedPoint = '<i class="fas fa-dot-circle"></i>';
+        const unUsedPoint = '<i class="far fa-circle"></i>';
+
+        for (let i = 0; i < maxDying; i++) {
+            let iconHtml = '';
+            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
+                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
+            }
+            icons[i] = iconHtml;
+        }
+
+        return icons[level];
+    }
+
+    /**
+     * Get the font-awesome icon used to display a certain level of doomed
+     */
+    private getDoomedIcon(level: number) {
+        const maxDying = this.object.data.data.attributes.dying.max || 4;
+        const icons: Record<number, string> = {};
+        const usedPoint = '<i class="fas fa-skull"></i>';
+        const unUsedPoint = '<i class="far fa-circle"></i>';
+
+        for (let i = 0; i < maxDying; i++) {
+            let iconHtml = '';
+            for (let iconColumn = 1; iconColumn < maxDying; iconColumn++) {
+                iconHtml += iconColumn <= i ? usedPoint : unUsedPoint;
+            }
+            icons[i] = iconHtml;
+        }
+
+        return icons[level];
+    }
+
+    /**
+     * Get the font-awesome icon used to display hero points
+     */
+    private getHeroPointsIcon(level: ZeroToThree) {
+        const icons = {
+            0: '<i class="far fa-circle"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            1: '<i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i><i class="far fa-circle"></i>',
+            2: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="far fa-circle"></i>',
+            3: '<i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i><i class="fas fa-hospital-symbol"></i>',
+        };
+        return icons[level];
     }
 }
