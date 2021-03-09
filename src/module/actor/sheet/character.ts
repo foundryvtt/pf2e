@@ -715,7 +715,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
             trigger: 'click',
             arrow: false,
             contentAsHTML: true,
-            debug: true,
+            debug: BUILD_MODE === 'development',
             interactive: true,
             side: ['right', 'bottom'],
             theme: 'crb-hover',

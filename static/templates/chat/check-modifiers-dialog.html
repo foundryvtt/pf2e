@@ -16,14 +16,14 @@
       {{/if}}
       <span class="value">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
       <label class="exclude toggle">
-        <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{#if modifier.ignored}}checked{{/if}}>
+        <input type="checkbox" id="{{idx}}" data-modifier-index="{{idx}}" {{checked modifier.ignored}} />
         <label for="{{idx}}"></label>
       </label>
     </div>
     {{/each}}
   </div>
   <hr/>
-  
+
   <div class="add-modifier-panel">
       <input type="text" class="add-modifier-name" placeholder={{localize 'PF2E.ModifierTitle'}}>
       <select class="add-modifier-type">
@@ -40,16 +40,16 @@
   <hr/>
 
   <div class="fate">
-    <label>
-      <input type="radio" name="fate" value="fortune" {{#if fortune}}checked{{/if}}>
-      Fortune
+      <label>
+          <input type="radio" name="fate" value="fortune" {{checked fortune}} />
+          Fortune
     </label>
     <label>
-      <input type="radio" name="fate" value="none"  {{#if none}}checked{{/if}}>
+      <input type="radio" name="fate" value="none" {{checked none}} />
       None
     </label>
     <label>
-      <input type="radio" name="fate" value="misfortune" {{#if misfortune}}checked{{/if}}>
+      <input type="radio" name="fate" value="misfortune" {{checked misfortune}} />
       Misfortune
     </label>
   </div>
@@ -66,6 +66,19 @@
     </select>
   </div>
   <hr/>
-  
+
   <button type="button" class="roll">Roll ({{numberFormat check.totalModifier decimals=0 sign=true}})</button>
+
+  <!-- Settings Menu -->
+  <div class="hover-content" id="{{appId}}-settings">
+      <div class="sidebar_title">
+          <h2>{{localize title}}</h2>
+      </div>
+      <ul class="modifier-list settings-list">
+          <li class="item">
+              <span class="label">{{localize "PF2E.SETTINGS.Player.QuickRolls.DialogHint"}}</span>
+              <input class="quick-rolls-submit" type="checkbox" {{checked quickRolls}} />
+          </li>
+      </ul>
+  </div>
 </div>
