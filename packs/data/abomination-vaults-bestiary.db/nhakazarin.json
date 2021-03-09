@@ -63,6 +63,7 @@
                 "max": 75,
                 "min": 0,
                 "temp": 0,
+                "tempmax": 0,
                 "value": 75
             },
             "init": {
@@ -107,7 +108,8 @@
                         "value": "5 feet"
                     }
                 ],
-                "value": 30
+                "special": "",
+                "value": "30"
             }
         },
         "currency": {
@@ -504,6 +506,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 5,
@@ -676,6 +681,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -2157,7 +2165,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<p>\n</p><hr /><b>Success</b>  The creature is unaffected.<p></p>\n<p>\n<b>Failure</b>  For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p>\n<b>Critical Failure</b>  The target must use all its actions on its next turn to obey your command.</p>\n<p>\n</p><hr /><b>Heightened (5th)</b>  You can target up to 10 creatures.<p></p>"
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
                     "label": "Duration",
@@ -3518,7 +3526,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You attack the target's life force with undeath, dealing 1d6 negative damage. The target must attempt a Fortitude save.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The target is unaffected.<p></p>\n<p>\n<b>Success</b>  The target takes half damage.</p>\n<p>\n<b>Failure</b>  The target takes full damage, and positive effects heal it only half as much as normal for 1 round.</p>\n<p>\n<b>Critical Failure</b>  The target takes double damage, and positive effects heal it only half as much as normal for 1 minute.</p>\n<p>\n</p><hr /><b>Heightened (+1)</b>  The damage increases by 1d6.<p></p>"
+                    "value": "<p>You attack the target's life force with undeath, dealing 1d6 negative damage. The target must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes half damage.</p>\n<p><strong>Failure</strong> The target takes full damage, and positive effects heal it only half as much as normal for 1 round.</p>\n<p><strong>Critical Failure</strong> The target takes double damage, and positive effects heal it only half as much as normal for 1 minute.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
                 },
                 "duration": {
                     "label": "Duration",
@@ -3755,9 +3763,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Jaws",
             "sort": 2100000,
             "type": "melee"
@@ -3802,7 +3808,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile)"
+                    "value": "<p>(agile)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3871,9 +3877,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Claw",
             "sort": 2200000,
             "type": "melee"
@@ -3916,7 +3920,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(magical, two-hand d8)"
+                    "value": "<p>(magical, two-hand d8)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3986,9 +3990,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Staff",
             "sort": 2300000,
             "type": "melee"
@@ -4008,7 +4010,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> Nhakazarin is adjacent to the corpse of a creature that died within the last hour; <br>\n<b>Effect</b> Nhakazarin devours a chunk of the corpse and regains 3d6 Hit Points. Nhakazarin can regain Hit Points from any given corpse only once."
+                    "value": "<p><strong>Requirements</strong> Nhakazarin is adjacent to the corpse of a creature that died within the last hour; <br />\n<strong>Effect</strong> Nhakazarin devours a chunk of the corpse and regains 3d6 Hit Points. Nhakazarin can regain Hit Points from any given corpse only once.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4017,6 +4019,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4038,13 +4044,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Consume Flesh",
             "sort": 2400000,
             "type": "action"
@@ -4064,7 +4064,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Requirements</b> Nhakazarin is adjacent to the rotting statue of Belcorra in area C34; <br>\n<b>Effect</b> Nhakazarin devours a chunk of flesh from the statue and regains 3d6 Hit Points and is quickened 1 for 1 round. She can use this extra action only to make a jaws Strike or Cast a Spell. She can feed from the statue only once each day."
+                    "value": "<p><strong>Requirements</strong> Nhakazarin is adjacent to the rotting statue of Belcorra in area C34; <br />\n<strong>Effect</strong> Nhakazarin devours a chunk of flesh from the statue and regains 3d6 Hit Points and is quickened 1 for 1 round. She can use this extra action only to make a jaws Strike or Cast a Spell. She can feed from the statue only once each day.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4073,6 +4073,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4094,13 +4098,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Consume Masterpiece",
             "sort": 2500000,
             "type": "action"
@@ -4120,7 +4118,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Saving Throw</b> DC 22 Fortitude;  <br>\n<b>Stage 1</b> carrier with no ill effects (1 day);  <br>\n<b>Stage 2</b> [[/r 2d6 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day);  <br>\n<b>Stage 3</b> as stage 2 (1 day);  <br>\n<b>Stage 4</b> [[/r 2d6 # negative damage]] negative damage and gains no benefit from healing (1 day);  <br>\n<b>Stage 5</b> as stage 4 (1 day);  <br>\n<b>Stage 6</b> dead, and rises as a ghoul the next midnight"
+                    "value": "<p><strong>Saving Throw</strong> DC 22 Fortitude; <br />\n<strong>Stage 1</strong> carrier with no ill effects (1 day); <br />\n<strong>Stage 2</strong> [[/r 2d6 # negative damage]] negative damage and regains half as many Hit Points from all healing (1 day); <br />\n<strong>Stage 3</strong> as stage 2 (1 day); <br />\n<strong>Stage 4</strong> [[/r 2d6 # negative damage]] negative damage and gains no benefit from healing (1 day); <br />\n<strong>Stage 5</strong> as stage 4 (1 day); <br />\n<strong>Stage 6</strong> dead, and rises as a ghoul the next midnight</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4129,6 +4127,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4150,13 +4152,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Ghoul Fever",
             "sort": 2600000,
             "type": "action"
@@ -4176,7 +4172,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Any living, non-elf creature hit by a Nhakazarin&rsquo;s attack must succeed at a DC 22 Fortitude save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}.<br />It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save.</p>"
+                    "value": "<p>Any living, non-elf creature hit by a Nhakazarin's attack must succeed at a DC 22 Fortitude save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed}.<br />It can attempt a new save at the end of each of its turns, and the DC cumulatively decreases by 1 on each save.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4185,6 +4181,16 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4208,13 +4214,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Paralysis",
             "sort": 2700000,
@@ -4235,7 +4235,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Nhakazarin jumps up to half its Speed. This movement doesn&rsquo;t trigger reactions.</p>"
+                    "value": "<p>Nhakazarin jumps up to half its Speed. This movement doesn't trigger reactions.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4244,6 +4244,16 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -4263,13 +4273,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Swift Leap",
             "sort": 2800000,

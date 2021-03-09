@@ -63,6 +63,7 @@
                 "max": 20,
                 "min": 0,
                 "temp": 0,
+                "tempmax": 0,
                 "value": 20
             },
             "init": {
@@ -107,7 +108,8 @@
                         "value": "20 feet"
                     }
                 ],
-                "value": 30
+                "special": "",
+                "value": "30"
             }
         },
         "currency": {
@@ -483,7 +485,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile, finesse, versatile S)"
+                    "value": "<p>(agile, finesse, versatile S)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -554,9 +556,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Dagger",
             "sort": 200000,
             "type": "melee"
@@ -599,7 +599,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile)"
+                    "value": "<p>(agile)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -668,9 +668,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Jaws",
             "sort": 300000,
             "type": "melee"
@@ -713,7 +711,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile, thrown 10 ft., versatile S)"
+                    "value": "<p>(agile, thrown 10 ft., versatile S)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -787,9 +785,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Dagger",
             "sort": 400000,
             "type": "melee"
@@ -818,6 +814,16 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": "light-blindness",
                 "source": {
                     "value": ""
@@ -840,11 +846,6 @@
             "flags": {
                 "core": {
                     "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
-                },
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
                 }
             },
             "img": "icons/svg/mystery-man.svg",
@@ -867,7 +868,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock scavenger Strides twice, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach."
+                    "value": "<p>The morlock scavenger Strides twice, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites. At any point during its movement, the morlock can make a melee Strike against an enemy in its reach.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -876,6 +877,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -895,13 +900,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Scuttling Attack",
             "sort": 600000,
             "type": "action"
@@ -921,7 +920,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures."
+                    "value": "<p>The morlock deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -929,25 +928,11 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
@@ -970,11 +955,6 @@
             "flags": {
                 "core": {
                     "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
-                },
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
                 }
             },
             "name": "Sneak Attack",
@@ -996,7 +976,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls."
+                    "value": "<p>A morlock can share the same space as another morlock, but no more than two morlocks can occupy the same space. When morlocks share the same space, they gain a +1 circumstance bonus to attack rolls.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1005,6 +985,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1024,13 +1008,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Swarming Stance",
             "sort": 800000,
             "type": "action"

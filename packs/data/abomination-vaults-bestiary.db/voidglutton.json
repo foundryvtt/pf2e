@@ -63,6 +63,7 @@
                 "max": 90,
                 "min": 0,
                 "temp": 0,
+                "tempmax": 0,
                 "value": 90
             },
             "init": {
@@ -102,7 +103,8 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": null
+                "special": "",
+                "value": ""
             }
         },
         "currency": {
@@ -484,6 +486,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -787,7 +792,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile, finesse)"
+                    "value": "<p>(agile, finesse)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -857,9 +862,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Claw",
             "sort": 300000,
             "type": "melee"
@@ -896,7 +899,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(range increment 10 feet)"
+                    "value": "<p>(range increment 10 feet)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -968,9 +971,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Ectoplasmic Web",
             "sort": 400000,
             "type": "melee"
@@ -990,7 +991,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "30 feet. The tips of a voidglutton’s fingers and its seven eyes glow, casting bright light in the area and making it visible if it was invisible."
+                    "value": "<p>30 feet. The tips of a voidglutton’s fingers and its seven eyes glow, casting bright light in the area and making it visible if it was invisible.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -999,6 +1000,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1021,13 +1026,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Glow",
             "sort": 500000,
             "type": "action"
@@ -1047,7 +1046,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "A voidglutton is immune to all spells except faerie fire, glitterdust, magic missile, maze, and spells with the light trait."
+                    "value": "<p>A voidglutton is immune to all spells except faerie fire, glitterdust, magic missile, maze, and spells with the light trait.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1056,6 +1055,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1075,13 +1078,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "defensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Magic Immunity",
             "sort": 600000,
             "type": "action"
@@ -1101,7 +1098,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Trigger</b> The voidglutton casts darkness; <br>\n<b>Effect</b> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes invisible as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed."
+                    "value": "<p><strong>Trigger</strong> The voidglutton casts darkness; <br />\n<strong>Effect</strong> The voidglutton extinguishes its Glow as part of Casting the Spell. It becomes invisible as long as it remains in the area of darkness. If the voidglutton uses a hostile action, its invisibility ends as soon as the hostile action is completed.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1110,6 +1107,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1133,13 +1134,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Consume Light",
             "sort": 700000,
             "type": "action"
@@ -1159,7 +1154,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature hit by the voidglutton&rsquo;s ectoplasmic web trap is immobilized and stuck to the nearest surface until it succeeds at a DC 26 check to Escape. Ectoplasmic Web Trap can immobilize incorporeal creatures.</p>"
+                    "value": "<p>A creature hit by the voidglutton's ectoplasmic web trap is immobilized and stuck to the nearest surface until it succeeds at a DC 26 check to Escape. Ectoplasmic Web Trap can immobilize incorporeal creatures.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1168,6 +1163,16 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1190,13 +1195,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ectoplasmic Web Trap",
             "sort": 800000,
@@ -1217,7 +1216,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "When the voidglutton damages a creature with its claw Strike, the creature must succeed at a DC 26 Will save or become frightened 1 (frightened 2 on a critical failure)."
+                    "value": "<p>When the voidglutton damages a creature with its claw Strike, the creature must succeed at a DC 26 Will save or become frightened 1 (frightened 2 on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1226,6 +1225,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1250,13 +1253,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Fearful Strike",
             "sort": 900000,
             "type": "action"
@@ -1276,7 +1273,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<b>Frequency</b> once per round; <br>\n<b>Requirement</b> An enemy is affected by a fear effect or has the frightened or dying condition, and is within 25 feet of the voidglutton; <br>\n<b>Effect</b> The voidglutton feeds on the creature’s terror.<br>\nIt regains 3d4 Hit Points and its Glow reignites if it had been extinguished. It cannot use Consume Light again for 1d4 rounds, as it is too glutted on fear to suppress its Glow."
+                    "value": "<p><strong>Frequency</strong> once per round; <br />\n<strong>Requirement</strong> An enemy is affected by a fear effect or has the frightened or dying condition, and is within 25 feet of the voidglutton; <br />\n<strong>Effect</strong> The voidglutton feeds on the creature’s terror.<br />\nIt regains 3d4 Hit Points and its Glow reignites if it had been extinguished. It cannot use Consume Light again for 1d4 rounds, as it is too glutted on fear to suppress its Glow.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1285,6 +1282,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1306,13 +1307,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Feed on Fear",
             "sort": 1000000,
             "type": "action"
