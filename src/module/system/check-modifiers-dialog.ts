@@ -2,6 +2,7 @@ import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
 import { PF2EActor } from '@actor/actor';
 import { PF2RollNote } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
+import { LocalizePF2e } from './localize';
 
 export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
@@ -100,7 +101,9 @@ export class CheckModifiersDialog extends Application {
             .map((o) => `<span style="${optionStyle}">${game.i18n.localize(o)}</span>`)
             .join('');
 
-        const notes = (ctx.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+        const notes = (ctx.notes ?? [])
+            .map((note: { text: string }) => TextEditor.enrichHTML(note.text))
+            .join('<br />');
 
         const totalModifierPart = check.totalModifier === 0 ? '' : `+${check.totalModifier}`;
         const roll = new Roll(`${dice}${totalModifierPart}`, check).roll();
@@ -171,9 +174,11 @@ export class CheckModifiersDialog extends Application {
         const misfortune = this?.context?.fate === 'misfortune';
         const none = fortune === misfortune;
         return {
+            appId: this.id,
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
+            quickRolls: game.user.data.flags.PF2e?.settings?.quickD20roll,
             fortune,
             none,
             misfortune,
@@ -195,8 +200,26 @@ export class CheckModifiersDialog extends Application {
         });
 
         html.find('.add-modifier-panel').on('click', '.add-modifier', (event) => this.onAddModifier(event));
+        html.find('[name=rollmode]').on('change', (event) => this.onChangeRollMode(event));
 
-        html.find('[name=rollmode]').change((event) => this.onChangeRollMode(event));
+        // Dialog settings menu
+        const $settings = html.closest(`#${this.id}`).find('a.header-button.settings');
+        const $tooltip = $settings.attr({ 'data-tooltip-content': `#${this.id}-settings` }).tooltipster({
+            animation: 'fade',
+            trigger: 'click',
+            arrow: false,
+            contentAsHTML: true,
+            debug: BUILD_MODE === 'development',
+            interactive: true,
+            side: ['top'],
+            theme: 'crb-hover',
+            minWidth: 165,
+        });
+        html.find('.settings-list input.quick-rolls-submit').on('change', async (event) => {
+            const $checkbox = $(event.target);
+            await game.user.update({ flags: { PF2e: { settings: { quickD20roll: $checkbox.prop('checked') } } } });
+            $tooltip.tooltipster('close');
+        });
     }
 
     onAddModifier(event: JQuery.ClickEvent) {
@@ -226,5 +249,18 @@ export class CheckModifiersDialog extends Application {
 
     onChangeRollMode(event: JQuery.ChangeEvent) {
         this.context.rollMode = ($(event.currentTarget).val() ?? 'roll') as string;
+    }
+
+    /** @override */
+    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const label = LocalizePF2e.translations.PF2E.SETTINGS.Settings;
+        const settingsButton: ApplicationHeaderButton = {
+            label,
+            class: `settings`,
+            icon: 'fas fa-cog',
+            onclick: () => null,
+        };
+        return [settingsButton, ...buttons];
     }
 }
