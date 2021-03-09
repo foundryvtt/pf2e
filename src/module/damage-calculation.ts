@@ -280,6 +280,19 @@ export class Resistance extends Modifier implements HasValue {
             return adjustedValue;
         }
     }
+
+    withReducedValue(reduceBy: number) {
+        return new Resistance({
+            type: this.type,
+            value: Math.max(0, this.value - reduceBy),
+            exceptions: this.exceptions,
+            doubleResistanceVsNonMagical: this.doubleResistanceVsNonMagical,
+        });
+    }
+
+    getValue(): number {
+        return this.value;
+    }
 }
 
 /**
@@ -642,4 +655,21 @@ export function parseExceptions(exceptions: string | undefined | null): ParsedEx
                 .filter((traits) => traits.size > 0) as DamageExceptions,
         };
     }
+}
+
+/**
+ * Some feats and spells reduce resistances by a certain value; apply this to resistances before damage calculation
+ *
+ * @param resistances all resistances
+ * @param reductions map of resistance type to reduction value
+ */
+export function reduceResistances(resistances: Resistance[], reductions: Map<string, number>): Resistance[] {
+    return resistances.map((resistance) => {
+        const reduceBy = reductions.get(resistance.getType());
+        if (reduceBy === undefined) {
+            return resistance;
+        } else {
+            return resistance.withReducedValue(reduceBy);
+        }
+    });
 }
