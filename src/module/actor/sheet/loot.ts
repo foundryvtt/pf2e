@@ -11,7 +11,7 @@ import { LootNPCsPopup } from './loot/loot-npcs-popup';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
+export class LootSheetPF2e extends ActorSheetPF2e<PF2ELoot> {
     /** @override */
     constructor(actor: PF2ELoot, options: FormApplicationOptions = {}) {
         options.editable = true;

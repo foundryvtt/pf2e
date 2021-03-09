@@ -1,16 +1,16 @@
-import { ActorSheetPF2eCreature } from './creature';
-import { TraitSelector5e } from '../../system/trait-selector';
-import { DicePF2e } from '../../../scripts/dice';
+import { CreatureSheetPF2e } from './creature';
+import { TraitSelector5e } from '@system/trait-selector';
+import { DicePF2e } from '@scripts/dice';
 import { PF2EActor, SKILL_DICTIONARY } from '../actor';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
-import { NPCSkillsEditor } from '../../system/npc-skills-editor';
+import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { PF2ENPC } from '../npc';
-import { identifyCreature } from '../../../module/recall-knowledge';
+import { identifyCreature } from '../../recall-knowledge';
 import { PF2EItem } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
 import { NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
 
-export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
+export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
 

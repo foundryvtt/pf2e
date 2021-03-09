@@ -16,7 +16,7 @@ import { MartialString, SkillData, ZeroToFour } from '@actor/actor-data-definiti
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extends ActorSheetPF2e<ActorType> {
+export abstract class CreatureSheetPF2e<ActorType extends PF2EActor> extends ActorSheetPF2e<ActorType> {
     protected renderItemSummary(li: JQuery, item: PF2EItem, chatData: any) {
         super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
@@ -180,7 +180,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
             const currency = calculateValueOfCurrency(sheetData.actor.items);
-            sheetData.totalCurrency = ActorSheetPF2eCreature.parseCoinsToActorSheetData(currency);
+            sheetData.totalCurrency = CreatureSheetPF2e.parseCoinsToActorSheetData(currency);
 
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasureGold = (coinValueInCopper(treasure) / 100).toFixed(2);

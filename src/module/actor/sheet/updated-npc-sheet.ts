@@ -1,12 +1,12 @@
-import { ActorSheetPF2eNPC } from './npc';
-import { DicePF2e } from '../../../scripts/dice';
+import { NPCSheetPF2e } from './npc';
+import { DicePF2e } from '@scripts/dice';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { PF2EActor } from '../actor';
 
 /**
  * @category Other
  */
-export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
+export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
     get template() {
         const path = 'systems/pf2e/templates/actors/';
 

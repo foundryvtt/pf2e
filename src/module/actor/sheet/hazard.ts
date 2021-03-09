@@ -4,7 +4,7 @@ import { PF2EHazard } from '../actor';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
+export class HazardSheetPF2e extends ActorSheetPF2e<PF2EHazard> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

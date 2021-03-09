@@ -5,7 +5,7 @@ import { PF2EFamiliar } from '../familiar';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eFamiliar extends ActorSheet<PF2EFamiliar> {
+export class FamiliarSheetPF2e extends ActorSheet<PF2EFamiliar> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

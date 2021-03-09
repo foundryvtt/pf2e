@@ -1,4 +1,4 @@
-import { ActorSheetPF2eCreature } from './creature';
+import { CreatureSheetPF2e } from './creature';
 import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '@item/bulk';
 import { calculateEncumbrance } from '@item/encumbrance';
 import { getContainerMap } from '@item/container';
@@ -14,7 +14,7 @@ import { ZeroToThree } from '@actor/actor-data-definitions';
 /**
  * @category Other
  */
-export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2ECharacter> {
+export class CharacterSheetPF2e extends CreatureSheetPF2e<PF2ECharacter> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {

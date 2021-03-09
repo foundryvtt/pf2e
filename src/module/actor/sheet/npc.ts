@@ -1,4 +1,4 @@
-import { ActorSheetPF2eCreature } from './creature';
+import { CreatureSheetPF2e } from './creature';
 import { SKILL_DICTIONARY } from '../actor';
 import { PF2ENPC } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
@@ -8,7 +8,7 @@ import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
+export class NPCSheetPF2e extends CreatureSheetPF2e<PF2ENPC> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

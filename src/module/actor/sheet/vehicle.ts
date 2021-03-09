@@ -7,7 +7,7 @@ import { PF2EVehicle } from '../actor';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
+export class VehicleSheetPF2e extends ActorSheetPF2e<PF2EVehicle> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
