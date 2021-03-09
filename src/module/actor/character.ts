@@ -389,7 +389,7 @@ export class PF2ECharacter extends PF2ECreature {
             Object.keys(SKILL_DICTIONARY).includes(shortform),
         )) {
             const modifiers = [
-                AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
+                AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
             ];
             const notes = [] as PF2RollNote[];
@@ -411,10 +411,15 @@ export class PF2ECharacter extends PF2ECreature {
             });
 
             // preserve backwards-compatibility
-            const stat = mergeObject(new PF2StatisticModifier(expandedName, modifiers), skill, { overwrite: false });
+            const stat: PF2StatisticModifier = mergeObject(new PF2StatisticModifier(expandedName, modifiers), skill, {
+                overwrite: false,
+            });
             stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                .filter((modifier) => modifier.enabled)
+                .map((modifier) => {
+                    const prefix = modifier.modifier < 0 ? '' : '+';
+                    return `${game.i18n.localize(modifier.name)} ${prefix}${modifier.modifier}`;
+                })
                 .join(', ');
             stat.value = stat.totalModifier;
             stat.notes = notes;
