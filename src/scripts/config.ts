@@ -140,14 +140,15 @@ export const PF2ECONFIG = {
     },
 
     preciousMaterials: {
-        coldIron: 'PF2E.PreciousMaterialColdIron',
-        silver: 'PF2E.PreciousMaterialSilver',
-        mithral: 'PF2E.PreciousMaterialMithral',
         adamantine: 'PF2E.PreciousMaterialAdamantine',
+        coldIron: 'PF2E.PreciousMaterialColdIron',
         darkwood: 'PF2E.PreciousMaterialDarkwood',
         dragonhide: 'PF2E.PreciousMaterialDragonhide',
+        mithral: 'PF2E.PreciousMaterialMithral',
         orichalcum: 'PF2E.PreciousMaterialOrichalcum',
+        silver: 'PF2E.PreciousMaterialSilver',
         'sovereign steel': 'PF2E.PreciousMaterialSovereignSteel',
+        warpglass: 'PF2E.PreciousMaterialWarpglass',
     },
 
     armorPotencyRunes: {
@@ -338,6 +339,7 @@ export const PF2ECONFIG = {
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
         vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
+        warpglass: 'PF2E.PreciousMaterialWarpglass',
     }, // Weapon Damage Types
 
     weaponDamage: {
@@ -612,6 +614,7 @@ export const PF2ECONFIG = {
     weaponTraits: {
         acid: 'PF2E.TraitAcid',
         adamantine: 'PF2E.PreciousMaterialAdamantine',
+        air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         agile: 'PF2E.TraitAgile',
         artifact: 'PF2E.TraitArtifact',
@@ -651,6 +654,7 @@ export const PF2ECONFIG = {
         grapple: 'PF2E.TraitGrapple',
         hampering: 'PF2E.TraitHampering',
         improvised: 'PF2E.TraitImprovised',
+        infused: 'PF2E.TraitInfused',
         intelligent: 'PF2E.TraitIntelligent',
         invested: 'PF2E.TraitInvested',
         'jousting-d6': 'PF2E.TraitJoustingD6',
@@ -777,6 +781,7 @@ export const PF2ECONFIG = {
         fortune: 'PF2E.TraitFortune',
         good: 'PF2E.TraitGood',
         healing: 'PF2E.TraitHealing',
+        infused: 'PF2E.TraitInfused',
         intelligent: 'PF2E.TraitIntelligent',
         invested: 'PF2E.TraitInvested',
         lawful: 'PF2E.TraitLawful',
@@ -822,6 +827,7 @@ export const PF2ECONFIG = {
         good: 'PF2E.TraitGood',
         healing: 'PF2E.TraitHealing',
         incapacitation: 'PF2E.TraitIncapacitation',
+        infused: 'PF2E.TraitInfused',
         ingested: 'PF2E.TraitIngested',
         inhaled: 'PF2E.TraitInhaled',
         injury: 'PF2E.TraitInjury',
@@ -1469,7 +1475,6 @@ export const PF2ECONFIG = {
 
     actionTypes: {
         action: 'PF2E.ActionTypeAction',
-        single: 'PF2E.ActionTypeSingle',
         reaction: 'PF2E.ActionTypeReaction',
         free: 'PF2E.ActionTypeFree',
         passive: 'PF2E.ActionTypePassive',

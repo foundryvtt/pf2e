@@ -33,7 +33,7 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
             .example([
                 ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
                 ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
-                ['npm run $0 spells.db # copy of config at ./foundryconfig.json'],
+                ['npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/'],
                 ['npm run $0 all       # same'],
             ]);
     })
@@ -117,56 +117,53 @@ function sluggify(entityName: string) {
         .replace(/\s+|-{2,}/g, '-');
 }
 
-function sanitizeEntity(entityData: PackEntry) {
+function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: false }): PackEntry {
     // Remove individual permissions
-    entityData.permission = { default: entityData.permission.default ?? 0 };
+    if (isEmbedded) {
+        delete entityData.flags.pf2e_updatednpcsheet;
+    } else {
+        entityData.permission = { default: entityData.permission.default ?? 0 };
+        delete (entityData as Partial<typeof entityData>).sort;
 
-    delete (entityData as Partial<typeof entityData>).sort;
-    delete entityData.flags.core;
-    delete entityData.flags.pf2e;
-    delete entityData.flags.pf2e_updatednpcsheet;
-    if ('type' in entityData && entityData.type === 'condition') {
-        entityData.flags = { pf2e: { condition: true } };
-    }
-
-    if ('data' in entityData && 'slug' in entityData.data) {
-        const slug = entityData.data.slug;
-        if (typeof slug === 'string') {
-            if (slug !== sluggify(entityData.name)) {
+        if ('data' in entityData && 'slug' in entityData.data) {
+            const slug = entityData.data.slug;
+            if (typeof slug === 'string' && slug !== sluggify(entityData.name)) {
                 console.warn(
                     `Warning: Name change detected on ${entityData.name}. ` +
                         'Please remember to create a slug migration before next release.',
                 );
             }
+
+            delete entityData.data.slug;
         }
 
-        delete entityData.data.slug;
+        entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
     }
 
     pruneTree(entityData, entityData);
 
     // Clean up description HTML
-    const description: { value: string | null } =
-        'data' in entityData && 'description' in entityData.data ? entityData.data.description : null;
-    if (description) {
-        const $description = ((): JQuery | null => {
+    const cleanDescription = (description: string) => {
+        if (!description) {
+            return '';
+        }
+
+        description = description.trim().replace('<p></p>', '');
+        const $description = ((): JQuery => {
             try {
-                return $(description.value);
-            } catch (_) {
-                try {
-                    return $(`<p>${description.value}</p>`);
-                } catch (_error) {
-                    console.warn(`Failed to parse description of ${entityData.name}`);
-                    return null;
-                }
+                return $(
+                    description.startsWith('<p>') && /<\/(?:p|ol|ul|table)>$/.test(description)
+                        ? description
+                        : `<p>${description}</p>`,
+                );
+            } catch {
+                throw PackError(
+                    `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`,
+                );
             }
         })();
 
-        if ($description === null) {
-            return entityData;
-        }
-
-        // Be rid of span tags from AoN copypasta
+        // Strip out span tags from AoN copypasta
         const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
         for (const selector of selectors) {
             $description.find(selector).each((_i, span) => {
@@ -181,7 +178,7 @@ function sanitizeEntity(entityData: PackEntry) {
             });
         }
 
-        // Reject Foundry's attempt to change compendium links into HTML anchors
+        // Sometimes Foundry's conversion of entity links to anchor tags makes it into an export: convert them back
         const $anchors = $description.find('a.entity-link');
         $anchors.each((_i, anchor) => {
             const $anchor = $(anchor);
@@ -192,12 +189,23 @@ function sanitizeEntity(entityData: PackEntry) {
             $anchor.contents().unwrap();
         });
 
-        const cleanDescription = $('<div>')
+        return $('<div>')
             .append($description)
             .html()
-            .replace(/<([hb]r)>/g, '<$1 />'); // Restore Foundry's self-closing tags
+            .replace(/<([hb]r)>/g, '<$1 />') // Restore Foundry's self-closing tags
+            .replace(/(<p>)[\s\r\n]/g, '<p>')
+            .replace(/[\s\r\n]+(<\/p>)/g, '</p>')
+            .replace(/<(?:b|strong)>\s*/g, '<strong>')
+            .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
+            .replace(/(<\/strong>)(\w)/g, '$1 $2')
+            .replaceAll('<p></p>', '')
+            .replace(/\s{2,}/g, ' ')
+            .trim();
+    };
 
-        description.value = cleanDescription;
+    if ('data' in entityData && 'description' in entityData.data) {
+        const description = entityData.data.description;
+        description.value = cleanDescription(description.value);
     }
 
     return entityData;
@@ -208,7 +216,13 @@ const newEntityIdMap: Record<string, string> = {};
 function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     newEntityIdMap[entityData._id] = entityData.name;
 
-    const entityJson = JSON.stringify(sanitizeEntity(entityData));
+    const sanitized = sanitizeEntity(entityData);
+    if ('items' in sanitized) {
+        sanitized.items = sanitized.items.map(
+            (itemData: ItemData) => sanitizeEntity(itemData, { isEmbedded: true }) as ItemData,
+        );
+    }
+    const entityJson = JSON.stringify(sanitized);
 
     // Link checks
 
@@ -220,7 +234,6 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
 
     const compendiumLinks = Array.from(entityJson.matchAll(linkPatterns.compendium)).map((match) => match[0]);
     const linksLackingLabels = compendiumLinks.filter((link) => !link.endsWith('{'));
-
     if (linksLackingLabels.length > 0) {
         const linkString = linksLackingLabels.map((match) => match[0]).join(', ');
         throw PackError(`${entityData.name} (${packName}) has links with no labels: ${linkString}`);
@@ -246,7 +259,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
             return partiallyConverted;
         }
 
-        const replacePattern = new RegExp(`(?<!"_id":")${entityId}`);
+        const replacePattern = new RegExp(`(?<!"_?id":")${entityId}`, 'g');
         return partiallyConverted.replace(replacePattern, entityName);
     }, entityJson);
 

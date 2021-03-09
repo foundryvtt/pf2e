@@ -63,6 +63,7 @@
                 "max": 58,
                 "min": 0,
                 "temp": 0,
+                "tempmax": 0,
                 "value": 58
             },
             "init": {
@@ -107,7 +108,8 @@
                         "value": "20 feet"
                     }
                 ],
-                "value": 30
+                "special": "",
+                "value": "30"
             }
         },
         "currency": {
@@ -488,6 +490,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -682,9 +687,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Club",
             "sort": 300000,
             "type": "melee"
@@ -727,7 +730,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(agile)"
+                    "value": "<p>(agile)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -796,9 +799,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Jaws",
             "sort": 400000,
             "type": "melee"
@@ -841,7 +842,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "(range increment 10 feet)"
+                    "value": "<p>(range increment 10 feet)</p>"
                 },
                 "equipped": {
                     "value": false
@@ -913,9 +914,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {}
-            },
+            "flags": {},
             "name": "Club",
             "sort": 500000,
             "type": "melee"
@@ -944,6 +943,16 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirement": {
+                    "skill": {
+                        "rank": "",
+                        "skill": ""
+                    }
+                },
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": "light-blindness",
                 "source": {
                     "value": ""
@@ -966,11 +975,6 @@
             "flags": {
                 "core": {
                     "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.I0HYG0ctCLP5JRsW"
-                },
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "interaction"
-                    }
                 }
             },
             "img": "icons/svg/mystery-man.svg",
@@ -993,7 +997,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock cultist Strides up to half its speed, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites.<br>\nAt any point during its movement, the morlock cultist can Cast a Spell that normally takes two actions or fewer to cast."
+                    "value": "<p>The morlock cultist Strides up to half its speed, ignoring difficult terrain caused by natural cavern features like rubble or stalagmites.<br />\nAt any point during its movement, the morlock cultist can Cast a Spell that normally takes two actions or fewer to cast.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1002,6 +1006,10 @@
                     "value": ""
                 },
                 "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1021,13 +1029,7 @@
                 }
             },
             "effects": [],
-            "flags": {
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
-                }
-            },
+            "flags": {},
             "name": "Occult Attack",
             "sort": 700000,
             "type": "action"
@@ -1047,7 +1049,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "The morlock deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures."
+                    "value": "<p>The morlock deals an extra [[/r 1d6 # precision damage]] precision damage to flat-footed creatures.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1055,25 +1057,11 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
+                "rules": [],
+                "skill_requirements": {
+                    "rank": "",
+                    "skill": ""
+                },
                 "slug": "sneak-attack",
                 "source": {
                     "value": ""
@@ -1096,11 +1084,6 @@
             "flags": {
                 "core": {
                     "sourceId": "CompendiumPack.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
-                },
-                "pf2e_updatednpcsheet": {
-                    "npcActionType": {
-                        "value": "offensive"
-                    }
                 }
             },
             "name": "Sneak Attack",
@@ -2116,7 +2099,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and 1 persistent bleed damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<p>\n</p><hr /><b>Critical Success</b>  The creature is unaffected.<p></p>\n<p>\n<b>Success</b>  The creature takes half the negative damage and no persistent bleed damage.</p>\n<p>\n<b>Failure</b>  The creature takes full damage.</p>\n<p>\n<b>Critical Failure</b>  The creature takes double negative damage and double persistent bleed damage.</p>\n<p>\n</p><hr /><b>Heightened (+1)</b>  The negative damage increases by 2d4, and the persistent bleed damage increases by 1.<p></p>"
+                    "value": "<p>Tendrils of darkness curl out from your fingertips and race through the air. You deal 2d4 negative damage and 1 persistent bleed damage to living creatures in the line. Each living creature in the line must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half the negative damage and no persistent bleed damage.</p>\n<p><strong>Failure</strong> The creature takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature takes double negative damage and double persistent bleed damage.</p>\n<hr /><strong>Heightened (+1)</strong> The negative damage increases by 2d4, and the persistent bleed damage increases by 1."
                 },
                 "duration": {
                     "label": "Duration",
@@ -2623,7 +2606,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<p>\n</p><hr /><b>Critical Success</b>  You deal double damage.<p></p>\n<p>\n<b>Success</b>  You deal full damage.</p>\n<p>\n</p><hr /><b>Heightened (+1)</b>  The damage increases by 1d6.<p></p>"
+                    "value": "<p>You hurl a loose, unattended object that is within range and that has 1 Bulk or less at the target. Make a spell attack attack against the target. If you hit, you deal bludgeoning, piercing, or slashing damage-as appropriate for the object you hurled-equal to 1d6 plus your spellcasting ability modifier. No specific traits or magic properties of the hurled item affect the attack or the damage.</p>\n<hr /><strong>Critical Success</strong> You deal double damage.\n<p><strong>Success</strong> You deal full damage.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d6."
                 },
                 "duration": {
                     "label": "Duration",
