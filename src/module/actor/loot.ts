@@ -1,11 +1,11 @@
-import { PF2EActor, UserPF2e } from './actor';
+import { ActorPF2e, UserPF2e } from './actor';
 import { LootData } from './actor-data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
-import { PF2ECharacter } from './character';
+import { CharacterPF2e } from './character';
 
-export class PF2ELoot extends PF2EActor {
+export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
         return this.data.data.lootSheetType === 'Loot';
     }
@@ -17,7 +17,7 @@ export class PF2ELoot extends PF2EActor {
     /** Anyone with Limited permission can update a loot actor
      * @override
      */
-    static can(user: User, action: UserAction, target: PF2ELoot): boolean {
+    static can(user: User, action: UserAction, target: LootPF2e): boolean {
         if (action === 'update') {
             return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
@@ -32,13 +32,13 @@ export class PF2ELoot extends PF2EActor {
     }
 
     isLootableBy(user: User) {
-        return PF2ELoot.can(user, 'update', this);
+        return LootPF2e.can(user, 'update', this);
     }
 
     /** @override */
     async transferItemToActor(
-        targetActor: PF2EActor,
-        item: PF2EItem,
+        targetActor: ActorPF2e,
+        item: ItemPF2e,
         quantity: number,
         containerId?: string,
     ): Promise<PF2EPhysicalItem | void> {
@@ -62,7 +62,7 @@ export class PF2ELoot extends PF2EActor {
     }
 }
 
-export interface PF2ELoot {
+export interface LootPF2e {
     data: LootData;
     _data: LootData;
 }
@@ -100,10 +100,10 @@ export class LootTransfer implements LootTransferData {
             const source = this.getSource();
             const target = this.getTarget();
             const loot = [source, target].find(
-                (actor) => actor instanceof PF2ELoot && actor.isLootableBy(game.user) && !actor.owner,
+                (actor) => actor instanceof LootPF2e && actor.isLootableBy(game.user) && !actor.owner,
             );
 
-            if (!(loot instanceof PF2ELoot)) return Promise.reject(new Error('PF2e System | Unexpected missing actor'));
+            if (!(loot instanceof LootPF2e)) return Promise.reject(new Error('PF2e System | Unexpected missing actor'));
             ui.notifications.error(
                 game.i18n.format(CONFIG.PF2E.loot.errors.supervision, { loot: LootTransfer.tokenName(loot) }),
             );
@@ -128,11 +128,11 @@ export class LootTransfer implements LootTransferData {
         // Sanity checks
         if (
             !(
-                sourceActor instanceof PF2EActor &&
+                sourceActor instanceof ActorPF2e &&
                 sourceItem instanceof PF2EPhysicalItem &&
-                targetActor instanceof PF2EActor &&
-                (sourceActor.hasPerm(requester, 'owner') || sourceActor instanceof PF2ELoot) &&
-                (targetActor.hasPerm(requester, 'owner') || targetActor instanceof PF2ELoot)
+                targetActor instanceof ActorPF2e &&
+                (sourceActor.hasPerm(requester, 'owner') || sourceActor instanceof LootPF2e) &&
+                (targetActor.hasPerm(requester, 'owner') || targetActor instanceof LootPF2e)
             )
         ) {
             return Promise.reject(new Error('PF2e System | Failed sanity check during loot transfer'));
@@ -152,7 +152,7 @@ export class LootTransfer implements LootTransferData {
     }
 
     /** Retrieve the full actor from the source or target ID */
-    private getActor(tokenId: string | undefined, actorId: string): PF2EActor | null {
+    private getActor(tokenId: string | undefined, actorId: string): ActorPF2e | null {
         if (typeof tokenId === 'string') {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
             return token?.actor ?? null;
@@ -160,17 +160,17 @@ export class LootTransfer implements LootTransferData {
         return game.actors.find((actor) => actor.id === actorId);
     }
 
-    private getSource(): PF2EActor | null {
+    private getSource(): ActorPF2e | null {
         return this.getActor(this.source.tokenId, this.source.actorId);
     }
 
-    private getTarget(): PF2EActor | null {
+    private getTarget(): ActorPF2e | null {
         return this.getActor(this.target.tokenId, this.target.actorId);
     }
 
     // Prefer token names over actor names
-    private static tokenName(entity: PF2EActor | User): string {
-        if (entity instanceof PF2EActor) {
+    private static tokenName(entity: ActorPF2e | User): string {
+        if (entity instanceof ActorPF2e) {
             // Synthetic actor: use its token name or, failing that, actor name
             if (entity.isToken && entity.token instanceof Token) {
                 return entity.token.name;
@@ -179,7 +179,7 @@ export class LootTransfer implements LootTransferData {
             return entity.data.token?.name ?? entity.name;
         }
         // User with an assigned character
-        if (entity.character instanceof PF2ECharacter) {
+        if (entity.character instanceof CharacterPF2e) {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.actor?.id === entity.id);
             return token?.name ?? entity.character?.name;
         }
@@ -196,18 +196,18 @@ export class LootTransfer implements LootTransferData {
      */
     private async sendMessage(
         requester: UserPF2e,
-        sourceActor: PF2EActor,
-        targetActor: PF2EActor,
+        sourceActor: ActorPF2e,
+        targetActor: ActorPF2e,
         item: PF2EPhysicalItem,
     ): Promise<void> {
         // Exhaustive pattern match to determine speaker and item-transfer parties
         type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game['i18n']['format']>];
 
         const [speaker, subtitle, formatArgs] = ((): PatternMatch => {
-            const isWhat = (actor: PF2EActor) => ({
-                isCharacter: actor instanceof PF2ECharacter,
-                isLoot: actor instanceof PF2ELoot && actor.isLoot,
-                isMerchant: actor instanceof PF2ELoot && actor.isMerchant,
+            const isWhat = (actor: ActorPF2e) => ({
+                isCharacter: actor instanceof CharacterPF2e,
+                isLoot: actor instanceof LootPF2e && actor.isLoot,
+                isMerchant: actor instanceof LootPF2e && actor.isMerchant,
             });
             const source = isWhat(sourceActor);
             const target = isWhat(targetActor);
@@ -308,7 +308,7 @@ export class LootTransfer implements LootTransferData {
                 title: CONFIG.PF2E.featTraits.interact,
                 subtitle: subtitle,
                 tooltip: CONFIG.PF2E.featTraits.interact,
-                typeNumber: sourceActor instanceof PF2ELoot && targetActor instanceof PF2ELoot ? 2 : 1,
+                typeNumber: sourceActor instanceof LootPF2e && targetActor instanceof LootPF2e ? 2 : 1,
             },
             traits: [
                 {

@@ -1,5 +1,5 @@
 import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure';
-import { PF2EActor } from '../../actor';
+import { ActorPF2e } from '../../actor';
 
 interface PopupFormData extends Coins {
     removeByValue: boolean;
@@ -8,7 +8,7 @@ interface PopupFormData extends Coins {
 /**
  * @category Other
  */
-export class RemoveCoinsPopup extends FormApplication<PF2EActor> {
+export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'remove-coins';

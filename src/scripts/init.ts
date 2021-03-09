@@ -1,6 +1,6 @@
-import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
-import { PF2EItem } from '@item/item';
-import { PF2EEffect } from '@item/effect';
+import { ActorPF2e, SKILL_DICTIONARY } from '@actor/actor';
+import { ItemPF2e } from '@item/item';
+import { EffectPF2e } from '@item/effect';
 import { SkillAbbreviation } from '@actor/actor-data-definitions';
 
 /**
@@ -9,7 +9,7 @@ import { SkillAbbreviation } from '@actor/actor-data-definitions';
  * @param item     The item data
  * @param slot     The hotbar slot to use
  */
-async function createItemMacro(item: PF2EItem, slot: number): Promise<void> {
+async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     let macro = game.macros.entities.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
@@ -32,9 +32,9 @@ async function createItemMacro(item: PF2EItem, slot: number): Promise<void> {
  * Get an existing item macro if one exists, otherwise create a new one.
  * @param itemId
  */
-export function rollItemMacro(itemId: string): ReturnType<PF2EItem['roll']> | void {
+export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['roll']> | void {
     const speaker = ChatMessage.getSpeaker();
-    let actor: PF2EActor;
+    let actor: ActorPF2e;
     if (speaker.token) actor = game.actors.tokens[speaker.token];
     if (!actor) actor = game.actors.get(speaker.actor);
     const item = actor ? actor.items.find((i) => i._id === itemId) : null;
@@ -165,7 +165,7 @@ if (a) {
     game.user.assignHotbarMacro(macro, slot);
 }
 
-async function createToggleEffectMacro(pack: string, effect: PF2EEffect, slot: number) {
+async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
     const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
 const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
@@ -204,13 +204,13 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
 
 Hooks.on('hotbarDrop', async (bar, data, slot) => {
     // check for item link
-    let item: PF2EItem | undefined;
+    let item: ItemPF2e | undefined;
     if (data.type === 'Item' && data.id) {
         const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
-        item = (await fromUuid(`${prefix}.${data.id}`)) as PF2EItem;
+        item = (await fromUuid(`${prefix}.${data.id}`)) as ItemPF2e;
     }
 
-    if (item instanceof PF2EEffect) {
+    if (item instanceof EffectPF2e) {
         createToggleEffectMacro(data.pack, item, slot);
     } else if (data.type === 'Item') {
         createItemMacro(data.data, slot);

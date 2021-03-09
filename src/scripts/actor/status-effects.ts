@@ -1,4 +1,4 @@
-import { PF2EActor, TokenPF2e } from '@actor/actor';
+import { ActorPF2e, TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '@item/data-definitions';
 import { LocalizePF2e } from '@system/localize';
@@ -389,7 +389,7 @@ export class PF2eStatusEffects {
         const f = $(event.currentTarget);
         const status = f.attr('data-condition') ?? 'undefined';
 
-        if (!(this.actor instanceof PF2EActor)) {
+        if (!(this.actor instanceof ActorPF2e)) {
             return;
         }
 

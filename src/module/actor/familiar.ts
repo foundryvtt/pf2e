@@ -1,6 +1,6 @@
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { PF2ECharacter } from './character';
-import { PF2ENPC } from './npc';
+import { CharacterPF2e } from './character';
+import { NPCPF2e } from './npc';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2Check } from '@system/rolls';
 import { FamiliarData, SkillAbbreviation } from './actor-data-definitions';
@@ -8,7 +8,7 @@ import { PF2RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { PF2ECreature } from './creature';
 
-export class PF2EFamiliar extends PF2ECreature {
+export class FamiliarPF2e extends PF2ECreature {
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -28,7 +28,7 @@ export class PF2EFamiliar extends PF2ECreature {
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);
 
-        if (master instanceof PF2ECharacter || master instanceof PF2ENPC) {
+        if (master instanceof CharacterPF2e || master instanceof NPCPF2e) {
             data.master.name = master.name;
             data.master.level = master.data.data.details.level.value ?? 0;
             data.master.ability = data.master.ability ?? 'cha';
@@ -312,7 +312,7 @@ export class PF2EFamiliar extends PF2ECreature {
     }
 }
 
-export interface PF2EFamiliar {
+export interface FamiliarPF2e {
     data: FamiliarData;
     _data: FamiliarData;
 }

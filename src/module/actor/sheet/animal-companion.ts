@@ -1,10 +1,10 @@
 import { CreatureSheetPF2e } from './creature';
-import { PF2EAnimalCompanion } from '../animal-companion';
+import { AnimalCompanionPF2e } from '../animal-companion';
 
 /**
  * @category Other
  */
-export class AnimalCompanionSheetPF2e extends CreatureSheetPF2e<PF2EAnimalCompanion> {
+export class AnimalCompanionSheetPF2e extends CreatureSheetPF2e<AnimalCompanionPF2e> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default'],

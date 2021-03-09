@@ -1,15 +1,15 @@
-import { PF2EActor } from '../actor/actor';
-import { PF2EItem } from '../item/item';
+import { ActorPF2e } from '../actor/actor';
+import { ItemPF2e } from '../item/item';
 
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
  * @category Other
  */
-export class TraitSelector5e extends FormApplication<PF2EActor | PF2EItem> {
+export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
     searchString: string | null;
     _filterTimeout: number | null;
 
-    constructor(object: PF2EActor | PF2EItem, options?: FormApplicationOptions) {
+    constructor(object: ActorPF2e | ItemPF2e, options?: FormApplicationOptions) {
         super(object, options);
 
         // Internal flags

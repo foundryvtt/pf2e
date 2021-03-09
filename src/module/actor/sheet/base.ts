@@ -4,9 +4,9 @@ import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '@item/kits';
 import { compendiumBrowser } from '../../packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { ActorPF2e, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '@system/trait-selector';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
@@ -16,7 +16,7 @@ import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
-import { PF2ECondition, PF2ESpell } from '@item/others';
+import { ConditionPF2e, SpellPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 
@@ -25,7 +25,7 @@ import { ConfigPF2e } from '@scripts/config';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorSheet<ActorType, ItemData> {
+export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorSheet<ActorType, ItemData> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -626,7 +626,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 const itemId = li.attr('data-item-id') ?? '';
                 const item = this.actor.getOwnedItem(itemId);
 
-                if (item instanceof PF2ECondition && item.getFlag(game.system.id, 'condition')) {
+                if (item instanceof ConditionPF2e && item.getFlag(game.system.id, 'condition')) {
                     // Condition Item.
 
                     const condition = item.data as ConditionData;
@@ -678,7 +678,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                         },
                         default: 'Yes',
                     }).render(true);
-                } else if (item instanceof PF2EItem) {
+                } else if (item instanceof ItemPF2e) {
                     const deleteItem = async (): Promise<void> => {
                         await this.actor.deleteOwnedItem(itemId);
                         if (item.type === 'lore') {
@@ -758,7 +758,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         html.find('.item-prepare').on('click', (event) => {
             const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
             const item = this.actor.getOwnedItem(itemId ?? '');
-            if (!(item instanceof PF2ESpell)) {
+            if (!(item instanceof SpellPF2e)) {
                 throw new Error('Tried to update prepared on item that does not have prepared');
             }
             this.actor.updateEmbeddedEntity('OwnedItem', {
@@ -1104,7 +1104,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
                 const sourceId = itemData._id;
                 const dropId = $(event.target).parents('.item').attr('data-item-id') ?? '';
                 const target = this.actor.getOwnedItem(dropId);
-                if (target instanceof PF2ESpell && sourceId !== dropId) {
+                if (target instanceof SpellPF2e && sourceId !== dropId) {
                     const source: any = this.actor.getOwnedItem(sourceId);
                     const sourceLevel = source.data.data.heightenedLevel?.value ?? source.data.data.level.value;
                     const sourceLocation = source.data.data.location.value;
@@ -1113,7 +1113,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
 
                     if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
                         const siblings: any[] = (this.actor as any).items.entries.filter(
-                            (i: PF2EItem) =>
+                            (i: ItemPF2e) =>
                                 i.data.type === 'spell' &&
                                 i.data.data.level.value === sourceLevel &&
                                 i.data.data.location.value === sourceLocation,
@@ -1170,7 +1170,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         const container = $(event.target).parents('[data-item-is-container="true"]');
         const containerId = container[0]?.dataset?.itemId?.trim();
         if (containerId) {
-            await PF2EActor.stashOrUnstash(
+            await ActorPF2e.stashOrUnstash(
                 this.actor,
                 async () => this.actor.getOwnedItem(itemData._id) as PF2EPhysicalItem,
                 containerId,
@@ -1201,7 +1201,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
     ): Promise<(ItemData | null)[] | ItemData | null> {
         event.preventDefault();
 
-        const item = await PF2EItem.fromDropData(data);
+        const item = await ItemPF2e.fromDropData(data);
         const itemData = duplicate(item.data);
 
         const actor = this.actor;
@@ -1428,7 +1428,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         }
     }
 
-    protected renderItemSummary(li: JQuery, _item: PF2EItem, chatData: any) {
+    protected renderItemSummary(li: JQuery, _item: ItemPF2e, chatData: any) {
         const localize = game.i18n.localize.bind(game.i18n);
 
         // Toggle summary

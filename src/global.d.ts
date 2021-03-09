@@ -3,8 +3,8 @@ import { EffectPanel } from '@system/effect-panel';
 import { rollActionMacro, rollItemMacro } from '@scripts/init';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e } from '@actor/actor';
+import { ItemPF2e } from '@item/item';
 import { ConfigPF2e } from '@scripts/config';
 import { PF2ECombat } from './module/combat';
 import { PF2Check } from '@system/rolls';
@@ -57,9 +57,9 @@ declare global {
         PF2CheckModifier: typeof PF2CheckModifier;
         PF2Check: typeof PF2Check;
     }
-    const game: Game<PF2EActor, PF2EItem, PF2ECombat>;
+    const game: Game<ActorPF2e, ItemPF2e, PF2ECombat>;
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<PF2EActor>;
+    const canvas: Canvas<ActorPF2e>;
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;

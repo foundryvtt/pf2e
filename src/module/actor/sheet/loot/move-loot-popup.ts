@@ -1,4 +1,4 @@
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/actor';
 
 interface MoveLootOptions extends FormApplicationOptions {
     maxQuantity: number;
@@ -14,7 +14,7 @@ type MoveLootCallback = (quantity: number) => void;
 export class MoveLootPopup extends FormApplication {
     onSubmitCallback: MoveLootCallback;
 
-    constructor(object: PF2EActor, options: MoveLootOptions, callback: MoveLootCallback) {
+    constructor(object: ActorPF2e, options: MoveLootOptions, callback: MoveLootCallback) {
         super(object, options);
 
         this.onSubmitCallback = callback;

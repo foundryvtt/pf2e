@@ -1,16 +1,16 @@
 import { CreatureSheetPF2e } from './creature';
 import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
+import { ActorPF2e, SKILL_DICTIONARY } from '../actor';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
-import { PF2ENPC } from '../npc';
+import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
 import { NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
 
-export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
+export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
 
@@ -589,12 +589,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
 
             // Assign icon based on spell type
             if (spellType === 'reaction') {
-                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
-                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else {
                 const actionsCost = parseInt(spellType, 10);
-                spell.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
             }
 
             // Assign components
@@ -736,7 +736,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
         };
 
         for (const i of sheetData.actor.items) {
-            const item = i as PF2EItem;
+            const item = i as ItemPF2e;
 
             if (item === undefined || item === null) continue;
 
@@ -752,7 +752,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
      * Checks if an item is an equipment or not.
      * @param item Item to check.
      */
-    private _isEquipment(item: PF2EItem): boolean {
+    private _isEquipment(item: ItemPF2e): boolean {
         if (item.type === 'weapon') return true;
         if (item.type === 'armor') return true;
         if (item.type === 'equipment') return true;
@@ -1704,7 +1704,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<PF2ENPC> {
     }
 
     _assignActionGraphics(item) {
-        const { imageUrl, actionGlyph } = PF2EActor.getActionGraphics(
+        const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
             (item as any).data?.actionType?.value || 'action',
             parseInt(((item as any).data?.actions || {}).value, 10) || 1,
         );

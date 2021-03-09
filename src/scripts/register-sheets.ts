@@ -11,7 +11,7 @@ import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { LocalizePF2e } from '@system/localize';
 
 export function registerSheets() {
@@ -93,7 +93,7 @@ export function registerSheets() {
     );
 
     for (const itemType of itemTypes) {
-        Items.registerSheet<PF2EItem>('pf2e', ItemSheetPF2e, {
+        Items.registerSheet<ItemPF2e>('pf2e', ItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,

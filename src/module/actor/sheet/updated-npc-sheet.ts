@@ -1,7 +1,7 @@
 import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
-import { PF2EActor } from '../actor';
+import { ActorPF2e } from '../actor';
 
 /**
  * @category Other
@@ -176,7 +176,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             }
             // Give Melee/Ranged an img
             else if (i.type === 'melee' || i.type === 'ranged') {
-                i.img = PF2EActor.getActionGraphics('action', 1).imageUrl;
+                i.img = ActorPF2e.getActionGraphics('action', 1).imageUrl;
             }
         }
         sheetData.actor.reorgActions = reorgActions;

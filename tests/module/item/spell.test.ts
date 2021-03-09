@@ -1,5 +1,5 @@
-import { PF2EActor } from 'src/module/actor/actor';
-import { PF2EItem } from 'src/module/item/item';
+import { ActorPF2e } from 'src/module/actor/actor';
+import { ItemPF2e } from 'src/module/item/item';
 import { fetchSpell } from 'tests/setup';
 import { Spell } from '../../../src/module/item/spell';
 
@@ -18,14 +18,14 @@ const spellcastingEntryItem = {
     data: spellcastingEntry,
 };
 const actor = ({
-    getOwnedItem: (jest.fn().mockImplementation(() => spellcastingEntryItem) as any) as PF2EItem,
+    getOwnedItem: (jest.fn().mockImplementation(() => spellcastingEntryItem) as any) as ItemPF2e,
     data: characterData,
     items: [],
     get level() {
         return characterData.data.details.level.value;
     },
     getAbilityMod: (ability: string) => 3,
-} as any) as PF2EActor;
+} as any) as ActorPF2e;
 
 beforeAll(async () => {
     const promises = [

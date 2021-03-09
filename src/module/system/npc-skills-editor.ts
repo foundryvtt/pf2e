@@ -1,20 +1,20 @@
 import { SKILL_EXPANDED } from '../actor/actor';
 import { NPCSkillData } from '@actor/actor-data-definitions';
-import { PF2ENPC } from '../actor/npc';
-import { PF2EItem } from '../item/item';
+import { NPCPF2e } from '../actor/npc';
+import { ItemPF2e } from '../item/item';
 
 /**
  * Specialized form to setup skills for an NPC character.
  */
-export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
-    npc: PF2ENPC;
-    newItems: PF2EItem[];
+export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
+    npc: NPCPF2e;
+    newItems: ItemPF2e[];
 
     constructor(actor, options) {
         super(actor, options);
 
         // Process actor and options
-        this.npc = actor as PF2ENPC;
+        this.npc = actor as NPCPF2e;
 
         if (this.npc === undefined) {
             console.error(`Trying to use the NPC Skills Editor form with a non-NPC actor.`);
@@ -205,7 +205,7 @@ export class NPCSkillsEditor extends FormApplication<PF2ENPC> {
      * defining the skill. They are of 'lore' type, even for non-lore skills.
      * @param skillId ID of the skill to search for.
      */
-    findSkillItem(skillId: string): PF2EItem {
+    findSkillItem(skillId: string): ItemPF2e {
         const skill = this.npc.data.data.skills[skillId];
 
         if (skill === undefined) {

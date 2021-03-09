@@ -1,5 +1,5 @@
-import { PF2EActor, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
+import { ItemPF2e } from '@item/item';
 import { PF2CheckModifier, PF2Modifier, PF2ModifierType, PF2StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { PF2Check, PF2DamageRoll } from '../system/rolls';
@@ -8,7 +8,7 @@ import { PF2RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '../system/rolls';
 
-export class PF2ENPC extends PF2EActor {
+export class NPCPF2e extends ActorPF2e {
     data!: NpcData;
     _data!: NpcData;
 
@@ -353,7 +353,7 @@ export class PF2ENPC extends PF2EActor {
                 }
 
                 // action image
-                const { imageUrl, actionGlyph } = PF2EActor.getActionGraphics(
+                const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
                     (item as any).data?.actionType?.value || 'action',
                     parseInt(((item as any).data?.actions || {}).value, 10) || 1,
                 );
@@ -394,7 +394,7 @@ export class PF2ENPC extends PF2EActor {
                 });
                 action.roll = action.attack;
 
-                const map = PF2EItem.calculateMap(item);
+                const map = ItemPF2e.calculateMap(item);
                 action.variants = [
                     {
                         label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
@@ -479,7 +479,7 @@ export class PF2ENPC extends PF2EActor {
     }
 
     private updateTokenAttitude(attitude: string) {
-        const disposition = PF2ENPC.mapNPCAttitudeToTokenDisposition(attitude);
+        const disposition = NPCPF2e.mapNPCAttitudeToTokenDisposition(attitude);
         const tokens = this._getTokenData();
 
         for (const key of Object.keys(tokens)) {
@@ -530,6 +530,6 @@ export class PF2ENPC extends PF2EActor {
     }
 
     public updateNPCAttitudeFromDisposition(disposition: number) {
-        this.data.data.traits.attitude.value = PF2ENPC.mapTokenDispositionToNPCAttitude(disposition);
+        this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
 }

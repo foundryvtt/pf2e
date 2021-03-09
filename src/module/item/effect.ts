@@ -1,7 +1,7 @@
-import { PF2EItem } from './item';
+import { ItemPF2e } from './item';
 import { EffectData } from './data-definitions';
 
-export class PF2EEffect extends PF2EItem {
+export class EffectPF2e extends ItemPF2e {
     data!: EffectData;
     _data!: EffectData;
 }

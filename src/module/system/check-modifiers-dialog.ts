@@ -1,5 +1,5 @@
 import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/actor';
 import { PF2RollNote } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
@@ -16,7 +16,7 @@ export interface CheckModifiersContext {
     /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
     fate?: string;
     /** The actor which initiated this roll. */
-    actor?: PF2EActor;
+    actor?: ActorPF2e;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: string;
     /** Any traits for the check. */
@@ -69,7 +69,7 @@ export class CheckModifiersDialog extends Application {
             options.push('PF2E.TraitFortune');
         }
 
-        const speaker: { actor?: PF2EActor } = {};
+        const speaker: { actor?: ActorPF2e } = {};
         if (ctx.actor) {
             speaker.actor = ctx.actor;
             ctx.actor = ctx.actor._id;

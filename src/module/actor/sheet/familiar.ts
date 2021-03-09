@@ -1,11 +1,11 @@
 import { SaveString, SkillAbbreviation } from '@actor/actor-data-definitions';
 import { SKILL_DICTIONARY } from '../actor';
-import { PF2EFamiliar } from '../familiar';
+import { FamiliarPF2e } from '../familiar';
 
 /**
  * @category Actor
  */
-export class FamiliarSheetPF2e extends ActorSheet<PF2EFamiliar> {
+export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {

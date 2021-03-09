@@ -1,4 +1,4 @@
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/actor';
 
 class ChatDamageButtonsPF2e extends Application {
     init() {
@@ -52,7 +52,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (ev.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 1, attribute);
+                    ActorPF2e.applyDamage(html, 1, attribute);
                 }
             });
 
@@ -67,7 +67,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (ev.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 0.5, attribute);
+                    ActorPF2e.applyDamage(html, 0.5, attribute);
                 }
             });
 
@@ -82,7 +82,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (ev.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 2, attribute);
+                    ActorPF2e.applyDamage(html, 2, attribute);
                 }
             });
 
@@ -97,7 +97,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (ev.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, -1);
                 } else {
-                    PF2EActor.applyDamage(html, -1);
+                    ActorPF2e.applyDamage(html, -1);
                 }
             });
         });
@@ -138,7 +138,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (event.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 1, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 1, attribute);
+                    ActorPF2e.applyDamage(html, 1, attribute);
                 }
             });
 
@@ -153,7 +153,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (event.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 0.5, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 0.5, attribute);
+                    ActorPF2e.applyDamage(html, 0.5, attribute);
                 }
             });
 
@@ -168,7 +168,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (event.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, 2, attribute);
                 } else {
-                    PF2EActor.applyDamage(html, 2, attribute);
+                    ActorPF2e.applyDamage(html, 2, attribute);
                 }
             });
 
@@ -183,7 +183,7 @@ class ChatDamageButtonsPF2e extends Application {
                 if (event.shiftKey) {
                     ChatDamageButtonsPF2e.shiftModifyDamage(html, -1);
                 } else {
-                    PF2EActor.applyDamage(html, -1);
+                    ActorPF2e.applyDamage(html, -1);
                 }
             });
         });
@@ -213,7 +213,7 @@ class ChatDamageButtonsPF2e extends Application {
                             modifier = 0;
                         }
                         if (modifier !== undefined) {
-                            await PF2EActor.applyDamage(html, multiplier, attributePassed, modifier);
+                            await ActorPF2e.applyDamage(html, multiplier, attributePassed, modifier);
                         }
                     },
                 },

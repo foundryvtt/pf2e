@@ -1,5 +1,5 @@
 import { ItemData, ConditionData } from '@item/data-definitions';
-import { PF2ECondition } from './item/others';
+import { ConditionPF2e } from './item/others';
 import { TokenPF2e } from './actor/actor';
 import { PF2Modifier } from './modifiers';
 import { PF2eStatusEffects } from '../scripts/actor/status-effects';
@@ -63,7 +63,7 @@ export class PF2eConditionManager {
     }
 
     static async init() {
-        const content = (await game.packs.get('pf2e.conditionitems').getContent()) as PF2ECondition[];
+        const content = (await game.packs.get('pf2e.conditionitems').getContent()) as ConditionPF2e[];
 
         for (const condition of content) {
             PF2eConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);

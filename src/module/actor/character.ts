@@ -11,7 +11,7 @@ import {
     SpellDifficultyClass,
     WeaponData,
 } from '@item/data-definitions';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
@@ -42,12 +42,12 @@ import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '@utils';
 import { adaptRoll } from '@system/rolls';
-import { PF2EAncestry } from '@item/ancestry';
-import { PF2EBackground } from '@item/background';
-import { PF2EClass } from '@item/class';
+import { AncestryPF2e } from '@item/ancestry';
+import { BackgroundPF2e } from '@item/background';
+import { ClassPF2e } from '@item/class';
 import { PF2ECreature } from './creature';
 
-export class PF2ECharacter extends PF2ECreature {
+export class CharacterPF2e extends PF2ECreature {
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -670,7 +670,7 @@ export class PF2ECharacter extends PF2ECreature {
 
                     // Conditions and Custom modifiers to attack rolls
                     let weaponPotency;
-                    const multipleAttackPenalty = PF2EItem.calculateMap(item);
+                    const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                     {
                         const potency: PF2WeaponPotency[] = [];
                         const multipleAttackPenalties: PF2MultipleAttackPenalty[] = [];
@@ -1025,14 +1025,14 @@ export class PF2ECharacter extends PF2ECreature {
 
         if ('type' in child) {
             const item = this.items.get(child._id);
-            if (item instanceof PF2EAncestry || item instanceof PF2EBackground || item instanceof PF2EClass) {
+            if (item instanceof AncestryPF2e || item instanceof BackgroundPF2e || item instanceof ClassPF2e) {
                 item.addFeatures(this);
             }
         }
     }
 }
 
-export interface PF2ECharacter {
+export interface CharacterPF2e {
     data: CharacterData;
     _data: CharacterData;
 }

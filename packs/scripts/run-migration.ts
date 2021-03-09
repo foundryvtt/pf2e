@@ -5,8 +5,8 @@ import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
 import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
 import { Migration605CatchUpToTemplateJSON } from '../../src/module/migrations/605-catch-up-to-template-json';
 import { ItemData } from '@item/data-definitions';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e } from '@actor/actor';
+import { ItemPF2e } from '@item/item';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
 import { MigrationBase } from 'src/module/migrations/base';
 
@@ -14,7 +14,7 @@ const migrations: MigrationBase[] = [new Migration595AddItemSize(), new Migratio
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
-type CompendiumEntityPF2e = PF2EActor | PF2EItem | Exclude<CompendiumEntity, Actor | Item>;
+type CompendiumEntityPF2e = ActorPF2e | ItemPF2e | Exclude<CompendiumEntity, Actor | Item>;
 const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle'];
 const itemTypes = [
     'backpack',

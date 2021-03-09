@@ -1,8 +1,8 @@
 import { PhysicalItemData } from '@item/data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
-import { PF2EActor } from '../../actor';
+import { ActorPF2e } from '../../actor';
 
-interface PopupData extends FormApplicationData<PF2EActor> {
+interface PopupData extends FormApplicationData<ActorPF2e> {
     tokenInfo?: {
         id: string;
         name: string;
@@ -13,7 +13,7 @@ interface PopupData extends FormApplicationData<PF2EActor> {
 /**
  * @category Other
  */
-export class LootNPCsPopup extends FormApplication<PF2EActor> {
+export class LootNPCsPopup extends FormApplication<ActorPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'loot-NPCs';
@@ -33,7 +33,7 @@ export class LootNPCsPopup extends FormApplication<PF2EActor> {
         const selectionData = Array.isArray(formData.selection) ? formData.selection : [formData.selection];
         for (let i = 0; i < selectionData.length; i++) {
             const token = canvas.tokens.placeables.find((token) => token.id === this.form[i]?.id);
-            const currentSource = token instanceof Token ? PF2EActor.fromToken(token) : undefined;
+            const currentSource = token instanceof Token ? ActorPF2e.fromToken(token) : undefined;
             if (selectionData[i] && currentSource) {
                 const currentSourceItemData: PhysicalItemData[] = Array.from(
                     currentSource.items.values(),

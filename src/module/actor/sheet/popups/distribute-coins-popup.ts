@@ -1,8 +1,8 @@
 import { addCoins, attemptToRemoveCoinsByValue, calculateValueOfCurrency, removeCoins } from '@item/treasure';
-import { PF2EActor } from '../../actor';
-import { PF2ECharacter } from '@actor/character';
+import { ActorPF2e } from '../../actor';
+import { CharacterPF2e } from '@actor/character';
 
-interface PopupData extends FormApplicationData<PF2EActor> {
+interface PopupData extends FormApplicationData<ActorPF2e> {
     selection?: string[];
     actorInfo?: {
         id: string;
@@ -19,7 +19,7 @@ interface PopupFormData extends FormData {
 /**
  * @category Other
  */
-export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
+export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
     /** @override */
     static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
@@ -34,9 +34,9 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
     /** @override */
     async _updateObject(_event: Event, formData: PopupFormData): Promise<void> {
         const thisActor = this.object;
-        const selectedActors: PF2ECharacter[] = formData.actorIds.flatMap((actorId) => {
+        const selectedActors: CharacterPF2e[] = formData.actorIds.flatMap((actorId) => {
             const maybeActor = game.actors.get(actorId);
-            return maybeActor instanceof PF2ECharacter ? maybeActor : [];
+            return maybeActor instanceof CharacterPF2e ? maybeActor : [];
         });
         const playerCount = selectedActors.length;
         if (thisActor.data.items !== undefined) {
@@ -117,7 +117,7 @@ export class DistributeCoinsPopup extends FormApplication<PF2EActor> {
     /** @override */
     getData(): PopupData {
         const sheetData: PopupData = super.getData();
-        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof PF2ECharacter);
+        const playerActors = game.actors.filter((actor) => actor.hasPlayerOwner && actor instanceof CharacterPF2e);
         sheetData.actorInfo = playerActors.map((actor) => ({
             id: actor.id,
             name: actor.name,

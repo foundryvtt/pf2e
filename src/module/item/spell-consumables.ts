@@ -1,5 +1,5 @@
 import { AbilityString } from '@actor/actor-data-definitions';
-import { PF2EActor } from '../actor/actor';
+import { ActorPF2e } from '../actor/actor';
 import { calculateDC, DCOptions } from '../dc';
 import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 
@@ -66,7 +66,7 @@ export async function createConsumableFromSpell(
     return spellConsumable;
 }
 
-export function canCastConsumable(actor: PF2EActor, item: ConsumableData): boolean {
+export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boolean {
     const spellData = item.data.spell?.data?.data ?? null;
     const spellcastingEntries = actor.data.items.filter(
         (i) => i.type === 'spellcastingEntry',
@@ -103,7 +103,7 @@ export function calculateTrickMagicItemCheckDC(
     return Object.fromEntries(skills);
 }
 
-export function calculateTrickMagicItemCastData(actor: PF2EActor, skill: string): TrickMagicItemCastData {
+export function calculateTrickMagicItemCastData(actor: ActorPF2e, skill: string): TrickMagicItemCastData {
     const highestMentalStat = ['int', 'wis', 'cha']
         .map((s) => {
             return { stat: s, mod: actor.getAbilityMod(s as AbilityString) };

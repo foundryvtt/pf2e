@@ -13,7 +13,7 @@ import { PF2eConditionManager } from '../conditions';
 import { adaptRoll, PF2Check } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import {
     ItemData,
     ConditionData,
@@ -116,7 +116,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 /**
  * @category Actor
  */
-export class PF2EActor extends Actor<PF2EItem> {
+export class ActorPF2e extends Actor<ItemPF2e> {
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -151,17 +151,17 @@ export class PF2EActor extends Actor<PF2EItem> {
      *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
      * @override
      */
-    static create<A extends PF2EActor>(
+    static create<A extends ActorPF2e>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
         data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A>;
-    static create<A extends PF2EActor>(
+    static create<A extends ActorPF2e>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A[] | A>;
-    static async create<A extends PF2EActor>(
+    static async create<A extends ActorPF2e>(
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
     ): Promise<A[] | A> {
@@ -621,7 +621,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
+    rollLoreSkill(event: JQuery.Event, item: ItemPF2e) {
         const { data } = item;
         if (data.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
@@ -910,17 +910,17 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ItemData | ItemData[]> {
@@ -1019,8 +1019,8 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param containerId Id of the container that will contain the item.
      */
     async transferItemToActor(
-        targetActor: PF2EActor,
-        item: PF2EItem,
+        targetActor: ActorPF2e,
+        item: ItemPF2e,
         quantity: number,
         containerId?: string,
     ): Promise<PF2EPhysicalItem | void> {
@@ -1029,7 +1029,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
 
         // Loot transfers can be performed by non-owners when a GM is online */
-        const isPlayerLootTransfer = (source: PF2EActor, target: PF2EActor): boolean => {
+        const isPlayerLootTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
             const bothAreOwned = source.hasPerm(game.user, 'owner') && target.hasPerm(game.user, 'owner');
             const sourceIsOwnedOrLoot = source.hasPerm(game.user, 'owner') || source.data.type === 'loot';
             const targetIsOwnedOrLoot = target.hasPerm(game.user, 'owner') || target.data.type === 'loot';
@@ -1087,7 +1087,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
 
-        return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
+        return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }
 
     /**
@@ -1097,7 +1097,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param containerId Id of the container that will contain the item.
      */
     static async stashOrUnstash<ItemType extends PF2EPhysicalItem = PF2EPhysicalItem>(
-        actor: PF2EActor,
+        actor: ActorPF2e,
         getItem: () => Promise<ItemType>,
         containerId?: string,
     ): Promise<ItemType> {
@@ -1355,7 +1355,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
     getRollOptions(rollNames: string[]): string[] {
-        return PF2EActor.getRollOptions(this.data.flags, rollNames);
+        return ActorPF2e.getRollOptions(this.data.flags, rollNames);
     }
 
     static getRollOptions(flags: BaseEntityData['flags'], rollNames: string[]): string[] {
@@ -1383,22 +1383,22 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export interface PF2EActor {
+export interface ActorPF2e {
     data: ActorDataPF2e;
     _data: ActorDataPF2e;
 }
 
-export class PF2EHazard extends PF2EActor {}
-export interface PF2EHazard {
+export class HazardPF2e extends ActorPF2e {}
+export interface HazardPF2e {
     data: HazardData;
     _data: HazardData;
 }
 
-export class PF2EVehicle extends PF2EActor {}
-export interface PF2EVehicle {
+export class VehiclePF2e extends ActorPF2e {}
+export interface VehiclePF2e {
     data: VehicleData;
     _data: VehicleData;
 }
 
-export type TokenPF2e = Token<PF2EActor>;
-export type UserPF2e = User<PF2EActor>;
+export type TokenPF2e = Token<ActorPF2e>;
+export type UserPF2e = User<ActorPF2e>;

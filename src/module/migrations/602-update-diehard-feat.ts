@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { PF2EFeat } from '@item/others';
+import { FeatPF2e } from '@item/others';
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
     static version = 0.602;
@@ -22,7 +22,7 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
             actorData.data.attributes.dying.max = 4;
             const diehardIndex = actorData.items.indexOf(diehard);
             const newDiehard = await this.diehardPromise;
-            if (!(newDiehard instanceof PF2EFeat)) {
+            if (!(newDiehard instanceof FeatPF2e)) {
                 throw Error('PF2E System | Expected item not found in Compendium');
             }
             actorData.items.splice(diehardIndex, 1, newDiehard.data);

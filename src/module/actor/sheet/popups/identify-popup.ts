@@ -1,11 +1,11 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
 import { PF2EPhysicalItem } from '@item/physical';
-import { PF2EActor } from '../../actor';
+import { ActorPF2e } from '../../actor';
 
 /**
  * @category Other
  */
-export class IdentifyItemPopup extends FormApplication<PF2EActor> {
+export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
     static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = 'identify-item';

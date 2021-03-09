@@ -1,17 +1,17 @@
-import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
-import { SkillAbbreviation } from '@actor/actor-data-definitions';
+import { ActorPF2e, SKILL_DICTIONARY } from '@actor/actor';
 import { TrickMagicItemCastData } from '@item/data-definitions';
 import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
-import { PF2StatisticModifier } from '../../modifiers';
+import { PF2StatisticModifier } from '@module/modifiers';
+import { SkillAbbreviation } from '@actor/actor-data-definitions';
 
 /**
  * @category Other
  */
-export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
+export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
     result: TrickMagicItemCastData | false = false;
     skilloptions: TrickMagicItemDifficultyData;
 
-    constructor(object: PF2EActor, skilloptions: TrickMagicItemDifficultyData, options?: FormApplicationOptions) {
+    constructor(object: ActorPF2e, skilloptions: TrickMagicItemDifficultyData, options?: FormApplicationOptions) {
         super(object, options);
         this.skilloptions = skilloptions;
         let setter = (value: TrickMagicItemCastData | false) => {
@@ -46,7 +46,7 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
     }
 
     getData() {
-        const sheetData: FormApplicationData<PF2EActor> & {
+        const sheetData: FormApplicationData<ActorPF2e> & {
             skills?: { id: string; localized: string }[];
         } = super.getData();
         sheetData.skills = Object.getOwnPropertyNames(this.skilloptions).map((s) => {

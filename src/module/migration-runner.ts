@@ -1,5 +1,5 @@
-import { PF2EActor, UserPF2e } from './actor/actor';
-import { PF2EItem } from './item/item';
+import { ActorPF2e, UserPF2e } from './actor/actor';
+import { ItemPF2e } from './item/item';
 import { MigrationRunnerBase } from './migration-runner-base';
 import { MigrationBase } from './migrations/base';
 
@@ -15,7 +15,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         return super.needsMigration(game.settings.get('pf2e', 'worldSchemaVersion'));
     }
 
-    protected async migrateWorldItem(item: PF2EItem, migrations: MigrationBase[]) {
+    protected async migrateWorldItem(item: ItemPF2e, migrations: MigrationBase[]) {
         try {
             const updatedItem = await this.getUpdatedItem(item._data, migrations);
             const changes = diffObject(item, updatedItem);
@@ -27,7 +27,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    protected async migrateWorldActor(actor: PF2EActor, migrations: MigrationBase[]) {
+    protected async migrateWorldActor(actor: ActorPF2e, migrations: MigrationBase[]) {
         try {
             const baseActor = duplicate(actor._data);
             const updatedActor = await this.getUpdatedActor(baseActor, migrations);

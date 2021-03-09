@@ -1,8 +1,8 @@
-import { PF2EItem } from './item';
+import { ItemPF2e } from './item';
 import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
-export class PF2EPhysicalItem extends PF2EItem {
+export class PF2EPhysicalItem extends ItemPF2e {
     data!: PhysicalItemData;
     _data!: PhysicalItemData;
 
@@ -81,7 +81,7 @@ export class PF2EPhysicalItem extends PF2EItem {
             // load data of referenced item - if any
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
-                const baseItem = (await fromUuid(uuid)) as PF2EItem | null;
+                const baseItem = (await fromUuid(uuid)) as ItemPF2e | null;
                 if (baseItem instanceof PF2EPhysicalItem) {
                     // ensure we're not messing up another item accidentally
                     const baseData: Omit<PhysicalItemData, '_id' | 'data'> & {

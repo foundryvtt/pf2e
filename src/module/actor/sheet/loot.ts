@@ -1,6 +1,6 @@
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
-import { PF2ELoot } from '../loot';
+import { LootPF2e } from '../loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
@@ -11,9 +11,9 @@ import { LootNPCsPopup } from './loot/loot-npcs-popup';
 /**
  * @category Actor
  */
-export class LootSheetPF2e extends ActorSheetPF2e<PF2ELoot> {
+export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     /** @override */
-    constructor(actor: PF2ELoot, options: FormApplicationOptions = {}) {
+    constructor(actor: LootPF2e, options: FormApplicationOptions = {}) {
         options.editable = true;
         super(actor, options);
     }

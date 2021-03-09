@@ -2,12 +2,12 @@ import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } fro
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '../../item/treasure';
-import { PF2EVehicle } from '../actor';
+import { VehiclePF2e } from '../actor';
 
 /**
  * @category Actor
  */
-export class VehicleSheetPF2e extends ActorSheetPF2e<PF2EVehicle> {
+export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -134,7 +134,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<PF2EVehicle> {
             // Actions
             if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EVehicle.getActionGraphics(
+                i.img = VehiclePF2e.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;

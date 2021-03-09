@@ -1,5 +1,5 @@
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e } from '@actor/actor';
+import { ItemPF2e } from '@item/item';
 import { PF2eConditionManager } from '../../module/conditions';
 import { registerHandlebarsHelpers } from '../../module/handlebars';
 import {
@@ -11,7 +11,7 @@ import {
     ProficiencyModifier,
 } from '../../module/modifiers';
 import { registerSettings } from '../../module/settings';
-import { PF2eCombatTracker } from '../../module/system/combat-tracker';
+import { CombatTrackerPF2e } from '../../module/system/combat-tracker';
 import { PF2Check } from '../../module/system/rolls';
 import { loadPF2ETemplates } from '../../module/templates';
 import { PlayerConfigPF2e } from '../../module/user/player-config';
@@ -29,8 +29,8 @@ export function listen(): void {
         CONFIG.PF2E = PF2ECONFIG;
 
         // Assign document classes.
-        CONFIG.Item.entityClass = PF2EItem;
-        CONFIG.Actor.entityClass = PF2EActor;
+        CONFIG.Item.entityClass = ItemPF2e;
+        CONFIG.Actor.entityClass = ActorPF2e;
         CONFIG.Combat.entityClass = PF2ECombat;
 
         // Automatically advance world time by 6 seconds each round
@@ -38,7 +38,7 @@ export function listen(): void {
         // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
         CONFIG.Combat.initiative.decimals = 1;
         // Assign the PF2e Combat Tracker
-        CONFIG.ui.combat = PF2eCombatTracker;
+        CONFIG.ui.combat = CombatTrackerPF2e;
         // Assign the PF2e CompendiumDirectory
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 

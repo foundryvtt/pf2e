@@ -1,30 +1,30 @@
-import { PF2ECharacter } from '@actor/character';
+import { CharacterPF2e } from '@actor/character';
 import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data-definitions';
-import { PF2EItem } from './item';
-import { PF2EFeat } from './others';
+import { ItemPF2e } from './item';
+import { FeatPF2e } from './others';
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
-export abstract class PF2EABC extends PF2EItem {
+export abstract class ABCItemPF2e extends ItemPF2e {
     abstract data: AncestryData | BackgroundData | ClassData;
     abstract _data: AncestryData | BackgroundData | ClassData;
 
     protected async getFeature(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
-            const pack = game.packs.get<Compendium<PF2EFeat>>(entry.pack);
+            const pack = game.packs.get<Compendium<FeatPF2e>>(entry.pack);
             const featData = await pack?.getEntry(entry.id);
             return featData && featData.type === 'feat'
                 ? featData
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         } else {
             const feat = game.items.get(entry.id)?._data;
-            if (feat === undefined || !(feat instanceof PF2EFeat)) {
+            if (feat === undefined || !(feat instanceof FeatPF2e)) {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }
             return feat._data;
         }
     }
 
-    protected async deleteExistingFeatures(actor: PF2ECharacter): Promise<void> {
+    protected async deleteExistingFeatures(actor: CharacterPF2e): Promise<void> {
         // Ancestries, backgrounds, and classes are singletons, so we need to remove the others
         const existingABCIds = actor.items.entries.flatMap((item) =>
             item.type === this.type && item.id !== this.id ? item.id : [],
@@ -35,7 +35,7 @@ export abstract class PF2EABC extends PF2EItem {
         await actor.deleteEmbeddedEntity('OwnedItem', existingABCIds.concat(existingFeatureIds));
     }
 
-    async addFeatures(actor: PF2ECharacter): Promise<void> {
+    async addFeatures(actor: CharacterPF2e): Promise<void> {
         this.deleteExistingFeatures(actor);
 
         const entriesData = Object.values(this.data.data.items);

@@ -1,5 +1,5 @@
 import { addCoins, Coins } from '@item/treasure';
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/actor';
 
 interface AddCoinsFormData extends Coins {
     combineStacks: boolean;
@@ -8,7 +8,7 @@ interface AddCoinsFormData extends Coins {
 /**
  * @category Other
  */
-export class AddCoinsPopup extends FormApplication<PF2EActor> {
+export class AddCoinsPopup extends FormApplication<ActorPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         options.id = 'add-coins';

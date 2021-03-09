@@ -2,7 +2,7 @@ import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NpcData } from '@actor/actor-data-definitions';
 import { PF2Modifier, PF2ModifierPredicate, PF2ModifierType } from '../../modifiers';
-import { PF2EActor } from '../../actor/actor';
+import { ActorPF2e } from '../../actor/actor';
 
 /**
  * @category RuleElement
@@ -29,7 +29,7 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
                 modifier.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
                 modifier.ignored = !PF2ModifierPredicate.test(
                     modifier.predicate,
-                    PF2EActor.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []),
+                    ActorPF2e.getRollOptions(actorData.flags, this.ruleData['roll-options'] ?? []),
                 );
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);

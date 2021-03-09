@@ -1,11 +1,11 @@
-import { PF2EActor } from '../actor/actor';
+import { ActorPF2e } from '../actor/actor';
 import { PF2eConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
     effects?: EffectData[];
-    actor?: PF2EActor;
+    actor?: ActorPF2e;
 }
 
 export class EffectPanel extends Application {
@@ -131,7 +131,7 @@ export class EffectPanel extends Application {
         });
     }
 
-    private static get actor(): PF2EActor | undefined {
+    private static get actor(): ActorPF2e | undefined {
         return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
     }
 

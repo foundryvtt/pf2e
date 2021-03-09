@@ -7,8 +7,8 @@ import {
 } from '@item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e } from '@actor/actor';
+import { ItemPF2e } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
 import { MartialString, SkillData, ZeroToFour } from '@actor/actor-data-definitions';
 
@@ -16,8 +16,8 @@ import { MartialString, SkillData, ZeroToFour } from '@actor/actor-data-definiti
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class CreatureSheetPF2e<ActorType extends PF2EActor> extends ActorSheetPF2e<ActorType> {
-    protected renderItemSummary(li: JQuery, item: PF2EItem, chatData: any) {
+export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends ActorSheetPF2e<ActorType> {
+    protected renderItemSummary(li: JQuery, item: ItemPF2e, chatData: any) {
         super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
 

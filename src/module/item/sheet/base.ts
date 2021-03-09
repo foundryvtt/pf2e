@@ -1,18 +1,18 @@
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/actor';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/item';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
-export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType> {
+export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -289,7 +289,7 @@ export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType
         const actor = this.item.actor;
         const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
         const effects =
-            actor instanceof PF2EActor
+            actor instanceof ActorPF2e
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
@@ -509,7 +509,7 @@ export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType
         const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
 
         const getEffects = (): ActiveEffect[] => {
-            return actor instanceof PF2EActor
+            return actor instanceof ActorPF2e
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
         };
@@ -528,7 +528,7 @@ export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType
             if (effect instanceof ActiveEffect) {
                 const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
                 const refresh = () => this.render();
-                if (actor instanceof PF2EActor) {
+                if (actor instanceof ActorPF2e) {
                     actor.updateEmbeddedEntity('ActiveEffect', { _id: effect.id, disabled: isDisabled }).then(refresh);
                 } else {
                     effect.update({ disabled: isDisabled }).then(refresh);
@@ -549,7 +549,7 @@ export class ItemSheetPF2e<ItemType extends PF2EItem> extends ItemSheet<ItemType
             const effectId = getEffectId(event.target);
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
-                if (actor instanceof PF2EActor) {
+                if (actor instanceof ActorPF2e) {
                     actor.deleteEmbeddedEntity('ActiveEffect', effect.id);
                 } else {
                     effect.delete();
