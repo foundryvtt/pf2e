@@ -1,4 +1,4 @@
-import { AbilityString, Proficency } from '@actor/actor-data-definitions';
+import { AbilityString, ZeroToFour } from '@actor/actor-data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
@@ -382,30 +382,30 @@ export interface ClassDetailsData extends ItemDescriptionData {
     keyAbility: { value: AbilityString[] };
     items: Record<string, ABCFeatureEntryData>;
     hp: number;
-    perception: Proficency;
+    perception: ZeroToFour;
     savingThrows: {
-        fortitude: Proficency;
-        reflex: Proficency;
-        will: Proficency;
+        fortitude: ZeroToFour;
+        reflex: ZeroToFour;
+        will: ZeroToFour;
     };
     attacks: {
-        simple: Proficency;
-        martial: Proficency;
-        advanced: Proficency;
-        unarmed: Proficency;
-        other: { name: string; rank: Proficency };
+        simple: ZeroToFour;
+        martial: ZeroToFour;
+        advanced: ZeroToFour;
+        unarmed: ZeroToFour;
+        other: { name: string; rank: ZeroToFour };
     };
     defenses: {
-        unarmored: Proficency;
-        light: Proficency;
-        medium: Proficency;
-        heavy: Proficency;
+        unarmored: ZeroToFour;
+        light: ZeroToFour;
+        medium: ZeroToFour;
+        heavy: ZeroToFour;
     };
     trainedSkills: {
         value: string[];
         additional: number;
     };
-    classDC: Proficency;
+    classDC: ZeroToFour;
     ancestryFeatLevels: { value: number[] };
     classFeatLevels: { value: number[] };
     generalFeatLevels: { value: number[] };

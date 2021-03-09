@@ -37,7 +37,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
      */
-    _prepareItems(actorData: NpcData) {
+    protected prepareItems(actorData: NpcData) {
         const monsterTraits = actorData.data.traits.traits;
 
         this._prepareAbilities(actorData.data.abilities);
@@ -621,7 +621,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
                 spellbook = spellbooks.unassigned;
             }
 
-            this._prepareSpell(actorData, spellbook, spell);
+            this.prepareSpell(actorData, spellbook, spell);
         }
 
         // Update all embedded entities that have an incorrect location.
