@@ -1,38 +1,7 @@
 import { PF2EActor, TokenPF2e } from '@actor/actor';
 import { PF2eConditionManager } from '../../module/conditions';
 import { ConditionData } from '@item/data-definitions';
-
-/**
- * Class PF2eStatus which defines the data structure of a status effects
- * Gets populated into Actor.data.data.statusEffects[]
- * @category PF2
- */
-export class PF2eStatus {
-    status: string;
-    active: boolean;
-    type?: string;
-    value?: number;
-    source: string;
-
-    constructor(statusName: string, source: string, value = 1, active = true) {
-        this.status = statusName;
-        this.active = active;
-        this.source = source;
-        if (getProperty(PF2e.DB.condition, this.status) !== undefined) {
-            this.type = 'condition';
-        } else if (getProperty(PF2e.DB.status, this.status) !== undefined) {
-            this.type = 'status';
-        }
-        if (this.type !== undefined && getProperty(PF2e.DB[this.type][this.status], 'hasValue') !== undefined) {
-            this.value = value;
-        }
-    }
-
-    get db() {
-        if (this.type === undefined) return undefined;
-        return getProperty(PF2e.DB[this.type], this.status);
-    }
-}
+import { LocalizePF2e } from '@system/localize';
 
 /**
  * Class PF2eStatusEffects, which is the module to handle the status effects
@@ -58,6 +27,10 @@ export class PF2eStatusEffects {
         CONFIG.PF2E.statusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
         /** Update FoundryVTT's CONFIG.statusEffects */
         this._updateStatusIcons();
+    }
+
+    static get conditions() {
+        return LocalizePF2e.translations.PF2E.condition;
     }
 
     static get SETTINGOPTIONS() {
@@ -86,13 +59,16 @@ export class PF2eStatusEffects {
     static hookIntoFoundry() {
         /** Register PF2e System setting into FoundryVTT */
         const statusEffectTypeChoices = {};
+        const translations = LocalizePF2e.translations.PF2E.SETTINGS;
+        const statusEffectTypes = translations.statusEffectType;
+        type StatusEffectType = keyof typeof statusEffectTypes;
         for (const type of Object.keys(PF2eStatusEffects.SETTINGOPTIONS.iconTypes)) {
-            statusEffectTypeChoices[type] = PF2e.DB.SETTINGS.statusEffectType[type];
+            statusEffectTypeChoices[type] = statusEffectTypes[type as StatusEffectType];
         }
 
         game.settings.register('pf2e', 'statusEffectType', {
-            name: PF2e.DB.SETTINGS.statusEffectType.name,
-            hint: PF2e.DB.SETTINGS.statusEffectType.hint,
+            name: statusEffectTypes.name,
+            hint: statusEffectTypes.hint,
             scope: 'world',
             config: true,
             default: 'blackWhite',
@@ -102,22 +78,23 @@ export class PF2eStatusEffects {
                 PF2eStatusEffects._migrateStatusEffectUrls(s);
             },
         });
+
         game.settings.register('pf2e', 'statusEffectKeepFoundry', {
-            name: PF2e.DB.SETTINGS.statusEffectKeepFoundry.name,
-            hint: PF2e.DB.SETTINGS.statusEffectKeepFoundry.hint,
+            name: translations.statusEffectKeepFoundry.name,
+            hint: translations.statusEffectKeepFoundry.hint,
             scope: 'world',
             config: true,
             default: false,
             type: Boolean,
             onChange: () => {
-                window.location.reload(false);
+                window.location.reload();
             },
         });
 
         if (game.user.isGM) {
             game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
-                name: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.name,
-                hint: PF2e.DB.SETTINGS.statusEffectShowCombatMessage.hint,
+                name: translations.statusEffectShowCombatMessage.name,
+                hint: translations.statusEffectShowCombatMessage.hint,
                 scope: 'client',
                 config: true,
                 default: true,
@@ -133,7 +110,7 @@ export class PF2eStatusEffects {
                 default: false,
                 type: Boolean,
                 onChange: () => {
-                    window.location.reload(false);
+                    window.location.reload();
                 },
             });
         }
@@ -343,13 +320,17 @@ export class PF2eStatusEffects {
     /**
      * Show the Status Effect name and summary on mouseover of the token HUD
      */
-    static _showStatusDescr(event) {
+    static _showStatusDescr(event: JQuery.TriggeredEvent) {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
+        type ConditionKey = keyof typeof PF2eStatusEffects.conditions;
         if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
-            const statusName = f.attr('data-effect') ?? 'undefined';
-            if (typeof statusName === 'string' && statusName in PF2e.DB.condition) {
-                statusDescr.text(PF2e.DB.condition[statusName].name).toggleClass('active');
+            const statusName = f.attr('data-effect') ?? ('undefined' as ConditionKey);
+            const conditions = PF2eStatusEffects.conditions;
+            const conditionKeys = Object.keys(conditions);
+            if (typeof statusName === 'string' && statusName in conditionKeys) {
+                const conditionInfo = conditions[statusName as ConditionKey];
+                statusDescr.text('name' in conditionInfo ? conditionInfo.name : '').toggleClass('active');
             }
         }
     }
@@ -543,10 +524,13 @@ export class PF2eStatusEffects {
         for (const condition of token.actor.data.items.filter(
             (i: ConditionData) => i.flags.pf2e?.condition && i.data.active && i.type === 'condition',
         )) {
+            type ConditionKey = keyof typeof PF2eStatusEffects.conditions;
+            const conditionInfo = PF2eStatusEffects.conditions[condition.data.hud.statusName as ConditionKey];
+            const summary = 'summary' in conditionInfo ? conditionInfo.summary : '';
             statusEffectList += `
                 <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.hud.statusName}.${
                     CONFIG.PF2E.statusEffects.effectsIconFileType
-                }`}" title="${PF2e.DB.condition[condition.data.hud.statusName].summary}">
+                }`}" title="${summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${
                 condition.data.value.isValued ? condition.data.value.value : ''
@@ -556,7 +540,7 @@ export class PF2eStatusEffects {
             }</div>
                     </span>
                 </li>`;
-            bubbleContent = `${bubbleContent + PF2e.DB.condition[condition.data.hud.statusName].summary}<br>`;
+            bubbleContent = `${bubbleContent + summary}<br>`;
         }
 
         if (statusEffectList === '') {
