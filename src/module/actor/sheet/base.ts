@@ -1168,7 +1168,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         }
 
         const container = $(event.target).parents('[data-item-is-container="true"]');
-        const containerId = container[0].dataset?.itemId?.trim();
+        const containerId = container[0]?.dataset?.itemId?.trim();
         if (containerId) {
             await PF2EActor.stashOrUnstash(
                 this.actor,
