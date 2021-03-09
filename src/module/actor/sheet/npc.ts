@@ -71,7 +71,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      * Organize and classify Items for NPC sheets
      * @private
      */
-    _prepareItems(actorData) {
+    prepareItems(actorData) {
         // Actions
         const attacks = {
             melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
@@ -219,7 +219,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             if (spellcastingEntriesList.includes(i.data.location.value)) {
                 const location = i.data.location.value;
                 spellbooks[location] = spellbooks[location] || {};
-                this._prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], i);
             } else if (spellcastingEntriesList.length === 1) {
                 // if not BUT their is only one spellcasting entry then assign the spell to this entry.
                 const location = spellcastingEntriesList[0];
@@ -228,10 +228,10 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
                 // Update spell to perminantly have the correct ID now
                 embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
 
-                this._prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], i);
             } else {
                 // else throw it in the orphaned list.
-                this._prepareSpell(actorData, spellbooks.unassigned, i);
+                this.prepareSpell(actorData, spellbooks.unassigned, i);
             }
         }
 

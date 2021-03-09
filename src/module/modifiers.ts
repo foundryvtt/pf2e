@@ -169,9 +169,9 @@ export const CHARISMA = Object.freeze({
 export const AbilityModifier = Object.freeze({
     /**
      * Create a modifier from a given ability type and score.
-     * @param {AbilityString} ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
-     * @param {number} score The score of this ability.
-     * @returns {PF2Modifier} The modifier provided by the given ability score.
+     * @param ability str = Strength, dex = Dexterity, con = Constitution, int = Intelligence, wis = Wisdom, cha = Charisma
+     * @param score The score of this ability.
+     * @returns The modifier provided by the given ability score.
      */
     fromAbilityScore: (ability: AbilityString, score: number) => {
         switch (ability) {
