@@ -903,7 +903,6 @@ export type ItemData =
     | ActionData
     | SpellData
     | SpellcastingEntryData
-    | StatusData
     | ConditionData
     | AncestryData
     | BackgroundData

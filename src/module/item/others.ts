@@ -15,7 +15,6 @@ import {
     MeleeData,
     SpellcastingEntryData,
     SpellData,
-    StatusData,
     TreasureData,
     WeaponData,
 } from './data-definitions';
@@ -82,10 +81,6 @@ export class PF2ESpell extends PF2EItem {
 export class PF2ESpellcastingEntry extends PF2EItem {
     data!: SpellcastingEntryData;
     _data!: SpellcastingEntryData;
-}
-export class PF2EStatus extends PF2EItem {
-    data!: StatusData;
-    _data!: StatusData;
 }
 export class PF2ECondition extends PF2EItem {
     data!: ConditionData;

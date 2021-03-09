@@ -21,7 +21,6 @@ import {
     PF2EMelee,
     PF2ESpell,
     PF2ESpellcastingEntry,
-    PF2EStatus,
     PF2ETreasure,
     PF2EWeapon,
 } from '../module/item/others';
@@ -2181,7 +2180,6 @@ export const PF2ECONFIG = {
             action: PF2EAction,
             spell: PF2ESpell,
             spellcastingEntry: PF2ESpellcastingEntry,
-            status: PF2EStatus,
             condition: PF2ECondition,
         },
     },
