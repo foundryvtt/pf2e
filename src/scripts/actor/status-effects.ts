@@ -1,13 +1,14 @@
 import { ActorPF2e, TokenPF2e } from '@actor/actor';
-import { PF2eConditionManager } from '../../module/conditions';
+import { ConditionManager } from '../../module/conditions';
 import { ConditionData } from '@item/data-definitions';
 import { LocalizePF2e } from '@system/localize';
+import { StatusEffectIconType } from '@scripts/config';
 
 /**
  * Class PF2eStatusEffects, which is the module to handle the status effects
  * @category PF2
  */
-export class PF2eStatusEffects {
+export class StatusEffects {
     statusEffectChanged: any;
     static statusEffectChanged: boolean;
 
@@ -20,9 +21,9 @@ export class PF2eStatusEffects {
         const statusEffectType = game.settings.get('pf2e', 'statusEffectType');
         CONFIG.PF2E.statusEffects.lastIconType = statusEffectType;
         CONFIG.PF2E.statusEffects.effectsIconFolder =
-            PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFolder;
+            StatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFolder;
         CONFIG.PF2E.statusEffects.effectsIconFileType =
-            PF2eStatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
+            StatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
         CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
         CONFIG.PF2E.statusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
         /** Update FoundryVTT's CONFIG.statusEffects */
@@ -62,7 +63,7 @@ export class PF2eStatusEffects {
         const translations = LocalizePF2e.translations.PF2E.SETTINGS;
         const statusEffectTypes = translations.statusEffectType;
         type StatusEffectType = keyof typeof statusEffectTypes;
-        for (const type of Object.keys(PF2eStatusEffects.SETTINGOPTIONS.iconTypes)) {
+        for (const type of Object.keys(StatusEffects.SETTINGOPTIONS.iconTypes)) {
             statusEffectTypeChoices[type] = statusEffectTypes[type as StatusEffectType];
         }
 
@@ -74,8 +75,10 @@ export class PF2eStatusEffects {
             default: 'blackWhite',
             type: String,
             choices: statusEffectTypeChoices,
-            onChange: (s) => {
-                PF2eStatusEffects._migrateStatusEffectUrls(s);
+            onChange: (iconType) => {
+                if (iconType) {
+                    StatusEffects.migrateStatusEffectUrls(iconType as StatusEffectIconType);
+                }
             },
         });
 
@@ -117,7 +120,7 @@ export class PF2eStatusEffects {
         /** Create hooks onto FoundryVTT */
         Hooks.on('renderTokenHUD', (app, html, data) => {
             console.log('PF2e System | Rendering PF2e customized status effects');
-            PF2eStatusEffects._hookOnRenderTokenHUD(app, html, data);
+            StatusEffects._hookOnRenderTokenHUD(app, html, data);
         });
         Hooks.on('onTokenHUDClear', (tokenHUD, token) => {
             // Foundry 0.5.7 bug? token parameter is null
@@ -129,7 +132,7 @@ export class PF2eStatusEffects {
                 if (token?.statusEffectChanged === true) {
                     console.log('PF2e System | StatusEffects were updated - Message to chat');
                     token.statusEffectChanged = false;
-                    PF2eStatusEffects._createChatMessage(token);
+                    StatusEffects._createChatMessage(token);
                 }
             }
         });
@@ -150,11 +153,11 @@ export class PF2eStatusEffects {
 
         Hooks.on('createToken', (scene: Scene, tokenData: TokenData, _options: {}, _someId: string) => {
             console.log('PF2e System | Updating the new token with the actors status effects');
-            PF2eStatusEffects._hookOnCreateToken(scene, tokenData);
+            StatusEffects._hookOnCreateToken(scene, tokenData);
         });
         Hooks.on('canvasReady', (_canvas: Canvas) => {
             console.log('PF2e System | Updating the scenes token with the actors status effects');
-            PF2eStatusEffects._hookOnCanvasReady();
+            StatusEffects._hookOnCanvasReady();
         });
     }
 
@@ -178,7 +181,7 @@ export class PF2eStatusEffects {
      */
     static _updateStatusIcons() {
         const effects: string[] = [];
-        const conditions = Array.from(PF2eConditionManager.conditions.values()).filter(
+        const conditions = Array.from(ConditionManager.conditions.values()).filter(
             (c) => c.data.group !== 'detection' && c.data.group !== 'attitudes',
         );
         conditions
@@ -224,7 +227,7 @@ export class PF2eStatusEffects {
 
             if (src.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
-                const condition = PF2eConditionManager.getConditionByStatusName(statusName);
+                const condition = ConditionManager.getConditionByStatusName(statusName);
                 if (condition === undefined) {
                     continue;
                 }
@@ -275,7 +278,7 @@ export class PF2eStatusEffects {
                 // Icon is a condition
 
                 const condition: ConditionData = appliedConditions.find((e) => e.name === conditionName);
-                const conditionBase = PF2eConditionManager.getConditionByStatusName(status);
+                const conditionBase = ConditionManager.getConditionByStatusName(status);
 
                 if (conditionBase?.data.value.isValued) {
                     // Valued condition
@@ -323,10 +326,10 @@ export class PF2eStatusEffects {
     static _showStatusDescr(event: JQuery.TriggeredEvent) {
         const f = $(event.currentTarget);
         const statusDescr = $('div.status-effect-summary');
-        type ConditionKey = keyof typeof PF2eStatusEffects.conditions;
+        type ConditionKey = keyof typeof StatusEffects.conditions;
         if (f.attr('src')?.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
             const statusName = f.attr('data-effect') ?? ('undefined' as ConditionKey);
-            const conditions = PF2eStatusEffects.conditions;
+            const conditions = StatusEffects.conditions;
             const conditionKeys = Object.keys(conditions);
             if (typeof statusName === 'string' && statusName in conditionKeys) {
                 const conditionInfo = conditions[statusName as ConditionKey];
@@ -350,7 +353,7 @@ export class PF2eStatusEffects {
                 throw Error(`PF2E | StatusEffects | Could not get token with id: ${tokenData._id}`);
             }
 
-            PF2eConditionManager.renderEffects(token);
+            ConditionManager.renderEffects(token);
         }
     }
 
@@ -365,7 +368,7 @@ export class PF2eStatusEffects {
             if (token === undefined) continue;
 
             if (token.owner) {
-                PF2eConditionManager.renderEffects(token);
+                ConditionManager.renderEffects(token);
             }
         }
     }
@@ -382,7 +385,7 @@ export class PF2eStatusEffects {
         event.preventDefault();
 
         if (event.shiftKey) {
-            PF2eStatusEffects._onToggleOverlay(event, this);
+            StatusEffects._onToggleOverlay(event, this);
             return;
         }
 
@@ -419,27 +422,27 @@ export class PF2eStatusEffects {
                     )
                     .forEach((i) => conditionIds.push(i._id));
 
-                await PF2eConditionManager.removeConditionFromToken(conditionIds, this);
+                await ConditionManager.removeConditionFromToken(conditionIds, this);
             } else if (condition) {
                 this.statusEffectChanged = true;
-                await PF2eConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
+                await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
                 if (this.data.actorLink) {
-                    PF2eStatusEffects._updateHUD(f.parent().parent(), this);
+                    StatusEffects._updateHUD(f.parent().parent(), this);
                 }
             }
         } else if (event.type === 'click') {
             this.statusEffectChanged = true;
             if (condition) {
-                await PF2eConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
+                await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
 
                 if (this.data.actorLink) {
-                    PF2eStatusEffects._updateHUD(f.parent().parent(), this);
+                    StatusEffects._updateHUD(f.parent().parent(), this);
                 }
             } else {
-                const newCondition = PF2eConditionManager.getCondition(status);
+                const newCondition = ConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
 
-                await PF2eConditionManager.addConditionToToken(newCondition, this);
+                await ConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }
@@ -448,7 +451,7 @@ export class PF2eStatusEffects {
         event.preventDefault();
         const token = this as any;
         if (event.shiftKey) {
-            PF2eStatusEffects._onToggleOverlay(event, token);
+            StatusEffects._onToggleOverlay(event, token);
             return;
         }
 
@@ -483,17 +486,17 @@ export class PF2eStatusEffects {
 
             if (conditionIds.length > 0) {
                 token.statusEffectChanged = true;
-                await PF2eConditionManager.removeConditionFromToken(conditionIds, token);
+                await ConditionManager.removeConditionFromToken(conditionIds, token);
             } else if (token.data.effects.includes(src)) {
                 await token.toggleEffect(src);
             }
         } else if (event.type === 'click') {
             if (!condition && status) {
-                const newCondition = PF2eConditionManager.getCondition(status);
+                const newCondition = ConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
                 token.statusEffectChanged = true;
 
-                await PF2eConditionManager.addConditionToToken(newCondition, token);
+                await ConditionManager.addConditionToToken(newCondition, token);
             } else if (!token.data.effects.includes(src)) {
                 await token.toggleEffect(src);
             }
@@ -524,8 +527,8 @@ export class PF2eStatusEffects {
         for (const condition of token.actor.data.items.filter(
             (i: ConditionData) => i.flags.pf2e?.condition && i.data.active && i.type === 'condition',
         )) {
-            type ConditionKey = keyof typeof PF2eStatusEffects.conditions;
-            const conditionInfo = PF2eStatusEffects.conditions[condition.data.hud.statusName as ConditionKey];
+            type ConditionKey = keyof typeof StatusEffects.conditions;
+            const conditionInfo = StatusEffects.conditions[condition.data.hud.statusName as ConditionKey];
             const summary = 'summary' in conditionInfo ? conditionInfo.summary : '';
             statusEffectList += `
                 <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.hud.statusName}.${
@@ -568,7 +571,7 @@ export class PF2eStatusEffects {
         ChatMessage.create(chatData);
 
         if (!token.data.hidden && game.settings.get(game.system.id, 'showConditionChatBubbles')) {
-            bubbleContent = PF2eStatusEffects._changeYouToI(bubbleContent);
+            bubbleContent = StatusEffects._changeYouToI(bubbleContent);
             canvas.hud.bubbles.say(token, bubbleContent, {
                 emote: true,
             });
@@ -579,7 +582,7 @@ export class PF2eStatusEffects {
      * If the system setting statusEffectType is changed, we need to upgrade CONFIG
      * And migrate all statusEffect URLs of all Tokens
      */
-    static async _migrateStatusEffectUrls(chosenSetting) {
+    private static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconType) {
         if (CONFIG.PF2E.statusEffects.overruledByModule) {
             console.log('PF2e System | The PF2eStatusEffect icons are overruled by a module');
             ui.notifications.error(
@@ -588,9 +591,9 @@ export class PF2eStatusEffects {
             );
             return;
         }
-        console.log('PF2e System | Changing status effect icon types');
-        const iconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
-        const lastIconType = PF2eStatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
+        console.debug('PF2e System | Changing status effect icon types');
+        const iconType = StatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
+        const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
         const promises: Promise<BaseEntityData | BaseEntityData[]>[] = [];
         for (const scene of game.scenes.values()) {
@@ -620,7 +623,7 @@ export class PF2eStatusEffects {
         CONFIG.PF2E.statusEffects.effectsIconFolder = iconType.effectsIconFolder;
         CONFIG.PF2E.statusEffects.effectsIconFileType = iconType.effectsIconFileType;
         CONFIG.PF2E.statusEffects.lastIconType = chosenSetting;
-        PF2eStatusEffects._updateStatusIcons();
+        StatusEffects._updateStatusIcons();
     }
 
     /**
@@ -664,7 +667,7 @@ export class PF2eStatusEffects {
             const value = status.value;
             const source = status.source ? status.source : 'PF2eStatusEffects.setStatus';
 
-            const condition = PF2eConditionManager.getConditionByStatusName(statusName);
+            const condition = ConditionManager.getConditionByStatusName(statusName);
 
             if (!condition) {
                 console.log(`PF2e System | '${statusName}' is not a vaild condition!`);
@@ -694,14 +697,14 @@ export class PF2eStatusEffects {
                         continue;
                     }
 
-                    await PF2eConditionManager.updateConditionValue(effect._id, token, newValue); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.updateConditionValue(effect._id, token, newValue); // eslint-disable-line no-await-in-loop
                 } else if (Number(value) > 0) {
                     // No effect, but value is a number and is greater than 0.
                     // Add a new condition with the value.
 
                     condition.data.source.value = source;
                     condition.data.value.value = Number(value);
-                    await PF2eConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
                 }
             } else if (!value) {
                 // Value was not provided.
@@ -714,13 +717,13 @@ export class PF2eStatusEffects {
                 if (effect !== undefined && status.toggle) {
                     // Condition exists and toggle was true
                     // Remove it.
-                    await PF2eConditionManager.removeConditionFromToken([effect._id], token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.removeConditionFromToken([effect._id], token); // eslint-disable-line no-await-in-loop
                 } else if (effect === undefined) {
                     // Effect does not exist.  Create it.
 
                     // Set the source to this function.
                     condition.data.source.value = source;
-                    await PF2eConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
                 }
             }
         }

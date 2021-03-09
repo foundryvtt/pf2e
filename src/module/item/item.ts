@@ -7,8 +7,8 @@ import { addSign } from '../utils';
 import {
     AbilityModifier,
     ensureProficiencyOption,
-    PF2Modifier,
-    PF2StatisticModifier,
+    ModifierPF2e,
+    StatisticModifier,
     ProficiencyModifier,
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
@@ -17,7 +17,7 @@ import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } f
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/actor-data-definitions';
-import { PF2Check } from '../system/rolls';
+import { CheckPF2e } from '../system/rolls';
 import { ConfigPF2e } from 'src/scripts/config';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
@@ -778,9 +778,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         if (spellcastingEntry.data?.attack?.roll) {
             const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
-                modifiers.push(new PF2Modifier(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
             }
             spellcastingEntry.data.attack.roll({ event, options, modifiers });
         } else {
@@ -885,7 +885,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (!spellcastingEntry || spellcastingEntry.data.type !== 'spellcastingEntry')
             throw new Error('Spell points to location that is not a spellcasting type');
 
-        const modifiers: PF2Modifier[] = [];
+        const modifiers: ModifierPF2e[] = [];
         const ability: AbilityString = item.data.ability?.value || 'int';
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
@@ -915,10 +915,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
         addFlavor('Failure', itemData.level.value);
         addFlavor('CritFailure', 0);
         flavor += '</p>';
-        const check = new PF2StatisticModifier(flavor, modifiers);
+        const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
-        PF2Check.roll(
+        CheckPF2e.roll(
             check,
             {
                 actor: this.actor,
@@ -1187,8 +1187,8 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 itemData = item?.data;
             }
             if (item && itemData) {
-                const strike: PF2StatisticModifier = actor.data.data?.actions?.find(
-                    (a: PF2StatisticModifier) => a.item === itemId,
+                const strike: StatisticModifier = actor.data.data?.actions?.find(
+                    (a: StatisticModifier) => a.item === itemId,
                 );
                 const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
 

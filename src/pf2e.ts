@@ -1,5 +1,5 @@
 import DOMPurify from 'dompurify';
-import { PF2Check } from './module/system/rolls';
+import { CheckPF2e } from './module/system/rolls';
 import { EffectPanel } from './module/system/effect-panel';
 import { PF2ActionElement } from './module/custom-elements/pf2-action';
 import { PF2RuleElements } from './module/rules/rules';
@@ -132,25 +132,25 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
             name: 'PF2E.RerollMenu.HeroPoint',
             icon: '<i class="fas fa-hospital-symbol"></i>',
             condition: canHeroPointReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
         },
         {
             name: 'PF2E.RerollMenu.KeepNew',
             icon: '<i class="fas fa-dice"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId'))),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'))),
         },
         {
             name: 'PF2E.RerollMenu.KeepWorst',
             icon: '<i class="fas fa-dice-one"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
         },
         {
             name: 'PF2E.RerollMenu.KeepBest',
             icon: '<i class="fas fa-dice-six"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
         },
     );
     return options;

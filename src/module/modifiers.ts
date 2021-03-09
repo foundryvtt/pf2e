@@ -19,7 +19,7 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
  */
-export const PF2ModifierType = Object.freeze({
+export const ModifierTypePF2e = Object.freeze({
     /**
      * Nearly all checks allow you to add an ability modifier to the roll. An ability modifier
      * represents your raw capabilities and is derived from an ability score. Exactly which ability
@@ -78,7 +78,7 @@ export const PF2ModifierType = Object.freeze({
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
  * @category PF2
  */
-export class PF2Modifier {
+export class ModifierPF2e {
     /** The name of this modifier; should generally be a localization key (see en.json). */
     name: string;
     /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
@@ -144,27 +144,27 @@ export class PF2Modifier {
 // ability scores
 export const STRENGTH = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityStr', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const DEXTERITY = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityDex', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const CONSTITUTION = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityCon', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const INTELLIGENCE = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityInt', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const WISDOM = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityWis', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const CHARISMA = Object.freeze({
     withScore: (score: number) =>
-        new PF2Modifier('PF2E.AbilityCha', Math.floor((score - 10) / 2), PF2ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
 });
 export const AbilityModifier = Object.freeze({
     /**
@@ -191,7 +191,7 @@ export const AbilityModifier = Object.freeze({
                 // Throwing an actual error can completely break the sheet. Instead, log
                 // and use 0 for the modifier
                 console.error(`invalid ability abbreviation: ${ability}`);
-                return new PF2Modifier('PF2E.AbilityUnknown', 0, PF2ModifierType.ABILITY);
+                return new ModifierPF2e('PF2E.AbilityUnknown', 0, ModifierTypePF2e.ABILITY);
         }
     },
 });
@@ -200,7 +200,7 @@ export const AbilityModifier = Object.freeze({
 export const UNTRAINED = Object.freeze({
     atLevel: (_level: number) => {
         const modifier = (game.settings.get('pf2e', 'proficiencyUntrainedModifier') as number | null) ?? 0;
-        return new PF2Modifier('PF2E.ProficiencyLevel0', modifier, PF2ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, ModifierTypePF2e.PROFICIENCY);
     },
 });
 export const TRAINED = Object.freeze({
@@ -210,7 +210,7 @@ export const TRAINED = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new PF2Modifier('PF2E.ProficiencyLevel1', modifier, PF2ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, ModifierTypePF2e.PROFICIENCY);
     },
 });
 export const EXPERT = Object.freeze({
@@ -220,7 +220,7 @@ export const EXPERT = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new PF2Modifier('PF2E.ProficiencyLevel2', modifier, PF2ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, ModifierTypePF2e.PROFICIENCY);
     },
 });
 export const MASTER = Object.freeze({
@@ -230,7 +230,7 @@ export const MASTER = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new PF2Modifier('PF2E.ProficiencyLevel3', modifier, PF2ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, ModifierTypePF2e.PROFICIENCY);
     },
 });
 export const LEGENDARY = Object.freeze({
@@ -240,7 +240,7 @@ export const LEGENDARY = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new PF2Modifier('PF2E.ProficiencyLevel4', modifier, PF2ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, ModifierTypePF2e.PROFICIENCY);
     },
 });
 export const ProficiencyModifier = Object.freeze({
@@ -250,7 +250,7 @@ export const ProficiencyModifier = Object.freeze({
      * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
      * @returns The modifier for the given proficiency rank and character level.
      */
-    fromLevelAndRank: (level: number, rank: number): PF2Modifier => {
+    fromLevelAndRank: (level: number, rank: number): ModifierPF2e => {
         switch (rank || 0) {
             case 0:
                 return UNTRAINED.atLevel(level);
@@ -269,9 +269,9 @@ export const ProficiencyModifier = Object.freeze({
 });
 
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
-const HIGHER_BONUS = (a: PF2Modifier, b: PF2Modifier) => a.modifier >= b.modifier;
+const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as small. */
-const LOWER_PENALTY = (a: PF2Modifier, b: PF2Modifier) => a.modifier <= b.modifier;
+const LOWER_PENALTY = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier <= b.modifier;
 
 /**
  * Given a current map of damage type -> best modifier, compare the given modifier against the current best modifier
@@ -279,9 +279,9 @@ const LOWER_PENALTY = (a: PF2Modifier, b: PF2Modifier) => a.modifier <= b.modifi
  * as a result of this update.
  */
 function applyStacking(
-    best: Record<string, PF2Modifier>,
-    modifier: PF2Modifier,
-    isBetter: (first: PF2Modifier, second: PF2Modifier) => boolean,
+    best: Record<string, ModifierPF2e>,
+    modifier: ModifierPF2e,
+    isBetter: (first: ModifierPF2e, second: ModifierPF2e) => boolean,
 ) {
     // If there is no existing bonus of this type, then add ourselves.
     const existing = best[modifier.type];
@@ -308,13 +308,13 @@ function applyStacking(
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
  * provided modifiers, setting the 'enabled' field based on whether or not the modifiers are active.
  *
- * @param {PF2Modifier[]} modifiers The list of modifiers to apply stacking rules for.
+ * @param {ModifierPF2e[]} modifiers The list of modifiers to apply stacking rules for.
  * @returns {number} The total modifier provided by the given list of modifiers.
  */
-function applyStackingRules(modifiers: PF2Modifier[]): number {
+function applyStackingRules(modifiers: ModifierPF2e[]): number {
     let total = 0;
-    const highestBonus: Record<string, PF2Modifier> = {};
-    const lowestPenalty: Record<string, PF2Modifier> = {};
+    const highestBonus: Record<string, ModifierPF2e> = {};
+    const lowestPenalty: Record<string, ModifierPF2e> = {};
 
     for (const modifier of modifiers) {
         // Always disable ignored modifiers and don't do anything further with them.
@@ -324,7 +324,7 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
         }
 
         // Untyped modifiers always stack, so enable them and add their modifier.
-        if (modifier.type === PF2ModifierType.UNTYPED) {
+        if (modifier.type === ModifierTypePF2e.UNTYPED) {
             modifier.enabled = true;
             total += modifier.modifier;
             continue;
@@ -348,11 +348,11 @@ function applyStackingRules(modifiers: PF2Modifier[]): number {
  * modifier.
  * @category PF2
  */
-export class PF2StatisticModifier {
+export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
     name: string;
     /** The list of modifiers which affect the statistic. */
-    _modifiers: PF2Modifier[];
+    _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
     totalModifier: number;
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
@@ -362,7 +362,7 @@ export class PF2StatisticModifier {
      * @param name The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
      */
-    constructor(name: string, modifiers: PF2Modifier[]) {
+    constructor(name: string, modifiers: ModifierPF2e[]) {
         this.name = name;
         this._modifiers = modifiers || [];
         {
@@ -379,12 +379,12 @@ export class PF2StatisticModifier {
     }
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
-    get modifiers(): readonly PF2Modifier[] {
+    get modifiers(): readonly ModifierPF2e[] {
         return Object.freeze([].concat(this._modifiers));
     }
 
     /** Add a modifier to this collection. */
-    push(modifier: PF2Modifier) {
+    push(modifier: ModifierPF2e) {
         // de-duplication
         if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
             this._modifiers.push(modifier);
@@ -408,13 +408,13 @@ export class PF2StatisticModifier {
  * Represents the list of modifiers for a specific check.
  * @category PF2
  */
-export class PF2CheckModifier extends PF2StatisticModifier {
+export class CheckModifier extends StatisticModifier {
     /**
      * @param {string} name The name of this check modifier.
-     * @param {PF2StatisticModifier} statistic The statistic modifier to copy fields from.
-     * @param {PF2Modifier[]} modifiers Additional modifiers to add to this check.
+     * @param {StatisticModifier} statistic The statistic modifier to copy fields from.
+     * @param {ModifierPF2e[]} modifiers Additional modifiers to add to this check.
      */
-    constructor(name: string, statistic: PF2StatisticModifier, modifiers: PF2Modifier[] = []) {
+    constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
         super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
     }
 }

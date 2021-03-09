@@ -3,14 +3,14 @@
  */
 import {
     ensureProficiencyOption,
-    PF2CheckModifier,
+    CheckModifier,
     PF2DamageDice,
-    PF2Modifier,
+    ModifierPF2e,
     PF2ModifierPredicate,
     ProficiencyModifier,
 } from '../modifiers';
-import { PF2eConditionManager } from '../conditions';
-import { adaptRoll, PF2Check } from '@system/rolls';
+import { ConditionManager } from '../conditions';
+import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/item';
@@ -241,12 +241,12 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     prepareInitiative(
         actorData: CharacterData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
         rollNotes: Record<string, PF2RollNote[]>,
     ) {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: PF2Modifier[] = [];
+        const modifiers: ModifierPF2e[] = [];
         const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
@@ -270,7 +270,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill as SkillAbbreviation],
         );
 
-        const stat = new PF2CheckModifier('initiative', initStat, modifiers) as InitiativeData;
+        const stat = new CheckModifier('initiative', initStat, modifiers) as InitiativeData;
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         stat.roll = adaptRoll((args) => {
@@ -281,8 +281,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                 options.push(skillFullName);
             }
             ensureProficiencyOption(options, initStat.rank ?? -1);
-            PF2Check.roll(
-                new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+            CheckPF2e.roll(
+                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
                 { actor: this, type: 'initiative', options, notes, dc: args.dc },
                 args.event,
                 (roll) => {
@@ -445,7 +445,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected _prepareCustomModifiers(actorData: CreatureData, rules: PF2RuleElement[]): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const statisticsModifiers: Record<string, PF2Modifier[]> = {};
+        const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
         const rollNotes: Record<string, PF2RollNote[]> = {};
@@ -476,7 +476,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
         );
 
-        for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
+        for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
 
@@ -1202,7 +1202,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-            const modifier = new PF2Modifier(name, value, type);
+            const modifier = new ModifierPF2e(name, value, type);
             if (damageType) {
                 modifier.damageType = damageType;
             }

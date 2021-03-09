@@ -8,7 +8,7 @@ import { ActorPF2e, SKILL_DICTIONARY } from '../actor';
 import { TraitSelector5e } from '@system/trait-selector';
 import { ItemPF2e } from '@item/item';
 import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
-import { PF2eConditionManager } from '../../conditions';
+import { ConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '@item/physical';
 import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/actor-data-definitions';
@@ -647,7 +647,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                             });
 
                         if (this.token) {
-                            await PF2eConditionManager.removeConditionFromToken(list, this.token);
+                            await ConditionManager.removeConditionFromToken(list, this.token);
                         } else {
                             await this.actor.deleteEmbeddedEntity('OwnedItem', list);
                         }
@@ -1291,7 +1291,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
 
             if (token) {
-                await PF2eConditionManager.addConditionToToken(condition, token);
+                await ConditionManager.addConditionToToken(condition, token);
                 return itemData;
             } else {
                 const translations = LocalizePF2e.translations.PF2E;

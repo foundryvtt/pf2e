@@ -3,7 +3,7 @@ import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } fro
 import { calculateEncumbrance } from '@item/encumbrance';
 import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '../../modifiers';
-import { PF2eConditionManager } from '../../conditions';
+import { ConditionManager } from '../../conditions';
 import { CharacterPF2e } from '../character';
 import { PF2EPhysicalItem } from '@item/physical';
 import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData, ArmorData } from '@item/data-definitions';
@@ -119,7 +119,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         sheetData.data.effects = {};
 
-        sheetData.data.effects.conditions = PF2eConditionManager.getFlattenedConditions(
+        sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
         // is the stamina variant rule enabled?

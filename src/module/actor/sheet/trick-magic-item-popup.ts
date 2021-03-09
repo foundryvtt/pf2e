@@ -1,8 +1,8 @@
 import { ActorPF2e, SKILL_DICTIONARY } from '@actor/actor';
 import { TrickMagicItemCastData } from '@item/data-definitions';
 import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
-import { PF2StatisticModifier } from '@module/modifiers';
 import { SkillAbbreviation } from '@actor/actor-data-definitions';
+import { StatisticModifier } from '@module/modifiers';
 
 /**
  * @category Other
@@ -58,11 +58,11 @@ export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
     async _updateObject(event: any) {
         if (event.submitter?.name) {
             const skill = event.submitter.name;
-            const lowerSkill = skill.toLowerCase();
+            const lowerSkill = skill.toLowerCase() as SkillAbbreviation;
             const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(
-                SKILL_DICTIONARY[lowerSkill as SkillAbbreviation],
+                SKILL_DICTIONARY[lowerSkill],
             );
-            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as PF2StatisticModifier;
+            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as StatisticModifier;
             stat.roll({
                 actor: this.object,
                 event: event,

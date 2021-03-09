@@ -1,6 +1,6 @@
 import { SKILL_EXPANDED } from '../../actor/actor';
-import { CharacterData, NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
+import { CharacterData, NPCData, SkillAbbreviation } from '@actor/actor-data-definitions';
+import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
@@ -12,7 +12,7 @@ const KNOWN_TARGETS = {
  * @category RuleElement
  */
 export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (selector === 'ac') {
@@ -28,17 +28,17 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         } else if (!value) {
             console.warn('PF2E | Fixed modifier requires at least a non-zero value or formula field.');
         } else {
-            const modifier = new PF2Modifier(
+            const modifier = new ModifierPF2e(
                 this.ruleData.name ?? label,
                 value - actorData.data.abilities[ability].mod,
-                PF2ModifierType.PROFICIENCY,
+                ModifierTypePF2e.PROFICIENCY,
             );
             modifier.label = label;
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         }
     }
 
-    onAfterPrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
+    onAfterPrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;
@@ -48,10 +48,10 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
 
         if (target) {
             for (const modifier of target.modifiers) {
-                if (modifier.type === PF2ModifierType.ITEM && modifier.modifier > 0) {
+                if (modifier.type === ModifierTypePF2e.ITEM && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === PF2ModifierType.PROFICIENCY && modifier.name !== label) {
+                if (force && modifier.type === ModifierTypePF2e.PROFICIENCY && modifier.name !== label) {
                     modifier.ignored = true;
                 }
             }

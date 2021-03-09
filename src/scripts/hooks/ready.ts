@@ -9,10 +9,20 @@ import { rollActionMacro, rollItemMacro } from '@scripts/init';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { PF2Actions } from '@system/actions/actions';
-import { PF2eConditionManager } from '../../module/conditions';
-import { PF2eStatusEffects } from '@scripts/actor/status-effects';
+import { ConditionManager } from '../../module/conditions';
+import { StatusEffects } from '@scripts/actor/status-effects';
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { DicePF2e } from '@scripts/dice';
+import {
+    AbilityModifier,
+    CheckModifier,
+    ModifierPF2e,
+    ModifierTypePF2e,
+    ProficiencyModifier,
+    StatisticModifier,
+} from '../../module/modifiers';
+import { CheckPF2e } from '@system/rolls';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -38,6 +48,7 @@ export function listen(): void {
             }
         }
 
+        // Exposed objects for macros and modules
         game.pf2e = {
             actions: {
                 earnIncome,
@@ -51,6 +62,16 @@ export function listen(): void {
             },
             effectPanel: new EffectPanel(),
             worldClock: new WorldClock(),
+            DicePF2e: DicePF2e,
+            StatusEffects: StatusEffects,
+            ConditionManager: ConditionManager,
+            ModifierType: ModifierTypePF2e,
+            Modifier: ModifierPF2e,
+            AbilityModifier: AbilityModifier,
+            ProficiencyModifier: ProficiencyModifier,
+            StatisticModifier: StatisticModifier,
+            CheckModifier: CheckModifier,
+            Check: CheckPF2e,
         };
         PF2Actions.exposeActions(game.pf2e.actions);
 
@@ -67,8 +88,8 @@ export function listen(): void {
         activateSocketListener();
 
         // Requires ConditionManager to be fully loaded.
-        PF2eConditionManager.init().then(() => {
-            PF2eStatusEffects.init();
+        ConditionManager.init().then(() => {
+            StatusEffects.init();
         });
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.

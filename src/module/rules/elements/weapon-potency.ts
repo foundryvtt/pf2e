@@ -1,13 +1,13 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics, PF2WeaponPotency } from '../rules-data-definitions';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/actor-data-definitions';
 import { PF2ModifierPredicate } from '../../modifiers';
 
 /**
  * @category RuleElement
  */
 export class PF2WeaponPotencyRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData, { weaponPotency }: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { weaponPotency }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

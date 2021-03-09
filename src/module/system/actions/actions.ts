@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/actor';
-import { ensureProficiencyOption, PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
-import { PF2Check } from '../rolls';
+import { ensureProficiencyOption, CheckModifier, StatisticModifier } from '../../modifiers';
+import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
@@ -97,11 +97,11 @@ export class PF2Actions {
                 }
                 flavor += `<b>${game.i18n.localize(title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-                const stat = getProperty(actor, statName) as PF2StatisticModifier;
-                const check = new PF2CheckModifier(flavor, stat);
+                const stat = getProperty(actor, statName) as StatisticModifier;
+                const check = new CheckModifier(flavor, stat);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
-                PF2Check.roll(
+                CheckPF2e.roll(
                     check,
                     {
                         actor,

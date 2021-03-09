@@ -1,4 +1,4 @@
-import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
+import { ModifierPF2e, StatisticModifier } from '../modifiers';
 import { ActorPF2e } from '@actor/actor';
 import { PF2RollNote } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
@@ -31,13 +31,13 @@ export interface CheckModifiersContext {
  */
 export class CheckModifiersDialog extends Application {
     /** The check which is being edited. */
-    check: PF2StatisticModifier;
+    check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
     context: CheckModifiersContext;
     /** Callback called when the roll occurs. */
     callback?: (roll: Roll) => void;
 
-    constructor(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         super({
             title: check.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -57,7 +57,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     /** Roll the given check, rendering the roll to the chat menu. */
-    static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    static async roll(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         const options: string[] = [];
         const ctx = (context as any) ?? {};
         let dice = '1d20';
@@ -242,7 +242,7 @@ export class CheckModifiersDialog extends Application {
         if (errors.length > 0) {
             ui.notifications.error(errors.join(' '));
         } else {
-            this.check.push(new PF2Modifier(name, value, type));
+            this.check.push(new ModifierPF2e(name, value, type));
             this.render();
         }
     }

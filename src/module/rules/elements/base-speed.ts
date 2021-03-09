@@ -1,12 +1,12 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
-import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, FamiliarData, NPCData } from '@actor/actor-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2BaseSpeedRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (this.ruleData.selector && label && value) {

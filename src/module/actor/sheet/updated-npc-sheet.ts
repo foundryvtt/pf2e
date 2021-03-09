@@ -1,6 +1,6 @@
 import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
+import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
 import { ActorPF2e } from '../actor';
 
 /**
@@ -264,7 +264,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new PF2Modifier(increase ? 'Elite' : 'Weak', mod, PF2ModifierType.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierTypePF2e.UNTYPED);
             customModifiers.all.push(modifier);
         }
 

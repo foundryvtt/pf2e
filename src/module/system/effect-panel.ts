@@ -1,5 +1,5 @@
 import { ActorPF2e } from '../actor/actor';
-import { PF2eConditionManager } from '../conditions';
+import { ConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 
 interface EffectPanelData {
@@ -95,7 +95,7 @@ export class EffectPanel extends Application {
                 }
             }
         }
-        data.conditions = PF2eConditionManager.getFlattenedConditions(data.conditions).map((c) => {
+        data.conditions = ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
             c.locked = c.parents.length > 0;
             c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
             return c;
@@ -117,9 +117,9 @@ export class EffectPanel extends Application {
                     const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : undefined;
                     actor.getActiveTokens().forEach((token) => {
                         if (data.value.isValued) {
-                            PF2eConditionManager.updateConditionValue(item._id, token, value);
+                            ConditionManager.updateConditionValue(item._id, token, value);
                         } else {
-                            PF2eConditionManager.removeConditionFromToken(item._id, token);
+                            ConditionManager.removeConditionFromToken(item._id, token);
                         }
                     });
                 } else {

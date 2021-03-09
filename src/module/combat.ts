@@ -3,7 +3,7 @@ import { ActorDataPF2e } from '@actor/actor-data-definitions';
 
 type CombatantDataPF2e = CombatantData<ActorPF2e>;
 
-export class PF2ECombat extends Combat<ActorPF2e> {
+export class CombatPF2e extends Combat<ActorPF2e> {
     /** Exclude orphaned and loot-actor tokens from combat */
     async createEmbeddedEntity(
         embeddedName: 'Combatant',

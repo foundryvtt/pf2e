@@ -2,13 +2,13 @@ import { CreatureSheetPF2e } from './creature';
 import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, SKILL_DICTIONARY } from '../actor';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
+import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { ItemPF2e } from '@item/item';
 import { PF2EPhysicalItem } from '@item/physical';
-import { NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
+import { NPCData, SkillAbbreviation } from '@actor/actor-data-definitions';
 
 export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
@@ -37,7 +37,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
      */
-    protected prepareItems(actorData: NpcData) {
+    protected prepareItems(actorData: NPCData) {
         const monsterTraits = actorData.data.traits.traits;
 
         this._prepareAbilities(actorData.data.abilities);
@@ -780,7 +780,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Add a new custom modifier
         if (!revertToNormal && (isWeak || isElite)) {
             const customModifierName = isWeak ? 'Weak' : 'Elite';
-            const customModifier = new PF2Modifier(customModifierName, npcModifier, PF2ModifierType.UNTYPED);
+            const customModifier = new ModifierPF2e(customModifierName, npcModifier, ModifierTypePF2e.UNTYPED);
 
             customModifiers.all.push(customModifier);
         }
@@ -1590,7 +1590,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new PF2Modifier(increase ? 'Elite' : 'Weak', mod, PF2ModifierType.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierTypePF2e.UNTYPED);
             customModifiers.all.push(modifier);
         }
 

@@ -1,12 +1,12 @@
 import { ItemData } from '@item/data-definitions';
-import { CharacterData, FamiliarData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, FamiliarData, NPCData } from '@actor/actor-data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2SetPropertyRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NpcData | FamiliarData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onCreate(actorData: CharacterData | NPCData | FamiliarData, item: ItemData, actorUpdates: any, tokens: any[]) {
         if (
             this.ruleData.property &&
             typeof this.ruleData.on?.added !== 'undefined' &&
@@ -22,7 +22,7 @@ export class PF2SetPropertyRuleElement extends PF2RuleElement {
         }
     }
 
-    onDelete(actorData: CharacterData | NpcData | FamiliarData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onDelete(actorData: CharacterData | NPCData | FamiliarData, item: ItemData, actorUpdates: any, tokens: any[]) {
         if (
             this.ruleData.property &&
             typeof this.ruleData.on?.removed !== 'undefined' &&

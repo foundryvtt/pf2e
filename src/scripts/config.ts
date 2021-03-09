@@ -28,13 +28,15 @@ import { EffectPF2e } from '../module/item/effect';
 import { CombatTrackerPF2e } from '../module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
 
+export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
 
     statusEffects: {
         overruledByModule: false,
-        lastIconType: 'default',
+        lastIconType: 'default' as StatusEffectIconType,
         effectsIconFolder: 'systems/pf2e/icons/conditions/',
         effectsIconFileType: 'png',
         keepFoundryStatusEffects: true,

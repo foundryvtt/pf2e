@@ -1,8 +1,8 @@
 import {Rarity} from '@item/data-definitions';
-import {NpcData} from '@actor/actor-data-definitions';
+import {NPCData} from '@actor/actor-data-definitions';
 import {identifyCreature} from '../../src/module/recall-knowledge';
 
-function createCreature(level: number, rarity: Rarity, traits: string[]): NpcData {
+function createCreature(level: number, rarity: Rarity, traits: string[]): NPCData {
     return {
         data: {
             details: {
@@ -19,7 +19,7 @@ function createCreature(level: number, rarity: Rarity, traits: string[]): NpcDat
                 },
             },
         },
-    } as NpcData;
+    } as NPCData;
 }
 
 describe('test recall knowledge on creatures', () => {

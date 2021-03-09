@@ -1,5 +1,5 @@
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
+import { CharacterData, NPCData } from '@actor/actor-data-definitions';
+import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
@@ -7,7 +7,7 @@ import { PF2RuleElementSynthetics } from '../rules-data-definitions';
  * @category RuleElement
  */
 export class PF2MageArmorRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const label = this.ruleData.label ?? this.item.name;
         const level = (this.item.data as any)?.level?.value ?? this.ruleData.level ?? 1;
         if (label) {
@@ -35,11 +35,11 @@ export class PF2MageArmorRuleElement extends PF2RuleElement {
             }
 
             statisticsModifiers.ac = (statisticsModifiers.ac || []).concat(
-                new PF2Modifier(label, ac, PF2ModifierType.ITEM),
+                new ModifierPF2e(label, ac, ModifierTypePF2e.ITEM),
             );
             if (save > 0) {
                 statisticsModifiers['saving-throw'] = (statisticsModifiers['saving-throw'] || []).concat(
-                    new PF2Modifier(label, save, PF2ModifierType.ITEM),
+                    new ModifierPF2e(label, save, ModifierTypePF2e.ITEM),
                 );
             }
             actorData.data.attributes.dexCap = (actorData.data.attributes.dexCap ?? []).concat({
