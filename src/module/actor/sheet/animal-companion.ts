@@ -18,11 +18,7 @@ export class ActorSheetPF2eAnimalCompanion extends ActorSheetPF2eCreature<PF2EAn
     get template() {
         return `systems/pf2e/templates/actors/animal-companion-sheet.html`;
     }
-    /* -------------------------------------------- */
 
-    /**
-     * Organize and classify Items for Character sheets
-     * @private
-     */
-    _prepareItems(_actorData: any) {}
+    /** @override */
+    protected prepareItems(_actorData: any) {}
 }

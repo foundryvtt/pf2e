@@ -5,7 +5,8 @@ import { RollParameters } from '../system/rolls';
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
 
-export type Proficency = 0 | 1 | 2 | 3 | 4; // untrained, trained, expert, master, legendary
+export type ZeroToThree = 0 | 1 | 2 | 3;
+export type ZeroToFour = ZeroToThree | 4; // +1!
 
 /** A type representing the possible PFS factions. */
 export type PFSFactionString = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
@@ -38,10 +39,10 @@ export interface AbilityData {
     mod: number;
 }
 
-/** Data describing the proficiency with a given martial type (such as armor proficiency). */
-export interface MartialData {
-    /** The proficiency rank in this martial skill (0 untrained - 4 legendary). */
-    rank: number;
+/** Data describing the proficiency with a given type of check */
+export interface ProficiencyData {
+    /** The proficiency rank (0 untrained - 4 legendary). */
+    rank: ZeroToFour;
     /** The actual modifier for this martial type. */
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
@@ -49,18 +50,12 @@ export interface MartialData {
 }
 
 /** Basic skill and save data (not including custom modifiers). */
-export interface RawSkillData {
-    /** The proficiency rank for this save. 0 (untrained) - 4 (legendary). */
-    rank: number;
+export interface RawSkillData extends ProficiencyData {
     /** The ability which this save scales off of. */
     ability: AbilityString;
     /** The raw modifier for this save (after applying all modifiers). */
-    value: number;
-    /** Any item-based bonuses to this save. */
     item: number;
     /** A breakdown of how the save value is determined. */
-    breakdown: string;
-    /** If set, this skill is affected by the armor check penalty. */
     armor?: number;
 }
 
@@ -228,6 +223,27 @@ export interface BaseTraitsData {
     dv: LabeledValue[];
 }
 
+export interface Skills {
+    acr: SkillData;
+    arc: SkillData;
+    ath: SkillData;
+    cra: SkillData;
+    dec: SkillData;
+    dip: SkillData;
+    itm: SkillData;
+    med: SkillData;
+    nat: SkillData;
+    occ: SkillData;
+    prf: SkillData;
+    rel: SkillData;
+    soc: SkillData;
+    ste: SkillData;
+    sur: SkillData;
+    thi: SkillData;
+}
+
+export type SkillAbbreviation = keyof Skills;
+
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
     senses: LabeledValue[];
@@ -296,6 +312,19 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
     [key: string]: any;
 }
 
+export interface MartialProficiencies {
+    unarmored: ProficiencyData;
+    light: ProficiencyData;
+    medium: ProficiencyData;
+    heavy: ProficiencyData;
+    simple: ProficiencyData;
+    martial: ProficiencyData;
+    advanced: ProficiencyData;
+    unarmed: ProficiencyData;
+}
+
+export type MartialString = keyof MartialProficiencies;
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
@@ -316,16 +345,7 @@ export interface RawCharacterData extends CreatureSystemData {
     };
 
     /** Tracks proficiencies for martial skills. */
-    martial: {
-        unarmored: MartialData;
-        light: MartialData;
-        medium: MartialData;
-        heavy: MartialData;
-        simple: MartialData;
-        martial: MartialData;
-        advanced: MartialData;
-        unarmed: MartialData;
-    };
+    martial: MartialProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
     details: {
@@ -419,7 +439,7 @@ export interface RawCharacterData extends CreatureSystemData {
         /** The current doomed level (and maximum) for this character. */
         doomed: { value: number; max: number };
         /** The current number of hero points (and maximum) for this character. */
-        heroPoints: { rank: number; max: number };
+        heroPoints: { rank: ZeroToThree; max: number };
 
         /** The number of familiar abilities this character's familiar has access to. */
         familiarAbilities: PF2StatisticModifier;
@@ -463,24 +483,7 @@ export interface RawCharacterData extends CreatureSystemData {
     };
 
     /** Player skills, used for various skill checks. */
-    skills: {
-        acr: SkillData;
-        arc: SkillData;
-        ath: SkillData;
-        cra: SkillData;
-        dec: SkillData;
-        dip: SkillData;
-        itm: SkillData;
-        med: SkillData;
-        nat: SkillData;
-        occ: SkillData;
-        prf: SkillData;
-        rel: SkillData;
-        soc: SkillData;
-        ste: SkillData;
-        sur: SkillData;
-        thi: SkillData;
-    };
+    skills: Skills;
 
     /** Pathfinder Society Organized Play */
     pfs?: RawPathfinderSocietyData;

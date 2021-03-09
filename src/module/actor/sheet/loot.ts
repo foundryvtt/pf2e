@@ -67,7 +67,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
         sheetData.isLoot = this.actor.data.data.lootSheetType === 'Loot';
         sheetData.isShop = !sheetData.isLoot;
 
-        this._prepareItems(sheetData.actor);
+        this.prepareItems(sheetData.actor);
 
         // TEMP: Name edit is only available for the GM
         sheetData.isGM = game.user.isGM;
@@ -75,7 +75,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
         return sheetData;
     }
 
-    _prepareItems(actorData) {
+    prepareItems(actorData) {
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
