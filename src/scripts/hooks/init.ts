@@ -10,8 +10,6 @@ import {
     PF2StatisticModifier,
     ProficiencyModifier,
 } from '../../module/modifiers';
-import { registerActors } from '../../module/register-actors';
-import { registerSheets } from '../../module/register-sheets';
 import { registerSettings } from '../../module/settings';
 import { PF2eCombatTracker } from '../../module/system/combat-tracker';
 import { PF2Check } from '../../module/system/rolls';
@@ -60,8 +58,6 @@ export function listen(): void {
 
         registerSettings();
         loadPF2ETemplates();
-        registerActors();
-        registerSheets();
         registerHandlebarsHelpers();
 
         // expose a few things to the global world, so that other modules can use our stuff
