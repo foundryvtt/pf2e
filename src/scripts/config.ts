@@ -289,7 +289,6 @@ export const PF2ECONFIG = {
         physical: 'PF2E.ResistanceTypePhysical',
         weapon: 'PF2E.ResistanceTypeWeapon',
         'critical-hits': 'PF2E.ResistanceTypeCriticalHits',
-        'draconic resistance': 'PF2E.ResistanceTypeDragonResistance',
         'protean anatomy': 'PF2E.ResistanceTypeProteanAnatomy',
     },
 
