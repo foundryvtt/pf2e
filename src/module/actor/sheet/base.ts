@@ -289,7 +289,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
      * @param spellSlot The number of the spell slot
      * @param spell The item details for the spell
      */
-    private async allocatePreparedSpellSlot(spellLevel: number, spellSlot: string, spell: SpellData, entryId: string) {
+    private async allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellData, entryId: string) {
         if (spell.data.level.value > spellLevel) {
             console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
             return;
@@ -1129,11 +1129,11 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
             } else if (dropSlotType === 'spellSlot') {
                 if (CONFIG.debug.hooks === true)
                     console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
-                const dropID = $(event.target).parents('.item').attr('data-item-id');
-                const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl') ?? 0);
+                const dropID = Number($(event.target).parents('.item').attr('data-item-id'));
+                const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
                 const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
 
-                if (dropID && spellLvl && entryId) {
+                if (Number.isInteger(dropID) && Number.isInteger(spellLvl) && entryId) {
                     this.allocatePreparedSpellSlot(spellLvl, dropID, itemData, entryId);
                 }
                 return itemData;
