@@ -294,8 +294,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 : this.item.effects.entries;
 
         return {
-            showList: BUILD_MODE === 'development' || effects.length > 0,
-            canCreate: BUILD_MODE === 'development' && actor === null && !this.item.uuid.match(/Compendium/),
+            showAEs: BUILD_MODE === 'development',
+            canCreate: BUILD_MODE === 'development' && !this.item.uuid.match(/Compendium/),
             effects: effects.map((effect) => ({
                 id: effect.id,
                 iconPath: effect.data.icon ?? null,
