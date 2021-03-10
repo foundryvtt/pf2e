@@ -2,7 +2,7 @@ import { CreatureSheetPF2e } from './creature';
 import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
-import { ModifierPF2e, ModifierTypePF2e } from '@module/modifiers';
+import { ModifierPF2e, ModifierType } from '@module/modifiers';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { NPCPF2e } from '@actor/npc';
 import { identifyCreature } from '@module/recall-knowledge';
@@ -780,7 +780,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Add a new custom modifier
         if (!revertToNormal && (isWeak || isElite)) {
             const customModifierName = isWeak ? 'Weak' : 'Elite';
-            const customModifier = new ModifierPF2e(customModifierName, npcModifier, ModifierTypePF2e.UNTYPED);
+            const customModifier = new ModifierPF2e(customModifierName, npcModifier, ModifierType.UNTYPED);
 
             customModifiers.all.push(customModifier);
         }
@@ -1590,7 +1590,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierTypePF2e.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierType.UNTYPED);
             customModifiers.all.push(modifier);
         }
 

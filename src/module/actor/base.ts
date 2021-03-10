@@ -6,7 +6,7 @@ import {
     CheckModifier,
     PF2DamageDice,
     ModifierPF2e,
-    PF2ModifierPredicate,
+    ModifierPredicate,
     ProficiencyModifier,
 } from '../modifiers';
 import { ConditionManager } from '../conditions';
@@ -39,7 +39,7 @@ import {
     SaveString,
     PerceptionData,
 } from './data-definitions';
-import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
@@ -127,7 +127,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                 return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
             } catch (_error) {
                 super(data, options); // eslint-disable-line constructor-super
-                console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
+                console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
     }
@@ -147,8 +147,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
     }
 
-    /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
-     *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
+    /** As of Foundry 0.7.9: All subclasses of ActorPF2e need to use this factory method rather than having their own
+     *  overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      * @override
      */
     static create<A extends ActorPF2e>(
@@ -255,7 +255,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                 .map((m) => duplicate(m))
                 .forEach((m) => {
                     // checks if predicated rule is true with only skill name option
-                    if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
+                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
                         // toggles these so the predicate rule will be included when totalmodifier is calculated
                         m.enabled = true;
                         m.ignored = false;
@@ -336,7 +336,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     onCreateOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
-        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
@@ -347,7 +347,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     onDeleteOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
-        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
@@ -794,10 +794,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     *
-     * @return {Promise}
      */
-    static async rollSave(ev: JQuery.ClickEvent, item: PF2EItem) {
+    static async rollSave(ev: JQuery.ClickEvent, item: ItemPF2e) {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
@@ -824,7 +822,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     /**
      * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param {JQuery} roll    The chat entry which contains the roll data
+     * @param roll The chat entry which contains the roll data
      */
     static async setCombatantInitiative(roll: JQuery) {
         const skillRolled = roll.find('.flavor-text').text();
@@ -1213,8 +1211,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
             // modifier predicate
             modifier.predicate = predicate ?? {};
-            if (!(modifier.predicate instanceof PF2ModifierPredicate)) {
-                modifier.predicate = new PF2ModifierPredicate(modifier.predicate);
+            if (!(modifier.predicate instanceof ModifierPredicate)) {
+                modifier.predicate = new ModifierPredicate(modifier.predicate);
             }
             modifier.ignored = !modifier.predicate.test([]);
 

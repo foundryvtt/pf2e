@@ -521,7 +521,7 @@ export type NPCSkillData = StatisticModifier &
 export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
 
 /** The raw information contained within the actor data object for NPCs. */
-export interface RawNpcData extends CreatureSystemData {
+export interface RawNPCData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -647,7 +647,7 @@ export interface CharacterData extends BaseCreatureData<RawCharacterData> {
 }
 
 /** Wrapper type for npc-specific data. */
-export interface NPCData extends BaseCreatureData<RawNpcData> {
+export interface NPCData extends BaseCreatureData<RawNPCData> {
     type: 'npc';
 }
 

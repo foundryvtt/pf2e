@@ -1,4 +1,4 @@
-import { PF2DamageDice, ModifierPF2e, PF2ModifierPredicate } from '../modifiers';
+import { PF2DamageDice, ModifierPF2e, ModifierPredicate } from '../modifiers';
 import { WeaponData } from '@item/data-definitions';
 import { PF2RollNote } from '../notes';
 
@@ -13,19 +13,19 @@ export interface PF2RuleElementData {
 export interface PF2WeaponPotency {
     label: string;
     bonus: number;
-    predicate?: PF2ModifierPredicate;
+    predicate?: ModifierPredicate;
 }
 
 export interface PF2Striking {
     label: string;
     bonus: number;
-    predicate?: PF2ModifierPredicate;
+    predicate?: ModifierPredicate;
 }
 
 export interface PF2MultipleAttackPenalty {
     label: string;
     penalty: number;
-    predicate?: PF2ModifierPredicate;
+    predicate?: ModifierPredicate;
 }
 
 export interface PF2RuleElementSynthetics {

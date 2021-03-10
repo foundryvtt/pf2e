@@ -2,29 +2,29 @@ import each from 'jest-each';
 import {
   STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA,
   UNTRAINED, TRAINED, EXPERT, MASTER, LEGENDARY,
-  AbilityModifier, ProficiencyModifier, ModifierTypePF2e, ModifierPF2e, StatisticModifier,
-  PF2ModifierPredicate
+  AbilityModifier, ProficiencyModifier, ModifierType, ModifierPF2e, StatisticModifier,
+  ModifierPredicate
 } from '../../../src/module/modifiers';
 
 describe('#modifiers', () => {
   each([
-    [STRENGTH.withScore(10), ModifierTypePF2e.ABILITY],
-    [DEXTERITY.withScore(10), ModifierTypePF2e.ABILITY],
-    [CONSTITUTION.withScore(10), ModifierTypePF2e.ABILITY],
-    [INTELLIGENCE.withScore(10), ModifierTypePF2e.ABILITY],
-    [WISDOM.withScore(10), ModifierTypePF2e.ABILITY],
-    [CHARISMA.withScore(10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('str', 10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('dex', 10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('con', 10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('int', 10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('wis', 10), ModifierTypePF2e.ABILITY],
-    [AbilityModifier.fromAbilityScore('cha', 10), ModifierTypePF2e.ABILITY],
-    [UNTRAINED.atLevel(1), ModifierTypePF2e.PROFICIENCY],
-    [TRAINED.atLevel(1), ModifierTypePF2e.PROFICIENCY],
-    [EXPERT.atLevel(1), ModifierTypePF2e.PROFICIENCY],
-    [MASTER.atLevel(1), ModifierTypePF2e.PROFICIENCY],
-    [LEGENDARY.atLevel(1), ModifierTypePF2e.PROFICIENCY],
+    [STRENGTH.withScore(10), ModifierType.ABILITY],
+    [DEXTERITY.withScore(10), ModifierType.ABILITY],
+    [CONSTITUTION.withScore(10), ModifierType.ABILITY],
+    [INTELLIGENCE.withScore(10), ModifierType.ABILITY],
+    [WISDOM.withScore(10), ModifierType.ABILITY],
+    [CHARISMA.withScore(10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('str', 10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('dex', 10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('con', 10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('int', 10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('wis', 10), ModifierType.ABILITY],
+    [AbilityModifier.fromAbilityScore('cha', 10), ModifierType.ABILITY],
+    [UNTRAINED.atLevel(1), ModifierType.PROFICIENCY],
+    [TRAINED.atLevel(1), ModifierType.PROFICIENCY],
+    [EXPERT.atLevel(1), ModifierType.PROFICIENCY],
+    [MASTER.atLevel(1), ModifierType.PROFICIENCY],
+    [LEGENDARY.atLevel(1), ModifierType.PROFICIENCY],
   ]).test('ensure modifier %s has type %s', (modifier, expectedType) => {
     expect(modifier.type).toBe(expectedType);
   });
@@ -104,13 +104,13 @@ describe('#modifiers', () => {
     const modifiers = [
       DEXTERITY.withScore(14),
       TRAINED.atLevel(3),
-      new ModifierPF2e('Status Bonus', 2, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Status Penalty', -1, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Item Bonus', 2, ModifierTypePF2e.ITEM),
-      new ModifierPF2e('Item Penalty', -1, ModifierTypePF2e.ITEM),
-      new ModifierPF2e('Circumstance Bonus', 2, ModifierTypePF2e.CIRCUMSTANCE),
-      new ModifierPF2e('Circumstance Penalty', -1, ModifierTypePF2e.CIRCUMSTANCE),
-      new ModifierPF2e('Untyped Penalty', -1, ModifierTypePF2e.UNTYPED),
+      new ModifierPF2e('Status Bonus', 2, ModifierType.STATUS),
+      new ModifierPF2e('Status Penalty', -1, ModifierType.STATUS),
+      new ModifierPF2e('Item Bonus', 2, ModifierType.ITEM),
+      new ModifierPF2e('Item Penalty', -1, ModifierType.ITEM),
+      new ModifierPF2e('Circumstance Bonus', 2, ModifierType.CIRCUMSTANCE),
+      new ModifierPF2e('Circumstance Penalty', -1, ModifierType.CIRCUMSTANCE),
+      new ModifierPF2e('Untyped Penalty', -1, ModifierType.UNTYPED),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(9);
@@ -118,9 +118,9 @@ describe('#modifiers', () => {
 
   test('enable only highest bonus when stacking applied for overlapping modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Status Bonus 1', 1, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Status Bonus 2', 2, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Status Bonus 3', 3, ModifierTypePF2e.STATUS),
+      new ModifierPF2e('Status Bonus 1', 1, ModifierType.STATUS),
+      new ModifierPF2e('Status Bonus 2', 2, ModifierType.STATUS),
+      new ModifierPF2e('Status Bonus 3', 3, ModifierType.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(3);
@@ -128,8 +128,8 @@ describe('#modifiers', () => {
 
   test('enable only last bonus of a type when stacking applied for overlapping and equal modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('First Status Bonus', 2, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Second Status Bonus', 2, ModifierTypePF2e.STATUS),
+      new ModifierPF2e('First Status Bonus', 2, ModifierType.STATUS),
+      new ModifierPF2e('Second Status Bonus', 2, ModifierType.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(2);
@@ -139,9 +139,9 @@ describe('#modifiers', () => {
 
   test('enable only lowest penalty when stacking applied for overlapping modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Status Penalty -1', -1, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Status Penalty -2', -2, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Status Penalty -3', -3, ModifierTypePF2e.STATUS),
+      new ModifierPF2e('Status Penalty -1', -1, ModifierType.STATUS),
+      new ModifierPF2e('Status Penalty -2', -2, ModifierType.STATUS),
+      new ModifierPF2e('Status Penalty -3', -3, ModifierType.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-3);
@@ -149,8 +149,8 @@ describe('#modifiers', () => {
 
   test('enable only last penalty of a type when stacking applied for overlapping and equal modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('First Status Penalty', -2, ModifierTypePF2e.STATUS),
-      new ModifierPF2e('Second Status Penalty', -2, ModifierTypePF2e.STATUS),
+      new ModifierPF2e('First Status Penalty', -2, ModifierType.STATUS),
+      new ModifierPF2e('Second Status Penalty', -2, ModifierType.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-2);
@@ -160,8 +160,8 @@ describe('#modifiers', () => {
 
   test('ensure untyped penalties always are enabled and stacks', () => {
     const modifiers = [
-      new ModifierPF2e('First Untyped Penalty', -2, ModifierTypePF2e.UNTYPED),
-      new ModifierPF2e('Second Untyped Penalty', -2, ModifierTypePF2e.UNTYPED),
+      new ModifierPF2e('First Untyped Penalty', -2, ModifierType.UNTYPED),
+      new ModifierPF2e('Second Untyped Penalty', -2, ModifierType.UNTYPED),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-4);
@@ -169,55 +169,55 @@ describe('#modifiers', () => {
 
   test('ensure deduplication of similarly named modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Test Bonus', 2, ModifierTypePF2e.ABILITY),
-      new ModifierPF2e('Test Bonus', 2, ModifierTypePF2e.PROFICIENCY),
+      new ModifierPF2e('Test Bonus', 2, ModifierType.ABILITY),
+      new ModifierPF2e('Test Bonus', 2, ModifierType.PROFICIENCY),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.modifiers.length).toBe(1);
   });
 
   test('ensure modifier predicate without criteria activates with empty options list', () => {
-    const predicate = new PF2ModifierPredicate({});
+    const predicate = new ModifierPredicate({});
     expect(predicate.test([])).toBe(true);
   });
 
   test('ensure modifier predicate with all criterium activates with single options list', () => {
-    const predicate = new PF2ModifierPredicate({ all: ['dummy1'] });
+    const predicate = new ModifierPredicate({ all: ['dummy1'] });
     expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
   test('ensure modifier predicate with all criterium activates with multiple options list', () => {
-    const predicate = new PF2ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
   test('ensure modifier predicate with all criterium deactivates with non-matching options list', () => {
-    const predicate = new PF2ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ all: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy1', 'dummy2', 'dummy3'])).toBe(false);
   });
 
   test('ensure modifier predicate with any criterium activates with single options list', () => {
-    const predicate = new PF2ModifierPredicate({ any: ['dummy1'] });
+    const predicate = new ModifierPredicate({ any: ['dummy1'] });
     expect(predicate.test(['dummy0', 'dummy1', 'dummy2'])).toBe(true);
   });
 
   test('ensure modifier predicate with any criterium activates with multiple options list', () => {
-    const predicate = new PF2ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy1', 'dummy2', 'dummy3'])).toBe(true);
   });
 
   test('ensure modifier predicate with any criterium deactivates with non-matching options list', () => {
-    const predicate = new PF2ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ any: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy3', 'dummy4', 'dummy5'])).toBe(false);
   });
 
   test('ensure modifier predicate with not criterium activates with non-matching options list', () => {
-    const predicate = new PF2ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy3', 'dummy4', 'dummy5'])).toBe(true);
   });
 
   test('ensure modifier predicate with not criterium deactivates with overlapping options list', () => {
-    const predicate = new PF2ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
+    const predicate = new ModifierPredicate({ not: ['dummy0', 'dummy1', 'dummy2'] });
     expect(predicate.test(['dummy2', 'dummy3', 'dummy4'])).toBe(false);
   });
 

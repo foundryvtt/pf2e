@@ -2,7 +2,7 @@ import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RollNote } from '@module/notes';
-import { PF2ModifierPredicate } from '@module/modifiers';
+import { ModifierPredicate } from '@module/modifiers';
 
 /**
  * @category RuleElement
@@ -14,7 +14,7 @@ export class PF2RollNoteRuleElement extends PF2RuleElement {
         if (selector && text) {
             const note = new PF2RollNote(selector, text);
             if (this.ruleData.predicate) {
-                note.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                note.predicate = new ModifierPredicate(this.ruleData.predicate);
             }
             rollNotes[selector] = (rollNotes[selector] || []).concat(note);
         } else {

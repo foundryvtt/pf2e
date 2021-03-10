@@ -1,9 +1,9 @@
 import { CharacterPF2e } from './character';
 import { NPCPF2e } from './npc';
 import { RawAnimalCompanionData, AnimalCompanionData } from './data-definitions';
-import { PF2ECreature } from './creature';
+import { CreaturePF2e } from './creature';
 
-export class AnimalCompanionPF2e extends PF2ECreature {
+export class AnimalCompanionPF2e extends CreaturePF2e {
     /** @override */
     static readonly type = 'animalCompanion';
 

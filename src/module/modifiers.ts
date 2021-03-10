@@ -19,7 +19,7 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
  */
-export const ModifierTypePF2e = Object.freeze({
+export const ModifierType = Object.freeze({
     /**
      * Nearly all checks allow you to add an ability modifier to the roll. An ability modifier
      * represents your raw capabilities and is derived from an ability score. Exactly which ability
@@ -144,27 +144,27 @@ export class ModifierPF2e {
 // ability scores
 export const STRENGTH = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const DEXTERITY = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const CONSTITUTION = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const INTELLIGENCE = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const WISDOM = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const CHARISMA = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), ModifierTypePF2e.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), ModifierType.ABILITY),
 });
 export const AbilityModifier = Object.freeze({
     /**
@@ -191,7 +191,7 @@ export const AbilityModifier = Object.freeze({
                 // Throwing an actual error can completely break the sheet. Instead, log
                 // and use 0 for the modifier
                 console.error(`invalid ability abbreviation: ${ability}`);
-                return new ModifierPF2e('PF2E.AbilityUnknown', 0, ModifierTypePF2e.ABILITY);
+                return new ModifierPF2e('PF2E.AbilityUnknown', 0, ModifierType.ABILITY);
         }
     },
 });
@@ -200,7 +200,7 @@ export const AbilityModifier = Object.freeze({
 export const UNTRAINED = Object.freeze({
     atLevel: (_level: number) => {
         const modifier = (game.settings.get('pf2e', 'proficiencyUntrainedModifier') as number | null) ?? 0;
-        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, ModifierTypePF2e.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, ModifierType.PROFICIENCY);
     },
 });
 export const TRAINED = Object.freeze({
@@ -210,7 +210,7 @@ export const TRAINED = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, ModifierTypePF2e.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, ModifierType.PROFICIENCY);
     },
 });
 export const EXPERT = Object.freeze({
@@ -220,7 +220,7 @@ export const EXPERT = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, ModifierTypePF2e.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, ModifierType.PROFICIENCY);
     },
 });
 export const MASTER = Object.freeze({
@@ -230,7 +230,7 @@ export const MASTER = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, ModifierTypePF2e.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, ModifierType.PROFICIENCY);
     },
 });
 export const LEGENDARY = Object.freeze({
@@ -240,7 +240,7 @@ export const LEGENDARY = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, ModifierTypePF2e.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, ModifierType.PROFICIENCY);
     },
 });
 export const ProficiencyModifier = Object.freeze({
@@ -324,7 +324,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
         }
 
         // Untyped modifiers always stack, so enable them and add their modifier.
-        if (modifier.type === ModifierTypePF2e.UNTYPED) {
+        if (modifier.type === ModifierType.UNTYPED) {
             modifier.enabled = true;
             total += modifier.modifier;
             continue;
@@ -410,9 +410,9 @@ export class StatisticModifier {
  */
 export class CheckModifier extends StatisticModifier {
     /**
-     * @param {string} name The name of this check modifier.
-     * @param {StatisticModifier} statistic The statistic modifier to copy fields from.
-     * @param {ModifierPF2e[]} modifiers Additional modifiers to add to this check.
+     * @param name The name of this check modifier.
+     * @param statistic The statistic modifier to copy fields from.
+     * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
         super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
@@ -431,7 +431,7 @@ export interface RulePredicate {
  * attack could be an option that is not a trait.
  * @category PF2
  */
-export class PF2ModifierPredicate {
+export class ModifierPredicate {
     /** The options must have ALL of these entries for this predicate to pass.  */
     all: string[];
     /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
@@ -464,7 +464,7 @@ export class PF2ModifierPredicate {
 
     /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
     test(options: string[]): boolean {
-        return PF2ModifierPredicate.test(this, options);
+        return ModifierPredicate.test(this, options);
     }
 }
 
@@ -503,7 +503,7 @@ export class PF2DiceModifier {
     /** If true, these dice are user-provided/custom. */
     custom: boolean;
     /** A predicate which limits when this damage dice is actually applied. */
-    predicate?: PF2ModifierPredicate;
+    predicate?: ModifierPredicate;
 
     constructor(param: Partial<PF2DiceModifier> & Pick<PF2DiceModifier, 'name'>) {
         if (param.name) {
@@ -526,8 +526,8 @@ export class PF2DiceModifier {
             this.category ??= DamageCategory.fromDamageType(this.damageType);
         }
 
-        this.predicate = new PF2ModifierPredicate(param?.predicate ?? {}); // options is the old name for this field
-        this.ignored = PF2ModifierPredicate.test(this.predicate, []);
+        this.predicate = new ModifierPredicate(param?.predicate ?? {}); // options is the old name for this field
+        this.ignored = ModifierPredicate.test(this.predicate, []);
         this.enabled = this.ignored;
     }
 }

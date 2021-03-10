@@ -53,9 +53,9 @@ https://2e.aonprd.com/Spells.aspx?ID=368
 Possible example of how we could implement modifiers
 
 const baseSpeed =
-const overlandSpeed = new PF2CheckModifier(baseSpeed);
+const overlandSpeed = new CheckModifier(baseSpeed);
 overlandSpeed.modifiers().forEach((m) => {
-    m.ignored = PF2ModifierPredicate.test(m.predicate, ['overland']);
+    m.ignored = ModifierPredicate.test(m.predicate, ['overland']);
 });
 overlandSpeed.applyStackRules();
 console.log(overlandSpeed.totalModifier);

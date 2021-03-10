@@ -1,15 +1,15 @@
 import { activateSocketListener } from '@scripts/socket';
-import { PlayerConfigPF2e } from '../../module/user/player-config';
+import { PlayerConfigPF2e } from '@module/user/player-config';
 import { updateMinionActors } from '@scripts/actor/update-minions';
-import { MigrationRunner } from '../../module/migration-runner';
-import { Migrations } from '../../module/migrations';
+import { MigrationRunner } from '@module/migration-runner';
+import { Migrations } from '@module/migrations';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/init';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
 import { earnIncome } from '@scripts/macros/earn-income';
-import { PF2Actions } from '@system/actions/actions';
-import { ConditionManager } from '../../module/conditions';
+import { ActionsPF2e } from '@system/actions/actions';
+import { ConditionManager } from '@module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
@@ -18,7 +18,7 @@ import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
-    ModifierTypePF2e,
+    ModifierType,
     ProficiencyModifier,
     StatisticModifier,
 } from '../../module/modifiers';
@@ -65,7 +65,7 @@ export function listen(): void {
             DicePF2e: DicePF2e,
             StatusEffects: StatusEffects,
             ConditionManager: ConditionManager,
-            ModifierType: ModifierTypePF2e,
+            ModifierType: ModifierType,
             Modifier: ModifierPF2e,
             AbilityModifier: AbilityModifier,
             ProficiencyModifier: ProficiencyModifier,
@@ -73,7 +73,7 @@ export function listen(): void {
             CheckModifier: CheckModifier,
             Check: CheckPF2e,
         };
-        PF2Actions.exposeActions(game.pf2e.actions);
+        ActionsPF2e.exposeActions(game.pf2e.actions);
 
         // Effect Panel singleton application
         if (game.pf2e.effectPanel && (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true)) {

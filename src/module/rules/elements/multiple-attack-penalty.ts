@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2ModifierPredicate } from '@module/modifiers';
+import { ModifierPredicate } from '@module/modifiers';
 
 /**
  * @category RuleElement
@@ -19,7 +19,7 @@ export class PF2MultipleAttackPenaltyRuleElement extends PF2RuleElement {
         if (selector && label && value) {
             const map: PF2MultipleAttackPenalty = { label, penalty: value };
             if (this.ruleData.predicate) {
-                map.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                map.predicate = new ModifierPredicate(this.ruleData.predicate);
             }
             multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
         } else {

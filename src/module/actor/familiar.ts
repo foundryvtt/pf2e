@@ -1,21 +1,21 @@
 import { SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
 import { CharacterPF2e } from './character';
 import { NPCPF2e } from './npc';
-import { CheckModifier, ModifierPF2e, ModifierTypePF2e, StatisticModifier } from '../modifiers';
+import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from '../modifiers';
 import { CheckPF2e } from '@system/rolls';
 import { FamiliarData, SkillAbbreviation } from './data-definitions';
-import { PF2RuleElements } from '../rules/rules';
+import { RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
-import { PF2ECreature } from './creature';
+import { CreaturePF2e } from './creature';
 
-export class FamiliarPF2e extends PF2ECreature {
+export class FamiliarPF2e extends CreaturePF2e {
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
         const data = this.data.data;
         const rules = this.data.items.reduce(
-            (accumulated, current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
+            (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
             [],
         );
 
@@ -47,9 +47,7 @@ export class FamiliarPF2e extends PF2ECreature {
 
             const { statisticsModifiers } = this._prepareCustomModifiers(this.data, rules);
             const FILTER_MODIFIER = (modifier: ModifierPF2e) =>
-                ![ModifierTypePF2e.ABILITY, ModifierTypePF2e.PROFICIENCY, ModifierTypePF2e.ITEM].includes(
-                    modifier.type,
-                );
+                ![ModifierType.ABILITY, ModifierType.PROFICIENCY, ModifierType.ITEM].includes(modifier.type);
 
             if (Object.keys(data.attributes.speed.otherSpeeds).length === 0) {
                 data.attributes.speed.otherSpeeds.push({
@@ -86,9 +84,7 @@ export class FamiliarPF2e extends PF2ECreature {
 
             // hit points
             {
-                const modifiers = [
-                    new ModifierPF2e('PF2E.MasterLevelHP', data.master.level * 5, ModifierTypePF2e.UNTYPED),
-                ];
+                const modifiers = [new ModifierPF2e('PF2E.MasterLevelHP', data.master.level * 5, ModifierType.UNTYPED)];
                 (statisticsModifiers.hp || [])
                     .filter(FILTER_MODIFIER)
                     .map((m) => duplicate(m))
@@ -143,13 +139,13 @@ export class FamiliarPF2e extends PF2ECreature {
             // saving throws
             for (const [saveName, save] of Object.entries(master.data.data.saves)) {
                 const source = save.modifiers.filter(
-                    (modifier: PF2Modifier) => !['status', 'circumstance'].includes(modifier.type),
+                    (modifier: ModifierPF2e) => !['status', 'circumstance'].includes(modifier.type),
                 );
                 const modifiers = [
                     new ModifierPF2e(
                         `PF2E.MasterSavingThrow.${saveName}`,
                         new StatisticModifier('base', source).totalModifier,
-                        ModifierTypePF2e.UNTYPED,
+                        ModifierType.UNTYPED,
                     ),
                 ];
                 [save.name, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) =>
@@ -181,7 +177,7 @@ export class FamiliarPF2e extends PF2ECreature {
             // attack
             {
                 const modifiers = [
-                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierTypePF2e.UNTYPED),
+                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierType.UNTYPED),
                 ];
                 ['attack', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
@@ -209,11 +205,11 @@ export class FamiliarPF2e extends PF2ECreature {
             // perception
             {
                 const modifiers = [
-                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierTypePF2e.UNTYPED),
+                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierType.UNTYPED),
                     new ModifierPF2e(
                         `PF2E.MasterAbility.${data.master.ability}`,
                         spellcastingAbilityModifier,
-                        ModifierTypePF2e.UNTYPED,
+                        ModifierType.UNTYPED,
                     ),
                 ];
                 ['perception', 'wis-based', 'all'].forEach((key) =>
@@ -245,14 +241,14 @@ export class FamiliarPF2e extends PF2ECreature {
             // skills
             for (const [shortform, skillName] of Object.entries(CONFIG.PF2E.skills)) {
                 const modifiers = [
-                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierTypePF2e.UNTYPED),
+                    new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, ModifierType.UNTYPED),
                 ];
                 if (['acr', 'ste'].includes(shortform)) {
                     modifiers.push(
                         new ModifierPF2e(
                             `PF2E.MasterAbility.${data.master.ability}`,
                             spellcastingAbilityModifier,
-                            ModifierTypePF2e.UNTYPED,
+                            ModifierType.UNTYPED,
                         ),
                     );
                 }

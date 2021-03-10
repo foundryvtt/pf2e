@@ -1,6 +1,6 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { PF2ModifierPredicate, StatisticModifier } from '../modifiers';
+import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
 
 /** Possible parameters of a RollFunction */
@@ -38,7 +38,7 @@ export class CheckPF2e {
         if (context?.options?.length > 0) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
-                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, context.options);
+                modifier.ignored = !ModifierPredicate.test(modifier.predicate, context.options);
             });
             check.applyStackingRules();
 
@@ -49,7 +49,7 @@ export class CheckPF2e {
         }
 
         if (context) {
-            const visible = (note) => PF2ModifierPredicate.test(note.predicate, context.options ?? []);
+            const visible = (note) => ModifierPredicate.test(note.predicate, context.options ?? []);
             context.notes = (context?.notes ?? []).filter(visible);
         }
 

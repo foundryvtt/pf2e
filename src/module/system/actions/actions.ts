@@ -32,7 +32,7 @@ export interface ActionDefaultOptions {
     glyph?: ActionGlyph;
 }
 
-export class PF2Actions {
+export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;

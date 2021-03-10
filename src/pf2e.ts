@@ -1,8 +1,8 @@
 import DOMPurify from 'dompurify';
 import { CheckPF2e } from './module/system/rolls';
 import { EffectPanel } from './module/system/effect-panel';
-import { PF2ActionElement } from './module/custom-elements/pf2-action';
-import { PF2RuleElements } from './module/rules/rules';
+import { ActionElement } from './module/custom-elements/action';
+import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
 import { ItemData } from '@item/data-definitions';
@@ -228,7 +228,7 @@ Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => 
     const actor = game.actors.get(token.actorId);
     if (actor) {
         actor.items.forEach((item: ItemPF2e) => {
-            const rules = PF2RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+            const rules = RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
             for (const rule of rules) {
                 rule.onCreateToken(actor.data, item.data, token);
             }
@@ -335,8 +335,8 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
 
         // strip out script tags to prevent cross-site scripting
         const safe = DOMPurify.sanitize(unsafe, {
-            ADD_TAGS: [PF2ActionElement.tagName],
-            ADD_ATTR: [...PF2ActionElement.observedAttributes],
+            ADD_TAGS: [ActionElement.tagName],
+            ADD_ATTR: [...ActionElement.observedAttributes],
         });
 
         html.find('.flavor-text').html(safe);

@@ -1,5 +1,5 @@
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { ModifierPF2e, ModifierTypePF2e } from '@module/modifiers';
+import { ModifierPF2e, ModifierType } from '@module/modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
@@ -35,11 +35,11 @@ export class PF2MageArmorRuleElement extends PF2RuleElement {
             }
 
             statisticsModifiers.ac = (statisticsModifiers.ac || []).concat(
-                new ModifierPF2e(label, ac, ModifierTypePF2e.ITEM),
+                new ModifierPF2e(label, ac, ModifierType.ITEM),
             );
             if (save > 0) {
                 statisticsModifiers['saving-throw'] = (statisticsModifiers['saving-throw'] || []).concat(
-                    new ModifierPF2e(label, save, ModifierTypePF2e.ITEM),
+                    new ModifierPF2e(label, save, ModifierType.ITEM),
                 );
             }
             actorData.data.attributes.dexCap = (actorData.data.attributes.dexCap ?? []).concat({

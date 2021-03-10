@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics, PF2WeaponPotency } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2ModifierPredicate } from '@module/modifiers';
+import { ModifierPredicate } from '@module/modifiers';
 
 /**
  * @category RuleElement
@@ -14,7 +14,7 @@ export class PF2WeaponPotencyRuleElement extends PF2RuleElement {
         if (selector && label && value) {
             const potency: PF2WeaponPotency = { label, bonus: value };
             if (this.ruleData.predicate) {
-                potency.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                potency.predicate = new ModifierPredicate(this.ruleData.predicate);
             }
             weaponPotency[selector] = (weaponPotency[selector] || []).concat(potency);
         } else {

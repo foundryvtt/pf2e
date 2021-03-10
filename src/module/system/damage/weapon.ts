@@ -1,8 +1,8 @@
 import {
     PF2DamageDice,
     ModifierPF2e,
-    ModifierTypePF2e,
-    PF2ModifierPredicate,
+    ModifierType,
+    ModifierPredicate,
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     PF2DiceModifier,
@@ -209,9 +209,7 @@ export class PF2WeaponDamage {
             }
 
             if (ability) {
-                numericModifiers.push(
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, ModifierTypePF2e.ABILITY),
-                );
+                numericModifiers.push(new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, ModifierType.ABILITY));
             }
         }
         const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
@@ -271,7 +269,7 @@ export class PF2WeaponDamage {
             const strikingList: PF2Striking[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
-                    .filter((wp) => PF2ModifierPredicate.test(wp.predicate, options))
+                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
                     .forEach((wp) => strikingList.push(wp));
             });
 
@@ -314,7 +312,7 @@ export class PF2WeaponDamage {
             const modifier = new ModifierPF2e(
                 CONFIG.PF2E.weaponTraits.backstabber,
                 potency > 2 ? 2 : 1,
-                ModifierTypePF2e.UNTYPED,
+                ModifierType.UNTYPED,
             );
             modifier.damageCategory = 'precision';
             numericModifiers.push(modifier);
@@ -359,12 +357,12 @@ export class PF2WeaponDamage {
                     new ModifierPF2e(
                         'PF2E.GreaterWeaponSpecialization',
                         weaponSpecializationDamage * 2,
-                        ModifierTypePF2e.UNTYPED,
+                        ModifierType.UNTYPED,
                     ),
                 );
             } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
                 numericModifiers.push(
-                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, ModifierTypePF2e.UNTYPED),
+                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, ModifierType.UNTYPED),
                 );
             }
         }
@@ -372,17 +370,13 @@ export class PF2WeaponDamage {
         // add splash damage
         const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, ModifierTypePF2e.UNTYPED),
-            );
+            numericModifiers.push(new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, ModifierType.UNTYPED));
         }
 
         // add bonus damage
         const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
         if (bonusDamage > 0) {
-            numericModifiers.push(
-                new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, ModifierTypePF2e.UNTYPED),
-            );
+            numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, ModifierType.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
@@ -401,12 +395,12 @@ export class PF2WeaponDamage {
                         if (m.damageCategory) {
                             modifier.damageCategory = m.damageCategory;
                         }
-                        modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(options);
+                        modifier.ignored = !new ModifierPredicate(m.predicate ?? {}).test(options);
                         numericModifiers.push(modifier);
                     });
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
-                    .filter((note) => PF2ModifierPredicate.test(note.predicate, options))
+                    .filter((note) => ModifierPredicate.test(note.predicate, options))
                     .forEach((note) => notes.push(note));
             });
         }
@@ -465,7 +459,7 @@ export class PF2WeaponDamage {
                 d.name += ` ${d.category}`;
             }
             d.label = d.name;
-            d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(options);
+            d.enabled = new ModifierPredicate(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
 

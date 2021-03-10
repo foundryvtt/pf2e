@@ -5,7 +5,7 @@ import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 
 /**
- * Class PF2eStatusEffects, which is the module to handle the status effects
+ * Class StatusEffects, which is the module to handle the status effects
  * @category PF2
  */
 export class StatusEffects {

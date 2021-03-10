@@ -6,7 +6,7 @@ import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
-    ModifierTypePF2e,
+    ModifierType,
     StatisticModifier,
     ProficiencyModifier,
 } from '../../module/modifiers';
@@ -92,7 +92,7 @@ export function listen(): void {
                 console.warn(
                     'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.ModifierType instead.',
                 );
-                return ModifierTypePF2e;
+                return ModifierType;
             },
         });
         Object.defineProperty(window, 'PF2Modifier', {

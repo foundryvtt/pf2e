@@ -1,7 +1,7 @@
 import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { EffectPF2e } from '@item/effect';
-import { SkillAbbreviation } from '@actor/actor-data-definitions';
+import { SkillAbbreviation } from '@actor/data-definitions';
 
 /**
  * Create a Macro from an Item drop.
