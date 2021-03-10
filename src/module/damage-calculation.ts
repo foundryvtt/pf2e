@@ -1,6 +1,6 @@
 import { groupBy, sum } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
-import { AlignmentString } from '@actor/actor-data-definitions';
+import { AlignmentString } from '@actor/data-definitions';
 import { Living } from './living';
 
 const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;

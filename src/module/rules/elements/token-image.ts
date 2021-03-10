@@ -1,12 +1,12 @@
 import { ItemData } from '@item/data-definitions';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2TokenImageRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onCreate(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value;
 
         if (!value) {
@@ -27,7 +27,7 @@ export class PF2TokenImageRuleElement extends PF2RuleElement {
         }
     }
 
-    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onDelete(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.imgsource') === item._id) {
             tokens.forEach((token) => {
                 token.img = getProperty(actorData, 'flags.pf2e.token.img');

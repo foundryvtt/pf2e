@@ -1,6 +1,6 @@
-import { ActorSheetPF2eCreature } from './creature';
-import { SKILL_DICTIONARY } from '../actor';
-import { PF2ENPC } from '../npc';
+import { CreatureSheetPF2e } from './creature';
+import { SKILL_DICTIONARY } from '../base';
+import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
@@ -8,7 +8,7 @@ import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
 /**
  * @category Actor
  */
-export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
+export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -155,7 +155,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             // Actions
             else if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2ENPC.getActionGraphics(actionType, parseInt((i.data.actions || {}).value, 10) || 1).imageUrl;
+                i.img = NPCPF2e.getActionGraphics(actionType, parseInt((i.data.actions || {}).value, 10) || 1).imageUrl;
 
                 // get formated traits for read-only npc sheet
                 const traits = [];
@@ -189,7 +189,7 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
-                    i.img = PF2ENPC.getActionGraphics(
+                    i.img = NPCPF2e.getActionGraphics(
                         actionType,
                         parseInt((i.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
@@ -210,10 +210,10 @@ export class ActorSheetPF2eNPC extends ActorSheetPF2eCreature<PF2ENPC> {
             const spellType = i.data.time.value;
 
             // format spell level for display
-            if (spellType === 'reaction') i.img = PF2ENPC.getActionGraphics('reaction').imageUrl;
-            else if (spellType === 'free') i.img = PF2ENPC.getActionGraphics('free').imageUrl;
+            if (spellType === 'reaction') i.img = NPCPF2e.getActionGraphics('reaction').imageUrl;
+            else if (spellType === 'free') i.img = NPCPF2e.getActionGraphics('free').imageUrl;
             else if (parseInt(spellType, 10))
-                i.img = PF2ENPC.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
+                i.img = NPCPF2e.getActionGraphics('action', parseInt(spellType, 10)).imageUrl;
 
             // check if the spell has a valid spellcasting entry assigned to the location value.
             if (spellcastingEntriesList.includes(i.data.location.value)) {

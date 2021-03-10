@@ -3,17 +3,17 @@
  */
 import {
     ensureProficiencyOption,
-    PF2CheckModifier,
+    CheckModifier,
     PF2DamageDice,
-    PF2Modifier,
-    PF2ModifierPredicate,
+    ModifierPF2e,
+    ModifierPredicate,
     ProficiencyModifier,
 } from '../modifiers';
-import { PF2eConditionManager } from '../conditions';
-import { adaptRoll, PF2Check } from '@system/rolls';
+import { ConditionManager } from '../conditions';
+import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import {
     ItemData,
     ConditionData,
@@ -38,8 +38,8 @@ import {
     SaveData,
     SaveString,
     PerceptionData,
-} from './actor-data-definitions';
-import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
+} from './data-definitions';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
@@ -116,7 +116,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 /**
  * @category Actor
  */
-export class PF2EActor extends Actor<PF2EItem> {
+export class ActorPF2e extends Actor<ItemPF2e> {
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -127,7 +127,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
             } catch (_error) {
                 super(data, options); // eslint-disable-line constructor-super
-                console.warn(`Unrecognized Actor type (${data.type}): falling back to PF2EActor`);
+                console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
     }
@@ -147,21 +147,21 @@ export class PF2EActor extends Actor<PF2EItem> {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
     }
 
-    /** As of Foundry 0.7.9: All subclasses of PF2EActor need to use this factory method rather than having their own
-     *  overrides, since Foundry itself will call `PF2EActor.create` when a new actor is created from the sidebar.
+    /** As of Foundry 0.7.9: All subclasses of ActorPF2e need to use this factory method rather than having their own
+     *  overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      * @override
      */
-    static create<A extends PF2EActor>(
+    static create<A extends ActorPF2e>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
         data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A>;
-    static create<A extends PF2EActor>(
+    static create<A extends ActorPF2e>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options?: EntityCreateOptions,
     ): Promise<A[] | A>;
-    static async create<A extends PF2EActor>(
+    static async create<A extends ActorPF2e>(
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
     ): Promise<A[] | A> {
@@ -241,12 +241,12 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     prepareInitiative(
         actorData: CharacterData,
-        statisticsModifiers: Record<string, PF2Modifier[]>,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
         rollNotes: Record<string, PF2RollNote[]>,
     ) {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: PF2Modifier[] = [];
+        const modifiers: ModifierPF2e[] = [];
         const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
@@ -255,7 +255,7 @@ export class PF2EActor extends Actor<PF2EItem> {
                 .map((m) => duplicate(m))
                 .forEach((m) => {
                     // checks if predicated rule is true with only skill name option
-                    if (m.predicate && PF2ModifierPredicate.test(m.predicate, [skillFullName])) {
+                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
                         // toggles these so the predicate rule will be included when totalmodifier is calculated
                         m.enabled = true;
                         m.ignored = false;
@@ -270,7 +270,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill as SkillAbbreviation],
         );
 
-        const stat = new PF2CheckModifier('initiative', initStat, modifiers) as InitiativeData;
+        const stat = new CheckModifier('initiative', initStat, modifiers) as InitiativeData;
         stat.ability = initSkill;
         stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
         stat.roll = adaptRoll((args) => {
@@ -281,8 +281,8 @@ export class PF2EActor extends Actor<PF2EItem> {
                 options.push(skillFullName);
             }
             ensureProficiencyOption(options, initStat.rank ?? -1);
-            PF2Check.roll(
-                new PF2CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+            CheckPF2e.roll(
+                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
                 { actor: this, type: 'initiative', options, notes, dc: args.dc },
                 args.event,
                 (roll) => {
@@ -336,7 +336,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     onCreateOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
-        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
@@ -347,7 +347,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     onDeleteOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
-        const rules = PF2RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
+        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
@@ -445,7 +445,7 @@ export class PF2EActor extends Actor<PF2EItem> {
     /** Compute custom stat modifiers provided by users or given by conditions. */
     protected _prepareCustomModifiers(actorData: CreatureData, rules: PF2RuleElement[]): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const statisticsModifiers: Record<string, PF2Modifier[]> = {};
+        const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
         const damageDice: Record<string, PF2DamageDice[]> = {};
         const strikes: WeaponData[] = [];
         const rollNotes: Record<string, PF2RollNote[]> = {};
@@ -476,7 +476,7 @@ export class PF2EActor extends Actor<PF2EItem> {
             (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
         );
 
-        for (const [key, value] of PF2eConditionManager.getModifiersFromConditions(conditions.values())) {
+        for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
         }
 
@@ -621,7 +621,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollLoreSkill(event: JQuery.Event, item: PF2EItem) {
+    rollLoreSkill(event: JQuery.Event, item: ItemPF2e) {
         const { data } = item;
         if (data.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
@@ -794,10 +794,8 @@ export class PF2EActor extends Actor<PF2EItem> {
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
-     *
-     * @return {Promise}
      */
-    static async rollSave(ev: JQuery.ClickEvent, item: PF2EItem) {
+    static async rollSave(ev: JQuery.ClickEvent, item: ItemPF2e) {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
@@ -824,7 +822,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /**
      * Set initiative for the combatant associated with the selected token or tokens with the rolled dice total.
-     * @param {JQuery} roll    The chat entry which contains the roll data
+     * @param roll The chat entry which contains the roll data
      */
     static async setCombatantInitiative(roll: JQuery) {
         const skillRolled = roll.find('.flavor-text').text();
@@ -910,17 +908,17 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemData>;
     updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemData | ItemData[]>;
     async updateEmbeddedEntity(
-        embeddedName: keyof typeof PF2EActor['config']['embeddedEntities'],
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ItemData | ItemData[]> {
@@ -1019,8 +1017,8 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param containerId Id of the container that will contain the item.
      */
     async transferItemToActor(
-        targetActor: PF2EActor,
-        item: PF2EItem,
+        targetActor: ActorPF2e,
+        item: ItemPF2e,
         quantity: number,
         containerId?: string,
     ): Promise<PF2EPhysicalItem | void> {
@@ -1029,7 +1027,7 @@ export class PF2EActor extends Actor<PF2EItem> {
         }
 
         // Loot transfers can be performed by non-owners when a GM is online */
-        const isPlayerLootTransfer = (source: PF2EActor, target: PF2EActor): boolean => {
+        const isPlayerLootTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
             const bothAreOwned = source.hasPerm(game.user, 'owner') && target.hasPerm(game.user, 'owner');
             const sourceIsOwnedOrLoot = source.hasPerm(game.user, 'owner') || source.data.type === 'loot';
             const targetIsOwnedOrLoot = target.hasPerm(game.user, 'owner') || target.data.type === 'loot';
@@ -1087,7 +1085,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
 
-        return PF2EActor.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
+        return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }
 
     /**
@@ -1097,7 +1095,7 @@ export class PF2EActor extends Actor<PF2EItem> {
      * @param containerId Id of the container that will contain the item.
      */
     static async stashOrUnstash<ItemType extends PF2EPhysicalItem = PF2EPhysicalItem>(
-        actor: PF2EActor,
+        actor: ActorPF2e,
         getItem: () => Promise<ItemType>,
         containerId?: string,
     ): Promise<ItemType> {
@@ -1202,7 +1200,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
         const customModifiers = duplicate(this.data.data.customModifiers ?? {});
         if (!(customModifiers[stat] ?? []).find((m) => m.name === name)) {
-            const modifier = new PF2Modifier(name, value, type);
+            const modifier = new ModifierPF2e(name, value, type);
             if (damageType) {
                 modifier.damageType = damageType;
             }
@@ -1213,8 +1211,8 @@ export class PF2EActor extends Actor<PF2EItem> {
 
             // modifier predicate
             modifier.predicate = predicate ?? {};
-            if (!(modifier.predicate instanceof PF2ModifierPredicate)) {
-                modifier.predicate = new PF2ModifierPredicate(modifier.predicate);
+            if (!(modifier.predicate instanceof ModifierPredicate)) {
+                modifier.predicate = new ModifierPredicate(modifier.predicate);
             }
             modifier.ignored = !modifier.predicate.test([]);
 
@@ -1355,7 +1353,7 @@ export class PF2EActor extends Actor<PF2EItem> {
 
     /** Obtain roll options relevant to rolls of the given types (for use in passing to the `roll` functions on statistics). */
     getRollOptions(rollNames: string[]): string[] {
-        return PF2EActor.getRollOptions(this.data.flags, rollNames);
+        return ActorPF2e.getRollOptions(this.data.flags, rollNames);
     }
 
     static getRollOptions(flags: BaseEntityData['flags'], rollNames: string[]): string[] {
@@ -1383,22 +1381,22 @@ export class PF2EActor extends Actor<PF2EItem> {
     }
 }
 
-export interface PF2EActor {
+export interface ActorPF2e {
     data: ActorDataPF2e;
     _data: ActorDataPF2e;
 }
 
-export class PF2EHazard extends PF2EActor {}
-export interface PF2EHazard {
+export class HazardPF2e extends ActorPF2e {}
+export interface HazardPF2e {
     data: HazardData;
     _data: HazardData;
 }
 
-export class PF2EVehicle extends PF2EActor {}
-export interface PF2EVehicle {
+export class VehiclePF2e extends ActorPF2e {}
+export interface VehiclePF2e {
     data: VehicleData;
     _data: VehicleData;
 }
 
-export type TokenPF2e = Token<PF2EActor>;
-export type UserPF2e = User<PF2EActor>;
+export type TokenPF2e = Token<ActorPF2e>;
+export type UserPF2e = User<ActorPF2e>;

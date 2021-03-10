@@ -1,9 +1,9 @@
-import { ActionGlyph } from '../system/actions/actions';
+import { ActionGlyph } from '@system/actions/actions';
 
 const template = document.createElement('template');
 template.innerHTML = `<slot></slot>`;
 
-export class PF2ActionElement extends HTMLElement {
+export class ActionElement extends HTMLElement {
     action?: Function;
     glyph?: ActionGlyph;
     variant?: string;
@@ -65,4 +65,4 @@ export class PF2ActionElement extends HTMLElement {
     }
 }
 
-window.customElements.define(PF2ActionElement.tagName, PF2ActionElement);
+window.customElements.define(ActionElement.tagName, ActionElement);

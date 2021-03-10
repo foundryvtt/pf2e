@@ -7,20 +7,20 @@ import { addSign } from '../utils';
 import {
     AbilityModifier,
     ensureProficiencyOption,
-    PF2Modifier,
-    PF2StatisticModifier,
+    ModifierPF2e,
+    StatisticModifier,
     ProficiencyModifier,
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
-import { PF2EActor, TokenPF2e } from '../actor/actor';
+import { ActorPF2e, TokenPF2e } from '../actor/base';
 import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
-import { AbilityString } from '@actor/actor-data-definitions';
-import { PF2Check } from '../system/rolls';
+import { AbilityString } from '@actor/data-definitions';
+import { CheckPF2e } from '../system/rolls';
 import { ConfigPF2e } from 'src/scripts/config';
 
-interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<PF2EActor> {
+interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
         ready?: boolean;
     };
@@ -29,7 +29,7 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<PF2EActor> {
 /**
  * @category PF2
  */
-export class PF2EItem extends Item<PF2EActor> {
+export class ItemPF2e extends Item<ActorPF2e> {
     data!: ItemData;
     _data!: ItemData;
 
@@ -165,7 +165,7 @@ export class PF2EItem extends Item<PF2EActor> {
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
-        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         if (this.data.type !== 'weapon') {
             throw new Error('tried to create a weapon chat data for a non-weapon item');
@@ -233,7 +233,7 @@ export class PF2EItem extends Item<PF2EActor> {
 
     _meleeChatData() {
         const data: any = duplicate(this.data.data);
-        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         const isAgile = data.traits.includes('agile');
         data.map2 = isAgile ? '-4' : '-5';
@@ -368,7 +368,7 @@ export class PF2EItem extends Item<PF2EActor> {
             props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
         }
         data.properties = props.filter((p) => p !== null);
-        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
 
         return data;
     }
@@ -388,7 +388,7 @@ export class PF2EItem extends Item<PF2EActor> {
         ];
 
         data.properties = props.filter((p) => p);
-        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
 
         return data;
     }
@@ -396,14 +396,14 @@ export class PF2EItem extends Item<PF2EActor> {
     _actionChatData() {
         const data: any = duplicate(this.data.data);
 
-        let associatedWeapon: PF2EItem | null = null;
+        let associatedWeapon: ItemPF2e | null = null;
         if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
 
         // Feat properties
         const props = [CONFIG.PF2E.actionTypes[data.actionType.value], associatedWeapon ? associatedWeapon.name : null];
 
         data.properties = props.filter((p) => p);
-        data.traits = PF2EItem.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
 
         return data;
     }
@@ -778,9 +778,9 @@ export class PF2EItem extends Item<PF2EActor> {
 
         if (spellcastingEntry.data?.attack?.roll) {
             const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
-                modifiers.push(new PF2Modifier(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
             }
             spellcastingEntry.data.attack.roll({ event, options, modifiers });
         } else {
@@ -885,7 +885,7 @@ export class PF2EItem extends Item<PF2EActor> {
         if (!spellcastingEntry || spellcastingEntry.data.type !== 'spellcastingEntry')
             throw new Error('Spell points to location that is not a spellcasting type');
 
-        const modifiers: PF2Modifier[] = [];
+        const modifiers: ModifierPF2e[] = [];
         const ability: AbilityString = item.data.ability?.value || 'int';
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
@@ -915,10 +915,10 @@ export class PF2EItem extends Item<PF2EActor> {
         addFlavor('Failure', itemData.level.value);
         addFlavor('CritFailure', 0);
         flavor += '</p>';
-        const check = new PF2StatisticModifier(flavor, modifiers);
+        const check = new StatisticModifier(flavor, modifiers);
         const finalOptions = this.actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
         ensureProficiencyOption(finalOptions, proficiencyRank);
-        PF2Check.roll(
+        CheckPF2e.roll(
             check,
             {
                 actor: this.actor,
@@ -945,7 +945,7 @@ export class PF2EItem extends Item<PF2EActor> {
         if (
             ['scroll', 'wand'].includes(item.data.consumableType.value) &&
             item.data.spell?.data &&
-            this.actor instanceof PF2EActor
+            this.actor instanceof ActorPF2e
         ) {
             if (canCastConsumable(this.actor, item)) {
                 this._castEmbeddedSpell();
@@ -1063,7 +1063,7 @@ export class PF2EItem extends Item<PF2EActor> {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
             spellData.properties = props.filter((p) => p !== null);
-            spellData.traits = PF2EItem.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
+            spellData.traits = ItemPF2e.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
 
             spellData.item = JSON.stringify(this.data);
 
@@ -1107,7 +1107,7 @@ export class PF2EItem extends Item<PF2EActor> {
     }
 
     calculateMap(): { label: string; map2: number; map3: number } {
-        return PF2EItem.calculateMap(this.data);
+        return ItemPF2e.calculateMap(this.data);
     }
 
     static calculateMap(item: ItemData): { label: string; map2: number; map3: number } {
@@ -1155,7 +1155,7 @@ export class PF2EItem extends Item<PF2EActor> {
             if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
-            let actor: PF2EActor | null;
+            let actor: ActorPF2e | null;
             const tokenKey = card.attr('data-token-id');
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
@@ -1168,13 +1168,13 @@ export class PF2EItem extends Item<PF2EActor> {
                     if (tokenData) token = new Token(tokenData);
                 }
                 if (!token) return;
-                actor = PF2EActor.fromToken(token);
+                actor = ActorPF2e.fromToken(token);
             } else actor = game.actors.get(card.attr('data-actor-id'));
 
             // Get the Item
             if (!actor) return;
             const itemId = card.attr('data-item-id') ?? '';
-            let item: PF2EItem | null = null;
+            let item: ItemPF2e | null = null;
             let itemData: ItemData | undefined = undefined;
             const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
             if (embeddedItem) {
@@ -1187,10 +1187,10 @@ export class PF2EItem extends Item<PF2EActor> {
                 itemData = item?.data;
             }
             if (item && itemData) {
-                const strike: PF2StatisticModifier = actor.data.data?.actions?.find(
-                    (a: PF2StatisticModifier) => a.item === itemId,
+                const strike: StatisticModifier = actor.data.data?.actions?.find(
+                    (a: StatisticModifier) => a.item === itemId,
                 );
-                const rollOptions = (actor as PF2EActor)?.getRollOptions(['all', 'attack-roll']);
+                const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
 
                 if (action === 'weaponAttack') {
                     if (strike && rollOptions) {
@@ -1235,14 +1235,14 @@ export class PF2EItem extends Item<PF2EActor> {
                 else if (action === 'spellCounteract') item.rollCounteract(ev);
                 // Consumable usage
                 else if (action === 'consume') item.rollConsumable(ev);
-                else if (action === 'save') PF2EActor.rollSave(ev, item);
+                else if (action === 'save') ActorPF2e.rollSave(ev, item);
             } else {
                 const strikeIndex = card.attr('data-strike-index');
                 const strikeName = card.attr('data-strike-name');
                 const strikeAction = actor.data.data.actions[Number(strikeIndex)];
 
                 if (strikeAction && strikeAction.name === strikeName) {
-                    const options = (actor as PF2EActor).getRollOptions(['all', 'attack-roll']);
+                    const options = (actor as ActorPF2e).getRollOptions(['all', 'attack-roll']);
                     if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
                     else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
                     else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });

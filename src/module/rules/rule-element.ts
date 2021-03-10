@@ -1,4 +1,4 @@
-import { CreatureData } from '@actor/actor-data-definitions';
+import { CreatureData } from '@actor/data-definitions';
 import { ItemData } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 

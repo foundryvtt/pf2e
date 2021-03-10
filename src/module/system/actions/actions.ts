@@ -1,6 +1,6 @@
-import { PF2EActor } from '@actor/actor';
-import { ensureProficiencyOption, PF2CheckModifier, PF2StatisticModifier } from '../../modifiers';
-import { PF2Check } from '../rolls';
+import { ActorPF2e } from '@actor/base';
+import { ensureProficiencyOption, CheckModifier, StatisticModifier } from '../../modifiers';
+import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
 import { maneuverInFlight } from './acrobatics/maneuver-in-flight';
@@ -28,11 +28,11 @@ export type ActionGlyph = 'A' | 'D' | 'T' | 'R' | 'F' | 'a' | 'd' | 't' | 'r' | 
 
 export interface ActionDefaultOptions {
     event: JQuery.Event;
-    actors?: PF2EActor | PF2EActor[];
+    actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
 }
 
-export class PF2Actions {
+export class ActionsPF2e {
     static exposeActions(actions: { [key: string]: Function }) {
         // basic
         actions.seek = seek;
@@ -66,7 +66,7 @@ export class PF2Actions {
     }
 
     static simpleRollActionCheck(
-        actors: PF2EActor | PF2EActor[] | undefined,
+        actors: ActorPF2e | ActorPF2e[] | undefined,
         statName: string,
         actionGlyph: ActionGlyph | undefined,
         title: string,
@@ -78,13 +78,13 @@ export class PF2Actions {
         event: JQuery.Event,
     ) {
         // figure out actors to roll for
-        const rollers: PF2EActor[] = [];
+        const rollers: ActorPF2e[] = [];
         if (actors && Array.isArray(actors) && actors.length) {
             rollers.push(...actors);
-        } else if (actors instanceof PF2EActor) {
+        } else if (actors instanceof ActorPF2e) {
             rollers.push(actors);
         } else if (canvas.tokens.controlled.length) {
-            rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as PF2EActor[]));
+            rollers.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
         } else if (game.user.character) {
             rollers.push(game.user.character);
         }
@@ -97,11 +97,11 @@ export class PF2Actions {
                 }
                 flavor += `<b>${game.i18n.localize(title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
-                const stat = getProperty(actor, statName) as PF2StatisticModifier;
-                const check = new PF2CheckModifier(flavor, stat);
+                const stat = getProperty(actor, statName) as StatisticModifier;
+                const check = new CheckModifier(flavor, stat);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
-                PF2Check.roll(
+                CheckPF2e.roll(
                     check,
                     {
                         actor,

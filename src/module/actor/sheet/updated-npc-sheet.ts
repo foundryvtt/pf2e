@@ -1,12 +1,12 @@
-import { ActorSheetPF2eNPC } from './npc';
-import { DicePF2e } from '../../../scripts/dice';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
-import { PF2EActor } from '../actor';
+import { NPCSheetPF2e } from './npc';
+import { DicePF2e } from '@scripts/dice';
+import { ModifierPF2e, ModifierType } from '../../modifiers';
+import { ActorPF2e } from '../base';
 
 /**
  * @category Other
  */
-export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
+export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
     get template() {
         const path = 'systems/pf2e/templates/actors/';
 
@@ -176,7 +176,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
             }
             // Give Melee/Ranged an img
             else if (i.type === 'melee' || i.type === 'ranged') {
-                i.img = PF2EActor.getActionGraphics('action', 1).imageUrl;
+                i.img = ActorPF2e.getActionGraphics('action', 1).imageUrl;
             }
         }
         sheetData.actor.reorgActions = reorgActions;
@@ -264,7 +264,7 @@ export class UpdatedNPCActorPF2ESheet extends ActorSheetPF2eNPC {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new PF2Modifier(increase ? 'Elite' : 'Weak', mod, PF2ModifierType.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierType.UNTYPED);
             customModifiers.all.push(modifier);
         }
 

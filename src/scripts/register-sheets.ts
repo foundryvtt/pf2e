@@ -1,17 +1,17 @@
-import { CRBStyleCharacterActorSheetPF2E } from '../module/actor/sheet/character';
-import { UpdatedNPCActorPF2ESheet } from '@actor/sheet/updated-npc-sheet';
-import { ActorSheetPF2eHazard } from '@actor/sheet/hazard';
-import { ActorSheetPF2eLoot } from '@actor/sheet/loot';
-import { ActorSheetPF2eFamiliar } from '@actor/sheet/familiar';
-import { ActorSheetPF2eVehicle } from '@actor/sheet/vehicle';
+import { CharacterSheetPF2e } from '../module/actor/sheet/character';
+import { UpdatedNPCSheetPF2e } from '@actor/sheet/updated-npc-sheet';
+import { HazardSheetPF2e } from '@actor/sheet/hazard';
+import { LootSheetPF2e } from '@actor/sheet/loot';
+import { FamiliarSheetPF2e } from '@actor/sheet/familiar';
+import { VehicleSheetPF2e } from '@actor/sheet/vehicle';
 import { ActorSheetPF2eSimpleNPC } from '@actor/sheet/simple-npc-sheet';
-import { ActorSheetPF2eAnimalCompanion } from '@actor/sheet/animal-companion';
+import { AnimalCompanionSheetPF2e } from '@actor/sheet/animal-companion';
 import { ItemSheetPF2e } from '@item/sheet/base';
 import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { LocalizePF2e } from '@system/localize';
 
 export function registerSheets() {
@@ -28,14 +28,14 @@ export function registerSheets() {
         return game.i18n.localize(`${entityType}.Type${camelized}`);
     };
 
-    Actors.registerSheet('pf2e', CRBStyleCharacterActorSheetPF2E, {
+    Actors.registerSheet('pf2e', CharacterSheetPF2e, {
         types: ['character'],
         label: game.i18n.format(sheetLabel, { type: localizeType('character') }),
         makeDefault: true,
     });
 
     // Register NPC Sheet
-    Actors.registerSheet('pf2e', UpdatedNPCActorPF2ESheet, {
+    Actors.registerSheet('pf2e', UpdatedNPCSheetPF2e, {
         types: ['npc'],
         label: game.i18n.format(sheetLabel, { type: localizeType('npc') }),
         makeDefault: true,
@@ -49,28 +49,28 @@ export function registerSheets() {
     });
 
     // Register Hazard Sheet
-    Actors.registerSheet('pf2e', ActorSheetPF2eHazard, {
+    Actors.registerSheet('pf2e', HazardSheetPF2e, {
         types: ['hazard'],
         label: game.i18n.format(sheetLabel, { type: localizeType('hazard') }),
         makeDefault: true,
     });
 
     // Register Loot Sheet
-    Actors.registerSheet('pf2e', ActorSheetPF2eLoot, {
+    Actors.registerSheet('pf2e', LootSheetPF2e, {
         types: ['loot'],
         label: game.i18n.format(sheetLabel, { type: localizeType('loot') }),
         makeDefault: true,
     });
 
     // Register Familiar Sheet
-    Actors.registerSheet('pf2e', ActorSheetPF2eFamiliar, {
+    Actors.registerSheet('pf2e', FamiliarSheetPF2e, {
         types: ['familiar'],
         label: game.i18n.format(sheetLabel, { type: localizeType('familiar') }),
         makeDefault: true,
     });
 
     // Register Vehicle Sheet
-    Actors.registerSheet('pf2e', ActorSheetPF2eVehicle, {
+    Actors.registerSheet('pf2e', VehicleSheetPF2e, {
         types: ['vehicle'],
         label: game.i18n.format(sheetLabel, { type: localizeType('vehicle') }),
         makeDefault: true,
@@ -78,7 +78,7 @@ export function registerSheets() {
 
     if (BUILD_MODE === 'development') {
         // Register AnimalCompanion Sheet
-        Actors.registerSheet('pf2e', ActorSheetPF2eAnimalCompanion, {
+        Actors.registerSheet('pf2e', AnimalCompanionSheetPF2e, {
             types: ['animalCompanion'],
             label: game.i18n.format(sheetLabelNew, { type: localizeType('animalCompanion') }),
             makeDefault: true,
@@ -93,7 +93,7 @@ export function registerSheets() {
     );
 
     for (const itemType of itemTypes) {
-        Items.registerSheet<PF2EItem>('pf2e', ItemSheetPF2e, {
+        Items.registerSheet<ItemPF2e>('pf2e', ItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,

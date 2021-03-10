@@ -1,4 +1,4 @@
-import { ActionDefaultOptions, PF2Actions } from '../actions';
+import { ActionDefaultOptions, ActionsPF2e } from '../actions';
 
 type CreateADiversionVariant = 'distracting-words' | 'gesture' | 'trick';
 
@@ -24,7 +24,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
             return;
         }
     }
-    PF2Actions.simpleRollActionCheck(
+    ActionsPF2e.simpleRollActionCheck(
         options.actors,
         'data.data.skills.dec',
         options.glyph ?? 'A',

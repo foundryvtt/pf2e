@@ -1,17 +1,17 @@
-import { PF2ECharacter } from '../actor/character';
-import { PF2EABC } from './abc';
+import { CharacterPF2e } from '../actor/character';
+import { ABCItemPF2e } from './abc';
 import { ClassData, FeatData } from './data-definitions';
 
-export class PF2EClass extends PF2EABC {
+export class ClassPF2e extends ABCItemPF2e {
     data!: ClassData;
     _data!: ClassData;
 
-    async addFeatures(actor: PF2ECharacter): Promise<void> {
+    async addFeatures(actor: CharacterPF2e): Promise<void> {
         await this.deleteExistingFeatures(actor);
         await this.ensureClassFeaturesForLevel(actor, 0);
     }
 
-    async ensureClassFeaturesForLevel(actor: PF2ECharacter, minLevelInput?: number): Promise<void> {
+    async ensureClassFeaturesForLevel(actor: CharacterPF2e, minLevelInput?: number): Promise<void> {
         const minLevel: number =
             minLevelInput ?? (await this.getFlag(game.system.id, 'insertedClassFeaturesLevel')) ?? 0;
         if (minLevel >= actor.level) {

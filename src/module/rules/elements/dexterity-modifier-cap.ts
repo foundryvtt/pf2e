@@ -1,4 +1,4 @@
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
@@ -6,7 +6,7 @@ import { PF2RuleElementSynthetics } from '../rules-data-definitions';
  * @category RuleElement
  */
 export class PF2DexterityModifierCapRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData, synthetics: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, _synthetics: PF2RuleElementSynthetics) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         if (label && value !== undefined) {

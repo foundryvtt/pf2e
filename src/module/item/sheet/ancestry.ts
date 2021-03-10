@@ -1,8 +1,8 @@
-import { PF2EAncestry } from '@item/ancestry';
+import { AncestryPF2e } from '@item/ancestry';
 import { ABCSheetPF2e } from './abc';
 import { AncestrySheetData } from './data-types';
 
-export class AncestrySheetPF2e extends ABCSheetPF2e<PF2EAncestry> {
+export class AncestrySheetPF2e extends ABCSheetPF2e<AncestryPF2e> {
     /** @override */
     getData(): AncestrySheetData {
         const data = super.getData();

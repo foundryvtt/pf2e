@@ -1,13 +1,13 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics } from '../rules-data-definitions';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
-import { PF2ModifierPredicate } from '../../modifiers';
+import { CharacterData, NPCData } from '@actor/data-definitions';
+import { ModifierPredicate } from '@module/modifiers';
 
 /**
  * @category RuleElement
  */
 export class PF2MultipleAttackPenaltyRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NpcData, { multipleAttackPenalties }: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { multipleAttackPenalties }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.resolveInjectedProperties(
             super.getDefaultLabel(this.ruleData, this.item),
@@ -19,7 +19,7 @@ export class PF2MultipleAttackPenaltyRuleElement extends PF2RuleElement {
         if (selector && label && value) {
             const map: PF2MultipleAttackPenalty = { label, penalty: value };
             if (this.ruleData.predicate) {
-                map.predicate = new PF2ModifierPredicate(this.ruleData.predicate);
+                map.predicate = new ModifierPredicate(this.ruleData.predicate);
             }
             multipleAttackPenalties[selector] = (multipleAttackPenalties[selector] || []).concat(map);
         } else {

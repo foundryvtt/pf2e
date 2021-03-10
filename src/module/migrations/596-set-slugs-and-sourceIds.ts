@@ -1,8 +1,8 @@
 import { MigrationBase } from './base';
 import { isPhysicalItem, ItemData } from '@item/data-definitions';
-import { PF2EItem } from '../item/item';
+import { ItemPF2e } from '../item/base';
 
-type ItemMap = Map<string, PF2EItem>;
+type ItemMap = Map<string, ItemPF2e>;
 type PackContent = Map<string, Promise<ItemMap>>;
 
 export class Migration596SetSlugSourceIds extends MigrationBase {
@@ -11,7 +11,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     /** Only PF2e system compendia will be checked against */
     private sourceIdPattern = /^Compendium\.(pf2e\.[-\w]+)\.(\w+)$/;
 
-    private readonly itemPacks: Map<string, Compendium<PF2EItem>>;
+    private readonly itemPacks: Map<string, Compendium<ItemPF2e>>;
 
     /** Cached compendium content */
     private static packContent: PackContent = new Map();
@@ -20,7 +20,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         super();
         this.itemPacks = new Map(
             game.packs
-                .filter<Compendium<PF2EItem>>((pack) => pack.entity === 'Item')
+                .filter<Compendium<ItemPF2e>>((pack) => pack.entity === 'Item')
                 .map((pack) => [pack.collection, pack]),
         );
     }
@@ -67,7 +67,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
                 (packItem) => packItem.type === itemData.type && packItem.name === itemName,
             );
 
-            if (packItem instanceof PF2EItem) {
+            if (packItem instanceof ItemPF2e) {
                 return packItem.data;
             }
         }
