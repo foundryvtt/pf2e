@@ -1,16 +1,16 @@
 import {
     PF2DamageDice,
-    PF2Modifier,
-    PF2ModifierType,
-    PF2ModifierPredicate,
-    PF2StatisticModifier,
+    ModifierPF2e,
+    ModifierType,
+    ModifierPredicate,
+    StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     PF2DiceModifier,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
 import { WeaponData } from '@item/data-definitions';
-import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/actor-data-definitions';
+import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-definitions';
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definitions';
 
@@ -48,7 +48,7 @@ export class PF2WeaponDamage {
         weapon,
         actor: ActorDataPF2e,
         traits: CharacterStrikeTrait[] = [],
-        statisticsModifiers: Record<string, PF2Modifier[]>,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice,
         proficiencyRank = 0,
         options: string[] = [],
@@ -122,7 +122,7 @@ export class PF2WeaponDamage {
                 // amend numeric modifiers with any flat modifier
                 if (modifier) {
                     const modifiers = statisticsModifiers.damage ?? [];
-                    const dm = new PF2Modifier('Base', modifier, 'untyped');
+                    const dm = new ModifierPF2e('Base', modifier, 'untyped');
                     dm.damageType = dmg.damageType;
                     modifiers.push(dm);
                     statisticsModifiers.damage = modifiers;
@@ -157,7 +157,7 @@ export class PF2WeaponDamage {
         weapon: WeaponData,
         actor: ActorDataPF2e,
         traits: CharacterStrikeTrait[] = [],
-        statisticsModifiers: Record<string, PF2Modifier[]>,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: Record<string, PF2DamageDice[]>,
         proficiencyRank = -1,
         options: string[] = [],
@@ -167,7 +167,7 @@ export class PF2WeaponDamage {
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: PF2DiceModifier[] = [];
-        const numericModifiers: PF2Modifier[] = [];
+        const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die as DamageDieSize;
         let baseDamageType = weapon.data.damage.damageType;
         options = traits.map((t) => t.name).concat(options); // always add all weapon traits to the options
@@ -209,9 +209,7 @@ export class PF2WeaponDamage {
             }
 
             if (ability) {
-                numericModifiers.push(
-                    new PF2Modifier(CONFIG.PF2E.abilities[ability], modifier, PF2ModifierType.ABILITY),
-                );
+                numericModifiers.push(new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, ModifierType.ABILITY));
             }
         }
         const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
@@ -271,7 +269,7 @@ export class PF2WeaponDamage {
             const strikingList: PF2Striking[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
-                    .filter((wp) => PF2ModifierPredicate.test(wp.predicate, options))
+                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
                     .forEach((wp) => strikingList.push(wp));
             });
 
@@ -311,10 +309,10 @@ export class PF2WeaponDamage {
 
         // backstabber trait
         if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
-            const modifier = new PF2Modifier(
+            const modifier = new ModifierPF2e(
                 CONFIG.PF2E.weaponTraits.backstabber,
                 potency > 2 ? 2 : 1,
-                PF2ModifierType.UNTYPED,
+                ModifierType.UNTYPED,
             );
             modifier.damageCategory = 'precision';
             numericModifiers.push(modifier);
@@ -356,15 +354,15 @@ export class PF2WeaponDamage {
         if (weaponSpecializationDamage > 0) {
             if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
                 numericModifiers.push(
-                    new PF2Modifier(
+                    new ModifierPF2e(
                         'PF2E.GreaterWeaponSpecialization',
                         weaponSpecializationDamage * 2,
-                        PF2ModifierType.UNTYPED,
+                        ModifierType.UNTYPED,
                     ),
                 );
             } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
                 numericModifiers.push(
-                    new PF2Modifier('PF2E.WeaponSpecialization', weaponSpecializationDamage, PF2ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, ModifierType.UNTYPED),
                 );
             }
         }
@@ -372,15 +370,13 @@ export class PF2WeaponDamage {
         // add splash damage
         const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
         if (splashDamage > 0) {
-            numericModifiers.push(
-                new PF2Modifier('PF2E.WeaponSplashDamageLabel', splashDamage, PF2ModifierType.UNTYPED),
-            );
+            numericModifiers.push(new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, ModifierType.UNTYPED));
         }
 
         // add bonus damage
         const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
         if (bonusDamage > 0) {
-            numericModifiers.push(new PF2Modifier('PF2E.WeaponBonusDamageLabel', bonusDamage, PF2ModifierType.UNTYPED));
+            numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, ModifierType.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
@@ -391,7 +387,7 @@ export class PF2WeaponDamage {
                 modifiers
                     .map((m) => duplicate(m))
                     .forEach((m) => {
-                        const modifier = new PF2Modifier(game.i18n.localize(m.name), m.modifier, m.type);
+                        const modifier = new ModifierPF2e(game.i18n.localize(m.name), m.modifier, m.type);
                         modifier.label = m.label;
                         if (m.damageType) {
                             modifier.damageType = m.damageType;
@@ -399,12 +395,12 @@ export class PF2WeaponDamage {
                         if (m.damageCategory) {
                             modifier.damageCategory = m.damageCategory;
                         }
-                        modifier.ignored = !new PF2ModifierPredicate(m.predicate ?? {}).test(options);
+                        modifier.ignored = !new ModifierPredicate(m.predicate ?? {}).test(options);
                         numericModifiers.push(modifier);
                     });
                 (rollNotes[key] ?? [])
                     .map((note) => duplicate(note))
-                    .filter((note) => PF2ModifierPredicate.test(note.predicate, options))
+                    .filter((note) => ModifierPredicate.test(note.predicate, options))
                     .forEach((note) => notes.push(note));
             });
         }
@@ -463,7 +459,7 @@ export class PF2WeaponDamage {
                 d.name += ` ${d.category}`;
             }
             d.label = d.name;
-            d.enabled = new PF2ModifierPredicate(d.predicate ?? {}).test(options);
+            d.enabled = new ModifierPredicate(d.predicate ?? {}).test(options);
             d.ignored = !d.enabled;
         });
 
@@ -550,7 +546,7 @@ export class PF2WeaponDamage {
 
         // apply stacking rules here and distribute on dice pools
         {
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             damage.numericModifiers
                 .filter((nm) => nm.enabled)
                 .filter((nm) => !nm.critical || critical)
@@ -571,12 +567,11 @@ export class PF2WeaponDamage {
                     const dmg = current.damageType ?? base.damageType;
                     accumulator[dmg] = (accumulator[dmg] ?? []).concat(current);
                     return accumulator;
-                }, {} as Record<string, PF2Modifier[]>),
+                }, {} as Record<string, ModifierPF2e[]>),
             )
                 .map(([damageType, damageTypeModifiers]) => {
                     // apply stacking rules for numeric modifiers of each damage type separately
-                    return new PF2StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers)
-                        .modifiers;
+                    return new StatisticModifier(`${damageType}-damage-stacking-rules`, damageTypeModifiers).modifiers;
                 })
                 .flatMap((nm) => nm)
                 .filter((nm) => nm.enabled)

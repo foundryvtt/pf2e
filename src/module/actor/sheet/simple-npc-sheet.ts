@@ -1,16 +1,16 @@
-import { ActorSheetPF2eCreature } from './creature';
-import { TraitSelector5e } from '../../system/trait-selector';
-import { DicePF2e } from '../../../scripts/dice';
-import { PF2EActor, SKILL_DICTIONARY } from '../actor';
-import { PF2Modifier, PF2ModifierType } from '../../modifiers';
-import { NPCSkillsEditor } from '../../system/npc-skills-editor';
-import { PF2ENPC } from '../npc';
-import { identifyCreature } from '../../../module/recall-knowledge';
-import { PF2EItem } from '@item/item';
+import { CreatureSheetPF2e } from './creature';
+import { TraitSelector5e } from '@system/trait-selector';
+import { DicePF2e } from '@scripts/dice';
+import { ActorPF2e, SKILL_DICTIONARY } from '../base';
+import { ModifierPF2e, ModifierType } from '@module/modifiers';
+import { NPCSkillsEditor } from '@system/npc-skills-editor';
+import { NPCPF2e } from '@actor/npc';
+import { identifyCreature } from '@module/recall-knowledge';
+import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
-import { NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
+import { NPCData, SkillAbbreviation } from '@actor/data-definitions';
 
-export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
+export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
 
@@ -37,7 +37,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
      */
-    protected prepareItems(actorData: NpcData) {
+    protected prepareItems(actorData: NPCData) {
         const monsterTraits = actorData.data.traits.traits;
 
         this._prepareAbilities(actorData.data.abilities);
@@ -589,12 +589,12 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
 
             // Assign icon based on spell type
             if (spellType === 'reaction') {
-                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
-                spell.glyph = PF2EActor.getActionGraphics(spellType).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else {
                 const actionsCost = parseInt(spellType, 10);
-                spell.glyph = PF2EActor.getActionGraphics('action', actionsCost).actionGlyph;
+                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
             }
 
             // Assign components
@@ -736,7 +736,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         };
 
         for (const i of sheetData.actor.items) {
-            const item = i as PF2EItem;
+            const item = i as ItemPF2e;
 
             if (item === undefined || item === null) continue;
 
@@ -752,7 +752,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
      * Checks if an item is an equipment or not.
      * @param item Item to check.
      */
-    private _isEquipment(item: PF2EItem): boolean {
+    private _isEquipment(item: ItemPF2e): boolean {
         if (item.type === 'weapon') return true;
         if (item.type === 'armor') return true;
         if (item.type === 'equipment') return true;
@@ -780,7 +780,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         // Add a new custom modifier
         if (!revertToNormal && (isWeak || isElite)) {
             const customModifierName = isWeak ? 'Weak' : 'Elite';
-            const customModifier = new PF2Modifier(customModifierName, npcModifier, PF2ModifierType.UNTYPED);
+            const customModifier = new ModifierPF2e(customModifierName, npcModifier, ModifierType.UNTYPED);
 
             customModifiers.all.push(customModifier);
         }
@@ -1590,7 +1590,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new PF2Modifier(increase ? 'Elite' : 'Weak', mod, PF2ModifierType.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierType.UNTYPED);
             customModifiers.all.push(modifier);
         }
 
@@ -1704,7 +1704,7 @@ export class ActorSheetPF2eSimpleNPC extends ActorSheetPF2eCreature<PF2ENPC> {
     }
 
     _assignActionGraphics(item) {
-        const { imageUrl, actionGlyph } = PF2EActor.getActionGraphics(
+        const { imageUrl, actionGlyph } = ActorPF2e.getActionGraphics(
             (item as any).data?.actionType?.value || 'action',
             parseInt(((item as any).data?.actions || {}).value, 10) || 1,
         );

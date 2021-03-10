@@ -1,11 +1,11 @@
-import { PF2EKit } from '@item/others';
+import { KitPF2e } from '@item/others';
 import { PF2EPhysicalItem } from '@item/physical';
 import { ItemSheetPF2e } from './base';
 
 /**
  * @category Other
  */
-export class KitSheetPF2e extends ItemSheetPF2e<PF2EKit> {
+export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
     /** @override */
     static get defaultOptions() {
         return {

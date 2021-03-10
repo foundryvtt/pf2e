@@ -26,7 +26,7 @@ export { PF2RuleElement };
 /**
  * @category RuleElement
  */
-export class PF2RuleElements {
+export class RuleElements {
     static readonly builtin: Record<
         string,
         (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement

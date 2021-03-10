@@ -1,4 +1,4 @@
-import { PF2EActor } from '../actor/actor';
+import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
 import { PF2EPhysicalItem } from './physical';
 
@@ -201,7 +201,7 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
 }
 
 export async function addCoins(
-    actor: PF2EActor,
+    actor: ActorPF2e,
     {
         coins = {
             pp: 0,

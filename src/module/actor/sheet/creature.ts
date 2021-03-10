@@ -7,17 +7,17 @@ import {
 } from '@item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
+import { ActorPF2e } from '@actor/base';
+import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
-import { MartialString, SkillData, ZeroToFour } from '@actor/actor-data-definitions';
+import { MartialString, SkillData, ZeroToFour } from '@actor/data-definitions';
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extends ActorSheetPF2e<ActorType> {
-    protected renderItemSummary(li: JQuery, item: PF2EItem, chatData: any) {
+export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends ActorSheetPF2e<ActorType> {
+    protected renderItemSummary(li: JQuery, item: ItemPF2e, chatData: any) {
         super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
 
@@ -180,7 +180,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
             const currency = calculateValueOfCurrency(sheetData.actor.items);
-            sheetData.totalCurrency = ActorSheetPF2eCreature.parseCoinsToActorSheetData(currency);
+            sheetData.totalCurrency = CreatureSheetPF2e.parseCoinsToActorSheetData(currency);
 
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasureGold = (coinValueInCopper(treasure) / 100).toFixed(2);

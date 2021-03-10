@@ -1,1 +1,1 @@
-import('./pf2-action');
+import('./action');

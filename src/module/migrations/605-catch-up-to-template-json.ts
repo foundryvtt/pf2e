@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { isPhysicalItem, ItemData } from '@item/data-definitions';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {

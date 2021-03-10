@@ -1,5 +1,5 @@
 import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
-import { PF2StatisticModifier, PF2CheckModifier, PF2Modifier, PF2DamageDice } from '../modifiers';
+import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 
 /** A type representing the possible ability strings. */
@@ -178,15 +178,15 @@ export interface PathfinderSocietyReputation {
 }
 
 /** Data related to character hitpoints. */
-export type HitPointsData = PF2StatisticModifier & RawHitPointsData;
+export type HitPointsData = StatisticModifier & RawHitPointsData;
 export type FamiliarHitPointsData = Pick<RawHitPointsData, 'value' | 'max'>;
 
 /** The full data for charatcer initiative. */
-export type InitiativeData = PF2CheckModifier & RawInitiativeData & Rollable;
+export type InitiativeData = CheckModifier & RawInitiativeData & Rollable;
 /** The full data for character perception rolls (which behave similarly to skills). */
-export type PerceptionData = PF2StatisticModifier & RawSkillData & Rollable;
+export type PerceptionData = StatisticModifier & RawSkillData & Rollable;
 /** The full data for character AC; includes the armor check penalty. */
-export type ArmorClassData = PF2StatisticModifier &
+export type ArmorClassData = StatisticModifier &
     RawSkillData & {
         /** The armor check penalty imposed by the worn armor. */
         check?: number;
@@ -194,13 +194,13 @@ export type ArmorClassData = PF2StatisticModifier &
         dexCap?: DexterityModifierCapData;
     };
 /** The full data for the class DC; similar to SkillData, but is not rollable. */
-export type ClassDCData = PF2StatisticModifier & RawSkillData;
+export type ClassDCData = StatisticModifier & RawSkillData;
 /** The full skill data for a character; includes statistic modifier. */
-export type SkillData = PF2StatisticModifier & RawSkillData & Rollable;
+export type SkillData = StatisticModifier & RawSkillData & Rollable;
 /** The full save data for a character; includes statistic modifier and an extra `saveDetail` field for user-provided details. */
 export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
-export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
+export type CharacterStrike = StatisticModifier & RawCharacterStrike;
 
 export interface Saves {
     fortitude: SaveData;
@@ -272,7 +272,7 @@ export interface CreatureSystemData extends ActorSystemData {
     traits: CreatureTraitsData;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
-    customModifiers: Record<string, PF2Modifier[]>;
+    customModifiers: Record<string, ModifierPF2e[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, PF2DamageDice[]>;
 }
@@ -446,7 +446,7 @@ export interface RawCharacterData extends CreatureSystemData {
         heroPoints: { rank: ZeroToThree; max: number };
 
         /** The number of familiar abilities this character's familiar has access to. */
-        familiarAbilities: PF2StatisticModifier;
+        familiarAbilities: StatisticModifier;
 
         /** Data related to character hitpoints. */
         hp: HitPointsData;
@@ -510,7 +510,7 @@ export interface NPCSaves {
 /** Normal skill data, but with an additional 'base' value. */
 export type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
-export type NPCSkillData = PF2StatisticModifier &
+export type NPCSkillData = StatisticModifier &
     Rollable & {
         base?: number;
         visible?: boolean;
@@ -521,7 +521,7 @@ export type NPCSkillData = PF2StatisticModifier &
 export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
 
 /** The raw information contained within the actor data object for NPCs. */
-export interface RawNpcData extends CreatureSystemData {
+export interface RawNPCData extends CreatureSystemData {
     /** The six primary ability scores. */
     abilities: {
         str: AbilityData;
@@ -580,7 +580,7 @@ export interface RawNpcData extends CreatureSystemData {
 
         /** Textual information about any special benefits that apply to all saves. */
         allSaves: { value: string };
-        familiarAbilities: PF2StatisticModifier;
+        familiarAbilities: StatisticModifier;
     };
 
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
@@ -647,7 +647,7 @@ export interface CharacterData extends BaseCreatureData<RawCharacterData> {
 }
 
 /** Wrapper type for npc-specific data. */
-export interface NpcData extends BaseCreatureData<RawNpcData> {
+export interface NPCData extends BaseCreatureData<RawNPCData> {
     type: 'npc';
 }
 
@@ -674,7 +674,7 @@ export interface AnimalCompanionData extends BaseCreatureData<RawAnimalCompanion
     type: 'animalCompanion';
 }
 
-export type CreatureData = CharacterData | NpcData | AnimalCompanionData | FamiliarData;
+export type CreatureData = CharacterData | NPCData | AnimalCompanionData | FamiliarData;
 
 export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 

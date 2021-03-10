@@ -1,11 +1,11 @@
-import { AbilityString } from '@actor/actor-data-definitions';
+import { AbilityString } from '@actor/data-definitions';
 import { ABCFeatureEntryData, FeatType } from '@item/data-definitions';
 import { ItemSheetPF2e } from './base';
-import { PF2EFeat } from '@item/others';
-import { PF2EAncestry } from '@item/ancestry';
-import { PF2EBackground } from '@item/background';
-import { PF2EClass } from '@item/class';
-import { PF2EItem } from '@item/item';
+import { FeatPF2e } from '@item/others';
+import { AncestryPF2e } from '@item/ancestry';
+import { BackgroundPF2e } from '@item/background';
+import { ClassPF2e } from '@item/class';
+import { ItemPF2e } from '@item/base';
 import { TraitSelector5e } from '@system/trait-selector';
 import { LocalizePF2e } from '@system/localize';
 import { ABCSheetData } from './data-types';
@@ -15,7 +15,7 @@ import { ConfigPF2e } from '@scripts/config';
  * @category Other
  */
 export abstract class ABCSheetPF2e<
-    ItemType extends PF2EAncestry | PF2EBackground | PF2EClass
+    ItemType extends AncestryPF2e | BackgroundPF2e | ClassPF2e
 > extends ItemSheetPF2e<ItemType> {
     /** @override */
     static get defaultOptions() {
@@ -62,7 +62,7 @@ export abstract class ABCSheetPF2e<
     }
 
     /** Is the dropped feat or feature valid for the given section? */
-    private isValidDrop(event: ElementDragEvent, feat: PF2EFeat): boolean {
+    private isValidDrop(event: ElementDragEvent, feat: FeatPF2e): boolean {
         const validFeatTypes: FeatType[] = $(event.target).closest('.abc-list').data('valid-drops')?.split(' ') ?? [];
         if (validFeatTypes.includes(feat.featType.value)) {
             return true;
@@ -88,9 +88,9 @@ export abstract class ABCSheetPF2e<
         event.preventDefault();
         const dataString = event.dataTransfer?.getData('text/plain');
         const dropData = JSON.parse(dataString ?? '');
-        const item = await PF2EItem.fromDropData(dropData);
+        const item = await ItemPF2e.fromDropData(dropData);
 
-        if (!(item instanceof PF2EFeat) || !this.isValidDrop(event, item)) {
+        if (!(item instanceof FeatPF2e) || !this.isValidDrop(event, item)) {
             return;
         }
 

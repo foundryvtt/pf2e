@@ -1,15 +1,15 @@
-import { PF2EActor } from '../../actor';
+import { ActorPF2e } from '../../base';
 import { SpellData } from '@item/data-definitions';
 
 /**
  * @category Other
  */
-export class ScrollWandPopup extends FormApplication<PF2EActor> {
+export class ScrollWandPopup extends FormApplication<ActorPF2e> {
     onSubmitCallback: (a: number, b: string, spellData: SpellData) => void;
     spellData?: SpellData;
 
     constructor(
-        object: PF2EActor,
+        object: ActorPF2e,
         options: FormApplicationOptions,
         callback: (a: number, b: string, c: SpellData) => void,
         spellData: SpellData,
@@ -32,7 +32,7 @@ export class ScrollWandPopup extends FormApplication<PF2EActor> {
     }
 
     getData() {
-        const sheetData: FormApplicationData<PF2EActor> & { validLevels?: number[] } = super.getData();
+        const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = super.getData();
         sheetData.validLevels = [];
 
         if (!this.spellData) {

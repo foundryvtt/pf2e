@@ -1,7 +1,7 @@
-import { ActionDefaultOptions, PF2Actions } from '../actions';
+import { ActionDefaultOptions, ActionsPF2e } from '../actions';
 
 export function swim(options: ActionDefaultOptions) {
-    PF2Actions.simpleRollActionCheck(
+    ActionsPF2e.simpleRollActionCheck(
         options.actors,
         'data.data.skills.ath',
         options.glyph ?? 'A',

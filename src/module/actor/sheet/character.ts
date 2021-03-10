@@ -1,20 +1,20 @@
-import { ActorSheetPF2eCreature } from './creature';
+import { CreatureSheetPF2e } from './creature';
 import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '@item/bulk';
 import { calculateEncumbrance } from '@item/encumbrance';
 import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '../../modifiers';
-import { PF2eConditionManager } from '../../conditions';
-import { PF2ECharacter } from '../character';
+import { ConditionManager } from '../../conditions';
+import { CharacterPF2e } from '../character';
 import { PF2EPhysicalItem } from '@item/physical';
 import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData, ArmorData } from '@item/data-definitions';
-import { PF2EItem } from '@item/item';
-import { PF2ESpell, PF2ESpellcastingEntry } from '@item/others';
-import { ZeroToThree } from '@actor/actor-data-definitions';
+import { ItemPF2e } from '@item/base';
+import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
+import { ZeroToThree } from '@actor/data-definitions';
 
 /**
  * @category Other
  */
-export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2ECharacter> {
+export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -119,7 +119,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         sheetData.data.effects = {};
 
-        sheetData.data.effects.conditions = PF2eConditionManager.getFlattenedConditions(
+        sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
         // is the stamina variant rule enabled?
@@ -333,7 +333,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
                 if (Object.keys(actions).includes(actionType)) {
                     i.feat = true;
-                    i.img = PF2ECharacter.getActionGraphics(
+                    i.img = CharacterPF2e.getActionGraphics(
                         actionType,
                         parseInt((i.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
@@ -400,7 +400,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
                 const actionType = ['free', 'reaction', 'passive'].includes(i.data.actionType.value)
                     ? i.data.actionType.value
                     : 'action';
-                i.img = PF2ECharacter.getActionGraphics(
+                i.img = CharacterPF2e.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
@@ -938,7 +938,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
         const spellcastingEntry = this.actor.getOwnedItem(containerId);
         const spell = this.actor.getOwnedItem(itemId);
 
-        if (!(spellcastingEntry instanceof PF2ESpellcastingEntry) || !(spell instanceof PF2ESpell)) {
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
             return;
         }
 
@@ -982,7 +982,7 @@ export class CRBStyleCharacterActorSheetPF2E extends ActorSheetPF2eCreature<PF2E
 
         event.preventDefault();
 
-        const item = await PF2EItem.fromDropData(data);
+        const item = await ItemPF2e.fromDropData(data);
         const itemData = duplicate(item.data);
 
         const { slotId, featType } = this.getNearestSlotId(event);
