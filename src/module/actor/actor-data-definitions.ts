@@ -202,6 +202,14 @@ export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = PF2StatisticModifier & RawCharacterStrike;
 
+export interface Saves {
+    fortitude: SaveData;
+    reflex: SaveData;
+    will: SaveData;
+}
+
+export type SaveString = keyof Saves;
+
 export interface DamageImmunities {
     value: string[];
     custom: string;
@@ -338,11 +346,7 @@ export interface RawCharacterData extends CreatureSystemData {
     };
 
     /** The three save types. */
-    saves: {
-        fortitude: SaveData;
-        reflex: SaveData;
-        will: SaveData;
-    };
+    saves: Saves;
 
     /** Tracks proficiencies for martial skills. */
     martial: MartialProficiencies;
@@ -497,6 +501,12 @@ export interface RawCharacterData extends CreatureSystemData {
 export type NPCArmorClassData = ArmorClassData & { base?: number };
 /** Normal save data, but with an additional 'base' value. */
 export type NPCSaveData = SaveData & { base?: number };
+/** Saves with NPCSaveData */
+export interface NPCSaves {
+    fortitude: NPCSaveData;
+    reflex: NPCSaveData;
+    will: NPCSaveData;
+}
 /** Normal skill data, but with an additional 'base' value. */
 export type NPCPerceptionData = PerceptionData & { base?: number };
 /** Normal skill data, but includes a 'base' value and whether the skill should be rendered (visible). */
@@ -523,11 +533,7 @@ export interface RawNpcData extends CreatureSystemData {
     };
 
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
-    saves: {
-        fortitude: NPCSaveData;
-        reflex: NPCSaveData;
-        will: NPCSaveData;
-    };
+    saves: NPCSaves;
 
     /** Details about this actor, such as alignment or ancestry. */
     details: {

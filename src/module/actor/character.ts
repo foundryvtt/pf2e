@@ -35,6 +35,7 @@ import {
     CharacterStrike,
     CharacterStrikeTrait,
     SkillData,
+    SkillAbbreviation,
     RawCharacterData,
 } from './actor-data-definitions';
 import { PF2RollNote } from '../notes';
@@ -177,7 +178,7 @@ export class PF2ECharacter extends PF2ECreature {
         for (const [saveName, save] of Object.entries(data.saves)) {
             // Base modifiers from ability scores & level/proficiency rank.
             const modifiers = [
-                AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
+                AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
             const notes = [] as PF2RollNote[];
@@ -206,7 +207,7 @@ export class PF2ECharacter extends PF2ECreature {
             // overwrite potentially changed fields.
             const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers), save, { overwrite: false });
             stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
+            stat.breakdown = (stat.modifiers as PF2Modifier[])
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
@@ -403,7 +404,7 @@ export class PF2ECharacter extends PF2ECreature {
             }
 
             // workaround for the shortform skill names
-            const expandedName = SKILL_DICTIONARY[skillName];
+            const expandedName = SKILL_DICTIONARY[skillName as SkillAbbreviation];
 
             [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
