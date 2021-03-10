@@ -1,9 +1,9 @@
-import { ActorPF2e, HazardPF2e, VehiclePF2e } from '../module/actor/actor';
+import { ActorPF2e, HazardPF2e, VehiclePF2e } from '../module/actor/base';
 import { CharacterPF2e } from '../module/actor/character';
 import { LootPF2e } from '../module/actor/loot';
 import { NPCPF2e } from '../module/actor/npc';
 import { FamiliarPF2e } from '../module/actor/familiar';
-import { ItemPF2e } from '../module/item/item';
+import { ItemPF2e } from '../module/item/base';
 import { AncestryPF2e } from '../module/item/ancestry';
 import { BackgroundPF2e } from '../module/item/background';
 import { ClassPF2e } from '../module/item/class';

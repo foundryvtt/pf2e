@@ -1,4 +1,4 @@
-import { CharacterData, NPCData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 

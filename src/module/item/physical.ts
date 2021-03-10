@@ -1,4 +1,4 @@
-import { ItemPF2e } from './item';
+import { ItemPF2e } from './base';
 import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 

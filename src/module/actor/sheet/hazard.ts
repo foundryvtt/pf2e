@@ -1,5 +1,5 @@
 import { ActorSheetPF2e } from './base';
-import { HazardPF2e } from '../actor';
+import { HazardPF2e } from '../base';
 
 /**
  * @category Actor

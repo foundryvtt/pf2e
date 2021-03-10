@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/actor-data-definitions';
-import { PF2ModifierPredicate } from '../../modifiers';
+import { CharacterData, NPCData } from '@actor/data-definitions';
+import { PF2ModifierPredicate } from '@module/modifiers';
 
 /**
  * @category RuleElement

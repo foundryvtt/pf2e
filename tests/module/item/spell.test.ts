@@ -1,5 +1,5 @@
-import { ActorPF2e } from 'src/module/actor/actor';
-import { ItemPF2e } from 'src/module/item/item';
+import { ActorPF2e } from '@actor/base';
+import { ItemPF2e } from '@item/base';
 import { fetchSpell } from 'tests/setup';
 import { Spell } from '../../../src/module/item/spell';
 

@@ -1,5 +1,5 @@
-import { ActorPF2e, SKILL_DICTIONARY } from '@actor/actor';
-import { ItemPF2e } from '@item/item';
+import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
+import { ItemPF2e } from '@item/base';
 import { EffectPF2e } from '@item/effect';
 import { SkillAbbreviation } from '@actor/actor-data-definitions';
 

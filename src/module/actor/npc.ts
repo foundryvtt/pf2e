@@ -1,9 +1,9 @@
-import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
-import { ItemPF2e } from '@item/item';
+import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
+import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, ModifierTypePF2e, StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrike, CharacterStrikeTrait, NPCData } from './actor-data-definitions';
+import { CharacterStrike, CharacterStrikeTrait, NpcData } from './data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '../system/rolls';

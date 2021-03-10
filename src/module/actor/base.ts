@@ -13,7 +13,7 @@ import { ConditionManager } from '../conditions';
 import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import {
     ItemData,
     ConditionData,
@@ -38,7 +38,7 @@ import {
     SaveData,
     SaveString,
     PerceptionData,
-} from './actor-data-definitions';
+} from './data-definitions';
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,

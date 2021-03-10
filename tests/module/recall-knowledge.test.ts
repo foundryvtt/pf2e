@@ -1,6 +1,6 @@
 import {Rarity} from '@item/data-definitions';
-import {NPCData} from '@actor/actor-data-definitions';
-import {identifyCreature} from '../../src/module/recall-knowledge';
+import { NPCData } from '@actor/data-definitions';
+import {identifyCreature} from '@module/recall-knowledge';
 
 function createCreature(level: number, rarity: Rarity, traits: string[]): NPCData {
     return {

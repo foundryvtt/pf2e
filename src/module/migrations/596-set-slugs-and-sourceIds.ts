@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { isPhysicalItem, ItemData } from '@item/data-definitions';
-import { ItemPF2e } from '../item/item';
+import { ItemPF2e } from '../item/base';
 
 type ItemMap = Map<string, ItemPF2e>;
 type PackContent = Map<string, Promise<ItemMap>>;

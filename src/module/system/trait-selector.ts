@@ -1,5 +1,5 @@
-import { ActorPF2e } from '../actor/actor';
-import { ItemPF2e } from '../item/item';
+import { ActorPF2e } from '../actor/base';
+import { ItemPF2e } from '../item/base';
 
 /**
  * A specialized form used to select damage or condition types which apply to an Actor

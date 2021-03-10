@@ -12,11 +12,11 @@ import {
     ProficiencyModifier,
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
-import { ActorPF2e, TokenPF2e } from '../actor/actor';
+import { ActorPF2e, TokenPF2e } from '../actor/base';
 import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
-import { AbilityString } from '@actor/actor-data-definitions';
+import { AbilityString } from '@actor/data-definitions';
 import { CheckPF2e } from '../system/rolls';
 import { ConfigPF2e } from 'src/scripts/config';
 

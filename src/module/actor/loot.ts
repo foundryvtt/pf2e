@@ -1,7 +1,7 @@
-import { ActorPF2e, UserPF2e } from './actor';
-import { LootData } from './actor-data-definitions';
+import { ActorPF2e, UserPF2e } from './base';
+import { LootData } from './data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { CharacterPF2e } from './character';
 

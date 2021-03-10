@@ -1,6 +1,6 @@
 import { ItemData, ConditionData } from '@item/data-definitions';
 import { ConditionPF2e } from './item/others';
-import { TokenPF2e } from './actor/actor';
+import { TokenPF2e } from './actor/base';
 import { ModifierPF2e } from './modifiers';
 import { StatusEffects } from '../scripts/actor/status-effects';
 

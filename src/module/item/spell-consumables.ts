@@ -1,5 +1,5 @@
-import { AbilityString } from '@actor/actor-data-definitions';
-import { ActorPF2e } from '../actor/actor';
+import { AbilityString } from '@actor/data-definitions';
+import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
 import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 

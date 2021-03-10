@@ -6,8 +6,8 @@ import { PF2RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
 import { ItemData } from '@item/data-definitions';
-import { ItemPF2e } from './module/item/item';
-import { ActorPF2e } from './module/actor/actor';
+import { ItemPF2e } from './module/item/base';
+import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
 import './styles/pf2e.scss';

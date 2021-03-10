@@ -1,6 +1,6 @@
 import { PhysicalItemData } from '@item/data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
-import { ActorPF2e } from '../../actor';
+import { ActorPF2e } from '../../base';
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
     tokenInfo?: {

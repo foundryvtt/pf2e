@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 import { FeatPF2e } from '@item/others';
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {

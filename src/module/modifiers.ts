@@ -1,5 +1,5 @@
 import { DamageCategory, DamageDieSize } from './system/damage/damage';
-import { AbilityString } from '@actor/actor-data-definitions';
+import { AbilityString } from '@actor/data-definitions';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',

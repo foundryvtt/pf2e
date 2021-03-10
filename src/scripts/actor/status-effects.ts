@@ -1,4 +1,4 @@
-import { ActorPF2e, TokenPF2e } from '@actor/actor';
+import { ActorPF2e, TokenPF2e } from '@actor/base';
 import { ConditionManager } from '../../module/conditions';
 import { ConditionData } from '@item/data-definitions';
 import { LocalizePF2e } from '@system/localize';

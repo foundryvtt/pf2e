@@ -1,7 +1,7 @@
 import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
-import { ActorPF2e } from '../actor';
+import { ActorPF2e } from '../base';
 
 /**
  * @category Other

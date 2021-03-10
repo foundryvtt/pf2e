@@ -1,7 +1,7 @@
-import { SKILL_EXPANDED } from '../actor/actor';
-import { NPCSkillData } from '@actor/actor-data-definitions';
+import { SKILL_EXPANDED } from '../actor/base';
+import { NPCSkillData } from '@actor/data-definitions';
 import { NPCPF2e } from '../actor/npc';
-import { ItemPF2e } from '../item/item';
+import { ItemPF2e } from '../item/base';
 
 /**
  * Specialized form to setup skills for an NPC character.

@@ -1,4 +1,4 @@
-import { ActorPF2e } from '../module/actor/actor';
+import { ActorPF2e } from '../module/actor/base';
 
 /**
  * @category Other

@@ -1,4 +1,4 @@
-import { ActorPF2e } from '../actor/actor';
+import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
 import { PF2EPhysicalItem } from './physical';
 

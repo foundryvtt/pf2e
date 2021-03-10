@@ -4,7 +4,7 @@ import * as process from 'process';
 import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemData } from '@item/data-definitions';
 
 const { window } = new JSDOM('');

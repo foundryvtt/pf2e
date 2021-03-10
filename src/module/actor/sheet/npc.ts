@@ -1,5 +1,5 @@
 import { CreatureSheetPF2e } from './creature';
-import { SKILL_DICTIONARY } from '../actor';
+import { SKILL_DICTIONARY } from '../base';
 import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';

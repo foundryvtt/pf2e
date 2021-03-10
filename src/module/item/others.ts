@@ -1,5 +1,5 @@
 import { PF2EPhysicalItem } from './physical';
-import { ItemPF2e } from './item';
+import { ItemPF2e } from './base';
 import {
     ActionData,
     ArmorData,

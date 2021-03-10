@@ -1,6 +1,6 @@
-import { SaveString, SkillAbbreviation } from '@actor/actor-data-definitions';
-import { SKILL_DICTIONARY } from '../actor';
-import { FamiliarPF2e } from '../familiar';
+import { SaveString, SkillAbbreviation } from '@actor/data-definitions';
+import { SKILL_DICTIONARY } from '@actor/base';
+import { FamiliarPF2e } from '@actor/familiar';
 
 /**
  * @category Actor

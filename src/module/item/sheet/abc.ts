@@ -1,11 +1,11 @@
-import { AbilityString } from '@actor/actor-data-definitions';
+import { AbilityString } from '@actor/data-definitions';
 import { ABCFeatureEntryData, FeatType } from '@item/data-definitions';
 import { ItemSheetPF2e } from './base';
 import { FeatPF2e } from '@item/others';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { TraitSelector5e } from '@system/trait-selector';
 import { LocalizePF2e } from '@system/localize';
 import { ABCSheetData } from './data-types';

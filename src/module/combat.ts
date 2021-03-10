@@ -1,5 +1,5 @@
-import { ActorPF2e } from '@actor/actor';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorPF2e } from '@actor/base';
+import { ActorDataPF2e } from '@actor/data-definitions';
 
 type CombatantDataPF2e = CombatantData<ActorPF2e>;
 

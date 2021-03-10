@@ -1,6 +1,6 @@
 import { CharacterPF2e } from './character';
 import { NPCPF2e } from './npc';
-import { RawAnimalCompanionData, AnimalCompanionData } from './actor-data-definitions';
+import { RawAnimalCompanionData, AnimalCompanionData } from './data-definitions';
 import { PF2ECreature } from './creature';
 
 export class AnimalCompanionPF2e extends PF2ECreature {

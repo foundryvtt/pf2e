@@ -1,5 +1,5 @@
-import { ActorPF2e } from '@actor/actor';
-import { AnimalCompanionData, FamiliarData } from '@actor/actor-data-definitions';
+import { ActorPF2e } from '@actor/base';
+import { AnimalCompanionData, FamiliarData } from '@actor/data-definitions';
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
 export function updateMinionActors(master: ActorPF2e | undefined = undefined) {

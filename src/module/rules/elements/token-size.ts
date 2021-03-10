@@ -1,5 +1,5 @@
 import { ItemData } from '@item/data-definitions';
-import { CharacterData, NPCData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 const SIZES = {

@@ -7,10 +7,10 @@ import {
 } from '@item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
-import { ActorPF2e } from '@actor/actor';
-import { ItemPF2e } from '@item/item';
+import { ActorPF2e } from '@actor/base';
+import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
-import { MartialString, SkillData, ZeroToFour } from '@actor/actor-data-definitions';
+import { MartialString, SkillData, ZeroToFour } from '@actor/data-definitions';
 
 /**
  * Base class for NPC and character sheets

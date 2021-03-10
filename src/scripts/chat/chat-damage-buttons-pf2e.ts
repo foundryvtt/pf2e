@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/actor';
+import { ActorPF2e } from '@actor/base';
 
 class ChatDamageButtonsPF2e extends Application {
     init() {

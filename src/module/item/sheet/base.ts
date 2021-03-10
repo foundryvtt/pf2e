@@ -1,11 +1,11 @@
-import { ActorPF2e } from '@actor/actor';
+import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
 import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 
 /**

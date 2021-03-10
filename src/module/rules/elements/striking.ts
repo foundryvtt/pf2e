@@ -1,6 +1,6 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics, PF2Striking } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2ModifierPredicate } from '../../modifiers';
 
 /**

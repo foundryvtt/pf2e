@@ -11,7 +11,7 @@ import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { LocalizePF2e } from '@system/localize';
 
 export function registerSheets() {

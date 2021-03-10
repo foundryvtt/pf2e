@@ -1,4 +1,4 @@
-import { ActorPF2e } from '../../actor';
+import { ActorPF2e } from '../../base';
 import { SpellData } from '@item/data-definitions';
 
 /**

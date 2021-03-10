@@ -7,9 +7,9 @@ import { ConditionManager } from '../../conditions';
 import { CharacterPF2e } from '../character';
 import { PF2EPhysicalItem } from '@item/physical';
 import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData, ArmorData } from '@item/data-definitions';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
-import { ZeroToThree } from '@actor/actor-data-definitions';
+import { ZeroToThree } from '@actor/data-definitions';
 
 /**
  * @category Other

@@ -1,4 +1,4 @@
-import { ActorPF2e, SKILL_DICTIONARY } from '@actor/actor';
+import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
 import { TrickMagicItemCastData } from '@item/data-definitions';
 import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
 import { SkillAbbreviation } from '@actor/actor-data-definitions';

@@ -1,5 +1,5 @@
-import { ActorPF2e, UserPF2e } from './actor/actor';
-import { ItemPF2e } from './item/item';
+import { ActorPF2e, UserPF2e } from './actor/base';
+import { ItemPF2e } from './item/base';
 import { MigrationRunnerBase } from './migration-runner-base';
 import { MigrationBase } from './migrations/base';
 

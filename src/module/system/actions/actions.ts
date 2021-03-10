@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/actor';
+import { ActorPF2e } from '@actor/base';
 import { ensureProficiencyOption, CheckModifier, StatisticModifier } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';

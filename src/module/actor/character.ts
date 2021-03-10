@@ -11,7 +11,7 @@ import {
     SpellDifficultyClass,
     WeaponData,
 } from '@item/data-definitions';
-import { ItemPF2e } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
@@ -28,7 +28,7 @@ import {
 import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '@system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
-import { SKILL_DICTIONARY } from './actor';
+import { SKILL_DICTIONARY } from './base';
 import {
     AbilityString,
     CharacterData,
@@ -37,7 +37,7 @@ import {
     SkillData,
     SkillAbbreviation,
     RawCharacterData,
-} from './actor-data-definitions';
+} from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '@utils';

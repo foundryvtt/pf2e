@@ -1,5 +1,5 @@
-import { CharacterData, NPCData } from '@actor/actor-data-definitions';
-import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
+import { CharacterData, NPCData } from '@actor/data-definitions';
+import { ModifierPF2e, ModifierTypePF2e } from '@module/modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 

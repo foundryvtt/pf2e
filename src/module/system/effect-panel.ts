@@ -1,4 +1,4 @@
-import { ActorPF2e } from '../actor/actor';
+import { ActorPF2e } from '../actor/base';
 import { ConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 

@@ -1,5 +1,5 @@
 import { calculateValueOfCurrency, attemptToRemoveCoinsByValue, removeCoins, Coins } from '@item/treasure';
-import { ActorPF2e } from '../../actor';
+import { ActorPF2e } from '../../base';
 
 interface PopupFormData extends Coins {
     removeByValue: boolean;

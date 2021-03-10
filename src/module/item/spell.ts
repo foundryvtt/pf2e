@@ -1,4 +1,4 @@
-import { ActorPF2e } from '../actor/actor';
+import { ActorPF2e } from '../actor/base';
 import { SpellcastingEntryData, SpellData } from './data-definitions';
 import { SpellcastingEntry } from './spellcasting-entry';
 

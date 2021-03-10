@@ -1,9 +1,9 @@
-import { SKILL_DICTIONARY, SKILL_EXPANDED } from './actor';
+import { SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
 import { CharacterPF2e } from './character';
 import { NPCPF2e } from './npc';
 import { CheckModifier, ModifierPF2e, ModifierTypePF2e, StatisticModifier } from '../modifiers';
 import { CheckPF2e } from '@system/rolls';
-import { FamiliarData, SkillAbbreviation } from './actor-data-definitions';
+import { FamiliarData, SkillAbbreviation } from './data-definitions';
 import { PF2RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { PF2ECreature } from './creature';

@@ -2,7 +2,7 @@ import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } fro
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '../../item/treasure';
-import { VehiclePF2e } from '../actor';
+import { VehiclePF2e } from '../base';
 
 /**
  * @category Actor

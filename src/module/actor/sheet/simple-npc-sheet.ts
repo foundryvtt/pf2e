@@ -1,14 +1,14 @@
 import { CreatureSheetPF2e } from './creature';
 import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
-import { ActorPF2e, SKILL_DICTIONARY } from '../actor';
-import { ModifierPF2e, ModifierTypePF2e } from '../../modifiers';
+import { ActorPF2e, SKILL_DICTIONARY } from '../base';
+import { ModifierPF2e, ModifierTypePF2e } from '@module/modifiers';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
-import { NPCPF2e } from '../npc';
-import { identifyCreature } from '../../recall-knowledge';
-import { ItemPF2e } from '@item/item';
+import { NPCPF2e } from '@actor/npc';
+import { identifyCreature } from '@module/recall-knowledge';
+import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
-import { NPCData, SkillAbbreviation } from '@actor/actor-data-definitions';
+import { NPCData, SkillAbbreviation } from '@actor/data-definitions';
 
 export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
