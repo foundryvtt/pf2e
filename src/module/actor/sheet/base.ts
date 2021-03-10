@@ -11,7 +11,7 @@ import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryDa
 import { PF2eConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '@item/physical';
-import { ActorDataPF2e, SkillAbbreviation } from '@actor/actor-data-definitions';
+import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/actor-data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { Spell } from '@item/spell';
@@ -437,7 +437,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Roll Save Checks
         html.find('.save-name').on('click', (event) => {
             event.preventDefault();
-            const save = $(event.currentTarget).parents('[data-save]')[0].getAttribute('data-save');
+            const save = $(event.currentTarget).parents('[data-save]')[0].getAttribute('data-save') as SaveString;
             if (this.actor.data.data.saves[save]?.roll) {
                 const options = this.actor.getRollOptions(['all', 'saving-throw', save]);
                 this.actor.data.data.saves[save].roll({ event, options });
@@ -474,7 +474,7 @@ export abstract class ActorSheetPF2e<ActorType extends PF2EActor> extends ActorS
         // Roll Ability Checks
         html.find('.ability-name').on('click', (event) => {
             event.preventDefault();
-            const ability = event.currentTarget.parentElement?.getAttribute('data-ability');
+            const ability = event.currentTarget.parentElement?.getAttribute('data-ability') as AbilityString;
             if (ability) {
                 this.actor.rollAbility(event, ability);
             }

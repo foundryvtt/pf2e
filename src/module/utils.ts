@@ -175,3 +175,13 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
     }
     return result;
 }
+
+/**
+ * Check if a key is present in a given object in a type safe way
+ *
+ * @param obj The object to check
+ * @param key The key to check
+ */
+export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
+    return key in obj;
+}

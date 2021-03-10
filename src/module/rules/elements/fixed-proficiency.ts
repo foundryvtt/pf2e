@@ -1,5 +1,5 @@
 import { SKILL_EXPANDED } from '../../actor/actor';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, NpcData, SkillAbbreviation } from '@actor/actor-data-definitions';
 import { PF2Modifier, PF2ModifierType } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
@@ -41,7 +41,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
     onAfterPrepareData(actorData: CharacterData | NpcData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
-        const skill = SKILL_EXPANDED[selector]?.shortform ?? selector;
+        const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;
         const target = data.skills[skill] ?? data.attributes[skill];
         const label = this.getDefaultLabel(this.ruleData, this.item);
         const force = this.ruleData.force;
