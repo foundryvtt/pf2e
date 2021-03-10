@@ -128,6 +128,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -413,6 +414,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -486,12 +490,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d8+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+4",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -573,6 +577,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -619,7 +624,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>15 feet. The mist stalker is surrounded by mist. Creatures in the aura are @Compendium[pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
+                    "value": "<p>15 feet.</p>\n<p>The mist stalker is surrounded by mist. Creatures in the aura are @Compendium[pf2e.conditionitems.Concealed]{Concealed}. If wind disperses the aura, it returns automatically at the start of the mist stalker's turn. This cloud is suppressed in water.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -628,6 +633,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -684,6 +690,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -712,7 +719,7 @@
             "type": "action"
         },
         {
-            "_id": "w8qj4ukXhnjLUabd",
+            "_id": "y5b7lQEAyBanNTYQ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -721,12 +728,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>1d8+4 bludgeoning, DC 21<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 1d8+4 #bludgeoning]] bludgeoning. DC 21</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -735,6 +742,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
@@ -748,16 +756,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Constrict",
             "sort": 400000,
             "type": "action"
@@ -772,12 +781,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The mist stalker makes its mist cloud congeal, causing the aura to be difficult terrain until the start of the mist stalker's next turn. In addition, the mist stalker can make the mist even thicker around a single Medium or smaller creature within the cloud. The creature must succeed at a DC 20 Reflex save or become @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} or it is no longer in the mist cloud's emanation.</p>"
+                    "value": "<p>The mist stalker makes its mist cloud congeal, causing the aura to be difficult terrain until the start of the mist stalker's next turn.</p>\n<p>In addition, the mist stalker can make the mist even thicker around a single Medium or smaller creature within the cloud. The creature must succeed at a DC 20 Reflex save or become @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} until it @Compendium[pf2e.actionspf2e.Escape]{Escapes} or it is no longer in the mist cloud's emanation.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -786,6 +795,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -812,13 +822,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Solidify Mist",
             "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "OQpCaRQLUEurSLSD",
+            "_id": "y9b4KGpxjtDbtBFO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -827,12 +837,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -841,6 +851,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -854,16 +865,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 600000,
             "type": "action"
@@ -889,6 +901,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -931,6 +944,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -958,7 +972,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "vXXEdDy8ciGJxt3i",
         "actorLink": false,
         "bar1": {
@@ -977,6 +990,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Mist Stalker",
         "randomImg": false,

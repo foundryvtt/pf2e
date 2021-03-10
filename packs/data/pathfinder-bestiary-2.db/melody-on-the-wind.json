@@ -101,8 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 100 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "100"
+                    }
+                ],
+                "value": "swiftness"
             }
         },
         "currency": {
@@ -119,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -476,12 +487,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d10+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d10+10",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -563,6 +574,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -622,12 +634,12 @@
                     "damageType": "sonic",
                     "die": "2d8+10"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+10",
                         "damageType": "sonic"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -709,6 +721,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -721,7 +734,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range increment 70 feet"
+                        "range-increment-70"
                     ]
                 },
                 "usage": {
@@ -748,7 +761,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -756,7 +769,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies; <strong>Effect</strong> The melody on the wind recreates the auditory effect, gaining the bonuses for itself and its allies as long as the original effect persists.</p>"
+                    "value": "<p><strong>Trigger</strong> A hostile creature within 30 feet creates an effect with the auditory trait that provides bonuses to itself or its allies;</p>\n<p><strong>Effect</strong> The melody on the wind recreates the auditory effect, gaining the bonuses for itself and its allies as long as the original effect persists.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -765,6 +778,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -789,8 +803,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Hostile Duet ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Hostile Duet",
             "sort": 300000,
             "type": "action"
         },
@@ -801,7 +815,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -809,7 +823,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The melody on the wind is targeted by a spell with the auditory trait; <strong>Effect</strong> The melody on the wind attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melody on the wind are still affected normally.</p>"
+                    "value": "<p><strong>Trigger</strong> The melody on the wind is targeted by a spell with the auditory trait;</p>\n<p><strong>Effect</strong> The melody on the wind attempts to counteract the spell. If it succeeds, the spell effect is caught in a blast of wind that sweeps it back to its origin, affecting the caster. Targets of the triggering effect other than the melody on the wind are still affected normally.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -818,6 +832,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -842,7 +857,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Retune",
             "sort": 400000,
             "type": "action"
@@ -871,6 +886,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -928,6 +944,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -956,7 +973,7 @@
             "type": "action"
         },
         {
-            "_id": "f0T8voNThNoM4dw3",
+            "_id": "B0ACGOBzm6iH5fdI",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -965,12 +982,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry. <strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -979,6 +996,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "push",
                 "source": {
                     "value": ""
                 },
@@ -992,16 +1010,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Push",
             "sort": 700000,
             "type": "action"
@@ -1027,6 +1046,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1069,6 +1089,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1111,6 +1132,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1138,7 +1160,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "hvoIxruNUei1auQT",
         "actorLink": false,
         "bar1": {
@@ -1157,6 +1178,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Melody On The Wind",
         "randomImg": false,

@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": ")",
+                "details": "(fast healing 2 (when touching mud or slime))",
                 "max": 24,
                 "min": 0,
                 "temp": 0,
@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -160,6 +161,22 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 113"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 7
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +426,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -485,6 +505,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -547,6 +570,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -693,6 +717,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -721,10 +746,10 @@
             "type": "melee"
         },
         {
-            "_id": "u95hV1Wuyu54V5Aa",
+            "_id": "fg8mmyOMmhcaaO4s",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "passive"
@@ -744,6 +769,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -757,17 +783,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Fast Healing",
+            "name": "Fast Healing 2 (when touching mud or slime)",
             "sort": 300000,
             "type": "action"
         },
@@ -781,12 +808,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The ooze mephit spits toxic slime in a 15-foot cone that deals [[/r 2d6 # poison damage]] poison damage to each creature within the area (DC 17 basic Reflex save). The ooze mephit can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The ooze mephit spits toxic slime in a 15-foot cone that deals [[/r 2d6 #poison]] poison damage to each creature within the area (DC 17 basic Reflex save).</p>\n<p>The ooze mephit can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -795,6 +822,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -820,7 +848,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 400000,
             "type": "action"
@@ -846,6 +874,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -888,6 +917,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -910,7 +940,7 @@
             "type": "lore"
         },
         {
-            "_id": "11xj3tlq9bWflg5O",
+            "_id": "rRm012BG8GQL3jhd",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -922,6 +952,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "4 contiguous 5-foot squares or Targets 1 object of 1 Bulk or less"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -977,6 +1010,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1001,10 +1037,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "grease",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=140"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1047,13 +1093,14 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Wu0xFpewMKRK3HG8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/grease.jpg",
             "name": "Grease",
             "sort": 700000,
@@ -1065,7 +1112,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "5FcYbQxHehjO4w1d",
         "actorLink": false,
         "bar1": {
@@ -1084,6 +1130,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Ooze Mephit",
         "randomImg": false,

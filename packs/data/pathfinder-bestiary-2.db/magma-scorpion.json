@@ -107,7 +107,7 @@
                         "value": "30 feet"
                     }
                 ],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -462,6 +466,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "Grab"
                     ]
@@ -486,20 +491,16 @@
                     "damageType": "bludgeoning",
                     "die": "2d6+9"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+9",
                         "damageType": "bludgeoning"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentfire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -577,6 +578,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -614,8 +616,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "magma scorpion venom"
+                        "Magma Scorpion Venom"
                     ]
                 },
                 "bonus": {
@@ -638,20 +641,16 @@
                     "damageType": "piercing",
                     "die": "1d10+9"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d10+9",
                         "damageType": "piercing"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentfire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -729,6 +728,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -787,20 +787,16 @@
                     "damageType": "fire",
                     "die": "1d6+9"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+9",
                         "damageType": "fire"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentfire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -878,6 +874,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -891,7 +888,7 @@
                     },
                     "value": [
                         "fire",
-                        "range increment 40 feet"
+                        "range-increment-40"
                     ]
                 },
                 "usage": {
@@ -935,6 +932,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -977,7 +975,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 26 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 2d6 # fire damage]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <strong>Stage 2</strong> [[/r 3d6 # fire damage]] fire damage and enfeebled 2</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 26 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 2d6 # fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 3d6 # fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -986,6 +984,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1018,7 +1017,7 @@
             "type": "action"
         },
         {
-            "_id": "hSDfhziD01XtCPCN",
+            "_id": "Psb25tMb1AKLWAvw",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1027,12 +1026,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1041,6 +1040,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -1054,16 +1054,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 600000,
             "type": "action"
@@ -1089,6 +1090,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1116,7 +1118,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Z3J7uGaLmlFRfwPk",
         "actorLink": false,
         "bar1": {
@@ -1135,6 +1136,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Magma Scorpion",
         "randomImg": false,
