@@ -117,12 +117,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             save.short = game.i18n.format(`PF2E.Saves${save.label}Short`);
         }
 
+        // Is the character's key ability score overridden by an Active Effect?
+        sheetData.data.details.keyability.aeOverride = this.actor.data.effects.some((effect) => {
+            return !effect.disabled && effect.changes.some((change) => change.key === 'data.details.keyability.value');
+        });
+
         sheetData.data.effects = {};
 
         sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
-        // is the stamina variant rule enabled?
+        // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
         // Return data for rendering

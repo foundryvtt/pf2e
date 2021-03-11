@@ -10,6 +10,7 @@ import {
     SpellcastingEntryData,
     SpellDifficultyClass,
     WeaponData,
+    WeaponGroupKey,
 } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { getArmorBonus, getResiliencyBonus } from '@item/runes';
@@ -37,6 +38,8 @@ import {
     SkillData,
     SkillAbbreviation,
     RawCharacterData,
+    ZeroToFour,
+    ProficiencyData,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
@@ -555,11 +558,40 @@ export class CharacterPF2e extends CreaturePF2e {
         // Strikes
         {
             // collect the weapon proficiencies
+            const weaponGroups = CONFIG.PF2E.weaponGroups;
+            const groupProficiencies = Object.entries(data.martial)
+                .filter(([key]) => key.startsWith('weapon-group-') && key.replace('weapon-group-', '') in weaponGroups)
+                .reduce((accumulated, [key, proficiency]: [string, ProficiencyData]) => {
+                    const groupKey = key.replace('weapon-group-', '');
+                    if (!(groupKey in weaponGroups && 'rank' in proficiency)) {
+                        return accumulated;
+                    }
+                    return {
+                        ...accumulated,
+                        [key]: {
+                            rank: proficiency.rank ?? 0,
+                            name: game.i18n.localize(weaponGroups[groupKey as WeaponGroupKey]),
+                        },
+                    };
+                }, {} as Record<WeaponGroupKey, { rank: ZeroToFour; name: string }>);
             const proficiencies = {
-                simple: { name: 'Simple', rank: data?.martial?.simple?.rank ?? 0 },
-                martial: { name: 'Martial', rank: data?.martial?.martial?.rank ?? 0 },
-                advanced: { name: 'Advanced', rank: data?.martial?.advanced?.rank ?? 0 },
-                unarmed: { name: 'Unarmed', rank: data?.martial?.unarmed?.rank ?? 0 },
+                simple: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
+                    rank: data?.martial?.simple?.rank ?? 0,
+                },
+                martial: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.martial),
+                    rank: data?.martial?.martial?.rank ?? 0,
+                },
+                advanced: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.advanced),
+                    rank: data?.martial?.advanced?.rank ?? 0,
+                },
+                unarmed: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
+                    rank: data?.martial?.unarmed?.rank ?? 0,
+                },
+                ...groupProficiencies,
             };
             (actorData.items ?? [])
                 .filter((item): item is MartialData => item.type === 'martial')
@@ -624,7 +656,12 @@ export class CharacterPF2e extends CreaturePF2e {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const groupRank =
+                        proficiencies[`weapon-group-${item.data.group.value}` as keyof typeof proficiencies]?.rank;
+                    const proficiencyRank = Math.max(
+                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                        groupRank ?? 0,
+                    );
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [

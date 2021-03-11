@@ -11,6 +11,7 @@ import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
 import { MartialString, SkillData, ZeroToFour } from '@actor/data-definitions';
+import { WeaponGroupKey } from '@item/data-definitions';
 
 /**
  * Base class for NPC and character sheets
@@ -130,15 +131,28 @@ export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends Act
 
     getData() {
         const sheetData: any = super.getData();
-        // Update martial skill labels
-        if (sheetData.data.martial !== undefined) {
-            for (const [key, skill] of Object.entries(sheetData.data.martial as Record<MartialString, SkillData>)) {
-                skill.icon = this.getProficiencyIcon(skill.rank);
-                skill.hover = CONFIG.PF2E.proficiencyLevels[skill.rank];
-                skill.label = CONFIG.PF2E.martialSkills[key as MartialString];
-                skill.value = ProficiencyModifier.fromLevelAndRank(
+        // Update martial-proficiency labels
+        if (sheetData.data.martial) {
+            const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
+            for (const [key, proficiency] of proficiencies) {
+                const groupMatch = key.match(/weapon-group-([a-z]+)$/);
+                const label = ((): string => {
+                    if (key in CONFIG.PF2E.martialSkills) {
+                        return CONFIG.PF2E.martialSkills[key as MartialString];
+                    }
+                    if (Array.isArray(groupMatch)) {
+                        const weaponGroup = groupMatch[1] as WeaponGroupKey;
+                        return CONFIG.PF2E.weaponGroups[weaponGroup];
+                    }
+                    return key;
+                })();
+
+                proficiency.icon = this.getProficiencyIcon(proficiency.rank);
+                proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
+                proficiency.label = label;
+                proficiency.value = ProficiencyModifier.fromLevelAndRank(
                     sheetData.data.details.level.value,
-                    skill.rank || 0,
+                    proficiency.rank || 0,
                 ).modifier;
             }
         }
