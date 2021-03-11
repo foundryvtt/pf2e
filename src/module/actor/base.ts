@@ -133,8 +133,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     }
 
     /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
-    get type(): string {
-        return ((this.constructor as unknown) as { type: string }).type;
+    get type() {
+        return this.data.type;
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
