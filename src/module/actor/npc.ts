@@ -10,12 +10,6 @@ import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 
 export class NPCPF2e extends CreaturePF2e {
-    data!: NPCData;
-    _data!: NPCData;
-
-    /** @override */
-    static readonly type = 'npc';
-
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -529,4 +523,9 @@ export class NPCPF2e extends CreaturePF2e {
     public updateNPCAttitudeFromDisposition(disposition: number) {
         this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
+}
+
+export interface NPCPF2e {
+    data: NPCData;
+    _data: NPCData;
 }
