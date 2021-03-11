@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 25 ",
+                "details": "regeneration 25 (deactivated by vorpal weapons)",
                 "max": 500,
                 "min": 0,
                 "temp": 0,
@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -160,6 +163,66 @@
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Treasure and Rewards\" title=\"Sidebar - Treasure and Rewards\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_5_TreasureAndRewards.png\"> Jabberwock Treasure</h3>Jabberwocks have no interest in treasure for its own sake, but they gather objects of great value or power specifically to entice mortals into seeking it out. As a result, jabberwocks quickly amass impressive hoards of treasures taken from nearby areas.<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Jabberwocks and Dragons</h3>Although jabberwocks may fear @Compendium[pf2e.equipment-srd.Vorpal]{Vorpal} weapons and are filled with rage against all mortal creatures, few things invite a jabberwock&apos;s wrath more than a Material Planedragon. Some scholars believe that in the same way the First World is believed to have been a template or &#x201C;first draft&#x201D; of the Material Plane, dragons were created in the likeness of jabberwocks. A jabberwock that learns of a nearby dragon will attempt to kill it to the exclusion of all other priorities.",
             "source": {
                 "value": "Bestiary 2 pg. 150"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot10": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot9": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 43,
+                        "value": 33
+                    }
+                }
+            },
+            "uAlQecVurdHtCKds": {
+                "data": {
+                    "spelldc": {
+                        "dc": 43,
+                        "value": 33
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +472,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -501,6 +567,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -563,6 +632,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -594,7 +664,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "UlZvOlz0CHE4RI0W",
+            "_id": "g2euZN5HL0HEXaye",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -606,6 +676,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -641,12 +714,12 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "10"
+                    "value": 10
                 },
                 "location": {
                     "value": "uAlQecVurdHtCKds"
@@ -659,6 +732,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -685,10 +761,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -734,15 +820,16 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing ",
+            "name": "True Seeing (Constant)",
             "sort": 200000,
             "type": "spell"
         },
@@ -775,12 +862,12 @@
                     "damageType": "piercing",
                     "die": "4d12+19"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d12+19",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -862,6 +949,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -874,7 +962,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly 2d12",
+                        "deadly-d12",
                         "magical",
                         "reach-15"
                     ]
@@ -1011,6 +1099,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1160,6 +1249,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1306,6 +1396,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1366,20 +1457,16 @@
                     "damageType": "fire",
                     "die": "10d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "10d6",
                         "damageType": "fire"
-                    },
-                    {
-                        "damage": "4d6",
-                        "damageType": "persistentfire"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 4d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -1457,6 +1544,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1471,7 +1559,7 @@
                     "value": [
                         "fire",
                         "magical",
-                        "range increment 60 feet"
+                        "range-increment-60"
                     ]
                 },
                 "usage": {
@@ -1515,6 +1603,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1557,7 +1646,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>100 feet, DC 43<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>100 feet, DC 43</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1566,6 +1655,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1613,7 +1703,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A jabberwock damaged by a vorpal weapon becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2 (or frightened 4 on a critical hit).</p>"
+                    "value": "<p>A jabberwock damaged by a vorpal weapon becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (or @Compendium[pf2e.conditionitems.Frightened]{Frightened 4} on a critical hit).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1622,6 +1712,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1656,7 +1747,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -1664,7 +1755,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the jabberwock's reach uses a manipulate action or a move action, leaves a square during a move action, makes a ranged attack, or uses a concentrate action; <strong>Effect</strong> The jabberwock makes a claw Strike against the triggering creature. If the Strike hits, the jabberwock disrupts the triggering action.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the jabberwock's reach uses a manipulate action or a move action, leaves a square during a move action, makes a ranged attack, or uses a concentrate action;</p>\n<p><strong>Effect</strong> The jabberwock makes a claw Strike against the triggering creature. If the Strike hits, the jabberwock disrupts the triggering action.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1673,6 +1764,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1699,16 +1791,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Claws That Catch ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Claws That Catch",
             "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "z4QTOFwShTMIH3dr",
+            "_id": "gZfWtX8zkOoe49o7",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "passive"
@@ -1719,7 +1811,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1728,6 +1820,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -1741,17 +1834,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
+            "name": "Regeneration 25 (deactivated by vorpal weapons)",
             "sort": 1200000,
             "type": "action"
         },
@@ -1765,12 +1859,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects. The jabberwock can't Burble again for 1d4 rounds.</p><ul><li><strong>Confusion</strong> 60 feet. Each creature in the emanation must succeed at a DC 46 Will save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for 1d4 rounds.</li><li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a 60.foot line of sonic energy that deals [[/r 24d6 # sonic damage]] sonic damage to creatures in the area (DC 46 basic Reflex save).</li></ul>"
+                    "value": "<p>The jabberwock creates a blast of strange noises and shouted nonsense in the various languages it knows (and invariably some languages it doesn't know), creating one of two effects.</p>\n<p>The jabberwock can't Burble again for [[/r 1d4 #rounds]] rounds.</p>\n<ul>\n<li><strong>Confusion</strong> 60 feet. Each creature in the emanation must succeed at a DC 46 Will save or become @Compendium[pf2e.conditionitems.Confused]{Confused} for [[/r 1d4 #rounds]] rounds.</li>\n<li><strong>Sonic Beam</strong> The jabberwock focuses its Burbling into a 60 foot line of sonic energy that deals [[/r 24d6 #sonic]] sonic damage to creatures in the area (DC 46 basic Reflex save).</li>\n</ul>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1779,6 +1873,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1809,7 +1904,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Burble",
             "sort": 1300000,
             "type": "action"
@@ -1838,6 +1933,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1880,7 +1976,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The jabberwock Flies or makes a wing Strike; <strong>Effect</strong> The jabberwock's wings whiffle, creating severe winds within a 30-foot emanation. These winds move outward from the jabberwock, and they persist until the start of the jabberwock's next turn. During this time, flight of any kind in the emanation requires a successful DC 43 Acrobatics check to @Compendium[pf2e.actionspf2e.Maneuver in Flight]{Maneuver in Flight}, and creatures flying toward the jabberwock are moving through greater difficult terrain. Creatures on the ground in the emanation must succeed at a DC 43 Athletics check to approach the jabberwock.</p>"
+                    "value": "<p><strong>Trigger</strong> The jabberwock Flies or makes a wing Strike;</p>\n<p><strong>Effect</strong> The jabberwock's wings whiffle, creating severe winds within a 30-foot emanation. These winds move outward from the jabberwock, and they persist until the start of the jabberwock's next turn. During this time, flight of any kind in the emanation requires a successful DC 43 Acrobatics check to @Compendium[pf2e.actionspf2e.Maneuver in Flight]{Maneuver in Flight}, and creatures flying toward the jabberwock are moving through greater difficult terrain. Creatures on the ground in the emanation must succeed at a DC 43 Athletics check to approach the jabberwock.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1889,6 +1985,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1913,13 +2010,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Whiffling",
             "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "7LcCSNgmsMdRXf3M",
+            "_id": "QHiFgupehQBf4Au3",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1933,7 +2030,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed. <br /><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1942,6 +2039,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
@@ -1955,22 +2053,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Grab",
             "sort": 1600000,
             "type": "action"
         },
         {
-            "_id": "vQbNz79tdouJSukp",
+            "_id": "DIfORexw4i51YQjQ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1984,7 +2083,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster can use Knockdown as a free action triggered by a hit with its initial attack.<br /><strong>Effect</strong> The monster knocks the target prone.</p>"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown} as a free action triggered by a hit with its initial attack.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1993,6 +2092,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "improved-knockdown",
                 "source": {
                     "value": ""
                 },
@@ -2006,16 +2106,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.LbnsT8yXchHMQT3t"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Knockdown",
             "sort": 1700000,
             "type": "action"
@@ -2041,6 +2142,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2083,6 +2185,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2125,6 +2228,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2167,6 +2271,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2209,6 +2314,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2229,6 +2335,59 @@
             "name": "Survival",
             "sort": 2200000,
             "type": "lore"
+        },
+        {
+            "_id": "vYo1emHFZe2lLLBo",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 2300000,
+            "type": "action"
         }
     ],
     "name": "Jabberwock",
@@ -2236,7 +2395,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Y0qsrBFTFMbaiLzr",
         "actorLink": false,
         "bar1": {
@@ -2255,6 +2413,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Jabberwock",
         "randomImg": false,
