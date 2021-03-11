@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -409,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -565,6 +571,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -601,8 +608,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "peluda venom"
+                        "Peluda Venom"
                     ]
                 },
                 "bonus": {
@@ -625,12 +633,12 @@
                     "damageType": "piercing",
                     "die": "2d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -712,6 +720,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -773,12 +782,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d6+13"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+13",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -860,6 +869,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -873,7 +883,7 @@
                     },
                     "value": [
                         "reach-15",
-                        "versatile piercing"
+                        "versatile-p"
                     ]
                 },
                 "usage": {
@@ -905,7 +915,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>If the peluda takes [[/r 30 # or more slashing damage]] or more slashing damage from a critical hit, the attacker severs the peluda's tail. The peluda takes 2d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} and can't make tail attacks until their tail grows back (in about 1 week).</p>"
+                    "value": "<p>If the peluda takes 30 or more slashing damage from a critical hit, the attacker severs the peluda's tail. The peluda takes [[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} and can't make tail attacks until their tail grows back (in about 1 week).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -914,6 +924,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -948,7 +959,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -956,7 +967,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within 10 feet attempts a melee Strike against the peluda; <strong>Effect</strong> The peluda shifts their position and makes a quill Strike against the attacking creature. This Strike doesn't count toward the peluda's multiple attack penalty, and the peluda's multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 10 feet attempts a melee Strike against the peluda;</p>\n<p><strong>Effect</strong> The peluda shifts their position and makes a quill Strike against the attacking creature. This Strike doesn't count toward the peluda's multiple attack penalty, and the peluda's multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -965,6 +976,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -987,8 +999,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Quill Thrust ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Quill Thrust",
             "sort": 500000,
             "type": "action"
         },
@@ -1002,12 +1014,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The peluda breathes a torrent of flames that deals [[/r 7d10 # fire damage]] fire damage in a 60-foot line (DC 29 basic Reflex save). They can't use their Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The peluda breathes a torrent of flames that deals [[/r 7d10 #fire]] fire damage in a 60-foot line (DC 29 basic Reflex save).</p>\n<p>They can't use their Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1016,6 +1028,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1042,7 +1055,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 600000,
             "type": "action"
@@ -1062,7 +1075,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 29 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 2d6 poison and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round); <strong>Stage 2</strong> 2d6 poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1, and flat-footed (1 round); <strong>Stage 3</strong> 2d6 poison, enfeebled 2, and flat-footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 29 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong>&nbsp;[[/r 2d6 #poison]] poison and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 2</strong>&nbsp;[[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and flat-footed (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and flat-footed (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1071,6 +1084,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1110,12 +1124,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The peluda bristles their quills and shakes, sending dozens of spear-like barbs in every direction. All creatures within 30 feet take [[/r 11d6 # piercing damage]] piercing damage (DC 29 basic Reflex save) and are exposed to peluda venom if they take any damage. The peluda can't use Quill Barrage again for 1 minute.</p>"
+                    "value": "<p>The peluda bristles their quills and shakes, sending dozens of spear-like barbs in every direction. All creatures within 30 feet take [[/r 11d6 #piercing]] piercing damage (DC 29 basic Reflex save) and are exposed to peluda venom if they take any damage.</p>\n<p>The peluda can't use Quill Barrage again for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1124,6 +1138,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1146,13 +1161,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Quill Barrage",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "nE1oFj3uELi5CKKx",
+            "_id": "LYl70MYcQUy11TXM",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1166,7 +1181,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster can use Knockdown as a free action triggered by a hit with its initial attack.<br /><strong>Effect</strong> The monster knocks the target prone.</p>"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Knockdown]{Knockdown} as a free action triggered by a hit with its initial attack.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1175,6 +1190,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "improved-knockdown",
                 "source": {
                     "value": ""
                 },
@@ -1188,16 +1204,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.LbnsT8yXchHMQT3t"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Knockdown",
             "sort": 900000,
             "type": "action"
@@ -1223,6 +1240,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1265,6 +1283,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1285,6 +1304,68 @@
             "name": "Intimidation",
             "sort": 1100000,
             "type": "lore"
+        },
+        {
+            "_id": "aHkhx52xZZTtPI25",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 1200000,
+            "type": "action"
         }
     ],
     "name": "Peluda",
@@ -1292,7 +1373,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "drtCZDDoESPSUqH7",
         "actorLink": false,
         "bar1": {
@@ -1311,6 +1391,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Peluda",
         "randomImg": false,
