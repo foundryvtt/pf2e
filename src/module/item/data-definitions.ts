@@ -42,6 +42,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
     };
+    baseItem: string | null;
     hp: {
         value: number;
     };
@@ -178,7 +179,6 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     group: {
         value: WeaponGroupKey;
     };
-    baseWeapon: string | null;
     hands: {
         value: boolean;
     };
