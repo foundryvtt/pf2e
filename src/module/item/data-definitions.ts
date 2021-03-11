@@ -42,6 +42,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
     };
+    baseItem: string | null;
     hp: {
         value: number;
     };
