@@ -4,7 +4,6 @@
 ### Bug Fixes
 * (stwlam) Fix cantrip preparation
 * (stwlam) Hide Active Effects tab on item sheets unless in development mode
-* (stwlam) Fix display of condition name on mouseover in token hud
 * (Maduin) Fix issue where weapon damage always used versatile damage type. Closes #1114
 
 ### New Features
@@ -32,7 +31,7 @@
 * (stwlam) Set default image for a new Active Effect to the owning item's
 
 ### Development Improvements
-* (stwlam) Rename system classes for consistency, deprecate window-exposed classes
+* (stwlam) Rename system TypeScript classes for consistency, deprecate window-exposed TypeScript classes
 
 
 ## Version 1.11.12
