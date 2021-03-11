@@ -1,10 +1,10 @@
 import { MigrationBase } from './base';
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 export class Migration600Reach extends MigrationBase {
     static version = 0.6;
 
-    async updateItem(item: ItemData) {
+    async updateItem(item: ItemDataPF2e) {
         if (item.type === 'ancestry') {
             item.data.reach = 5;
         }

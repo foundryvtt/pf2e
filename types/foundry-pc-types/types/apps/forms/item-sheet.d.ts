@@ -1,4 +1,4 @@
-declare interface ItemSheetData<D extends BaseItemData> extends BaseEntitySheetData<D> {
+declare interface ItemSheetData<D extends ItemData> extends BaseEntitySheetData<D> {
     item: D;
     data: D['data'];
 }

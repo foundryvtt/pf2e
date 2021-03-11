@@ -1,5 +1,5 @@
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemData, PhysicalItemData, Size } from './data-definitions';
+import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data-definitions';
 
 interface StackDefinition {
     size: number;
@@ -669,7 +669,7 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
  * Takes actor data and returns a list of items to calculate bulk with
  * @param actorData
  */
-export function itemsFromActorData(actorData: { items: ItemData[] }): BulkItem[] {
+export function itemsFromActorData(actorData: { items: ItemDataPF2e[] }): BulkItem[] {
     return toBulkItems(actorData.items.filter(isPhysicalItem));
 }
 

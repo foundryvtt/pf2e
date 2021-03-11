@@ -37,14 +37,14 @@ declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
     static get registeredSheets(): typeof ItemSheet[];
 }
 
-declare interface BaseItemData extends BaseEntityData {
+declare interface ItemData extends BaseEntityData {
     type: string;
     data: {};
     effects: ActiveEffectData[];
     sort: number;
 }
 
-type ItemUpdateData = EntityUpdateData<BaseItemData>;
+type ItemUpdateData = EntityUpdateData<ItemData>;
 
 declare interface ItemClassConfig<I extends Item> extends EntityClassConfig<I> {
     collection: Items<I>;
@@ -129,6 +129,6 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
 }
 
 declare interface Item<ActorType extends Actor = _Actor> extends Entity {
-    data: BaseItemData;
-    _data: BaseItemData;
+    data: ItemData;
+    _data: ItemData;
 }

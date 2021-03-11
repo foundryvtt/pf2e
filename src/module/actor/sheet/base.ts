@@ -7,7 +7,7 @@ import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { TraitSelector5e } from '@system/trait-selector';
 import { ItemPF2e } from '@item/base';
-import { ConditionData, isPhysicalItem, ItemData, SpellData, SpellcastingEntryData } from '@item/data-definitions';
+import { ConditionData, isPhysicalItem, ItemDataPF2e, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { ConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PF2EPhysicalItem } from '@item/physical';
@@ -26,7 +26,7 @@ import { CreaturePF2e } from '@actor/creature';
  * This sheet is an Abstract layer which is not used.
  * @category Actor
  */
-export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorSheet<ActorType, ItemData> {
+export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorSheet<ActorType, ItemDataPF2e> {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
@@ -1127,8 +1127,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
      */
     protected async _onSortItem(
         event: ElementDragEvent,
-        itemData: ItemData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+        itemData: ItemDataPF2e,
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         const dropSlotType = $(event.target).parents('.item').attr('data-item-type');
         const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
 
@@ -1222,7 +1222,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return super._onSortItem(event, itemData);
     }
 
-    protected async _onDropItemCreate(itemData: ItemData): Promise<ItemData | null> {
+    protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
             // ignore these. they should get handled in the derived class
             ui.notifications.error(game.i18n.localize('PF2E.ItemNotSupportedOnActor'));
@@ -1241,7 +1241,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     protected async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
@@ -1669,7 +1669,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     data: spellcastingEntity,
                                 };
 
-                                this.actor.createEmbeddedEntity('OwnedItem', (data as unknown) as ItemData);
+                                this.actor.createEmbeddedEntity('OwnedItem', (data as unknown) as ItemDataPF2e);
                             },
                         },
                     },
