@@ -1,4 +1,4 @@
-import { ItemData, ConditionData } from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData } from '@item/data-definitions';
 import { ConditionPF2e } from './item/others';
 import { TokenPF2e } from './actor/base';
 import { ModifierPF2e } from './modifiers';
@@ -534,7 +534,7 @@ export class ConditionManager {
 
         while (stack.length) {
             const id = stack.pop();
-            const condition = token.actor.data.items.find((i: ItemData) => i._id === id) as ConditionData;
+            const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
 
             if (condition) {
                 list.push(id);
@@ -547,7 +547,7 @@ export class ConditionManager {
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
-        const condition = token.actor.data.items.find((i: ItemData) => i._id === id) as ConditionData;
+        const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
 
         if (condition) {
             if (value === 0) {

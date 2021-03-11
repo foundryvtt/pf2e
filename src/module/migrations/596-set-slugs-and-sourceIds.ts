@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemData } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
 import { ItemPF2e } from '../item/base';
 
 type ItemMap = Map<string, ItemPF2e>;
@@ -52,7 +52,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     }
 
     /** Look through each pack and attempt to find the originating item */
-    private async findCompendiumItem(itemData: ItemData, collection?: string): Promise<ItemData | undefined> {
+    private async findCompendiumItem(itemData: ItemDataPF2e, collection?: string): Promise<ItemDataPF2e | undefined> {
         const itemName =
             isPhysicalItem(itemData) && itemData.data.identification?.status === 'identified'
                 ? itemData.data.identification?.identified?.name || itemData.name
@@ -75,7 +75,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         return undefined;
     }
 
-    async updateItem(itemData: ItemData): Promise<void> {
+    async updateItem(itemData: ItemDataPF2e): Promise<void> {
         const existingSourceId: string | undefined = itemData.flags.core?.sourceId;
         const match = this.sourceIdPattern.exec(existingSourceId ?? '');
         const collection = Array.isArray(match) ? match[1] : undefined;

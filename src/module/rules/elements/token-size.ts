@@ -1,4 +1,4 @@
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
@@ -15,7 +15,7 @@ const SIZES = {
  * @category RuleElement
  */
 export class PF2TokenSizeRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         const value =
             SIZES[this.ruleData.value] ?? this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
 
@@ -42,7 +42,7 @@ export class PF2TokenSizeRuleElement extends PF2RuleElement {
         }
     }
 
-    onDelete(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.sizesource') === item._id) {
             tokens.forEach((token) => {
                 token.height = getProperty(actorData, 'flags.pf2e.token.size.height');

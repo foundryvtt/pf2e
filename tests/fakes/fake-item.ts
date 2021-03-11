@@ -1,8 +1,8 @@
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 export class FakeItem {
-    _data: Partial<ItemData>;
-    constructor(data: Partial<ItemData>) {
+    _data: Partial<ItemDataPF2e>;
+    constructor(data: Partial<ItemDataPF2e>) {
         this._data = duplicate(data);
     }
 
