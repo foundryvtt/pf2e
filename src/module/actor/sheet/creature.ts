@@ -4,20 +4,22 @@ import {
     calculateTotalWealth,
     calculateValueOfCurrency,
     coinValueInCopper,
-} from '../../item/treasure';
+} from '@item/treasure';
 import { ProficiencyModifier } from '../../modifiers';
 import { ActorSheetPF2e } from './base';
-import { PF2EActor } from '../actor';
-import { PF2EItem } from '../../item/item';
-import { PF2EPhysicalItem } from '../../item/physical';
+import { ActorPF2e } from '@actor/base';
+import { ItemPF2e } from '@item/base';
+import { PF2EPhysicalItem } from '@item/physical';
+import { MartialString, SkillData, ZeroToFour } from '@actor/data-definitions';
+import { WeaponGroupKey } from '@item/data-definitions';
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extends ActorSheetPF2e<ActorType> {
-    _renderItemSummary(li, item: PF2EItem, chatData) {
-        super._renderItemSummary(li, item, chatData);
+export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends ActorSheetPF2e<ActorType> {
+    protected renderItemSummary(li: JQuery, item: ItemPF2e, chatData: any) {
+        super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
 
         const buttons = $('<div class="item-buttons"></div>');
@@ -83,12 +85,12 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
 
         div.append(buttons);
 
-        buttons.find('button').click((ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        buttons.find('button').on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
+            switch (event.target.dataset.action) {
                 case 'toggleHands':
                     if (item.data.type === 'weapon') {
                         item.data.data.hands.value = !item.data.data.hands.value;
@@ -99,28 +101,28 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
 
                     break;
                 case 'weaponAttack':
-                    item.rollWeaponAttack(ev);
+                    item.rollWeaponAttack(event);
                     break;
                 case 'weaponAttack2':
-                    item.rollWeaponAttack(ev, 2);
+                    item.rollWeaponAttack(event, 2);
                     break;
                 case 'weaponAttack3':
-                    item.rollWeaponAttack(ev, 3);
+                    item.rollWeaponAttack(event, 3);
                     break;
                 case 'weaponDamage':
-                    item.rollWeaponDamage(ev);
+                    item.rollWeaponDamage(event);
                     break;
                 case 'weaponDamageCritical':
-                    item.rollWeaponDamage(ev, true);
+                    item.rollWeaponDamage(event, true);
                     break;
                 case 'spellAttack':
-                    item.rollSpellAttack(ev);
+                    item.rollSpellAttack(event);
                     break;
                 case 'spellDamage':
-                    item.rollSpellDamage(ev);
+                    item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(ev);
+                    item.rollConsumable(event);
                     break;
                 default:
             }
@@ -129,15 +131,28 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
 
     getData() {
         const sheetData: any = super.getData();
-        // Update martial skill labels
-        if (sheetData.data.martial !== undefined) {
-            for (const [s, skl] of Object.entries(sheetData.data.martial as Record<any, any>)) {
-                skl.icon = this._getProficiencyIcon(skl.rank);
-                skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
-                skl.label = CONFIG.PF2E.martialSkills[s];
-                skl.value = ProficiencyModifier.fromLevelAndRank(
+        // Update martial-proficiency labels
+        if (sheetData.data.martial) {
+            const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
+            for (const [key, proficiency] of proficiencies) {
+                const groupMatch = key.match(/weapon-group-([a-z]+)$/);
+                const label = ((): string => {
+                    if (key in CONFIG.PF2E.martialSkills) {
+                        return CONFIG.PF2E.martialSkills[key as MartialString];
+                    }
+                    if (Array.isArray(groupMatch)) {
+                        const weaponGroup = groupMatch[1] as WeaponGroupKey;
+                        return CONFIG.PF2E.weaponGroups[weaponGroup];
+                    }
+                    return key;
+                })();
+
+                proficiency.icon = this.getProficiencyIcon(proficiency.rank);
+                proficiency.hover = CONFIG.PF2E.proficiencyLevels[proficiency.rank];
+                proficiency.label = label;
+                proficiency.value = ProficiencyModifier.fromLevelAndRank(
                     sheetData.data.details.level.value,
-                    skl.rank || 0,
+                    proficiency.rank || 0,
                 ).modifier;
             }
         }
@@ -145,7 +160,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         // Update save labels
         if (sheetData.data.saves !== undefined) {
             for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-                save.icon = this._getProficiencyIcon(save.rank);
+                save.icon = this.getProficiencyIcon(save.rank);
                 save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
                 save.label = CONFIG.PF2E.saves[s];
             }
@@ -153,7 +168,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
 
         // Update proficiency label
         if (sheetData.data.attributes !== undefined) {
-            sheetData.data.attributes.perception.icon = this._getProficiencyIcon(
+            sheetData.data.attributes.perception.icon = this.getProficiencyIcon(
                 sheetData.data.attributes.perception.rank,
             );
             sheetData.data.attributes.perception.hover =
@@ -170,7 +185,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         // Update skill labels
         if (sheetData.data.skills !== undefined) {
             for (const [s, skl] of Object.entries(sheetData.data.skills as Record<any, any>)) {
-                skl.icon = this._getProficiencyIcon(skl.rank);
+                skl.icon = this.getProficiencyIcon(skl.rank);
                 skl.hover = CONFIG.PF2E.proficiencyLevels[skl.rank];
                 skl.label = skl.label ?? CONFIG.PF2E.skills[s];
             }
@@ -179,7 +194,7 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
             const currency = calculateValueOfCurrency(sheetData.actor.items);
-            sheetData.totalCurrency = ActorSheetPF2eCreature.parseCoinsToActorSheetData(currency);
+            sheetData.totalCurrency = CreatureSheetPF2e.parseCoinsToActorSheetData(currency);
 
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasureGold = (coinValueInCopper(treasure) / 100).toFixed(2);
@@ -198,6 +213,20 @@ export abstract class ActorSheetPF2eCreature<ActorType extends PF2EActor> extend
         sheetData.pfsFactions = CONFIG.PF2E.pfsFactions;
 
         return sheetData;
+    }
+
+    /**
+     * Get the font-awesome icon used to display a certain level of skill proficiency
+     */
+    protected getProficiencyIcon(level: ZeroToFour): string {
+        const icons = {
+            0: '',
+            1: '<i class="fas fa-check-circle"></i>',
+            2: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
+            3: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
+            4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
+        };
+        return icons[level];
     }
 
     private static parseCoinsToActorSheetData(treasure: Coins) {

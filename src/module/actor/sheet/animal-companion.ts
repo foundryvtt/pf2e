@@ -1,10 +1,10 @@
-import { ActorSheetPF2eCreature } from './creature';
-import { PF2EAnimalCompanion } from '../animal-companion';
+import { CreatureSheetPF2e } from './creature';
+import { AnimalCompanionPF2e } from '../animal-companion';
 
 /**
  * @category Other
  */
-export class ActorSheetPF2eAnimalCompanion extends ActorSheetPF2eCreature<PF2EAnimalCompanion> {
+export class AnimalCompanionSheetPF2e extends CreatureSheetPF2e<AnimalCompanionPF2e> {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default'],
@@ -18,11 +18,7 @@ export class ActorSheetPF2eAnimalCompanion extends ActorSheetPF2eCreature<PF2EAn
     get template() {
         return `systems/pf2e/templates/actors/animal-companion-sheet.html`;
     }
-    /* -------------------------------------------- */
 
-    /**
-     * Organize and classify Items for Character sheets
-     * @private
-     */
-    _prepareItems(_actorData: any) {}
+    /** @override */
+    protected prepareItems(_actorData: any) {}
 }

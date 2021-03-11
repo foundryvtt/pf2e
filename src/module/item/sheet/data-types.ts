@@ -23,7 +23,7 @@ interface ActiveEffectSummary {
 }
 
 export interface AESheetData {
-    showList: boolean;
+    showAEs: boolean;
     canCreate: boolean;
     effects: ActiveEffectSummary[];
 }

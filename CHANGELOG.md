@@ -1,5 +1,39 @@
 # Patch Notes:
 
+## Version 1.11.13
+### Bug Fixes
+* (stwlam) Fix cantrip preparation
+* (stwlam) Hide Active Effects tab on item sheets unless in development mode
+* (Maduin) Fix issue where weapon damage always used versatile damage type. Closes #1114
+
+### New Features
+* (stwlam) Include weapon-group proficiencies in attack-modifier calculations
+* (nikolaj-a) Automatically set roll options for attack and damage rolls from attacker and target conditions, as well as target traits
+
+### Content Changes
+* (Shandyan) Cleric automation
+    * Align armament, defensive recovery, divine weapon, emblazon antimagic, emblazon armament, emblazon energy, heroic recovery, necrotic infusion, premonition of clarify, radiant infusion, shared avoidance, shared clarity, and shield of faith
+    * Add effects for cleric focus spells
+    * Add effects for cleric spells (adapt self, agile feet, athletic rush, competitive edge, face in the crowd, font of serneity, hyperfocus, magic's vessel, object memory, practise makes perfect, roar of the wyrm, safeguard secret, soothing words, sweet dream, take it's course, tempt fate, traveler's transit, and weapon surge cleric domain spells)
+    * Add features for each specific cleric doctrine for warpriest and cloistered cleric. The cleric class will automatically give generic 'First/Second/... Doctrine' features which contains links to the specific versions of the doctrines that need to be manually added
+* (Drental) Agents of Edgewater #6 Bestiary creatures starting with A
+* (TMun) Update to prerequisites for D through G. Fix prerequisite format and a few minor textual corrections. Addresses part of #1091
+* (TMun) Add Granny's Hedge Trimmer from Little Trouble in Big Absalom
+* (TMun) Correct dragon form breath weapon action cost from 1 action to 2. Closes #1166
+* (TMun) Adds "Trained in Medium Armor" to alchemist class description. Actual settings in class was correct according to the errata
+* (TMun) Correct Paizo Pregens for One Shot 1 and add Beginner Box Pregens
+* (SpartanCPA) Bestiary 2 Elementals brush-up
+* (SpartanCPA) Bestiary 2 Elemental Dragons brush-up
+* (SpartanCPA) Bestiary 2 brush-up of the remaining Dragons
+
+### Core System Improvements
+* (stwlam) Use a more human-readable label when selecting actor and item sheets
+* (stwlam) Set default image for a new Active Effect to the owning item's
+
+### Development Improvements
+* (stwlam) Rename system TypeScript classes for consistency, deprecate window-exposed TypeScript classes
+
+
 ## Version 1.11.12
 ### Bug Fixes
 * (stwlam) Restore scrolling to NPC edit-sheet sidebar. Closes #1159

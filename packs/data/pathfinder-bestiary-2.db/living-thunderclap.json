@@ -101,8 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 50 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
+                    }
+                ],
+                "value": "swiftness"
             }
         },
         "currency": {
@@ -119,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -453,8 +464,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Push 5 feet"
+                        "Push"
                     ]
                 },
                 "bonus": {
@@ -477,12 +489,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d6+6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d6+6",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -564,6 +576,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -623,12 +636,12 @@
                     "damageType": "electricity",
                     "die": "2d12"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12",
                         "damageType": "electricity"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -710,6 +723,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -723,7 +737,7 @@
                     },
                     "value": [
                         "electricity",
-                        "range increment 50 feet"
+                        "range-increment-50"
                     ]
                 },
                 "usage": {
@@ -767,6 +781,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -804,12 +819,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The living thunderclap emits a bolt of lightning that crashes with deafening thunder. The living thunderclap makes a lightning bolt Strike that deals [[/r 1d12 # electricity damage]] electricity damage. If it hits, the target and any creatures within a 15-foot emanation around the target take [[/r 2d6 # sonic damage]] sonic damage and must attempt a DC 18 basic Fortitude save. Any creature that fails its save is also @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1d4 rounds.</p>"
+                    "value": "<p>The living thunderclap emits a bolt of lightning that crashes with deafening thunder. The living thunderclap makes a lightning bolt Strike that deals [[/r 1d12 #electricity]] electricity damage. If it hits, the target and any creatures within a 15-foot emanation around the target take [[/r 2d6 #sonic]] sonic damage and must attempt a DC 18 basic Fortitude save.</p>\n<p>Any creature that fails its save is also @Compendium[pf2e.conditionitems.Deafened]{Deafened} for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -818,6 +833,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -845,13 +861,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Thunderbolt",
             "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "0YEsW3g24k0C07H2",
+            "_id": "CEREyXabBiMwUJlQ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -860,12 +876,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry. <strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Push in its damage entry.</p>\n<p><strong>Effect</strong> The monster automatically knocks the target away from the monster. Unless otherwise noted in the ability description, the creature is pushed 5 feet. If the attack was a critical hit, this distance is doubled.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -874,6 +890,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "push",
                 "source": {
                     "value": ""
                 },
@@ -887,16 +904,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.t6cx9FOODmeZQNYl"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Push",
             "sort": 500000,
             "type": "action"
@@ -922,6 +940,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -964,6 +983,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -991,7 +1011,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "mZxVXRI1Zh3HUXxn",
         "actorLink": false,
         "bar1": {
@@ -1010,6 +1029,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Living Thunderclap",
         "randomImg": false,

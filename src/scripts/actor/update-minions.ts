@@ -1,10 +1,10 @@
-import { PF2EActor } from '@actor/actor';
-import { AnimalCompanionData, FamiliarData } from '@actor/actor-data-definitions';
+import { ActorPF2e } from '@actor/base';
+import { AnimalCompanionData, FamiliarData } from '@actor/data-definitions';
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
-export function updateMinionActors(master: PF2EActor | undefined = undefined) {
+export function updateMinionActors(master: ActorPF2e | undefined = undefined) {
     game.actors.entities
-        .filter((actor): actor is PF2EActor & { data: FamiliarData | AnimalCompanionData } =>
+        .filter((actor): actor is ActorPF2e & { data: FamiliarData | AnimalCompanionData } =>
             ['familiar', 'animalCompanion'].includes(actor.data.type),
         )
         .filter((minion) => !!minion.data.data?.master?.id)

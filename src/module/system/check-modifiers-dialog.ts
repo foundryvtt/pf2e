@@ -1,5 +1,5 @@
-import { PF2Modifier, PF2StatisticModifier } from '../modifiers';
-import { PF2EActor } from '@actor/actor';
+import { ModifierPF2e, StatisticModifier } from '../modifiers';
+import { ActorPF2e } from '@actor/base';
 import { PF2RollNote } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
@@ -16,7 +16,7 @@ export interface CheckModifiersContext {
     /** Should this roll be rolled with 'fortune' (2 dice, keep higher) or 'misfortune' (2 dice, keep lower)? */
     fate?: string;
     /** The actor which initiated this roll. */
-    actor?: PF2EActor;
+    actor?: ActorPF2e;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: string;
     /** Any traits for the check. */
@@ -31,13 +31,13 @@ export interface CheckModifiersContext {
  */
 export class CheckModifiersDialog extends Application {
     /** The check which is being edited. */
-    check: PF2StatisticModifier;
+    check: StatisticModifier;
     /** Relevant context for this roll, like roll options. */
     context: CheckModifiersContext;
     /** Callback called when the roll occurs. */
     callback?: (roll: Roll) => void;
 
-    constructor(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         super({
             title: check.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -57,7 +57,7 @@ export class CheckModifiersDialog extends Application {
     }
 
     /** Roll the given check, rendering the roll to the chat menu. */
-    static async roll(check: PF2StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    static async roll(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         const options: string[] = [];
         const ctx = (context as any) ?? {};
         let dice = '1d20';
@@ -69,7 +69,7 @@ export class CheckModifiersDialog extends Application {
             options.push('PF2E.TraitFortune');
         }
 
-        const speaker: { actor?: PF2EActor } = {};
+        const speaker: { actor?: ActorPF2e } = {};
         if (ctx.actor) {
             speaker.actor = ctx.actor;
             ctx.actor = ctx.actor._id;
@@ -242,7 +242,7 @@ export class CheckModifiersDialog extends Application {
         if (errors.length > 0) {
             ui.notifications.error(errors.join(' '));
         } else {
-            this.check.push(new PF2Modifier(name, value, type));
+            this.check.push(new ModifierPF2e(name, value, type));
             this.render();
         }
     }

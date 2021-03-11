@@ -1,5 +1,5 @@
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { ItemData } from '@item/data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
@@ -55,7 +55,7 @@ export class MigrationRunnerBase {
         return ret;
     }
 
-    async getUpdatedItem(item: ItemData, migrations: MigrationBase[]): Promise<ItemData> {
+    async getUpdatedItem(item: ItemDataPF2e, migrations: MigrationBase[]): Promise<ItemDataPF2e> {
         const current = duplicate(item);
 
         for (const migration of migrations) {

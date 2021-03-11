@@ -1,6 +1,6 @@
-import { PF2ECharacter } from '@actor/character';
-import { PF2ENPC } from '@actor/npc';
-import { PF2EEffect } from '@item/effect';
+import { CharacterPF2e } from '@actor/character';
+import { NPCPF2e } from '@actor/npc';
+import { EffectPF2e } from '@item/effect';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 import { LocalizePF2e } from '../../module/system/localize';
 
@@ -18,7 +18,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
-    if (actors.length > 1 || !(actor instanceof PF2ECharacter || actor instanceof PF2ENPC)) {
+    if (actors.length > 1 || !(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) {
         throw Error(`PF2e System | ${translations.BadArgs}.`);
     }
 
@@ -37,7 +37,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 return false;
             } else {
                 const effect = await fromUuid(ITEM_UUID);
-                if (!(effect instanceof PF2EEffect)) {
+                if (!(effect instanceof EffectPF2e)) {
                     throw Error('PF2e System | Raise a Shield effect not found');
                 }
                 effect.data.img = shield.img;

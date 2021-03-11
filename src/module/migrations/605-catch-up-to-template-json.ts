@@ -1,12 +1,12 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemData } from '@item/data-definitions';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
     static version = 0.605;
 
-    private addEffects(entityData: ActorDataPF2e | ItemData) {
+    private addEffects(entityData: ActorDataPF2e | ItemDataPF2e) {
         if (!Array.isArray(entityData.effects)) {
             entityData.effects = [];
         }
@@ -53,7 +53,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemData, actorData: ActorDataPF2e) {
+    async updateItem(itemData: ItemDataPF2e, actorData: ActorDataPF2e) {
         this.addEffects(itemData);
 
         // Add slugs to owned items

@@ -1,4 +1,4 @@
-import { AlignmentString } from '@actor/actor-data-definitions';
+import { AlignmentString } from '@actor/data-definitions';
 
 export function isEvil(alignment: AlignmentString): boolean {
     return alignment === 'LE' || alignment === 'CE' || alignment === 'NE';

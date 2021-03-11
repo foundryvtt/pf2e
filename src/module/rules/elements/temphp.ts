@@ -1,12 +1,12 @@
-import { ItemData } from '@item/data-definitions';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2TempHPRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
+    onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
 
@@ -22,7 +22,7 @@ export class PF2TempHPRuleElement extends PF2RuleElement {
         }
     }
 
-    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any) {
+    onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         if (getProperty(updatedActorData, 'data.attributes.hp.tempsource') === item._id) {
             mergeObject(actorUpdates, {

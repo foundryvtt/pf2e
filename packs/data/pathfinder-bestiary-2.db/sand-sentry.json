@@ -409,6 +409,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -457,8 +460,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "blinding sand"
+                        "Blinding Sand"
                     ]
                 },
                 "bonus": {
@@ -481,12 +485,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d8+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+8",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -568,6 +572,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -618,7 +623,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.ac.glass-armor"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "glass-armor"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -661,7 +686,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the sand sentry critically hits with a fist Strike, the target is blinded for 1 round.</p>"
+                    "value": "<p>When the sand sentry critically hits with a fist Strike, the target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -670,6 +695,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -721,6 +747,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -769,6 +796,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -810,7 +838,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Sand",
+                        "predicate": {
+                            "all": [
+                                "terrain:sand"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 3
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -823,6 +864,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+17 in sand",
+                        "options": "terrain:sand"
+                    }
                 }
             },
             "effects": [],
@@ -838,7 +885,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "gOjrie9YndQPomU8",
         "actorLink": false,
         "bar1": {
@@ -857,6 +903,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Sand Sentry",
         "randomImg": false,

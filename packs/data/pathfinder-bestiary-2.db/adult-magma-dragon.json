@@ -103,11 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "140 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "140"
+                    },
+                    {
+                        "exceptions": "",
+                        "label": "Magma Swim",
+                        "type": "magma-swim",
+                        "value": "40"
                     }
                 ],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -124,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CN"
@@ -160,6 +169,54 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 94"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 31,
+                        "value": 23
+                    }
+                }
+            },
+            "eO5aWydhyXcR1nGE": {
+                "data": {
+                    "spelldc": {
+                        "dc": 31,
+                        "value": 23
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +466,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -492,6 +552,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -554,11 +617,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "31",
+                    "dc": 31,
                     "item": 0,
                     "mod": 0,
                     "value": 23
@@ -585,7 +649,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "gX0v9owDysN3bGLU",
+            "_id": "OlEMHzm2vPkpFx3l",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -597,6 +661,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 15
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -612,7 +679,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "2d6"
+                    "value": "12d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -624,7 +691,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Gouts of flame rush from your hands. You deal 2d6 fire damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -637,7 +704,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "eO5aWydhyXcR1nGE"
@@ -650,6 +717,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -668,18 +738,28 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
-                    "value": "con"
+                    "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "burning-hands",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=30"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -720,23 +800,24 @@
                     },
                     "type": "String",
                     "value": [
-                        "conjuration",
+                        "evocation",
                         "fire"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.y6rAdMK6EFlV6U0t"
+                }
+            },
             "img": "systems/pf2e/icons/spells/burning-hands.jpg",
-            "name": "Burning Hands ",
+            "name": "Burning Hands (At Will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "5zaTMGOWAjUxCMHr",
+            "_id": "RmX8OdrO08JM0AmG",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -748,6 +829,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -763,7 +847,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "4d6"
+                    "value": "6d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -775,7 +859,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The fire damage increases by 1d6.</p>"
+                    "value": "<p>You raise a blazing wall that burns creatures passing through it. You create either a 5-foot-thick wall of flame in a straight line up to 60 feet long and 10 feet high, or a 5-foot-thick, 10-foot-radius ring of flame with the same height. The wall stands vertically in either form; if you wish, the wall can be of a shorter length or height. Everything on each side of the wall is @Compendium[pf2e.conditionitems.Concealed]{Concealed} from creatures on the opposite side. Any creature that crosses the wall or is occupying the wall's area at the start of its turn takes 4d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The fire damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -788,7 +872,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "eO5aWydhyXcR1nGE"
@@ -801,6 +885,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -819,18 +906,28 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-fire",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=362"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -874,20 +971,21 @@
                         "evocation",
                         "fire"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IarZrgCeaiUqOuRu"
+                }
+            },
             "img": "systems/pf2e/icons/spells/wall-of-fire.jpg",
-            "name": "Wall of Fire ",
+            "name": "Wall of Fire (At Will)",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "AXCUmGbRVCuAY1gf",
+            "_id": "5QK8En6tcwzzpyVx",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -899,6 +997,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -926,7 +1027,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and 1d4 persistent fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
+                    "value": "<p>A small ball of flame appears in the palm of your hand, and you lash out with it either in melee or at range. Make a spell attack roll against your target's AC. This is normally a ranged attack, but you can also make a melee attack against a creature in your unarmed reach.</p>\n<p>On a success, you deal 1d4 fire damage plus your spellcasting ability modifier. On a critical success, the target takes double damage and 1d4 persistent fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the damage by 1d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} on a critical hit by 1d4.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -954,6 +1055,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -978,10 +1082,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "produce-flame",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1004,7 +1118,7 @@
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -1028,15 +1142,16 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.O9w7r4BKgPogYDDe"
+                }
+            },
             "img": "systems/pf2e/icons/spells/produce-flame.jpg",
-            "name": "Produce Flame - Cantrips ",
+            "name": "Produce Flame",
             "sort": 400000,
             "type": "spell"
         },
@@ -1160,6 +1275,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1307,6 +1423,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1454,6 +1571,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1600,6 +1718,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1645,7 +1764,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>90 feet, DC 30<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>90 feet, DC 30</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1654,6 +1773,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1693,7 +1813,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -1701,7 +1821,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The dragon is targeted with an attack; <strong>Effect</strong> The dragon raises a wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is Flying, they descend 10 feet after the attack.</p>"
+                    "value": "<p><strong>Trigger</strong> The dragon is targeted with an attack;</p>\n<p><strong>Effect</strong> The dragon raises a wing, gaining a +2 circumstance bonus to AC against the triggering attack. If the dragon is Flying, they descend 10 feet after the attack.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1710,6 +1830,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1732,8 +1853,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Wing Deflection ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Wing Deflection",
             "sort": 1000000,
             "type": "action"
         },
@@ -1747,12 +1868,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragon breathes a blast of magma that deals [[/r 9d6 # fire damage]] fire damage and [[/r 4d12 # bludgeoning damage]] bludgeoning damage in a 40-foot cone (DC 33 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The dragon breathes a blast of magma that deals [[/r 9d6 #fire]] fire damage and [[/r 4d12 #bludgeoning]] bludgeoning damage in a 40-foot cone (DC 33 basic Reflex save).</p>\n<p>They can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1761,6 +1882,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1787,7 +1909,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 1100000,
             "type": "action"
@@ -1816,6 +1938,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1867,6 +1990,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1898,7 +2022,7 @@
             "_id": "N1bssKPKGqtiKwNk",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1918,6 +2042,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1955,12 +2080,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>If the next action the dragon uses is Breath Weapon, the magma clings to those it damages. Each creature that fails its save against the Breath Weapon takes 4d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and as long as it has this persistent fire damage, it also takes a -10-foot status penalty to its Speeds.</p>"
+                    "value": "<p>If the next action the dragon uses is Breath Weapon, the magma clings to those it damages. Each creature that fails its save against the Breath Weapon takes [[/r 4d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}, and as long as it has this persistent fire damage, it also takes a -10-foot status penalty to its Speeds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1969,6 +2094,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1991,7 +2117,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Volcanic Purge",
             "sort": 1500000,
             "type": "action"
@@ -2017,6 +2143,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2059,6 +2186,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2101,6 +2229,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2143,6 +2272,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2185,6 +2315,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2227,6 +2358,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2269,6 +2401,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2289,6 +2422,121 @@
             "name": "Survival",
             "sort": 2200000,
             "type": "lore"
+        },
+        {
+            "_id": "TxgMLxy2ap1ZIMWz",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 2300000,
+            "type": "action"
+        },
+        {
+            "_id": "rCDEvA0MWLJZe3ba",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "At-Will Spells",
+            "sort": 2400000,
+            "type": "action"
         }
     ],
     "name": "Adult Magma Dragon",
@@ -2296,7 +2544,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "FnLuqlzLl4zCE9pJ",
         "actorLink": false,
         "bar1": {
@@ -2315,6 +2562,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Adult Magma Dragon",
         "randomImg": false,

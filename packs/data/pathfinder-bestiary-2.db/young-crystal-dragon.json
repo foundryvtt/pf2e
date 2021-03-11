@@ -103,15 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "30"
                     },
                     {
-                        "type": "Fly",
-                        "value": "100 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "100"
                     }
                 ],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -128,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NG"
@@ -164,6 +169,42 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 91"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
+            },
+            "znBZYCY2qwfdxbV3": {
+                "data": {
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
             }
         },
         "martial": {
@@ -413,6 +454,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -494,6 +538,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -556,6 +603,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -587,7 +635,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "6Do15KaIXbJbUBaE",
+            "_id": "TkVPAxzuEus9JBtC",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -599,6 +647,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 15
+                },
+                "areasize": {
+                    "value": "15-foot cone"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -626,12 +677,12 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Swirling colors affect viewers based on their Will saves.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1, @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round, and @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round and @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>"
+                    "value": "<p>Swirling colors affect viewers based on their Will saves.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}, @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 round, and Dazzled for 1 minute.</p>\n<p><strong>Critical Failure</strong> The creature is Stunned for 1 round and Blinded for 1 minute.</p>"
                 },
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": "1 or more rounds "
+                    "value": "1 or more rounds (see below)"
                 },
                 "hasCounteractCheck": {
                     "value": false
@@ -639,7 +690,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "znBZYCY2qwfdxbV3"
@@ -652,6 +703,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -678,10 +732,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "color-spray",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=44"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -726,20 +790,21 @@
                         "incapacitation",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.UKsIOWmMx4hSpafl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/color-spray.jpg",
             "name": "Color Spray",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "DGOQFRTMoZnZbTwO",
+            "_id": "otjBEB6cFNam8rsm",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -751,6 +816,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -806,6 +874,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -830,10 +901,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -880,15 +961,16 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dancing-lights.jpg",
-            "name": "Dancing Lights - Cantrips ",
+            "name": "Dancing Lights",
             "sort": 300000,
             "type": "spell"
         },
@@ -1012,6 +1094,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1158,6 +1241,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1303,6 +1387,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1347,7 +1432,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>90 feet, DC 25<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>90 feet, DC 25</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1356,6 +1441,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1395,7 +1481,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -1403,7 +1489,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using; <strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within reach of the dragon's tail uses a move action or leaves a square during a move action it's using;</p>\n<p><strong>Effect</strong> The dragon makes a tail Strike at the creature with a -2 penalty. If it hits, the dragon disrupts the creature's action.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1412,6 +1498,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1436,8 +1523,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Twisting Tail ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Twisting Tail",
             "sort": 800000,
             "type": "action"
         },
@@ -1451,12 +1538,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragon breathes a flurry of piercing crystals that deal [[/r 8d6 # piercing damage]] piercing damage in a 30-foot cone (DC 25 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The dragon breathes a flurry of piercing crystals that deal [[/r 8d6 #piercing]] piercing damage in a 30-foot cone (DC 25 basic Reflex save).</p>\n<p>They can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1465,6 +1552,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1490,7 +1578,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 900000,
             "type": "action"
@@ -1519,6 +1607,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1570,6 +1659,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1618,6 +1708,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1660,6 +1751,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1702,6 +1794,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1744,6 +1837,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1786,6 +1880,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1828,6 +1923,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1870,6 +1966,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1897,7 +1994,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "mZLOTDHhChme6mfh",
         "actorLink": false,
         "bar1": {
@@ -1916,6 +2012,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Young Crystal Dragon",
         "randomImg": false,

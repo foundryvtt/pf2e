@@ -2,12 +2,13 @@ import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } fro
 import { getContainerMap } from '../../item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '../../item/treasure';
-import { PF2EVehicle } from '../actor';
+import { VehiclePF2e } from '../base';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
+export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
+    /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ['default', 'sheet', 'actor', 'vehicle'],
@@ -21,6 +22,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
         return 'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html';
     }
 
+    /** @override */
     getData() {
         const sheetData = super.getData();
 
@@ -40,13 +42,11 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
         // Update save labels
         if (sheetData.data.saves !== undefined) {
             for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
-                // save.icon = this._getProficiencyIcon(save.rank);
-                // save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
                 save.label = CONFIG.PF2E.saves[s];
             }
         }
 
-        this._prepareItems(sheetData.actor);
+        this.prepareItems(sheetData.actor);
 
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
@@ -63,7 +63,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
         return sheetData;
     }
 
-    _prepareItems(actorData) {
+    protected prepareItems(actorData: any) {
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
@@ -126,7 +126,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
                 i.totalWeight = formatBulk(approximatedBulk);
                 i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
                 i.isTwoHanded =
-                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x) => x.startsWith('two-hand'));
+                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x: any) => x.startsWith('two-hand'));
                 i.wieldedTwoHanded = i.type === 'weapon' && (i.data.hands || {}).value;
                 inventory[i.type].items.push(i);
             }
@@ -134,7 +134,7 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
             // Actions
             if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EVehicle.getActionGraphics(
+                i.img = VehiclePF2e.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
@@ -175,8 +175,8 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
         // actorData.readonlyEquipment = readonlyEquipment;
     }
 
-    // Events
-    activateListeners(html) {
+    /** @override */
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
         {
             // ensure correct tab name is displayed after actor update
@@ -200,6 +200,6 @@ export class ActorSheetPF2eVehicle extends ActorSheetPF2e<PF2EVehicle> {
         });
 
         // get buttons
-        html.find('.crb-trait-selector').click((ev) => this._onCrbTraitSelector(ev));
+        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
     }
 }

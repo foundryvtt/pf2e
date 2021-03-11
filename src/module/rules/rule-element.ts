@@ -1,5 +1,5 @@
-import { CreatureData } from '@actor/actor-data-definitions';
-import { ItemData } from '@item/data-definitions';
+import { CreatureData } from '@actor/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 import { PF2RuleElementSynthetics } from './rules-data-definitions';
 
 export interface Bracket {
@@ -23,13 +23,13 @@ export type RuleValue = string | number | BracketedValue;
  */
 export abstract class PF2RuleElement {
     ruleData: any;
-    item: ItemData;
+    item: ItemDataPF2e;
 
     /**
      * @param ruleData unserialized JSON data from the actual rule input
      * @param item where the rule is persisted on
      */
-    constructor(ruleData: any, item: ItemData) {
+    constructor(ruleData: any, item: ItemDataPF2e) {
         this.ruleData = ruleData;
         this.item = item;
     }
@@ -49,7 +49,7 @@ export abstract class PF2RuleElement {
      * multiple times onto a canvas. Works similar to actorUpdates and used if you want to change values on the token
      * object
      */
-    onCreate(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onCreate(actorData: CreatureData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
@@ -60,7 +60,7 @@ export abstract class PF2RuleElement {
      * @param actorUpdates see onCreate
      * @param tokens see onCreate
      */
-    onDelete(actorData: CreatureData, item: ItemData, actorUpdates: any, tokens: any[]) {}
+    onDelete(actorData: CreatureData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {}
 
     /**
      * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
@@ -90,7 +90,7 @@ export abstract class PF2RuleElement {
      * @param item the item data of the item containing the rule element
      * @param token the token data of the token to be created
      */
-    onCreateToken(actorData: ActorData, item: ItemData, token: TokenData) {}
+    onCreateToken(actorData: ActorData, item: ItemDataPF2e, token: TokenData) {}
 
     /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent

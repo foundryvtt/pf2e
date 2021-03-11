@@ -1,16 +1,17 @@
-import { PF2EActor, SKILL_DICTIONARY } from '@actor/actor';
+import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
 import { TrickMagicItemCastData } from '@item/data-definitions';
 import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
-import { PF2StatisticModifier } from '../../modifiers';
+import { SkillAbbreviation } from '@actor/data-definitions';
+import { StatisticModifier } from '@module/modifiers';
 
 /**
  * @category Other
  */
-export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
+export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
     result: TrickMagicItemCastData | false = false;
     skilloptions: TrickMagicItemDifficultyData;
 
-    constructor(object: PF2EActor, skilloptions: TrickMagicItemDifficultyData, options?: FormApplicationOptions) {
+    constructor(object: ActorPF2e, skilloptions: TrickMagicItemDifficultyData, options?: FormApplicationOptions) {
         super(object, options);
         this.skilloptions = skilloptions;
         let setter = (value: TrickMagicItemCastData | false) => {
@@ -45,7 +46,7 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
     }
 
     getData() {
-        const sheetData: FormApplicationData<PF2EActor> & {
+        const sheetData: FormApplicationData<ActorPF2e> & {
             skills?: { id: string; localized: string }[];
         } = super.getData();
         sheetData.skills = Object.getOwnPropertyNames(this.skilloptions).map((s) => {
@@ -57,9 +58,9 @@ export class TrickMagicItemPopup extends FormApplication<PF2EActor> {
     async _updateObject(event: any) {
         if (event.submitter?.name) {
             const skill = event.submitter.name;
-            const lowerSkill = skill.toLowerCase();
+            const lowerSkill = skill.toLowerCase() as SkillAbbreviation;
             const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[lowerSkill]);
-            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as PF2StatisticModifier;
+            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as StatisticModifier;
             stat.roll({
                 actor: this.object,
                 event: event,

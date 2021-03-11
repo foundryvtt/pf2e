@@ -3,10 +3,12 @@ import * as translationsPF2e from 'static/lang/en.json';
 type TranslationsPF2e = Record<string, TranslationDictionaryValue> & typeof translationsPF2e;
 
 export class LocalizePF2e {
+    static ready = false;
+
     private static _translations: TranslationsPF2e;
 
     static get translations(): TranslationsPF2e {
-        if (!game.ready) {
+        if (!this.ready) {
             throw Error('PF2e System | TranslationsPF2e instantiated too early');
         }
         if (this._translations === undefined) {

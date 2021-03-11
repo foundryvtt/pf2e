@@ -1,14 +1,14 @@
-import { ItemData, ConditionData } from '@item/data-definitions';
-import { PF2ECondition } from './item/others';
-import { TokenPF2e } from './actor/actor';
-import { PF2Modifier } from './modifiers';
-import { PF2eStatusEffects } from '../scripts/actor/status-effects';
+import { ItemDataPF2e, ConditionData } from '@item/data-definitions';
+import { ConditionPF2e } from './item/others';
+import { TokenPF2e } from './actor/base';
+import { ModifierPF2e } from './modifiers';
+import { StatusEffects } from '../scripts/actor/status-effects';
 
 /**
  * A helper class to manage PF2e Conditions.
  * @category PF2
  */
-export class PF2eConditionManager {
+export class ConditionManager {
     static _compediumConditions = new Map<string, ConditionData>();
     static _customConditions = new Map<string, ConditionData>();
 
@@ -21,23 +21,23 @@ export class PF2eConditionManager {
     /**
      * Gets a collection of conditions.
      *
-     * @return {Array<string>}   A list of status names.
+     * @return A list of status names.
      */
     public static get conditions(): Map<string, ConditionData> {
-        if (!PF2eConditionManager.__conditionsCache) {
-            PF2eConditionManager.__conditionsCache = new Map<string, ConditionData>();
+        if (!ConditionManager.__conditionsCache) {
+            ConditionManager.__conditionsCache = new Map<string, ConditionData>();
 
-            PF2eConditionManager._compediumConditions.forEach((condition, name) =>
-                PF2eConditionManager.__conditionsCache.set(name, duplicate(condition)),
+            ConditionManager._compediumConditions.forEach((condition, name) =>
+                ConditionManager.__conditionsCache.set(name, duplicate(condition)),
             );
-            PF2eConditionManager._customConditions.forEach((condition, name) =>
-                PF2eConditionManager.__conditionsCache.set(name, duplicate(condition)),
+            ConditionManager._customConditions.forEach((condition, name) =>
+                ConditionManager.__conditionsCache.set(name, duplicate(condition)),
             );
 
-            Object.freeze(PF2eConditionManager.__conditionsCache);
+            Object.freeze(ConditionManager.__conditionsCache);
         }
 
-        return PF2eConditionManager.__conditionsCache;
+        return ConditionManager.__conditionsCache;
     }
 
     /**
@@ -46,8 +46,8 @@ export class PF2eConditionManager {
      * @return {IterableIterator<string>}   A list of condition names.
      */
     public static get conditionsNames(): IterableIterator<string> {
-        return Array.from(PF2eConditionManager._compediumConditions.keys())
-            .concat(Array.from(PF2eConditionManager._customConditions.keys()))
+        return Array.from(ConditionManager._compediumConditions.keys())
+            .concat(Array.from(ConditionManager._customConditions.keys()))
             .values();
     }
 
@@ -57,39 +57,40 @@ export class PF2eConditionManager {
      * @return {IterableIterator<string>}   A list of status names.
      */
     public static get statusNames(): IterableIterator<string> {
-        return Array.from(PF2eConditionManager._compendiumConditionStatusNames.keys())
-            .concat(Array.from(PF2eConditionManager._customStatusNames.keys()))
+        return Array.from(ConditionManager._compendiumConditionStatusNames.keys())
+            .concat(Array.from(ConditionManager._customStatusNames.keys()))
             .values();
     }
 
     static async init() {
-        const content = (await game.packs.get('pf2e.conditionitems').getContent()) as PF2ECondition[];
+        const content = (await game.packs.get('pf2e.conditionitems').getContent()) as ConditionPF2e[];
 
         for (const condition of content) {
-            PF2eConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);
-            PF2eConditionManager._compendiumConditionStatusNames.set(
-                condition.data.data.hud.statusName,
-                condition.data,
-            );
+            ConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);
+            ConditionManager._compendiumConditionStatusNames.set(condition.data.data.hud.statusName, condition.data);
         }
 
-        Object.freeze(PF2eConditionManager._compediumConditions);
-        Object.freeze(PF2eConditionManager._compendiumConditionStatusNames);
+        Object.freeze(ConditionManager._compediumConditions);
+        Object.freeze(ConditionManager._compendiumConditionStatusNames);
     }
 
     /**
      * Get a condition using the condition name.
      *
-     * @param condition  A list of conditions
+     * @param conditionKey A list of conditions
      */
-    public static getCondition(condition: string): ConditionData {
-        condition = condition.toLocaleLowerCase();
+    public static getCondition(conditionKey: string): ConditionData {
+        conditionKey = conditionKey.toLocaleLowerCase();
 
-        if (PF2eConditionManager._customConditions.has(condition)) {
-            return duplicate(PF2eConditionManager._customConditions.get(condition));
-        } else {
-            return duplicate(PF2eConditionManager._compediumConditions.get(condition));
+        const condition = ConditionManager._customConditions.has(conditionKey)
+            ? duplicate(ConditionManager._customConditions.get(conditionKey))
+            : duplicate(ConditionManager._compediumConditions.get(conditionKey));
+
+        if (!condition) {
+            throw Error('PF2e System | Unexpected failure looking up condition');
         }
+
+        return condition;
     }
 
     /**
@@ -98,10 +99,10 @@ export class PF2eConditionManager {
      * @param statusName A list of conditions
      */
     public static getConditionByStatusName(statusName: string): ConditionData | undefined {
-        if (PF2eConditionManager._customStatusNames.has(statusName)) {
-            return duplicate(PF2eConditionManager._customStatusNames.get(statusName));
+        if (ConditionManager._customStatusNames.has(statusName)) {
+            return duplicate(ConditionManager._customStatusNames.get(statusName));
         } else {
-            const conditionData = PF2eConditionManager._compendiumConditionStatusNames.get(statusName);
+            const conditionData = ConditionManager._compendiumConditionStatusNames.get(statusName);
             return conditionData === undefined ? undefined : duplicate(conditionData);
         }
     }
@@ -116,7 +117,7 @@ export class PF2eConditionManager {
     public static createCustomCondition(name: string, data: ConditionData): boolean {
         name = name.toLocaleLowerCase();
 
-        if (PF2eConditionManager._customConditions.has(name)) {
+        if (ConditionManager._customConditions.has(name)) {
             return false;
         }
 
@@ -127,8 +128,8 @@ export class PF2eConditionManager {
 
         data.flags.pf2e.condition = true;
 
-        PF2eConditionManager._customConditions.set(name, data);
-        PF2eConditionManager._customStatusNames.set(data.data.hud.statusName, data);
+        ConditionManager._customConditions.set(name, data);
+        ConditionManager._customStatusNames.set(data.data.hud.statusName, data);
 
         return true;
     }
@@ -142,8 +143,8 @@ export class PF2eConditionManager {
     public static deleteCustomCondition(name: string): boolean {
         name = name.toLocaleLowerCase();
 
-        if (PF2eConditionManager._customConditions.has(name)) {
-            PF2eConditionManager._customConditions.delete(name);
+        if (ConditionManager._customConditions.has(name)) {
+            ConditionManager._customConditions.delete(name);
             return true;
         }
 
@@ -197,7 +198,7 @@ export class PF2eConditionManager {
                 updates.set(update._id, update);
             }
 
-            PF2eConditionManager.__clearOverrides(condition, updates);
+            ConditionManager.__clearOverrides(condition, updates);
         });
 
         return appliedCondition;
@@ -232,7 +233,7 @@ export class PF2eConditionManager {
                 updates.set(update._id, update);
             }
 
-            PF2eConditionManager.__clearOverrides(condition, updates);
+            ConditionManager.__clearOverrides(condition, updates);
         });
 
         return appliedCondition;
@@ -298,7 +299,7 @@ export class PF2eConditionManager {
 
         const statuses: Array<string> = token.data.effects.filter(
             (item) =>
-                Array.from<string>(PF2eConditionManager.statusNames)
+                Array.from<string>(ConditionManager.statusNames)
                     .map(
                         (status) =>
                             `${CONFIG.PF2E.statusEffects.effectsIconFolder + status}.${
@@ -331,7 +332,7 @@ export class PF2eConditionManager {
         }
 
         if (token.hasActiveHUD) {
-            PF2eStatusEffects._updateHUD(canvas.tokens.hud.element, token);
+            StatusEffects._updateHUD(canvas.tokens.hud.element, token);
         }
     }
 
@@ -363,12 +364,12 @@ export class PF2eConditionManager {
 
                 let appliedCondition: ConditionData;
 
-                if (PF2eConditionManager.getCondition(base).data.value.isValued) {
+                if (ConditionManager.getCondition(base).data.value.isValued) {
                     // Condition is normally valued.
-                    appliedCondition = PF2eConditionManager.__processValuedCondition(list, updates);
+                    appliedCondition = ConditionManager.__processValuedCondition(list, updates);
                 } else {
                     // Condition is not valued.
-                    appliedCondition = PF2eConditionManager.__processToggleCondition(list, updates);
+                    appliedCondition = ConditionManager.__processToggleCondition(list, updates);
                 }
 
                 appliedConditions.set(base, appliedCondition);
@@ -401,7 +402,7 @@ export class PF2eConditionManager {
                             // List of conditions that have been overridden.
 
                             const overridden = updates.has(c._id) ? updates.get(c._id) : c;
-                            PF2eConditionManager.__processOverride(overridden, overrider, updates);
+                            ConditionManager.__processOverride(overridden, overrider, updates);
                         });
                 }
             });
@@ -413,32 +414,32 @@ export class PF2eConditionManager {
         }
 
         // Update token effects from applied conditions.
-        await PF2eConditionManager.__processTokenEffects(token, appliedConditions);
+        await ConditionManager.__processTokenEffects(token, appliedConditions);
     }
 
     /**
      * Gets a map of modifiers from a collection of conditions.
      *
      * @param {IterableIterator<ConditionData>} conditions    A collection of conditions to retrieve modifiers from.
-     * @return {Map<string, Array<PF2Modifier>>}              A map of PF2Modifiers from the conditions collection.
+     * @return {Map<string, Array<ModifierPF2e>>}              A map of PF2Modifiers from the conditions collection.
      */
-    static getModifiersFromConditions(conditions: IterableIterator<ConditionData>): Map<string, Array<PF2Modifier>> {
-        const conditionModifiers = new Map<string, Array<PF2Modifier>>();
+    static getModifiersFromConditions(conditions: IterableIterator<ConditionData>): Map<string, Array<ModifierPF2e>> {
+        const conditionModifiers = new Map<string, Array<ModifierPF2e>>();
 
         for (const condition of conditions) {
             for (const modifier of condition.data.modifiers) {
                 if (!conditionModifiers.has(modifier.group)) {
-                    conditionModifiers.set(modifier.group, <Array<PF2Modifier>>[]);
+                    conditionModifiers.set(modifier.group, <Array<ModifierPF2e>>[]);
                 }
 
                 if (condition.data.value.isValued) {
                     conditionModifiers
                         .get(modifier.group)
-                        .push(new PF2Modifier(condition.name, -condition.data.value.value, modifier.type));
+                        .push(new ModifierPF2e(condition.name, -condition.data.value.value, modifier.type));
                 } else {
                     conditionModifiers
                         .get(modifier.group)
-                        .push(new PF2Modifier(condition.name, modifier.value, modifier.type));
+                        .push(new ModifierPF2e(condition.name, modifier.value, modifier.type));
                 }
             }
         }
@@ -453,11 +454,11 @@ export class PF2eConditionManager {
      * @param {Token} token    The token to add the condition to.
      */
     static async addConditionToToken(name: string | ConditionData, token: TokenPF2e) {
-        const condition: ConditionData = typeof name === 'string' ? PF2eConditionManager.getCondition(name) : name;
+        const condition: ConditionData = typeof name === 'string' ? ConditionManager.getCondition(name) : name;
 
-        const returnValue = await PF2eConditionManager._addConditionEntity(condition, token);
+        const returnValue = await ConditionManager._addConditionEntity(condition, token);
 
-        PF2eConditionManager.processConditions(token);
+        ConditionManager.processConditions(token);
 
         return returnValue;
     }
@@ -480,7 +481,7 @@ export class PF2eConditionManager {
 
         // Needs synchronicity.
         for (const linkedConditionName of condition.data.alsoApplies.linked) {
-            const c = PF2eConditionManager.getCondition(linkedConditionName.condition);
+            const c = ConditionManager.getCondition(linkedConditionName.condition);
             if (linkedConditionName.value) {
                 c.data.value.value = linkedConditionName.value;
             }
@@ -488,7 +489,7 @@ export class PF2eConditionManager {
             c.data.references.parent = { id: item._id, type: 'condition' };
             c.data.sources.hud = condition.data.sources.hud;
 
-            const linkedItem = await PF2eConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
+            const linkedItem = await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
 
             itemUpdate.data.references.children.push({ id: linkedItem._id, type: 'condition' });
             needsItemUpdate = true;
@@ -496,7 +497,7 @@ export class PF2eConditionManager {
 
         // Needs synchronicity.
         for (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
-            const c = PF2eConditionManager.getCondition(unlinkedConditionName.condition);
+            const c = ConditionManager.getCondition(unlinkedConditionName.condition);
             if (unlinkedConditionName.value) {
                 c.name = `${c.name} ${c.data.value.value}`;
                 c.data.value.value = unlinkedConditionName.value;
@@ -504,7 +505,7 @@ export class PF2eConditionManager {
 
             c.data.sources.hud = condition.data.sources.hud;
 
-            await PF2eConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
+            await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
         }
 
         if (needsItemUpdate) {
@@ -522,9 +523,9 @@ export class PF2eConditionManager {
      */
     static async removeConditionFromToken(id: string | string[], token: TokenPF2e) {
         id = id instanceof Array ? id : [id];
-        await PF2eConditionManager._deleteConditionEntity(id, token);
+        await ConditionManager._deleteConditionEntity(id, token);
 
-        PF2eConditionManager.processConditions(token);
+        ConditionManager.processConditions(token);
     }
 
     static async _deleteConditionEntity(ids: string[], token: TokenPF2e) {
@@ -533,7 +534,7 @@ export class PF2eConditionManager {
 
         while (stack.length) {
             const id = stack.pop();
-            const condition = token.actor.data.items.find((i: ItemData) => i._id === id) as ConditionData;
+            const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
 
             if (condition) {
                 list.push(id);
@@ -546,12 +547,12 @@ export class PF2eConditionManager {
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
-        const condition = token.actor.data.items.find((i: ItemData) => i._id === id) as ConditionData;
+        const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
 
         if (condition) {
             if (value === 0) {
                 // Value is zero, remove the status.
-                await PF2eConditionManager._deleteConditionEntity([id], token);
+                await ConditionManager._deleteConditionEntity([id], token);
             } else {
                 // Apply new value.
                 const update = duplicate(condition);
@@ -563,7 +564,7 @@ export class PF2eConditionManager {
             }
         }
 
-        PF2eConditionManager.processConditions(token);
+        ConditionManager.processConditions(token);
     }
 
     static async renderEffects(token: TokenPF2e): Promise<void> {
@@ -597,7 +598,7 @@ export class PF2eConditionManager {
         const conditions = new Map<string, any>();
 
         items
-            .sort((a: ConditionData, b: ConditionData) => PF2eConditionManager.__sortCondition(a, b))
+            .sort((a: ConditionData, b: ConditionData) => ConditionManager.__sortCondition(a, b))
             .forEach((c: ConditionData) => {
                 // Sorted list of conditions.
                 // First by active, then by base (lexicographically), then by value (descending).

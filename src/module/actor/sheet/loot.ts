@@ -1,19 +1,19 @@
 import { calculateWealth } from '../../item/treasure';
 import { ActorSheetPF2e } from './base';
-import { PF2ELoot } from '../loot';
+import { LootPF2e } from '../loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, ItemData } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
+export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     /** @override */
-    constructor(actor: PF2ELoot, options: FormApplicationOptions = {}) {
+    constructor(actor: LootPF2e, options: FormApplicationOptions = {}) {
         options.editable = true;
         super(actor, options);
     }
@@ -67,7 +67,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
         sheetData.isLoot = this.actor.data.data.lootSheetType === 'Loot';
         sheetData.isShop = !sheetData.isLoot;
 
-        this._prepareItems(sheetData.actor);
+        this.prepareItems(sheetData.actor);
 
         // TEMP: Name edit is only available for the GM
         sheetData.isGM = game.user.isGM;
@@ -75,7 +75,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
         return sheetData;
     }
 
-    _prepareItems(actorData) {
+    prepareItems(actorData) {
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
@@ -168,7 +168,7 @@ export class ActorSheetPF2eLoot extends ActorSheetPF2e<PF2ELoot> {
     protected async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === data.actorId && !this.actor.hasPerm(game.user, 'OWNER')) {
