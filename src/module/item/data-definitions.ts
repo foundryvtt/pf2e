@@ -169,12 +169,14 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export interface WeaponDetailsData extends MagicDetailsData {
+export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+
+export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
         value: string;
     };
     group: {
-        value: string;
+        value: WeaponGroupKey;
     };
     hands: {
         value: boolean;
@@ -811,7 +813,7 @@ export interface TreasureData extends BasePhysicalItemData<TreasureDetailsData &
     type: 'treasure';
 }
 
-export interface WeaponData extends BasePhysicalItemData<WeaponDetailsData & ItemLevelData> {
+export interface WeaponData extends BasePhysicalItemData<WeaponDetailsData> {
     type: 'weapon';
 }
 
