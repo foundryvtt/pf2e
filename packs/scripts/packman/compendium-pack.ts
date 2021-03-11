@@ -125,14 +125,7 @@ export class CompendiumPack {
                 throw PackError(`Entity contained in ${filePath} has no name.`);
             }
 
-            const filenameForm = entityName
-                .toLowerCase()
-                .replace(/[^a-z0-9]/gi, ' ')
-                .trim()
-                .replace(/\s+/g, '-')
-                .replace(/-{2,}/g, '-')
-                .concat('.json');
-
+            const filenameForm = CompendiumPack.sluggify(entityName).concat('.json');
             if (path.basename(filePath) !== filenameForm) {
                 throw PackError(`Filename at ${filePath} does not reflect entity name (should be ${filenameForm}).`);
             }
@@ -154,7 +147,7 @@ export class CompendiumPack {
 
         entityData.flags.core = { sourceId: this.sourceIdOf(entityData._id) };
         if (this.entityClass === 'Item') {
-            entityData.data.slug = this.sluggify(entityData.name);
+            entityData.data.slug = CompendiumPack.sluggify(entityData.name);
         }
 
         return JSON.stringify(entityData).replace(
@@ -185,12 +178,13 @@ export class CompendiumPack {
         return `Compendium.${this.systemId}.${this.name}.${entityId}`;
     }
 
-    private sluggify(entityName: string) {
+    static sluggify(entityName: string) {
         return entityName
             .toLowerCase()
+            .replaceAll("'", '')
             .replace(/[^a-z0-9]+/gi, ' ')
             .trim()
-            .replace(/\s+|-{2,}/g, '-');
+            .replace(/[-\s]+/g, '-');
     }
 
     save(): number {
