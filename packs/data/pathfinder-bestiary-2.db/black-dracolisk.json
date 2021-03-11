@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "40 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -486,12 +488,12 @@
                     "damageType": "piercing",
                     "die": "2d12+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+8",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -630,12 +632,12 @@
                     "damageType": "slashing",
                     "die": "2d10+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d10+8",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -762,7 +764,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A dracolisk has resistance [[/r 10 # to the type of damage]] to the type of damage it produces with its breath weapon.</p>"
+                    "value": "<p>A dracolisk has resistance 10 to the type of damage it produces with its breath weapon.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -806,7 +808,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -814,7 +816,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within 30 feet that the dracolisk can see starts its turn; <strong>Effect</strong> The target must attempt a DC 26 Fortitude save. If it fails, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1 minute as its body stiffens.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 30 feet that the dracolisk can see starts its turn;</p>\n<p><strong>Effect</strong> The target must attempt a DC 26 Fortitude save. If it fails, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for 1 minute as its body stiffens.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -851,8 +853,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Petrifying Glance ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Petrifying Glance",
             "sort": 400000,
             "type": "action"
         },
@@ -871,7 +873,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dracolisk breathes a gout of energy based on its draconic heritage, as noted below. This breath weapon deals [[/r 6d10 # acid]] acid damage, with a DC 28 basic reflex save. The dracolisk can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>\n<hr />\n<p><strong>Black</strong>: 60-foot line of acid&nbsp;<br /><br /></p>"
+                    "value": "<p>The dracolisk breathes a gout of energy based on its draconic heritage, as noted below. This breath weapon deals [[/r 6d10 # acid]] acid damage, with a DC 28 basic reflex save.</p>\n<p>The dracolisk can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>\n<hr />\n<p><strong>Black</strong>: 60-foot line of acid&nbsp;<br /><br /></p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -921,12 +923,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dracolisk stares at a creature it can see within 30 feet. That creature must attempt a DC 28 Fortitude save. If it fails and has not already been slowed by Petrifying Glance or this ability, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1. If the creature already was slowed by this ability or Petrifying Glance, a failed save causes the creature to be @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.<br /><br /> A creature petrified in this manner can be instantly restored to flesh by being coated (not just splashed) with fresh dracolisk or basilisk blood no more than 1 hour old. A single dracolisk contains enough blood to coat 1d4+2 Medium creatures in this manner.</p>"
+                    "value": "<p>The dracolisk stares at a creature it can see within 30 feet. That creature must attempt a DC 28 Fortitude save. If it fails and has not already been slowed by Petrifying Glance or this ability, it becomes @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. If the creature already was slowed by this ability or Petrifying Glance, a failed save causes the creature to be @Compendium[pf2e.conditionitems.Petrified]{Petrified} permanently.<br /><br />A creature petrified in this manner can be instantly restored to flesh by being coated (not just splashed) with fresh dracolisk or basilisk blood no more than 1 hour old. A single dracolisk contains enough blood to coat [[/r 1d4+2 #Medium creatures]]&nbsp;<span style=\"color: var(--body);\">Medium creatures</span><span style=\"color: var(--body);\"> </span><span style=\"color: var(--body);\">in this manner.</span></p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -964,7 +966,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Petrifying Gaze",
             "sort": 600000,
             "type": "action"
@@ -979,12 +981,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dracolisk makes a single Strike with its jaws. If the attack hits, it deals [[/r 4d12+16 # piercing damage]] piercing damage (versatile S). This counts as two attacks for its multiple attack penalty.</p>"
+                    "value": "<p>The dracolisk makes a single Strike with its jaws. If the attack hits, it deals [[/r 4d12+16 #piercing]] piercing damage (versatile S). This counts as two attacks for its multiple attack penalty.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1018,7 +1020,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Savage Jaws",
             "sort": 700000,
             "type": "action"
