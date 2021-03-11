@@ -19,6 +19,7 @@ import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { ConditionPF2e, SpellPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
+import { CreaturePF2e } from '@actor/creature';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -379,6 +380,46 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             $(event.currentTarget).parents('.expandable').toggleClass('expanded');
         });
 
+        const createStrikeRollContext = (rollNames: string[]) => {
+            const targets = Array.from(game.user.targets)
+                .map((token) => token.actor)
+                .filter((actor) => !!actor);
+            const target =
+                targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
+            const options = this.actor.getRollOptions(rollNames);
+            {
+                const conditions = this.actor.items.filter((item) => item instanceof ConditionPF2e) as ConditionPF2e[];
+                options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
+            }
+            if (target) {
+                const conditions = target.items.filter((item) => item instanceof ConditionPF2e) as ConditionPF2e[];
+                options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+            }
+            return {
+                options,
+                targets: new Set(targets),
+                target,
+            };
+        };
+        const createAttackRollContext = (event: JQuery.TriggeredEvent, rollNames: string[]) => {
+            const ctx = createStrikeRollContext(rollNames);
+            return {
+                event,
+                options: Array.from(new Set(ctx.options)), // de-duplication
+                targets: ctx.targets,
+                // un-comment this when partial chat card secret blocks have been implemented
+                //dc: ctx.target ? { value: ctx.target.data.data.attributes.ac.value } as PF2CheckDC : undefined,
+            };
+        };
+        const createDamageRollContext = (event: JQuery.TriggeredEvent) => {
+            const ctx = createStrikeRollContext(['all', 'damage-roll']);
+            return {
+                event,
+                options: Array.from(new Set(ctx.options)), // de-duplication
+                targets: ctx.targets,
+            };
+        };
+
         // the click listener registered on all buttons breaks the event delegation here...
         // html.find('.strikes-list [data-action-index]').on('click', '.damage-strike', (event) => {
         html.find('.strikes-list .damage-strike').on('click', (event) => {
@@ -388,8 +429,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const options = this.actor.getRollOptions(['all', 'damage-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].damage({ event, options });
+            const rollContext = createDamageRollContext(event);
+            this.actor.data.data.actions[Number(actionIndex)].damage(rollContext);
         });
 
         // the click listener registered on all buttons breaks the event delegation here...
@@ -401,8 +442,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             event.stopPropagation();
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('[data-action-index]').attr('data-action-index');
-            const options = this.actor.getRollOptions(['all', 'damage-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].critical({ event, options });
+            const rollContext = createDamageRollContext(event);
+            this.actor.data.data.actions[Number(actionIndex)].critical(rollContext);
         });
 
         html.find('.spell-attack').on('click', (event) => {
@@ -412,8 +453,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
             const entry = this.actor.data.items.find((item) => item._id === index) as SpellcastingEntryData;
             if (entry?.data?.attack?.roll) {
-                const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
-                entry.data.attack.roll({ event, options });
+                const rollContext = createAttackRollContext(event, ['all', 'attack-roll', 'spell-attack-roll']);
+                entry.data.attack.roll(rollContext);
             }
         });
 
@@ -804,6 +845,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const options = this.actor.getRollOptions(['all', 'attack-roll']);
             const speaker = { actor: this.actor, token: this.token };
             this.actor.data.data.actions[Number(actionIndex)].roll({ event, speaker, options });
+            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
+            this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
         });
 
         html.find('[data-variant-index].variant-strike').on('click', (event) => {
@@ -811,7 +854,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             event.stopImmediatePropagation();
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const variantIndex = $(event.currentTarget).attr('data-variant-index');
-            const options = this.actor.getRollOptions(['all', 'attack-roll']);
             const action = this.actor.data.data.actions[Number(actionIndex)];
 
             if (action.selectedAmmoId) {
@@ -825,7 +867,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 }
             }
 
-            action.variants[Number(variantIndex)].roll({ event, options });
+            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
+            action.variants[Number(variantIndex)].roll(rollContext);
         });
 
         html.find('[name="ammo-used"]').on('change', (event) => {
