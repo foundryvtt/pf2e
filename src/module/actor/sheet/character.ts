@@ -6,7 +6,7 @@ import { ProficiencyModifier } from '../../modifiers';
 import { ConditionManager } from '../../conditions';
 import { CharacterPF2e } from '../character';
 import { PF2EPhysicalItem } from '@item/physical';
-import { isPhysicalItem, SpellData, ItemData, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { isPhysicalItem, SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
 import { ZeroToThree } from '@actor/data-definitions';
@@ -117,12 +117,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             save.short = game.i18n.format(`PF2E.Saves${save.label}Short`);
         }
 
+        // Is the character's key ability score overridden by an Active Effect?
+        sheetData.data.details.keyability.aeOverride = this.actor.data.effects.some((effect) => {
+            return !effect.disabled && effect.changes.some((change) => change.key === 'data.details.keyability.value');
+        });
+
         sheetData.data.effects = {};
 
         sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
-        // is the stamina variant rule enabled?
+        // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
         // Return data for rendering
@@ -625,7 +630,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    getEquippedShield(items: ItemData[]): ArmorData | undefined {
+    getEquippedShield(items: ItemDataPF2e[]): ArmorData | undefined {
         return items.find(
             (itemData): itemData is ArmorData =>
                 itemData.type === 'armor' && itemData.data.equipped.value && itemData.data.armorType.value === 'shield',
@@ -866,7 +871,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.actor.updateEmbeddedEntity('ActiveEffect', effectUpdates);
     }
 
-    protected async _onDropItemCreate(itemData: ItemData): Promise<ItemData | null> {
+    protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (['ancestry', 'background', 'class'].includes(itemData.type)) {
             return await this.actor.createEmbeddedEntity('OwnedItem', itemData);
         }
@@ -973,7 +978,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
@@ -1013,8 +1018,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      */
     protected async _onSortItem(
         event: ElementDragEvent,
-        itemData: ItemData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+        itemData: ItemDataPF2e,
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
 

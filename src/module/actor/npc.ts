@@ -7,14 +7,9 @@ import { CharacterStrike, CharacterStrikeTrait, NPCData } from './data-definitio
 import { RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
+import { CreaturePF2e } from '@actor/creature';
 
-export class NPCPF2e extends ActorPF2e {
-    data!: NPCData;
-    _data!: NPCData;
-
-    /** @override */
-    static readonly type = 'npc';
-
+export class NPCPF2e extends CreaturePF2e {
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -384,7 +379,7 @@ export class NPCPF2e extends ActorPF2e {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     CheckPF2e.roll(
                         new CheckModifier(`Strike: ${action.name}`, action),
-                        { actor: this, type: 'attack-roll', options, notes },
+                        { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                         args.event,
                     );
                 });
@@ -398,7 +393,7 @@ export class NPCPF2e extends ActorPF2e {
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action),
-                                { actor: this, type: 'attack-roll', options, notes },
+                                { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                             );
                         }),
@@ -411,7 +406,7 @@ export class NPCPF2e extends ActorPF2e {
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map2, ModifierType.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options, notes },
+                                { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                             );
                         }),
@@ -424,7 +419,7 @@ export class NPCPF2e extends ActorPF2e {
                                 new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map3, ModifierType.UNTYPED),
                                 ]),
-                                { actor: this, type: 'attack-roll', options, notes },
+                                { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                             );
                         }),
@@ -528,4 +523,9 @@ export class NPCPF2e extends ActorPF2e {
     public updateNPCAttitudeFromDisposition(disposition: number) {
         this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
+}
+
+export interface NPCPF2e {
+    data: NPCData;
+    _data: NPCData;
 }

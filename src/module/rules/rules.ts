@@ -1,4 +1,4 @@
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 import { PF2RuleElementData } from './rules-data-definitions';
 import { PF2RuleElement } from './rule-element';
 import { PF2FlatModifierRuleElement } from './elements/flatmodifier';
@@ -29,7 +29,7 @@ export { PF2RuleElement };
 export class RuleElements {
     static readonly builtin: Record<
         string,
-        (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement
+        (ruleData: PF2RuleElementData, item: ItemDataPF2e) => PF2RuleElement
     > = Object.freeze({
         'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
         'PF2E.RuleElement.MageArmor': (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
@@ -54,13 +54,13 @@ export class RuleElements {
         'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
     });
 
-    static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemData) => PF2RuleElement> = {};
+    static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => PF2RuleElement> = {};
 
-    static fromOwnedItem(item: ItemData): PF2RuleElement[] {
+    static fromOwnedItem(item: ItemDataPF2e): PF2RuleElement[] {
         return this.fromRuleElementData(item.data?.rules ?? [], item);
     }
 
-    static fromRuleElementData(ruleData: PF2RuleElementData[], item: ItemData): PF2RuleElement[] {
+    static fromRuleElementData(ruleData: PF2RuleElementData[], item: ItemDataPF2e): PF2RuleElement[] {
         const rules = [];
         for (const data of ruleData) {
             const rule = this.custom[data.key] ?? this.builtin[data.key];

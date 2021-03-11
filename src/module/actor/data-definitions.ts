@@ -1,4 +1,4 @@
-import { ConsumableData, ItemData, Rarity, Size } from '@item/data-definitions';
+import { ConsumableData, ItemDataPF2e, Rarity, Size } from '@item/data-definitions';
 import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '../system/rolls';
 
@@ -634,7 +634,7 @@ export interface RawVehicleData extends ActorSystemData {
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
 interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
     data: T;
-    items: ItemData[];
+    items: ItemDataPF2e[];
 }
 
 interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {

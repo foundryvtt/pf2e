@@ -15,7 +15,7 @@ import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
 import {
-    ItemData,
+    ItemDataPF2e,
     ConditionData,
     ArmorData,
     PhysicalItemData,
@@ -133,8 +133,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     }
 
     /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
-    get type(): string {
-        return ((this.constructor as unknown) as { type: string }).type;
+    get type() {
+        return this.data.type;
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
@@ -334,7 +334,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     /* -------------------------------------------- */
 
-    onCreateOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
+    onCreateOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
@@ -345,7 +345,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         this._updateAllTokens(actorUpdates, tokens);
     }
 
-    onDeleteOwnedItem(child: ItemData, _options: EntityCreateOptions, _userId: string) {
+    onDeleteOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
         const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
@@ -408,17 +408,17 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         return Promise.all(promises);
     }
 
-    async createEmbeddedEntity<I extends ItemData>(
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I,
         options?: EntityCreateOptions,
     ): Promise<I | null>;
-    async createEmbeddedEntity<I extends ItemData>(
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I[],
         options?: EntityCreateOptions,
     ): Promise<I | I[] | null>;
-    async createEmbeddedEntity<I extends ItemData>(
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I | I[],
         options: EntityCreateOptions = {},
@@ -911,17 +911,17 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
-    ): Promise<ItemData>;
+    ): Promise<ItemDataPF2e>;
     updateEmbeddedEntity(
         embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
-    ): Promise<ItemData | ItemData[]>;
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
-    ): Promise<ItemData | ItemData[]> {
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
             const item = this.items.get(datum._id);

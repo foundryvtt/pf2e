@@ -42,6 +42,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
     };
+    baseItem: string | null;
     hp: {
         value: number;
     };
@@ -169,12 +170,14 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export interface WeaponDetailsData extends MagicDetailsData {
+export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+
+export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
         value: string;
     };
     group: {
-        value: string;
+        value: WeaponGroupKey;
     };
     hands: {
         value: boolean;
@@ -794,7 +797,7 @@ export interface EffectDetailsData extends ItemDescriptionData {
     };
 }
 
-export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends BaseItemData {
+export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
     data: D;
 }
 
@@ -811,7 +814,7 @@ export interface TreasureData extends BasePhysicalItemData<TreasureDetailsData &
     type: 'treasure';
 }
 
-export interface WeaponData extends BasePhysicalItemData<WeaponDetailsData & ItemLevelData> {
+export interface WeaponData extends BasePhysicalItemData<WeaponDetailsData> {
     type: 'weapon';
 }
 
@@ -895,7 +898,7 @@ export type PhysicalItemData =
     | EquipmentData
     | KitData;
 
-export type ItemData =
+export type ItemDataPF2e =
     | PhysicalItemData
     | FeatData
     | LoreData
@@ -910,7 +913,7 @@ export type ItemData =
     | EffectData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
-export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData {
+export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
 }
 
@@ -925,12 +928,14 @@ export function isMagicDetailsData(
     );
 }
 
-export function isLevelItem(item: ItemData): item is ItemData & BaseItemDataPF2e<ItemDescriptionData & ItemLevelData> {
+export function isLevelItem(
+    item: ItemDataPF2e,
+): item is ItemDataPF2e & BaseItemDataPF2e<ItemDescriptionData & ItemLevelData> {
     return 'level' in item.data;
 }
 
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
-export function assertPhysicalItem(item: ItemData, error: string): asserts item is PhysicalItemData {
+export function assertPhysicalItem(item: ItemDataPF2e, error: string): asserts item is PhysicalItemData {
     if (!isPhysicalItem(item)) {
         throw Error(error);
     }
