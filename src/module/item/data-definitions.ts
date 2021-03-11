@@ -178,6 +178,7 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     group: {
         value: WeaponGroupKey;
     };
+    baseWeapon: string | null;
     hands: {
         value: boolean;
     };
