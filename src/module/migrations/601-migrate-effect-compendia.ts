@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 export class Migration601SplitEffectCompendia extends MigrationBase {
     static version = 0.601;
@@ -186,7 +186,7 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         LXf1Cqi1zyo4DaLv: 'spell-effects',
     };
 
-    async updateItem(item: ItemData) {
+    async updateItem(item: ItemDataPF2e) {
         if (typeof item.data.description.value === 'string') {
             item.data.description.value = item.data.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,

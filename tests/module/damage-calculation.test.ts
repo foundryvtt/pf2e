@@ -6,6 +6,7 @@ import {
     GolemMagicImmunity,
     Immunity,
     parseExceptions,
+    reduceResistances,
     Resistance,
     Weakness,
 } from '../../src/module/damage-calculation';
@@ -530,5 +531,20 @@ describe('Test Parsing Exceptions', () => {
         test(`test ${testCase.exception}`, () => {
             expect(parseExceptions(testCase.exception)).toEqual(testCase.expected);
         });
+    });
+});
+
+describe('Reduce Resistances', () => {
+    const reductions = new Map();
+    reductions.set('fire', 11);
+    reductions.set('cold', 5);
+
+    test(`reduce values`, () => {
+        const result = reduceResistances(
+            [new Resistance({ type: 'fire', value: 10 }), new Resistance({ type: 'cold', value: 11 })],
+            reductions,
+        );
+        expect(result[0].getValue()).toEqual(0);
+        expect(result[1].getValue()).toEqual(6);
     });
 });

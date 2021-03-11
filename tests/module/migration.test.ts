@@ -1,5 +1,5 @@
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 import { MigrationRunner } from '../../src/module/migration-runner';
 import { MigrationBase } from 'src/module/migrations/base';
 import { FakeActor } from 'tests/fakes/fake-actor';

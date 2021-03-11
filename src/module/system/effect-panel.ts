@@ -1,11 +1,11 @@
-import { PF2EActor } from '../actor/actor';
-import { PF2eConditionManager } from '../conditions';
+import { ActorPF2e } from '../actor/base';
+import { ConditionManager } from '../conditions';
 import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
     effects?: EffectData[];
-    actor?: PF2EActor;
+    actor?: ActorPF2e;
 }
 
 export class EffectPanel extends Application {
@@ -95,7 +95,7 @@ export class EffectPanel extends Application {
                 }
             }
         }
-        data.conditions = PF2eConditionManager.getFlattenedConditions(data.conditions).map((c) => {
+        data.conditions = ConditionManager.getFlattenedConditions(data.conditions).map((c) => {
             c.locked = c.parents.length > 0;
             c.breakdown = EffectPanel.getParentConditionsBreakdown(c.parents);
             return c;
@@ -117,9 +117,9 @@ export class EffectPanel extends Application {
                     const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : undefined;
                     actor.getActiveTokens().forEach((token) => {
                         if (data.value.isValued) {
-                            PF2eConditionManager.updateConditionValue(item._id, token, value);
+                            ConditionManager.updateConditionValue(item._id, token, value);
                         } else {
-                            PF2eConditionManager.removeConditionFromToken(item._id, token);
+                            ConditionManager.removeConditionFromToken(item._id, token);
                         }
                     });
                 } else {
@@ -131,7 +131,7 @@ export class EffectPanel extends Application {
         });
     }
 
-    private static get actor(): PF2EActor | undefined {
+    private static get actor(): ActorPF2e | undefined {
         return canvas.tokens.controlled[0]?.actor ?? game.user?.character;
     }
 

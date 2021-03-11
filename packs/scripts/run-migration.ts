@@ -4,17 +4,17 @@ import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
 import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
 import { Migration605CatchUpToTemplateJSON } from '../../src/module/migrations/605-catch-up-to-template-json';
-import { ItemData } from '@item/data-definitions';
-import { PF2EActor } from '@actor/actor';
-import { PF2EItem } from '@item/item';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
+import { ActorPF2e } from '@actor/base';
+import { ItemPF2e } from '@item/base';
+import { ActorDataPF2e } from '@actor/data-definitions';
 import { MigrationBase } from 'src/module/migrations/base';
 
 const migrations: MigrationBase[] = [new Migration595AddItemSize(), new Migration605CatchUpToTemplateJSON()];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
-type CompendiumEntityPF2e = PF2EActor | PF2EItem | Exclude<CompendiumEntity, Actor | Item>;
+type CompendiumEntityPF2e = ActorPF2e | ItemPF2e | Exclude<CompendiumEntity, Actor | Item>;
 const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle'];
 const itemTypes = [
     'backpack',
@@ -42,7 +42,7 @@ const itemTypes = [
 const isActorData = (entityData: { type: string }): entityData is ActorDataPF2e => {
     return actorTypes.includes(entityData.type);
 };
-const isItemData = (entityData: { type: string }): entityData is ItemData => {
+const isItemData = (entityData: { type: string }): entityData is ItemDataPF2e => {
     return itemTypes.includes(entityData.type);
 };
 
@@ -98,7 +98,7 @@ async function migrate() {
         // skip journal entries, rollable tables, and macros
         if (!('type' in entity) || ['chat', 'script'].includes(entity.type)) continue;
 
-        let updatedEntity: ActorData | ItemData;
+        let updatedEntity: ActorData | ItemDataPF2e;
         if (isActorData(entity)) {
             updatedEntity = await migrationRunner.getUpdatedActor(entity, migrationRunner.migrations);
         } else if (isItemData(entity)) {

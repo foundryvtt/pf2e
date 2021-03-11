@@ -1,7 +1,7 @@
-import { PF2EABC } from './abc';
+import { ABCItemPF2e } from './abc';
 import { AncestryData } from './data-definitions';
 
-export class PF2EAncestry extends PF2EABC {
+export class AncestryPF2e extends ABCItemPF2e {
     data!: AncestryData;
     _data!: AncestryData;
 }

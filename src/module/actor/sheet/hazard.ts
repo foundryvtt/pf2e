@@ -1,10 +1,10 @@
 import { ActorSheetPF2e } from './base';
-import { PF2EHazard } from '../actor';
+import { HazardPF2e } from '../base';
 
 /**
  * @category Actor
  */
-export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
+export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
@@ -15,23 +15,16 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
         return options;
     }
 
-    /* -------------------------------------------- */
-
     /**
      * Get the correct HTML template path to use for rendering this particular sheet
-     * @type {String}
      */
-    get template() {
+    get template(): string {
         const path = 'systems/pf2e/templates/actors/';
         if (this.actor.getFlag('pf2e', 'editHazard.value')) return `${path}hazard-sheet.html`;
         return `${path}hazard-sheet-no-edit.html`;
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
-     */
+    /** @override */
     getData() {
         const sheetData = super.getData();
 
@@ -64,13 +57,8 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
         return sheetData;
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Organize and classify Items for Hazard sheets
-     * @private
-     */
-    _prepareItems(actorData) {
+    /** @override */
+    prepareItems(actorData: any) {
         // Actions
         const attacks = {
             melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },
@@ -117,7 +105,7 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
             // Actions
             else if (i.type === 'action') {
                 const actionType = i.data.actionType.value || 'action';
-                i.img = PF2EHazard.getActionGraphics(
+                i.img = HazardPF2e.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
@@ -156,64 +144,61 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-    /**
-     * Activate event listeners using the prepared sheet HTML
-     * @param html {HTML}   The prepared HTML object ready to be rendered into the DOM
-     */
-    activateListeners(html) {
+    /** @override */
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // NPC Weapon Rolling
-        html.find('button').click((ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        html.find('button').on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
             // item = this.actor.items.find(i => { return i.id === itemId });
             const item = this.actor.getOwnedItem(itemId);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
+            switch (event.target.dataset.action) {
                 case 'weaponAttack':
-                    item.rollWeaponAttack(ev);
+                    item.rollWeaponAttack(event);
                     break;
                 case 'weaponAttack2':
-                    item.rollWeaponAttack(ev, 2);
+                    item.rollWeaponAttack(event, 2);
                     break;
                 case 'weaponAttack3':
-                    item.rollWeaponAttack(ev, 3);
+                    item.rollWeaponAttack(event, 3);
                     break;
                 case 'weaponDamage':
-                    item.rollWeaponDamage(ev);
+                    item.rollWeaponDamage(event);
                     break;
                 case 'weaponDamageCritical':
-                    item.rollWeaponDamage(ev, true);
+                    item.rollWeaponDamage(event, true);
                     break;
                 case 'npcAttack':
-                    item.rollNPCAttack(ev);
+                    item.rollNPCAttack(event);
                     break;
                 case 'npcAttack2':
-                    item.rollNPCAttack(ev, 2);
+                    item.rollNPCAttack(event, 2);
                     break;
                 case 'npcAttack3':
-                    item.rollNPCAttack(ev, 3);
+                    item.rollNPCAttack(event, 3);
                     break;
                 case 'npcDamage':
-                    item.rollNPCDamage(ev);
+                    item.rollNPCDamage(event);
                     break;
                 case 'npcDamageCritical':
-                    item.rollNPCDamage(ev, true);
+                    item.rollNPCDamage(event, true);
                     break;
                 case 'spellAttack':
-                    item.rollSpellAttack(ev);
+                    item.rollSpellAttack(event);
                     break;
                 case 'spellDamage':
-                    item.rollSpellDamage(ev);
+                    item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(ev);
+                    item.rollConsumable(event);
                     break;
                 default:
                     throw new Error('Unknown action type');
@@ -222,8 +207,8 @@ export class ActorSheetPF2eHazard extends ActorSheetPF2e<PF2EHazard> {
 
         if (!this.options.editable) return;
 
-        html.find('.isHazardEditable').change((ev) => {
-            this.actor.setFlag('pf2e', 'editHazard', { value: ev.target.checked });
+        html.find<HTMLInputElement>('.isHazardEditable').on('change', (event) => {
+            this.actor.setFlag('pf2e', 'editHazard', { value: event.target.checked });
         });
     }
 }

@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 10 ",
+                "details": "regeneration 10 (deactivated by cold iron)",
                 "max": 295,
                 "min": 0,
                 "temp": 0,
@@ -103,15 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "100 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "100"
                     },
                     {
-                        "type": "Swim",
-                        "value": "100 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "100"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -128,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -164,6 +169,58 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 164"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
+            },
+            "QbjjKmqSkCf93Xw5": {
+                "data": {
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
             }
         },
         "martial": {
@@ -413,6 +470,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -495,6 +555,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -557,6 +620,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -588,7 +652,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "xJZfeP18N9FJrBxt",
+            "_id": "C3660uLElTZLdhwb",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -600,6 +664,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -627,7 +694,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -640,7 +707,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "QbjjKmqSkCf93Xw5"
@@ -653,6 +720,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -679,10 +749,20 @@
                     "type": "String",
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -726,20 +806,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.jpg",
-            "name": "Freedom of Movement ",
+            "name": "Freedom of Movement (Constant)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "J8i7cr8sUNeRft2T",
+            "_id": "lIhRNM5msYgcZJCL",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -751,6 +832,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -786,7 +870,7 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -804,6 +888,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -830,10 +917,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -879,15 +976,16 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing",
+            "name": "True Seeing (Constant)",
             "sort": 300000,
             "type": "spell"
         },
@@ -898,8 +996,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "shoal linnorm venom"
+                        "Shoal Linnorm Venom"
                     ]
                 },
                 "bonus": {
@@ -922,12 +1021,12 @@
                     "damageType": "piercing",
                     "die": "3d12+16"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d12+16",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1009,6 +1108,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1068,12 +1168,12 @@
                     "damageType": "slashing",
                     "die": "3d8+16"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d8+16",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1155,6 +1255,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1217,12 +1318,12 @@
                     "damageType": "bludgeoning",
                     "die": "4d6+16"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d6+16",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1304,6 +1405,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1358,6 +1460,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1390,10 +1493,10 @@
             "type": "action"
         },
         {
-            "_id": "JiBu4pOYoMUCvAKw",
+            "_id": "UuDDHSI5hH9lHpZv",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "reaction"
@@ -1404,7 +1507,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Tail only.<br /><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p>Tail only.</p>\n<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1413,6 +1516,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -1426,25 +1530,26 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
             "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "xdcR3l3iekCECcMF",
+            "_id": "4CyhH5ZkHNlxJtIP",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "passive"
@@ -1455,7 +1560,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1464,6 +1569,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -1477,17 +1583,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
+            "name": "Regeneration 10 (deactivated by cold iron)",
             "sort": 900000,
             "type": "action"
         },
@@ -1501,12 +1608,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r 12d8 # fire damage]] fire damage in a 60-foot cone (DC 36 basic Reflex save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r 6d8 # fire damage]] fire damage (DC 36 Reflex save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it. The shoal linnorm can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The shoal linnorm exhales scalding steam that deals [[/r 12d8 #fire]] fire damage in a 60-foot cone (DC 36 basic Reflex save). The steam lingers until the end of the linnorm's next turn; anyone who enters the area or begins their turn in the area takes [[/r 6d8 #fire]] fire damage (DC 36 Reflex save negates). During this time, the steam is so thick that it impedes movement as well as sight, turning the area into difficult terrain. All creatures in the steam become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the steam become concealed to creatures within it.</p>\n<p>The shoal linnorm can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1515,6 +1622,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1542,7 +1650,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 1000000,
             "type": "action"
@@ -1562,7 +1670,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 36 Fortitude; <strong>Maximum Duration</strong> 10 rounds; <strong>Stage 1</strong> [[/r 4d6 # fire damage]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <strong>Stage 2</strong> [[/r 6d6 # fire damage]] fire damage and enfeebled 2 (1 round).</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 36 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 10 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 4d6 #fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 6d6 #fire]] fire damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1571,6 +1679,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1602,7 +1711,7 @@
             "type": "action"
         },
         {
-            "_id": "B7txWxgRhRFv5og5",
+            "_id": "Y24jpiGNojJwV4RQ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1616,7 +1725,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed. <br /><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1625,6 +1734,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
@@ -1638,16 +1748,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Grab",
             "sort": 1200000,
             "type": "action"
@@ -1673,6 +1784,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1715,6 +1827,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1757,6 +1870,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1777,6 +1891,121 @@
             "name": "Stealth",
             "sort": 1500000,
             "type": "lore"
+        },
+        {
+            "_id": "Q6Z6sPX8M68AUOXI",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "5UFt8Dv6NCEOpZlE",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1700000,
+            "type": "action"
         }
     ],
     "name": "Shoal Linnorm",
@@ -1784,7 +2013,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "nipVBTEgG6itWJSW",
         "actorLink": false,
         "bar1": {
@@ -1803,6 +2031,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Shoal Linnorm",
         "randomImg": false,

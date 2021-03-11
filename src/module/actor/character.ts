@@ -3,50 +3,54 @@ import {
     BackgroundData,
     ClassData,
     ConsumableData,
-    ItemData,
+    ItemDataPF2e,
     LoreData,
     MartialData,
     SpellAttackRollModifier,
     SpellcastingEntryData,
     SpellDifficultyClass,
     WeaponData,
+    WeaponGroupKey,
 } from '@item/data-definitions';
-import { PF2EItem } from '@item/item';
+import { ItemPF2e } from '@item/base';
 import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
     ensureProficiencyOption,
-    PF2CheckModifier,
-    PF2Modifier,
-    PF2ModifierPredicate,
-    PF2ModifierType,
-    PF2StatisticModifier,
+    CheckModifier,
+    ModifierPF2e,
+    ModifierPredicate,
+    ModifierType,
+    StatisticModifier,
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
-import { PF2RuleElement, PF2RuleElements } from '../rules/rules';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '@system/damage/weapon';
-import { PF2Check, PF2DamageRoll } from '@system/rolls';
-import { SKILL_DICTIONARY } from './actor';
+import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
+import { SKILL_DICTIONARY } from './base';
 import {
     AbilityString,
     CharacterData,
     CharacterStrike,
     CharacterStrikeTrait,
     SkillData,
+    SkillAbbreviation,
     RawCharacterData,
-} from './actor-data-definitions';
+    ZeroToFour,
+    ProficiencyData,
+} from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '@utils';
 import { adaptRoll } from '@system/rolls';
-import { PF2EAncestry } from '@item/ancestry';
-import { PF2EBackground } from '@item/background';
-import { PF2EClass } from '@item/class';
-import { PF2ECreature } from './creature';
+import { AncestryPF2e } from '@item/ancestry';
+import { BackgroundPF2e } from '@item/background';
+import { ClassPF2e } from '@item/class';
+import { CreaturePF2e } from './creature';
 
-export class PF2ECharacter extends PF2ECreature {
+export class CharacterPF2e extends CreaturePF2e {
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -63,7 +67,7 @@ export class PF2ECharacter extends PF2ECreature {
         this.prepareClass(actorData);
 
         const rules: PF2RuleElement[] = actorData.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(PF2RuleElements.fromOwnedItem(current)),
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
             [],
         );
         const { data } = actorData;
@@ -94,7 +98,7 @@ export class PF2ECharacter extends PF2ECreature {
         // PFS Level Bump - check and DC modifiers
         if (data.pfs?.levelBump) {
             statisticsModifiers.all = (statisticsModifiers.all || []).concat(
-                new PF2Modifier('PF2E.PFS.LevelBump', 1, PF2ModifierType.UNTYPED),
+                new ModifierPF2e('PF2E.PFS.LevelBump', 1, ModifierType.UNTYPED),
             );
         }
 
@@ -102,7 +106,7 @@ export class PF2ECharacter extends PF2ECreature {
         {
             const ancestryHP = data.attributes.ancestryhp ?? 0;
             const classHP = data.attributes.classhp ?? 0;
-            const modifiers = [new PF2Modifier('PF2E.AncestryHP', ancestryHP, PF2ModifierType.UNTYPED)];
+            const modifiers = [new ModifierPF2e('PF2E.AncestryHP', ancestryHP, ModifierType.UNTYPED)];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
@@ -114,32 +118,30 @@ export class PF2ECharacter extends PF2ECreature {
                     data.attributes.flatbonussp;
 
                 modifiers.push(
-                    new PF2Modifier('PF2E.ClassHP', halfClassHp * data.details.level.value, PF2ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ClassHP', halfClassHp * data.details.level.value, ModifierType.UNTYPED),
                 );
             } else {
                 modifiers.push(
-                    new PF2Modifier('PF2E.ClassHP', classHP * data.details.level.value, PF2ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ClassHP', classHP * data.details.level.value, ModifierType.UNTYPED),
                 );
                 modifiers.push(
-                    new PF2Modifier(
+                    new ModifierPF2e(
                         'PF2E.AbilityCon',
                         data.abilities.con.mod * data.details.level.value,
-                        PF2ModifierType.ABILITY,
+                        ModifierType.ABILITY,
                     ),
                 );
             }
 
             if (data.attributes.flatbonushp) {
-                modifiers.push(
-                    new PF2Modifier('PF2E.FlatBonusHP', data.attributes.flatbonushp, PF2ModifierType.UNTYPED),
-                );
+                modifiers.push(new ModifierPF2e('PF2E.FlatBonusHP', data.attributes.flatbonushp, ModifierType.UNTYPED));
             }
             if (data.attributes.levelbonushp) {
                 modifiers.push(
-                    new PF2Modifier(
+                    new ModifierPF2e(
                         'PF2E.BonusHPperLevel',
                         data.attributes.levelbonushp * data.details.level.value,
-                        PF2ModifierType.UNTYPED,
+                        ModifierType.UNTYPED,
                     ),
                 );
             }
@@ -152,14 +154,14 @@ export class PF2ECharacter extends PF2ECreature {
                     modifiers.push(m);
                 });
 
-            const stat = mergeObject(new PF2StatisticModifier('hp', modifiers), data.attributes.hp, {
+            const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
                 overwrite: false,
             });
 
             // PFS Level Bump - hit points
             if (data.pfs?.levelBump) {
                 const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
-                stat.push(new PF2Modifier('PF2E.PFS.LevelBump', hitPointsBump, PF2ModifierType.UNTYPED));
+                stat.push(new ModifierPF2e('PF2E.PFS.LevelBump', hitPointsBump, ModifierType.UNTYPED));
             }
 
             stat.max = stat.totalModifier;
@@ -177,7 +179,7 @@ export class PF2ECharacter extends PF2ECreature {
         for (const [saveName, save] of Object.entries(data.saves)) {
             // Base modifiers from ability scores & level/proficiency rank.
             const modifiers = [
-                AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability].value),
+                AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
             const notes = [] as PF2RollNote[];
@@ -186,14 +188,14 @@ export class PF2ECharacter extends PF2ECreature {
             if (worn) {
                 const resiliencyBonus = getResiliencyBonus(worn.data);
                 if (resiliencyBonus > 0) {
-                    modifiers.push(new PF2Modifier(worn.name, resiliencyBonus, PF2ModifierType.ITEM));
+                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, ModifierType.ITEM));
                 }
             }
 
             // Add explicit item bonuses which were set on this save; hopefully this will be superceded
             // by just using custom modifiers in the future.
             if (save.item) {
-                modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', Number(save.item), PF2ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', Number(save.item), ModifierType.ITEM));
             }
 
             // Add custom modifiers and roll notes relevant to this save.
@@ -204,9 +206,9 @@ export class PF2ECharacter extends PF2ECreature {
 
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
             // overwrite potentially changed fields.
-            const stat = mergeObject(new PF2StatisticModifier(saveName, modifiers), save, { overwrite: false });
+            const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, { overwrite: false });
             stat.value = stat.totalModifier;
-            stat.breakdown = stat.modifiers
+            stat.breakdown = (stat.modifiers as ModifierPF2e[])
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
@@ -216,8 +218,8 @@ export class PF2ECharacter extends PF2ECreature {
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, save.rank);
-                PF2Check.roll(
-                    new PF2CheckModifier(label, stat),
+                CheckPF2e.roll(
+                    new CheckModifier(label, stat),
                     { actor: this, type: 'saving-throw', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
@@ -252,11 +254,7 @@ export class PF2ECharacter extends PF2ECreature {
             const notes: PF2RollNote[] = [];
             if (data.attributes.perception.item) {
                 modifiers.push(
-                    new PF2Modifier(
-                        'PF2E.ItemBonusLabel',
-                        Number(data.attributes.perception.item),
-                        PF2ModifierType.ITEM,
-                    ),
+                    new ModifierPF2e('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), ModifierType.ITEM),
                 );
             }
             ['perception', 'wis-based', 'all'].forEach((key) => {
@@ -264,7 +262,7 @@ export class PF2ECharacter extends PF2ECreature {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(new PF2StatisticModifier('perception', modifiers), data.attributes.perception, {
+            const stat = mergeObject(new StatisticModifier('perception', modifiers), data.attributes.perception, {
                 overwrite: false,
             });
             stat.breakdown = stat.modifiers
@@ -276,8 +274,8 @@ export class PF2ECharacter extends PF2ECreature {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, proficiencyRank);
-                PF2Check.roll(
-                    new PF2CheckModifier(label, stat),
+                CheckPF2e.roll(
+                    new CheckModifier(label, stat),
                     { actor: this, type: 'perception-check', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
@@ -302,11 +300,9 @@ export class PF2ECharacter extends PF2ECreature {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            const stat = mergeObject(
-                new PF2StatisticModifier('PF2E.ClassDCLabel', modifiers),
-                data.attributes.classDC,
-                { overwrite: false },
-            );
+            const stat = mergeObject(new StatisticModifier('PF2E.ClassDCLabel', modifiers), data.attributes.classDC, {
+                overwrite: false,
+            });
             stat.value = 10 + stat.totalModifier;
             stat.ability = data.details.keyability.value;
             stat.breakdown = [game.i18n.localize('PF2E.ClassDCBase')]
@@ -322,7 +318,7 @@ export class PF2ECharacter extends PF2ECreature {
 
         // Armor Class
         {
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             const dexCap = duplicate(data.attributes.dexCap ?? []);
             let armorCheckPenalty = 0;
             let proficiency = 'unarmored';
@@ -334,7 +330,7 @@ export class PF2ECharacter extends PF2ECreature {
                 if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
                     armorCheckPenalty = Number(worn.data.check.value ?? 0);
                 }
-                modifiers.push(new PF2Modifier(worn.name, getArmorBonus(worn.data), PF2ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), ModifierType.ITEM));
             }
 
             // proficiency
@@ -352,7 +348,7 @@ export class PF2ECharacter extends PF2ECreature {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            const stat = mergeObject(new PF2StatisticModifier('ac', modifiers), data.attributes.ac, {
+            const stat = mergeObject(new StatisticModifier('ac', modifiers), data.attributes.ac, {
                 overwrite: false,
             });
             stat.value = 10 + stat.totalModifier;
@@ -389,21 +385,21 @@ export class PF2ECharacter extends PF2ECreature {
             Object.keys(SKILL_DICTIONARY).includes(shortform),
         )) {
             const modifiers = [
-                AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability].value),
+                AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
             ];
             const notes = [] as PF2RollNote[];
             if (skill.item) {
-                modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', skill.item, PF2ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, ModifierType.ITEM));
             }
             if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0) {
                 modifiers.push(
-                    new PF2Modifier('PF2E.ArmorCheckPenalty', data.attributes.ac.check, PF2ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, ModifierType.UNTYPED),
                 );
             }
 
             // workaround for the shortform skill names
-            const expandedName = SKILL_DICTIONARY[skillName];
+            const expandedName = SKILL_DICTIONARY[skillName as SkillAbbreviation];
 
             [expandedName, `${skill.ability}-based`, 'skill-check', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -411,10 +407,15 @@ export class PF2ECharacter extends PF2ECreature {
             });
 
             // preserve backwards-compatibility
-            const stat = mergeObject(new PF2StatisticModifier(expandedName, modifiers), skill, { overwrite: false });
+            const stat: StatisticModifier = mergeObject(new StatisticModifier(expandedName, modifiers), skill, {
+                overwrite: false,
+            });
             stat.breakdown = stat.modifiers
-                .filter((m) => m.enabled)
-                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                .filter((modifier) => modifier.enabled)
+                .map((modifier) => {
+                    const prefix = modifier.modifier < 0 ? '' : '+';
+                    return `${game.i18n.localize(modifier.name)} ${prefix}${modifier.modifier}`;
+                })
                 .join(', ');
             stat.value = stat.totalModifier;
             stat.notes = notes;
@@ -424,8 +425,8 @@ export class PF2ECharacter extends PF2ECreature {
                 });
                 const options = args.options ?? [];
                 ensureProficiencyOption(options, skill.rank);
-                PF2Check.roll(
-                    new PF2CheckModifier(label, stat),
+                CheckPF2e.roll(
+                    new CheckModifier(label, stat),
                     { actor: this, type: 'skill-check', options, dc: args.dc, notes },
                     args.event,
                     args.callback,
@@ -454,7 +455,7 @@ export class PF2ECharacter extends PF2ECreature {
                 });
 
                 const loreSkill: SkillData = data.skills[shortform];
-                const stat = mergeObject(new PF2StatisticModifier(skill.name, modifiers), loreSkill, {
+                const stat = mergeObject(new StatisticModifier(skill.name, modifiers), loreSkill, {
                     overwrite: false,
                 });
                 stat.itemID = skill._id;
@@ -471,8 +472,8 @@ export class PF2ECharacter extends PF2ECreature {
                     const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: skill.name });
                     const options = args.options ?? [];
                     ensureProficiencyOption(options, rank);
-                    PF2Check.roll(
-                        new PF2CheckModifier(label, stat),
+                    CheckPF2e.roll(
+                        new CheckModifier(label, stat),
                         { actor: this, type: 'skill-check', options, dc: args.dc, notes },
                         args.event,
                         args.callback,
@@ -488,12 +489,12 @@ export class PF2ECharacter extends PF2ECreature {
         {
             const label = game.i18n.localize('PF2E.SpeedTypesLand');
             const base = Number(data.attributes.speed.value ?? 0);
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             ['land-speed', 'speed'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
-                new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers),
+                new StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: label }), modifiers),
                 data.attributes.speed,
                 { overwrite: false },
             );
@@ -511,12 +512,12 @@ export class PF2ECharacter extends PF2ECreature {
         for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
             const speed = data.attributes.speed.otherSpeeds[idx];
             const base = Number(speed.value ?? 0);
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             [`${speed.type}-speed`, 'speed'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
             const stat = mergeObject(
-                new PF2StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers),
+                new StatisticModifier(game.i18n.format('PF2E.SpeedLabel', { type: speed.label }), modifiers),
                 speed,
                 { overwrite: false },
             );
@@ -533,13 +534,13 @@ export class PF2ECharacter extends PF2ECreature {
 
         // Familiar Abilities
         {
-            const modifiers: PF2Modifier[] = [];
+            const modifiers: ModifierPF2e[] = [];
             (statisticsModifiers['familiar-abilities'] || [])
                 .map((m) => duplicate(m))
                 .forEach((m) => modifiers.push(m));
 
             const stat = mergeObject(
-                new PF2StatisticModifier('familiar-abilities', modifiers),
+                new StatisticModifier('familiar-abilities', modifiers),
                 data.attributes.familiarAbilities,
                 { overwrite: false },
             );
@@ -557,11 +558,40 @@ export class PF2ECharacter extends PF2ECreature {
         // Strikes
         {
             // collect the weapon proficiencies
+            const weaponGroups = CONFIG.PF2E.weaponGroups;
+            const groupProficiencies = Object.entries(data.martial)
+                .filter(([key]) => key.startsWith('weapon-group-') && key.replace('weapon-group-', '') in weaponGroups)
+                .reduce((accumulated, [key, proficiency]: [string, ProficiencyData]) => {
+                    const groupKey = key.replace('weapon-group-', '');
+                    if (!(groupKey in weaponGroups && 'rank' in proficiency)) {
+                        return accumulated;
+                    }
+                    return {
+                        ...accumulated,
+                        [key]: {
+                            rank: proficiency.rank ?? 0,
+                            name: game.i18n.localize(weaponGroups[groupKey as WeaponGroupKey]),
+                        },
+                    };
+                }, {} as Record<WeaponGroupKey, { rank: ZeroToFour; name: string }>);
             const proficiencies = {
-                simple: { name: 'Simple', rank: data?.martial?.simple?.rank ?? 0 },
-                martial: { name: 'Martial', rank: data?.martial?.martial?.rank ?? 0 },
-                advanced: { name: 'Advanced', rank: data?.martial?.advanced?.rank ?? 0 },
-                unarmed: { name: 'Unarmed', rank: data?.martial?.unarmed?.rank ?? 0 },
+                simple: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
+                    rank: data?.martial?.simple?.rank ?? 0,
+                },
+                martial: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.martial),
+                    rank: data?.martial?.martial?.rank ?? 0,
+                },
+                advanced: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.advanced),
+                    rank: data?.martial?.advanced?.rank ?? 0,
+                },
+                unarmed: {
+                    name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
+                    rank: data?.martial?.unarmed?.rank ?? 0,
+                },
+                ...groupProficiencies,
             };
             (actorData.items ?? [])
                 .filter((item): item is MartialData => item.type === 'martial')
@@ -607,7 +637,7 @@ export class PF2ECharacter extends PF2ECreature {
                 .concat([unarmed])
                 .concat(strikes)
                 .forEach((item) => {
-                    const modifiers: PF2Modifier[] = [];
+                    const modifiers: ModifierPF2e[] = [];
 
                     // Determine the base ability score for this attack.
                     let ability: AbilityString;
@@ -626,7 +656,12 @@ export class PF2ECharacter extends PF2ECreature {
                         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                     }
 
-                    const proficiencyRank = proficiencies[item.data.weaponType.value]?.rank ?? 0;
+                    const groupRank =
+                        proficiencies[`weapon-group-${item.data.group.value}` as keyof typeof proficiencies]?.rank;
+                    const proficiencyRank = Math.max(
+                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                        groupRank ?? 0,
+                    );
                     modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
 
                     const selectors = [
@@ -658,13 +693,13 @@ export class PF2ECharacter extends PF2ECreature {
                     if (item.data.group?.value === 'bomb') {
                         const attackBonus = toNumber(item.data?.bonus?.value) ?? 0;
                         if (attackBonus !== 0) {
-                            modifiers.push(new PF2Modifier('PF2E.ItemBonusLabel', attackBonus, PF2ModifierType.ITEM));
+                            modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', attackBonus, ModifierType.ITEM));
                         }
                     }
 
                     // Conditions and Custom modifiers to attack rolls
                     let weaponPotency;
-                    const multipleAttackPenalty = PF2EItem.calculateMap(item);
+                    const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                     {
                         const potency: PF2WeaponPotency[] = [];
                         const multipleAttackPenalties: PF2MultipleAttackPenalty[] = [];
@@ -672,14 +707,14 @@ export class PF2ECharacter extends PF2ECreature {
                             (statisticsModifiers[key] ?? [])
                                 .map((m) => duplicate(m))
                                 .forEach((m) => {
-                                    m.ignored = !PF2ModifierPredicate.test(m.predicate, defaultOptions);
+                                    m.ignored = !ModifierPredicate.test(m.predicate, defaultOptions);
                                     modifiers.push(m);
                                 });
                             (synthetics.weaponPotency[key] ?? [])
-                                .filter((wp) => PF2ModifierPredicate.test(wp.predicate, defaultOptions))
+                                .filter((wp) => ModifierPredicate.test(wp.predicate, defaultOptions))
                                 .forEach((wp) => potency.push(wp));
                             (synthetics.multipleAttackPenalties[key] ?? [])
-                                .filter((map) => PF2ModifierPredicate.test(map.predicate, defaultOptions))
+                                .filter((map) => ModifierPredicate.test(map.predicate, defaultOptions))
                                 .forEach((map) => multipleAttackPenalties.push(map));
                             (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                         });
@@ -695,7 +730,7 @@ export class PF2ECharacter extends PF2ECreature {
                                 potency[0],
                             );
                             modifiers.push(
-                                new PF2Modifier(weaponPotency.label, weaponPotency.bonus, PF2ModifierType.ITEM),
+                                new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, ModifierType.ITEM),
                             );
                         }
 
@@ -713,7 +748,7 @@ export class PF2ECharacter extends PF2ECreature {
                         multipleAttackPenalty.map3 = penalty * 2;
                     }
 
-                    const action: Partial<CharacterStrike> = new PF2StatisticModifier(item.name, modifiers);
+                    const action: Partial<CharacterStrike> = new StatisticModifier(item.name, modifiers);
 
                     action.imageUrl = item.img;
                     action.item = item?._id;
@@ -769,8 +804,8 @@ export class PF2ECharacter extends PF2ECreature {
                     const strike = action as Required<typeof action>;
                     action.attack = adaptRoll((args) => {
                         const options = (args.options ?? []).concat(defaultOptions);
-                        PF2Check.roll(
-                            new PF2CheckModifier(`Strike: ${action.name}`, strike),
+                        CheckPF2e.roll(
+                            new CheckModifier(`Strike: ${action.name}`, strike),
                             { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                             args.event,
                             args.callback,
@@ -783,8 +818,8 @@ export class PF2ECharacter extends PF2ECreature {
                             label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                             roll: adaptRoll((args) => {
                                 const options = (args.options ?? []).concat(defaultOptions);
-                                PF2Check.roll(
-                                    new PF2CheckModifier(`Strike: ${action.name}`, strike),
+                                CheckPF2e.roll(
+                                    new CheckModifier(`Strike: ${action.name}`, strike),
                                     { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                     args.event,
                                     args.callback,
@@ -795,12 +830,12 @@ export class PF2ECharacter extends PF2ECreature {
                             label: `MAP ${multipleAttackPenalty.map2}`,
                             roll: adaptRoll((args) => {
                                 const options = (args.options ?? []).concat(defaultOptions);
-                                PF2Check.roll(
-                                    new PF2CheckModifier(`Strike: ${action.name}`, strike, [
-                                        new PF2Modifier(
+                                CheckPF2e.roll(
+                                    new CheckModifier(`Strike: ${action.name}`, strike, [
+                                        new ModifierPF2e(
                                             multipleAttackPenalty.label,
                                             multipleAttackPenalty.map2,
-                                            PF2ModifierType.UNTYPED,
+                                            ModifierType.UNTYPED,
                                         ),
                                     ]),
                                     { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
@@ -813,12 +848,12 @@ export class PF2ECharacter extends PF2ECreature {
                             label: `MAP ${multipleAttackPenalty.map3}`,
                             roll: adaptRoll((args) => {
                                 const options = (args.options ?? []).concat(defaultOptions);
-                                PF2Check.roll(
-                                    new PF2CheckModifier(`Strike: ${action.name}`, strike, [
-                                        new PF2Modifier(
+                                CheckPF2e.roll(
+                                    new CheckModifier(`Strike: ${action.name}`, strike, [
+                                        new ModifierPF2e(
                                             multipleAttackPenalty.label,
                                             multipleAttackPenalty.map3,
-                                            PF2ModifierType.UNTYPED,
+                                            ModifierType.UNTYPED,
                                         ),
                                     ]),
                                     { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
@@ -899,7 +934,7 @@ export class PF2ECharacter extends PF2ECreature {
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                     });
 
-                    const attack: PF2StatisticModifier & Partial<SpellAttackRollModifier> = new PF2StatisticModifier(
+                    const attack: StatisticModifier & Partial<SpellAttackRollModifier> = new StatisticModifier(
                         spellcastingEntry.name,
                         modifiers,
                     );
@@ -913,8 +948,8 @@ export class PF2ECharacter extends PF2ECreature {
                         const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
                         const options = args.options ?? [];
                         ensureProficiencyOption(options, rank);
-                        PF2Check.roll(
-                            new PF2CheckModifier(label, attack, args.modifiers ?? []),
+                        CheckPF2e.roll(
+                            new CheckModifier(label, attack, args.modifiers ?? []),
                             { actor: this, type: 'spell-attack-roll', options, dc: args.dc, notes },
                             args.event,
                             args.callback,
@@ -932,7 +967,7 @@ export class PF2ECharacter extends PF2ECreature {
                         (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
                     });
 
-                    const dc: PF2StatisticModifier & Partial<SpellDifficultyClass> = new PF2StatisticModifier(
+                    const dc: StatisticModifier & Partial<SpellDifficultyClass> = new StatisticModifier(
                         spellcastingEntry.name,
                         modifiers,
                     );
@@ -999,19 +1034,19 @@ export class PF2ECharacter extends PF2ECreature {
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'OwnedItem',
-        child: ItemData,
+        child: ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
-        child: ActiveEffectData | ItemData,
+        child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
-        child: ActiveEffectData | ItemData,
+        child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void {
@@ -1019,14 +1054,14 @@ export class PF2ECharacter extends PF2ECreature {
 
         if ('type' in child) {
             const item = this.items.get(child._id);
-            if (item instanceof PF2EAncestry || item instanceof PF2EBackground || item instanceof PF2EClass) {
+            if (item instanceof AncestryPF2e || item instanceof BackgroundPF2e || item instanceof ClassPF2e) {
                 item.addFeatures(this);
             }
         }
     }
 }
 
-export interface PF2ECharacter {
+export interface CharacterPF2e {
     data: CharacterData;
     _data: CharacterData;
 }

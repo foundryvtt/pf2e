@@ -1,6 +1,6 @@
 import { groupBy, sum } from './utils';
 import { isChaotic, isEvil, isGood, isLawful } from './alignment';
-import { AlignmentString } from '@actor/actor-data-definitions';
+import { AlignmentString } from '@actor/data-definitions';
 import { Living } from './living';
 
 const physicalDamageTypes = ['bludgeoning', 'piercing', 'slashing', 'bleed'] as const;
@@ -279,6 +279,19 @@ export class Resistance extends Modifier implements HasValue {
         } else {
             return adjustedValue;
         }
+    }
+
+    withReducedValue(reduceBy: number) {
+        return new Resistance({
+            type: this.type,
+            value: Math.max(0, this.value - reduceBy),
+            exceptions: this.exceptions,
+            doubleResistanceVsNonMagical: this.doubleResistanceVsNonMagical,
+        });
+    }
+
+    getValue(): number {
+        return this.value;
     }
 }
 
@@ -642,4 +655,21 @@ export function parseExceptions(exceptions: string | undefined | null): ParsedEx
                 .filter((traits) => traits.size > 0) as DamageExceptions,
         };
     }
+}
+
+/**
+ * Some feats and spells reduce resistances by a certain value; apply this to resistances before damage calculation
+ *
+ * @param resistances all resistances
+ * @param reductions map of resistance type to reduction value
+ */
+export function reduceResistances(resistances: Resistance[], reductions: Map<string, number>): Resistance[] {
+    return resistances.map((resistance) => {
+        const reduceBy = reductions.get(resistance.getType());
+        if (reduceBy === undefined) {
+            return resistance;
+        } else {
+            return resistance.withReducedValue(reduceBy);
+        }
+    });
 }

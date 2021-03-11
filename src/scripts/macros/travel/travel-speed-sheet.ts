@@ -11,7 +11,7 @@ import {
     Trip,
 } from './travel-speed';
 import { Fraction, zip } from '@utils';
-import { PF2EActor } from '@actor/actor';
+import { ActorPF2e } from '@actor/base';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -52,10 +52,10 @@ https://2e.aonprd.com/Spells.aspx?ID=368
 /*
 Possible example of how we could implement modifiers
 
-const baseSpeed = 
-const overlandSpeed = new PF2CheckModifier(baseSpeed);
+const baseSpeed =
+const overlandSpeed = new CheckModifier(baseSpeed);
 overlandSpeed.modifiers().forEach((m) => {
-    m.ignored = PF2ModifierPredicate.test(m.predicate, ['overland']);
+    m.ignored = ModifierPredicate.test(m.predicate, ['overland']);
 });
 overlandSpeed.applyStackRules();
 console.log(overlandSpeed.totalModifier);
@@ -68,7 +68,7 @@ console.log(overlandSpeed.totalModifier);
   "type": "circumstance",
   "predicate": {
     "all": ["travel"]
-  } 
+  }
 }
  */
 
@@ -123,7 +123,7 @@ class TravelSpeedSheet extends FormApplication {
         this.render(true);
     }
 
-    private actorFormToSheetData(actor: PF2EActor, data: FormActorData): SheetActorData {
+    private actorFormToSheetData(actor: ActorPF2e, data: FormActorData): SheetActorData {
         return {
             requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
             detectionMode: data.detectionMode,
@@ -141,7 +141,7 @@ class TravelSpeedSheet extends FormApplication {
         };
     }
 
-    private getInitialActorData(actor: PF2EActor): SheetActorData {
+    private getInitialActorData(actor: ActorPF2e): SheetActorData {
         return this.actorFormToSheetData(actor, {
             detectionMode: 'before',
             explorationActivity: 'Search',
@@ -149,7 +149,7 @@ class TravelSpeedSheet extends FormApplication {
         });
     }
 
-    private formToSheetData(actors: PF2EActor[], data: TravelFormData): SheetData {
+    private formToSheetData(actors: ActorPF2e[], data: TravelFormData): SheetData {
         const journey: Trip[] = [
             {
                 terrainSlowdown: {
@@ -183,7 +183,7 @@ class TravelSpeedSheet extends FormApplication {
         };
     }
 
-    private getInitialFormData(actors: PF2EActor[]): SheetData {
+    private getInitialFormData(actors: ActorPF2e[]): SheetData {
         return this.formToSheetData(actors, {
             actors: actors.map((actor) => this.getInitialActorData(actor)),
             terrain: 'normal',
@@ -261,7 +261,7 @@ function parseExplorationActivity(activity: ExplorationActivitiesData): Explorat
  * @param actors
  * @return possible minutes spent hustling
  */
-function getHustleMinutes(actors: PF2EActor[]): number {
+function getHustleMinutes(actors: ActorPF2e[]): number {
     return Math.min(
         ...actors.map((actor) => {
             return Math.max(1, actor.data.data.abilities.con.mod) * 10;
@@ -269,11 +269,11 @@ function getHustleMinutes(actors: PF2EActor[]): number {
     );
 }
 
-function hasFeat(actor: PF2EActor, name: string): boolean {
+function hasFeat(actor: ActorPF2e, name: string): boolean {
     return actor.data.items.some((item) => item.type === 'feat' && item.name?.trim() === name);
 }
 
-function parseExplorationOptions(actor: PF2EActor): ExplorationOptions {
+function parseExplorationOptions(actor: ActorPF2e): ExplorationOptions {
     // FIXME: instead of matching the name these should probably be rule toggles at some point
     return {
         practicedDefender: hasFeat(actor, 'Practiced Defender'),
@@ -295,6 +295,6 @@ function toArray<T>(data: Record<number, T>): T[] {
         .map(([_, a]) => a);
 }
 
-export function launchTravelSheet(actors: PF2EActor[]): void {
+export function launchTravelSheet(actors: ActorPF2e[]): void {
     new TravelSpeedSheet({}, { actors }).render(true);
 }

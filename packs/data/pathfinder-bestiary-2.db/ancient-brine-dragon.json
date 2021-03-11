@@ -103,15 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "140 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "140"
                     },
                     {
-                        "type": "Swim",
-                        "value": "70 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "70"
                     }
                 ],
-                "value": "50 feet"
+                "value": "50"
             }
         },
         "currency": {
@@ -128,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LN"
@@ -164,6 +169,62 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 88"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot9": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 38,
+                        "value": 30
+                    }
+                }
+            },
+            "wea1MnyUIhvtedhE": {
+                "data": {
+                    "spelldc": {
+                        "dc": 38,
+                        "value": 30
+                    }
+                }
             }
         },
         "martial": {
@@ -413,6 +474,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -492,6 +556,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -554,6 +621,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -585,7 +653,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "TE3r6l0u6nMsGG6H",
+            "_id": "CAPONuiPj7xEFjGV",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -597,6 +665,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot line"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -612,19 +683,19 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "8d6"
+                    "value": "12d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": ""
+                    "value": "bludgeoning"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A swirling torrent of water manifests along a straight line, battering those that are its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A swirling torrent of water manifests along a straight line, battering those that are its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -637,7 +708,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "wea1MnyUIhvtedhE"
@@ -650,6 +721,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -665,21 +739,31 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hydraulic-torrent",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=155"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -722,20 +806,21 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Y3G6Y6EDgCY0s3fq"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-torrent.jpg",
             "name": "Hydraulic Torrent",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "ES8cwkt8IcshSHwW",
+            "_id": "Amy3IYyx3Etum3TI",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -747,6 +832,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50 feet long by 50 feet wide"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -774,7 +862,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of slow.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @Compendium[pf2e.spells-srd.Slow]{Slow}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -802,6 +890,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -826,10 +917,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "control-water",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -873,16 +974,12 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
                 }
             },
             "img": "systems/pf2e/icons/spells/control-water.jpg",
@@ -891,7 +988,7 @@
             "type": "spell"
         },
         {
-            "_id": "JlbWRdscouFp41LS",
+            "_id": "Dkyvv0Exn99Z45HA",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -903,6 +1000,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50 feet long by 50 feet wide"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -930,7 +1030,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of slow.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @Compendium[pf2e.spells-srd.Slow]{Slow}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -958,6 +1058,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -982,10 +1085,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "control-water",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1029,16 +1142,12 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
                 }
             },
             "img": "systems/pf2e/icons/spells/control-water.jpg",
@@ -1047,7 +1156,7 @@
             "type": "spell"
         },
         {
-            "_id": "qsDGGUtqIMCtqyzx",
+            "_id": "CT9sC1CdNfMo4OAD",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1059,6 +1168,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50 feet long by 50 feet wide"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1086,7 +1198,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of slow.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @Compendium[pf2e.spells-srd.Slow]{Slow}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1114,6 +1226,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1138,10 +1253,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "control-water",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1185,16 +1310,12 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
                 }
             },
             "img": "systems/pf2e/icons/spells/control-water.jpg",
@@ -1203,7 +1324,7 @@
             "type": "spell"
         },
         {
-            "_id": "fuGqUeuYSx2pkVnI",
+            "_id": "3xG14RFp5mrSG9le",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1215,6 +1336,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1242,7 +1366,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You afflict the target with the curse of the roiling, unforgiving sea. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1. Reducing its @Compendium[pf2e.conditionitems.Sickened]{Sickened} condition to 0 ends the curse.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 and can't reduce its @Compendium[pf2e.conditionitems.Sickened]{Sickened} condition below 1 while the curse remains. The curse can be lifted by remove curse or similar magic. Whenever the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} and on the water at least a mile from shore, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1.</p>\n<p><strong>Critical Failure</strong> As failure, but the target becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened} 2.</p>"
+                    "value": "<p>You afflict the target with the curse of the roiling, unforgiving sea. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. Reducing its Sickened condition to 0 ends the curse.</p>\n<p><strong>Failure</strong> The target becomes Sickened 1 and can't reduce its Sickened condition below 1 while the curse remains. The curse can be lifted by remove curse or similar magic. Whenever the target is Sickened and on the water at least a mile from shore, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<p><strong>Critical Failure</strong> As failure, but the target becomes Sickened 2.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1268,6 +1392,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1283,7 +1410,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": "Will"
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -1294,10 +1421,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mariner-s-curse",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=184"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1342,20 +1479,21 @@
                         "curse",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.z2mfh3oPnfYqXflY"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mariners-curse.jpg",
             "name": "Mariner's Curse",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "vQEq30u4F3nE2oiP",
+            "_id": "c19tAQpDeptWNyHM",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1367,6 +1505,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1382,19 +1523,19 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "6d6"
+                    "value": "9d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": ""
+                    "value": "bludgeoning"
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d6."
+                    "value": "<p>You call forth a powerful blast of pressurized water that bludgeons the target and knocks it back. Make a ranged spell attack roll.</p>\n<hr /><strong>Critical Success</strong> The target takes 6d6 bludgeoning damage and is knocked back 10 feet.\n<p><strong>Success</strong> The target takes 3d6 bludgeoning damage and is knocked back 5 feet.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 2d6."
                 },
                 "duration": {
                     "label": "Duration",
@@ -1407,7 +1548,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "wea1MnyUIhvtedhE"
@@ -1420,6 +1561,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1438,18 +1582,28 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hydraulic-push",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=154"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1467,7 +1621,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "label": "Casting Time",
@@ -1494,20 +1648,21 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jfVCuOpzC6mUrf6f"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-push.jpg",
-            "name": "Hydraulic Push ",
+            "name": "Hydraulic Push (At Will)",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "tXtgT4R13lu2rR3P",
+            "_id": "aO9yC0TQ3hBNeO78",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1519,6 +1674,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1546,7 +1704,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1559,7 +1717,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "wea1MnyUIhvtedhE"
@@ -1572,6 +1730,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1598,10 +1759,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1645,15 +1816,16 @@
                         "conjuration",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/obscuring-mist.jpg",
-            "name": "Obscuring Mist ",
+            "name": "Obscuring Mist (At Will)",
             "sort": 800000,
             "type": "spell"
         },
@@ -1777,6 +1949,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1924,6 +2097,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2071,6 +2245,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2217,6 +2392,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2262,7 +2438,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>90 feet, DC 36<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>90 feet, DC 36</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2271,6 +2447,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2310,7 +2487,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -2318,7 +2495,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action; <strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes [[/r 7d6 # acid damage]] acid damage (DC 36 basic Reflex save). On a failure, the concentrate action is disrupted.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature the brine dragon observes within 30 feet uses a concentrate action;</p>\n<p><strong>Effect</strong> The dragon spits a glob of caustic salt water at the creature. The creature takes [[/r 7d6 #acid]] acid damage (DC 36 basic Reflex save). On a failure, the concentrate action is disrupted.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2327,6 +2504,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2351,8 +2529,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Brine Spit ",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Brine Spit",
             "sort": 1400000,
             "type": "action"
         },
@@ -2366,12 +2544,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragon breathes a spray of acidic salt water that deals [[/r 18d6 # acid damage]] acid damage in a 120-foot line (DC 38 basic Reflex save). They can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The dragon breathes a spray of acidic salt water that deals [[/r 18d6 #acid]] acid damage in a 120-foot line (DC 38 basic Reflex save).</p>\n<p>They can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2380,6 +2558,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2406,7 +2585,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 1500000,
             "type": "action"
@@ -2435,6 +2614,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2474,12 +2654,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragon makes a jaws Strike. On a hit, the target takes 6d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 3 from the pain of salt and brine in its wounds.</p>"
+                    "value": "<p>The dragon makes a jaws Strike. On a hit, the target takes [[/r 6d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}, and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} from the pain of salt and brine in its wounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2488,6 +2668,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2510,7 +2691,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Desiccating Bite",
             "sort": 1700000,
             "type": "action"
@@ -2539,6 +2720,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2590,6 +2772,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2632,7 +2815,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The brine dragon's body is encrusted with salty, acidic crystals. When a target takes damage from one of the dragon's melee Strikes, it must succeed at a DC 38 Fortitude Save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1 (stunned 3 on a critical failure). The target then becomes temporarily immune for 1 minute.</p>"
+                    "value": "<p>The brine dragon's body is encrusted with salty, acidic crystals. When a target takes damage from one of the dragon's melee Strikes, it must succeed at a DC 38 Fortitude Save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 3} on a critical failure). The target then becomes temporarily immune for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2641,6 +2824,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2691,6 +2875,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2733,6 +2918,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2775,6 +2961,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2817,6 +3004,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2859,6 +3047,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2901,6 +3090,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2943,6 +3133,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2963,6 +3154,121 @@
             "name": "Survival",
             "sort": 2700000,
             "type": "lore"
+        },
+        {
+            "_id": "8BGsf6kEIrCtKGgo",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 2800000,
+            "type": "action"
+        },
+        {
+            "_id": "o6CQEcEj0w3RIaZB",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "At-Will Spells",
+            "sort": 2900000,
+            "type": "action"
         }
     ],
     "name": "Ancient Brine Dragon",
@@ -2970,7 +3276,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "oMZaSpBmWddKZ1KN",
         "actorLink": false,
         "bar1": {
@@ -2989,6 +3294,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Ancient Brine Dragon",
         "randomImg": false,

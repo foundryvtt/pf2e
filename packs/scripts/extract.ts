@@ -4,8 +4,9 @@ import * as process from 'process';
 import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
-import { ItemData } from '@item/data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
+import { CompendiumPack } from './packman/compendium-pack';
 
 const { window } = new JSDOM('');
 const $ = require('jquery')(window);
@@ -74,7 +75,7 @@ const linkPatterns = {
 
 type CompendiumEntityPF2e =
     | (Actor & { data: ActorDataPF2e })
-    | (Item & { data: ItemData })
+    | (Item & { data: ItemDataPF2e })
     | JournalEntry
     | Macro
     | RollTable;
@@ -109,14 +110,6 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     }
 }
 
-function sluggify(entityName: string) {
-    return entityName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/gi, ' ')
-        .trim()
-        .replace(/\s+|-{2,}/g, '-');
-}
-
 function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: false }): PackEntry {
     // Remove individual permissions
     if (isEmbedded) {
@@ -127,7 +120,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
 
         if ('data' in entityData && 'slug' in entityData.data) {
             const slug = entityData.data.slug;
-            if (typeof slug === 'string' && slug !== sluggify(entityData.name)) {
+            if (typeof slug === 'string' && slug !== CompendiumPack.sluggify(entityData.name)) {
                 console.warn(
                     `Warning: Name change detected on ${entityData.name}. ` +
                         'Please remember to create a slug migration before next release.',
@@ -219,7 +212,7 @@ function convertLinks(entityData: PackEntry, packName: string): PackEntry {
     const sanitized = sanitizeEntity(entityData);
     if ('items' in sanitized) {
         sanitized.items = sanitized.items.map(
-            (itemData: ItemData) => sanitizeEntity(itemData, { isEmbedded: true }) as ItemData,
+            (itemData: ItemDataPF2e) => sanitizeEntity(itemData, { isEmbedded: true }) as ItemDataPF2e,
         );
     }
     const entityJson = JSON.stringify(sanitized);
@@ -313,7 +306,7 @@ async function extractPack(filePath: string, packFilename: string) {
         })();
 
         // Remove all non-alphanumeric characters from the name
-        const slug = sluggify(entityData.name);
+        const slug = CompendiumPack.sluggify(entityData.name);
 
         const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);

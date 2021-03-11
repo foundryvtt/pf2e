@@ -189,6 +189,10 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	*  Pathfinder Lost Omens Ancestry Guide (Second Edition) © 2021, Paizo Inc.; Authors: Calder CaDavid, James Case, Jessica Catalan, Eleanor Ferron, Lyz Liddell, Luis Loza, Ron Lundeen, Patchen Mortimer, Andrew Mullen, Samantha Phelan, Jessica Redekop, Mikhail Rekun, David N. Ross, Mark Seifter, Owen K.C. Stephens, Isabelle Thorne, and Linda Zayas-Palmer.
     *  Pathfinder Lost Omens Azarketi Ancestry Web Supplement © 2021, Paizo Inc.; Author: Samantha Phelan.
 
+*  One Shots
+    *  Pathfinder One-Shot: Sundered Waves Adventure © 2021, Paizo Inc.; Author: Jason Bulmahn
+    *  Pathfinder One-Shot: Sundered Waves Adventure Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn   
+
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
     *  Pathfinder Critical Fumble Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.

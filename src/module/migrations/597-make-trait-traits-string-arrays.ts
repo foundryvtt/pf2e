@@ -1,11 +1,11 @@
 import { MigrationBase } from './base';
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 /** Change `delimiter`-delimited string traits into arrays of strings */
 export class Migration597MakeTraitTraitsArrays extends MigrationBase {
     static version = 0.597;
 
-    async updateItem(itemData: ItemData) {
+    async updateItem(itemData: ItemDataPF2e) {
         const traits: unknown = itemData.data.traits.value;
         const delimiter = /[;,|]+\s*/;
         const dromedarify = (text: string) => text.slice(0, 1).toLowerCase() + text.slice(1);

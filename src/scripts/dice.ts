@@ -1,4 +1,4 @@
-import { PF2EActor } from '../module/actor/actor';
+import { ActorPF2e } from '../module/actor/base';
 
 /**
  * @category Other
@@ -56,7 +56,7 @@ export class DicePF2e {
     }: {
         event: JQuery.Event;
         parts: any[];
-        actor?: PF2EActor;
+        actor?: ActorPF2e;
         data: any;
         template?: string;
         title: string;
@@ -219,7 +219,7 @@ export class DicePF2e {
         event: JQuery.Event;
         partsCritOnly?: any[];
         parts: any[];
-        actor?: PF2EActor;
+        actor?: ActorPF2e;
         data: any;
         template?: string;
         title: string;
@@ -385,7 +385,7 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
 
             setInitiativeButton.click((ev) => {
                 ev.stopPropagation();
-                PF2EActor.setCombatantInitiative(html);
+                ActorPF2e.setCombatantInitiative(html);
             });
         }
     }

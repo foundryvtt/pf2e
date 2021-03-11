@@ -1,9 +1,9 @@
-import { PF2ECharacter } from './character';
-import { PF2ENPC } from './npc';
-import { RawAnimalCompanionData, AnimalCompanionData } from './actor-data-definitions';
-import { PF2ECreature } from './creature';
+import { CharacterPF2e } from './character';
+import { NPCPF2e } from './npc';
+import { RawAnimalCompanionData, AnimalCompanionData } from './data-definitions';
+import { CreaturePF2e } from './creature';
 
-export class PF2EAnimalCompanion extends PF2ECreature {
+export class AnimalCompanionPF2e extends CreaturePF2e {
     /** @override */
     static readonly type = 'animalCompanion';
 
@@ -25,7 +25,7 @@ export class PF2EAnimalCompanion extends PF2ECreature {
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master.id);
 
-        if (master instanceof PF2ECharacter || master instanceof PF2ENPC) {
+        if (master instanceof CharacterPF2e || master instanceof NPCPF2e) {
             data.master.name = master.name;
             data.master.level = master.data.data.details.level;
             data.details.level = data.master.level;
@@ -37,7 +37,7 @@ export class PF2EAnimalCompanion extends PF2ECreature {
     }
 }
 
-export interface PF2EAnimalCompanion {
+export interface AnimalCompanionPF2e {
     data: AnimalCompanionData;
     _data: AnimalCompanionData;
 }

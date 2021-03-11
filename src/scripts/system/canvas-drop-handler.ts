@@ -1,6 +1,6 @@
-import { PF2ECharacter } from 'src/module/actor/character';
-import { PF2ELoot } from 'src/module/actor/loot';
-import { PF2ENPC } from 'src/module/actor/npc';
+import { CharacterPF2e } from 'src/module/actor/character';
+import { LootPF2e } from 'src/module/actor/loot';
+import { NPCPF2e } from 'src/module/actor/npc';
 import { ActorSheetPF2e } from 'src/module/actor/sheet/base';
 
 Hooks.on('dropCanvasData', async (c, data) => {
@@ -17,7 +17,7 @@ Hooks.on('dropCanvasData', async (c, data) => {
 
     if (target?.actor) {
         if (['character', 'npc', 'loot'].includes(target.actor.data.type)) {
-            const sheet = target.actor.sheet as ActorSheetPF2e<PF2ECharacter | PF2ENPC | PF2ELoot>;
+            const sheet = target.actor.sheet as ActorSheetPF2e<CharacterPF2e | NPCPF2e | LootPF2e>;
             if (data.type === 'Item') {
                 await sheet.onDropItem(data);
                 return true;

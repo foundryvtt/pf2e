@@ -1,6 +1,6 @@
 import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-dialog';
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
-import { PF2ModifierPredicate, PF2StatisticModifier } from '../modifiers';
+import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
 
 /** Possible parameters of a RollFunction */
@@ -25,12 +25,12 @@ interface RerollOptions {
 /**
  * @category PF2
  */
-export class PF2Check {
+export class CheckPF2e {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
      */
     static roll(
-        check: PF2StatisticModifier,
+        check: StatisticModifier,
         context: CheckModifiersContext = {},
         event: JQuery.Event | undefined,
         callback?: (roll: Roll) => void,
@@ -38,7 +38,7 @@ export class PF2Check {
         if (context?.options?.length > 0) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
-                modifier.ignored = !PF2ModifierPredicate.test(modifier.predicate, context.options);
+                modifier.ignored = !ModifierPredicate.test(modifier.predicate, context.options);
             });
             check.applyStackingRules();
 
@@ -49,7 +49,7 @@ export class PF2Check {
         }
 
         if (context) {
-            const visible = (note) => PF2ModifierPredicate.test(note.predicate, context.options ?? []);
+            const visible = (note) => ModifierPredicate.test(note.predicate, context.options ?? []);
             context.notes = (context?.notes ?? []).filter(visible);
         }
 
@@ -113,9 +113,9 @@ export class PF2Check {
         const newMessage = await ChatMessage.create(
             {
                 roll: keepRoll,
-                content: `<div class="${oldRollClass}">${await PF2Check.renderReroll(
+                content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
                     oldRoll,
-                )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await PF2Check.renderReroll(newRoll)}</div>`,
+                )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
@@ -145,9 +145,9 @@ export class PF2Check {
         const die = roll.dice[0];
 
         if (die.total == 20) {
-            rollHtml = PF2Check.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'success');
+            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'success');
         } else if (die.total == 1) {
-            rollHtml = PF2Check.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'failure');
+            rollHtml = CheckPF2e.insertNatOneAndNatTwentyIntoRollTemplate(rollHtml, 'failure');
         }
 
         return rollHtml;

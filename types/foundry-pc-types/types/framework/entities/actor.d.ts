@@ -1,4 +1,4 @@
-declare interface ActorData<D extends BaseItemData = BaseItemData> extends BaseEntityData {
+declare interface ActorData<D extends ItemData = ItemData> extends BaseEntityData {
     type: string;
     img: string;
     data: {};

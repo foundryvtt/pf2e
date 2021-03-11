@@ -1,14 +1,14 @@
 import DOMPurify from 'dompurify';
-import { PF2Check } from './module/system/rolls';
+import { CheckPF2e } from './module/system/rolls';
 import { EffectPanel } from './module/system/effect-panel';
-import { PF2ActionElement } from './module/custom-elements/pf2-action';
-import { PF2RuleElements } from './module/rules/rules';
+import { ActionElement } from './module/custom-elements/action';
+import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { ItemData } from '@item/data-definitions';
-import { PF2EItem } from './module/item/item';
-import { PF2EActor } from './module/actor/actor';
-import { PF2ENPC } from './module/actor/npc';
+import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemPF2e } from './module/item/base';
+import { ActorPF2e } from './module/actor/base';
+import { NPCPF2e } from './module/actor/npc';
 
 import './styles/pf2e.scss';
 
@@ -29,8 +29,8 @@ PF2E.Hooks.listen();
 /* -------------------------------------------- */
 
 // Activate global listeners
-Hooks.on('renderChatLog', (log, html) => PF2EItem.chatListeners(html));
-Hooks.on('renderChatPopout', (log, html) => PF2EItem.chatListeners(html));
+Hooks.on('renderChatLog', (log, html) => ItemPF2e.chatListeners(html));
+Hooks.on('renderChatPopout', (log, html) => ItemPF2e.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**
@@ -102,61 +102,61 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
             name: 'Apply Damage',
             icon: '<i class="fas fa-user-minus"></i>',
             condition: canApplyDamage,
-            callback: (li) => PF2EActor.applyDamage(li, 1),
+            callback: (li) => ActorPF2e.applyDamage(li, 1),
         },
         {
             name: 'Apply Healing',
             icon: '<i class="fas fa-user-plus"></i>',
             condition: canApplyHealing,
-            callback: (li) => PF2EActor.applyDamage(li, -1),
+            callback: (li) => ActorPF2e.applyDamage(li, -1),
         },
         {
             name: 'Double Damage',
             icon: '<i class="fas fa-user-injured"></i>',
             condition: canApplyDamage,
-            callback: (li) => PF2EActor.applyDamage(li, 2),
+            callback: (li) => ActorPF2e.applyDamage(li, 2),
         },
         {
             name: 'Half Damage',
             icon: '<i class="fas fa-user-shield"></i>',
             condition: canApplyDamage,
-            callback: (li) => PF2EActor.applyDamage(li, 0.5),
+            callback: (li) => ActorPF2e.applyDamage(li, 0.5),
         },
         {
             name: 'Set as Initiative',
             icon: '<i class="fas fa-fist-raised"></i>',
             condition: canApplyInitiative,
-            callback: (li) => PF2EActor.setCombatantInitiative(li),
+            callback: (li) => ActorPF2e.setCombatantInitiative(li),
         },
         {
             name: 'PF2E.RerollMenu.HeroPoint',
             icon: '<i class="fas fa-hospital-symbol"></i>',
             condition: canHeroPointReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
         },
         {
             name: 'PF2E.RerollMenu.KeepNew',
             icon: '<i class="fas fa-dice"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId'))),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'))),
         },
         {
             name: 'PF2E.RerollMenu.KeepWorst',
             icon: '<i class="fas fa-dice-one"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
         },
         {
             name: 'PF2E.RerollMenu.KeepBest',
             icon: '<i class="fas fa-dice-six"></i>',
             condition: canReroll,
-            callback: (li) => PF2Check.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
         },
     );
     return options;
 });
 
-Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
+Hooks.on('preCreateItem', (itemData: Partial<ItemDataPF2e>) => {
     itemData.img = (() => {
         if (itemData.img !== undefined) {
             return itemData.img;
@@ -190,7 +190,7 @@ function preCreateOwnedItem(parent, child, options, userID) {
 Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
 
 function createOwnedItem(parent, child, options, userID) {
-    if (parent instanceof PF2EActor) {
+    if (parent instanceof ActorPF2e) {
         if (userID === game.userId) {
             parent.onCreateOwnedItem(child, options, userID);
         }
@@ -202,7 +202,7 @@ function createOwnedItem(parent, child, options, userID) {
 Hooks.on('createOwnedItem', createOwnedItem);
 
 function deleteOwnedItem(parent, child, options, userID) {
-    if (parent instanceof PF2EActor) {
+    if (parent instanceof ActorPF2e) {
         if (userID === game.userId) {
             parent.onDeleteOwnedItem(child, options, userID);
         }
@@ -214,7 +214,7 @@ function deleteOwnedItem(parent, child, options, userID) {
 Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent, child, options, userId) => {
-    if (parent instanceof PF2EActor) {
+    if (parent instanceof ActorPF2e) {
         game.pf2e.effectPanel?.refresh();
     }
 });
@@ -227,8 +227,8 @@ Hooks.on('updateUser', (user, diff, options, id) => {
 Hooks.on('preCreateToken', (scene: Scene, token: TokenData, options, userId) => {
     const actor = game.actors.get(token.actorId);
     if (actor) {
-        actor.items.forEach((item: PF2EItem) => {
-            const rules = PF2RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+        actor.items.forEach((item: ItemPF2e) => {
+            const rules = RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
             for (const rule of rules) {
                 rule.onCreateToken(actor.data, item.data, token);
             }
@@ -279,8 +279,8 @@ Hooks.on('updateToken', (scene, token: TokenData, data, options, userID) => {
         const canvasToken = canvas.tokens.get(token._id);
         if (canvasToken) {
             const actor = canvasToken.actor;
-            if (actor instanceof PF2ENPC) {
-                (actor as PF2ENPC).updateNPCAttitudeFromDisposition(data.disposition);
+            if (actor instanceof NPCPF2e) {
+                (actor as NPCPF2e).updateNPCAttitudeFromDisposition(data.disposition);
             }
         }
     }
@@ -335,8 +335,8 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
 
         // strip out script tags to prevent cross-site scripting
         const safe = DOMPurify.sanitize(unsafe, {
-            ADD_TAGS: [PF2ActionElement.tagName],
-            ADD_ATTR: [...PF2ActionElement.observedAttributes],
+            ADD_TAGS: [ActionElement.tagName],
+            ADD_ATTR: [...ActionElement.observedAttributes],
         });
 
         html.find('.flavor-text').html(safe);
