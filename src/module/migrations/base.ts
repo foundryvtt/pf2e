@@ -1,5 +1,5 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 /**
  * This is the base class for a migration.
@@ -38,7 +38,7 @@ export abstract class MigrationBase {
      * @param actor If the item is part of an actor, this is set to the actor. For instance
      * if you only want to update items that are on a npc you can do that here.
      */
-    async updateItem(item: ItemData, actor?: ActorDataPF2e): Promise<void> {}
+    async updateItem(item: ItemDataPF2e, actor?: ActorDataPF2e): Promise<void> {}
 
     /**
      * Update the user to the latest schema version.

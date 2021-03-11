@@ -796,7 +796,7 @@ export interface EffectDetailsData extends ItemDescriptionData {
     };
 }
 
-export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends BaseItemData {
+export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
     data: D;
 }
 
@@ -897,7 +897,7 @@ export type PhysicalItemData =
     | EquipmentData
     | KitData;
 
-export type ItemData =
+export type ItemDataPF2e =
     | PhysicalItemData
     | FeatData
     | LoreData
@@ -912,7 +912,7 @@ export type ItemData =
     | EffectData;
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
-export function isPhysicalItem(itemData: ItemData): itemData is PhysicalItemData {
+export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
 }
 
@@ -927,12 +927,14 @@ export function isMagicDetailsData(
     );
 }
 
-export function isLevelItem(item: ItemData): item is ItemData & BaseItemDataPF2e<ItemDescriptionData & ItemLevelData> {
+export function isLevelItem(
+    item: ItemDataPF2e,
+): item is ItemDataPF2e & BaseItemDataPF2e<ItemDescriptionData & ItemLevelData> {
     return 'level' in item.data;
 }
 
 /** Asserts that the given item is a physical item, throwing an error if it is not. */
-export function assertPhysicalItem(item: ItemData, error: string): asserts item is PhysicalItemData {
+export function assertPhysicalItem(item: ItemDataPF2e, error: string): asserts item is PhysicalItemData {
     if (!isPhysicalItem(item)) {
         throw Error(error);
     }

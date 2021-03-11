@@ -5,7 +5,7 @@ import { ActionElement } from './module/custom-elements/action';
 import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { ItemData } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data-definitions';
 import { ItemPF2e } from './module/item/base';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
@@ -156,7 +156,7 @@ Hooks.on('getChatLogEntryContext', (html, options) => {
     return options;
 });
 
-Hooks.on('preCreateItem', (itemData: Partial<ItemData>) => {
+Hooks.on('preCreateItem', (itemData: Partial<ItemDataPF2e>) => {
     itemData.img = (() => {
         if (itemData.img !== undefined) {
             return itemData.img;

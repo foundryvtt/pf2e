@@ -3,7 +3,7 @@ import {
     BackgroundData,
     ClassData,
     ConsumableData,
-    ItemData,
+    ItemDataPF2e,
     LoreData,
     MartialData,
     SpellAttackRollModifier,
@@ -1034,19 +1034,19 @@ export class CharacterPF2e extends CreaturePF2e {
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'OwnedItem',
-        child: ItemData,
+        child: ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
-        child: ActiveEffectData | ItemData,
+        child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
     protected _onCreateEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
-        child: ActiveEffectData | ItemData,
+        child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void {

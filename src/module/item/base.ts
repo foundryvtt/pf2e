@@ -13,7 +13,7 @@ import {
 } from '../modifiers';
 import { DicePF2e } from '../../scripts/dice';
 import { ActorPF2e, TokenPF2e } from '../actor/base';
-import { ItemData, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
+import { ItemDataPF2e, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/data-definitions';
@@ -30,10 +30,10 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
  * @category PF2
  */
 export class ItemPF2e extends Item<ActorPF2e> {
-    data!: ItemData;
-    _data!: ItemData;
+    data!: ItemDataPF2e;
+    _data!: ItemDataPF2e;
 
-    constructor(data: ItemData, options: ItemConstructorOptionsPF2e = {}) {
+    constructor(data: ItemDataPF2e, options: ItemConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
             super(data, options);
@@ -491,7 +491,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     rollWeaponDamage(event: JQuery.TriggeredEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
-        const item: ItemData = this.data;
+        const item: ItemDataPF2e = this.data;
         // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
         if (item.type !== 'weapon') throw new Error('Wrong item type!');
         const itemData = item.data;
@@ -664,7 +664,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollNPCDamage(event, critical = false) {
-        const item: ItemData = this.data;
+        const item: ItemDataPF2e = this.data;
         if (item.type !== 'melee') throw new Error('Wrong item type!');
 
         // Get item and actor data and format it for the damage roll
@@ -726,7 +726,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      */
     rollSpellcastingEntryCheck(event) {
         // Prepare roll data
-        const itemData: ItemData = this.data;
+        const itemData: ItemDataPF2e = this.data;
         if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
         const rollData = duplicate(this.actor.data.data);
         const modifier = itemData.data.spelldc.value;
@@ -753,7 +753,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(event, multiAttackPenalty?) {
-        let item: ItemData = this.data;
+        let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
@@ -818,7 +818,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollSpellDamage(event) {
-        let item: ItemData = this.data;
+        let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
@@ -874,7 +874,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollCounteract(event) {
-        let item: ItemData = this.data;
+        let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
@@ -936,7 +936,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Use a consumable item
      */
     async rollConsumable(ev) {
-        const item: ItemData = this.data;
+        const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
         if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
 
@@ -979,7 +979,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     consume() {
-        const item: ItemData = this.data;
+        const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to consume non-consumable');
 
         const itemData = item.data;
@@ -1110,7 +1110,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return ItemPF2e.calculateMap(this.data);
     }
 
-    static calculateMap(item: ItemData): { label: string; map2: number; map3: number } {
+    static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
         if (['melee', 'weapon'].includes(item.type)) {
             // calculate multiple attack penalty tiers
             const agile = item.data.traits.value.includes('agile');
@@ -1175,10 +1175,10 @@ export class ItemPF2e extends Item<ActorPF2e> {
             if (!actor) return;
             const itemId = card.attr('data-item-id') ?? '';
             let item: ItemPF2e | null = null;
-            let itemData: ItemData | undefined = undefined;
+            let itemData: ItemDataPF2e | undefined = undefined;
             const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
             if (embeddedItem) {
-                itemData = JSON.parse(embeddedItem) as ItemData | undefined;
+                itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
                 if (itemData) {
                     item = actor.items.get(itemData._id);
                 }

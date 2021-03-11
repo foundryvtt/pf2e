@@ -5,7 +5,7 @@ import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } fro
 import { getContainerMap } from '../../item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { PF2EPhysicalItem } from '../../item/physical';
-import { isPhysicalItem, ItemData } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
 /**
@@ -168,7 +168,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     protected async _onDropItem(
         event: ElementDragEvent,
         data: DropCanvasData,
-    ): Promise<(ItemData | null)[] | ItemData | null> {
+    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === data.actorId && !this.actor.hasPerm(game.user, 'OWNER')) {
