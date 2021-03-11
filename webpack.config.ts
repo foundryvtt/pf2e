@@ -120,6 +120,7 @@ const config: Configuration = {
         alias: {
             '@actor': path.resolve(__dirname, 'src/module/actor'),
             '@item': path.resolve(__dirname, 'src/module/item'),
+            '@module': path.resolve(__dirname, 'src/module'),
             '@scripts': path.resolve(__dirname, 'src/scripts'),
             '@system': path.resolve(__dirname, 'src/module/system'),
             '@utils': path.resolve(__dirname, 'src/module/utils.ts'),

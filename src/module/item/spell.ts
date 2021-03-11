@@ -1,4 +1,4 @@
-import { PF2EActor } from '../actor/actor';
+import { ActorPF2e } from '../actor/base';
 import { SpellcastingEntryData, SpellData } from './data-definitions';
 import { SpellcastingEntry } from './spellcasting-entry';
 
@@ -7,11 +7,11 @@ import { SpellcastingEntry } from './spellcasting-entry';
  */
 export class Spell {
     data: SpellData;
-    castingActor: PF2EActor;
+    castingActor: ActorPF2e;
     _castLevel: number;
     _spellcastingEntry?: SpellcastingEntry;
 
-    constructor(data: SpellData, scope?: { castingActor: PF2EActor; castLevel?: number }) {
+    constructor(data: SpellData, scope?: { castingActor: ActorPF2e; castLevel?: number }) {
         this.data = data;
         this.castingActor = scope?.castingActor;
         this._castLevel = scope?.castLevel || this.spellLevel;

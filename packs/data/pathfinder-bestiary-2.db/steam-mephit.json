@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": ")",
+                "details": "(fast healing 2 (in boiling water or steam))",
                 "max": 19,
                 "min": 0,
                 "temp": 0,
@@ -128,6 +128,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -164,6 +165,26 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 113"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 7
+                    }
+                }
             }
         },
         "martial": {
@@ -413,6 +434,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -496,6 +520,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -558,6 +585,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -589,7 +617,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "oWKuh6eLy2gXbrmd",
+            "_id": "LQ6KEeXVOelad40y",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -601,6 +629,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -628,7 +659,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -656,6 +687,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -680,10 +714,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -727,13 +771,14 @@
                         "conjuration",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/obscuring-mist.jpg",
             "name": "Obscuring Mist",
             "sort": 200000,
@@ -855,6 +900,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -909,6 +955,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -937,10 +984,10 @@
             "type": "action"
         },
         {
-            "_id": "n4QGbhj60Yl3A4us",
+            "_id": "CpVMSme8RWwiT0UY",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": ""
                 },
                 "actionType": {
                     "value": "passive"
@@ -960,6 +1007,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "fast-healing",
                 "source": {
                     "value": ""
                 },
@@ -973,17 +1021,18 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fJSNOw4zHGbIm4bZ"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Fast Healing",
+            "name": "Fast Healing (in boiling water or steam)",
             "sort": 500000,
             "type": "action"
         },
@@ -997,12 +1046,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per day; <strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a 10-foot emanation. Creatures in the area take [[/r 2d8 # fire damage]] fire damage (DC 17 basic Reflex save), and small unattended flames (such as torches) are extinguished.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The steam mephit calls down a rain boiling water that surrounds them in a 10-foot emanation. Creatures in the area take [[/r 2d8 #fire]] fire damage (DC 17 basic Reflex save), and small unattended flames (such as torches) are extinguished.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1011,6 +1060,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1038,7 +1088,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Boiling Rain",
             "sort": 600000,
             "type": "action"
@@ -1053,12 +1103,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The steam mephit spits a cloud of steam in a 15-foot cone that deals [[/r 2d6 # fire damage]] fire damage to each creature within the area (DC 17 basic Reflex save). The steam mephit can't use Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The steam mephit spits a cloud of steam in a 15-foot cone that deals [[/r 2d6 #fire]] fire damage to each creature within the area (DC 17 basic Reflex save).</p>\n<p>The steam mephit can't use Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1067,6 +1117,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1092,7 +1143,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
             "sort": 700000,
             "type": "action"
@@ -1118,6 +1169,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1160,6 +1212,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1187,7 +1240,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "ARw4pyNmuQxoZDke",
         "actorLink": false,
         "bar1": {
@@ -1206,6 +1258,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Steam Mephit",
         "randomImg": false,

@@ -124,6 +124,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -501,12 +505,12 @@
                     "damageType": "bludgeoning",
                     "die": "1d8+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d8+4",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -588,6 +592,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -632,7 +637,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>10 feet. The ground in the area is difficult terrain for all non-mudwretch creatures.</p>"
+                    "value": "<p>10 feet.</p>\n<p>The ground in the area is difficult terrain for all non-mudwretch creatures.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -641,6 +646,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -685,7 +691,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>If a mudwretch takes any damage from @Compendium[pf2e.spells-srd.Horrid Wilting]{Horrid Wilting} or a similar effect, takes [[/r 10 # or more fire damage]] or more fire damage from a single effect, or spends more than 24 hours outside of a source of sufficient hydration (such as a swamp, river, well, or recent rainfall), it becomes dehydrated. While dehydrated, the mudwretch can't Spew Mud, is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 2, and is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 until it either fully immerses in water, spends 1 minute in the rain, or rehydrates in another way (such as via Gory Hydration).</p>"
+                    "value": "<p>If a mudwretch takes any damage from @Compendium[pf2e.spells-srd.Horrid Wilting]{Horrid Wilting} or a similar effect, takes 10 or more fire damage from a single effect, or spends more than 24 hours outside of a source of sufficient hydration (such as a swamp, river, well, or recent rainfall), it becomes dehydrated.</p>\n<p>While dehydrated, the mudwretch can't Spew Mud, is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}, and is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} until it either fully immerses in water, spends 1 minute in the rain, or rehydrates in another way (such as via Gory Hydration).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -694,6 +700,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -722,7 +729,7 @@
             "type": "action"
         },
         {
-            "_id": "LBjk8pLjwedHxNYd",
+            "_id": "zWcMhsfvgxLXuw4D",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -731,12 +738,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>1d8+2 bludgeoning, DC 18<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                    "value": "<p>[[/r 1d8+2 #bludgeoning]] bludgeoning, DC 18</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -745,6 +752,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "constrict",
                 "source": {
                     "value": ""
                 },
@@ -758,16 +766,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Constrict",
             "sort": 400000,
             "type": "action"
@@ -787,7 +796,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The mudwretch is dehydrated; <strong>Trigger</strong> The mudwretch deals Constrict damage to a living creature that has blood; <strong>Effect</strong> The mudwretch squeezes harder, dealing 1d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} to the target. The mudwretch absorbs this blood, removing any penalties it had as a result of being dehydrated.</p>"
+                    "value": "<p><strong>Requirements</strong> The mudwretch is dehydrated;</p>\n<p><strong>Trigger</strong> The mudwretch deals Constrict damage to a living creature that has blood;</p>\n<p><strong>Effect</strong> The mudwretch squeezes harder, dealing [[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to the target. The mudwretch absorbs this blood, removing any penalties it had as a result of being dehydrated.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -796,6 +805,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -818,7 +828,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Gory Hydration",
             "sort": 500000,
             "type": "action"
@@ -833,7 +843,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -847,6 +857,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -871,7 +882,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Mud Puddle",
             "sort": 600000,
             "type": "action"
@@ -886,12 +897,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The mudwretch spews a 20-foot line of pressurized mud that deals [[/r 2d10 # bludgeoning damage]] bludgeoning damage (DC 18 basic Reflex save). On a critical failure, a creature also takes a -10-foot status penalty to its Speeds for 1 round. The mudwretch can't Spew Mud again for 1d4 rounds.</p>"
+                    "value": "<p>The mudwretch spews a 20-foot line of pressurized mud that deals [[/r 2d10 #bludgeoning]] bludgeoning damage (DC 18 basic Reflex save). On a critical failure, a creature also takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>The mudwretch can't Spew Mud again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -900,6 +911,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -925,13 +937,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Spew Mud",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "Ml1mmVu8KpXOFgB9",
+            "_id": "lvSGUnxmrOKOF2tT",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -940,12 +952,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -954,6 +966,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -967,16 +980,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
             "sort": 800000,
             "type": "action"
@@ -1002,6 +1016,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1044,6 +1059,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1071,7 +1087,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Hwy4YrNVVr7NnsMC",
         "actorLink": false,
         "bar1": {
@@ -1090,6 +1105,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Mudwretch",
         "randomImg": false,

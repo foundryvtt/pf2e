@@ -27,13 +27,11 @@
                 {{#if enabledRulesUI}}
                   <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
-                {{#if activeEffects.showList}}
-                  <a class="item" data-tab="active-effects">
-                    {{#if (eq buildMode "development")}}
-                      <i class="fas fa-code-branch" title="Development Mode"></i>
-                    {{/if}}
-                    {{localize "PF2E.ActiveEffects.Label"}}
-                  </a>
+                {{#if activeEffects.showAEs}}
+                    <a class="item" data-tab="active-effects">
+                        <i class="fas fa-code-branch" title="Development Mode"></i>
+                        {{localize "PF2E.ActiveEffects.Label"}}
+                    </a>
                 {{/if}}
             {{/if}}
             {{#unless detailsActive}}
@@ -44,13 +42,11 @@
                 {{#if enabledRulesUI}}
                 <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
-                {{#if (or activeEffects (eq buildMode "development"))}}
-                  <a class="item" data-tab="active-effects">
-                    {{#if (eq buildMode "development")}}
-                      <i class="fas fa-code-branch" title="Development Mode"></i>
-                    {{/if}}
-                    {{localize "PF2E.ActiveEffects.Label"}}
-                  </a>
+                {{#if activeEffects.showAEs}}
+                    <a class="item" data-tab="active-effects">
+                        <i class="fas fa-code-branch" title="Development Mode"></i>
+                        {{localize "PF2E.ActiveEffects.Label"}}
+                    </a>
                 {{/if}}
                 {{/unless}}
             </h4>
@@ -73,7 +69,7 @@
             </div>
             <!-- Active Effects -->
             <div class="tab effects" data-tab="active-effects">
-              {{> "systems/pf2e/templates/items/ae-tab.html"}}
+                {{> systems/pf2e/templates/items/ae-tab.html activeEffects=activeEffects}}
             </div>
         </section>
     </article>

@@ -1,33 +1,34 @@
-import { PF2EActor, PF2EHazard, PF2EVehicle } from '../module/actor/actor';
-import { PF2ECharacter } from '../module/actor/character';
-import { PF2ELoot } from '../module/actor/loot';
-import { PF2ENPC } from '../module/actor/npc';
-import { PF2EFamiliar } from '../module/actor/familiar';
-import { PF2EItem } from '../module/item/item';
-import { PF2EAncestry } from '../module/item/ancestry';
-import { PF2EBackground } from '../module/item/background';
-import { PF2EClass } from '../module/item/class';
+import { ActorPF2e, HazardPF2e, VehiclePF2e } from '../module/actor/base';
+import { CharacterPF2e } from '../module/actor/character';
+import { LootPF2e } from '../module/actor/loot';
+import { NPCPF2e } from '../module/actor/npc';
+import { FamiliarPF2e } from '../module/actor/familiar';
+import { ItemPF2e } from '../module/item/base';
+import { AncestryPF2e } from '../module/item/ancestry';
+import { BackgroundPF2e } from '../module/item/background';
+import { ClassPF2e } from '../module/item/class';
 import {
-    PF2EAction,
-    PF2EArmor,
-    PF2EBackpack,
-    PF2ECondition,
-    PF2EConsumable,
-    PF2EEquipment,
-    PF2EFeat,
-    PF2EKit,
-    PF2ELore,
-    PF2EMartial,
-    PF2EMelee,
-    PF2ESpell,
-    PF2ESpellcastingEntry,
-    PF2EStatus,
-    PF2ETreasure,
-    PF2EWeapon,
+    ActionPF2e,
+    ArmorPF2e,
+    ContainerPF2e,
+    ConditionPF2e,
+    ConsumablePF2e,
+    EquipmentPF2e,
+    FeatPF2e,
+    KitPF2e,
+    LorePF2e,
+    MartialPF2e,
+    MeleePF2e,
+    SpellPF2e,
+    SpellcastingEntryPF2e,
+    TreasurePF2e,
+    WeaponPF2e,
 } from '../module/item/others';
-import { PF2EEffect } from '../module/item/effect';
-import { PF2eCombatTracker } from '../module/system/combat-tracker';
-import { PF2EAnimalCompanion } from '@actor/animal-companion';
+import { EffectPF2e } from '../module/item/effect';
+import { CombatTrackerPF2e } from '../module/system/combat-tracker';
+import { AnimalCompanionPF2e } from '@actor/animal-companion';
+
+export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
@@ -35,7 +36,7 @@ export const PF2ECONFIG = {
 
     statusEffects: {
         overruledByModule: false,
-        lastIconType: 'default',
+        lastIconType: 'default' as StatusEffectIconType,
         effectsIconFolder: 'systems/pf2e/icons/conditions/',
         effectsIconFileType: 'png',
         keepFoundryStatusEffects: true,
@@ -1491,13 +1492,13 @@ export const PF2ECONFIG = {
         offensive: 'PF2E.ActionCategoryOffensive',
     }, // Proficiency Multipliers
 
-    proficiencyLevels: {
-        0: 'PF2E.ProficiencyLevel0', // untrained
-        1: 'PF2E.ProficiencyLevel1', // trained
-        2: 'PF2E.ProficiencyLevel2', // expert
-        3: 'PF2E.ProficiencyLevel3', // master
-        4: 'PF2E.ProficiencyLevel4', // legendary
-    }, // Proficiency Levels
+    proficiencyLevels: Object.freeze([
+        'PF2E.ProficiencyLevel0', // untrained
+        'PF2E.ProficiencyLevel1', // trained
+        'PF2E.ProficiencyLevel2', // expert
+        'PF2E.ProficiencyLevel3', // master
+        'PF2E.ProficiencyLevel4', // legendary
+    ]), // Proficiency Levels
 
     heroPointLevels: {
         0: 'PF2E.HeroPointLevel0',
@@ -2151,38 +2152,37 @@ export const PF2ECONFIG = {
 
     Actor: {
         entityClasses: {
-            character: PF2ECharacter,
-            npc: PF2ENPC,
-            hazard: PF2EHazard,
-            loot: PF2ELoot,
-            familiar: PF2EFamiliar,
-            animalCompanion: PF2EAnimalCompanion,
-            vehicle: PF2EVehicle,
+            character: CharacterPF2e,
+            npc: NPCPF2e,
+            hazard: HazardPF2e,
+            loot: LootPF2e,
+            familiar: FamiliarPF2e,
+            animalCompanion: AnimalCompanionPF2e,
+            vehicle: VehiclePF2e,
         },
     },
 
     Item: {
         entityClasses: {
-            backpack: PF2EBackpack,
-            treasure: PF2ETreasure,
-            weapon: PF2EWeapon,
-            armor: PF2EArmor,
-            kit: PF2EKit,
-            melee: PF2EMelee,
-            consumable: PF2EConsumable,
-            equipment: PF2EEquipment,
-            effect: PF2EEffect,
-            ancestry: PF2EAncestry,
-            background: PF2EBackground,
-            class: PF2EClass,
-            feat: PF2EFeat,
-            lore: PF2ELore,
-            martial: PF2EMartial,
-            action: PF2EAction,
-            spell: PF2ESpell,
-            spellcastingEntry: PF2ESpellcastingEntry,
-            status: PF2EStatus,
-            condition: PF2ECondition,
+            backpack: ContainerPF2e,
+            treasure: TreasurePF2e,
+            weapon: WeaponPF2e,
+            armor: ArmorPF2e,
+            kit: KitPF2e,
+            melee: MeleePF2e,
+            consumable: ConsumablePF2e,
+            equipment: EquipmentPF2e,
+            effect: EffectPF2e,
+            ancestry: AncestryPF2e,
+            background: BackgroundPF2e,
+            class: ClassPF2e,
+            feat: FeatPF2e,
+            lore: LorePF2e,
+            martial: MartialPF2e,
+            action: ActionPF2e,
+            spell: SpellPF2e,
+            spellcastingEntry: SpellcastingEntryPF2e,
+            condition: ConditionPF2e,
         },
     },
 };
@@ -2218,13 +2218,13 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<PF2EActor, PF2EItem> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e> {
     PF2E: typeof PF2ECONFIG;
     time: {
         roundTime: number;
     };
     ui: {
-        combat: typeof PF2eCombatTracker;
+        combat: typeof CombatTrackerPF2e;
         [key: string]: typeof Application;
     };
 }

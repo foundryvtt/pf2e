@@ -1,5 +1,5 @@
 import { PF2EPhysicalItem } from './physical';
-import { PF2EItem } from './item';
+import { ItemPF2e } from './base';
 import {
     ActionData,
     ArmorData,
@@ -15,44 +15,43 @@ import {
     MeleeData,
     SpellcastingEntryData,
     SpellData,
-    StatusData,
     TreasureData,
     WeaponData,
 } from './data-definitions';
 
-export class PF2EBackpack extends PF2EPhysicalItem {
+export class ContainerPF2e extends PF2EPhysicalItem {
     data!: BackpackData;
     _data!: BackpackData;
 }
-export class PF2ETreasure extends PF2EPhysicalItem {
+export class TreasurePF2e extends PF2EPhysicalItem {
     data!: TreasureData;
     _data!: TreasureData;
 }
-export class PF2EWeapon extends PF2EPhysicalItem {
+export class WeaponPF2e extends PF2EPhysicalItem {
     data!: WeaponData;
     _data!: WeaponData;
 }
-export class PF2EArmor extends PF2EPhysicalItem {
+export class ArmorPF2e extends PF2EPhysicalItem {
     data!: ArmorData;
     _data!: ArmorData;
 }
-export class PF2EKit extends PF2EPhysicalItem {
+export class KitPF2e extends PF2EPhysicalItem {
     data!: KitData;
     _data!: KitData;
 }
-export class PF2EMelee extends PF2EPhysicalItem {
+export class MeleePF2e extends PF2EPhysicalItem {
     data!: MeleeData;
     _data!: MeleeData;
 }
-export class PF2EConsumable extends PF2EPhysicalItem {
+export class ConsumablePF2e extends PF2EPhysicalItem {
     data!: ConsumableData;
     _data!: ConsumableData;
 }
-export class PF2EEquipment extends PF2EPhysicalItem {
+export class EquipmentPF2e extends PF2EPhysicalItem {
     data!: EquipmentData;
     _data!: EquipmentData;
 }
-export class PF2EFeat extends PF2EItem {
+export class FeatPF2e extends ItemPF2e {
     data!: FeatData;
     _data!: FeatData;
 
@@ -63,31 +62,27 @@ export class PF2EFeat extends PF2EItem {
         };
     }
 }
-export class PF2ELore extends PF2EItem {
+export class LorePF2e extends ItemPF2e {
     data!: LoreData;
     _data!: LoreData;
 }
-export class PF2EMartial extends PF2EItem {
+export class MartialPF2e extends ItemPF2e {
     data!: MartialData;
     _data!: MartialData;
 }
-export class PF2EAction extends PF2EItem {
+export class ActionPF2e extends ItemPF2e {
     data!: ActionData;
     _data!: ActionData;
 }
-export class PF2ESpell extends PF2EItem {
+export class SpellPF2e extends ItemPF2e {
     data!: SpellData;
     _data!: SpellData;
 }
-export class PF2ESpellcastingEntry extends PF2EItem {
+export class SpellcastingEntryPF2e extends ItemPF2e {
     data!: SpellcastingEntryData;
     _data!: SpellcastingEntryData;
 }
-export class PF2EStatus extends PF2EItem {
-    data!: StatusData;
-    _data!: StatusData;
-}
-export class PF2ECondition extends PF2EItem {
+export class ConditionPF2e extends ItemPF2e {
     data!: ConditionData;
     _data!: ConditionData;
 }

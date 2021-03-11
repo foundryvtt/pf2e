@@ -1,12 +1,12 @@
 import { ItemData } from '@item/data-definitions';
-import { CharacterData, NpcData } from '@actor/actor-data-definitions';
+import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
 
 /**
  * @category RuleElement
  */
 export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onCreate(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value ?? item.img ?? 'icons/svg/mystery-man.svg';
         const safeValue = value.replace(/[.]/g, '-');
 
@@ -30,7 +30,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
         getProperty(actorUpdates, 'flags.pf2e.token.effects')[safeValue] = sources;
     }
 
-    onDelete(actorData: CharacterData | NpcData, item: ItemData, actorUpdates: any, tokens: any[]) {
+    onDelete(actorData: CharacterData | NPCData, item: ItemData, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value ?? item.img ?? 'icons/svg/mystery-man.svg';
         const safeValue = value.replace(/[.]/g, '-');
         const effects =
@@ -60,7 +60,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
         }
     }
 
-    onCreateToken(actorData: CharacterData | NpcData, item: ItemData, token: TokenData) {
+    onCreateToken(actorData: CharacterData | NPCData, item: ItemData, token: TokenData) {
         token.effects = token.effects ?? [];
         if (!token.effects.includes(item.img)) {
             token.effects.push(item.img);

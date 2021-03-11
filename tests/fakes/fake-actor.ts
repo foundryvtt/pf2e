@@ -1,4 +1,4 @@
-import { ActorDataPF2e } from '@actor/actor-data-definitions';
+import { ActorDataPF2e } from '@actor/data-definitions';
 import { FakeItem } from './fake-item';
 
 export type RecursivePartial<T> = {
