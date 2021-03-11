@@ -487,7 +487,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const ae = ActiveEffect.create(
                 {
                     label: 'New Effect',
-                    icon: 'systems/pf2e/icons/default-icons/effect.svg',
+                    icon: this.item.img,
                     origin: this.item.uuid,
                     disabled: false,
                     duration: {
