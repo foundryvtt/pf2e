@@ -170,8 +170,10 @@ export class PF2WeaponDamage {
         const numericModifiers: PF2Modifier[] = [];
         let baseDamageDie = weapon.data.damage.die as DamageDieSize;
         let baseDamageType = weapon.data.damage.damageType;
-        const nonToggleTraits = traits.filter((trait) => !trait.toggle);
-        options = nonToggleTraits.map((t) => t.name).concat(options); // always add all weapon traits to the options
+        options = traits.filter((trait) => !trait.toggle)
+            .map((t) => t.name)
+            .concat(options); // always add all weapon traits to the options
+
         if (proficiencyRank >= 0) {
             options.push(PROFICIENCY_RANK_OPTION[proficiencyRank]);
         }
