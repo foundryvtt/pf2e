@@ -12,7 +12,6 @@ module.exports = {
       '^@item/(.*)$': '<rootDir>/src/item/$1',
       '^@module/(.*)$': '<rootDir>/src/module/$1',
       '^@scripts/(.*)$': '<rootDir>/src/scripts/$1',
-      '^@utils$': '<rootDir>/src/module/utils.ts',
   },
   setupFiles: [
     './tests/setup.ts',

@@ -1,4 +1,4 @@
-import { sum, Fraction } from '@utils';
+import { sum, Fraction } from '@module/utils';
 
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470

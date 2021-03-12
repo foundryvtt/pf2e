@@ -123,7 +123,6 @@ const config: Configuration = {
             '@module': path.resolve(__dirname, 'src/module'),
             '@scripts': path.resolve(__dirname, 'src/scripts'),
             '@system': path.resolve(__dirname, 'src/module/system'),
-            '@utils': path.resolve(__dirname, 'src/module/utils.ts'),
         },
         extensions: ['.ts'],
     },
