@@ -647,7 +647,7 @@ export class CharacterPF2e extends CreaturePF2e {
             .filter((item): item is ConsumableData => item.type === 'consumable')
             .filter((item) => item.data.consumableType?.value === 'ammo');
 
-        (actorData.items ?? [])
+        actorData.items
             .filter((item): item is WeaponData => item.type === 'weapon')
             .concat([unarmed as WeaponData])
             .concat(strikes)
@@ -671,7 +671,8 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                 }
 
-                const baseWeaponRank = proficiencies[`weapon-base-${item.data.baseItem}`]?.rank;
+                const baseWeapon = item.data.baseItem ?? item.data.slug;
+                const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank;
                 const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank;
                 const proficiencyRank = Math.max(
                     proficiencies[item.data.weaponType.value]?.rank ?? 0,
@@ -714,7 +715,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
 
                 // Conditions and Custom modifiers to attack rolls
-                let weaponPotency;
+                let weaponPotency: { label: string; bonus: number };
                 const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                 {
                     const potency: PF2WeaponPotency[] = [];
