@@ -10,10 +10,11 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
     const result = new Map<R, T[]>();
     for (const elem of array) {
         const key = criterion(elem);
-        if (result.get(key) === undefined) {
-            result.set(key, [elem]);
+        const group = result.get(key);
+        if (group) {
+            group.push(elem);
         } else {
-            result.get(key).push(elem);
+            result.set(key, [elem]);
         }
     }
     return result;
@@ -23,7 +24,7 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
  */
-export function padArray<T>(array: T[], requiredLength, padWith: T): T[] {
+export function padArray<T>(array: T[], requiredLength: number, padWith: T): T[] {
     const result = [...array];
     for (let i = array.length; i < requiredLength; i += 1) {
         result.push(padWith);
@@ -43,14 +44,14 @@ export function padArray<T>(array: T[], requiredLength, padWith: T): T[] {
  * are passed into this function to return the result
  * @return
  */
-export function combineObjects<K extends keyof any, V>(
-    first: Record<K, V> | {},
-    second: Record<K, V> | {},
+export function combineObjects<V>(
+    first: Record<RecordKey, V>,
+    second: Record<RecordKey, V>,
     mergeFunction: (first: V, second: V) => V,
-): Record<K, V> {
-    const combinedKeys = new Set([...Object.keys(first), ...Object.keys(second)]);
+): Record<RecordKey, V> {
+    const combinedKeys = new Set([...Object.keys(first), ...Object.keys(second)]) as Set<RecordKey>;
 
-    const combinedObject = {} as Record<K, V>;
+    const combinedObject: Record<RecordKey, V> = {};
     for (const name of combinedKeys) {
         if (name in first && name in second) {
             combinedObject[name] = mergeFunction(first[name], second[name]);
@@ -62,6 +63,7 @@ export function combineObjects<K extends keyof any, V>(
     }
     return combinedObject;
 }
+type RecordKey = string | number;
 
 /**
  * Similar to combineObjects, just for maps
@@ -184,4 +186,17 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
  */
 export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
     return key in obj;
+}
+
+/**
+ * The system's sluggification algorithm of entity names
+ * @param name The name of the entity (or other object as needed)
+ */
+export function sluggify(entityName: string) {
+    return entityName
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replace(/[^a-z0-9]+/gi, ' ')
+        .trim()
+        .replace(/[-\s]+/g, '-');
 }

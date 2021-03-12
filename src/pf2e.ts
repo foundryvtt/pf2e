@@ -341,4 +341,14 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
 
         html.find('.flavor-text').html(safe);
     }
+
+    // remove elements the user does not have permission to see
+    if (!game.user.isGM) {
+        html.find('[data-visibility="gm"]').remove();
+    }
+
+    const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
+    if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
+        html.find('[data-visibility="owner"]').remove();
+    }
 });

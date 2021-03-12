@@ -6,6 +6,7 @@ import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemDataPF2e } from '@item/data-definitions';
+import { sluggify } from '@module/utils';
 
 const { window } = new JSDOM('');
 const $ = require('jquery')(window);
@@ -107,14 +108,6 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
             pruneTree(entityData[key as EntityKey] as PackEntry, topLevel);
         }
     }
-}
-
-function sluggify(entityName: string) {
-    return entityName
-        .toLowerCase()
-        .replace(/[^a-z0-9]+/gi, ' ')
-        .trim()
-        .replace(/\s+|-{2,}/g, '-');
 }
 
 function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: false }): PackEntry {
@@ -314,7 +307,6 @@ async function extractPack(filePath: string, packFilename: string) {
 
         // Remove all non-alphanumeric characters from the name
         const slug = sluggify(entityData.name);
-
         const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
 

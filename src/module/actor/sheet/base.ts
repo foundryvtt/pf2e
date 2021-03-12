@@ -20,6 +20,7 @@ import { ConditionPF2e, SpellPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { CreaturePF2e } from '@actor/creature';
+import { PF2CheckDC } from '@system/check-degree-of-success';
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -388,12 +389,24 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
             const options = this.actor.getRollOptions(rollNames);
             {
-                const conditions = this.actor.items.filter((item) => item instanceof ConditionPF2e) as ConditionPF2e[];
+                const conditions = this.actor.items
+                    .filter((item) => item instanceof ConditionPF2e)
+                    .filter((item) => item.getFlag('pf2e', 'condition')) as ConditionPF2e[];
                 options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
             }
             if (target) {
-                const conditions = target.items.filter((item) => item instanceof ConditionPF2e) as ConditionPF2e[];
+                const conditions = target.items
+                    .filter((item) => item instanceof ConditionPF2e)
+                    .filter((item) => item.getFlag('pf2e', 'condition')) as ConditionPF2e[];
                 options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
+
+                const traits = (target.data.data.traits.traits.custom ?? '')
+                    .split(/[;,\\|]/)
+                    .map((value) => value.trim())
+                    .concat(target.data.data.traits.traits.value ?? [])
+                    .filter((value) => !!value)
+                    .map((trait) => `target:${trait}`);
+                options.push(...traits);
             }
             return {
                 options,
@@ -403,12 +416,20 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         };
         const createAttackRollContext = (event: JQuery.TriggeredEvent, rollNames: string[]) => {
             const ctx = createStrikeRollContext(rollNames);
+            let dc: PF2CheckDC | undefined;
+            if (ctx.target) {
+                dc = {
+                    label: game.i18n.format('PF2E.CreatureArmorClass', { creature: ctx.target.name }),
+                    scope: 'AttackOutcome',
+                    value: ctx.target.data.data.attributes.ac.value,
+                    visibility: 'gm',
+                };
+            }
             return {
                 event,
                 options: Array.from(new Set(ctx.options)), // de-duplication
                 targets: ctx.targets,
-                // un-comment this when partial chat card secret blocks have been implemented
-                //dc: ctx.target ? { value: ctx.target.data.data.attributes.ac.value } as PF2CheckDC : undefined,
+                dc,
             };
         };
         const createDamageRollContext = (event: JQuery.TriggeredEvent) => {

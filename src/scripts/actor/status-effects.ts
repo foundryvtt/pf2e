@@ -331,7 +331,7 @@ export class StatusEffects {
             const statusName = f.attr('data-effect') ?? ('undefined' as ConditionKey);
             const conditions = StatusEffects.conditions;
             const conditionKeys = Object.keys(conditions);
-            if (typeof statusName === 'string' && statusName in conditionKeys) {
+            if (typeof statusName === 'string' && conditionKeys.includes(statusName)) {
                 const conditionInfo = conditions[statusName as ConditionKey];
                 statusDescr.text('name' in conditionInfo ? conditionInfo.name : '').toggleClass('active');
             }
