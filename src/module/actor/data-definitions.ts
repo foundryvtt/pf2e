@@ -1,6 +1,6 @@
-import { ConsumableData, ItemDataPF2e, Rarity, Size } from '@item/data-definitions';
+import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
 import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
-import { RollParameters } from '../system/rolls';
+import { RollParameters } from '@system/rolls';
 
 /** A type representing the possible ability strings. */
 export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
@@ -320,7 +320,7 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
     [key: string]: any;
 }
 
-export interface MartialProficiencies {
+export interface CategoryProficiencies {
     unarmored: ProficiencyData;
     light: ProficiencyData;
     medium: ProficiencyData;
@@ -330,8 +330,17 @@ export interface MartialProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
+type BaseWeaponProficiencyKeys = `weapon-base-${BaseWeaponKey}`;
+type BaseWeaponProficiencies = {
+    [K in BaseWeaponProficiencyKeys]?: ProficiencyData;
+};
+type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
+type WeaponGroupProfiencies = {
+    [K in WeaponGroupProficiencyKey]?: ProficiencyData;
+};
+export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
-export type MartialString = keyof MartialProficiencies;
+export type CombatProficiencyKey = keyof CombatProficiencies;
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
@@ -349,7 +358,7 @@ export interface RawCharacterData extends CreatureSystemData {
     saves: Saves;
 
     /** Tracks proficiencies for martial skills. */
-    martial: MartialProficiencies;
+    martial: CombatProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
     details: {
