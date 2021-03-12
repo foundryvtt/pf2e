@@ -30,9 +30,6 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
  * @category PF2
  */
 export class ItemPF2e extends Item<ActorPF2e> {
-    data!: ItemDataPF2e;
-    _data!: ItemDataPF2e;
-
     constructor(data: ItemDataPF2e, options: ItemConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -1252,4 +1249,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
             }
         });
     }
+}
+
+export interface ItemPF2e {
+    data: ItemDataPF2e;
+    _data: ItemDataPF2e;
 }

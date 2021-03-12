@@ -809,7 +809,7 @@ export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDe
     data: D;
 }
 
-export interface BackpackData extends BasePhysicalItemData<BackpackDetailsData & ItemLevelData> {
+export interface ContainerData extends BasePhysicalItemData<BackpackDetailsData & ItemLevelData> {
     type: 'backpack';
 }
 
@@ -892,7 +892,7 @@ export interface EffectData extends BaseItemDataPF2e<EffectDetailsData> {
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData =
-    | BackpackData
+    | ContainerData
     | TreasureData
     | WeaponData
     | ArmorData
