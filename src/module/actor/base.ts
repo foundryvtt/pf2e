@@ -48,7 +48,7 @@ import {
 } from '../rules/rules-data-definitions';
 import { PF2EPhysicalItem } from '@item/physical';
 import { PF2RollNote } from '../notes';
-import { objectHasKey } from '@utils';
+import { objectHasKey } from '@module/utils';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
