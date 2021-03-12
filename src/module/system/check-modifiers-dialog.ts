@@ -116,12 +116,13 @@ export class CheckModifiersDialog extends Application {
 
         // Add the degree of success if a DC was supplied
         if (ctx.dc !== undefined) {
+            flavor += `<div data-visibility="${ctx.dc.visibility ?? 'all'}">`;
             const degreeOfSuccess = getDegreeOfSuccess(roll, ctx.dc);
 
             // Add degree of success to roll for the callback function
             roll.data.degreeOfSuccess = degreeOfSuccess.value;
 
-            const dcLabel = game.i18n.localize('PF2E.DCLabel');
+            const dcLabel = game.i18n.localize(ctx.dc.label ?? 'PF2E.DCLabel');
             flavor += `<div><b>${dcLabel}: ${ctx.dc.value}</b></div>`;
 
             const degreeOfSuccessText = DegreeOfSuccessText[degreeOfSuccess.value];
@@ -134,8 +135,9 @@ export class CheckModifiersDialog extends Application {
             }
 
             const resultLabel = game.i18n.localize('PF2E.ResultLabel');
-            const degreeLabel = game.i18n.localize(`PF2E.CheckOutcome.${degreeOfSuccessText}`);
+            const degreeLabel = game.i18n.localize(`PF2E.${ctx.dc.scope ?? 'CheckOutcome'}.${degreeOfSuccessText}`);
             flavor += `<div class="degree-of-success"><b>${resultLabel}:<span class="${degreeOfSuccessText}"> ${degreeLabel}</span></b>${adjustmentLabel}</div>`;
+            flavor += '</div>';
         }
 
         if (ctx.traits) {
