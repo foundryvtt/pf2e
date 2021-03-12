@@ -185,3 +185,16 @@ export function applyNTimes<T>(func: (val: T) => T, times: number, start: T): T 
 export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
     return key in obj;
 }
+
+/**
+ * The system's sluggification algorithm of entity names
+ * @param name The name of the entity (or other object as needed)
+ */
+export function sluggify(entityName: string) {
+    return entityName
+        .toLowerCase()
+        .replaceAll("'", '')
+        .replace(/[^a-z0-9]+/gi, ' ')
+        .trim()
+        .replace(/[-\s]+/g, '-');
+}
