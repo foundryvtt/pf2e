@@ -15,8 +15,11 @@ interface PF2CheckDCModifiers {
 }
 
 export interface PF2CheckDC {
-    value: number;
+    label?: string;
     modifiers?: PF2CheckDCModifiers;
+    scope?: 'AttackOutcome' | 'CheckOutcome';
+    value: number;
+    visibility?: 'gm' | 'owner' | 'all';
 }
 
 const PREFIXES = Object.freeze({
