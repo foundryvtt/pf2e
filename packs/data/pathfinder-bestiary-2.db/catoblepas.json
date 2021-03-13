@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "20"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -409,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -457,6 +463,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 25,
                     "value": 25
@@ -564,6 +571,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -603,6 +611,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 25,
                     "value": 25
@@ -710,6 +719,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -749,6 +759,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -856,6 +867,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -886,6 +898,59 @@
             "type": "melee"
         },
         {
+            "_id": "uD7Sv3Sf3fTDECXG",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "x8pzzu8VRuRa5sdg",
             "data": {
                 "actionCategory": {
@@ -900,7 +965,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. A creature entering the aura or starting its turn in the aura must succeed at a DC 30 Fortitude save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (plus slowed 1 for as long as itʼs sickened on a critical failure). While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
+                    "value": "<p>30 feet.</p>\n<p>A creature entering the aura or starting its turn in the aura must succeed at a DC 30 Fortitude save or become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (plus @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for as long as itʼs sickened on a critical failure).</p>\n<p>While within the aura, affected creatures take a -2 circumstance penalty to saves against disease and to recover from the sickened condition. A creature that succeeds at its save is temporarily immune for 1 minute.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -909,6 +974,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -937,17 +1003,17 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stench",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "mEbtfrlAFQ5Cg7YR",
+            "_id": "XucZtbvC1QhYV0HW",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -955,7 +1021,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> The monster is reduced to 0 HP.</p>\n<p><strong>Effect</strong> The monster avoids being knocked out and remains at 1 HP, but its @Compendium[pf2e.conditionitems.Wounded]{Wounded} value increases by 1. When it is Wounded 3, it can no longer use this ability</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -964,6 +1030,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "ferocity",
                 "source": {
                     "value": ""
                 },
@@ -977,18 +1044,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.N1kstYbHScxgUQtN"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Ferocity",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1001,12 +1069,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The catoblepas breathes a 60-foot cone of horrid fumes, dealing [[/r 13d6 # poison damage]] poison damage (DC 32 basic Fortitude save). The area of this cone is reduced to 30 feet underwater. Targets that fail their saving throw also become @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 (sickened 2 on a critical failure). The catoblepas can't use its Breath Weapon again for 1d4 rounds.</p>"
+                    "value": "<p>The catoblepas breathes a 60-foot cone of horrid fumes, dealing [[/r 13d6 #poison]] poison damage (DC 32 basic Fortitude save). The area of this cone is reduced to 30 feet underwater. Targets that fail their saving throw also become @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} (@Compendium[pf2e.conditionitems.Sickened]{Sickened 2} on a critical failure).</p>\n<p>The catoblepas can't use its Breath Weapon again for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1015,6 +1083,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1041,13 +1110,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "A5uStyQCWF2qOlyF",
+            "_id": "lPlAVVeLD4qqvZ8q",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1056,12 +1125,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Medium or smaller, hoof, DC 32<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC.</p>"
+                    "value": "<p>Medium or smaller, hoof, DC 32</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1070,6 +1139,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
@@ -1083,18 +1153,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1118,6 +1189,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1136,7 +1208,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1160,6 +1232,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1178,7 +1251,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1201,7 +1274,19 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "terrain:swamp"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1214,13 +1299,19 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+24 in swamps",
+                        "options": "terrain:swamp"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1244,6 +1335,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1262,7 +1354,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
@@ -1271,7 +1363,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "BJoM8LAVP8MA5o8v",
         "actorLink": false,
         "bar1": {
@@ -1290,6 +1381,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Catoblepas",
         "randomImg": false,

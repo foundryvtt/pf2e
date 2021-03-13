@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "40 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "40"
                     }
                 ],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -467,6 +469,7 @@
                     "type": "String",
                     "value": "str"
                 },
+                "baseItem": null,
                 "bonus": {
                     "label": "Item Bonus",
                     "type": "String",
@@ -668,6 +671,7 @@
                 "ability": {
                     "value": "str"
                 },
+                "baseItem": null,
                 "bonus": {
                     "value": 0
                 },
@@ -842,6 +846,7 @@
                         "Hooked"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -988,6 +993,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -1136,6 +1142,7 @@
                         "Hooked"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 18,
                     "value": 18
@@ -1277,6 +1284,117 @@
             "type": "melee"
         },
         {
+            "_id": "0Q0S3Hd1xOjt3Ked",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Low-Light Vision",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "GYapjknILGOMiV84",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "curse"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "-2 Status Bonus on Saves vs Curses",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "bJzQGcgwU0vilj1V",
             "data": {
                 "actionCategory": {
@@ -1342,7 +1460,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Culdewen's Curse",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1394,7 +1512,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Hooked",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1462,7 +1580,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Land the Fish",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1516,7 +1634,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Reel In",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1573,7 +1691,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Swear",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1616,7 +1734,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1659,7 +1777,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1702,7 +1820,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1745,7 +1863,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1788,7 +1906,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Sailing Lore",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1831,7 +1949,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -1874,7 +1992,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         }
     ],
