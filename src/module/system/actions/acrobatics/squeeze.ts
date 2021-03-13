@@ -7,6 +7,7 @@ export function squeeze(options: ActionDefaultOptions) {
         options.glyph,
         'PF2E.Actions.Squeeze',
         'PF2E.ActionsCheck.Acrobatics',
+        options.modifiers,
         ['all', 'skill-check', 'acrobatics', 'action:squeeze'],
         ['action:squeeze'],
         ['exploration', 'move'],

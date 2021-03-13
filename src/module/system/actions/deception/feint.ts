@@ -7,6 +7,7 @@ export function feint(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Feint',
         'PF2E.ActionsCheck.Deception',
+        options.modifiers,
         ['all', 'skill-check', 'deception', 'action:feint'],
         ['action:feint'],
         ['mental'],

@@ -7,6 +7,7 @@ export function lie(options: ActionDefaultOptions) {
         options.glyph,
         'PF2E.Actions.Lie',
         'PF2E.ActionsCheck.Deception',
+        options.modifiers,
         ['all', 'skill-check', 'deception', 'action:lie'],
         ['action:lie'],
         ['auditory', 'concentrate', 'linguistic', 'mental', 'secret'],

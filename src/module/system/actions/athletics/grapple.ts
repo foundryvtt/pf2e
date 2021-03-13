@@ -7,6 +7,7 @@ export function grapple(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Grapple',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:grapple'],
         ['action:grapple'],
         ['attack'],

@@ -7,6 +7,7 @@ export function tumbleThrough(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.TumbleThrough',
         'PF2E.ActionsCheck.Acrobatics',
+        options.modifiers,
         ['all', 'skill-check', 'acrobatics', 'action:tumble-through'],
         ['action:tumble-through'],
         ['move'],

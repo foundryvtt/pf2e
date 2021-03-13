@@ -30,6 +30,7 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
         options.glyph ?? 'A',
         title,
         'PF2E.ActionsCheck.Deception',
+        options.modifiers,
         ['all', 'skill-check', 'deception', 'action:create-a-diversion'],
         ['action:create-a-diversion', options.variant],
         traits.sort(),
