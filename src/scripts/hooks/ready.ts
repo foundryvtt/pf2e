@@ -5,7 +5,7 @@ import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
-import { rollActionMacro, rollItemMacro } from '@scripts/init';
+import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { ActionsPF2e } from '@system/actions/actions';

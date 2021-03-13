@@ -393,7 +393,13 @@ export class CharacterPF2e extends CreaturePF2e {
             if (skill.item) {
                 modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, ModifierType.ITEM));
             }
-            if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0) {
+
+            const ignoreArmorCheckPenalty = !(
+                worn &&
+                worn.data.traits.value.includes('flexible') &&
+                ['acr', 'ath'].includes(skillName)
+            );
+            if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
                 modifiers.push(
                     new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, ModifierType.UNTYPED),
                 );
@@ -777,7 +783,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 action.options = item?.data?.options?.value ?? [];
 
                 action.selectedAmmoId = item.data.selectedAmmoId;
-                if (itemGroup === 'bow' || itemGroup === 'sling') action.ammo = ammo;
+                if (['bow', 'sling', 'dart'].includes(itemGroup)) {
+                    action.ammo = ammo;
+                }
 
                 action.traits = [
                     { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },

@@ -5,9 +5,7 @@ import { ConfigPF2e } from '@scripts/config';
 import { LocalizePF2e } from '@module/system/localize';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
-
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
-
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
 export interface ItemTraits {
@@ -245,12 +243,14 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     selectedAmmoId?: string;
 }
 
+export type ArmorCategory = 'unarmored' | 'light' | 'medium' | 'heavy' | 'shield';
+
 export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
         value: number;
     };
     armorType: {
-        value: string;
+        value: ArmorCategory;
     };
     group: {
         value: string;
