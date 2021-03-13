@@ -1,7 +1,7 @@
 // Code taken from Furyspark's Pathfinder 1st edition system with permission.
 // @ts-nocheck
 
-function degtorad(degrees) {
+function degtorad(degrees: number) {
     return (degrees * Math.PI) / 180;
 }
 
