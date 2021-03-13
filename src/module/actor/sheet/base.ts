@@ -1647,7 +1647,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}
+                                    ${game.i18n.localize('PF2E.SpellLabelPlural')}`;
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
@@ -1656,7 +1657,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
-                                    name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+                                    name = game.i18n.format('PF2E.SpellCastingFormat',
+                                        {preparationType: CONFIG.PF2E.preparationType[spellcastingType],
+                                            tradition: CONFIG.PF2E.magicTraditions[magicTradition]});
                                 }
 
                                 // Define new spellcasting entry
