@@ -815,7 +815,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      *
      * @param event
      */
-    static findSpellLevel(event): number {
+    static findSpellLevel(event: any): number {
         const button = event.currentTarget;
         const card = button.closest('*[data-spell-lvl]');
         const cardData = card ? card.dataset : {};
