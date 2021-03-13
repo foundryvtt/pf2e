@@ -11,6 +11,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.quantity.value ?? 1;
     }
 
+    get isEquipped(): boolean {
+        return this.data.data.equipped.value;
+    }
+
     get isIdentified(): boolean {
         return PhysicalItemPF2e.isIdentified(this.data);
     }

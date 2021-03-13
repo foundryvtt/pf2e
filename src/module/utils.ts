@@ -200,3 +200,7 @@ export function sluggify(entityName: string) {
         .trim()
         .replace(/[-\s]+/g, '-');
 }
+
+export function ErrorPF2e(message: string) {
+    return Error(`PF2e System | ${message}`);
+}
