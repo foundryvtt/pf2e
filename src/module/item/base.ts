@@ -809,6 +809,18 @@ export class ItemPF2e extends Item<ActorPF2e> {
     }
 
     /* -------------------------------------------- */
+    /**
+     * The heightened level is not transferred correctly to spell chat cards.
+     * Therefore you have to look into the triggering's event proximity.
+     *
+     * @param event
+     */
+    static findSpellLevel(event: any): number {
+        const button = event.currentTarget;
+        const card = button.closest('*[data-spell-lvl]');
+        const cardData = card ? card.dataset : {};
+        return parseInt(cardData.spellLvl, 10);
+    }
 
     /**
      * Roll Spell Damage
@@ -823,17 +835,13 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
-        const button = event.currentTarget;
-        const card = button.closest('*[data-spell-lvl]');
-        const cardData = card ? card.dataset : {};
-
         // Get data
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data) as any;
         const isHeal = itemData.spellType.value === 'heal';
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
-        const spellLvl = parseInt(cardData.spellLvl, 10);
+        const spellLvl = ItemPF2e.findSpellLevel(event);
         const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
@@ -883,7 +891,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             throw new Error('Spell points to location that is not a spellcasting type');
 
         const modifiers: ModifierPF2e[] = [];
-        const ability: AbilityString = item.data.ability?.value || 'int';
+        const ability: AbilityString = spellcastingEntry.data.data.ability?.value || 'int';
         const score = this.actor.data.data.abilities[ability]?.value ?? 0;
         modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
 
@@ -894,9 +902,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const extraOptions = [];
         const traits = item.data.traits.value;
 
-        let flavor = '<hr/>';
+        let flavor = '<hr>';
         flavor += `<h3>${game.i18n.localize('PF2E.Counteract')}</h3>`;
-        flavor += `<hr/>`;
+        flavor += `<hr>`;
+
+        const spellLevel = ItemPF2e.findSpellLevel(event);
 
         const addFlavor = (success: string, level: number) => {
             const title = game.i18n.localize(`PF2E.${success}`);
@@ -907,9 +917,9 @@ export class ItemPF2e extends Item<ActorPF2e> {
         };
         flavor += `<p>${game.i18n.localize('PF2E.CounteractDescription.Hint')}</p>`;
         flavor += '<p>';
-        addFlavor('CritSuccess', itemData.level.value + 3);
-        addFlavor('Success', itemData.level.value + 1);
-        addFlavor('Failure', itemData.level.value);
+        addFlavor('CritSuccess', spellLevel + 3);
+        addFlavor('Success', spellLevel + 1);
+        addFlavor('Failure', spellLevel);
         addFlavor('CritFailure', 0);
         flavor += '</p>';
         const check = new StatisticModifier(flavor, modifiers);
@@ -921,6 +931,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 actor: this.actor,
                 type: 'counteract-check',
                 options: finalOptions,
+                title: game.i18n.localize('PF2E.Counteract'),
                 traits,
             },
             event,
