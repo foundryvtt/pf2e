@@ -10,7 +10,7 @@ import { ItemPF2e } from '@item/base';
 import { ConditionData, isPhysicalItem, ItemDataPF2e, SpellData, SpellcastingEntryData } from '@item/data-definitions';
 import { ConditionManager } from '../../conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
@@ -671,7 +671,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const identified = f.hasClass('identified');
             if (identified) {
                 const item = this.actor.getOwnedItem(itemId);
-                if (!(item instanceof PF2EPhysicalItem)) {
+                if (!(item instanceof PhysicalItemPF2e)) {
                     throw Error(`PF2e | ${item.name} is not a physical item.`);
                 }
                 item.setIsIdentified(false);
@@ -791,7 +791,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find('.item-increase-quantity').on('click', (event) => {
             const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
             const item = this.actor.getOwnedItem(itemId);
-            if (!(item instanceof PF2EPhysicalItem)) {
+            if (!(item instanceof PhysicalItemPF2e)) {
                 throw new Error('PF2e System | Tried to update quantity on item that does not have quantity');
             }
             this.actor.updateEmbeddedEntity('OwnedItem', {
@@ -805,7 +805,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const li = $(event.currentTarget).parents('.item');
             const itemId = li.attr('data-item-id') ?? '';
             const item = this.actor.getOwnedItem(itemId);
-            if (!(item instanceof PF2EPhysicalItem)) {
+            if (!(item instanceof PhysicalItemPF2e)) {
                 throw new Error('Tried to update quantity on item that does not have quantity');
             }
             if (Number(item.data.data.quantity.value) > 0) {
@@ -879,7 +879,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
             if (action.selectedAmmoId) {
                 const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
-                if (ammo instanceof PF2EPhysicalItem) {
+                if (ammo instanceof PhysicalItemPF2e) {
                     if (ammo.quantity < 1) {
                         ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
                         return;
@@ -1236,7 +1236,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         if (containerId) {
             await ActorPF2e.stashOrUnstash(
                 this.actor,
-                async () => this.actor.getOwnedItem(itemData._id) as PF2EPhysicalItem,
+                async () => this.actor.getOwnedItem(itemData._id) as PhysicalItemPF2e,
                 containerId,
             );
         }
@@ -1400,7 +1400,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         if (sourceActor === null || targetActor === null) {
             return Promise.reject(new Error('PF2e System | Unexpected missing actor(s)'));
         }
-        if (!(item instanceof PF2EPhysicalItem)) {
+        if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('PF2e System | Missing or invalid item'));
         }
 
@@ -1456,7 +1456,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
         const item = this.actor.getOwnedItem(itemId ?? '');
-        if (item instanceof PF2EPhysicalItem && !item.isIdentified) {
+        if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
             // we don't want to show the item card for items that aren't identified
             return;
         }
@@ -1485,8 +1485,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         if (
             game.user.isGM ||
-            !(item instanceof PF2EPhysicalItem) ||
-            (item instanceof PF2EPhysicalItem && item.isIdentified)
+            !(item instanceof PhysicalItemPF2e) ||
+            (item instanceof PhysicalItemPF2e && item.isIdentified)
         ) {
             this.renderItemSummary(li, item, chatData);
         }

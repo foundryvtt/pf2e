@@ -5,14 +5,14 @@ import {
     calculateValueOfCurrency,
     coinValueInCopper,
 } from '@item/treasure';
-import { ProficiencyModifier } from '../../modifiers';
+import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { PF2EPhysicalItem } from '@item/physical';
-import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-definitions';
 import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
+import { PhysicalItemPF2e } from '@item/physical';
+import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-definitions';
 
 /**
  * Base class for NPC and character sheets
@@ -74,7 +74,7 @@ export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends Act
                     );
                 break;
             case 'consumable':
-                if (chatData.hasCharges && PF2EPhysicalItem.isIdentified(item.data))
+                if (chatData.hasCharges && PhysicalItemPF2e.isIdentified(item.data))
                     buttons.append(
                         `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
                             'PF2E.ConsumableUseLabel',

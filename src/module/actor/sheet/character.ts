@@ -5,7 +5,7 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '../../modifiers';
 import { ConditionManager } from '../../conditions';
 import { CharacterPF2e } from '../character';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { isPhysicalItem, SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
@@ -224,7 +224,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const i of actorData.items) {
             // item identification
-            i.identified = !isPhysicalItem(i) || PF2EPhysicalItem.isIdentified(i);
+            i.identified = !isPhysicalItem(i) || PhysicalItemPF2e.isIdentified(i);
             i.showGMInfo = game.user.isGM;
             i.showEdit = i.showGMInfo || i.identified;
 
