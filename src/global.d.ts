@@ -1,6 +1,6 @@
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
-import { rollActionMacro, rollItemMacro } from '@scripts/init';
+import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { ActorPF2e } from '@actor/base';
