@@ -777,7 +777,9 @@ export class CharacterPF2e extends CreaturePF2e {
                 action.options = item?.data?.options?.value ?? [];
 
                 action.selectedAmmoId = item.data.selectedAmmoId;
-                if (itemGroup === 'bow' || itemGroup === 'sling') action.ammo = ammo;
+                if (['bow', 'sling', 'dart'].includes(itemGroup)) {
+                    action.ammo = ammo;
+                }
 
                 action.traits = [
                     { name: 'attack', label: game.i18n.localize('PF2E.TraitAttack'), toggle: false },
