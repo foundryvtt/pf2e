@@ -830,7 +830,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 action.variants = [
                     {
-                        label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+                        label: `${game.i18n.localize('PF2E.RuleElement.Strike')}
+                            ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
@@ -842,7 +843,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map2}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
@@ -860,7 +861,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map3}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
