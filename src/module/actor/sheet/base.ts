@@ -1657,9 +1657,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
-                                    name = game.i18n.format('PF2E.SpellCastingFormat',
-                                        {preparationType: CONFIG.PF2E.preparationType[spellcastingType],
-                                            tradition: CONFIG.PF2E.magicTraditions[magicTradition]});
+                                    name = game.i18n.format('PF2E.SpellCastingFormat', {
+                                        preparationType: CONFIG.PF2E.preparationType[spellcastingType],
+                                        tradition: CONFIG.PF2E.magicTraditions[magicTradition],
+                                    });
                                 }
 
                                 // Define new spellcasting entry
