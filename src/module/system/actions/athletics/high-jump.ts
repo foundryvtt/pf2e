@@ -7,6 +7,7 @@ export function highJump(options: ActionDefaultOptions) {
         options.glyph ?? 'D',
         'PF2E.Actions.HighJump',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:stride', 'action:leap', 'action:high-jump'],
         ['action:stride', 'action:leap', 'action:high-jump'],
         ['move'],

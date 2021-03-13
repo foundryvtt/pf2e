@@ -1,5 +1,5 @@
 import { ActorPF2e } from '@actor/base';
-import { ensureProficiencyOption, CheckModifier, StatisticModifier } from '../../modifiers';
+import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
@@ -30,6 +30,7 @@ export interface ActionDefaultOptions {
     event: JQuery.Event;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
+    modifiers?: ModifierPF2e[];
 }
 
 export class ActionsPF2e {
@@ -71,6 +72,7 @@ export class ActionsPF2e {
         actionGlyph: ActionGlyph | undefined,
         title: string,
         subtitle: string,
+        modifiers: ModifierPF2e[] | undefined,
         rollOptions: string[],
         extraOptions: string[],
         traits: string[],
@@ -98,7 +100,7 @@ export class ActionsPF2e {
                 flavor += `<b>${game.i18n.localize(title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
                 const stat = getProperty(actor, statName) as StatisticModifier;
-                const check = new CheckModifier(flavor, stat);
+                const check = new CheckModifier(flavor, stat, modifiers ?? []);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 CheckPF2e.roll(
@@ -109,6 +111,7 @@ export class ActionsPF2e {
                         options: finalOptions,
                         notes: stat.notes ?? [],
                         traits,
+                        title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
                     event,
                 );

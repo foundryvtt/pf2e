@@ -10,6 +10,7 @@ import { ItemPF2e } from './module/item/base';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
+import '@system/measure';
 import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle

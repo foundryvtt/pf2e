@@ -7,6 +7,7 @@ export function impersonate(options: ActionDefaultOptions) {
         options.glyph,
         'PF2E.Actions.Impersonate',
         'PF2E.ActionsCheck.Deception',
+        options.modifiers,
         ['all', 'skill-check', 'deception', 'action:impersonate'],
         ['action:impersonate'],
         ['concentrate', 'exploration', 'manipulate', 'secret'],

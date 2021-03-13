@@ -1,6 +1,6 @@
 import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
-import { PF2EPhysicalItem } from './physical';
+import { PhysicalItemPF2e } from './physical';
 
 // FIXME: point this to the correct type afterwards
 type ItemPlaceholder = any;
@@ -161,7 +161,7 @@ function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean
 }
 
 async function addFromCompendium(actor: ActorPlaceholder, compendiumId: string, quantity: number) {
-    const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
+    const pack = game.packs.find<Compendium<PhysicalItemPF2e>>((p) => p.collection === 'pf2e.equipment-srd');
     if (!pack) {
         throw Error('unable to get pack!');
     }

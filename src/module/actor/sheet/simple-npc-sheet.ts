@@ -7,7 +7,7 @@ import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { NPCPF2e } from '@actor/npc';
 import { identifyCreature } from '@module/recall-knowledge';
 import { ItemPF2e } from '@item/base';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { NPCData, SkillAbbreviation } from '@actor/data-definitions';
 
 export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
@@ -1446,7 +1446,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const item = this.actor.getOwnedItem(itemId);
 
         if (item !== undefined) {
-            if (item instanceof PF2EPhysicalItem && !item.isIdentified) {
+            if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
                 return;
             }
 

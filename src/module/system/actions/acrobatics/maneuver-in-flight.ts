@@ -7,6 +7,7 @@ export function maneuverInFlight(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.ManeuverInFlight',
         'PF2E.ActionsCheck.Acrobatics',
+        options.modifiers,
         ['all', 'skill-check', 'acrobatics', 'action:maneuver-in-flight'],
         ['action:maneuver-in-flight'],
         ['move'],

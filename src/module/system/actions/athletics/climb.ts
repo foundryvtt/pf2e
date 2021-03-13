@@ -7,6 +7,7 @@ export function climb(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Climb',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:climb'],
         ['action:climb'],
         ['move'],
