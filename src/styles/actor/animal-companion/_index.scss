@@ -1,0 +1,84 @@
+.animal-companion {
+    b {
+        font-family: $sans-serif;
+    }
+    .window-content {
+        background: url('../assets/sheet-bg.jpg');
+        background-repeat: repeat-x, no-repeat;
+        background-size: cover;
+        background-attachment: local;
+    }
+    .sheet-header {
+        img {
+            flex: 0 0 90px;
+            width: 90px;
+            height: 100%;
+        }
+    }
+    .container {
+        display: grid;
+        grid:
+            'master-ancestry master-ancestry' min-content
+            'defense martial' min-content
+            'skills skills' min-content
+            / 1fr 1fr;
+        column-gap: 1em;
+        row-gap: 1.5em;
+
+        margin-top: 1em;
+        font-family: $body-serif;
+    }
+    .traits {
+        margin: 0.25em 0;
+        padding-left: 10px;
+        span {
+            color: white;
+            font-size: 0.75em;
+            font-weight: 700;
+            padding: 0.25em 0.5em;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            background-color: var(--primary);
+            border: 1px solid var(--tertiary);
+        }
+    }
+
+    .master-ancestry {
+        grid-area: master-ancestry;
+        .stats {
+            display: flex;
+            flex-wrap: wrap;
+            .stat-item {
+                display: flex;
+                align-items: center;
+                flex-basis: calc(100% / 2);
+                input {
+                    width: calc(50% - 2px);
+                    margin-left: 0.25em;
+                }
+            }
+        }
+    }
+    .martial {
+        grid-area: martial;
+    }
+    .defense {
+        grid-area: defense;
+    }
+    .skills {
+        grid-area: skills;
+        .skill-list {
+            display: flex;
+            flex-wrap: wrap;
+            .skill-item {
+                display: flex;
+                align-items: center;
+                flex-basis: calc(100% / 3);
+
+                span {
+                    margin-left: 0.25em;
+                }
+            }
+        }
+    }
+}
