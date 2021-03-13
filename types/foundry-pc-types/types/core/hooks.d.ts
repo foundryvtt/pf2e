@@ -11,11 +11,12 @@ interface DropCanvasData {
 
 declare type HookCallback<P extends any[]> = (...args: P) => boolean | void | Promise<boolean | void>;
 declare type HookParameters<H extends string, C extends any[]> = [hook: H, callback: HookCallback<C>];
-declare type HookParamsSetup = HookParameters<'setup', never>;
 declare type HookParamsInit = HookParameters<'init', never>;
+declare type HookParamsSetup = HookParameters<'setup', never>;
 declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
 declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
+declare type HookParamsHotbarDrop = HookParameters<'hotbarDrop', [Hotbar, unknown, string]>;
 declare type HookParamsRenderChatLog = HookParameters<
     'renderChatLog',
     [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
@@ -52,6 +53,7 @@ declare class Hooks {
     static on(...args: HookParamsReady): number;
     static on(...args: HookParamsCanvasReady): number;
     static on(...args: HookParamsDropCanvasData): number;
+    static on(...args: HookParamsHotbarDrop): number;
     static on(...args: HookParamsRenderChatLog): number;
     static on(...args: HookParamsRenderChatPopout): number;
     static on(...args: HookParamsRenderChatMessage): number;
@@ -74,6 +76,7 @@ declare class Hooks {
     static once(...args: HookParamsReady): number;
     static once(...args: HookParamsCanvasReady): number;
     static once(...args: HookParamsDropCanvasData): number;
+    static once(...args: HookParamsHotbarDrop): number;
     static once(...args: HookParamsRenderChatMessage): number;
     static once(...args: HookParamsRenderChatPopout): number;
     static once(...args: HookParamsRenderCompendiumDirectory): number;
