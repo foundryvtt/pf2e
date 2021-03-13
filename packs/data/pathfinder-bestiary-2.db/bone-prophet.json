@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -155,6 +156,100 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 239"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 4,
+                            "value": 4
+                        },
+                        "slot2": {
+                            "max": 4,
+                            "value": 4
+                        },
+                        "slot3": {
+                            "max": 4,
+                            "value": 4
+                        },
+                        "slot4": {
+                            "max": 3,
+                            "value": 3
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 20
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 18
+                    }
+                }
+            },
+            "2": {
+                "data": {
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 18
+                    }
+                }
+            },
+            "Hkm57fRjKQG62Gkr": {
+                "data": {
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 18
+                    }
+                }
+            },
+            "LqorFNvTu3dYKgMS": {
+                "data": {
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 20
+                    }
+                }
+            },
+            "qwSMAluFS19ScNDI": {
+                "data": {
+                    "spelldc": {
+                        "dc": 28,
+                        "value": 18
+                    }
+                }
             }
         },
         "martial": {
@@ -404,6 +499,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -424,8 +522,7 @@
                     "aklo",
                     "common",
                     "necril",
-                    "undercommon",
-                    "custom"
+                    "undercommon"
                 ]
             },
             "rarity": {
@@ -482,6 +579,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -545,11 +645,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "28",
+                    "dc": 28,
                     "item": 0,
                     "mod": 0,
                     "value": 20
@@ -608,6 +709,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -670,11 +774,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "28",
+                    "dc": 28,
                     "item": 0,
                     "mod": 0,
                     "value": 18
@@ -701,7 +806,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "zpSl5PRhqEszt1Vl",
+            "_id": "Uha4NjE4xORYOEc4",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -713,6 +818,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -768,6 +876,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -792,10 +903,20 @@
                     "type": "String",
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "air-walk",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=6"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -839,20 +960,21 @@
                         "air",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b5sGjGlBf58f8jn0"
+                }
+            },
             "img": "systems/pf2e/icons/spells/air-walk.jpg",
             "name": "Air Walk",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "qilr4yICi9R65fLD",
+            "_id": "dcAVjqczPumtOgin",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -865,10 +987,13 @@
                     "type": "String",
                     "value": 30
                 },
+                "areasize": {
+                    "value": "varies"
+                },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": "to"
+                    "value": "varies"
                 },
                 "cost": {
                     "label": "Cost",
@@ -879,7 +1004,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "4d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -891,7 +1016,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -904,7 +1029,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "LqorFNvTu3dYKgMS"
@@ -919,6 +1044,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -929,24 +1057,34 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
+                    "basic": "basic",
                     "label": "Saving Throw",
                     "type": "String",
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "harm",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -954,7 +1092,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -969,7 +1107,7 @@
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "1"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "label": "Spell Traditions",
@@ -989,20 +1127,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
             "img": "systems/pf2e/icons/spells/harm.jpg",
             "name": "Harm",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "xTy8sjCghtwKv6fm",
+            "_id": "3AmfPO2LQRPjxE11",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1014,6 +1153,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1069,6 +1211,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1093,10 +1238,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-omens",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=247"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1133,27 +1288,28 @@
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "divination",
                         "prediction"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.pkcOby5prOausy1k"
+                }
+            },
             "img": "systems/pf2e/icons/spells/read-omens.jpg",
             "name": "Read Omens",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "I92lnp86Exv0ko5G",
+            "_id": "zhvXPi4J4FCa0fQ0",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1166,10 +1322,13 @@
                     "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": " material, somatic, verbal"
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -1220,6 +1379,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1244,10 +1406,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "talking-corpse",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=329"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1284,26 +1456,27 @@
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.FM3SmEW8N1FCRjqt"
+                }
+            },
             "img": "systems/pf2e/icons/spells/talking-corpse.jpg",
             "name": "Talking Corpse",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "t19vxmnpYV6RhTDu",
+            "_id": "wruUUKuR5ayoDDca",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1315,6 +1488,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1370,6 +1546,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1394,10 +1573,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bind-undead",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=22"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1441,20 +1630,21 @@
                     "value": [
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.GUeRTriJkMlMlVrk"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bind-undead.jpg",
             "name": "Bind Undead",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "Z21meTy6qgXOH2Lw",
+            "_id": "90ltkkuibDiHftdr",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1466,6 +1656,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1493,7 +1686,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>"
+                    "value": "<p>You blind the target. The effect is determined by the target's Fortitude save. The target then becomes temporarily immune for 1 minute.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} until its next turn begins.</p>\n<p><strong>Failure</strong> The target is Blinded for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Blinded permanently.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1521,6 +1714,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1545,10 +1741,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blindness",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=26"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1594,20 +1800,21 @@
                         "incapacitation",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VosLNn2M8S7JH67D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blindness.jpg",
             "name": "Blindness",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "QoRrmBgxbUMtCCqc",
+            "_id": "s8sRfs1mwS6FuAtP",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1619,6 +1826,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1646,7 +1856,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
+                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1654,7 +1864,7 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -1674,6 +1884,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1690,18 +1903,28 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chilling-darkness",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=36"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1747,20 +1970,21 @@
                         "evil",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sRfSBHWHdbIa0aGc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chilling-darkness.jpg",
             "name": "Chilling Darkness",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "g5RY9lS4CyQ71CPK",
+            "_id": "jqQDYOekY4rc3etZ",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1772,6 +1996,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1799,7 +2026,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Your touch leeches the lifeblood out of a target to empower yourself. You deal 6d6 negative damage to the target. You gain temporary Hit Points equal to half the negative damage the target takes (after applying resistances and the like). You lose any remaining temporary Hit Points after 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1827,6 +2054,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1843,18 +2073,28 @@
                     "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "vampiric-touch",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=354"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1900,20 +2140,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.N1Z1oLPdBxaSgrEE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/vampiric-touch.jpg",
             "name": "Vampiric Touch",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "vGGlmi13r1q2pkpt",
+            "_id": "d0zXkUl2Se8z0D5N",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1925,6 +2166,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1952,7 +2196,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1980,6 +2224,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2004,10 +2251,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2053,20 +2310,21 @@
                         "darkness",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.jpg",
             "name": "Darkness",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "L998h8Zb8uU3e23M",
+            "_id": "0nhWj6eBHHw5MMwQ",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2078,6 +2336,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2133,6 +2394,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2157,10 +2421,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "death-knell",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=63"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2204,20 +2478,21 @@
                         "death",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.dLdRqT6UxTKlsPgp"
+                }
+            },
             "img": "systems/pf2e/icons/spells/death-knell.jpg",
             "name": "Death Knell",
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "368NbV5MREqRnPIR",
+            "_id": "DsWr0NyE7bmnhTiM",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2229,6 +2504,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2256,7 +2534,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<hr />\n<p><strong>Heightened</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
+                    "value": "<p>A shield of elemental energy protects a creature against one type of energy damage. Choose acid, cold, electricity, fire, or sonic damage. The target and its gear gain resistance 5 against the damage type you chose.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The resistance increases to 10, and you can target up to two creatures.</p>\n<p><strong>Heightened (7th)</strong> The resistance increases to 15, and you can target up to five creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2284,6 +2562,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2308,10 +2589,20 @@
                     "type": "String",
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "resist-energy",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=256"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2356,20 +2647,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Fr58LDSrbndgld9n"
+                }
+            },
             "img": "systems/pf2e/icons/spells/resist-energy.jpg",
             "name": "Resist Energy",
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "AjgyZtOQaxFlecyk",
+            "_id": "AvA93rcVk8y69SrG",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2381,6 +2673,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2408,7 +2703,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened</strong> The spell has a duration of 8 hours.</p>"
+                    "value": "<p>You can see @Compendium[pf2e.conditionitems.Invisible]{Invisible} creatures and objects. They appear to you as translucent shapes, and they are @Compendium[pf2e.conditionitems.Concealed]{Concealed} to you.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The spell has a duration of 8 hours.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2436,6 +2731,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2460,10 +2758,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "see-invisibility",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=271"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2508,20 +2816,21 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.jwK43yKsHTkJQvQ9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/see-invisibility.jpg",
             "name": "See Invisibility",
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "TYawgG6zk0cwHZvo",
+            "_id": "FH0LP2MrK5PdvMwm",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2533,6 +2842,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot emanation"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2553,14 +2865,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2568,7 +2880,7 @@
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2586,6 +2898,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2612,10 +2927,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "bane",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=18"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2659,20 +2984,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7ZinJNzxq0XF0oMx"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bane.jpg",
             "name": "Bane",
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "RokLjkf90YM8m6qv",
+            "_id": "0g0UtXff8DhMgWue",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2684,6 +3010,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2704,14 +3033,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the fleeing condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You shout a command that's hard to ignore. You can command the target to approach you, run away (as if it had the @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} condition), release what it's holding, drop @Compendium[pf2e.conditionitems.Prone]{Prone}, or stand in place. It can't Delay or take any reactions until it has obeyed your command. The effects depend on the target's Will save.</p>\n<hr /><strong>Success</strong> The creature is unaffected.\n<p><strong>Failure</strong> For the first action on its next turn, the creature must use a single action to do as you command.</p>\n<p><strong>Critical Failure</strong> The target must use all its actions on its next turn to obey your command.</p>\n<hr /><strong>Heightened (5th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
                     "label": "Duration",
@@ -2739,6 +3068,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2752,7 +3084,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -2763,10 +3095,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "command",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=45"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2813,20 +3155,21 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aIHY2DArKFweIrpf"
+                }
+            },
             "img": "systems/pf2e/icons/spells/command.jpg",
             "name": "Command",
             "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "eoxQhSDKTXFp7BlD",
+            "_id": "m7l8dop4jgx1LSRD",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2838,6 +3181,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -2858,14 +3204,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2893,6 +3239,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -2917,10 +3266,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2968,20 +3327,21 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.jpg",
             "name": "Fear",
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "gdmIsKp6IIjZeYy2",
+            "_id": "rkBFLV1OrBNG1twP",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2993,6 +3353,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3020,7 +3383,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
+                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3048,6 +3411,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3072,10 +3438,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ventriloquism",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=356"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3121,20 +3497,21 @@
                         "auditory",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.yV7Ouzaoe7DHLESI"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ventriloquism.jpg",
             "name": "Ventriloquism",
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "I4AEFo7mc8WIHDNB",
+            "_id": "L37Q7gd1clbLjdAu",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3146,6 +3523,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3173,7 +3553,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3201,6 +3581,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3225,10 +3608,20 @@
                     "type": "String",
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3274,20 +3667,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chill-touch.jpg",
-            "name": "Chill Touch - Cantrips ",
+            "name": "Chill Touch",
             "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "vPG1j4ow38jmelCy",
+            "_id": "p7rWr63C3HZqpS21",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3299,6 +3693,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 30
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3326,7 +3723,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.<br style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\"><strong>Heightened</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
+                    "value": "<p>You send out a pulse that registers the presence of magic. You receive no information beyond the presence or absence of magic. You can choose to ignore magic you're fully aware of, such as the magic items and ongoing spells of you and your allies.</p>\n<p>You detect illusion magic only if that magic's effect has a lower level than the level of your detect magic spell. However, items that have an illusion aura but aren't deceptive in appearance (such as an invisibility potion) typically are detected normally.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> You learn the school of magic for the highest-level effect within range that the spell detects. If multiple effects are equally strong, the GM determines which you learn.</p>\n<p><strong>Heightened (4th)</strong> As 3rd level, but you also pinpoint the source of the highest-level magic. Like for an imprecise sense, you don't learn the exact location, but can narrow down the source to within a 5-foot cube (or the nearest if larger than that).</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3354,6 +3751,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3378,10 +3778,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-magic",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3399,7 +3809,7 @@
                 "target": {
                     "label": "Target",
                     "type": "String",
-                    "value": "30-foot emination"
+                    "value": ""
                 },
                 "time": {
                     "label": "Casting Time",
@@ -3429,20 +3839,21 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gpzpAAAJ1Lza2JVl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-magic.jpg",
-            "name": "Detect Magic - Cantrips ",
+            "name": "Detect Magic",
             "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "PgFG68UPOxlsdtbv",
+            "_id": "AgyxH5Lg0WE5m74V",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3454,6 +3865,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3481,7 +3895,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>"
+                    "value": "<p>You ask for divine guidance, granting the target a +1 status bonus to one attack roll, Perception check, saving throw, or skill check the target attempts before the duration ends. The target chooses which roll to use the bonus on before rolling. If the target uses the bonus, the spell ends. Either way, the target is then temporarily immune for 1 hour.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Guidance]{Spell Effect: Guidance}</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3509,6 +3923,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3533,10 +3950,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "guidance",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3582,20 +4009,21 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.izcxFQFwf3woCnFs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/guidance.jpg",
-            "name": "Guidance - Cantrips ",
+            "name": "Guidance",
             "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "Seee3QkhncDLgogJ",
+            "_id": "AkRd9tQxyynIm1l1",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3607,6 +4035,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3634,7 +4065,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
+                    "value": "<p>The object glows, casting bright light in a 20-foot radius (and dim light for the next 20 feet) like a torch. If you cast this spell again on a second object, the light spell on the first object ends.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The object sheds bright light in a 60-foot radius (and dim light for the next 60 feet).</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3662,6 +4093,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3686,10 +4120,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "light",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3712,7 +4156,7 @@
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -3737,20 +4181,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.jpg",
-            "name": "Light - Cantrips ",
+            "name": "Light",
             "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "d36d3nmpXz7GkRAh",
+            "_id": "tTCUQc0AmUV9ZkYA",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3762,6 +4207,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -3789,7 +4237,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic (pages 297-298).</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened</strong> You can target up to 10 objects.<br /><strong>Heightened</strong> You can target any number of objects.</p>"
+                    "value": "<p>You focus on the target object, opening your mind to perceive magical auras. When the casting is complete, you know whether that item is magical, and if it is, you learn the school of magic (pages 297-298).</p>\n<p>If the object is illusory, you detect this only if the effect's level is lower than the level of your read aura spell.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to 10 objects.</p>\n<p><strong>Heightened (6th)</strong> You can target any number of objects.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -3817,6 +4265,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -3841,10 +4292,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "read-aura",
                 "source": {
                     "label": "Source",
                     "type": "String",
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3892,15 +4353,16 @@
                         "cantrip",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OhD2Z6rIGGD5ocZA"
+                }
+            },
             "img": "systems/pf2e/icons/spells/read-aura.jpg",
-            "name": "Read Aura - Cantrips ",
+            "name": "Read Aura",
             "sort": 2300000,
             "type": "spell"
         },
@@ -3936,6 +4398,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -3999,11 +4464,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "28",
+                    "dc": 28,
                     "item": 0,
                     "mod": 0,
                     "value": 18
@@ -4030,7 +4496,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "P99KaugC1ha8n8BO",
+            "_id": "giv5Y1d0kPdc1zet",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4042,6 +4508,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4062,14 +4531,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1 as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened</strong> The duration is unlimited."
+                    "value": "<p>You take command of the target, forcing it to obey your orders. If you issue an obviously self-destructive order, the target doesn't act until you issue a new order. The effect depends on its Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1} as it fights off your commands.</p>\n<p><strong>Failure</strong> The target follows your orders but can attempt a Will save at the end of each of its turns. On a success, the spell ends.</p>\n<p><strong>Critical Failure</strong> As a failure, but the target receives a new save only if you give it a new order that is against its nature, such as killing its allies.</p>\n<hr /><strong>Heightened (10th)</strong> The duration is unlimited."
                 },
                 "duration": {
                     "label": "Duration",
@@ -4097,6 +4566,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -4110,7 +4582,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -4121,10 +4593,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dominate",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=87"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4161,7 +4643,7 @@
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
@@ -4169,20 +4651,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.OsOhx3TGIZ7AhD0P"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dominate.jpg",
             "name": "Dominate",
             "sort": 2500000,
             "type": "spell"
         },
         {
-            "_id": "YeQRbr6gNQyYMTI9",
+            "_id": "SVmdlo5MYPkDAO57",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4194,6 +4677,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": "30-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4221,7 +4707,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the @Compendium[pf2e.spells-srd.Illusory Scene]{Illusory Scene} spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a @Compendium[pf2e.spells-srd.Hallucinatory Terrain]{Hallucinatory Terrain} spell.<br /></p>\n<p>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.<br /></p>\n<p>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</p>\n<hr />\n<p><strong>Heightened</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened</strong> As the 6th-level version, and the duration is unlimited.</p>"
+                    "value": "<p><span>You form an imaginary scene that includes up to 10 discrete creatures or objects of various sizes, all of which must be within the spell's area. These elements generate appropriate sounds and smells, and they feel right to the touch. Elements of an illusory scene are incapable of speech. Unlike with the @Compendium[pf2e.spells-srd.Illusory Creature]{Illusory Creature} spell, creatures in your scene lack combat abilities and statistics. Your scene doesn't include changes to the environment around it, though you can place your scene within the illusory environment of a @Compendium[pf2e.spells-srd.Hallucinatory Terrain]{Hallucinatory Terrain} spell.<br /></span></p>\n<p><span>When you create the scene, you can choose to have it be static or follow a program. Though a static scene is stationary, it includes basic natural movement. For example, wind blowing on an illusory piece of paper would rustle it. A program can be up to 1 minute long and repeats when finished. For instance, you could create a scene of two orcs fighting each other, and the fight would go the same way for each repetition. If you create a loop, the two fighters end up in the same place at the start of the scene and at the end of it, but you can smooth the program so it's hard to tell when the loop ends and begins. Anyone observing the scene for more than a few minutes almost always notices it looping. You're unable to alter the program after you create the illusion.<br /></span></p>\n<p><span>Any creature that touches any part of the image or uses the Seek action to examine it can attempt to disbelieve your illusion. If they interact with a portion of the illusion, they disbelieve only that portion. They disbelieve the entire scene only on a critical success.</span></p>\n<hr />\n<p><strong>Heightened (6th)</strong> Creatures or objects in your scene can speak. You must speak the specific lines for each actor when creating your program. The spell disguises your voice for each actor.</p>\n<p><strong>Heightened (8th)</strong> As the 6th-level version, and the duration is unlimited.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -4249,6 +4735,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -4273,10 +4762,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "illusory-scene",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=161"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4321,20 +4820,21 @@
                         "illusion",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Ucf8eynbZMfUucjE"
+                }
+            },
             "img": "systems/pf2e/icons/spells/illusory-scene.jpg",
             "name": "Illusory Scene",
             "sort": 2600000,
             "type": "spell"
         },
         {
-            "_id": "TlmQZyOtpU9a497Q",
+            "_id": "x1dHlyNjTwID0Knb",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4346,6 +4846,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4366,14 +4869,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>Your honeyed words are difficult for creatures to resist. You suggest a course of action to the target, which must be phrased in such a way as to seem like a logical course of action to the target and can't be self-destructive or obviously against the target's self-interest. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected and knows you tried to control it.\n<p><strong>Success</strong> The target is unaffected and thinks you were talking to them normally, not casting a spell on them.</p>\n<p><strong>Failure</strong> The target immediately follows your suggestion. The spell has a duration of 1 minute, or until the target has completed a finite suggestion or the suggestion becomes self-destructive or has other obvious negative effects.</p>\n<p><strong>Critical Failure</strong> As failure, but the base duration is 1 hour.</p>\n<hr /><strong>Heightened (8th)</strong> You can target up to 10 creatures."
                 },
                 "duration": {
                     "label": "Duration",
@@ -4386,7 +4889,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "Hkm57fRjKQG62Gkr"
@@ -4399,6 +4902,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -4414,7 +4920,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -4425,10 +4931,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "suggestion",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4474,20 +4990,21 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
             "img": "systems/pf2e/icons/spells/suggestion.jpg",
             "name": "Suggestion",
             "sort": 2700000,
             "type": "spell"
         },
         {
-            "_id": "8ggyd64J20WkIgUr",
+            "_id": "36CmhzOplKDvSnh4",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4499,6 +5016,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4526,7 +5046,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape,and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the Impersonate use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
+                    "value": "<p>You create an illusion that causes you to appear as another creature of the same body shape, and with roughly similar height (within 6 inches) and weight (within 50 pounds), as yourself. The disguise is typically good enough to hide your identity, but not to impersonate a specific individual. The spell doesn't change your voice, scent, or mannerisms. You can change the appearance of your clothing and worn items, such as making your armor look like a dress. Held items are unaffected, and any worn item you remove returns to its true appearance.</p>\n<p>Casting illusory disguise counts as setting up a disguise for the Impersonate use of Deception; it ignores any circumstance penalties you might take for disguising yourself as a dissimilar creature, it gives you a +4 status bonus to Deception checks to prevent others from seeing through your disguise, and you add your level even if you're untrained. You can Dismiss this spell.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The spell also disguises your voice and scent, and it gains the auditory trait.</p>\n<p><strong>Heightened (3rd)</strong> You can appear as any creature of the same size, even a specific individual. You must have seen an individual to take on their appearance. The spell also disguises your voice and scent, and it gains the auditory trait.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -4539,7 +5059,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "Hkm57fRjKQG62Gkr"
@@ -4552,6 +5072,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -4578,10 +5101,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "illusory-disguise",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=159"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4625,20 +5158,21 @@
                         "illusion",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.i35dpZFI7jZcRoBo"
+                }
+            },
             "img": "systems/pf2e/icons/spells/illusory-disguise.jpg",
-            "name": "Illusory Disguise ",
+            "name": "Illusory Disguise (At will)",
             "sort": 2800000,
             "type": "spell"
         },
         {
-            "_id": "EbIjdvVX0OpnO8MC",
+            "_id": "Faz79fumsbTV2o3W",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4650,6 +5184,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4705,6 +5242,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -4729,10 +5269,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "mirror-image",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=197"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4776,20 +5326,21 @@
                         "illusion",
                         "visual"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.j8vIoIEWElvpwkcI"
+                }
+            },
             "img": "systems/pf2e/icons/spells/mirror-image.jpg",
-            "name": "Mirror Image ",
+            "name": "Mirror Image (At will)",
             "sort": 2900000,
             "type": "spell"
         },
         {
-            "_id": "pq5jjsacAxQS8NI3",
+            "_id": "jZget5HVHnwqjGr2",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -4801,6 +5352,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -4828,7 +5382,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
+                    "value": "<p>Whenever you speak or make any other sound vocally, you can make your vocalization seem to originate from somewhere else within 60 feet, and you can change that apparent location freely as you vocalize. Any creature that hears the sound can attempt to disbelieve your illusion.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The spell's duration increases to 1 hour, and you can also change the tone, quality, and other aspects of your voice. Before a creature can attempt to disbelieve your illusion, it must actively attempt a Perception check or otherwise use actions to interact with the sound.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -4856,6 +5410,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -4880,10 +5437,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ventriloquism",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=356"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -4929,20 +5496,21 @@
                         "auditory",
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.yV7Ouzaoe7DHLESI"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ventriloquism.jpg",
-            "name": "Ventriloquism",
+            "name": "Ventriloquism (At will)",
             "sort": 3000000,
             "type": "spell"
         },
         {
-            "_id": "2OvGnHs1Xxz4HH1y",
+            "_id": "mNXhtRi76DqAZ1bT",
             "data": {
                 "ability": {
                     "value": ""
@@ -4970,7 +5538,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of<em>create undead</em>.</p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table style=\"width: 379px; user-select: text; color: #191813; font-size: 13px; height: 353px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 25px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 17px; width: 103px; text-align: center; background-color: #522e2c;\"><strong>Creature Level</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 165px; text-align: center; background-color: #522e2c; height: 17px;\"><strong>Spell Level Required</strong></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 110px; text-align: center; background-color: #522e2c; height: 17px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Cost</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">-1 or 0</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\">15 gp</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #eee5c8;\">1</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 17px;\">2<span id=\"ctl00_MainContent_DetailedOutput\" style=\"box-sizing: border-box; user-select: text; display: block;\"></span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 17px;\">60 gp</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\">105 gp</td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 103px; text-align: center; background-color: #eee5c8;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">180 gp</td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">300 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">480 gp</td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">750 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">1,080 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">1,500 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">2,100 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">3,000 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">11</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">4,200 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">12</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">6,000 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">13</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">9,000 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">14</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">13,500 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">15</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">19,500 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">16</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\">30,000 gp</td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">17</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\">45,000 gp</td>\n</tr>\n</tbody>\n</table>\n<p><br /><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.<br /><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.<br /><strong>Failure</strong> You fail to create the undead.<br /><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.<br /></p>"
+                    "value": "<p><span>You transform the target into an undead creature with a level up to that allowed in Table 7-1. There are many versions of this ritual, each specific to a particular type of undead (one ritual for all zombies, one for skeletons, one for ghouls, and so on), and the rituals that create rare undead are also rare. Some forms of undead, such as liches, form using their own unique methods and can't be created with a version of <em>create undead</em>. </span></p>\n<h2>Table 7-1: Creatures Creation Rituals</h2>\n<table style=\"width: 379px; user-select: text; color: #191813; font-size: 13px; height: 353px;\" border=\"1\">\n<tbody style=\"box-sizing: border-box; user-select: text;\">\n<tr style=\"box-sizing: border-box; user-select: text; height: 25px;\">\n<td style=\"box-sizing: border-box; user-select: text; color: white; height: 17px; width: 103px; text-align: center; background-color: #522e2c;\"><span><strong>Creature Level</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 165px; text-align: center; background-color: #522e2c; height: 17px;\"><span><strong>Spell Level Required</strong></span></td>\n<td style=\"box-sizing: border-box; user-select: text; color: white; width: 110px; text-align: center; background-color: #522e2c; height: 17px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Cost</strong></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\"><span>-1 or 0</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">2</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>15 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #eee5c8;\"><span>1</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 17px;\">2<span style=\"box-sizing: border-box; user-select: text; display: block;\"></span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 17px;\"><span>60 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 17px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 17px; width: 103px; text-align: center; background-color: #f6f1e1;\">2</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 17px;\"><span>105 gp</span></td>\n</tr>\n<tr style=\"box-sizing: border-box; user-select: text; height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; height: 19px; width: 103px; text-align: center; background-color: #eee5c8;\">3</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">3</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>180 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">4</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>300 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">5</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">4</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>480 gp</span></td>\n</tr>\n<tr style=\"height: 19px; background-color: #f6f1e1;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">6</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>750 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">7</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">5</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>1,080 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">8</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>1,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">9</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">6</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>2,100 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">10</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>3,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">11</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">7</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>4,200 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">12</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>6,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">13</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">8</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>9,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">14</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>13,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">15</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">9</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>19,500 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #f6f1e1; height: 19px;\">16</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #f6f1e1; height: 19px;\"><span>30,000 gp</span></td>\n</tr>\n<tr style=\"height: 19px;\">\n<td style=\"box-sizing: border-box; user-select: text; width: 103px; text-align: center; background-color: #eee5c8; height: 19px;\">17</td>\n<td style=\"box-sizing: border-box; user-select: text; width: 165px; text-align: center; background-color: #eee5c8; height: 19px;\"><span style=\"box-sizing: border-box; user-select: text; display: block;\">10</span></td>\n<td style=\"box-sizing: border-box; user-select: text; width: 110px; text-align: center; background-color: #eee5c8; height: 19px;\"><span>45,000 gp</span></td>\n</tr>\n</tbody>\n</table>\n<p><span><span><strong>Critical Success</strong> The target becomes an undead creature of the appropriate type. If it's at least 4 levels lower than you, you can make it a minion. This gives it the minion trait, meaning it can use 2 actions when you command it, and commanding it is a single action that has the auditory and concentrate traits. You can have a maximum of four minions under your control. If it's intelligent and doesn't become a minion, the undead is helpful to you for awakening it, though it's still a horrid and evil creature. If it's unintelligent and doesn't become a minion, you can give it one simple command. It pursues that goal single-mindedly, ignoring any of your subsequent commands.</span></span></p>\n<p><span><span><strong>Success</strong> As critical success, except an intelligent undead that doesn't become your minion is only friendly to you, and an unintelligent undead that doesn't become your minion leaves you alone unless you attack it. It marauds the local area rather than following your command.</span></span></p>\n<p><span><span><strong>Failure</strong> You fail to create the undead.</span></span></p>\n<p><span><span><strong>Critical Failure</strong> You create the undead, but its soul, tortured by your foul necromancy, is full of nothing but hatred for you. It attempts to destroy you.</span><br /></span></p>"
                 },
                 "duration": {
                     "value": ""
@@ -4979,7 +5547,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "2"
+                    "value": 2
                 },
                 "location": {
                     "value": "qwSMAluFS19ScNDI"
@@ -5017,6 +5585,7 @@
                 "secondarycheck": {
                     "value": "Religion"
                 },
+                "slug": "create-undead",
                 "source": {
                     "value": ""
                 },
@@ -5053,21 +5622,39 @@
                         "evil",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.c3b6LdLlQDPngNIb"
+                }
+            },
             "img": "systems/pf2e/icons/spells/create-undead.jpg",
             "name": "Create Undead",
             "sort": 3100000,
             "type": "spell"
         },
         {
-            "_id": "iWizC9HlXO3mZm0x",
+            "_id": "TzbvlBarJ1dDLVDB",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -5080,17 +5667,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "club"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -5103,12 +5708,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -5117,6 +5724,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": "1"
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -5124,48 +5734,115 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "0"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "staff",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": "striking"
+                },
                 "traits": {
                     "custom": "",
+                    "label": "Weapon Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "type": "String",
+                    "value": [
+                        "two-hand-d8"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 striking staff",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FVjTuBCIefAgloUU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/staff.png",
+            "name": "+1 Striking Staff",
             "sort": 3200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "ciFVFwMOkWpeXPO9",
+            "_id": "HyVnK39Qbmr02ZZS",
             "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -5183,9 +5860,11 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This piece of wood or silver is emblazoned with an image representing a deity. Some divine spellcasters, such as clerics, can use a religious symbol of their deity as a divine focus to use certain abilities and cast some spells. A religious symbol must be held in one hand to use it.</p>"
                 },
                 "equipped": {
+                    "label": "Equipped",
+                    "type": "Boolean",
                     "value": false
                 },
                 "equippedBulk": {
@@ -5201,12 +5880,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -5222,9 +5903,13 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "2 gp"
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
                 },
                 "rarity": {
@@ -5234,7 +5919,10 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": "religious-symbol-silver",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
                 },
                 "stackGroup": {
@@ -5245,33 +5933,78 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "wornnecklace"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "religious symbol of Ydersius",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.upzjwQ96cZG0Xlmx"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/religious-symbol-silver.jpg",
+            "name": "Religious Symbol of Ydersius",
             "sort": 3300000,
             "type": "equipment"
         },
         {
-            "_id": "F7Gy5G1imjkrXF7G",
+            "_id": "VW6AVOrNOP6yIxHc",
             "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "label": "Destroy on Empty",
+                    "type": "Boolean",
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "label": "Consume on Use",
+                    "type": "Boolean",
+                    "value": true
+                },
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
                 "bulkCapacity": {
                     "value": ""
                 },
+                "charges": {
+                    "_deprecated": true,
+                    "label": "Charges",
+                    "max": 1,
+                    "type": "Number",
+                    "value": 1
+                },
                 "collapsed": {
                     "value": false
+                },
+                "consumableType": {
+                    "label": "Consumable Type",
+                    "type": "String",
+                    "value": "potion"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "label": "Roll on Consume",
+                    "type": "String",
+                    "value": ""
                 },
                 "containerId": {
                     "value": ""
@@ -5281,7 +6014,11 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>An invisibility potion is colorless and oddly lightweight. Upon drinking it, you gain the effects of a 2nd-level invisibility spell.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -5299,13 +6036,15 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "label": "Item Level",
+                    "type": "Number",
+                    "value": 4
                 },
                 "maxHp": {
                     "value": 0
@@ -5320,10 +6059,19 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "20 gp"
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rarity": {
                     "value": "common"
@@ -5332,32 +6080,65 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": "invisibility-potion",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
-                    "value": []
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "consumable",
+                        "illusion",
+                        "magical",
+                        "potion"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "invisibility potion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.bikFUFRLwfdvX2x2"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/consumables/potions/invisibility-potion.jpg",
+            "name": "Invisibility Potion",
             "sort": 3400000,
-            "type": "equipment"
+            "type": "consumable"
         },
         {
             "_id": "CXc8oBEPlsp8HDTd",
@@ -5368,6 +6149,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 18,
                     "value": 18
@@ -5475,6 +6257,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5516,6 +6299,7 @@
                         "serpentfolk venom"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -5623,6 +6407,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5653,6 +6438,342 @@
             "type": "melee"
         },
         {
+            "_id": "zwROdG6waBZIlf4v",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Darkvision",
+            "sort": 3700000,
+            "type": "action"
+        },
+        {
+            "_id": "K32GntqM2YIDwGgh",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Scent",
+            "sort": 3800000,
+            "type": "action"
+        },
+        {
+            "_id": "GjmjXrm0BYOCXs5E",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Telepathy",
+            "sort": 3900000,
+            "type": "action"
+        },
+        {
+            "_id": "kAgFhMe8TiBlKO3j",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "At-Will Spells",
+            "sort": 4000000,
+            "type": "action"
+        },
+        {
+            "_id": "3c01H24sjgfJHyvI",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 4100000,
+            "type": "action"
+        },
+        {
+            "_id": "o4iEKaEBIwAr18XF",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "mental"
+                            ]
+                        },
+                        "selector": "will",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+4 Status Bonus on Will Saves vs Mental",
+            "sort": 4200000,
+            "type": "action"
+        },
+        {
             "_id": "VRDZl6y3aAge5VyP",
             "data": {
                 "actionCategory": {
@@ -5662,12 +6783,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per day; <strong>Effect</strong> The bone prophet animates corpses of snakes, serpentfolk, or similar serpentine creatures within a 30-foot emanation. Any flesh on the bodies sloughs off, and they rise as skeletons. The bone prophet can raise one Large creature as a skeletal giant or up to three Medium creatures as skeletal champions; the equipment and attacks might be different depending on the corpses' possessionsThese skeletons have the minion trait and are under the bone prophet's control; the bone prophet can give all these minions the same command with a single action that has the concentrate trait. Any skeletal minions that still remain after 10 minutes crumble to dust.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The bone prophet animates corpses of snakes, serpentfolk, or similar serpentine creatures within a 30-foot emanation. Any flesh on the bodies sloughs off, and they rise as skeletons. The bone prophet can raise one Large creature as a skeletal giant or up to three Medium creatures as skeletal champions; the equipment and attacks might be different depending on the corpses' possessions.</p>\n<p>These skeletons have the minion trait and are under the bone prophet's control; the bone prophet can give all these minions the same command with a single action that has the concentrate trait. Any skeletal minions that still remain after 10 minutes crumble to dust.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -5676,6 +6797,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5703,9 +6825,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Raise Serpent",
-            "sort": 3700000,
+            "sort": 4300000,
             "type": "action"
         },
         {
@@ -5723,7 +6845,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 26 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 1d4 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <strong>Stage 2</strong> [[/r 2d4 # poison damage]] poison damage and enfeebled 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 26 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d4 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 2d4 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -5732,6 +6854,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5758,7 +6881,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Serpentfolk Venom",
-            "sort": 3800000,
+            "sort": 4400000,
             "type": "action"
         },
         {
@@ -5782,6 +6905,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5800,7 +6924,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Arcana",
-            "sort": 3900000,
+            "sort": 4500000,
             "type": "lore"
         },
         {
@@ -5824,6 +6948,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5842,7 +6967,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 4000000,
+            "sort": 4600000,
             "type": "lore"
         },
         {
@@ -5866,6 +6991,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5884,7 +7010,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 4100000,
+            "sort": 4700000,
             "type": "lore"
         },
         {
@@ -5908,6 +7034,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5926,7 +7053,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Occultism",
-            "sort": 4200000,
+            "sort": 4800000,
             "type": "lore"
         },
         {
@@ -5950,6 +7077,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -5968,7 +7096,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 4300000,
+            "sort": 4900000,
             "type": "lore"
         },
         {
@@ -5992,6 +7120,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -6010,7 +7139,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Society",
-            "sort": 4400000,
+            "sort": 5000000,
             "type": "lore"
         },
         {
@@ -6034,6 +7163,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -6052,7 +7182,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 4500000,
+            "sort": 5100000,
             "type": "lore"
         }
     ],
@@ -6061,7 +7191,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7SVhYtnBn967Hy8O",
         "actorLink": false,
         "bar1": {
@@ -6080,6 +7209,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bone Prophet",
         "randomImg": false,
