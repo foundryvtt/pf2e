@@ -7,6 +7,7 @@ export function longJump(options: ActionDefaultOptions) {
         options.glyph ?? 'D',
         'PF2E.Actions.LongJump',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:stride', 'action:leap', 'action:long-jump'],
         ['action:stride', 'action:leap', 'action:long-jump'],
         ['move'],

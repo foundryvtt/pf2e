@@ -7,6 +7,7 @@ export function coerce(options: ActionDefaultOptions) {
         options.glyph,
         'PF2E.Actions.Coerce',
         'PF2E.ActionsCheck.Intimidation',
+        options.modifiers,
         ['all', 'skill-check', 'intimidation', 'action:coerce'],
         ['action:coerce'],
         ['auditory', 'concentrate', 'emotion', 'exploration', 'linguistic', 'mental'],

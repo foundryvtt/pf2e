@@ -7,6 +7,7 @@ export function shove(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Shove',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:shove'],
         ['action:shove'],
         ['attack'],

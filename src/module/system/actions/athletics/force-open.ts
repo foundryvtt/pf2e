@@ -7,6 +7,7 @@ export function forceOpen(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.ForceOpen',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:force-open'],
         ['action:force-open'],
         ['attack'],

@@ -7,6 +7,7 @@ export function trip(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Trip',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:trip'],
         ['action:trip'],
         ['attack'],
