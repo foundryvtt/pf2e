@@ -8,6 +8,7 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { WeaponPF2e } from '@module/item/weapon';
 import {
     ActionPF2e,
     ContainerPF2e,
@@ -22,7 +23,6 @@ import {
     SpellPF2e,
     SpellcastingEntryPF2e,
     TreasurePF2e,
-    WeaponPF2e,
 } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
