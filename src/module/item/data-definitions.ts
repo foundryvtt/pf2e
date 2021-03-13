@@ -2,6 +2,7 @@ import { AbilityString, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
+import { LocalizePF2e } from '@module/system/localize';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 
@@ -170,7 +171,15 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
+export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export interface WeaponDamage {
+    value: string;
+    dice: number;
+    die: string;
+    damageType: string;
+    modifier: number;
+}
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
@@ -185,13 +194,7 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     bonus: {
         value: number;
     };
-    damage: {
-        value: string;
-        dice: number;
-        die: string;
-        damageType: string;
-        modifier: number;
-    };
+    damage: WeaponDamage;
     bonusDamage?: {
         value: string;
     };
@@ -453,7 +456,7 @@ export interface LoreDetailsData extends ItemDescriptionData {
 
 export interface MartialDetailsData extends ItemDescriptionData {
     proficient: {
-        value: 0;
+        value: ZeroToFour;
     };
     item: {
         value: 0;

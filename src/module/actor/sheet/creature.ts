@@ -10,8 +10,9 @@ import { ActorSheetPF2e } from './base';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { PF2EPhysicalItem } from '@item/physical';
-import { MartialString, SkillData, ZeroToFour } from '@actor/data-definitions';
-import { WeaponGroupKey } from '@item/data-definitions';
+import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-definitions';
+import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
+import { LocalizePF2e } from '@module/system/localize';
 
 /**
  * Base class for NPC and character sheets
@@ -135,14 +136,19 @@ export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends Act
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
             for (const [key, proficiency] of proficiencies) {
-                const groupMatch = key.match(/weapon-group-([a-z]+)$/);
+                const groupMatch = /weapon-group-([a-z]+)$/.exec(key);
+                const baseWeaponMatch = /weapon-base-([-a-z]+)$/.exec(key);
                 const label = ((): string => {
                     if (key in CONFIG.PF2E.martialSkills) {
-                        return CONFIG.PF2E.martialSkills[key as MartialString];
+                        return CONFIG.PF2E.martialSkills[key as keyof CategoryProficiencies];
                     }
                     if (Array.isArray(groupMatch)) {
                         const weaponGroup = groupMatch[1] as WeaponGroupKey;
                         return CONFIG.PF2E.weaponGroups[weaponGroup];
+                    }
+                    if (Array.isArray(baseWeaponMatch)) {
+                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponKey;
+                        return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
                     }
                     return key;
                 })();
