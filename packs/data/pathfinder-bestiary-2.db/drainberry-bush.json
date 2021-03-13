@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -472,6 +475,7 @@
                         "Improved Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -610,6 +614,116 @@
             "type": "melee"
         },
         {
+            "_id": "CmBRVSLQzMzJ4WUR",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Lifesense allows a monster to sense the vital essence of living and undead creatures within the listed range. The sense can distinguish between the positive energy animating living creatures and the negative energy animating undead creatures, much as sight distinguishes colors.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "lifesense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Lifesense",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "PMVviZt2FjDHt7QV",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Telepathy",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "QY55zAJAyvaoflJY",
             "data": {
                 "actionCategory": {
@@ -658,7 +772,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature Empathy",
-            "sort": 200000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -676,7 +790,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches. Each cluster of berries lasts for 1 day, and a drainberry bush typically has 1d6+3 clusters when encountered. When consumed, a cluster restores 2d8+10 Hit Points. This effect has the healing, necromancy, and primal traits. <br />A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
+                    "value": "<p>The drainberry bush must drain blood from living creatures for sustenance. This causes clusters of bright red berries to grow among its branches.</p>\n<p>Each cluster of berries lasts for 1 day, and a drainberry bush typically has [[/r 1d6+3 #clusters]] clusters when encountered. When consumed, a cluster restores [[/r 2d8+10 #Hit Points]] Hit Points. This effect has the healing, necromancy, and primal traits.</p>\n<p>A creature can pluck a cluster of berries with a successful unarmed Strike or Thievery check against the bush's AC.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -714,7 +828,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Blood Berries",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -727,12 +841,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining 2d8+10 HP. That berry cluster wrinkles and dies.</p>"
+                    "value": "<p>The bush draws nourishment from one cluster of blood berries, regaining [[/r 2d8+10 #HP]] HP. That berry cluster wrinkles and dies.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -769,9 +883,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Consume Berries",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -784,12 +898,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The drainberry bush has at least one living creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with one of its vines; <strong>Effect</strong> The bush's hollow thorns siphon blood from creatures it has grabbed. Each creature must succeed at a DC 25 Fortitude save or take [[/r 2d8+10 # damage]] damage and become @Compendium[pf2e.conditionitems.Drained]{Drained} 1 (double damage and drained 2 on a critical failure). For every creature damaged this way, a cluster of blood berries immediately grows along the bush's branches.</p>"
+                    "value": "<p><strong>Requirements</strong> The drainberry bush has at least one living creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with one of its vines;</p>\n<p><strong>Effect</strong> The bush's hollow thorns siphon blood from creatures it has grabbed. Each creature must succeed at a DC 25 Fortitude save or take [[/r 2d8+10]] damage and become @Compendium[pf2e.conditionitems.Drained]{Drained 1} (double damage and @Compendium[pf2e.conditionitems.Drained]{Drained 2} on a critical failure). For every creature damaged this way, a cluster of blood berries immediately grows along the bush's branches.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -821,9 +935,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Drain Blood",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -836,7 +950,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
@@ -873,13 +987,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Storm of Vines",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "YwX6A5eOUPfG21u3",
+            "_id": "qARQ5Sntem4thRiy",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -893,7 +1007,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The monster can use Grab as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has grabbed. <br /><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -902,7 +1016,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "improved-grab",
                 "source": {
                     "value": ""
                 },
@@ -916,18 +1030,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Grab",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -970,7 +1085,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1013,7 +1128,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1056,7 +1171,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Diplomacy",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1099,7 +1214,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1122,7 +1237,19 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Appear as a Bush",
+                        "predicate": {
+                            "all": [
+                                "bush"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1136,13 +1263,19 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 to appear as a bush",
+                        "options": "bush"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
