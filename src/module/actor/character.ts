@@ -393,7 +393,13 @@ export class CharacterPF2e extends CreaturePF2e {
             if (skill.item) {
                 modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, ModifierType.ITEM));
             }
-            if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0) {
+
+            const ignoreArmorCheckPenalty = !(
+                worn &&
+                worn.data.traits.value.includes('flexible') &&
+                ['acr', 'ath'].includes(skillName)
+            );
+            if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
                 modifiers.push(
                     new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, ModifierType.UNTYPED),
                 );
