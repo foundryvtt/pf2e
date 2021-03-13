@@ -1,6 +1,23 @@
 import { LocalizePF2e } from '@system/localize';
 import { registerSheets } from '../register-sheets';
 
+function registerPF2ActionClickListener() {
+    document.body.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement | undefined;
+        const { pf2Action, pf2Glyph, pf2Variant } = target?.dataset ?? {};
+        if (pf2Action && target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
+            const action = game.pf2e.actions[pf2Action];
+            if (action) {
+                action({
+                    event,
+                    glyph: pf2Glyph,
+                    variant: pf2Variant,
+                });
+            }
+        }
+    });
+}
+
 /**
  * This runs after game data has been requested and loaded from the servers, so entities exist
  */
@@ -10,6 +27,9 @@ export function listen() {
 
         // Register actor and item sheets
         registerSheets();
+
+        // register click listener for elements with a data-pf2-action attribute
+        registerPF2ActionClickListener();
 
         // Localize CONFIG objects once up-front
         const toLocalize = [
