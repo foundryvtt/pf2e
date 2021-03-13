@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "80 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "80"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CG"
@@ -160,6 +163,46 @@
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Bralani Contests</h3>Bralanis enjoy inventing games and contests and adding new twists to popular sports rather than following familiar rules. Speed often features somewhere in bralani games, whether it be physical speed or quickness of wit. It is not uncommon for bralanis to seek the input of young children, encouraging adults to draw inspiration from a child&apos;s creativity rather than allowing themselves to settle into comfortable and repetitive patterns.",
             "source": {
                 "value": "Bestiary 2 pg. 30"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
+            },
+            "X4D3vNjnicVrqgiG": {
+                "data": {
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +452,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -498,6 +544,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -560,11 +609,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "24",
+                    "dc": 24,
                     "item": 0,
                     "mod": 0,
                     "value": 14
@@ -591,7 +641,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "6t06qpWfLdrwvKrj",
+            "_id": "ManCGXxwaYWyKQzU",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -603,6 +653,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -658,6 +711,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -682,10 +738,20 @@
                     "type": "String",
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "gaseous-form",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=129"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -730,20 +796,21 @@
                         "polymorph",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Gaseous Form"
+                }
+            },
             "img": "systems/pf2e/icons/spells/gaseous-form.jpg",
-            "name": "Gaseous Form ",
+            "name": "Gaseous Form (At will)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "bCjtT6Y4RDx84gud",
+            "_id": "jWHjwipGm0037mgm",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -756,10 +823,13 @@
                     "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": "varies"
+                },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": "to"
+                    "value": "varies"
                 },
                 "cost": {
                     "label": "Cost",
@@ -770,7 +840,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "3d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -782,160 +852,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "label": "Duration",
-                    "type": "String",
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
-                    "value": "3"
-                },
-                "location": {
-                    "value": "X4D3vNjnicVrqgiG"
-                },
-                "materials": {
-                    "label": "Materials",
-                    "type": "String",
-                    "value": ""
-                },
-                "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
-                    "value": ""
-                },
-                "range": {
-                    "label": "Range",
-                    "type": "String",
-                    "value": "varies"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "label": "Spell School",
-                    "type": "String",
-                    "value": "nec"
-                },
-                "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
-                    "value": "heal"
-                },
-                "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
-                    "value": false
-                },
-                "target": {
-                    "label": "Target",
-                    "type": "String",
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "label": "Casting Time",
-                    "type": "String",
-                    "value": "3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "label": "Spell Traits",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "type": "String",
-                    "value": [
-                        "healing",
-                        "necromancy",
-                        "positive"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.jpg",
-            "name": "Heal",
-            "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "JudllcvlAnzlLz9L",
-            "data": {
-                "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "line",
-                    "label": "Area",
-                    "type": "String",
-                    "value": 120
-                },
-                "components": {
-                    "label": "Spell Components",
-                    "type": "String",
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "label": "Cost",
-                    "type": "String",
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "label": "Spell Damage",
-                    "type": "String",
-                    "value": "4d12"
-                },
-                "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
-                    "value": "electricity"
-                },
-                "description": {
-                    "chat": "",
-                    "label": "Description",
-                    "type": "String",
-                    "unidentified": "",
-                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -963,6 +880,179 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "label": "Range",
+                    "type": "String",
+                    "value": "varies"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "label": "Saving Throw",
+                    "type": "String",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "1d8",
+                    "mode": "level1"
+                },
+                "school": {
+                    "label": "Spell School",
+                    "type": "String",
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
+                "source": {
+                    "label": "Source",
+                    "type": "String",
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "label": "Spell Type",
+                    "type": "String",
+                    "value": "heal"
+                },
+                "sustained": {
+                    "label": "Can be Sustained",
+                    "type": "Boolean",
+                    "value": false
+                },
+                "target": {
+                    "label": "Target",
+                    "type": "String",
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "label": "Casting Time",
+                    "type": "String",
+                    "value": "1 to 3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "label": "Spell Traditions",
+                    "type": "String",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "label": "Spell Traits",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "type": "String",
+                    "value": [
+                        "healing",
+                        "necromancy",
+                        "positive"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/heal.jpg",
+            "name": "Heal",
+            "sort": 300000,
+            "type": "spell"
+        },
+        {
+            "_id": "fd51lscyy2bNAfem",
+            "data": {
+                "ability": {
+                    "label": "Spellcasting Ability",
+                    "type": "String",
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "line",
+                    "label": "Area",
+                    "type": "String",
+                    "value": 120
+                },
+                "areasize": {
+                    "value": "120-foot line"
+                },
+                "components": {
+                    "label": "Spell Components",
+                    "type": "String",
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "label": "Cost",
+                    "type": "String",
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "label": "Spell Damage",
+                    "type": "String",
+                    "value": "4d12"
+                },
+                "damageType": {
+                    "label": "Damage Type",
+                    "type": "String",
+                    "value": "electricity"
+                },
+                "description": {
+                    "chat": "",
+                    "label": "Description",
+                    "type": "String",
+                    "unidentified": "",
+                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
+                },
+                "duration": {
+                    "label": "Duration",
+                    "type": "String",
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "label": "Spell Level",
+                    "type": "Number",
+                    "value": 3
+                },
+                "location": {
+                    "value": "X4D3vNjnicVrqgiG"
+                },
+                "materials": {
+                    "label": "Materials",
+                    "type": "String",
+                    "value": ""
+                },
+                "prepared": {
+                    "label": "Prepared Spell",
+                    "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -979,18 +1069,28 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d12",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "lightning-bolt",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=172"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1034,20 +1134,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9AAkVUCwF6WVNNY2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/lightning-bolt.jpg",
             "name": "Lightning Bolt",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "GoJCVsPjXyNfLRVU",
+            "_id": "rBvJlXdpGSu2AeJ7",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1059,6 +1160,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1114,6 +1218,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1138,10 +1245,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "wall-of-wind",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=367"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1164,7 +1281,7 @@
                 "time": {
                     "label": "Casting Time",
                     "type": "String",
-                    "value": "2"
+                    "value": "3"
                 },
                 "traditions": {
                     "label": "Spell Traditions",
@@ -1185,20 +1302,21 @@
                         "air",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.it4ZsAi6XgvGcodc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/wall-of-wind.jpg",
             "name": "Wall of Wind",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "p6cVsWnKevykxnFz",
+            "_id": "vaOqYM45BeGuHpIv",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1210,6 +1328,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 10
+                },
+                "areasize": {
+                    "value": "10-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1230,7 +1351,7 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
@@ -1265,6 +1386,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1289,10 +1413,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "calm-emotions",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=31"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1338,20 +1472,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.b515AZlB0sridKSq"
+                }
+            },
             "img": "systems/pf2e/icons/spells/calm-emotions.jpg",
             "name": "Calm Emotions",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "TKjwxxknzilrDLES",
+            "_id": "Cj6s7OuIDPePwy5R",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1363,6 +1498,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 60
+                },
+                "areasize": {
+                    "value": "60-foot line"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1378,7 +1516,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "2d6"
+                    "value": ""
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1390,7 +1528,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked @Compendium[pf2e.conditionitems.Prone]{Prone}, and takes 2d6 bludgeoning damage.</p>"
+                    "value": "<p>A violent wind issues forth from your palm, blowing from the point where you are when you cast the spell to the line's opposite end. The wind extinguishes small non-magical fires, disperses fog and mist, blows objects of light Bulk or less around, and pushes larger objects. Large or smaller creatures in the area must attempt a Fortitude save. Large or smaller creatures that later move into the gust must attempt the save on entering.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature can't move against the wind.</p>\n<p><strong>Failure</strong> The creature is knocked @Compendium[pf2e.conditionitems.Prone]{Prone}. If it was flying, it suffers the effects of critical failure instead.</p>\n<p><strong>Critical Failure</strong> The creature is pushed 30 feet in the wind's direction, knocked Prone, and takes 2d6 bludgeoning damage.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1418,6 +1556,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1431,7 +1572,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
                     "formula": "",
@@ -1442,10 +1583,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "gust-of-wind",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1453,7 +1604,7 @@
                 "spellType": {
                     "label": "Spell Type",
                     "type": "String",
-                    "value": "utility"
+                    "value": "save"
                 },
                 "sustained": {
                     "label": "Can be Sustained",
@@ -1489,20 +1640,21 @@
                         "air",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.g8QqHpv2CWDwmIm1"
+                }
+            },
             "img": "systems/pf2e/icons/spells/gust-of-wind.jpg",
-            "name": "Gust of Wind ",
+            "name": "Gust of Wind (At will)",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "pDbCPDMJKBWxSNtb",
+            "_id": "zD1p5wo8W7il4Xw4",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1514,6 +1666,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1541,7 +1696,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened</strong> The duration is 8 hours.</p>"
+                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1569,6 +1724,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1593,10 +1751,20 @@
                     "type": "String",
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tongues",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1634,32 +1802,45 @@
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
                 }
             },
             "img": "systems/pf2e/icons/spells/tongues.jpg",
-            "name": "Tongues",
+            "name": "Tongues (Constant)",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "hJnpq1Z9w9ychza7",
+            "_id": "Lr9D25Rie6ICbgom",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "dex"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1672,17 +1853,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "bow"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -1695,12 +1894,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -1709,6 +1910,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": "1"
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1716,48 +1920,132 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "14 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "60"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "composite-shortbow",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
+                    "label": "Weapon Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "type": "String",
+                    "value": [
+                        "deadly-d10",
+                        "propulsive"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 composite longbow",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.e4NwsnPnpQKbDZ9F"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.png",
+            "name": "+1 Composite Shortbow",
             "sort": 900000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "74XSsKDYVVKPCWj7",
+            "_id": "1x63nUhEzvHOFBNV",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1770,17 +2058,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d6",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This one‑handed curved blade is sharp on one side.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "sword"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -1793,12 +2099,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -1807,6 +2115,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": ""
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1814,44 +2125,111 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "1 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "scimitar",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": ""
+                },
                 "traits": {
                     "custom": "",
+                    "label": "Weapon Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "type": "String",
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "scimitar",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.grmaV4GdoGD7sKbn"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/scimitar.png",
+            "name": "Scimitar",
             "sort": 1000000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "vCp6u7IXfs7VJRFF",
@@ -1862,6 +2240,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 16,
                     "value": 16
@@ -1882,20 +2261,20 @@
                     "damageType": "slashing",
                     "die": "1d6+8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d6+8",
                         "damageType": "slashing"
                     },
-                    {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "electricity"
                     },
-                    {
+                    "2": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1977,6 +2356,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2014,10 +2394,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "1d8+6"
-                    ]
+                    "custom": "",
+                    "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 18,
                     "value": 18
@@ -2038,16 +2418,20 @@
                     "damageType": "electricity",
                     "die": "1d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "vd57a87p90anm3ilw3l9jf": {
+                        "damage": "1d8+6",
+                        "damageType": "piercing"
+                    },
+                    "7hi3lmi46htzb7qnj8oir": {
                         "damage": "1d6",
                         "damageType": "electricity"
                     },
-                    {
+                    "420uetab7i68y5ko6t4y3a": {
                         "damage": "1d6",
                         "damageType": "good"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -2129,6 +2513,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2142,8 +2527,8 @@
                     },
                     "value": [
                         "deadly-d10",
-                        "reload 0",
-                        "volley 30 feet"
+                        "reload-0",
+                        "volley-30"
                     ]
                 },
                 "usage": {
@@ -2159,6 +2544,165 @@
             "name": "Composite Longbow",
             "sort": 1200000,
             "type": "melee"
+        },
+        {
+            "_id": "7FksKj3ieU9yJEu0",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Darkvision",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "5yWmBrLhwYvStUFi",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "At-Will Spells",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "uIPRSgEue1olkirr",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Constant Spells",
+            "sort": 1500000,
+            "type": "action"
         },
         {
             "_id": "BAJs3gJ34CxRZX5W",
@@ -2184,6 +2728,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2212,7 +2757,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fair Competition",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2239,6 +2784,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2267,7 +2813,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Whirlwind Blast",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2294,6 +2840,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2318,7 +2865,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Wind Form",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -2342,6 +2889,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2360,7 +2908,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2384,6 +2932,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2402,7 +2951,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2426,6 +2975,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2444,7 +2994,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Diplomacy",
-            "sort": 1800000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2468,6 +3018,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2486,7 +3037,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Games Lore",
-            "sort": 1900000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2510,6 +3061,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2528,7 +3080,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 2000000,
+            "sort": 2300000,
             "type": "lore"
         }
     ],
@@ -2537,7 +3089,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "ZrDGTNxlISyxNAKX",
         "actorLink": false,
         "bar1": {
@@ -2556,6 +3107,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bralani",
         "randomImg": false,
