@@ -195,7 +195,7 @@ export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
 export function sluggify(entityName: string) {
     return entityName
         .toLowerCase()
-        .replaceAll("'", '')
+        .replace(/\'/g, '')
         .replace(/[^a-z0-9]+/gi, ' ')
         .trim()
         .replace(/[-\s]+/g, '-');
