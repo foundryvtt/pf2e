@@ -111,6 +111,7 @@ export class ActionsPF2e {
                         options: finalOptions,
                         notes: stat.notes ?? [],
                         traits,
+                        title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
                     event,
                 );

@@ -17,6 +17,8 @@ export interface CheckModifiersContext {
     fate?: string;
     /** The actor which initiated this roll. */
     actor?: ActorPF2e;
+    /** Optional title of the roll options dialog; defaults to the check name */
+    title?: string;
     /** The type of this roll, like 'perception-check' or 'saving-throw'. */
     type?: string;
     /** Any traits for the check. */
@@ -39,7 +41,7 @@ export class CheckModifiersDialog extends Application {
 
     constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
         super({
-            title: check.name,
+            title: context?.title || check.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
             classes: ['dice-checks', 'dialog'],
             popOut: true,
