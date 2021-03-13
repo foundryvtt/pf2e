@@ -191,7 +191,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
             .replace(/<(?:b|strong)>\s*/g, '<strong>')
             .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
             .replace(/(<\/strong>)(\w)/g, '$1 $2')
-            .replaceAll('<p></p>', '')
+            .replace(/(<p><\/p>)/g, '')
             .replace(/\s{2,}/g, ' ')
             .trim();
     };
