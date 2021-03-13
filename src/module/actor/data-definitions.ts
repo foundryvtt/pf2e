@@ -2,9 +2,6 @@ import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupK
 import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 
-/** A type representing the possible ability strings. */
-export type AbilityString = 'str' | 'dex' | 'con' | 'int' | 'wis' | 'cha';
-
 export type ZeroToThree = 0 | 1 | 2 | 3;
 export type ZeroToFour = ZeroToThree | 4; // +1!
 
@@ -252,6 +249,18 @@ export interface Skills {
 
 export type SkillAbbreviation = keyof Skills;
 
+export interface Abilities {
+    str: AbilityData;
+    dex: AbilityData;
+    con: AbilityData;
+    int: AbilityData;
+    wis: AbilityData;
+    cha: AbilityData;
+}
+
+/** A type representing the possible ability strings. */
+export type AbilityString = keyof Abilities;
+
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
     senses: LabeledValue[];
@@ -279,14 +288,7 @@ export interface CreatureSystemData extends ActorSystemData {
 
 export interface RawAnimalCompanionData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: {
-        str: AbilityData;
-        dex: AbilityData;
-        con: AbilityData;
-        int: AbilityData;
-        wis: AbilityData;
-        cha: AbilityData;
-    };
+    abilities: Abilities;
 
     master: {
         id: string;
@@ -345,14 +347,7 @@ export type CombatProficiencyKey = keyof CombatProficiencies;
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: {
-        str: AbilityData;
-        dex: AbilityData;
-        con: AbilityData;
-        int: AbilityData;
-        wis: AbilityData;
-        cha: AbilityData;
-    };
+    abilities: Abilities;
 
     /** The three save types. */
     saves: Saves;
@@ -532,14 +527,7 @@ export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'N
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNPCData extends CreatureSystemData {
     /** The six primary ability scores. */
-    abilities: {
-        str: AbilityData;
-        dex: AbilityData;
-        con: AbilityData;
-        int: AbilityData;
-        wis: AbilityData;
-        cha: AbilityData;
-    };
+    abilities: Abilities;
 
     /** The three saves for NPCs. NPC saves have a 'base' score which is the score before applying custom modifiers. */
     saves: NPCSaves;
