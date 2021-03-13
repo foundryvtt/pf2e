@@ -7,6 +7,7 @@ export function disarm(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Disarm',
         'PF2E.ActionsCheck.Athletics',
+        options.modifiers,
         ['all', 'skill-check', 'athletics', 'action:disarm'],
         ['action:disarm'],
         ['attack'],

@@ -7,6 +7,7 @@ export function balance(options: ActionDefaultOptions) {
         options.glyph ?? 'A',
         'PF2E.Actions.Balance',
         'PF2E.ActionsCheck.Acrobatics',
+        options.modifiers,
         ['all', 'skill-check', 'acrobatics', 'action:balance'],
         ['action:balance'],
         ['move'],
