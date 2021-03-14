@@ -1,5 +1,43 @@
 # Patch Notes:
 
+## Version 1.11.14
+### Bug Fixes
+* (stwlam) Restore import of TemplateLayer monkey patches. Closes #1173
+* (Trollderim) Fix counteract chat card issues. Closes #1131
+* (Trollderim) Fix ammo feature for blowguns. Closes #1155
+* (fryguy) Fix "plus X" dialog on NPC attacks from keeping its list of actions forever. Closes #302
+* (nikolaj-a) Add support for the flexible armor trait. Closes #351
+
+### New Features
+* (nikolaj-a) Show attack roll result in strike chat card to all GMs, if a token has been targeted
+
+### Content Changes
+* (Shandyan) Effects for druid feats and spells
+* (Shandyan) Automation added for druid feats (current spell, ferocious shape, green empathy, soaring shape), leshy familiar abilities (grasping tendrils, purify air, verdant belt), and spells (apex companion, goodberry, primal summons, stormwind flight, wild morph and wild shape)
+* (Shandyan) Active effects for armor proficiencies (armor expertise at various levels)
+* (Shandyan) Active effects for alchemist & barbarian
+* (TMun) Minor corrections to pregens
+* (TMun) Add anchor action to actions.db and convert text to action in _anchoring roots_. Closes #1171
+* (stwlam) Set `baseItem` value for all alchemical bombs, to make it interact properly with the weapon proficiencies
+* (stwlam) Fix auto-heightening of _debilitating dichotomy_ focus spell
+* (SLATE) Add the gecko potion and the potion effect
+* (Drental) Add active effects for base proficiencies of all classes
+* (Drental) Add active effects for proficiencies granted by class features
+* (Drental) Add active effects for proficiencies granted by subclasses
+* (Drental & ArthurTrumpet) Add Take Cover macro
+* (SpartanCPA) Bestiary 2 monster item brush-up (A through F)
+
+### Core System Improvements
+* (stwlam) Allow no more than one article of armor to be equipped at a time
+* (stwlam) Derive traits on magical items
+* (stwlam) Change toggle icon to indicate whether or not a spellbook/chapter is opened
+* (nikolaj-a) Support custom modifiers to action macros
+* (nikolaj-a) Improve action macro roll dialog title
+* (nikolaj-a) Support alternative skill for action macros
+* (nikolaj-a) Replace pf2-action custom element with data attributes (the actions need to be dragged to the sheet again)
+* (nikolaj-a) Add gather information action macro
+
+
 ## Version 1.11.13
 ### Bug Fixes
 * (stwlam) Fix cantrip preparation
