@@ -21,6 +21,7 @@ import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
+import { SkillAbbreviation } from '@actor/data-definitions';
 
 type CheckType = 'skill-check' | 'perception-check' | 'saving-throw' | 'attack-roll';
 
@@ -31,6 +32,10 @@ export interface ActionDefaultOptions {
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];
+}
+
+export interface SkillActionOptions extends ActionDefaultOptions {
+    altSkill?: SkillAbbreviation;
 }
 
 export class ActionsPF2e {

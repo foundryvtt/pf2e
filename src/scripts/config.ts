@@ -110,6 +110,16 @@ export const PF2ECONFIG = {
         thi: 'PF2E.SkillThi',
     }, // Martial skill labels
 
+    actionsCheck: {
+        acr: 'PF2E.ActionsCheck.Acrobatics',
+        ath: 'PF2E.ActionsCheck.Athletics',
+        dec: 'PF2E.ActionsCheck.Deception',
+        dip: 'PF2E.ActionsCheck.Diplomacy',
+        itm: 'PF2E.ActionsCheck.Intimidation',
+        per: 'PF2E.ActionsCheck.Perception',
+        prf: 'PF2E.ActionsCheck.Performance',
+    },
+
     martialSkills: {
         unarmored: 'PF2E.MartialUnarmored',
         light: 'PF2E.MartialLight',

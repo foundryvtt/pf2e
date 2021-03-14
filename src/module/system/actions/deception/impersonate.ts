@@ -1,12 +1,16 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
+import { ConfigPF2e } from '@scripts/config';
 
-export function impersonate(options: ActionDefaultOptions) {
+type ActionSkill = keyof ConfigPF2e['PF2E']['actionsCheck'];
+
+export function impersonate(options: SkillActionOptions) {
+    const skill: ActionSkill = (options.altSkill as ActionSkill) ?? 'dec';
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dec',
+        `data.data.skills.${skill}`,
         options.glyph,
         'PF2E.Actions.Impersonate',
-        'PF2E.ActionsCheck.Deception',
+        CONFIG.PF2E.actionsCheck[skill],
         options.modifiers,
         ['all', 'skill-check', 'deception', 'action:impersonate'],
         ['action:impersonate'],
