@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 10 ",
+                "details": "regeneration 10 (deactivated by good or silver)",
                 "max": 90,
                 "min": 0,
                 "temp": 0,
@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -404,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -462,10 +466,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "impaling chain"
+                        "Impaling Chain"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -486,20 +492,16 @@
                     "damageType": "piercing",
                     "die": "2d8+7"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d8+7",
                         "damageType": "piercing"
-                    },
-                    {
-                        "damage": "1d6",
-                        "damageType": "persistentbleed"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -577,6 +579,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -611,6 +614,57 @@
             "type": "melee"
         },
         {
+            "_id": "Tl6uzJpsMmLaHI2P",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "x97vWevUTEMqeOCJ",
             "data": {
                 "actionCategory": {
@@ -634,6 +688,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -661,7 +716,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Painsight",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -679,7 +734,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a DC 21 Will save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2 (frightened 3 on a critical failure).</p>"
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it sees the face of a departed loved one in place of the evangelist's face. The creature must succeed at a DC 21 Will save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} (@Compendium[pf2e.conditionitems.Frightened]{Frightened 3} on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -688,6 +743,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -719,11 +775,73 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Unnerving Gaze",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
-            "_id": "qNCvGkR14xqSW7ev",
+            "_id": "4f8Xn8AVpubItk3h",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "gnpmR7nH5v5Ra3xZ",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -737,7 +855,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -746,6 +864,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -759,22 +878,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
-            "_id": "46xkWbkl80wFrpJb",
+            "_id": "GhoTNgQqndSEwa43",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -788,7 +908,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -797,6 +917,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -810,18 +931,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 500000,
+            "name": "Regeneration 10 (deactivated by good or silver)",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -848,6 +970,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -875,7 +998,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Animate Chains",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -902,6 +1025,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -933,7 +1057,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Focus Gaze",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -951,7 +1075,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the evangelist critically hits with a chain Strike, the target is impaled and anchored in place, becoming @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by the chain. The creature is unable to recover from @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} damage until it gets free (Escape DC 25).</p>"
+                    "value": "<p>When the evangelist critically hits with a chain Strike, the target is impaled and anchored in place, becoming @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the chain. The creature is unable to recover from @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} damage until it gets free (Escape DC 25).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -960,6 +1084,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -984,7 +1109,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Impaling Chain",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1008,6 +1133,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1026,7 +1152,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1050,6 +1176,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1068,7 +1195,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1092,6 +1219,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1110,7 +1238,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Crafting",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1134,6 +1262,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1152,7 +1281,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1176,6 +1305,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1194,7 +1324,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1218,6 +1348,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1236,7 +1367,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Torture Lore",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         }
     ],
@@ -1245,7 +1376,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "OuimMwM3yFRy5tRK",
         "actorLink": false,
         "bar1": {
@@ -1264,6 +1394,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Evangelist",
         "randomImg": false,

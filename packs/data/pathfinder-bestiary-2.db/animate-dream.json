@@ -101,8 +101,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 40 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "value": ""
             }
         },
         "currency": {
@@ -119,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -155,6 +163,42 @@
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Enslaved Dreams</h3>Night hags have been known to enslave animate dreams, forcing them to feed upon themselves. These captives break down into a fearful essence used for the hag&apos;s rituals, such as the crafting of heartstones.",
             "source": {
                 "value": "Bestiary 2 pg. 18"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 26,
+                        "value": 16
+                    }
+                }
+            },
+            "oNmHvve4Vcwj6IiO": {
+                "data": {
+                    "spelldc": {
+                        "dc": 26,
+                        "value": 16
+                    }
+                }
             }
         },
         "martial": {
@@ -404,6 +448,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -425,7 +472,7 @@
             ],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "telepathy 100 feet",
                 "selected": [],
                 "value": []
             },
@@ -483,6 +530,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -546,11 +596,12 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "26",
+                    "dc": 26,
                     "item": 0,
                     "mod": 0,
                     "value": 16
@@ -583,10 +634,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "endless nightmare"
+                        "Endless Nightmare"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 20,
                     "value": 20
@@ -607,12 +660,12 @@
                     "damageType": "negative",
                     "die": "4d8"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d8",
                         "damageType": "negative"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -694,6 +747,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -725,6 +779,231 @@
             "type": "melee"
         },
         {
+            "_id": "wOmBOkeQmHwUzF7p",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "cQTIij6l7HjJwqQW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Telepathy",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "pztBMGaCTnjDqJCY",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "hychIP30Jt5HOYED",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
             "_id": "pepIdjNqJtUTl9Wn",
             "data": {
                 "actionCategory": {
@@ -739,7 +1018,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>An animate dream's touch fills the victim's mind with terrifying visions; <strong>Saving Throw</strong> DC 26 Fortitude; <strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day); <strong>Stage 2</strong> fatigued and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 (1 day); <strong>Stage 3</strong> The victim falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} and can't be awakened as long as they remain at this stage (1 day).</p>"
+                    "value": "<p>An animate dream's touch fills the victim's mind with terrifying visions;</p>\n<p><strong>Saving Throw</strong> DC 26 Fortitude;</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day);</p>\n<p><strong>Stage 2</strong> fatigued and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 day);</p>\n<p><strong>Stage 3</strong> The victim falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} and can't be awakened as long as they remain at this stage (1 day).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -748,6 +1027,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -779,7 +1059,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Endless Nightmare",
-            "sort": 300000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -803,6 +1083,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -821,7 +1102,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 400000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -845,6 +1126,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -863,7 +1145,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 500000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -887,6 +1169,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -905,7 +1188,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 600000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -929,6 +1212,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -947,7 +1231,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Occultism",
-            "sort": 700000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -971,6 +1255,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -989,11 +1274,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
-            "_id": "6iKvIvafIiJTxnka",
+            "_id": "g1FnlFZZNMskWnnI",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1005,6 +1290,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1025,14 +1313,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute, with no save to end early.</p>\n<hr /><strong>Heightened</strong> You can target up to 10 creatures."
+                    "value": "<p>You befuddle your target with strange impulses, causing it to act randomly. The effects are determined by the target's Will save. You can Dismiss the spell.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target babbles incoherently and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute. It can attempt a new save at the end of each of its turns to end the confusion.</p>\n<p><strong>Critical Failure</strong> The target is Confused for 1 minute, with no save to end early.</p>\n<hr />\n<p><strong>Heightened (8th)</strong> You can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1060,6 +1348,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1073,7 +1364,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -1084,10 +1375,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "confusion",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=48"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1132,25 +1433,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.LiGbewa9pO0yjbsY"
                 }
             },
             "img": "systems/pf2e/icons/spells/confusion.jpg",
             "name": "Confusion",
-            "sort": 900000,
+            "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "2U4QrAWIMm5ACqeK",
+            "_id": "CTBtapRqTyHVFJWP",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1162,6 +1459,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1189,7 +1489,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1217,6 +1517,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1241,10 +1544,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1288,20 +1601,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door ",
-            "sort": 1000000,
+            "name": "Dimension Door (At will)",
+            "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "jF6EuaZbu0s3fQpk",
+            "_id": "Cu4GjxIbZn5PoFvz",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1313,6 +1627,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1333,14 +1650,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You send disturbing nightmares to your target. The next time the target falls asleep, it must attempt a Will save. If you know the target only by name and have never met them, the target gets a +4 circumstance bonus to the Will save.</p>\n<hr /><strong>Critical Success</strong> The target suffers no adverse effects and is temporarily immune for 1 week.\n<p><strong>Success</strong> The target experiences the nightmares but suffers no adverse effects other than unpleasant memories.</p>\n<p><strong>Failure</strong> The target experiences the nightmares and awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target experiences the nightmares, awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}, and is @Compendium[pf2e.conditionitems.Drained]{Drained} 2 until it is no longer @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>"
+                    "value": "<p>You send disturbing nightmares to your target. The next time the target falls asleep, it must attempt a Will save. If you know the target only by name and have never met them, the target gets a +4 circumstance bonus to the Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target suffers no adverse effects and is temporarily immune for 1 week.</p>\n<p><strong>Success</strong> The target experiences the nightmares but suffers no adverse effects other than unpleasant memories.</p>\n<p><strong>Failure</strong> The target experiences the nightmares and awakens @Compendium[pf2e.conditionitems.Fatigued]{Fatigued}.</p>\n<p><strong>Critical Failure</strong> The target experiences the nightmares, awakens Fatigued, and is @Compendium[pf2e.conditionitems.Drained]{Drained 2} until it is no longer Fatigued.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1368,6 +1685,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1381,7 +1701,7 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -1392,10 +1712,20 @@
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "nightmare",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=208"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1439,20 +1769,21 @@
                         "illusion",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Uqj344bezBq3ESdq"
+                }
+            },
             "img": "systems/pf2e/icons/spells/nightmare.jpg",
             "name": "Nightmare",
-            "sort": 1100000,
+            "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "UUL3sYZzZxdzhZhW",
+            "_id": "GxKkSafrCIi3HPL3",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1464,6 +1795,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1479,7 +1813,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "4d6"
+                    "value": "8d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1491,7 +1825,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4. This effect has the incapacitation trait.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure."
+                    "value": "<p>You create a phantasmal image of the most fearsome creature imaginable to the target. Only the spell's target can see the killer, though you can see the vague shape of the illusion as it races forth to attack. The effect of the killer is based on the outcome of the target's Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes 4d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target takes 8d6 mental damage and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is so afraid it might die. It must attempt a Fortitude save; if the target fails, it dies. On a successful Fortitude save, the target takes 12d6 mental damage, is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} until the end of its next turn, and is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}. This effect has the incapacitation trait.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6 on a failure and by 3d6 on a critical failure.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1519,6 +1853,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1532,21 +1869,31 @@
                     "basic": "",
                     "label": "Saving Throw",
                     "type": "String",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "phantasmal-killer",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=219"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1593,20 +1940,21 @@
                         "illusion",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tlcrVRqW1MSKJ5IC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/phantasmal-killer.jpg",
             "name": "Phantasmal Killer",
-            "sort": 1200000,
+            "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "aFBdypuiCssqdhna",
+            "_id": "IZcrQH4hXndRs6uP",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1618,6 +1966,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1638,14 +1989,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. If it's still @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. If it's still @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} after 1 hour, it wakes up automatically.</p>\n<hr /><strong>Heightened</strong> The creatures fall @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} for 1 round on a failure or 1 minute on a critical failure. They fall @Compendium[pf2e.conditionitems.Prone]{Prone} and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up."
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1658,7 +2009,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "oNmHvve4Vcwj6IiO"
@@ -1671,6 +2022,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1697,10 +2051,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sleep",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=288"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1746,20 +2110,21 @@
                         "mental",
                         "sleep"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.o4lRVTwSxnOOn5vl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sleep.jpg",
             "name": "Sleep",
-            "sort": 1300000,
+            "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "nLSdymkZrpr6lLva",
+            "_id": "Vql1HT3LgnsWlQ98",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1771,6 +2136,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1791,14 +2159,14 @@
                 "damageType": {
                     "label": "Damage Type",
                     "type": "String",
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1811,7 +2179,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "oNmHvve4Vcwj6IiO"
@@ -1824,6 +2192,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1850,10 +2221,20 @@
                     "type": "String",
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1901,16 +2282,17 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.jpg",
             "name": "Fear",
-            "sort": 1400000,
+            "sort": 1800000,
             "type": "spell"
         }
     ],
@@ -1919,7 +2301,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "Y9SDbANT1DWI1DKU",
         "actorLink": false,
         "bar1": {
@@ -1938,6 +2319,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Animate Dream",
         "randomImg": false,

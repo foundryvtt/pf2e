@@ -2,11 +2,11 @@ import { CreatureSheetPF2e } from './creature';
 import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '@item/bulk';
 import { calculateEncumbrance } from '@item/encumbrance';
 import { getContainerMap } from '@item/container';
-import { ProficiencyModifier } from '../../modifiers';
-import { ConditionManager } from '../../conditions';
+import { ProficiencyModifier } from '@module/modifiers';
+import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { PF2EPhysicalItem } from '@item/physical';
-import { isPhysicalItem, SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { PhysicalItemPF2e } from '@item/physical';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
 import { ZeroToThree } from '@actor/data-definitions';
@@ -223,66 +223,62 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         let investedCount = 0; // Tracking invested items
 
         for (const i of actorData.items) {
-            // item identification
-            i.identified = !isPhysicalItem(i) || PF2EPhysicalItem.isIdentified(i);
-            i.showGMInfo = game.user.isGM;
-            i.showEdit = i.showGMInfo || i.identified;
+            const item = this.actor.items.get(i._id);
+            if (item instanceof PhysicalItemPF2e) {
+                // item identification
+                i.identified = item.isIdentified;
+                i.showGMInfo = game.user.isGM;
+                i.showEdit = i.showGMInfo || i.identified;
 
-            i.img = i.img || CONST.DEFAULT_TOKEN;
-            i.containerData = containers.get(i._id);
-            i.isContainer = i.containerData.isContainer;
-            i.isNotInContainer = i.containerData.isNotInContainer;
+                i.img = i.img || CONST.DEFAULT_TOKEN;
+                i.containerData = containers.get(i._id);
+                i.isContainer = i.containerData.isContainer;
+                i.isNotInContainer = i.containerData.isNotInContainer;
 
-            // Read-Only Equipment
-            if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
-                readonlyEquipment.push(i);
-                actorData.hasEquipment = true;
-            }
-
-            i.canBeEquipped = i.isNotInContainer;
-            i.isEquipped = i.data?.equipped?.value ?? false;
-            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-            i.hasInvestedTrait = i.data?.traits?.value?.includes('invested') ?? false;
-            i.isInvested = i.data?.invested?.value ?? false;
-            if (i.isInvested) {
-                investedCount += 1;
-            }
-
-            // Inventory
-            if (Object.keys(inventory).includes(i.type)) {
-                i.data.quantity.value = i.data.quantity.value || 0;
-                i.data.weight.value = i.data.weight.value || 0;
-                const bulkItem = bulkItemsById.get(i._id);
-                const [approximatedBulk] = calculateBulk({
-                    items: bulkItem === undefined ? [] : [bulkItem],
-                    bulkConfig: bulkConfig,
-                    actorSize: this.actor.data.data.traits.size.value,
-                });
-                i.totalWeight = formatBulk(approximatedBulk);
-                i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
-                i.isTwoHanded =
-                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x) => x.startsWith('two-hand'));
-                i.wieldedTwoHanded = i.type === 'weapon' && (i.data.hands || {}).value;
-                if (i.type === 'weapon') {
-                    attacks.weapon.items.push(i);
+                // Read-Only Equipment
+                if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
+                    readonlyEquipment.push(i);
+                    actorData.hasEquipment = true;
                 }
-                inventory[i.type].items.push(i);
-            }
 
-            // Spells
-            else if (i.type === 'spell') {
-                let item;
+                i.canBeEquipped = i.isNotInContainer;
+                i.isEquipped = item.isEquipped;
+                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+                i.hasInvestedTrait = item.traits.has('invested');
+                i.isInvested = i.data?.invested?.value ?? false;
+                if (i.isInvested) {
+                    investedCount += 1;
+                }
+
+                // Inventory
+                if (Object.keys(inventory).includes(i.type)) {
+                    i.data.quantity.value = i.data.quantity.value || 0;
+                    i.data.weight.value = i.data.weight.value || 0;
+                    const bulkItem = bulkItemsById.get(i._id);
+                    const [approximatedBulk] = calculateBulk({
+                        items: bulkItem === undefined ? [] : [bulkItem],
+                        bulkConfig: bulkConfig,
+                        actorSize: this.actor.data.data.traits.size.value,
+                    });
+                    i.totalWeight = formatBulk(approximatedBulk);
+                    i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
+                    if (i.type === 'weapon') {
+                        i.isTwoHanded = i.data.traits.value.some((trait: string) => trait.startsWith('two-hand'));
+                        i.wieldedTwoHanded = i.data.hands.value;
+                        attacks.weapon.items.push(i);
+                    }
+                    inventory[i.type].items.push(i);
+                }
+            } else if (item instanceof SpellPF2e) {
+                // Spells
                 try {
-                    item = this.actor.getOwnedItem(i._id);
                     i.spellInfo = item.getSpellInfo();
                 } catch (err) {
                     console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
                 }
                 tempSpellbook.push(i);
-            }
-
-            // Spellcasting Entries
-            else if (i.type === 'spellcastingEntry') {
+            } else if (i.type === 'spellcastingEntry') {
+                // Spellcasting Entries
                 // collect list of entries to use later to match spells against.
                 spellcastingEntriesList.push(i._id);
 

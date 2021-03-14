@@ -1,5 +1,6 @@
 import * as fs from 'fs';
 import * as path from 'path';
+import { sluggify } from '@module/utils';
 
 export interface PackMetadata {
     system: string;
@@ -125,7 +126,7 @@ export class CompendiumPack {
                 throw PackError(`Entity contained in ${filePath} has no name.`);
             }
 
-            const filenameForm = CompendiumPack.sluggify(entityName).concat('.json');
+            const filenameForm = sluggify(entityName).concat('.json');
             if (path.basename(filePath) !== filenameForm) {
                 throw PackError(`Filename at ${filePath} does not reflect entity name (should be ${filenameForm}).`);
             }
@@ -147,7 +148,7 @@ export class CompendiumPack {
 
         entityData.flags.core = { sourceId: this.sourceIdOf(entityData._id) };
         if (this.entityClass === 'Item') {
-            entityData.data.slug = CompendiumPack.sluggify(entityData.name);
+            entityData.data.slug = sluggify(entityData.name);
         }
 
         return JSON.stringify(entityData).replace(
@@ -176,15 +177,6 @@ export class CompendiumPack {
 
     private sourceIdOf(entityId: string) {
         return `Compendium.${this.systemId}.${this.name}.${entityId}`;
-    }
-
-    static sluggify(entityName: string) {
-        return entityName
-            .toLowerCase()
-            .replaceAll("'", '')
-            .replace(/[^a-z0-9]+/gi, ' ')
-            .trim()
-            .replace(/[-\s]+/g, '-');
     }
 
     save(): number {

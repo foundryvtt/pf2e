@@ -1,5 +1,5 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { ActorPF2e } from '../../base';
 
 /**
@@ -45,7 +45,7 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
         const item = this.object.getOwnedItem(itemId);
         if (!item) {
             throw Error(`PF2e | Could not load item with id: ${itemId} for identification`);
-        } else if (!(item instanceof PF2EPhysicalItem)) {
+        } else if (!(item instanceof PhysicalItemPF2e)) {
             throw Error(`PF2e | ${item?.name} is not a physical item.`);
         }
 

@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function trip(options: ActionDefaultOptions) {
+export function trip(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'athletics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.ath',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Trip',
-        'PF2E.ActionsCheck.Athletics',
-        ['all', 'skill-check', 'athletics', 'action:trip'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:trip'],
         ['action:trip'],
         ['attack'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

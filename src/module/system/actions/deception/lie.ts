@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function lie(options: ActionDefaultOptions) {
+export function lie(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'deception');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dec',
+        property,
         options.glyph,
         'PF2E.Actions.Lie',
-        'PF2E.ActionsCheck.Deception',
-        ['all', 'skill-check', 'deception', 'action:lie'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:lie'],
         ['action:lie'],
         ['auditory', 'concentrate', 'linguistic', 'mental', 'secret'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

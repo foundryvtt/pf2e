@@ -1,5 +1,5 @@
 import { Progress } from '../progress';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -770,7 +770,7 @@ class CompendiumBrowser extends Application {
     }
 
     private addPhysicalItesToSelectedTokens(id: string) {
-        PF2EPhysicalItem.createPhysicalItemFromCompendiumId(id).then((item) => {
+        PhysicalItemPF2e.createPhysicalItemFromCompendiumId(id).then((item) => {
             for (const token of canvas.tokens.controlled) {
                 const userHasPermissions = token.actor?.can(game.user, 'update') ?? false;
                 const tokenType = token.actor?.data?.type ?? 'undefined';

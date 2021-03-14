@@ -46,9 +46,9 @@ import {
     PF2Striking,
     PF2WeaponPotency,
 } from '../rules/rules-data-definitions';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
-import { objectHasKey } from '@utils';
+import { objectHasKey } from '@module/utils';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -925,8 +925,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
             const item = this.items.get(datum._id);
-            if (item instanceof PF2EPhysicalItem) {
-                await PF2EPhysicalItem.updateIdentificationData(item.data, datum);
+            if (item instanceof PhysicalItemPF2e) {
+                await PhysicalItemPF2e.updateIdentificationData(item.data, datum);
             }
         }
 
@@ -1021,8 +1021,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         item: ItemPF2e,
         quantity: number,
         containerId?: string,
-    ): Promise<PF2EPhysicalItem | void> {
-        if (!(item instanceof PF2EPhysicalItem)) {
+    ): Promise<PhysicalItemPF2e | void> {
+        if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
 
@@ -1083,7 +1083,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             return;
         }
 
-        const itemInTargetActor = targetActor.getOwnedItem(result._id) as PF2EPhysicalItem;
+        const itemInTargetActor = targetActor.getOwnedItem(result._id) as PhysicalItemPF2e;
 
         return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }
@@ -1094,7 +1094,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    static async stashOrUnstash<ItemType extends PF2EPhysicalItem = PF2EPhysicalItem>(
+    static async stashOrUnstash<ItemType extends PhysicalItemPF2e = PhysicalItemPF2e>(
         actor: ActorPF2e,
         getItem: () => Promise<ItemType>,
         containerId?: string,

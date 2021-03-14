@@ -5,6 +5,7 @@ import './types/constants';
 import './types/apps/app';
 import './types/apps/base-entity-sheet';
 import './types/apps/form';
+import './types/apps/hotbar';
 import './types/apps/i18n';
 import './types/apps/templates';
 import './types/apps/chat-popout';

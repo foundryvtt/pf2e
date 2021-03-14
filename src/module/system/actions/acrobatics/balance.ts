@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function balance(options: ActionDefaultOptions) {
+export function balance(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'acrobatics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.acr',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Balance',
-        'PF2E.ActionsCheck.Acrobatics',
-        ['all', 'skill-check', 'acrobatics', 'action:balance'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:balance'],
         ['action:balance'],
         ['move'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

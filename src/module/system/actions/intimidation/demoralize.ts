@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function demoralize(options: ActionDefaultOptions) {
+export function demoralize(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'intimidation');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.itm',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Demoralize',
-        'PF2E.ActionsCheck.Intimidation',
-        ['all', 'skill-check', 'intimidation', 'action:demoralize'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:demoralize'],
         ['action:demoralize'],
         ['auditory', 'concentrate', 'emotion', 'mental'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }
