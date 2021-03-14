@@ -140,16 +140,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
         } else if (type === 'melee') {
             // Melee Data
-            const actions: Record<string, string> = {};
-
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'action') actions[i.name] = i.name;
-                }
-            }
-
-            data.attackEffects = CONFIG.PF2E.attackEffects;
-            mergeObject(data.attackEffects, actions);
             data.hasSidebar = false;
             data.detailsActive = true;
             data.weaponDamage = CONFIG.PF2E.damageTypes;
@@ -369,7 +359,23 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected onTraitSelector(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const a = $(event.currentTarget);
-        const choices: any = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
+        let choices: any;
+        // we're special casing this because it is unique per npc
+        // and there's a bunch of magic with .trait-selector so
+        // making this a separate function would be more complicated
+        if (a.attr('data-options') === 'attackEffects') {
+            const actions: Record<string, string> = {};
+            if (this.actor) {
+                for (const i of this.actor.data.items) {
+                    if (i.type === 'action') actions[i.name] = i.name;
+                }
+            }
+
+            choices = duplicate(CONFIG.PF2E.attackEffects);
+            mergeObject(choices, actions);
+        } else {
+            choices = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
+        }
         const options: FormApplicationOptions = {
             name: a.parents('label').attr('for'),
             title: a.parent().text().trim(),
