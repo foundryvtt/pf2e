@@ -115,7 +115,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
     /* -------------------------------------------- */
     /*  Chat Card Data
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     getChatData(htmlOptions?, rollOptions?: any) {
         const itemType = this.data.type;
@@ -323,19 +323,21 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /* -------------------------------------------- */
 
     _spellChatData(rollOptions?: any) {
+        if (!this.actor) {
+            return {};
+        }
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         if (this.data.type != 'spell')
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
         const data = duplicate(this.data.data);
 
-        const spellcastingEntry =
-            this.actor?.data?.items?.find((item) => item._id === data.location.value) ??
-            this.actor?.getOwnedItem(data.location.value)?.data;
+        const entryData = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === data.location.value,
+        )?.data;
+        if (entryData?.type !== 'spellcastingEntry') return {};
 
-        if (!spellcastingEntry || spellcastingEntry.type !== 'spellcastingEntry') return {};
-
-        const spellDC = spellcastingEntry.data.dc?.value ?? spellcastingEntry.data.spelldc.dc;
-        const spellAttack = spellcastingEntry.data.attack?.value ?? spellcastingEntry.data.spelldc.value;
+        const spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
+        const spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
 
         // Spell saving throw text and DC
         data.isSave = data.spellType.value === 'save' || data.save.value !== '';
@@ -726,7 +728,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellcastingEntryCheck(event) {
+    rollSpellcastingEntryCheck(event: JQuery.ClickEvent) {
         // Prepare roll data
         const itemData: ItemDataPF2e = this.data;
         if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
@@ -831,14 +833,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollSpellDamage(event) {
-        let item: ItemDataPF2e = this.data;
+    rollSpellDamage(event: JQuery.ClickEvent) {
+        let item = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
         if (item.type !== 'spell') throw new Error('Wrong item type!');
-
-        const localize: Function = game.i18n.localize.bind(game.i18n);
 
         // Get data
         const itemData = item.data;
@@ -851,15 +851,15 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const parts = spell.damageParts;
 
         // Append damage type to title
-        const damageLabel: string = isHeal ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+        const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
         if (dtype && !isHeal) title += ` (${dtype})`;
 
         // Add item to roll data
-        if (!spell.spellcastingEntry.data && spell.data.data.trickMagicItemData) {
+        if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
             rollData.mod = rollData.abilities[spell.data.data.trickMagicItemData.ability].mod;
         } else {
-            rollData.mod = rollData.abilities[spell.spellcastingEntry.ability].mod;
+            rollData.mod = rollData.abilities[spell.spellcastingEntry?.ability ?? 'int'].mod;
         }
         rollData.item = itemData;
 
@@ -883,7 +883,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Roll Counteract check
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollCounteract(event) {
+    rollCounteract(event: JQuery.ClickEvent) {
         let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
@@ -948,7 +948,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /**
      * Use a consumable item
      */
-    async rollConsumable(ev) {
+    async rollConsumable(_ev: JQuery.ClickEvent) {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
         if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
@@ -966,7 +966,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 const DC = calculateTrickMagicItemCheckDC(item);
                 const popup = new TrickMagicItemPopup(this.actor, DC);
                 popup.render(true);
-                const trickMagicItemData = await popup.result;
+                const trickMagicItemData = popup.result;
                 if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 else return;
             }
@@ -1152,7 +1152,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
 
     /* -------------------------------------------- */
 
-    static chatListeners(html) {
+    static chatListeners(html: JQuery) {
         // Chat card actions
         html.on('click', '.card-buttons button', (ev) => {
             ev.preventDefault();
