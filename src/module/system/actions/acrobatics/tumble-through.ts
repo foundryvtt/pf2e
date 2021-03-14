@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function tumbleThrough(options: ActionDefaultOptions) {
+export function tumbleThrough(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'acrobatics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.acr',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.TumbleThrough',
-        'PF2E.ActionsCheck.Acrobatics',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'acrobatics', 'action:tumble-through'],
+        ['all', checkType, stat, 'action:tumble-through'],
         ['action:tumble-through'],
         ['move'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

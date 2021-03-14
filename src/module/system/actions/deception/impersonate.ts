@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function impersonate(options: ActionDefaultOptions) {
+export function impersonate(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'deception');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dec',
+        property,
         options.glyph,
         'PF2E.Actions.Impersonate',
-        'PF2E.ActionsCheck.Deception',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'deception', 'action:impersonate'],
+        ['all', checkType, stat, 'action:impersonate'],
         ['action:impersonate'],
         ['concentrate', 'exploration', 'manipulate', 'secret'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }
