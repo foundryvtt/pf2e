@@ -1,7 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 
-export const fetchSpell = async (name) => {
+export const fetchSpell = (name) => {
     const spellsDb = './packs/data/spells.db/';
     const spellFiles = fs.readdirSync(spellsDb);
 
