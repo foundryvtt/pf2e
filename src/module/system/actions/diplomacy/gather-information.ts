@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function gatherInformation(options: ActionDefaultOptions) {
+export function gatherInformation(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'diplomacy');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dip',
+        property,
         options.glyph,
         'PF2E.Actions.GatherInformation',
-        'PF2E.ActionsCheck.Diplomacy',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'diplomacy', 'action:gather-information'],
+        ['all', checkType, stat, 'action:gather-information'],
         ['action:gather-information'],
         ['exploration', 'secret'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

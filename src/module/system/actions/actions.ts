@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/base';
+import { ActorPF2e, SKILL_EXPANDED } from '@actor/base';
 import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
@@ -32,6 +32,10 @@ export interface ActionDefaultOptions {
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
     modifiers?: ModifierPF2e[];
+}
+
+export interface SkillActionOptions extends ActionDefaultOptions {
+    skill?: string;
 }
 
 export class ActionsPF2e {
@@ -68,6 +72,32 @@ export class ActionsPF2e {
         // intimidation
         actions.coerce = coerce;
         actions.demoralize = demoralize;
+    }
+
+    static resolveStat(
+        stat: string,
+    ): {
+        checkType: CheckType;
+        property: string;
+        stat: string;
+        subtitle: string;
+    } {
+        switch (stat) {
+            case 'perception':
+                return {
+                    checkType: 'perception-check',
+                    property: 'data.data.attributes.perception',
+                    stat,
+                    subtitle: 'PF2E.ActionsCheck.perception',
+                };
+            default:
+                return {
+                    checkType: 'skill-check',
+                    property: `data.data.skills.${SKILL_EXPANDED[stat]?.shortform ?? stat}`,
+                    stat,
+                    subtitle: `PF2E.ActionsCheck.${stat}`,
+                };
+        }
     }
 
     static simpleRollActionCheck(
