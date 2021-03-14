@@ -1,6 +1,7 @@
 import * as CanvasInit from './canvas-init';
 import * as CloseWorldClockSettings from './close-world-clock-settings';
 import * as Init from './init';
+import * as HotbarDrop from './hotbar-drop';
 import * as Ready from './ready';
 import * as RenderSettings from './render-settings';
 import * as Setup from './setup';
@@ -14,6 +15,7 @@ export namespace PF2E {
             CanvasInit.listen();
             CloseWorldClockSettings.listen();
             Init.listen();
+            HotbarDrop.listen();
             Ready.listen();
             RenderSettings.listen();
             Setup.listen();

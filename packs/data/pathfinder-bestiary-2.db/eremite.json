@@ -88,9 +88,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "50 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -166,44 +169,44 @@
                 "data": {
                     "slots": {
                         "slot1": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot10": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot2": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot3": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot4": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot5": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot6": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot7": {
-                            "max": "5",
-                            "value": "5"
+                            "max": 5,
+                            "value": 5
                         },
                         "slot8": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot9": {
-                            "max": "1",
-                            "value": "1"
+                            "max": 1,
+                            "value": 1
                         }
                     },
                     "spelldc": {
@@ -213,6 +216,22 @@
                 }
             },
             "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 42,
+                        "value": 32
+                    }
+                }
+            },
+            "7XnqXwEoetjKQZg4": {
+                "data": {
+                    "spelldc": {
+                        "dc": 42,
+                        "value": 32
+                    }
+                }
+            },
+            "8bBB9wH9eUqcMRq8": {
                 "data": {
                     "spelldc": {
                         "dc": 42,
@@ -468,6 +487,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -520,6 +542,7 @@
     },
     "effects": [],
     "flags": {},
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "7XnqXwEoetjKQZg4",
@@ -552,6 +575,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -615,6 +641,7 @@
                         "value": 1
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -676,6 +703,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -739,6 +769,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -770,7 +801,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "PyX25TZGsSz9H5e8",
+            "_id": "SsMbL4GFi2xewu7H",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -873,10 +904,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "bind-soul",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=21"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -923,20 +955,21 @@
                         "evil",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.GYmXvS9NJ7QwfWGg"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bind-soul.jpg",
             "name": "Bind Soul",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "VAmNeygrYGWQWQwr",
+            "_id": "d8mmytFdKZUzx3IF",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -966,7 +999,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "7d8"
+                    "value": "10d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -991,7 +1024,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1039,10 +1072,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "blade-barrier",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=24"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1088,20 +1122,21 @@
                         "evocation",
                         "force"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.peCF6VArm8urfwxZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blade-barrier.jpg",
             "name": "Blade Barrier",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "bXFlQzcbX9ScQN1O",
+            "_id": "T0Q6bqPcnUIFLrsJ",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1131,7 +1166,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1143,7 +1178,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1156,7 +1191,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1204,10 +1239,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "harm",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1253,20 +1289,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
             "img": "systems/pf2e/icons/spells/harm.jpg",
             "name": "Harm",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "ewenFEYloe23gRPj",
+            "_id": "wmiw9MMIrAefRddX",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1296,7 +1333,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1308,7 +1345,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1321,7 +1358,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1369,10 +1406,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "harm",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1418,20 +1456,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
             "img": "systems/pf2e/icons/spells/harm.jpg",
             "name": "Harm",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "36uemCF8PC6tzHp9",
+            "_id": "cZsE5u7hG7NfQqCc",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1461,7 +1500,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1473,7 +1512,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1486,7 +1525,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1534,10 +1573,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "heal",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1586,20 +1626,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.jpg",
             "name": "Heal",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "BSD6XV2iUnKGBiGu",
+            "_id": "MGyoIEbFO1TImPdZ",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1629,7 +1670,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "1d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1641,7 +1682,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1654,7 +1695,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1702,10 +1743,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "heal",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1754,20 +1796,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.jpg",
             "name": "Heal",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "u0bUgzS8cIdxbC2T",
+            "_id": "RMx9nCK6DAwno36f",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1797,7 +1840,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "5d8"
+                    "value": "9d8"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1822,7 +1865,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -1870,10 +1913,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "shadow-blast",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=273"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1920,16 +1964,12 @@
                         "evocation",
                         "shadow"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.IqJ9URobmJ9L9UBG"
                 }
             },
             "img": "systems/pf2e/icons/spells/shadow-blast.jpg",
@@ -1938,7 +1978,7 @@
             "type": "spell"
         },
         {
-            "_id": "ynREIxn1de28I524",
+            "_id": "LdMlE7uRJEkPdKUA",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1957,7 +1997,7 @@
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
-                    "value": " material, somatic, verbal"
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "label": "Cost",
@@ -1993,7 +2033,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -2041,10 +2081,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "shadow-walk",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=275"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2092,25 +2133,21 @@
                         "shadow",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Shadow Walk"
                 }
             },
             "img": "systems/pf2e/icons/spells/shadow-walk.jpg",
-            "name": "Shadow Walk (at will)",
+            "name": "Shadow Walk (At will)",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "gd4eG9KBFo0gxXpx",
+            "_id": "KceVAfrBOyOgCGUj",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2165,7 +2202,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -2213,10 +2250,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2263,20 +2301,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door (at will)",
+            "name": "Dimension Door (At will)",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "OZfQXCss9GV3UaJP",
+            "_id": "vQbJjCDlunRjIDwz",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2323,10 +2362,10 @@
                 "duration": {
                     "label": "Duration",
                     "type": "String",
-                    "value": " 1 day"
+                    "value": "1 day"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2379,10 +2418,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dimensional-lock",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=71"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2429,20 +2469,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XZE4BawIlTf88Yl9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimensional-lock.jpg",
             "name": "Dimensional Lock",
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "fsNbkjFUinshNk5U",
+            "_id": "RTunxYN9r4ztOeQC",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2545,10 +2586,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "plane-shift",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2590,27 +2632,28 @@
                     "custom": "",
                     "label": "Spell Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "type": "String",
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Plane Shift"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.jpg",
-            "name": "Plane Shift (to Material Plane or Shadow Plane only)",
+            "name": "Plane Shift (To Material Plane or Shadow Plane only)",
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "i3jXb9oYUB5qE8QB",
+            "_id": "ZYBGyu05L6Ve0V1r",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2660,12 +2703,12 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -2713,10 +2756,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "shadow-siphon",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=274"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2763,25 +2807,21 @@
                         "illusion",
                         "shadow"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.tcwT97RWKxsJiefG"
                 }
             },
             "img": "systems/pf2e/icons/spells/shadow-siphon.jpg",
-            "name": "Shadow Siphon (at will)",
+            "name": "Shadow Siphon (At will)",
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "SaokfWoQd445CCRa",
+            "_id": "MRAwXeV8j55N2Ar2",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -2823,7 +2863,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so dispel magic and other effects that counteract spells can't counteract them. However, alter reality, miracle, primal phenomenon, restoration, or wish can still counteract the effects.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target spends the first action on its next turn with the @Compendium[pf2e.conditionitems.Confused]{Confused} condition.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Confused]{Confused} permanently.</p>"
+                    "value": "<p>You scramble a creature's mental faculties and sensory input. The target must attempt a Will saving throw. Regardless of the result of that save, the target is then temporarily immune for 10 minutes. Warp mind's effects happen instantly, so dispel magic and other effects that counteract spells can't counteract them. However, alter reality, miracle, primal phenomenon, restoration, or wish can still counteract the effects.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target spends the first action on its next turn with the @Compendium[pf2e.conditionitems.Confused]{Confused} condition.</p>\n<p><strong>Failure</strong> The target is Confused for 1 minute.</p>\n<p><strong>Critical Failure</strong> The target is Confused permanently.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -2831,7 +2871,7 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
@@ -2884,10 +2924,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "warp-mind",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=369"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -2936,20 +2977,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.8kJbiBEjMWG4VUjs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/warp-mind.jpg",
             "name": "Warp Mind",
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "3FkmlE0ZYiAUW5MJ",
+            "_id": "TVBLN5VvK2Dr9e9K",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3052,6 +3094,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "stabilize",
                 "source": {
                     "label": "Source",
                     "type": "String",
@@ -3105,16 +3148,12 @@
                         "cantrip",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnjhtQYexDtNDdEg"
                 }
             },
             "img": "systems/pf2e/icons/spells/stabelize.jpg",
@@ -3123,7 +3162,7 @@
             "type": "spell"
         },
         {
-            "_id": "esG9FS6jFsrwEY9y",
+            "_id": "c8DVpWzqdTXj4S64",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -3173,12 +3212,12 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "7XnqXwEoetjKQZg4"
@@ -3226,10 +3265,11 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "true-seeing",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -3278,20 +3318,21 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
             "name": "True Seeing (Constant)",
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "8F25RLtACWpZN6aG",
+            "_id": "ELRyRo1aX0f7EdAK",
             "data": {
                 "ability": {
                     "value": ""
@@ -3318,7 +3359,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.Freedom]{Freedom}. Some forms of<em>imprisonment</em>can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.Wish]{Wish} can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.Freedom]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} or @Compendium[pf2e.spells-srd.Haste]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.<br /><strong>Success</strong> You imprison the target.<br /><strong>Failure</strong> You fail to imprison the target.<br /><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.<br /><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
+                    "value": "<p><span>You perform a ritual to imprison a creature in one of several forms. While some versions of this ritual offer all of the forms, others include only a single form or only a few of them. Whichever form you use, the effect can't be counteracted, though it can be ended by @Compendium[pf2e.spells-srd.Freedom]{Freedom}. Some forms of <em>imprisonment</em> can be ended by other means. Because the ritual requires the target to remain within 10 feet at all times, it typically requires you to subdue the target first.</span></p>\n<ul>\n<li><strong>Chains</strong> You bind the creature with chains, rendering it unable to use any actions other than to speak. Other creatures that attempt to approach, harm the chains, or free the trapped creature in any way must succeed at a Will save or be unable to do so forever. The chains have Hardness equal to 5 × the <em>imprisonment</em> ritual's spell level, and double that many Hit Points. Destroying the chains frees the target.</li>\n<li><strong>Object (9th level or higher)</strong> You either shrink the creature to an inch in height or transform it into an insubstantial form whose body trails away into wisps below its head. Either way, you trap it inside a gem, jar, bottle, lamp, or similar container. The creature ceases aging and doesn't require food or drink. The creature is still aware of its surroundings and can move within the container and speak, but it can't use any other actions. Destroying the container kills the target rather than freeing it. This form of <em>imprisonment</em> is also transmutation magic.</li>\n<li><strong>Oubliette (10th level only)</strong> You entomb the target in a state of suspended animation deep beneath the surface of the ground and out of tune with reality so that it can't be reached by any means. You also prevent divinations from revealing the location where the <em>imprisonment</em> occurred. Powerful magic such as @Compendium[pf2e.spells-srd.Wish]{Wish} can reveal the location of the imprisonment, but even such magic can't free the target from the oubliette; only a 10th-level @Compendium[pf2e.spells-srd.Freedom]{Freedom} ritual can do so.</li>\n<li><strong>Prison</strong> You render the creature completely unable to leave a particular confined area or structure of your choice, such as a jail cell or sealed cave. The magic also prevents the creature from damaging its prison, either directly or indirectly, to break free. If the creature's prison is entirely destroyed by some external force, the creature is freed, though for some larger or natural prisons, this might be unfeasible.</li>\n<li><strong>Slumber (sleep effect)</strong> You put the creature into an eternal sleep. It ceases aging and doesn't require food or drink. A single sincere physical display of affection from a creature who genuinely loves the target-whether romantically, filially, or otherwise-frees it from the slumber. This form of <em>imprisonment</em> is also enchantment magic.</li>\n<li><strong>Temporal Stasis</strong> You send the creature into a state of suspended animation outside the flow of time. The creature doesn't grow older and can't be affected by any effect from within the normal timestream. While casting this ritual, you can optionally name any amount of time for the stasis; after this duration elapses, the stasis ends. Unlike other forms of <em>imprisonment</em>, temporal stasis can be counteracted by a @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} or @Compendium[pf2e.spells-srd.Haste]{Haste} spell. This form of <em>imprisonment</em> is also transmutation magic.</li>\n</ul>\n<hr />\n<p><strong>Critical Success</strong> You imprison the target. You can either use a form of <em>imprisonment</em> that usually requires 1 additional spell level, or give any creatures trying to use a <em>freedom</em> ritual to rescue the target a -2 circumstance penalty to checks associated with that ritual.</p>\n<p><strong>Success</strong> You imprison the target.</p>\n<p><strong>Failure</strong> You fail to imprison the target.</p>\n<p><strong>Critical Failure</strong> You imprison yourself and the secondary casters in the same way you intended to imprison the target.</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can use the object form of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 18th level. The base cost increases to 2,000 gp.</p>\n<p><strong>Heightened (10th)</strong> You can use the object and oubliette forms of <em>imprisonment</em> in addition to the other options, and you can target a creature of up to 20th level. The base cost increases to 6,000 gp.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -3327,7 +3368,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": 1
+                    "value": 8
                 },
                 "location": {
                     "value": "8bBB9wH9eUqcMRq8"
@@ -3365,6 +3406,7 @@
                 "secondarycheck": {
                     "value": "Crafting, Society"
                 },
+                "slug": "imprisonment",
                 "source": {
                     "value": ""
                 },
@@ -3397,13 +3439,14 @@
                     "value": [
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.2CNqkt2s2IYkVnv6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/imprisonment.jpg",
             "name": "Imprisonment",
             "sort": 1800000,
@@ -3416,10 +3459,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "exquisite pain"
+                        "Exquisite Pain"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 39,
                     "value": 39
@@ -3440,20 +3485,16 @@
                     "damageType": "piercing",
                     "die": "4d8+19"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "4d8+19",
                         "damageType": "piercing"
-                    },
-                    {
-                        "damage": "2d6",
-                        "damageType": "persistentbleed"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(evil, magical)</p>"
+                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3531,6 +3572,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3568,11 +3610,13 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "exquisite pain",
+                        "Exquisite Pain",
                         "Improved Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 39,
                     "value": 39
@@ -3593,20 +3637,16 @@
                     "damageType": "slashing",
                     "die": "3d6+19"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d6+19",
                         "damageType": "slashing"
-                    },
-                    {
-                        "damage": "2d6",
-                        "damageType": "persistentbleed"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, evil, magical)</p>"
+                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -3684,6 +3724,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3716,10 +3757,61 @@
             "type": "melee"
         },
         {
-            "_id": "XofWjq53G9ftxX1X",
+            "_id": "bQ7xqBShE3D6pEMf",
             "data": {
                 "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
                     "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "sort": 2100000,
+            "type": "action"
+        },
+        {
+            "_id": "gAdwnZ4OP8sPpuOg",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -3730,7 +3822,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>As augur.</p>"
+                    "value": "<p>A velstrac automatically knows whether a creature it sees has any of the @Compendium[pf2e.conditionitems.Doomed]{Doomed}, @Compendium[pf2e.conditionitems.Dying]{Dying}, and @Compendium[pf2e.conditionitems.Wounded]{Wounded} conditions, as well as the value of those conditions.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3739,6 +3831,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3766,14 +3859,14 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Painsight",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "action"
         },
         {
-            "_id": "NsRn4K2Tli8P3WKm",
+            "_id": "InntbXg8SWCGpsZF",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -3784,7 +3877,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>An eremite's actions can't be disrupted due to damage or Strikes (such as Attack of Opportunity).</p>"
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3793,6 +3886,285 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Telepathy",
+            "sort": 2300000,
+            "type": "action"
+        },
+        {
+            "_id": "b9pe5dbiY9560pAA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 2400000,
+            "type": "action"
+        },
+        {
+            "_id": "MdeM9TcCMZeHBGEs",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 2500000,
+            "type": "action"
+        },
+        {
+            "_id": "3Ut3Piu4ATI3yyUU",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Regeneration 25 (deactivated by good or silver)",
+            "sort": 2600000,
+            "type": "action"
+        },
+        {
+            "_id": "fBpvD0xb43MGDESG",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 2700000,
+            "type": "action"
+        },
+        {
+            "_id": "NsRn4K2Tli8P3WKm",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>An eremite's actions can't be disrupted due to damage or Strikes (such as @Compendium[pf2e.feats-srd.Attack of Opportunity]{Attack of Opportunity}).</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3817,14 +4189,14 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ignore Pain",
-            "sort": 2200000,
+            "sort": 2800000,
             "type": "action"
         },
         {
             "_id": "UEAEQewstiRA9wbc",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -3835,7 +4207,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it feels compelled to offer pieces of its own flesh to the eremite. The creature must succeed at a DC 40 Will save or become paralyzed for 1 round.</p>"
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it feels compelled to offer pieces of its own flesh to the eremite. The creature must succeed at a DC 40 Will save or become @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3844,6 +4216,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3876,7 +4249,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Paralytic Perfection",
-            "sort": 2300000,
+            "sort": 2900000,
             "type": "action"
         },
         {
@@ -3889,12 +4262,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The eremite has a creature grabbed; <br />\n<strong>Effect</strong> The eremite excises flesh or bone from a creature it has grabbed. The target takes [[/r 6d10 # persistent bleed damage]] persistent bleed damage.<br />\nExquisite Pain An eremite's knowledge of pressure points and pain centers is unsurpassed. A creature hit by an eremite's melee Strikes must succeed at a DC 40 Fortitude save or be stunned 2 (stunned 4 on a critical failure). A creature that critically succeeds is temporarily immune for 24 hours.</p>"
+                    "value": "<p><strong>Requirements</strong> The eremite has a creature grabbed;</p>\n<p><strong>Effect</strong> The eremite excises flesh or bone from a creature it has grabbed. The target takes [[/r 6d10 #persistent bleed]] persistent bleed damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3903,6 +4276,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3927,9 +4301,56 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Evisceration",
-            "sort": 2400000,
+            "sort": 3000000,
+            "type": "action"
+        },
+        {
+            "_id": "pmHXQt1EgMIVwD1i",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>An eremite's knowledge of pressure points and pain centers is unsurpassed. A creature hit by an eremite's melee Strikes must succeed at a DC 40 Fortitude save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned 2} (@Compendium[pf2e.conditionitems.Stunned]{Stunned 4} on a critical failure).</p>\n<p>A creature that critically succeeds is temporarily immune for 24 hours.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Exquisite Pain",
+            "sort": 3100000,
             "type": "action"
         },
         {
@@ -3942,12 +4363,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The eremite stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against paralytic perfection.<br />\nIn addition, if the creature was already paralyzed, on a failed save, its unnatural longing causes it to become doomed 1.<br />\nAfter attempting this save, the creature is then temporarily immune until the start of the eremite's next turn.</p>"
+                    "value": "<p>The eremite stares at a creature they can see within 30 feet. The creature must immediately attempt a Will save against paralytic perfection.</p>\n<p>In addition, if the creature was already paralyzed, on a failed save, its unnatural longing causes it to become @Compendium[pf2e.conditionitems.Doomed]{Doomed 1}.</p>\n<p>After attempting this save, the creature is then temporarily immune until the start of the eremite's next turn.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3956,6 +4377,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3985,9 +4407,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Focus Gaze",
-            "sort": 2500000,
+            "sort": 3200000,
             "type": "action"
         },
         {
@@ -4000,12 +4422,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirement</strong> The eremite holds a piece of flesh they collected via Evisceration; <br />\n<strong>Effect</strong> The eremite attaches the stolen flesh to themself. They either regain 100 Hit Points; reduce the value of their clumsy, drained, enfeebled, or stupefied condition by 3; or reduce the stage of any affliction affecting them by 3.</p>"
+                    "value": "<p><strong>Requirement</strong> The eremite holds a piece of flesh they collected via Evisceration;</p>\n<p><strong>Effect</strong> The eremite attaches the stolen flesh to themself. They either regain 100 Hit Points; reduce the value of their clumsy, drained, enfeebled, or stupefied condition by 3; or reduce the stage of any affliction affecting them by 3.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4014,6 +4436,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4036,9 +4459,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Graft Flesh",
-            "sort": 2600000,
+            "sort": 3300000,
             "type": "action"
         },
         {
@@ -4056,7 +4479,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When an eremite uses plane shift or shadow walk, they arrive at exactly their intended destination.</p>"
+                    "value": "<p>When an eremite uses @Compendium[pf2e.spells-srd.Plane Shift]{Plane Shift} or @Compendium[pf2e.spells-srd.Shadow Walk]{Shadow Walk}, they arrive at exactly their intended destination.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -4065,6 +4488,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4092,7 +4516,60 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Shadow Traveler",
-            "sort": 2700000,
+            "sort": 3400000,
+            "type": "action"
+        },
+        {
+            "_id": "wY6wIEuFcKjcTbGS",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "free"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can use @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} as a free action triggered by a hit with its initial attack. A monster with Improved Grab still needs to spend an action to extend the duration for creatures it already has @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "improved-grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.i18TlebMzwONyPhI"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/FreeAction.png",
+            "name": "Improved Grab",
+            "sort": 3500000,
             "type": "action"
         },
         {
@@ -4116,6 +4593,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4134,7 +4612,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 2800000,
+            "sort": 3600000,
             "type": "lore"
         },
         {
@@ -4158,6 +4636,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4176,7 +4655,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 2900000,
+            "sort": 3700000,
             "type": "lore"
         },
         {
@@ -4200,6 +4679,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4218,7 +4698,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Diplomacy",
-            "sort": 3000000,
+            "sort": 3800000,
             "type": "lore"
         },
         {
@@ -4242,6 +4722,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4260,7 +4741,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 3100000,
+            "sort": 3900000,
             "type": "lore"
         },
         {
@@ -4284,6 +4765,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4302,7 +4784,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Medicine",
-            "sort": 3200000,
+            "sort": 4000000,
             "type": "lore"
         },
         {
@@ -4326,6 +4808,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4344,7 +4827,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 3300000,
+            "sort": 4100000,
             "type": "lore"
         },
         {
@@ -4368,6 +4851,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4386,7 +4870,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 3400000,
+            "sort": 4200000,
             "type": "lore"
         },
         {
@@ -4410,6 +4894,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -4428,7 +4913,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Torture Lore",
-            "sort": 3500000,
+            "sort": 4300000,
             "type": "lore"
         }
     ],
@@ -4452,7 +4937,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

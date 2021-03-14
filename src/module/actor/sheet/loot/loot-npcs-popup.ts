@@ -1,5 +1,5 @@
 import { PhysicalItemData } from '@item/data-definitions';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { ActorPF2e } from '../../base';
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
@@ -37,7 +37,7 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             if (selectionData[i] && currentSource) {
                 const currentSourceItemData: PhysicalItemData[] = Array.from(
                     currentSource.items.values(),
-                ).flatMap((item) => (item instanceof PF2EPhysicalItem ? item.data : []));
+                ).flatMap((item) => (item instanceof PhysicalItemPF2e ? item.data : []));
                 itemData.push(...duplicate(currentSourceItemData));
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
                 currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);

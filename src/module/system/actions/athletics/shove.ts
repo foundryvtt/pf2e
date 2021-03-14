@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function shove(options: ActionDefaultOptions) {
+export function shove(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'athletics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.ath',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Shove',
-        'PF2E.ActionsCheck.Athletics',
-        ['all', 'skill-check', 'athletics', 'action:shove'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:shove'],
         ['action:shove'],
         ['attack'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

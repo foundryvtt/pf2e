@@ -6,7 +6,7 @@ import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemDataPF2e } from '@item/data-definitions';
-import { CompendiumPack } from './packman/compendium-pack';
+import { sluggify } from '@module/utils';
 
 const { window } = new JSDOM('');
 const $ = require('jquery')(window);
@@ -120,7 +120,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
 
         if ('data' in entityData && 'slug' in entityData.data) {
             const slug = entityData.data.slug;
-            if (typeof slug === 'string' && slug !== CompendiumPack.sluggify(entityData.name)) {
+            if (typeof slug === 'string' && slug !== sluggify(entityData.name)) {
                 console.warn(
                     `Warning: Name change detected on ${entityData.name}. ` +
                         'Please remember to create a slug migration before next release.',
@@ -131,6 +131,11 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         }
 
         entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
+        if ('effects' in entityData && !entityData.effects.some((effect) => effect.origin?.startsWith('Actor.'))) {
+            for (const effect of entityData.effects) {
+                effect.origin = '';
+            }
+        }
     }
 
     pruneTree(entityData, entityData);
@@ -191,7 +196,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
             .replace(/<(?:b|strong)>\s*/g, '<strong>')
             .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
             .replace(/(<\/strong>)(\w)/g, '$1 $2')
-            .replaceAll('<p></p>', '')
+            .replace(/(<p><\/p>)/g, '')
             .replace(/\s{2,}/g, ' ')
             .trim();
     };
@@ -306,8 +311,7 @@ async function extractPack(filePath: string, packFilename: string) {
         })();
 
         // Remove all non-alphanumeric characters from the name
-        const slug = CompendiumPack.sluggify(entityData.name);
-
+        const slug = sluggify(entityData.name);
         const outFileName = `${slug}.json`;
         const outFilePath = path.resolve(outPath, outFileName);
 

@@ -1,6 +1,6 @@
 import { ActorPF2e, UserPF2e } from './base';
 import { LootData } from './data-definitions';
-import { PF2EPhysicalItem } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { ItemPF2e } from '@item/base';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { CharacterPF2e } from './character';
@@ -41,7 +41,7 @@ export class LootPF2e extends ActorPF2e {
         item: ItemPF2e,
         quantity: number,
         containerId?: string,
-    ): Promise<PF2EPhysicalItem | void> {
+    ): Promise<PhysicalItemPF2e | void> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
@@ -129,7 +129,7 @@ export class LootTransfer implements LootTransferData {
         if (
             !(
                 sourceActor instanceof ActorPF2e &&
-                sourceItem instanceof PF2EPhysicalItem &&
+                sourceItem instanceof PhysicalItemPF2e &&
                 targetActor instanceof ActorPF2e &&
                 (sourceActor.hasPerm(requester, 'owner') || sourceActor instanceof LootPF2e) &&
                 (targetActor.hasPerm(requester, 'owner') || targetActor instanceof LootPF2e)
@@ -144,7 +144,7 @@ export class LootTransfer implements LootTransferData {
             this.quantity,
             this.containerId,
         );
-        if (!(targetItem instanceof PF2EPhysicalItem)) {
+        if (!(targetItem instanceof PhysicalItemPF2e)) {
             return Promise.reject();
         }
 
@@ -198,7 +198,7 @@ export class LootTransfer implements LootTransferData {
         requester: UserPF2e,
         sourceActor: ActorPF2e,
         targetActor: ActorPF2e,
-        item: PF2EPhysicalItem,
+        item: PhysicalItemPF2e,
     ): Promise<void> {
         // Exhaustive pattern match to determine speaker and item-transfer parties
         type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game['i18n']['format']>];

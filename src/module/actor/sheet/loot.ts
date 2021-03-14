@@ -1,10 +1,10 @@
-import { calculateWealth } from '../../item/treasure';
+import { calculateWealth } from '@item/treasure';
 import { ActorSheetPF2e } from './base';
 import { LootPF2e } from '../loot';
-import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '../../item/bulk';
-import { getContainerMap } from '../../item/container';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
-import { PF2EPhysicalItem } from '../../item/physical';
+import { PhysicalItemPF2e } from '@item/physical';
 import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 
@@ -101,7 +101,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         for (const i of actorData.items) {
             // item identification
-            i.identified = !isPhysicalItem(i) || PF2EPhysicalItem.isIdentified(i);
+            i.identified = !isPhysicalItem(i) || PhysicalItemPF2e.isIdentified(i);
             i.showGMInfo = game.user.isGM;
             i.showEdit = i.showGMInfo || i.identified;
 

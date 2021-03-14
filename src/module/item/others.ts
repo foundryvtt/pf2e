@@ -1,9 +1,8 @@
-import { PF2EPhysicalItem } from './physical';
+import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
 import {
     ActionData,
-    ArmorData,
-    BackpackData,
+    ContainerData,
     ConditionData,
     ConsumableData,
     EquipmentData,
@@ -16,45 +15,45 @@ import {
     SpellcastingEntryData,
     SpellData,
     TreasureData,
-    WeaponData,
 } from './data-definitions';
 
-export class ContainerPF2e extends PF2EPhysicalItem {
-    data!: BackpackData;
-    _data!: BackpackData;
+export class ContainerPF2e extends PhysicalItemPF2e {}
+export interface ContainerPF2e {
+    data: ContainerData;
+    _data: ContainerData;
 }
-export class TreasurePF2e extends PF2EPhysicalItem {
-    data!: TreasureData;
-    _data!: TreasureData;
-}
-export class WeaponPF2e extends PF2EPhysicalItem {
-    data!: WeaponData;
-    _data!: WeaponData;
-}
-export class ArmorPF2e extends PF2EPhysicalItem {
-    data!: ArmorData;
-    _data!: ArmorData;
-}
-export class KitPF2e extends PF2EPhysicalItem {
-    data!: KitData;
-    _data!: KitData;
-}
-export class MeleePF2e extends PF2EPhysicalItem {
-    data!: MeleeData;
-    _data!: MeleeData;
-}
-export class ConsumablePF2e extends PF2EPhysicalItem {
-    data!: ConsumableData;
-    _data!: ConsumableData;
-}
-export class EquipmentPF2e extends PF2EPhysicalItem {
-    data!: EquipmentData;
-    _data!: EquipmentData;
-}
-export class FeatPF2e extends ItemPF2e {
-    data!: FeatData;
-    _data!: FeatData;
 
+export class TreasurePF2e extends PhysicalItemPF2e {}
+export interface TreasurePF2e {
+    data: TreasureData;
+    _data: TreasureData;
+}
+
+export class KitPF2e extends PhysicalItemPF2e {}
+export interface KitPF2e {
+    data: KitData;
+    _data: KitData;
+}
+
+export class MeleePF2e extends PhysicalItemPF2e {}
+export interface MeleePF2e {
+    data: MeleeData;
+    _data: MeleeData;
+}
+
+export class ConsumablePF2e extends PhysicalItemPF2e {}
+export interface ConsumablePF2e {
+    data: ConsumableData;
+    _data: ConsumableData;
+}
+
+export class EquipmentPF2e extends PhysicalItemPF2e {}
+export interface EquipmentPF2e {
+    data: EquipmentData;
+    _data: EquipmentData;
+}
+
+export class FeatPF2e extends ItemPF2e {
     get featType(): { value: FeatType; label: string } {
         return {
             value: this.data.data.featType.value,
@@ -62,27 +61,43 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 }
-export class LorePF2e extends ItemPF2e {
-    data!: LoreData;
-    _data!: LoreData;
+export interface FeatPF2e {
+    data: FeatData;
+    _data: FeatData;
 }
-export class MartialPF2e extends ItemPF2e {
-    data!: MartialData;
-    _data!: MartialData;
+
+export class LorePF2e extends ItemPF2e {}
+export interface LorePF2e {
+    data: LoreData;
+    _data: LoreData;
 }
-export class ActionPF2e extends ItemPF2e {
-    data!: ActionData;
-    _data!: ActionData;
+
+export class MartialPF2e extends ItemPF2e {}
+export interface MartialPF2e {
+    data: MartialData;
+    _data: MartialData;
 }
-export class SpellPF2e extends ItemPF2e {
-    data!: SpellData;
-    _data!: SpellData;
+
+export class ActionPF2e extends ItemPF2e {}
+export interface ActionPF2e {
+    data: ActionData;
+    _data: ActionData;
 }
-export class SpellcastingEntryPF2e extends ItemPF2e {
-    data!: SpellcastingEntryData;
-    _data!: SpellcastingEntryData;
+
+export class SpellPF2e extends ItemPF2e {}
+export interface SpellPF2e {
+    data: SpellData;
+    _data: SpellData;
 }
-export class ConditionPF2e extends ItemPF2e {
-    data!: ConditionData;
-    _data!: ConditionData;
+
+export class SpellcastingEntryPF2e extends ItemPF2e {}
+export interface SpellcastingEntryPF2e {
+    data: SpellcastingEntryData;
+    _data: SpellcastingEntryData;
+}
+
+export class ConditionPF2e extends ItemPF2e {}
+export interface ConditionPF2e {
+    data: ConditionData;
+    _data: ConditionData;
 }

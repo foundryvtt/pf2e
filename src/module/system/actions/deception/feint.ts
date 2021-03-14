@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function feint(options: ActionDefaultOptions) {
+export function feint(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'deception');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dec',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Feint',
-        'PF2E.ActionsCheck.Deception',
-        ['all', 'skill-check', 'deception', 'action:feint'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:feint'],
         ['action:feint'],
         ['mental'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

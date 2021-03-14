@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function squeeze(options: ActionDefaultOptions) {
+export function squeeze(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'acrobatics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.acr',
+        property,
         options.glyph,
         'PF2E.Actions.Squeeze',
-        'PF2E.ActionsCheck.Acrobatics',
-        ['all', 'skill-check', 'acrobatics', 'action:squeeze'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:squeeze'],
         ['action:squeeze'],
         ['exploration', 'move'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

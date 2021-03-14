@@ -1,5 +1,5 @@
-import { ActorPF2e } from '@actor/base';
-import { ensureProficiencyOption, CheckModifier, StatisticModifier } from '../../modifiers';
+import { ActorPF2e, SKILL_EXPANDED } from '@actor/base';
+import { ensureProficiencyOption, CheckModifier, StatisticModifier, ModifierPF2e } from '../../modifiers';
 import { CheckPF2e } from '../rolls';
 import { seek } from './basic/seek';
 import { balance } from './acrobatics/balance';
@@ -19,6 +19,7 @@ import { createADiversion } from './deception/create-a-diversion';
 import { feint } from './deception/feint';
 import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
+import { gatherInformation } from './diplomacy/gather-information';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 
@@ -30,6 +31,11 @@ export interface ActionDefaultOptions {
     event: JQuery.Event;
     actors?: ActorPF2e | ActorPF2e[];
     glyph?: ActionGlyph;
+    modifiers?: ModifierPF2e[];
+}
+
+export interface SkillActionOptions extends ActionDefaultOptions {
+    skill?: string;
 }
 
 export class ActionsPF2e {
@@ -60,9 +66,38 @@ export class ActionsPF2e {
         actions.impersonate = impersonate;
         actions.lie = lie;
 
+        // diplomacy
+        actions.gatherInformation = gatherInformation;
+
         // intimidation
         actions.coerce = coerce;
         actions.demoralize = demoralize;
+    }
+
+    static resolveStat(
+        stat: string,
+    ): {
+        checkType: CheckType;
+        property: string;
+        stat: string;
+        subtitle: string;
+    } {
+        switch (stat) {
+            case 'perception':
+                return {
+                    checkType: 'perception-check',
+                    property: 'data.data.attributes.perception',
+                    stat,
+                    subtitle: 'PF2E.ActionsCheck.perception',
+                };
+            default:
+                return {
+                    checkType: 'skill-check',
+                    property: `data.data.skills.${SKILL_EXPANDED[stat]?.shortform ?? stat}`,
+                    stat,
+                    subtitle: `PF2E.ActionsCheck.${stat}`,
+                };
+        }
     }
 
     static simpleRollActionCheck(
@@ -71,6 +106,7 @@ export class ActionsPF2e {
         actionGlyph: ActionGlyph | undefined,
         title: string,
         subtitle: string,
+        modifiers: ModifierPF2e[] | undefined,
         rollOptions: string[],
         extraOptions: string[],
         traits: string[],
@@ -98,7 +134,7 @@ export class ActionsPF2e {
                 flavor += `<b>${game.i18n.localize(title)}</b>`;
                 flavor += ` <p class="compact-text">(${game.i18n.localize(subtitle)})</p>`;
                 const stat = getProperty(actor, statName) as StatisticModifier;
-                const check = new CheckModifier(flavor, stat);
+                const check = new CheckModifier(flavor, stat, modifiers ?? []);
                 const finalOptions = actor.getRollOptions(rollOptions).concat(extraOptions).concat(traits);
                 ensureProficiencyOption(finalOptions, stat.rank ?? -1);
                 CheckPF2e.roll(
@@ -109,6 +145,7 @@ export class ActionsPF2e {
                         options: finalOptions,
                         notes: stat.notes ?? [],
                         traits,
+                        title: `${game.i18n.localize(title)} - ${game.i18n.localize(subtitle)}`,
                     },
                     event,
                 );

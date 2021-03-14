@@ -1,7 +1,5 @@
-import DOMPurify from 'dompurify';
 import { CheckPF2e } from './module/system/rolls';
 import { EffectPanel } from './module/system/effect-panel';
-import { ActionElement } from './module/custom-elements/action';
 import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
@@ -10,17 +8,15 @@ import { ItemPF2e } from './module/item/base';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
+import '@system/measure';
 import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require('./scripts/init.ts');
-require('./scripts/actor/status-effects.ts');
 require('./scripts/dice.ts');
 require('./scripts/chat/chat-damage-buttons-pf2e.ts');
 require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/actor/sheet/item-behaviour.ts');
 require('./scripts/system/canvas-drop-handler');
-require('./module/custom-elements/custom-elements');
 
 PF2E.Hooks.listen();
 
@@ -330,15 +326,13 @@ Hooks.on('updateCombat', (combat, diff, options, userID) => {
 });
 
 Hooks.on('renderChatMessage', (message: ChatMessage, html: JQuery) => {
-    if (message.data.flags[game.system.id]?.unsafe) {
-        const unsafe = message.data.flags[game.system.id].unsafe;
+    // remove elements the user does not have permission to see
+    if (!game.user.isGM) {
+        html.find('[data-visibility="gm"]').remove();
+    }
 
-        // strip out script tags to prevent cross-site scripting
-        const safe = DOMPurify.sanitize(unsafe, {
-            ADD_TAGS: [ActionElement.tagName],
-            ADD_ATTR: [...ActionElement.observedAttributes],
-        });
-
-        html.find('.flavor-text').html(safe);
+    const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
+    if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
+        html.find('[data-visibility="owner"]').remove();
     }
 });

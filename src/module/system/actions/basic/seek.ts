@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function seek(options: ActionDefaultOptions) {
+export function seek(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'perception');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.attributes.perception',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Seek',
-        'PF2E.ActionsCheck.Perception',
-        ['all', 'perception-check', 'action:seek'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:seek'],
         ['action:seek'],
         ['concentrate', 'secret'],
-        'perception-check',
+        checkType,
         options.event,
     );
 }

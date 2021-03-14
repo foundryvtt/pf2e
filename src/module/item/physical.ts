@@ -2,10 +2,7 @@ import { ItemPF2e } from './base';
 import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
-export class PF2EPhysicalItem extends ItemPF2e {
-    data!: PhysicalItemData;
-    _data!: PhysicalItemData;
-
+export abstract class PhysicalItemPF2e extends ItemPF2e {
     static isIdentified(itemData: any): boolean {
         return itemData.data?.identification?.status !== 'unidentified';
     }
@@ -14,8 +11,17 @@ export class PF2EPhysicalItem extends ItemPF2e {
         return this.data.data.quantity.value ?? 1;
     }
 
+    get isEquipped(): boolean {
+        return this.data.data.equipped.value;
+    }
+
+    get isMagical(): boolean {
+        const traits = this.traits;
+        return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => traits.has(trait));
+    }
+
     get isIdentified(): boolean {
-        return PF2EPhysicalItem.isIdentified(this.data);
+        return PhysicalItemPF2e.isIdentified(this.data);
     }
 
     async setIsIdentified(value: boolean): Promise<this> {
@@ -82,7 +88,7 @@ export class PF2EPhysicalItem extends ItemPF2e {
             const uuid = getProperty(update, `data.identification.${status}.link`);
             if (uuid) {
                 const baseItem = (await fromUuid(uuid)) as ItemPF2e | null;
-                if (baseItem instanceof PF2EPhysicalItem) {
+                if (baseItem instanceof PhysicalItemPF2e) {
                     // ensure we're not messing up another item accidentally
                     const baseData: Omit<PhysicalItemData, '_id' | 'data'> & {
                         _id?: string;
@@ -112,16 +118,21 @@ export class PF2EPhysicalItem extends ItemPF2e {
     }
 
     async update(diff: { [key: string]: unknown }, options = {}) {
-        await PF2EPhysicalItem.updateIdentificationData(this.data, diff);
+        await PhysicalItemPF2e.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
     }
 
-    static async createPhysicalItemFromCompendiumId(id: string): Promise<PF2EPhysicalItem | null> {
-        const pack = game.packs.find<Compendium<PF2EPhysicalItem>>((p) => p.collection === 'pf2e.equipment-srd');
+    static async createPhysicalItemFromCompendiumId(id: string): Promise<PhysicalItemPF2e | null> {
+        const pack = game.packs.find<Compendium<PhysicalItemPF2e>>((p) => p.collection === 'pf2e.equipment-srd');
         if (!pack) {
             throw Error('unable to get pack!');
         }
 
         return pack.getEntity(id);
     }
+}
+
+export interface PhysicalItemPF2e {
+    data: PhysicalItemData;
+    _data: PhysicalItemData;
 }

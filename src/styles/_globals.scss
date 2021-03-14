@@ -148,11 +148,17 @@ a[href] {
     color: var(--primary);
 }
 
-.pf2e.sheet form span.pf2-icon, // ensure higher specificity than the sheet styles
+// ensure higher specificity than the sheet styles
+.pf2e.sheet form span.pf2-icon,
+.pf2e.sheet form span[data-pf2-action],
+.pf2-icon {
+    display: inline;
+}
+
+.pf2e.sheet form span.pf2-icon,
 .pf2-icon {
     font-family: 'Pathfinder2eActions';
     font-size: 1.2em;
-    display: inline;
     &.larger {
         font-size: 1.5em;
     }
@@ -167,7 +173,7 @@ p.compact-text {
 /* ----------------------------------------- */
 /* PF2E Action Custom Element
 /* ----------------------------------------- */
-pf2-action[action] {
+[data-pf2-action]:not([data-pf2-action=""]) {
     background: #DDD;
     padding: 1px 4px;
     border: 1px solid #4b4a44;
@@ -179,14 +185,15 @@ pf2-action[action] {
     font-weight: 500;
 }
 
-pf2-action[glyph]::before {
+[data-pf2-action][data-pf2-glyph]::before {
     font-family: 'Pathfinder2eActions';
     font-size: 1.5em;
     margin-right: 2px;
     color: #7a7971;
 }
 
-pf2-action:not([glyph])::before {
+[data-pf2-action]:not([data-pf2-glyph])::before,
+[data-pf2-action][data-pf2-glyph=""]::before {
     display: inline-block;
     height: 15px;
     width: 15px;
@@ -199,27 +206,27 @@ pf2-action:not([glyph])::before {
     content: '';
 }
 
-pf2-action[glyph="A"]::before,
-pf2-action[glyph="a"]::before,
-pf2-action[glyph="1"]::before {
+[data-pf2-action][data-pf2-glyph="A"]::before,
+[data-pf2-action][data-pf2-glyph="a"]::before,
+[data-pf2-action][data-pf2-glyph="1"]::before {
     content: 'A';
 }
-pf2-action[glyph="D"]::before,
-pf2-action[glyph="d"]::before,
-pf2-action[glyph="2"]::before {
+[data-pf2-action][data-pf2-glyph="D"]::before,
+[data-pf2-action][data-pf2-glyph="d"]::before,
+[data-pf2-action][data-pf2-glyph="2"]::before {
     content: 'D';
 }
-pf2-action[glyph="T"]::before,
-pf2-action[glyph="t"]::before,
-pf2-action[glyph="3"]::before {
+[data-pf2-action][data-pf2-glyph="T"]::before,
+[data-pf2-action][data-pf2-glyph="t"]::before,
+[data-pf2-action][data-pf2-glyph="3"]::before {
     content: 'T';
 }
-pf2-action[glyph="F"]::before,
-pf2-action[glyph="f"]::before {
+[data-pf2-action][data-pf2-glyph="F"]::before,
+[data-pf2-action][data-pf2-glyph="f"]::before {
     content: 'F';
 }
-pf2-action[glyph="R"]::before,
-pf2-action[glyph="r"]::before {
+[data-pf2-action][data-pf2-glyph="R"]::before,
+[data-pf2-action][data-pf2-glyph="r"]::before {
     content: 'R';
 }
 

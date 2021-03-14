@@ -1,4 +1,4 @@
-import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
+import { SKILL_DICTIONARY } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { EffectPF2e } from '@item/effect';
 import { SkillAbbreviation } from '@actor/data-definitions';
@@ -9,7 +9,7 @@ import { SkillAbbreviation } from '@actor/data-definitions';
  * @param item     The item data
  * @param slot     The hotbar slot to use
  */
-async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
+export async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
     let macro = game.macros.entities.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
@@ -34,17 +34,15 @@ async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
  */
 export function rollItemMacro(itemId: string): ReturnType<ItemPF2e['roll']> | void {
     const speaker = ChatMessage.getSpeaker();
-    let actor: ActorPF2e;
-    if (speaker.token) actor = game.actors.tokens[speaker.token];
-    if (!actor) actor = game.actors.get(speaker.actor);
-    const item = actor ? actor.items.find((i) => i._id === itemId) : null;
+    const actor = canvas.tokens.get(speaker.token ?? '')?.actor ?? game.actors.get(speaker.actor ?? '');
+    const item = actor?.items?.get(itemId);
     if (!item) return ui.notifications.warn(`Your controlled Actor does not have an item with ID ${itemId}`);
 
     // Trigger the item roll
     return item.roll();
 }
 
-async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
+export async function createActionMacro(actionIndex: string, actorId: string, slot: number): Promise<void> {
     const actor = game.actors.get(actorId);
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
@@ -113,7 +111,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
     }
 }
 
-async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
+export async function createSkillMacro(skill: SkillAbbreviation, skillName: string, actorId: string, slot: number) {
     const dictName = SKILL_DICTIONARY[skill] ?? skill;
     const command = `
 const a = game.actors.get('${actorId}');
@@ -140,7 +138,7 @@ if (a) {
     game.user.assignHotbarMacro(macro, slot);
 }
 
-async function createTogglePropertyMacro(property: string, label: string, actorId: string, slot: number) {
+export async function createTogglePropertyMacro(property: string, label: string, actorId: string, slot: number) {
     const command = `const a = game.actors.get('${actorId}');
 if (a) {
     const value = getProperty(a, 'data.${property}');
@@ -165,7 +163,7 @@ if (a) {
     game.user.assignHotbarMacro(macro, slot);
 }
 
-async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
+export async function createToggleEffectMacro(pack: string, effect: EffectPF2e, slot: number) {
     const prefix = pack ? `Compendium.${pack}` : 'Item';
     const command = `
 const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
@@ -197,32 +195,3 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
     }
     game.user.assignHotbarMacro(macro, slot);
 }
-
-/* -------------------------------------------- */
-/*  Hotbar Macros                               */
-/* -------------------------------------------- */
-
-Hooks.on('hotbarDrop', async (bar, data, slot) => {
-    // check for item link
-    let item: ItemPF2e | undefined;
-    if (data.type === 'Item' && data.id) {
-        const prefix = data.pack ? `Compendium.${data.pack}` : 'Item';
-        item = (await fromUuid(`${prefix}.${data.id}`)) as ItemPF2e;
-    }
-
-    if (item instanceof EffectPF2e) {
-        createToggleEffectMacro(data.pack, item, slot);
-    } else if (data.type === 'Item') {
-        createItemMacro(data.data, slot);
-        return false;
-    } else if (data.type === 'Action') {
-        createActionMacro(data.index, data.actorId, slot);
-        return false;
-    } else if (data.type === 'Skill') {
-        createSkillMacro(data.skill, data.skillName, data.actorId, slot);
-    } else if (data.type === 'Toggle') {
-        createTogglePropertyMacro(data.property, data.label, data.actorId, slot);
-    }
-
-    return true;
-});

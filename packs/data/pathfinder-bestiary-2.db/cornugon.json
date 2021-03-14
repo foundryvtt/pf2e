@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "50 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -160,6 +163,74 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 76"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
+            },
+            "7sqmDznvtxf7JnzB": {
+                "data": {
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
+            },
+            "znTGbvzpfsTpaHAF": {
+                "data": {
+                    "spelldc": {
+                        "dc": 36,
+                        "value": 26
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +480,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -502,6 +576,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -564,6 +641,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -627,6 +705,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -689,6 +770,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -720,7 +802,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "vlGP0GCVS8N1Vu8f",
+            "_id": "wkB1zijq8esRc0Gd",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -770,12 +852,12 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -823,10 +905,14 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dispel-magic",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -871,20 +957,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
             "name": "Dispel Magic",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "qKnBDRxTx6zyTm65",
+            "_id": "Hahqso8IjKsNHFWj",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -896,6 +983,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -911,7 +1001,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "6d6"
+                    "value": "14d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -923,7 +1013,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -936,7 +1026,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -949,6 +1039,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -975,10 +1068,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fireball",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=119"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1022,20 +1125,21 @@
                         "evocation",
                         "fire"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fireball.jpg",
             "name": "Fireball",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "YozZ0q5yCgRZZKja",
+            "_id": "jOP8hHHKjQHHEf92",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1047,6 +1151,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1062,7 +1169,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "6d6"
+                    "value": "14d6"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1074,7 +1181,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A roaring blast of fire appears at a spot you designate, dealing 6d6 fire damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1087,7 +1194,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -1100,6 +1207,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1126,10 +1236,20 @@
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fireball",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=119"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1173,20 +1293,21 @@
                         "evocation",
                         "fire"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sxQZ6yqTn0czJxVd"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fireball.jpg",
             "name": "Fireball",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "P0oeCjKeXMOTuVVq",
+            "_id": "kk4ztABijNYTnMFN",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1198,6 +1319,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 120
+                },
+                "areasize": {
+                    "value": "120-foot line"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1213,7 +1337,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "4d12"
+                    "value": "8d12"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1225,7 +1349,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1238,7 +1362,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -1251,6 +1375,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1269,18 +1396,28 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d12",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "lightning-bolt",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=172"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1324,20 +1461,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9AAkVUCwF6WVNNY2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/lightning-bolt.jpg",
             "name": "Lightning Bolt",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "h5RydI3zXv1HwvIg",
+            "_id": "z3VSs1UhlsitoVZ7",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1349,6 +1487,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": 120
+                },
+                "areasize": {
+                    "value": "120-foot line"
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1364,7 +1505,7 @@
                     "applyMod": false,
                     "label": "Spell Damage",
                     "type": "String",
-                    "value": "4d12"
+                    "value": "8d12"
                 },
                 "damageType": {
                     "label": "Damage Type",
@@ -1376,7 +1517,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>A bolt of lightning strikes outward from your hand, dealing 4d12 electricity damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1389,7 +1530,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -1402,6 +1543,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1420,18 +1564,28 @@
                     "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d12",
+                    "mode": "level1"
                 },
                 "school": {
                     "label": "Spell School",
                     "type": "String",
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "lightning-bolt",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=172"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1475,20 +1629,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9AAkVUCwF6WVNNY2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/lightning-bolt.jpg",
             "name": "Lightning Bolt",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "FUwywLKdAjbQlLFl",
+            "_id": "nm9vC1HpS5nmBY8s",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1501,6 +1656,9 @@
                     "type": "String",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
                     "label": "Spell Components",
                     "type": "String",
@@ -1527,7 +1685,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1540,7 +1698,7 @@
                 "level": {
                     "label": "Spell Level",
                     "type": "Number",
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "7sqmDznvtxf7JnzB"
@@ -1553,6 +1711,9 @@
                 "prepared": {
                     "label": "Prepared Spell",
                     "type": "String",
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1579,10 +1740,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1626,20 +1797,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
             "name": "Dimension Door",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "EgzzhkCm2lnotG7b",
+            "_id": "V0cVI230nsvgLbfX",
             "data": {
                 "ability": {
                     "label": "Spellcasting Ability",
@@ -1651,6 +1823,9 @@
                     "label": "Area",
                     "type": "String",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "label": "Spell Components",
@@ -1678,7 +1853,7 @@
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "label": "Duration",
@@ -1706,6 +1881,9 @@
                     "type": "String",
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "label": "Range",
                     "type": "String",
@@ -1730,10 +1908,20 @@
                     "type": "String",
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
                     "label": "Source",
                     "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1777,20 +1965,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door ",
+            "name": "Dimension Door (At will)",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "10SWphrb08QsTNKi",
+            "_id": "l0NCU5HywhWI85kK",
             "data": {
                 "ability": {
                     "value": ""
@@ -1817,7 +2006,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double<em>infernal pact's</em>level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.<br /></p>\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for 1d4 weeks.<br /><strong>Success</strong> The devils are sent to you and serve you for 1d4 days.<br /><strong>Failure</strong> Your request is denied.<br /><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for 1d4 weeks.</p>\n<p><strong>Success</strong> The devils are sent to you and serve you for 1d4 days.</p>\n<p><strong>Failure</strong> Your request is denied.</p>\n<p><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1826,7 +2015,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "1"
+                    "value": 1
                 },
                 "location": {
                     "value": "znTGbvzpfsTpaHAF"
@@ -1838,7 +2027,7 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Religion "
+                    "value": "Religion (expert; you must be a devil)"
                 },
                 "range": {
                     "value": ""
@@ -1864,6 +2053,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "infernal-pact",
                 "source": {
                     "value": ""
                 },
@@ -1896,21 +2086,39 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.30BBep9U4BDV0EgQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/infernal-pact.jpg",
             "name": "Infernal Pact",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "ewMAHxDoV3FR4i7q",
+            "_id": "Eqm7f3TEwfC8At0D",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "label": "Offensive Ability",
+                    "type": "String",
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "label": "Item Bonus",
+                    "type": "String",
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1923,17 +2131,35 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d8",
+                    "label": "damage",
+                    "type": "String",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "label": "Description",
                     "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This 4‑foot‑long length of chain is covered with barbs and has spikes on one or both ends. Some feature metal hoops used as handgrips.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "label": "Weapon Group",
+                    "type": "String",
+                    "value": "flail"
+                },
+                "hands": {
+                    "label": "Hands",
+                    "type": "String",
                     "value": ""
                 },
                 "hardness": {
@@ -1946,12 +2172,14 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
+                    "label": "Item Level",
+                    "type": "Number",
                     "value": 0
                 },
                 "maxHp": {
@@ -1960,6 +2188,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": "2"
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1967,44 +2198,112 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "label": "Price",
+                    "type": "String",
+                    "value": "3 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "label": "Primary Property",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "type": "String",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": "unholy"
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
+                    "label": "Quantity",
+                    "type": "Number",
                     "value": 1
+                },
+                "range": {
+                    "label": "Weapon Range",
+                    "type": "String",
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "label": "Reload",
+                    "type": "String",
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "spiked-chain",
                 "source": {
+                    "label": "Source",
+                    "type": "String",
                     "value": ""
+                },
+                "splashDamage": {
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
+                "strikingRune": {
+                    "value": "greaterStriking"
+                },
                 "traits": {
                     "custom": "",
+                    "label": "Weapon Traits",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
-                    "value": []
+                    "type": "String",
+                    "value": [
+                        "disarm",
+                        "finesse",
+                        "trip"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "label": "Weapon Category",
+                    "type": "String",
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "label": "Bulk",
+                    "type": "Number",
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+2 greater striking unholy spiked chain",
-            "sort": 1100000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.zi9ovfoRp2fMhfpO"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/spiked-chain.jpg",
+            "name": "+2 Greater Striking Unholy Spiked Chain",
+            "sort": 11000000,
+            "type": "weapon"
         },
         {
             "_id": "4MEkxras2sA4aWfg",
@@ -2013,10 +2312,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "stunning chain"
+                        "Stunning Chain"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 34,
                     "value": 34
@@ -2037,16 +2338,16 @@
                     "damageType": "slashing",
                     "die": "3d8+16"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d8+16",
                         "damageType": "slashing"
                     },
-                    {
+                    "1": {
                         "damage": "2d6",
                         "damageType": "evil"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -2128,6 +2429,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2171,6 +2473,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 32,
                     "value": 32
@@ -2191,16 +2494,16 @@
                     "damageType": "slashing",
                     "die": "3d10+14"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d10+14",
                         "damageType": "slashing"
                     },
-                    {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -2282,6 +2585,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2320,10 +2624,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "infernal wound"
+                        "Infernal Wound"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 32,
                     "value": 32
@@ -2344,16 +2650,16 @@
                     "damageType": "slashing",
                     "die": "3d8+14"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "3d8+14",
                         "damageType": "slashing"
                     },
-                    {
+                    "1": {
                         "damage": "1d6",
                         "damageType": "evil"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -2435,6 +2741,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2466,6 +2773,229 @@
             "type": "melee"
         },
         {
+            "_id": "zCljGoGN9zoZkBsw",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Greater Darkvision",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "s6qHGkntlKnGpY6s",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Telepathy",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "SqBptcrkfElc5p4M",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "At-Will Spells",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "N9DGOzWNdk9Q9GYm",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifiers",
+                        "predicate": {
+                            "all": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 180000,
+            "type": "action"
+        },
+        {
             "_id": "O10CpdkrcpxqCHHH",
             "data": {
                 "actionCategory": {
@@ -2480,7 +3010,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>10 feet. A constant @Compendium[pf2e.spells-srd.Circle of Protection]{Circle of Protection} against good is centered on the cornugon.</p>"
+                    "value": "<p>10 feet.</p>\n<p>A constant @Compendium[pf2e.spells-srd.Circle of Protection]{Circle of Protection} against good is centered on the cornugon.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2489,6 +3019,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2518,7 +3049,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Circle of Protection",
-            "sort": 1500000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2536,7 +3067,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>100 feet. Allied evil creatures in the aura of a level lower than the devil's gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>"
+                    "value": "<p>100 feet.</p>\n<p>Allied evil creatures in the aura of a level lower than the devil's gain a +1 circumstance bonus to attack rolls, damage rolls, AC, saves, and skill checks.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2545,6 +3076,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2573,11 +3105,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Commander's Aura",
-            "sort": 1600000,
+            "sort": 2000000,
             "type": "action"
         },
         {
-            "_id": "FbvvVZKu6DiYWWpX",
+            "_id": "F1hR4vcfoAB63QNp",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2591,7 +3123,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>10 feet, DC 34<br />A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.<br /><br /> <strong>Critical Success</strong> The creature is unaffected by the presence.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 4.</p>"
+                    "value": "<p>10 feet, DC 34</p>\n<p>A creature that first enters the area must attempt a Will save. Regardless of the result of the saving throw, the creature is temporarily immune to this monster's Frightful Presence for 1 minute.</p>\n<p><strong>Critical Success</strong> The creature is unaffected by the presence.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2600,6 +3132,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "frightful-presence",
                 "source": {
                     "value": ""
                 },
@@ -2610,9 +3143,7 @@
                     },
                     "value": [
                         "aura",
-                        "divine",
                         "emotion",
-                        "enchantment",
                         "fear",
                         "mental"
                     ]
@@ -2620,22 +3151,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.etMnv73EIdEZrYYu"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
             "name": "Frightful Presence",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "action"
         },
         {
-            "_id": "zqYP67WEUIouIJrR",
+            "_id": "cM6xjoHii8NbgRz1",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2649,7 +3181,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2658,6 +3190,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -2671,18 +3204,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2695,12 +3229,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The cornugon's last action was a success with a spiked chain Strike; <strong>Effect</strong> The devil pulls the creature 5 feet closer and grabs it with the spiked chain (Escape DC 42). The creature is automatically freed if the devil makes another spiked chain attack or moves away.</p>"
+                    "value": "<p><strong>Requirements</strong> The cornugon's last action was a success with a spiked chain Strike;</p>\n<p><strong>Effect</strong> The devil pulls the creature 5 feet closer and grabs it with the spiked chain (Escape DC 42). The creature is automatically freed if the devil makes another spiked chain attack or moves away.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2709,6 +3243,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2731,9 +3266,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Chain of Malebolge",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2751,7 +3286,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A cornugon's tail Strike deals 4d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}. The DC of the flat check to stop the bleeding starts at 20 and is reduced to 15 only if someone successfully assists. The DC to @Compendium[pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound increases by 10. A spellcaster or item using healing magic on an infernally wounded creature must succeed at a DC 34 counteract check or the magic fails to heal the creature.</p>"
+                    "value": "<p>A cornugon's tail Strike deals [[/r 4d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}. The DC of the flat check to stop the bleeding starts at 20 and is reduced to 15 only if someone successfully assists. The DC to @Compendium[pf2e.actionspf2e.Administer First Aid]{Administer First Aid} to a creature with an infernal wound increases by 10.</p>\n<p>A spellcaster or item using healing magic on an infernally wounded creature must succeed at a DC 34 counteract check or the magic fails to heal the creature.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2760,6 +3295,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2787,7 +3323,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Infernal Wound",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2805,7 +3341,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>If the cornugon critically hits with its spiked chain Strike, the target must succeed at a DC 34 Fortitude save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round (1d4 rounds on a critical failure).</p>"
+                    "value": "<p>If the cornugon critically hits with its spiked chain Strike, the target must succeed at a DC 34 Fortitude save or be @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round ([[/r 1d4 #rounds]] rounds on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2814,6 +3350,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2840,7 +3377,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stunning Chain",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2864,6 +3401,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2882,7 +3420,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2906,6 +3444,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2924,7 +3463,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 2300000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2948,6 +3487,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2966,7 +3506,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 2400000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2990,6 +3530,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3008,7 +3549,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 2500000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -3032,6 +3573,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3050,7 +3592,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 2600000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -3074,6 +3616,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3092,7 +3635,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Warfare Lore",
-            "sort": 2700000,
+            "sort": 3100000,
             "type": "lore"
         }
     ],
@@ -3101,7 +3644,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "i8C4jqI3VdozylBL",
         "actorLink": false,
         "bar1": {
@@ -3120,6 +3662,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Cornugon",
         "randomImg": false,

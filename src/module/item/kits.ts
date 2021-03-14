@@ -1,5 +1,5 @@
 import { PhysicalItemData, KitData, KitDetailsData, KitEntryData } from './data-definitions';
-import { PF2EPhysicalItem } from './physical';
+import { PhysicalItemPF2e } from './physical';
 
 /**
  * Inflate a KitData.
@@ -12,7 +12,7 @@ async function getKitItemData(
         Object.values(kitData.items).map(async (item) => {
             let itemData: PhysicalItemData | null;
             if (item.pack) {
-                const pack = game.packs.get<Compendium<PF2EPhysicalItem>>(item.pack);
+                const pack = game.packs.get<Compendium<PhysicalItemPF2e>>(item.pack);
                 itemData = await pack.getEntry(item.id);
             } else {
                 itemData = duplicate(game.items.get(item.id)?.data) as PhysicalItemData;

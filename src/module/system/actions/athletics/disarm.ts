@@ -1,16 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function disarm(options: ActionDefaultOptions) {
+export function disarm(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'athletics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.ath',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Disarm',
-        'PF2E.ActionsCheck.Athletics',
-        ['all', 'skill-check', 'athletics', 'action:disarm'],
+        subtitle,
+        options.modifiers,
+        ['all', checkType, stat, 'action:disarm'],
         ['action:disarm'],
         ['attack'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }
