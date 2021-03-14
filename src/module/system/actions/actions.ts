@@ -19,6 +19,7 @@ import { createADiversion } from './deception/create-a-diversion';
 import { feint } from './deception/feint';
 import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
+import { gatherInformation } from './diplomacy/gather-information';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 
@@ -60,6 +61,9 @@ export class ActionsPF2e {
         actions.feint = feint;
         actions.impersonate = impersonate;
         actions.lie = lie;
+
+        // diplomacy
+        actions.gatherInformation = gatherInformation;
 
         // intimidation
         actions.coerce = coerce;
