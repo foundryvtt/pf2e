@@ -1,5 +1,10 @@
 # Patch Notes:
 
+## Version 1.11.15
+### Bug Fixes
+* (nikolaj-a) Fix equipping any gear always unequipping the currently worn armor
+
+
 ## Version 1.11.14
 ### Bug Fixes
 * (stwlam) Restore import of TemplateLayer monkey patches. Closes #1173
