@@ -2,7 +2,6 @@ import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
 import {
     ActionData,
-    ArmorData,
     ContainerData,
     ConditionData,
     ConsumableData,
@@ -16,7 +15,6 @@ import {
     SpellcastingEntryData,
     SpellData,
     TreasureData,
-    WeaponData,
 } from './data-definitions';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
@@ -29,18 +27,6 @@ export class TreasurePF2e extends PhysicalItemPF2e {}
 export interface TreasurePF2e {
     data: TreasureData;
     _data: TreasureData;
-}
-
-export class WeaponPF2e extends PhysicalItemPF2e {}
-export interface WeaponPF2e {
-    data: WeaponData;
-    _data: WeaponData;
-}
-
-export class ArmorPF2e extends PhysicalItemPF2e {}
-export interface ArmorPF2e {
-    data: ArmorData;
-    _data: ArmorData;
 }
 
 export class KitPF2e extends PhysicalItemPF2e {}

@@ -1,15 +1,16 @@
-import { ActorPF2e, HazardPF2e, VehiclePF2e } from '../module/actor/base';
-import { CharacterPF2e } from '../module/actor/character';
-import { LootPF2e } from '../module/actor/loot';
-import { NPCPF2e } from '../module/actor/npc';
-import { FamiliarPF2e } from '../module/actor/familiar';
-import { ItemPF2e } from '../module/item/base';
-import { AncestryPF2e } from '../module/item/ancestry';
-import { BackgroundPF2e } from '../module/item/background';
-import { ClassPF2e } from '../module/item/class';
+import { ActorPF2e, HazardPF2e, VehiclePF2e } from '@module/actor/base';
+import { CharacterPF2e } from '@module/actor/character';
+import { LootPF2e } from '@module/actor/loot';
+import { NPCPF2e } from '@module/actor/npc';
+import { FamiliarPF2e } from '@module/actor/familiar';
+import { ItemPF2e } from '@module/item/base';
+import { AncestryPF2e } from '@module/item/ancestry';
+import { ArmorPF2e } from '@module/item/armor';
+import { BackgroundPF2e } from '@module/item/background';
+import { ClassPF2e } from '@module/item/class';
+import { WeaponPF2e } from '@module/item/weapon';
 import {
     ActionPF2e,
-    ArmorPF2e,
     ContainerPF2e,
     ConditionPF2e,
     ConsumablePF2e,
@@ -22,10 +23,9 @@ import {
     SpellPF2e,
     SpellcastingEntryPF2e,
     TreasurePF2e,
-    WeaponPF2e,
-} from '../module/item/others';
-import { EffectPF2e } from '../module/item/effect';
-import { CombatTrackerPF2e } from '../module/system/combat-tracker';
+} from '@module/item/others';
+import { EffectPF2e } from '@module/item/effect';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';

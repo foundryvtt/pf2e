@@ -5,7 +5,7 @@
             <li class="item item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                 <div class="action-header">
                     {{#if entry.data.prepared.preparedSpells}}
-                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas fa-book-open"></i></a>
+                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
                     {{/if}}
                     <h3 class="item-name pf-heading pf-actions hide-container-toggle">
                         <input type="text" name="data.items.{{eid}}.name" class="item-name-input" value="{{entry.name}}" data-item-id="{{entry._id}}" data-dtype="String" />
@@ -182,9 +182,9 @@
 
                                     <div class="level-prepared-toggle-div">
                                         {{#if entry.data.showUnpreparedSpells.value}}
-                                            <a class="skill-name level-prepared-toggle"
-                                                title="{{localize "PF2E.ToggleSpellVisibilityLevelTitle"}}"
-                                            ><i class="fas fa-book-open"></i></a>
+                                            <a class="skill-name level-prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityLevelTitle"}}">
+                                                <i class="fas {{#if section.displayPrepared}}fa-book-open{{else}}fa-book{{/if}}"></i>
+                                            </a>
                                         {{/if}}
                                     </div>
                                     <h3>{{section.label}}</h3>

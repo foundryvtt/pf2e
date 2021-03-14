@@ -863,9 +863,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const options = this.actor.getRollOptions(['all', 'attack-roll']);
-            const speaker = { actor: this.actor, token: this.token };
-            this.actor.data.data.actions[Number(actionIndex)].roll({ event, speaker, options });
             const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
             this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
         });

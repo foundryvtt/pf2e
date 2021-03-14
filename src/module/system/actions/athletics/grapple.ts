@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function grapple(options: ActionDefaultOptions) {
+export function grapple(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'athletics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.ath',
+        property,
         options.glyph ?? 'A',
         'PF2E.Actions.Grapple',
-        'PF2E.ActionsCheck.Athletics',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'athletics', 'action:grapple'],
+        ['all', checkType, stat, 'action:grapple'],
         ['action:grapple'],
         ['attack'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

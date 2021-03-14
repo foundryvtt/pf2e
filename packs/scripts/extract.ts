@@ -131,6 +131,11 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         }
 
         entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
+        if ('effects' in entityData && !entityData.effects.some((effect) => effect.origin?.startsWith('Actor.'))) {
+            for (const effect of entityData.effects) {
+                effect.origin = '';
+            }
+        }
     }
 
     pruneTree(entityData, entityData);
