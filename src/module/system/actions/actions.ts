@@ -20,7 +20,8 @@ import { feint } from './deception/feint';
 import { impersonate } from './deception/impersonate';
 import { lie } from './deception/lie';
 import { gatherInformation } from './diplomacy/gather-information';
-import { makeAnImpression } from '@system/actions/diplomacy/make-an-impression';
+import { makeAnImpression } from './diplomacy/make-an-impression';
+import { request } from './diplomacy/request';
 import { coerce } from './intimidation/coerce';
 import { demoralize } from './intimidation/demoralize';
 
@@ -70,6 +71,7 @@ export class ActionsPF2e {
         // diplomacy
         actions.gatherInformation = gatherInformation;
         actions.makeAnImpression = makeAnImpression;
+        actions.request = request;
 
         // intimidation
         actions.coerce = coerce;
