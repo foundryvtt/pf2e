@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function longJump(options: ActionDefaultOptions) {
+export function longJump(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'athletics');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.ath',
+        property,
         options.glyph ?? 'D',
         'PF2E.Actions.LongJump',
-        'PF2E.ActionsCheck.Athletics',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'athletics', 'action:stride', 'action:leap', 'action:long-jump'],
+        ['all', checkType, stat, 'action:stride', 'action:leap', 'action:long-jump'],
         ['action:stride', 'action:leap', 'action:long-jump'],
         ['move'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }

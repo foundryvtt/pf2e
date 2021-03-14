@@ -1,8 +1,9 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
 type CreateADiversionVariant = 'distracting-words' | 'gesture' | 'trick';
 
-export function createADiversion(options: { variant: CreateADiversionVariant } & ActionDefaultOptions) {
+export function createADiversion(options: { variant: CreateADiversionVariant } & SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'deception');
     let title = 'PF2E.Actions.CreateADiversion.';
     const traits = ['mental'];
     switch (options.variant) {
@@ -26,15 +27,15 @@ export function createADiversion(options: { variant: CreateADiversionVariant } &
     }
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.dec',
+        property,
         options.glyph ?? 'A',
         title,
-        'PF2E.ActionsCheck.Deception',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'deception', 'action:create-a-diversion'],
+        ['all', checkType, stat, 'action:create-a-diversion'],
         ['action:create-a-diversion', options.variant],
         traits.sort(),
-        'skill-check',
+        checkType,
         options.event,
     );
 }

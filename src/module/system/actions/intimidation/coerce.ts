@@ -1,17 +1,18 @@
-import { ActionDefaultOptions, ActionsPF2e } from '../actions';
+import { ActionsPF2e, SkillActionOptions } from '../actions';
 
-export function coerce(options: ActionDefaultOptions) {
+export function coerce(options: SkillActionOptions) {
+    const { checkType, property, stat, subtitle } = ActionsPF2e.resolveStat(options?.skill ?? 'intimidation');
     ActionsPF2e.simpleRollActionCheck(
         options.actors,
-        'data.data.skills.itm',
+        property,
         options.glyph,
         'PF2E.Actions.Coerce',
-        'PF2E.ActionsCheck.Intimidation',
+        subtitle,
         options.modifiers,
-        ['all', 'skill-check', 'intimidation', 'action:coerce'],
+        ['all', checkType, stat, 'action:coerce'],
         ['action:coerce'],
         ['auditory', 'concentrate', 'emotion', 'exploration', 'linguistic', 'mental'],
-        'skill-check',
+        checkType,
         options.event,
     );
 }
