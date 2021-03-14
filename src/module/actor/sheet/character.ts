@@ -9,7 +9,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
-import { SpellcastingEntryPF2e } from '@item/others';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 
 /**

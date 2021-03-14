@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
-import { SpellcastingEntryData, SpellData } from './data-definitions';
-import { SpellcastingEntry } from './spellcasting-entry';
+import { SpellData } from './data-definitions';
+import { SpellcastingEntryPF2e } from './spellcasting-entry';
 
 /**
  * @category Other
@@ -9,25 +9,19 @@ export class SpellFacade {
     data: SpellData;
     castingActor?: ActorPF2e;
     _castLevel: number;
-    _spellcastingEntry?: SpellcastingEntry;
+    spellcastingEntry?: SpellcastingEntryPF2e;
 
     constructor(data: SpellData, scope: { castingActor?: ActorPF2e; castLevel?: number } = {}) {
         this.data = data;
         this.castingActor = scope.castingActor;
         this._castLevel = scope.castLevel || this.spellLevel;
+        this.spellcastingEntry = this.castingActor?.itemTypes?.spellcastingEntry?.find(
+            (entry) => entry.id === this.spellcastingEntryId,
+        );
     }
 
     get spellcastingEntryId() {
         return this.data.data.location.value;
-    }
-
-    get spellcastingEntry() {
-        if (!this._spellcastingEntry) {
-            this._spellcastingEntry = new SpellcastingEntry(
-                this.castingActor?.getOwnedItem(this.spellcastingEntryId)?.data as SpellcastingEntryData,
-            );
-        }
-        return this._spellcastingEntry;
     }
 
     get spellLevel() {
@@ -53,10 +47,11 @@ export class SpellFacade {
         const parts: (string | number)[] = [];
         if (this.damageValue) parts.push(this.damage.value);
         if (this.damage.applyMod && this.castingActor) {
-            if (!this.spellcastingEntry.data && this.data.data.trickMagicItemData) {
+            const entry = this.spellcastingEntry;
+            if (!entry && this.data.data.trickMagicItemData) {
                 parts.push(this.castingActor.getAbilityMod(this.data.data.trickMagicItemData.ability));
-            } else {
-                parts.push(this.castingActor.getAbilityMod(this.spellcastingEntry.ability));
+            } else if (entry) {
+                parts.push(this.castingActor.getAbilityMod(entry.ability));
             }
         }
         if (this.data.data.duration.value === '' && this.castingActor) {

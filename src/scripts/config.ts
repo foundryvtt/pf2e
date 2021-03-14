@@ -9,6 +9,7 @@ import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
 import { SpellPF2e } from '@module/item/spell';
+import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import {
     ActionPF2e,
@@ -21,7 +22,6 @@ import {
     LorePF2e,
     MartialPF2e,
     MeleePF2e,
-    SpellcastingEntryPF2e,
     TreasurePF2e,
 } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';

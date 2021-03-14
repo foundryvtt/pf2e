@@ -331,20 +331,18 @@ export class ItemPF2e extends Item<ActorPF2e> {
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
         const data = duplicate(this.data.data);
 
-        const entryData = this.actor.itemTypes.spellcastingEntry.find(
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === data.location.value,
-        )?.data;
-        if (entryData?.type !== 'spellcastingEntry') return {};
+        );
+        const entryData = spellcastingEntry?.data;
+        if (!entryData) return {};
 
         const spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
         const spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
 
         // Spell saving throw text and DC
         data.isSave = data.spellType.value === 'save' || data.save.value !== '';
-
-        if (data.isSave) {
-            data.save.dc = spellDC;
-        } else data.save.dc = spellAttack;
+        data.save.dc = data.isSave ? spellDC : spellAttack;
         data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
 
         // Spell attack labels

@@ -12,7 +12,6 @@ import {
     LoreData,
     MartialData,
     MeleeData,
-    SpellcastingEntryData,
     TreasureData,
 } from './data-definitions';
 
@@ -81,12 +80,6 @@ export class ActionPF2e extends ItemPF2e {}
 export interface ActionPF2e {
     data: ActionData;
     _data: ActionData;
-}
-
-export class SpellcastingEntryPF2e extends ItemPF2e {}
-export interface SpellcastingEntryPF2e {
-    data: SpellcastingEntryData;
-    _data: SpellcastingEntryData;
 }
 
 export class ConditionPF2e extends ItemPF2e {}
