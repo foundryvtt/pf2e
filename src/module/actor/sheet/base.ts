@@ -14,7 +14,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
-import { Spell } from '@item/spell';
+import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntry } from '@item/spellcasting-entry';
 import { ConditionPF2e, SpellPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
@@ -1417,7 +1417,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     }
 
     async _moveSpell(spellData: SpellData, targetLocation: string, targetLevel: number) {
-        const spell = new Spell(spellData);
+        const spell = new SpellFacade(spellData);
 
         if (spell.spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
             return false;

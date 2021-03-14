@@ -1,7 +1,7 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-import { Spell } from './spell';
+import { SpellFacade } from './spell-facade';
 import { getArmorBonus, getAttackBonus, getStrikingDice } from './runes';
 import { addSign } from '@module/utils';
 import {
@@ -847,7 +847,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
         const spellLvl = ItemPF2e.findSpellLevel(event);
-        const spell = new Spell(item, { castingActor: this.actor, castLevel: spellLvl });
+        const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
         // Append damage type to title
