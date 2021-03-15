@@ -49,7 +49,6 @@ import {
 import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
 import { objectHasKey } from '@module/utils';
-import { CharacterPF2e } from './character';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -482,7 +481,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         }
 
         // Character-specific custom modifiers & custom damage dice.
-        if (this instanceof CharacterPF2e) {
+        if (['character', 'familiar', 'animalCompanion', 'npc'].includes(actorData.type)) {
             const { data } = actorData;
 
             // Custom Modifiers (which affect d20 rolls and damage).
