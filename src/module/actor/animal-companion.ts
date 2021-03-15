@@ -41,21 +41,21 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
 
         const actorData = this.data;
         const { data } = actorData;
-        this._getDataFromMaster(data);
+        this.getDataFromMaster(data);
 
-        this._calculateProficiencies(data);
-        this._calculateAbilityScores(data);
-        this._calculateHP(data);
+        this.calculateProficiencies(data);
+        this.calculateAbilityScores(data);
+        this.calculateHP(data);
 
-        this._calculateSaves(data);
-        this._calculatePerception(data);
-        this._calculateArmorClass(data);
+        this.calculateSaves(data);
+        this.calculatePerception(data);
+        this.calculateArmorClass(data);
 
-        this._calculateSkillModifiers(data);
-        this._calculateMartialModifiers(data);
+        this.calculateSkillModifiers(data);
+        this.calculateMartialModifiers(data);
     }
 
-    _getDataFromMaster(data: RawAnimalCompanionData): void {
+    private getDataFromMaster(data: RawAnimalCompanionData): void {
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master.id);
 
@@ -70,7 +70,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         }
     }
 
-    _calculateAbilityScores(data: RawAnimalCompanionData): void {
+    private calculateAbilityScores(data: RawAnimalCompanionData): void {
         //Get ability values from ancestry and modify with mature, savage, nimble, etc.
         for (const [abilityName, abilityData] of Object.entries(data.attributes.ancestry.abilities)) {
             abilityData.mod = Number(abilityData.mod ?? 0); // ensure the modifier is never a string
@@ -79,7 +79,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         }
     }
 
-    _calculateHP(data: RawAnimalCompanionData): void {
+    private calculateHP(data: RawAnimalCompanionData): void {
         const ancestryHP = data.attributes.ancestry.ancestryHP ?? 0;
         const ancestryHPperLevel = data.attributes.ancestry.ancestryHPPerLevel ?? 0;
         const modifiers = [new ModifierPF2e('PF2E.AnimalCompanion.AncestryHP', ancestryHP, ModifierType.UNTYPED)];
@@ -127,7 +127,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         data.attributes.hp = stat;
     }
 
-    _calculateSaves(data: RawAnimalCompanionData): void {
+    private calculateSaves(data: RawAnimalCompanionData): void {
         for (const [saveName, save] of Object.entries(data.saves)) {
             // Base modifiers from ability scores & level/proficiency rank.
             const modifiers = [
@@ -169,7 +169,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         }
     }
 
-    _calculateProficiencies(data: RawAnimalCompanionData): void {
+    private calculateProficiencies(data: RawAnimalCompanionData): void {
         //animal companion is trained in all saving throws
         data.saves.fortitude.rank = 1;
         data.saves.reflex.rank = 1;
@@ -190,7 +190,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         //here will also be skill increases from mature companion and other progression, preferably through rule elements later
     }
 
-    _calculateMartialModifiers(data: RawAnimalCompanionData): void {
+    private calculateMartialModifiers(data: RawAnimalCompanionData): void {
         for (const skl of Object.values(data.martial)) {
             const proficiency = ProficiencyModifier.fromLevelAndRank(data.details.level.value, skl.rank || 0);
             skl.value = proficiency.modifier;
@@ -200,7 +200,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         }
     }
 
-    _calculatePerception(data: RawAnimalCompanionData): void {
+    private calculatePerception(data: RawAnimalCompanionData): void {
         const proficiencyRank = data.attributes.perception.rank || 0;
         const modifiers = [
             WISDOM.withScore(data.abilities.wis.value),
@@ -245,7 +245,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         data.attributes.perception = stat;
     }
 
-    _calculateSkillModifiers(data: RawAnimalCompanionData): void {
+    private calculateSkillModifiers(data: RawAnimalCompanionData): void {
         // Skill modifiers
 
         for (const [skillName, skill] of Object.entries(data.skills).filter(([shortform, _]) =>
@@ -295,7 +295,7 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
         }
     }
 
-    _calculateArmorClass(data: RawAnimalCompanionData): void {
+    private calculateArmorClass(data: RawAnimalCompanionData): void {
         const modifiers: ModifierPF2e[] = [];
         const dexCap = duplicate(data.attributes.dexCap ?? []);
         const armorCheckPenalty = 0;
