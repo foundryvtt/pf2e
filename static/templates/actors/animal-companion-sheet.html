@@ -32,12 +32,14 @@
                 {{#if data.master.id}}
                     <div><b>Master Level</b> {{data.master.level.value}}</div>
                 {{/if}}
+                
+                <div>
+                    <label for="data.attributes.ancestry.ancestryHP"><b>Ancestry HP</b></label>
+                    <input name="data.attributes.ancestry.ancestryHP" value="{{data.attributes.ancestry.ancestryHP}}" data-dtype="Number"/>
 
-                <label for="AncestryHp"><b>Ancestry HP</b></label>
-                <input name="data.attributes.ancestry.ancestryHP" value="{{data.attributes.ancestry.ancestryHP}}" data-dtype="Number"/>
-
-                <label for="hpperlevel"><b>Hp Per Level</b></label>
-                <input name="data.attributes.ancestry.ancestryHPPerLevel" value="{{data.attributes.ancestry.ancestryHPPerLevel}}" data-dtype="Number"/>
+                    <label for="data.attributes.ancestry.ancestryHPPerLevel"><b>Hp Per Level</b></label>
+                    <input name="data.attributes.ancestry.ancestryHPPerLevel" value="{{data.attributes.ancestry.ancestryHPPerLevel}}" data-dtype="Number"/>
+                </div>
 
                 <div class="stats">
                     {{#each data.attributes.ancestry.abilities as |ability id|}}
