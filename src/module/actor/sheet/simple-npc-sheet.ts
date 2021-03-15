@@ -15,6 +15,7 @@ import {
     LabeledValue,
     NPCData,
     NPCSkillData,
+    NPCStrike,
     RawNPCData,
     SaveString,
     SkillAbbreviation,
@@ -34,18 +35,6 @@ interface NPCSheetLabeledValue extends LabeledValue {
     localizedName?: string;
 }
 
-interface AttackDetails {
-    label: string;
-    labelShort: string;
-    items: ItemDataPF2e[];
-    type: 'melee';
-}
-
-interface ActionAttacks {
-    melee: AttackDetails;
-    ranged: AttackDetails;
-}
-
 interface ActionsDetails {
     label: string;
     actions: ItemDataPF2e[];
@@ -58,10 +47,20 @@ interface ActionActions {
     action: ActionsDetails;
 }
 
+interface Attack {
+    attack: NPCStrike;
+    traits: {
+        label: string;
+        description: string;
+    }[];
+}
+
+type Attacks = Attack[];
+
 /** Additional fields added in sheet data preparation */
 interface SheetEnrichedNPCData extends NPCData {
     actions: ActionActions;
-    attacks: ActionAttacks;
+    attacks: Attacks;
     data: RawNPCData & {
         details: {
             alignment: {
@@ -151,15 +150,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareAlignment(actorData);
         this.prepareRarity(actorData);
         this.preparePerception(actorData);
-        this.prepareSenses(actorData);
+        //this.prepareSenses(actorData); Keep senses as strings until we have a better trait selector
         this.prepareLanguages(actorData.data.traits.languages);
         this.prepareSkills(actorData);
         this.prepareSpeeds(actorData);
-        this.prepareWeaknesses(actorData);
-        this.prepareResistances(actorData);
         this.prepareImmunities(actorData);
         this.prepareSaves(actorData);
         this.prepareActions(actorData);
+        this.prepareAttacks(actorData);
         this.prepareSpellcasting(actorData);
     }
 
@@ -474,29 +472,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     protected prepareImmunities(actorData: SheetEnrichedNPCData) {
-        // Special case for NPCs from compendium
-        // Immunities come as a single string
-        // Once the change to immunities is done for the compendium data, this
-        // will no longer be needed can be deleted
-        const immunitiesCount = actorData.data.traits.di.value.length;
-        const firstImmunity = immunitiesCount > 0 ? actorData.data.traits.di.value[0] : '';
-        const hasCustomImmunities = firstImmunity === 'custom';
-
-        if (hasCustomImmunities) {
-            console.log('Detected a custom list of immunities. Trying to convert it into a list.');
-            const immunities = (actorData as any).data.traits.di.selected.custom.split(',');
-
-            // Remove the first element in the array that is set to `custom`
-            // We will create the final list manually
-            actorData.data.traits.di.value.shift();
-
-            for (let immunity of immunities) {
-                immunity = immunity.trim();
-                actorData.data.traits.di.value.push(immunity);
-            }
-        }
-        // ---
-
         // Try to localize values to show the correct text in the sheet
         // Immunities are store as a simple string array, so we use parallel array
         // for storing the label values, not like we do with resistances and weaknesses
@@ -508,6 +483,9 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
             return label;
         });
+        if (actorData.data.traits.di.custom) {
+            labels.push(actorData.data.traits.di.custom);
+        }
 
         (actorData as any).data.traits.di.labels = labels;
     }
@@ -529,21 +507,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * @param actorData Data of the actor to be shown in the sheet.
      */
     protected prepareActions(actorData: SheetEnrichedNPCData) {
-        const attacks: ActionAttacks = {
-            melee: {
-                label: game.i18n.localize('PF2E.NPC.AttackType.Melee'),
-                labelShort: game.i18n.localize('PF2E.NPCAttackMelee'),
-                items: [],
-                type: 'melee',
-            },
-            ranged: {
-                label: game.i18n.localize('PF2E.NPC.AttackType.Ranged'),
-                labelShort: game.i18n.localize('PF2E.NPCAttackRanged'),
-                items: [],
-                type: 'melee',
-            },
-        };
-
         const actions: ActionActions = {
             passive: { label: game.i18n.localize('PF2E.ActionTypePassive'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionTypeFree'), actions: [] },
@@ -551,64 +514,54 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             action: { label: game.i18n.localize('PF2E.ActionTypeAction'), actions: [] },
         };
 
-        // Iterate through the items to search for actions
-        for (const item of actorData.items) {
-            const isAction = item.type === 'action';
-            const isWeapon = item.type === 'weapon';
-            const isGenericAttack = item.type === 'melee';
+        actorData?.items
+            .filter((item) => item.type === 'action')
+            .forEach((item) => {
+                // Format action traits
+                const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
+                const configWeaponTraits = CONFIG.PF2E.weaponTraits;
 
-            if (!isAction && !isWeapon && !isGenericAttack) continue;
-            if (isWeapon) continue; // Weapons are no longer supported, they use the 'melee' item type
+                const traits = item.data.traits.value.map((traitString) => {
+                    const label = objectHasKey(configWeaponTraits, traitString)
+                        ? CONFIG.PF2E.weaponTraits[traitString]
+                        : traitString.charAt(0).toUpperCase() + traitString.slice(1);
 
-            // Format action traits
-            const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
-            const configWeaponTraits = CONFIG.PF2E.weaponTraits;
+                    const description = objectHasKey(configTraitDescriptions, traitString)
+                        ? configTraitDescriptions[traitString]
+                        : '';
 
-            const configWeaponDescriptions = CONFIG.PF2E.weaponDescriptions;
+                    const trait = {
+                        label,
+                        description,
+                    };
 
-            const traits = item.data.traits.value.map((traitString) => {
-                const label = objectHasKey(configWeaponTraits, traitString)
-                    ? CONFIG.PF2E.weaponTraits[traitString]
-                    : traitString.charAt(0).toUpperCase() + traitString.slice(1);
+                    return trait;
+                });
 
-                const description = objectHasKey(configWeaponDescriptions, traitString)
-                    ? configWeaponDescriptions[traitString]
-                    : '';
-
-                const trait = {
-                    label,
-                    description,
-                };
-
-                return trait;
-            });
-
-            // Create trait with the type of action
-            const itemData = item.data as ActionDetailsData;
-            const hasType = itemData.actionType && itemData.actionType.value;
-
-            if (hasType) {
-                const actionTrait = itemData.actionType.value;
-                const label = objectHasKey(configWeaponTraits, actionTrait)
-                    ? configWeaponTraits[actionTrait]
-                    : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
-                const description = objectHasKey(configTraitDescriptions, actionTrait)
-                    ? configTraitDescriptions[actionTrait]
-                    : '';
-
-                const trait = {
-                    label,
-                    description,
-                };
-
-                traits.push(trait);
-            }
-
-            // Don't know the purpose of this, coppied from previous code
-            item.traits = traits.filter((p) => !!p);
-
-            if (isAction) {
+                // Create trait with the type of action
                 const itemData = item.data as ActionDetailsData;
+                const hasType = itemData.actionType && itemData.actionType.value;
+
+                if (hasType) {
+                    const actionTrait = itemData.actionType.value;
+                    const label = objectHasKey(configWeaponTraits, actionTrait)
+                        ? configWeaponTraits[actionTrait]
+                        : actionTrait.charAt(0).toUpperCase() + actionTrait.slice(1);
+                    const description = objectHasKey(configTraitDescriptions, actionTrait)
+                        ? configTraitDescriptions[actionTrait]
+                        : '';
+
+                    const trait = {
+                        label,
+                        description,
+                    };
+
+                    traits.splice(0, 0, trait);
+                }
+
+                // Don't know the purpose of this, coppied from previous code
+                (item as ItemDataPF2e & SheetEnrichedItemData).traits = traits.filter((p) => !!p);
+
                 // Select appropiate image for the action, based on type of action
                 const actionType = itemData.actionType.value || 'action'; // Default to action if not set
 
@@ -617,38 +570,37 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 if (objectHasKey(actions, actionType)) {
                     actions[actionType].actions.push(item);
                 }
-            } else if (isGenericAttack) {
-                const isAgile = this.isAgileWeapon(item as MeleeData);
-                const attackBonus = getProperty(item.data, 'bonus.value');
-                const weaponType = this.getWeaponType(item as MeleeData);
-                //const itemData = item.data as MeleeDetailsData;
-
-                item.data.bonus.value = parseInt(attackBonus, 10);
-                item.data.bonus.total = item.data.bonus.value;
-                item.data.isAgile = isAgile;
-                item.data.weaponType = weaponType;
-
-                // Format traits to display for read-only NPCs
-                const traits = item.data.traits.value.map((trait) => {
-                    return {
-                        label: objectHasKey(configWeaponTraits, trait)
-                            ? configWeaponTraits[trait]
-                            : trait.charAt(0).toUpperCase() + trait.slice(1),
-                        description: objectHasKey(configTraitDescriptions, trait) ? configTraitDescriptions[trait] : '',
-                    };
-                });
-
-                item.traits = traits.filter((p) => !!p);
-
-                this.assignActionGraphics(item as MeleeData & SheetEnrichedItemData);
-
-                if (objectHasKey(attacks, weaponType)) {
-                    attacks[weaponType].items.push(item);
-                }
-            }
-        }
+            });
 
         actorData.actions = actions;
+    }
+
+    protected prepareAttacks(actorData: SheetEnrichedNPCData) {
+        const attacks: Attacks = [];
+
+        const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
+
+        actorData?.data?.actions.forEach((attack) => {
+            let traits = attack.traits.map((strikeTrait) => {
+                const description = objectHasKey(configTraitDescriptions, strikeTrait.name)
+                    ? configTraitDescriptions[strikeTrait.name]
+                    : '';
+
+                const trait = {
+                    label: strikeTrait.label,
+                    description,
+                };
+                return trait;
+            });
+
+            traits = traits.sort((a, b) => {
+                if (a.label < b.label) return -1;
+                if (a.label > b.label) return 1;
+                return 0;
+            });
+            attacks.push({ attack, traits });
+        });
+
         actorData.attacks = attacks;
     }
 
@@ -1135,7 +1087,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     rollSave(event: JQuery.ClickEvent, saveId: SaveString) {
-        this.actor.rollSave(event, saveId);
+        const save = this.actor.data.data.saves[saveId];
+
+        if (save?.roll) {
+            const options = this.actor.getRollOptions(['all', 'saving-throw', saveId]);
+            save.roll({ event, options });
+        } else {
+            this.actor.rollSave(event, saveId);
+        }
     }
 
     // ----
@@ -1147,7 +1106,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         const a = $(eventData.currentTarget);
         const config = CONFIG.PF2E;
-        const traitType = a.attr('data-options') ?? '';
+        const traitType = a.parents('div').attr('data-attribute') ?? ''; //a.attr('data-options') ?? '';
         const choices: string[] = objectHasKey(config, traitType) ? (config[traitType] as string[]) : [];
         const options = {
             name: a.parents('div').attr('for'),
@@ -1215,13 +1174,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         switch (eventData.target.dataset.action) {
             case 'npcAttack':
-                this.onNPCAttackClicked(eventData, 1);
-                break;
-            case 'npcAttack2':
-                this.onNPCAttackClicked(eventData, 2);
-                break;
-            case 'npcAttack3':
-                this.onNPCAttackClicked(eventData, 3);
+                this.onNPCAttackClicked(eventData);
                 break;
             case 'damage':
                 this.onNPCDamageClicked(eventData);
@@ -1232,34 +1185,34 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    protected onNPCAttackClicked(eventData: JQuery.ClickEvent, attackNumber: number) {
-        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id') ?? '';
-        const item = this.actor.getOwnedItem(itemId);
+    protected onNPCAttackClicked(eventData: JQuery.ClickEvent) {
+        const actionId = Number($(eventData.currentTarget).parents('.item').attr('data-action-id') ?? 0);
+        const action = this.actor.data.data.actions[actionId];
 
-        if (item) {
-            if (attackNumber < 2) {
-                item.rollNPCAttack(eventData);
-            } else {
-                item.rollNPCAttack(eventData, attackNumber);
-            }
+        if (action) {
+            const variant = Number($(eventData.currentTarget).attr('data-variant-index') ?? 0);
+            const options = this.actor.getRollOptions(['all', 'attack-roll']);
+            action.variants[variant].roll({ event: eventData, options });
         }
     }
 
     protected onNPCDamageClicked(eventData: JQuery.ClickEvent) {
-        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id') ?? '';
-        const item = this.actor.getOwnedItem(itemId);
+        const actionId = Number($(eventData.currentTarget).parents('.item').attr('data-action-id') ?? 0);
+        const action = this.actor.data.data.actions[actionId];
 
-        if (item) {
-            item.rollNPCDamage(eventData);
+        if (action && action.damage !== undefined) {
+            const options = this.actor.getRollOptions(['all', 'damage-roll']);
+            action.damage({ event: eventData, options });
         }
     }
 
     protected onNPCCriticalClicked(eventData: JQuery.ClickEvent) {
-        const itemId = $(eventData.currentTarget).parents('.item').attr('data-item-id') ?? '';
-        const item = this.actor.getOwnedItem(itemId);
+        const actionId = Number($(eventData.currentTarget).parents('.item').attr('data-action-id') ?? 0);
+        const action = this.actor.data.data.actions[actionId];
 
-        if (item) {
-            item.rollNPCDamage(eventData, true);
+        if (action && action.critical !== undefined) {
+            const options = this.actor.getRollOptions(['all', 'damage-roll']);
+            action.critical({ event: eventData, options });
         }
     }
 
