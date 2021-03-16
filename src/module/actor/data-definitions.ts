@@ -91,6 +91,8 @@ export interface CharacterStrikeTrait {
     rollOption?: string;
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
+    /** The description of the trait */
+    description?: string;
 }
 
 /** An strike which a character can use. */
