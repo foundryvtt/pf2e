@@ -50,6 +50,7 @@ import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
+import { ConfigPF2e } from '@scripts/config';
 
 export class CharacterPF2e extends CreaturePF2e {
     /** @override */
@@ -796,6 +797,10 @@ export class CharacterPF2e extends CreaturePF2e {
                             name: trait,
                             label: game.i18n.localize(key),
                             toggle: false,
+                            description:
+                                CONFIG.PF2E.traitsDescriptions[
+                                    trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']
+                                ] ?? '',
                         };
 
                         // look for toggleable traits
