@@ -770,20 +770,22 @@ export class CharacterPF2e extends CreaturePF2e {
                     multipleAttackPenalty.map3 = penalty * 2;
                 }
 
-                const action: Partial<CharacterStrike> = new StatisticModifier(item.name, modifiers);
-
-                action.imageUrl = item.img;
-                action.item = item?._id;
-                action.ready = item?.data?.equipped?.value ?? false;
-                action.glyph = 'A';
-                action.type = 'strike';
                 const flavor = this.getStrikeDescription(item);
-                action.description = flavor.description;
-                action.criticalSuccess = flavor.criticalSuccess;
-                action.success = flavor.success;
-                action.options = item?.data?.options?.value ?? [];
+                const action: CharacterStrike = mergeObject(new StatisticModifier(item.name, modifiers), {
+                    imageUrl: item.img,
+                    item: item._id,
+                    ready: item.data.equipped.value ?? false,
+                    glyph: 'A',
+                    type: 'strike' as const,
+                    description: flavor.description,
+                    criticalSuccess: flavor.criticalSuccess,
+                    success: flavor.success,
+                    options: item.data.options?.value ?? [],
+                    traits: [],
+                    variants: [],
+                    selectedAmmoId: item.data.selectedAmmoId,
+                });
 
-                action.selectedAmmoId = item.data.selectedAmmoId;
                 if (['bow', 'sling', 'dart'].includes(itemGroup)) {
                     action.ammo = ammo;
                 }
@@ -829,11 +831,10 @@ export class CharacterPF2e extends CreaturePF2e {
                     .join(', ');
 
                 // Add the base attack roll (used for determining on-hit)
-                const strike = action as Required<typeof action>;
                 action.attack = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(defaultOptions);
                     CheckPF2e.roll(
-                        new CheckModifier(`Strike: ${action.name}`, strike),
+                        new CheckModifier(`Strike: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                         args.event,
                         args.callback,
@@ -848,7 +849,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike),
+                                new CheckModifier(`Strike: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                                 args.callback,
@@ -860,7 +861,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike, [
+                                new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
                                         multipleAttackPenalty.label,
                                         multipleAttackPenalty.map2,
@@ -878,7 +879,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike, [
+                                new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
                                         multipleAttackPenalty.label,
                                         multipleAttackPenalty.map3,
@@ -893,7 +894,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 ];
                 action.damage = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(strike.options);
+                    const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
                         item,
                         actorData,
@@ -914,7 +915,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     );
                 });
                 action.critical = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(strike.options);
+                    const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
                         item,
                         actorData,
@@ -934,7 +935,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.callback,
                     );
                 });
-                data.actions.push(strike);
+                data.actions.push(action);
             });
 
         (actorData.items ?? [])

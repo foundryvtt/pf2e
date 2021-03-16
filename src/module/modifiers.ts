@@ -90,21 +90,21 @@ export class ModifierPF2e {
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** The source which this modifier originates from, if any. */
-    source: string;
+    source?: string;
     /** Any notes about this modifier. */
-    notes: string;
+    notes?: string;
     /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
     ignored: boolean;
     /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType: string;
+    damageType?: string;
     /** The damage category */
-    damageCategory: string;
+    damageCategory?: string;
     /** A predicate which determines when this modifier is active. */
     predicate: any;
     /** If true, this modifier is only active on a critical hit. */
-    critical: boolean;
+    critical?: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
@@ -122,22 +122,15 @@ export class ModifierPF2e {
      * @param source The source which this modifier originates from, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(
-        name: string,
-        modifier: number,
-        type: string,
-        enabled = true,
-        source: string | undefined = undefined,
-        notes: string | undefined = undefined,
-    ) {
+    constructor(name: string, modifier: number, type: string, enabled = true, source?: string, notes?: string) {
         this.name = name;
         this.modifier = modifier;
         this.type = type;
         this.enabled = enabled;
         this.ignored = false;
         this.custom = false;
-        if (source) this.source = source;
-        if (notes) this.notes = notes;
+        this.source = source;
+        this.notes = notes;
     }
 }
 
@@ -308,8 +301,8 @@ function applyStacking(
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
  * provided modifiers, setting the 'enabled' field based on whether or not the modifiers are active.
  *
- * @param {ModifierPF2e[]} modifiers The list of modifiers to apply stacking rules for.
- * @returns {number} The total modifier provided by the given list of modifiers.
+ * @param modifiers The list of modifiers to apply stacking rules for.
+ * @returns The total modifier provided by the given list of modifiers.
  */
 function applyStackingRules(modifiers: ModifierPF2e[]): number {
     let total = 0;
@@ -352,9 +345,9 @@ export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
     name: string;
     /** The list of modifiers which affect the statistic. */
-    _modifiers: ModifierPF2e[];
+    protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier: number;
+    totalModifier!: number;
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
@@ -362,12 +355,12 @@ export class StatisticModifier {
      * @param name The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
      */
-    constructor(name: string, modifiers: ModifierPF2e[]) {
+    constructor(name: string, modifiers?: ModifierPF2e[]) {
         this.name = name;
-        this._modifiers = modifiers || [];
+        this._modifiers = modifiers ?? [];
         {
             // de-duplication
-            const seen = [];
+            const seen: ModifierPF2e[] = [];
             this._modifiers.filter((m) => {
                 const found = seen.find((o) => o.name === m.name) !== undefined;
                 if (!found) seen.push(m);
@@ -380,7 +373,7 @@ export class StatisticModifier {
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
-        return Object.freeze([].concat(this._modifiers));
+        return Object.freeze(this._modifiers);
     }
 
     /** Add a modifier to this collection. */
@@ -415,7 +408,7 @@ export class CheckModifier extends StatisticModifier {
      * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
+        super(name, duplicate(statistic.modifiers).concat(modifiers));
     }
 }
 
