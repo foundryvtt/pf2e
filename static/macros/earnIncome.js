@@ -111,7 +111,7 @@ function runEarnIncome(actor, skill, assurance, level, days) {
         const options = actor.getRollOptions(['all', 'skill-check', skill.name]);
         options.push('earn-income');
         PF2Check.roll(
-            new PF2CheckModifier(
+            new CheckModifier(
                 '<span style="font-family: Pathfinder2eActions">A</span> Earn Income',
                 actor.data.data.skills[skill.acronym],
                 [],
