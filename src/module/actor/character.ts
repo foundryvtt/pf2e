@@ -50,6 +50,7 @@ import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
+import { ConfigPF2e } from '@scripts/config';
 
 export class CharacterPF2e extends CreaturePF2e {
     /** @override */
@@ -796,6 +797,10 @@ export class CharacterPF2e extends CreaturePF2e {
                             name: trait,
                             label: game.i18n.localize(key),
                             toggle: false,
+                            description:
+                                CONFIG.PF2E.traitsDescriptions[
+                                    trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']
+                                ] ?? '',
                         };
 
                         // look for toggleable traits
@@ -838,7 +843,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 action.variants = [
                     {
-                        label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+                        label: `${game.i18n.localize('PF2E.RuleElement.Strike')}
+                            ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
@@ -850,7 +856,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map2}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
@@ -868,7 +874,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map3}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(

@@ -138,6 +138,11 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 	* Pathfinder Society Bounty #3: Shadow and Scarecrows © 2020, Paizo Inc.; Author: Jacob W. Michaels
     * Pathfinder Society Bounty #4: Cat's Cradle © 2020, Paizo Inc.; Author: Hilary Moon Murphy
     * Pathfinder Society Bounty #5: Witch's Winter Holiday © 2020, Paizo Inc.; Author: Patrick Hurley
+    * Pathfinder Society Bounty #6: The Road from Otari © 2020, Paizo Inc.; Author: Ron Lundeen
+    * Pathfinder Society Bounty #7: Cleanup Duty © 2020, Paizo Inc.; Author: Elizabeth V Nold
+    * Pathfinder Society Bounty #8: The Tireless Path © 2020, Paizo Inc.; Author: Ivis K. Flanagan
+    * Pathfinder Society Bounty #9: Fishing in Anthusis © 2020, Paizo Inc.; Author: Letterio Mammoliti
+    * Pathfinder Society Bounty #10: Hillcross Roundup © 2020, Paizo Inc.; Author: Nicole Heits
 
     * Pathfinder Society Scenario #1-00: Origin of the Open Road © 2019, Paizo Inc.; Author: Ron Lundeen.
     * Pathfinder Society Scenario #1-01: The Absalom Initiation © 2019, Paizo Inc.; Author: Lyz Liddell.
@@ -179,6 +184,18 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     * Pathfinder Society Scenario #2-09: The Seven Secrets of Dacilane Academy © 2020, Paizo Inc.; Authors: Rigby Bendele
     * Pathfinder Society Scenario #2-10: In Burning Dawn © 2020, Paizo Inc.; Authors: Steven Hammond
     * Pathfinder Society Scenario #2-11: The Pathfinder Trials © 2021, Paizo Inc.; Authors: Sean McGowan
+    * Pathfinder Society Scenario #2-12: Snakes in the Grass © 2021, Paizo Inc.; Authors: Lysle Kapp
+    * Pathfinder Society Scenario #2-13: A Gilded Test © 2021, Paizo Inc.; Authors: Kalervo Oikarinen
+    * Pathfinder Society Scenario #2-14: Lost in Flames © 2021, Paizo Inc.; Authors: Dennis Muldoon
+    * Pathfinder Society Scenario #2-15: A Dirge for Sarkoris © 2021, Paizo Inc.; Authors: Kendra Leigh Speedling
+    * Pathfinder Society Scenario #2-16: Freedom for Wishes © 2021, Paizo Inc.; Authors: Jessica Redekop
+    * Pathfinder Society Scenario #2-17: Lost Maid of Anactoria © 2021, Paizo Inc.; Authors: Scott D. Young
+    * Pathfinder Society Scenario #2-18: The Fanciful March of Urwal © 2021, Paizo Inc.; Authors: Hillary Moon Murphy
+    * Pathfinder Society Scenario #2-19: Enter the Pallid Peak © 2021, Paizo Inc.; Authors: Jacob W. Michaels
+    * Pathfinder Society Scenario #2-20: Breaking the Storm: Bastion in Embers © 2021, Paizo Inc.; Authors: Christopher Wasko
+    * Pathfinder Society Scenario #2-21: In Pursuit of Water © 2021, Paizo Inc.; Authors: Matt Duval
+    * Pathfinder Society Scenario #2-22: Breaking the Storm: Excising Ruination © 2021, Paizo Inc.; Authors: Nicholas Wasko
+
     * Pathfinder Society Guide to Play (Second Edition) © 2020, The Organized Play Foundation
 
 * Lost Omens

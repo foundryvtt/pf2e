@@ -414,9 +414,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // This will help in displaying the skills in alphabetical order in the sheet
         const sortedSkillsIds = duplicate(Object.keys(actorData.data.skills));
 
+        const skills = duplicate(actorData.data.skills);
+        for (const skillId of sortedSkillsIds) {
+            skills[skillId].label = game.i18n.localize('PF2E.Skill' + skills[skillId].name);
+        }
+
         sortedSkillsIds.sort((a: string, b: string) => {
-            const skillA = actorData.data.skills[a];
-            const skillB = actorData.data.skills[b];
+            const skillA = skills[a];
+            const skillB = skills[b];
 
             if (skillA.label < skillB.label) return -1;
             if (skillA.label > skillB.label) return 1;
@@ -427,7 +432,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const sortedSkills: Record<string, NPCSkillData> = {};
 
         for (const skillId of sortedSkillsIds) {
-            sortedSkills[skillId] = actorData.data.skills[skillId];
+            sortedSkills[skillId] = skills[skillId];
         }
 
         actorData.data.sortedSkills = sortedSkills;
