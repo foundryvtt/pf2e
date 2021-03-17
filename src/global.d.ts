@@ -12,7 +12,7 @@ import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
-    ModifierType,
+    MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
@@ -41,7 +41,7 @@ declare global {
             DicePF2e: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
-            ModifierType: typeof ModifierType;
+            ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
             AbilityModifier: typeof AbilityModifier;
             ProficiencyModifier: typeof ProficiencyModifier;
@@ -59,7 +59,7 @@ declare global {
         DicePF2e: typeof DicePF2e;
         PF2eStatusEffects: typeof StatusEffects;
         PF2eConditionManager: typeof ConditionManager;
-        PF2ModifierType: typeof ModifierType;
+        PF2ModifierType: typeof MODIFIER_TYPE;
         PF2Modifier: typeof ModifierPF2e;
         AbilityModifier: typeof AbilityModifier;
         ProficiencyModifier: typeof ProficiencyModifier;

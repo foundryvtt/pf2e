@@ -1,7 +1,7 @@
 import {
     PF2DamageDice,
     ModifierPF2e,
-    ModifierType,
+    MODIFIER_TYPE,
     ModifierPredicate,
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
@@ -213,7 +213,9 @@ export class PF2WeaponDamage {
             }
 
             if (ability) {
-                numericModifiers.push(new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, ModifierType.ABILITY));
+                numericModifiers.push(
+                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], modifier, MODIFIER_TYPE.ABILITY),
+                );
             }
         }
         const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
@@ -316,7 +318,7 @@ export class PF2WeaponDamage {
             const modifier = new ModifierPF2e(
                 CONFIG.PF2E.weaponTraits.backstabber,
                 potency > 2 ? 2 : 1,
-                ModifierType.UNTYPED,
+                MODIFIER_TYPE.UNTYPED,
             );
             modifier.damageCategory = 'precision';
             numericModifiers.push(modifier);
@@ -361,12 +363,12 @@ export class PF2WeaponDamage {
                     new ModifierPF2e(
                         'PF2E.GreaterWeaponSpecialization',
                         weaponSpecializationDamage * 2,
-                        ModifierType.UNTYPED,
+                        MODIFIER_TYPE.UNTYPED,
                     ),
                 );
             } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
                 numericModifiers.push(
-                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED),
                 );
             }
         }
@@ -374,13 +376,15 @@ export class PF2WeaponDamage {
         // add splash damage
         const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
         if (splashDamage > 0) {
-            numericModifiers.push(new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, ModifierType.UNTYPED));
+            numericModifiers.push(
+                new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED),
+            );
         }
 
         // add bonus damage
         const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
         if (bonusDamage > 0) {
-            numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, ModifierType.UNTYPED));
+            numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, MODIFIER_TYPE.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
