@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { ModifierPF2e, ModifierPredicate, ModifierType } from '../../modifiers';
+import { ModifierPF2e, ModifierPredicate, MODIFIER_TYPE } from '../../modifiers';
 import { ActorPF2e } from '@actor/base';
 
 /**
@@ -16,7 +16,7 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
             const modifier = new ModifierPF2e(
                 this.ruleData.name ?? label,
                 value,
-                this.ruleData.type ?? ModifierType.UNTYPED,
+                this.ruleData.type ?? MODIFIER_TYPE.UNTYPED,
             );
             modifier.label = label;
             if (this.ruleData.damageType) {

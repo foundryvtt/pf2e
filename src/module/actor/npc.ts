@@ -1,6 +1,6 @@
 import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
 import { ItemPF2e } from '@item/base';
-import { CheckModifier, ModifierPF2e, ModifierType, StatisticModifier } from '../modifiers';
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
 import { CharacterStrike, CharacterStrikeTrait, NPCData } from './data-definitions';
@@ -95,8 +95,8 @@ export class NPCPF2e extends CreaturePF2e {
                 ...(data.attributes.dexCap ?? []).map((cap) => cap.value),
             );
             const modifiers = [
-                new ModifierPF2e('PF2E.BaseModifier', base - 10 - dexterity, ModifierType.UNTYPED),
-                new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, ModifierType.ABILITY),
+                new ModifierPF2e('PF2E.BaseModifier', base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
             ];
             ['ac', 'dex-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
@@ -122,11 +122,11 @@ export class NPCPF2e extends CreaturePF2e {
         for (const [saveName, save] of Object.entries(data.saves as Record<string, any>)) {
             const base: number = save.base ?? Number(save.value);
             const modifiers = [
-                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[save.ability].mod, ModifierType.UNTYPED),
+                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[save.ability].mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(
                     CONFIG.PF2E.abilities[save.ability],
                     data.abilities[save.ability].mod,
-                    ModifierType.ABILITY,
+                    MODIFIER_TYPE.ABILITY,
                 ),
             ];
             const notes = [] as PF2RollNote[];
@@ -163,8 +163,8 @@ export class NPCPF2e extends CreaturePF2e {
         {
             const base: number = data.attributes.perception.base ?? Number(data.attributes.perception.value);
             const modifiers = [
-                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities.wis.mod, ModifierType.UNTYPED),
-                new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, ModifierType.ABILITY),
+                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities.wis.mod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities.wis, data.abilities.wis.mod, MODIFIER_TYPE.ABILITY),
             ];
             const notes = [] as PF2RollNote[];
             ['perception', 'wis-based', 'all'].forEach((key) => {
@@ -198,8 +198,8 @@ export class NPCPF2e extends CreaturePF2e {
         data.skills = {};
         for (const [skill, { ability, shortform }] of Object.entries(SKILL_EXPANDED)) {
             const modifiers = [
-                new ModifierPF2e('PF2E.BaseModifier', 0, ModifierType.UNTYPED),
-                new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, ModifierType.ABILITY),
+                new ModifierPF2e('PF2E.BaseModifier', 0, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
             ];
             const notes = [] as PF2RollNote[];
             [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
@@ -250,8 +250,12 @@ export class NPCPF2e extends CreaturePF2e {
 
                 const base: number = (item.data.mod as any).base ?? Number(item.data.mod.value);
                 const modifiers = [
-                    new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, ModifierType.UNTYPED),
-                    new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, ModifierType.ABILITY),
+                    new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(
+                        CONFIG.PF2E.abilities[ability],
+                        data.abilities[ability].mod,
+                        MODIFIER_TYPE.ABILITY,
+                    ),
                 ];
                 const notes = [] as PF2RollNote[];
                 [skill, `${ability}-based`, 'skill-check', 'all'].forEach((key) => {
@@ -314,12 +318,12 @@ export class NPCPF2e extends CreaturePF2e {
                         new ModifierPF2e(
                             'PF2E.BaseModifier',
                             bonus - data.abilities[ability].mod,
-                            ModifierType.UNTYPED,
+                            MODIFIER_TYPE.UNTYPED,
                         ),
                         new ModifierPF2e(
                             CONFIG.PF2E.abilities[ability],
                             data.abilities[ability].mod,
-                            ModifierType.ABILITY,
+                            MODIFIER_TYPE.ABILITY,
                         ),
                     );
                 }
@@ -404,7 +408,7 @@ export class NPCPF2e extends CreaturePF2e {
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
-                                    new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map2, ModifierType.UNTYPED),
+                                    new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map2, MODIFIER_TYPE.UNTYPED),
                                 ]),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
@@ -417,7 +421,7 @@ export class NPCPF2e extends CreaturePF2e {
                             const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                             CheckPF2e.roll(
                                 new CheckModifier(`Strike: ${action.name}`, action, [
-                                    new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map3, ModifierType.UNTYPED),
+                                    new ModifierPF2e('PF2E.MultipleAttackPenalty', map.map3, MODIFIER_TYPE.UNTYPED),
                                 ]),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
