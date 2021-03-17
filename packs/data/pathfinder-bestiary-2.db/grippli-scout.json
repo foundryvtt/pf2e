@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -447,8 +453,21 @@
     "img": "icons/svg/mystery-man.svg",
     "items": [
         {
-            "_id": "Yu1uFizt2sfFu0Q5",
+            "_id": "EWXMssWRUz6KBBF9",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -461,17 +480,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": "<p>(5)</p>"
+                    "value": "<p>This thrown weapon is larger than an arrow but shorter than a javelin. It typically has a short shaft of wood ending in a metal tip and is sometimes stabilized by feathers or fur.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "dart"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -484,7 +513,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -498,6 +527,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": ""
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -505,22 +537,61 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 cp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": {
+                    "value": "20"
+                },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "dart",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -528,30 +599,50 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "thrown-20"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "dart (5)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Tt4Qw64fwrxhr5gT"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/dart.jpg",
+            "name": "Dart",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "rIlT0uUB0GufSwDk",
+            "_id": "8d8F5PjzoZUXxsd3",
             "data": {
+                "armor": {
+                    "value": 1
+                },
+                "armorType": {
+                    "value": "light"
+                },
+                "baseItem": null,
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": "-1"
                 },
                 "collapsed": {
                     "value": false
@@ -561,28 +652,32 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>A mix of flexible and molded boiled leather, a suit of this type of armor provides some protection with maximum flexibility.</p>"
+                },
+                "dex": {
+                    "value": "4"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
+                },
+                "group": {
+                    "value": "leather"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -591,10 +686,14 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -603,7 +702,19 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "2 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
@@ -611,15 +722,26 @@
                 "rarity": {
                     "value": "common"
                 },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "leather-armor",
                 "source": {
+                    "value": ""
+                },
+                "speed": {
                     "value": ""
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": "10"
                 },
                 "traits": {
                     "custom": "",
@@ -629,22 +751,27 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/leather-armor.jpg",
+            "name": "Leather Armor",
             "sort": 200000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "jeNIST8i4BMw3QnH",
+            "_id": "sf9D67bYwYhHax5M",
             "data": {
+                "baseItem": null,
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -659,10 +786,8 @@
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>You can use a net either on its own or attached to a rope. When attached to a rope, you can use the net to Grapple a Medium or smaller creature up to 10 feet away (instead of only adjacent creatures). You can continue to Grapple to keep your hold on the target so long as the target remains within 10 feet and you continue to hold the net. The grabbed creature gains a +2 circumstance bonus to Escape unless you are adjacent to them, and it can attempt a DC 16 Athletics check to Force Open the net entirely. Once the target is no longer grabbed, the net is unwieldy until refolded as a Concentrate action that requires two hands; if used without being refolded, Grapple checks made with the net take a -2 penalty.</p>\n<p>When the net is unattached, you can attempt a ranged attack roll against a Medium or smaller creature within 20 feet. On a hit, the target is flat-footed and takes a -10- foot circumstance penalty to its Speeds until it Escapes, and on a critical hit, it's also immobilized until it Escapes. The Escape DC is 16. A creature adjacent to the target can Interact to remove the net.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -680,13 +805,13 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": "0"
                 },
                 "maxHp": {
                     "value": 0
@@ -701,10 +826,10 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 gp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": "1"
                 },
                 "rarity": {
                     "value": "common"
@@ -713,6 +838,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": "net",
                 "source": {
                     "value": ""
                 },
@@ -724,25 +850,45 @@
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-two-hands"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "net",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.T8EopYZLT137CsdW"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/net.jpg",
+            "name": "Net",
             "sort": 300000,
             "type": "equipment"
         },
         {
-            "_id": "O038EdIMkDN4eWDe",
+            "_id": "CNRT9u2VKF6qLvci",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -755,17 +901,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Originally a farming tool used for reaping grain, this one‑handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "knife"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -778,7 +934,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -792,6 +948,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": ""
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -799,22 +958,61 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "2 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": "",
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": "",
+                    "damageType": "",
+                    "dice": "",
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": "",
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "range": {
+                    "value": "melee"
+                },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "sickle",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -822,21 +1020,32 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "trip"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "sickle",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ynnBwzkzsR6B73iO"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/sickle.jpg",
+            "name": "Sickle",
             "sort": 400000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "EBnYEijsgTINPs3Y",
@@ -847,6 +1056,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 9,
                     "value": 9
@@ -867,12 +1077,12 @@
                     "damageType": "slashing",
                     "die": "1d4+1"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4+1",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -954,6 +1164,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -994,6 +1205,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 9,
                     "value": 9
@@ -1014,12 +1226,12 @@
                     "damageType": "piercing",
                     "die": "1d4+1"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "1d4+1",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -1101,6 +1313,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1114,7 +1327,7 @@
                     },
                     "value": [
                         "agile",
-                        "thrown 20 feet"
+                        "range-increment-20"
                     ]
                 },
                 "usage": {
@@ -1135,6 +1348,59 @@
             "type": "melee"
         },
         {
+            "_id": "cQH5uYYBW0hseijL",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "IwPCTJvgvDQC90Yj",
             "data": {
                 "actionCategory": {
@@ -1144,12 +1410,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The grippli is wielding a net in two hands; <strong>Effect</strong> The grippli makes a ranged Strike (with a +9 modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and takes a -10-foot circumstance penalty to its Speeds. On a critical hit, the creature is @Compendium[pf2e.conditionitems.Restrained]{Restrained} instead. The DC to @Compendium[pf2e.actionspf2e.Escape]{Escape} the net is 16. A creature adjacent to the target can Interact with the net to remove it.</p>"
+                    "value": "<p><strong>Requirements</strong> The grippli is wielding a net in two hands;</p>\n<p><strong>Effect</strong> The grippli makes a ranged Strike (with a +9 modifier) against a Medium or smaller creature within 20 feet. On a hit, the target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} and takes a -10-foot circumstance penalty to its Speeds. On a critical hit, the creature is @Compendium[pf2e.conditionitems.Restrained]{Restrained} instead. The DC to @Compendium[pf2e.actionspf2e.Escape]{Escape} the net is 16. A creature adjacent to the target can Interact with the net to remove it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1158,6 +1424,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1180,9 +1447,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Hurl Net",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1209,6 +1476,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1233,7 +1501,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Jungle Stride",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1257,6 +1525,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1275,7 +1544,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1299,6 +1568,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1317,7 +1587,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1341,6 +1611,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1359,7 +1630,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1382,7 +1653,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1395,13 +1679,19 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+9 in forests",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1425,6 +1715,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1443,7 +1734,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
@@ -1452,7 +1743,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "rpq2rHlZjy5g31xo",
         "actorLink": false,
         "bar1": {
@@ -1471,6 +1761,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Grippli Scout",
         "randomImg": false,

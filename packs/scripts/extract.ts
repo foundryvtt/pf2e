@@ -97,6 +97,10 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
     type EntityKey = keyof PackEntry;
+    if ('label' in entityData && 'type' in entityData && ['Boolean', 'Number', 'String'].includes(entityData['type'])) {
+        delete entityData['label'];
+        delete entityData['type'];
+    }
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;

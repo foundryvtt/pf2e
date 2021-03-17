@@ -1,5 +1,5 @@
 import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
-import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
+import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
@@ -10,6 +10,8 @@ export type PFSFactionString = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
 
 /** A type representing the possible PFS schools. */
 export type PFSSchoolString = 'none' | 'scrolls' | 'spells' | 'swords';
+
+export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
 /** A roll function which can be called to roll a given skill. */
 export type RollFunction = (
@@ -91,6 +93,8 @@ export interface CharacterStrikeTrait {
     rollOption?: string;
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
+    /** The description of the trait */
+    description?: string;
 }
 
 /** An strike which a character can use. */
