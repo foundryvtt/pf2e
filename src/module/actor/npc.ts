@@ -392,9 +392,7 @@ export class NPCPF2e extends CreaturePF2e {
                     });
                 }
                 // Add a damage roll breakdown
-                action.damageBreakdown = Object.values(
-                    item.data.damageRolls as { damage: string; damageType: string }[],
-                ).flatMap((roll) => {
+                action.damageBreakdown = Object.values(item.data.damageRolls).flatMap((roll) => {
                     return [
                         `${roll.damage} ${game.i18n.localize(
                             CONFIG.PF2E.damageTypes[roll.damageType as keyof ConfigPF2e['PF2E']['damageTypes']],
