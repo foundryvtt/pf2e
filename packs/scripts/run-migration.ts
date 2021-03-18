@@ -46,14 +46,22 @@ const isItemData = (entityData: { type: string }): entityData is ItemDataPF2e =>
     return itemTypes.includes(entityData.type);
 };
 
-function JSONstringifyOrder(obj: object, space: number): string {
-    const allKeys: string[] = [];
+function JSONstringifyOrder(obj: object): string {
+    const allKeys: Set<string> = new Set();
+    const idKeys: string[] = [];
     JSON.stringify(obj, (key, value) => {
-        allKeys.push(key);
+        if (/^[a-z0-9]{20,}$/g.test(key)) {
+            idKeys.push(key);
+        } else {
+            allKeys.add(key);
+        }
+
         return value;
     });
-    allKeys.sort();
-    return JSON.stringify(obj, allKeys, space);
+    const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
+
+    const newJson = JSON.stringify(obj, sortedKeys, 4);
+    return `${newJson}\n`;
 }
 
 async function getAllFiles(): Promise<string[]> {
@@ -108,8 +116,8 @@ async function migrate() {
             continue;
         }
 
-        const origData = JSONstringifyOrder(entity, 4) + '\n';
-        const outData = JSONstringifyOrder(updatedEntity, 4) + '\n';
+        const origData = JSONstringifyOrder(entity);
+        const outData = JSONstringifyOrder(updatedEntity);
 
         if (outData !== origData) {
             console.log(`${filePath} is different. writing`);

@@ -312,6 +312,9 @@ export interface MeleeDetailsData extends MagicDetailsData {
     attackEffects: {
         value: any[];
     };
+    weaponType: {
+        value: string;
+    };
 }
 
 export interface ConsumableDetailsData extends MagicDetailsData {
@@ -490,7 +493,9 @@ export interface TrickMagicItemCastData {
     _id: '';
 }
 
-export interface SpellDetailsData extends ItemDescriptionData {
+export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+
+export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     spellType: {
         value: string;
     };
@@ -505,7 +510,7 @@ export interface SpellDetailsData extends ItemDescriptionData {
         custom: string;
     };
     school: {
-        value: string;
+        value: MagicSchoolAbbreviation;
     };
     components: {
         value: string;
@@ -590,6 +595,12 @@ export interface SpellDifficultyClass {
     value: number;
 }
 
+interface SpellSlotData {
+    prepared: { id: string }[];
+    value: number;
+    max: number;
+}
+
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     ability: {
         value: AbilityString | '';
@@ -622,67 +633,19 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
         value: number;
     };
     displayLevels: Record<number, boolean>;
-    slots?: {
-        slot0: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot1: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot2: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot3: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot4: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot5: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot6: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot7: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot8: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot9: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot10: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
-        slot11: {
-            prepared: { id: string }[];
-            value: 0;
-            max: 0;
-        };
+    slots: {
+        slot0: SpellSlotData;
+        slot1: SpellSlotData;
+        slot2: SpellSlotData;
+        slot3: SpellSlotData;
+        slot4: SpellSlotData;
+        slot5: SpellSlotData;
+        slot6: SpellSlotData;
+        slot7: SpellSlotData;
+        slot8: SpellSlotData;
+        slot9: SpellSlotData;
+        slot10: SpellSlotData;
+        slot11: SpellSlotData;
     };
     signatureSpells: {
         value: string[];
@@ -870,7 +833,7 @@ export interface ActionData extends BaseItemDataPF2e<ActionDetailsData> {
     type: 'action';
 }
 
-export interface SpellData extends BaseItemDataPF2e<SpellDetailsData & ItemLevelData> {
+export interface SpellData extends BaseItemDataPF2e<SpellDetailsData> {
     type: 'spell';
 }
 
