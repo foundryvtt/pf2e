@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "25 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "25"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -172,6 +174,14 @@
                             "value": 0
                         }
                     },
+                    "spelldc": {
+                        "dc": 17,
+                        "value": 9
+                    }
+                }
+            },
+            "3PMo2s4e4A2PWtKx": {
+                "data": {
                     "spelldc": {
                         "dc": 17,
                         "value": 9
@@ -582,7 +592,7 @@
                     "value": ""
                 },
                 "spelldc": {
-                    "dc": "17",
+                    "dc": 17,
                     "item": 0,
                     "mod": 0,
                     "value": 9
@@ -617,6 +627,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 9,
                     "value": 9
@@ -760,6 +771,59 @@
             "type": "melee"
         },
         {
+            "_id": "W0kFuPmuWmicQuUc",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "a29GFo7lbKhSTAYm",
             "data": {
                 "actionCategory": {
@@ -808,7 +872,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fast Healing 2 (when touching ice or snow)",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -863,7 +927,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -906,7 +970,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -949,86 +1013,62 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
             "_id": "tMLJwrzc7C9mSGWk",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
                     "value": "somatic, verbal"
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": true,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "1d4"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "negative"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 0
                 },
                 "location": {
                     "value": "3PMo2s4e4A2PWtKx"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "touch"
                 },
                 "rarity": {
@@ -1037,8 +1077,6 @@
                 "rules": [],
                 "save": {
                     "basic": "basic",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": "fortitude"
                 },
                 "scaling": {
@@ -1046,8 +1084,6 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
                     "value": "nec"
                 },
                 "secondarycasters": {
@@ -1058,9 +1094,7 @@
                 },
                 "slug": "chill-touch",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1069,28 +1103,18 @@
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "save"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 living or undead creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "divine",
@@ -1099,11 +1123,9 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "cantrip",
                         "necromancy",
@@ -1119,86 +1141,62 @@
             },
             "img": "systems/pf2e/icons/spells/chill-touch.jpg",
             "name": "Chill Touch",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "spell"
         },
         {
             "_id": "roG1L564EjXTDyGw",
             "data": {
                 "ability": {
-                    "label": "Spellcasting Ability",
-                    "type": "String",
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "label": "Area",
-                    "type": "String",
                     "value": null
                 },
                 "areasize": {
                     "value": ""
                 },
                 "components": {
-                    "label": "Spell Components",
-                    "type": "String",
                     "value": "somatic, verbal"
                 },
                 "cost": {
-                    "label": "Cost",
-                    "type": "String",
                     "value": ""
                 },
                 "damage": {
                     "applyMod": true,
-                    "label": "Spell Damage",
-                    "type": "String",
                     "value": "1d4"
                 },
                 "damageType": {
-                    "label": "Damage Type",
-                    "type": "String",
                     "value": "cold"
                 },
                 "description": {
                     "chat": "",
-                    "label": "Description",
-                    "type": "String",
                     "unidentified": "",
                     "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
-                    "label": "Duration",
-                    "type": "String",
                     "value": ""
                 },
                 "hasCounteractCheck": {
                     "value": false
                 },
                 "level": {
-                    "label": "Spell Level",
-                    "type": "Number",
                     "value": 0
                 },
                 "location": {
                     "value": "3PMo2s4e4A2PWtKx"
                 },
                 "materials": {
-                    "label": "Materials",
-                    "type": "String",
                     "value": ""
                 },
                 "prepared": {
-                    "label": "Prepared Spell",
-                    "type": "String",
                     "value": ""
                 },
                 "primarycheck": {
                     "value": ""
                 },
                 "range": {
-                    "label": "Range",
-                    "type": "String",
                     "value": "120 feet"
                 },
                 "rarity": {
@@ -1207,8 +1205,6 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "label": "Saving Throw",
-                    "type": "String",
                     "value": ""
                 },
                 "scaling": {
@@ -1216,8 +1212,6 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "label": "Spell School",
-                    "type": "String",
                     "value": "evo"
                 },
                 "secondarycasters": {
@@ -1228,8 +1222,6 @@
                 },
                 "slug": "ray-of-frost",
                 "source": {
-                    "label": "Source",
-                    "type": "String",
                     "value": ""
                 },
                 "spellCategorie": {
@@ -1239,29 +1231,19 @@
                     "value": ""
                 },
                 "spellType": {
-                    "label": "Spell Type",
-                    "type": "String",
                     "value": "attack"
                 },
                 "sustained": {
-                    "label": "Can be Sustained",
-                    "type": "Boolean",
                     "value": false
                 },
                 "target": {
-                    "label": "Target",
-                    "type": "String",
                     "value": "1 creature"
                 },
                 "time": {
-                    "label": "Casting Time",
-                    "type": "String",
                     "value": "2"
                 },
                 "traditions": {
                     "custom": "",
-                    "label": "Spell Traditions",
-                    "type": "String",
                     "value": [
                         "arcane",
                         "primal"
@@ -1269,11 +1251,9 @@
                 },
                 "traits": {
                     "custom": "",
-                    "label": "Spell Traits",
                     "rarity": {
                         "value": "common"
                     },
-                    "type": "String",
                     "value": [
                         "attack",
                         "cold",
@@ -1290,7 +1270,7 @@
             },
             "img": "systems/pf2e/icons/spells/ray-of-frost.jpg",
             "name": "Ray of Frost",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "spell"
         }
     ],
