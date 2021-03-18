@@ -10,12 +10,12 @@
         "extractPacks": "ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts",
         "pretest": "eslint ./src --ext .ts",
         "test": "jest",
-        "posttest": "betterer",
+        "posttest": "npm run betterer",
         "migrate": "ts-node -r tsconfig-paths/register ./packs/scripts/run-migration.ts",
         "lint": "eslint ./src --ext .ts",
         "lint:fix": "eslint ./src --ext .ts --fix",
         "docs": "typedoc",
-        "betterer": "betterer"
+        "betterer": "betterer --strict"
     },
     "author": "",
     "license": "",
