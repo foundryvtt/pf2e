@@ -1013,12 +1013,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
             const parentNode = $(event.currentTarget).parents('.spellbook-header');
             const itemId = parentNode.attr('data-item-id') ?? '';
-            const lvl = parentNode.attr('data-level') ?? '';
+            const lvl = Number(parentNode.attr('data-level') ?? '');
+            if (!Number.isInteger(lvl)) {
+                return;
+            }
+
             const itemToEdit = this.actor.getOwnedItem(itemId)?.data;
             if (itemToEdit?.type !== 'spellcastingEntry')
                 throw new Error('Tried to toggle prepared spells on a non-spellcasting entry');
             const currentDisplayLevels = itemToEdit.data.displayLevels || {};
-            currentDisplayLevels[lvl] = !currentDisplayLevels[lvl];
+            currentDisplayLevels[lvl] = currentDisplayLevels[lvl] === undefined ? false : !currentDisplayLevels[lvl];
             await this.actor.updateEmbeddedEntity('OwnedItem', {
                 _id: itemId,
                 'data.displayLevels': currentDisplayLevels,
