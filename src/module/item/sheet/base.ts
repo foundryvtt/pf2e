@@ -586,4 +586,17 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         return flattenObject(data); // return the flattened submission data
     }
+
+    /**
+     * Hide the sheet-config button unless there is more than one sheet option.
+     *@override */
+    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
+        const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
+        if (!hasMultipleSheets && sheetButton) {
+            buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        return buttons;
+    }
 }

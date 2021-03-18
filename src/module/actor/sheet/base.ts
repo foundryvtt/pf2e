@@ -1827,129 +1827,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         new TraitSelector5e(this.actor, options).render(true);
     }
 
-    // // To be put back in use later?
-    // private onAreaEffect(event: JQuery.ClickEvent) {
-    //     const areaType = $(event.currentTarget).attr('data-area-areaType');
-    //     const areaSize = Number($(event.currentTarget).attr('data-area-size') ?? 0);
-
-    //     let tool = 'cone';
-    //     if (areaType === 'burst') tool = 'circle';
-    //     else if (areaType === 'emanation') tool = 'rect';
-    //     else if (areaType === 'line') tool = 'ray';
-
-    //     // Delete any existing templates for this actor.
-    //     let templateData = this.actor.getFlag('pf2e', 'areaEffectId') || null;
-    //     let templateScene = null;
-    //     if (templateData) {
-    //         templateScene = this.actor.getFlag('pf2e', 'areaEffectScene') || null;
-    //         this.actor.setFlag('pf2e', 'areaEffectId', null);
-    //         this.actor.setFlag('pf2e', 'areaEffectScene', null);
-
-    //         console.log(`PF2e | Existing MeasuredTemplate ${templateData.id} from Scene ${templateScene} found`);
-    //         if (canvas.scene && canvas.templates.objects.children) {
-    //             for (const placeable of canvas.templates.objects.children) {
-    //                 console.log(
-    //                     `PF2e | Placeable Found - id: ${placeable.data._id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
-    //                 );
-    //                 if (
-    //                     placeable.data._id === templateData.id &&
-    //                     canvas.scene._id === templateScene &&
-    //                     placeable.constructor.name === 'MeasuredTemplate'
-    //                 ) {
-    //                     console.log(`PF2e | Deleting MeasuredTemplate ${templateData.id} from Scene ${templateScene}`);
-
-    //                     const existingTemplate = new MeasuredTemplate(templateData, templateScene);
-    //                     existingTemplate.delete(templateScene);
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // data to pull in dynamically
-    //     let x;
-    //     let y;
-
-    //     let data = {};
-    //     const gridWidth = canvas.grid.grid.w;
-
-    //     if (areaType === 'emanation' || areaType === 'cone') {
-    //         if (canvas.tokens.controlled.length > 1) {
-    //             ui.notifications.info('Please select a single target token');
-    //         } else if (canvas.tokens.controlled.length === 0) {
-    //             ui.notifications.info('Please select a target token');
-    //         } else {
-    //             const t = canvas.tokens.controlled[0];
-    //             let { rotation } = t.data;
-    //             const { width } = t.data;
-
-    //             x = t.data.x;
-    //             y = t.data.y;
-
-    //             // Cone placement logic
-    //             if (tool === 'cone') {
-    //                 if (rotation < 0) rotation = 360 + rotation;
-    //                 if (rotation < 35) {
-    //                     x += gridWidth / 2;
-    //                     y += gridWidth;
-    //                 } else if (rotation < 55) {
-    //                     y += gridWidth;
-    //                 } else if (rotation < 125) {
-    //                     y += gridWidth / 2;
-    //                 } else if (rotation < 145) {
-    //                     // y = y;
-    //                 } else if (rotation < 215) {
-    //                     x += gridWidth / 2;
-    //                 } else if (rotation < 235) {
-    //                     x += gridWidth;
-    //                 } else if (rotation < 305) {
-    //                     x += gridWidth;
-    //                     y += gridWidth / 2;
-    //                 } else if (rotation < 325) {
-    //                     x += gridWidth;
-    //                     y += gridWidth;
-    //                 } else {
-    //                     x += gridWidth / 2;
-    //                     y += gridWidth;
-    //                 }
-    //                 rotation += 90;
-
-    //                 data = {
-    //                     t: tool,
-    //                     x,
-    //                     y,
-    //                     distance: areaSize,
-    //                     direction: rotation,
-    //                     fillColor: game.user.data.color || '#FF0000',
-    //                 };
-    //             } else if (tool === 'rect') {
-    //                 x -= gridWidth * (areaSize / 5);
-    //                 y -= gridWidth * (areaSize / 5);
-    //                 rotation = 45;
-
-    //                 const rectSide = areaSize + width * 5 + areaSize;
-    //                 const distance = Math.sqrt(rectSide ** 2 + rectSide ** 2);
-    //                 data = {
-    //                     t: tool,
-    //                     x,
-    //                     y,
-    //                     distance,
-    //                     direction: rotation,
-    //                     fillColor: game.user.data.color || '#FF0000',
-    //                 };
-    //             }
-
-    //             // Create the template
-    //             MeasuredTemplate.create(data).then((results) => {
-    //                 templateData = results.data;
-
-    //                 // Save MeasuredTemplate information to actor flags
-    //                 this.actor.setFlag('pf2e', 'areaEffectId', templateData);
-    //                 this.actor.setFlag('pf2e', 'areaEffectScene', canvas.scene!._id);
-    //             });
-    //         }
-    //     }
-    // }
-
     /** @override */
     protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         // Limit HP value to data.attributes.hp.max value
@@ -1969,5 +1846,18 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         return super._onSubmit(event, options);
+    }
+
+    /**
+     * Hide the sheet-config button unless there is more than one sheet option.
+     *@override */
+    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
+        const hasMultipleSheets = Object.keys(CONFIG.Actor.sheetClasses[this.actor.type]).length > 1;
+        if (!hasMultipleSheets && sheetButton) {
+            buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        return buttons;
     }
 }
