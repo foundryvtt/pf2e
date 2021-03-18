@@ -1,15 +1,7 @@
+import { ItemPF2e } from './base';
 import { SpellcastingEntryData } from './data-definitions';
 
-/**
- * @category Other
- */
-export class SpellcastingEntry {
-    data: SpellcastingEntryData;
-
-    constructor(data: SpellcastingEntryData) {
-        this.data = data;
-    }
-
+export class SpellcastingEntryPF2e extends ItemPF2e {
     get ability() {
         return this.data.data.ability.value || 'int';
     }
@@ -21,4 +13,9 @@ export class SpellcastingEntry {
     get isInnate(): boolean {
         return this.data.data.prepared.value === 'innate';
     }
+}
+
+export interface SpellcastingEntryPF2e {
+    data: SpellcastingEntryData;
+    _data: SpellcastingEntryData;
 }
