@@ -23,7 +23,7 @@ export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number
     type RuneIndex = 'propertyRune1' | 'propertyRune2' | 'propertyRune3' | 'propertyRune4';
     for (let i = 1; i <= slots; i += 1) {
         const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value as WeaponPropertyRuneType | undefined;
-        if (rune && !isBlank(rune)) {
+        if (!isBlank(rune)) {
             runes.push(rune);
         }
     }
@@ -106,8 +106,8 @@ runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): PF2DiceModifier[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
-        if (runeDamageModifiers.has(rune)) {
-            const modifierConfig = runeDamageModifiers.get(rune);
+        const modifierConfig = runeDamageModifiers.get(rune);
+        if (modifierConfig) {
             diceModifiers.push(toModifier(rune, modifierConfig));
         }
     }
