@@ -224,10 +224,6 @@ export class CheckModifiersDialog extends Application {
             await game.user.update({ flags: { PF2e: { settings: { quickD20roll: $checkbox.prop('checked') } } } });
             $tooltip.tooltipster('close');
         });
-
-        // Add class to strip bottom margin.
-        const $header = html.closest(`#${this.id}`).find('header.window-header');
-        $header.addClass('window-header-check-modifiers-dialog');
     }
 
     onAddModifier(event: JQuery.ClickEvent) {
