@@ -47,23 +47,34 @@
         <div id="senses" class="section-container">
             <div class="section-header">
                 <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
-                {{# if options.editable }}
-                <div class="senses-controls controls" for="data.traits.senses">
-                    <a class="senses-edit edit" data-options="senses" title="{{ localize 'PF2E.NPC.EditSenses' }}"><i class="fas fa-edit"></i></a>
-                </div>
-                {{/if}}
             </div>
             <div class="section-body">
                 <div id="perception" class="labelled-field" data-attribute="perception">
                     <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
                     <input name="data.attributes.perception.base" type="number" value="{{ data.attributes.perception.base }}" data-dtype="Number" placeholder="0"/>
                 </div>
-                <div>
-                    {{#each data.traits.senses as |sense key|}}
-                    <span class="sense-entry tag">{{sense.localizedName}}{{#if sense.value}} {{sense.value}}{{/if}}</span>
-                    {{/each}}
-                </div>
+                {{# if options.editable }}
+                <input name="data.traits.senses.value" type="text" value="{{ data.traits.senses.value }}" title="{{ data.traits.senses.value }}" data-dtype="String" placeholder="Special Senses"/>
+                {{else}}
+                <span>{{ data.traits.senses.value }}</span>
+                {{/if}}
             </div>
+        </div>
+    </div>
+    <!-- TOGGLES -->
+    <div id="toggles" class="section-container">
+        <div class="section-header">
+            <h4>{{ localize 'PF2E.TogglesLabel' }}</h4>
+        </div>
+        <div class="section-body actions-options">
+            {{#each actor.data.toggles.actions as |toggle idx|}}
+            <div class="actions-option">
+              <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+                <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
+                <span>{{localize toggle.label}}</span>
+              </label>
+            </div>
+            {{/each}}
         </div>
     </div>
     <!-- ATTACKS -->
@@ -72,18 +83,15 @@
             <h4>{{ localize 'PF2E.NPC.Attacks'}}</h4>
                 {{# if options.editable }}
                 <div class="attacks-controls controls">
-                    {{#each actor.attacks as |category id|}}
-                        <a class="attack-add item-create" data-type="{{category.type}}" data-action-type="{{id}}"><i class="fas fa-plus"></i> {{category.labelShort}}{{#unless @last}}  {{/unless}}</a>
-                    {{/each}}
+                    <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackMelee'}}</a>
+                    <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackRanged'}}</a>
                 </div>
                 {{/if}}
         </div>
         <div class="section-body">
             <ol class="attacks-list">
-                {{#each actor.attacks as |category id|}}
-                    {{#each category.items as |attack attackId|}}
-                        {{> 'systems/pf2e/templates/actors/npc/partials/npc-attack.html' action=attack isEditable=../../options.editable }}
-                    {{/each}}
+                {{#each actor.attacks as |attack index|}}
+                    {{> 'systems/pf2e/templates/actors/npc/partials/npc-attack.html' action=attack.attack traits=attack.traits actionId=index isEditable=../options.editable }}
                 {{/each}}
             </ol>
         </div>
@@ -93,7 +101,7 @@
         <div class="section-header">
             <h4>{{ localize 'PF2E.ActionActionsLabel'}}</h4>
             {{# if options.editable }}
-                <div class="actions-controls controls" for="data.traits.senses">
+                <div class="actions-controls controls">
                     <a class="action-add item-create" title="{{ localize 'PF2E.NPC.AddAction' }}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
                 </div>
             {{/if}}
@@ -101,9 +109,33 @@
         <div class="section-body">
             <ol class="actions-list">
                 {{#each actor.actions as |section sectionId|}}
-                    {{#each section.actions as |action actionId|}}
-                        {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
-                    {{/each}}
+                    {{#unless (eq sectionId 'passive')}}
+                        {{#each section.actions as |action actionId|}}
+                            {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
+                        {{/each}}
+                    {{/unless}}
+                {{/each}}
+            </ol>
+        </div>
+    </div>
+    <!-- PASSIVES -->
+    <div id="passives" class="section-container">
+        <div class="section-header">
+            <h4>{{ localize 'PF2E.NPC.PassivesLabel' }}</h4>
+            {{# if options.editable }}
+                <div class="actions-controls controls">
+                    <a class="action-add item-create" title="{{ localize 'PF2E.NPC.AddPassive' }}" data-type="action" data-action-type="passive"><i class="fas fa-plus"></i></a>
+                </div>
+            {{/if}}
+        </div>
+        <div class="section-body">
+            <ol class="actions-list">
+                {{#each actor.actions as |section sectionId|}}
+                    {{#if (eq sectionId 'passive')}}
+                        {{#each section.actions as |action actionId|}}
+                            {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
+                        {{/each}}
+                    {{/if}}
                 {{/each}}
             </ol>
         </div>

@@ -312,6 +312,9 @@ export interface MeleeDetailsData extends MagicDetailsData {
     attackEffects: {
         value: any[];
     };
+    weaponType: {
+        value: string;
+    };
 }
 
 export interface ConsumableDetailsData extends MagicDetailsData {
