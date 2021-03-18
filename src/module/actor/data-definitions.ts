@@ -134,6 +134,15 @@ export interface RawCharacterStrike {
     selectedAmmoId?: string;
 }
 
+export interface RawNPCStrike extends RawCharacterStrike {
+    /** The type of attack as a localization string */
+    attackRollType?: string;
+    /** The id of the item this strike is generated from */
+    sourceId?: string;
+    /** A list of all damage roll parts */
+    damageBreakdown?: string[];
+}
+
 /** Basic hitpoints data fields */
 export interface RawHitPointsData {
     /** The current amount of hitpoints the character has. */
@@ -202,6 +211,8 @@ export type SkillData = StatisticModifier & RawSkillData & Rollable;
 export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier & RawCharacterStrike;
+/** The full data for a NPC action (used primarily for strikes.) */
+export type NPCStrike = StatisticModifier & RawNPCStrike;
 
 export interface Saves {
     fortitude: SaveData;
@@ -588,7 +599,7 @@ export interface RawNPCData extends CreatureSystemData {
     skills: Record<string, NPCSkillData>;
 
     /** Special strikes which the creature can take. */
-    actions: CharacterStrike[];
+    actions: NPCStrike[];
 }
 
 /** The raw information contained within the actor data object for hazards. */

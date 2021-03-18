@@ -52,14 +52,14 @@ $unique: #54166e;
                 text-transform: uppercase;
                 font-weight: bold;
             }
-    
+
             .level-container {
                 margin-left: 4px;
                 display: flex;
                 flex: 0 0 auto;
                 flex-direction: row;
                 align-items: flex-end;
-    
+
                 .level-label {
                     flex: 1 0 auto;
                     font-size: 1.5rem;
@@ -67,7 +67,7 @@ $unique: #54166e;
                     font-weight: bold;
                     margin-right: 4px;
                 }
-    
+
                 input {
                     flex: 0 0 32px;
                     text-align: center;
@@ -88,21 +88,21 @@ $unique: #54166e;
             align-items: baseline;
             margin: 0px;
             padding: 4px;
-    
+
             .traits-list-item {
                 flex: auto 0 0;
                 margin-left: 4px;
                 margin-right: 4px;
-                
+
                 text-transform: uppercase;
                 font-weight: bold;
             }
-    
+
             .traits-list-item:first-child {
                 margin-left: 0px;
                 margin-right: 4px
             }
-    
+
             .traits-list-item:last-child {
                 margin-left: 4px;
                 margin-right: 0px;
@@ -186,14 +186,14 @@ $unique: #54166e;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
-                
+
                 #health-current {
                     flex: 0px;
                     font-weight: bold;
                     color: $value-color;
                     text-align: right;
                 }
-                
+
                 #health-max {
                     flex: 0px;
                     font-weight: bold;
@@ -308,15 +308,33 @@ $unique: #54166e;
         }
     }
 
+    .actions-options {
+        .actions-option {
+            display: flex;
+            align-items: center;
+            width: 100%;
+
+            label {
+                width: 100%;
+
+                * {
+                    display: inline;
+                    vertical-align: middle;
+                }
+
+                input {
+                    margin: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
     .actions-list {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        justify-content: flex-start;
         align-items: baseline;
         padding: 0px;
         margin: 0px;
-        width: 100%;
+        width: 97%;
 
         .action {
             display: flex;
@@ -327,7 +345,7 @@ $unique: #54166e;
             justify-content: flex-start;
             width: 100%;
             margin-top: 6px;
-            
+
             .action-header {
                 display: flex;
                 flex: 1 0 auto;
@@ -432,12 +450,11 @@ $unique: #54166e;
 
         .attack {
             display: flex;
-            flex: auto;
             flex-direction: column;
             justify-content: flex-start;
             margin-left: 6px;
             margin-right: 6px;
-            
+
             .attack-header {
                 display: flex;
                 flex: 1 0 auto;
@@ -512,11 +529,11 @@ $unique: #54166e;
                 .attack-button {
                     background-color: $attack-button-color;
                 }
-                
+
                 .damage-button {
                     background-color: $damage-button-color;
                 }
-                
+
                 .critical-button {
                     background-color: $damage-button-color;
                 }
@@ -570,8 +587,9 @@ $unique: #54166e;
 
         #skills {
             flex: 3;
+            align-self: stretch;
         }
-    
+
         #senses {
             flex: 2;
 
@@ -614,14 +632,14 @@ $unique: #54166e;
             color: $light-text;
             font-size: 0.8rem;
             padding: 4px 8px;
-    
+
             h4 {
                 flex: auto;
                 margin-bottom: 0px;
                 text-transform: uppercase;
             }
         }
-        
+
         .section-body {
             display: flex;
             flex: auto;
@@ -658,7 +676,7 @@ $unique: #54166e;
         border: 2px solid #d8c384 !important;
         color: white !important;
     }
-    
+
     .size-select {
         background: #3a7a58 !important;
         border: 2px solid #d8c384 !important;
@@ -668,7 +686,7 @@ $unique: #54166e;
     .rarity-select {
         border: 2px solid #d8c384 !important;
         color: white !important;
-        
+
         &.common {
             background: $common !important;
         }
@@ -684,7 +702,7 @@ $unique: #54166e;
     }
 
     .adjustment-select {
-        
+
         .adjustment {
 
             &.active {
