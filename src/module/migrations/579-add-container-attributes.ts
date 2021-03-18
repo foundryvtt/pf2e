@@ -2,7 +2,7 @@ import { MigrationBase } from './base';
 
 export class Migration579AddContainerAttributes extends MigrationBase {
     static version = 0.579;
-    async updateItem(item: any, actor?: any) {
+    async updateItem(item: any) {
         if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
             const itemName = item?.name?.trim();
             if (itemName === 'Backpack') {

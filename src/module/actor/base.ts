@@ -727,15 +727,12 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         }
     }
 
-    /* -------------------------------------------- */
-
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      *
-     * @param {JQuery} roll    The chat entry which contains the roll data
-     * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-     * @return {Promise}
+     * @param roll The chat entry which contains the roll data
+     * @param multiplier A damage multiplier to apply to the rolled damage.
      */
     static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
         if (canvas.tokens.controlled.length > 0) {
@@ -938,10 +935,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
-     * @param {string} attribute    The attribute path
-     * @param {number} value        The target attribute value
-     * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
-     * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
     async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
         if (value === undefined || value === null || Number.isNaN(value)) {

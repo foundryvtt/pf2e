@@ -1,4 +1,3 @@
-/* eslint-disable no-use-before-define */
 import { combineObjects } from '../../utils';
 
 /** The possible standard damage die sizes. */
@@ -57,14 +56,14 @@ export const DamageCategory = Object.freeze({
 
     /** Get the full current map of damage types -> their current damage category (taking custom mappings into account). */
     currentTypeMappings: () =>
-        combineObjects(BASE_DAMAGE_TYPES_TO_CATEGORIES, CUSTOM_DAMAGE_TYPES_TO_CATEGORIES, (first, second) => second),
+        combineObjects(BASE_DAMAGE_TYPES_TO_CATEGORIES, CUSTOM_DAMAGE_TYPES_TO_CATEGORIES, (_first, second) => second),
 
     /** Map a damage category to the set of damage types in it. */
     toDamageTypes: (category: string) => {
         // Get all of the types in the current mappings which map to the given category
         const types = Object.entries(DamageCategory.currentTypeMappings())
-            .filter(([key, value]) => value === category)
-            .map(([key, value]) => key);
+            .filter(([_key, value]) => value === category)
+            .map(([key]) => key);
 
         // And return as a set to eliminate duplicates.
         return new Set(types);

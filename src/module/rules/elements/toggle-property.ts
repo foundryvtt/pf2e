@@ -1,12 +1,11 @@
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RuleElement } from '../rule-element';
-import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2TogglePropertyRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NPCData, synthetics: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (label && this.ruleData.property) {
             (actorData.data as any).toggles.actions.push({

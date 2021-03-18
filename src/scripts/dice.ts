@@ -16,7 +16,7 @@ export class FormulaPreservingRoll extends Roll {
  */
 export class DicePF2e {
     _rolled: any;
-    terms: any;
+    terms?: string[];
     _formula: any;
     /**
      * A standardized helper function for managing core PF2e "d20 rolls"
@@ -46,9 +46,6 @@ export class DicePF2e {
         title,
         speaker,
         flavor,
-        advantage = true,
-        situational = true,
-        fastForward = true,
         onClose,
         dialogOptions,
         rollMode,
@@ -62,9 +59,6 @@ export class DicePF2e {
         title: string;
         speaker: object;
         flavor?: any;
-        advantage?: boolean;
-        situational?: boolean;
-        fastForward?: boolean;
         onClose?: any;
         dialogOptions?: object;
         rollMode?: string;
@@ -206,7 +200,6 @@ export class DicePF2e {
         event,
         partsCritOnly = [],
         parts,
-        actor,
         data,
         template,
         title,
@@ -335,13 +328,13 @@ export class DicePF2e {
         });
     }
 
-    alter(add, multiply) {
+    alter(add: number, multiply: number) {
         const rgx = new RegExp(Roll.rgx.dice, 'g');
         if (this._rolled) throw new Error('You may not alter a Roll which has already been rolled');
 
         // Update dice roll terms
-        this.terms = this.terms.map((t) =>
-            t.replace(rgx, (match, nd, d, mods) => {
+        this.terms = this.terms?.map((t) =>
+            t.replace(rgx, (_match, nd, d, mods) => {
                 nd = nd * (multiply || 1) + (add || 0);
                 mods = mods || '';
                 return `${nd}d${d}${mods}`;
@@ -349,7 +342,7 @@ export class DicePF2e {
         );
 
         // Update the formula
-        this._formula = this.terms.join(' ');
+        this._formula = this.terms?.join(' ');
         return this;
     }
 }
@@ -357,7 +350,7 @@ export class DicePF2e {
 /**
  * Highlight critical success or failure on d20 rolls
  */
-Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
+Hooks.on('renderChatMessage', (message, html) => {
     if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
     const dice: any = message.roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
@@ -383,7 +376,7 @@ Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
 
             html.find('.dice-total').append(btnContainer);
 
-            setInitiativeButton.click((ev) => {
+            setInitiativeButton.on('click', (ev) => {
                 ev.stopPropagation();
                 ActorPF2e.setCombatantInitiative(html);
             });
