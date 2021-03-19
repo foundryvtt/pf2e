@@ -32,7 +32,7 @@ export class CheckPF2e {
     static roll(
         check: StatisticModifier,
         context: CheckModifiersContext = {},
-        event: JQuery.Event | undefined,
+        event?: JQuery.Event,
         callback?: (roll: Roll) => void,
     ) {
         if (context?.options?.length > 0) {
@@ -171,12 +171,12 @@ export class CheckPF2e {
  */
 export class PF2DamageRoll {
     /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {jQuery.Event} event
-     * @param {function} callback
+     * @param damage
+     * @param context
+     * @param event
+     * @param callback
      */
-    static roll(damage, context: any = {}, event, callback?) {
+    static roll(damage, context: any = {}, _event: JQuery.Event | undefined, callback?) {
         if (context?.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o) => o.toLowerCase()).includes('secret')) {

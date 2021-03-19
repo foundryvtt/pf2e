@@ -759,7 +759,7 @@ export interface EffectDetailsData extends ItemDescriptionData {
     };
     start?: {
         value: number;
-        initiative: number;
+        initiative: number | null;
     };
 }
 

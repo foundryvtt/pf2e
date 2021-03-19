@@ -38,7 +38,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
         }
     }
 
-    onAfterPrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
+    onAfterPrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;

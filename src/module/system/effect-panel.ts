@@ -80,14 +80,14 @@ export class EffectPanel extends Application {
                                     );
                                 }
                             } else {
-                                effect.data.expired = initiative < effect.data.start.initiative;
+                                effect.data.expired = initiative < (effect.data.start.initiative ?? 0);
                             }
                         }
                         effect.data.remaining = effect.data.expired
                             ? game.i18n.localize('PF2E.EffectPanel.Expired')
                             : EffectPanel.getRemainingDurationLabel(
                                   remaining,
-                                  effect.data.start.initiative,
+                                  effect.data.start.initiative ?? 0,
                                   effect.data.duration.expiry,
                               );
                     }

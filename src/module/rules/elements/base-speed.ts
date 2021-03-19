@@ -1,19 +1,18 @@
 import { PF2RuleElement } from '../rule-element';
-import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2BaseSpeedRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData, synthetics: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);
         if (this.ruleData.selector && label && value) {
-            const selector = this.ruleData.selector.endsWith('-speed')
+            const selector: string = this.ruleData.selector.endsWith('-speed')
                 ? this.ruleData.selector.substring(-6)
                 : this.ruleData.selector;
-            const existing = (actorData as any).data.attributes.speed.otherSpeeds.find((speed) => {
+            const existing = (actorData as any).data.attributes.speed.otherSpeeds.find((speed: { type: string }) => {
                 return speed.type === selector;
             });
             if (existing) {

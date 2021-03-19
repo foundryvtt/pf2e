@@ -30,7 +30,7 @@ export abstract class MigrationBase {
      * Update the actor to the latest schema version.
      * @param actor This should be effectively a `ActorDataPF2e` from the previous version.
      */
-    async updateActor(actor: any): Promise<void> {}
+    async updateActor(_actor: ActorDataPF2e): Promise<void> {}
 
     /**
      * Update the item to the latest schema version.
@@ -38,7 +38,7 @@ export abstract class MigrationBase {
      * @param actor If the item is part of an actor, this is set to the actor. For instance
      * if you only want to update items that are on a npc you can do that here.
      */
-    async updateItem(item: ItemDataPF2e, actor?: ActorDataPF2e): Promise<void> {}
+    async updateItem(_item: ItemDataPF2e, _actor?: ActorDataPF2e): Promise<void> {}
 
     /**
      * Update the user to the latest schema version.

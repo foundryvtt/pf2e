@@ -3,7 +3,7 @@ import { MigrationBase } from './base';
 
 export class Migration574MigrateBulk extends MigrationBase {
     static version = 0.574;
-    async updateItem(item: any, actor?: any) {
+    async updateItem(item: any) {
         const itemName = item?.name?.trim();
         if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
             // migrate stacked items
