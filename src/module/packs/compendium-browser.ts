@@ -1,7 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
-import {KitPF2e} from "@item/others";
-import {KitEntryData} from "@item/data-definitions";
+import { KitPF2e } from '@item/others';
+import { KitEntryData } from '@item/data-definitions';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -776,7 +776,8 @@ class CompendiumBrowser extends Application {
             if (item instanceof KitPF2e) {
                 const kitItems: Record<string, KitEntryData> = item.data.data.items;
                 (Object.values(kitItems) as Array<KitEntryData>).forEach((kitItem) =>
-                    this.addPhysicalItesToSelectedTokens(kitItem.id));
+                    this.addPhysicalItesToSelectedTokens(kitItem.id),
+                );
             } else {
                 const actorsToUpdate = new Set(canvas.tokens.controlled.map((token) => token.actor));
 
