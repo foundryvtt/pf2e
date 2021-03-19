@@ -1,5 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
+import {KitPF2e} from "@item/others";
+import {KitEntryData} from "@item/data-definitions";
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -771,16 +773,28 @@ class CompendiumBrowser extends Application {
 
     private addPhysicalItesToSelectedTokens(id: string) {
         PhysicalItemPF2e.createPhysicalItemFromCompendiumId(id).then((item) => {
-            for (const token of canvas.tokens.controlled) {
-                const userHasPermissions = token.actor?.can(game.user, 'update') ?? false;
-                const tokenType = token.actor?.data?.type ?? 'undefined';
-                const tokenMayContainEquipment =
-                    tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
+            if (item instanceof KitPF2e) {
+                const kitItems: Record<string, KitEntryData> = item.data.data.items;
+                (Object.values(kitItems) as Array<KitEntryData>).forEach((kitItem) =>
+                    this.addPhysicalItesToSelectedTokens(kitItem.id));
+            } else {
+                const actorsToUpdate = new Set(canvas.tokens.controlled.map((token) => token.actor));
 
-                if (item !== null && userHasPermissions && tokenMayContainEquipment) {
-                    token.actor!.createEmbeddedEntity('OwnedItem', item.data);
-                } else {
-                    ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                for (const actor of actorsToUpdate) {
+                    if (actor === undefined) {
+                        continue;
+                    }
+
+                    const userHasPermissions = actor!.can(game.user, 'update') ?? false;
+                    const actorType = actor!.data?.type ?? 'undefined';
+                    const actorMayContainEquipment =
+                        actorType === 'character' || actorType === 'loot' || actorType === 'npc';
+
+                    if (item !== null && userHasPermissions && actorMayContainEquipment) {
+                        actor!.createEmbeddedEntity('OwnedItem', item.data);
+                    } else {
+                        ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                    }
                 }
             }
         });
