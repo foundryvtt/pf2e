@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -160,6 +163,34 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 135"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 18,
+                        "value": 8
+                    }
+                }
+            },
+            "VKqHnTDh4E88cAGN": {
+                "data": {
+                    "spelldc": {
+                        "dc": 18,
+                        "value": 8
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +440,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -484,6 +518,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -546,6 +583,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -587,6 +625,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 11,
                     "value": 11
@@ -694,6 +733,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -732,6 +772,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 11,
                     "value": 11
@@ -839,6 +880,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -876,7 +918,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -884,7 +926,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action; <strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an Acrobatics check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
+                    "value": "<p><strong>Trigger</strong> A Medium creature within the nuglub's reach leaves a square during its move action;</p>\n<p><strong>Effect</strong> The nuglub lashes out at the triggering creature's knees and tries to knock them @Compendium[pf2e.conditionitems.Prone]{Prone}. The nuglub makes an Acrobatics check against the creature's Reflex DC. On a success, the target falls and lands prone.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -893,6 +935,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -917,132 +960,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Kneecapper",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "bYh2rQ7hZC7uYe2A",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A nuglub's Strikes deal an additional [[/r 1d6 # precision damage]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets, or 1d10 if the target is @Compendium[pf2e.conditionitems.Prone]{Prone}.<br />When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "category": "precision",
-                        "diceNumber": 1,
-                        "dieSize": "d6",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "target:flatFooted"
-                            ],
-                            "any": [
-                                "finesse",
-                                "agile",
-                                "ranged"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Sneak Attack",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "PUWi0FiyV8YNBcNe",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Grab",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -1066,6 +986,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1107,7 +1028,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Traps",
+                        "predicate": {
+                            "all": [
+                                "traps"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1120,6 +1054,12 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 traps",
+                        "options": "traps"
+                    }
                 }
             },
             "effects": [],
@@ -1150,6 +1090,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1192,6 +1133,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1214,7 +1156,209 @@
             "type": "lore"
         },
         {
-            "_id": "2nWsHAGlTJlyM0mp",
+            "_id": "n5nOO8opkHkd9ZDW",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1500000,
+            "type": "action"
+        },
+        {
+            "_id": "WmPbJSiwT9lndOlq",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Grab",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "GtJ8PtIPDvGSAIHU",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A nuglub's Strikes deal an additional [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} targets, or [[/r 1d10 #precision]] if the target is @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ],
+                            "not": [
+                                "target:prone"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d10",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:prone"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is prone",
+                        "property": "flags.pf2e.rollOptions.all.target:prone"
+                    }
+                ],
+                "slug": "sneak-attack",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Sneak Attack",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "Dk2Hi8NKJRU0f6dH",
             "data": {
                 "ability": {
                     "value": ""
@@ -1222,6 +1366,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1239,7 +1386,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A high-frequency sonic attack shatters a nearby object. You deal 2d10 sonic damage to the object, ignoring the object's Hardness if it is 4 or lower.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d10, and the Hardness the spell ignores increases by 2.</p>"
+                    "value": "<p>A high-frequency sonic attack shatters a nearby object. You deal 2d10 sonic damage to the object, ignoring the object's Hardness if it is 4 or lower.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10, and the Hardness the spell ignores increases by 2.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1259,6 +1406,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1271,14 +1421,24 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "shatter",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=279"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1310,20 +1470,21 @@
                         "evocation",
                         "sonic"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.1xbFBQDRs0hT5xZ9"
+                }
+            },
             "img": "systems/pf2e/icons/spells/shatter.jpg",
             "name": "Shatter",
-            "sort": 1100000,
+            "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "fIAj3KLNxsHZXIAI",
+            "_id": "GAmi14gPbcq15zxM",
             "data": {
                 "ability": {
                     "value": ""
@@ -1331,6 +1492,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "4 contiguous 5-foot squares or Targets 1 object of 1 Bulk or less"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1368,6 +1532,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1386,8 +1553,18 @@
                 "school": {
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "grease",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=140"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1418,20 +1595,21 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Wu0xFpewMKRK3HG8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/grease.jpg",
             "name": "Grease",
-            "sort": 1200000,
+            "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "QqM6SUQsxSdHGcyZ",
+            "_id": "XWuKKn5ujtZB8lbG",
             "data": {
                 "ability": {
                     "value": ""
@@ -1439,6 +1617,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1456,7 +1637,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes 1d4 persistent electricity damage on a hit. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes 1d4 persistent electricity damage on a hit. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1476,6 +1657,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -1488,14 +1672,24 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d12",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "shocking-grasp",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=283"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1528,20 +1722,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.r3NeUnsgt9mS03Sn"
+                }
+            },
             "img": "systems/pf2e/icons/spells/shocking-grasp.jpg",
             "name": "Shocking Grasp",
-            "sort": 1300000,
+            "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "cJcVobH2CiBQJ8Ut",
+            "_id": "yhSxwECxI3ZqfQaI",
             "data": {
                 "ability": {
                     "value": ""
@@ -1549,6 +1744,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1586,6 +1784,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "10 feet"
                 },
@@ -1604,8 +1805,18 @@
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "prestidigitation",
                 "source": {
                     "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1617,10 +1828,10 @@
                     "value": true
                 },
                 "target": {
-                    "value": "1 object "
+                    "value": "1 object (cook, lift, or tidy only)"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -1640,16 +1851,17 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Qw3fnUlaUbnn7ipC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/prestidigitation.jpg",
-            "name": "Prestidigitation - Cantrips ",
-            "sort": 1400000,
+            "name": "Prestidigitation",
+            "sort": 2100000,
             "type": "spell"
         }
     ],
@@ -1658,7 +1870,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "bpwaqRoO1wYo15T5",
         "actorLink": false,
         "bar1": {
@@ -1677,6 +1888,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Nuglub",
         "randomImg": false,
