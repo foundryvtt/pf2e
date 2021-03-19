@@ -75,13 +75,9 @@ export class DamageRollModifiersDialog extends Application {
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
 
-        const baseStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
-        const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${
-            damage.base.dieSize
-        }${damageBaseModifier} ${damage.base.damageType}</span>`;
-        const modifierStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
+        const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
+            damage.base.diceNumber
+        }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierBreakdown = []
             .concat(damage.diceModifiers)
             .concat(damage.numericModifiers)
@@ -94,7 +90,7 @@ export class DamageRollModifiersDialog extends Application {
                         ? ''
                         : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
                 const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
-                return `<span style="${modifierStyle}">${label}${modifier}${damageType}</span>`;
+                return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
