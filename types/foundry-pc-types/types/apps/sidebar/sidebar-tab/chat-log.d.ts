@@ -115,8 +115,8 @@ declare class ChatLog extends SidebarTab {
 
     /**
      * Update the content of a previously posted message after its data has been replaced
-     * @param {ChatMessage} message   The ChatMessage instance to update
-     * @param {boolean} notify        Trigger a notification which shows the log as having a new unread message
+     * @param message The ChatMessage instance to update
+     * @param notify  Trigger a notification which shows the log as having a new unread message
      */
     updateMessage(message: ChatMessage, { notify }?: { notify?: boolean }): void;
 

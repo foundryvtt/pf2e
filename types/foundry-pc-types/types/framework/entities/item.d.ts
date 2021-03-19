@@ -57,8 +57,6 @@ declare interface ItemConstructorOptions<A extends Actor> extends EntityConstruc
     actor?: A;
 }
 
-declare type ItemCreateData<I extends Item> = DeepPartial<I['data']>;
-
 type _Actor = Actor<Item<_Actor>>;
 declare class Item<ActorType extends Actor = _Actor> extends Entity {
     /** The item's collection of ActiveEffects */
@@ -119,7 +117,7 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
      */
     static createOwned<A extends Actor, I extends Item<A>>(
         this: new (data: I['data'], options?: ItemConstructorOptions<A>) => I,
-        itemData: ItemCreateData<I>,
+        itemData: DeepPartial<I['data']>,
         actor: A,
     ): Promise<I>;
 

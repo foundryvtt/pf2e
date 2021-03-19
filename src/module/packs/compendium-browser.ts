@@ -787,7 +787,7 @@ class CompendiumBrowser extends Application {
     }
 
     hookCompendiumList() {
-        Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+        Hooks.on('renderCompendiumDirectory', (_app, html) => {
             if (html.find('.compendium-browser-btn').length) {
                 console.error('Compendium Browser - Already hooked');
                 return;
@@ -805,13 +805,13 @@ class CompendiumBrowser extends Application {
             target.append(importButton);
 
             // Handle button clicks
-            importButton.click((ev) => {
+            importButton.on('click', (ev) => {
                 ev.preventDefault();
                 this.render(true);
             });
         });
 
-        Hooks.on('renderActorDirectory', (app, html, data) => {
+        Hooks.on('renderActorDirectory', (_app, html) => {
             if (html.find('.bestiary-browser-btn').length) {
                 console.error('Compendium Browser - Already hooked');
                 return;
@@ -827,15 +827,15 @@ class CompendiumBrowser extends Application {
             }
 
             // Handle button clicks
-            bestiaryImportButton.click((ev) => {
+            bestiaryImportButton.on('click', (ev) => {
                 ev.preventDefault();
                 this.openTab('bestiary');
             });
         });
     }
 
-    clearObject(obj) {
-        return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value));
+    clearObject(obj: object) {
+        return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
     _getActionImg(action) {
@@ -863,7 +863,7 @@ class CompendiumBrowser extends Application {
         );
     }
 
-    async filterSpells(li) {
+    async filterSpells(li: JQuery) {
         let counter = 0;
         li.hide();
         for (const spell of li) {
@@ -879,7 +879,7 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    getFilterResult(element) {
+    getFilterResult(element: HTMLElement) {
         if (this.sorters.text !== '') {
             const searches = this.sorters.text.split(',');
             for (const search of searches) {
@@ -926,13 +926,13 @@ class CompendiumBrowser extends Application {
         return this.isWithinFilteredBounds(element);
     }
 
-    isWithinFilteredBounds(element): boolean {
+    isWithinFilteredBounds(element: HTMLElement): boolean {
         const rangeIdentifiers = Object.keys(this.ranges);
 
         for (const range of rangeIdentifiers) {
             const lowerBound = this.ranges[range].lowerBound;
             const upperBound = this.ranges[range].upperBound;
-            const filter = +element.dataset[range];
+            const filter = Number(element.dataset[range] ?? 0);
 
             if (filter < lowerBound || upperBound < filter) {
                 return false;
@@ -1001,4 +1001,3 @@ class CompendiumBrowser extends Application {
 }
 
 export const compendiumBrowser = new CompendiumBrowser();
-// vim: ts=2 sw=2 et

@@ -150,5 +150,5 @@ export function combineDCAdjustments(first: DCAdjustment, second: DCAdjustment):
  */
 export function createDifficultyScale(dc: number, startAt: DCAdjustment): number[] {
     const beginAtIndex = adjustmentScale.indexOf(startAt);
-    return adjustmentScale.filter((value, index) => index >= beginAtIndex).map((value) => adjustDC(dc, value));
+    return adjustmentScale.filter((_value, index) => index >= beginAtIndex).map((value) => adjustDC(dc, value));
 }

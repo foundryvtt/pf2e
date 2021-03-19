@@ -2,6 +2,9 @@ import { isBlank, toNumber } from '../utils';
 import { DamageDieSize } from '../system/damage/damage';
 import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
 import { PF2DiceModifier } from '../modifiers';
+import { ConfigPF2e } from '@scripts/config';
+
+type WeaponPropertyRuneType = keyof ConfigPF2e['PF2E']['weaponPropertyRunes'];
 
 export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     let slots = 0;
@@ -15,11 +18,11 @@ export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     return slots;
 }
 
-export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): string[] {
-    const runes = [];
+export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): WeaponPropertyRuneType[] {
+    const runes: WeaponPropertyRuneType[] = [];
     type RuneIndex = 'propertyRune1' | 'propertyRune2' | 'propertyRune3' | 'propertyRune4';
     for (let i = 1; i <= slots; i += 1) {
-        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value;
+        const rune = itemData.data[`propertyRune${i}` as RuneIndex]?.value as WeaponPropertyRuneType | undefined;
         if (!isBlank(rune)) {
             runes.push(rune);
         }
@@ -65,7 +68,7 @@ interface RuneDiceModifier {
 }
 
 function toModifier(
-    rune,
+    rune: WeaponPropertyRuneType,
     { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier,
 ): PF2DiceModifier {
     const traits = [];
@@ -103,8 +106,8 @@ runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): PF2DiceModifier[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
-        if (runeDamageModifiers.has(rune)) {
-            const modifierConfig = runeDamageModifiers.get(rune);
+        const modifierConfig = runeDamageModifiers.get(rune);
+        if (modifierConfig) {
             diceModifiers.push(toModifier(rune, modifierConfig));
         }
     }
