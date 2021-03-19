@@ -75,7 +75,7 @@ export class DamageRollModifiersDialog extends Application {
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
 
-        const baseBreakdown = `<span class="damageTag damageTag_base">${game.i18n.localize('Base')} ${
+        const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
             damage.base.diceNumber
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierBreakdown = []
@@ -90,7 +90,7 @@ export class DamageRollModifiersDialog extends Application {
                         ? ''
                         : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
                 const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
-                return `<span class="damageTag damageTag_modifier">${label}${modifier}${damageType}</span>`;
+                return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
