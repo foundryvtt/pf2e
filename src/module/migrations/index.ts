@@ -37,6 +37,7 @@ import { Migration603ResetQuickRollDefault } from './603-reset-quick-roll-defaul
 import { Migration604FixClassItem } from './604-fix-class-items';
 import { Migration605CatchUpToTemplateJSON } from './605-catch-up-to-template-json';
 import { Migration606SignatureSpells } from './606-signature-spells';
+import { Migration607MeleeItemDamageRolls } from './607-melee-item-damage-rolls';
 
 export class Migrations {
     private static list = [
@@ -78,6 +79,7 @@ export class Migrations {
         Migration604FixClassItem,
         Migration605CatchUpToTemplateJSON,
         Migration606SignatureSpells,
+        Migration607MeleeItemDamageRolls,
     ];
 
     static get latestVersion(): number {
