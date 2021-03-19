@@ -44,7 +44,10 @@ export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends Act
                 }
                 break;
             case 'weapon':
-                if (chatData.isTwohanded) {
+                // The two handed trait is working differently now and is toggled from the action tab (for players).
+                // It is currently only used in the old npc sheet.
+                // If this gets deprecated sometime, maybe the two handed support should be moved somewhere else.
+                if (chatData.isTwohanded && this.actor.type !== 'character') {
                     if (chatData.wieldedTwoHands)
                         buttons.append(
                             '<span class="tag"><button data-action="toggleHands"><i class="far fa-hand-paper"></i><i class="far fa-hand-paper"></i></button></span>',
