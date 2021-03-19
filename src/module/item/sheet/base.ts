@@ -476,8 +476,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         });
 
         html.find('.add-skill-variant').on('click', (_event) => {
-            const variants =
-                (this.actor?.items?.get(this?.entity?.id ?? '')?.data.data as LoreDetailsData)?.variants ?? {};
+            const variants = (this.actor?.items?.get(this.entity.id)?.data.data as LoreDetailsData)?.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
