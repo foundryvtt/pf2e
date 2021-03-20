@@ -956,7 +956,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 this._castEmbeddedSpell();
             } else {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                var trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData) : Promise<void> => {
+                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData) : Promise<void> => {
                     const trickMagicItemData = await trickMagicItemPromise;
                     if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 };
