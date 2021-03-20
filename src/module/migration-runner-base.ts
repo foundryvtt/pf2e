@@ -60,7 +60,7 @@ export class MigrationRunnerBase {
 
         for (const migration of migrations) {
             try {
-                await migration.updateItem(current, undefined);
+                await migration.updateItem(current);
             } catch (err) {
                 console.error(err);
             }
@@ -76,7 +76,7 @@ export class MigrationRunnerBase {
             try {
                 await migration.updateActor(current);
                 for (const item of current.items) {
-                    await migration.updateItem(item);
+                    await migration.updateItem(item, current);
                 }
             } catch (err) {
                 console.error(err);
