@@ -212,6 +212,17 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.hasEquipment = true;
         }
 
+        // Shield
+        const shield = this.actor.getFirstEquippedShield();
+        if (shield) {
+            sheetData.hasShield = true;
+            sheetData.data.attributes.shieldBroken = shield.data.hp.value <= shield.data.brokenThreshold.value;
+        } else if (this.actor.data.data.attributes.shield.max > 0) {
+            const shieldData = this.actor.data.data.attributes.shield;
+            sheetData.hasShield = true;
+            sheetData.data.attributes.shieldBroken = shieldData.value <= shieldData.brokenThreshold;
+        }
+
         const isElite = this.isElite();
         const isWeak = this.isWeak();
 
@@ -1763,5 +1774,23 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         item.glyph = actionGlyph;
         item.imageUrl = imageUrl;
+    }
+
+    /** @override */
+    protected async _updateObject(event: Event, formData: any): Promise<void> {
+        // update shield hp
+        const equippedShieldId = this.actor.getFirstEquippedShield()?._id;
+        if (equippedShieldId !== undefined) {
+            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
+            if (shieldEntity) {
+                await shieldEntity.update(
+                    {
+                        'data.hp.value': formData['data.attributes.shield.value'],
+                    },
+                    { diff: true },
+                );
+            }
+        }
+        await super._updateObject(event, formData);
     }
 }
