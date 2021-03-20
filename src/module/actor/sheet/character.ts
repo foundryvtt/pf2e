@@ -467,6 +467,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
         }
 
+        if (game.settings.get('pf2e', 'ancestryParagonVariant')) {
+            featSlots.ancestry.feats.unshift({
+                id: 'ancestry-bonus',
+                level: '1',
+            });
+            for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
+                const index = (level + 1) / 2;
+                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level: `${level}` });
+            }
+        }
+
         if (backgroundItemId !== undefined) {
             featSlots.skill.feats.unshift({
                 id: backgroundItemId,
