@@ -2,7 +2,6 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '@item/kits';
-import { compendiumBrowser } from '@module/packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { TraitSelector5e } from '@system/trait-selector';
@@ -627,16 +626,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find('.sell-all-treasure button').on('click', (event) => this.onSellAllTreasure(event));
 
         // Feat Browser
-        html.find('.feat-browse').on('click', () => compendiumBrowser.openTab('feat'));
+        html.find('.feat-browse').on('click', () => game.pf2e.browser.openTab('feat'));
 
         // Action Browser
-        html.find('.action-browse').on('click', () => compendiumBrowser.openTab('action'));
+        html.find('.action-browse').on('click', () => game.pf2e.browser.openTab('action'));
 
         // Spell Browser
-        html.find('.spell-browse').on('click', () => compendiumBrowser.openTab('spell'));
+        html.find('.spell-browse').on('click', () => game.pf2e.browser.openTab('spell'));
 
         // Inventory Browser
-        html.find('.inventory-browse').on('click', () => compendiumBrowser.openTab('equipment'));
+        html.find('.inventory-browse').on('click', () => game.pf2e.browser.openTab('equipment'));
 
         // Spell Create
         html.find('.spell-create').on('click', (event) => this.onItemCreate(event));

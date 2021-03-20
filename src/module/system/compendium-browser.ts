@@ -6,7 +6,7 @@ import { KitEntryData } from '@item/data-definitions';
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
  */
-function _sortedObject(obj) {
+function _sortedObject(obj: object) {
     return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
@@ -85,7 +85,7 @@ type TabData<T> = {
 /**
  * @category Other
  */
-class CompendiumBrowser extends Application {
+export class CompendiumBrowser extends Application {
     sorters: any;
     filters: Record<any, any>;
     ranges: any;
@@ -98,10 +98,8 @@ class CompendiumBrowser extends Application {
 
         this.hookCompendiumList();
         this.hookTab();
-        Hooks.on('ready', () => {
-            this.loadSettings();
-            this.initCompendiumList();
-        });
+        this.loadSettings();
+        this.initCompendiumList();
     }
 
     initCompendiumList() {
@@ -1014,5 +1012,3 @@ class CompendiumBrowser extends Application {
         return mappedList.map((mapping) => mapping.li);
     }
 }
-
-export const compendiumBrowser = new CompendiumBrowser();

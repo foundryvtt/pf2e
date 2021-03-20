@@ -19,6 +19,7 @@ import {
 import { ConditionManager } from './module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
+import { CompendiumBrowser } from '@module/system/compendium-browser';
 
 type ItemTypeMap = {
     [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
@@ -38,7 +39,8 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
             };
-            DicePF2e: typeof DicePF2e;
+            browser: CompendiumBrowser;
+            Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;

@@ -23,6 +23,7 @@ import {
     StatisticModifier,
 } from '../../module/modifiers';
 import { CheckPF2e } from '@system/rolls';
+import { CompendiumBrowser } from '@module/system/compendium-browser';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -60,9 +61,10 @@ export function listen(): void {
                 calculateXP,
                 launchTravelSheet,
             },
+            browser: new CompendiumBrowser(),
             effectPanel: new EffectPanel(),
             worldClock: new WorldClock(),
-            DicePF2e: DicePF2e,
+            Dice: DicePF2e,
             StatusEffects: StatusEffects,
             ConditionManager: ConditionManager,
             ModifierType: MODIFIER_TYPE,
