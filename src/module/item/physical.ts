@@ -15,6 +15,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.equipped.value;
     }
 
+    get isInContainer(): boolean {
+        return !!this.data.data.containerId;
+    }
+
     get isMagical(): boolean {
         const traits = this.traits;
         return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => traits.has(trait));

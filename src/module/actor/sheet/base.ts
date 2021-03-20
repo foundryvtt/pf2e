@@ -1247,14 +1247,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const container = $(event.target).closest('[data-item-is-container="true"]');
         const containerId = container[0]?.dataset?.itemId?.trim();
-        if (containerId) {
-            await ActorPF2e.stashOrUnstash(
-                this.actor,
-                async () => this.actor.getOwnedItem(itemData._id) as PhysicalItemPF2e,
-                containerId,
-            );
+        const item = this.actor.items.get(itemData._id);
+        if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
+            await this.actor.stashOrUnstash(item, containerId);
+            return item.data;
         }
         return super._onSortItem(event, itemData);
     }
