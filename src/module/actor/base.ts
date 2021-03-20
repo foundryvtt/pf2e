@@ -1104,14 +1104,14 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         if (containerId) {
             const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
             if (!isCycle(item.id, containerId, physicalItemsData)) {
-                return item.update({
+                await item.update({
                     'data.containerId.value': containerId,
                     'data.equipped.value': false,
                 });
             }
-            return item;
+        } else {
+            item.update({ 'data.containerId.value': '' });
         }
-        await item.update({ 'data.containerId.value': '' });
 
         return item;
     }
