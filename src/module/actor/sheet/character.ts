@@ -175,11 +175,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [], bonusFeats: [] },
             ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
             class: { label: 'PF2E.FeatClassHeader', feats: [], bonusFeats: [] },
+            archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
             skill: { label: 'PF2E.FeatSkillHeader', feats: [], bonusFeats: [] },
             general: { label: 'PF2E.FeatGeneralHeader', feats: [], bonusFeats: [] },
-            // archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
             bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
         };
+        if (game.settings.get('pf2e', 'freeArchetypeVariant')) {
+            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
+                featSlots.archetype.feats.push({ id: `archetype-${level}`, level: `${level}` });
+            }
+        } else {
+            // Use delete so it is in the right place on the sheet
+            delete featSlots.archetype;
+        }
         const pfsBoons: FeatData[] = [];
         const deityBoonsCurses: FeatData[] = [];
 
@@ -882,7 +890,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (feat.data.traits.value.includes('skill')) {
                 return featSlotType === 'skill';
             } else {
-                return featSlotType === 'class';
+                return ['class', 'archetype'].includes(featSlotType);
             }
         }
 
