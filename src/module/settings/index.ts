@@ -28,22 +28,12 @@ export function registerSettings() {
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.NONE',
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.CONTROL',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.OWNER_HOVER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.HOVER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.OWNER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.ALWAYS',
-            ),
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'TOKEN.DISPLAY_NONE',
+            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize('TOKEN.DISPLAY_CONTROL'),
+            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: game.i18n.localize('TOKEN.DISPLAY_OWNER_HOVER'),
+            [CONST.TOKEN_DISPLAY_MODES.HOVER]: game.i18n.localize('TOKEN.DISPLAY_HOVER'),
+            [CONST.TOKEN_DISPLAY_MODES.OWNER]: game.i18n.localize('TOKEN.DISPLAY_OWNER'),
+            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: game.i18n.localize('TOKEN.DISPLAY_ALWAYS'),
         },
     });
     game.settings.register(game.system.id, 'defaultTokenSettingsBar', {
@@ -54,22 +44,12 @@ export function registerSettings() {
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.NONE',
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.CONTROL',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.OWNER_HOVER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.HOVER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.OWNER',
-            ),
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: game.i18n.localize(
-                'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.ALWAYS',
-            ),
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'TOKEN.DISPLAY_NONE',
+            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize('TOKEN.DISPLAY_CONTROL'),
+            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: game.i18n.localize('TOKEN.DISPLAY_OWNER_HOVER'),
+            [CONST.TOKEN_DISPLAY_MODES.HOVER]: game.i18n.localize('TOKEN.DISPLAY_HOVER'),
+            [CONST.TOKEN_DISPLAY_MODES.OWNER]: game.i18n.localize('TOKEN.DISPLAY_OWNER'),
+            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: game.i18n.localize('TOKEN.DISPLAY_ALWAYS'),
         },
     });
     game.settings.register(game.system.id, 'ignoreCoinBulk', {
