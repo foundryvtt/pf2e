@@ -1,68 +1,65 @@
 const SETTINGS = {
     staminaVariant: {
-        name: 'Stamina Variant Rules',
-        hint: 'Play with the stamina variant from Gamemastery Guide pg 200',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.Stamina.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.Stamina.Hint'),
         scope: 'world',
         config: false,
         default: 0,
         type: Number,
         choices: {
-            0: 'Do not use Stamina',
-            1: 'Use Stamina', // I plan to expand this, hence the dropdown.
+            0: game.i18n.localize('PF2E.SETTINGS.Variant.Stamina.Choices.0'),
+            1: game.i18n.localize('PF2E.SETTINGS.Variant.Stamina.Choices.1'), // I plan to expand this, hence the dropdown.
         },
     },
     proficiencyVariant: {
-        name: 'Proficiency without Level Variant Rules',
-        hint: 'Play with the proficiency without level variant from Gamemastery Guide pg 198.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.Proficiency.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.Proficiency.Hint'),
         scope: 'world',
         config: false,
         default: 'ProficiencyWithLevel',
         type: String,
         choices: {
-            ProficiencyWithLevel: 'Use Default rules',
-            ProficiencyWithoutLevel: 'Use Variant rules',
+            ProficiencyWithLevel: game.i18n.localize('PF2E.SETTINGS.Variant.Proficiency.Choices.ProficiencyWithLevel'),
+            ProficiencyWithoutLevel: game.i18n.localize(
+                'PF2E.SETTINGS.Variant.Proficiency.Choices.ProficiencyWithoutLevel',
+            ),
         },
     },
     proficiencyUntrainedModifier: {
-        name: 'Untrained proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules, recommended with variant rules is -2. Requires recalculation by reload or modifying a value per actor.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.UntrainedModifier.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.UntrainedModifier.Hint'),
         scope: 'world',
         config: false,
         default: 0,
         type: Number,
     },
     proficiencyTrainedModifier: {
-        name: 'Trained proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.TrainedModifier.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.TrainedModifier.Hint'),
         scope: 'world',
         config: false,
         default: 2,
         type: Number,
     },
     proficiencyExpertModifier: {
-        name: 'Expert proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.ExpertModifier.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.ExpertModifier.Hint'),
         scope: 'world',
         config: false,
         default: 4,
         type: Number,
     },
     proficiencyMasterModifier: {
-        name: 'Master proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.MasterModifier.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.MasterModifier.Hint'),
         scope: 'world',
         config: false,
         default: 6,
         type: Number,
     },
     proficiencyLegendaryModifier: {
-        name: 'Legendary proficiency modifier',
-        hint:
-            'Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor.',
+        name: game.i18n.localize('PF2E.SETTINGS.Variant.LegendaryModifier.Name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.Variant.LegendaryModifier.Hint'),
         scope: 'world',
         config: false,
         default: 8,
@@ -74,7 +71,7 @@ export class VariantRulesSettings extends FormApplication {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: 'Variant Rules Settings',
+            title: game.i18n.localize('PF2E.SETTINGS.Variant.Title'),
             id: 'variant-rules-settings',
             template: 'systems/pf2e/templates/system/settings/variant-rules-settings.html',
             width: 550,
