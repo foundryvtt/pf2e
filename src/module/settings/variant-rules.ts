@@ -95,7 +95,7 @@ export class VariantRulesSettings extends FormApplication {
 
     static registerSettings() {
         for (const [k, v] of Object.entries(SETTINGS)) {
-            game.settings.register('pf2e', k, v);
+            game.settings.register(game.system.id, k, v);
         }
     }
 

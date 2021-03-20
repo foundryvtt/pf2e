@@ -67,7 +67,7 @@ export class StatusEffects {
             statusEffectTypeChoices[type] = statusEffectTypes[type as StatusEffectType];
         }
 
-        game.settings.register('pf2e', 'statusEffectType', {
+        game.settings.register(game.system.id, 'statusEffectType', {
             name: statusEffectTypes.name,
             hint: statusEffectTypes.hint,
             scope: 'world',
@@ -82,7 +82,7 @@ export class StatusEffects {
             },
         });
 
-        game.settings.register('pf2e', 'statusEffectKeepFoundry', {
+        game.settings.register(game.system.id, 'statusEffectKeepFoundry', {
             name: translations.statusEffectKeepFoundry.name,
             hint: translations.statusEffectKeepFoundry.hint,
             scope: 'world',
@@ -95,7 +95,7 @@ export class StatusEffects {
         });
 
         if (game.user.isGM) {
-            game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
+            game.settings.register(game.system.id, 'statusEffectShowCombatMessage', {
                 name: translations.statusEffectShowCombatMessage.name,
                 hint: translations.statusEffectShowCombatMessage.hint,
                 scope: 'client',

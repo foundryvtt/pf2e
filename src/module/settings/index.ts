@@ -4,7 +4,7 @@ import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
 
 export function registerSettings() {
-    game.settings.register('pf2e', 'worldSchemaVersion', {
+    game.settings.register(game.system.id, 'worldSchemaVersion', {
         name: game.i18n.localize('PF2E.SETTINGS.WorldSchemaVersion.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.WorldSchemaVersion.Hint'),
         scope: 'world',
@@ -12,7 +12,7 @@ export function registerSettings() {
         default: Migrations.latestVersion,
         type: Number,
     });
-    game.settings.register('pf2e', 'defaultTokenSettings', {
+    game.settings.register(game.system.id, 'defaultTokenSettings', {
         name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettings.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettings.Hint'),
         scope: 'world',
@@ -20,7 +20,7 @@ export function registerSettings() {
         default: true,
         type: Boolean,
     });
-    game.settings.register('pf2e', 'defaultTokenSettingsName', {
+    game.settings.register(game.system.id, 'defaultTokenSettingsName', {
         name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsName.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsName.Hint'),
         scope: 'world',
@@ -46,7 +46,7 @@ export function registerSettings() {
             ),
         },
     });
-    game.settings.register('pf2e', 'defaultTokenSettingsBar', {
+    game.settings.register(game.system.id, 'defaultTokenSettingsBar', {
         name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsBar.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsBar.Hint'),
         scope: 'world',
@@ -72,7 +72,7 @@ export function registerSettings() {
             ),
         },
     });
-    game.settings.register('pf2e', 'ignoreCoinBulk', {
+    game.settings.register(game.system.id, 'ignoreCoinBulk', {
         name: game.i18n.localize('PF2E.SETTINGS.IgnoreCoinBulk.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.IgnoreCoinBulk.Hint'),
         scope: 'world',
@@ -80,7 +80,7 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
-    game.settings.register('pf2e', 'ignoreContainerOverflow', {
+    game.settings.register(game.system.id, 'ignoreContainerOverflow', {
         name: game.i18n.localize('PF2E.SETTINGS.IgnoreContainerOverflow.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.IgnoreContainerOverflow.Hint'),
         scope: 'world',
@@ -88,7 +88,7 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
-    game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
+    game.settings.register(game.system.id, 'identifyMagicNotMatchingTraditionModifier', {
         name: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint'),
         choices: {
@@ -102,7 +102,7 @@ export function registerSettings() {
         scope: 'world',
         config: true,
     });
-    game.settings.register('pf2e', 'critRule', {
+    game.settings.register(game.system.id, 'critRule', {
         name: game.i18n.localize('PF2E.SETTINGS.CritRule.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.CritRule.Hint'),
         scope: 'world',
@@ -114,7 +114,7 @@ export function registerSettings() {
             doubledice: game.i18n.localize('PF2E.SETTINGS.CritRule.Choices.Doubledamage'),
         },
     });
-    game.settings.register('pf2e', 'compendiumBrowserPacks', {
+    game.settings.register(game.system.id, 'compendiumBrowserPacks', {
         name: game.i18n.localize('PF2E.SETTINGS.CompendiumBrowserPacks.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.CompendiumBrowserPacks.Hint'),
         default: '{}',
@@ -133,7 +133,7 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    game.settings.registerMenu('pf2e', 'worldClock', {
+    game.settings.registerMenu(game.system.id, 'worldClock', {
         name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
         label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
         hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
@@ -143,7 +143,7 @@ export function registerSettings() {
     });
     WorldClockSettings.registerSettings();
 
-    game.settings.registerMenu('pf2e', 'variantRules', {
+    game.settings.registerMenu(game.system.id, 'variantRules', {
         name: game.i18n.localize('PF2E.SETTINGS.Variant.Name'),
         label: game.i18n.localize('PF2E.SETTINGS.Variant.Label'), // The text label used in the button
         hint: game.i18n.localize('PF2E.SETTINGS.Variant.Hint'),
@@ -154,7 +154,7 @@ export function registerSettings() {
     VariantRulesSettings.registerSettings();
 
     // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
-    game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
+    game.settings.register(game.system.id, 'RAI.TreatWoundsAltSkills', {
         name: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name'),
         hint: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint'),
         scope: 'world',
