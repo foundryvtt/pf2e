@@ -965,6 +965,23 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updateShieldData._id = shield._id;
                     updateShieldData.data.hp.value = shieldHitPoints;
+                } else if (this.data.data.attributes.shield.max) {
+                    // NPC with no shield but pre-existing shield data
+                    const shieldData = this.data.data.attributes.shield;
+                    const currentHitPoints = Number(shieldData.value);
+                    const maxHitPoints = Number(shieldData.max);
+                    let shieldHitPoints = currentHitPoints;
+                    if (isDelta && value < 0) {
+                        // shield block
+                        value = Math.min(Number(shieldData.hardness) + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+                        if (value < 0) {
+                            attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
+                            shieldHitPoints = Math.clamped(currentHitPoints + value, 0, maxHitPoints);
+                        }
+                    } else {
+                        shieldHitPoints = Math.clamped(value, 0, maxHitPoints);
+                    }
+                    updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                 } else if (isDelta) {
                     attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
                 }
@@ -989,7 +1006,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             return this.update(updateActorData).then(() => {
                 if (updateShieldData._id !== '') {
                     // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-                    this.updateOwnedItem(updateShieldData, { diff: false });
+                    this.updateOwnedItem(updateShieldData);
                 }
                 return this;
             });
