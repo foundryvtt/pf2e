@@ -12,11 +12,12 @@ export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
     skilloptions: TrickMagicItemDifficultyData;
     castCallback: (trickMagicItemCastData: TrickMagicItemCastData) => void;
 
-    constructor(object: ActorPF2e,
+    constructor(
+        object: ActorPF2e,
         skilloptions: TrickMagicItemDifficultyData,
         callback: (trickMagicItemCastData: TrickMagicItemCastData) => void,
-        options?: FormApplicationOptions) {
-
+        options?: FormApplicationOptions,
+    ) {
         super(object, options);
         this.skilloptions = skilloptions;
         this.castCallback = callback;

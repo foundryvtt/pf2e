@@ -293,7 +293,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         itemTraits: ItemTraits,
         traitList: Record<string, string>,
     ): { label: string; description: string }[] {
-        let traits = Object.assign([], itemTraits.value);
+        let traits: string[] = Object.assign([], itemTraits.value);
         const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
 
         if (customTraits.length > 0) {
@@ -956,7 +956,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 this._castEmbeddedSpell();
             } else {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData) : Promise<void> => {
+                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
                     const trickMagicItemData = await trickMagicItemPromise;
                     if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 };
