@@ -473,7 +473,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         }
 
         // Character-specific custom modifiers & custom damage dice.
-        if (['character', 'familiar', 'npc'].includes(actorData.type)) {
+        if (['character', 'familiar', 'animalCompanion', 'npc'].includes(actorData.type)) {
             const { data } = actorData;
 
             // Custom Modifiers (which affect d20 rolls and damage).

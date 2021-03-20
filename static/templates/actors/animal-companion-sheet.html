@@ -14,6 +14,102 @@
             </div>
         </section>
     </header>
-  
+
+    <!-- BODY -->
+    <section class="sheet-content">
+        <div class="container">
+            <div class="master-ancestry">
+                <h2>Master and Ancestry</h2>
+                <label for="{{data._id}}-master"><b>Master Actor</b></label>
+                <select id="{{data._id}}-master" name="data.master.id">
+                    {{#select data.master.id}}
+                        <option value="">Select a master...</option>
+                        {{#each masters as |master idx|}}
+                            <option value="{{master.data._id}}">{{master.name}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+                {{#if data.master.id}}
+                    <div><b>Master Level</b> {{data.master.level.value}}</div>
+                {{/if}}
+                
+                <div>
+                    <label for="data.attributes.ancestry.ancestryHP"><b>Ancestry HP</b></label>
+                    <input name="data.attributes.ancestry.ancestryHP" value="{{data.attributes.ancestry.ancestryHP}}" data-dtype="Number"/>
+
+                    <label for="data.attributes.ancestry.ancestryHPPerLevel"><b>Hp Per Level</b></label>
+                    <input name="data.attributes.ancestry.ancestryHPPerLevel" value="{{data.attributes.ancestry.ancestryHPPerLevel}}" data-dtype="Number"/>
+                </div>
+
+                <div class="stats">
+                    {{#each data.attributes.ancestry.abilities as |ability id|}}
+                    <span class="stat-item" title="{{id}}">
+                        <b>{{localize id}}</b>
+                        <input name=data.attributes.ancestry.abilities.{{id}}.mod value="{{numberFormat ability.mod decimals=0 sign=true}}" data-dtype="Number"/>
+                    </span>
+                    {{/each}}
+                </div>
+
+                <label for="Ancestry Skill"><b>Ancestry Skill</b></label>
+                <select id="Ancestry Skill" name="data.attributes.ancestry.skill">
+                    {{#select data.attributes.ancestry.skill}}
+                        {{#each skills as |skill shortform|}}
+                            <option value="{{shortform}}">{{localize skill}}</option>
+                        {{/each}}
+                    {{/select}}
+                </select>
+            </div>
+
+            <div class="martial">
+                <h2>Martial</h2>
+                {{#each data.martial as |profiency name|}}
+                <div title="{{profiency.breakdown}}" data-skill-check="{{@key}}">
+                    <b>{{localize profiency.label}}</b>
+                    <span>{{numberFormat profiency.value decimals=0 sign=true}}</span>
+                </div>
+                {{/each}}
+            </div>
+
+
+            <div class="defense">
+                <h2>Defenses</h2>
+                <label for="{{data._id}}-hit-points"><b>Hit Points</b></label>
+                <input id="{{data._id}}-hit-points" name="data.attributes.hp.value" value="{{data.attributes.hp.value}}" data-dtype="Number"/>
+                <span>/</span>
+                <span title="{{data.attributes.hp.breakdown}}">{{data.attributes.hp.max}}</span>
+                <div title="{{data.attributes.ac.breakdown}}">
+                    <b>Armor Class</b>
+                    <span>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</span>
+                </div>
+                <div title="{{data.saves.fortitude.breakdown}}" data-save="fortitude">
+                    <b>{{localize "PF2E.SavesFortitude"}}</b>
+                    <span>{{numberFormat data.saves.fortitude.value decimals=0 sign=true}}</span>
+                </div>
+                <div title="{{data.saves.reflex.breakdown}}" data-save="reflex">
+                    <b>{{localize "PF2E.SavesReflex"}}</b>
+                    <span>{{numberFormat data.saves.reflex.value decimals=0 sign=true}}</span>
+                </div>
+                <div title="{{data.saves.will.breakdown}}" data-save="will">
+                    <b>{{localize "PF2E.SavesWill"}}</b>
+                    <span>{{numberFormat data.saves.will.value decimals=0 sign=true}}</span>
+                </div>
+            </div>
+
+            <div class="skills">
+                <h2>{{localize "PF2E.SkillsLabel"}}</h2>
+                <div class="skill-list">
+                    {{#each data.skills as |skill shortform|}}
+                        <div class="skill-item" title="{{this.breakdown}}" data-skill-check="{{@key}}">
+                            <b>{{localize skill.label}}</b>
+                            <span>{{numberFormat this.value decimals=0 sign=true}}</span>
+                        </div>
+                    {{/each}}
+                </div>
+            </div>
+
+           
+        </div>
+
+  </section>
 </form>
  

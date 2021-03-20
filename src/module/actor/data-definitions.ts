@@ -302,7 +302,6 @@ export interface CreatureSystemData extends ActorSystemData {
 }
 
 export interface RawAnimalCompanionData extends CreatureSystemData {
-    /** The six primary ability scores. */
     abilities: Abilities;
 
     master: {
@@ -327,10 +326,38 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
         };
     };
 
+    /** The three save types. */
+    saves: Saves;
+
+    /** Tracks proficiencies for martial skills. */
+    martial: CombatProficiencies;
+
+    skills: Skills;
+
     attributes: {
-        hp: number;
-        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-        [key: string]: any;
+        hp: HitPointsData;
+        ac: ArmorClassData;
+        dexCap: DexterityModifierCapData[];
+        perception: PerceptionData;
+
+        /** The amount of bonus HP gained per level (due a feat or similar). */
+        levelbonushp: number;
+        /** A flat bonus (i.e., not scaling with level) to hit points. */
+        flatbonushp: number;
+
+        speed: {
+            /** The land speed for this actor. */
+            value: string;
+            /** A list of other movement speeds the actor possesses. */
+            otherSpeeds: LabeledValue[];
+        };
+
+        ancestry: {
+            skill: SkillAbbreviation;
+            ancestryHP: number;
+            ancestryHPPerLevel: number;
+            abilities: Abilities;
+        };
     };
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
