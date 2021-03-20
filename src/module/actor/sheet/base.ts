@@ -1251,7 +1251,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const containerId = container[0]?.dataset?.itemId?.trim();
         const item = this.actor.items.get(itemData._id);
         if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
-            await ActorPF2e.stashOrUnstash(this.actor, async () => item, containerId);
+            await this.actor.stashOrUnstash(item, containerId);
             return item.data;
         }
         return super._onSortItem(event, itemData);
