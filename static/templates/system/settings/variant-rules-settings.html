@@ -1,66 +1,66 @@
 <form class="flexcol" autocomplete="off">
   <h2>Stamina Variant Rule</h2>
   <div class="form-group">
-    <label>{{staminaVariant.setting.name}}</label>
+    <label>{{localize staminaVariant.setting.name}}</label>
     <div class="form-fields">
           <select name="staminaVariant">
           {{#select staminaVariant.value}}
           {{#each staminaVariant.setting.choices as |label value|}}
-          <option value="{{value}}">{{label}}</option>
+          <option value="{{value}}">{{localize label}}</option>
           {{/each}}
           {{/select}}
         </select>
     </div>
-    <p class="notes">{{staminaVariant.setting.hint}}</p>
+    <p class="notes">{{localize staminaVariant.setting.hint}}</p>
   </div>
   <h2>Proficiency Variant Rule</h2>
   <div class="form-group">
-      <label>{{proficiencyVariant.setting.name}}</label>
+      <label>{{localize proficiencyVariant.setting.name}}</label>
       <div class="form-fields">
             <select name="proficiencyVariant">
             {{#select proficiencyVariant.value}}
             {{#each proficiencyVariant.setting.choices as |label value|}}
-            <option value="{{value}}">{{label}}</option>
+            <option value="{{value}}">{{localize label}}</option>
             {{/each}}
             {{/select}}
           </select>
       </div>
-      <p class="notes">{{proficiencyVariant.setting.hint}}</p>
+      <p class="notes">{{localize proficiencyVariant.setting.hint}}</p>
   </div>
   <div class="form-group">
-      <label>{{proficiencyUntrainedModifier.setting.name}}</label>
+      <label>{{localize proficiencyUntrainedModifier.setting.name}}</label>
       <div class="form-fields">
           <input type="number" name="proficiencyUntrainedModifier" value="{{proficiencyUntrainedModifier.value}}" data-dtype="Number">
       </div>
-      <p class="notes">{{proficiencyUntrainedModifier.setting.hint}}</p>
+      <p class="notes">{{localize proficiencyUntrainedModifier.setting.hint}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyTrainedModifier.setting.name}}</label>
+    <label>{{localize proficiencyTrainedModifier.setting.name}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyTrainedModifier" value="{{proficiencyTrainedModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyTrainedModifier.setting.hint}}</p>
+    <p class="notes">{{localize proficiencyTrainedModifier.setting.hint}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyExpertModifier.setting.name}}</label>
+    <label>{{localize proficiencyExpertModifier.setting.name}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyExpertModifier" value="{{proficiencyExpertModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyExpertModifier.setting.hint}}</p>
+    <p class="notes">{{localize proficiencyExpertModifier.setting.hint}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyMasterModifier.setting.name}}</label>
+    <label>{{localize proficiencyMasterModifier.setting.name}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyMasterModifier" value="{{proficiencyMasterModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyMasterModifier.setting.hint}}</p>
+    <p class="notes">{{localize proficiencyMasterModifier.setting.hint}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyLegendaryModifier.setting.name}}</label>
+    <label>{{localize proficiencyLegendaryModifier.setting.name}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyLegendaryModifier" value="{{proficiencyLegendaryModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyLegendaryModifier.setting.hint}}</p>
+    <p class="notes">{{localize proficiencyLegendaryModifier.setting.hint}}</p>
   </div>
   <footer class="sheet-footer flexrow">
     <button type="submit" name="submit">
