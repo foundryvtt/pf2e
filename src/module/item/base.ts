@@ -71,7 +71,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
-    async roll(event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+    async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -940,7 +940,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
     /**
      * Use a consumable item
      */
-    async rollConsumable(_ev: JQuery.ClickEvent) {
+    async rollConsumable(this: Owned<ItemPF2e>, _ev: JQuery.ClickEvent) {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
         if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
@@ -1179,7 +1179,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
             // Get the Item
             if (!actor) return;
             const itemId = card.attr('data-item-id') ?? '';
-            let item: ItemPF2e | null = null;
+            let item: Owned<ItemPF2e> | null = null;
             let itemData: ItemDataPF2e | undefined = undefined;
             const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
             if (embeddedItem) {
