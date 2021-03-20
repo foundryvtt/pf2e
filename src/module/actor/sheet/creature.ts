@@ -19,7 +19,7 @@ import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-defini
  * @category Actor
  */
 export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends ActorSheetPF2e<ActorType> {
-    protected renderItemSummary(li: JQuery, item: ItemPF2e, chatData: any) {
+    protected renderItemSummary(li: JQuery, item: Owned<ItemPF2e>, chatData: any) {
         super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
 
