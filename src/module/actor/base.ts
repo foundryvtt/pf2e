@@ -14,15 +14,7 @@ import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import {
-    ItemDataPF2e,
-    ConditionData,
-    ArmorData,
-    PhysicalItemData,
-    WeaponData,
-    isPhysicalItem,
-    isMagicDetailsData,
-} from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
     CharacterData,
     InitiativeData,
@@ -1078,13 +1070,13 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         if (result === null) {
             return;
         }
-
-        const itemInTargetActor = targetActor.getOwnedItem(result._id);
-        if (!(itemInTargetActor instanceof PhysicalItemPF2e)) {
+        const movedItem = targetActor.items.get(result._id);
+        if (!(movedItem instanceof PhysicalItemPF2e)) {
             return;
         }
+        await targetActor.stashOrUnstash(movedItem, containerId);
 
-        return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
+        return item;
     }
 
     /**
@@ -1093,27 +1085,17 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    static async stashOrUnstash<ItemType extends PhysicalItemPF2e = PhysicalItemPF2e>(
-        actor: ActorPF2e,
-        getItem: () => Promise<ItemType>,
-        containerId?: string,
-    ): Promise<ItemType> {
-        const item = await getItem();
-        if (!item) return Promise.reject();
-
+    async stashOrUnstash(item: PhysicalItemPF2e, containerId?: string): Promise<void> {
         if (containerId) {
-            const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
-            if (!isCycle(item.id, containerId, physicalItemsData)) {
-                return item.update({
+            if (!isCycle(item.id, containerId, [item.data])) {
+                await item.update({
                     'data.containerId.value': containerId,
                     'data.equipped.value': false,
                 });
             }
-            return item;
+        } else {
+            await item.update({ 'data.containerId.value': '' });
         }
-        await item.update({ 'data.containerId.value': '' });
-
-        return item;
     }
 
     /**
