@@ -5,30 +5,30 @@ import { WorldClockSettings } from './world-clock';
 
 export function registerSettings() {
     game.settings.register(game.system.id, 'worldSchemaVersion', {
-        name: game.i18n.localize('PF2E.SETTINGS.WorldSchemaVersion.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.WorldSchemaVersion.Hint'),
+        name: 'PF2E.SETTINGS.WorldSchemaVersion.Name',
+        hint: 'PF2E.SETTINGS.WorldSchemaVersion.Hint',
         scope: 'world',
         config: true,
         default: Migrations.latestVersion,
         type: Number,
     });
     game.settings.register(game.system.id, 'defaultTokenSettings', {
-        name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettings.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettings.Hint'),
+        name: 'PF2E.SETTINGS.DefaultTokenSettings.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettings.Hint',
         scope: 'world',
         config: true,
         default: true,
         type: Boolean,
     });
     game.settings.register(game.system.id, 'defaultTokenSettingsName', {
-        name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsName.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsName.Hint'),
+        name: 'PF2E.SETTINGS.DefaultTokenSettingsName.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettingsName.Hint',
         scope: 'world',
         config: true,
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsName.Choices.NONE'),
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.NONE',
             [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize(
                 'PF2E.SETTINGS.DefaultTokenSettingsName.Choices.CONTROL',
             ),
@@ -47,14 +47,14 @@ export function registerSettings() {
         },
     });
     game.settings.register(game.system.id, 'defaultTokenSettingsBar', {
-        name: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsBar.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsBar.Hint'),
+        name: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Hint',
         scope: 'world',
         config: true,
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: game.i18n.localize('PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.NONE'),
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.NONE',
             [CONST.TOKEN_DISPLAY_MODES.CONTROL]: game.i18n.localize(
                 'PF2E.SETTINGS.DefaultTokenSettingsBar.Choices.CONTROL',
             ),
@@ -73,29 +73,29 @@ export function registerSettings() {
         },
     });
     game.settings.register(game.system.id, 'ignoreCoinBulk', {
-        name: game.i18n.localize('PF2E.SETTINGS.IgnoreCoinBulk.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.IgnoreCoinBulk.Hint'),
+        name: 'PF2E.SETTINGS.IgnoreCoinBulk.Name',
+        hint: 'PF2E.SETTINGS.IgnoreCoinBulk.Hint',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
     game.settings.register(game.system.id, 'ignoreContainerOverflow', {
-        name: game.i18n.localize('PF2E.SETTINGS.IgnoreContainerOverflow.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.IgnoreContainerOverflow.Hint'),
+        name: 'PF2E.SETTINGS.IgnoreContainerOverflow.Name',
+        hint: 'PF2E.SETTINGS.IgnoreContainerOverflow.Hint',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
     game.settings.register(game.system.id, 'identifyMagicNotMatchingTraditionModifier', {
-        name: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint'),
+        name: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name',
+        hint: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint',
         choices: {
-            0: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.0'),
-            2: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.2'),
-            5: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.5'),
-            10: game.i18n.localize('PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.10'),
+            0: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.0',
+            2: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.2',
+            5: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.5',
+            10: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.10',
         },
         type: Number,
         default: 5,
@@ -103,20 +103,20 @@ export function registerSettings() {
         config: true,
     });
     game.settings.register(game.system.id, 'critRule', {
-        name: game.i18n.localize('PF2E.SETTINGS.CritRule.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.CritRule.Hint'),
+        name: 'PF2E.SETTINGS.CritRule.Name',
+        hint: 'PF2E.SETTINGS.CritRule.Hint',
         scope: 'world',
         config: true,
         default: 'doubledamage',
         type: String,
         choices: {
-            doubledamage: game.i18n.localize('PF2E.SETTINGS.CritRule.Choices.Doubledamage'),
-            doubledice: game.i18n.localize('PF2E.SETTINGS.CritRule.Choices.Doubledamage'),
+            doubledamage: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
+            doubledice: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
         },
     });
     game.settings.register(game.system.id, 'compendiumBrowserPacks', {
-        name: game.i18n.localize('PF2E.SETTINGS.CompendiumBrowserPacks.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.CompendiumBrowserPacks.Hint'),
+        name: 'PF2E.SETTINGS.CompendiumBrowserPacks.Name',
+        hint: 'PF2E.SETTINGS.CompendiumBrowserPacks.Hint',
         default: '{}',
         type: String,
         scope: 'world',
@@ -125,8 +125,8 @@ export function registerSettings() {
         },
     });
     game.settings.register(game.system.id, 'enabledRulesUI', {
-        name: game.i18n.localize('PF2E.SETTINGS.EnabledRulesUI.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.EnabledRulesUI.Hint'),
+        name: 'PF2E.SETTINGS.EnabledRulesUI.Name',
+        hint: 'PF2E.SETTINGS.EnabledRulesUI.Hint',
         scope: 'world',
         config: true,
         default: false,
@@ -144,9 +144,9 @@ export function registerSettings() {
     WorldClockSettings.registerSettings();
 
     game.settings.registerMenu(game.system.id, 'variantRules', {
-        name: game.i18n.localize('PF2E.SETTINGS.Variant.Name'),
-        label: game.i18n.localize('PF2E.SETTINGS.Variant.Label'), // The text label used in the button
-        hint: game.i18n.localize('PF2E.SETTINGS.Variant.Hint'),
+        name: 'PF2E.SETTINGS.Variant.Name',
+        label: 'PF2E.SETTINGS.Variant.Label', // The text label used in the button
+        hint: 'PF2E.SETTINGS.Variant.Hint',
         icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
         type: VariantRulesSettings, // A FormApplication subclass which should be created
         restricted: true, // Restrict this submenu to gamemaster only?
@@ -155,8 +155,8 @@ export function registerSettings() {
 
     // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
     game.settings.register(game.system.id, 'RAI.TreatWoundsAltSkills', {
-        name: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint'),
+        name: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name',
+        hint: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint',
         scope: 'world',
         config: true,
         default: true,
