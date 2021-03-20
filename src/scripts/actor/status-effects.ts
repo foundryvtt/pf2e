@@ -103,7 +103,7 @@ export class StatusEffects {
                 default: true,
                 type: Boolean,
             });
-            game.settings.register(game.system.id, 'showConditionChatBubbles', {
+            game.settings.register('pf2e', 'showConditionChatBubbles', {
                 name: 'Show Condition Chat Bubbles',
                 hint:
                     'When enabled, a token will speak out any changes to conditions applied from the token HUD' +
