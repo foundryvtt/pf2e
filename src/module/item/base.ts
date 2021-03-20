@@ -682,12 +682,6 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 if (itemData.damageRolls[key].damage) parts.push(itemData.damageRolls[key].damage);
                 partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
             });
-        } else if (itemData.damageRolls && itemData.damageRolls.length) {
-            // this can be removed once existing NPCs are migrated to use new damageRolls object (rather than an array)
-            itemData.damageRolls.forEach((entry) => {
-                parts.push(entry.damage);
-                partsType.push(`${entry.damage} ${entry.damageType}`);
-            });
         } else {
             parts = [(itemData as any).damage.die];
         }

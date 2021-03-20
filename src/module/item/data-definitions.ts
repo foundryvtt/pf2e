@@ -301,11 +301,16 @@ export interface KitEntryData {
     items?: { [key: number]: KitEntryData };
 }
 
+export interface MeleeDamageRoll {
+    damage: string;
+    damageType: string;
+}
+
 export interface MeleeDetailsData extends MagicDetailsData {
     attack: {
         value: string;
     };
-    damageRolls: any;
+    damageRolls: Record<string, MeleeDamageRoll>;
     bonus: {
         value: number;
     };

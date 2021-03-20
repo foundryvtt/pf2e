@@ -291,13 +291,14 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                 if (attack !== undefined) {
                     item.data.bonus.value = parseInt(attack, 10) + mod;
                     item.data.bonus.total = item.data.bonus.value;
-                    const dmg = getProperty(item.data.damageRolls[0], 'damage');
+                    const firstKey = Object.keys(item.data.damageRolls)[0];
+                    const dmg = item.data.damageRolls[firstKey]?.damage;
                     if (dmg !== undefined) {
                         const lastTwoChars = dmg.slice(-2);
                         if (parseInt(lastTwoChars, 10) === mod * -1) {
-                            item.data.damageRolls[0].damage = dmg.slice(0, -2);
+                            item.data.damageRolls[firstKey].damage = dmg.slice(0, -2);
                         } else {
-                            item.data.damageRolls[0].damage = dmg + (increase ? '+' : '') + mod;
+                            item.data.damageRolls[firstKey].damage = dmg + (increase ? '+' : '') + mod;
                         }
                     }
                 }
