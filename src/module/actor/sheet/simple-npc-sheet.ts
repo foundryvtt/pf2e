@@ -895,7 +895,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         item.data.bonus.total = item.data.bonus.value;
 
         if (item.data.damageRolls === undefined) return;
-        if (item.data.damageRolls.length < 1) return;
         if (item.data.damageRolls[0] === undefined) return;
 
         const dmg = item.data.damageRolls[0].damage;
@@ -1306,19 +1305,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
     protected onSkillsEditClicked(eventData: JQuery.ClickEvent) {
         eventData.preventDefault();
-        // const htmlElement = $(eventData.currentTarget);
-        // const options = {
-        //     name: 'data.skills',
-        //     title: game.i18n.localize('PF2.SkillsLabel'),
-        //     choices: CONFIG.PF2E.skills,
-        //     has_values: true,
-        //     allow_empty_values: false,
-        //     has_exceptions: true,
-        //     no_custom: false
-        // };
-
-        // new TraitSelector5e(this.actor, options).render(true);
-
         const options = {};
         const skillsEditor = new NPCSkillsEditor(this.actor, options);
 
@@ -1668,13 +1654,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 if (attack !== undefined) {
                     item.data.bonus.value = parseInt(attack, 10) + mod;
                     (item as any).data.bonus.total = item.data.bonus.value;
-                    const dmg = getProperty(item.data.damageRolls[0], 'damage');
+                    const firstKey = Object.keys(item.data.damageRolls)[0];
+                    const dmg = item.data.damageRolls[firstKey]?.damage;
                     if (dmg !== undefined) {
                         const lastTwoChars = dmg.slice(-2);
                         if (parseInt(lastTwoChars, 10) === mod * -1) {
-                            item.data.damageRolls[0].damage = dmg.slice(0, -2);
+                            item.data.damageRolls[firstKey].damage = dmg.slice(0, -2);
                         } else {
-                            item.data.damageRolls[0].damage = dmg + (increase ? '+' : '') + mod;
+                            item.data.damageRolls[firstKey].damage = dmg + (increase ? '+' : '') + mod;
                         }
                     }
                 }
