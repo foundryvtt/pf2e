@@ -67,7 +67,7 @@ export class StatusEffects {
             statusEffectTypeChoices[type] = statusEffectTypes[type as StatusEffectType];
         }
 
-        game.settings.register(game.system.id, 'statusEffectType', {
+        game.settings.register('pf2e', 'statusEffectType', {
             name: statusEffectTypes.name,
             hint: statusEffectTypes.hint,
             scope: 'world',
@@ -82,7 +82,7 @@ export class StatusEffects {
             },
         });
 
-        game.settings.register(game.system.id, 'statusEffectKeepFoundry', {
+        game.settings.register('pf2e', 'statusEffectKeepFoundry', {
             name: translations.statusEffectKeepFoundry.name,
             hint: translations.statusEffectKeepFoundry.hint,
             scope: 'world',
@@ -95,7 +95,7 @@ export class StatusEffects {
         });
 
         if (game.user.isGM) {
-            game.settings.register(game.system.id, 'statusEffectShowCombatMessage', {
+            game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
                 name: translations.statusEffectShowCombatMessage.name,
                 hint: translations.statusEffectShowCombatMessage.hint,
                 scope: 'client',
@@ -103,7 +103,7 @@ export class StatusEffects {
                 default: true,
                 type: Boolean,
             });
-            game.settings.register(game.system.id, 'showConditionChatBubbles', {
+            game.settings.register('pf2e', 'showConditionChatBubbles', {
                 name: 'Show Condition Chat Bubbles',
                 hint:
                     'When enabled, a token will speak out any changes to conditions applied from the token HUD' +

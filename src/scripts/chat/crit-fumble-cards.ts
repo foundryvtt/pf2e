@@ -82,7 +82,7 @@ class PF2eCritFumbleCards {
 }
 
 Hooks.once('renderChatLog', async () => {
-    game.settings.register(game.system.id, 'critFumbleButtons', {
+    game.settings.register('pf2e', 'critFumbleButtons', {
         name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
         hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
         scope: 'world',
@@ -94,7 +94,7 @@ Hooks.once('renderChatLog', async () => {
         },
     });
 
-    game.settings.register(game.system.id, 'drawCritFumble', {
+    game.settings.register('pf2e', 'drawCritFumble', {
         name: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.name'),
         hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.hint'),
         scope: 'world',

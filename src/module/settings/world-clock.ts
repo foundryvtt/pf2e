@@ -70,11 +70,11 @@ export class WorldClockSettings extends FormApplication {
 
     /** Register World Clock settings */
     static registerSettings(): void {
-        game.settings.register(game.system.id, 'worldClock.dateTheme', this.settings.dateTheme);
-        game.settings.register(game.system.id, 'worldClock.timeConvention', this.settings.timeConvention);
-        game.settings.register(game.system.id, 'worldClock.playersCanView', this.settings.playersCanView);
-        game.settings.register(game.system.id, 'worldClock.syncDarkness', this.settings.syncDarkness);
-        game.settings.register(game.system.id, 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
+        game.settings.register('pf2e', 'worldClock.dateTheme', this.settings.dateTheme);
+        game.settings.register('pf2e', 'worldClock.timeConvention', this.settings.timeConvention);
+        game.settings.register('pf2e', 'worldClock.playersCanView', this.settings.playersCanView);
+        game.settings.register('pf2e', 'worldClock.syncDarkness', this.settings.syncDarkness);
+        game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
     }
 
     /** @override */
