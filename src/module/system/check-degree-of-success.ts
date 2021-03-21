@@ -35,7 +35,8 @@ const ADJUSTMENTS = Object.freeze({
     'one-degree-worse': DegreeAdjustment.LOWER,
 });
 
-export const DegreeOfSuccessText = Object.freeze(['criticalFailure', 'failure', 'success', 'criticalSuccess']);
+export const DegreeOfSuccessText = ['criticalFailure', 'failure', 'success', 'criticalSuccess'] as const;
+export type DegreeOfSuccessString = typeof DegreeOfSuccessText[number];
 
 export function getDegreeOfSuccess(
     roll: Roll,
