@@ -3,6 +3,7 @@ import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { PF2RollNote } from '@module/notes';
 import { ModifierPredicate } from '@module/modifiers';
+import { DegreeOfSuccessText } from '@system/check-degree-of-success';
 
 /**
  * @category RuleElement
@@ -15,6 +16,11 @@ export class PF2RollNoteRuleElement extends PF2RuleElement {
             const note = new PF2RollNote(selector, text);
             if (this.ruleData.predicate) {
                 note.predicate = new ModifierPredicate(this.ruleData.predicate);
+            }
+            if (Array.isArray(this.ruleData.outcome)) {
+                note.outcome = this.ruleData.outcome.filter((outcome: string) =>
+                    ((DegreeOfSuccessText as unknown) as string[]).includes(outcome),
+                );
             }
             rollNotes[selector] = (rollNotes[selector] || []).concat(note);
         } else {

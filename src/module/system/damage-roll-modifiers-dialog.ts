@@ -2,6 +2,9 @@
  * Dialog for excluding certain modifiers before rolling for damage.
  */
 
+import { DegreeOfSuccessString } from '@system/check-degree-of-success';
+import { PF2RollNote } from '@module/notes';
+
 /**
  * @category Other
  */
@@ -55,6 +58,7 @@ export class DamageRollModifiersDialog extends Application {
      */
     static roll(damage, context, callback) {
         const ctx = context ?? {};
+        const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
@@ -65,8 +69,8 @@ export class DamageRollModifiersDialog extends Application {
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
         }
 
-        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${ctx.outcome ?? 'success'}`);
-        let flavor = `<b>${damage.name}</b> (${outcome})`;
+        const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
+        let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
             const traits = damage.traits
                 .map((trait) => CONFIG.PF2E.weaponTraits[trait] ?? trait)
@@ -82,7 +86,7 @@ export class DamageRollModifiersDialog extends Application {
             .concat(damage.diceModifiers)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
-            .filter((m) => !m.critical || ctx.outcome === 'criticalSuccess')
+            .filter((m) => !m.critical || outcome === 'criticalSuccess')
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 const modifier =
@@ -95,12 +99,15 @@ export class DamageRollModifiersDialog extends Application {
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
 
-        const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+        const notes = ((damage.notes ?? []) as PF2RollNote[])
+            .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+            .map((note) => TextEditor.enrichHTML(note.text))
+            .join('<br />');
         flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[ctx.outcome ?? 'success']);
+        const formula = duplicate(damage.formula[outcome]);
         const rollData: any = {
-            outcome: ctx.outcome ?? 'success',
+            outcome,
             rollMode: ctx.rollMode ?? 'roll',
             traits: damage.traits ?? [],
             types: {},
