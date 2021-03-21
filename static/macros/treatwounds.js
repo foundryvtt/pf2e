@@ -4,7 +4,7 @@ function CheckFeat(slug) {
     }
     return false;
 }
-const rollTreatWounds = async ({ DC, bonus, med, riskysurgery }) => {
+const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) => {
     const options = actor.getRollOptions(['all', 'skill-check', 'medicine']);
 
     options.push('treat wounds');
@@ -13,10 +13,13 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery }) => {
     const dc = {
         value: DC,
     };
-    if (riskysurgery) {
+    if (riskysurgery || mortalhealing) {
         dc.modifiers = {
             success: 'one-degree-better',
         };
+    }
+    if (riskysurgery) {
+        options.push('risky-surgery');
     }
 
     med.roll({
@@ -68,6 +71,7 @@ async function applyChanges($html) {
         const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
+	    const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
 
         // Handle Rule Interpretation
@@ -104,10 +108,10 @@ async function applyChanges($html) {
         const medicBonus = CheckFeat('medic-dedication') ? (usedProf - 1) * 5 : 0;
         const roll = [
             () => ui.notifications.warn(`${name} is not trained in Medicine and doesn't know how to treat wounds.`),
-            () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery }),
-            () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery }),
-            () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery }),
-            () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery }),
+            () => rollTreatWounds({ DC: 15 + mod, bonus: 0 + medicBonus, med, riskysurgery, mortalhealing }),
+            () => rollTreatWounds({ DC: 20 + mod, bonus: 10 + medicBonus, med, riskysurgery, mortalhealing }),
+            () => rollTreatWounds({ DC: 30 + mod, bonus: 30 + medicBonus, med, riskysurgery, mortalhealing }),
+            () => rollTreatWounds({ DC: 40 + mod, bonus: 50 + medicBonus, med, riskysurgery, mortalhealing }),
         ][usedProf];
 
         roll();
@@ -164,6 +168,14 @@ ${
         ? `<form><div class="form-group">
 <label>Risky Surgery</label>
 <input type="checkbox" id="risky_surgery_bool" name="risky_surgery_bool"></input>
+</div></form>`
+        : ``
+}
+${
+    CheckFeat('mortal-healing')
+        ? `<form><div class="form-group">
+<label>Mortal Healing</label>
+<input type="checkbox" id="mortal_healing_bool" name="mortal_healing_bool" checked></input>
 </div></form>`
         : ``
 }
