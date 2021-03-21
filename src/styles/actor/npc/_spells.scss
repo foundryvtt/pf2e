@@ -8,11 +8,11 @@
         display: block;
         width: 100%;
         margin: 0px;
-        
+
         &:not(:first-child) {
             margin-top: 24px;
         }
-    
+
         .header {
             background-color: $primary-accent;
             color: $light-text;
@@ -24,7 +24,7 @@
             align-items: baseline;
             padding: 4px 12px;
             border-radius: 3px 3px 0px 0px;
-    
+
             .values {
                 display: flex;
                 flex: 0;
@@ -32,7 +32,7 @@
                 flex-wrap: nowrap;
                 justify-content: flex-start;
                 align-items: baseline;
-    
+
                 .inline-field {
                     flex: 0;
                     display: flex;
@@ -40,12 +40,22 @@
                     flex-wrap: nowrap;
                     justify-content: flex-start;
                     align-items: baseline;
-    
+
                     label {
                         flex: 1;
                     }
-        
-                    input {
+
+                    .attack-input {
+                        flex: 1 0 32px;
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 32px;
+                    }
+
+                    .dc-input {
                         flex: 1 0 32px;
                         text-align: center;
                         background-color: $light-text;
@@ -56,7 +66,7 @@
                     }
                 }
             }
-    
+
             .name {
                 flex: 1;
                 text-align: center;
@@ -66,7 +76,7 @@
                 }
             }
         }
-    
+
         .body {
             border: 1px solid $primary-accent;
             border-radius: 0px 0px 3px 3px;
@@ -81,6 +91,36 @@
                 padding: 4px 8px;
                 text-align: center;
 
+                .focus-point-container {
+                    display: flex;
+                    flex-direction: row;
+                    align-items: baseline;
+                    grid-column: 1/span 2;
+
+                    .focus-label {
+                        align-self: flex-start;
+                        text-align: center;
+                    }
+
+                    .focus-points {
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+
+                    .focus-pool {
+                        text-align: center;
+                        background-color: $light-text;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+                }
+
                 .controls {
                     flex: 0;
                     text-align: right;
@@ -91,15 +131,41 @@
             .section {
 
                 .section-header {
+                    display: flex;
                     flex: 1 0 auto;
+                    flex-direction: row;
+                    flex-wrap: nowrap;
+                    align-items: baseline;
                     background-color: $secondary-accent;
                     color: $light-text;
                     padding: 4px 8px;
                     text-align: center;
-                    justify-content: center;
+
+                    .level-prepared-toggle {
+                        align-self: flex-start;
+                    }
 
                     h4 {
+                        padding-left: 10px;
                         margin: 0px;
+                    }
+
+                    .spell-slots-input {
+                        text-align: center;
+                        background-color: #f5efe0;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
+                    }
+
+                    .spell-max-input {
+                        text-align: center;
+                        background-color: #f5efe0;
+                        font-weight: bold;
+                        margin-left: 4px;
+                        margin-right: 8px;
+                        width: 25px;
                     }
                 }
 
@@ -111,14 +177,14 @@
 
                     .spell {
                         padding: 2px 6px;
-                        
+
                         &:not(:last-child) {
                             border-bottom: 1px solid $faded-color;
                         }
-                        
+
                         .spell-header {
                             display: grid;
-                            grid-template-columns: 26px auto 64px 80px 64px;
+                            grid-template-columns: 26px auto 64px 80px 70px;
                             column-gap: 6px;
                             .spell-icon {
                                 border: 2px solid $faded-color;
@@ -127,23 +193,29 @@
                                 height: 26px;
                                 background-size: 26px 26px;
                             }
-    
+
                             .spell-name {
                                 padding-left: 8px;
 
                                 h4 {
                                     margin: 0px;
                                 }
-    
+
                                 .activity-icon {
                                     font-size: 1.4rem;
+                                }
+
+                                &.empty {
+                                    height: 26px;
+                                    padding-top: 5px;
+                                    grid-column: 1/span 4;
                                 }
                             }
 
                             .spell-range {
                                 text-align: center;
                             }
-                            
+
                             .spell-components {
                                 text-align: center;
                                 display: flex;
