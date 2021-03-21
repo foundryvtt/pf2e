@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 7 ",
+                "details": "regeneration 7 (deactivated by acid or fire)",
                 "max": 125,
                 "min": 0,
                 "temp": 0,
@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -160,6 +163,46 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 188"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
+            },
+            "lxsWZN09WFvanWVx": {
+                "data": {
+                    "spelldc": {
+                        "dc": 24,
+                        "value": 14
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +452,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -481,6 +527,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -543,6 +592,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -574,7 +624,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "EiY33Yz45H0BCYo8",
+            "_id": "U4XaNmzQkuinzHPm",
             "data": {
                 "ability": {
                     "value": ""
@@ -582,6 +632,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot cone"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -599,7 +652,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>Icy cold rushes forth from your hands. You deal 12d6 cold damage to creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -619,6 +672,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -627,18 +683,28 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "cone-of-cold",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=47"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -670,16 +736,12 @@
                         "cold",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.3puDanGfpEt6jK5k"
                 }
             },
             "img": "systems/pf2e/icons/spells/cone-of-cold.jpg",
@@ -688,7 +750,7 @@
             "type": "spell"
         },
         {
-            "_id": "VhYyS3QWOZyJjrXl",
+            "_id": "wjQAuC6Dp4kc29dg",
             "data": {
                 "ability": {
                     "value": ""
@@ -696,6 +758,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -708,12 +773,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -722,7 +787,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "lxsWZN09WFvanWVx"
@@ -731,6 +796,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -751,8 +819,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -787,20 +865,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "GUvc0b0E4ev7fo2s",
+            "_id": "1Akxqp0av5pvkxf5",
             "data": {
                 "ability": {
                     "value": ""
@@ -808,6 +887,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -845,6 +927,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -863,8 +948,18 @@
                 "school": {
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "gaseous-form",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=129"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -897,20 +992,21 @@
                         "polymorph",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.V8wXOsoejQhe6CyG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/gaseous-form.jpg",
             "name": "Gaseous Form",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "O26N6M9QDdrVTlYK",
+            "_id": "ilZFILDa2c1Icj4g",
             "data": {
                 "ability": {
                     "value": ""
@@ -918,6 +1014,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": 5
+                },
+                "areasize": {
+                    "value": "5-foot burst"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -930,12 +1029,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. If it's still @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}. If it's still @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} after 1 hour, it wakes up automatically.</p>\n<hr /><strong>Heightened</strong> The creatures fall @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} for 1 round on a failure or 1 minute on a critical failure. They fall @Compendium[pf2e.conditionitems.Prone]{Prone} and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up."
+                    "value": "<p>Each creature in the area becomes drowsy and might fall asleep. A creature that falls @Compendium[pf2e.conditionitems.Unconscious]{Unconscious} from this spell doesn't fall @Compendium[pf2e.conditionitems.Prone]{Prone} or release what it's holding. This spell doesn't prevent creatures from waking up due to a successful Perception check, limiting its utility in combat.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes a -1 status penalty to Perception checks for 1 round.</p>\n<p><strong>Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 minute, it wakes up automatically.</p>\n<p><strong>Critical Failure</strong> The creature falls Unconscious. If it's still Unconscious after 1 hour, it wakes up automatically.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The creatures fall Unconscious for 1 round on a failure or 1 minute on a critical failure. They fall Prone and release what they're holding, and they can't attempt Perception checks to wake up. When the duration ends, the creature is sleeping normally instead of automatically waking up.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -944,7 +1043,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "lxsWZN09WFvanWVx"
@@ -953,6 +1052,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -973,8 +1075,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sleep",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=288"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1008,20 +1120,21 @@
                         "mental",
                         "sleep"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.o4lRVTwSxnOOn5vl"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sleep.jpg",
             "name": "Sleep",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "nwc2zKVBt2mOlBDo",
+            "_id": "NT1ld9mjSd4NOulW",
             "data": {
                 "ability": {
                     "value": ""
@@ -1029,6 +1142,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1041,12 +1157,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -1055,7 +1171,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "lxsWZN09WFvanWVx"
@@ -1064,6 +1180,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1084,8 +1203,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1121,20 +1250,21 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.jpg",
             "name": "Fear",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "GUg4zRJUMwvk8d1y",
+            "_id": "eAEM3PAmpICfXBTF",
             "data": {
                 "ability": {
                     "value": ""
@@ -1142,6 +1272,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "value": "material, somatic, verbal"
@@ -1159,7 +1292,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1177,6 +1310,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1197,8 +1333,18 @@
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1232,20 +1378,21 @@
                         "darkness",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.jpg",
             "name": "Darkness",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "SSAWZb4fWVteuMIi",
+            "_id": "CbjDPYYSPr0LQHyI",
             "data": {
                 "ability": {
                     "value": ""
@@ -1253,6 +1400,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "material, somatic"
@@ -1270,7 +1420,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1288,6 +1438,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1308,8 +1461,18 @@
                 "school": {
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1340,21 +1503,35 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility",
+            "name": "Invisibility (At will) (Self only)",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "vDaZ1W1qoUsvRF3w",
+            "_id": "aF866brRh1uTW7EA",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1367,15 +1544,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d10",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This weapon is a heavier, two‑handed version of the curved‑bladed scimitar. It is weighted toward the blade's end, making it a powerful slashing weapon.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": ""
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1388,19 +1577,22 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": "0"
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": "1"
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1409,53 +1601,112 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "3 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
-                    "value": 1
+                    "value": "1"
+                },
+                "range": {
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "falchion",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "striking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "forceful",
+                        "sweep"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 striking falchion",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.XGtIUZ4ZNKuFx1uL"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/falchion.png",
+            "name": "+1 Striking Falchion",
             "sort": 900000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "VRBEWRnlYcDlTyQw",
+            "_id": "Qvb2uxSfyIgWy23j",
             "data": {
+                "armor": {
+                    "value": 4
+                },
+                "armorType": {
+                    "value": "medium"
+                },
+                "baseItem": null,
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": "-2"
                 },
                 "collapsed": {
                     "value": false
@@ -1466,25 +1717,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>Though referred to as a breastplate, this type of armor consists of several pieces of plate or half‑plate armor (page 276) that protect the torso, chest, neck, and sometimes the hips and lower legs. It strategically grants some of the protection of plate while allowing greater flexibility and speed.</p>"
+                },
+                "dex": {
+                    "value": "1"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "2"
+                },
+                "group": {
+                    "value": "plate"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1493,10 +1750,14 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1505,7 +1766,19 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "8 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
@@ -1513,15 +1786,49 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "not": [
+                                "unburdened-iron"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "speed",
+                        "type": "untyped",
+                        "value": {
+                            "brackets": [
+                                {
+                                    "end": 15,
+                                    "value": -5
+                                }
+                            ],
+                            "field": "actor|data.abilities.str.value"
+                        }
+                    }
+                ],
                 "size": {
                     "value": "med"
                 },
+                "slug": "breastplate",
                 "source": {
                     "value": ""
                 },
+                "speed": {
+                    "value": "-5 ft"
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": "16"
                 },
                 "traits": {
                     "custom": "",
@@ -1531,22 +1838,39 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "3"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "breastplate",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.r0ifJfoz8aqf0mwk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/breastplate.jpg",
+            "name": "Breastplate",
             "sort": 1000000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
-            "_id": "pj20cr6UBHs6OypX",
+            "_id": "fhJmV9fBMZHmO72m",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "shortbow",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1559,10 +1883,200 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d6",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
+                    "value": "<p>This shortbow is made from horn, wood, and sinew laminated together to increase the power of its pull and the force of its projectile. Its compact size and power make it a favorite of mounted archers. Any time an ability is specifically restricted to a shortbow, it also applies to composite shortbows unless otherwise stated.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
                     "value": ""
+                },
+                "group": {
+                    "value": "bow"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": "0"
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "14 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": "1"
+                },
+                "range": {
+                    "value": "60"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "composite-shortbow",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "deadly-d10",
+                        "propulsive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.e4NwsnPnpQKbDZ9F"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.png",
+            "name": "Composite Shortbow",
+            "sort": 1100000,
+            "type": "weapon"
+        },
+        {
+            "_id": "kxHgS4OyEO45b3ve",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "ammo"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>These projectiles are the ammunition for bows. The shaft of an arrow is made of wood. It is stabilized in flight by fletching at one end and bears a metal head on the other.</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
                 },
                 "equipped": {
                     "value": false
@@ -1580,7 +2094,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1601,10 +2115,15 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "1 sp"
                 },
                 "quantity": {
-                    "value": 1
+                    "value": 20
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
                 },
                 "rarity": {
                     "value": "common"
@@ -1613,32 +2132,56 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": "arrows",
                 "source": {
                     "value": ""
                 },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
                 "stackGroup": {
-                    "value": ""
+                    "value": "arrows"
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
                     "value": []
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
-                "weight": {
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
                     "value": 0
+                },
+                "weight": {
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "composite shortbow with 20 arrows",
-            "sort": 1100000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.w2ENw2VMPcsbif8g"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.jpg",
+            "name": "Arrows",
+            "sort": 1200000,
+            "type": "consumable"
         },
         {
             "_id": "gGqDItdgQIf2RRPw",
@@ -1649,6 +2192,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 21,
                     "value": 21
@@ -1756,6 +2300,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1785,7 +2330,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Falchion",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -1797,6 +2342,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 20,
                     "value": 20
@@ -1904,6 +2450,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1933,7 +2480,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Fist",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -1945,6 +2492,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 17,
                     "value": 17
@@ -2052,6 +2600,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2065,8 +2614,8 @@
                     },
                     "value": [
                         "deadly-d10",
-                        "range increment 100 feet",
-                        "reload 0"
+                        "range-increment-100",
+                        "reload-0"
                     ]
                 },
                 "usage": {
@@ -2083,11 +2632,179 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Composite Shortbow",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "melee"
         },
         {
-            "_id": "LYlyFRWBGM2OArun",
+            "_id": "6UhOo5jcpQz76GcZ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "2bthXOLfHVbIarRo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "laXpsxFAPFs8EXkA",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "FrDnLG8ehjXFC6Ey",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2101,7 +2818,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2110,6 +2827,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -2123,22 +2841,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 1500000,
+            "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "LFbbDcB3FFgpsZqf",
+            "_id": "FH5MdxzW5lzQE9Hf",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2152,7 +2871,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2161,6 +2880,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -2174,22 +2894,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 1600000,
+            "name": "Regeneration 7 (deactivated by acid or fire)",
+            "sort": 2000000,
             "type": "action"
         },
         {
-            "_id": "viAZ8iytyxqVopq5",
+            "_id": "VPVWe9JZVLpTixZC",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2198,12 +2919,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The onidoshi takes on the appearance of an ogre. This doesn't change their Speed or Strike attack and damage.<br />The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
+                    "value": "<p>The onidoshi takes on the appearance of an ogre. This doesn't change their Speed or Strike attack and damage.</p>\n<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2212,6 +2933,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -2230,18 +2952,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Change Shape",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2265,6 +2988,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2283,7 +3007,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2307,6 +3031,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2325,7 +3050,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Arcana",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2349,6 +3074,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2367,7 +3093,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2391,6 +3117,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2409,7 +3136,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2433,6 +3160,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2451,7 +3179,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 2200000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2475,6 +3203,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2493,7 +3222,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 2300000,
+            "sort": 2700000,
             "type": "lore"
         }
     ],
@@ -2502,7 +3231,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7EppoGdIcmd0AV9B",
         "actorLink": false,
         "bar1": {
@@ -2521,6 +3249,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Onidoshi",
         "randomImg": false,
