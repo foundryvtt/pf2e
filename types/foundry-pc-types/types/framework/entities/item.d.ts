@@ -41,6 +41,7 @@ declare interface ItemData extends BaseEntityData {
     type: string;
     data: {};
     effects: ActiveEffectData[];
+    folder?: string | null;
     sort: number;
 }
 

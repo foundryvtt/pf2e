@@ -595,7 +595,7 @@ export class StatusEffects {
         const iconType = StatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
-        const promises: Promise<BaseEntityData | BaseEntityData[]>[] = [];
+        const promises: Promise<TokenData | TokenData[]>[] = [];
         for (const scene of game.scenes.values()) {
             const tokenUpdates: any[] = [];
 

@@ -5,6 +5,7 @@ declare class Journal extends EntityCollection<JournalEntry> {
 
 declare interface JournalEntryData extends BaseEntityData {
     content: string;
+    folder?: string | null;
     sort: number;
 }
 
