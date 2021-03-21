@@ -1112,6 +1112,56 @@
                     "DialogHint": "Show this window only if I shift-click to roll."
                 }
             },
+            "WorldSchemaVersion": {
+                "Name": "Actor Schema Version",
+                "Hint": "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)"
+            },
+            "DefaultTokenSettings": {
+                "Name": "Default Prototype Token Settings",
+                "Hint": "Automatically set advised prototype token settings to newly created Actors."
+            },
+            "DefaultTokenSettingsName": {
+                "Name": "Default Token Name display",
+                "Hint": "The setting for the default token's name display"
+            },
+            "DefaultTokenSettingsBar": {
+                "Name": "Default Token Bar display",
+                "Hint": "The setting for the default token's bar display"
+            },
+            "IgnoreCoinBulk": {
+                "Name": "Coins are weightless",
+                "Hint": "Toggle on to ignore currency weight."
+            },
+            "IgnoreContainerOverflow": {
+                "Name": "Do not combine stacks from different containers when calculating bulk",
+                "Hint": "When enabled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. When disabled, the above example will combine all stacks from all containers together and add up to 1 bulk."
+            },
+            "IdentifyMagicNotMatchingTraditionModifier": {
+                "Name": "Identify Magic Skill Modifier",
+                "Hint": "Modifier to add to Identify Magic Skill DCs if the skill does not match the item's magic tradition",
+                "Choices": {
+                    "0": "0",
+                    "2": "+2",
+                    "5": "+5",
+                    "10": "+10"
+                }
+            },
+            "CritRule": {
+                "Name": "Critical Damage Rule",
+                "Hint": "Use a different rule for doubling damage on a critical hit",
+                "Choices": {
+                    "Doubledamage": "Double the damage",
+                    "Doubledice": "Double the number of dice"
+                }
+            },
+            "CompendiumBrowserPacks": {
+                "Name": "Compendium Browser Packs",
+                "Hint": "Settings to exclude packs from loading"
+            },
+            "EnabledRulesUI": {
+                "Name": "Advanced Rule Element UI",
+                "Hint": "When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the actors and items if you are not sure what you are doing or make a mistake."
+            },
             "WorldClock": {
                 "Name": "World Clock Settings",
                 "Label": "Configure World Clock",
@@ -1157,6 +1207,60 @@
                     "Name": "Alternative Treat Wounds skills can roll against higher DCs.",
                     "Hint": "When enabled, characters with the Natural Medicine feat or Chirurgeon research field can roll against higher DCs."
                 }
+            },
+            "Variant": {
+                "Name": "Variant Rules",
+                "Label": "Variant Rules Settings",
+                "Hint": "Enable and configure variant rules like Proficiency Without Level or the Stamina system.",
+                "Stamina": {
+                    "Title": "Stamina",
+                    "Name": "Stamina Variant Rules",
+                    "Hint": "Play with the stamina variant from Gamemastery Guide pg 200",
+                    "Choices": {
+                        "0": "Do not use Stamina",
+                        "1": "Use Stamina"
+                    }
+                },
+                "AncestryParagon": {
+                    "Title": "Ancestry Paragon",
+                    "Name": "Ancestry Paragon Variant Rules",
+                    "Hint": "Grant additional feat slots for the ancestry paragon variant from Gamemastery Guide pg 194"
+                },
+                "FreeArchetype": {
+                    "Title": "Free Archetype",
+                    "Name": "Free Archetype Variant Rules",
+                    "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194"
+                },
+                "Proficiency": {
+                    "Title": "Proficiency without Level",
+                    "Name": "Proficiency without Level Variant Rules",
+                    "Hint": "Play with the proficiency without level variant from Gamemastery Guide pg 198.",
+                    "Choices": {
+                        "ProficiencyWithLevel": "Use Default rules",
+                        "ProficiencyWithoutLevel": "Use Variant rules"
+                    }
+                },
+                "UntrainedModifier": {
+                    "Name": "Untrained proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules, recommended with variant rules is -2. Requires recalculation by reload or modifying a value per actor."
+                },
+                "TrainedModifier": {
+                    "Name": "Trained proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "ExpertModifier": {
+                    "Name": "Expert proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "MasterModifier": {
+                    "Name": "Master proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "LegendaryModifier": {
+                    "Name": "Legendary proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "Title": "Variant Rules Settings"
             }
         },
         "SaveDCLabel": "Save DC",
