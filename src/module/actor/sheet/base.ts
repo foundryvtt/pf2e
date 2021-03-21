@@ -958,8 +958,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
 
             const key = `data.slots.slot${slotLvl}.value`;
             const options = { _id: itemId };
@@ -972,8 +972,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id');
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
             const key = `data.slots.slot${slotLvl}.max`;
             const options = { _id: itemId };
             options[key] = Number(event.target.value);
