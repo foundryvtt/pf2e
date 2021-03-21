@@ -214,3 +214,22 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.
     *  Pathfinder Critical Fumble Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
     *  Pathfinder Critical Hit Deck © 2019, Paizo Inc.; Author: Stephen Radney-MacFarland, Illustrator: Yanis Cardin.
+
+*  Paizo Blog
+	*  Pathfinder Encounter: Phinelli’s Miracle Elixir © 2021, Paizo Inc.; Author Unknown; Illustrator: Alberto Dal Lago.
+	*  No-Prep Character: Lisavet © 2021, Paizo Inc.; Author: Ron Lundeen; Illustrator: Valeria Dryzhak.
+	*  No-Prep Character: Urok © 2021, Paizo Inc.; Author: Luis Loza; Illustrator: Gin Skalauskas.
+	*  No-Prep Character: Chea © 2021, Paizo Inc.; Authors: Eleanor Ferron, Luis Loza; Illustrator: Rashad Pozdnyakov.
+	*  No-Prep Character: Eleukas © 2021, Paizo Inc.; Author: Ron Lundeen.
+	*  GM's Toolkit: Secret Keeper's Mask © 2021, Paizo Inc.; Author: Ron Lundeen.
+	*  Pathfinder Encounter: Heaving Kobolds © 2021, Paizo Inc.; Author: Ron Lundeen.
+	*  A Caroling Horse (Of Course. Of Course.) © 2021, Paizo Inc.; Author: Eleanor Ferron.
+	*  GM's Toolbox: Gravehall © 2020, Paizo Inc.; Author: Ron Lundeen.
+	*  The Waters of Stone Ring Pond © 2020, Paizo Inc.; Author: Ron Lundeen.
+	*  Redpitch Alchemy © 2020, Paizo Inc.; Author: Ron Lundeen.
+	*  Pathfinder Encounter: We Be Zombies! © 2020, Paizo Inc.; Author: Ron Lundeen.
+	*  No-Prep Character: Morlibint © 2020, Paizo Inc.; Author Unknown.
+	*  No-Prep Character: Pr’rall © 2020, Paizo Inc.; Author: Mark Moreland, Illustrator: Marius Bota.
+	*  Foolish Monsters, In April © 2020, Paizo Inc.; Authors: James Case, Lyz Liddell, Joan Hong, Avi Kool, John Compton, Michael Sayre, Patrick Renie.
+	*  Monster Making © 2020, Paizo Inc.; Author: Adam Daigle.
+	*  The (Un)Usual Suspects! © 2019, Paizo Inc.; Author: Luis Loza; Illustrators: Miguel Regodón, Emile Denis, Firat Solhan, Yanis Cardin.
