@@ -452,8 +452,11 @@ class CompendiumBrowser extends Application {
                         }
                     }
 
-                    // determine skill feats
-                    if (feat.data.featType.value === 'skill') {
+                    // determine skill prerequisites
+                    // Note: This code includes some feats, where the prerequisite has the name of a skill.
+                    // I decided to include them. The code would not be worth it, to exclude a single feat
+                    // (Basic Arcana)
+                    {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
                         const prereqs = feat.data.prerequisites;
                         let prerequisitesArr = [];
@@ -469,7 +472,9 @@ class CompendiumBrowser extends Application {
 
                         prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
 
-                        const skillIntersection = skillList.filter((x) => prerequisitesArr.includes(x));
+                        const skillIntersection = skillList.filter((x) =>
+                            prerequisitesArr.some((entry) => entry.includes(x)),
+                        );
 
                         if (skillIntersection.length !== 0) {
                             skills.add(skillIntersection.join(','));
