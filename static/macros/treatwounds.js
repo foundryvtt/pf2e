@@ -71,7 +71,7 @@ async function applyChanges($html) {
         const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
         const riskysurgery = $html.find('[name="risky_surgery_bool"]')[0]?.checked;
-	    const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
+        const mortalhealing = $html.find('[name="mortal_healing_bool"]')[0]?.checked;
         const skill = $html.find('[name="skill"]')[0]?.value;
 
         // Handle Rule Interpretation
