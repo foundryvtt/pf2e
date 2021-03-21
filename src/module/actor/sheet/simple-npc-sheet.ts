@@ -1305,19 +1305,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
     protected onSkillsEditClicked(eventData: JQuery.ClickEvent) {
         eventData.preventDefault();
-        // const htmlElement = $(eventData.currentTarget);
-        // const options = {
-        //     name: 'data.skills',
-        //     title: game.i18n.localize('PF2.SkillsLabel'),
-        //     choices: CONFIG.PF2E.skills,
-        //     has_values: true,
-        //     allow_empty_values: false,
-        //     has_exceptions: true,
-        //     no_custom: false
-        // };
-
-        // new TraitSelector5e(this.actor, options).render(true);
-
         const options = {};
         const skillsEditor = new NPCSkillsEditor(this.actor, options);
 

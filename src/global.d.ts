@@ -21,8 +21,8 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
 
 type ItemTypeMap = {
-    [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
-        ConfigPF2e['PF2E']['Item']['entityClasses'][K]
+    [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: Owned<
+        InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>
     >[];
 };
 

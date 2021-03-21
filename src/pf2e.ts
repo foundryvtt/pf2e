@@ -225,8 +225,8 @@ Hooks.on('updateUser', () => {
 Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
     const actor = game.actors.get(token.actorId);
     if (actor) {
-        actor.items.forEach((item: ItemPF2e) => {
-            const rules = RuleElements.fromRuleElementData(item?.data?.data?.rules ?? [], item.data);
+        actor.items.forEach((item) => {
+            const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
             for (const rule of rules) {
                 rule.onCreateToken(actor.data, item.data, token);
             }

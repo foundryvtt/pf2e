@@ -48,7 +48,7 @@ import {
 } from '../rules/rules-data-definitions';
 import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
-import { objectHasKey } from '@module/utils';
+import { ErrorPF2e, objectHasKey } from '@module/utils';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -621,7 +621,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollLoreSkill(event: JQuery.Event, item: ItemPF2e) {
+    rollLoreSkill(event: JQuery.Event, item: Owned<ItemPF2e>) {
         const { data } = item;
         if (data.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
@@ -632,14 +632,14 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
         let rollMod = 0;
         let itemBonus = 0;
-        if (item.actor && item.actor.data && item.actor.data.type === 'character') {
+        if (item.actor.data.type === 'character') {
             const rank = data.data.proficient?.value || 0;
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
             const modifier = this.data.data.abilities.int.mod;
 
             itemBonus = Number((data.data.item || {}).value || 0);
             rollMod = modifier + proficiency;
-        } else if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
+        } else if (item.actor.data.type === 'npc') {
             rollMod = data.data.mod.value;
         }
 
@@ -792,14 +792,15 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async rollSave(ev: JQuery.ClickEvent, item: ItemPF2e) {
+    static async rollSave(ev: JQuery.ClickEvent, item: Owned<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 const save = $(ev.currentTarget).attr('data-save') as SaveString;
-                const itemTraits = item?.data?.data?.traits?.value;
+                const itemTraits = item.data.data.traits.value;
+                if (!actor) return;
 
-                if (actor?.data.data.saves[save]?.roll) {
+                if (actor.data.data.saves[save]?.roll) {
                     const options = actor.getRollOptions(['all', 'saving-throw', save]);
                     options.push('magical', 'spell');
                     if (itemTraits) {
@@ -807,14 +808,12 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                     }
                     actor.data.data.saves[save].roll({ event: ev, options });
                 } else {
-                    actor?.rollSave(ev, save);
+                    actor.rollSave(ev, save);
                 }
             }
         } else {
-            ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
-            return false;
+            throw ErrorPF2e(game.i18n.localize('PF2E.UI.errorTargetToken'));
         }
-        return true;
     }
 
     /**
@@ -1015,10 +1014,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      */
     async transferItemToActor(
         targetActor: ActorPF2e,
-        item: ItemPF2e,
+        item: Owned<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<PhysicalItemPF2e | void> {
+    ): Promise<Owned<PhysicalItemPF2e> | void> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
@@ -1080,7 +1079,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             return;
         }
 
-        const itemInTargetActor = targetActor.getOwnedItem(result._id) as PhysicalItemPF2e;
+        const itemInTargetActor = targetActor.getOwnedItem(result._id);
+        if (!(itemInTargetActor instanceof PhysicalItemPF2e)) {
+            return;
+        }
 
         return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
     }

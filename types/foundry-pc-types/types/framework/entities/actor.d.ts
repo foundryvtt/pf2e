@@ -61,6 +61,10 @@ declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType
     static get registeredSheets(): typeof ActorSheet[];
 }
 
+type Owned<I extends Item> = I & {
+    actor: NonNullable<I['actor']>;
+};
+
 /**
  * The Actor Entity which represents the protagonists, characters, enemies, and more that inhabit and take actions
  * within the World.
@@ -95,7 +99,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     /**
      * Construct the Array of Item instances for the Actor
      */
-    items: Collection<ItemType>;
+    items: Collection<Owned<ItemType>>;
 
     /**
      * A set that tracks which keys in the data model were modified by active effects
@@ -128,7 +132,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * @param items The raw array of item objects
      * @return The prepared owned items collection
      */
-    protected _prepareOwnedItems(items: this['data']['items']): Collection<ItemType>;
+    protected _prepareOwnedItems(items: this['data']['items']): Collection<Owned<ItemType>>;
 
     /**
      * First prepare any derived data which is actor-specific and does not depend on Items or Active Effects
@@ -251,7 +255,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
      * @param itemId The ID of the owned item
      * @return       An Item class instance for that owned item or null if the itemId does not exist
      */
-    getOwnedItem(itemId: string): ItemType | null;
+    getOwnedItem(itemId: string): Owned<ItemType> | null;
 
     // Signature overload
     getEmbeddedEntity(collection: 'OwnedItem', id: string, { strict }?: { strict?: boolean }): ItemType['data'];

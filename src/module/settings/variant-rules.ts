@@ -11,6 +11,22 @@ const SETTINGS = {
             1: 'Use Stamina', // I plan to expand this, hence the dropdown.
         },
     },
+    ancestryParagonVariant: {
+        name: 'Ancestry Paragon Variant Rules',
+        hint: 'Grant additional feat slots for the ancestry paragon variant from Gamemastery Guide pg 194',
+        scope: 'world',
+        config: false,
+        default: 0,
+        type: Boolean,
+    },
+    freeArchetypeVariant: {
+        name: 'Free Archetype Variant Rules',
+        hint: 'Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194',
+        scope: 'world',
+        config: false,
+        default: 0,
+        type: Boolean,
+    },
     proficiencyVariant: {
         name: 'Proficiency without Level Variant Rules',
         hint: 'Play with the proficiency without level variant from Gamemastery Guide pg 198.',

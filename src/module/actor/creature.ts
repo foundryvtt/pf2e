@@ -30,7 +30,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             );
             return equippingUpdates
                 .map((datum) => this.items.get(datum._id))
-                .find((item): item is ArmorPF2e => item instanceof ArmorPF2e && !item.isShield);
+                .find((item): item is Owned<ArmorPF2e> => item instanceof ArmorPF2e && !item.isShield);
         })();
         const alreadyEquipped = this.itemTypes.armor.find((armor) => !armor.isShield && armor.isEquipped);
         const modifiedUpdate =
