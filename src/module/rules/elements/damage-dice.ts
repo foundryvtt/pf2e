@@ -1,7 +1,7 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2DamageDice } from '@module/modifiers';
+import { DamageDicePF2e } from '@module/modifiers';
 
 /**
  * @category RuleElement
@@ -20,7 +20,7 @@ export class PF2DamageDiceRuleElement extends PF2RuleElement {
         value.name = this.ruleData.name ?? label;
         value.label = label;
         if (selector && value.name && value) {
-            const dice = new PF2DamageDice(value);
+            const dice = new DamageDicePF2e(value);
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
             console.warn('PF2E | Damage dice requires at least a selector field, and a label field or item name');

@@ -464,7 +464,7 @@ export class ModifierPredicate {
     }
 }
 
-interface PF2DamageDiceOverride {
+interface DamageDiceOverride {
     dieSize?: DamageDieSize;
     damageType?: string;
 }
@@ -473,7 +473,7 @@ interface PF2DamageDiceOverride {
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class PF2DiceModifier {
+export class DiceModifierPF2e {
     /** The name of this damage dice; used as an identifier. */
     name: string;
     /** The display name of this damage dice, overriding the name field if specified. */
@@ -491,7 +491,7 @@ export class PF2DiceModifier {
     /** Any traits which these dice add to the overall damage. */
     traits: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
-    override?: PF2DamageDiceOverride;
+    override?: DamageDiceOverride;
     /** If true, these custom dice are being ignored in the damage calculation. */
     ignored: boolean;
     /** If true, these custom dice should be considered in the damage calculation. */
@@ -501,7 +501,7 @@ export class PF2DiceModifier {
     /** A predicate which limits when this damage dice is actually applied. */
     predicate?: ModifierPredicate;
 
-    constructor(param: Partial<PF2DiceModifier> & Pick<PF2DiceModifier, 'name'>) {
+    constructor(param: Partial<DiceModifierPF2e> & Pick<DiceModifierPF2e, 'name'>) {
         if (param.name) {
             this.name = param.name;
         } else {
@@ -528,11 +528,11 @@ export class PF2DiceModifier {
     }
 }
 
-export class PF2DamageDice extends PF2DiceModifier {
+export class DamageDicePF2e extends DiceModifierPF2e {
     /** The selector used to determine when   */
     selector: string;
 
-    constructor(params: Partial<PF2DamageDice> & Pick<PF2DamageDice, 'selector' | 'name'>) {
+    constructor(params: Partial<DamageDicePF2e> & Pick<DamageDicePF2e, 'selector' | 'name'>) {
         super(params);
         if (params.selector) {
             this.selector = params.selector;

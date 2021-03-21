@@ -1,4 +1,4 @@
-import { PF2DamageDice, ModifierPF2e, ModifierPredicate } from '../modifiers';
+import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from '../modifiers';
 import { WeaponData } from '@item/data-definitions';
 import { PF2RollNote } from '../notes';
 
@@ -29,7 +29,7 @@ export interface PF2MultipleAttackPenalty {
 }
 
 export interface PF2RuleElementSynthetics {
-    damageDice: Record<string, PF2DamageDice[]>;
+    damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: WeaponData[];
     rollNotes: Record<string, PF2RollNote[]>;

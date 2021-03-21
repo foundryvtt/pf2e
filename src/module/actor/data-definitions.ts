@@ -1,5 +1,5 @@
 import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
-import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice, MODIFIER_TYPE } from '../modifiers';
+import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
@@ -300,7 +300,7 @@ export interface CreatureSystemData extends ActorSystemData {
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, ModifierPF2e[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
-    damageDice: Record<string, PF2DamageDice[]>;
+    damageDice: Record<string, DamageDicePF2e[]>;
 }
 
 export interface RawAnimalCompanionData extends CreatureSystemData {
