@@ -20,57 +20,11 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * which fully stack).
  */
 export const MODIFIER_TYPE = Object.freeze({
-    /**
-     * Nearly all checks allow you to add an ability modifier to the roll. An ability modifier
-     * represents your raw capabilities and is derived from an ability score. Exactly which ability
-     * modifier you use is determined by what you're trying to accomplish. Usually a sword swing
-     * applies your Strength modifier, whereas remembering the name of the earl's cousin uses your
-     * Intelligence modifier.
-     */
     ABILITY: 'ability' as const,
-    /**
-     * When attempting a check that involves something you have some training in, you will also add
-     * your proficiency bonus. This bonus depends on your proficiency rank: untrained, trained,
-     * expert, master, or legendary. If you're untrained, your bonus is +0 — you must rely on raw
-     * talent and any bonuses from the situation. Otherwise, the bonus equals your character's level
-     * plus a certain amount depending on your rank. If your proficiency rank is trained, this bonus
-     * is equal to your level + 2, and higher proficiency ranks further increase the amount you add to
-     * your level.
-     */
     PROFICIENCY: 'proficiency' as const,
-    /**
-     * Circumstance bonuses typically involve the situation you find yourself in when attempting a
-     * check. For instance, using Raise a Shield with a buckler grants you a +1 circumstance bonus to
-     * AC. Being behind cover grants you a +2 circumstance bonus to AC. If you are both behind cover
-     * and Raising a Shield, you gain only the +2 circumstance bonus for cover, since they're the same
-     * type and the bonus from cover is higher.
-     */
     CIRCUMSTANCE: 'circumstance' as const,
-    /**
-     * Item bonuses are granted by some item that you are wearing or using, either mundane or magical.
-     * For example, armor gives you an item bonus to AC, while expanded alchemist's tools grant you an
-     * item bonus to Crafting checks when making alchemical items.
-     */
     ITEM: 'item' as const,
-    /**
-     * Status bonuses typically come from spells, other magical effects, or something applying a
-     * helpful, often temporary, condition to you. For instance, the 3rd-level heroism spell grants a
-     * +1 status bonus to attack rolls, Perception checks, saving throws, and skill checks. If you
-     * were under the effect of heroism and someone cast the bless spell, which also grants a +1
-     * status bonus on attacks, your attack rolls would gain only a +1 status bonus, since both spells
-     * grant a +1 status bonus to those rolls, and you only take the highest status bonus.
-     */
     STATUS: 'status' as const,
-    /**
-     * Unlike bonuses, penalties can also be untyped, in which case they won’t be classified as
-     * "circumstance", "item", or "status". Unlike other penalties, you always add all your untyped
-     * penalties together rather than simply taking the worst one. For instance, when you use attack
-     * actions, you incur a multiple attack penalty on each attack you make on your turn after the
-     * first attack, and when you attack a target that's beyond your weapon's normal range increment,
-     * you incur a range penalty on the attack. Because these are both untyped penalties, if you make
-     * multiple attacks at a faraway target, you'd apply both the multiple attack penalty and the
-     * range penalty to your roll.
-     */
     UNTYPED: 'untyped' as const,
 });
 
@@ -79,33 +33,24 @@ export const MODIFIER_TYPE = Object.freeze({
  * @category PF2
  */
 export class ModifierPF2e {
-    /** The name of this modifier; should generally be a localization key (see en.json). */
     name: string;
-    /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
     label?: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
     type: ModifierType;
-    /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** The source which this modifier originates from, if any. */
     source?: string;
     /** Any notes about this modifier. */
     notes?: string;
-    /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
     ignored: boolean;
-    /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
-    /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: string;
     /** The damage category */
     damageCategory?: string;
-    /** A predicate which determines when this modifier is active. */
     predicate: any;
-    /** If true, this modifier is only active on a critical hit. */
     critical?: boolean;
-    /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
     automation: { key: string | null; enabled: boolean } = {
@@ -474,31 +419,22 @@ interface DamageDiceOverride {
  * @category PF2
  */
 export class DiceModifierPF2e {
-    /** The name of this damage dice; used as an identifier. */
     name: string;
-    /** The display name of this damage dice, overriding the name field if specified. */
     label?: string;
     /** The number of dice to add. */
     diceNumber: number;
     /** The size of the dice to add. */
     dieSize?: DamageDieSize;
-    /** If true, these dice only apply on a critical. */
     critical: boolean;
     /** The damage category of these dice. */
     category?: string;
-    /** The damage type of these damage dice. */
     damageType?: string;
-    /** Any traits which these dice add to the overall damage. */
     traits: string[];
     /** If true, these dice overide the base damage dice of the weapon. */
     override?: DamageDiceOverride;
-    /** If true, these custom dice are being ignored in the damage calculation. */
     ignored: boolean;
-    /** If true, these custom dice should be considered in the damage calculation. */
     enabled: boolean;
-    /** If true, these dice are user-provided/custom. */
     custom: boolean;
-    /** A predicate which limits when this damage dice is actually applied. */
     predicate?: ModifierPredicate;
 
     constructor(param: Partial<DiceModifierPF2e> & Pick<DiceModifierPF2e, 'name'>) {
