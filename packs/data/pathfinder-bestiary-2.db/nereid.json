@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "50 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "50"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CN"
@@ -159,6 +162,50 @@
             "sidebarText": "",
             "source": {
                 "value": ""
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 1,
+                            "value": 1
+                        },
+                        "slot5": {
+                            "max": 2,
+                            "value": 2
+                        },
+                        "slot6": {
+                            "max": 1,
+                            "value": 1
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 29,
+                        "value": 19
+                    }
+                }
+            },
+            "DEz7gcf0AumMmDO8": {
+                "data": {
+                    "spelldc": {
+                        "dc": 29,
+                        "value": 19
+                    }
+                }
             }
         },
         "martial": {
@@ -408,6 +455,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -453,6 +503,7 @@
     },
     "effects": [],
     "flags": {},
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "DEz7gcf0AumMmDO8",
@@ -485,6 +536,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -548,6 +602,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -579,7 +634,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "EjddjBa7xnLZyouW",
+            "_id": "VgQyT5O8X59xTXWs",
             "data": {
                 "ability": {
                     "value": ""
@@ -616,7 +671,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "DEz7gcf0AumMmDO8"
@@ -654,8 +709,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "summon-elemental",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=320"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -689,20 +745,21 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.lpT6LotUaQPfinjj"
+                }
+            },
             "img": "systems/pf2e/icons/spells/summon-elemental.jpg",
-            "name": "Summon Elemental (water elementals only)",
+            "name": "Summon Elemental (Water Elementals only)",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "yzlZJ6YTVdjqGeof",
+            "_id": "n6W3CJsR2E2yRSUD",
             "data": {
                 "ability": {
                     "value": ""
@@ -777,8 +834,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "control-water",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -813,16 +871,12 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
                 }
             },
             "img": "systems/pf2e/icons/spells/control-water.jpg",
@@ -831,7 +885,7 @@
             "type": "spell"
         },
         {
-            "_id": "01W472S6RHDEjG4M",
+            "_id": "YtRTdI3UAqH6vZVL",
             "data": {
                 "ability": {
                     "value": ""
@@ -859,7 +913,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>Air</strong> fly Speed 80 feet, movement doesn't trigger reactions; <strong>Melee</strong><span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> gust, <strong>Damage</strong> 1d4 bludgeoning.</li>\n<li><strong>Earth</strong> Speed 20 feet, burrow Speed 20 feet; <strong>Melee</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> fist, <strong>Damage</strong> 2d10 bludgeoning.</li>\n<li><strong>Fire</strong> Speed 50 feet; fire resistance 10, weakness 5 to cold and 5 to water; <strong>Melee</strong><span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> tendril , <strong>Damage</strong> 1d8 fire plus 1d4 persistent fire.</li>\n<li><strong>Water</strong> Speed 20 feet, swim Speed 60 feet; fire resistance 5; <strong>Melee</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful Shove.</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
+                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful Shove.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -906,8 +960,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "elemental-form",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=98"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -942,20 +997,273 @@
                         "polymorph",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.1K6AYGisvo9gqdhs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/elemental-form.jpg",
-            "name": "Elemental Form (×3, water only)",
+            "name": "Elemental Form (Water only)",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "agsktLJO8xx0DJPS",
+            "_id": "Zlbxff0DErJ9zUs8",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful Shove.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "DEz7gcf0AumMmDO8"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "trs"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "elemental-form",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "polymorph",
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.1K6AYGisvo9gqdhs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/elemental-form.jpg",
+            "name": "Elemental Form (Water only)",
+            "sort": 500000,
+            "type": "spell"
+        },
+        {
+            "_id": "1Staen1F8V9xUOvt",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You call upon the power of the planes to transform into a Medium elemental battle form. When you cast this spell, choose air, earth, fire, or water. While in this form, you gain the corresponding trait and the elemental trait. You have hands in this battle form and can take manipulate actions. You can Dismiss the spell.<br /><br />You gain the following statistics and abilities regardless of which battle form you choose:</p>\n<ul>\n<li>AC = 19 + your level. Ignore your armor's check penalty and Speed reduction.</li>\n<li>10 temporary Hit Points.</li>\n<li>Darkvision.</li>\n<li>One or more unarmed melee attacks specific to the battle form you choose, which are the only attacks you can use. You're trained with them. Your attack modifier is +18, and your damage bonus is +9. These are Dexterity based (air or fire) or Strength based (earth or water). If your corresponding unarmed attack modifier is higher, you can use it instead.</li>\n<li>Acrobatics (air or fire) or Athletics (earth or water) modifier of +20; ignore this change if your own modifier is higher.</li>\n</ul>\n<p>You also gain specific abilities based on the type of elemental you choose:</p>\n<ul>\n<li><strong>@Compendium[pf2e.spell-effects.Spell Effect: Elemental Form (Water)]{Water}</strong>\n<ul>\n<li>Speed 20 feet, swim Speed 60 feet; fire resistance 5;</li>\n<li><strong>Melee <span class=\"pf2-icon\">1</span></strong> wave, <strong>Damage</strong> 1d12 bludgeoning, and you can spend an action immediately after a hit to push the target 5 feet with the effects of a successful Shove.</li>\n</ul>\n</li>\n</ul>\n<hr />\n<p><strong>Heightened (6th)</strong> Your battle form is Large and your attacks have 10-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 15 temporary HP, an attack modifier of +23, a damage bonus of +13, and Acrobatics or Athletics +23.</p>\n<p><strong>Heightened (7th)</strong> Your battle form is Huge and your attacks have 15-foot reach. You must have space to expand or the spell is lost. You instead gain AC = 22 + your level, 20 temporary HP, an attack modifier of +25, a damage bonus of +11, double the number of damage dice (including @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}), and Acrobatics or Athletics +25.</p>"
+                },
+                "duration": {
+                    "value": "1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "DEz7gcf0AumMmDO8"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "trs"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "elemental-form",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "polymorph",
+                        "transmutation"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.1K6AYGisvo9gqdhs"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/elemental-form.jpg",
+            "name": "Elemental Form (Water only)",
+            "sort": 600000,
+            "type": "spell"
+        },
+        {
+            "_id": "Ulj8sLZQJDbHJQ19",
             "data": {
                 "ability": {
                     "value": ""
@@ -1030,8 +1338,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "suggestion",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=315"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1068,16 +1377,17 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.qwlh6aDgi86U3Q7H"
+                }
+            },
             "img": "systems/pf2e/icons/spells/suggestion.jpg",
             "name": "Suggestion",
-            "sort": 500000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1089,6 +1399,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -1118,7 +1429,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, finesse, magical)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -1196,6 +1507,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1224,14 +1536,14 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Poisonous Touch",
-            "sort": 600000,
+            "sort": 800000,
             "type": "melee"
         },
         {
-            "_id": "MuzXu4bDzodvaZ7w",
+            "_id": "LFvM7oAwEJD1soNx",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -1242,7 +1554,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When underwater, the nereid's body is invisible. The nereid can dismiss or resume this transparency as an action that has the concentrate trait.</p>"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1251,6 +1563,60 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "MuzXu4bDzodvaZ7w",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>When underwater, the nereid's body is @Compendium[pf2e.conditionitems.Invisible]{Invisible}. The nereid can dismiss or resume this transparency as an action that has the concentrate trait.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1279,7 +1645,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Watery Transparency",
-            "sort": 700000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1292,12 +1658,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The nereid touches a creature and causes water from its own body to flow into the creature's lungs. If the creature cannot breathe water, it must attempt a DC 29 Fortitude save.<br />\n<strong>Success</strong> The creature is unaffected and is temporarily immune to for 24 hours.<br />\n<strong>Failure</strong> The creature becomes sickened 3 as it chokes on the water.<br />\n<strong>Critical Failure</strong> The creature chokes on the water and runs out of air. It falls unconscious and starts drowning (Pathfinder Core Rulebook 478). If the creature is above water, it recovers from drowning as soon as it succeeds at a saving throw against suffocation.</p>"
+                    "value": "<p>The nereid touches a creature and causes water from its own body to flow into the creature's lungs. If the creature cannot breathe water, it must attempt a DC 29 Fortitude save.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected and is temporarily immune to for 24 hours.</p>\n<p><strong>Failure</strong> The creature becomes @Compendium[pf2e.conditionitems.Sickened]{Sickened 3} as it chokes on the water.</p>\n<p><strong>Critical Failure</strong> The creature chokes on the water and runs out of air. It falls unconscious and starts drowning. If the creature is above water, it recovers from drowning as soon as it succeeds at a saving throw against suffocation.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1306,6 +1672,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1333,9 +1700,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Drowning Touch",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1348,12 +1715,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The nereid divests themself of part of their connection to the First World and imbues this essence into a flowing shawl that enables them to function on land. The nereid can Dismiss this effect as long as they are touching the shawl. As long as the shawl exists, the nereid gains the amphibious trait. A nonnereid who carries the shawl also gains the amphibious trait. If a nereid's shawl is destroyed rather than Dismissed, the nereid can't Manifest a Shawl for 24 hours.</p>"
+                    "value": "<p>The nereid divests themself of part of their connection to the First World and imbues this essence into a flowing shawl that enables them to function on land. The nereid can Dismiss this effect as long as they are touching the shawl. As long as the shawl exists, the nereid gains the amphibious trait. A non-nereid who carries the shawl also gains the amphibious trait.</p>\n<p>If a nereid's shawl is destroyed rather than Dismissed, the nereid can't Manifest a Shawl for 24 hours.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1362,6 +1729,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1387,9 +1755,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Manifest Shawl",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1412,7 +1780,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Swim",
+                        "predicate": {
+                            "all": [
+                                "action:swim"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 6
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1425,13 +1806,19 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+18 to Swim",
+                        "options": "action:swim"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics (+18 to Swim)",
-            "sort": 1000000,
+            "name": "Athletics",
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1455,6 +1842,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1473,7 +1861,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1497,6 +1885,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1515,7 +1904,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Diplomacy",
-            "sort": 1200000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1539,6 +1928,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1557,7 +1947,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1300000,
+            "sort": 1600000,
             "type": "lore"
         }
     ],
@@ -1581,7 +1971,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
