@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "30"
                     }
                 ],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -160,6 +163,62 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 73"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
+            },
+            "hk9mz5tRz0ZcCm0W": {
+                "data": {
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
+            },
+            "izaByKEDNht22d7U": {
+                "data": {
+                    "spelldc": {
+                        "dc": 25,
+                        "value": 15
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +468,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -501,6 +563,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -563,6 +628,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -626,6 +692,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -688,6 +757,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -719,7 +789,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "h07ernyNwL6dNfzv",
+            "_id": "8smaH8vNFOnnmN94",
             "data": {
                 "ability": {
                     "value": ""
@@ -727,6 +797,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -744,7 +817,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -753,7 +826,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "izaByKEDNht22d7U"
@@ -762,6 +835,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -782,8 +858,18 @@
                 "school": {
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -815,20 +901,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
             "name": "Dimension Door",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "EyncIifxLFrx6PZY",
+            "_id": "nnH168pGYSGpnTXc",
             "data": {
                 "ability": {
                     "value": ""
@@ -836,6 +923,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -845,7 +935,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "2d4"
+                    "value": "10d4"
                 },
                 "damageType": {
                     "value": "mental"
@@ -853,7 +943,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1. If the target recovers from being @Compendium[pf2e.conditionitems.Sickened]{Sickened}, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 2.</p>\n<hr /><strong>Heightened</strong> The damage increases by 2d4 and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} by 1d4."
+                    "value": "<p>Illusory pain wracks the target, dealing 2d4 mental damage and 1d4 persistent mental damage. The target must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target takes full initial damage but no @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}, and the spell ends immediately.</p>\n<p><strong>Failure</strong> The target takes full initial and Persistent Damage, and the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}. If the target recovers from being Sickened, the Persistent Damage ends and the spell ends.</p>\n<p><strong>Critical Failure</strong> As failure, but the target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d4 and the Persistent Damage by 1d4.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -862,7 +952,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "izaByKEDNht22d7U"
@@ -871,6 +961,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -882,17 +975,27 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d4",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "phantom-pain",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=220"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -924,20 +1027,21 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.R8bqnYiThB6MYTxD"
+                }
+            },
             "img": "systems/pf2e/icons/spells/phantom-pain.jpg",
             "name": "Phantom Pain",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "TtsAmh9CfNa6QbU4",
+            "_id": "JLR5TirasYxI0G1T",
             "data": {
                 "ability": {
                     "value": ""
@@ -945,6 +1049,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -962,7 +1069,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
+                    "value": "<p>Opening a door that bypasses normal space, you instantly transport yourself and any items you're wearing and holding from your current space to a clear space within range you can see. If this would bring another creature with you-even if you're carrying it in an extradimensional container-the spell is lost.</p>\n<hr />\n<p><strong>Heightened (5th)</strong> The range increases to 1 mile. You don't need to be able to see your destination, as long as you have been there in the past and know its relative location and distance from you. You are temporarily immune for 1 hour.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -980,6 +1087,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1000,8 +1110,18 @@
                 "school": {
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimension-door",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=69"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1033,20 +1153,21 @@
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.VlNcjmYyu95vOUe8"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimension-door.jpg",
-            "name": "Dimension Door ",
+            "name": "Dimension Door (At will)",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "Wt0ZHEj2Yk75Ivtw",
+            "_id": "lSxV0CPba3n8OQdM",
             "data": {
                 "ability": {
                     "value": ""
@@ -1054,6 +1175,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1091,6 +1215,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1100,7 +1227,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -1109,8 +1236,18 @@
                 "school": {
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimensional-anchor",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=70"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1142,20 +1279,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ksLCg62cLOojw3gN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimensional-anchor.jpg",
             "name": "Dimensional Anchor",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "edZy7pPTWRZSuHLc",
+            "_id": "4pAcoWUd8K76K5EH",
             "data": {
                 "ability": {
                     "value": ""
@@ -1163,6 +1301,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1200,6 +1341,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1209,7 +1353,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "will"
                 },
                 "scaling": {
                     "formula": "",
@@ -1218,8 +1362,18 @@
                 "school": {
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dimensional-anchor",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=70"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1251,27 +1405,31 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.ksLCg62cLOojw3gN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dimensional-anchor.jpg",
             "name": "Dimensional Anchor",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "ZFnZ8HRFpewVMpqx",
+            "_id": "EknFI568tIvZBOFT",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
-                    "areaType": "",
-                    "value": null
+                    "areaType": "burst",
+                    "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1284,7 +1442,134 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You designate an area in which creatures are compelled to speak only truth. Creatures within or entering the area have difficulty lying. Each potentially affected creature must attempt a Will save when the spell is cast or when the creature first enters the area. It uses the results of this initial save if it leaves and reenters the area. Affected creatures are aware of this enchantment; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes a -2 status penalty to Deception checks.</p>\n<p><strong>Failure</strong> The target can't speak any deliberate and intentional lies, and it takes a -2 status penalty to Deception checks.</p>\n<p><strong>Critical Failure</strong> The target can't speak any deliberate and intentional lies and takes a -4 status penalty to Deception checks.</p>"
+                },
+                "duration": {
+                    "value": "10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 4
+                },
+                "location": {
+                    "value": "izaByKEDNht22d7U"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enc"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "zone-of-truth",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "divine",
+                        "occult"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "mental",
+                        "enchantment"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aewxsale5xWEPKLk"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/zone-of-truth.jpg",
+            "name": "Zone of Truth",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "oSx6pDPdWkuo5qkW",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
@@ -1309,6 +1594,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -1327,8 +1615,18 @@
                 "school": {
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "discern-lies",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=74"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1355,137 +1653,28 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "divination",
                         "mental",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uNsliWpl8Q1JdFcM"
+                }
+            },
             "img": "systems/pf2e/icons/spells/discern-lies.jpg",
             "name": "Discern Lies",
-            "sort": 800000,
-            "type": "spell"
-        },
-        {
-            "_id": "7M4ozzpoUjgrRDTh",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "burst",
-                    "value": 20
-                },
-                "components": {
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You designate an area in which creatures are compelled to speak only truth. Creatures within or entering the area have difficulty lying. Each potentially affected creature must attempt a Will save when the spell is cast or when the creature first enters the area. It uses the results of this initial save if it leaves and reenters the area. Affected creatures are aware of this enchantment; therefore, they can avoid answering questions to which they would normally respond with a lie, or they can be evasive as long as they remain within the boundaries of the truth.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target takes a -2 status penalty to Deception checks.</p>\n<p><strong>Failure</strong> The target can't speak any deliberate and intentional lies, and it takes a -2 status penalty to Deception checks.</p>\n<p><strong>Critical Failure</strong> The target can't speak any deliberate and intentional lies and takes a -4 status penalty to Deception checks.</p>"
-                },
-                "duration": {
-                    "value": "10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "4"
-                },
-                "location": {
-                    "value": "izaByKEDNht22d7U"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": ""
-                },
-                "school": {
-                    "value": "enc"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=379"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "divine",
-                        "occult"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "uncommon",
-                        "mental",
-                        "enchantment"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/zone-of-truth.jpg",
-            "name": "Zone of Truth",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "PEZOHm8LCP5BMCDd",
+            "_id": "AnBVHpZkIDdo36mc",
             "data": {
                 "ability": {
                     "value": ""
@@ -1493,6 +1682,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "material, somatic"
@@ -1510,7 +1702,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1528,6 +1720,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1548,8 +1743,18 @@
                 "school": {
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1580,20 +1785,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Invisibility"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility",
+            "name": "Invisibility (At will) (Self only)",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "bDT0sb1t9vjGhYhH",
+            "_id": "fUqFf73Ty30UTy5Z",
             "data": {
                 "ability": {
                     "value": ""
@@ -1620,7 +1826,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double<em>infernal pact's</em>level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.<br /></p>\n<p><strong>Critical Success</strong> The devils are sent to you and serve you for 1d4 weeks.<br /><strong>Success</strong> The devils are sent to you and serve you for 1d4 days.<br /><strong>Failure</strong> Your request is denied.<br /><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</p>"
+                    "value": "<p>You make an appeal to a powerful devil, asking it to bind some of its subordinates to your service. If you succeed, the devil sends you its choice of one devil whose level is no more than double <em>infernal pact's</em> level, two devils whose levels are each at least 2 less than double the spell level, or three devils whose levels are each at least 3 less than double the spell level.</p>\n<hr />\n<p><span><strong>Critical Success</strong> The devils are sent to you and serve you for 1d4 weeks.</span></p>\n<p><span><strong>Success</strong> The devils are sent to you and serve you for 1d4 days.</span></p>\n<p><span><strong>Failure</strong> Your request is denied.</span></p>\n<p><span><strong>Critical Failure</strong> Not only is your request denied, but the powerful devil sends word of its displeasure to your master.</span></p>"
                 },
                 "duration": {
                     "value": ""
@@ -1629,7 +1835,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "1"
+                    "value": 1
                 },
                 "location": {
                     "value": "hk9mz5tRz0ZcCm0W"
@@ -1641,7 +1847,7 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Religion "
+                    "value": "Religion (expert; you must be a devil)"
                 },
                 "range": {
                     "value": ""
@@ -1667,6 +1873,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "infernal-pact",
                 "source": {
                     "value": ""
                 },
@@ -1699,13 +1906,14 @@
                     "value": [
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.30BBep9U4BDV0EgQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/infernal-pact.jpg",
             "name": "Infernal Pact",
             "sort": 1100000,
@@ -1720,6 +1928,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 21,
                     "value": 21
@@ -1831,6 +2040,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1870,6 +2080,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 21,
                     "value": 21
@@ -1981,6 +2192,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2020,10 +2232,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "osyluth venom"
+                        "Osyluth Venom"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 21,
                     "value": 21
@@ -2135,6 +2349,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2175,6 +2390,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 21,
                     "value": 21
@@ -2282,6 +2498,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2317,6 +2534,229 @@
             "type": "melee"
         },
         {
+            "_id": "V1y5FVHfe3BpQRSu",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "sort": 1600000,
+            "type": "action"
+        },
+        {
+            "_id": "noxHcmgvGeBUJRX5",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Telepathy",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "KJj34nHnZfjz70Pj",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "axUDNy9X18Sypfa8",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
             "_id": "UgqU2m5UQKRKewoU",
             "data": {
                 "actionCategory": {
@@ -2331,7 +2771,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 25 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong>[[/r 2d6 # poison damage]] poison damage, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <strong>Stage 2</strong>[[/r 3d6 # poison damage]] poison damage and enfeebled 1 (1 round); <strong>Stage 3</strong>[[/r 3d6 # poison damage]] poison damage and enfeebled 2 (1 round). Once a creature reaches stage 3, it takes a -4 status penalty to Will saves against attempts to @Compendium[pf2e.actionspf2e.Coerce]{Coerce} it for 1 hour (this is a mental effect).</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 25 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]] poison damage, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 3d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 3d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 round). Once a creature reaches stage 3, it takes a -4 status penalty to Will saves against attempts to @Compendium[pf2e.actionspf2e.Coerce]{Coerce} it for 1 hour (this is a mental effect).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2340,6 +2780,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2366,7 +2807,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Osyluth Venom",
-            "sort": 1600000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -2393,6 +2834,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2417,7 +2859,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Quick Invisibility",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2435,7 +2877,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>An osyluth deals an extra [[/r 2d6 # damage]] damage whenever they Strike an @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, or @Compendium[pf2e.conditionitems.Prone]{Prone} creature.</p>"
+                    "value": "<p>An osyluth deals an extra [[/r 2d6]] damage whenever they Strike an @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, @Compendium[pf2e.conditionitems.Frightened]{Frightened}, or @Compendium[pf2e.conditionitems.Prone]{Prone} creature.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2443,7 +2885,28 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is enfeebled, frightened, or prone",
+                        "property": "flags.pf2e.rollOptions.all.sadistic-strike"
+                    },
+                    {
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "any": [
+                                "target:prone",
+                                "target:enfeebled",
+                                "target:frightened",
+                                "sadistic-strike"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2468,7 +2931,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Sadistic Strike",
-            "sort": 1800000,
+            "sort": 2200000,
             "type": "action"
         },
         {
@@ -2481,12 +2944,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The osyluth telepathically questions a creature affected by zone of truth. After 1 round, if the creature intentionally refuses to answer the question, it takes 2d6 mental damage.</p>"
+                    "value": "<p>The osyluth telepathically questions a creature affected by zone of truth. After 1 round, if the creature intentionally refuses to answer the question, it takes [[/r 2d6 #mental]] mental damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2495,6 +2958,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2520,9 +2984,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Stygian Inquisitor",
-            "sort": 1900000,
+            "sort": 2300000,
             "type": "action"
         },
         {
@@ -2535,7 +2999,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -2549,6 +3013,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2571,9 +3036,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Tail Sweep",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2597,6 +3062,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2615,7 +3081,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Arcana",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -2639,6 +3105,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2657,7 +3124,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 2200000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2681,6 +3148,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2699,7 +3167,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 2300000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2723,6 +3191,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2741,7 +3210,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 2400000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2765,6 +3234,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2783,7 +3253,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 2500000,
+            "sort": 2900000,
             "type": "lore"
         }
     ],
@@ -2792,7 +3262,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "xjV0TmPNfKR7UcKu",
         "actorLink": false,
         "bar1": {
@@ -2811,6 +3280,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Osyluth",
         "randomImg": false,
