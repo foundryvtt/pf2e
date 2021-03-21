@@ -8,6 +8,7 @@ import {
     ModifierPF2e,
     ModifierPredicate,
     ProficiencyModifier,
+    RulePredicate,
 } from '../modifiers';
 import { ConditionManager } from '../conditions';
 import { adaptRoll, CheckPF2e } from '@system/rolls';
@@ -1186,7 +1187,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         name: string,
         value: number,
         type: string,
-        predicate?: { all?: string[]; any?: string[]; not?: string[] },
+        predicate?: RulePredicate,
         damageType?: string,
         damageCategory?: string,
     ) {
@@ -1208,11 +1209,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             modifier.custom = true;
 
             // modifier predicate
-            modifier.predicate = predicate ?? {};
-            if (!(modifier.predicate instanceof ModifierPredicate)) {
-                modifier.predicate = new ModifierPredicate(modifier.predicate);
+            if (predicate instanceof ModifierPredicate) {
+                modifier.predicate = predicate;
             }
-            modifier.ignored = !modifier.predicate.test([]);
+            modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
             await this.update({ 'data.customModifiers': customModifiers });

@@ -28,11 +28,32 @@ export const MODIFIER_TYPE = Object.freeze({
     UNTYPED: 'untyped' as const,
 });
 
+export interface RawModifier {
+    /** The name of this modifier; should generally be a localization key (see en.json). */
+    name: string;
+    /** The display name of this modifier, overriding the name field if specific; can be a localization key (see en.json). */
+    label?: string;
+    /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
+    enabled: boolean;
+    /** If true, these custom dice are being ignored in the damage calculation. */
+    ignored: boolean;
+    /** If true, this modifier is a custom player-provided modifier. */
+    custom: boolean;
+    /** The damage type that this modifier does, if it modifies a damage roll. */
+    damageType?: string;
+    /** A predicate which determines when this modifier is active. */
+    predicate: RulePredicate;
+    /** If true, this modifier is only active on a critical hit. */
+    critical?: boolean;
+    /** The list of traits that this modifier gives to the underlying attack, if any. */
+    traits?: string[];
+}
+
 /**
  * Represents a discrete modifier, either bonus or penalty, to a statistic or check.
  * @category PF2
  */
-export class ModifierPF2e {
+export class ModifierPF2e implements RawModifier {
     name: string;
     label?: string;
     /** The actual numeric benefit/penalty that this modifier provides. */
@@ -49,7 +70,7 @@ export class ModifierPF2e {
     damageType?: string;
     /** The damage category */
     damageCategory?: string;
-    predicate: any;
+    predicate: RulePredicate = new ModifierPredicate();
     critical?: boolean;
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
@@ -364,6 +385,7 @@ export interface RulePredicate {
     all?: string[];
     any?: string[];
     not?: string[];
+    test?: (options?: string[]) => boolean;
 }
 
 /**
@@ -372,7 +394,7 @@ export interface RulePredicate {
  * attack could be an option that is not a trait.
  * @category PF2
  */
-export class ModifierPredicate {
+export class ModifierPredicate implements RulePredicate {
     /** The options must have ALL of these entries for this predicate to pass.  */
     all: string[];
     /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
@@ -381,8 +403,8 @@ export class ModifierPredicate {
     not: string[];
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: RulePredicate, options: string[]): boolean {
-        const { all, any, not } = predicate ?? {};
+    static test(predicate: RulePredicate = {}, options: string[] = []): boolean {
+        const { all, any, not } = predicate;
 
         let active = true;
         if (all && all.length > 0) {
@@ -397,14 +419,14 @@ export class ModifierPredicate {
         return active;
     }
 
-    constructor(param?: RulePredicate) {
-        this.all = param?.all ?? [];
-        this.any = param?.any ?? [];
-        this.not = param?.not ?? [];
+    constructor(param: RulePredicate = { all: [], any: [], not: [] }) {
+        this.all = param.all ?? [];
+        this.any = param.any ?? [];
+        this.not = param.not ?? [];
     }
 
     /** Test this predicate against a list of options, returning true if the predicate passes (and false otherwise). */
-    test(options: string[]): boolean {
+    test(options: string[] = []): boolean {
         return ModifierPredicate.test(this, options);
     }
 }
@@ -418,7 +440,7 @@ interface DamageDiceOverride {
  * Represents extra damage dice for one or more weapons or attack actions.
  * @category PF2
  */
-export class DiceModifierPF2e {
+export class DiceModifierPF2e implements RawModifier {
     name: string;
     label?: string;
     /** The number of dice to add. */
@@ -435,9 +457,9 @@ export class DiceModifierPF2e {
     ignored: boolean;
     enabled: boolean;
     custom: boolean;
-    predicate?: ModifierPredicate;
+    predicate: ModifierPredicate;
 
-    constructor(param: Partial<DiceModifierPF2e> & Pick<DiceModifierPF2e, 'name'>) {
+    constructor(param: Partial<DiceModifierPF2e> & { name: string }) {
         if (param.name) {
             this.name = param.name;
         } else {
@@ -458,8 +480,8 @@ export class DiceModifierPF2e {
             this.category ??= DamageCategory.fromDamageType(this.damageType);
         }
 
-        this.predicate = new ModifierPredicate(param?.predicate ?? {}); // options is the old name for this field
-        this.ignored = ModifierPredicate.test(this.predicate, []);
+        this.predicate = param.predicate ?? new ModifierPredicate(param?.predicate); // options is the old name for this field
+        this.ignored = ModifierPredicate.test!(this.predicate);
         this.enabled = this.ignored;
     }
 }
