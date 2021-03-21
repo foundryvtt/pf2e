@@ -23,6 +23,8 @@ declare class Scenes extends EntityCollection<Scene> {
 
 declare interface SceneData extends BaseEntityData {
     tokens: TokenData[];
+    folder?: string | null;
+    sort: number;
 }
 
 /**
@@ -30,9 +32,6 @@ declare interface SceneData extends BaseEntityData {
  * Scenes represent the locations and settings which Actors will explore within the World.
  */
 declare class Scene extends Entity {
-    data: SceneData;
-    _data: SceneData;
-
     /**
      * Track whether the scene is the active view
      */
@@ -94,4 +93,20 @@ declare class Scene extends Entity {
      * @return A Promise which resolves to the current scene once it has been successfully activated
      */
     activate(): Promise<Scene>;
+}
+
+declare interface Scene {
+    data: SceneData;
+    _data: SceneData;
+
+    updateEmbeddedEntity(
+        embeddedName: 'Token',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<TokenData>;
+    updateEmbeddedEntity(
+        embeddedName: 'Token',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<TokenData | TokenData[]>;
 }

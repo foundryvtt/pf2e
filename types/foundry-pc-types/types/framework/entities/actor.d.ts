@@ -5,6 +5,7 @@ declare interface ActorData<D extends ItemData = ItemData> extends BaseEntityDat
     token: TokenData;
     items: D[];
     effects: ActiveEffectData[];
+    folder?: string | null;
     sort: number;
 }
 
@@ -123,6 +124,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     /** @override */
     prepareData(): void;
+
+    /**
+     * First prepare any derived data which is actor-specific and does not depend on Items or Active Effects
+     */
+    prepareBaseData(): void;
 
     /** @override */
     prepareEmbeddedEntities(): void;
