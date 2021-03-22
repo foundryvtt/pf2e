@@ -32,7 +32,7 @@
 </section>
 
 {{#*inline "folderPartial"}}
-<li class="directory-item folder flexcol {{#unless folder.expanded}}collapsed{{/unless}}"
+<li class="directory-item folder flexcol{{#unless folder.expanded}} collapsed{{/unless}}{{#unless folder.visible}} hidden{{/unless}}"
     data-folder-id="{{folder.id}}" data-folder-depth="{{folder.depth}}">
     <header class="folder-header flexrow" style="background-color: {{folder.data.color}}">
         <h3><i class="fas fa-folder-open fa-fw"></i>{{folder.name}}</h3>

@@ -24,6 +24,10 @@ export class CompendiumFolderPF2e extends Array<PackSummaryDataPF2e> {
         this.expanded = expanded;
     }
 
+    get visible() {
+        return game.user.isGM || this.some((pack) => !pack.private);
+    }
+
     push(pack: PackSummaryDataPF2e) {
         const packID = `pf2e.${pack.metadata.name}`;
         const compendium = game.packs.get(packID);
