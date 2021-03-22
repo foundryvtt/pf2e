@@ -464,6 +464,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -613,6 +614,7 @@
                         "Peluda Venom"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -762,6 +764,7 @@
                         "Improved Knockdown"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -901,6 +904,122 @@
             "type": "melee"
         },
         {
+            "_id": "f61dlQmeP2vZs1Go",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "aHkhx52xZZTtPI25",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
             "_id": "QmK15RaSe9yfdYIR",
             "data": {
                 "actionCategory": {
@@ -949,7 +1068,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Vulnerable Tail",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1001,7 +1120,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Quill Thrust",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1057,7 +1176,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Breath Weapon",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1075,7 +1194,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 29 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong>&nbsp;[[/r 2d6 #poison]] poison and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 2</strong>&nbsp;[[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and flat-footed (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and flat-footed (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 29 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 2d6 #poison]] poison and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}, and flat-footed (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]] poison, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, and flat-footed (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1111,7 +1230,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Peluda Venom",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1163,7 +1282,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Quill Barrage",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1216,7 +1335,7 @@
             },
             "img": "systems/pf2e/icons/actions/FreeAction.png",
             "name": "Improved Knockdown",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1259,7 +1378,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1302,70 +1421,8 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
-        },
-        {
-            "_id": "aHkhx52xZZTtPI25",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "magical",
-                                "arcane",
-                                "primal",
-                                "occult",
-                                "divine"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "value": 1
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+1 Status Bonus on Saves vs Magic",
-            "sort": 1200000,
-            "type": "action"
         }
     ],
     "name": "Peluda",
