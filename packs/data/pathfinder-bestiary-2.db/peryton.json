@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "50 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "50"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -409,6 +411,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -453,6 +458,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 14,
                     "value": 14
@@ -560,6 +566,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -572,7 +579,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "deadly d8"
+                        "deadly-d8"
                     ]
                 },
                 "usage": {
@@ -598,6 +605,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 14,
                     "value": 14
@@ -705,6 +713,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -735,6 +744,59 @@
             "type": "melee"
         },
         {
+            "_id": "32RMKlAce7FfxW8e",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "osi4ctAQErnOa2BZ",
             "data": {
                 "actionCategory": {
@@ -758,6 +820,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -787,7 +850,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Heart Ripper",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -800,12 +863,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The target must be casting a shadow; <strong>Effect</strong> The peryton Flies, going no higher than 20 feet over the target creature. The target creature must succeed at a DC 21 Will save or the peryton's shadow changes to match that cast by the target creature. With their shadow so transformed, the peryton gains a [[/r +2 # status bonus to attack and damage]] status bonus to attack and damage rolls against that creature. In addition, each time the peryton successfully Strikes that creature, the creature must succeed at a DC 21 Will save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1, or increase its frightened condition by 1 if it's already frightened. This is an emotion and fear effect. The shadow remains transformed for 1 hour or until the peryton Mimics a Shadow again, whichever comes first.</p>"
+                    "value": "<p><strong>Requirements</strong> The target must be casting a shadow;</p>\n<p><strong>Effect</strong> The peryton Flies, going no higher than 20 feet over the target creature. The target creature must succeed at a DC 21 Will save or the peryton's shadow changes to match that cast by the target creature. With their shadow so transformed, the peryton gains a +2 status bonus to attack and damage rolls against that creature.</p>\n<p>In addition, each time the peryton successfully Strikes that creature, the creature must succeed at a DC 21 Will save or become @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}, or increase its frightened condition by 1 if it's already frightened. This is an emotion and fear effect. The shadow remains transformed for 1 hour or until the peryton Mimics a Shadow again, whichever comes first.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -813,7 +876,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mimic-shadow"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "mimic-shadow"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "status",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.mimic-shadow"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -842,9 +933,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Mimic Shadow",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -868,6 +959,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -886,7 +978,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -910,6 +1002,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -928,7 +1021,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -952,6 +1045,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -970,7 +1064,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
@@ -979,7 +1073,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "E4aJhHWyFDxgJcy9",
         "actorLink": false,
         "bar1": {
@@ -998,6 +1091,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Peryton",
         "randomImg": false,
