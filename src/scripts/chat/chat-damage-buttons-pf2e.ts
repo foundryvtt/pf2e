@@ -9,20 +9,20 @@ class ChatDamageButtonsPF2e extends Application {
             const btnStyling = 'width: 22px; height:22px; font-size:10px; line-height:1px; padding-left: 5px;';
 
             const fullDamageButton = $(
-                `<button class="dice-total-fullDamage-btn" style="${btnStyling}"><i class="fas fa-user-minus" title="Click to apply full damage to selected token(s)."></i></button>`,
+                `<button class="dice-total-fullDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Full')}"><i class="fas fa-user-minus"></i></button>`,
             );
             const halfDamageButton = $(
-                `<button class="dice-total-halfDamage-btn" style="${btnStyling}"><i class="fas fa-user-shield" title="Click to apply half damage to selected token(s)."></i></button>`,
+                `<button class="dice-total-halfDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Half')}"><i class="fas fa-user-shield"></i></button>`,
             );
             const doubleDamageButton = $(
-                `<button class="dice-total-doubleDamage-btn" style="${btnStyling}"><i class="fas fa-user-injured" title="Click to apply double damage to selected token(s)."></i></button>`,
+                `<button class="dice-total-doubleDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Double')}"><i class="fas fa-user-injured"></i></button>`,
             );
             // need to rework to a shield raised status, instead of using a GM global CONFIG
             const shieldButton = $(
-                `<button class="dice-total-shield-btn" style="${btnStyling}"><i class="fas fa-shield-alt" title="Click to toggle the shield block status of the selected token(s)."></i></button>`,
+                `<button class="dice-total-shield-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.ShieldBlock')}"><i class="fas fa-shield-alt"></i></button>`,
             );
             const fullHealingButton = $(
-                `<button class="dice-total-fullHealing-btn" style="${btnStyling}"><i class="fas fa-user-plus" title="Click to apply full healing to selected token(s)."></i></button>`,
+                `<button class="dice-total-fullHealing-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Healing')}"><i class="fas fa-user-plus"></i></button>`,
             );
 
             const btnContainer1 = $(
@@ -107,19 +107,19 @@ class ChatDamageButtonsPF2e extends Application {
             if (!damageRoll) return;
 
             const full = $(
-                `<button style="flex: 1 1 0;" title="Apply full damage to selected tokens."><i class="fas fa-user-minus"></i></button>`,
+                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Full')}"><i class="fas fa-user-minus"></i></button>`,
             );
             const double = $(
-                `<button style="flex: 1 1 0;" title="Apply double damage to selected tokens."><i class="fas fa-user-injured"></i></button>`,
+                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Double')}"><i class="fas fa-user-injured"></i></button>`,
             );
             const half = $(
-                `<button style="flex: 1 1 0;" title="Apply half damage to selected tokens."><i class="fas fa-user-shield"></i></button>`,
+                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Half')}"><i class="fas fa-user-shield"></i></button>`,
             );
             const shield = $(
-                `<button class="dice-total-shield-btn" style="flex: 1 1 0;" title="Toggle the shield block status of the selected tokens."><i class="fas fa-shield-alt"></i></button>`,
+                `<button class="dice-total-shield-btn" style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.ShieldBlock')}"><i class="fas fa-shield-alt"></i></button>`,
             );
             const heal = $(
-                `<button style="flex: 1 1 0;" title="Apply full healing to selected tokens."><i class="fas fa-user-plus"></i></button>`,
+                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Healing')}"><i class="fas fa-user-plus"></i></button>`,
             );
 
             const buttons = $(`<div style="display: flex; margin-top: 3px;"></div>`);
