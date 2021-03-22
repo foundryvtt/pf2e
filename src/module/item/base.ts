@@ -56,6 +56,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         return this.data.data.slug;
     }
 
+    /** The compendium source ID of the item **/
+    get sourceId() {
+        return this.getFlag('core', 'sourceId');
+    }
+
     get traits(): Set<string> {
         const rarity: string = this.data.data.rarity.value;
         return new Set([rarity].concat(this.data.data.traits.value));
