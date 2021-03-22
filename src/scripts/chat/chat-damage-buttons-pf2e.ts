@@ -6,23 +6,32 @@ class ChatDamageButtonsPF2e extends Application {
             const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
             if (damageRoll || !message.isRoll || message.roll?.dice[0]?.faces === 20) return;
 
-            const btnStyling = 'width: 22px; height:22px; font-size:10px; line-height:1px; padding-left: 5px;';
+            function makeButton(key: string, icon: string, className: string) {
+                const btnStyling = 'width: 22px; height:22px; font-size:10px; line-height:1px; padding-left: 5px;';
+                const title = game.i18n.localize(key);
+                return $(
+                    `<button class="${className}" style="${btnStyling}" title="${title}"><i class="fas ${icon}"></i></button>`,
+                );
+            }
 
-            const fullDamageButton = $(
-                `<button class="dice-total-fullDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Full')}"><i class="fas fa-user-minus"></i></button>`,
+            const fullDamageButton = makeButton('PF2E.DamageButton.Full', 'fa-user-minus', 'dice-total-fullDamage-btn');
+            const halfDamageButton = makeButton(
+                'PF2E.DamageButton.Half',
+                'fa-user-shield',
+                'dice-total-halfDamage-btn',
             );
-            const halfDamageButton = $(
-                `<button class="dice-total-halfDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Half')}"><i class="fas fa-user-shield"></i></button>`,
+            const doubleDamageButton = makeButton(
+                'PF2E.DamageButton.Double',
+                'fa-user-injured',
+                'dice-total-doubleDamage-btn',
             );
-            const doubleDamageButton = $(
-                `<button class="dice-total-doubleDamage-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Double')}"><i class="fas fa-user-injured"></i></button>`,
-            );
+
             // need to rework to a shield raised status, instead of using a GM global CONFIG
-            const shieldButton = $(
-                `<button class="dice-total-shield-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.ShieldBlock')}"><i class="fas fa-shield-alt"></i></button>`,
-            );
-            const fullHealingButton = $(
-                `<button class="dice-total-fullHealing-btn" style="${btnStyling}" title="${game.i18n.localize('PF2E.DamageButton.Healing')}"><i class="fas fa-user-plus"></i></button>`,
+            const shieldButton = makeButton('PF2E.DamageButton.ShieldBlock', 'fa-shield-alt', 'dice-total-shield-btn');
+            const fullHealingButton = makeButton(
+                'PF2E.DamageButton.Healing',
+                'fa-user-plus',
+                'dice-total-fullHealing-btn',
             );
 
             const btnContainer1 = $(
@@ -106,21 +115,19 @@ class ChatDamageButtonsPF2e extends Application {
             const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
             if (!damageRoll) return;
 
-            const full = $(
-                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Full')}"><i class="fas fa-user-minus"></i></button>`,
-            );
-            const double = $(
-                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Double')}"><i class="fas fa-user-injured"></i></button>`,
-            );
-            const half = $(
-                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Half')}"><i class="fas fa-user-shield"></i></button>`,
-            );
-            const shield = $(
-                `<button class="dice-total-shield-btn" style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.ShieldBlock')}"><i class="fas fa-shield-alt"></i></button>`,
-            );
-            const heal = $(
-                `<button style="flex: 1 1 0;" title="${game.i18n.localize('PF2E.DamageButton.Healing')}"><i class="fas fa-user-plus"></i></button>`,
-            );
+            function makeButton(key: string, icon: string, className = '') {
+                const classStr = className ? `class=${className}` : '';
+                const title = game.i18n.localize(key);
+                return $(
+                    `<button style="flex: 1 1 0;" ${classStr} title="${title}"><i class="fas ${icon}"></i></button>`,
+                );
+            }
+
+            const full = makeButton('PF2E.DamageButton.Full', 'fa-user-minus');
+            const double = makeButton('PF2E.DamageButton.Double', 'fa-user-injured');
+            const half = makeButton('PF2E.DamageButton.Half', 'fa-user-shield');
+            const shield = makeButton('PF2E.DamageButton.ShieldBlock', 'fa-shield-alt', 'dice-total-shield-btn');
+            const heal = makeButton('PF2E.DamageButton.Healing', 'fa-user-plus');
 
             const buttons = $(`<div style="display: flex; margin-top: 3px;"></div>`);
             buttons.append(full, half, double, shield, heal);
