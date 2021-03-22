@@ -123,6 +123,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.weaponTraits = traits.map(
                 (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
             );
+            data.baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
@@ -588,7 +589,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     /**
      * Hide the sheet-config button unless there is more than one sheet option.
-     *@override */
+     * @override */
     protected _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
@@ -597,5 +598,14 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /** @override */
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Avoid setting a baseItem of an empty string
+        if (formData['data.baseItem'] === '') {
+            formData['data.baseItem'] = null;
+        }
+        super._updateObject(event, formData);
     }
 }
