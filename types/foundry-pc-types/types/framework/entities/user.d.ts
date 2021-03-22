@@ -82,7 +82,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     /**
      * Track references to the current set of Tokens which are targeted by the User
      */
-    targets: Set<Token>;
+    targets: Set<Token<ActorType>>;
 
     /**
      * Track the ID of the Scene that is currently being viewed by the User
