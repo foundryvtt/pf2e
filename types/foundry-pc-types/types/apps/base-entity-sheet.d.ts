@@ -33,5 +33,5 @@ declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication
     getData(options?: FormApplicationOptions): BaseEntitySheetData<EntityType['data']>;
 
     /** @override */
-    protected _updateObject(event: Event, formData: {}): Promise<void>;
+    protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 }
