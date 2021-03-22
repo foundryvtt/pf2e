@@ -102,11 +102,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "15 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "15"
                     }
                 ],
-                "value": 35
+                "value": "35"
             }
         },
         "currency": {
@@ -409,6 +411,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -451,6 +456,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 15,
                     "value": 15
@@ -597,6 +603,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 15,
                     "value": 15
@@ -735,6 +742,112 @@
             "type": "melee"
         },
         {
+            "_id": "S0ETALXebRGPPFPv",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "SLw6k2GamdDXVK6d",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "JGCkaVnAvnwAxWOp",
             "data": {
                 "actionCategory": {
@@ -775,7 +888,7 @@
                     },
                     {
                         "key": "PF2E.RuleElement.ToggleProperty",
-                        "label": "Target is Grabbed",
+                        "label": "Target is grabbed",
                         "property": "flags.pf2e.rollOptions.all.target:grabbed"
                     }
                 ],
@@ -804,11 +917,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Mauler",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "k9t37igrIffrhCDe",
+            "_id": "ktdazJyPHLCoWXur",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -822,7 +935,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The polar bear's Strikes deal an additional [[/r 1d6 # precision damage]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
+                    "value": "<p>The polar bear's Strikes deal an additional [[/r 1d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -849,7 +962,7 @@
                         "selector": "damage"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -858,26 +971,77 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "agile",
-                        "finesse"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
             "name": "Sneak Attack",
-            "sort": 400000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "ujQKL0Ru853GDYUK",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The bear's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The bear automatically Grabs the target until the end of the bear's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the bear attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the bear moves away from it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Grab",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -920,7 +1084,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -986,7 +1150,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1029,61 +1193,8 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Survival",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
-        },
-        {
-            "_id": "ujQKL0Ru853GDYUK",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The bear's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The bear automatically Grabs the target until the end of the bear's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the bear attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the bear moves away from it.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.png",
-            "name": "Grab",
-            "sort": 900000,
-            "type": "action"
         }
     ],
     "name": "Polar Bear",
