@@ -18,7 +18,7 @@
                 <h3>{{label}}</h3>
                 <ol class="compendium-list">
                     {{#each pack.folders as |folder|}}
-                        {{> folderPartial folder=folder user=root.user}}
+                        {{> folderPartial folder=folder}}
                     {{/each}}
                     {{#each pack.packs}}
                         {{> packPartial}}
@@ -33,13 +33,12 @@
 
 {{#*inline "folderPartial"}}
 <li class="directory-item folder flexcol{{#unless folder.expanded}} collapsed{{/unless}}{{#unless folder.visible}} hidden{{/unless}}"
-    data-folder-id="{{folder.id}}" data-folder-depth="{{folder.depth}}">
-    <header class="folder-header flexrow" style="background-color: {{folder.data.color}}">
+    data-folder-id="{{folder.id}}">
+    <header class="folder-header flexrow"">
         <h3><i class="fas fa-folder-open fa-fw"></i>{{folder.name}}</h3>
-        {{#if user.isGM}}
-            <a class="create-folder" data-parent-folder="{{folder._id}}"><i class="fas fa-folder-plus fa-fw"></i></a>
-            <a class="create-entity" data-folder="{{folder._id}}"><i class="fas fa-user-plus fa-fw"></i></a>
-        {{/if}}
+        <div class="status-icons">
+            {{#if folder.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+        </div>
     </header>
     <ol class="subdirectory">
         {{#each folder as |compendium|}}

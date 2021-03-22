@@ -24,6 +24,12 @@ export class CompendiumFolderPF2e extends Array<PackSummaryDataPF2e> {
         this.expanded = expanded;
     }
 
+    /** Is the folder visible to non-GMs? */
+    get private() {
+        return this.every((pack) => pack.private);
+    }
+
+    /** Is the folder visible to the current user? */
     get visible() {
         return game.user.isGM || this.some((pack) => !pack.private);
     }
