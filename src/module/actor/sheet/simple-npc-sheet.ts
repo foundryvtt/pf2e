@@ -227,8 +227,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.data.attributes.shieldBroken = shieldData.value <= shieldData.brokenThreshold;
         }
 
-        const isElite = this.isElite();
-        const isWeak = this.isWeak();
+        const isElite = this.isElite;
+        const isWeak = this.isWeak;
+
+        sheetData.isElite = isElite;
+        sheetData.isWeak = isWeak;
+        sheetData.notAdjusted = !isElite && !isWeak;
 
         if (isElite && isWeak) {
             console.error('NPC is both, Elite and Weak at the same time.');
@@ -653,6 +657,18 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 const isRitual = (item.data.tradition || {}).value === 'ritual';
                 const isFocus = (item.data.tradition || {}).value === 'focus';
 
+                // There are still some bestiary entries where these values are strings.
+                item.data.spelldc.dc = Number(item.data.spelldc.dc);
+                item.data.spelldc.value = Number(item.data.spelldc.value);
+
+                if (this.isElite) {
+                    item.data.spelldc.dc += 2;
+                    item.data.spelldc.value += 2;
+                } else if (this.isWeak) {
+                    item.data.spelldc.dc -= 2;
+                    item.data.spelldc.value -= 2;
+                }
+
                 (item.data.prepared as boolean) = isPrepared;
                 item.data.tradition.ritual = isRitual;
                 item.data.tradition.focus = isFocus;
@@ -1053,12 +1069,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         item.data.description.value = actionDescr;
     }
 
-    protected isWeak(): boolean {
+    protected get isWeak(): boolean {
         const traits: string[] = getProperty(this.actor.data.data, 'traits.traits.value') || [];
         return traits.some((trait) => trait === 'weak');
     }
 
-    protected isElite(): boolean {
+    protected get isElite(): boolean {
         const traits: string[] = getProperty(this.actor.data.data, 'traits.traits.value') || [];
         return traits.some((trait) => trait === 'elite');
     }
@@ -1678,178 +1694,28 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Increases the NPC via the Elite/Weak adjustment rules
      */
     npcAdjustment(increase: boolean) {
-        let actorData = duplicate(this.actor.data);
-        const traits = getProperty(actorData.data, 'traits.traits.value') || [];
-        let traitsAdjusted = false;
-        let adjustBackToNormal = false;
+        let traits = duplicate(this.actor.data.data.traits.traits.value) ?? [];
+        const isElite = traits.some((trait) => trait === 'elite');
+        const isWeak = traits.some((trait) => trait === 'weak');
 
         if (increase) {
-            console.log(`PF2e System | Adjusting NPC to become more powerful`);
-
-            // Adjusting trait
-            for (const trait of traits) {
-                if (trait === 'weak') {
-                    // removing weak
-                    const index = traits.indexOf(trait);
-                    if (index > -1) traits.splice(index, 1);
-                    traitsAdjusted = true;
-                } else if (trait === 'elite') {
-                    traitsAdjusted = true; // prevents to add another elite trait
-                }
-            }
-            if (!traitsAdjusted) {
+            if (isWeak) {
+                console.log(`PF2e System | Adjusting NPC to become less powerful`);
+                traits = traits.filter((trait) => trait !== 'weak');
+            } else if (!isWeak && !isElite) {
+                console.log(`PF2e System | Adjusting NPC to become more powerful`);
                 traits.push('elite');
-            } else {
-                adjustBackToNormal = true;
             }
         } else {
-            console.log(`PF2e System | Adjusting NPC to become less powerful`);
-
-            // Adjusting trait
-            for (const trait of traits) {
-                if (trait === 'elite') {
-                    // removing elite
-                    const index = traits.indexOf(trait);
-                    if (index > -1) traits.splice(index, 1);
-                    traitsAdjusted = true;
-                } else if (trait === 'weak') {
-                    traitsAdjusted = true; // prevents to add another weak trait
-                }
-            }
-            if (!traitsAdjusted) {
+            if (isElite) {
+                console.log(`PF2e System | Adjusting NPC to become less powerful`);
+                traits = traits.filter((trait) => trait !== 'elite');
+            } else if (!isElite && !isWeak) {
+                console.log(`PF2e System | Adjusting NPC to become less powerful`);
                 traits.push('weak');
-            } else {
-                adjustBackToNormal = true;
             }
         }
-
-        actorData.data.traits.traits.value = traits;
-        actorData = this.applyAdjustmentToData(actorData, increase, adjustBackToNormal);
-
-        // modify actordata, including items
-        this.actor.update(actorData);
-    }
-
-    /**
-     * Elite/Weak adjustment
-     *  Increase/decrease the creatures level.
-     *  Increase/decrease the creature’s Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
-     *  Increase/decrease by 2:
-     *   - AC
-     *   - Perception
-     *   - saving throws
-     *   - attack modifiers
-     *   - skill modifiers
-     *   - DCs
-     *  If the creature has limits on how many times or how often it can use an ability
-     *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
-     */
-    protected applyAdjustmentToData(actorData: NPCData, increase: boolean, adjustBackToNormal: boolean) {
-        const positive = increase ? 1 : -1;
-        const mod = 2 * positive;
-
-        // adjustment by using custom modifiers
-        const customModifiers = actorData.data.customModifiers ?? {};
-        customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
-        if (!adjustBackToNormal) {
-            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, MODIFIER_TYPE.UNTYPED);
-            customModifiers.all.push(modifier);
-        }
-
-        const lvl = Number(actorData.data.details.level.value);
-        const originalLvl = adjustBackToNormal ? lvl + positive : lvl;
-        const hp = Number(actorData.data.attributes.hp.max);
-        let hpAdjustment = 10;
-        if (originalLvl >= 20) {
-            hpAdjustment = 30;
-        } else if (originalLvl >= 5) {
-            hpAdjustment = 20;
-        } else if (originalLvl >= 2) {
-            hpAdjustment = 15;
-        }
-        actorData.data.attributes.hp.max = hp + hpAdjustment * positive;
-        actorData.data.attributes.hp.value = actorData.data.attributes.hp.max;
-        actorData.data.details.level.value = lvl + positive;
-
-        for (const item of actorData.items) {
-            if (item.type === 'melee') {
-                // melee type is currently used for both melee and ranged attacks
-                const attack = getProperty(item.data, 'bonus.value');
-                if (attack !== undefined) {
-                    item.data.bonus.value = parseInt(attack, 10) + mod;
-                    (item as any).data.bonus.total = item.data.bonus.value;
-                    const firstKey = Object.keys(item.data.damageRolls)[0];
-                    const dmg = item.data.damageRolls[firstKey]?.damage;
-                    if (dmg !== undefined) {
-                        const lastTwoChars = dmg.slice(-2);
-                        if (parseInt(lastTwoChars, 10) === mod * -1) {
-                            item.data.damageRolls[firstKey].damage = dmg.slice(0, -2);
-                        } else {
-                            item.data.damageRolls[firstKey].damage = dmg + (increase ? '+' : '') + mod;
-                        }
-                    }
-                }
-            } else if (item.type === 'spellcastingEntry') {
-                const spellDc = getProperty(item.data, 'spelldc.dc');
-                if (spellDc !== undefined) {
-                    item.data.spelldc.dc = parseInt(spellDc, 10) + mod;
-                    const spellAttack = getProperty(item.data, 'spelldc.value');
-                    item.data.spelldc.value = parseInt(spellAttack, 10) + mod;
-                }
-            } else if (item.type === 'spell') {
-                // TODO? Spell descriptions are currently not updated with the damage increase, only the damage.value field.
-                const spellName = item.name.toLowerCase();
-                const spellDamage = getProperty(item.data, 'damage.value'); // string
-                const spellLevel = getProperty(item.data, 'level.value');
-                let spellDmgAdjustmentMod = 1; // 1 = unlimited uses, 2 = limited uses
-
-                // checking truthy is possible, as it's unlikely that spellDamage = 0 in a damage spell :)
-                if (spellDamage) {
-                    if (spellLevel === 0 || spellName.includes('at will')) {
-                        spellDmgAdjustmentMod = 1;
-                    } else {
-                        spellDmgAdjustmentMod = 2;
-                    }
-                    const lastTwoChars = spellDamage.slice(-2);
-                    if (parseInt(lastTwoChars, 10) === mod * spellDmgAdjustmentMod * -1) {
-                        item.data.damage.value = spellDamage.slice(0, -2);
-                    } else {
-                        item.data.damage.value = spellDamage + (increase ? '+' : '') + mod * spellDmgAdjustmentMod;
-                    }
-                }
-            } else if (item.type === 'action') {
-                let actionDescr = getProperty(item.data, 'description.value');
-                if (actionDescr !== undefined) {
-                    actionDescr = actionDescr.replace(/DC (\d+)+/g, (_match: string, number: string) => {
-                        return `DC ${parseInt(number, 10) + mod}`;
-                    });
-                    // Assuming that all abilities with damage in the description are damage attacks that cant be done each turn and as increase twice as much.
-                    actionDescr = actionDescr.replace(
-                        /(\d+)?d(\d+)([+-]\d+)?(\s+[a-z]+[\s.,])?/g,
-                        (_match: string, a: string, b: string, c: string, d: string) => {
-                            // match: '1d4+1 rounds.', a: 1, b: 4, c: '+1', d: ' rounds.'
-                            const bonus = parseInt(c, 10);
-                            if (d?.substring(1, 7) !== 'rounds') {
-                                if (Number.isNaN(bonus)) {
-                                    // c is empty in this case so dont need to add
-                                    c = (increase ? '+' : '') + mod * 2;
-                                } else if (bonus === mod * 2 * -1) {
-                                    c = '';
-                                } else {
-                                    const newC = bonus + mod * 2;
-                                    c = newC === 0 ? '' : `${newC > 0 ? '+' : ''}${newC}`;
-                                }
-                            } else if (c === undefined) {
-                                c = '';
-                            }
-                            return `${a || ''}d${b}${c}${d || ''}`;
-                        },
-                    );
-                    item.data.description.value = actionDescr;
-                }
-            }
-        }
-        return actorData;
+        this.actor.update({ ['data.traits.traits.value']: traits });
     }
 
     // Helper functions

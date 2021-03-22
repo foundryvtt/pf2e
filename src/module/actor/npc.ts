@@ -36,6 +36,41 @@ export class NPCPF2e extends CreaturePF2e {
 
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
+        const isElite = data.traits.traits.value.some((trait) => trait === 'elite');
+        const isWeak = data.traits.traits.value.some((trait) => trait === 'weak');
+
+        if (isElite) {
+            statisticsModifiers.all = statisticsModifiers.all ?? [];
+            statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.damage = statisticsModifiers.damage ?? [];
+            statisticsModifiers.damage.push(
+                new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED),
+            );
+            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
+            statisticsModifiers.hp.push(
+                new ModifierPF2e(
+                    'PF2E.NPC.Adjustment.EliteLabel',
+                    this.getHpAdjustment(data.details.level.value),
+                    MODIFIER_TYPE.UNTYPED,
+                ),
+            );
+        } else if (isWeak) {
+            statisticsModifiers.all = statisticsModifiers.all ?? [];
+            statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.damage = statisticsModifiers.damage ?? [];
+            statisticsModifiers.damage.push(
+                new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED),
+            );
+            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
+            statisticsModifiers.hp.push(
+                new ModifierPF2e(
+                    'PF2E.NPC.Adjustment.WeakLabel',
+                    this.getHpAdjustment(data.details.level.value) * -1,
+                    MODIFIER_TYPE.UNTYPED,
+                ),
+            );
+        }
+
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
         for (const abl of Object.values(actorData.data.abilities)) {
             abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
@@ -129,6 +164,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e('PF2E.BaseModifier', base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
             ];
+
             ['ac', 'dex-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
@@ -292,15 +328,15 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = (event, options = [], callback?) => {
+            stat.roll = adaptRoll((args) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: 'skill-check', options, notes },
-                    event,
-                    callback,
+                    { actor: this, type: 'skill-check', options: args.options, notes },
+                    args.event,
+                    args.callback,
                 );
-            };
+            });
             data.skills[shortform] = stat;
         }
 
@@ -464,6 +500,15 @@ export class NPCPF2e extends CreaturePF2e {
                         )}`,
                     ];
                 });
+                if (action.damageBreakdown.length > 0) {
+                    if (isElite) {
+                        action.damageBreakdown[0] =
+                            action.damageBreakdown[0] + ` +2 ${game.i18n.localize('PF2E.NPC.Adjustment.EliteLabel')}`;
+                    } else if (isWeak) {
+                        action.damageBreakdown[0] =
+                            action.damageBreakdown[0] + ` -2 ${game.i18n.localize('PF2E.NPC.Adjustment.WeakLabel')}`;
+                    }
+                }
                 // Add attack effects to traits.
                 const attackTraits = item.data.attackEffects.value.map((attackEffect: string) => {
                     return {
@@ -647,6 +692,20 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         return notes;
+    }
+
+    protected getHpAdjustment(level: number): number {
+        // Elite/Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
+        if (level >= 20) {
+            return 30;
+        } else if (level <= 19 && level >= 5) {
+            return 20;
+        } else if (level <= 4 && level >= 2) {
+            return 15;
+        } else if (level <= 1) {
+            return 10;
+        }
+        return 0;
     }
 
     protected _onUpdate(data: any, options: object, userId: string, context: object) {
