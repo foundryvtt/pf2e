@@ -3,7 +3,7 @@ interface EmbeddedEntityData {
     flags: Record<string, any>;
 }
 
-declare abstract class EmbeddedEntity {
+declare abstract class EmbeddedEntity<ParentType extends Actor | Item = _Actor | Item> {
     constructor(data: EmbeddedEntityData, parent: Entity);
 
     /**
@@ -14,7 +14,7 @@ declare abstract class EmbeddedEntity {
     /**
      * The parent Entity to which this belongs
      */
-    parent: Entity;
+    parent: ParentType;
 
     /**
      * A reference to the _id attribute of the EmbeddedEntity data
@@ -34,7 +34,7 @@ declare abstract class EmbeddedEntity {
      * @param key      The flag key
      * @return         The flag value
      */
-    getFlag(scope: string, key: string): any;
+    getFlag(scope: string, key: string): unknown;
 
     /**
      * Assign a "flag" to this Entity.

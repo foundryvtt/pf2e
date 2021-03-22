@@ -54,16 +54,18 @@ declare interface ActiveEffectData extends EmbeddedEntityData {
     label: string;
     duration: ActiveEffectDuration;
     changes: ActiveEffectChange[];
-    disabled?: boolean;
-    icon?: string;
-    tint?: string;
-    origin?: string;
-    transfer?: boolean;
+    disabled: boolean;
+    icon: string;
+    tint: string;
+    origin: string;
+    transfer: boolean;
 }
 
-declare class ActiveEffect extends EmbeddedEntity {
-    data: ActiveEffectData;
+declare class ActiveEffect<ParentType extends Actor | Item = Actor | Item> extends EmbeddedEntity<ParentType> {
     _sourceName: string | null;
+
+    /** @override */
+    constructor(data: ActiveEffectData, parent: ParentType);
 
     /**
      * Report the active effect duration
@@ -102,7 +104,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param change   The change data being applied
      * @return The resulting applied value
      */
-    apply<C extends ActiveEffectChange>(actor: Actor, change: C): C['value'];
+    apply(actor: Actor, change: ActiveEffectChange): ActiveEffectChange['value'];
 
     /**
      * Apply an ActiveEffect that uses an ADD application mode.
@@ -133,7 +135,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param change The change data being applied
      * @return The resulting applied value
      */
-    protected _applyOverride<C extends ActiveEffectChange>(actor: Actor, change: C): C['value'];
+    protected _applyOverride(actor: Actor, change: ActiveEffectChange): ActiveEffectChange['value'];
 
     /**
      * Apply an ActiveEffect that uses a CUSTOM application mode.
@@ -141,7 +143,7 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @param change The change data being applied
      * @return The resulting applied value
      */
-    protected _applyCustom<C extends ActiveEffectChange>(actor: Actor, change: C): C['value'];
+    protected _applyCustom(actor: Actor, change: ActiveEffectChange): ActiveEffectChange['value'];
 
     /* -------------------------------------------- */
     /*  Database Operations                         */
@@ -189,4 +191,8 @@ declare class ActiveEffect extends EmbeddedEntity {
      * @return The ActiveEffect instance which contains the dropped effect data
      */
     static fromDropData(data: Partial<ActiveEffectData>): Promise<ActiveEffect>;
+}
+
+declare interface ActiveEffect {
+    data: ActiveEffectData;
 }
