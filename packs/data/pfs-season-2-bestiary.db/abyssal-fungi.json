@@ -110,11 +110,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -170,6 +172,34 @@
             "sidebarText": "",
             "source": {
                 "value": ""
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 1,
+                            "value": 1
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 16,
+                        "value": 6
+                    }
+                }
+            },
+            "T9SCN25gJNZU6Q9B": {
+                "data": {
+                    "spelldc": {
+                        "dc": 16,
+                        "value": 6
+                    }
+                }
             }
         },
         "martial": {
@@ -446,6 +476,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -454,17 +487,16 @@
             "dr": [],
             "dv": [
                 {
+                    "exceptions": "",
                     "label": "Cold Iron",
                     "type": "coldiron",
                     "value": "5"
                 },
                 {
-                    "label": "Good 5 Spore Burst [reaction] When An Abyssal Fungus Dies",
-                    "type": "good 5 Spore Burst [reaction] When an abyssal fungus dies"
-                },
-                {
-                    "label": "It Triggers Its",
-                    "type": "it triggers its"
+                    "exceptions": "",
+                    "label": "Good",
+                    "type": "good",
+                    "value": "5"
                 }
             ],
             "languages": {
@@ -526,6 +558,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -589,6 +624,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -620,7 +656,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "FU28vgkUcLOSGZGP",
+            "_id": "FCbZDZAsu2WlrDQ7",
             "data": {
                 "ability": {
                     "value": ""
@@ -695,8 +731,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -733,13 +770,14 @@
                         "darkness",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.jpg",
             "name": "Darkness",
             "sort": 200000,
@@ -754,6 +792,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 11,
                     "value": 11
@@ -783,7 +822,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, finesse)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -861,6 +900,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -898,10 +938,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "spores"
+                        "Spores"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 9,
                     "value": 9
@@ -931,7 +973,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(range increment 30 feet)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -1009,6 +1051,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1021,7 +1064,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range increment 30 feet"
+                        "range-increment-30"
                     ]
                 },
                 "usage": {
@@ -1040,6 +1083,59 @@
             "name": "Spore Pod",
             "sort": 400000,
             "type": "melee"
+        },
+        {
+            "_id": "zpxk14FaaIRJpCev",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Darkvision",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "9IaAh517Zf7KRU82",
@@ -1065,6 +1161,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1087,9 +1184,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Spore Burst",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1102,12 +1199,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>An abyssal fungus can unleash a cloud of spores that irritates the eyes and throats of non-fungi creatures in a 15-foot emanation. Each creature must succeed at a DC 14 Fortitude save or take [[/r 1d4 # persistent poison damage]] persistent poison damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (10 feet on a critical failure).</p>"
+                    "value": "<p>An abyssal fungus can unleash a cloud of spores that irritates the eyes and throats of non-fungi creatures in a 15-foot emanation. Each creature must succeed at a DC 14 Fortitude save or take [[/r 1d4 #persistent poison]] persistent poison damage. A creature has its vision reduced as long as the persistent damage continues and can see only within 20 feet (10 feet on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1116,6 +1213,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1140,9 +1238,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Spore Cloud",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1169,6 +1267,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1191,9 +1290,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Spores",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1217,6 +1316,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1235,7 +1335,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1259,6 +1359,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1277,7 +1378,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1301,6 +1402,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1319,7 +1421,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
@@ -1328,7 +1430,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "4BaZvzpSYftJEkV8",
         "actorLink": false,
         "bar1": {
@@ -1347,6 +1448,10 @@
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Abyssal Fungi",
         "randomImg": false,
