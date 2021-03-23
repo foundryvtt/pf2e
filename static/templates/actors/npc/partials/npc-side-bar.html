@@ -45,7 +45,7 @@
 {{/if}}
 <div class="side-bar-section health-section">
     <div class="side-bar-section-header">
-        <div class="side-bar-label health-label">
+        <div class="side-bar-label">
             <i class="fas fa-heart"></i>
             <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
             <div class="health-value">
@@ -124,13 +124,14 @@
     {{#each data.saves as |save saveId|}}
     <div class="save-container" data-save="{{saveId}}">
         <label class="attribute-label rollable" title="{{ save.breakdown }}"><a>{{ localize save.labelShort }}</a></label>
-        <input type="number" name="data.saves.{{saveId}}.base" value="{{ numberFormat save.base decimals=0 }}" data-dtype="Number" placeholder="0"/>
+        <input class="modifier{{#if (gte save.base 0)}} not-negative{{/if}}" type="number" name="data.saves.{{saveId}}.base" value="{{save.base}}" data-dtype="Number" placeholder="0"/>
+        <span class="plus{{#if (lt save.base 10)}} lt10{{/if}}"></span>
     </div>
     {{/each}}
 </div>
 <div id="save-details" class="side-bar-section">
     <div class="side-bar-section-content">
-        <input type="text" name="data.attributes.allSaves.value" value="{{ data.attributes.allSaves.value }}" title="{{ data.attributes.allSaves.value }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"/>
+        <input type="number" name="data.attributes.allSaves.value" value="{{ data.attributes.allSaves.value }}" title="{{ data.attributes.allSaves.value }}" data-dtype="Number" placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"/>
     </div>
 </div>
 <div id="speed" class="side-bar-section">
