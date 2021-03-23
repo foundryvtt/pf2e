@@ -31,6 +31,8 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { ArmorPF2e } from '@item/armor';
+import { LocalizePF2e } from '@module/system/localize';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -131,6 +133,11 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     get defaultImg(): string {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
+    }
+
+    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
+    get heldShield(): Owned<ArmorPF2e> | null {
+        return null;
     }
 
     /** As of Foundry 0.7.9: All subclasses of ActorPF2e need to use this factory method rather than having their own
@@ -666,15 +673,21 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
             const messageSender = roll.find('.message-sender').text();
             const flavorText = roll.find('.flavor-text').text();
-            const shieldFlavor =
-                attribute === 'attributes.shield'
-                    ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
-                    : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
             for (const token of canvas.tokens.controlled) {
                 const actor = token.actor;
                 if (!actor) {
                     continue;
                 }
+                const shield = actor.heldShield;
+                if (attribute === 'attributes.shield' && shield?.isBroken) {
+                    const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+                    ui.notifications.warn(game.i18n.format(warnings.ShieldIsBroken, { actor: token.name }));
+                }
+
+                const shieldFlavor =
+                    attribute === 'attributes.shield' && shield?.isBroken === false
+                        ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
+                        : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
                 const appliedResult =
                     value > 0
                         ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value

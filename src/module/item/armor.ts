@@ -49,7 +49,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     get acBonus(): number {
         const potencyRune = Number(this.data.data.potencyRune?.value) || 0;
         const baseArmor = Number(this.data.data.armor.value) || 0;
-        return baseArmor + potencyRune;
+        return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
 
     get hitPoints(): { current: number; max: number } {
