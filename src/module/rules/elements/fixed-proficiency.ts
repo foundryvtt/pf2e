@@ -48,7 +48,7 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
 
         if (target) {
             for (const modifier of target.modifiers) {
-                if (modifier.type === MODIFIER_TYPE.ITEM && modifier.modifier > 0) {
+                if ([MODIFIER_TYPE.ITEM, MODIFIER_TYPE.UNTYPED].includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
                 if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== label) {
