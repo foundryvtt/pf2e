@@ -79,7 +79,7 @@ declare class Entity {
      * its data. The keys of this object are the application ids and the values are Application instances. Each
      * Application in this object will have its render method called by {@link Entity#render}.
      */
-    apps: Application;
+    apps: Record<number, Application>;
 
     /**
      * The Entity may optionally belong to a parent Compendium pack. If so this attribute will contain a reference

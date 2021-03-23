@@ -128,6 +128,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
+        // Show the PFS tab only if the setting for it is enabled.
+        sheetData.showPFSTab = game.settings.get('pf2e', 'pfsSheetTab');
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
