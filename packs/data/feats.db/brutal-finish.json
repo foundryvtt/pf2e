@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p><strong>Requirements</strong> You are wielding a melee weapon in two hands</p>\n<hr />\n<p>Your final blow can make an impact even if it rebounds off a foe's defenses. Make a Strike with the required weapon. After the Strike, your turn ends. The Strike deals one extra weapon damage die, or two extra weapon damage dice if you're at least 18th level. The Strike also gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage equal to one weapon damage die of the required weapon. Increase this to two dice if you're atleast 18th level.</p>"
+            "value": "<p><strong>Requirements</strong> You are wielding a melee weapon in two hands</p>\n<hr />\n<p>Your final blow can make an impact even if it rebounds off a foe's defenses.</p>\n<p>Make a Strike with the required weapon. After the Strike, your turn ends. The Strike deals one extra weapon damage die, or two extra weapon damage dice if you're at least 18th level. The Strike also gains the following failure effect.</p>\n<p><strong>Failure</strong> You deal damage equal to one weapon damage die of the required weapon. Increase this to two dice if you're at least 18th level.</p>"
         },
         "featType": {
             "value": "class"
@@ -21,11 +21,44 @@
         "level": {
             "value": 12
         },
+        "location": "",
         "prerequisites": [],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Brutal Finish",
+                "property": "flags.pf2e.rollOptions.damage-roll.brutal-finish"
+            },
+            {
+                "key": "PF2E.RuleElement.DamageDice",
+                "predicate": {
+                    "all": [
+                        "melee",
+                        "brutal-finish"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 17,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "start": 18,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },
