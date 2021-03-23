@@ -1,6 +1,7 @@
 import { CharacterPF2e } from '@actor/character';
 import { NPCPF2e } from '@actor/npc';
 import { EffectPF2e } from '@item/effect';
+import { ErrorPF2e } from '@module/utils';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 import { LocalizePF2e } from '../../module/system/localize';
 
@@ -28,7 +29,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     const speaker = ChatMessage.getSpeaker({ actor: actor });
 
     const isSuccess = await (async (): Promise<boolean> => {
-        if (shield) {
+        if (shield && !shield.isBroken) {
             const existingEffect = actor.itemTypes.effect.find(
                 (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
             );
@@ -38,7 +39,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
             } else {
                 const effect = await fromUuid(ITEM_UUID);
                 if (!(effect instanceof EffectPF2e)) {
-                    throw Error('PF2e System | Raise a Shield effect not found');
+                    throw ErrorPF2e('Raise a Shield effect not found');
                 }
                 effect.data.img = shield.img;
                 const rule = effect.data.data.rules!.find(
@@ -48,6 +49,9 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 await actor.createEmbeddedEntity('OwnedItem', effect.data);
                 return true;
             }
+        } else if (shield?.isBroken) {
+            ui.notifications.warn(game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias }));
+            return false;
         } else {
             ui.notifications.warn(game.i18n.format(translations.NoShieldEquipped, { actor: speaker.alias }));
             return false;

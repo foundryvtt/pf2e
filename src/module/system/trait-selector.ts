@@ -130,33 +130,33 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
 
     /**
      * Filter the potential traits to only show ones which match a provided search string
-     * @param {string} searchString    The search string to match
+     * @param searchString The search string to match
      */
-    search(searchString) {
+    search(searchString: string) {
         const query = new RegExp((RegExp as any).escape(searchString), 'i');
-        (this.element as JQuery).find('li.trait-item').each((i, li) => {
+        (this.element as JQuery).find('li.trait-item').each((_i, li) => {
             const name = li.getElementsByClassName('trait-label')[0].textContent;
             li.style.display = query.test(name) ? 'flex' : 'none';
         });
         this.searchString = searchString;
     }
 
-    activateListeners(html) {
+    activateListeners(html: JQuery) {
         super.activateListeners(html);
 
         // Search filtering
-        html.find('input[name="search"]').keyup(this._onFilterResults.bind(this));
+        html.find('input[name="search"]').on('keyup', this._onFilterResults.bind(this));
         if (this.searchString) {
             this.search(this.searchString);
         }
 
         if (this.options.has_values) {
-            html.find('input[id^=input_value]').focusin((ev) => {
+            html.find<HTMLInputElement>('input[id^=input_value]').on('focusin', (ev) => {
                 const name = ev.currentTarget.name;
                 html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
             });
             if (!this.options.allow_empty_values) {
-                html.find('input[id^=input_value]').focusout((ev) => {
+                html.find<HTMLInputElement>('input[id^=input_value]').on('focusout', (ev) => {
                     const input = ev.currentTarget;
                     if (input.value === '')
                         html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
@@ -165,12 +165,12 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
         }
 
         if (this.options.has_placeholders) {
-            html.find('input[id^=input_placeholder]').focusin((ev) => {
+            html.find<HTMLInputElement>('input[id^=input_placeholder]').on('focusin', (ev) => {
                 const name = ev.currentTarget.name;
                 html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
             });
             if (this.options.allow_empty_values) {
-                html.find('input[id^=input_placeholder]').focusout((ev) => {
+                html.find<HTMLInputElement>('input[id^=input_placeholder]').on('focusout', (ev) => {
                     const input = ev.currentTarget;
                     if (input.value === '')
                         html.find(`input[type=checkbox][name="${input.name}"]`).prop('checked', false);
@@ -179,13 +179,15 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
         }
 
         if (this.options.has_exceptions) {
-            html.find('input[id^=input_exception]').focusin((ev) => {
+            html.find<HTMLInputElement>('input[id^=input_exception]').on('focusin', (ev) => {
                 const name = ev.currentTarget.name;
                 html.find(`input[type=checkbox][name="${name}"]`).prop('checked', true);
             });
-            html.find('input[id^=input_exception]').focusout((ev) => {
+            html.find<HTMLInputElement>('input[id^=input_exception]').on('focusout', (ev) => {
                 const inputException = ev.currentTarget;
-                const inputValue = html.find(`input[id=input_value][name="${inputException.name}"]`).val();
+                const inputValue = html
+                    .find<HTMLInputElement>(`input[id=input_value][name="${inputException.name}"]`)
+                    .val();
                 if (inputValue === '')
                     html.find(`input[type=checkbox][name="${inputException.name}"]`).prop('checked', false);
             });

@@ -103,15 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "10 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "10"
                     },
                     {
-                        "type": "Swim",
-                        "value": "10 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "10"
                     }
                 ],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "currency": {
@@ -476,6 +480,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 8,
                     "value": 8
@@ -496,12 +501,12 @@
                     "damageType": "acid",
                     "die": "1d6"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "fkf6jip9lg5j4ap5wlu9": {
                         "damage": "1d6",
                         "damageType": "acid"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -664,58 +669,6 @@
             "type": "action"
         },
         {
-            "_id": "aQDe7We9BV7qqiIm",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "3"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<p><strong>Effect</strong> The giant amoeba maintains the @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @Compendium[pf2e.bestiary-ability-glossary-srd.Engulf]{Engulfed} the creature (DC 17, [[/r 1d6 # acid]] acid, Escape DC 17, Rupture 3).</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/ThreeActions.png",
-            "name": "Envelop",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
             "_id": "eQGUATVlHv8iZ97x",
             "data": {
                 "actionCategory": {
@@ -764,7 +717,165 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Weak Acid",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "x0HpOyXvVG8ecvWu",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>[[/r 1d4 # bludgeoning]] bludgeoning plus [[/r 1d4 # acid]] acid, DC 17</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{grabbed} or @Compendium[pf2e.conditionitems.Restrained]{restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Constrict",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "aQDe7We9BV7qqiIm",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "3"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The giant amoeba begins its turn with a target its size or smaller @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}</p>\n<p><strong>Effect</strong> The giant amoeba maintains the @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grab} and extends pseudopods to surround the creature and pull it inside the amoeba's body. This thereafter has the same effect as if the amoeba had @Compendium[pf2e.bestiary-ability-glossary-srd.Engulf]{Engulfed} the creature (DC 17, [[/r 1d6 # acid]] acid, Escape DC 17, Rupture 3).</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
+            "name": "Envelop",
             "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "zcMAmOWmYshvH5lq",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Grab"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Grab",
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -852,112 +963,6 @@
             "name": "Stealth",
             "sort": 800000,
             "type": "lore"
-        },
-        {
-            "_id": "x0HpOyXvVG8ecvWu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>[[/r 1d4 # bludgeoning]] bludgeoning plus [[/r 1d4 # acid]] acid, DC 17</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{grabbed} or @Compendium[pf2e.conditionitems.Restrained]{restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "constrict",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.png",
-            "name": "Constrict",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "zcMAmOWmYshvH5lq",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": "grab",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Grab"
-                }
-            },
-            "img": "systems/pf2e/icons/actions/OneAction.png",
-            "name": "Grab",
-            "sort": 1000000,
-            "type": "action"
         }
     ],
     "name": "Giant Amoeba",

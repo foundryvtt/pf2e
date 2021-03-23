@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 40",
+                "details": "regeneration 40 (deactivated by acid or fire)",
                 "max": 360,
                 "min": 0,
                 "temp": 0,
@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -467,6 +470,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 29,
                     "value": 29
@@ -613,6 +617,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 29,
                     "value": 29
@@ -633,12 +638,12 @@
                     "damageType": "slashing",
                     "die": "3d10+14"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "wx8rvzj6nlmutay10wek": {
                         "damage": "3d10+14",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -760,6 +765,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 30,
                     "value": 30
@@ -780,12 +786,12 @@
                     "damageType": "bludgeoning",
                     "die": "2d12+14"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d12+14",
                         "damageType": "bludgeoning"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -881,7 +887,7 @@
                     },
                     "value": [
                         "brutal",
-                        "range increment 120 feet"
+                        "range-increment-120"
                     ]
                 },
                 "usage": {
@@ -902,10 +908,63 @@
             "type": "melee"
         },
         {
-            "_id": "Jznp90J8g5HIAuoy",
+            "_id": "yxVTa3OmhUhlgNqp",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "Up9zgawdSde0SLPP",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -925,7 +984,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "all-around-vision",
                 "source": {
                     "value": ""
                 },
@@ -939,18 +998,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.9qV49KjZujZnSp6w"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
             "name": "All-Around Vision",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -1002,7 +1062,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Head Regrowth",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1054,63 +1114,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Multiple Opportunities",
-            "sort": 600000,
-            "type": "action"
-        },
-        {
-            "_id": "F1kta6DjPkq8R7MJ",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Attack of Opportunity",
             "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "FmzIpcY3HTtGjAGU",
+            "_id": "mnNaEVfu4nEmEwem",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1124,7 +1132,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can Release anything it's holding as part of this reaction. <strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster. <strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1133,7 +1141,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -1147,22 +1155,76 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Attack of Opportunity",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "otBr1P6MKia09fCt",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster must have a free hand but can @Compendium[pf2e.actionspf2e.Release]{Release} anything it's holding as part of this reaction.</p>\n<p><strong>Trigger</strong> The monster is targeted with a thrown rock Strike or a rock would fall on the monster.</p>\n<p><strong>Effect</strong> The monster gains a +4 circumstance bonus to its AC against the triggering attack or to any defense against the falling rock. If the attack misses or the monster successfully defends against the falling rock, the monster catches the rock, takes no damage, and is now holding the rock</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "catch-rock",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uG0Z8PsyZtsYuvGR"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Catch Rock",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "Qx4ZjNjHVMDvO8Dn",
+            "_id": "ND8R6Z5H3eqFpdDz",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1176,7 +1238,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1185,7 +1247,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -1199,18 +1261,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 900000,
+            "name": "Regeneration 40 (deactivated by acid or fire)",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1223,12 +1286,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The jotund troll emits a cacophonous roar from all their heads with a mystical power that distorts the listener's mind. Each non-troll creature within 100 feet must attempt a DC 34 Will save. The jotund troll can't use Cacophonous Roar for 1d4 rounds. <br /><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Cacophonous Roar for 24 hours. <br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 for 1 round. <br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round. <br /><strong>Critical Failure</strong> The creature is confused for 1d4 rounds.</p>"
+                    "value": "<p>The jotund troll emits a cacophonous roar from all their heads with a mystical power that distorts the listener's mind. Each non-troll creature within 100 feet must attempt a DC 34 Will save.</p>\n<p>The jotund troll can't use Cacophonous Roar for [[/r 1d4 #rounds]]&nbsp;rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Cacophonous Roar for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is confused for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1267,9 +1330,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Cacophonous Roar",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1287,7 +1350,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The jotund troll @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grabs} a creature with their jaws; <strong>Effect</strong> The troll uses Swallow Whole.</p>"
+                    "value": "<p><strong>Trigger</strong> The jotund troll @Compendium[pf2e.bestiary-ability-glossary-srd.Grab]{Grabs} a creature with their jaws;</p>\n<p><strong>Effect</strong> The troll uses Swallow Whole.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1319,9 +1382,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Fast Swallow",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1373,11 +1436,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Ravenous Jaws",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "action"
         },
         {
-            "_id": "t1IDLsOu2foiL6X7",
+            "_id": "NCrNtLcBDV1QPiXn",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1386,12 +1449,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>claw<br />A Rend entry lists a Strike the monster has. <strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round. <strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
+                    "value": "<p>Claw</p>\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1400,7 +1463,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -1414,22 +1477,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Rend",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "action"
         },
         {
-            "_id": "dJXGyr6FxuKbYcqU",
+            "_id": "yZgxFF5bgFKbTkUO",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1438,12 +1502,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Medium, 3d12+8 bludgeoning, Rupture 36<br />The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.<br /><br /> A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.<br /><br /> If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of [[/r 3 # actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage]] actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Medium, [[/r 3d12+8 #bludgeoning]] bludgeoning, Rupture 36</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1452,7 +1516,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -1468,22 +1532,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Swallow Whole",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "gEQ8JOl9f28jdLHw",
+            "_id": "tF3KNEXj3uSK3cil",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1492,7 +1557,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -1506,7 +1571,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "throw-rock",
                 "source": {
                     "value": ""
                 },
@@ -1520,18 +1585,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.a0tx6exmB9v9CUsj"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Throw Rock",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -1574,7 +1640,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -1617,7 +1683,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "lore"
         }
     ],

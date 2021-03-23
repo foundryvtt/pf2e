@@ -2,84 +2,81 @@ import { compendiumBrowser } from '../packs/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
+import { CharacterPF2e } from '@actor/character';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
-        name: 'Actor Schema Version',
-        hint:
-            "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)",
+        name: 'PF2E.SETTINGS.WorldSchemaVersion.Name',
+        hint: 'PF2E.SETTINGS.WorldSchemaVersion.Hint',
         scope: 'world',
         config: true,
         default: Migrations.latestVersion,
         type: Number,
     });
     game.settings.register('pf2e', 'defaultTokenSettings', {
-        name: 'Default Prototype Token Settings',
-        hint: 'Automatically set advised prototype token settings to newly created Actors.',
+        name: 'PF2E.SETTINGS.DefaultTokenSettings.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettings.Hint',
         scope: 'world',
         config: true,
         default: true,
         type: Boolean,
     });
     game.settings.register('pf2e', 'defaultTokenSettingsName', {
-        name: 'Default Token Name display',
-        hint: "The setting for the default token's name display",
+        name: 'PF2E.SETTINGS.DefaultTokenSettingsName.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettingsName.Hint',
         scope: 'world',
         config: true,
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'Never Displayed',
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: 'When Controlled',
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: 'Hovered by Owner',
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: 'Hovered by Anyone',
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'Always for Owner',
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'Always for Anyone',
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'TOKEN.DISPLAY_NONE',
+            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: 'TOKEN.DISPLAY_CONTROL',
+            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: 'TOKEN.DISPLAY_OWNER_HOVER',
+            [CONST.TOKEN_DISPLAY_MODES.HOVER]: 'TOKEN.DISPLAY_HOVER',
+            [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'TOKEN.DISPLAY_OWNER',
+            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
     });
     game.settings.register('pf2e', 'defaultTokenSettingsBar', {
-        name: 'Default Token Bar display',
-        hint: "The setting for the default token's bar display",
+        name: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Name',
+        hint: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Hint',
         scope: 'world',
         config: true,
         default: CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER,
         type: Number,
         choices: {
-            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'Never Displayed',
-            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: 'When Controlled',
-            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: 'Hovered by Owner',
-            [CONST.TOKEN_DISPLAY_MODES.HOVER]: 'Hovered by Anyone',
-            [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'Always for Owner',
-            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'Always for Anyone',
+            [CONST.TOKEN_DISPLAY_MODES.NONE]: 'TOKEN.DISPLAY_NONE',
+            [CONST.TOKEN_DISPLAY_MODES.CONTROL]: 'TOKEN.DISPLAY_CONTROL',
+            [CONST.TOKEN_DISPLAY_MODES.OWNER_HOVER]: 'TOKEN.DISPLAY_OWNER_HOVER',
+            [CONST.TOKEN_DISPLAY_MODES.HOVER]: 'TOKEN.DISPLAY_HOVER',
+            [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'TOKEN.DISPLAY_OWNER',
+            [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
     });
     game.settings.register('pf2e', 'ignoreCoinBulk', {
-        name: 'Coins are weightless',
-        hint: 'Toggle on to ignore currency weight.',
+        name: 'PF2E.SETTINGS.IgnoreCoinBulk.Name',
+        hint: 'PF2E.SETTINGS.IgnoreCoinBulk.Hint',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
     game.settings.register('pf2e', 'ignoreContainerOverflow', {
-        name: 'Do not combine stacks from different containers when calculating bulk',
-        hint:
-            'When enabled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. ' +
-            'When disabled, the above example will combine all stacks from all containers together and ' +
-            'add up to 1 bulk.',
+        name: 'PF2E.SETTINGS.IgnoreContainerOverflow.Name',
+        hint: 'PF2E.SETTINGS.IgnoreContainerOverflow.Hint',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
     game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
-        name: 'Identify Magic Skill Modifier',
-        hint: "Modifier to add to Identify Magic Skill DCs if the skill does not match the item's magic tradition",
+        name: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name',
+        hint: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint',
         choices: {
-            0: '0',
-            2: '+2',
-            5: '+5',
-            10: '+10',
+            0: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.0',
+            2: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.2',
+            5: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.5',
+            10: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Choices.10',
         },
         type: Number,
         default: 5,
@@ -87,20 +84,20 @@ export function registerSettings() {
         config: true,
     });
     game.settings.register('pf2e', 'critRule', {
-        name: 'Critical Damage Rule',
-        hint: 'Use a different rule for doubling damage on a critical hit',
+        name: 'PF2E.SETTINGS.CritRule.Name',
+        hint: 'PF2E.SETTINGS.CritRule.Hint',
         scope: 'world',
         config: true,
         default: 'doubledamage',
         type: String,
         choices: {
-            doubledamage: 'Double the damage',
-            doubledice: 'Double the number of dice',
+            doubledamage: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
+            doubledice: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
         },
     });
     game.settings.register('pf2e', 'compendiumBrowserPacks', {
-        name: 'Compendium Browser Packs',
-        hint: 'Settings to exclude packs from loading',
+        name: 'PF2E.SETTINGS.CompendiumBrowserPacks.Name',
+        hint: 'PF2E.SETTINGS.CompendiumBrowserPacks.Hint',
         default: '{}',
         type: String,
         scope: 'world',
@@ -108,11 +105,24 @@ export function registerSettings() {
             compendiumBrowser.loadSettings();
         },
     });
-    game.settings.register(game.system.id, 'enabledRulesUI', {
-        name: 'Advanced Rule Element UI',
-        hint:
-            'When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break ' +
-            'the actors and items if you are not sure what you are doing or make a mistake.',
+    game.settings.register('pf2e', 'pfsSheetTab', {
+        name: 'PF2E.SETTINGS.PFSSheetTab.Name',
+        hint: 'PF2E.SETTINGS.PFSSheetTab.Hint',
+        scope: 'world',
+        config: true,
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            const actors = game.actors.filter((actor) => actor instanceof CharacterPF2e);
+            const sheets = actors.flatMap((actor) => Object.values(actor.apps));
+            for (const sheet of sheets) {
+                sheet.render();
+            }
+        },
+    });
+    game.settings.register('pf2e', 'enabledRulesUI', {
+        name: 'PF2E.SETTINGS.EnabledRulesUI.Name',
+        hint: 'PF2E.SETTINGS.EnabledRulesUI.Hint',
         scope: 'world',
         config: true,
         default: false,
@@ -130,9 +140,9 @@ export function registerSettings() {
     WorldClockSettings.registerSettings();
 
     game.settings.registerMenu('pf2e', 'variantRules', {
-        name: 'Variant Rules',
-        label: 'Variant Rules Settings', // The text label used in the button
-        hint: 'Enable and configure variant rules like Proficiency Without Level or the Stamina system.',
+        name: 'PF2E.SETTINGS.Variant.Name',
+        label: 'PF2E.SETTINGS.Variant.Label', // The text label used in the button
+        hint: 'PF2E.SETTINGS.Variant.Hint',
         icon: 'fas fa-book', // A Font Awesome icon used in the submenu button
         type: VariantRulesSettings, // A FormApplication subclass which should be created
         restricted: true, // Restrict this submenu to gamemaster only?
@@ -141,8 +151,8 @@ export function registerSettings() {
 
     // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
     game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
-        name: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint'),
+        name: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name',
+        hint: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint',
         scope: 'world',
         config: true,
         default: true,

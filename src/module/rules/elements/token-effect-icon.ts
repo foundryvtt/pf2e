@@ -60,7 +60,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
         }
     }
 
-    onCreateToken(actorData: CharacterData | NPCData, item: ItemDataPF2e, token: TokenData) {
+    onCreateToken(_actorData: CharacterData | NPCData, item: ItemDataPF2e, token: TokenData) {
         token.effects = token.effects ?? [];
         if (!token.effects.includes(item.img)) {
             token.effects.push(item.img);

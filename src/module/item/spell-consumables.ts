@@ -59,6 +59,7 @@ export async function createConsumableFromSpell(
     const spellConsumable = (await pack?.getEntry(getIdForSpellConsumable(type, heightenedLevel))) as ConsumableData;
     spellConsumable.data.traits.value.push(...duplicate(spellData.data.traditions.value));
     spellConsumable.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
+    spellConsumable.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${spellConsumable.data.description.value}`;
     spellConsumable.data.spell = {
         data: duplicate(spellData),
         heightenedLevel: heightenedLevel,

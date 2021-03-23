@@ -6,6 +6,15 @@ declare const WEBSITE_URL: string;
  * The global CONSTANTS object
  */
 declare const CONST: {
+    ACTIVE_EFFECT_MODES: {
+        CUSTOM: 0;
+        MULTIPLY: 1;
+        ADD: 2;
+        DOWNGRADE: 3;
+        UPGRADE: 4;
+        OVERRIDE: 5;
+    };
+
     vtt: 'Foundry VTT';
     VTT: 'Foundry Virtual Tabletop';
     WEBSITE_URL: 'https://foundryvtt.com';

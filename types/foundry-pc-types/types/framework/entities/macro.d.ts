@@ -27,6 +27,7 @@ declare interface MacroData extends BaseEntityData {
     author: string;
     command: string;
     scope: string;
+    folder?: string | null;
     sort: number;
 }
 

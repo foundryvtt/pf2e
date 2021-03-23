@@ -18,7 +18,7 @@ import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
-    ModifierType,
+    MODIFIER_TYPE,
     ProficiencyModifier,
     StatisticModifier,
 } from '../../module/modifiers';
@@ -65,7 +65,7 @@ export function listen(): void {
             DicePF2e: DicePF2e,
             StatusEffects: StatusEffects,
             ConditionManager: ConditionManager,
-            ModifierType: ModifierType,
+            ModifierType: MODIFIER_TYPE,
             Modifier: ModifierPF2e,
             AbilityModifier: AbilityModifier,
             ProficiencyModifier: ProficiencyModifier,

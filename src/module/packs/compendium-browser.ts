@@ -1,5 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
+import { KitPF2e } from '@item/others';
+import { KitEntryData } from '@item/data-definitions';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -450,8 +452,11 @@ class CompendiumBrowser extends Application {
                         }
                     }
 
-                    // determine skill feats
-                    if (feat.data.featType.value === 'skill') {
+                    // determine skill prerequisites
+                    // Note: This code includes some feats, where the prerequisite has the name of a skill.
+                    // I decided to include them. The code would not be worth it, to exclude a single feat
+                    // (Basic Arcana)
+                    {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
                         const prereqs = feat.data.prerequisites;
                         let prerequisitesArr = [];
@@ -467,7 +472,9 @@ class CompendiumBrowser extends Application {
 
                         prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
 
-                        const skillIntersection = skillList.filter((x) => prerequisitesArr.includes(x));
+                        const skillIntersection = skillList.filter((x) =>
+                            prerequisitesArr.some((entry) => entry.includes(x)),
+                        );
 
                         if (skillIntersection.length !== 0) {
                             skills.add(skillIntersection.join(','));
@@ -771,23 +778,36 @@ class CompendiumBrowser extends Application {
 
     private addPhysicalItesToSelectedTokens(id: string) {
         PhysicalItemPF2e.createPhysicalItemFromCompendiumId(id).then((item) => {
-            for (const token of canvas.tokens.controlled) {
-                const userHasPermissions = token.actor?.can(game.user, 'update') ?? false;
-                const tokenType = token.actor?.data?.type ?? 'undefined';
-                const tokenMayContainEquipment =
-                    tokenType === 'character' || tokenType === 'loot' || tokenType === 'npc';
+            if (item instanceof KitPF2e) {
+                const kitItems: Record<string, KitEntryData> = item.data.data.items;
+                (Object.values(kitItems) as Array<KitEntryData>).forEach((kitItem) =>
+                    this.addPhysicalItesToSelectedTokens(kitItem.id),
+                );
+            } else {
+                const actorsToUpdate = new Set(canvas.tokens.controlled.map((token) => token.actor));
 
-                if (item !== null && userHasPermissions && tokenMayContainEquipment) {
-                    token.actor!.createEmbeddedEntity('OwnedItem', item.data);
-                } else {
-                    ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                for (const actor of actorsToUpdate) {
+                    if (actor === undefined) {
+                        continue;
+                    }
+
+                    const userHasPermissions = actor!.can(game.user, 'update') ?? false;
+                    const actorType = actor!.data?.type ?? 'undefined';
+                    const actorMayContainEquipment =
+                        actorType === 'character' || actorType === 'loot' || actorType === 'npc';
+
+                    if (item !== null && userHasPermissions && actorMayContainEquipment) {
+                        actor!.createEmbeddedEntity('OwnedItem', item.data);
+                    } else {
+                        ui.notifications.error(game.i18n.format('PF2E.ErrorMessage.NoTokenSelected'), {});
+                    }
                 }
             }
         });
     }
 
     hookCompendiumList() {
-        Hooks.on('renderCompendiumDirectory', (app, html, data) => {
+        Hooks.on('renderCompendiumDirectory', (_app, html) => {
             if (html.find('.compendium-browser-btn').length) {
                 console.error('Compendium Browser - Already hooked');
                 return;
@@ -805,13 +825,13 @@ class CompendiumBrowser extends Application {
             target.append(importButton);
 
             // Handle button clicks
-            importButton.click((ev) => {
+            importButton.on('click', (ev) => {
                 ev.preventDefault();
                 this.render(true);
             });
         });
 
-        Hooks.on('renderActorDirectory', (app, html, data) => {
+        Hooks.on('renderActorDirectory', (_app, html) => {
             if (html.find('.bestiary-browser-btn').length) {
                 console.error('Compendium Browser - Already hooked');
                 return;
@@ -827,15 +847,15 @@ class CompendiumBrowser extends Application {
             }
 
             // Handle button clicks
-            bestiaryImportButton.click((ev) => {
+            bestiaryImportButton.on('click', (ev) => {
                 ev.preventDefault();
                 this.openTab('bestiary');
             });
         });
     }
 
-    clearObject(obj) {
-        return Object.fromEntries(Object.entries(obj).filter(([key, value]) => value));
+    clearObject(obj: object) {
+        return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
     _getActionImg(action) {
@@ -863,7 +883,7 @@ class CompendiumBrowser extends Application {
         );
     }
 
-    async filterSpells(li) {
+    async filterSpells(li: JQuery) {
         let counter = 0;
         li.hide();
         for (const spell of li) {
@@ -879,7 +899,7 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    getFilterResult(element) {
+    getFilterResult(element: HTMLElement) {
         if (this.sorters.text !== '') {
             const searches = this.sorters.text.split(',');
             for (const search of searches) {
@@ -926,13 +946,13 @@ class CompendiumBrowser extends Application {
         return this.isWithinFilteredBounds(element);
     }
 
-    isWithinFilteredBounds(element): boolean {
+    isWithinFilteredBounds(element: HTMLElement): boolean {
         const rangeIdentifiers = Object.keys(this.ranges);
 
         for (const range of rangeIdentifiers) {
             const lowerBound = this.ranges[range].lowerBound;
             const upperBound = this.ranges[range].upperBound;
-            const filter = +element.dataset[range];
+            const filter = Number(element.dataset[range] ?? 0);
 
             if (filter < lowerBound || upperBound < filter) {
                 return false;
@@ -1001,4 +1021,3 @@ class CompendiumBrowser extends Application {
 }
 
 export const compendiumBrowser = new CompendiumBrowser();
-// vim: ts=2 sw=2 et

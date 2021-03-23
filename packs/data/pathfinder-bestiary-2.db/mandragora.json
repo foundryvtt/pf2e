@@ -103,15 +103,19 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Burrow",
-                        "value": "10 feet"
+                        "exceptions": "",
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "10"
                     },
                     {
-                        "type": "Climb",
-                        "value": "30 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "30"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -128,6 +132,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -413,6 +418,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -477,6 +485,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 14,
                     "value": 14
@@ -497,12 +506,12 @@
                     "damageType": "piercing",
                     "die": "2d8+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "aw8qbg71ilfmw9o2jqx6": {
                         "damage": "2d8+4",
                         "damageType": "piercing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -584,6 +593,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -620,10 +630,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "mandragora venom"
+                        "Mandragora Venom"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 14,
                     "value": 14
@@ -644,12 +656,12 @@
                     "damageType": "slashing",
                     "die": "2d4+4"
                 },
-                "damageRolls": [
-                    {
+                "damageRolls": {
+                    "0": {
                         "damage": "2d4+4",
                         "damageType": "slashing"
                     }
-                ],
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -731,6 +743,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -763,6 +776,59 @@
             "type": "melee"
         },
         {
+            "_id": "ExsxFy6Bmcgsy0GX",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "ZvqnxVWvm9QdJZVi",
             "data": {
                 "actionCategory": {
@@ -786,6 +852,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -812,7 +879,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Blood Scent",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -830,7 +897,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Whenever a mandragora begins its turn in an area of magical darkness, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 on that turn.</p>"
+                    "value": "<p>Whenever a mandragora begins its turn in an area of magical darkness, it is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} on that turn.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -839,6 +906,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -863,7 +931,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Vulnerability to Supernatural Darkness",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -876,12 +944,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The mandragora has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}; <strong>Effect</strong> The mandragora drains blood from the creature it has grabbed, dealing [[/r 2d6 # damage]] damage. If the creature is a demon, fey, or sorcerer, the mandragora gains temporary Hit Points equal to the damage dealt. A creature that has its blood drained by a mandragora is @Compendium[pf2e.conditionitems.Drained]{Drained} 1 until it receives healing of any kind or amount.</p>"
+                    "value": "<p><strong>Requirements</strong> The mandragora has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed};</p>\n<p><strong>Effect</strong> The mandragora drains blood from the creature it has grabbed, dealing [[/r 2d6]] damage. If the creature is a demon, fey, or sorcerer, the mandragora gains temporary Hit Points equal to the damage dealt.</p>\n<p>A creature that has its blood drained by a mandragora is @Compendium[pf2e.conditionitems.Drained]{Drained 1} until it receives healing of any kind or amount.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -890,6 +958,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -914,9 +983,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Blood Drain",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -934,7 +1003,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 21 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> [[/r 1d6 # poison damage]] poison damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 (1 round); <strong>Stage 2</strong> [[/r 1d6 # poison damage]] poison damage, @Compendium[pf2e.conditionitems.Confused]{Confused}, and stupefied 1 (1 round); <strong>Stage 3</strong> [[/r 2d6 # poison damage]] poison damage, confused, and stupefied 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 21 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]] poison damage, @Compendium[pf2e.conditionitems.Confused]{Confused}, and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]] poison damage, confused, and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -943,6 +1012,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -969,7 +1039,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Mandragora Venom",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -982,12 +1052,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per day; <strong>Effect</strong> The mandragora emits an unsettling shriek. Each non-mandragora creature within 30 feet must attempt a DC 25 Will save. <br /><strong>Critical Success</strong> The creature is unaffected. <br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1. <br /><strong>Failure</strong> The creature is sickened 2. <br /><strong>Critical Failure</strong> The creature is sickened 2 and @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1. As long as the creature remains sickened, this slowed condition value can't be reduced below 1.</p>"
+                    "value": "<p><strong>Frequency</strong> once per day;</p>\n<p><strong>Effect</strong> The mandragora emits an unsettling shriek. Each non-mandragora creature within 30 feet must attempt a DC 25 Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}.</p>\n<p><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}. As long as the creature remains sickened, this slowed condition value can't be reduced below 1.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -996,6 +1066,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1023,13 +1094,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Piercing Shriek",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "twg8lpNTblr6qOMJ",
+            "_id": "vda7kHsnuwSQWtXd",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1038,12 +1109,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1052,6 +1123,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -1065,18 +1137,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1100,6 +1173,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1118,7 +1192,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1142,6 +1216,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1160,7 +1235,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1183,7 +1258,20 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Vegetation",
+                        "predicate": {
+                            "all": [
+                                "terrain:vegetation"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 8
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1196,13 +1284,19 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+20 in vegetation",
+                        "options": "terrain:vegetation"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         }
     ],
@@ -1211,7 +1305,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "aMIb3Xm64NzRj8YP",
         "actorLink": false,
         "bar1": {
@@ -1230,6 +1323,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Mandragora",
         "randomImg": false,

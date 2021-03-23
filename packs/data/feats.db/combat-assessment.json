@@ -19,17 +19,28 @@
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "value": [
-                ""
-            ]
-        },
+        "location": "",
+        "prerequisites": [],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Combat Assessment (critical hit)",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge",
+                        "critical-assessment"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },

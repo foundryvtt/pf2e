@@ -2,7 +2,7 @@ import { MigrationBase } from './base';
 
 export class Migration583AddHpThresholdHardness extends MigrationBase {
     static version = 0.583;
-    async updateItem(item: any, actor?: any) {
+    async updateItem(item: any) {
         if (['weapon', 'melee', 'armor', 'equipment', 'consumable', 'backpack'].includes(item.type)) {
             item.data.brokenThreshold = { value: 0 };
             item.data.hp = { value: 0 };

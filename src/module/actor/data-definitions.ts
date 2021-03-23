@@ -1,5 +1,5 @@
 import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
-import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice } from '../modifiers';
+import { StatisticModifier, CheckModifier, ModifierPF2e, PF2DamageDice, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
@@ -10,6 +10,8 @@ export type PFSFactionString = 'EA' | 'GA' | 'HH' | 'VS' | 'RO' | 'VW';
 
 /** A type representing the possible PFS schools. */
 export type PFSSchoolString = 'none' | 'scrolls' | 'spells' | 'swords';
+
+export type ModifierType = typeof MODIFIER_TYPE[keyof typeof MODIFIER_TYPE];
 
 /** A roll function which can be called to roll a given skill. */
 export type RollFunction = (
@@ -91,6 +93,8 @@ export interface CharacterStrikeTrait {
     rollOption?: string;
     /** An extra css class added to the UI marker for this trait. */
     cssClass?: string;
+    /** The description of the trait */
+    description?: string;
 }
 
 /** An strike which a character can use. */
@@ -128,6 +132,15 @@ export interface RawCharacterStrike {
     ammo?: ConsumableData[];
     /** Currently selected ammo id that will be consumed when rolling this action */
     selectedAmmoId?: string;
+}
+
+export interface RawNPCStrike extends RawCharacterStrike {
+    /** The type of attack as a localization string */
+    attackRollType?: string;
+    /** The id of the item this strike is generated from */
+    sourceId?: string;
+    /** A list of all damage roll parts */
+    damageBreakdown?: string[];
 }
 
 /** Basic hitpoints data fields */
@@ -198,6 +211,8 @@ export type SkillData = StatisticModifier & RawSkillData & Rollable;
 export type SaveData = SkillData & { saveDetail?: string };
 /** The full data for a character action (used primarily for strikes.) */
 export type CharacterStrike = StatisticModifier & RawCharacterStrike;
+/** The full data for a NPC action (used primarily for strikes.) */
+export type NPCStrike = StatisticModifier & RawNPCStrike;
 
 export interface Saves {
     fortitude: SaveData;
@@ -476,6 +491,16 @@ export interface RawCharacterData extends CreatureSystemData {
             value: number;
             /** The maximum shield health. */
             max: number;
+            /** The shield's AC */
+            ac: number;
+            /** The shield's hardness */
+            hardness: number;
+            /** The shield's broken threshold */
+            brokenThreshold: number;
+            /** The current shield health (added in actor preparation) */
+            hp: {
+                value: number;
+            };
         };
 
         /** Records the various land/swim/fly speeds that this actor has. */
@@ -574,7 +599,22 @@ export interface RawNPCData extends CreatureSystemData {
             /** A list of other movement speeds the actor possesses. */
             otherSpeeds: LabeledValue[];
         };
-
+        /**
+         * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+         * allow for the shield health to be shown in a token.
+         */
+        shield: {
+            /** The current shield health. */
+            value: number;
+            /** The maximum shield health. */
+            max: number;
+            /** The shield's AC */
+            ac: number;
+            /** The shield's hardness */
+            hardness: number;
+            /** The shield's broken threshold */
+            brokenThreshold: number;
+        };
         /** Textual information about any special benefits that apply to all saves. */
         allSaves: { value: string };
         familiarAbilities: StatisticModifier;
@@ -584,7 +624,7 @@ export interface RawNPCData extends CreatureSystemData {
     skills: Record<string, NPCSkillData>;
 
     /** Special strikes which the creature can take. */
-    actions: CharacterStrike[];
+    actions: NPCStrike[];
 }
 
 /** The raw information contained within the actor data object for hazards. */

@@ -2,25 +2,44 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '@item/kits';
-import { compendiumBrowser } from '../../packs/compendium-browser';
+import { compendiumBrowser } from '@module/packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { TraitSelector5e } from '@system/trait-selector';
 import { ItemPF2e } from '@item/base';
-import { ConditionData, isPhysicalItem, ItemDataPF2e, SpellData, SpellcastingEntryData } from '@item/data-definitions';
-import { ConditionManager } from '../../conditions';
+import {
+    ConditionData,
+    isPhysicalItem,
+    ItemDataPF2e,
+    MagicSchoolAbbreviation,
+    SpellData,
+    SpellcastingEntryData,
+    SpellDetailsData,
+} from '@item/data-definitions';
+import { ConditionManager } from '@module/conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
-import { Spell } from '@item/spell';
-import { SpellcastingEntry } from '@item/spellcasting-entry';
-import { ConditionPF2e, SpellPF2e } from '@item/others';
+import { SpellPF2e } from '@item/spell';
+import { SpellFacade } from '@item/spell-facade';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { ConditionPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { CreaturePF2e } from '@actor/creature';
 import { PF2CheckDC } from '@system/check-degree-of-success';
+
+interface SpellSheetData extends SpellData {
+    spellInfo?: unknown;
+    data: SpellDetailsData & {
+        school: {
+            value: MagicSchoolAbbreviation;
+            str?: string;
+        };
+    };
+}
 
 /**
  * Extend the basic ActorSheet class to do all the PF2e things!
@@ -121,31 +140,26 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
      * @param spellbook    The spellbook data being prepared
      * @param spell        The spell data being prepared
      */
-    protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spell: any) {
+    protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spell: SpellSheetData) {
         const heightenedLevel = spell.data.heightenedLevel?.value;
         const spellLvl = heightenedLevel ?? (Number(spell.data.level.value) < 11 ? Number(spell.data.level.value) : 10);
-        let spellcastingEntry: any = null;
-
-        if ((spell.data.location || {}).value) {
-            spellcastingEntry = (this.actor.getOwnedItem(spell.data.location.value) || {}).data;
-        }
+        const spellcastingEntry = this.actor.getOwnedItem(spell.data.location.value)?.data ?? null;
 
         // if the spellcaster entry cannot be found (maybe it was deleted?)
-        if (!spellcastingEntry) {
+        if (spellcastingEntry?.type !== 'spellcastingEntry') {
             console.debug(`PF2e System | Prepare Spell | Spellcasting entry not found for spell ${spell.name}`);
             return;
         }
 
         // This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
         const isNotLevelBasedSpellcasting =
-            spellcastingEntry.data?.tradition?.value === 'wand' ||
-            spellcastingEntry.data?.tradition?.value === 'scroll' ||
-            spellcastingEntry.data?.tradition?.value === 'ritual' ||
-            spellcastingEntry.data?.tradition?.value === 'focus';
+            spellcastingEntry.data.tradition?.value === 'wand' ||
+            spellcastingEntry.data.tradition?.value === 'scroll' ||
+            spellcastingEntry.data.tradition?.value === 'ritual' ||
+            spellcastingEntry.data.tradition?.value === 'focus';
 
-        const spellsSlotsWhereThisIsPrepared = Object.entries(
-            (spellcastingEntry.data?.slots || {}) as Record<any, any>,
-        )?.filter(
+        const slots = spellcastingEntry.data.slots;
+        const spellsSlotsWhereThisIsPrepared = Object.entries((slots ?? {}) as Record<any, any>)?.filter(
             (slotArr) => !!Object.values(slotArr[1].prepared as any[]).find((slotSpell) => slotSpell?.id === spell._id),
         );
         const highestSlotPrepared =
@@ -157,14 +171,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Extend the Spellbook level
         for (let i = maxSpellLevelToShow; i >= 0; i--) {
             if (!isNotLevelBasedSpellcasting || i === spellLvl) {
+                const slotKey = `slot${i}` as keyof typeof slots;
                 spellbook[i] = spellbook[i] || {
                     isCantrip: i === 0,
                     isFocus: i === 11,
                     label: CONFIG.PF2E.spellLevels[i],
                     spells: [],
                     prepared: [],
-                    uses: spellcastingEntry ? parseInt(spellcastingEntry.data?.slots[`slot${i}`].value, 10) || 0 : 0,
-                    slots: spellcastingEntry ? parseInt(spellcastingEntry.data?.slots[`slot${i}`].max, 10) || 0 : 0,
+                    uses: spellcastingEntry ? Number(slots[slotKey].value) || 0 : 0,
+                    slots: spellcastingEntry ? Number(slots[slotKey].max) || 0 : 0,
                     displayPrepared:
                         spellcastingEntry &&
                         spellcastingEntry.data.displayLevels &&
@@ -190,7 +205,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 spell.spellInfo = item.getSpellInfo();
             }
         } catch (err) {
-            console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell.id}`, spell);
+            console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell._id}`, spell);
         }
 
         const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
@@ -863,9 +878,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const options = this.actor.getRollOptions(['all', 'attack-roll']);
-            const speaker = { actor: this.actor, token: this.token };
-            this.actor.data.data.actions[Number(actionIndex)].roll({ event, speaker, options });
             const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
             this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
         });
@@ -946,8 +958,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-slots-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
 
             const key = `data.slots.slot${slotLvl}.value`;
             const options = { _id: itemId };
@@ -960,8 +972,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            const slotLvl = Number($(event.currentTarget).parents('.item').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id');
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
             const key = `data.slots.slot${slotLvl}.max`;
             const options = { _id: itemId };
             options[key] = Number(event.target.value);
@@ -1001,12 +1013,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
             const parentNode = $(event.currentTarget).parents('.spellbook-header');
             const itemId = parentNode.attr('data-item-id') ?? '';
-            const lvl = parentNode.attr('data-level') ?? '';
+            const lvl = Number(parentNode.attr('data-level') ?? '');
+            if (!Number.isInteger(lvl)) {
+                return;
+            }
+
             const itemToEdit = this.actor.getOwnedItem(itemId)?.data;
             if (itemToEdit?.type !== 'spellcastingEntry')
                 throw new Error('Tried to toggle prepared spells on a non-spellcasting entry');
             const currentDisplayLevels = itemToEdit.data.displayLevels || {};
-            currentDisplayLevels[lvl] = !currentDisplayLevels[lvl];
+            currentDisplayLevels[lvl] = currentDisplayLevels[lvl] === undefined ? false : !currentDisplayLevels[lvl];
             await this.actor.updateEmbeddedEntity('OwnedItem', {
                 _id: itemId,
                 'data.displayLevels': currentDisplayLevels,
@@ -1231,14 +1247,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
-        const container = $(event.target).parents('[data-item-is-container="true"]');
+        const container = $(event.target).closest('[data-item-is-container="true"]');
         const containerId = container[0]?.dataset?.itemId?.trim();
-        if (containerId) {
-            await ActorPF2e.stashOrUnstash(
-                this.actor,
-                async () => this.actor.getOwnedItem(itemData._id) as PhysicalItemPF2e,
-                containerId,
-            );
+        const item = this.actor.items.get(itemData._id);
+        if (item instanceof PhysicalItemPF2e && (containerId || (item.isInContainer && !containerId))) {
+            await this.actor.stashOrUnstash(item, containerId);
+            return item.data;
         }
         return super._onSortItem(event, itemData);
     }
@@ -1420,23 +1434,18 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     }
 
     async _moveSpell(spellData: SpellData, targetLocation: string, targetLevel: number) {
-        const spell = new Spell(spellData);
+        const spell = new SpellFacade(spellData);
 
         if (spell.spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
             return false;
         }
 
-        const spellcastingEntryData = this.actor.getOwnedItem(targetLocation)?.data;
-
-        if (spellcastingEntryData?.type !== 'spellcastingEntry') {
+        const spellcastingEntry = this.actor.getOwnedItem(targetLocation);
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
             throw new Error(`PF2e System | SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
         }
 
-        const spellcastingEntry = new SpellcastingEntry(spellcastingEntryData);
-
-        spellData.data.location = {
-            value: targetLocation,
-        };
+        spellData.data.location = { value: targetLocation };
 
         if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
             if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
@@ -1647,7 +1656,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}
+                                    ${game.i18n.localize('PF2E.SpellLabelPlural')}`;
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
@@ -1656,7 +1666,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
-                                    name = `${CONFIG.PF2E.preparationType[spellcastingType]} ${CONFIG.PF2E.magicTraditions[magicTradition]} Spells`;
+                                    name = game.i18n.format('PF2E.SpellCastingFormat', {
+                                        preparationType: CONFIG.PF2E.preparationType[spellcastingType],
+                                        tradition: CONFIG.PF2E.magicTraditions[magicTradition],
+                                    });
                                 }
 
                                 // Define new spellcasting entry
@@ -1816,129 +1829,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         new TraitSelector5e(this.actor, options).render(true);
     }
 
-    // // To be put back in use later?
-    // private onAreaEffect(event: JQuery.ClickEvent) {
-    //     const areaType = $(event.currentTarget).attr('data-area-areaType');
-    //     const areaSize = Number($(event.currentTarget).attr('data-area-size') ?? 0);
-
-    //     let tool = 'cone';
-    //     if (areaType === 'burst') tool = 'circle';
-    //     else if (areaType === 'emanation') tool = 'rect';
-    //     else if (areaType === 'line') tool = 'ray';
-
-    //     // Delete any existing templates for this actor.
-    //     let templateData = this.actor.getFlag('pf2e', 'areaEffectId') || null;
-    //     let templateScene = null;
-    //     if (templateData) {
-    //         templateScene = this.actor.getFlag('pf2e', 'areaEffectScene') || null;
-    //         this.actor.setFlag('pf2e', 'areaEffectId', null);
-    //         this.actor.setFlag('pf2e', 'areaEffectScene', null);
-
-    //         console.log(`PF2e | Existing MeasuredTemplate ${templateData.id} from Scene ${templateScene} found`);
-    //         if (canvas.scene && canvas.templates.objects.children) {
-    //             for (const placeable of canvas.templates.objects.children) {
-    //                 console.log(
-    //                     `PF2e | Placeable Found - id: ${placeable.data._id}, scene: ${canvas.scene._id}, type: ${placeable.constructor.name}`,
-    //                 );
-    //                 if (
-    //                     placeable.data._id === templateData.id &&
-    //                     canvas.scene._id === templateScene &&
-    //                     placeable.constructor.name === 'MeasuredTemplate'
-    //                 ) {
-    //                     console.log(`PF2e | Deleting MeasuredTemplate ${templateData.id} from Scene ${templateScene}`);
-
-    //                     const existingTemplate = new MeasuredTemplate(templateData, templateScene);
-    //                     existingTemplate.delete(templateScene);
-    //                 }
-    //             }
-    //         }
-    //     }
-
-    //     // data to pull in dynamically
-    //     let x;
-    //     let y;
-
-    //     let data = {};
-    //     const gridWidth = canvas.grid.grid.w;
-
-    //     if (areaType === 'emanation' || areaType === 'cone') {
-    //         if (canvas.tokens.controlled.length > 1) {
-    //             ui.notifications.info('Please select a single target token');
-    //         } else if (canvas.tokens.controlled.length === 0) {
-    //             ui.notifications.info('Please select a target token');
-    //         } else {
-    //             const t = canvas.tokens.controlled[0];
-    //             let { rotation } = t.data;
-    //             const { width } = t.data;
-
-    //             x = t.data.x;
-    //             y = t.data.y;
-
-    //             // Cone placement logic
-    //             if (tool === 'cone') {
-    //                 if (rotation < 0) rotation = 360 + rotation;
-    //                 if (rotation < 35) {
-    //                     x += gridWidth / 2;
-    //                     y += gridWidth;
-    //                 } else if (rotation < 55) {
-    //                     y += gridWidth;
-    //                 } else if (rotation < 125) {
-    //                     y += gridWidth / 2;
-    //                 } else if (rotation < 145) {
-    //                     // y = y;
-    //                 } else if (rotation < 215) {
-    //                     x += gridWidth / 2;
-    //                 } else if (rotation < 235) {
-    //                     x += gridWidth;
-    //                 } else if (rotation < 305) {
-    //                     x += gridWidth;
-    //                     y += gridWidth / 2;
-    //                 } else if (rotation < 325) {
-    //                     x += gridWidth;
-    //                     y += gridWidth;
-    //                 } else {
-    //                     x += gridWidth / 2;
-    //                     y += gridWidth;
-    //                 }
-    //                 rotation += 90;
-
-    //                 data = {
-    //                     t: tool,
-    //                     x,
-    //                     y,
-    //                     distance: areaSize,
-    //                     direction: rotation,
-    //                     fillColor: game.user.data.color || '#FF0000',
-    //                 };
-    //             } else if (tool === 'rect') {
-    //                 x -= gridWidth * (areaSize / 5);
-    //                 y -= gridWidth * (areaSize / 5);
-    //                 rotation = 45;
-
-    //                 const rectSide = areaSize + width * 5 + areaSize;
-    //                 const distance = Math.sqrt(rectSide ** 2 + rectSide ** 2);
-    //                 data = {
-    //                     t: tool,
-    //                     x,
-    //                     y,
-    //                     distance,
-    //                     direction: rotation,
-    //                     fillColor: game.user.data.color || '#FF0000',
-    //                 };
-    //             }
-
-    //             // Create the template
-    //             MeasuredTemplate.create(data).then((results) => {
-    //                 templateData = results.data;
-
-    //                 // Save MeasuredTemplate information to actor flags
-    //                 this.actor.setFlag('pf2e', 'areaEffectId', templateData);
-    //                 this.actor.setFlag('pf2e', 'areaEffectScene', canvas.scene!._id);
-    //             });
-    //         }
-    //     }
-    // }
-
     /** @override */
     protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         // Limit HP value to data.attributes.hp.max value
@@ -1958,5 +1848,18 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         return super._onSubmit(event, options);
+    }
+
+    /**
+     * Hide the sheet-config button unless there is more than one sheet option.
+     *@override */
+    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
+        const hasMultipleSheets = Object.keys(CONFIG.Actor.sheetClasses[this.actor.type]).length > 1;
+        if (!hasMultipleSheets && sheetButton) {
+            buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        return buttons;
     }
 }

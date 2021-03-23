@@ -6,7 +6,7 @@ import { PF2RuleElement } from '../rule-element';
  * @category RuleElement
  */
 export class PF2SetPropertyRuleElement extends PF2RuleElement {
-    onCreate(actorData: CharacterData | NPCData | FamiliarData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
+    onCreate(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
         if (
             this.ruleData.property &&
             typeof this.ruleData.on?.added !== 'undefined' &&
@@ -22,7 +22,7 @@ export class PF2SetPropertyRuleElement extends PF2RuleElement {
         }
     }
 
-    onDelete(actorData: CharacterData | NPCData | FamiliarData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
+    onDelete(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
         if (
             this.ruleData.property &&
             typeof this.ruleData.on?.removed !== 'undefined' &&

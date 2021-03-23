@@ -509,7 +509,7 @@ export class ConditionManager {
         }
 
         if (needsItemUpdate) {
-            await token.actor.updateEmbeddedEntity('OwnedItem', itemUpdate);
+            await token.actor.updateEmbeddedEntity('OwnedItem', itemUpdate as { _id: string });
         }
 
         return item;
@@ -780,7 +780,3 @@ export class ConditionManager {
         return 0;
     }
 }
-
-// Hooks.once("ready", () => { // or init?
-//     PF2eConditionManager.init();
-// });

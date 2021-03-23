@@ -14,15 +14,7 @@ import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import {
-    ItemDataPF2e,
-    ConditionData,
-    ArmorData,
-    PhysicalItemData,
-    WeaponData,
-    isPhysicalItem,
-    isMagicDetailsData,
-} from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
     CharacterData,
     InitiativeData,
@@ -48,7 +40,7 @@ import {
 } from '../rules/rules-data-definitions';
 import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
-import { objectHasKey } from '@module/utils';
+import { ErrorPF2e, objectHasKey } from '@module/utils';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -621,7 +613,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollLoreSkill(event: JQuery.Event, item: ItemPF2e) {
+    rollLoreSkill(event: JQuery.Event, item: Owned<ItemPF2e>) {
         const { data } = item;
         if (data.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
@@ -632,14 +624,14 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
         let rollMod = 0;
         let itemBonus = 0;
-        if (item.actor && item.actor.data && item.actor.data.type === 'character') {
+        if (item.actor.data.type === 'character') {
             const rank = data.data.proficient?.value || 0;
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
             const modifier = this.data.data.abilities.int.mod;
 
             itemBonus = Number((data.data.item || {}).value || 0);
             rollMod = modifier + proficiency;
-        } else if (item.actor && item.actor.data && item.actor.data.type === 'npc') {
+        } else if (item.actor.data.type === 'npc') {
             rollMod = data.data.mod.value;
         }
 
@@ -727,15 +719,12 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         }
     }
 
-    /* -------------------------------------------- */
-
     /**
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      *
-     * @param {JQuery} roll    The chat entry which contains the roll data
-     * @param {Number} multiplier   A damage multiplier to apply to the rolled damage.
-     * @return {Promise}
+     * @param roll The chat entry which contains the roll data
+     * @param multiplier A damage multiplier to apply to the rolled damage.
      */
     static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
         if (canvas.tokens.controlled.length > 0) {
@@ -746,7 +735,11 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                 attribute === 'attributes.shield'
                     ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
                     : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
-            for (const t of canvas.tokens.controlled) {
+            for (const token of canvas.tokens.controlled) {
+                const actor = token.actor;
+                if (!actor) {
+                    continue;
+                }
                 const appliedResult =
                     value > 0
                         ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
@@ -765,20 +758,16 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
               <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
-                ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
+                ${token.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
           </div>
           </div>
           `;
-                if (!t.actor) {
-                    return false;
-                }
-
-                t.actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
+                actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
                     ChatMessage.create({
                         user: game.user._id,
-                        speaker: { alias: t.name },
+                        speaker: { alias: token.name },
                         content: message,
                         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
                     });
@@ -795,14 +784,15 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async rollSave(ev: JQuery.ClickEvent, item: ItemPF2e) {
+    static async rollSave(ev: JQuery.ClickEvent, item: Owned<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 const save = $(ev.currentTarget).attr('data-save') as SaveString;
-                const itemTraits = item?.data?.data?.traits?.value;
+                const itemTraits = item.data.data.traits.value;
+                if (!actor) return;
 
-                if (actor?.data.data.saves[save]?.roll) {
+                if (actor.data.data.saves[save]?.roll) {
                     const options = actor.getRollOptions(['all', 'saving-throw', save]);
                     options.push('magical', 'spell');
                     if (itemTraits) {
@@ -810,14 +800,12 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                     }
                     actor.data.data.saves[save].roll({ event: ev, options });
                 } else {
-                    actor?.rollSave(ev, save);
+                    actor.rollSave(ev, save);
                 }
             }
         } else {
-            ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
-            return false;
+            throw ErrorPF2e(game.i18n.localize('PF2E.UI.errorTargetToken'));
         }
-        return true;
     }
 
     /**
@@ -938,10 +926,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
      * This allows for game systems to override this behavior and deploy special logic.
-     * @param {string} attribute    The attribute path
-     * @param {number} value        The target attribute value
-     * @param {boolean} isDelta     Whether the number represents a relative change (true) or an absolute change (false)
-     * @param {boolean} isBar       Whether the new value is part of an attribute bar, or just a direct value
+     * @param attribute The attribute path
+     * @param value     The target attribute value
+     * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
+     * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
     async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
         if (value === undefined || value === null || Number.isNaN(value)) {
@@ -977,6 +965,23 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updateShieldData._id = shield._id;
                     updateShieldData.data.hp.value = shieldHitPoints;
+                } else if (this.data.data.attributes.shield.max) {
+                    // NPC with no shield but pre-existing shield data
+                    const shieldData = this.data.data.attributes.shield;
+                    const currentHitPoints = Number(shieldData.value);
+                    const maxHitPoints = Number(shieldData.max);
+                    let shieldHitPoints = currentHitPoints;
+                    if (isDelta && value < 0) {
+                        // shield block
+                        value = Math.min(Number(shieldData.hardness) + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+                        if (value < 0) {
+                            attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
+                            shieldHitPoints = Math.clamped(currentHitPoints + value, 0, maxHitPoints);
+                        }
+                    } else {
+                        shieldHitPoints = Math.clamped(value, 0, maxHitPoints);
+                    }
+                    updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                 } else if (isDelta) {
                     attribute = 'attributes.hp'; // actor has no shield, apply the specified delta value to actor instead
                 }
@@ -1001,7 +1006,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             return this.update(updateActorData).then(() => {
                 if (updateShieldData._id !== '') {
                     // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-                    this.updateOwnedItem(updateShieldData, { diff: false });
+                    this.updateOwnedItem(updateShieldData);
                 }
                 return this;
             });
@@ -1018,10 +1023,10 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      */
     async transferItemToActor(
         targetActor: ActorPF2e,
-        item: ItemPF2e,
+        item: Owned<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<PhysicalItemPF2e | void> {
+    ): Promise<Owned<PhysicalItemPF2e> | void> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
@@ -1082,10 +1087,13 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         if (result === null) {
             return;
         }
+        const movedItem = targetActor.items.get(result._id);
+        if (!(movedItem instanceof PhysicalItemPF2e)) {
+            return;
+        }
+        await targetActor.stashOrUnstash(movedItem, containerId);
 
-        const itemInTargetActor = targetActor.getOwnedItem(result._id) as PhysicalItemPF2e;
-
-        return ActorPF2e.stashOrUnstash(targetActor, async () => itemInTargetActor, containerId);
+        return item;
     }
 
     /**
@@ -1094,27 +1102,17 @@ export class ActorPF2e extends Actor<ItemPF2e> {
      * @param getItem     Lambda returning the item.
      * @param containerId Id of the container that will contain the item.
      */
-    static async stashOrUnstash<ItemType extends PhysicalItemPF2e = PhysicalItemPF2e>(
-        actor: ActorPF2e,
-        getItem: () => Promise<ItemType>,
-        containerId?: string,
-    ): Promise<ItemType> {
-        const item = await getItem();
-        if (!item) return Promise.reject();
-
+    async stashOrUnstash(item: PhysicalItemPF2e, containerId?: string): Promise<void> {
         if (containerId) {
-            const physicalItemsData = actor.data.items.filter(isPhysicalItem) as PhysicalItemData[];
-            if (!isCycle(item.id, containerId, physicalItemsData)) {
-                return item.update({
+            if (!isCycle(item.id, containerId, [item.data])) {
+                await item.update({
                     'data.containerId.value': containerId,
                     'data.equipped.value': false,
                 });
             }
-            return item;
+        } else {
+            await item.update({ 'data.containerId.value': '' });
         }
-        await item.update({ 'data.containerId.value': '' });
-
-        return item;
     }
 
     /**

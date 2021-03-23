@@ -123,6 +123,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.weaponTraits = traits.map(
                 (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
             );
+            data.baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
@@ -404,7 +405,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     private async addDamageRoll(event: JQuery.TriggeredEvent) {
         event.preventDefault();
-        const newKey = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+        const newKey = randomID(20);
         const newDamageRoll = {
             damage: '',
             damageType: '',
@@ -476,8 +477,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         });
 
         html.find('.add-skill-variant').on('click', (_event) => {
-            const variants =
-                (this.actor?.items?.get(this?.entity?.id ?? '')?.data.data as LoreDetailsData)?.variants ?? {};
+            const variants = (this.actor?.items?.get(this.entity.id)?.data.data as LoreDetailsData)?.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
@@ -585,5 +585,27 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         }
 
         return flattenObject(data); // return the flattened submission data
+    }
+
+    /**
+     * Hide the sheet-config button unless there is more than one sheet option.
+     * @override */
+    protected _getHeaderButtons(): ApplicationHeaderButton[] {
+        const buttons = super._getHeaderButtons();
+        const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
+        const sheetButton = buttons.find((button) => button.class === 'configure-sheet');
+        if (!hasMultipleSheets && sheetButton) {
+            buttons.splice(buttons.indexOf(sheetButton), 1);
+        }
+        return buttons;
+    }
+
+    /** @override */
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Avoid setting a baseItem of an empty string
+        if (formData['data.baseItem'] === '') {
+            formData['data.baseItem'] = null;
+        }
+        super._updateObject(event, formData);
     }
 }
