@@ -480,7 +480,7 @@ export class DiceModifierPF2e implements RawModifier {
             this.category ??= DamageCategory.fromDamageType(this.damageType);
         }
 
-        this.predicate = param.predicate ?? new ModifierPredicate(param?.predicate); // options is the old name for this field
+        this.predicate = new ModifierPredicate(param?.predicate);
         this.ignored = ModifierPredicate.test!(this.predicate);
         this.enabled = this.ignored;
     }
