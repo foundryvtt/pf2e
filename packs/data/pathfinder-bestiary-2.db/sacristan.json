@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 10 ",
+                "details": "regeneration 10 (deactivated by good or silver)",
                 "max": 175,
                 "min": 0,
                 "temp": 0,
@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "LE"
@@ -155,6 +156,46 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 283"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 29,
+                        "value": 19
+                    }
+                }
+            },
+            "qBIJw1s6aIrNQQaJ": {
+                "data": {
+                    "spelldc": {
+                        "dc": 29,
+                        "value": 19
+                    }
+                }
             }
         },
         "martial": {
@@ -404,6 +445,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -488,6 +532,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -550,6 +597,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -581,7 +629,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "XTdVfUMrqjrf4njv",
+            "_id": "TefNOks0Dhbbymy8",
             "data": {
                 "ability": {
                     "value": ""
@@ -589,6 +637,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -598,7 +649,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "5d6"
+                    "value": "7d6"
                 },
                 "damageType": {
                     "value": "cold"
@@ -606,16 +657,16 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
+                    "value": "<p>You shoot an utterly cold ray of darkness tinged with unholy energy. Make a ranged spell attack against the target. You deal 5d6 cold damage, plus 5d6 evil damage if the target is a celestial.</p>\n<p>If the ray passes through an area of magical light or targets a creature affected by magical light, chilling darkness attempts to counteract the light. If you need to determine whether the ray passes through an area of light, draw a line between yourself and the spell's target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage.</p>\n<p><strong>Success</strong> The target takes full damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The cold damage increases by 2d6, and the evil damage against celestials increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "qBIJw1s6aIrNQQaJ"
@@ -624,6 +675,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -638,14 +692,24 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chilling-darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=36"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -679,20 +743,21 @@
                         "evil",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.sRfSBHWHdbIa0aGc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chilling-darkness.jpg",
             "name": "Chilling Darkness",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "pe8tJon70hYXgWJ8",
+            "_id": "kCFPpZ4UlJYM6n4h",
             "data": {
                 "ability": {
                     "value": ""
@@ -700,6 +765,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -712,12 +780,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -726,7 +794,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "3"
+                    "value": 3
                 },
                 "location": {
                     "value": "qBIJw1s6aIrNQQaJ"
@@ -735,6 +803,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -755,8 +826,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -792,13 +873,14 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
             "img": "systems/pf2e/icons/spells/fear.jpg",
             "name": "Fear",
             "sort": 300000,
@@ -813,6 +895,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 22,
                     "value": 22
@@ -834,23 +917,19 @@
                     "die": "2d8+9"
                 },
                 "damageRolls": {
-                    "nk07a8tidmlm96gqpzqm": {
+                    "y5b0ksjy41vja7srw9mo": {
                         "damage": "2d8+9",
                         "damageType": "piercing"
                     },
-                    "yttk3uu18rdsmkxysxyh": {
+                    "iix1rlbbjklbnjwidway": {
                         "damage": "1d6",
                         "damageType": "evil"
-                    },
-                    "ombvmatubgqqtvixs65g": {
-                        "damage": "2d6",
-                        "damageType": "persistentbleed"
                     }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -928,6 +1007,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -944,7 +1024,7 @@
                         "magical",
                         "reach-10",
                         "trip",
-                        "versatile S"
+                        "versatile-s"
                     ]
                 },
                 "usage": {
@@ -960,6 +1040,57 @@
             "name": "Barbed Chain",
             "sort": 400000,
             "type": "melee"
+        },
+        {
+            "_id": "urEbuoDUEyOj6f0A",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "ulrrbkt4l6SBi1z8",
@@ -985,6 +1116,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1012,7 +1144,70 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Painsight",
-            "sort": 500000,
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "fuxGM2FMqoHqXPJ4",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1030,7 +1225,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>30 feet. When a creature ends its turn in the aura, it sees a vision of the sacristan groveling in pitiable servitude. The creature must succeed at a DC 27 Will save or become @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>"
+                    "value": "<p>30 feet.</p>\n<p>When a creature ends its turn in the aura, it sees a vision of the sacristan groveling in pitiable servitude. The creature must succeed at a DC 27 Will save or become @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1039,6 +1234,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1070,11 +1266,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Staggering Servitude",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
-            "_id": "eQlkjded3EQQcrYD",
+            "_id": "kCNQjJs87QDFBoGR",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1088,7 +1284,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1097,6 +1293,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -1110,22 +1307,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 700000,
+            "sort": 900000,
             "type": "action"
         },
         {
-            "_id": "UdrAz7hZnb9HCvPM",
+            "_id": "IHM0ZFUpH2qKKM7E",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1139,7 +1337,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1148,6 +1346,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -1161,18 +1360,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 800000,
+            "name": "Regeneration 10 (deactivated by good or silver)",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1199,6 +1399,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1230,7 +1431,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Focus Gaze",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1243,12 +1444,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per hour; <strong>Effect</strong> The sacristan opens their mouth to unloose the wailing howls and mind-twisting darkness of the Shadow Plane. This creates a 30-foot emanation of darkness and wailing sounds around the sacristan. Creatures with @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision} can't see through this darkness. The sacristan can Sustain Shadow Scream for up to 1 minute. Non-velstrac creatures in the area when the ability is used, as well as those who enter or start their turn in the area, must attempt a DC 28 Will save. <br /><strong>Critical Success</strong> The creature is unaffected and is then temporarily immune for 24 hours. <br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round. <br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} and deafened for 1 round. <br /><strong>Critical Failure</strong> The creature takes [[/r 20 # mental damage]] mental damage, and is confused and deafened for 1 round.</p>"
+                    "value": "<p><strong>Frequency</strong> once per hour;</p>\n<p><strong>Effect</strong> The sacristan opens their mouth to unloose the wailing howls and mind-twisting darkness of the Shadow Plane. This creates a 30-foot emanation of darkness and wailing sounds around the sacristan. Creatures with @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision} can't see through this darkness. The sacristan can Sustain Shadow Scream for up to 1 minute. Non-velstrac creatures in the area when the ability is used, as well as those who enter or start their turn in the area, must attempt a DC 28 Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is then temporarily immune for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Confused]{Confused} and deafened for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes [[/r 20 #mental]] mental damage, and is confused and deafened for 1 round.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1257,6 +1458,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1287,9 +1489,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Shadow Scream",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1313,6 +1515,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1331,7 +1534,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1355,6 +1558,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1373,7 +1577,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1200000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1397,6 +1601,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1415,7 +1620,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1300000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1439,6 +1644,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1457,7 +1663,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1481,6 +1687,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1499,7 +1706,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Torture Lore",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         }
     ],
@@ -1508,7 +1715,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7oiIDnLBDpC2r2AA",
         "actorLink": false,
         "bar1": {
@@ -1527,6 +1733,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Sacristan",
         "randomImg": false,
