@@ -2,6 +2,7 @@ import { compendiumBrowser } from '../packs/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
+import { CharacterPF2e } from '@actor/character';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
@@ -102,6 +103,21 @@ export function registerSettings() {
         scope: 'world',
         onChange: () => {
             compendiumBrowser.loadSettings();
+        },
+    });
+    game.settings.register('pf2e', 'pfsSheetTab', {
+        name: 'PF2E.SETTINGS.PFSSheetTab.Name',
+        hint: 'PF2E.SETTINGS.PFSSheetTab.Hint',
+        scope: 'world',
+        config: true,
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            const actors = game.actors.filter((actor) => actor instanceof CharacterPF2e);
+            const sheets = actors.flatMap((actor) => Object.values(actor.apps));
+            for (const sheet of sheets) {
+                sheet.render();
+            }
         },
     });
     game.settings.register('pf2e', 'enabledRulesUI', {
