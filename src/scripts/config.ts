@@ -632,6 +632,7 @@ export const PF2ECONFIG = {
         cursed: 'PF2E.TraitCursed',
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
+        'deadly-2d8': 'PF2E.TraitDeadly2D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-d12': 'PF2E.TraitDeadlyD12',
         disarm: 'PF2E.TraitDisarm',
