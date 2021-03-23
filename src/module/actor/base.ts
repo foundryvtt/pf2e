@@ -735,7 +735,11 @@ export class ActorPF2e extends Actor<ItemPF2e> {
                 attribute === 'attributes.shield'
                     ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
                     : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
-            for (const t of canvas.tokens.controlled) {
+            for (const token of canvas.tokens.controlled) {
+                const actor = token.actor;
+                if (!actor) {
+                    continue;
+                }
                 const appliedResult =
                     value > 0
                         ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
@@ -754,20 +758,16 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             </div>
             <div class="dice-total" style="padding: 0 10px; word-break: normal;">
               <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
-                ${t.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
+                ${token.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
               </span>
             </div>
           </div>
           </div>
           `;
-                if (!t.actor) {
-                    return false;
-                }
-
-                t.actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
+                actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
                     ChatMessage.create({
                         user: game.user._id,
-                        speaker: { alias: t.name },
+                        speaker: { alias: token.name },
                         content: message,
                         type: CONST.CHAT_MESSAGE_TYPES.OTHER,
                     });
