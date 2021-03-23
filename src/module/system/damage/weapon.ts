@@ -328,11 +328,19 @@ export class PF2WeaponDamage {
         traits
             .filter((t) => t.name.startsWith('deadly-'))
             .forEach((t) => {
+                const deadly = t.name.substring(t.name.indexOf('-') + 1);
+                const diceNumber = (() => {
+                    if (deadly.match(/\d+d\d+/)) {
+                        return parseInt(deadly.substring(0, deadly.indexOf('d')), 10);
+                    } else {
+                        return strikingDice > 1 ? strikingDice : 1;
+                    }
+                })();
                 diceModifiers.push(
                     new PF2DiceModifier({
                         name: CONFIG.PF2E.weaponTraits[t.name],
-                        diceNumber: strikingDice > 1 ? strikingDice : 1,
-                        dieSize: t.name.substring(t.name.indexOf('-') + 1) as DamageDieSize,
+                        diceNumber,
+                        dieSize: deadly.substring(deadly.indexOf('d')) as DamageDieSize,
                         critical: true,
                     }),
                 );
