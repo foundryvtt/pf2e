@@ -38,10 +38,10 @@ export class LootPF2e extends ActorPF2e {
     /** @override */
     async transferItemToActor(
         targetActor: ActorPF2e,
-        item: ItemPF2e,
+        item: Owned<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<PhysicalItemPF2e | void> {
+    ): Promise<Owned<PhysicalItemPF2e> | void> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);

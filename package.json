@@ -1,7 +1,7 @@
 {
     "private": true,
     "name": "foundry-pf2e",
-    "version": "1.11.15",
+    "version": "1.11.16",
     "description": "",
     "scripts": {
         "build": "npm run build:packs && webpack --mode production",
@@ -10,18 +10,18 @@
         "extractPacks": "ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts",
         "pretest": "eslint ./src --ext .ts",
         "test": "jest",
-        "posttest": "betterer",
+        "posttest": "npm run betterer",
         "migrate": "ts-node -r tsconfig-paths/register ./packs/scripts/run-migration.ts",
         "lint": "eslint ./src --ext .ts",
         "lint:fix": "eslint ./src --ext .ts --fix",
         "docs": "typedoc",
-        "betterer": "betterer"
+        "betterer": "betterer --strict"
     },
     "author": "",
     "license": "",
     "devDependencies": {
-        "@betterer/cli": "^4.1.1",
-        "@betterer/typescript": "^4.1.1",
+        "@betterer/cli": "^4.1.3",
+        "@betterer/typescript": "^4.1.3",
         "@types/copy-webpack-plugin": "^6.4.0",
         "@types/css-minimizer-webpack-plugin": "^1.1.1",
         "@types/dompurify": "^2.2.1",

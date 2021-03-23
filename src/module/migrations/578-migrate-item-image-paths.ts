@@ -1,8 +1,9 @@
 import { MigrationBase } from './base';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 export class Migration578MigrateItemImagePaths extends MigrationBase {
     static version = 0.578;
-    async updateItem(item: any, actor?: any) {
+    async updateItem(item: ItemDataPF2e) {
         const itemImage = item.img;
 
         // folder name change

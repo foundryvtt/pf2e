@@ -4,7 +4,6 @@ declare interface BaseEntityData {
     _id: string;
     name: string;
     flags: Record<string, any>;
-    folder: string | null | undefined;
     permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
     img: string;
 }
@@ -29,7 +28,9 @@ declare interface EntityClassConfig<E extends Entity> {
 }
 
 declare type EntityUpdateData<D extends BaseEntityData> = Partial<D> | { [key: string]: unknown };
-declare type EmbeddedEntityUpdateData = BaseEntityData | { _id: string; [key: string]: unknown };
+declare type EmbeddedEntityUpdateData =
+    | (Partial<BaseEntityData> & { _id: string })
+    | { _id: string; [key: string]: unknown };
 
 declare interface EntityUpdateOptions {
     diff?: boolean;
@@ -78,7 +79,7 @@ declare class Entity {
      * its data. The keys of this object are the application ids and the values are Application instances. Each
      * Application in this object will have its render method called by {@link Entity#render}.
      */
-    apps: Application;
+    apps: Record<number, Application>;
 
     /**
      * The Entity may optionally belong to a parent Compendium pack. If so this attribute will contain a reference
@@ -444,12 +445,12 @@ declare class Entity {
         embeddedName: string,
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
-    ): Promise<BaseEntityData>;
+    ): Promise<EmbeddedEntityData | BaseEntityData | TokenData>;
     updateEmbeddedEntity(
         embeddedName: string,
-        updateData: EmbeddedEntityUpdateData[],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
-    ): Promise<BaseEntityData | BaseEntityData[]>;
+    ): Promise<EmbeddedEntityData | EmbeddedEntityData[] | BaseEntityData | BaseEntityData[] | TokenData | TokenData[]>;
 
     /**
      * Delete one or multiple existing EmbeddedEntity objects using provided input data.
@@ -474,12 +475,16 @@ declare class Entity {
      * const deletions = weapons.map(i => i._id);
      * const deleted = await actor.deleteEmbeddedEntity("OwnedItem", deletions); // Deletes multiple EmbeddedEntity objects
      */
-    deleteEmbeddedEntity(embeddedName: string, dataId: string, options?: EntityDeleteOptions): Promise<BaseEntityData>;
     deleteEmbeddedEntity(
         embeddedName: string,
-        dataId: string[],
+        dataId: string,
         options?: EntityDeleteOptions,
-    ): Promise<BaseEntityData | BaseEntityData[]>;
+    ): Promise<EmbeddedEntityData | BaseEntityData>;
+    deleteEmbeddedEntity(
+        embeddedName: string,
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<EmbeddedEntityData | EmbeddedEntityData[] | BaseEntityData | BaseEntityData[]>;
 
     /**
      * Handle Embedded Entity creation within this Entity with specific callback steps.
@@ -513,9 +518,17 @@ declare class Entity {
 
     /**
      * Handle Embedded Entity deletion within this Entity with specific callback steps.
-     * This callback function is triggered by Collection._deleteEmbeddedEntity once the source data is updated.
+     * This function is triggered once per EmbeddedEntity which is updated.
+     * It therefore may run multiple times per creation workflow.
+     * Any steps defined here should run on a per-EmbeddedEntity basis.
+     * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
      */
-    protected _onDeleteEmbeddedEntity(response: any): void;
+    protected _onDeleteEmbeddedEntity(
+        embeddedName: string,
+        child: BaseEntityData | EmbeddedEntityData,
+        options: EntityDeleteOptions,
+        userId: string,
+    ): void;
 
     /**
      * A generic helper since we take the same actions for every type of Embedded Entity update

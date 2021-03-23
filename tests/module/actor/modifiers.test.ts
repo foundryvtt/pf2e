@@ -2,29 +2,29 @@ import each from 'jest-each';
 import {
   STRENGTH, DEXTERITY, CONSTITUTION, INTELLIGENCE, WISDOM, CHARISMA,
   UNTRAINED, TRAINED, EXPERT, MASTER, LEGENDARY,
-  AbilityModifier, ProficiencyModifier, ModifierType, ModifierPF2e, StatisticModifier,
+  AbilityModifier, ProficiencyModifier, MODIFIER_TYPE, ModifierPF2e, StatisticModifier,
   ModifierPredicate
-} from '../../../src/module/modifiers';
+} from '@module/modifiers';
 
 describe('#modifiers', () => {
   each([
-    [STRENGTH.withScore(10), ModifierType.ABILITY],
-    [DEXTERITY.withScore(10), ModifierType.ABILITY],
-    [CONSTITUTION.withScore(10), ModifierType.ABILITY],
-    [INTELLIGENCE.withScore(10), ModifierType.ABILITY],
-    [WISDOM.withScore(10), ModifierType.ABILITY],
-    [CHARISMA.withScore(10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('str', 10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('dex', 10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('con', 10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('int', 10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('wis', 10), ModifierType.ABILITY],
-    [AbilityModifier.fromAbilityScore('cha', 10), ModifierType.ABILITY],
-    [UNTRAINED.atLevel(1), ModifierType.PROFICIENCY],
-    [TRAINED.atLevel(1), ModifierType.PROFICIENCY],
-    [EXPERT.atLevel(1), ModifierType.PROFICIENCY],
-    [MASTER.atLevel(1), ModifierType.PROFICIENCY],
-    [LEGENDARY.atLevel(1), ModifierType.PROFICIENCY],
+    [STRENGTH.withScore(10), MODIFIER_TYPE.ABILITY],
+    [DEXTERITY.withScore(10), MODIFIER_TYPE.ABILITY],
+    [CONSTITUTION.withScore(10), MODIFIER_TYPE.ABILITY],
+    [INTELLIGENCE.withScore(10), MODIFIER_TYPE.ABILITY],
+    [WISDOM.withScore(10), MODIFIER_TYPE.ABILITY],
+    [CHARISMA.withScore(10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('str', 10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('dex', 10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('con', 10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('int', 10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('wis', 10), MODIFIER_TYPE.ABILITY],
+    [AbilityModifier.fromAbilityScore('cha', 10), MODIFIER_TYPE.ABILITY],
+    [UNTRAINED.atLevel(1), MODIFIER_TYPE.PROFICIENCY],
+    [TRAINED.atLevel(1), MODIFIER_TYPE.PROFICIENCY],
+    [EXPERT.atLevel(1), MODIFIER_TYPE.PROFICIENCY],
+    [MASTER.atLevel(1), MODIFIER_TYPE.PROFICIENCY],
+    [LEGENDARY.atLevel(1), MODIFIER_TYPE.PROFICIENCY],
   ]).test('ensure modifier %s has type %s', (modifier, expectedType) => {
     expect(modifier.type).toBe(expectedType);
   });
@@ -104,13 +104,13 @@ describe('#modifiers', () => {
     const modifiers = [
       DEXTERITY.withScore(14),
       TRAINED.atLevel(3),
-      new ModifierPF2e('Status Bonus', 2, ModifierType.STATUS),
-      new ModifierPF2e('Status Penalty', -1, ModifierType.STATUS),
-      new ModifierPF2e('Item Bonus', 2, ModifierType.ITEM),
-      new ModifierPF2e('Item Penalty', -1, ModifierType.ITEM),
-      new ModifierPF2e('Circumstance Bonus', 2, ModifierType.CIRCUMSTANCE),
-      new ModifierPF2e('Circumstance Penalty', -1, ModifierType.CIRCUMSTANCE),
-      new ModifierPF2e('Untyped Penalty', -1, ModifierType.UNTYPED),
+      new ModifierPF2e('Status Bonus', 2, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Status Penalty', -1, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Item Bonus', 2, MODIFIER_TYPE.ITEM),
+      new ModifierPF2e('Item Penalty', -1, MODIFIER_TYPE.ITEM),
+      new ModifierPF2e('Circumstance Bonus', 2, MODIFIER_TYPE.CIRCUMSTANCE),
+      new ModifierPF2e('Circumstance Penalty', -1, MODIFIER_TYPE.CIRCUMSTANCE),
+      new ModifierPF2e('Untyped Penalty', -1, MODIFIER_TYPE.UNTYPED),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(9);
@@ -118,9 +118,9 @@ describe('#modifiers', () => {
 
   test('enable only highest bonus when stacking applied for overlapping modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Status Bonus 1', 1, ModifierType.STATUS),
-      new ModifierPF2e('Status Bonus 2', 2, ModifierType.STATUS),
-      new ModifierPF2e('Status Bonus 3', 3, ModifierType.STATUS),
+      new ModifierPF2e('Status Bonus 1', 1, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Status Bonus 2', 2, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Status Bonus 3', 3, MODIFIER_TYPE.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(3);
@@ -128,8 +128,8 @@ describe('#modifiers', () => {
 
   test('enable only last bonus of a type when stacking applied for overlapping and equal modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('First Status Bonus', 2, ModifierType.STATUS),
-      new ModifierPF2e('Second Status Bonus', 2, ModifierType.STATUS),
+      new ModifierPF2e('First Status Bonus', 2, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Second Status Bonus', 2, MODIFIER_TYPE.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(2);
@@ -139,9 +139,9 @@ describe('#modifiers', () => {
 
   test('enable only lowest penalty when stacking applied for overlapping modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Status Penalty -1', -1, ModifierType.STATUS),
-      new ModifierPF2e('Status Penalty -2', -2, ModifierType.STATUS),
-      new ModifierPF2e('Status Penalty -3', -3, ModifierType.STATUS),
+      new ModifierPF2e('Status Penalty -1', -1, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Status Penalty -2', -2, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Status Penalty -3', -3, MODIFIER_TYPE.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-3);
@@ -149,8 +149,8 @@ describe('#modifiers', () => {
 
   test('enable only last penalty of a type when stacking applied for overlapping and equal modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('First Status Penalty', -2, ModifierType.STATUS),
-      new ModifierPF2e('Second Status Penalty', -2, ModifierType.STATUS),
+      new ModifierPF2e('First Status Penalty', -2, MODIFIER_TYPE.STATUS),
+      new ModifierPF2e('Second Status Penalty', -2, MODIFIER_TYPE.STATUS),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-2);
@@ -160,8 +160,8 @@ describe('#modifiers', () => {
 
   test('ensure untyped penalties always are enabled and stacks', () => {
     const modifiers = [
-      new ModifierPF2e('First Untyped Penalty', -2, ModifierType.UNTYPED),
-      new ModifierPF2e('Second Untyped Penalty', -2, ModifierType.UNTYPED),
+      new ModifierPF2e('First Untyped Penalty', -2, MODIFIER_TYPE.UNTYPED),
+      new ModifierPF2e('Second Untyped Penalty', -2, MODIFIER_TYPE.UNTYPED),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.totalModifier).toBe(-4);
@@ -169,8 +169,8 @@ describe('#modifiers', () => {
 
   test('ensure deduplication of similarly named modifiers', () => {
     const modifiers = [
-      new ModifierPF2e('Test Bonus', 2, ModifierType.ABILITY),
-      new ModifierPF2e('Test Bonus', 2, ModifierType.PROFICIENCY),
+      new ModifierPF2e('Test Bonus', 2, MODIFIER_TYPE.ABILITY),
+      new ModifierPF2e('Test Bonus', 2, MODIFIER_TYPE.PROFICIENCY),
     ];
     const stat = new StatisticModifier('Test Stat', modifiers);
     expect(stat.modifiers.length).toBe(1);

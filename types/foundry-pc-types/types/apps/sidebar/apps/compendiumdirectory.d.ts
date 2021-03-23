@@ -1,9 +1,3 @@
-declare interface EntryContextOption {
-    name: string;
-    icon: string;
-    callback: (li: JQuery<HTMLLIElement>) => Promise<boolean>;
-}
-
 declare class CompendiumDirectory extends SidebarTab {
     /** @override */
     static get defaultOptions(): typeof SidebarTab['defaultOptions'] & {

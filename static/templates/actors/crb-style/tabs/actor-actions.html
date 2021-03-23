@@ -43,11 +43,11 @@
                                         {{#each action.variants as |variant vi|}}
                                         <button type="button" class="tag variant-strike" data-variant-index="{{vi}}">{{variant.label}}</button>
                                         {{/each}}
-                                        <button type="button" class="tag damage-strike">{{localize 'Damage'}}</button>
-                                        <button type="button" class="tag critical-strike">{{localize 'Critical'}}</button>
+                                        <button type="button" class="tag damage-strike">{{localize 'PF2E.DamageLabel'}}</button>
+                                        <button type="button" class="tag critical-strike">{{localize 'PF2E.CriticalDamageLabel'}}</button>
                                         {{#if action.ammo}}
                                         <select name="ammo-used">
-                                            <option value="">No ammo</option>
+                                            <option value="">{{localize 'PF2E.NoAmmoLabel'}}</option>
                                             {{#each action.ammo as |item|}}
                                             <option value="{{ item._id }}" {{#if (eq action.selectedAmmoId item._id)}}selected{{/if}}>{{ item.name }} ({{ item.data.quantity.value }})</option>
                                             {{/each}}
@@ -69,7 +69,7 @@
                                 </div>
                                 <div class="item-properties tags">
                                     {{#each action.traits as |trait|}}
-                                    <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{trait.label}}</span>
+                                    <span class="tag tag_secondary {{trait.cssClass}}" {{#if trait.description}}title="{{trait.description}}"{{/if}} {{#if trait.toggle}}data-roll-name="{{trait.rollName}}" data-roll-option="{{trait.rollOption}}"{{/if}}>{{trait.label}}</span>
                                     {{/each}}
                                 </div>
                             </div>

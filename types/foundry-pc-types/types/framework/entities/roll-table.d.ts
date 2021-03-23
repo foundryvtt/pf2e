@@ -15,6 +15,7 @@ declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
     formula: boolean;
     replacement: true;
     results: any[];
+    folder?: string | null;
     sort: number;
 }
 

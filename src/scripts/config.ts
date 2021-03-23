@@ -8,6 +8,8 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { SpellPF2e } from '@module/item/spell';
+import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import {
     ActionPF2e,
@@ -20,8 +22,6 @@ import {
     LorePF2e,
     MartialPF2e,
     MeleePF2e,
-    SpellPF2e,
-    SpellcastingEntryPF2e,
     TreasurePF2e,
 } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
@@ -632,6 +632,7 @@ export const PF2ECONFIG = {
         cursed: 'PF2E.TraitCursed',
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
+        'deadly-2d8': 'PF2E.TraitDeadly2D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-d12': 'PF2E.TraitDeadlyD12',
         disarm: 'PF2E.TraitDisarm',
@@ -708,6 +709,7 @@ export const PF2ECONFIG = {
         'reach-15': 'PF2E.TraitReach15',
         'reach-20': 'PF2E.TraitReach20',
         'reach-25': 'PF2E.TraitReach25',
+        'reach-30': 'PF2E.TraitReach30',
         'reload-0': 'PF2E.TraitReload0',
         'reload-1': 'PF2E.TraitReload1',
         'reload-2': 'PF2E.TraitReload2',
@@ -724,6 +726,7 @@ export const PF2ECONFIG = {
         'thrown-20': 'PF2E.TraitThrown20',
         'thrown-30': 'PF2E.TraitThrown30',
         'thrown-40': 'PF2E.TraitThrown40',
+        'thrown-60': 'PF2E.TraitThrown60',
         trip: 'PF2E.TraitTrip',
         twin: 'PF2E.TraitTwin',
         'two-hand-d8': 'PF2E.TraitTwoHandD8',
@@ -1098,6 +1101,7 @@ export const PF2ECONFIG = {
         'reach-15': 'PF2E.TraitDescriptionReach15',
         'reach-20': 'PF2E.TraitDescriptionReach20',
         'reach-25': 'PF2E.TraitDescriptionReach25',
+        'reach-30': 'PF2E.TraitDescriptionReach30',
         shove: 'PF2E.TraitDescriptionShove',
         sweep: 'PF2E.TraitDescriptionSweep',
         tethered: 'PF2E.TraitDescriptionTethered',

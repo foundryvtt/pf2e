@@ -8,7 +8,8 @@ import { CharacterPF2e } from '../character';
 import { PhysicalItemPF2e } from '@item/physical';
 import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
-import { SpellPF2e, SpellcastingEntryPF2e } from '@item/others';
+import { SpellPF2e } from '@item/spell';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 
 /**
@@ -127,6 +128,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
+        // Show the PFS tab only if the setting for it is enabled.
+        sheetData.showPFSTab = game.settings.get('pf2e', 'pfsSheetTab');
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
@@ -174,11 +177,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [], bonusFeats: [] },
             ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
             class: { label: 'PF2E.FeatClassHeader', feats: [], bonusFeats: [] },
+            archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
             skill: { label: 'PF2E.FeatSkillHeader', feats: [], bonusFeats: [] },
             general: { label: 'PF2E.FeatGeneralHeader', feats: [], bonusFeats: [] },
-            // archetype: { label: 'PF2E.FeatArchetypeHeader', feats: [], bonusFeats: [] },
             bonus: { label: 'PF2E.FeatBonusHeader', feats: [], bonusFeats: [] },
         };
+        if (game.settings.get('pf2e', 'freeArchetypeVariant')) {
+            for (let level = 2; level <= actorData.data.details.level.value; level += 2) {
+                featSlots.archetype.feats.push({ id: `archetype-${level}`, level: `${level}` });
+            }
+        } else {
+            // Use delete so it is in the right place on the sheet
+            delete featSlots.archetype;
+        }
         const pfsBoons: FeatData[] = [];
         const deityBoonsCurses: FeatData[] = [];
 
@@ -455,6 +466,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 featSlots.class.feats = mapFeatLevels(classItem.data.classFeatLevels?.value, 'class');
                 featSlots.skill.feats = mapFeatLevels(classItem.data.skillFeatLevels?.value, 'skill');
                 featSlots.general.feats = mapFeatLevels(classItem.data.generalFeatLevels?.value, 'general');
+            }
+        }
+
+        if (game.settings.get('pf2e', 'ancestryParagonVariant')) {
+            featSlots.ancestry.feats.unshift({
+                id: 'ancestry-bonus',
+                level: '1',
+            });
+            for (let level = 3; level <= actorData.data.details.level.value; level += 4) {
+                const index = (level + 1) / 2;
+                featSlots.ancestry.feats.splice(index, 0, { id: `ancestry-${level}`, level: `${level}` });
             }
         }
 
@@ -881,7 +903,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (feat.data.traits.value.includes('skill')) {
                 return featSlotType === 'skill';
             } else {
-                return featSlotType === 'class';
+                return ['class', 'archetype'].includes(featSlotType);
             }
         }
 

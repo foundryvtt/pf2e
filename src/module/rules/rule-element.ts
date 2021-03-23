@@ -49,7 +49,7 @@ export abstract class PF2RuleElement {
      * multiple times onto a canvas. Works similar to actorUpdates and used if you want to change values on the token
      * object
      */
-    onCreate(actorData: CreatureData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {}
+    onCreate(_actorData: CreatureData, _item: ItemDataPF2e, _actorUpdates: any, _tokens: any[]) {}
 
     /**
      * Run after an item holding this rule is removed from an actor. This method is used for cleaning up any values
@@ -60,7 +60,7 @@ export abstract class PF2RuleElement {
      * @param actorUpdates see onCreate
      * @param tokens see onCreate
      */
-    onDelete(actorData: CreatureData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {}
+    onDelete(_actorData: CreatureData, _item: ItemDataPF2e, _actorUpdates: any, _tokens: any[]) {}
 
     /**
      * Run in Actor#prepareDerivedData which is similar to an init method and is the very first thing that is run after
@@ -73,7 +73,7 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -81,7 +81,7 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(actorData: CreatureData, synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.
@@ -90,7 +90,7 @@ export abstract class PF2RuleElement {
      * @param item the item data of the item containing the rule element
      * @param token the token data of the token to be created
      */
-    onCreateToken(actorData: ActorData, item: ItemDataPF2e, token: TokenData) {}
+    onCreateToken(_actorData: ActorData, _item: ItemDataPF2e, _token: TokenData) {}
 
     /**
      * Used to look up the label when displaying a rule effect. By default uses the label field on a rule and if absent
@@ -100,7 +100,7 @@ export abstract class PF2RuleElement {
      * @param item
      * @return human readable label of the rule
      */
-    getDefaultLabel(ruleData, item): string {
+    getDefaultLabel(ruleData, item: ItemDataPF2e): string {
         return game.i18n.localize(ruleData.label ?? item?.name);
     }
 
@@ -132,7 +132,7 @@ export abstract class PF2RuleElement {
             item: itemData,
             rule: ruleData,
         };
-        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (match, obj, prop) => {
+        return (source ?? '').replace(/{(actor|item|rule)\|(.*?)}/g, (_match, obj, prop) => {
             return getProperty(objects[obj] ?? itemData, prop);
         });
     }

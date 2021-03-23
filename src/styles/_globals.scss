@@ -171,6 +171,41 @@ p.compact-text {
 }
 
 /* ----------------------------------------- */
+/* Styled table
+/* ----------------------------------------- */
+table.pf2-table {
+    border: solid 1px #000000;
+    border-collapse: collapse;
+    font-size: 13px;
+    color: #191813;
+    user-select: text;
+
+    thead, tbody, tr, th, td {
+        box-sizing: border-box;
+        user-select: text;
+    }
+
+    tr:nth-child(odd) {
+        background-color: #eee5c8;
+    }
+    tr:nth-child(even) {
+        background-color: #f6f1e1;
+    }
+
+    th {
+        color: white;
+        font-weight: bold;
+        background-color: #522e2c;
+    }
+
+    th, td {
+        border: solid 1px #808080;
+        padding: 6px 15px;
+        text-align: center;
+    }
+}
+
+/* ----------------------------------------- */
 /* PF2E Action Custom Element
 /* ----------------------------------------- */
 [data-pf2-action]:not([data-pf2-action=""]) {

@@ -12,7 +12,7 @@ import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
-    ModifierType,
+    MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
 } from './module/modifiers';
@@ -21,8 +21,8 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
 
 type ItemTypeMap = {
-    [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: InstanceType<
-        ConfigPF2e['PF2E']['Item']['entityClasses'][K]
+    [K in keyof ConfigPF2e['PF2E']['Item']['entityClasses']]: Owned<
+        InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>
     >[];
 };
 
@@ -41,7 +41,7 @@ declare global {
             DicePF2e: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
-            ModifierType: typeof ModifierType;
+            ModifierType: typeof MODIFIER_TYPE;
             Modifier: typeof ModifierPF2e;
             AbilityModifier: typeof AbilityModifier;
             ProficiencyModifier: typeof ProficiencyModifier;
@@ -59,7 +59,7 @@ declare global {
         DicePF2e: typeof DicePF2e;
         PF2eStatusEffects: typeof StatusEffects;
         PF2eConditionManager: typeof ConditionManager;
-        PF2ModifierType: typeof ModifierType;
+        PF2ModifierType: typeof MODIFIER_TYPE;
         PF2Modifier: typeof ModifierPF2e;
         AbilityModifier: typeof AbilityModifier;
         ProficiencyModifier: typeof ProficiencyModifier;
@@ -72,11 +72,18 @@ declare global {
     const canvas: Canvas<ActorPF2e>;
 
     interface ClientSettings {
-        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
-        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
-        get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
+        get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
+        get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
+        get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
+        get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
+        get(module: 'pf2e', setting: 'staminaVariant'): number;
         get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
+        get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
+        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
     }
 
     interface WorldSettingsStorage {

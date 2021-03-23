@@ -1,7 +1,8 @@
 import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
-import { ModifierPF2e, ModifierType } from '../../modifiers';
+import { ModifierPF2e, MODIFIER_TYPE } from '../../modifiers';
 import { ActorPF2e } from '../base';
+import { ItemPF2e } from '@item/base';
 
 /**
  * @category Other
@@ -256,7 +257,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      *  If the creature has limits on how many times or how often it can use an ability
      *  (such as a spellcaster’s spells or a dragon’s Breath Weapon), in/decrease the damage by 4 instead.
      */
-    _applyAdjustmentToData(actorData, increase, adjustBackToNormal) {
+    _applyAdjustmentToData(actorData, increase: boolean, adjustBackToNormal: boolean) {
         const positive = increase ? 1 : -1;
         const mod = 2 * positive;
 
@@ -264,7 +265,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         const customModifiers = actorData.data.customModifiers ?? {};
         customModifiers.all = (customModifiers.all ?? []).filter((m) => !['Weak', 'Elite'].includes(m.name)); // remove existing elite/weak modifier
         if (!adjustBackToNormal) {
-            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, ModifierType.UNTYPED);
+            const modifier = new ModifierPF2e(increase ? 'Elite' : 'Weak', mod, MODIFIER_TYPE.UNTYPED);
             customModifiers.all.push(modifier);
         }
 
@@ -290,13 +291,14 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                 if (attack !== undefined) {
                     item.data.bonus.value = parseInt(attack, 10) + mod;
                     item.data.bonus.total = item.data.bonus.value;
-                    const dmg = getProperty(item.data.damageRolls[0], 'damage');
+                    const firstKey = Object.keys(item.data.damageRolls)[0];
+                    const dmg = item.data.damageRolls[firstKey]?.damage;
                     if (dmg !== undefined) {
                         const lastTwoChars = dmg.slice(-2);
                         if (parseInt(lastTwoChars, 10) === mod * -1) {
-                            item.data.damageRolls[0].damage = dmg.slice(0, -2);
+                            item.data.damageRolls[firstKey].damage = dmg.slice(0, -2);
                         } else {
-                            item.data.damageRolls[0].damage = dmg + (increase ? '+' : '') + mod;
+                            item.data.damageRolls[firstKey].damage = dmg + (increase ? '+' : '') + mod;
                         }
                     }
                 }
@@ -329,15 +331,15 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     }
                 }
             } else if (item.type === 'action') {
-                let actionDescr = getProperty(item.data, 'description.value');
+                let actionDescr: string | undefined = getProperty(item.data, 'description.value');
                 if (actionDescr !== undefined) {
-                    actionDescr = actionDescr.replace(/DC (\d+)+/g, (match, number) => {
+                    actionDescr = actionDescr.replace(/DC (\d+)+/g, (_match, number) => {
                         return `DC ${parseInt(number, 10) + mod}`;
                     });
                     // Assuming that all abilities with damage in the description are damage attacks that cant be done each turn and as increase twice as much.
                     actionDescr = actionDescr.replace(
                         /(\d+)?d(\d+)([+-]\d+)?(\s+[a-z]+[\s.,])?/g,
-                        (match, a, b, c, d) => {
+                        (_match, a, b, c, d) => {
                             // match: '1d4+1 rounds.', a: 1, b: 4, c: '+1', d: ' rounds.'
                             const bonus = parseInt(c, 10);
                             if (d?.substring(1, 7) !== 'rounds') {
@@ -426,15 +428,14 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      * Toggle expansion of an attackEffect ability if it exists.
      *
      */
-    expandAttackEffect(attackEffectName, event, triggerItem) {
+    expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent, triggerItem: ItemPF2e) {
         const actionList = $(event.currentTarget).parents('form').find('.item.action-item');
         let toggledAnything = false;
         const mAbilities = CONFIG.PF2E.monsterAbilities();
-        console.log('PF2e System | mAbilities: ', mAbilities);
-        actionList.each((index, element) => {
+        actionList.each((_index, element) => {
             // 'this' = element found
             if ($(element).attr('data-item-name').trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
-                $(element).find('h4').click();
+                $(element).find('h4').trigger('click');
                 toggledAnything = true;
             }
         });
@@ -443,7 +444,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             if (newAbilityInfo) {
                 const newAction = {
                     name: attackEffectName,
-                    type: 'action',
+                    type: 'action' as const,
                     data: {
                         actionType: { value: newAbilityInfo.actionType },
                         actionCategory: { value: 'offensive' },
@@ -464,14 +465,14 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     }
                 }
 
-                triggerItem.actor.createOwnedItem(newAction, { displaySheet: false });
+                triggerItem.actor?.createOwnedItem(newAction, { displaySheet: false });
             }
         }
     }
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
- /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Activate event listeners using the prepared sheet HTML
@@ -481,23 +482,23 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         super.activateListeners(html);
         if (!this.options.editable) return;
 
-        html.find('.npc-detail-text textarea').focusout(async (event) => {
+        html.find('.npc-detail-text textarea').on('focusout', async (event) => {
             event.target.style.height = '5px';
             event.target.style.height = `${event.target.scrollHeight}px`;
         });
 
-        html.find('.npc-detail-text textarea').each((index, element) => {
+        html.find('.npc-detail-text textarea').each((_index, element) => {
             element.style.height = '5px';
             element.style.height = `${element.scrollHeight}px`;
         });
 
-        html.find<HTMLInputElement>('.isNPCEditable').change((ev) => {
-            this.actor.setFlag('pf2e', 'editNPC', { value: ev.target.checked });
+        html.find<HTMLInputElement>('.isNPCEditable').on('change', (event) => {
+            this.actor.setFlag('pf2e', 'editNPC', { value: event.target.checked });
         });
 
         // NPC Weapon Rolling
 
-        html.find('button.npc-damageroll').click((ev) => {
+        html.find('button.npc-damageroll').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
 
@@ -516,7 +517,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             }
         });
 
-        html.find('button.npc-attackEffect').click((ev) => {
+        html.find('button.npc-attackEffect').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
 
@@ -541,7 +542,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             }
         });
 
-        html.find('a.npc-elite-adjustment').click((e) => {
+        html.find('a.npc-elite-adjustment').on('click', (e) => {
             e.preventDefault();
             console.log(`PF2e System | Adding Elite adjustment to NPC`);
             const eliteButton = $(e.currentTarget);
@@ -550,7 +551,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             weakButton.toggleClass('hidden');
             this.npcAdjustment(eliteButton.hasClass('active'));
         });
-        html.find('a.npc-weak-adjustment').click((e) => {
+        html.find('a.npc-weak-adjustment').on('click', (e) => {
             e.preventDefault();
             console.log(`PF2e System | Adding Weak adjustment to NPC`);
             const weakButton = $(e.currentTarget);

@@ -37,7 +37,7 @@ import './types/apps/placeables/placeables-hud';
 import './types/apps/sidebar/apps/rolltabledirectory';
 import './types/apps/sidebar/apps/actor-directory';
 import './types/apps/sidebar/apps/item-directory';
-import './types/apps/sidebar/apps/chat-log';
+import './types/apps/sidebar/sidebar-tab/chat-log';
 import './types/apps/sidebar/apps/clientsettings';
 import './types/apps/sidebar/apps/combattracker';
 import './types/apps/sidebar/apps/compendiumdirectory';

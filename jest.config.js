@@ -8,10 +8,11 @@ module.exports = {
       '<rootDir>/types/foundry-pc-types',
   ],
   moduleNameMapper: {
-      '^@actor/(.*)$': '<rootDir>/src/actor/$1',
-      '^@item/(.*)$': '<rootDir>/src/item/$1',
+      '^@actor/(.*)$': '<rootDir>/src/module/actor/$1',
+      '^@item/(.*)$': '<rootDir>/src/module/item/$1',
       '^@module/(.*)$': '<rootDir>/src/module/$1',
       '^@scripts/(.*)$': '<rootDir>/src/scripts/$1',
+      '^@system/(.*)$': '<rootDir>/src/module/system/$1',
   },
   setupFiles: [
     './tests/setup.ts',

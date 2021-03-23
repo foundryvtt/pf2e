@@ -103,13 +103,16 @@
             "Impersonate": "Impersonate",
             "Lie": "Lie",
             "LongJump": "Long Jump",
+            "MakeAnImpression": "Make an Impression",
             "ManeuverInFlight": "Maneuver in Flight",
             "RaiseAShield": {
                 "Title": "Raise a Shield",
                 "Content": "{actor} raises their shield.",
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
-                "NoShieldEquipped": "{actor} must have a shield equipped."
+                "NoShieldEquipped": "{actor} must have a shield equipped.",
+                "ShieldIsBroken": "{actor}'s shield is broken."
             },
+            "Request": "Request",
             "Seek": "Seek",
             "Shove": "Shove",
             "Squeeze": "Squeeze",
@@ -362,6 +365,7 @@
         "BulkShortLabel": "Bulk",
         "BulkTypeLight": "Light",
         "CapacityBarLabel": "Capacity",
+        "CastLabel": "Cast",
         "CharacterDetails": "Character Details",
         "CharacterLevelLabel": "Level",
         "CharacterNamePlaceholder": "Character Name",
@@ -841,6 +845,7 @@
         "MacroActionNoActorError": "This actor no longer exists!",
         "MacroActionNoActionError": "This action no longer exists!",
         "MagicTraditionLabel": "Magic Tradition",
+        "MAPAbbreviationLabel": "MAP",
         "MartialAdvanced": "Advanced Weapons",
         "MartialHeavy": "Heavy Armor",
         "MartialLight": "Light Armor",
@@ -918,6 +923,7 @@
             "Treasure": "New Treasure",
             "Weapon": "New Weapon"
         },
+        "NoAmmoLabel": "No Ammo",
         "NoStackGroup": "Does not stack",
         "NoneOption": "None",
         "OneDegreeBetter": "one degree better",
@@ -976,7 +982,7 @@
         "PreciousMaterialSilver": "Silver",
         "PreciousMaterialSovereignSteel": "Sovereign Steel",
         "PreciousMaterialStandardGrade": "Standard-Grade",
-        "PreciousMaterialWarpglass":  "Warpglass",
+        "PreciousMaterialWarpglass": "Warpglass",
         "PreparationTypeInnate": "Innate",
         "PreparationTypePrepared": "Prepared",
         "PreparationTypeSpontaneous": "Spontaneous",
@@ -1107,6 +1113,60 @@
                     "DialogHint": "Show this window only if I shift-click to roll."
                 }
             },
+            "WorldSchemaVersion": {
+                "Name": "Actor Schema Version",
+                "Hint": "Records the schema version for PF2e system actor data. (don't modify this unless you know what you are doing)"
+            },
+            "DefaultTokenSettings": {
+                "Name": "Default Prototype Token Settings",
+                "Hint": "Automatically set advised prototype token settings to newly created Actors."
+            },
+            "DefaultTokenSettingsName": {
+                "Name": "Default Token Name display",
+                "Hint": "The setting for the default token's name display"
+            },
+            "DefaultTokenSettingsBar": {
+                "Name": "Default Token Bar display",
+                "Hint": "The setting for the default token's bar display"
+            },
+            "IgnoreCoinBulk": {
+                "Name": "Coins are weightless",
+                "Hint": "Toggle on to ignore currency weight."
+            },
+            "IgnoreContainerOverflow": {
+                "Name": "Do not combine stacks from different containers when calculating bulk",
+                "Hint": "When enabled, a backpack and belt pouch with each 999 coins will add up to 0 bulk. When disabled, the above example will combine all stacks from all containers together and add up to 1 bulk."
+            },
+            "IdentifyMagicNotMatchingTraditionModifier": {
+                "Name": "Identify Magic Skill Modifier",
+                "Hint": "Modifier to add to Identify Magic Skill DCs if the skill does not match the item's magic tradition",
+                "Choices": {
+                    "0": "0",
+                    "2": "+2",
+                    "5": "+5",
+                    "10": "+10"
+                }
+            },
+            "CritRule": {
+                "Name": "Critical Damage Rule",
+                "Hint": "Use a different rule for doubling damage on a critical hit",
+                "Choices": {
+                    "Doubledamage": "Double the damage",
+                    "Doubledice": "Double the number of dice"
+                }
+            },
+            "CompendiumBrowserPacks": {
+                "Name": "Compendium Browser Packs",
+                "Hint": "Settings to exclude packs from loading"
+            },
+            "PFSSheetTab": {
+                "Name": "Pathfinder Society Sheet Tab",
+                "Hint": "Show the Pathfinder Society tab on character sheets."
+            },
+            "EnabledRulesUI": {
+                "Name": "Advanced Rule Element UI",
+                "Hint": "When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the actors and items if you are not sure what you are doing or make a mistake."
+            },
             "WorldClock": {
                 "Name": "World Clock Settings",
                 "Label": "Configure World Clock",
@@ -1152,6 +1212,60 @@
                     "Name": "Alternative Treat Wounds skills can roll against higher DCs.",
                     "Hint": "When enabled, characters with the Natural Medicine feat or Chirurgeon research field can roll against higher DCs."
                 }
+            },
+            "Variant": {
+                "Name": "Variant Rules",
+                "Label": "Variant Rules Settings",
+                "Hint": "Enable and configure variant rules like Proficiency Without Level or the Stamina system.",
+                "Stamina": {
+                    "Title": "Stamina",
+                    "Name": "Stamina Variant Rules",
+                    "Hint": "Play with the stamina variant from Gamemastery Guide pg 200",
+                    "Choices": {
+                        "0": "Do not use Stamina",
+                        "1": "Use Stamina"
+                    }
+                },
+                "AncestryParagon": {
+                    "Title": "Ancestry Paragon",
+                    "Name": "Ancestry Paragon Variant Rules",
+                    "Hint": "Grant additional feat slots for the ancestry paragon variant from Gamemastery Guide pg 194"
+                },
+                "FreeArchetype": {
+                    "Title": "Free Archetype",
+                    "Name": "Free Archetype Variant Rules",
+                    "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194"
+                },
+                "Proficiency": {
+                    "Title": "Proficiency without Level",
+                    "Name": "Proficiency without Level Variant Rules",
+                    "Hint": "Play with the proficiency without level variant from Gamemastery Guide pg 198.",
+                    "Choices": {
+                        "ProficiencyWithLevel": "Use Default rules",
+                        "ProficiencyWithoutLevel": "Use Variant rules"
+                    }
+                },
+                "UntrainedModifier": {
+                    "Name": "Untrained proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules, recommended with variant rules is -2. Requires recalculation by reload or modifying a value per actor."
+                },
+                "TrainedModifier": {
+                    "Name": "Trained proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "ExpertModifier": {
+                    "Name": "Expert proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "MasterModifier": {
+                    "Name": "Master proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "LegendaryModifier": {
+                    "Name": "Legendary proficiency modifier",
+                    "Hint": "Adjust to your liking to compliment the proficiency without level variant rules. Requires recalculation by reload or modifying a value per actor."
+                },
+                "Title": "Variant Rules Settings"
             }
         },
         "SaveDCLabel": "Save DC",
@@ -1280,6 +1394,7 @@
         "SpellBasicSaveOption": "Basic",
         "SpellBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "SpellCantripLabel": "Cantrip",
+        "SpellCastingFormat": "{preparationType} {tradition} Spells",
         "SpellComponentM": "Material",
         "SpellComponentS": "Somatic",
         "SpellComponentV": "Verbal",
@@ -1421,6 +1536,7 @@
         "TargetFlatFootedLabel": "Target is flat-footed",
         "TempHPTitle": "The amount of temporary hit points you have",
         "TempHitPointsShortLabel": "Temp HP",
+        "TogglesLabel": "Toggles",
         "ToggleSignatureSpellTitle": "Toggle Signature Spell",
         "ToggleSpellVisibilityLevelTitle": "Toggle a chapter of your Spellbook",
         "ToggleSpellVisibilityTitle": "Toggle your Spellbook",
@@ -1512,6 +1628,7 @@
         "TraitDeadlyD12": "Deadly d12",
         "TraitDeadlyD6": "Deadly d6",
         "TraitDeadlyD8": "Deadly d8",
+        "TraitDeadly2D8": "Deadly 2d8",
         "TraitDeath": "Death",
         "TraitDedication": "Dedication",
         "TraitDemon": "Demon",
@@ -1670,6 +1787,7 @@
         "TraitDescriptionReach15": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach20": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach25": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
+        "TraitDescriptionReach30": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReload": "While all weapons need some amount of time to get into position, many ranged weapons also need to be loaded and reloaded. This entry indicates how many Interact actions it takes to reload such weapons. This can be 0 if drawing ammunition and firing the weapon are part of the same action. If an item takes 2 or more actions to reload, the GM determines whether they must be performed together as an activity, or you can spend some of those actions during one turn and the rest during your next turn.",
         "TraitDescriptionRevelation": "Effects with this trait see things as they truly are.",
         "TraitDescriptionRogue": "This indicates abilities from the rogue class.",
@@ -1915,6 +2033,7 @@
         "TraitReach15": "Reach 15 ft",
         "TraitReach20": "Reach 20 ft",
         "TraitReach25": "Reach 25 ft",
+        "TraitReach30": "Reach 30 ft",
         "TraitReload0": "Reload 0",
         "TraitReload1": "Reload 1",
         "TraitReload2": "Reload 2",
@@ -1966,6 +2085,7 @@
         "TraitThrown20": "Thrown 20 ft.",
         "TraitThrown30": "Thrown 30 ft.",
         "TraitThrown40": "Thrown 40 ft.",
+        "TraitThrown60": "Thrown 60 ft.",
         "TraitTiefling": "Tiefling",
         "TraitTime": "Time",
         "TraitTransmutation": "Transmutation",
@@ -1976,6 +2096,7 @@
         "TraitTwoHandD10": "Two-Hand d10",
         "TraitTwoHandD12": "Two-Hand d12",
         "TraitTwoHandD8": "Two-Hand d8",
+        "TraitTwoHandedHelp": "This item can be wielded in two hands. To toggle the two-handed strike, click the two-handed trait in the strikes tab.",
         "TraitUnarmed": "Unarmed",
         "TraitUncommon": "Uncommon",
         "TraitUndead": "Undead",
@@ -2257,6 +2378,7 @@
             }
         },
         "WeaponAbilityLabel": "Weapon Ability",
+        "WeaponBaseLabel": "Base",
         "WeaponBonusAttackLabel": "Bonus Attack",
         "WeaponBonusDamageLabel": "Bonus Damage",
         "WeaponBaseDamageLabel": "Base Weapon Damage",
@@ -2290,7 +2412,7 @@
         "WeaponGroupFlail": "Flail",
         "WeaponGroupHammer": "Hammer",
         "WeaponGroupKnife": "Knife",
-        "WeaponGroupLabel": "Weapon Group",
+        "WeaponGroupLabel": "Group",
         "WeaponGroupPick": "Pick",
         "WeaponGroupPolearm": "Polearm",
         "WeaponGroupShield": "Shield",
@@ -2366,7 +2488,7 @@
         "WeaponStrikeLabel": "Strike",
         "WeaponSummary": "Weapon Summary",
         "WeaponTypeAdvanced": "Advanced Weapon",
-        "WeaponTypeLabel": "Weapon Proficiency",
+        "WeaponTypeLabel": "Category",
         "WeaponTypeMartial": "Martial Weapon",
         "WeaponTypeSimple": "Simple Weapon",
         "WeaponTypeSpecial": "Other Weapons",
@@ -2769,7 +2891,7 @@
             "EditResistances": "Edit Resistances",
             "EditImmunities": "Edit Immunities",
             "EditSpeed": "Edit Speed",
-            "ShowInChat": "Show in chat",
+            "SendToChat": "Send to chat",
             "AddAction": "Add Action",
             "AttackType": {
                 "Melee": "NPC Melee Attack",
@@ -2783,13 +2905,18 @@
                 "Traits": "Traits"
             },
             "Attacks": "Attacks",
+            "AttackEffectMissing": "Attack effect '{attackEffect}' missing from actor actions. Please add it from the Bestiary Ability Glossary compendium.",
             "ArmorExtraInfoLabelPlaceholder": "AC details...",
+            "HPExtraInfoLabelPlaceholder": "HP details...",
+            "SavesExtraInfoLabelPlaceholder": "Bonus to all saves...",
+            "ArmorBaseLabel": "Base AC",
             "SpeedLabel": "Speed",
             "MainTab": "Main",
             "InventoryTab": "Inventory",
             "SpellsTab": "Spells",
             "NotesTab": "Notes",
             "SensesLabel": "Senses",
+            "PassivesLabel": "Passives",
             "SkillRollFlavor": "{skillName} Skill Check ({rank})",
             "SkillsEditor": {
                 "TitleLabel": "NPC Skills Editor",
@@ -2822,6 +2949,13 @@
                 "WeakNameFormat": "Weak {name}",
                 "EliteNameFormat": "Elite {name}"
             }
+        },
+        "DamageButton": {
+            "Full": "Apply full damage to selected tokens.",
+            "Double": "Apply double damage to selected tokens.",
+            "Half": "Apply half damage to selected tokens.",
+            "ShieldBlock": "Toggle the shield block status of the selected tokens.",
+            "Healing": "Apply full healing to selected tokens."
         }
     },
     "PF2e": {

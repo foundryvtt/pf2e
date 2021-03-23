@@ -1,12 +1,12 @@
-const path = require('path');
-const fs = require('fs');
+import * as path from 'path';
+import * as fs from 'fs';
 
-export const fetchSpell = async (name) => {
+export const fetchSpell = (name: string) => {
     const spellsDb = './packs/data/spells.db/';
     const spellFiles = fs.readdirSync(spellsDb);
 
     for (const file of spellFiles) {
-        const content = fs.readFileSync(path.resolve(spellsDb, file));
+        const content = fs.readFileSync(path.resolve(spellsDb, file), 'utf-8');
         const json = JSON.parse(content);
         if (json.name === name) return json;
     }
@@ -16,7 +16,7 @@ export const fetchSpell = async (name) => {
 //@ts-ignore
 global.game = Object.freeze({
     settings: Object.freeze({
-        get: (module, settingKey) => {
+        get: (_module: string, settingKey: string) => {
             switch (settingKey) {
                 /* Proficiency Modifiers */
                 case 'proficiencyUntrainedModifier':
@@ -39,9 +39,9 @@ global.game = Object.freeze({
         },
     }),
     packs: Object.freeze({
-        find: (compendiumID, quantity) => {
+        find: (_compendiumID: string, _quantity: number) => {
             return Object.freeze({
-                getEntity: (id) => {
+                getEntity: (id: string) => {
                     switch (id) {
                         case 'JuNPeK5Qm1w6wpb4':
                             return { data: require('../packs/data/equipment.db/platinum-pieces.json') };
@@ -51,6 +51,8 @@ global.game = Object.freeze({
                             return { data: require('../packs/data/equipment.db/silver-pieces.json') };
                         case 'lzJ8AVhRcbFul5fh':
                             return { data: require('../packs/data/equipment.db/copper-pieces.json') };
+                        default:
+                            return { data: {} };
                     }
                 },
             });
@@ -91,7 +93,7 @@ function setProperty(object, key, value) {
     return changed;
 }
 
-function duplicate(original) {
+function duplicate(original: unknown) {
     return JSON.parse(JSON.stringify(original));
 }
 

@@ -1,6 +1,6 @@
 import { SKILL_EXPANDED } from '@actor/base';
 import { CharacterData, NPCData, SkillAbbreviation } from '@actor/data-definitions';
-import { ModifierPF2e, ModifierType } from '../../modifiers';
+import { ModifierPF2e, MODIFIER_TYPE } from '../../modifiers';
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
@@ -31,14 +31,14 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
             const modifier = new ModifierPF2e(
                 this.ruleData.name ?? label,
                 value - actorData.data.abilities[ability].mod,
-                ModifierType.PROFICIENCY,
+                MODIFIER_TYPE.PROFICIENCY,
             );
             modifier.label = label;
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
         }
     }
 
-    onAfterPrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
+    onAfterPrepareData(actorData: CharacterData | NPCData) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const { data } = actorData;
         const skill: SkillAbbreviation | string = SKILL_EXPANDED[selector]?.shortform ?? selector;
@@ -48,10 +48,10 @@ export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
 
         if (target) {
             for (const modifier of target.modifiers) {
-                if (modifier.type === ModifierType.ITEM && modifier.modifier > 0) {
+                if ([MODIFIER_TYPE.ITEM, MODIFIER_TYPE.UNTYPED].includes(modifier.type) && modifier.modifier > 0) {
                     modifier.ignored = true;
                 }
-                if (force && modifier.type === ModifierType.PROFICIENCY && modifier.name !== label) {
+                if (force && modifier.type === MODIFIER_TYPE.PROFICIENCY && modifier.name !== label) {
                     modifier.ignored = true;
                 }
             }

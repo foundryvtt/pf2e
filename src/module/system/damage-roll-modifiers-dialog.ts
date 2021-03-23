@@ -2,6 +2,10 @@
  * Dialog for excluding certain modifiers before rolling for damage.
  */
 
+import { DegreeOfSuccessString } from '@system/check-degree-of-success';
+import { PF2RollNote } from '@module/notes';
+import { PF2DiceModifier } from '@module/modifiers';
+
 /**
  * @category Other
  */
@@ -55,6 +59,7 @@ export class DamageRollModifiersDialog extends Application {
      */
     static roll(damage, context, callback) {
         const ctx = context ?? {};
+        const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 
         ctx.rollMode =
             ctx.rollMode ?? (ctx.secret ? 'blindroll' : undefined) ?? game.settings.get('core', 'rollMode') ?? 'roll';
@@ -65,8 +70,8 @@ export class DamageRollModifiersDialog extends Application {
                 damage.base.modifier > 0 ? ` + ${damage.base.modifier}` : ` - ${Math.abs(damage.base.modifier)}`;
         }
 
-        const outcome = game.i18n.localize(`PF2E.CheckOutcome.${ctx.outcome ?? 'success'}`);
-        let flavor = `<b>${damage.name}</b> (${outcome})`;
+        const outcomeLabel = game.i18n.localize(`PF2E.CheckOutcome.${outcome}`);
+        let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
             const traits = damage.traits
                 .map((trait) => CONFIG.PF2E.weaponTraits[trait] ?? trait)
@@ -75,18 +80,15 @@ export class DamageRollModifiersDialog extends Application {
             flavor += `<div class="tags">${traits}</div><hr>`;
         }
 
-        const baseStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; color: white; background: rgba(0, 0, 0, 0.45);';
-        const baseBreakdown = `<span style="${baseStyle}">${game.i18n.localize('Base')} ${damage.base.diceNumber}${
-            damage.base.dieSize
-        }${damageBaseModifier} ${damage.base.damageType}</span>`;
-        const modifierStyle =
-            'white-space: nowrap; margin: 0 2px 2px 0; padding: 0 3px; font-size: 10px; line-height: 16px; border: 1px solid #999; border-radius: 3px; background: rgba(0, 0, 0, 0.05);';
+        const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
+            damage.base.diceNumber
+        }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierBreakdown = []
             .concat(damage.diceModifiers)
+            .filter((m: PF2DiceModifier) => m.diceNumber !== 0)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
-            .filter((m) => !m.critical || ctx.outcome === 'criticalSuccess')
+            .filter((m) => !m.critical || outcome === 'criticalSuccess')
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
                 const modifier =
@@ -94,17 +96,20 @@ export class DamageRollModifiersDialog extends Application {
                         ? ''
                         : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
                 const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
-                return `<span style="${modifierStyle}">${label}${modifier}${damageType}</span>`;
+                return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
 
-        const notes = (damage.notes ?? []).map((note) => TextEditor.enrichHTML(note.text)).join('<br />');
+        const notes = ((damage.notes ?? []) as PF2RollNote[])
+            .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
+            .map((note) => TextEditor.enrichHTML(note.text))
+            .join('<br />');
         flavor += `${notes}`;
 
-        const formula = duplicate(damage.formula[ctx.outcome ?? 'success']);
+        const formula = duplicate(damage.formula[outcome]);
         const rollData: any = {
-            outcome: ctx.outcome ?? 'success',
+            outcome,
             rollMode: ctx.rollMode ?? 'roll',
             traits: damage.traits ?? [],
             types: {},

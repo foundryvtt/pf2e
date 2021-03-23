@@ -20,7 +20,7 @@ import {
     CheckModifier,
     ModifierPF2e,
     ModifierPredicate,
-    ModifierType,
+    MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
     WISDOM,
@@ -50,6 +50,7 @@ import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
+import { ConfigPF2e } from '@scripts/config';
 
 export class CharacterPF2e extends CreaturePF2e {
     /** @override */
@@ -99,7 +100,7 @@ export class CharacterPF2e extends CreaturePF2e {
         // PFS Level Bump - check and DC modifiers
         if (data.pfs?.levelBump) {
             statisticsModifiers.all = (statisticsModifiers.all || []).concat(
-                new ModifierPF2e('PF2E.PFS.LevelBump', 1, ModifierType.UNTYPED),
+                new ModifierPF2e('PF2E.PFS.LevelBump', 1, MODIFIER_TYPE.UNTYPED),
             );
         }
 
@@ -107,7 +108,7 @@ export class CharacterPF2e extends CreaturePF2e {
         {
             const ancestryHP = data.attributes.ancestryhp ?? 0;
             const classHP = data.attributes.classhp ?? 0;
-            const modifiers = [new ModifierPF2e('PF2E.AncestryHP', ancestryHP, ModifierType.UNTYPED)];
+            const modifiers = [new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED)];
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
@@ -119,30 +120,32 @@ export class CharacterPF2e extends CreaturePF2e {
                     data.attributes.flatbonussp;
 
                 modifiers.push(
-                    new ModifierPF2e('PF2E.ClassHP', halfClassHp * data.details.level.value, ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ClassHP', halfClassHp * data.details.level.value, MODIFIER_TYPE.UNTYPED),
                 );
             } else {
                 modifiers.push(
-                    new ModifierPF2e('PF2E.ClassHP', classHP * data.details.level.value, ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ClassHP', classHP * data.details.level.value, MODIFIER_TYPE.UNTYPED),
                 );
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.AbilityCon',
                         data.abilities.con.mod * data.details.level.value,
-                        ModifierType.ABILITY,
+                        MODIFIER_TYPE.ABILITY,
                     ),
                 );
             }
 
             if (data.attributes.flatbonushp) {
-                modifiers.push(new ModifierPF2e('PF2E.FlatBonusHP', data.attributes.flatbonushp, ModifierType.UNTYPED));
+                modifiers.push(
+                    new ModifierPF2e('PF2E.FlatBonusHP', data.attributes.flatbonushp, MODIFIER_TYPE.UNTYPED),
+                );
             }
             if (data.attributes.levelbonushp) {
                 modifiers.push(
                     new ModifierPF2e(
                         'PF2E.BonusHPperLevel',
                         data.attributes.levelbonushp * data.details.level.value,
-                        ModifierType.UNTYPED,
+                        MODIFIER_TYPE.UNTYPED,
                     ),
                 );
             }
@@ -162,7 +165,7 @@ export class CharacterPF2e extends CreaturePF2e {
             // PFS Level Bump - hit points
             if (data.pfs?.levelBump) {
                 const hitPointsBump = Math.max(10, stat.totalModifier * 0.1);
-                stat.push(new ModifierPF2e('PF2E.PFS.LevelBump', hitPointsBump, ModifierType.UNTYPED));
+                stat.push(new ModifierPF2e('PF2E.PFS.LevelBump', hitPointsBump, MODIFIER_TYPE.UNTYPED));
             }
 
             stat.max = stat.totalModifier;
@@ -189,14 +192,14 @@ export class CharacterPF2e extends CreaturePF2e {
             if (worn) {
                 const resiliencyBonus = getResiliencyBonus(worn.data);
                 if (resiliencyBonus > 0) {
-                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, ModifierType.ITEM));
+                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
                 }
             }
 
             // Add explicit item bonuses which were set on this save; hopefully this will be superceded
             // by just using custom modifiers in the future.
             if (save.item) {
-                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', Number(save.item), ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', Number(save.item), MODIFIER_TYPE.ITEM));
             }
 
             // Add custom modifiers and roll notes relevant to this save.
@@ -255,7 +258,11 @@ export class CharacterPF2e extends CreaturePF2e {
             const notes: PF2RollNote[] = [];
             if (data.attributes.perception.item) {
                 modifiers.push(
-                    new ModifierPF2e('PF2E.ItemBonusLabel', Number(data.attributes.perception.item), ModifierType.ITEM),
+                    new ModifierPF2e(
+                        'PF2E.ItemBonusLabel',
+                        Number(data.attributes.perception.item),
+                        MODIFIER_TYPE.ITEM,
+                    ),
                 );
             }
             ['perception', 'wis-based', 'all'].forEach((key) => {
@@ -331,7 +338,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
                     armorCheckPenalty = Number(worn.data.check.value ?? 0);
                 }
-                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), MODIFIER_TYPE.ITEM));
             }
 
             // proficiency
@@ -391,7 +398,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ];
             const notes = [] as PF2RollNote[];
             if (skill.item) {
-                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, ModifierType.ITEM));
+                modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, MODIFIER_TYPE.ITEM));
             }
 
             const ignoreArmorCheckPenalty = !(
@@ -401,7 +408,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
             if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
                 modifiers.push(
-                    new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, ModifierType.UNTYPED),
+                    new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
                 );
             }
 
@@ -716,7 +723,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (item.data.group?.value === 'bomb') {
                     const attackBonus = toNumber(item.data?.bonus?.value) ?? 0;
                     if (attackBonus !== 0) {
-                        modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', attackBonus, ModifierType.ITEM));
+                        modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', attackBonus, MODIFIER_TYPE.ITEM));
                     }
                 }
 
@@ -752,7 +759,7 @@ export class CharacterPF2e extends CreaturePF2e {
                             (highest, current) => (highest.bonus > current.bonus ? highest : current),
                             potency[0],
                         );
-                        modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, ModifierType.ITEM));
+                        modifiers.push(new ModifierPF2e(weaponPotency.label, weaponPotency.bonus, MODIFIER_TYPE.ITEM));
                     }
 
                     // find lowest multiple attack penalty
@@ -769,20 +776,22 @@ export class CharacterPF2e extends CreaturePF2e {
                     multipleAttackPenalty.map3 = penalty * 2;
                 }
 
-                const action: Partial<CharacterStrike> = new StatisticModifier(item.name, modifiers);
-
-                action.imageUrl = item.img;
-                action.item = item?._id;
-                action.ready = item?.data?.equipped?.value ?? false;
-                action.glyph = 'A';
-                action.type = 'strike';
                 const flavor = this.getStrikeDescription(item);
-                action.description = flavor.description;
-                action.criticalSuccess = flavor.criticalSuccess;
-                action.success = flavor.success;
-                action.options = item?.data?.options?.value ?? [];
+                const action: CharacterStrike = mergeObject(new StatisticModifier(item.name, modifiers), {
+                    imageUrl: item.img,
+                    item: item._id,
+                    ready: item.data.equipped.value ?? false,
+                    glyph: 'A',
+                    type: 'strike' as const,
+                    description: flavor.description,
+                    criticalSuccess: flavor.criticalSuccess,
+                    success: flavor.success,
+                    options: item.data.options?.value ?? [],
+                    traits: [],
+                    variants: [],
+                    selectedAmmoId: item.data.selectedAmmoId,
+                });
 
-                action.selectedAmmoId = item.data.selectedAmmoId;
                 if (['bow', 'sling', 'dart'].includes(itemGroup)) {
                     action.ammo = ammo;
                 }
@@ -796,6 +805,10 @@ export class CharacterPF2e extends CreaturePF2e {
                             name: trait,
                             label: game.i18n.localize(key),
                             toggle: false,
+                            description:
+                                CONFIG.PF2E.traitsDescriptions[
+                                    trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']
+                                ] ?? '',
                         };
 
                         // look for toggleable traits
@@ -824,11 +837,10 @@ export class CharacterPF2e extends CreaturePF2e {
                     .join(', ');
 
                 // Add the base attack roll (used for determining on-hit)
-                const strike = action as Required<typeof action>;
                 action.attack = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(defaultOptions);
                     CheckPF2e.roll(
-                        new CheckModifier(`Strike: ${action.name}`, strike),
+                        new CheckModifier(`Strike: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                         args.event,
                         args.callback,
@@ -838,11 +850,12 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 action.variants = [
                     {
-                        label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+                        label: `${game.i18n.localize('PF2E.RuleElement.Strike')}
+                            ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike),
+                                new CheckModifier(`Strike: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                                 args.callback,
@@ -850,15 +863,15 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map2}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map2}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike, [
+                                new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
                                         multipleAttackPenalty.label,
                                         multipleAttackPenalty.map2,
-                                        ModifierType.UNTYPED,
+                                        MODIFIER_TYPE.UNTYPED,
                                     ),
                                 ]),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
@@ -868,15 +881,15 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                     {
-                        label: `MAP ${multipleAttackPenalty.map3}`,
+                        label: `${game.i18n.localize('PF2E.MAPAbbreviationLabel')} ${multipleAttackPenalty.map3}`,
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, strike, [
+                                new CheckModifier(`Strike: ${action.name}`, action, [
                                     new ModifierPF2e(
                                         multipleAttackPenalty.label,
                                         multipleAttackPenalty.map3,
-                                        ModifierType.UNTYPED,
+                                        MODIFIER_TYPE.UNTYPED,
                                     ),
                                 ]),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
@@ -887,7 +900,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     },
                 ];
                 action.damage = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(strike.options);
+                    const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
                         item,
                         actorData,
@@ -908,7 +921,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     );
                 });
                 action.critical = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(strike.options);
+                    const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
                         item,
                         actorData,
@@ -928,7 +941,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.callback,
                     );
                 });
-                data.actions.push(strike);
+                data.actions.push(action);
             });
 
         (actorData.items ?? [])

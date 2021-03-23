@@ -15,7 +15,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
     Actor: {
         entityClass: { new (data: ActorType['data'], options?: EntityConstructorOptions): ActorType };
         collection: Actors<ActorType>;
-        sheetClasses: typeof ActorSheet;
+        sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
     };
 
     /**
@@ -26,7 +26,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
             new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType;
         };
         collection: Items<ItemType>;
-        sheetClasses: typeof ItemSheet;
+        sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
     };
 
     /**
@@ -34,8 +34,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      */
     Combat: {
         entityClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
-        collection: Items<ItemType>;
-        sheetClasses: typeof ItemSheet;
+        collection: CombatEncounters<ActorType>;
         initiative: {
             decimals: number;
             formula: ((combatant: CombatantData<ActorType>) => string) | null;

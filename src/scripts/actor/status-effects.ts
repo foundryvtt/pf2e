@@ -103,7 +103,7 @@ export class StatusEffects {
                 default: true,
                 type: Boolean,
             });
-            game.settings.register(game.system.id, 'showConditionChatBubbles', {
+            game.settings.register('pf2e', 'showConditionChatBubbles', {
                 name: 'Show Condition Chat Bubbles',
                 hint:
                     'When enabled, a token will speak out any changes to conditions applied from the token HUD' +
@@ -595,7 +595,7 @@ export class StatusEffects {
         const iconType = StatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
-        const promises: Promise<BaseEntityData | BaseEntityData[]>[] = [];
+        const promises: Promise<TokenData | TokenData[]>[] = [];
         for (const scene of game.scenes.values()) {
             const tokenUpdates: any[] = [];
 

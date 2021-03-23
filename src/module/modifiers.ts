@@ -1,5 +1,5 @@
 import { DamageCategory, DamageDieSize } from './system/damage/damage';
-import { AbilityString } from '@actor/data-definitions';
+import { AbilityString, ModifierType } from '@actor/data-definitions';
 
 export const PROFICIENCY_RANK_OPTION = Object.freeze([
     'proficiency:untrained',
@@ -19,7 +19,7 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  * The canonical pathfinder modifier types; modifiers of the same type do not stack (except for 'untyped' modifiers,
  * which fully stack).
  */
-export const ModifierType = Object.freeze({
+export const MODIFIER_TYPE = Object.freeze({
     /**
      * Nearly all checks allow you to add an ability modifier to the roll. An ability modifier
      * represents your raw capabilities and is derived from an ability score. Exactly which ability
@@ -27,7 +27,7 @@ export const ModifierType = Object.freeze({
      * applies your Strength modifier, whereas remembering the name of the earl's cousin uses your
      * Intelligence modifier.
      */
-    ABILITY: 'ability',
+    ABILITY: 'ability' as const,
     /**
      * When attempting a check that involves something you have some training in, you will also add
      * your proficiency bonus. This bonus depends on your proficiency rank: untrained, trained,
@@ -37,7 +37,7 @@ export const ModifierType = Object.freeze({
      * is equal to your level + 2, and higher proficiency ranks further increase the amount you add to
      * your level.
      */
-    PROFICIENCY: 'proficiency',
+    PROFICIENCY: 'proficiency' as const,
     /**
      * Circumstance bonuses typically involve the situation you find yourself in when attempting a
      * check. For instance, using Raise a Shield with a buckler grants you a +1 circumstance bonus to
@@ -45,13 +45,13 @@ export const ModifierType = Object.freeze({
      * and Raising a Shield, you gain only the +2 circumstance bonus for cover, since they're the same
      * type and the bonus from cover is higher.
      */
-    CIRCUMSTANCE: 'circumstance',
+    CIRCUMSTANCE: 'circumstance' as const,
     /**
      * Item bonuses are granted by some item that you are wearing or using, either mundane or magical.
      * For example, armor gives you an item bonus to AC, while expanded alchemist's tools grant you an
      * item bonus to Crafting checks when making alchemical items.
      */
-    ITEM: 'item',
+    ITEM: 'item' as const,
     /**
      * Status bonuses typically come from spells, other magical effects, or something applying a
      * helpful, often temporary, condition to you. For instance, the 3rd-level heroism spell grants a
@@ -60,7 +60,7 @@ export const ModifierType = Object.freeze({
      * status bonus on attacks, your attack rolls would gain only a +1 status bonus, since both spells
      * grant a +1 status bonus to those rolls, and you only take the highest status bonus.
      */
-    STATUS: 'status',
+    STATUS: 'status' as const,
     /**
      * Unlike bonuses, penalties can also be untyped, in which case they won’t be classified as
      * "circumstance", "item", or "status". Unlike other penalties, you always add all your untyped
@@ -71,7 +71,7 @@ export const ModifierType = Object.freeze({
      * multiple attacks at a faraway target, you'd apply both the multiple attack penalty and the
      * range penalty to your roll.
      */
-    UNTYPED: 'untyped',
+    UNTYPED: 'untyped' as const,
 });
 
 /**
@@ -86,25 +86,25 @@ export class ModifierPF2e {
     /** The actual numeric benefit/penalty that this modifier provides. */
     modifier: number;
     /** The type of this modifier - modifiers of the same type do not stack (except for `untyped` modifiers). */
-    type: string;
+    type: ModifierType;
     /** If true, this modifier will be applied to the final roll; if false, it will be ignored. */
     enabled: boolean;
     /** The source which this modifier originates from, if any. */
-    source: string;
+    source?: string;
     /** Any notes about this modifier. */
-    notes: string;
+    notes?: string;
     /** If true, this modifier should be explicitly ignored in calculation; it is usually set by user action. */
     ignored: boolean;
     /** If true, this modifier is a custom player-provided modifier. */
     custom: boolean;
     /** The damage type that this modifier does, if it modifies a damage roll. */
-    damageType: string;
+    damageType?: string;
     /** The damage category */
-    damageCategory: string;
+    damageCategory?: string;
     /** A predicate which determines when this modifier is active. */
     predicate: any;
     /** If true, this modifier is only active on a critical hit. */
-    critical: boolean;
+    critical?: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
@@ -122,49 +122,45 @@ export class ModifierPF2e {
      * @param source The source which this modifier originates from, if any.
      * @param notes Any notes about this modifier.
      */
-    constructor(
-        name: string,
-        modifier: number,
-        type: string,
-        enabled = true,
-        source: string | undefined = undefined,
-        notes: string | undefined = undefined,
-    ) {
+    constructor(name: string, modifier: number, type: string, enabled = true, source?: string, notes?: string) {
+        const isValidModifierType = (type: string): type is ModifierType =>
+            Object.values(MODIFIER_TYPE).some((modifierType) => type === modifierType);
+
         this.name = name;
         this.modifier = modifier;
-        this.type = type;
+        this.type = isValidModifierType(type) ? type : 'untyped';
         this.enabled = enabled;
         this.ignored = false;
         this.custom = false;
-        if (source) this.source = source;
-        if (notes) this.notes = notes;
+        this.source = source;
+        this.notes = notes;
     }
 }
 
 // ability scores
 export const STRENGTH = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityStr', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const DEXTERITY = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityDex', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const CONSTITUTION = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCon', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const INTELLIGENCE = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityInt', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const WISDOM = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityWis', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const CHARISMA = Object.freeze({
     withScore: (score: number) =>
-        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), ModifierType.ABILITY),
+        new ModifierPF2e('PF2E.AbilityCha', Math.floor((score - 10) / 2), MODIFIER_TYPE.ABILITY),
 });
 export const AbilityModifier = Object.freeze({
     /**
@@ -191,7 +187,7 @@ export const AbilityModifier = Object.freeze({
                 // Throwing an actual error can completely break the sheet. Instead, log
                 // and use 0 for the modifier
                 console.error(`invalid ability abbreviation: ${ability}`);
-                return new ModifierPF2e('PF2E.AbilityUnknown', 0, ModifierType.ABILITY);
+                return new ModifierPF2e('PF2E.AbilityUnknown', 0, MODIFIER_TYPE.ABILITY);
         }
     },
 });
@@ -200,7 +196,7 @@ export const AbilityModifier = Object.freeze({
 export const UNTRAINED = Object.freeze({
     atLevel: (_level: number) => {
         const modifier = (game.settings.get('pf2e', 'proficiencyUntrainedModifier') as number | null) ?? 0;
-        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel0', modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const TRAINED = Object.freeze({
@@ -210,7 +206,7 @@ export const TRAINED = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel1', modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const EXPERT = Object.freeze({
@@ -220,7 +216,7 @@ export const EXPERT = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel2', modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const MASTER = Object.freeze({
@@ -230,7 +226,7 @@ export const MASTER = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel3', modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const LEGENDARY = Object.freeze({
@@ -240,7 +236,7 @@ export const LEGENDARY = Object.freeze({
         if (rule === 'ProficiencyWithLevel') {
             modifier += level;
         }
-        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, ModifierType.PROFICIENCY);
+        return new ModifierPF2e('PF2E.ProficiencyLevel4', modifier, MODIFIER_TYPE.PROFICIENCY);
     },
 });
 export const ProficiencyModifier = Object.freeze({
@@ -308,8 +304,8 @@ function applyStacking(
  * Applies the modifier stacking rules and calculates the total modifier. This will mutate the
  * provided modifiers, setting the 'enabled' field based on whether or not the modifiers are active.
  *
- * @param {ModifierPF2e[]} modifiers The list of modifiers to apply stacking rules for.
- * @returns {number} The total modifier provided by the given list of modifiers.
+ * @param modifiers The list of modifiers to apply stacking rules for.
+ * @returns The total modifier provided by the given list of modifiers.
  */
 function applyStackingRules(modifiers: ModifierPF2e[]): number {
     let total = 0;
@@ -324,7 +320,7 @@ function applyStackingRules(modifiers: ModifierPF2e[]): number {
         }
 
         // Untyped modifiers always stack, so enable them and add their modifier.
-        if (modifier.type === ModifierType.UNTYPED) {
+        if (modifier.type === MODIFIER_TYPE.UNTYPED) {
             modifier.enabled = true;
             total += modifier.modifier;
             continue;
@@ -352,9 +348,9 @@ export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
     name: string;
     /** The list of modifiers which affect the statistic. */
-    _modifiers: ModifierPF2e[];
+    protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
-    totalModifier: number;
+    totalModifier!: number;
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
 
@@ -362,12 +358,12 @@ export class StatisticModifier {
      * @param name The name of this collection of statistic modifiers.
      * @param modifiers All relevant modifiers for this statistic.
      */
-    constructor(name: string, modifiers: ModifierPF2e[]) {
+    constructor(name: string, modifiers?: ModifierPF2e[]) {
         this.name = name;
-        this._modifiers = modifiers || [];
+        this._modifiers = modifiers ?? [];
         {
             // de-duplication
-            const seen = [];
+            const seen: ModifierPF2e[] = [];
             this._modifiers.filter((m) => {
                 const found = seen.find((o) => o.name === m.name) !== undefined;
                 if (!found) seen.push(m);
@@ -380,7 +376,7 @@ export class StatisticModifier {
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
-        return Object.freeze([].concat(this._modifiers));
+        return Object.freeze(this._modifiers);
     }
 
     /** Add a modifier to this collection. */
@@ -415,7 +411,7 @@ export class CheckModifier extends StatisticModifier {
      * @param modifiers Additional modifiers to add to this check.
      */
     constructor(name: string, statistic: StatisticModifier, modifiers: ModifierPF2e[] = []) {
-        super(name, JSON.parse(JSON.stringify(statistic._modifiers)).concat(modifiers)); // deep clone
+        super(name, duplicate(statistic.modifiers).concat(modifiers));
     }
 }
 

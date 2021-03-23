@@ -1,66 +1,82 @@
 <form class="flexcol" autocomplete="off">
-  <h2>Stamina Variant Rule</h2>
+  <h2>{{localize 'PF2E.SETTINGS.Variant.Stamina.Title'}}</h2>
   <div class="form-group">
-    <label>{{staminaVariant.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.Stamina.Name'}}</label>
     <div class="form-fields">
           <select name="staminaVariant">
           {{#select staminaVariant.value}}
           {{#each staminaVariant.setting.choices as |label value|}}
-          <option value="{{value}}">{{label}}</option>
+          <option value="{{value}}">{{localize label}}</option>
           {{/each}}
           {{/select}}
         </select>
     </div>
-    <p class="notes">{{staminaVariant.setting.hint}}</p>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.Stamina.Hint'}}</p>
   </div>
-  <h2>Proficiency Variant Rule</h2>
+  <h2>{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Title'}}</h2>
   <div class="form-group">
-      <label>{{proficiencyVariant.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Name'}}</label>
+    <div class="form-fields">
+        <input type="checkbox" {{checked ancestryParagonVariant.value}} name="ancestryParagonVariant">
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.AncestryParagon.Hint'}}</p>
+  </div>
+  <h2>{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Title'}}</h2>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Name'}}</label>
+    <div class="form-fields">
+        <input type="checkbox" {{checked freeArchetypeVariant.value}} name="freeArchetypeVariant">
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Hint'}}</p>
+  </div>
+  <h2>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Title'}}</h2>
+  <div class="form-group">
+      <label>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Name'}}</label>
       <div class="form-fields">
             <select name="proficiencyVariant">
             {{#select proficiencyVariant.value}}
             {{#each proficiencyVariant.setting.choices as |label value|}}
-            <option value="{{value}}">{{label}}</option>
+            <option value="{{value}}">{{localize label}}</option>
             {{/each}}
             {{/select}}
           </select>
       </div>
-      <p class="notes">{{proficiencyVariant.setting.hint}}</p>
+      <p class="notes">{{localize 'PF2E.SETTINGS.Variant.Proficiency.Hint'}}</p>
   </div>
   <div class="form-group">
-      <label>{{proficiencyUntrainedModifier.setting.name}}</label>
+      <label>{{localize 'PF2E.SETTINGS.Variant.UntrainedModifier.Name'}}</label>
       <div class="form-fields">
           <input type="number" name="proficiencyUntrainedModifier" value="{{proficiencyUntrainedModifier.value}}" data-dtype="Number">
       </div>
-      <p class="notes">{{proficiencyUntrainedModifier.setting.hint}}</p>
+      <p class="notes">{{localize 'PF2E.SETTINGS.Variant.UntrainedModifier.Hint'}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyTrainedModifier.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.TrainedModifier.Name'}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyTrainedModifier" value="{{proficiencyTrainedModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyTrainedModifier.setting.hint}}</p>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.TrainedModifier.Name'}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyExpertModifier.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.ExpertModifier.Name'}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyExpertModifier" value="{{proficiencyExpertModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyExpertModifier.setting.hint}}</p>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.ExpertModifier.Name'}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyMasterModifier.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.MasterModifier.Name'}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyMasterModifier" value="{{proficiencyMasterModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyMasterModifier.setting.hint}}</p>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.MasterModifier.Name'}}</p>
   </div>
   <div class="form-group">
-    <label>{{proficiencyLegendaryModifier.setting.name}}</label>
+    <label>{{localize 'PF2E.SETTINGS.Variant.LegendaryModifier.Name'}}</label>
     <div class="form-fields">
         <input type="number" name="proficiencyLegendaryModifier" value="{{proficiencyLegendaryModifier.value}}" data-dtype="Number">
     </div>
-    <p class="notes">{{proficiencyLegendaryModifier.setting.hint}}</p>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.LegendaryModifier.Name'}}</p>
   </div>
   <footer class="sheet-footer flexrow">
     <button type="submit" name="submit">
