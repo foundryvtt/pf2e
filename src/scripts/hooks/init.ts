@@ -87,7 +87,7 @@ export function listen(): void {
                 return ConditionManager;
             },
         });
-        Object.defineProperty(window, 'ModifierTypePF2e', {
+        Object.defineProperty(window, 'PF2ModifierType', {
             get: function () {
                 console.warn(
                     'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.ModifierType instead.',
@@ -119,7 +119,7 @@ export function listen(): void {
                 return ProficiencyModifier;
             },
         });
-        Object.defineProperty(window, 'StatisticModifier', {
+        Object.defineProperty(window, 'PF2StatisticModifier', {
             get: function () {
                 console.warn(
                     'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.StatisticModifier instead.',
@@ -127,7 +127,7 @@ export function listen(): void {
                 return StatisticModifier;
             },
         });
-        Object.defineProperty(window, 'CheckModifier', {
+        Object.defineProperty(window, 'PF2CheckModifier', {
             get: function () {
                 console.warn(
                     'This object is deprecated and may be removed by May, 2021. Please use game.pf2e.CheckModifier instead.',
