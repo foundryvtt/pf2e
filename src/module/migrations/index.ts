@@ -39,6 +39,7 @@ import { Migration605CatchUpToTemplateJSON } from './605-catch-up-to-template-js
 import { Migration606SignatureSpells } from './606-signature-spells';
 import { Migration607MeleeItemDamageRolls } from './607-melee-item-damage-rolls';
 import { Migration608DeletePersistedKits } from './608-delete-persisted-kits';
+import { Migration609LootActorTraits } from './609-loot-actor-traits';
 
 export class Migrations {
     private static list = [
@@ -82,6 +83,7 @@ export class Migrations {
         Migration606SignatureSpells,
         Migration607MeleeItemDamageRolls,
         Migration608DeletePersistedKits,
+        Migration609LootActorTraits,
     ];
 
     static get latestVersion(): number {
