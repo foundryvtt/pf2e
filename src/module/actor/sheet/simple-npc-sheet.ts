@@ -215,6 +215,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.hasEquipment = true;
         }
 
+        const maxHealthLength = (this.actor.data.data.attributes.hp.max ?? 0).toString().length;
+        if (maxHealthLength > 2) {
+            sheetData.extendedHealthInput = true;
+        }
+
         // Shield
         const shield = this.actor.getFirstEquippedShield();
         if (shield) {
