@@ -235,6 +235,8 @@ export interface BaseTraitsData {
         value: string[];
         custom: string;
     };
+    /** Condition immunities */
+    ci: LabeledValue[];
     /** Damage immunities this actor has. */
     di: DamageImmunities;
     /** Damage resistances that this actor has. */
