@@ -7,6 +7,7 @@ import * as RenderSettings from './render-settings';
 import * as Setup from './setup';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
+import * as ChatDamageButtons from './chat-damage-buttons';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace PF2E {
@@ -21,6 +22,7 @@ export namespace PF2E {
             Setup.listen();
             UpdateScene.listen();
             UpdateWorldTime.listen();
+            ChatDamageButtons.listen();
         },
     };
 }
