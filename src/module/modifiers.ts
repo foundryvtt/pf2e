@@ -42,7 +42,7 @@ export interface RawModifier {
     /** The damage type that this modifier does, if it modifies a damage roll. */
     damageType?: string;
     /** A predicate which determines when this modifier is active. */
-    predicate: RulePredicate;
+    predicate: RawPredicate;
     /** If true, this modifier is only active on a critical hit. */
     critical?: boolean;
     /** The list of traits that this modifier gives to the underlying attack, if any. */
@@ -70,7 +70,7 @@ export class ModifierPF2e implements RawModifier {
     damageType?: string;
     /** The damage category */
     damageCategory?: string;
-    predicate: RulePredicate = new ModifierPredicate();
+    predicate: RawPredicate = new ModifierPredicate();
     critical?: boolean;
     traits?: string[];
     /** Status of automation (rules or active effects) applied to this modifier */
@@ -381,7 +381,7 @@ export class CheckModifier extends StatisticModifier {
     }
 }
 
-export interface RulePredicate {
+export interface RawPredicate {
     all?: string[];
     any?: string[];
     not?: string[];
@@ -394,7 +394,7 @@ export interface RulePredicate {
  * attack could be an option that is not a trait.
  * @category PF2
  */
-export class ModifierPredicate implements RulePredicate {
+export class ModifierPredicate implements RawPredicate {
     /** The options must have ALL of these entries for this predicate to pass.  */
     all: string[];
     /** The options must have AT LEAST ONE of these entries for this predicate to pass. */
@@ -403,7 +403,7 @@ export class ModifierPredicate implements RulePredicate {
     not: string[];
 
     /** Test if the given predicate passes for the given list of options. */
-    static test(predicate: RulePredicate = {}, options: string[] = []): boolean {
+    static test(predicate: RawPredicate = {}, options: string[] = []): boolean {
         const { all, any, not } = predicate;
 
         let active = true;
@@ -419,7 +419,7 @@ export class ModifierPredicate implements RulePredicate {
         return active;
     }
 
-    constructor(param: RulePredicate = { all: [], any: [], not: [] }) {
+    constructor(param: RawPredicate = { all: [], any: [], not: [] }) {
         this.all = param.all ?? [];
         this.any = param.any ?? [];
         this.not = param.not ?? [];

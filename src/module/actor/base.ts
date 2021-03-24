@@ -8,7 +8,7 @@ import {
     ModifierPF2e,
     ModifierPredicate,
     ProficiencyModifier,
-    RulePredicate,
+    RawPredicate,
 } from '../modifiers';
 import { ConditionManager } from '../conditions';
 import { adaptRoll, CheckPF2e } from '@system/rolls';
@@ -1187,7 +1187,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         name: string,
         value: number,
         type: string,
-        predicate?: RulePredicate,
+        predicate?: RawPredicate,
         damageType?: string,
         damageCategory?: string,
     ) {
