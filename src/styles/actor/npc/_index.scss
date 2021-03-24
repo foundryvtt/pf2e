@@ -168,6 +168,7 @@ $unique: #54166e;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
+                margin-right: 4px;
             }
         }
 
@@ -184,25 +185,28 @@ $unique: #54166e;
                 display: flex;
                 flex: auto;
                 flex-direction: row;
-                align-items: flex-end;
+                align-items: baseline;
+                justify-content: flex-end;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
 
+                .shield-divider {
+                    align-self: flex-end;
+                }
+
                 #shield-current {
-                    flex: 0px;
                     font-weight: bold;
                     color: $value-color;
                     text-align: right;
-                    width: 50px;
+                    width: 30px;
                 }
 
                 #shield-max {
-                    flex: 0px;
-                    align-self: center;
                     font-weight: bold;
                     color: $value-color;
                     text-align: left;
+                    margin-right: 4px;
                 }
             }
 
@@ -263,18 +267,30 @@ $unique: #54166e;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
+                justify-content: flex-end;
+
+                .health-divider {
+                    align-self: flex-end;
+                }
 
                 #health-current {
                     font-weight: bold;
                     color: $value-color;
                     text-align: right;
+                    width: 30px;
                 }
 
                 #health-max {
-                    flex: 0px;
                     font-weight: bold;
                     color: $value-color;
                     text-align: left;
+                    width: 20px;
+                }
+                #health-max-extended {
+                    font-weight: bold;
+                    color: $value-color;
+                    text-align: left;
+                    width: 30px;
                 }
             }
         }
