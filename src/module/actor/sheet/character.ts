@@ -11,6 +11,8 @@ import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
+import { FeatPF2e } from '@item/others';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Other
@@ -897,21 +899,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         return super._onDropItemCreate(itemData);
     }
 
-    private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
-        const featType = feat.data?.featType?.value;
-        if (featType === 'archetype') {
-            if (feat.data.traits.value.includes('skill')) {
-                return featSlotType === 'skill';
-            } else {
-                return ['class', 'archetype'].includes(featSlotType);
-            }
+    private isFeatValidInFeatSlot(featSlotType: string, feat: FeatPF2e) {
+        const featType = feat.featType.value;
+        const featTraits = feat.traits;
+        if (['archetype', 'class'].includes(featSlotType)) {
+            return ['archetype', 'class'].includes(featType) && !featTraits.has('skill');
         }
-
         if (featSlotType === 'general') {
-            return ['general', 'skill'].includes(featType);
+            return ['general', 'skill'].includes(featType) || featTraits.has('skill');
         }
-
-        return featSlotType === featType;
+        if (featSlotType === 'skill') {
+            return featTraits.has('skill');
+        }
+        return featType === featSlotType;
     }
 
     /**
@@ -1006,12 +1006,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
 
         const { slotId, featType } = this.getNearestSlotId(event);
 
-        if (itemData.type === 'feat') {
-            if (slotId !== undefined && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
+        if (item instanceof FeatPF2e) {
+            const itemData = duplicate(item.data);
+            if (slotId !== undefined && this.isFeatValidInFeatSlot(featType, item)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
                     this.actor.createEmbeddedEntity('OwnedItem', itemData),
@@ -1040,8 +1040,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
+            const feat = this.actor.itemTypes.feat.find((item) => item.id === itemData._id);
+            if (!feat) throw ErrorPF2e('Unexpected missing feat item');
 
-            if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
+            if (this.isFeatValidInFeatSlot(featType, feat)) {
                 this.actor.updateEmbeddedEntity('OwnedItem', [
                     {
                         _id: itemData._id,
