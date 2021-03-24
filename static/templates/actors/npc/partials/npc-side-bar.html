@@ -26,7 +26,7 @@
             <h4> {{ localize 'PF2E.ShieldLabel' }}</h4>
             <div class="shield-value">
                 <input id="shield-current" type="number" name="data.attributes.shield.value" value="{{ data.attributes.shield.value }}" title="{{localize "PF2E.ShieldCurrentTitle"}}" data-dtype="Number" placeholder="0"/>
-                <span class="shield-divider">/</span>
+                <span class="health-divider">/</span>
                 <label id="shield-max" title="{{localize "PF2E.ShieldMaxTitle"}}">{{ data.attributes.shield.max }}</label>
             </div>
         </div>
@@ -51,7 +51,7 @@
             <div class="health-value">
                 <input id="health-current" type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
                 <span class="health-divider">/</span>
-                <input {{#if extendedHealthInput}}id="health-max-extended"{{else}}id="health-max"{{/if}} type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+                <input id="health-max" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
             </div>
         </div>
     </div>
