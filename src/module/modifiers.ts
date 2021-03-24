@@ -376,7 +376,7 @@ export class StatisticModifier {
 
     /** Get the list of all modifiers in this collection (as a read-only list). */
     get modifiers(): readonly ModifierPF2e[] {
-        return Object.freeze(this._modifiers);
+        return Object.freeze([...this._modifiers]);
     }
 
     /** Add a modifier to this collection. */
