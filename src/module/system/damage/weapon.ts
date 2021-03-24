@@ -130,7 +130,7 @@ export class PF2WeaponDamage {
             } else {
                 weapon.data.damage.dice = dice;
                 weapon.data.damage.die = die;
-                if (weapon.data.range.value !== 'ranged') {
+                if (weapon.data.range.value !== 'ranged' || traits.some((trait) => trait.name.startsWith('thrown'))) {
                     modifier -= actor.data.abilities.str.mod;
                 }
                 weapon.data.damage.modifier = modifier;
