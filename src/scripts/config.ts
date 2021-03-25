@@ -1803,7 +1803,7 @@ export const PF2ECONFIG = {
         erutaki: 'PF2E.LanguageErutaki',
         garundi: 'PF2E.LanguageGarundi',
         giant: 'PF2E.LanguageGiant',
-        girtablilu: 'PF2E.LanguageGirtablilu'
+        girtablilu: 'PF2E.LanguageGirtablilu',
         gnoll: 'PF2E.LanguageGnoll',
         grippli: 'PF2E.LanguageGrippli',
         hallit: 'PF2E.LanguageHallit',
