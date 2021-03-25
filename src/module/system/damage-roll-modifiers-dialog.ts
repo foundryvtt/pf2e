@@ -4,7 +4,7 @@
 
 import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { PF2RollNote } from '@module/notes';
-import { PF2DiceModifier } from '@module/modifiers';
+import { DiceModifierPF2e } from '@module/modifiers';
 
 /**
  * @category Other
@@ -85,7 +85,7 @@ export class DamageRollModifiersDialog extends Application {
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
         const modifierBreakdown = []
             .concat(damage.diceModifiers)
-            .filter((m: PF2DiceModifier) => m.diceNumber !== 0)
+            .filter((m: DiceModifierPF2e) => m.diceNumber !== 0)
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
             .filter((m) => !m.critical || outcome === 'criticalSuccess')
