@@ -90,7 +90,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
-    const itemTypes = ['action', 'condition', 'feat', 'lore', 'martial', 'spell', 'spellcastingEntry'];
+    const itemTypes = ['action', 'condition', 'effect', 'feat', 'lore', 'martial', 'spell', 'spellcastingEntry'];
     for (const itemType of itemTypes) {
         Items.registerSheet<ItemPF2e>('pf2e', ItemSheetPF2e, {
             types: [itemType],
