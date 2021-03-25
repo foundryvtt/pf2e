@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "80 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "80"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -160,6 +163,24 @@
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Related Creatures\" title=\"Sidebar - Related Creatures\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_4_RelatedCreatures.png\"> Thunder and Fire</h3>Thunderbirds have a complex relationship with phoenixes, whom they regard as too kindly and patient with human civilizations, even as they admire phoenixes&apos; beauty and mastery over elements that thunderbirds cannot control. Often, encounters with phoenixes escalate into violent arguments, but it&apos;s rare for one of these meetings to end in a thunderbird&apos;s death, and even rarer for a phoenix to be significantly threatened by the upstart challenger.",
             "source": {
                 "value": "Bestiary 2 pg. 259"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "spelldc": {
+                        "dc": 30,
+                        "value": 20
+                    }
+                }
+            },
+            "MplFH8zCZfbQ37Ss": {
+                "data": {
+                    "spelldc": {
+                        "dc": 30,
+                        "value": 20
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +430,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -488,6 +512,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -550,6 +577,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -581,7 +609,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "E8e7lBqIKqoEizgm",
+            "_id": "oeKkvXrgefM5UhPG",
             "data": {
                 "ability": {
                     "value": ""
@@ -609,7 +637,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season:<br /></p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw</li>\n</ul>\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).<br /><strong>Success</strong> You change the weather as desired.<br /><strong>Failure</strong> You fail to change the weather as desired.<br /><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
+                    "value": "<p>You alter the weather, making it calm and normal for the season or choosing up to two effects based on the season:<br /></p>\n<p>You can't specifically control the manifestations, such as the exact path of a tornado or the targets of lightning strikes.</p>\n<ul>\n<li><strong>Autumn</strong> cold weather, fog, mild heat, sleet</li>\n<li><strong>Spring</strong> drizzle, heat, hurricane, sleet, thunderstorm, tornado</li>\n<li><strong>Summer</strong> drizzle, downpour, extreme heat, hail, heat</li>\n<li><strong>Winter</strong> blizzard, mild cold, extreme cold, thaw<hr /></li>\n</ul>\n<p><strong>Critical Success</strong> You change the weather as desired and can affect a larger area (up to a 5-mile-radius circle), or a longer duration (any number of additional d12 hours, up to 16d12).</p>\n<p><strong>Success</strong> You change the weather as desired.</p>\n<p><strong>Failure</strong> You fail to change the weather as desired.</p>\n<p><strong>Critical Failure</strong> The weather changes in an unanticipated way, determined by the GM but generally as contradictory to your true desires as possible (for instance, a terrible storm emerges when you would prefer good weather).</p>\n<hr />\n<p><strong>Heightened (9th)</strong> You can create unseasonable weather and contradictory weather effects, such as extreme cold and a hurricane. You can make the weather calm and normal weather for a different season or choose weather effects from any season's list.</p>"
                 },
                 "duration": {
                     "value": "4d12 hours"
@@ -618,7 +646,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "MplFH8zCZfbQ37Ss"
@@ -630,7 +658,7 @@
                     "value": ""
                 },
                 "primarycheck": {
-                    "value": "Nature "
+                    "value": "Nature (master)"
                 },
                 "range": {
                     "value": ""
@@ -656,6 +684,7 @@
                 "secondarycheck": {
                     "value": "Survival"
                 },
+                "slug": "control-weather",
                 "source": {
                     "value": ""
                 },
@@ -692,15 +721,16 @@
                         "uncommon",
                         "conjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XkDCzMIyc0YOjw05"
+                }
+            },
             "img": "systems/pf2e/icons/spells/control-weather.jpg",
-            "name": "Control Weather ",
+            "name": "Control Weather",
             "sort": 200000,
             "type": "spell"
         },
@@ -713,6 +743,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 24,
                     "value": 24
@@ -824,6 +855,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -860,6 +892,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 24,
                     "value": 24
@@ -967,6 +1000,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1003,10 +1037,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "thunderstrike"
+                        "Thunderstrike"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -1118,6 +1154,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1130,7 +1167,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range 200 feet"
+                        "range-increment-200"
                     ]
                 },
                 "usage": {
@@ -1149,6 +1186,59 @@
             "name": "Thunderbolt",
             "sort": 500000,
             "type": "melee"
+        },
+        {
+            "_id": "rGG9CbH3CnQNbztb",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 600000,
+            "type": "action"
         },
         {
             "_id": "Jd5I0ORcv8JckftL",
@@ -1174,6 +1264,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1198,7 +1289,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stormsight",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1216,7 +1307,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>100 feet. The thunderbird is surrounded by a cyclone of wind and driving rain. This area is greater difficult terrain for flying creatures, who must successfully @Compendium[pf2e.actionspf2e.Maneuver in Flight]{Maneuver in Flight} (DC 27) or be blown 30 feet away from the thunderbird. Creatures on the ground must succeed at a DC 27 Reflex save to perform any move action and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} on a critical failure. The driving rain in the storm aura imposes a -2 circumstance penalty on Perception checks and extinguishes smaller flames. A thunderbird can deactivate or activate the storm aura as a free action with the concentrate trait.</p>"
+                    "value": "<p>100 feet.</p>\n<p>The thunderbird is surrounded by a cyclone of wind and driving rain. This area is greater difficult terrain for flying creatures, who must successfully @Compendium[pf2e.actionspf2e.Maneuver in Flight]{Maneuver in Flight} (DC 27) or be blown 30 feet away from the thunderbird. Creatures on the ground must succeed at a DC 27 Reflex save to perform any move action and are knocked @Compendium[pf2e.conditionitems.Prone]{Prone} on a critical failure.</p>\n<p>The driving rain in the storm aura imposes a -2 circumstance penalty on Perception checks and extinguishes smaller flames.</p>\n<p>A thunderbird can deactivate or activate the storm aura as a free action with the concentrate trait.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1225,6 +1316,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1257,7 +1349,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Storm Aura",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1267,7 +1359,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -1275,7 +1367,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature enters the thunderbird's reach or uses a move action within their reach; <strong>Effect</strong> A lightning bolt dancing on the thunderbird's body leaps onto the creature, dealing [[/r 8d6 # electricity damage]] electricity damage (DC 30 basic Reflex save).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the thunderbird's reach or uses a move action within their reach;</p>\n<p><strong>Effect</strong> A lightning bolt dancing on the thunderbird's body leaps onto the creature, dealing [[/r 8d6 #electricity]] electricity damage (DC 30 basic Reflex save).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -1284,6 +1376,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1308,9 +1401,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Reactive Shock ",
-            "sort": 800000,
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Reactive Shock",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1337,6 +1430,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1364,7 +1458,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Lightning Blast",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1391,6 +1485,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1415,7 +1510,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stormflight",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "action"
         },
         {
@@ -1442,6 +1537,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1466,7 +1562,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Thunderstrike",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "action"
         },
         {
@@ -1490,6 +1586,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1508,7 +1605,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1532,6 +1629,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1550,7 +1648,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1574,6 +1672,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1592,7 +1691,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1616,6 +1715,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1634,7 +1734,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         }
     ],
@@ -1643,7 +1743,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "fpBJiCOoHDlefgpO",
         "actorLink": false,
         "bar1": {
@@ -1662,6 +1761,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Thunderbird",
         "randomImg": false,
