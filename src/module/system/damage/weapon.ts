@@ -1,11 +1,11 @@
 import {
-    PF2DamageDice,
+    DamageDicePF2e,
     ModifierPF2e,
     MODIFIER_TYPE,
     ModifierPredicate,
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
-    PF2DiceModifier,
+    DiceModifierPF2e,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
@@ -158,7 +158,7 @@ export class PF2WeaponDamage {
         actor: ActorDataPF2e,
         traits: CharacterStrikeTrait[] = [],
         statisticsModifiers: Record<string, ModifierPF2e[]>,
-        damageDice: Record<string, PF2DamageDice[]>,
+        damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
@@ -166,7 +166,7 @@ export class PF2WeaponDamage {
         striking: Record<string, PF2Striking[]>,
     ) {
         let effectDice = weapon.data.damage.dice ?? 1;
-        const diceModifiers: PF2DiceModifier[] = [];
+        const diceModifiers: DiceModifierPF2e[] = [];
         const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die as DamageDieSize;
         let baseDamageType = weapon.data.damage.damageType;
@@ -242,7 +242,7 @@ export class PF2WeaponDamage {
         if (normalDice > 0) {
             const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
             diceModifiers.push(
-                new PF2DiceModifier({
+                new DiceModifierPF2e({
                     name: 'PF2E.WeaponCustomDamageLabel',
                     diceNumber: normalDice,
                     dieSize: weapon.data?.property1?.die as DamageDieSize,
@@ -255,7 +255,7 @@ export class PF2WeaponDamage {
         if (critDice > 0) {
             const damageType = weapon.data?.property1?.critDamageType ?? baseDamageType;
             diceModifiers.push(
-                new PF2DiceModifier({
+                new DiceModifierPF2e({
                     name: 'PF2E.WeaponCustomDamageLabel',
                     diceNumber: critDice,
                     dieSize: weapon.data?.property1?.critDie as DamageDieSize,
@@ -292,7 +292,7 @@ export class PF2WeaponDamage {
                 effectDice += s.bonus;
                 strikingDice = s.bonus;
                 diceModifiers.push(
-                    new PF2DiceModifier({
+                    new DiceModifierPF2e({
                         name: s.label,
                         diceNumber: s.bonus,
                         traits: ['magical'],
@@ -306,7 +306,7 @@ export class PF2WeaponDamage {
         // ghost touch
         if (hasGhostTouchRune(weapon)) {
             diceModifiers.push(
-                new PF2DiceModifier({
+                new DiceModifierPF2e({
                     name: 'PF2E.WeaponPropertyRuneGhostTouch',
                     traits: ['ghostTouch'],
                 }),
@@ -337,7 +337,7 @@ export class PF2WeaponDamage {
                     }
                 })();
                 diceModifiers.push(
-                    new PF2DiceModifier({
+                    new DiceModifierPF2e({
                         name: CONFIG.PF2E.weaponTraits[t.name],
                         diceNumber,
                         dieSize: deadly.substring(deadly.indexOf('d')) as DamageDieSize,
@@ -352,7 +352,7 @@ export class PF2WeaponDamage {
             .forEach((t) => {
                 const dieSize = t.name.substring(t.name.indexOf('-') + 1) as DamageDieSize;
                 diceModifiers.push(
-                    new PF2DiceModifier({
+                    new DiceModifierPF2e({
                         name: CONFIG.PF2E.weaponTraits[t.name],
                         diceNumber: 1,
                         dieSize,
@@ -449,7 +449,7 @@ export class PF2WeaponDamage {
             stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
                 (damageDice[key] || [])
-                    .map((d) => new PF2DamageDice(d))
+                    .map((d) => new DamageDicePF2e(d))
                     .forEach((d) => {
                         d.enabled = d.predicate.test(options);
                         diceModifiers.push(d);
@@ -490,7 +490,7 @@ export class PF2WeaponDamage {
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
     static getFormula(damage, critical: boolean) {
         const base = duplicate(damage.base);
-        const diceModifiers: PF2DiceModifier[] = damage.diceModifiers;
+        const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
         // override first, to ensure the dice stacking works properly
         diceModifiers
