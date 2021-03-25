@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e, SpellData } from '@item/data-definitions';
 import { sluggify } from '@module/utils';
 
 const { window } = new JSDOM('');
@@ -286,16 +286,23 @@ async function getAllData(filename: string): Promise<PackEntry[]> {
 
 function sortDataItems(entityData: PackEntry): any[] {
     const itemTypeList: string[] = [ "spellcastingEntry","spell","weapon","armor","consumable","melee","action","lore" ];
-    const entityItems: any[] = entityData["items"];
-    const groupedItems: Map<string, Set<any>> = new Map();
+    if (!('items' in entityData)) {
+        return [];
+    }
+
+    const entityItems: ItemData[] = entityData.items;
+    const groupedItems: Map<string, Set<ItemData>> = new Map();
 
     // Separate the data items into type collections.
     entityItems.forEach(item => {
         if (!groupedItems.has(item.type)) {
-            groupedItems.set(item.type, new Set<any>());
+            groupedItems.set(item.type, new Set<ItemData>());
         }
 
-        groupedItems.get(item.type).add(item);
+        const itemGroup = groupedItems.get(item.type);
+        if (itemGroup) {
+            itemGroup.add(item);
+        }
     });
 
     // Create new array of items.
@@ -303,28 +310,33 @@ function sortDataItems(entityData: PackEntry): any[] {
     let itemIndex = 0;
     itemTypeList.forEach(itemType => {
         if (groupedItems.has(itemType)) {
-            const items = Array.from(groupedItems.get(itemType)).sort((a, b) => {
-                if (itemType == "spell") {
-                    const aLevel = a['data']['level'];
-                    const bLevel = b['data']['level'];
-                    if (aLevel && !bLevel) {
-                        return -1;
-                    } else if (!aLevel && bLevel) {
-                        return 1;
-                    } else if (aLevel && bLevel) {
-                        const levelDiff = (bLevel['value'] as number) - (aLevel['value'] as number);
-                        if (levelDiff != 0) {
-                            return levelDiff;
+            const itemGroup = groupedItems.get(itemType);
+            if (itemGroup) {
+                const items = Array.from(itemGroup).sort((a, b) => {
+                    if (itemType == "spell") {
+                        const spellA = a as SpellData;
+                        const spellB = a as SpellData;
+                        const aLevel = spellA['data']['level'];
+                        const bLevel = spellB['data']['level'];
+                        if (aLevel && !bLevel) {
+                            return -1;
+                        } else if (!aLevel && bLevel) {
+                            return 1;
+                        } else if (aLevel && bLevel) {
+                            const levelDiff = (bLevel['value'] as number) - (aLevel['value'] as number);
+                            if (levelDiff != 0) {
+                                return levelDiff;
+                            }
                         }
                     }
-                }
 
-                return (a['name'] as string).localeCompare(b['name'] as string);
-            });
+                    return (a['name'] as string).localeCompare(b['name'] as string);
+                });
 
-            items.forEach(item => {
-                sortedItems[itemIndex++] = item;
-            });
+                items.forEach(item => {
+                    sortedItems[itemIndex++] = item;
+                });
+            }
         }
     });
 
@@ -337,13 +349,13 @@ async function extractPack(filePath: string, packFilename: string) {
 
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
-    const testArray: string[] = [ "One", "Two", "Three" ];
-    console.log(JSON.stringify(testArray, [ 2, 1, 0 ]));
     
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         let preparedEntity = convertLinks(entityData, packFilename);
-        preparedEntity["items"] = sortDataItems(preparedEntity);
+        if ('items' in preparedEntity) {
+            preparedEntity.items = sortDataItems(preparedEntity);
+        }
 
         // Pretty print JSON data
         const outData = (() => {
