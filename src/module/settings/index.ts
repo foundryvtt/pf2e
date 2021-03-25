@@ -92,7 +92,7 @@ export function registerSettings() {
         type: String,
         choices: {
             doubledamage: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
-            doubledice: 'PF2E.SETTINGS.CritRule.Choices.Doubledamage',
+            doubledice: 'PF2E.SETTINGS.CritRule.Choices.Doubledice',
         },
     });
     game.settings.register('pf2e', 'compendiumBrowserPacks', {
