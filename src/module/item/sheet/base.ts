@@ -1,12 +1,18 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
-import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
+
+export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
+    user: User<ActorPF2e>;
+    activeEffects: AESheetData;
+    isPhysicalItem: boolean;
+}
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -34,6 +40,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     /** @override */
     getData() {
         const data: any = super.getData();
+        data.user = game.user;
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
 
@@ -238,15 +245,18 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
         data.activeEffects = this.getActiveEffectsData();
+        data.isPhysicalItem = false;
 
         return data;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetData<ItemType['data']> & { activeEffects: AESheetData } {
+    protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
         return {
             ...super.getData(),
+            user: game.user,
             activeEffects: this.getActiveEffectsData(),
+            isPhysicalItem: false,
         };
     }
 
