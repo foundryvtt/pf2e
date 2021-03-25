@@ -772,8 +772,8 @@ export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemDat
     data: D;
 }
 
-export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData>
-    extends BaseItemDataPF2e<PhysicalDetailsData> {
+export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData> extends BaseItemDataPF2e<D> {
+    type: 'armor' | 'backpack' | 'equipment' | 'consumable' | 'melee' | 'treasure' | 'weapon';
     data: D;
 }
 
