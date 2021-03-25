@@ -1,7 +1,7 @@
 import { isBlank, toNumber } from '../utils';
 import { DamageDieSize } from '../system/damage/damage';
 import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
-import { PF2DiceModifier } from '../modifiers';
+import { DiceModifierPF2e } from '../modifiers';
 import { ConfigPF2e } from '@scripts/config';
 
 type WeaponPropertyRuneType = keyof ConfigPF2e['PF2E']['weaponPropertyRunes'];
@@ -70,12 +70,12 @@ interface RuneDiceModifier {
 function toModifier(
     rune: WeaponPropertyRuneType,
     { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier,
-): PF2DiceModifier {
+): DiceModifierPF2e {
     const traits = [];
     if (damageType !== undefined) {
         traits.push(damageType);
     }
-    return new PF2DiceModifier({
+    return new DiceModifierPF2e({
         name: CONFIG.PF2E.weaponPropertyRunes[rune],
         diceNumber,
         dieSize,
@@ -103,7 +103,7 @@ runeDamageModifiers.set('greaterFrost', { damageType: 'cold' });
 runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
 runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
-export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): PF2DiceModifier[] {
+export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
     const diceModifiers = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         const modifierConfig = runeDamageModifiers.get(rune);
