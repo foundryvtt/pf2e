@@ -768,12 +768,29 @@ export interface EffectDetailsData extends ItemDescriptionData {
     };
 }
 
+export type PhysicalItemType = 'armor' | 'backpack' | 'consumable' | 'equipment' | 'melee' | 'treasure' | 'weapon';
+export type ItemType =
+    | 'action'
+    | 'ancestry'
+    | 'background'
+    | 'class'
+    | 'condition'
+    | 'effect'
+    | 'feat'
+    | 'kit'
+    | 'lore'
+    | 'martial'
+    | 'spell'
+    | 'spellcastingEntry'
+    | PhysicalItemType;
+
 export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
+    type: ItemType;
     data: D;
 }
 
 export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData> extends BaseItemDataPF2e<D> {
-    type: 'armor' | 'backpack' | 'equipment' | 'consumable' | 'melee' | 'treasure' | 'weapon';
+    type: PhysicalItemType;
     data: D;
 }
 
@@ -844,10 +861,6 @@ export interface SpellData extends BaseItemDataPF2e<SpellDetailsData> {
 
 export interface SpellcastingEntryData extends BaseItemDataPF2e<SpellcastingEntryDetailsData> {
     type: 'spellcastingEntry';
-}
-
-export interface StatusData extends BaseItemDataPF2e<StatusDetailsData> {
-    type: 'status';
 }
 
 export interface ConditionData extends BaseItemDataPF2e<ConditionDetailsData> {

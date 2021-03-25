@@ -21,8 +21,6 @@ exports[`stricter compilation`] = {
       [455, 21, 22, "Argument of type \'(skill: LoreData) => void\' is not assignable to parameter of type \'(value: ItemDataPF2e, index: number, array: ItemDataPF2e[]) => void\'.\\n  Types of parameters \'skill\' and \'value\' are incompatible.\\n    Type \'ItemDataPF2e\' is not assignable to type \'LoreData\'.\\n      Type \'WeaponData\' is not assignable to type \'LoreData\'.\\n        Types of property \'type\' are incompatible.\\n          Type \'\\"weapon\\"\' is not assignable to type \'\\"lore\\"\'.", "4062464435"],
       [470, 45, 22, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'Skills\'.\\n  No index signature with a parameter of type \'string\' was found on type \'Skills\'.", "2098141979"],
       [496, 16, 17, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'Partial<Skills>\'.\\n  No index signature with a parameter of type \'string\' was found on type \'Partial<Skills>\'.", "1865357509"],
-      [743, 67, 12, "Argument of type \'ModifierPredicate | undefined\' is not assignable to parameter of type \'RulePredicate\'.\\n  Type \'undefined\' is not assignable to type \'RulePredicate\'.", "429213269"],
-      [746, 68, 13, "Argument of type \'ModifierPredicate | undefined\' is not assignable to parameter of type \'RulePredicate\'.\\n  Type \'undefined\' is not assignable to type \'RulePredicate\'.", "3085046734"],
       [802, 36, 31, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.", "3601740505"],
       [1034, 14, 8, "Type \'AncestryData | undefined\' is not assignable to type \'AncestryData\'.\\n  Type \'undefined\' is not assignable to type \'AncestryData\'.", "1718680096"],
       [1046, 14, 10, "Type \'BackgroundData | undefined\' is not assignable to type \'BackgroundData\'.\\n  Type \'undefined\' is not assignable to type \'BackgroundData\'.", "1383623595"]
@@ -83,7 +81,7 @@ exports[`stricter compilation`] = {
       [1669, 57, 45, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ prepared: string; spontaneous: string; innate: string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ prepared: string; spontaneous: string; innate: string; }\'.", "1585367218"],
       [1670, 51, 43, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ focus: string; ritual: string; scroll: string; wand: string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ focus: string; ritual: string; scroll: string; wand: string; }\'.", "2969658523"]
     ],
-    "src/module/actor/sheet/character.ts:1684024387": [
+    "src/module/actor/sheet/character.ts:2466178886": [
       [81, 12, 70, "Element implicitly has an \'any\' type because expression of type \'any\' can\'t be used to index type \'{ 0: string; 1: string; 2: string; 3: string; }\'.", "2863222600"],
       [278, 50, 1, "Argument of type \'any\' is not assignable to parameter of type \'never\'.", "177612"],
       [280, 20, 17, "Element implicitly has an \'any\' type because expression of type \'any\' can\'t be used to index type \'{ weapon: { label: string; items: never[]; }; armor: { label: string; items: never[]; }; equipment: { label: string; items: never[]; investedItemCount: number; }; consumable: { label: string; items: never[]; }; treasure: { ...; }; backpack: { ...; }; }\'.", "477399958"],
@@ -538,7 +536,7 @@ exports[`stricter compilation`] = {
       [61, 26, 11, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'Readonly<{ all: number; criticalFailure: DegreeOfSuccess; failure: DegreeOfSuccess; success: DegreeOfSuccess; criticalSuccess: DegreeOfSuccess; }>\'.\\n  No index signature with a parameter of type \'string\' was found on type \'Readonly<{ all: number; criticalFailure: DegreeOfSuccess; failure: DegreeOfSuccess; success: DegreeOfSuccess; criticalSuccess: DegreeOfSuccess; }>\'.", "465081038"],
       [62, 27, 14, "Element implicitly has an \'any\' type because expression of type \'any\' can\'t be used to index type \'Readonly<{ \'one-degree-better\': DegreeAdjustment; \'one-degree-worse\': DegreeAdjustment; }>\'.", "2908637929"]
     ],
-    "src/module/system/damage-roll-modifiers-dialog.ts:1864263384": [
+    "src/module/system/damage-roll-modifiers-dialog.ts:2511409784": [
       [41, 16, 6, "Parameter \'damage\' implicitly has an \'any\' type.", "1116830222"],
       [41, 24, 7, "Parameter \'context\' implicitly has an \'any\' type.", "3716929786"],
       [41, 33, 8, "Parameter \'callback\' implicitly has an \'any\' type.", "3760058444"],
@@ -568,20 +566,17 @@ exports[`stricter compilation`] = {
       [41, 24, 46, "No overload matches this call.\\n  Overload 1 of 2, \'(...items: ConcatArray<never>[]): never[]\', gave the following error.\\n    Argument of type \'string[]\' is not assignable to parameter of type \'ConcatArray<never>\'.\\n      The types returned by \'slice(...)\' are incompatible between these types.\\n        Type \'string[]\' is not assignable to type \'never[]\'.\\n          Type \'string\' is not assignable to type \'never\'.\\n  Overload 2 of 2, \'(...items: ConcatArray<never>[]): never[]\', gave the following error.\\n    Argument of type \'string[]\' is not assignable to parameter of type \'ConcatArray<never>\'.", "1795448959"],
       [42, 24, 48, "No overload matches this call.\\n  Overload 1 of 2, \'(...items: ConcatArray<never>[]): never[]\', gave the following error.\\n    Argument of type \'string[]\' is not assignable to parameter of type \'ConcatArray<never>\'.\\n  Overload 2 of 2, \'(...items: ConcatArray<never>[]): never[]\', gave the following error.\\n    Argument of type \'string[]\' is not assignable to parameter of type \'ConcatArray<never>\'.", "218787449"]
     ],
-    "src/module/system/damage/weapon.ts:3695787161": [
+    "src/module/system/damage/weapon.ts:24861670": [
       [47, 8, 6, "Parameter \'weapon\' implicitly has an \'any\' type.", "2011618087"],
       [51, 8, 10, "Parameter \'damageDice\' implicitly has an \'any\' type.", "3281382661"],
       [214, 16, 7, "Variable \'ability\' is used before being assigned.", "162475143"],
       [220, 73, 7, "Variable \'ability\' is used before being assigned.", "162475143"],
       [236, 29, 76, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ b: string; p: string; s: string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ b: string; p: string; s: string; }\'.", "3220668278"],
-      [277, 59, 12, "Argument of type \'ModifierPredicate | undefined\' is not assignable to parameter of type \'RulePredicate\'.\\n  Type \'undefined\' is not assignable to type \'RulePredicate\'.", "429213269"],
       [340, 30, 32, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.", "167904606"],
       [355, 30, 32, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ acid: string; adamantine: string; air: string; alchemical: string; agile: string; artifact: string; attached: string; backstabber: string; backswing: string; bomb: string; brutal: string; chaotic: string; ... 114 more ...; \'modular-b-P-or-s\': string; }\'.", "167904606"],
       [384, 38, 32, "Argument of type \'string | undefined\' is not assignable to parameter of type \'string\'.\\n  Type \'undefined\' is not assignable to type \'string\'.", "2414773068"],
       [392, 37, 31, "Argument of type \'string | undefined\' is not assignable to parameter of type \'string\'.\\n  Type \'undefined\' is not assignable to type \'string\'.", "311878460"],
       [398, 14, 5, "Variable \'notes\' implicitly has type \'any[]\' in some locations where its type cannot be determined.", "180094982"],
-      [418, 61, 14, "Argument of type \'ModifierPredicate | undefined\' is not assignable to parameter of type \'RulePredicate\'.\\n  Type \'undefined\' is not assignable to type \'RulePredicate\'.", "916474594"],
-      [453, 36, 11, "Object is possibly \'undefined\'.", "2132015350"],
       [484, 23, 5, "Variable \'notes\' implicitly has an \'any[]\' type.", "180094982"],
       [490, 22, 6, "Parameter \'damage\' implicitly has an \'any\' type.", "1116830222"],
       [566, 25, 2, "Parameter \'nm\' implicitly has an \'any\' type.", "5861190"],
@@ -609,7 +604,6 @@ exports[`stricter compilation`] = {
     ],
     "src/module/system/rolls.ts:1196725279": [
       [37, 12, 24, "Object is possibly \'undefined\'.", "426866902"],
-      [40, 79, 15, "Argument of type \'string[] | undefined\' is not assignable to parameter of type \'string[]\'.\\n  Type \'undefined\' is not assignable to type \'string[]\'.", "2021033028"],
       [45, 16, 15, "Object is possibly \'undefined\'.", "2021033028"],
       [51, 29, 4, "Parameter \'note\' implicitly has an \'any\' type.", "2087865813"],
       [75, 38, 26, "Argument of type \'string | null | undefined\' is not assignable to parameter of type \'string\'.\\n  Type \'undefined\' is not assignable to type \'string\'.", "3387792192"],
@@ -637,34 +631,34 @@ exports[`stricter compilation`] = {
       [126, 23, 38, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ Monday: string; Tuesday: string; Wednesday: string; Thursday: string; Friday: string; Saturday: string; Sunday: string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ Monday: string; Tuesday: string; Wednesday: string; Thursday: string; Friday: string; Saturday: string; Sunday: string; }\'.", "1647180819"],
       [139, 15, 42, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{ One: string; Two: string; Few: string; Other: string; }\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{ One: string; Two: string; Few: string; Other: string; }\'.", "837659766"]
     ],
-    "src/pf2e.ts:4240961121": [
+    "src/pf2e.ts:1376966314": [
+      [39, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [40, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [41, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [42, 12, 7, "Object is possibly \'null\'.", "1236122734"],
-      [43, 12, 7, "Object is possibly \'null\'.", "1236122734"],
+      [51, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [52, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [53, 12, 7, "Object is possibly \'null\'.", "1236122734"],
       [54, 12, 7, "Object is possibly \'null\'.", "1236122734"],
-      [55, 12, 7, "Object is possibly \'null\'.", "1236122734"],
-      [68, 29, 7, "Object is possibly \'null\'.", "1236122734"],
-      [73, 24, 7, "Object is possibly \'null\'.", "1236122734"],
-      [74, 26, 7, "Object is possibly \'null\'.", "1236122734"],
-      [78, 16, 5, "Object is possibly \'null\'.", "169990478"],
-      [78, 31, 5, "Object is possibly \'null\'.", "169990478"],
-      [78, 84, 7, "Object is possibly \'null\'.", "1236122734"],
-      [85, 24, 7, "Object is possibly \'null\'.", "1236122734"],
-      [86, 33, 7, "Object is possibly \'null\'.", "1236122734"],
-      [89, 19, 5, "Object is possibly \'null\'.", "169990478"],
-      [89, 35, 7, "Object is possibly \'null\'.", "1236122734"],
-      [129, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
-      [135, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
-      [141, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
-      [147, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
-      [157, 46, 13, "Type \'undefined\' cannot be used as an index type.", "2739722006"],
-      [243, 93, 1, "Object is possibly \'undefined\'.", "177629"],
-      [243, 110, 1, "Object is possibly \'undefined\'.", "177612"],
-      [246, 93, 1, "Object is possibly \'undefined\'.", "177629"],
-      [246, 110, 1, "Object is possibly \'undefined\'.", "177612"]
+      [67, 29, 7, "Object is possibly \'null\'.", "1236122734"],
+      [72, 24, 7, "Object is possibly \'null\'.", "1236122734"],
+      [73, 26, 7, "Object is possibly \'null\'.", "1236122734"],
+      [77, 16, 5, "Object is possibly \'null\'.", "169990478"],
+      [77, 31, 5, "Object is possibly \'null\'.", "169990478"],
+      [77, 84, 7, "Object is possibly \'null\'.", "1236122734"],
+      [84, 24, 7, "Object is possibly \'null\'.", "1236122734"],
+      [85, 33, 7, "Object is possibly \'null\'.", "1236122734"],
+      [88, 19, 5, "Object is possibly \'null\'.", "169990478"],
+      [88, 35, 7, "Object is possibly \'null\'.", "1236122734"],
+      [128, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
+      [134, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
+      [140, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
+      [146, 58, 39, "Argument of type \'ChatMessage<Actor<Item<_Actor>>> | null\' is not assignable to parameter of type \'ChatMessage<Actor<Item<_Actor>>>\'.\\n  Type \'null\' is not assignable to type \'ChatMessage<Actor<Item<_Actor>>>\'.", "1605622680"],
+      [156, 46, 13, "Type \'undefined\' cannot be used as an index type.", "2739722006"],
+      [242, 93, 1, "Object is possibly \'undefined\'.", "177629"],
+      [242, 110, 1, "Object is possibly \'undefined\'.", "177612"],
+      [245, 93, 1, "Object is possibly \'undefined\'.", "177629"],
+      [245, 110, 1, "Object is possibly \'undefined\'.", "177612"]
     ],
     "src/scripts/actor/status-effects.ts:1730234975": [
       [66, 12, 29, "Element implicitly has an \'any\' type because expression of type \'string\' can\'t be used to index type \'{}\'.\\n  No index signature with a parameter of type \'string\' was found on type \'{}\'.", "1681612056"],
@@ -683,10 +677,6 @@ exports[`stricter compilation`] = {
       [631, 25, 7, "Parameter \'content\' implicitly has an \'any\' type.", "3716929964"],
       [652, 29, 3, "Parameter \'url\' implicitly has an \'any\' type.", "193422222"],
       [663, 27, 5, "Parameter \'token\' implicitly has an \'any\' type.", "183304158"]
-    ],
-    "src/scripts/chat/chat-damage-buttons-pf2e.ts:1354223269": [
-      [198, 29, 4, "Parameter \'html\' implicitly has an \'any\' type.", "2087820472"],
-      [198, 35, 10, "Parameter \'multiplier\' implicitly has an \'any\' type.", "3027236462"]
     ],
     "src/scripts/chat/crit-fumble-cards.ts:1002429728": [
       [7, 32, 14, "Object is possibly \'null\'.", "2758697215"],
