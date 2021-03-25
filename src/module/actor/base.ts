@@ -1209,9 +1209,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             modifier.custom = true;
 
             // modifier predicate
-            if (predicate instanceof ModifierPredicate) {
-                modifier.predicate = predicate;
-            }
+            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
             modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
