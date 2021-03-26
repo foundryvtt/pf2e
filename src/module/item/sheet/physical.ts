@@ -19,7 +19,7 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
     /** @override */
     protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // Toggle item identification status
-        if (formData['identified'] !== this.item.isIdentified) {
+        if ('identified' in formData && formData['identified'] !== this.item.isIdentified) {
             formData['data.identification.status'] = formData['identified'] ? 'identified' : 'unidentified';
         }
         super._updateObject(event, formData);
