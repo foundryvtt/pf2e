@@ -293,7 +293,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         itemTraits: ItemTraits,
         traitList: Record<string, string>,
     ): { label: string; description: string }[] {
-        let traits: string[] = Object.assign([], itemTraits.value);
+        let traits: string[] = duplicate(itemTraits.value);
         const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
 
         if (customTraits.length > 0) {
