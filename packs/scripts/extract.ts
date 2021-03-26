@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e, SpellData } from '@item/data-definitions';
+import { ActionData, ItemDataPF2e, SpellData } from '@item/data-definitions';
 import { sluggify } from '@module/utils';
 
 const { window } = new JSDOM('');
@@ -312,35 +312,75 @@ function sortDataItems(entityData: PackEntry): any[] {
         if (groupedItems.has(itemType)) {
             const itemGroup = groupedItems.get(itemType);
             if (itemGroup) {
-                const items = Array.from(itemGroup).sort((a, b) => {
-                    if (itemType == "spell") {
-                        const spellA = a as SpellData;
-                        const spellB = a as SpellData;
-                        const aLevel = spellA['data']['level'];
-                        const bLevel = spellB['data']['level'];
-                        if (aLevel && !bLevel) {
-                            return -1;
-                        } else if (!aLevel && bLevel) {
-                            return 1;
-                        } else if (aLevel && bLevel) {
-                            const levelDiff = (bLevel['value'] as number) - (aLevel['value'] as number);
-                            if (levelDiff != 0) {
-                                return levelDiff;
-                            }
-                        }
-                    }
-
-                    return (a['name'] as string).localeCompare(b['name'] as string);
-                });
+                let items: ItemData[];
+                switch (itemType) {
+                    case 'spell': items = sortSpells(itemGroup); break;
+                    case 'action': items = sortActions(itemGroup); break;
+                    default: items = Array.from(itemGroup);
+                }
 
                 items.forEach(item => {
                     sortedItems[itemIndex++] = item;
+                    item.sort = 100000 * itemIndex;
                 });
             }
         }
     });
 
     return sortedItems;
+}
+
+function sortActions(actions: Set<ItemData>): ItemData[] {
+    return Array.from(actions).sort((a, b) => {
+        const actionA = a as ActionData;
+        const actionB = b as ActionData;
+        const aActionCategory = actionA.data.actionCategory.value;
+        const bActionCategory = actionB.data.actionCategory.value;
+        if (aActionCategory && !bActionCategory) {
+            return -1;
+        } else if (!aActionCategory && bActionCategory) {
+            return 1;
+        } else {
+            if (aActionCategory == bActionCategory) {
+                return 0;
+            }
+
+            if (aActionCategory == 'interaction') {
+                return -1;
+            }
+
+            if (bActionCategory == 'interaction') {
+                return 1;
+            }
+
+            if (aActionCategory == 'defensive') {
+                return -1;
+            }
+
+            return 1;
+        }
+    });
+}
+
+function sortSpells(spells: Set<ItemData>): ItemData[] {
+    return Array.from(spells).sort((a, b) => {
+        const spellA = a as SpellData;
+        const spellB = b as SpellData;
+        const aLevel = spellA.data.level;
+        const bLevel = spellB.data.level;
+        if (aLevel && !bLevel) {
+            return -1;
+        } else if (!aLevel && bLevel) {
+            return 1;
+        } else if (aLevel && bLevel) {
+            const levelDiff = bLevel.value - aLevel.value;
+            if (levelDiff != 0) {
+                return levelDiff;
+            }
+        }
+
+        return a.name.localeCompare(b.name);
+    });
 }
 
 async function extractPack(filePath: string, packFilename: string) {
