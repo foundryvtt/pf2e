@@ -58,10 +58,11 @@ declare interface ItemConstructorOptions<A extends Actor> extends EntityConstruc
     actor?: A;
 }
 
-type _Actor = Actor<Item<_Actor>>;
-declare class Item<ActorType extends Actor = _Actor> extends Entity {
+type _Actor = Actor<Item<_Actor>, ActiveEffect>;
+type _ActiveEffect = ActiveEffect<_Actor | Item>;
+declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
     /** The item's collection of ActiveEffects */
-    effects: Collection<ActiveEffect>;
+    effects: Collection<EffectType>;
 
     /** @override */
     static get config(): ItemClassConfig<Item>;
@@ -122,12 +123,14 @@ declare class Item<ActorType extends Actor = _Actor> extends Entity {
         actor: A,
     ): Promise<I>;
 
-    // Signature overload
-    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
 }
 
-declare interface Item<ActorType extends Actor = _Actor> extends Entity {
+declare interface Item extends Entity {
     data: ItemData;
     _data: ItemData;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

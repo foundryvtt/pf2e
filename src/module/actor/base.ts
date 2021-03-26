@@ -42,6 +42,7 @@ import {
 import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -109,7 +110,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 /**
  * @category Actor
  */
-export class ActorPF2e extends Actor<ItemPF2e> {
+export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -212,9 +213,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         return super.create(data, options) as Promise<A[] | A>;
     }
 
-    /**
-     * Augment the basic actor data with additional dynamic data.
-     */
+    /** @override */
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
@@ -897,20 +896,40 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e>;
     updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]> {
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
             const item = this.items.get(datum._id);

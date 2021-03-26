@@ -19,6 +19,7 @@ import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -29,7 +30,7 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
 /**
  * @category PF2
  */
-export class ItemPF2e extends Item<ActorPF2e> {
+export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     constructor(data: ItemDataPF2e, options: ItemConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;

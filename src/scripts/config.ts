@@ -27,6 +27,8 @@ import {
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -2259,13 +2261,25 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e> {
+    /**
+     * Configuration for the default Combat entity class
+     */
+    Combat: {
+        entityClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
+        collection: typeof CombatEncounters;
+        initiative: {
+            decimals: number;
+            formula: ((combatant: CombatantData<Actor>) => string) | null;
+        };
+    };
+
     PF2E: typeof PF2ECONFIG;
     time: {
         roundTime: number;
     };
-    ui: {
+    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e>['ui'] & {
         combat: typeof CombatTrackerPF2e;
-        [key: string]: typeof Application;
+        compendium: typeof CompendiumDirectoryPF2e;
     };
 }

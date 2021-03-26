@@ -1,6 +1,10 @@
 // @TODO: Assign class types
 
-declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Item<ActorType>> {
+declare interface Config<
+    ActorType extends Actor,
+    ItemType extends Item,
+    EffectType extends ActiveEffect<ActorType | ItemType>
+> {
     /**
      * Configure debugging flags to display additional information
      */
@@ -19,12 +23,37 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
     };
 
     /**
+     * Configuration for the ActiveEffect embedded Entity
+     */
+    ActiveEffect: {
+        entityClass: { new (data: EffectType['data'], parent: ActorType | ItemType): EffectType };
+        sheetClass: typeof ActiveEffectConfig;
+    };
+
+    Canvas: {
+        blurStrength: number;
+        darknessColor: number;
+        darknessLightPenalty: number;
+        daylightColor: number;
+        dispositionColors: Record<string, number>;
+        exploredColor: number;
+        lightAnimations: Record<string, unknown>;
+        lightLevels: {
+            dark: number;
+            dim: number;
+            bright: number;
+        };
+        maxZoom: number;
+        normalLightColor: number;
+        objectBorderThickness: number;
+        unexploredColor: number;
+    };
+
+    /**
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: {
-            new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType;
-        };
+        entityClass: { new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType };
         collection: Items<ItemType>;
         sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
     };
@@ -34,7 +63,7 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
      */
     Combat: {
         entityClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
-        collection: CombatEncounters<ActorType>;
+        collection: typeof CombatEncounters;
         initiative: {
             decimals: number;
             formula: ((combatant: CombatantData<ActorType>) => string) | null;
@@ -142,7 +171,26 @@ declare interface Config<ActorType extends Actor<ItemType>, ItemType extends Ite
     maxCanvasZoom: number;
 
     ui: {
-        [key: string]: typeof Application;
+        actors: typeof ActorDirectory;
+        chat: typeof ChatLog;
+        combat: typeof CombatTracker;
+        compendium: typeof CompendiumDirectory;
+        controls: typeof SceneControls;
+        hotbar: typeof Hotbar;
+        items: typeof ItemDirectory;
+        // journal: typeof JournalDirectory;
+        // macros: typeof MacroDirectory;
+        menu: typeof MainMenu;
+        nav: typeof SceneNavigation;
+        notifications: typeof Notifications;
+        pause: typeof Pause;
+        players: typeof PlayerList;
+        // playlists: typeof PlaylistDirectory;
+        // scenes: typeof SceneDirectory;
+        settings: typeof Settings;
+        sidebar: typeof Sidebar;
+        tables: typeof RollTableDirectory;
+        // webrtc: typeof CameraViews;
     };
 
     [key: string]: any;

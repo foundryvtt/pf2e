@@ -7,20 +7,40 @@ import { ItemDataPF2e } from '@item/data-definitions';
 export abstract class CreaturePF2e extends ActorPF2e {
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e>;
     updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]> {
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
 
         // Allow no more than one article of armor to be equipped at a time
