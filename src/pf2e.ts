@@ -282,7 +282,7 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
 });
 
 Hooks.on('controlToken', () => {
-    game.pf2e.effectPanel?.refresh();
+    game.pf2e?.effectPanel?.refresh();
 });
 
 // world clock application
