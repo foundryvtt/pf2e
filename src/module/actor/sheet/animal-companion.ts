@@ -20,5 +20,5 @@ export class AnimalCompanionSheetPF2e extends CreatureSheetPF2e<AnimalCompanionP
     }
 
     /** @override */
-    protected prepareItems(_actorData: any) {}
+    protected prepareItems() {}
 }

@@ -71,7 +71,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Organize and classify Items for NPC sheets
      * @private
      */
-    prepareItems(actorData) {
+    prepareItems(sheetData: any) {
+        const actorData: any = sheetData.actor;
         // Actions
         const attacks = {
             melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
