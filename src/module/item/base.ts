@@ -298,7 +298,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         itemTraits: ItemTraits,
         traitList: Record<string, string>,
     ): { label: string; description: string }[] {
-        let traits = itemTraits.value;
+        let traits: string[] = duplicate(itemTraits.value);
         const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
 
         if (customTraits.length > 0) {
@@ -961,11 +961,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 this._castEmbeddedSpell();
             } else {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                const popup = new TrickMagicItemPopup(this.actor, DC);
+                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
+                    const trickMagicItemData = await trickMagicItemPromise;
+                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
+                };
+                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
                 popup.render(true);
-                const trickMagicItemData = popup.result;
-                if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                else return;
             }
         } else {
             const cv = itemData.consume.value;
@@ -1024,7 +1025,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
-        const spellData = this.data.data.spell.data.data;
+        const spellData = duplicate(this.data.data.spell.data.data);
         let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
