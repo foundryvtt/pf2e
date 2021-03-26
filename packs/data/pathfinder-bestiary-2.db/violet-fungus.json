@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "10 feet"
+                "value": "10"
             }
         },
         "currency": {
@@ -404,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -458,10 +461,12 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "violet rot"
+                        "Violet Rot"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 11,
                     "value": 11
@@ -569,6 +574,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -614,7 +620,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 20 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 1d6 poison plus @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 (1 round); <strong>Stage 2</strong> 1d6 poison plus enfeebled 1 and @Compendium[pf2e.conditionitems.Drained]{Drained} 1 (1 round); <strong>Stage 3</strong> 2d6 poison plus enfeebled 1 and drained 1 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> DC 20 Fortitude;</p>\n<p><strong>Maximum Duration</strong> 6 rounds;</p>\n<p><strong>Stage 1</strong> [[/r 1d6 #poison]] poison plus @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 round);</p>\n<p><strong>Stage 2</strong> [[/r 1d6 #poison]] poison plus @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 round);</p>\n<p><strong>Stage 3</strong> [[/r 2d6 #poison]] poison plus @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -623,6 +629,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -673,6 +680,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -693,6 +701,59 @@
             "name": "Stealth",
             "sort": 300000,
             "type": "lore"
+        },
+        {
+            "_id": "e8r1Ct8F3Oee48fo",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tremorsense",
+            "sort": 400000,
+            "type": "action"
         }
     ],
     "name": "Violet Fungus",
@@ -700,7 +761,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "GsrqCDf0Dc9PisEt",
         "actorLink": false,
         "bar1": {
@@ -719,6 +779,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Violet Fungus",
         "randomImg": false,
