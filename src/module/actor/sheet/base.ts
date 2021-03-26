@@ -972,13 +972,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id');
-            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level')) || 0;
             const key = `data.slots.slot${slotLvl}.max`;
-            const options = { _id: itemId };
-            options[key] = Number(event.target.value);
-
-            await this.actor.updateEmbeddedEntity('OwnedItem', options);
+            await this.actor.updateEmbeddedEntity('OwnedItem', {
+                _id: itemId,
+                [key]: Number(event.target.value),
+            });
         });
 
         // Modify select element
