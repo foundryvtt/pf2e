@@ -972,7 +972,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                     const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
                     popup.render(true);
                 } else {
-                    const content = `You lack the proficiency to use ${this.name} and do not have the Trick Magic Feat`;
+                    const content = `You lack the proficiency to use ${this.name} and do not have the Trick Magic Item Feat`;
                     ChatMessage.create({
                         user: game.user._id,
                         speaker: ChatMessage.getSpeaker({ actor: this.actor }),
