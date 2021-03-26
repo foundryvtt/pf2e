@@ -960,26 +960,24 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         ) {
             if (canCastConsumable(this.actor, item)) {
                 this._castEmbeddedSpell();
+            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
+                const DC = calculateTrickMagicItemCheckDC(item);
+                const trickMagicItemCallback = async (
+                    trickMagicItemPromise: TrickMagicItemCastData,
+                ): Promise<void> => {
+                    const trickMagicItemData = await trickMagicItemPromise;
+                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
+                };
+                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
+                popup.render(true);
             } else {
-                if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
-                    const DC = calculateTrickMagicItemCheckDC(item);
-                    const trickMagicItemCallback = async (
-                        trickMagicItemPromise: TrickMagicItemCastData,
-                    ): Promise<void> => {
-                        const trickMagicItemData = await trickMagicItemPromise;
-                        if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                    };
-                    const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                    popup.render(true);
-                } else {
-                    const content = `You lack the proficiency to use ${this.name} and do not have the Trick Magic Item Feat`;
-                    ChatMessage.create({
-                        user: game.user._id,
-                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                        whisper: ChatMessage.getWhisperRecipients(this.actor.name),
-                        content,
-                    });
-                }
+                const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
+                ChatMessage.create({
+                    user: game.user._id,
+                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                    whisper: ChatMessage.getWhisperRecipients(this.actor.name),
+                    content,
+                });
             }
         } else {
             const cv = itemData.consume.value;
@@ -1016,7 +1014,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
             this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
         }
-        // Deduct one from quantity
+        // Deduct one from quantity if this item doesn't have charges
         else if (chg.max < 1) {
             const options = {
                 _id: this.data._id,

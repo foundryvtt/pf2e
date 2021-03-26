@@ -30,34 +30,34 @@ dcAdjustments.set('hard', 2);
 dcAdjustments.set('very hard', 5);
 dcAdjustments.set('incredibly hard', 10);
 
-const dcByLevel: number[] = [];
-dcByLevel[-1] = 13;
-dcByLevel[0] = 14;
-dcByLevel[1] = 15;
-dcByLevel[2] = 16;
-dcByLevel[3] = 18;
-dcByLevel[4] = 19;
-dcByLevel[5] = 20;
-dcByLevel[6] = 22;
-dcByLevel[7] = 23;
-dcByLevel[8] = 24;
-dcByLevel[9] = 26;
-dcByLevel[10] = 27;
-dcByLevel[11] = 28;
-dcByLevel[12] = 30;
-dcByLevel[13] = 31;
-dcByLevel[14] = 32;
-dcByLevel[15] = 34;
-dcByLevel[16] = 35;
-dcByLevel[17] = 36;
-dcByLevel[18] = 38;
-dcByLevel[19] = 39;
-dcByLevel[20] = 40;
-dcByLevel[21] = 42;
-dcByLevel[22] = 44;
-dcByLevel[23] = 46;
-dcByLevel[24] = 48;
-dcByLevel[25] = 50;
+const dcByLevel = new Map<number, number>();
+dcByLevel.set(-1, 13);
+dcByLevel.set(0, 14);
+dcByLevel.set(1, 15);
+dcByLevel.set(2, 16);
+dcByLevel.set(3, 18);
+dcByLevel.set(4, 19);
+dcByLevel.set(5, 20);
+dcByLevel.set(6, 22);
+dcByLevel.set(7, 23);
+dcByLevel.set(8, 24);
+dcByLevel.set(9, 26);
+dcByLevel.set(10, 27);
+dcByLevel.set(11, 28);
+dcByLevel.set(12, 30);
+dcByLevel.set(13, 31);
+dcByLevel.set(14, 32);
+dcByLevel.set(15, 34);
+dcByLevel.set(16, 35);
+dcByLevel.set(17, 36);
+dcByLevel.set(18, 38);
+dcByLevel.set(19, 39);
+dcByLevel.set(20, 40);
+dcByLevel.set(21, 42);
+dcByLevel.set(22, 44);
+dcByLevel.set(23, 46);
+dcByLevel.set(24, 48);
+dcByLevel.set(25, 50);
 
 const simpleDCs = new Map<ProficiencyRank, number>();
 simpleDCs.set('untrained', 10);
@@ -103,8 +103,9 @@ export interface DCOptions {
  * @param proficiencyWithoutLevel
  */
 export function calculateDC(level: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    // assume level 0 if garbage comes in
-    const dc = dcByLevel[level] ?? 14;
+    // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
+    // stored as a string, which we can't catch at compile time
+    const dc = dcByLevel.get(level as number) ?? 14;
     if (proficiencyWithoutLevel) {
         // -1 shouldn't be subtracted since it's just
         // a creature level and not related to PC levels
