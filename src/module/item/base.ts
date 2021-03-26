@@ -961,13 +961,25 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             if (canCastConsumable(this.actor, item)) {
                 this._castEmbeddedSpell();
             } else {
-                const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
-                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                };
-                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                popup.render(true);
+                if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
+                    const DC = calculateTrickMagicItemCheckDC(item);
+                    const trickMagicItemCallback = async (
+                        trickMagicItemPromise: TrickMagicItemCastData,
+                    ): Promise<void> => {
+                        const trickMagicItemData = await trickMagicItemPromise;
+                        if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
+                    };
+                    const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
+                    popup.render(true);
+                } else {
+                    const content = `You lack the proficiency to use ${this.name} and do not have the Trick Magic Feat`;
+                    ChatMessage.create({
+                        user: game.user._id,
+                        speaker: ChatMessage.getSpeaker({ actor: this.actor }),
+                        whisper: ChatMessage.getWhisperRecipients(this.actor.name),
+                        content,
+                    });
+                }
             }
         } else {
             const cv = itemData.consume.value;
@@ -1005,7 +1017,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
         }
         // Deduct one from quantity
-        else if (chg.value <= 1) {
+        else if (chg.max < 1) {
             const options = {
                 _id: this.data._id,
                 'data.quantity.value': Math.max(qty.value - 1, 0),
