@@ -376,7 +376,7 @@ interface CharacterAttributes extends BaseCreatureAttributes {
     /** Creature armor class, used to defend against attacks. */
     ac: ArmorClassData;
     /** Initiative, used to determine turn order in combat. */
-    initiative: InitiativeData;
+    initiative: CheckModifier;
 
     /** Dexterity modifier cap to AC. Undefined means no limit. */
     dexCap: DexterityModifierCapData[];
