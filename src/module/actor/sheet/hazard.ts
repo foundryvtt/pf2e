@@ -58,7 +58,8 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     }
 
     /** @override */
-    prepareItems(actorData: any) {
+    prepareItems(sheetData: any) {
+        const actorData = sheetData.actor;
         // Actions
         const attacks = {
             melee: { label: 'NPC Melee Attack', items: [], type: 'melee' },

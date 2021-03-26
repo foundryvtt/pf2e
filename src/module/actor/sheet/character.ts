@@ -142,7 +142,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Organize and classify Items for Character sheets
      */
-    protected prepareItems(actorData: any) {
+    protected prepareItems(sheetData: any) {
+        const actorData: any = sheetData.actor;
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
