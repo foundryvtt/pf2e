@@ -1087,7 +1087,7 @@ export class CharacterPF2e extends CreaturePF2e {
     ): void {
         super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
 
-        if ('type' in child) {
+        if (game.user.id === userId) {
             const item = this.items.get(child._id);
             if (item instanceof AncestryPF2e || item instanceof BackgroundPF2e || item instanceof ClassPF2e) {
                 item.addFeatures(this);
