@@ -334,7 +334,7 @@ declare interface Actor<ItemType extends Item = Item> {
     _data: ActorData<ItemType['data']>;
 }
 
-declare type PreCreate<D extends ActorData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
+declare type PreCreate<D extends ActorData | ItemData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
 
 declare namespace Actor {
     function create<A extends Actor>(
