@@ -42,6 +42,35 @@ export class NPCPF2e extends CreaturePF2e {
             abl.value = abl.mod * 2 + 10;
         }
 
+        // Hit Points
+        {
+            const base: number = data.attributes.hp.base ?? data.attributes.hp.value;
+            const modifiers: ModifierPF2e[] = [];
+            (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            (statisticsModifiers['hp-per-level'] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    m.modifier *= data.details.level.value;
+                    modifiers.push(m);
+                });
+
+            const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
+                overwrite: false,
+            });
+
+            stat.base = base;
+            stat.max = base + stat.totalModifier;
+            stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
+            stat.breakdown = [
+                game.i18n.format('PF2E.MaxHitPointsBaseLabel', { base }),
+                ...stat.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+            ].join(', ');
+
+            data.attributes.hp = stat;
+        }
+
         // Speeds
         {
             const label = game.i18n.localize('PF2E.SpeedTypesLand');

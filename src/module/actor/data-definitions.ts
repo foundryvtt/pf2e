@@ -592,7 +592,7 @@ export interface RawNPCData extends CreatureSystemData {
         dexCap?: DexterityModifierCapData[];
 
         /** The hit points for this actor. */
-        hp: RawHitPointsData;
+        hp: RawHitPointsData & { base?: number };
 
         /** The movement speeds that this NPC has. */
         speed: {
