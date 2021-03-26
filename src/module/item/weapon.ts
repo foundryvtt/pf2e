@@ -31,7 +31,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         }
 
         // calculate attackRoll modifier (for _onItemSummary)
-        const isFinesse = traits.includes('finesse');
+        const isFinesse = this.traits.has('finesse');
         const abl =
             isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
                 ? 'dex'
