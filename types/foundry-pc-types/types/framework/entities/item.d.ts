@@ -134,3 +134,16 @@ declare interface Item extends Entity {
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }
+
+declare namespace Item {
+    function create<I extends Item>(
+        this: new (data: I['data'], options?: EntityConstructorOptions) => I,
+        data: PreCreate<I['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<I>;
+    function create<I extends Item>(
+        this: new (data: I['data'], options?: EntityConstructorOptions) => I,
+        data: PreCreate<I['data']> | PreCreate<I['data']>[],
+        options?: EntityCreateOptions,
+    ): Promise<I[] | I>;
+}

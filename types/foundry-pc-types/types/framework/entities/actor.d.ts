@@ -406,7 +406,7 @@ declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveE
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }
 
-declare type PreCreate<D extends ActorData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
+declare type PreCreate<D extends ActorData | ItemData> = Omit<Partial<D>, 'type'> & { type: D['type'] };
 
 declare namespace Actor {
     function create<A extends Actor>(
