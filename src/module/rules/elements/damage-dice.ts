@@ -1,7 +1,8 @@
 import { PF2RuleElement } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { DamageDicePF2e } from '@module/modifiers';
+import { ModifierPredicate, DamageDicePF2e } from '@module/modifiers';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 /**
  * @category RuleElement
@@ -24,6 +25,18 @@ export class PF2DamageDiceRuleElement extends PF2RuleElement {
             damageDice[selector] = (damageDice[selector] || []).concat(dice);
         } else {
             console.warn('PF2E | Damage dice requires at least a selector field, and a label field or item name');
+        }
+    }
+
+    /**
+     * @param ruleData unserialized JSON data from the actual rule input
+     * @param item where the rule is persisted on
+     */
+    constructor(ruleData: any, item: ItemDataPF2e) {
+        super(ruleData, item);
+        if (ruleData.predicate) {
+            const predicate: ModifierPredicate = ruleData.predicate;
+            this.ruleData.predicate = new ModifierPredicate(predicate);
         }
     }
 }

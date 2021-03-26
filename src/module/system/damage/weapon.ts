@@ -6,6 +6,7 @@ import {
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     DiceModifierPF2e,
+    RawModifier,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
@@ -485,6 +486,26 @@ export class PF2WeaponDamage {
         damage.notes = notes;
 
         return damage;
+    }
+
+    /** Convert calculated damage into a string array of damage modifiers to be used in damage tags */
+    static getDamageModifiers(
+        damageBreakdown: { diceModifiers: any; numericModifiers: any; base: { damageType: any } },
+        includeCritical = false,
+    ) {
+        return []
+            .concat(damageBreakdown.diceModifiers)
+            .filter((m: DiceModifierPF2e) => m.diceNumber !== 0)
+            .concat(damageBreakdown.numericModifiers)
+            .filter((m: RawModifier) => m.enabled)
+            .filter((m: RawModifier) => !m.critical || includeCritical)
+            .map((m: RawModifier) => {
+                const label = game.i18n.localize(m.label ?? m.name);
+                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? '' : '+'}${m.modifier}` : '';
+                const damageType =
+                    m.damageType && m.damageType !== damageBreakdown.base.damageType ? ` ${m.damageType}` : '';
+                return `${label}${modifier}${damageType}`;
+            });
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */

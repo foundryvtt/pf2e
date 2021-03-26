@@ -737,7 +737,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 }
 
                 // Conditions and Custom modifiers to attack rolls
-                let weaponPotency: { label: string; bonus: number };
+                let weaponPotency: PF2WeaponPotency = { label: '', bonus: 0 };
                 const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                 {
                     const potency: PF2WeaponPotency[] = [];
@@ -929,6 +929,27 @@ export class CharacterPF2e extends CreaturePF2e {
                         args.callback,
                     );
                 });
+
+                // Get (non-critical) damage of the strike
+                const damageBreakdown = PF2WeaponDamage.calculate(
+                    item,
+                    actorData,
+                    action.traits,
+                    statisticsModifiers,
+                    damageDice,
+                    proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                    defaultOptions,
+                    rollNotes,
+                    weaponPotency,
+                    synthetics.striking,
+                );
+                action.damageBase =
+                    damageBreakdown.base.diceNumber +
+                    damageBreakdown.base.dieSize +
+                    ' ' +
+                    damageBreakdown.base.damageType;
+                action.damageModifiers = PF2WeaponDamage.getDamageModifiers(damageBreakdown);
+
                 action.critical = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(

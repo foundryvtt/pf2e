@@ -4,7 +4,7 @@
 
 import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { PF2RollNote } from '@module/notes';
-import { DiceModifierPF2e } from '@module/modifiers';
+import { PF2WeaponDamage } from './damage/weapon';
 
 /**
  * @category Other
@@ -83,20 +83,9 @@ export class DamageRollModifiersDialog extends Application {
         const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
             damage.base.diceNumber
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
-        const modifierBreakdown = []
-            .concat(damage.diceModifiers)
-            .filter((m: DiceModifierPF2e) => m.diceNumber !== 0)
-            .concat(damage.numericModifiers)
-            .filter((m) => m.enabled)
-            .filter((m) => !m.critical || outcome === 'criticalSuccess')
+        const modifierBreakdown = PF2WeaponDamage.getDamageModifiers(damage, outcome === 'criticalSuccess')
             .map((m) => {
-                const label = game.i18n.localize(m.label ?? m.name);
-                const modifier =
-                    m.modifier === undefined || Number.isNaN(m.modifier)
-                        ? ''
-                        : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
-                const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
-                return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
+                return `<span class="damage-tag damage-tag-modifier">${m}</span>`;
             })
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
