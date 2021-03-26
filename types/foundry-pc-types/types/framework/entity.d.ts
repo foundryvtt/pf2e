@@ -9,6 +9,7 @@ declare interface BaseEntityData {
 }
 
 declare interface EntityConstructorOptions {
+    compendium?: Compendium | null;
     [key: string]: unknown;
 }
 

@@ -1,6 +1,18 @@
-declare interface CompendiumMetadata {
+declare type CompendiumEntityString = 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+
+declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEntity> {
     absPath: string;
-    entity: string;
+    readonly entity: T extends Actor
+        ? 'Actor'
+        : T extends Item
+        ? 'Item'
+        : T extends JournalEntry
+        ? 'JournalEntry'
+        : T extends Macro
+        ? 'Macro'
+        : T extends RollTable
+        ? 'RollTable'
+        : CompendiumEntityString;
     label: string;
     module: string;
     name: string;
@@ -74,7 +86,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * The compendium metadata which defines the compendium content and location
      */
-    metadata: CompendiumMetadata;
+    metadata: CompendiumMetadata<EntityType>;
 
     /**
      * Track whether the compendium pack is private
@@ -96,7 +108,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     searchString: string | null;
     protected _searchTime: number;
 
-    constructor(metadata: object, options: object);
+    constructor(metadata: CompendiumMetadata<EntityType>, options: object);
 
     /** @override */
     get title(): string;
@@ -110,7 +122,17 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * The Entity type which is allowed to be stored in this collection
      */
-    get entity(): 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+    get entity(): EntityType extends Actor
+        ? 'Actor'
+        : EntityType extends Item
+        ? 'Item'
+        : EntityType extends JournalEntry
+        ? 'JournalEntry'
+        : EntityType extends Macro
+        ? 'Macro'
+        : EntityType extends RollTable
+        ? 'RollTable'
+        : CompendiumEntityString;
 
     /**
      * A reference to the Entity class object contained within this Compendium pack
