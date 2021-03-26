@@ -1,6 +1,6 @@
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
-import { TreasureData } from '@item/data-definitions';
+import { ArmorData, TreasureData, WeaponData } from '@item/data-definitions';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
@@ -8,7 +8,8 @@ import {
     calculateTotalWealth,
     calculateWealth,
     sellAllTreasure,
-} from '../../../src/module/item/treasure';
+} from '@module/item/treasure';
+import { ActorDataPF2e } from '@actor/data-definitions';
 
 function treasure({
     id = 'unknown',
@@ -18,7 +19,7 @@ function treasure({
     stackGroup = 'unknown',
     containerId = undefined,
 }): TreasureData {
-    return ({
+    return {
         _id: id,
         type: 'treasure',
         data: {
@@ -28,7 +29,7 @@ function treasure({
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
         },
-    } as any) as TreasureData;
+    } as unknown as TreasureData;
 }
 function coin({
     denomination,
@@ -136,8 +137,8 @@ describe('should calculate wealth based on inventory', () => {
                 coin({ denomination: 'gp', quantity: 7, id: '2' }),
                 coin({ denomination: 'sp', quantity: 6, id: '3' }),
                 coin({ denomination: 'cp', quantity: 6, id: '4', containerId: 'yo' }),
-            ],
-        });
+            ] as TreasureData[],
+        } as ActorDataPF2e);
         await addCoins(actor as any, {
             coins: {
                 pp: 3,
@@ -158,8 +159,8 @@ describe('should calculate wealth based on inventory', () => {
 
     test('sell ignores coins', async () => {
         const actor = new FakeActor({
-            items: [treasure({ id: 'abcdef', denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })],
-        });
+            items: [treasure({ id: 'abcdef', denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })] as TreasureData[],
+        } as ActorDataPF2e);
         await sellAllTreasure(actor);
 
         expect(actor.data.items!.length).toBe(1);
@@ -188,8 +189,8 @@ describe('should calculate wealth based on inventory', () => {
                 treasure({ denomination: 'gp', value: 1, quantity: 9 }),
                 treasure({ denomination: 'sp', value: 1, quantity: 8 }),
                 treasure({ denomination: 'cp', value: 1, quantity: 7 }),
-            ],
-        });
+            ] as TreasureData[],
+        } as ActorDataPF2e);
 
         await sellAllTreasure(actor);
         const wealth = calculateValueOfCurrency(actor.items!);
@@ -211,14 +212,14 @@ describe('should calculate wealth based on inventory', () => {
                     type: 'weapon',
                     _id: 'weapon',
                     data: {},
-                },
+                } as WeaponData,
                 {
                     type: 'armor',
                     _id: 'armor',
                     data: {},
-                },
+                } as ArmorData,
             ],
-        });
+        } as ActorDataPF2e);
 
         await sellAllTreasure(actor);
         expect(actor.data.items!.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
@@ -283,7 +284,7 @@ describe('should calculate wealth based on inventory', () => {
                 coin({ id: '2', denomination: 'gp', quantity: 9 }),
                 coin({ id: '3', denomination: 'pp', quantity: 9 }),
             ],
-        });
+        } as ActorDataPF2e);
         expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 0, gp: 98, sp: 0, cp: 0 } })).toEqual(
             true,
         );
@@ -298,7 +299,7 @@ describe('should calculate wealth based on inventory', () => {
     test('attemptToRemoveCoinsByValue breaks coins when needed', async () => {
         const actor = new FakeActor({
             items: [coin({ id: '3', denomination: 'pp', quantity: 9 })],
-        });
+        } as ActorDataPF2e);
         const result = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } });
         expect(result).toEqual(true);
         if (actor.data.items === undefined) {
