@@ -6,6 +6,7 @@ type FolderName = keyof typeof LocalizePF2e.translations.PF2E.CompendiumDirector
 
 interface CompendiumMetadataPF2e<T extends CompendiumEntity = CompendiumEntity> extends CompendiumMetadata<T> {
     folder?: FolderName;
+    private?: boolean;
 }
 export interface PackSummaryDataPF2e extends PackSummaryData {
     metadata: CompendiumMetadataPF2e;
@@ -49,6 +50,12 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** @override */
     getData(options?: object): CompendiumDirectoryDataPF2e {
+        game.packs.forEach((pack) => {
+            const metadata: CompendiumMetadataPF2e = pack.metadata;
+            if (metadata.private === true) {
+                pack.private = true;
+            }
+        });
         const data: CompendiumDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
