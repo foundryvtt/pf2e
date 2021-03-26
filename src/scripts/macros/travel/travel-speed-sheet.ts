@@ -84,6 +84,7 @@ interface TravelFormData {
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
+    hoursPerDay: number;
     normalTerrainSlowdown: Fraction;
     difficultTerrainSlowdown: Fraction;
     greaterDifficultTerrainSlowdown: Fraction;
@@ -170,7 +171,12 @@ class TravelSpeedSheet extends FormApplication {
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
         return {
-            travelDuration: calculateTravelDuration(journey, velocity, data.hustleMinutes),
+            travelDuration: calculateTravelDuration({
+                journey,
+                hoursPerDay: data.hoursPerDay,
+                velocity,
+                hustleDurationInMinutes: data.hustleMinutes,
+            }),
             distance: data.distance,
             actors: actorFormData,
             normalTerrainSlowdown: data.normalTerrainSlowdown,
@@ -180,6 +186,7 @@ class TravelSpeedSheet extends FormApplication {
             terrain: data.terrain,
             partySpeedInFeet,
             hustleMinutes: data.hustleMinutes,
+            hoursPerDay: data.hoursPerDay,
         };
     }
 
@@ -193,6 +200,7 @@ class TravelSpeedSheet extends FormApplication {
             greaterDifficultTerrainSlowdown: { denominator: 1, numerator: 3 },
             distance: 1,
             hustleMinutes: getHustleMinutes(actors),
+            hoursPerDay: 8,
         });
     }
 

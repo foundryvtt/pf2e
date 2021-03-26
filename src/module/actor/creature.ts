@@ -24,15 +24,18 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const updateData = Array.isArray(data) ? data : [data];
 
         // Allow no more than one article of armor to be equipped at a time
+        const alreadyEquipped = this.itemTypes.armor.find((armor) => armor.isArmor && armor.isEquipped);
         const armorEquipping = ((): ArmorPF2e | undefined => {
             const equippingUpdates = updateData.filter(
                 (datum) => 'data.equipped.value' in datum && datum['data.equipped.value'],
             );
             return equippingUpdates
                 .map((datum) => this.items.get(datum._id))
-                .find((item): item is Owned<ArmorPF2e> => item instanceof ArmorPF2e && !item.isShield);
+                .find(
+                    (item): item is Owned<ArmorPF2e> =>
+                        item instanceof ArmorPF2e && item.isArmor && item.id !== alreadyEquipped?.id,
+                );
         })();
-        const alreadyEquipped = this.itemTypes.armor.find((armor) => !armor.isShield && armor.isEquipped);
         const modifiedUpdate =
             armorEquipping && alreadyEquipped
                 ? updateData.concat({ _id: alreadyEquipped.id, 'data.equipped.value': false })

@@ -1,5 +1,31 @@
 # Patch Notes:
 
+## Version 1.11.17
+### Bug Fixes
+* (stwlam) Fix updating modifiers via roll dialog
+* (stwlam) Remove hard-coded trap trait from hazard sheet template
+* (stwlam) Refrain from disrobing a character when a user edits their armor
+* (stwlam & In3luki) Fix simple NPC sheet HP styling. Closes #1224
+* (In3luki) Fix NPC attack damage with thrown weapons
+* (abrault) Loosen which feats can be put in an archetype slot
+* (Trollderim) Fix Crit Rule label for double dice. Closes #1223
+
+### Content Changes
+* (TMun) Correct spellguard shield effect. Closes #1225
+* (Shandyan) Formatting corrections for form spell effects
+* (Shandyan & ArthurTrumpet) _Dragon form_ spell effects
+* (SpartanCPA) Correct formatting of descriptions for base weapons
+* (SpartanCPA) Bestiary 2 brush-up of monsters starting with T
+* (Jaash) PFS Season 2 Bestiary brush-up of monsters starting with A through B
+* (Drental) Add PFS scenario 2-12 monsters
+
+### Core System Improvements
+* (putty) Add the possibility to specify hours per day spent traveling in travel duration macro
+* (Avery) Add semi-transparent background to the action icons to make them look better on a dark background, like the hotbar and Token Action HUD
+* (stwlam) Allow item-identification status to be set from item sheets
+* (nikolaj-a) Support modifiers for NPC maximum hit points
+
+
 ## Version 1.11.16
 ### Bug Fixes
 * (stwlam) Okay, fine, you can wear armor and hold a staff too

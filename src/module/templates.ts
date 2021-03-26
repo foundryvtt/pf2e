@@ -82,7 +82,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/lore-sidebar.html',
         'systems/pf2e/templates/items/spell-details.html',
         'systems/pf2e/templates/items/spell-sidebar.html',
-        'systems/pf2e/templates/items/tool-sidebar.html',
         'systems/pf2e/templates/items/melee-details.html',
         'systems/pf2e/templates/items/weapon-details.html',
         'systems/pf2e/templates/items/weapon-sidebar.html',
