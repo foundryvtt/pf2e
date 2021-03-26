@@ -119,6 +119,10 @@ $unique: #54166e;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+
+            .controls {
+                padding-right: 4px;
+            }
         }
 
         .side-bar-section-header {
@@ -168,6 +172,7 @@ $unique: #54166e;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
+                padding-right: 4px;
             }
         }
 
@@ -258,23 +263,35 @@ $unique: #54166e;
 
             .health-value {
                 display: flex;
-                flex: auto;
                 flex-direction: row;
-                text-align: right;
-                font-weight: bold;
                 color: $value-color;
+                flex: 0;
+                margin-left: auto;
 
-                #health-current {
-                    font-weight: bold;
+                input {
                     color: $value-color;
-                    text-align: right;
+                    &:first-child {
+                        width: 36px;
+                        text-align: right;
+                        padding-right: 3px;
+                    }
+                    &:last-child {
+                        font-weight: bold;
+                        text-align: center;
+                        &.lt10 {
+                          width: 8px;
+                        }
+                        &.lt100 {
+                          width: 24px;
+                        }
+                        &.lt1000 {
+                          width: 36px;
+                        }
+                    }
                 }
-
-                #health-max {
-                    flex: 0px;
-                    font-weight: bold;
-                    color: $value-color;
-                    text-align: left;
+                span {
+                    display: flex;
+                    text-align: center;
                 }
             }
         }

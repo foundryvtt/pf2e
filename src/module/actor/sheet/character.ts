@@ -898,13 +898,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
-        const featType = feat.data?.featType?.value;
+        let featType = feat.data?.featType?.value;
         if (featType === 'archetype') {
             if (feat.data.traits.value.includes('skill')) {
-                return featSlotType === 'skill';
+                featType = 'skill';
             } else {
-                return ['class', 'archetype'].includes(featSlotType);
+                featType = 'class';
             }
+        }
+
+        if (featSlotType === 'archetype') {
+            // Archetype feat slots are class feat slots
+            featSlotType = 'class';
         }
 
         if (featSlotType === 'general') {

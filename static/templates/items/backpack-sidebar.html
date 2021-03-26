@@ -74,4 +74,13 @@
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
     </div>
+
+    {{#if user.isGM}}
+        <div class="form-group">
+            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
+            <input type="checkbox" name="identified" {{checked isIdentified}} />
+        </div>
+    {{else}}
+        <input type="hidden" name="identified" value="{{isIdentified}}" data-dtype="Boolean"/>
+    {{/if}}
 </div>

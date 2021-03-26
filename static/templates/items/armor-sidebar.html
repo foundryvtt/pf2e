@@ -46,7 +46,6 @@
         {{/select}}
         </select>
     </div>
-
     <div class="form-group">
       <label>{{localize "PF2E.Size"}}</label>
       <select name="data.size.value" data-dtype="String">
@@ -62,6 +61,15 @@
         <label>{{localize "PF2E.PriceLabel"}}</label>
         <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
     </div>
+
+    {{#if user.isGM}}
+        <div class="form-group">
+            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
+            <input type="checkbox" name="identified" {{checked isIdentified}} />
+        </div>
+    {{else}}
+        <input type="hidden" name="identified" value="{{isIdentified}}" data-dtype="Boolean"/>
+    {{/if}}
 
     <ol class="item-tags">
       {{#if data.armor.value}}<li class="tag">{{data.armor.value}} {{localize "PF2E.ArmorArmorLabel"}}</li>{{/if}}

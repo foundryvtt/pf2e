@@ -4,10 +4,11 @@
 import {
     ensureProficiencyOption,
     CheckModifier,
-    PF2DamageDice,
+    DamageDicePF2e,
     ModifierPF2e,
     ModifierPredicate,
     ProficiencyModifier,
+    RawPredicate,
 } from '../modifiers';
 import { ConditionManager } from '../conditions';
 import { adaptRoll, CheckPF2e } from '@system/rolls';
@@ -438,7 +439,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     protected _prepareCustomModifiers(actorData: CreatureData, rules: PF2RuleElement[]): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
-        const damageDice: Record<string, PF2DamageDice[]> = {};
+        const damageDice: Record<string, DamageDicePF2e[]> = {};
         const strikes: WeaponData[] = [];
         const rollNotes: Record<string, PF2RollNote[]> = {};
         const weaponPotency: Record<string, PF2WeaponPotency[]> = {};
@@ -1186,7 +1187,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
         name: string,
         value: number,
         type: string,
-        predicate?: { all?: string[]; any?: string[]; not?: string[] },
+        predicate?: RawPredicate,
         damageType?: string,
         damageCategory?: string,
     ) {
@@ -1208,11 +1209,8 @@ export class ActorPF2e extends Actor<ItemPF2e> {
             modifier.custom = true;
 
             // modifier predicate
-            modifier.predicate = predicate ?? {};
-            if (!(modifier.predicate instanceof ModifierPredicate)) {
-                modifier.predicate = new ModifierPredicate(modifier.predicate);
-            }
-            modifier.ignored = !modifier.predicate.test([]);
+            modifier.predicate = predicate instanceof ModifierPredicate ? predicate : new ModifierPredicate(predicate);
+            modifier.ignored = !modifier.predicate.test!();
 
             customModifiers[stat] = (customModifiers[stat] ?? []).concat([modifier]);
             await this.update({ 'data.customModifiers': customModifiers });
@@ -1277,7 +1275,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
     }
 
     /** Adds custom damage dice. */
-    async addDamageDice(param: PF2DamageDice) {
+    async addDamageDice(param: DamageDicePF2e) {
         if (!isCreatureData(this.data)) {
             throw Error('Custom damage dice only work for characters, NPCs, and familiars');
         }
@@ -1290,7 +1288,7 @@ export class ActorPF2e extends Actor<ItemPF2e> {
 
             // The damage dice constructor performs some basic validations for us, like checking that the
             // name and selector are both defined.
-            const dice = new PF2DamageDice(param);
+            const dice = new DamageDicePF2e(param);
 
             damageDice[param.selector] = (damageDice[param.selector] ?? []).concat([dice]);
             await this.update({ 'data.damageDice': damageDice });

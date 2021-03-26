@@ -146,7 +146,7 @@ describe('test travel speed', () => {
             },
         ];
         const velocity = speedToVelocity(25);
-        expect(calculateTravelDuration(journey, velocity)).toEqual({
+        expect(calculateTravelDuration({ journey, velocity })).toEqual({
             weeks: 0,
             days: 2,
             hours: 4,
@@ -168,11 +168,33 @@ describe('test travel speed', () => {
         const velocity = speedToVelocity(25);
         // 22.5 miles per day since one hour we move at double speed effectively giving us 1 hour more of movement
         // 45 miles in 2 days
-        expect(calculateTravelDuration(journey, velocity, 60)).toEqual({
+        expect(calculateTravelDuration({ journey, velocity, hustleDurationInMinutes: 60 })).toEqual({
             weeks: 0,
             days: 2,
             hours: 1,
             minutes: 24,
+        });
+    });
+
+    test('hustling with less hours per day is more hustling', () => {
+        const journey: Trip[] = [
+            {
+                distance: {
+                    value: 51,
+                    unit: LengthUnit.MILES,
+                },
+                terrain: Terrain.NORMAL,
+                terrainSlowdown: terrainModifiers,
+            },
+        ];
+        const velocity = speedToVelocity(25);
+        // 22.5 miles per day since one hour we move at double speed effectively giving us 1 hour more of movement
+        // 45 miles in 2 days
+        expect(calculateTravelDuration({ journey, velocity, hustleDurationInMinutes: 60, hoursPerDay: 4 })).toEqual({
+            weeks: 0,
+            days: 4,
+            hours: 0,
+            minutes: 12,
         });
     });
 });
