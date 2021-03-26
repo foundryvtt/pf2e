@@ -91,7 +91,7 @@ type Owned<I extends Item> = I & {
  * @example <caption>Retrieve an existing Actor</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actor<ItemType extends Item = Item> extends Entity {
+declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
     /**
      * A reference to a placed Token which creates a synthetic Actor
      */
@@ -108,7 +108,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     overrides: Record<string, any>;
 
     /** The actor's collection of ActiveEffects */
-    effects: Collection<ActiveEffect>;
+    effects: Collection<EffectType>;
 
     /**
      * Cache an Array of allowed Token images if using a wildcard path
@@ -141,9 +141,11 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
     protected _prepareOwnedItems(items: this['data']['items']): Collection<Owned<ItemType>>;
 
     /**
-     * First prepare any derived data which is actor-specific and does not depend on Items or Active Effects
+     * Prepare a Collection of ActiveEffect instances which belong to this Actor.
+     * @param effects The raw array of active effect objects
+     * @return The prepared active effects collection
      */
-    prepareBaseData(): void;
+    protected _prepareActiveEffects(effects: EffectType['data'][]): Collection<EffectType>;
 
     /**
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
@@ -200,15 +202,35 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     /** @override */
     updateEmbeddedEntity(
-        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemType['data']>;
     updateEmbeddedEntity(
-        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        embeddedName: 'OwnedItem',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemType['data'] | ItemType['data'][]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemType['data']>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof Actor['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
 
     /**
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
@@ -265,7 +287,7 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
 
     // Signature overload
     getEmbeddedEntity(collection: 'OwnedItem', id: string, { strict }?: { strict?: boolean }): ItemType['data'];
-    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): ActiveEffect['data'];
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
 
     /**
@@ -327,11 +349,61 @@ declare class Actor<ItemType extends Item = Item> extends Entity {
         options: EntityCreateOptions,
         userId: string,
     ): void;
+
+    /** @override */
+    protected _onDeleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        child: ActiveEffectData,
+        options: EntityDeleteOptions,
+        userId: string,
+    ): void;
+    protected _onDeleteEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        child: ItemType['data'],
+        options: EntityDeleteOptions,
+        userId: string,
+    ): void;
+    protected _onDeleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        options: EntityDeleteOptions,
+        userId: string,
+    ): void;
+
+    /** @override */
+    deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        dataId: string,
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData>;
+    deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    deleteEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        dataId: string,
+        options?: EntityDeleteOptions,
+    ): Promise<ItemType['data']>;
+    deleteEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ItemType['data'] | ItemType['data'][]>;
+    deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
 }
 
-declare interface Actor<ItemType extends Item = Item> {
+declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = ActiveEffect> {
     data: ActorData<ItemType['data']>;
     _data: ActorData<ItemType['data']>;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }
 
 declare type PreCreate<D extends ActorData> = Omit<Partial<D>, 'type'> & { type: D['type'] };

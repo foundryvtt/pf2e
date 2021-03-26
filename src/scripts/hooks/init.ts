@@ -1,7 +1,8 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ConditionManager } from '../../module/conditions';
-import { registerHandlebarsHelpers } from '../../module/handlebars';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { ConditionManager } from '@module/conditions';
+import { registerHandlebarsHelpers } from '@module/handlebars';
 import {
     AbilityModifier,
     CheckModifier,
@@ -9,18 +10,18 @@ import {
     MODIFIER_TYPE,
     StatisticModifier,
     ProficiencyModifier,
-} from '../../module/modifiers';
-import { registerSettings } from '../../module/settings';
-import { CombatTrackerPF2e } from '../../module/system/combat-tracker';
-import { CheckPF2e } from '../../module/system/rolls';
-import { loadPF2ETemplates } from '../../module/templates';
-import { PlayerConfigPF2e } from '../../module/user/player-config';
-import { CompendiumDirectoryPF2e } from '../../module/apps/ui/compendium-directory';
+} from '@module/modifiers';
+import { registerSettings } from '@module/settings';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
+import { CheckPF2e } from '@module/system/rolls';
+import { loadPF2ETemplates } from '@module/templates';
+import { PlayerConfigPF2e } from '@module/user/player-config';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
 import * as MonkeyPatch from '../🐵🩹';
-import { CombatPF2e } from '../../module/combat';
+import { CombatPF2e } from '@module/combat';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -30,6 +31,7 @@ export function listen(): void {
 
         // Assign document classes.
         CONFIG.Item.entityClass = ItemPF2e;
+        CONFIG.ActiveEffect.entityClass = ActiveEffectPF2e;
         CONFIG.Actor.entityClass = ActorPF2e;
         CONFIG.Combat.entityClass = CombatPF2e;
 
