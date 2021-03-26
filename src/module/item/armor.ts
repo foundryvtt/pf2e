@@ -71,9 +71,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.hitPoints.current <= this.brokenThreshold;
     }
 
-    getChatData() {
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         const localize = game.i18n.localize.bind(game.i18n);
-        const data = this.data.data;
         const properties = [
             CONFIG.PF2E.armorTypes[data.armorType.value],
             CONFIG.PF2E.armorGroups[data.group.value],

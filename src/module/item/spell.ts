@@ -7,14 +7,14 @@ export class SpellPF2e extends ItemPF2e {
         return this.getChatData();
     }
 
-    getChatData(_?, rollOptions?: any) {
+    getChatData(htmlOptions?: Record<string, boolean>, rollOptions?: any) {
         if (!this.actor) {
             return {};
         }
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         if (this.data.type != 'spell')
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
-        const data = duplicate(this.data.data);
+        const data = super.getChatData(htmlOptions);
 
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === data.location.value,

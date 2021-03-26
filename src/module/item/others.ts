@@ -34,8 +34,8 @@ export interface KitPF2e {
 }
 
 export class MeleePF2e extends PhysicalItemPF2e {
-    getChatData() {
-        const data: any = duplicate(this.data.data);
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         const isAgile = data.traits.includes('agile');
@@ -52,9 +52,9 @@ export interface MeleePF2e {
 }
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
-    getChatData() {
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         const localize = game.i18n.localize.bind(game.i18n);
-        const data = this.data.data;
         const consumableType = CONFIG.PF2E.consumableTypes[data.consumableType.value];
         return {
             ...data,
@@ -77,8 +77,8 @@ export interface ConsumablePF2e {
 }
 
 export class EquipmentPF2e extends PhysicalItemPF2e {
-    getChatData() {
-        const data = this.data.data;
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null];
         return { ...data, properties: properties.filter((p) => p !== null) };
     }
@@ -100,8 +100,8 @@ export class FeatPF2e extends ItemPF2e {
     /**
      * Prepare chat card data for items of the "Feat" type
      */
-    getChatData() {
-        const data = this.data.data;
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         const properties = [
             `Level ${data.level.value || 0}`,
             data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
@@ -117,8 +117,8 @@ export interface FeatPF2e {
 
 export class LorePF2e extends ItemPF2e {
     // todo: this doesn't seem to ever be called...should it be killed?
-    getChatData() {
-        const data: any = duplicate(this.data.data);
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         if (this.actor.data.type !== 'npc') {
             const abl = this.actor.data.data.abilities[data.ability.value].label;
             const prof = data.proficient.value || 0;
@@ -141,8 +141,8 @@ export interface MartialPF2e {
 }
 
 export class ActionPF2e extends ItemPF2e {
-    getChatData() {
-        const data = this.data.data;
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
 
         let associatedWeapon: ItemPF2e | null = null;
         if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
@@ -150,7 +150,6 @@ export class ActionPF2e extends ItemPF2e {
         // Feat properties
         const props = [CONFIG.PF2E.actionTypes[data.actionType.value], associatedWeapon ? associatedWeapon.name : null];
         const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-
         return { ...data, properties: props.filter((p) => p), traits };
     }
 }

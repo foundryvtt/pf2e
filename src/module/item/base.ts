@@ -122,8 +122,13 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /*  Chat Card Data
     /* -------------------------------------------- */
 
-    getChatData(_htmlOptions?, _rollOptions?: any): any {
-        return duplicate(this.data.data);
+    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any): any {
+        const data = duplicate(this.data.data);
+        if (data?.description) {
+            data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
+        }
+
+        return data;
     }
 
     /* -------------------------------------------- */
@@ -153,7 +158,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     /* -------------------------------------------- */
     /*  Roll Attacks
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Roll a Weapon Attack

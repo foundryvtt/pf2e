@@ -19,8 +19,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return traits;
     }
 
-    getChatData() {
-        const data = this.data.data;
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = super.getChatData(htmlOptions);
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
