@@ -1020,7 +1020,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
-        const spellData = Object.assign({}, this.data.data.spell.data.data);
+        const spellData = duplicate(this.data.data.spell.data.data);
         let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];
