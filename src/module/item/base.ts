@@ -91,11 +91,11 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         };
 
         // Basic chat message data
-        const chatData: any = {
-            user: game.user._id,
+        const chatData: Partial<ChatMessageData> = {
+            user: game.user.id,
             speaker: {
-                actor: this.actor._id,
-                token: this.actor.token,
+                actor: this.actor.id,
+                token: this.actor.token?.id,
                 alias: this.actor.name,
             },
             flags: {
