@@ -83,12 +83,6 @@
       <label>{{localize "PF2E.PriceLabel"}}</label>
       <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
     </div>
-    <ol class="item-tags">
-      <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
-      {{#if data.equipped.value}}
-        <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
-      {{/if}}
-    </ol>
 
     <div class="form-group consumable-details">
       <label>{{data.charges.label}}</label>
@@ -96,4 +90,18 @@
       <span class="flex0">/</span>
       <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
     </div>
+
+    {{#if user.isGM}}
+        <div class="form-group">
+            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
+            <input type="checkbox" name="identified" {{checked isIdentified}} />
+        </div>
+    {{/if}}
+
+    <ol class="item-tags">
+        <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
+        {{#if data.equipped.value}}
+            <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
+        {{/if}}
+    </ol>
 </div>
