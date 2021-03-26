@@ -3,6 +3,7 @@ declare const keyboard: KeyboardManager;
 declare const ui: {
     actors: ActorDirectory;
     combat: CombatTracker;
+    compendium: CompendiumDirectory;
     controls: SceneControls;
     notifications: Notifications;
     settings: Settings;
