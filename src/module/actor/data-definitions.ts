@@ -1,5 +1,12 @@
 import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
-import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
+import {
+    StatisticModifier,
+    CheckModifier,
+    ModifierPF2e,
+    DamageDicePF2e,
+    MODIFIER_TYPE,
+    MinimalModifier,
+} from '../modifiers';
 import { RollParameters } from '@system/rolls';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
@@ -56,6 +63,8 @@ export interface RawSkillData extends ProficiencyData {
     item: number;
     /** A breakdown of how the save value is determined. */
     armor?: number;
+    /** An empty array of modifiers */
+    modifiers?: MinimalModifier[];
 }
 
 /** Basic initiative-relevant data. */
@@ -64,6 +73,8 @@ export interface RawInitiativeData {
     ability: string;
     /** The textual name for what type of initiative is being rolled (usually includes the skill). */
     label: string;
+    /** An empty array of modifiers */
+    modifiers?: MinimalModifier[];
 }
 
 /** Single source of a Dexterity modifier cap to Armor Class, including the cap value itself. */
@@ -442,9 +453,6 @@ interface CharacterAttributes extends BaseCreatureAttributes {
         /** The shield's broken threshold */
         brokenThreshold: number;
         /** The current shield health (added in actor preparation) */
-        hp: {
-            value: number;
-        };
     };
 
     /** Records the various land/swim/fly speeds that this actor has. */
@@ -463,10 +471,7 @@ interface CharacterAttributes extends BaseCreatureAttributes {
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
-    /** The six primary ability scores. */
     abilities: Abilities;
-
-    /** The three save types. */
     saves: Saves;
 
     /** Tracks proficiencies for martial skills. */

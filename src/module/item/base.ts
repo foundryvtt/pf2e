@@ -3,6 +3,7 @@
  */
 import { SpellFacade } from './spell-facade';
 import { getAttackBonus, getStrikingDice } from './runes';
+import { ErrorPF2e } from '@module/utils';
 import {
     AbilityModifier,
     ensureProficiencyOption,
@@ -76,9 +77,12 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
-    async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+    async roll(event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+        if (!this.actor) {
+            throw ErrorPF2e('Only an owned item can be rolled.');
+        }
         // Basic template rendering data
-        const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
+        const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`; // `;
         const { token } = this.actor;
         const nearestItem = event ? event.currentTarget.closest('.item') : {};
         const contextualData = nearestItem.dataset || {};
@@ -1053,4 +1057,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 export interface ItemPF2e {
     data: ItemDataPF2e;
     _data: ItemDataPF2e;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'grantedBy'): string | undefined;
 }

@@ -2,6 +2,8 @@ import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
 import { ItemDataPF2e } from '@item/data-definitions';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { ErrorPF2e } from '@module/utils';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -13,6 +15,42 @@ export abstract class CreaturePF2e extends ActorPF2e {
     hasAttribute(key: string | number | symbol): key is keyof CreatureAttributes {
         const attributes = this.data.data.attributes;
         return attributes instanceof Object && typeof key === 'string' && key in attributes;
+    }
+
+    get wornArmor(): Owned<ArmorPF2e> | null {
+        return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
+    }
+
+    /** Get the held shield of most use to the wielder */
+    get heldShield(): Owned<ArmorPF2e> | null {
+        const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+        return heldShields.length === 0
+            ? null
+            : heldShields.slice(0, -1).reduce((bestShield, shield) => {
+                  if (bestShield === shield) return bestShield;
+
+                  const isNotBroken = shield.isBroken ? bestShield : bestShield.isBroken ? shield : null;
+                  const withBetterAC =
+                      bestShield.acBonus > shield.acBonus
+                          ? bestShield
+                          : shield.acBonus > shield.acBonus
+                          ? shield
+                          : null;
+                  const withMoreHP =
+                      bestShield.hitPoints.current > shield.hitPoints.current
+                          ? bestShield
+                          : shield.hitPoints.current > shield.hitPoints.current
+                          ? shield
+                          : null;
+                  const withBetterHardness =
+                      bestShield.hardness > shield.hardness
+                          ? bestShield
+                          : shield.hardness > shield.hardness
+                          ? shield
+                          : null;
+
+                  return isNotBroken ?? withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
+              }, heldShields.slice(-1)[0]);
     }
 
     /** @override */
@@ -72,6 +110,28 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : updateData;
 
         return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+    }
+
+    /** @override */
+    protected _prepareActiveEffects(effectsData: ActiveEffectData[]): Collection<ActiveEffectPF2e> {
+        // Prepare changes with non-primitive values
+        for (const effectData of effectsData) {
+            for (const change of effectData.changes) {
+                if (!(typeof change.value === 'string' && change.value.startsWith('{'))) {
+                    continue;
+                }
+                const parsedValue = (() => {
+                    try {
+                        return JSON.parse(change.value);
+                    } catch {
+                        throw ErrorPF2e('Failed to parse ActiveEffect change value');
+                    }
+                })();
+                parsedValue.name = effectData.label;
+                change.value = parsedValue;
+            }
+        }
+        return super._prepareActiveEffects(effectsData);
     }
 }
 

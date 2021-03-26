@@ -1,6 +1,3 @@
-/**
- * Extend the base Actor class to implement additional logic specialized for PF2e.
- */
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { ConditionManager } from '../conditions';
 import { isCycle } from '@item/container';
@@ -96,6 +93,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 }
 
 /**
+ * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
 export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
@@ -243,14 +241,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
     }
 
-    /** Obtain the first equipped armor the character has. */
-    getFirstWornArmor(): ArmorData | undefined {
-        return this.data.items
-            .filter((item): item is ArmorData => item.type === 'armor')
-            .filter((armor) => armor.data.armorType.value !== 'shield')
-            .find((armor) => armor.data.equipped.value);
-    }
-
     /** Obtain the first equipped shield the character has. */
     getFirstEquippedShield(): ArmorData | undefined {
         return this.data.items
@@ -258,8 +248,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             .filter((armor) => armor.data.armorType.value === 'shield')
             .find((shield) => shield.data.equipped.value);
     }
-
-    /* -------------------------------------------- */
 
     onCreateOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
         if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
@@ -512,7 +500,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         } else if (flatCheck?.result ?? 0 >= dc) {
             result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
         } else {
-            result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
+            result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`; // `;
         }
         const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', { dc, dying });
 
@@ -1328,6 +1316,47 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     get level(): number {
         return this.data.data.details.level.value;
+    }
+
+    /** @override */
+    deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        dataId: string,
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData>;
+    deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    deleteEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        dataId: string,
+        options?: EntityDeleteOptions,
+    ): Promise<ItemDataPF2e>;
+    deleteEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    async deleteEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        dataId: string | string[],
+        options?: EntityDeleteOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
+        const dataIds = Array.isArray(dataId) ? dataId : [dataId];
+        if (embeddedName === 'OwnedItem') {
+            const grantedIds = dataIds.flatMap(
+                (itemId: string) => this.items.get(itemId)?.getFlag('pf2e', 'grantedBy') ?? [],
+            );
+            const effectIds: string[] = grantedIds.flatMap(
+                (origin) => this.data.effects.find((effectData) => effectData.origin === origin)?._id ?? [],
+            );
+            const updateData = effectIds.map((effectId) => ({ _id: effectId, disabled: true }));
+            await this.updateEmbeddedEntity('ActiveEffect', updateData);
+        }
+
+        return super.deleteEmbeddedEntity(embeddedName, dataId, options);
     }
 }
 

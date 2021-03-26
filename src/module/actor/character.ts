@@ -11,7 +11,7 @@ import {
     WeaponData,
 } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
-import { getArmorBonus, getResiliencyBonus } from '@item/runes';
+import { getResiliencyBonus } from '@item/runes';
 import {
     AbilityModifier,
     DEXTERITY,
@@ -23,6 +23,7 @@ import {
     StatisticModifier,
     ProficiencyModifier,
     WISDOM,
+    MinimalModifier,
 } from '../modifiers';
 import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '@system/damage/weapon';
@@ -40,6 +41,7 @@ import {
     CombatProficiencies,
     CombatProficiencyKey,
     PerceptionData,
+    RawSkillData,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
@@ -65,6 +67,27 @@ export class CharacterPF2e extends CreaturePF2e {
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
+    }
+
+    /**
+     * Setup base ephemeral data to be modified by active effects and derived-data preparation
+     * @override
+     */
+    prepareBaseData(): void {
+        super.prepareBaseData();
+        const attributes = this.data.data.attributes;
+        const armorClass = attributes.ac as RawSkillData;
+        const initiative = attributes.initiative as { modifiers: Readonly<MinimalModifier[]> };
+        armorClass.modifiers = [];
+        initiative.modifiers = [];
+
+        this.data.data.attributes.shield = {
+            value: 0,
+            max: 0,
+            ac: 0,
+            brokenThreshold: 0,
+            hardness: 0,
+        };
     }
 
     /** Prepare Character type specific data. */
@@ -188,20 +211,20 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Saves
-        const worn = this.getFirstWornArmor();
+        const wornArmor = this.wornArmor;
         for (const [saveName, save] of Object.entries(data.saves)) {
             // Base modifiers from ability scores & level/proficiency rank.
             const modifiers = [
                 AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
-                ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
+                ProficiencyModifier.fromLevelAndRank(this.level, save.rank),
             ];
             const notes = [] as PF2RollNote[];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
-            if (worn) {
-                const resiliencyBonus = getResiliencyBonus(worn.data);
+            if (wornArmor) {
+                const resiliencyBonus = getResiliencyBonus(wornArmor.data.data);
                 if (resiliencyBonus > 0) {
-                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
+                    modifiers.push(new ModifierPF2e(wornArmor.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
                 }
             }
 
@@ -335,19 +358,21 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Armor Class
         {
-            const modifiers: ModifierPF2e[] = [];
+            const modifiers = (data.attributes.ac.modifiers as MinimalModifier[]).map(
+                (modifier) => new ModifierPF2e(modifier.name, modifier.modifier, modifier.type),
+            );
             const dexCap = duplicate(data.attributes.dexCap ?? []);
             let armorCheckPenalty = 0;
             let proficiency = 'unarmored';
 
-            if (worn) {
-                dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
-                proficiency = worn.data.armorType?.value;
+            if (wornArmor) {
+                dexCap.push({ value: wornArmor.dexCap ?? 0, source: wornArmor.name });
+                proficiency = wornArmor.category;
                 // armor check penalty
-                if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
-                    armorCheckPenalty = Number(worn.data.check.value ?? 0);
+                if (data.abilities.str.value < Number(wornArmor.strength ?? 0)) {
+                    armorCheckPenalty = wornArmor.checkPenalty ?? 0;
                 }
-                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), MODIFIER_TYPE.ITEM));
+                modifiers.push(new ModifierPF2e(wornArmor.name, wornArmor.acBonus, MODIFIER_TYPE.ITEM));
             }
 
             // proficiency
@@ -388,10 +413,10 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Shield
-        const shield = this.getFirstEquippedShield();
+        const shield = this.heldShield;
         if (shield) {
-            data.attributes.shield.value = shield.data.hp.value;
-            data.attributes.shield.max = shield.data.maxHp.value;
+            data.attributes.shield.value = shield.hitPoints.current;
+            data.attributes.shield.max = shield.hitPoints.max;
         }
 
         // Skill modifiers
@@ -410,11 +435,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, MODIFIER_TYPE.ITEM));
             }
 
-            const ignoreArmorCheckPenalty = !(
-                worn &&
-                worn.data.traits.value.includes('flexible') &&
-                ['acr', 'ath'].includes(skillName)
-            );
+            const ignoreArmorCheckPenalty = !(wornArmor?.traits?.has('flexible') && ['acr', 'ath'].includes(skillName));
             if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
                 modifiers.push(
                     new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, MODIFIER_TYPE.UNTYPED),
@@ -1046,8 +1067,11 @@ export class CharacterPF2e extends CreaturePF2e {
         rollNotes: Record<string, PF2RollNote[]>,
     ) {
         const { data } = actorData;
-        const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: ModifierPF2e[] = [];
+        const attributes = actorData.data.attributes;
+        const modifiers = (attributes.initiative.modifiers as Readonly<MinimalModifier[]>).map(
+            (modifier) => new ModifierPF2e(modifier.name, modifier.modifier, modifier.type),
+        );
+        const initSkill = attributes.initiative.ability ?? 'perception';
         const notes: PF2RollNote[] = [];
 
         ['initiative'].forEach((key) => {
