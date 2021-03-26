@@ -412,7 +412,7 @@ async function extractPack(filePath: string, packFilename: string) {
                 return value;
             });
 
-            let sortedKeys = Array.from(allKeys).sort().concat(idKeys);
+            const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
 
             const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);
             return `${newJson}\n`;
