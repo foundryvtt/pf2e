@@ -1,7 +1,65 @@
 import { ItemPF2e } from './base';
 import { SpellData } from './data-definitions';
 
-export class SpellPF2e extends ItemPF2e {}
+export class SpellPF2e extends ItemPF2e {
+    // todo: does this still have a point? If not, remove it
+    getSpellInfo() {
+        return this.getChatData();
+    }
+
+    getChatData(_?, rollOptions?: any) {
+        if (!this.actor) {
+            return {};
+        }
+        const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
+        if (this.data.type != 'spell')
+            throw new Error("Tried to create spell chat data from an item that wasn't a spell");
+        const data = duplicate(this.data.data);
+
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === data.location.value,
+        );
+        const entryData = spellcastingEntry?.data;
+        if (!entryData) return {};
+
+        const spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
+        const spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
+
+        // Spell saving throw text and DC
+        data.isSave = data.spellType.value === 'save' || data.save.value !== '';
+        data.save.dc = data.isSave ? spellDC : spellAttack;
+        data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
+
+        // Spell attack labels
+        data.damageLabel =
+            data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
+        data.isAttack = data.spellType.value === 'attack';
+
+        // Combine properties
+        const props: (number | string)[] = [
+            CONFIG.PF2E.spellLevels[data.level.value],
+            `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
+            data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
+            data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
+            data.area.value
+                ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${
+                      CONFIG.PF2E.areaTypes[data.area.areaType]
+                  }`
+                : null,
+            data.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
+            data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
+            data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
+        ];
+        data.spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
+        if (data.level.value < parseInt(data.spellLvl, 10)) {
+            props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
+        }
+        data.properties = props.filter((p) => p !== null);
+        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
+
+        return data;
+    }
+}
 
 export interface SpellPF2e {
     data: SpellData;
