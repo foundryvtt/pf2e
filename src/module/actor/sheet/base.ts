@@ -1656,8 +1656,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}
-                                    ${game.i18n.localize('PF2E.SpellLabelPlural')}`;
+                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]} `;
+                                    name += `${game.i18n.localize('PF2E.SpellLabelPlural')}`;
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
