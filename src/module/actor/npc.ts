@@ -59,7 +59,7 @@ export class NPCPF2e extends CreaturePF2e {
             });
 
             stat.base = base;
-            stat.max = base + stat.totalModifier;
+            stat.max = stat.max + stat.totalModifier;
             stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
             stat.breakdown = [
                 game.i18n.format('PF2E.MaxHitPointsBaseLabel', { base }),

@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 1.11.18
+### Bug Fixes
+* (stwlam) Only create ABC features once. Closes #1198
+* (stwlam) Prevent error from being thrown when a `controlToken` hook is fired before `game.pf2e` is defined
+* (stwlam) Prevent current stamina from overflowing on CRB sheet. Closes #486
+* (stwlam) Fix display of PC hit points when in the triple digits
+* (stwlam) Fix display of NPC max hit points. Closes #1231
+* (nikolaj-a & stwlam) Fix players unintentionally unidentifying items from item sheet
+
+
 ## Version 1.11.17
 ### Bug Fixes
 * (stwlam) Fix updating modifiers via roll dialog
