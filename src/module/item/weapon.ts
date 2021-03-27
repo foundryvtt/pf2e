@@ -1,6 +1,5 @@
 import { PhysicalItemPF2e } from './physical';
 import { WeaponData } from './data-definitions';
-import { ItemPF2e } from './base';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 
@@ -28,7 +27,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        const traits = WeaponPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
 
         if (this.data.type !== 'weapon') {
             throw new Error('tried to create a weapon chat data for a non-weapon item');
