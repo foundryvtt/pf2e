@@ -13,7 +13,7 @@ const ITEM_UUID = 'Compendium.pf2e.feat-effects.gYpy9XBPScIlY93p'; // Stance: Mo
             let clothingPotency = 0;
             const clothing = token.actor.items
                 .filter((item) => item.data.type === 'armor')
-                ?.filter((item) => item.data.data.slug === 'clothing-explorer-s')
+                ?.filter((item) => item.data.data.slug === 'clothing-explorers')
                 ?.find((item) => item.data.data.equipped.value);
             if (clothing) {
                 clothingPotency = parseInt(clothing.data?.data?.potencyRune?.value);
