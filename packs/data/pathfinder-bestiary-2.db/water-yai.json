@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 15 ",
+                "details": "regeneration 15 (deactivated by acid or fire)",
                 "max": 295,
                 "min": 0,
                 "temp": 0,
@@ -128,6 +128,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -164,6 +165,54 @@
             "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 191"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot9": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 38,
+                        "value": 28
+                    }
+                }
             }
         },
         "martial": {
@@ -413,6 +462,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -488,6 +540,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -550,6 +605,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -581,7 +637,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "DXZfRCm8N67SMCFm",
+            "_id": "bBvElJOqG1OLTvkg",
             "data": {
                 "ability": {
                     "value": ""
@@ -589,6 +645,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -598,7 +657,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "8d12"
+                    "value": "11d12"
                 },
                 "damageType": {
                     "value": "electricity"
@@ -606,7 +665,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d12.</p>"
+                    "value": "<p>You discharge a powerful bolt of lightning at the target, dealing 8d12 electricity damage. The target must attempt a basic Reflex save. The electricity arcs to another creature within 30 feet of the first target, jumps to another creature within 30 feet of that target, and so on. You can end the chain at any point. You can't target the same creature more than once, and you must have line of effect to all targets. Roll the damage only once, and apply it to each target (halving or doubling as appropriate for its saving throw outcome). The chain ends if any one of the targets critically succeeds at its save.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -615,7 +674,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -626,26 +685,39 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
-                    "value": "30 feet"
+                    "value": "500 feet"
                 },
                 "rarity": {
                     "value": "common"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d12",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chain-lightning",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=33"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -677,20 +749,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.TDNlDWbYb58Y55Da"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chain-lightning.jpg",
             "name": "Chain Lightning",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "g4Vh4DYLFs3aA63u",
+            "_id": "DokJPfWj2cEd5X6v",
             "data": {
                 "ability": {
                     "value": ""
@@ -698,6 +771,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -707,7 +783,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "10d10"
+                    "value": "11d10"
                 },
                 "damageType": {
                     "value": "negative"
@@ -715,7 +791,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage.Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d10.</p>"
+                    "value": "<p>You pull the moisture from the targets' bodies, dealing 10d10 negative damage. Creatures made of water (such as water elementals) and plant creatures use the outcome for one degree of success worse than the result of their saving throw. Creatures whose bodies contain no significant moisture (such as earth elementals) are immune to horrid wilting.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -724,7 +800,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -735,6 +811,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "500 feet"
                 },
@@ -743,18 +822,28 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "horrid-wilting",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=152"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -786,20 +875,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.M0jQlpQYUr0pp2Sv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/horrid-wilting.jpg",
             "name": "Horrid Wilting",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "FAOWZEPyYVov71nW",
+            "_id": "UK2QC8TMC5DHG3Tb",
             "data": {
                 "ability": {
                     "value": ""
@@ -807,6 +897,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot line"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -816,15 +909,15 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "8d6"
+                    "value": "16d6"
                 },
                 "damageType": {
-                    "value": ""
+                    "value": "bludgeoning"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A swirling torrent of water manifests along a straight line, battering those that are its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 2d6.</p>"
+                    "value": "<p>A swirling torrent of water manifests along a straight line, battering those that are its path and possibly pushing them away from you. The torrent deals 8d6 bludgeoning damage. Each creature in the area must attempt a basic Fortitude save. Creatures that fail the save are also knocked back 5 feet (10 feet on a critical failure).</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 2d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -833,7 +926,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -842,6 +935,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -853,17 +949,27 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d6",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "hydraulic-torrent",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=155"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -894,20 +1000,21 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Y3G6Y6EDgCY0s3fq"
+                }
+            },
             "img": "systems/pf2e/icons/spells/hydraulic-torrent.jpg",
             "name": "Hydraulic Torrent",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "nzR2Lyv5FRWlNH0U",
+            "_id": "cOqmT9M74QEp6QXX",
             "data": {
                 "ability": {
                     "value": ""
@@ -915,6 +1022,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "50 feet long by 50 feet wide"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -932,7 +1042,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of slow.</p>"
+                    "value": "<p>By imposing your will upon the water, you can raise or lower the level of water in the chosen area by 10 feet. Water creatures in the area are subjected to the effects of @Compendium[pf2e.spells-srd.Slow]{Slow}.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -950,6 +1060,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -970,8 +1083,18 @@
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "control-water",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=51"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1003,25 +1126,21 @@
                         "evocation",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.zfn5RqAdF63neqpP"
                 }
             },
             "img": "systems/pf2e/icons/spells/control-water.jpg",
-            "name": "Control Water ",
+            "name": "Control Water (At will)",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "mO0XVUvo8GmwzBIg",
+            "_id": "Rc2s4opWwN3H4nTw",
             "data": {
                 "ability": {
                     "value": ""
@@ -1029,6 +1148,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1041,12 +1163,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1055,7 +1177,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -1064,6 +1186,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1084,8 +1209,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1120,20 +1255,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "kfEJY2gZYL3CFB4R",
+            "_id": "9LlBcmwdfGn59WFQ",
             "data": {
                 "ability": {
                     "value": ""
@@ -1141,6 +1277,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1153,12 +1292,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1167,7 +1306,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -1176,6 +1315,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1196,8 +1338,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1232,20 +1384,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "F9lwWoGfnzfsaPzv",
+            "_id": "uvIiovZHDstOcego",
             "data": {
                 "ability": {
                     "value": ""
@@ -1253,6 +1406,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1265,12 +1421,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1279,7 +1435,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -1288,6 +1444,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1308,8 +1467,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1344,20 +1513,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "3YWSXvFbFpQA8zRE",
+            "_id": "ht0WtsqaB8Vgc9wP",
             "data": {
                 "ability": {
                     "value": ""
@@ -1365,6 +1535,9 @@
                 "area": {
                     "areaType": "burst",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "value": "material, somatic, verbal"
@@ -1382,7 +1555,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
+                    "value": "<p>You create a shroud of darkness that prevents light from penetrating or emanating within the area. Light does not enter the area and any non-magical light sources, such as a torch or lantern, do not emanate any light while inside the area, even if their light radius would extend beyond the darkness. This also suppresses magical light of your darkness spell's level or lower. Light can't pass through, so creatures in the area can't see outside. From outside, it appears as a globe of pure darkness.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> Even creatures with darkvision (but not greater darkvision) can barely see through the darkness. They treat targets seen through the darkness as @Compendium[pf2e.conditionitems.Concealed]{Concealed}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1391,7 +1564,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "4"
+                    "value": 4
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -1400,6 +1573,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1420,8 +1596,18 @@
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "darkness",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=59"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1455,20 +1641,21 @@
                         "darkness",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Darkness"
+                }
+            },
             "img": "systems/pf2e/icons/spells/darkness.jpg",
             "name": "Darkness",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "5ZngkWOGRpi4KZeG",
+            "_id": "QX2KJ9zKwYbtaPba",
             "data": {
                 "ability": {
                     "value": ""
@@ -1476,6 +1663,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "material, somatic"
@@ -1493,7 +1683,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1511,6 +1701,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1531,8 +1724,18 @@
                 "school": {
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1563,20 +1766,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility",
+            "name": "Invisibility (At will) (Self only)",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "ImnWTHSKH8jP2C2S",
+            "_id": "A1Jg6isNRXtE1HSR",
             "data": {
                 "ability": {
                     "value": ""
@@ -1584,6 +1788,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1601,7 +1808,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The target can walk on the surface of water and other liquids without falling through. It can go underwater if it wishes, but in that case it must Swim normally. This spell doesn't grant the ability to breathe underwater.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 30 feet, the duration increases to 1 hour, and you can target up to 10 creatures.</p>"
+                    "value": "<p>The target can walk on the surface of water and other liquids without falling through. It can go underwater if it wishes, but in that case it must Swim normally. This spell doesn't grant the ability to breathe underwater.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell's range increases to 30 feet, the duration increases to 1 hour, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -1610,7 +1817,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "9"
+                    "value": 9
                 },
                 "location": {
                     "value": "3KyuJoHTxD577UTr"
@@ -1619,6 +1826,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1639,8 +1849,18 @@
                 "school": {
                     "value": "trs"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "water-walk",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=371"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1672,21 +1892,35 @@
                     "value": [
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Seaah9amXg70RKw2"
+                }
+            },
             "img": "systems/pf2e/icons/spells/water-walk.jpg",
-            "name": "Water Walk ",
+            "name": "Water Walk (Constant)",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "giUarxI6JmJ2gvP4",
+            "_id": "ZbNsXG0791f7GcKW",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1699,15 +1933,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d8",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This very long spear, sometimes called a pike, is purely for thrusting rather than throwing. Used by many soldiers and city watch for crowd control and defense against charging enemies, it must be wielded with two hands.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "spear"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1720,19 +1966,22 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": "0"
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": "2"
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1741,44 +1990,92 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "5 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
-                    "value": 1
+                    "value": "1"
+                },
+                "range": {
+                    "value": "reach"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "longspear",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
                     "value": ""
+                },
+                "strikingRune": {
+                    "value": "greaterStriking"
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "reach"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+2 greater striking longspear",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.aXuJh4i8HqSu6NYV"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/longspear.jpg",
+            "name": "+2 Greater Striking Longspear",
             "sort": 1200000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "00kCy3dtoRU8EnP9",
@@ -1789,6 +2086,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 35,
                     "value": 35
@@ -1900,6 +2198,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1942,6 +2241,7 @@
                         "Enveloping Kimono"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 33,
                     "value": 33
@@ -2049,6 +2349,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2090,6 +2391,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 33,
                     "value": 33
@@ -2201,6 +2503,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2240,10 +2543,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": [
-                        "flat-footed for 1 round"
-                    ]
+                    "custom": "Flat-Footed for 1 round",
+                    "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 30,
                     "value": 30
@@ -2351,6 +2654,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2366,7 +2670,7 @@
                         "electricity",
                         "evil",
                         "magical",
-                        "range increment 60 feet"
+                        "range-increment-60"
                     ]
                 },
                 "usage": {
@@ -2387,7 +2691,227 @@
             "type": "melee"
         },
         {
-            "_id": "CyYjOp865W6IoMPD",
+            "_id": "mTsKSxGS9jWZPCar",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>A creature with greater darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal @Compendium[pf2e.bestiary-ability-glossary-srd.Darkvision]{Darkvision}. A creature with greater darkvision, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "greater-darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.4Ho2xMPEC05aSxzr"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Greater Darkvision",
+            "sort": 1700000,
+            "type": "action"
+        },
+        {
+            "_id": "QTxOTyLCST6Zaqb3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 1800000,
+            "type": "action"
+        },
+        {
+            "_id": "RMCsutKfNLtikzWK",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 1900000,
+            "type": "action"
+        },
+        {
+            "_id": "tlcUEtC6qZlc69zv",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 2000000,
+            "type": "action"
+        },
+        {
+            "_id": "hbf277SQgtMCjjWF",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2401,7 +2925,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using. <strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the monster's reach uses a manipulate action or a move action, makes a ranged attack, or leaves a square during a move action it's using.</p>\n<p><strong>Effect</strong> The monster attempts a melee Strike against the triggering creature. If the attack is a critical hit and the trigger was a manipulate action, the monster disrupts that action. This Strike doesn't count toward the monster's multiple attack penalty, and its multiple attack penalty doesn't apply to this Strike.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2410,6 +2934,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -2423,18 +2948,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Attack of Opportunity",
-            "sort": 1700000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -2444,7 +2970,7 @@
                     "value": "defensive"
                 },
                 "actionType": {
-                    "value": "passive"
+                    "value": "reaction"
                 },
                 "actions": {
                     "value": ""
@@ -2452,7 +2978,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts a fire spell; <strong>Effect</strong> The water yai flourishes their kimono and attempts a Performance check to counteract the spell before it comes into effect. If the yai counters the spell, the triggering creature takes [[/r 9d6 # electricity damage]] electricity damage from electrified water that sprays from the kimono (DC 35 basic Reflex save).</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within 100 feet casts a fire spell;</p>\n<p><strong>Effect</strong> The water yai flourishes their kimono and attempts a Performance check to counteract the spell before it comes into effect. If the yai counters the spell, the triggering creature takes [[/r 9d6 #electricity]] electricity damage from electrified water that sprays from the kimono (DC 35 basic Reflex save).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2461,6 +2987,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2483,13 +3010,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Shocking Douse ",
-            "sort": 1800000,
+            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "name": "Shocking Douse",
+            "sort": 2200000,
             "type": "action"
         },
         {
-            "_id": "PzQbpZs8SVz5llQq",
+            "_id": "X8BOiH4KPnC3n94o",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2503,7 +3030,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2512,6 +3039,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -2525,22 +3053,23 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 1900000,
+            "name": "Regeneration 15 (acid or fire)",
+            "sort": 2300000,
             "type": "action"
         },
         {
-            "_id": "3hvFeoEetJrDjYW1",
+            "_id": "H97yITJBuctoMctx",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2549,12 +3078,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The water yai takes on the appearance of a storm giant. This doesn't change their Speed or Strike attack and damage. The yai can also turn into a puddle of water, with the effects of @Compendium[pf2e.spells-srd.Gaseous Form]{Gaseous Form} except they retain their land Speed, double their swim Speed, and can't fly.<br />The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
+                    "value": "<p>The water yai takes on the appearance of a @Compendium[pf2e.pathfinder-bestiary.Storm Giant]{Storm Giant}. This doesn't change their Speed or Strike attack and damage. The yai can also turn into a puddle of water, with the effects of @Compendium[pf2e.spells-srd.Gaseous Form]{Gaseous Form} except they retain their land Speed, double their swim Speed, and can't fly.</p>\n<p>The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the @Compendium[pf2e.action-macros.Impersonate: Deception]{Impersonate} use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2563,6 +3092,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "change-shape",
                 "source": {
                     "value": ""
                 },
@@ -2581,18 +3111,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.eQM5hQ1W3d1uen97"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Change Shape",
-            "sort": 2000000,
+            "sort": 2400000,
             "type": "action"
         },
         {
@@ -2605,12 +3136,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The water yai's last action was a successful kimono Strike; <strong>Effect</strong> The water yai extends a portion of their kimono to attempt to envelop a creature within 15 feet. The water yai must attempt a Performance check against the creature's Reflex DC. <br /><strong>Critical Success</strong> The creature takes [[/r 20d6 # electricity damage]] electricity damage and is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until the end of its next turn. <br /><strong>Success</strong> As critical success, but only [[/r 10d6 # electricity damage]] electricity damage. <br /><strong>Failure</strong> The target takes [[/r 5d6 # electricity damage]] electricity damage but is not grabbed. <br /><strong>Critical Failure</strong> The target is unaffected.</p>"
+                    "value": "<p><strong>Requirements</strong> The water yai's last action was a successful kimono Strike;</p>\n<p><strong>Effect</strong> The water yai extends a portion of their kimono to attempt to envelop a creature within 15 feet. The water yai must attempt a Performance check against the creature's Reflex DC.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes [[/r 20d6 #electricity]] electricity damage and is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} until the end of its next turn.</p>\n<p><strong>Success</strong> As critical success, but only [[/r 10d6 #electricity]] electricity damage.</p>\n<p><strong>Failure</strong> The target takes [[/r 5d6 #electricity]] electricity damage but is not grabbed.</p>\n<p><strong>Critical Failure</strong> The target is unaffected.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -2619,6 +3150,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2647,9 +3179,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Enveloping Kimono",
-            "sort": 2100000,
+            "sort": 2500000,
             "type": "action"
         },
         {
@@ -2673,6 +3205,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2691,7 +3224,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 2200000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -2715,6 +3248,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2733,7 +3267,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Arcana",
-            "sort": 2300000,
+            "sort": 2700000,
             "type": "lore"
         },
         {
@@ -2757,6 +3291,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2775,7 +3310,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 2400000,
+            "sort": 2800000,
             "type": "lore"
         },
         {
@@ -2799,6 +3334,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2817,7 +3353,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Deception",
-            "sort": 2500000,
+            "sort": 2900000,
             "type": "lore"
         },
         {
@@ -2841,6 +3377,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2859,7 +3396,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 2600000,
+            "sort": 3000000,
             "type": "lore"
         },
         {
@@ -2883,6 +3420,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2901,7 +3439,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Nature",
-            "sort": 2700000,
+            "sort": 3100000,
             "type": "lore"
         },
         {
@@ -2925,6 +3463,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2943,7 +3482,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Performance",
-            "sort": 2800000,
+            "sort": 3200000,
             "type": "lore"
         }
     ],
@@ -2952,7 +3491,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "R0dyG06kbNYiCqRW",
         "actorLink": false,
         "bar1": {
@@ -2971,6 +3509,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Water Yai",
         "randomImg": false,
