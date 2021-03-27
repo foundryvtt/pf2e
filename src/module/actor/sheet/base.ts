@@ -320,7 +320,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             _id: entryId,
             [key]: { id: spell._id },
         };
-        this.actor.updateEmbeddedEntity('OwnedItem', updates);
+        this.actor.updateEmbeddedEntity('OwnedItem', updates, { overwrite: true });
     }
 
     /**
