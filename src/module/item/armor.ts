@@ -72,7 +72,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = super.getChatData(htmlOptions);
+        const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [
             CONFIG.PF2E.armorTypes[data.armorType.value],
@@ -85,7 +85,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
         ].filter((property) => property);
 
-        return { ...data, properties, traits: null };
+        return this.processChatData({ ...data, properties, traits: null }, htmlOptions);
     }
 }
 export interface ArmorPF2e {

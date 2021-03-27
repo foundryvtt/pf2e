@@ -20,7 +20,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = super.getChatData(htmlOptions);
+        if (!this.actor) {
+            return {};
+        }
+
+        const data = this.data.data;
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
@@ -48,8 +52,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
         } else {
             try {
-                const martialSkill = this.actor.getOwnedItem(prof);
-                if (martialSkill.data.type === 'martial') {
+                const martialSkill = this.actor?.getOwnedItem(prof);
+                if (martialSkill?.data.type === 'martial') {
                     proficiency.type = 'skill';
                     const rank = martialSkill.data.data.proficient?.value || 0;
                     proficiency.value = ProficiencyModifier.fromLevelAndRank(
@@ -77,20 +81,23 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const { map2, map3 } = this.calculateMap();
 
-        return {
-            ...data,
-            traits,
-            proficiency,
-            attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
+        return this.processChatData(
+            {
+                ...data,
+                traits,
+                proficiency,
+                attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
 
-            critSpecialization,
-            isTwohanded: !!twohandedTrait,
-            wieldedTwoHands: !!data.hands.value,
-            isFinesse,
-            properties,
-            map2,
-            map3,
-        };
+                critSpecialization,
+                isTwohanded: !!twohandedTrait,
+                wieldedTwoHands: !!data.hands.value,
+                isFinesse,
+                properties,
+                map2,
+                map3,
+            },
+            htmlOptions,
+        );
     }
 }
 

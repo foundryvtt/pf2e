@@ -14,7 +14,7 @@ export class SpellPF2e extends ItemPF2e {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         if (this.data.type != 'spell')
             throw new Error("Tried to create spell chat data from an item that wasn't a spell");
-        const data = super.getChatData(htmlOptions);
+        const data = duplicate(this.data.data);
 
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === data.location.value,
@@ -51,13 +51,14 @@ export class SpellPF2e extends ItemPF2e {
             data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
         ];
         data.spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
-        if (data.level.value < parseInt(data.spellLvl, 10)) {
-            props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
+        const spellLvl = parseInt(data.spellLvl ?? '0', 10);
+        if (data.level.value < spellLvl) {
+            props.push(`Heightened: +${spellLvl - data.level.value}`);
         }
         data.properties = props.filter((p) => p !== null);
         data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
 
-        return data;
+        return this.processChatData(data, htmlOptions);
     }
 }
 

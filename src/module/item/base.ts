@@ -122,13 +122,20 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /*  Chat Card Data
     /* -------------------------------------------- */
 
-    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any): any {
-        const data = duplicate(this.data.data);
+    /**
+     * Internal method that transforms data into something that can be used for chat.
+     * Currently renders description text using TextEditor.enrichHTML()
+     */
+    protected processChatData(data: any, htmlOptions?: Record<string, boolean>): unknown {
         if (data?.description) {
             data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
         }
 
         return data;
+    }
+
+    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any) {
+        return this.processChatData(duplicate(this.data.data), htmlOptions);
     }
 
     /* -------------------------------------------- */
@@ -172,7 +179,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Prepare roll data
         // let itemData = this.data.data,
-        const itemData = this.getChatData();
+        const itemData: any = this.getChatData();
         const rollData = duplicate(this.actor.data.data) as any;
         const isFinesse = itemData.isFinesse;
         const abl =
@@ -366,7 +373,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Prepare roll data
         // let itemData = this.data.data,
-        const itemData = this.getChatData();
+        const itemData: any = this.getChatData();
         const rollData = duplicate(this.actor.data.data) as any;
         const parts = ['@itemBonus'];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
