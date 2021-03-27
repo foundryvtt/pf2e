@@ -1,16 +1,6 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { FakeItem } from './fake-item';
 
-export type RecursivePartial<T> = {
-    [P in keyof T]?: T[P] extends Array<infer U> ? Array<Value<U>> : Value<T[P]>;
-};
-type AllowedPrimitives =
-    | boolean
-    | string
-    | number
-    | Date /* add any types than should be considered as a value, say, DateTimeOffset */;
-type Value<T> = T extends AllowedPrimitives ? T : RecursivePartial<T>;
-
 export class FakeActorItem {
     actor: FakeActor;
     id: string;
@@ -20,26 +10,25 @@ export class FakeActorItem {
     }
 
     get data() {
-        return this.actor._data.items?.find((x) => x._id == this.id) ?? {};
+        return this.actor._data.items.find((x) => x._id == this.id);
     }
 
     get name() {
         return this.data?.name;
     }
 
-    update(changes: object) {
+    update(changes: EmbeddedEntityUpdateData) {
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(this.data, k, v);
+            global.setProperty(this.data!, k, v);
         }
     }
 }
 
 export class FakeActor {
-    _data: RecursivePartial<ActorDataPF2e>;
+    _data: ActorDataPF2e;
     _itemGuid: number = 1;
-    constructor(data: RecursivePartial<ActorDataPF2e>) {
+    constructor(data: ActorDataPF2e) {
         this._data = duplicate(data);
-        this._data.items = this._data.items ?? [];
     }
 
     get data() {

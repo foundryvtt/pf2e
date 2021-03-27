@@ -77,7 +77,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const sheetData = super.getData();
 
         this.prepareTraits(sheetData.data.traits);
-        this.prepareItems(sheetData.actor);
+        this.prepareItems(sheetData);
 
         return {
             ...sheetData,
@@ -86,7 +86,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         };
     }
 
-    protected abstract prepareItems(actorData: ActorDataPF2e): void;
+    protected abstract prepareItems(sheetData: { actor: ActorDataPF2e }): void;
 
     protected findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
@@ -1656,8 +1656,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}
-                                    ${game.i18n.localize('PF2E.SpellLabelPlural')}`;
+                                    name = [
+                                        CONFIG.PF2E.magicTraditions[magicTradition],
+                                        game.i18n.localize('PF2E.SpellLabelPlural'),
+                                    ].join(' ');
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;

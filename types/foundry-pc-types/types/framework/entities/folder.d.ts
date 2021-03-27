@@ -8,7 +8,7 @@ declare interface FolderData extends BaseEntityData {
     parent: string | null;
     sort: null;
     sorting: 'a' | 'm';
-    type: 'Actor' | 'Item' | 'Scene' | 'JournalEntry' | 'RollTable';
+    type: 'Actor' | 'Item' | 'Macro' | 'JournalEntry' | 'RollTable' | 'Scene';
 }
 
 declare interface FolderClassConfig extends EntityClassConfig<Folder> {

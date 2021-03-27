@@ -19,6 +19,7 @@ import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -29,7 +30,7 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
 /**
  * @category PF2
  */
-export class ItemPF2e extends Item<ActorPF2e> {
+export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     constructor(data: ItemDataPF2e, options: ItemConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -90,11 +91,11 @@ export class ItemPF2e extends Item<ActorPF2e> {
         };
 
         // Basic chat message data
-        const chatData: any = {
-            user: game.user._id,
+        const chatData: Partial<ChatMessageData> = {
+            user: game.user.id,
             speaker: {
-                actor: this.actor._id,
-                token: this.actor.token,
+                actor: this.actor.id,
+                token: this.actor.token?.id,
                 alias: this.actor.name,
             },
             flags: {
@@ -298,7 +299,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         itemTraits: ItemTraits,
         traitList: Record<string, string>,
     ): { label: string; description: string }[] {
-        let traits = itemTraits.value;
+        let traits: string[] = duplicate(itemTraits.value);
         const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
 
         if (customTraits.length > 0) {
@@ -961,11 +962,12 @@ export class ItemPF2e extends Item<ActorPF2e> {
                 this._castEmbeddedSpell();
             } else {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                const popup = new TrickMagicItemPopup(this.actor, DC);
+                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
+                    const trickMagicItemData = await trickMagicItemPromise;
+                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
+                };
+                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
                 popup.render(true);
-                const trickMagicItemData = popup.result;
-                if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                else return;
             }
         } else {
             const cv = itemData.consume.value;
@@ -1024,7 +1026,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
-        const spellData = this.data.data.spell.data.data;
+        const spellData = duplicate(this.data.data.spell.data.data);
         let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
             (i) => i.type === 'spellcastingEntry',
         ) as SpellcastingEntryData[];

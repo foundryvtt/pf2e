@@ -46,7 +46,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             }
         }
 
-        this.prepareItems(sheetData.actor);
+        this.prepareItems(sheetData);
 
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
@@ -63,7 +63,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         return sheetData;
     }
 
-    protected prepareItems(actorData: any) {
+    protected prepareItems(sheetData: any) {
+        const actorData = sheetData.actor;
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },

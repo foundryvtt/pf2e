@@ -144,7 +144,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
      */
-    protected prepareItems(actorData: SheetEnrichedNPCData) {
+    protected prepareItems(sheetData: any) {
+        const actorData: SheetEnrichedNPCData = sheetData.actor;
         const monsterTraits = actorData.data.traits.traits;
 
         this.prepareAbilities(actorData.data.abilities);

@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "50 feet"
+                        "exceptions": "",
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "50"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -409,6 +412,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -469,6 +475,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 24,
                     "value": 24
@@ -576,6 +583,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -614,6 +622,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 24,
                     "value": 24
@@ -721,6 +730,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -752,6 +762,59 @@
             "type": "melee"
         },
         {
+            "_id": "8F42ZUECGwbl9nmU",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "fakAfk3puTMpw1vT",
             "data": {
                 "actionCategory": {
@@ -766,7 +829,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A water orm can go for 10 years without feeding. Beyond this limit, the water orm's hunger causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1, but doesn't otherwise impact its lifespan. A water orm that's slowed as a result of starvation can remove this condition by using Swallow Whole to gulp down a meal.</p>"
+                    "value": "<p>A water orm can go for 10 years without feeding. Beyond this limit, the water orm's hunger causes it to become @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, but doesn't otherwise impact its lifespan. A water orm that's slowed as a result of starvation can remove this condition by using Swallow Whole to gulp down a meal.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -775,6 +838,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -799,7 +863,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Slow Metabolism",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -826,6 +890,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -857,11 +922,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Undetectable",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "Y5Vhr3tsYhUn5yhS",
+            "_id": "Us7BcRckPUy5WuaZ",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -870,12 +935,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Large, 2d8+8 bludgeoning, Rupture 22<br />The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.<br /><br /> A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim Escapes this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The engulfing creature is flat-footed against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the engulfed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.<br /><br /> If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of [[/r 3 # actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage]] actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
+                    "value": "<p>Large, [[/r 2d8+8 #bludgeoning]] bludgeoning, Rupture 22</p>\n<p>The monster attempts to swallow a creature of the listed size or smaller that it has grabbed in its jaws or mouth. If a swallowed creature is of the maximum size listed, the monster can't use Swallow Whole again. If the creature is smaller than the maximum, the monster can usually swallow more creatures; the GM determines the maximum. The monster attempts an Athletics check opposed by the grabbed creature's Reflex DC. If it succeeds, it swallows the creature. The monster's mouth or jaws no longer grab a creature it has swallowed, so the monster is free to use them to Strike or Grab once again. The monster can't attack creatures it has swallowed.</p>\n<p>A swallowed creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, is @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}, and has to hold its breath or start suffocating. The swallowed creature takes the listed amount of damage when first swallowed and at the end of each of its turns while it's swallowed. If the victim @Compendium[pf2e.actionspf2e.Escape]{Escapes} this ability's grabbed condition, it exits through the monster's mouth. This frees any other creature grabbed in the monster's mouth or jaws. A swallowed creature can attack the monster that has swallowed it, but only with unarmed attacks or with weapons of light Bulk or less. The swallowing creature is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the attack. If the monster takes piercing or slashing damage equaling or exceeding the listed Rupture value from a single attack or spell, the swallowed creature cuts itself free. A creature that gets free by either Escaping or cutting itself free can immediately breathe and exits the swallowing monster's space.</p>\n<p>If the monster dies, a swallowed creature can be freed by creatures adjacent to the corpse if they spend a combined total of 3 actions cutting the monster open with a weapon or unarmed attack that deals piercing or slashing damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -884,6 +949,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "swallow-whole",
                 "source": {
                     "value": ""
                 },
@@ -899,18 +965,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.uJSseLa57HZYSMUu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Swallow Whole",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -923,7 +990,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
@@ -936,7 +1003,24 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.all.rollOptions.water-travel"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "water-travel"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "type": "circumstance",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -964,13 +1048,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Water Travel",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "hAB2QC7tZ4fnLvan",
+            "_id": "YBRIxpMXUrxJfeV1",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -979,12 +1063,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -993,6 +1077,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "grab",
                 "source": {
                     "value": ""
                 },
@@ -1006,18 +1091,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Grab",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1041,6 +1127,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1059,7 +1146,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1083,6 +1170,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1101,7 +1189,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -1110,7 +1198,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "64sdDzjLWu2W2R2e",
         "actorLink": false,
         "bar1": {
@@ -1129,6 +1216,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Water Orm",
         "randomImg": false,

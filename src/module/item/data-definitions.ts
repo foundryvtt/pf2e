@@ -495,7 +495,7 @@ export interface ActionDetailsData extends ItemDescriptionData {
 export interface TrickMagicItemCastData {
     ability: AbilityString;
     data: { spelldc: { value: number; dc: number } };
-    _id: '';
+    _id: string;
 }
 
 export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];

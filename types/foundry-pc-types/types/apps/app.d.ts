@@ -330,7 +330,7 @@ declare class Application {
     /**
      * Set the application position and store it's new location
      */
-    setPosition({ left, top, width, height, scale }: ApplicationPosition): any;
+    setPosition({ left, top, width, height, scale }?: ApplicationPosition): ApplicationPosition | undefined;
 
     /**
      * Handle application minimization behavior - collapsing content and reducing the size of the header

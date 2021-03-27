@@ -40,7 +40,7 @@ import './types/apps/sidebar/apps/item-directory';
 import './types/apps/sidebar/sidebar-tab/chat-log';
 import './types/apps/sidebar/apps/clientsettings';
 import './types/apps/sidebar/apps/combattracker';
-import './types/apps/sidebar/apps/compendiumdirectory';
+import './types/apps/sidebar/apps/compendium-directory';
 
 import './types/apps/sidebar/sidebar';
 import './types/apps/sidebar/sidebar-tab/base';
