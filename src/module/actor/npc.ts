@@ -9,14 +9,25 @@ import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ConfigPF2e } from '@scripts/config';
-import { ActionData, MeleeData } from '@item/data-definitions';
+import { ActionData, MeleeData, Rarity } from '@item/data-definitions';
 
 export class NPCPF2e extends CreaturePF2e {
+    get rarity(): Rarity {
+        return this.data.data.traits.rarity.value;
+    }
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
         const actorData = this.data;
         const { data } = actorData;
+
+        // Add rarity and custom traits to main trait list
+        const traits = this.data.data.traits;
+        const rarity = traits.rarity.value;
+        const customTraits = traits.traits.custom.split(/\s*[,;|]\s*/).filter((trait) => trait);
+        const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
+        traits.traits.value = Array.from(traitSet).sort();
 
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),

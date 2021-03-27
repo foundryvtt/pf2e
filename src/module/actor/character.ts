@@ -1,5 +1,4 @@
 import {
-    AncestryData,
     BackgroundData,
     ClassData,
     ConsumableData,
@@ -52,8 +51,17 @@ import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConfigPF2e } from '@scripts/config';
+import { FeatPF2e } from '@item/feat';
 
 export class CharacterPF2e extends CreaturePF2e {
+    get ancestry(): AncestryPF2e | null {
+        return this.itemTypes.ancestry[0] ?? null;
+    }
+
+    get heritage(): FeatPF2e | null {
+        return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
+    }
+
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -1087,19 +1095,30 @@ export class CharacterPF2e extends CreaturePF2e {
         data.attributes.initiative = stat;
     }
 
-    prepareAncestry(actorData: CharacterData) {
-        const ancestry: AncestryData = actorData.items.find((x): x is AncestryData => x.type === 'ancestry');
-
-        if (ancestry) {
+    private prepareAncestry(actorData: CharacterData) {
+        const ancestry = this.ancestry;
+        const ancestryData = ancestry?.data;
+        if (ancestryData) {
             actorData.data.details.ancestry.value = ancestry.name;
-            actorData.data.attributes.ancestryhp = ancestry.data.hp;
-            actorData.data.attributes.speed.value = `${ancestry.data.speed}`;
-            actorData.data.traits.size.value = ancestry.data.size;
-            // should we update the traits as well?
+            actorData.data.attributes.ancestryhp = ancestryData.data.hp;
+            actorData.data.attributes.speed.value = `${ancestryData.data.speed}`;
+            actorData.data.traits.size.value = ancestryData.data.size;
+
+            // Add traits from ancestry and heritage
+            const ancestryTraits: Set<string> = ancestry?.traits ?? new Set();
+            const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
+            const traitSet = new Set(
+                [...ancestryTraits, ...heritageTraits].filter(
+                    (trait) => !['common', 'versatile heritage'].includes(trait),
+                ),
+            );
+            for (const trait of Array.from(traitSet).sort()) {
+                this.data.data.traits.traits.value.push(trait);
+            }
         }
     }
 
-    prepareBackground(actorData: CharacterData) {
+    private prepareBackground(actorData: CharacterData) {
         const background: BackgroundData = actorData.items.find((x): x is BackgroundData => x.type === 'background');
 
         if (background) {
@@ -1107,7 +1126,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    prepareClass(actorData: CharacterData) {
+    private prepareClass(actorData: CharacterData) {
         const classData = actorData.items.find((x): x is ClassData => x.type === 'class');
 
         if (classData) {

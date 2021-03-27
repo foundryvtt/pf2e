@@ -1,7 +1,7 @@
 import { CharacterPF2e } from '@actor/character';
 import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data-definitions';
 import { ItemPF2e } from './base';
-import { FeatPF2e } from './others';
+import { FeatPF2e } from './feat';
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 export abstract class ABCItemPF2e extends ItemPF2e {
