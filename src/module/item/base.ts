@@ -962,9 +962,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 this._castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (
-                    trickMagicItemPromise: TrickMagicItemCastData,
-                ): Promise<void> => {
+                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
                     const trickMagicItemData = await trickMagicItemPromise;
                     if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 };
