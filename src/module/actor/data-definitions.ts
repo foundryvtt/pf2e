@@ -54,6 +54,8 @@ export interface ProficiencyData {
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
     breakdown: string;
+    /** Is this proficiency a custom addition (not among a default set or added via system automation)? */
+    custom?: boolean;
 }
 
 /** Basic skill and save data (not including custom modifiers). */
@@ -365,14 +367,10 @@ export interface CategoryProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
-type BaseWeaponProficiencyKeys = `weapon-base-${BaseWeaponKey}`;
-type BaseWeaponProficiencies = {
-    [K in BaseWeaponProficiencyKeys]?: ProficiencyData;
-};
-type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
-type WeaponGroupProfiencies = {
-    [K in WeaponGroupProficiencyKey]?: ProficiencyData;
-};
+export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponKey}`;
+type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
+export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
+type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
 export type CombatProficiencyKey = keyof CombatProficiencies;

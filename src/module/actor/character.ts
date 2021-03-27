@@ -28,6 +28,7 @@ import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
 import { SKILL_DICTIONARY } from './base';
 import {
     AbilityString,
+    BaseWeaponProficiencyKey,
     CharacterData,
     CharacterStrike,
     CharacterStrikeTrait,
@@ -38,6 +39,8 @@ import {
     CombatProficiencies,
     CombatProficiencyKey,
     PerceptionData,
+    ProficiencyData,
+    WeaponGroupProficiencyKey,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
@@ -1143,6 +1146,18 @@ export class CharacterPF2e extends CreaturePF2e {
             this.data.data.details.class.value = classItem.name;
             this.data.data.attributes.classhp = classItem.hpPerLevel;
         }
+    }
+
+    /** Add a proficiency in a weapon group or base weapon */
+    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+        const currentProficiencies = this.data.data.martial;
+        if (key in currentProficiencies) return;
+        const newProficiency: ProficiencyData = { rank: 0, value: 0, breakdown: '', custom: true };
+        await this.update({ [`data.martial.${key}`]: newProficiency });
+    }
+
+    async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+        await this.update({ [`data.martial.-=${key}`]: null });
     }
 
     /** @override */

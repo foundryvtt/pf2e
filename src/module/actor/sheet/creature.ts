@@ -141,8 +141,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         if (sheetData.data.martial) {
             const proficiencies = Object.entries(sheetData.data.martial as Record<string, SkillData>);
             for (const [key, proficiency] of proficiencies) {
-                const groupMatch = /weapon-group-([a-z]+)$/.exec(key);
-                const baseWeaponMatch = /weapon-base-([-a-z]+)$/.exec(key);
+                const groupMatch = /weapon-group-([-a-z0-9]+)$/.exec(key);
+                const baseWeaponMatch = /weapon-base-([-a-z0-9]+)$/.exec(key);
                 const label = ((): string => {
                     if (key in CONFIG.PF2E.martialSkills) {
                         return CONFIG.PF2E.martialSkills[key as keyof CategoryProficiencies];
