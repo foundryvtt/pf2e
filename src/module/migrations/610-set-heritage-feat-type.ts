@@ -3,7 +3,7 @@ import { ItemDataPF2e } from '@item/data-definitions';
 
 /** Convert heritage "feats" be of type "heritage" */
 export class Migration610SetHeritageFeatType extends MigrationBase {
-    static version = 0.610;
+    static version = 0.61;
 
     async updateItem(itemData: ItemDataPF2e) {
         const itemTraits = itemData.data.traits.value;

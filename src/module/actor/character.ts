@@ -82,7 +82,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ancestryTraits: Set<string> = this.ancestry?.traits ?? new Set();
         const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
         const traitSet = new Set(
-            [...ancestryTraits, ...heritageTraits].filter((trait) => !['common', 'versatile heritage'].includes(trait))
+            [...ancestryTraits, ...heritageTraits].filter((trait) => !['common', 'versatile heritage'].includes(trait)),
         );
         for (const trait of traitSet) {
             this.data.data.traits.traits.value.push(trait);
