@@ -150,7 +150,6 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
             return '';
         }
 
-        description = description.trim().replace('<p></p>', '');
         const $description = ((): JQuery => {
             try {
                 return $(
@@ -194,14 +193,17 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         return $('<div>')
             .append($description)
             .html()
-            .replace(/<([hb]r)>/g, '<$1 />') // Restore Foundry's self-closing tags
-            .replace(/(<p>)[\s\r\n]/g, '<p>')
-            .replace(/[\s\r\n]+(<\/p>)/g, '</p>')
+            .replace(/<([hb]r)>/g, '<$1 />') // Prefer self-closing tags
+            .replace(/&nbsp;/g, ' ')
+            .replace(/ {2,}/g, ' ')
+            .replace(/<p> ?<\/p>/g, '')
+            .replace(/<\/p> ?<p>/g, '</p><p>')
+            .replace(/<p>[ \r\n]+/g, '<p>')
+            .replace(/[ \r\n]+<\/p>/g, '</p>')
             .replace(/<(?:b|strong)>\s*/g, '<strong>')
             .replace(/\s*<\/(?:b|strong)>/g, '</strong>')
             .replace(/(<\/strong>)(\w)/g, '$1 $2')
             .replace(/(<p><\/p>)/g, '')
-            .replace(/\s{2,}/g, ' ')
             .trim();
     };
 
