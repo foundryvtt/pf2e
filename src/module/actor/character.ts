@@ -52,8 +52,17 @@ import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConfigPF2e } from '@scripts/config';
+import { FeatPF2e } from '@item/feat';
 
 export class CharacterPF2e extends CreaturePF2e {
+    get ancestry(): AncestryPF2e | null {
+        return this.itemTypes.ancestry[0] ?? null;
+    }
+
+    get heritage(): FeatPF2e | null {
+        return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
+    }
+
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
@@ -68,6 +77,16 @@ export class CharacterPF2e extends CreaturePF2e {
         this.prepareAncestry(actorData);
         this.prepareBackground(actorData);
         this.prepareClass(actorData);
+
+        // Add traits from ancestry and heritage
+        const ancestryTraits: Set<string> = this.ancestry?.traits ?? new Set();
+        const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
+        const traitSet = new Set(
+            [...ancestryTraits, ...heritageTraits].filter((trait) => !['common', 'versatile heritage'].includes(trait))
+        );
+        for (const trait of traitSet) {
+            this.data.data.traits.traits.value.push(trait);
+        }
 
         const rules: PF2RuleElement[] = actorData.items.reduce(
             (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
