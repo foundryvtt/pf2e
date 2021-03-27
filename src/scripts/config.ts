@@ -8,6 +8,7 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { FeatPF2e } from '@module/item/feat';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
@@ -17,7 +18,6 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     EquipmentPF2e,
-    FeatPF2e,
     KitPF2e,
     LorePF2e,
     MartialPF2e,
@@ -1488,6 +1488,7 @@ export const PF2ECONFIG = {
         ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
         class: 'PF2E.FeatTypeClass',
         classfeature: 'PF2E.FeatTypeClassfeature',
+        heritage: 'PF2E.FeatTypeHeritage',
         skill: 'PF2E.FeatTypeSkill',
         general: 'PF2E.FeatTypeGeneral',
         archetype: 'PF2E.FeatTypeArchetype',
