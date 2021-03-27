@@ -11,6 +11,7 @@ import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
+import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
 
 /**
  * @category Other
@@ -216,7 +217,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores = [];
-        const martialSkills = [];
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -390,22 +390,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
                 lores.push(i);
-            }
-
-            // Martial Skills
-            else if (i.type === 'martial') {
-                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
-                i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
-
-                const rank = i.data.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank)
-                    .modifier;
-                /* const itemBonus = Number((i.data.item || {}).value || 0);
-        i.data.itemBonus = itemBonus; */
-                i.data.value = proficiency; // + itemBonus;
-                i.data.breakdown = `proficiency(${proficiency})`;
-
-                martialSkills.push(i);
             }
 
             // Actions
@@ -583,7 +567,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-        actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
             // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
@@ -754,6 +737,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
         html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
+
+        {
+            // Add and remove combat proficiencies
+            const $tab = html.find('.tab.skills');
+            const $header = $tab.find('ol.inventory-header.combat-proficiencies');
+            $header.find('a.add').on('click', (event) => {
+                ManageCombatProficiencies.add(this.actor, event);
+            });
+            const $list = $tab.find('ol.combat-list');
+            $list.find('li.skill.custom a.delete').on('click', (event) => {
+                ManageCombatProficiencies.remove(this.actor, event);
+            });
+        }
 
         html.find('.hover').tooltipster({
             animation: 'fade',

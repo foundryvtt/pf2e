@@ -1,6 +1,6 @@
 import { MigrationBase } from '@module/migrations/base';
-import { ItemDataPF2e } from '@item/data-definitions';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ItemDataPF2e, WeaponCategoryKey } from '@item/data-definitions';
+import { ActorDataPF2e, BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
 import { ConfigPF2eListName } from './index';
 
 export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]) {
@@ -21,8 +21,39 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                     languages.value = languages.value.filter((language) => !deletions.includes(language));
                     break;
                 }
-                default:
+                case 'weaponCategories': {
+                    if (actorData.type === 'character') {
+                        const proficiencyKeys = deletions.map(
+                            (deletion) => `weapon-category-${deletion}`,
+                        ) as WeaponCategoryKey[];
+                        for (const key of proficiencyKeys) {
+                            delete actorData.data.martial[key];
+                        }
+                    }
                     break;
+                }
+                case 'weaponGroups': {
+                    if (actorData.type === 'character') {
+                        const proficiencyKeys = deletions.map(
+                            (deletion) => `weapon-group-${deletion}`,
+                        ) as WeaponGroupProficiencyKey[];
+                        for (const key of proficiencyKeys) {
+                            delete actorData.data.martial[key];
+                        }
+                    }
+                    break;
+                }
+                case 'baseWeapons': {
+                    if (actorData.type === 'character') {
+                        const proficiencyKeys = deletions.map(
+                            (deletion) => `weapon-base-${deletion}`,
+                        ) as BaseWeaponProficiencyKey[];
+                        for (const key of proficiencyKeys) {
+                            delete actorData.data.martial[key];
+                        }
+                    }
+                    break;
+                }
             }
         }
 
