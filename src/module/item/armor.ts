@@ -1,5 +1,7 @@
+import { addSign } from '@module/utils';
 import { ArmorCategory, ArmorData } from './data-definitions';
 import { PhysicalItemPF2e } from './physical';
+import { getArmorBonus } from './runes';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
     get traits(): Set<string> {
@@ -67,6 +69,23 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     get isBroken(): boolean {
         return this.hitPoints.current <= this.brokenThreshold;
+    }
+
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = this.data.data;
+        const localize = game.i18n.localize.bind(game.i18n);
+        const properties = [
+            CONFIG.PF2E.armorTypes[data.armorType.value],
+            CONFIG.PF2E.armorGroups[data.group.value],
+            `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
+            `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
+            `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
+            `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
+            ...data.traits.value,
+            data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
+        ].filter((property) => property);
+
+        return this.processChatData({ ...data, properties, traits: null }, htmlOptions);
     }
 }
 export interface ArmorPF2e {

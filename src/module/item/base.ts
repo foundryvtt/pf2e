@@ -2,8 +2,7 @@
  * Override and extend the basic :class:`Item` implementation
  */
 import { SpellFacade } from './spell-facade';
-import { getArmorBonus, getAttackBonus, getStrikingDice } from './runes';
-import { addSign } from '@module/utils';
+import { getAttackBonus, getStrikingDice } from './runes';
 import {
     AbilityModifier,
     ensureProficiencyOption,
@@ -123,174 +122,20 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /*  Chat Card Data
     /* -------------------------------------------- */
 
-    getChatData(htmlOptions?, rollOptions?: any) {
-        const itemType = this.data.type;
-        const data = this[`_${itemType}ChatData`](rollOptions);
-        if (data) {
+    /**
+     * Internal method that transforms data into something that can be used for chat.
+     * Currently renders description text using TextEditor.enrichHTML()
+     */
+    protected processChatData(data: any, htmlOptions?: Record<string, boolean>): unknown {
+        if (data?.description) {
             data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
         }
-        return data;
-    }
-
-    getSpellInfo() {
-        return this._spellChatData();
-    }
-
-    /* -------------------------------------------- */
-
-    _armorChatData() {
-        const localize = game.i18n.localize.bind(game.i18n);
-        const data: any = duplicate(this.data.data);
-        const properties = [
-            CONFIG.PF2E.armorTypes[data.armorType.value],
-            CONFIG.PF2E.armorGroups[data.group.value],
-            `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
-            `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
-            `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
-            `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
-            ...data.traits.value,
-            data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
-        ];
-        data.properties = properties.filter((property) => property);
-
-        data.traits = null;
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _equipmentChatData() {
-        const data: any = duplicate(this.data.data);
-        const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null];
-        data.properties = properties.filter((p) => p !== null);
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _weaponChatData() {
-        const data: any = duplicate(this.data.data);
-        const actorData = this.actor.data;
-        const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
-        const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
-
-        if (this.data.type !== 'weapon') {
-            throw new Error('tried to create a weapon chat data for a non-weapon item');
-        }
-
-        // calculate attackRoll modifier (for _onItemSummary)
-        const isFinesse = data.traits.includes('finesse');
-        const abl =
-            isFinesse && actorData.data.abilities.dex.mod > actorData.data.abilities.str.mod
-                ? 'dex'
-                : data.ability.value || 'str';
-
-        const prof = data.weaponType.value || 'simple';
-        // if a default martial proficiency then lookup the martial value, else find the martialSkill item and get the value from there.
-        const proficiency = {
-            type: 'default',
-            value: 0,
-        };
-        if (Object.keys(CONFIG.PF2E.weaponTypes).includes(prof)) {
-            proficiency.type = 'martial';
-            proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
-        } else {
-            try {
-                const martialSkill = this.actor.getOwnedItem(prof);
-                if (martialSkill.data.type === 'martial') {
-                    proficiency.type = 'skill';
-                    const rank = martialSkill.data.data.proficient?.value || 0;
-                    proficiency.value = ProficiencyModifier.fromLevelAndRank(
-                        this.actor.data.data.details.level.value,
-                        rank,
-                    ).modifier;
-                }
-            } catch (err) {
-                console.log(`PF2E | Could not find martial skill for ${prof}`);
-            }
-        }
-        data.proficiency = proficiency;
-        data.attackRoll = getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value;
-
-        const properties = [
-            // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-            // CONFIG.PF2E.weaponTypes[data.weaponType.value],
-            // CONFIG.PF2E.weaponGroups[data.group.value]
-        ];
-
-        if (data.group.value) {
-            data.critSpecialization = {
-                label: CONFIG.PF2E.weaponGroups[data.group.value],
-                description: CONFIG.PF2E.weaponDescriptions[data.group.value],
-            };
-        }
-
-        data.isTwohanded = !!twohandedTrait;
-        data.wieldedTwoHands = !!data.hands.value;
-        data.isFinesse = isFinesse;
-        data.properties = properties.filter((p) => !!p);
-
-        const map = this.calculateMap();
-        data.map2 = map.map2;
-        data.map3 = map.map3;
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _meleeChatData() {
-        const data: any = duplicate(this.data.data);
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
-
-        const isAgile = data.traits.includes('agile');
-        data.map2 = isAgile ? '-4' : '-5';
-        data.map3 = isAgile ? '-8' : '-10';
 
         return data;
     }
 
-    /* -------------------------------------------- */
-
-    _consumableChatData() {
-        const localize = game.i18n.localize.bind(game.i18n);
-        const data: any = duplicate(this.data.data);
-        data.consumableType.str = CONFIG.PF2E.consumableTypes[data.consumableType.value];
-        data.properties = [
-            data.consumableType.str,
-            `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`,
-        ];
-        data.hasCharges = data.charges.value >= 0;
-        return data;
-    }
-
-    _treasureChatData() {
-        const data: any = duplicate(this.data.data);
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _toolChatData() {
-        const data: any = duplicate(this.data.data);
-        const abl = this.actor.data.data.abilities[data.ability.value].label;
-        const prof = data.proficient?.value || 0;
-        const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
-        data.properties = properties.filter((p) => p !== null);
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _loreChatData() {
-        const data: any = duplicate(this.data.data);
-        if (this.actor.data.type !== 'npc') {
-            const abl = this.actor.data.data.abilities[data.ability.value].label;
-            const prof = data.proficient.value || 0;
-            const properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]];
-            data.properties = properties.filter((p) => p !== null);
-        }
-        return data;
+    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any) {
+        return this.processChatData(duplicate(this.data.data), htmlOptions);
     }
 
     /* -------------------------------------------- */
@@ -319,118 +164,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /* -------------------------------------------- */
-
-    _backpackChatData() {
-        const data: any = duplicate(this.data.data);
-        data.properties = [];
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    _spellChatData(rollOptions?: any) {
-        if (!this.actor) {
-            return {};
-        }
-        const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
-        if (this.data.type != 'spell')
-            throw new Error("Tried to create spell chat data from an item that wasn't a spell");
-        const data = duplicate(this.data.data);
-
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === data.location.value,
-        );
-        const entryData = spellcastingEntry?.data;
-        if (!entryData) return {};
-
-        const spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
-        const spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
-
-        // Spell saving throw text and DC
-        data.isSave = data.spellType.value === 'save' || data.save.value !== '';
-        data.save.dc = data.isSave ? spellDC : spellAttack;
-        data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
-
-        // Spell attack labels
-        data.damageLabel =
-            data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
-        data.isAttack = data.spellType.value === 'attack';
-
-        // Combine properties
-        const props: (number | string)[] = [
-            CONFIG.PF2E.spellLevels[data.level.value],
-            `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
-            data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
-            data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
-            data.area.value
-                ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${
-                      CONFIG.PF2E.areaTypes[data.area.areaType]
-                  }`
-                : null,
-            data.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
-            data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
-            data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
-        ];
-        data.spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
-        if (data.level.value < parseInt(data.spellLvl, 10)) {
-            props.push(`Heightened: +${parseInt(data.spellLvl, 10) - data.level.value}`);
-        }
-        data.properties = props.filter((p) => p !== null);
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
-
-        return data;
-    }
-
-    /* -------------------------------------------- */
-
-    /**
-     * Prepare chat card data for items of the "Feat" type
-     */
-    _featChatData() {
-        const data: any = duplicate(this.data.data);
-
-        // Feat properties
-        const props = [
-            `Level ${data.level.value || 0}`,
-            data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
-        ];
-
-        data.properties = props.filter((p) => p);
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-
-        return data;
-    }
-
-    _actionChatData() {
-        const data: any = duplicate(this.data.data);
-
-        let associatedWeapon: ItemPF2e | null = null;
-        if (data.weapon.value) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
-
-        // Feat properties
-        const props = [CONFIG.PF2E.actionTypes[data.actionType.value], associatedWeapon ? associatedWeapon.name : null];
-
-        data.properties = props.filter((p) => p);
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-
-        return data;
-    }
-
-    _conditionChatData() {
-        const data: any = duplicate(this.data.data);
-        data.properties = [];
-        return data;
-    }
-
-    _effectChatData() {
-        const data: any = duplicate(this.data.data);
-        data.properties = [];
-        return data;
-    }
-
-    /* -------------------------------------------- */
     /*  Roll Attacks
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     /**
      * Roll a Weapon Attack
@@ -444,7 +179,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Prepare roll data
         // let itemData = this.data.data,
-        const itemData = this.getChatData();
+        const itemData: any = this.getChatData();
         const rollData = duplicate(this.actor.data.data) as any;
         const isFinesse = itemData.isFinesse;
         const abl =
@@ -638,7 +373,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Prepare roll data
         // let itemData = this.data.data,
-        const itemData = this.getChatData();
+        const itemData: any = this.getChatData();
         const rollData = duplicate(this.actor.data.data) as any;
         const parts = ['@itemBonus'];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
