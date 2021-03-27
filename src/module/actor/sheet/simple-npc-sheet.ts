@@ -303,6 +303,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Spontaneous Spell slot reset handler:
         html.find('.spell-slots-increment-reset').on('click', (event) => this.onSpellSlotIncrementReset(event));
+
+        // Display base values on enter
+        html.find('.modifier')
+            .on('focusin', (event) => this.baseInputOnFocus(event))
+            .on('focusout', (event) => this.baseInputOnFocusOut(event));
     }
 
     // TRAITS MANAGEMENT
@@ -1303,6 +1308,35 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         if (controls === undefined) return;
 
         controls.addClass('expanded');
+    }
+
+    protected baseInputOnFocus(event: JQuery.FocusInEvent) {
+        const input = $(event.currentTarget);
+        const baseProperty = input.attr('data-base-property') ?? '';
+        const baseValue = getProperty(this.actor.data, baseProperty);
+        if (baseProperty && baseValue) {
+            input.attr('name', baseProperty);
+            input.val(baseValue);
+            input.removeClass('positive-modifier');
+            input.removeClass('negative-modifier');
+        }
+    }
+
+    protected baseInputOnFocusOut(event: JQuery.FocusOutEvent) {
+        const input = $(event.currentTarget);
+        const displayValue = input.attr('data-display-value');
+        const baseProperty = input.attr('data-base-property') ?? '';
+        const baseValue = getProperty(this.actor.data, baseProperty);
+        if (displayValue) {
+            const totalModifier = Number(displayValue);
+            if (totalModifier > baseValue) {
+                input.addClass('positive-modifier');
+            } else if (totalModifier < baseValue) {
+                input.addClass('negative-modifier');
+            }
+            input.removeAttr('name');
+            input.val(displayValue);
+        }
     }
 
     protected onPerceptionLabelClicked(eventData: JQuery.ClickEvent) {
