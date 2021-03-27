@@ -40,6 +40,7 @@ import {
     ZeroToFour,
     CombatProficiencies,
     CombatProficiencyKey,
+    PerceptionData,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
@@ -1029,6 +1030,61 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+    }
+
+    private prepareInitiative(
+        actorData: CharacterData,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        rollNotes: Record<string, PF2RollNote[]>,
+    ) {
+        const { data } = actorData;
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
+        const modifiers: ModifierPF2e[] = [];
+        const notes: PF2RollNote[] = [];
+
+        ['initiative'].forEach((key) => {
+            const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;
+            (statisticsModifiers[key] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    // checks if predicated rule is true with only skill name option
+                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
+                        // toggles these so the predicate rule will be included when totalmodifier is calculated
+                        m.enabled = true;
+                        m.ignored = false;
+                    }
+                    modifiers.push(m);
+                });
+            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+        });
+        const initStat: PerceptionData | SkillData =
+            initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill as SkillAbbreviation];
+        const skillName = game.i18n.localize(
+            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill as SkillAbbreviation],
+        );
+
+        const stat = new CheckModifier('initiative', initStat, modifiers);
+        stat.ability = initSkill;
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.roll = adaptRoll((args) => {
+            const skillFullName = SKILL_DICTIONARY[stat.ability as SkillAbbreviation] ?? 'perception';
+            const options = args.options ?? [];
+            // push skill name to options if not already there
+            if (!options.includes(skillFullName)) {
+                options.push(skillFullName);
+            }
+            ensureProficiencyOption(options, initStat.rank ?? -1);
+            CheckPF2e.roll(
+                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+                { actor: this, type: 'initiative', options, notes, dc: args.dc },
+                args.event,
+                (roll) => {
+                    this._applyInitiativeRollToCombatTracker(roll);
+                },
+            );
+        });
+
+        data.attributes.initiative = stat;
     }
 
     prepareAncestry(actorData: CharacterData) {
