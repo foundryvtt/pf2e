@@ -119,6 +119,10 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return this.data.type;
     }
 
+    get traits(): Set<string> {
+        return new Set(this.data.data.traits.traits.value);
+    }
+
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);

@@ -40,6 +40,7 @@ import { Migration606SignatureSpells } from './606-signature-spells';
 import { Migration607MeleeItemDamageRolls } from './607-melee-item-damage-rolls';
 import { Migration608DeletePersistedKits } from './608-delete-persisted-kits';
 import { Migration609LootActorTraits } from './609-loot-actor-traits';
+import { Migration610SetHeritageFeatType } from './610-set-heritage-feat-type';
 
 export class Migrations {
     private static list = [
@@ -84,6 +85,7 @@ export class Migrations {
         Migration607MeleeItemDamageRolls,
         Migration608DeletePersistedKits,
         Migration609LootActorTraits,
+        Migration610SetHeritageFeatType,
     ];
 
     static get latestVersion(): number {

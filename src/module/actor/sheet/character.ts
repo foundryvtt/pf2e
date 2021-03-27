@@ -538,7 +538,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             } else {
                 let featType = feat.data.featType.value || 'bonus';
 
-                if (['pfsboon'].includes(featType)) {
+                if (featType === 'heritage') {
+                    featType = 'ancestryfeature';
+                }
+                if (featType === 'pfsboon') {
                     pfsBoons.push(feat);
                 } else if (['deityboon', 'curse'].includes(featType)) {
                     deityBoonsCurses.push(feat);
@@ -911,6 +914,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (featSlotType === 'archetype') {
             // Archetype feat slots are class feat slots
             featSlotType = 'class';
+        }
+
+        if (featSlotType === 'ancestryfeature') {
+            return ['ancestryfeature', 'heritage'].includes(featType);
         }
 
         if (featSlotType === 'general') {
