@@ -370,7 +370,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      */
     rollNPCAttack(event, multiAttackPenalty?) {
         if (this.type !== 'melee') throw new Error('Wrong item type!');
-
+        if (!this.actor) throw new Error('Attempted to roll an attack without an actor!');
         // Prepare roll data
         // let itemData = this.data.data,
         const itemData: any = this.getChatData();
@@ -379,8 +379,16 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
         rollData.item = itemData;
-        // rollData.itemBonus = getAttackBonus(itemData); // @putt1 rolling this change back as getAttackBonus does not handle NPCs correctly - hooking
-        rollData.itemBonus = itemData.bonus.value;
+
+        let adjustment = 0;
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            adjustment = 2;
+        } else if (traits.some((trait) => trait === 'weak')) {
+            adjustment = -2;
+        }
+
+        rollData.itemBonus = itemData.bonus.value + adjustment;
 
         if (multiAttackPenalty === 2) parts.push(itemData.map2);
         else if (multiAttackPenalty === 3) parts.push(itemData.map3);
@@ -409,6 +417,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     rollNPCDamage(event, critical = false) {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'melee') throw new Error('Wrong item type!');
+        if (!this.actor) throw new Error('Attempted to roll damage without an actor!');
 
         // Get item and actor data and format it for the damage roll
         const itemData = item.data;
@@ -435,6 +444,13 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         if (parts.length === 0) {
             console.log('PF2e System | No damage parts provided in damage roll');
             parts = ['0'];
+        }
+
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            parts.push('+2');
+        } else if (traits.some((trait) => trait === 'weak')) {
+            parts.push('-2');
         }
 
         // Call the roll helper utility
@@ -465,10 +481,19 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // Prepare roll data
         const itemData: ItemDataPF2e = this.data;
         if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
+        if (!this.actor) throw new Error('Attempted a spellcasting check without an actor!');
+
         const rollData = duplicate(this.actor.data.data);
         const modifier = itemData.data.spelldc.value;
         const parts = [modifier];
         const title = `${this.name} - Spellcasting Check`;
+
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            parts.push(2);
+        } else if (traits.some((trait) => trait === 'weak')) {
+            parts.push(-2);
+        }
 
         // Call the roll helper utility
         DicePF2e.d20Roll({
@@ -526,6 +551,13 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 : spellcastingEntry?.data.spelldc.value;
             const parts: number[] = [spellAttack ?? 0];
             const title = `${this.name} - Spell Attack Roll`;
+
+            const traits = this.actor.data.data.traits.traits.value;
+            if (traits.some((trait) => trait === 'elite')) {
+                parts.push(2);
+            } else if (traits.some((trait) => trait === 'weak')) {
+                parts.push(-2);
+            }
 
             if (multiAttackPenalty > 1) {
                 parts.push(map[`map${multiAttackPenalty}`]);
@@ -595,6 +627,15 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             rollData.mod = rollData.abilities[spell.spellcastingEntry?.ability ?? 'int'].mod;
         }
         rollData.item = itemData;
+
+        if (this.isOwned) {
+            const traits = this.actor.data.data.traits.traits.value;
+            if (traits.some((trait) => trait === 'elite')) {
+                parts.push(4);
+            } else if (traits.some((trait) => trait === 'weak')) {
+                parts.push(-4);
+            }
+        }
 
         // Call the roll helper utility
         DicePF2e.damageRoll({

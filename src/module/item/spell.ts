@@ -22,8 +22,17 @@ export class SpellPF2e extends ItemPF2e {
         const entryData = spellcastingEntry?.data;
         if (!entryData) return {};
 
-        const spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
-        const spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
+        let spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
+        let spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
+
+        const traits = this.actor.data.data.traits.traits.value;
+        if (traits.some((trait) => trait === 'elite')) {
+            spellDC = Number(spellDC) + 2;
+            spellAttack = Number(spellAttack) + 2;
+        } else if (traits.some((trait) => trait === 'weak')) {
+            spellDC = Number(spellDC) - 2;
+            spellAttack = Number(spellAttack) - 2;
+        }
 
         // Spell saving throw text and DC
         data.isSave = data.spellType.value === 'save' || data.save.value !== '';
