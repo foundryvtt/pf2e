@@ -253,7 +253,7 @@ export interface ArmorDetailsData extends MagicDetailsData {
         value: ArmorCategory;
     };
     group: {
-        value: string;
+        value: keyof typeof CONFIG.PF2E.armorGroups;
     };
     strength: {
         value: number;
@@ -435,7 +435,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
         value: FeatType;
     };
     actionType: {
-        value: string;
+        value: keyof typeof CONFIG.PF2E.actionTypes;
     };
     actionCategory: {
         value: string;
@@ -473,7 +473,7 @@ export interface MartialDetailsData extends ItemDescriptionData {
 
 export interface ActionDetailsData extends ItemDescriptionData {
     actionType: {
-        value: string;
+        value: keyof typeof CONFIG.PF2E.actionTypes;
     };
     actionCategory: {
         value: string;
@@ -530,8 +530,8 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
         value: string;
     };
     area: {
-        value: number;
-        areaType: string;
+        value: keyof typeof CONFIG.PF2E.areaSizes;
+        areaType: keyof typeof CONFIG.PF2E.areaTypes;
     };
     time: {
         value: string;
