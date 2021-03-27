@@ -201,7 +201,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Add chat data
         try {
             const item = this.actor.getOwnedItem(spell._id);
-            if (item) {
+            if (item instanceof SpellPF2e) {
                 spell.spellInfo = item.getSpellInfo();
             }
         } catch (err) {
