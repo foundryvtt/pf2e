@@ -80,23 +80,20 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         const { map2, map3 } = this.calculateMap();
 
-        return this.processChatData(
-            {
-                ...data,
-                traits,
-                proficiency,
-                attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
+        return this.processChatData(htmlOptions, {
+            ...data,
+            traits,
+            proficiency,
+            attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
 
-                critSpecialization,
-                isTwohanded: !!twohandedTrait,
-                wieldedTwoHands: !!data.hands.value,
-                isFinesse,
-                properties,
-                map2,
-                map3,
-            },
-            htmlOptions,
-        );
+            critSpecialization,
+            isTwohanded: !!twohandedTrait,
+            wieldedTwoHands: !!data.hands.value,
+            isFinesse,
+            properties,
+            map2,
+            map3,
+        });
     }
 }
 
