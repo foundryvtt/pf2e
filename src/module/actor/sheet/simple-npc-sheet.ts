@@ -261,7 +261,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         super.activateListeners(html);
 
         // Subscribe to roll events
-        html.find('.rollable').on('click', (event) => this.onRollableClicked(event));
+        const rollables = ['a.rollable', '.rollable a', '.spell-icon.rollable', '.item-icon.rollable'].join(', ');
+        html.find(rollables).on('click', (event) => this.onClickRollable(event));
         html.find('button').on('click', (event) => this.onButtonClicked(event));
         html.find('a.chat').on('click', (event) => this.onSendToChatClicked(event));
 
@@ -1181,52 +1182,32 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         new TraitSelector5e(this.actor, options).render(true);
     }
 
-    protected onRollableClicked(eventData: JQuery.ClickEvent) {
-        eventData.preventDefault();
+    private onClickRollable(event: JQuery.ClickEvent) {
+        event.preventDefault();
+        const $label = $(event.currentTarget).closest('.rollable');
 
-        const attribute = $(eventData.currentTarget).parent().attr('data-attribute');
-        const skill = $(eventData.currentTarget).parent().attr('data-skill') as SkillAbbreviation;
-        const save = $(eventData.currentTarget).parent().attr('data-save') as SaveString;
-        const action = $(eventData.currentTarget).parent().parent().attr('data-action');
-        const item = $(eventData.currentTarget).parent().parent().attr('data-item');
-        const spell = $(eventData.currentTarget).parent().parent().attr('data-spell');
+        const ability = $label.parent().attr('data-attribute') as 'perception' | AbilityString;
+        const skill = $label.parent().attr('data-skill') as SkillAbbreviation;
+        const save = $label.parent().attr('data-save') as SaveString;
+        const action = $label.parent().parent().attr('data-action');
+        const item = $label.parent().parent().attr('data-item');
+        const spell = $label.parent().parent().attr('data-spell');
 
-        if (attribute) {
-            switch (attribute) {
+        if (ability) {
+            switch (ability) {
                 case 'perception':
-                    this.onPerceptionLabelClicked(eventData);
-                    break;
-                case 'str':
-                    this.onAbilityClicked(eventData, attribute);
-                    break;
-                case 'dex':
-                    this.onAbilityClicked(eventData, attribute);
-                    break;
-                case 'con':
-                    this.onAbilityClicked(eventData, attribute);
-                    break;
-                case 'int':
-                    this.onAbilityClicked(eventData, attribute);
-                    break;
-                case 'wis':
-                    this.onAbilityClicked(eventData, attribute);
-                    break;
-                case 'cha':
-                    this.onAbilityClicked(eventData, attribute);
+                    this.onPerceptionLabelClicked(event);
                     break;
                 default:
+                    this.onAbilityClicked(event, ability);
                     break;
             }
         } else if (skill) {
-            this.rollNPCSkill(eventData, skill);
+            this.rollNPCSkill(event, skill);
         } else if (save) {
-            this.onSaveClicked(eventData, save);
-        } else if (action) {
-            this.onActionClicked(eventData, action);
-        } else if (item) {
-            this.onItemClicked(eventData, item);
-        } else if (spell) {
-            this.onSpellClicked(eventData, spell);
+            this.rollSave(event, save);
+        } else if (action || item || spell) {
+            this.onClickExpandable(event);
         }
     }
 
@@ -1403,10 +1384,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         skillsEditor.render(true);
     }
 
-    protected onSaveClicked(eventData: JQuery.ClickEvent, saveId: SaveString) {
-        this.rollSave(eventData, saveId);
-    }
-
     protected onSpeedEditClicked(eventData: JQuery.ClickEvent) {
         eventData.preventDefault();
         const htmlElement = $(eventData.currentTarget);
@@ -1524,48 +1501,18 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.actor.createOwnedItem(data);
     }
 
-    protected onActionClicked(eventData: JQuery.ClickEvent, _actionId: string) {
-        const actionDetails = $(eventData.currentTarget).parent().parent().find('.action-detail');
+    private onClickExpandable(event: JQuery.ClickEvent) {
+        const $details = $(event.currentTarget).closest('li.item').find('.sub-section.expandable');
 
-        const isExpanded = actionDetails.hasClass('expanded');
-
+        const isExpanded = $details.hasClass('expanded');
         if (isExpanded) {
-            actionDetails.slideUp(200, () => {
-                actionDetails.removeClass('expanded');
+            $details.slideUp(200, () => {
+                $details.removeClass('expanded');
             });
         } else {
-            actionDetails.addClass('expanded');
-            actionDetails.slideDown(200);
-        }
-    }
-
-    protected onItemClicked(eventData: JQuery.ClickEvent, _itemId: string) {
-        const itemDetails = $(eventData.currentTarget).parent().parent().find('.item-detail');
-
-        const isExpanded = itemDetails.hasClass('expanded');
-
-        if (isExpanded) {
-            itemDetails.slideUp(200, () => {
-                itemDetails.removeClass('expanded');
+            $details.slideDown(200, () => {
+                $details.addClass('expanded');
             });
-        } else {
-            itemDetails.addClass('expanded');
-            itemDetails.slideDown(200);
-        }
-    }
-
-    protected onSpellClicked(eventData: JQuery.ClickEvent, _spell: string) {
-        const spellDetails = $(eventData.currentTarget).parent().parent().find('.spell-detail');
-
-        const isExpanded = spellDetails.hasClass('expanded');
-
-        if (isExpanded) {
-            spellDetails.slideUp(200, () => {
-                spellDetails.removeClass('expanded');
-            });
-        } else {
-            spellDetails.addClass('expanded');
-            spellDetails.slideDown(200);
         }
     }
 
