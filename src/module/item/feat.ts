@@ -19,7 +19,7 @@ export class FeatPF2e extends ItemPF2e {
             data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
         ].filter((p) => p);
         const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-        return this.processChatData({ ...data, properties, traits }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }
 

@@ -85,9 +85,10 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
         ].filter((property) => property);
 
-        return this.processChatData({ ...data, properties, traits: null }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, properties, traits: null });
     }
 }
+
 export interface ArmorPF2e {
     data: ArmorData;
     _data: ArmorData;

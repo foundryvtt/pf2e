@@ -40,7 +40,7 @@ export class MeleePF2e extends PhysicalItemPF2e {
         const map2 = isAgile ? '-4' : '-5';
         const map3 = isAgile ? '-8' : '-10';
 
-        return this.processChatData({ ...data, traits, map2, map3 }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, traits, map2, map3 });
     }
 }
 
@@ -54,21 +54,18 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const consumableType = CONFIG.PF2E.consumableTypes[data.consumableType.value];
-        return this.processChatData(
-            {
-                ...data,
-                consumableType: {
-                    ...data.consumableType,
-                    str: consumableType,
-                },
-                properties: [
-                    consumableType,
-                    `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`,
-                ],
-                hasCharges: data.charges.value >= 0,
+        return this.processChatData(htmlOptions, {
+            ...data,
+            consumableType: {
+                ...data.consumableType,
+                str: consumableType,
             },
-            htmlOptions,
-        );
+            properties: [
+                consumableType,
+                `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`,
+            ],
+            hasCharges: data.charges.value >= 0,
+        });
     }
 }
 
@@ -83,7 +80,7 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
             (p) => p !== null,
         );
-        return this.processChatData({ ...data, properties }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, properties });
     }
 }
 
@@ -104,7 +101,7 @@ export class LorePF2e extends ItemPF2e {
             const prof = data.proficient.value || 0;
             properties = [abl, CONFIG.PF2E.proficiencyLevels[prof]].filter((p) => p !== null);
         }
-        return this.processChatData({ ...data, properties }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, properties });
     }
 }
 
@@ -132,7 +129,7 @@ export class ActionPF2e extends ItemPF2e {
             associatedWeapon ? associatedWeapon.name : null,
         ].filter((p) => p);
         const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-        return this.processChatData({ ...data, properties, traits }, htmlOptions);
+        return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }
 

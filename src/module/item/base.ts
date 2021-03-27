@@ -126,7 +126,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData(data: any, htmlOptions?: Record<string, boolean>): unknown {
+    protected processChatData(htmlOptions: Record<string, boolean> | undefined, data: any): unknown {
         if (data?.description) {
             data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
         }
@@ -135,7 +135,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any) {
-        return this.processChatData(duplicate(this.data.data), htmlOptions);
+        return this.processChatData(htmlOptions, duplicate(this.data.data));
     }
 
     /* -------------------------------------------- */
