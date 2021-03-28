@@ -577,11 +577,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         });
 
-        // Roll Recovery Flat Check when Dying
-        html.find('.recoveryCheck.rollable').on('click', (event) => {
-            this.actor.rollRecovery(event);
-        });
-
         // Toggle Levels of stats (like proficiencies conditions or hero points)
         html.find('.click-stat-level').on('click contextmenu', this.onClickStatLevel.bind(this));
 
