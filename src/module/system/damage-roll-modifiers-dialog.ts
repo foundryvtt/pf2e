@@ -4,7 +4,8 @@
 
 import { DegreeOfSuccessString } from '@system/check-degree-of-success';
 import { PF2RollNote } from '@module/notes';
-import { DiceModifierPF2e } from '@module/modifiers';
+import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
+import { DamageTemplate } from '@system/damage/weapon';
 
 /**
  * @category Other
@@ -57,7 +58,7 @@ export class DamageRollModifiersDialog extends Application {
      * @param {object} context
      * @param {function} callback
      */
-    static roll(damage, context, callback) {
+    static roll(damage: DamageTemplate, context, callback) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 
@@ -83,18 +84,14 @@ export class DamageRollModifiersDialog extends Application {
         const baseBreakdown = `<span class="damage-tag damage-tag-base">${game.i18n.localize('Base')} ${
             damage.base.diceNumber
         }${damage.base.dieSize}${damageBaseModifier} ${damage.base.damageType}</span>`;
-        const modifierBreakdown = []
-            .concat(damage.diceModifiers)
-            .filter((m: DiceModifierPF2e) => m.diceNumber !== 0)
+        const modifierBreakdown = ([] as RawModifier[])
+            .concat(damage.diceModifiers.filter((m: DiceModifierPF2e) => m.diceNumber !== 0))
             .concat(damage.numericModifiers)
             .filter((m) => m.enabled)
             .filter((m) => !m.critical || outcome === 'criticalSuccess')
             .map((m) => {
                 const label = game.i18n.localize(m.label ?? m.name);
-                const modifier =
-                    m.modifier === undefined || Number.isNaN(m.modifier)
-                        ? ''
-                        : ` ${m.modifier < 0 ? '' : '+'}${m.modifier}`;
+                const modifier = m instanceof ModifierPF2e ? ` ${m.modifier < 0 ? '' : '+'}${m.modifier}` : '';
                 const damageType = m.damageType && m.damageType !== damage.base.damageType ? ` ${m.damageType}` : '';
                 return `<span class="damage-tag damage-tag-modifier">${label}${modifier}${damageType}</span>`;
             })
@@ -108,6 +105,10 @@ export class DamageRollModifiersDialog extends Application {
         flavor += `${notes}`;
 
         const formula = duplicate(damage.formula[outcome]);
+        if (!formula) {
+            ui.notifications.error(game.i18n.format('PF2E.UI.noDamageInfoForOutcome', { outcome }));
+            return;
+        }
         const rollData: any = {
             outcome,
             rollMode: ctx.rollMode ?? 'roll',
@@ -118,7 +119,6 @@ export class DamageRollModifiersDialog extends Application {
             baseDamageDice: damage.effectDice,
         };
         const rolls: Roll[] = [];
-        const dsnData: any = { throws: [{ dice: [] }] };
         let content = `
     <div class="dice-roll">
         <div class="dice-result">
@@ -141,13 +141,6 @@ export class DamageRollModifiersDialog extends Application {
                 const dice = roll.dice
                     .flatMap((d) =>
                         d.results.map((r) => {
-                            dsnData.throws[0].dice.push({
-                                result: r.result,
-                                resultLabel: r.result,
-                                type: `d${d.faces}`,
-                                vectors: [],
-                                options: {},
-                            });
                             rollData.diceResults[damageType][damageCategory].push(r.result);
                             return `<li class="roll die d${d.faces}">${r.result}</li>`;
                         }),

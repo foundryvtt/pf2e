@@ -14,6 +14,39 @@ import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-
 import { PF2RollNote } from '../../notes';
 import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definitions';
 
+export interface DamagePartials {
+    [damageType: string]: {
+        [damageCategory: string]: string;
+    };
+}
+
+export interface DamageFormula {
+    data: object;
+    formula: string;
+    partials: DamagePartials;
+}
+
+export interface DamageTemplate {
+    base: {
+        damageType: string;
+        diceNumber: number;
+        dieSize: DamageDieSize;
+        modifier: number;
+    };
+    diceModifiers: DiceModifierPF2e[];
+    effectDice: number;
+    formula: {
+        criticalFailure?: DamageFormula;
+        failure?: DamageFormula;
+        success: DamageFormula;
+        criticalSuccess: DamageFormula;
+    };
+    name: string;
+    notes: PF2RollNote[];
+    numericModifiers: ModifierPF2e[];
+    traits: string[];
+}
+
 /** A pool of damage dice & modifiers, grouped by damage type. */
 export type DamagePool = Record<
     string,
@@ -53,7 +86,7 @@ export class PF2WeaponDamage {
         proficiencyRank = 0,
         options: string[] = [],
         rollNotes: Record<string, PF2RollNote[]>,
-    ) {
+    ): DamageTemplate {
         damageDice = duplicate(damageDice);
 
         // adapt weapon type (melee, ranged, thrown)
@@ -164,7 +197,7 @@ export class PF2WeaponDamage {
         rollNotes: Record<string, PF2RollNote[]>,
         weaponPotency: PF2WeaponPotency | null,
         striking: Record<string, PF2Striking[]>,
-    ) {
+    ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
         const numericModifiers: ModifierPF2e[] = [];
@@ -488,7 +521,7 @@ export class PF2WeaponDamage {
     }
 
     /** Convert the damage definition into a final formula, depending on whether the hit is a critical or not. */
-    static getFormula(damage, critical: boolean) {
+    static getFormula(damage, critical: boolean): DamageFormula {
         const base = duplicate(damage.base);
         const diceModifiers: DiceModifierPF2e[] = damage.diceModifiers;
 
@@ -614,7 +647,7 @@ export class PF2WeaponDamage {
         }
 
         // build formula
-        const partials: { [damageType: string]: { [damageCategory: string]: string } } = {};
+        const partials: DamagePartials = {};
         let formula = this.buildFormula(dicePool, partials);
         if (critical) {
             formula = this.doubleFormula(formula);
