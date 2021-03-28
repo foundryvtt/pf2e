@@ -96,6 +96,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
                 diff.name = name;
                 diff.img = getUnidentifiedPlaceholderImage(itemData);
+
+                console.log(diff.name)
+                console.log(diff.img)
+                if (!getProperty(itemData, 'data.identification.unidentified')) {
+                  diff['data.identification.unidentified.name'] = name;
+                  diff['data.identification.unidentified.img'] = diff.img;
+                }
             }
 
             // ensure an "identified" name so the item can always be restored

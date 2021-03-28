@@ -2535,11 +2535,23 @@
       }
     }
 
-    .sheet-body input {
-      &[type="text"], &[type="number"] {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #aaa;
-        padding: 3px;
+    .sheet-body {
+      input {
+        &[type="text"], &[type="number"] {
+          background: rgba(255, 255, 255, 0.5);
+          border: 1px solid #aaa;
+          padding: 3px;
+        }
+      }
+
+      img.image-picker {
+          border: none;
+          flex: 0 0 auto;
+          margin-right: 6px;
+          margin-bottom: 6px;
+          height: 40px;
+          width: 40px;
+          display: flex;
       }
     }
 
@@ -2732,6 +2744,16 @@
         line-height: 24px;
         font-size: 14px;
         text-align: center;
+      }
+    }
+
+    .item-mystify {
+      padding: 8px 8px 0;
+      overflow-y: auto;
+
+      label {
+        color: #353535;
+        font-weight: bold;
       }
     }
 

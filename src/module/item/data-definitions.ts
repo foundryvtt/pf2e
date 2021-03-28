@@ -908,6 +908,22 @@ export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItem
     return 'quantity' in itemData.data;
 }
 
+export function isInventoryItem(type: string): boolean {
+    console.log(type)
+    switch (type) {
+        case 'armor':
+        case 'backpack':
+        case 'consumable':
+        case 'equipment':
+        case 'treasure':
+        case 'weapon': {
+            return true;
+        }
+    }
+
+    return false;
+}
+
 export function isMagicDetailsData(
     itemDataData: ItemDescriptionData & Partial<MagicDetailsData>,
 ): itemDataData is Required<MagicDetailsData> {

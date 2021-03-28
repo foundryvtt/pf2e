@@ -9,11 +9,13 @@ export interface PhysicalSheetDataPF2e<D extends PhysicalItemData> extends ItemS
 export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e> extends ItemSheetPF2e<I> {
     /** @override */
     getData(): ItemSheetDataPF2e<I['data']> {
-        return {
+        const sheetdata = {
             ...super.getData(),
             isPhysicalItem: true,
             isIdentified: this.item.isIdentified,
         };
+        console.log(sheetdata)
+        return sheetdata
     }
 
     /** @override */
