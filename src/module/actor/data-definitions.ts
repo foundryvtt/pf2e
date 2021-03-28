@@ -292,7 +292,7 @@ export interface ActorSystemData {
 
 /** Miscallenous but mechanically relevant creature attributes.  */
 interface BaseCreatureAttributes {
-    hp: RawHitPointsData;
+    hp: HitPointsData;
     ac: { value: number };
     perception: { value: number };
 }
@@ -567,10 +567,6 @@ interface NPCInitiativeData extends RawInitiativeData {
     ability: AbilityString | '';
 }
 
-interface NPCHitPointsData extends Required<RawHitPointsData> {
-    base?: number;
-}
-
 interface NPCAttributes extends BaseCreatureAttributes {
     /** The armor class of this NPC. */
     ac: NPCArmorClassData;
@@ -579,8 +575,6 @@ interface NPCAttributes extends BaseCreatureAttributes {
 
     /** Dexterity modifier cap to AC. Undefined means no limit. */
     dexCap?: DexterityModifierCapData[];
-
-    hp: NPCHitPointsData;
 
     initiative: NPCInitiativeData;
 

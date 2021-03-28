@@ -1,4 +1,4 @@
-declare function fromUuid(uuid: string): Promise<Entity | null>;
+declare function fromUuid(uuid: string): Promise<CompendiumEntity | null>;
 
 declare interface BaseEntityData {
     _id: string;
