@@ -73,7 +73,7 @@
                                     {{#each section.spells as |spell i|}}
                                         <li class="item spell" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{spell.expended}}">
                                             <div class="spell-header">
-                                                <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
+                                                <div class="spell-icon rollable" style="background-image: url({{spell.img}})"></div>
                                                 <div class="spell-name rollable">
                                                     <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
                                                 </div>
@@ -94,7 +94,7 @@
                                                 </div>
                                             </div>
                                             <div class="spell-body">
-                                                <div class="spell-detail expandable">
+                                                <div class="spell-detail sub-section expandable">
                                                     <div class="spell-description">
                                                         {{{ enrichHTML spell.data.description.value }}}
                                                     </div>
@@ -132,7 +132,7 @@
                                         {{#if spell.prepared}}
                                             <li class="item spell" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{spell.expended}}">
                                                 <div class="spell-header">
-                                                    <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
+                                                    <div class="spell-icon rollable" style="background-image: url({{spell.img}})"></div>
                                                     <div class="spell-name rollable">
                                                         {{#if spell.expended}}
                                                             <h4 style="text-decoration: line-through;"><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
@@ -159,7 +159,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="spell-body">
-                                                    <div class="spell-detail expandable">
+                                                    <div class="spell-detail sub-section expandable">
                                                         <div class="spell-description">
                                                             {{{ enrichHTML spell.data.description.value }}}
                                                         </div>
@@ -215,7 +215,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="spell-body">
-                                                        <div class="spell-detail expandable">
+                                                        <div class="spell-detail sub-section expandable">
                                                             <div class="spell-description">
                                                                 {{{ enrichHTML spell.data.description.value }}}
                                                             </div>
