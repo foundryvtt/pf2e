@@ -318,9 +318,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
         const updates = {
             _id: entryId,
-            [key]: { id: spell._id },
+            [key]: {
+                id: spell._id,
+                ['-=name']: null,
+                ['-=prepared']: null,
+            },
         };
-        this.actor.updateEmbeddedEntity('OwnedItem', updates, { overwrite: true });
+        this.actor.updateEmbeddedEntity('OwnedItem', updates);
     }
 
     /**

@@ -95,4 +95,8 @@ export class Migrations {
     static constructAll(): MigrationBase[] {
         return this.list.map((Migration) => new Migration());
     }
+
+    static constructForWorld(version: number): MigrationBase[] {
+        return this.list.filter((Migration) => Migration.version > version).map((Migration) => new Migration());
+    }
 }

@@ -67,7 +67,7 @@ export class SpellPF2e extends ItemPF2e {
         data.properties = props.filter((p) => p !== null);
         data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
 
-        return this.processChatData(data, htmlOptions);
+        return this.processChatData(htmlOptions, data);
     }
 }
 
