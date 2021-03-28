@@ -15,6 +15,41 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return attributes instanceof Object && typeof key === 'string' && key in attributes;
     }
 
+    get wornArmor(): Owned<ArmorPF2e> | null {
+        return this.itemTypes.armor.find((armor) => armor.isEquipped && armor.isArmor) ?? null;
+    }
+
+    /** Get the held shield of most use to the wielder */
+    get heldShield(): Owned<ArmorPF2e> | null {
+        const heldShields = this.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+        return heldShields.length === 0
+            ? null
+            : heldShields.slice(0, -1).reduce((bestShield, shield) => {
+                  if (bestShield === shield) return bestShield;
+
+                  const withBetterAC =
+                      bestShield.acBonus > shield.acBonus
+                          ? bestShield
+                          : shield.acBonus > bestShield.acBonus
+                          ? shield
+                          : null;
+                  const withMoreHP =
+                      bestShield.hitPoints.current > shield.hitPoints.current
+                          ? bestShield
+                          : shield.hitPoints.current > bestShield.hitPoints.current
+                          ? shield
+                          : null;
+                  const withBetterHardness =
+                      bestShield.hardness > shield.hardness
+                          ? bestShield
+                          : shield.hardness > bestShield.hardness
+                          ? shield
+                          : null;
+
+                  return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
+              }, heldShields.slice(-1)[0]);
+    }
+
     /** @override */
     updateEmbeddedEntity(
         embeddedName: 'ActiveEffect',

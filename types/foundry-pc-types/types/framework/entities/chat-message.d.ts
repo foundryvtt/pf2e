@@ -225,3 +225,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     static getSpeakerActor<S extends Scene, T extends Token>(speaker: { scene: S; token: T }): T['actor'] | null;
     static getSpeakerActor<A extends Actor>(speaker: { actor: A }): A | null;
 }
+
+declare interface ChatMessage<ActorType extends Actor = Actor> extends Entity {
+    getFlag(scope: string, key: string): any;
+}
