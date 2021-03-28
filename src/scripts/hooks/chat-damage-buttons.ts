@@ -72,7 +72,9 @@ export function listen() {
                     const $listItem = $($template.html());
                     $listItem.children('input.data').val(shield.id);
                     $listItem.children('span.label').text(shield.name);
-                    $listItem.children('span.tag').text(`Hardness: ${shield.hardness}`);
+                    const hardnessLabel = LocalizePF2e.translations.PF2E.ShieldHardnessLabel;
+                    $listItem.children('span.tag').text(`${hardnessLabel}: ${shield.hardness}`);
+
                     $list.append($listItem);
                 }
                 $list.find('li input').on('change', (event) => {
