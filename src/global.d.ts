@@ -71,6 +71,10 @@ declare global {
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<ActorPF2e>;
 
+    interface ChatMessage extends Entity {
+        getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+    }
+
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
