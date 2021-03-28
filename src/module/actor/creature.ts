@@ -132,7 +132,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             result = `${game.i18n.localize('PF2E.CritSuccess')} ${game.i18n.localize('PF2E.Recovery.critSuccess')}`;
         } else if (total === 1 || total <= dc - 10) {
             result = `${game.i18n.localize('PF2E.CritFailure')} ${game.i18n.localize('PF2E.Recovery.critFailure')}`;
-        } else if (flatCheck?.result ?? 0 >= dc) {
+        } else if (total >= dc) {
             result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
         } else {
             result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
