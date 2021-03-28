@@ -908,23 +908,35 @@ export class CharacterPF2e extends CreaturePF2e {
                         }),
                     },
                 ];
+
+                // Strike damage
+                action.preparedDamage = PF2WeaponDamage.calculatePreparation(
+                    item,
+                    actorData,
+                    action.traits,
+                    damageDice,
+                    proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                    action.options,
+                    weaponPotency,
+                );
+
                 action.damage = adaptRoll((args) => {
-                    const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
+                        action.preparedDamage,
                         item,
-                        actorData,
                         action.traits,
                         statisticsModifiers,
-                        damageDice,
-                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
-                        options,
+                        args.options ?? [],
                         rollNotes,
-                        weaponPotency,
                         synthetics.striking,
                     );
                     PF2DamageRoll.roll(
                         damage,
-                        { type: 'damage-roll', outcome: 'success', options },
+                        {
+                            type: 'damage-roll',
+                            outcome: 'success',
+                            options: (args.options ?? []).concat(action.options),
+                        },
                         args.event,
                         args.callback,
                     );
@@ -932,15 +944,12 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 // Get (non-critical) damage of the strike
                 const damageBreakdown = PF2WeaponDamage.calculate(
+                    action.preparedDamage,
                     item,
-                    actorData,
                     action.traits,
                     statisticsModifiers,
-                    damageDice,
-                    proficiencies[item.data.weaponType.value]?.rank ?? 0,
-                    defaultOptions,
+                    [],
                     rollNotes,
-                    weaponPotency,
                     synthetics.striking,
                 );
                 action.damageBase =
@@ -953,15 +962,12 @@ export class CharacterPF2e extends CreaturePF2e {
                 action.critical = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(action.options);
                     const damage = PF2WeaponDamage.calculate(
+                        action.preparedDamage,
                         item,
-                        actorData,
                         action.traits,
                         statisticsModifiers,
-                        damageDice,
-                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
-                        options,
+                        args.options ?? [],
                         rollNotes,
-                        weaponPotency,
                         synthetics.striking,
                     );
                     PF2DamageRoll.roll(

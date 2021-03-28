@@ -140,33 +140,28 @@ export class PF2WeaponDamage {
             }
         }
 
-        return PF2WeaponDamage.calculate(
+        const preparedDamage = PF2WeaponDamage.calculatePreparation(
             weapon,
             actor,
             traits,
-            statisticsModifiers,
             damageDice,
             proficiencyRank,
             options,
-            rollNotes,
             null,
-            {},
         );
+        return PF2WeaponDamage.calculate(preparedDamage, weapon, traits, statisticsModifiers, options, rollNotes, {});
     }
 
-    static calculate(
+    static calculatePreparation(
         weapon: WeaponData,
         actor: ActorDataPF2e,
         traits: CharacterStrikeTrait[] = [],
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
-        rollNotes: Record<string, PF2RollNote[]>,
         weaponPotency: PF2WeaponPotency | null,
-        striking: Record<string, PF2Striking[]>,
     ) {
-        let effectDice = weapon.data.damage.dice ?? 1;
+        const effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
         const numericModifiers: ModifierPF2e[] = [];
         let baseDamageDie = weapon.data.damage.die as DamageDieSize;
@@ -238,73 +233,11 @@ export class PF2WeaponDamage {
             baseDamageType = dmg[versatileTrait.name.substring(versatileTrait.name.lastIndexOf('-') + 1)];
         }
 
-        // custom damage
-        const normalDice = weapon.data?.property1?.dice ?? 0;
-        if (normalDice > 0) {
-            const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
-            diceModifiers.push(
-                new DiceModifierPF2e({
-                    name: 'PF2E.WeaponCustomDamageLabel',
-                    diceNumber: normalDice,
-                    dieSize: weapon.data?.property1?.die as DamageDieSize,
-                    damageType: damageType,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                }),
-            );
-        }
-        const critDice = weapon.data?.property1?.critDice ?? 0;
-        if (critDice > 0) {
-            const damageType = weapon.data?.property1?.critDamageType ?? baseDamageType;
-            diceModifiers.push(
-                new DiceModifierPF2e({
-                    name: 'PF2E.WeaponCustomDamageLabel',
-                    diceNumber: critDice,
-                    dieSize: weapon.data?.property1?.critDie as DamageDieSize,
-                    damageType: damageType,
-                    critical: true,
-                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
-                }),
-            );
-        }
-
-        // potency
+        // Runes
         const potency = weaponPotency?.bonus ?? 0;
-
-        // striking rune
-        let strikingDice = 0;
-        {
-            const strikingList: PF2Striking[] = [];
-            selectors.forEach((key) => {
-                (striking[key] ?? [])
-                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
-                    .forEach((wp) => strikingList.push(wp));
-            });
-
-            // find best striking source
-            const strikingRune = getStrikingDice(weapon.data);
-            if (strikingRune) {
-                strikingList.push({ label: 'PF2E.StrikingRuneLabel', bonus: strikingRune });
-            }
-            if (strikingList.length > 0) {
-                const s = strikingList.reduce(
-                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
-                    strikingList[0],
-                );
-                effectDice += s.bonus;
-                strikingDice = s.bonus;
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        name: s.label,
-                        diceNumber: s.bonus,
-                        traits: ['magical'],
-                    }),
-                );
-            }
-        }
 
         getPropertyRuneModifiers(weapon).forEach((modifier) => diceModifiers.push(modifier));
 
-        // ghost touch
         if (hasGhostTouchRune(weapon)) {
             diceModifiers.push(
                 new DiceModifierPF2e({
@@ -313,39 +246,6 @@ export class PF2WeaponDamage {
                 }),
             );
         }
-
-        // backstabber trait
-        if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
-            const modifier = new ModifierPF2e(
-                CONFIG.PF2E.weaponTraits.backstabber,
-                potency > 2 ? 2 : 1,
-                MODIFIER_TYPE.UNTYPED,
-            );
-            modifier.damageCategory = 'precision';
-            numericModifiers.push(modifier);
-        }
-
-        // deadly trait
-        traits
-            .filter((t) => t.name.startsWith('deadly-'))
-            .forEach((t) => {
-                const deadly = t.name.substring(t.name.indexOf('-') + 1);
-                const diceNumber = (() => {
-                    if (deadly.match(/\d+d\d+/)) {
-                        return parseInt(deadly.substring(0, deadly.indexOf('d')), 10);
-                    } else {
-                        return strikingDice > 1 ? strikingDice : 1;
-                    }
-                })();
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        name: CONFIG.PF2E.weaponTraits[t.name],
-                        diceNumber,
-                        dieSize: deadly.substring(deadly.indexOf('d')) as DamageDieSize,
-                        critical: true,
-                    }),
-                );
-            });
 
         // fatal trait
         traits
@@ -396,6 +296,141 @@ export class PF2WeaponDamage {
             numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, MODIFIER_TYPE.UNTYPED));
         }
 
+        // custom dice
+        {
+            const stats = [];
+            stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
+            stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
+                (damageDice[key] || []).forEach((d) => {
+                    diceModifiers.push(new DamageDicePF2e(d));
+                });
+            });
+        }
+
+        return {
+            options,
+            diceModifiers,
+            numericModifiers,
+            baseDamageDie,
+            baseDamageType,
+            selectors,
+            potency,
+            effectDice,
+        };
+    }
+
+    static calculate(
+        prepDamage: any,
+        weapon: WeaponData,
+        traits: CharacterStrikeTrait[] = [],
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        options: string[] = [],
+        rollNotes: Record<string, PF2RollNote[]>,
+        striking: Record<string, PF2Striking[]>,
+    ) {
+        options = prepDamage.options.concat(options);
+        const diceModifiers: DiceModifierPF2e[] = prepDamage.diceModifiers;
+        const numericModifiers: ModifierPF2e[] = prepDamage.numericModifiers;
+        const baseDamageDie: DamageDieSize = prepDamage.baseDamageDie;
+        const baseDamageType: string = prepDamage.baseDamageType;
+        const selectors: string[] = prepDamage.selectors;
+        const potency: number = prepDamage.potency;
+        let effectDice: number = prepDamage.effectDice;
+
+        // custom damage
+        const normalDice = weapon.data?.property1?.dice ?? 0;
+        if (normalDice > 0) {
+            const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    name: 'PF2E.WeaponCustomDamageLabel',
+                    diceNumber: normalDice,
+                    dieSize: weapon.data?.property1?.die as DamageDieSize,
+                    damageType: damageType,
+                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
+                }),
+            );
+        }
+        const critDice = weapon.data?.property1?.critDice ?? 0;
+        if (critDice > 0) {
+            const damageType = weapon.data?.property1?.critDamageType ?? baseDamageType;
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    name: 'PF2E.WeaponCustomDamageLabel',
+                    diceNumber: critDice,
+                    dieSize: weapon.data?.property1?.critDie as DamageDieSize,
+                    damageType: damageType,
+                    critical: true,
+                    traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
+                }),
+            );
+        }
+
+        // striking rune
+        let strikingDice = 0;
+        {
+            const strikingList: PF2Striking[] = [];
+            selectors.forEach((key: any) => {
+                (striking[key] ?? [])
+                    .filter((wp) => ModifierPredicate.test(wp.predicate, options))
+                    .forEach((wp) => strikingList.push(wp));
+            });
+
+            // find best striking source
+            const strikingRune = getStrikingDice(weapon.data);
+            if (strikingRune) {
+                strikingList.push({ label: 'PF2E.StrikingRuneLabel', bonus: strikingRune });
+            }
+            if (strikingList.length > 0) {
+                const s = strikingList.reduce(
+                    (highest, current) => (highest.bonus > current.bonus ? highest : current),
+                    strikingList[0],
+                );
+                effectDice += s.bonus;
+                strikingDice = s.bonus;
+                diceModifiers.push(
+                    new DiceModifierPF2e({
+                        name: s.label,
+                        diceNumber: s.bonus,
+                        traits: ['magical'],
+                    }),
+                );
+            }
+        }
+
+        // backstabber trait
+        if (traits.some((t) => t.name === 'backstabber') && options.includes('target:flatFooted')) {
+            const modifier = new ModifierPF2e(
+                CONFIG.PF2E.weaponTraits.backstabber,
+                potency > 2 ? 2 : 1,
+                MODIFIER_TYPE.UNTYPED,
+            );
+            modifier.damageCategory = 'precision';
+            numericModifiers.push(modifier);
+        }
+
+        // deadly trait
+        traits
+            .filter((t) => t.name.startsWith('deadly-'))
+            .forEach((t) => {
+                const deadly = t.name.substring(t.name.indexOf('-') + 1);
+                const diceNumber = (() => {
+                    if (deadly.match(/\d+d\d+/)) {
+                        return parseInt(deadly.substring(0, deadly.indexOf('d')), 10);
+                    } else {
+                        return strikingDice > 1 ? strikingDice : 1;
+                    }
+                })();
+                diceModifiers.push(
+                    new DiceModifierPF2e({
+                        name: CONFIG.PF2E.weaponTraits[t.name],
+                        diceNumber,
+                        dieSize: deadly.substring(deadly.indexOf('d')) as DamageDieSize,
+                        critical: true,
+                    }),
+                );
+            });
+
         // conditions, custom modifiers, and roll notes
         const notes = [];
         {
@@ -443,20 +478,6 @@ export class PF2WeaponDamage {
             traits: (traits ?? []).map((t) => t.name),
             formula: {},
         };
-
-        // custom dice
-        {
-            const stats = [];
-            stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
-            stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
-                (damageDice[key] || [])
-                    .map((d) => new DamageDicePF2e(d))
-                    .forEach((d) => {
-                        d.enabled = d.predicate.test(options);
-                        diceModifiers.push(d);
-                    });
-            });
-        }
 
         // include dice number and size in damage tag
         diceModifiers.forEach((d) => {
