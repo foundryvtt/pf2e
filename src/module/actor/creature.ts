@@ -30,19 +30,19 @@ export abstract class CreaturePF2e extends ActorPF2e {
                   const withBetterAC =
                       bestShield.acBonus > shield.acBonus
                           ? bestShield
-                          : shield.acBonus > shield.acBonus
+                          : shield.acBonus > bestShield.acBonus
                           ? shield
                           : null;
                   const withMoreHP =
                       bestShield.hitPoints.current > shield.hitPoints.current
                           ? bestShield
-                          : shield.hitPoints.current > shield.hitPoints.current
+                          : shield.hitPoints.current > bestShield.hitPoints.current
                           ? shield
                           : null;
                   const withBetterHardness =
                       bestShield.hardness > shield.hardness
                           ? bestShield
-                          : shield.hardness > shield.hardness
+                          : shield.hardness > bestShield.hardness
                           ? shield
                           : null;
 

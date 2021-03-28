@@ -1,6 +1,3 @@
-/**
- * Extend the base Actor class to implement additional logic specialized for PF2e.
- */
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { ConditionManager } from '../conditions';
 import { isCycle } from '@item/container';
@@ -98,6 +95,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 }
 
 /**
+ * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
 export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
@@ -668,62 +666,64 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * @param roll The chat entry which contains the roll data
      * @param multiplier A damage multiplier to apply to the rolled damage.
      */
-    static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
-        if (canvas.tokens.controlled.length > 0) {
-            const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
-            const messageSender = roll.find('.message-sender').text();
-            const flavorText = roll.find('.flavor-text').text();
-            for (const token of canvas.tokens.controlled) {
-                const actor = token.actor;
-                if (!actor) {
-                    continue;
-                }
-                const shield = actor.heldShield;
-                if (attribute === 'attributes.shield' && shield?.isBroken) {
-                    const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
-                    ui.notifications.warn(game.i18n.format(warnings.ShieldIsBroken, { actor: token.name }));
-                }
-
-                const shieldFlavor =
-                    attribute === 'attributes.shield' && shield?.isBroken === false
-                        ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
-                        : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
-                const appliedResult =
-                    value > 0
-                        ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
-                        : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
-                const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
-                const by = game.i18n.localize('PF2E.UI.applyDamage.by');
-                const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
-                const message = `
-          <div class="dice-roll">
-          <div class="dice-result">
-            <div class="dice-tooltip dmg-tooltip" style="display: none;">
-              <div class="dice-formula" style="background: 0;">
-                <span>${flavorText}, ${by} ${messageSender}</span>
-                <span>${modifiedByGM}</span>
-              </div>
-            </div>
-            <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-              <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
-                ${token.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
-              </span>
-            </div>
-          </div>
-          </div>
-          `;
-                actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
-                    ChatMessage.create({
-                        user: game.user._id,
-                        speaker: { alias: token.name },
-                        content: message,
-                        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                    });
-                });
-            }
-        } else {
+    static async applyDamage(
+        roll: JQuery,
+        multiplier: number,
+        attribute = 'attributes.hp',
+        modifier = 0,
+        { shieldID }: { shieldID?: string } = {},
+    ) {
+        const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+        if (tokens.length === 0) {
             ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
             return false;
+        }
+
+        const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
+        const messageSender = roll.find('.message-sender').text();
+        const flavorText = roll.find('.flavor-text').text();
+        for (const token of tokens) {
+            const actor = token.actor!;
+            const shield =
+                attribute === 'attributes.shield'
+                    ? shieldID
+                        ? actor.itemTypes.armor.find((armor) => armor.isShield && armor.id === shieldID) ?? null
+                        : actor.heldShield
+                    : null;
+            if (attribute === 'attributes.shield' && shield?.isBroken) {
+                const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+                ui.notifications.warn(game.i18n.format(warnings.ShieldIsBroken, { actor: token.name }));
+            }
+
+            const shieldFlavor =
+                attribute === 'attributes.shield' && shield?.isBroken === false
+                    ? game.i18n.format('PF2E.UI.applyDamage.shieldActive', { shield: shield.name })
+                    : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
+            const appliedResult =
+                value > 0
+                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
+                    : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
+            const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
+            const by = game.i18n.localize('PF2E.UI.applyDamage.by');
+            const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
+            const message = await renderTemplate('systems/pf2e/templates/chat/damage/result-message.html', {
+                flavorText,
+                by,
+                messageSender,
+                modifiedByGM,
+                actor: token.name,
+                shieldFlavor,
+                appliedResult,
+                hitpoints,
+            });
+            actor.modifyTokenAttribute(attribute, value * -1, true, true, shield).then(() => {
+                ChatMessage.create({
+                    user: game.user._id,
+                    speaker: { alias: token.name },
+                    content: message,
+                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                });
+            });
         }
         return true;
     }
@@ -899,8 +899,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
      * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
-        if (value === undefined || value === null || Number.isNaN(value)) {
+    async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta = false,
+        isBar = true,
+        selectedShield: Owned<ArmorPF2e> | null = null,
+    ): Promise<this> {
+        if (!Number.isInteger(value)) {
             return Promise.reject();
         }
 
@@ -915,20 +921,20 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 },
             };
             if (attribute === 'attributes.shield') {
-                const shield = this.getFirstEquippedShield();
-                if (shield) {
-                    let shieldHitPoints = shield.data.hp.value;
+                const shield = selectedShield ?? this.heldShield;
+                if (shield?.isBroken === false) {
+                    let shieldHitPoints = shield.hitPoints.current;
                     if (isDelta && value < 0) {
                         // shield block
-                        value = Math.min(shield.data.hardness.value + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+                        value = Math.min(shield.hardness + value, 0); // value is now a negative modifier (or zero), taking into account hardness
                         if (value < 0) {
                             attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
-                            shieldHitPoints = Math.clamped(shield.data.hp.value + value, 0, shield.data.maxHp.value);
+                            shieldHitPoints = Math.clamped(shield.hitPoints.current + value, 0, shield.hitPoints.max);
                         }
                     } else {
-                        shieldHitPoints = Math.clamped(value, 0, shield.data.maxHp.value);
+                        shieldHitPoints = Math.clamped(value, 0, shield.hitPoints.max);
                     }
-                    shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
+                    shield.data.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updateShieldData._id = shield._id;
