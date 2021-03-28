@@ -69,6 +69,18 @@ export class SpellPF2e extends ItemPF2e {
 
         return this.processChatData(htmlOptions, data);
     }
+
+    async roll(this: Owned<SpellPF2e>, event: JQuery.ClickEvent): Promise<ChatMessage> {
+        const spellEffects = this.effects.filter((effect) => effect.applyOnCast);
+        const transferredEffects =
+            this.actor?.effects?.filter((transferredEffect) =>
+                spellEffects.some((spellEffect) => transferredEffect.data.origin.endsWith(spellEffect.parent.id)),
+            ) ?? [];
+        for await (const effect of transferredEffects) {
+            await effect.enable();
+        }
+        return super.roll(event);
+    }
 }
 
 export interface SpellPF2e {

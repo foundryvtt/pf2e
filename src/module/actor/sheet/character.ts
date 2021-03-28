@@ -6,7 +6,7 @@ import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
 import { PhysicalItemPF2e } from '@item/physical';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -38,19 +38,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** @override */
     protected async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
-        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
-        if (equippedShieldId !== undefined) {
-            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
-            if (shieldEntity) {
-                await shieldEntity.update({
-                    'data.hp.value': formData['data.attributes.shield.hp.value'],
-                });
-            }
+        const shield = this.actor.heldShield;
+        if (shield) {
+            await shield.update({
+                'data.hp.value': formData['data.attributes.shield.value'],
+            });
         }
-        const previousLevel = this.actor.data.data.details.level.value;
+        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
 
-        const updatedLevel = this.actor.data.data.details.level.value;
+        const updatedLevel = this.actor.level;
         const actorClasses = this.actor.itemTypes.class;
         if (updatedLevel != previousLevel && actorClasses.length > 0) {
             for await (const actorClass of actorClasses) {
@@ -236,6 +233,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         for (const i of actorData.items) {
             const item = this.actor.items.get(i._id);
+            i.isGranted = !!item?.getFlag('pf2e', 'grantedBy');
             if (item instanceof PhysicalItemPF2e) {
                 // item identification
                 i.identified = item.isIdentified;
@@ -253,11 +251,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.hasEquipment = true;
                 }
 
-                i.canBeEquipped = i.isNotInContainer;
+                i.canBeEquipped = i.isNotInContainer && !i.isGranted;
                 i.isEquipped = item.isEquipped;
-                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins' && !i.isGranted;
                 i.hasInvestedTrait = item.traits.has('invested');
-                i.isInvested = i.data?.invested?.value ?? false;
+                i.isInvested = !!i.data.invested?.value && !i.isGranted;
                 if (i.isInvested) {
                     investedCount += 1;
                 }
@@ -596,35 +594,25 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.spellcastingEntries = spellcastingEntries;
 
         // shield
-        const equippedShield = this.getEquippedShield(actorData.items);
-        if (equippedShield === undefined) {
+        const heldShield = this.actor.heldShield;
+        if (heldShield) {
             actorData.data.attributes.shield = {
-                hp: {
-                    value: 0,
-                },
-                maxHp: {
-                    value: 0,
-                },
-                armor: {
-                    value: 0,
-                },
-                hardness: {
-                    value: 0,
-                },
-                brokenThreshold: {
-                    value: 0,
-                },
+                ac: heldShield.acBonus,
+                brokenThreshold: heldShield.brokenThreshold,
+                hardness: heldShield.hardness,
+                value: heldShield.hitPoints.current,
+                max: heldShield.hitPoints.max,
             };
-            actorData.data.attributes.shieldBroken = false;
-        } else {
-            actorData.data.attributes.shield = duplicate(equippedShield.data);
-            actorData.data.attributes.shieldBroken =
-                equippedShield?.data?.hp?.value <= equippedShield?.data?.brokenThreshold?.value;
+            sheetData.shieldIsBroken = heldShield.isBroken;
         }
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
-        const featNames = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.name));
+        const featNames = new Set(
+            actorData.items
+                .filter((item: ItemDataPF2e) => item.type === 'feat')
+                .map((itemData: ItemDataPF2e) => itemData.name),
+        );
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
@@ -649,13 +637,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonusLimitBulk,
             bulk,
             actorData.data?.traits?.size?.value ?? 'med',
-        );
-    }
-
-    getEquippedShield(items: ItemDataPF2e[]): ArmorData | undefined {
-        return items.find(
-            (itemData): itemData is ArmorData =>
-                itemData.type === 'armor' && itemData.data.equipped.value && itemData.data.armorType.value === 'shield',
         );
     }
 

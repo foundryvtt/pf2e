@@ -54,7 +54,7 @@
             {{/if}}
             <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
         {{/if}}
-        {{#if item.showGMInfo}}
+        {{#if (and item.showGMInfo (not item.isGranted))}}
           {{#if item.identified}}
             <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
           {{else}}
