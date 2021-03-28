@@ -7,18 +7,18 @@ import {
 } from '@item/treasure';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
-import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 import { PhysicalItemPF2e } from '@item/physical';
 import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-definitions';
+import { CreaturePF2e } from '@actor/creature';
 
 /**
  * Base class for NPC and character sheets
  * @category Actor
  */
-export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends ActorSheetPF2e<ActorType> {
+export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends ActorSheetPF2e<ActorType> {
     protected renderItemSummary(li: JQuery, item: Owned<ItemPF2e>, chatData: any) {
         super.renderItemSummary(li, item, chatData);
         const div = li.find('.item-summary');
@@ -248,5 +248,14 @@ export abstract class CreatureSheetPF2e<ActorType extends ActorPF2e> extends Act
         }
 
         return coins;
+    }
+
+    /** @override */
+    activateListeners(html: JQuery): void {
+        // Roll Recovery Flat Check when Dying
+        html.find('.recoveryCheck.rollable').on('click', () => {
+            this.actor.rollRecovery();
+        });
+        super.activateListeners(html);
     }
 }
