@@ -1,0 +1,14 @@
+<div class="form-list">
+  <div class="form-group"><h3>{{localize "PF2E.identification.UnidentifiedItem"}}</h3></div>
+  <div class="form-group">
+    <img class="image-picker" src="{{item.data.identification.unidentified.img}}" data-edit="img" />
+    <input type="text" value="{{item.data.identification.unidentified.name}}" data-dtype="String"/>
+  </div>
+
+  <div class="form-group">
+    <label>{{localize "PF2E.ItemDescription"}}</label>
+  </div>
+  <div class="form-group">
+    {{editor content=item.data.identification.unidentified.description.value target="item.data.identification.unidentified.description.value" button=true owner=owner editable=editable}}
+  </div>
+</div>
