@@ -4,7 +4,7 @@ import { LocalizePF2e } from '@module/system/localize';
 /** Add apply damage buttons after a chat message is rendered */
 export function listen() {
     Hooks.on('renderChatMessage', async (message, html) => {
-        const damageRoll: any = message.getFlag('pf2e', 'damageRoll');
+        const damageRoll = message.getFlag('pf2e', 'damageRoll');
         const isRoll = damageRoll || message.isRoll;
         const isD20 = message.roll && message.roll.dice[0]?.faces === 20;
         if (!isRoll || isD20) return;
@@ -103,7 +103,7 @@ export function listen() {
 
 function applyDamage(html: JQuery<HTMLElement>, multiplier: number, promptModifier = false) {
     let attribute = 'attributes.hp';
-    const $button = html.find('.dice-total-shield-btn');
+    const $button = html.find('button.shield-block');
     if (CONFIG.PF2E.chatDamageButtonShieldToggle && multiplier > 0) {
         attribute = 'attributes.shield';
         $button.removeClass('shield-activated');

@@ -692,7 +692,9 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                     : null;
             if (attribute === 'attributes.shield' && shield?.isBroken) {
                 const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
-                ui.notifications.warn(game.i18n.format(warnings.ShieldIsBroken, { actor: token.name }));
+                ui.notifications.warn(
+                    game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: shield.name }),
+                );
             }
 
             const shieldFlavor =
