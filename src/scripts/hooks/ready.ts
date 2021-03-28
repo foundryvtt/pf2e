@@ -36,7 +36,7 @@ export function listen(): void {
 
         if (game.user.isGM) {
             // Perform the migration
-            const migrationRunner = new MigrationRunner(Migrations.constructAll());
+            const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
             if (migrationRunner.needsMigration()) {
                 if (currentVersion && currentVersion < COMPATIBLE_MIGRATION_VERSION) {
                     ui.notifications.error(
