@@ -813,7 +813,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The first time the mercenary hits their hunted prey in a round, they deal [[/r 1d8 # additional precision damage]] additional precision damage.</p>"
+                    "value": "<p>The first time the mercenary hits their hunted prey in a round, they deal [[/r 1d8 #precision]] additional precision damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -821,7 +821,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is your Hunted Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "category": "precision",
+                        "dieSize": "d8",
+                        "diceNumber": 1,
+                        "label": "First Hit on Hunted Prey",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
