@@ -259,8 +259,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const critRegex = /\b(deadly|fatal)-(d\d+)/;
         const twohandedRegex = /\b(two-hand)-(d\d+)/;
         const thrownRegex = /\b(thrown)-(\d+)/;
-        const hasThiefRacket =
-            this.actor.data.items.filter((e) => e.type === 'feat' && e.name === 'Thief Racket').length > 0;
+        const hasThiefRacket = this.actor.data.items.some((e) => e.type === 'feat' && e.data.slug === 'thief-racket');
         const strikingDice = getStrikingDice(itemData);
 
         if (hasThiefRacket && rollData.abilities.dex.mod > abilityMod) abilityMod = rollData.abilities.dex.mod;
