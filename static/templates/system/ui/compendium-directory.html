@@ -13,15 +13,18 @@
     </header>
 
     <ol class="directory-list">
-        {{#each packs as |pack label|}}
+        {{#each packs as |summary label|}}
             <li class="compendium-entity">
-                <h3>{{label}}</h3>
+                <h3>{{summary.title}}</h3>
                 <ol class="compendium-list">
-                    {{#each pack.folders as |folder|}}
+                    {{#each summary.folders as |folder|}}
+                        <!-- Folder: {{folder.name}} -->
                         {{> folderPartial folder=folder}}
                     {{/each}}
-                    {{#each pack.packs}}
-                        {{> packPartial}}
+                    {{#each summary.packs as |summaryData|}}
+                        {{#if (not summaryData.metadata.folder)}}
+                            {{> packPartial pack=summaryData}}
+                        {{/if}}
                     {{/each}}
                 </ol>
             </li>
@@ -41,25 +44,30 @@
         </div>
     </header>
     <ol class="subdirectory">
-        {{#each folder as |compendium|}}
-            {{> packPartial}}
+        {{#each folder.subfolders as |subfolder|}}
+            <!-- Subfolder: {{subfolder.name}} -->
+            {{> folderPartial folder=subfolder}}
+        {{/each~}}
+        {{#each folder as |summaryData|}}
+            {{> packPartial pack=summaryData}}
         {{/each~}}
     </ol>
 </li>
 {{/inline}}
 
 {{#*inline "packPartial"}}
-<li class="compendium-pack" data-pack="{{this.collection}}" data-open="0">
+<!-- Compendium: {{pack.metadata.label}} -->
+<li class="compendium-pack" data-pack="{{pack.collection}}" data-open="0">
     <h4 class="pack-title">
-        <a><i class="folder fas fa-atlas"></i> {{this.metadata.label}}</a>
+        <a><i class="folder fas fa-atlas"></i> {{pack.metadata.label}}</a>
         <div class="status-icons">
-            {{#if this.private}}<i class="fas fa-eye-slash"></i>{{/if}}
-            {{#if this.locked}}<i class="fas fa-lock"></i>{{/if}}
+            {{#if pack.private}}<i class="fas fa-eye-slash"></i>{{/if}}
+            {{#if pack.locked}}<i class="fas fa-lock"></i>{{/if}}
         </div>
     </h4>
     <footer class="compendium-footer">
-        <span class="entity-type">{{this.metadata.entity}}</span>
-        <span> ({{this.metadata.package}})</span>
+        <span class="entity-type">{{pack.metadata.entity}}</span>
+        <span> ({{pack.metadata.package}})</span>
     </footer>
 </li>
 {{/inline}}

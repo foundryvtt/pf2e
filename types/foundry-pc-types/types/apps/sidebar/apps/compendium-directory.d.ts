@@ -4,15 +4,16 @@ declare type CompendiumDirectoryDefaultOptions = typeof Sidebar['defaultOptions'
     title: string;
 };
 
+declare interface PackSummaryByEntity {
+    Actor: PackSummary;
+    Item: PackSummary;
+    JournalEntry: PackSummary;
+    Macro: PackSummary;
+    RollTable: PackSummary;
+}
 declare interface CompendiumDirectoryData {
     user: User;
-    packs: {
-        Actor: PackSummary;
-        Item: PackSummary;
-        JournalEntry: PackSummary;
-        Macro: PackSummary;
-        RollTable: PackSummary;
-    };
+    packs: PackSummaryByEntity;
 }
 
 declare interface PackSummaryData {
@@ -20,7 +21,7 @@ declare interface PackSummaryData {
     appId: number;
     metadata: CompendiumMetadata;
     locked: boolean;
-    private: false;
+    private: boolean;
     index: unknown[];
 }
 
