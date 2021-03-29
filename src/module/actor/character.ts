@@ -708,6 +708,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const selectors = [
                     'attack',
+                    'mundane-attack',
                     `${ability}-attack`,
                     `${ability}-based`,
                     `${item._id}-attack`,
