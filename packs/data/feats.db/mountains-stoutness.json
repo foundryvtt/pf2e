@@ -29,11 +29,6 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.RecoveryCheckDC"
-            },
-            {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "selector": "hp-per-level",
-                "value": 1
             }
         ],
         "source": {
@@ -49,7 +44,33 @@
             ]
         }
     },
-    "effects": [],
+    "effects": [
+        {
+            "_id": "rfRPAWLAfdx8qSZz",
+            "changes": [
+                {
+                    "key": "data.attributes.hp.modifiers",
+                    "mode": 2,
+                    "value": "{ \"modifier\": \"@data.details.level.value * 1\", \"type\": \"untyped\" }"
+                }
+            ],
+            "disabled": false,
+            "duration": {
+                "rounds": null,
+                "seconds": null,
+                "startRound": null,
+                "startTime": null,
+                "startTurn": null,
+                "turns": null
+            },
+            "flags": {},
+            "icon": "systems/pf2e/icons/features/feats/feats.jpg",
+            "label": "Mountain's Stoutness",
+            "origin": "",
+            "tint": "",
+            "transfer": true
+        }
+    ],
     "flags": {},
     "img": "systems/pf2e/icons/features/feats/feats.jpg",
     "name": "Mountain's Stoutness",

@@ -290,10 +290,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 value: 0,
             };
             data.details.level.value = 0;
-            data.attributes.hp = {
-                value: data.attributes.hp.value,
-                max: data.attributes.hp.value,
-            };
             data.attributes.ac = {
                 value: 10,
                 breakdown: game.i18n.localize('PF2E.ArmorClassBase'),
