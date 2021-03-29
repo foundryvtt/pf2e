@@ -105,25 +105,21 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
                     break;
                 case 'weaponAttack':
-                    item.rollWeaponAttack(event);
+                case 'spellAttack':
+                    item.rollAttack({ event });
                     break;
                 case 'weaponAttack2':
-                    item.rollWeaponAttack(event, 2);
+                    item.rollAttack({ event, multiAttackPenalty: 2 });
                     break;
                 case 'weaponAttack3':
-                    item.rollWeaponAttack(event, 3);
+                    item.rollAttack({ event, multiAttackPenalty: 3 });
                     break;
                 case 'weaponDamage':
-                    item.rollWeaponDamage(event);
+                case 'spellDamage':
+                    item.rollDamage({ event });
                     break;
                 case 'weaponDamageCritical':
-                    item.rollWeaponDamage(event, true);
-                    break;
-                case 'spellAttack':
-                    item.rollSpellAttack(event);
-                    break;
-                case 'spellDamage':
-                    item.rollSpellDamage(event);
+                    item.rollDamage({ event, critical: true });
                     break;
                 case 'consume':
                     item.rollConsumable(event);

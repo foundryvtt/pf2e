@@ -291,54 +291,50 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         super.activateListeners(html);
 
         // NPC Weapon Rolling
-        html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        html.find('button:not(.recall-knowledge-breakdown)').on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
             // item = this.actor.items.find(i => { return i.id === itemId });
             const item = this.actor.getOwnedItem(itemId);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
+            switch (event.target.dataset.action) {
                 case 'weaponAttack':
-                    item.rollWeaponAttack(ev);
+                case 'spellAttack':
+                    item.rollAttack({ event });
                     break;
                 case 'weaponAttack2':
-                    item.rollWeaponAttack(ev, 2);
+                    item.rollAttack({ event, multiAttackPenalty: 2 });
                     break;
                 case 'weaponAttack3':
-                    item.rollWeaponAttack(ev, 3);
+                    item.rollAttack({ event, multiAttackPenalty: 3 });
                     break;
                 case 'weaponDamage':
-                    item.rollWeaponDamage(ev);
+                case 'spellDamage':
+                    item.rollDamage({ event });
                     break;
                 case 'weaponDamageCritical':
-                    item.rollWeaponDamage(ev, true);
+                    item.rollDamage({ event, critical: true });
                     break;
                 case 'npcAttack':
-                    item.rollNPCAttack(ev);
+                    item.rollNPCAttack(event);
                     break;
                 case 'npcAttack2':
-                    item.rollNPCAttack(ev, 2);
+                    item.rollNPCAttack(event, 2);
                     break;
                 case 'npcAttack3':
-                    item.rollNPCAttack(ev, 3);
+                    item.rollNPCAttack(event, 3);
                     break;
                 case 'npcDamage':
-                    item.rollNPCDamage(ev);
+                    item.rollNPCDamage(event);
                     break;
                 case 'npcDamageCritical':
-                    item.rollNPCDamage(ev, true);
-                    break;
-                case 'spellAttack':
-                    item.rollSpellAttack(ev);
-                    break;
-                case 'spellDamage':
-                    item.rollSpellDamage(ev);
+                    item.rollNPCDamage(event, true);
                     break;
                 case 'consume':
-                    item.rollConsumable(ev);
+                    item.rollConsumable(event);
                     break;
                 default:
                     throw new Error('Unknown action type');

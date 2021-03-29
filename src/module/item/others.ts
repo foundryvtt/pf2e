@@ -1,5 +1,5 @@
 import { PhysicalItemPF2e } from './physical';
-import { ItemPF2e } from './base';
+import { ItemPF2e, RollDamageOptions } from './base';
 import {
     ActionData,
     ContainerData,
@@ -12,6 +12,7 @@ import {
     MeleeData,
     TreasureData,
 } from './data-definitions';
+import { SpellPF2e } from './spell';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
 export interface ContainerPF2e {
@@ -50,6 +51,20 @@ export interface MeleePF2e {
 }
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
+    rollAttack(options: RollDamageOptions) {
+        const itemData = this.data.data;
+        if (itemData.spell?.data) {
+            SpellPF2e.prototype.rollAttack.call(this, options, itemData.spell.data);
+        }
+    }
+
+    rollDamage(options: RollDamageOptions) {
+        const itemData = this.data.data;
+        if (itemData.spell?.data) {
+            SpellPF2e.prototype.rollDamage.call(this, options, itemData.spell.data);
+        }
+    }
+
     getChatData(htmlOptions?: Record<string, boolean>) {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);

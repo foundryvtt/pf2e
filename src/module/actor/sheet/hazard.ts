@@ -163,19 +163,21 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
                 case 'weaponAttack':
-                    item.rollWeaponAttack(event);
+                case 'spellAttack':
+                    item.rollAttack({ event });
                     break;
                 case 'weaponAttack2':
-                    item.rollWeaponAttack(event, 2);
+                    item.rollAttack({ event, multiAttackPenalty: 2 });
                     break;
                 case 'weaponAttack3':
-                    item.rollWeaponAttack(event, 3);
+                    item.rollAttack({ event, multiAttackPenalty: 3 });
                     break;
                 case 'weaponDamage':
-                    item.rollWeaponDamage(event);
+                case 'spellDamage':
+                    item.rollDamage({ event });
                     break;
                 case 'weaponDamageCritical':
-                    item.rollWeaponDamage(event, true);
+                    item.rollDamage({ event, critical: true });
                     break;
                 case 'npcAttack':
                     item.rollNPCAttack(event);
@@ -191,12 +193,6 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     break;
                 case 'npcDamageCritical':
                     item.rollNPCDamage(event, true);
-                    break;
-                case 'spellAttack':
-                    item.rollSpellAttack(event);
-                    break;
-                case 'spellDamage':
-                    item.rollSpellDamage(event);
                     break;
                 case 'consume':
                     item.rollConsumable(event);

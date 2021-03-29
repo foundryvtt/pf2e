@@ -175,7 +175,7 @@ export interface WeaponDamage {
     value: string;
     dice: number;
     die: string;
-    damageType: string;
+    damageType: keyof ConfigPF2e['PF2E']['damageTypes'];
     modifier: number;
 }
 
@@ -545,7 +545,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
         applyMod: false;
     };
     damageType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['damageTypes'];
     };
     scaling: {
         mode: string;
