@@ -629,9 +629,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonusEncumbranceBulk += 2;
             bonusLimitBulk += 2;
         }
-        const equippedLiftingBelt =
-            actorData.items.find((item: any) => item.data.slug === 'lifting-belt' && item.data.equipped.value) !==
-            undefined;
+        const equippedLiftingBelt = actorData.items.some(
+            (item: ItemDataPF2e) =>
+                item.type === 'equipment' &&
+                item.data.slug === 'lifting-belt' &&
+                item.data.equipped.value &&
+                item.data.invested.value,
+        );
         if (equippedLiftingBelt) {
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
