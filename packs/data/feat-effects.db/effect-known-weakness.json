@@ -1,36 +1,30 @@
 {
-    "_id": "FPuICuxBLiDaEbDX",
+    "_id": "DvyyA11a63FBwV7x",
     "data": {
         "description": {
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Aura of Life]{Aura of Life}</p>\n<p>Your allies within 15 feet gain a +1 status bonus to saves against necromancy effects.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Known Weaknesses]{Known Weaknesses}.</p>\n<p>Your ally gains a +1 circumstance bonus to their next attack roll against the subject of known weakness, as long as their attack is made before the beginning of your next turn.</p>"
         },
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "unlimited",
-            "value": -1
+            "unit": "rounds",
+            "value": 0
         },
         "level": {
-            "value": 14
+            "value": 1
         },
         "rarity": {
             "value": "common"
         },
         "rules": [
             {
-                "key": "PF2E.RuleElement.TokenEffectIcon"
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
             },
             {
-                "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Aura of Life (vs. necromancy)",
-                "predicate": {
-                    "all": [
-                        "necromancy"
-                    ]
-                },
-                "selector": "saving-throw",
-                "type": "status",
-                "value": 1
+                "key": "PF2E.RuleElement.TokenEffectIcon"
             }
         ],
         "source": {
@@ -51,8 +45,8 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/destructive-aura.jpg",
-    "name": "Effect: Aura of Life",
+    "img": "systems/pf2e/icons/equipment/adventuring-gear/advanced-book-of-translation.jpg",
+    "name": "Effect: Known Weakness",
     "permission": {
         "default": 0
     },
