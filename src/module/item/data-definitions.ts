@@ -140,7 +140,7 @@ export interface ActivatedEffectData {
 }
 
 export interface MagicDetailsData extends PhysicalDetailsData {
-    invested?: {
+    invested: {
         value: boolean;
     };
 }
