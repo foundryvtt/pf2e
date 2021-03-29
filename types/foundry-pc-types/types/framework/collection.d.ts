@@ -8,7 +8,7 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
     /**
      * When iterating over a Collection, we should iterate over its values instead of over its entries
      */
-    [Symbol.iterator](): V[];
+    [Symbol.iterator](): IterableIterator<V>;
 
     /**
      * Return an Array of all the entry values in the Collection

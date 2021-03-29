@@ -55,11 +55,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** @override */
     getData(options?: object): PackDirectoryDataPF2e {
         const packSettings = game.settings.get('core', 'compendiumConfiguration');
-        game.packs.forEach((pack) => {
+        for (const pack of game.packs) {
             const metadata: PackMetadataPF2e = pack.metadata;
             const packKey = `${metadata.package}.${metadata.name}`;
             pack.private = packSettings[packKey]?.private ?? metadata.private ?? false;
-        });
+        }
         const data: PackDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
@@ -89,7 +89,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 }
                 return newFolder;
             }, null);
-            if (folder) folder.push(summaryData);
+            if (folder && !folder.some((pack) => pack === summaryData)) {
+                folder.push(summaryData);
+            }
         }
     }
 
