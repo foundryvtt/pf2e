@@ -50,11 +50,11 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
     /** @override */
     getData(options?: object): CompendiumDirectoryDataPF2e {
+        const packSettings = game.settings.get('core', 'compendiumConfiguration');
         game.packs.forEach((pack) => {
             const metadata: CompendiumMetadataPF2e = pack.metadata;
-            if (metadata.private === true) {
-                pack.private = true;
-            }
+            const packKey = `${metadata.package}.${metadata.name}`;
+            pack.private = packSettings[packKey]?.private ?? metadata.private ?? false;
         });
         const data: CompendiumDirectoryDataPF2e = super.getData(options);
 
