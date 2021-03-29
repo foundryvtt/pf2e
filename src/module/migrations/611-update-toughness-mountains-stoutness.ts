@@ -3,19 +3,16 @@ import { ActorDataPF2e } from '@actor/data-definitions';
 import { FeatPF2e } from '@item/feat';
 import { FeatData } from '@item/data-definitions';
 
-export class Migration610UpdateToughnessMountainsStoutness extends MigrationBase {
-    static version = 0.602;
+export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
+    static version = 0.611;
     requiresFlush = true;
 
     private featSlugs = ['mountains-stoutness', 'mountain-s-stoutness', 'toughness'];
-    private featPromises: Promise<[CompendiumEntity | null, CompendiumEntity | null]>;
+    private pack: Compendium<FeatPF2e>;
 
     constructor() {
         super();
-        this.featPromises = Promise.all([
-            fromUuid('Compendium.pf2e.feats-srd.AmP0qu7c5dlBSath'),
-            fromUuid('Compendium.pf2e.feats-srd.COP89tjrNhEucuRW'),
-        ]);
+        this.pack = game.packs.get('pf2e.feats-srd')!;
     }
 
     async updateActor(actorData: ActorDataPF2e) {
@@ -25,15 +22,15 @@ export class Migration610UpdateToughnessMountainsStoutness extends MigrationBase
             (itemData): itemData is FeatData =>
                 this.featSlugs.includes(itemData.data.slug ?? '') && itemData.type === 'feat',
         );
-        const newFeats = await this.featPromises;
-
         for await (const oldFeatData of oldFeatsData) {
             if (oldFeatData.data.slug === 'mountain-s-stoutness') {
                 oldFeatData.data.slug = 'mountains-stoutness';
             }
-            const newFeat = newFeats.find(
-                (feat): feat is FeatPF2e => feat instanceof FeatPF2e && feat.slug === oldFeatData.data.slug,
-            );
+            const slug = oldFeatData.data.slug;
+            const newFeat =
+                slug === 'toughness'
+                    ? await this.pack.getEntity('AmP0qu7c5dlBSath')
+                    : await this.pack.getEntity('COP89tjrNhEucuRW');
             if (!(newFeat instanceof FeatPF2e)) {
                 throw Error('PF2E System | Expected item not found in Compendium');
             }
