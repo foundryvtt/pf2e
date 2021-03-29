@@ -8,12 +8,12 @@
                     {{/if}}
                     <div class="values">
                         <div class="spellDC inline-field">
-                            <label>{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
-                            <input type="number" class="dc-input" name="data.items.{{entry._id}}.data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
+                            <label title="{{entry.data.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
+                            <input type="number" class="dc-input modifier" data-display-value="{{entry.data.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.data.dc.value}}" data-dtype="Number" placeholder="0"/>
                         </div>
                         <div class="spellAttack inline-field">
-                            <label class="rollable"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
-                            <input type="number" class="attack-input" name="data.items.{{entry._id}}.data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
+                            <label class="rollable" title="{{entry.data.attack.breakdown}}"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
+                            <input type="number" class="attack-input modifier" data-display-value="{{entry.data.attack.value}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{ numberFormat entry.data.attack.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
                         </div>
                     </div>
                     <div class="name">
