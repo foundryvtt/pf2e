@@ -55,7 +55,9 @@ export class SpellFacade {
             }
         }
         if (this.data.data.duration.value === '' && this.castingActor) {
-            const featDangerousSorcery = this.castingActor.items.find((it) => it.name === 'Dangerous Sorcery');
+            const featDangerousSorcery = this.castingActor.items.find(
+                (it) => it.data.data.slug === 'dangerous-sorcery',
+            );
             if (featDangerousSorcery !== null && !this.isFocusSpell && this.spellLevel !== 0) {
                 console.log(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                 parts.push(this.castLevel);
