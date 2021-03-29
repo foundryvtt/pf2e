@@ -405,9 +405,6 @@
       {{#each actor.data.actions as |action ai|}}
       <li class="item expandable" data-action-index="{{ai}}">
         <div class="melee-name rollable">
-          <!--
-          <div class="actions-title">
-          -->
           <div class="item-image" style="background-image: url({{action.imageUrl}})"></div>
           <h4>
             {{localize action.attackRollType}}
@@ -423,9 +420,6 @@
             <span class="tag"><button type="button" class="tag damage-strike">{{localize 'Damage'}}</button></span>
             <span class="tag"><button type="button" class="tag critical-strike">{{localize 'Critical'}}</button></span>
           </div>
-          <!--
-          </div>
-          -->
         </div>
       </li>
       {{/each}}
@@ -437,8 +431,8 @@
     <div class="stats-line">
       <span class="inline-stats">
           <label class="stat-title">{{{entry.name}}}</label>
-          <span class="stat-value">{{localize "PF2E.DCLabel"}} {{entry.data.spelldc.dc}}</span>
-          <span class="stat-detail speed">{{localize "PF2E.AttackLabel"}} +{{entry.data.spelldc.value}}</span>
+          <span class="stat-value" title="{{entry.data.dc.breakdown}}">{{localize "PF2E.DCLabel"}} {{entry.data.dc.value}}</span>
+          <span class="stat-detail speed" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</span>
       </span>
     </div>
 
@@ -450,32 +444,7 @@
                     <li class="item inventory-header sub-category spellbook-header">
                         <div class="item-name flexrow">
                             <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
-
-<!--                             {{#unless section.isCantrip}}
-                            <span class="spell-slots-input">
-                                <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
-                            </span>
-                            <span class="flex0"> / </span>
-                            <span class="spell-max-input">
-                                <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
-                                {{section.slots}}
-                            </span>
-                            {{else}}
-                            <span class="spell-slots">&infin;</span>
-                            <span class="flex0"> / </span>
-                            <span class="spell-max">&infin;</span>
-                            {{/unless}} -->
                         </div>
-
-                        <!-- <div class="spell-school-header">School</div>
-                        <div class="spell-action-header">Action</div> -->
-
-<!--                         {{#if ../owner}}
-                        <div class="item-controls">
-                            <a class="item-control item-create" title="Create Spell" data-type="spell"
-                            data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
-                        </div>
-                        {{/if}} -->
                     </li>
 
                     {{#each section.spells as |item i|}}
@@ -500,7 +469,7 @@
                             <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
                           {{/if}}
                           {{#if item.spellInfo.isAttack}}
-                            <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                            <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
                           {{/if}}
                           {{#if item.data.damage.value}}
                             <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
@@ -523,32 +492,7 @@
                         <li class="item inventory-header sub-category spellbook-header">
                             <div class="item-name flexrow">
                                 <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
-
-                                <!-- {{#unless section.isCantrip}}
-                                <span class="spell-slots-input">
-                                    <input type="text" name="data.spells.spell{{lvl}}.value" value="{{section.uses}}" placeholder="0"/>
-                                </span>
-                                <span class="flex0"> / </span>
-                                <span class="spell-max-input">
-                                    <input type="text" name="data.spells.spell{{lvl}}.max" value="{{section.slots}}" placeholder="0"/>
-                                    {{section.slots}}
-                                </span>
-                                {{else}}
-                                <span class="spell-slots">&infin;</span>
-                                <span class="flex0"> / </span>
-                                <span class="spell-max">&infin;</span>
-                                {{/unless}} -->
                             </div>
-
-                            <!-- <div class="spell-school-header">School</div>
-                            <div class="spell-action-header">Action</div> -->
-
-                            <!-- {{#if ../../owner}}
-                            <div class="item-controls">
-                                <a class="item-control item-create" title="Create Spell" data-type="spell"
-                                data-level="{{lvl}}"><i class="fas fa-plus"></i> Add</a>
-                            </div>
-                            {{/if}} -->
                         </li>
 
                         {{#each section.prepared as |item i|}}
@@ -577,7 +521,7 @@
                                 <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
                               {{/if}}
                               {{#if item.spellInfo.isAttack}}
-                                <span class="tag"><button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button></span>
+                                <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
                               {{/if}}
                               {{#if item.data.damage.value}}
                                 <span class="tag"><button data-action="spellDamage">{{item.spellInfo.damageLabel}}: {{item.data.damage.value}}</button></span>
