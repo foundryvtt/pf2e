@@ -1332,13 +1332,13 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         let value = Number(event.target.value);
         let key = '';
 
-        if (event.currentTarget.className === 'dc-input') {
+        if (event.currentTarget.classList.contains('dc-input')) {
             key = 'data.spelldc.dc';
-        } else if (event.currentTarget.className === 'attack-input') {
+        } else if (event.currentTarget.classList.contains('attack-input')) {
             key = 'data.spelldc.value';
-        } else if (event.currentTarget.className === 'focus-points') {
+        } else if (event.currentTarget.classList.contains('focus-points')) {
             key = 'data.focus.points';
-        } else if (event.currentTarget.className === 'focus-pool') {
+        } else if (event.currentTarget.classList.contains('focus-pool')) {
             if (value > 3) value = 3;
             key = 'data.focus.pool';
         }
