@@ -624,16 +624,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
-        const featNames = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.name));
+        const featSlugs = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.data.slug));
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
-        if (featNames.has('Hefty Hauler')) {
+        if (featSlugs.has('hefty-hauler')) {
             bonusEncumbranceBulk += 2;
             bonusLimitBulk += 2;
         }
-        const equippedLiftingBelt =
-            actorData.items.find((item: any) => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
+        const equippedLiftingBelt = actorData.items.some(
+            (item: ItemDataPF2e) =>
+                item.type === 'equipment' &&
+                item.data.slug === 'lifting-belt' &&
+                item.data.equipped.value &&
+                item.data.invested.value,
+        );
         if (equippedLiftingBelt) {
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
