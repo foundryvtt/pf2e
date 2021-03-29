@@ -1245,11 +1245,17 @@
                 },
                 "rules": [
                     {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "In True or Spider Form",
+                        "property": "flags.pf2e.rollOptions.all.spider-form"
+                    },
+                    {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "Climb in true or spider form",
+                        "label": "To Climb in True or Spider Form",
                         "predicate": {
                             "all": [
-                                "action:climb"
+                                "action:climb",
+                                "spider-form"
                             ]
                         },
                         "selector": "athletics",
