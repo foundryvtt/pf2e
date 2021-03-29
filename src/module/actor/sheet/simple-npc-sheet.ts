@@ -259,10 +259,10 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         super.activateListeners(html);
 
         // Subscribe to roll events
-        const rollables = ['a.rollable', '.rollable a', '.spell-icon.rollable', '.item-icon.rollable'].join(', ');
+        const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');
         html.find(rollables).on('click', (event) => this.onClickRollable(event));
         html.find('button').on('click', (event) => this.onButtonClicked(event));
-        html.find('a.chat').on('click', (event) => this.onSendToChatClicked(event));
+        html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
 
         html.find('.attack')
             .on('mouseenter', (event) => this.showControls(event))
@@ -271,9 +271,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
         html.find('.npc-item')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.spell')
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
 
@@ -1255,7 +1252,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private onSendToChatClicked(event: JQuery.ClickEvent): void {
+    private onClickToChat(event: JQuery.ClickEvent): void {
         event.preventDefault();
 
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
