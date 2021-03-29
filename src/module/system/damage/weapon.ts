@@ -790,6 +790,6 @@ export class PF2WeaponDamage {
             selectors.push(`${proficiencies[proficiencyRank]}-damage`);
         }
         selectors.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
-        return selectors.concat([`${weapon._id}-damage`, 'damage']);
+        return selectors.concat([`${weapon._id}-damage`, 'mundane-damage', 'damage']);
     }
 }

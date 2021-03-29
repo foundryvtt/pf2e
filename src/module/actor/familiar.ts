@@ -181,7 +181,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                 const modifiers = [
                     new ModifierPF2e('PF2E.MasterLevel', data.details.level.value, MODIFIER_TYPE.UNTYPED),
                 ];
-                ['attack', 'all'].forEach((key) =>
+                ['attack', 'mundane-attack', 'attack-roll', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filter_modifier)
                         .map((m) => duplicate(m))
