@@ -32,7 +32,7 @@ declare class ItemSheet<ItemType extends Item> extends BaseEntitySheet<ItemType>
     /**
      * The Actor instance which owns this item. This may be null if the item is unowned.
      */
-    get actor(): ItemType['actor'];
+    get actor(): ItemType['actor'] | null;
 
     /** @override */
     getData(): ItemSheetData<ItemType['data']>;

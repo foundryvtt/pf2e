@@ -2,6 +2,9 @@ import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
 import { ItemDataPF2e } from '@item/data-definitions';
+import { MinimalModifier, ModifierPF2e } from '@module/modifiers';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { ItemPF2e } from '@item/base';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -48,6 +51,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                   return withBetterAC ?? withMoreHP ?? withBetterHardness ?? bestShield;
               }, heldShields.slice(-1)[0]);
+    }
+
+    /**
+     * Setup base ephemeral data to be modified by active effects and derived-data preparation
+     * @override
+     */
+    prepareBaseData(): void {
+        super.prepareBaseData();
+        const attributes = this.data.data.attributes;
+        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
+        hitPoints.modifiers = [];
     }
 
     /** @override */
@@ -107,6 +121,53 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : updateData;
 
         return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+    }
+
+    /** @override */
+    protected _prepareActiveEffects(effectsData: ActiveEffectData[]): Collection<ActiveEffectPF2e> {
+        // Prepare changes with non-primitive values
+        for (const effectData of effectsData) {
+            for (const change of effectData.changes) {
+                if (typeof change.value === 'string' && change.value.startsWith('{')) {
+                    type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
+                    const parsedValue = ((): UnprocessedModifier => {
+                        try {
+                            return JSON.parse(change.value);
+                        } catch {
+                            const parenthetical = `(item ${effectData.origin} on actor ${this.uuid})`;
+                            ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                            effectData.disabled = true;
+                            return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
+                        }
+                    })();
+                    // Assign localized name to the effect from its originating item
+                    const originItem = this.items.find((item) => item.uuid === effectData.origin);
+                    parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : effectData.label;
+
+                    // Evaluate dynamic changes
+                    if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
+                        const parsedModifier = new Roll(parsedValue.modifier, this.data).evaluate().total;
+                        if (parsedModifier !== null) {
+                            parsedValue.modifier = parsedModifier;
+                        } else {
+                            const parenthetical = `(item ${effectData.origin} on actor ${this.uuid})`;
+                            ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                            effectData.disabled = true;
+                            parsedValue.modifier = 0;
+                        }
+                    }
+                    if (typeof parsedValue.modifier === 'number') {
+                        change.value = (new ModifierPF2e(
+                            parsedValue.name,
+                            parsedValue.modifier,
+                            parsedValue.type,
+                        ) as unknown) as string; // 🤫 Don't tell Atro!
+                    }
+                }
+            }
+        }
+
+        return super._prepareActiveEffects(effectsData);
     }
 
     /**
