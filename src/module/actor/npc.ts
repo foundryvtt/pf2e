@@ -765,6 +765,15 @@ export class NPCPF2e extends CreaturePF2e {
 
     protected async getAttackEffects(item: MeleeData): Promise<PF2RollNote[]> {
         const notes: PF2RollNote[] = [];
+        const description = item.data.description.value;
+        if (description) {
+            notes.push(
+                new PF2RollNote(
+                    'all',
+                    `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm">${description}</div>`,
+                ),
+            );
+        }
         for (const attackEffect of item.data.attackEffects.value) {
             const effectItem = this.data.items.find((item) => item.name.toLowerCase() === attackEffect.toLowerCase());
             const note = new PF2RollNote('all', '');
