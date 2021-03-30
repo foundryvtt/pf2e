@@ -1835,7 +1835,7 @@ export const PF2ECONFIG = {
         vanara: 'PF2E.LanguageVanara',
         varisian: 'PF2E.LanguageVarisian',
         varki: 'PF2E.LanguageVarki',
-        vishkanyan: 'PF2e.LanguageVishkanyan',
+        vishkanyan: 'PF2E.LanguageVishkanyan',
         vudrani: 'PF2E.LanguageVudrani',
         androffan: 'PF2E.LanguageAndroffan',
         azlanti: 'PF2E.LanguageAzlanti',
