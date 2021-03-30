@@ -300,7 +300,7 @@ export class LootTransfer implements LootTransferData {
                 throw Error('Unexpected item transfer');
             }
         })();
-        formatArgs[1].quantity = item.quantity;
+        formatArgs[1].quantity = this.quantity;
         formatArgs[1].item = item.name;
 
         const flavor = await renderTemplate(this.templatePaths.flavor, {
