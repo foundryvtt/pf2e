@@ -19,8 +19,9 @@
             "value": "class"
         },
         "level": {
-            "value": "4"
+            "value": 4
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "forensic medicine methodology"
@@ -29,7 +30,24 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "text": "<p class='compact-text'><strong>{item|name}</strong> If your critical hit dealt piercing or slashing damage, you also deal [[/r 1d6]] persistent bleed damage to your target</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
