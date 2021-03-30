@@ -1,7 +1,21 @@
 import { ABCItemPF2e } from './abc';
-import { AncestryData } from './data-definitions';
+import { AncestryData, Size } from './data-definitions';
 
 export class AncestryPF2e extends ABCItemPF2e {
-    data!: AncestryData;
-    _data!: AncestryData;
+    get hitPoints(): number {
+        return this.data.data.hp;
+    }
+
+    get speed(): number {
+        return this.data.data.speed;
+    }
+
+    get size(): Size {
+        return this.data.data.size;
+    }
+}
+
+export interface AncestryPF2e {
+    data: AncestryData;
+    _data: AncestryData;
 }

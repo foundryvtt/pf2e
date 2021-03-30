@@ -1,6 +1,4 @@
 import {
-    BackgroundData,
-    ClassData,
     ConsumableData,
     ItemDataPF2e,
     LoreData,
@@ -58,6 +56,14 @@ export class CharacterPF2e extends CreaturePF2e {
         return this.itemTypes.ancestry[0] ?? null;
     }
 
+    get background(): BackgroundPF2e | null {
+        return this.itemTypes.background[0] ?? null;
+    }
+
+    get class(): ClassPF2e | null {
+        return this.itemTypes.class[0] ?? null;
+    }
+
     get heritage(): FeatPF2e | null {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
     }
@@ -67,15 +73,19 @@ export class CharacterPF2e extends CreaturePF2e {
         return CONST.DEFAULT_TOKEN;
     }
 
+    /** @override */
+    prepareEmbeddedEntities(): void {
+        super.prepareEmbeddedEntities();
+        this.prepareAncestry();
+        this.prepareBackground();
+        this.prepareClass();
+    }
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
         const actorData = this.data;
-
-        this.prepareAncestry(actorData);
-        this.prepareBackground(actorData);
-        this.prepareClass(actorData);
 
         const rules: PF2RuleElement[] = actorData.items.reduce(
             (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
@@ -1099,14 +1109,14 @@ export class CharacterPF2e extends CreaturePF2e {
         data.attributes.initiative = stat;
     }
 
-    private prepareAncestry(actorData: CharacterData) {
+    private prepareAncestry() {
         const ancestry = this.ancestry;
-        const ancestryData = ancestry?.data;
-        if (ancestryData) {
+        if (ancestry) {
+            const actorData = this.data;
             actorData.data.details.ancestry.value = ancestry.name;
-            actorData.data.attributes.ancestryhp = ancestryData.data.hp;
-            actorData.data.attributes.speed.value = `${ancestryData.data.speed}`;
-            actorData.data.traits.size.value = ancestryData.data.size;
+            actorData.data.attributes.ancestryhp = ancestry.hitPoints;
+            actorData.data.attributes.speed.value = String(ancestry.speed);
+            actorData.data.traits.size.value = ancestry.size;
 
             // Add traits from ancestry and heritage
             const ancestryTraits: Set<string> = ancestry?.traits ?? new Set();
@@ -1122,20 +1132,16 @@ export class CharacterPF2e extends CreaturePF2e {
         }
     }
 
-    private prepareBackground(actorData: CharacterData) {
-        const background: BackgroundData = actorData.items.find((x): x is BackgroundData => x.type === 'background');
-
-        if (background) {
-            actorData.data.details.background.value = background.name;
-        }
+    private prepareBackground() {
+        this.data.data.details.background.value = this.background?.name ?? '';
     }
 
-    private prepareClass(actorData: CharacterData) {
-        const classData = actorData.items.find((x): x is ClassData => x.type === 'class');
+    private prepareClass(): void {
+        const classItem = this.class;
 
-        if (classData) {
-            actorData.data.details.class.value = classData.name;
-            actorData.data.attributes.classhp = classData.data.hp;
+        if (classItem) {
+            this.data.data.details.class.value = classItem.name;
+            this.data.data.attributes.classhp = classItem.hpPerLevel;
         }
     }
 
