@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -452,6 +456,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 27,
                     "value": 27
@@ -563,6 +568,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -603,6 +609,7 @@
                         "Grab"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 27,
                     "value": 27
@@ -710,6 +717,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -741,6 +749,112 @@
             "type": "melee"
         },
         {
+            "_id": "61GyOh9BdFBPZCUD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "S7QInhdroOaf7k84",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "tremorsense",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.j2wsK6IsW5yMW1jW"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Tremorsense",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "cDS4azJaDaRZITrQ",
             "data": {
                 "actionCategory": {
@@ -755,7 +869,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When exposed to a cold effect, the viper vine is overwhelmed by lethargy, becoming @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 for 1d4 rounds.</p>"
+                    "value": "<p>When exposed to a cold effect, the viper vine is overwhelmed by lethargy, becoming @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} for [[/r 1d4 #rounds]] rounds.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -764,6 +878,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -790,7 +905,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Cold Vulnerability",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -803,12 +918,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The viper vine releases a 60-foot emanation of invisible pollen that stays in the air for 5 rounds unless dispersed by a moderate or stronger wind. Each creature that enters or starts its turn in the area must attempt a DC 33 Will save or be captivated. The viper vine can't use Captivating Pollen for 1d4 rounds. <br /><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Captivating Pollen for 24 hours. <br /><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1. <br /><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, and it must spend each of its actions to move closer to the viper vine as expediently as possible while avoiding obvious dangers. If a captivated creature is adjacent to the viper vine, it stays still and doesn't act. It ceases to be fascinated if it's no longer in the pollen aura at the end of its turn. <br /><strong>Critical Failure</strong> As failure, plus the creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 2 for 24 hours.</p>"
+                    "value": "<p>The viper vine releases a 60-foot emanation of invisible pollen that stays in the air for 5 rounds unless dispersed by a moderate or stronger wind. Each creature that enters or starts its turn in the area must attempt a DC 33 Will save or be captivated.</p>\n<p>The viper vine can't use Captivating Pollen for [[/r 1d4 #rounds]] rounds.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected and is temporarily immune to Captivating Pollen for 24 hours.</p>\n<p><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, and it must spend each of its actions to move closer to the viper vine as expediently as possible while avoiding obvious dangers. If a captivated creature is adjacent to the viper vine, it stays still and doesn't act. It ceases to be fascinated if it's no longer in the pollen aura at the end of its turn.</p>\n<p><strong>Critical Failure</strong> As failure, plus the creature is @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for 24 hours.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -817,6 +932,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -844,111 +960,115 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Captivating Pollen",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "zygzGWKRZ7rVf4g2",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>3d8+8 bludgeoning, DC 33<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Constrict",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "k4BQPMz1xf4zO6sB",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended.<br /><br /> Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Grab",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "MWff0Ro0CLotg930",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>[[/r 3d8+8 #bludgeoning]] bludgeoning, DC 33</p>\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Constrict",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "6gwNFiImkw2H0QWA",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -972,6 +1092,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -990,7 +1111,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1014,6 +1135,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -1032,7 +1154,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Stealth",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -1041,7 +1163,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "duaHanGHvRGhUtB5",
         "actorLink": false,
         "bar1": {
@@ -1060,6 +1181,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Viper Vine",
         "randomImg": false,

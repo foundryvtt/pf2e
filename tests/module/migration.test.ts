@@ -1,15 +1,18 @@
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorDataPF2e, CharacterData } from '@actor/data-definitions';
 import { MigrationRunner } from '@module/migration-runner';
 import { MigrationBase } from '@module/migrations/base';
-import { FakeActor, RecursivePartial } from 'tests/fakes/fake-actor';
+import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
 import { FakeUser } from 'tests/fakes/fake-user';
 import { FakeScene } from 'tests/fakes/fake-scene';
 
-import characterData from '../../packs/data/iconics.db/amiri-level-1.json';
-import * as itemData from '../../packs/data/equipment.db/scale-mail.json';
-import { ItemDataPF2e } from '@item/data-definitions';
+import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
+import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
+import { ArmorData, ItemDataPF2e } from '@item/data-definitions';
+
+const characterData = characterJSON as unknown as CharacterData;
+const armorData = armorJSON as unknown as ArmorData;
 
 declare let game: any;
 
@@ -119,7 +122,7 @@ describe('test migration runner', () => {
     });
 
     test("expect previous version migrations don't run", async () => {
-        game.actors.entities.push(new FakeActor(characterData as any));
+        game.actors.entities.push(new FakeActor(characterData));
         settings.worldSchemaVersion = 20;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
@@ -128,7 +131,7 @@ describe('test migration runner', () => {
     });
 
     test('expect update causes version to be updated', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
@@ -136,7 +139,7 @@ describe('test migration runner', () => {
     });
 
     test('expect update actor name in world', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();
@@ -144,7 +147,7 @@ describe('test migration runner', () => {
     });
 
     test('expect update actor deep property', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new ChangeSizeMigration()]);
         await migrationRunner.runMigration();
@@ -153,7 +156,7 @@ describe('test migration runner', () => {
 
     test('expect unlinked actor in scene gets migrated', async () => {
         (characterData as { _id: string })._id = 'actor1';
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
         const scene = new FakeScene();
         scene.addToken({
             _id: 'token1',
@@ -169,7 +172,7 @@ describe('test migration runner', () => {
     });
 
     test('update world actor item', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
@@ -177,7 +180,7 @@ describe('test migration runner', () => {
     });
 
     test('update world item', async () => {
-        game.items.entities.push(new FakeItem(itemData as unknown as Partial<ItemDataPF2e>));
+        game.items.entities.push(new FakeItem(armorData as unknown as Partial<ItemDataPF2e>));
 
         const migrationRunner = new MigrationRunner([new UpdateItemName()]);
         await migrationRunner.runMigration();
@@ -185,7 +188,7 @@ describe('test migration runner', () => {
     });
 
     test('properties can be removed', async () => {
-        game.items.entities.push(new FakeItem(itemData as unknown as Partial<ItemDataPF2e>));
+        game.items.entities.push(new FakeItem(armorData as unknown as Partial<ItemDataPF2e>));
         game.items.entities[0]._data.data.someFakeProperty = 123123;
 
         const migrationRunner = new MigrationRunner([new RemoveItemProperty()]);
@@ -208,7 +211,7 @@ describe('test migration runner', () => {
             }
         }
 
-        game.items.entities.push(new FakeItem(itemData as unknown as Partial<ItemDataPF2e>));
+        game.items.entities.push(new FakeItem(armorData as unknown as Partial<ItemDataPF2e>));
         game.items.entities[0]._data.data.prop = 123;
 
         const migrationRunner = new MigrationRunner([new ChangeItemProp(), new UpdateItemNameWithProp()]);
@@ -225,7 +228,7 @@ describe('test migration runner', () => {
             }
         }
 
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
 
         const migrationRunner = new MigrationRunner([new RemoveItemsFromActor()]);
         await migrationRunner.runMigration();
@@ -245,7 +248,7 @@ describe('test migration runner', () => {
     }
 
     test('migrations can add items to actors', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
         game.actors.entities[0]._data.items = [];
 
         const migrationRunner = new MigrationRunner([new AddItemToActor()]);
@@ -262,7 +265,7 @@ describe('test migration runner', () => {
     }
 
     test('migrations can reference previously added items', async () => {
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
         game.actors.entities[0]._data.items = [];
 
         const migrationRunner = new MigrationRunner([new AddItemToActor(), new SetActorPropertyToAddedItem()]);
@@ -272,7 +275,7 @@ describe('test migration runner', () => {
 
     test('migrations can reference previously added items on tokens', async () => {
         (characterData as { _id: string })._id = 'actor1';
-        game.actors.entities.push(new FakeActor(characterData as RecursivePartial<ActorDataPF2e>));
+        game.actors.entities.push(new FakeActor(characterData));
         game.actors.entities[0]._data.items = [];
 
         const scene = new FakeScene();

@@ -1,5 +1,7 @@
+import { addSign } from '@module/utils';
 import { ArmorCategory, ArmorData } from './data-definitions';
 import { PhysicalItemPF2e } from './physical';
+import { getArmorBonus } from './runes';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
     get traits(): Set<string> {
@@ -47,7 +49,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     get acBonus(): number {
         const potencyRune = Number(this.data.data.potencyRune?.value) || 0;
         const baseArmor = Number(this.data.data.armor.value) || 0;
-        return baseArmor + potencyRune;
+        return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
 
     get hitPoints(): { current: number; max: number } {
@@ -68,7 +70,25 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     get isBroken(): boolean {
         return this.hitPoints.current <= this.brokenThreshold;
     }
+
+    getChatData(htmlOptions?: Record<string, boolean>) {
+        const data = this.data.data;
+        const localize = game.i18n.localize.bind(game.i18n);
+        const properties = [
+            CONFIG.PF2E.armorTypes[data.armorType.value],
+            CONFIG.PF2E.armorGroups[data.group.value],
+            `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
+            `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
+            `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
+            `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
+            ...data.traits.value,
+            data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
+        ].filter((property) => property);
+
+        return this.processChatData(htmlOptions, { ...data, properties, traits: null });
+    }
 }
+
 export interface ArmorPF2e {
     data: ArmorData;
     _data: ArmorData;

@@ -24,7 +24,7 @@ interface ActiveEffectSummary {
 
 export interface AESheetData {
     showAEs: boolean;
-    canCreate: boolean;
+    canEdit: boolean;
     effects: ActiveEffectSummary[];
 }
 

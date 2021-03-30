@@ -13,14 +13,15 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You're constantly studying small aspects of everyone's movements, even if you don't have a stratagem in place ahead of time.</p>\n<p>On any @Compendium[pf2e.actionspf2e.Strike]{Strike} for which you didn't @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
+            "value": "<p>You're constantly studying small aspects of everyone's movements, even if you don't have a stratagem in place ahead of time.</p>\n<p>On any Strike for which you didn't @Compendium[pf2e.actionspf2e.Devise a Stratagem]{Devise a Strategem}, you still deal precision damage equal to your number of strategic strike damage dice so long as the weapon or unarmed attack you used is one that would have let you use your Intelligence modifier had you Devised a Stratagem.</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "10"
+            "value": 10
         },
+        "location": "",
         "prerequisites": {
             "value": [
                 "strategic strike"
@@ -29,7 +30,54 @@
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "damageType": "precision",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "any": [
+                        "agile",
+                        "finesse",
+                        "ranged",
+                        "takedown-expert"
+                    ],
+                    "not": [
+                        "devise-a-stratagem"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": 2
+                        },
+                        {
+                            "end": 12,
+                            "start": 9,
+                            "value": 3
+                        },
+                        {
+                            "end": 16,
+                            "start": 13,
+                            "value": 4
+                        },
+                        {
+                            "start": 17,
+                            "value": 5
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

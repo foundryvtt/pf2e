@@ -103,6 +103,8 @@ export class ModifierPF2e implements RawModifier {
     }
 }
 
+export type MinimalModifier = Pick<ModifierPF2e, 'name' | 'type' | 'modifier'>;
+
 // ability scores
 export const STRENGTH = Object.freeze({
     withScore: (score: number) =>

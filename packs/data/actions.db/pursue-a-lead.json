@@ -21,7 +21,65 @@
         "requirements": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Investigating a designated subject with Pursue a Lead",
+                "property": "flags.pf2e.rollOptions.all.pursue-a-lead"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Pursue a Lead",
+                "predicate": {
+                    "all": [
+                        "pursue-a-lead"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ]
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Pursue a Lead",
+                "predicate": {
+                    "all": [
+                        "pursue-a-lead"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "perception",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

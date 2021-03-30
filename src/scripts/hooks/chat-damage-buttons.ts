@@ -1,59 +1,98 @@
 import { ActorPF2e } from '@actor/base';
+import { LocalizePF2e } from '@module/system/localize';
 
 /** Add apply damage buttons after a chat message is rendered */
 export function listen() {
-    Hooks.on('renderChatMessage', (message, html, _data) => {
-        const damageRoll: any = message.getFlag(game.system.id, 'damageRoll');
+    Hooks.on('renderChatMessage', async (message, html) => {
+        const damageRoll = message.getFlag('pf2e', 'damageRoll');
         const isRoll = damageRoll || message.isRoll;
         const isD20 = message.roll && message.roll.dice[0]?.faces === 20;
         if (!isRoll || isD20) return;
 
-        function makeButton(key: string, icon: string, className = '') {
-            const classStr = className ? `class=${className}` : '';
-            const title = game.i18n.localize(key);
-            return $(`<button ${classStr} title="${title}"><i class="fas ${icon}"></i></button>`);
-        }
+        const $buttons = $(await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html'));
+        html.append($buttons);
 
-        const full = makeButton('PF2E.DamageButton.Full', 'fa-user-minus');
-        const double = makeButton('PF2E.DamageButton.Double', 'fa-user-injured');
-        const half = makeButton('PF2E.DamageButton.Half', 'fa-user-shield');
-        const shield = makeButton('PF2E.DamageButton.ShieldBlock', 'fa-shield-alt', 'dice-total-shield-btn');
-        const heal = makeButton('PF2E.DamageButton.Healing', 'fa-user-plus');
-
-        if (damageRoll) {
-            // Buttons at the bottom of the damage prompt
-            const buttons = $(`<div class="chat-damage-buttons"></div>`);
-            buttons.append(full, half, double, shield, heal);
-            html.append(buttons);
-        } else {
-            // Overlay damage buttons
-            const btnContainer1 = $(`<span class="chat-damage-buttons-overlay"></span>`);
-            const btnContainer2 = $(`<span class="chat-damage-buttons-overlay"></span>`);
-            btnContainer1.append(shield, heal);
-            btnContainer2.append(full, half, double);
-            html.find('.dice-formula').append(btnContainer1);
-            html.find('.dice-total').wrapInner('<span id="value"></span>').append(btnContainer2);
-        }
+        const full = html.find('button.full-damage');
+        const half = html.find('button.half-damage');
+        const double = html.find('button.double-damage');
+        const heal = html.find('button.heal-damage');
+        const contentSelector = `li.chat-message[data-message-id="${message.id}"] div.hover-content`;
+        const $shield = html
+            .find('button.shield-block')
+            .attr({ 'data-tooltip-content': contentSelector })
+            .tooltipster({
+                animation: 'fade',
+                trigger: 'click',
+                arrow: false,
+                contentAsHTML: true,
+                debug: BUILD_MODE === 'development',
+                interactive: true,
+                side: ['top'],
+                theme: 'crb-hover',
+            });
+        $shield.tooltipster('disable');
 
         // Handle button clicks
         full.on('click', (event) => {
-            event.stopPropagation();
             applyDamage(html, 1, event.shiftKey);
         });
 
         half.on('click', (event) => {
-            event.stopPropagation();
             applyDamage(html, 0.5, event.shiftKey);
         });
 
         double.on('click', (event) => {
-            event.stopPropagation();
             applyDamage(html, 2, event.shiftKey);
         });
 
-        shield.on('click', (event) => {
-            event.stopPropagation();
-            shield.toggleClass('shield-activated');
+        $shield.on('click', async (event) => {
+            const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+            if (tokens.length === 0) {
+                const errorMsg = LocalizePF2e.translations.PF2E.UI.errorTargetToken;
+                ui.notifications.error(errorMsg);
+                event.stopPropagation();
+                return;
+            }
+
+            // If the actor is wielding more than one shield, have the user pick which shield to block for blocking.
+            const actor = tokens[0].actor!;
+            const heldShields = actor.itemTypes.armor.filter((armor) => armor.isEquipped && armor.isShield);
+            const nonBrokenShields = heldShields.filter((shield) => !shield.isBroken);
+            const multipleShields = tokens.length === 1 && nonBrokenShields.length > 1;
+            const shieldActivated = $shield.hasClass('shield-activated');
+
+            if (multipleShields && !shieldActivated) {
+                $shield.tooltipster('enable');
+                // Populate the list with the shield options
+                const $list = $buttons.find('ul.shield-options');
+                $list.children('li').remove();
+
+                const $template = $list.children('template');
+                for (const shield of nonBrokenShields) {
+                    const $listItem = $($template.html());
+                    $listItem.children('input.data').val(shield.id);
+                    $listItem.children('span.label').text(shield.name);
+                    const hardnessLabel = LocalizePF2e.translations.PF2E.ShieldHardnessLabel;
+                    $listItem.children('span.tag').text(`${hardnessLabel}: ${shield.hardness}`);
+
+                    $list.append($listItem);
+                }
+                $list.find('li input').on('change', (event) => {
+                    const $input = $(event.currentTarget);
+                    $shield.attr({ 'data-shield-id': $input.val() });
+                    $shield.tooltipster('close').tooltipster('disable');
+                    $shield.addClass('shield-activated');
+                    CONFIG.PF2E.chatDamageButtonShieldToggle = true;
+                });
+                $shield.tooltipster('open');
+                return;
+            } else {
+                $shield.tooltipster('disable');
+                $shield.removeAttr('data-shield-id');
+                event.stopPropagation();
+            }
+
+            $shield.toggleClass('shield-activated');
             CONFIG.PF2E.chatDamageButtonShieldToggle = !CONFIG.PF2E.chatDamageButtonShieldToggle;
         });
 
@@ -66,15 +105,18 @@ export function listen() {
 
 function applyDamage(html: JQuery<HTMLElement>, multiplier: number, promptModifier = false) {
     let attribute = 'attributes.hp';
+    const $button = html.find('button.shield-block');
     if (CONFIG.PF2E.chatDamageButtonShieldToggle && multiplier > 0) {
         attribute = 'attributes.shield';
-        html.find('.dice-total-shield-btn').toggleClass('shield-activated');
+        $button.removeClass('shield-activated');
         CONFIG.PF2E.chatDamageButtonShieldToggle = false;
     }
+    const shieldID = $button.attr('data-shield-id') ?? undefined;
+
     if (promptModifier) {
         shiftModifyDamage(html, multiplier, attribute);
     } else {
-        ActorPF2e.applyDamage(html, multiplier, attribute);
+        ActorPF2e.applyDamage(html, multiplier, attribute, 0, { shieldID: shieldID });
     }
 }
 

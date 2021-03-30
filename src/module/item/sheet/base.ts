@@ -10,6 +10,7 @@ import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
+    enabledRulesUI: boolean;
     activeEffects: AESheetData;
     isPhysicalItem: boolean;
 }
@@ -255,6 +256,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         return {
             ...super.getData(),
             user: game.user,
+            enabledRulesUI: game.settings.get(game.system.id, 'enabledRulesUI') ?? false,
             activeEffects: this.getActiveEffectsData(),
             isPhysicalItem: false,
         };
@@ -294,15 +296,17 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
+        const ruleUIEnabled = game.settings.get(game.system.id, 'enabledRulesUI');
+
         return {
-            showAEs: BUILD_MODE === 'development',
-            canCreate: BUILD_MODE === 'development' && !this.item.uuid.match(/Compendium/),
+            showAEs: ruleUIEnabled,
+            canEdit: this.actor === null && !this.item.uuid.match(/Compendium/),
             effects: effects.map((effect) => ({
                 id: effect.id,
                 iconPath: effect.data.icon ?? null,
                 name: effect.data.label,
                 duration: durationString(effect.data.duration),
-                enabled: !effect.data.disabled,
+                enabled: effect.isEnabled,
             })),
         };
     }
