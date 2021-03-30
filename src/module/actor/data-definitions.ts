@@ -1,6 +1,8 @@
 import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
+import { ConfigPF2e } from '@scripts/config';
+import { DamageType } from '@module/damage-calculation';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
 export type ZeroToFour = ZeroToThree | 4; // +1!
@@ -26,6 +28,12 @@ export interface LabeledValue {
     value: number | string;
     type: string;
     exceptions?: string;
+}
+export interface LabeledString extends LabeledValue {
+    value: string;
+}
+export interface LabeledNumber extends LabeledValue {
+    value: number;
 }
 
 /** Data describing the value & modifier for a base ability score. */
@@ -219,8 +227,8 @@ export interface Saves {
 
 export type SaveString = keyof Saves;
 
-export interface DamageImmunities {
-    value: string[];
+export interface ValuesList<T extends string = string> {
+    value: T[];
     custom: string;
 }
 
@@ -228,18 +236,15 @@ export interface BaseTraitsData {
     /** The character size (such as 'med'). */
     size: { value: Size };
     /** Actual Pathfinder traits */
-    traits: {
-        value: string[];
-        custom: string;
-    };
+    traits: ValuesList;
     /** Condition immunities */
     ci: LabeledValue[];
     /** Damage immunities this actor has. */
-    di: DamageImmunities;
+    di: ValuesList<DamageType>;
     /** Damage resistances that this actor has. */
-    dr: LabeledValue[];
+    dr: LabeledNumber[];
     /** Damage vulnerabilities that this actor has. */
-    dv: LabeledValue[];
+    dv: LabeledNumber[];
 }
 
 export interface Skills {
@@ -274,16 +279,17 @@ export interface Abilities {
 
 /** A type representing the possible ability strings. */
 export type AbilityString = keyof Abilities;
-
+export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: LabeledValue[];
+    senses: LabeledString[];
     /** Languages which this actor knows and can speak. */
-    languages: { value: string[]; selected: string[]; custom: string };
+    languages: ValuesList<Language>;
     /** The rarity of this creature (common, uncommon, etc.) */
     rarity: { value: Rarity };
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
     attitude: { value: string };
+    traits: ValuesList;
 }
 
 export interface ActorSystemData {

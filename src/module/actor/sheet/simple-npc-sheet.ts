@@ -18,6 +18,7 @@ import {
     RawNPCData,
     SaveString,
     SkillAbbreviation,
+    ValuesList,
 } from '@actor/data-definitions';
 import {
     ActionData,
@@ -58,7 +59,7 @@ interface Attack {
 type Attacks = Attack[];
 
 /** Additional fields added in sheet data preparation */
-interface SheetEnrichedNPCData extends NPCData {
+interface NPCSheetData extends NPCData {
     actions: ActionActions;
     attacks: Attacks;
     data: RawNPCData & {
@@ -143,20 +144,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * @param actorData Data from the actor associated to this sheet.
      */
     protected prepareItems(sheetData: any) {
-        const actorData: SheetEnrichedNPCData = sheetData.actor;
-        const monsterTraits = actorData.data.traits.traits;
-
+        const actorData: NPCSheetData = sheetData.actor;
         this.prepareAbilities(actorData.data.abilities);
-        this.prepareMonsterTraits(monsterTraits);
         this.prepareSize(actorData);
         this.prepareAlignment(actorData);
         this.prepareRarity(actorData);
         this.preparePerception(actorData);
-        //this.prepareSenses(actorData); Keep senses as strings until we have a better trait selector
-        this.prepareLanguages(actorData.data.traits.languages);
         this.prepareSkills(actorData);
         this.prepareSpeeds(actorData);
-        this.prepareImmunities(actorData);
         this.prepareSaves(actorData);
         this.prepareActions(actorData);
         this.prepareAttacks(actorData);
@@ -194,17 +189,10 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.actorTraits = (sheetData.data.traits.traits || {}).value;
         sheetData.actorAttitudes = CONFIG.PF2E.attitude;
         sheetData.actorAttitude = sheetData.actorAttitudes[sheetData.data.traits.attitude?.value ?? 'indifferent'];
-
-        // Languages
-        if (
-            sheetData.data.traits.languages.value &&
-            Array.isArray(sheetData.data.traits.languages.value) &&
-            sheetData.actor.data.traits.languages.value.length > 0
-        ) {
-            sheetData.hasLanguages = true;
-        } else {
-            sheetData.hasLanguages = false;
-        }
+        sheetData.speeds = this.prepareSpeeds(sheetData);
+        sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
+        sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
+        sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
 
         const equipment = this.getEquipment(sheetData);
 
@@ -277,14 +265,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        html.find('.trait-edit').on('click', (event) => this.onTraitEditClicked(event));
-        html.find('.languages-edit').on('click', (event) => this.onLanguagesClicked(event));
+        html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
+        html.find('.languages-edit').on('click', (event) => this.onClickChooseOptions(event));
         html.find('.senses-edit').on('click', (event) => this.onSensesEditClicked(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
-        html.find('.speed-edit').on('click', (event) => this.onSpeedEditClicked(event));
+        html.find('.speed-edit').on('click', (event) => this.onClickEditSpeeds(event));
         html.find('.weaknesses-edit').on('click', (event) => this.onWeaknessesEditClicked(event));
         html.find('.resistances-edit').on('click', (event) => this.onResistancesEditClicked(event));
-        html.find('.immunities-edit').on('click', (event) => this.onImmunitiesEditClicked(event));
+        html.find('.immunities-edit').on('click', (event) => this.onClickChooseOptions(event));
         html.find('.action-add').on('click', () => this.onAddActionClicked());
         html.find('.add-weapon').on('click', () => this.onAddWeaponClicked());
         html.find('.add-armor').on('click', () => this.onAddArmorClicked());
@@ -311,6 +299,23 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     // TRAITS MANAGEMENT
+    private prepareOptions<T extends string>(
+        options: Record<T, string>,
+        selections: ValuesList<T>,
+    ): Record<string, string> {
+        const mainSelections = selections.value.map(
+            (trait): Record<string, string> => ({ value: trait, label: options[trait] }),
+        );
+        const customSelections = selections.custom
+            .split(/\s*[,;|]\s*/)
+            .filter((trait) => trait)
+            .map((trait): Record<string, string> => ({ value: trait, label: trait }));
+
+        return mainSelections
+            .concat(customSelections)
+            .filter((selection) => selection.label)
+            .reduce((selections, selection) => mergeObject(selections, { [selection.value]: selection.label }), {});
+    }
 
     private prepareAbilities(abilities: Abilities) {
         Object.entries(abilities).forEach(([key, data]) => {
@@ -323,18 +328,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         });
     }
 
-    private prepareMonsterTraits(traits: any) {
-        traits.localizationMap = {};
-
-        for (const trait of traits.value) {
-            const localizationKey = this.getMonsterTraitLocalizationKey(trait);
-            const localizedName = game.i18n.localize(localizationKey);
-
-            traits.localizationMap[trait] = localizedName;
-        }
-    }
-
-    private prepareSize(actorData: SheetEnrichedNPCData) {
+    private prepareSize(actorData: NPCSheetData) {
         const size = actorData.data.traits.size.value;
         const localizationKey = this.getSizeLocalizedKey(size);
         const localizedName = game.i18n.localize(localizationKey);
@@ -342,20 +336,20 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         actorData.data.traits.size.localizedName = localizedName;
     }
 
-    private prepareAlignment(actorData: SheetEnrichedNPCData) {
+    private prepareAlignment(actorData: NPCSheetData) {
         const alignmentCode = actorData.data.details.alignment.value;
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
         actorData.data.details.alignment.localizedName = localizedName;
     }
 
-    private prepareRarity(actorData: SheetEnrichedNPCData) {
+    private prepareRarity(actorData: NPCSheetData) {
         if (actorData.data.details.rarity === undefined) {
             actorData.data.details.rarity = 'normal';
         }
     }
 
-    private preparePerception(actorData: SheetEnrichedNPCData) {
+    private preparePerception(actorData: NPCSheetData) {
         const perception = actorData.data.attributes.perception;
 
         if (perception.base !== undefined && perception.base > 0) {
@@ -365,7 +359,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    protected prepareSenses(actorData: SheetEnrichedNPCData) {
+    protected prepareSenses(actorData: NPCSheetData) {
         // Try to convert old legacy senses to new, array-like senses
         if (typeof actorData.data.traits.senses.value === 'string') {
             const reformattedSenses = this.createSensesFromString(actorData.data.traits.senses.value);
@@ -423,19 +417,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         return senses;
     }
 
-    private prepareLanguages(languages: any) {
-        languages.localizedNames = {};
-        const configLanguages = CONFIG.PF2E.languages;
-        for (const language of Object.keys(languages.selected)) {
-            if (objectHasKey(configLanguages, language)) {
-                const localizedName = CONFIG.PF2E.languages[language];
-
-                languages.localizedNames[language] = localizedName;
-            }
-        }
-    }
-
-    private prepareSkills(actorData: SheetEnrichedNPCData) {
+    private prepareSkills(actorData: NPCSheetData) {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
         const sortedSkillsIds = duplicate(Object.keys(actorData.data.skills));
@@ -464,9 +446,9 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         actorData.data.sortedSkills = sortedSkills;
     }
 
-    private prepareSpeeds(actorData: SheetEnrichedNPCData) {
+    private prepareSpeeds(sheetData: NPCSheetData) {
         const configSpeedTypes = CONFIG.PF2E.speedTypes;
-        actorData.data.attributes.speed.otherSpeeds.forEach((speed) => {
+        sheetData.data.attributes.speed.otherSpeeds.forEach((speed) => {
             // Try to convert it to a recognizable speed name
             // This is done to recognize speed types for NPCs from the compendium
             const speedName: string = speed.type.trim().toLowerCase().replace(/\s+/g, '-');
@@ -478,31 +460,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         });
         // Make sure regular speed has no `feet` at the end, we will add it localized later on
         // This is usally the case for NPCs from the compendium
-        if (typeof actorData.data.attributes.speed.value === 'string') {
-            actorData.data.attributes.speed.value = actorData.data.attributes.speed.value.replace('feet', '').trim();
+        if (typeof sheetData.data.attributes.speed.value === 'string') {
+            sheetData.data.attributes.speed.value = sheetData.data.attributes.speed.value.replace('feet', '').trim();
         }
     }
 
-    private prepareImmunities(actorData: SheetEnrichedNPCData) {
-        // Try to localize values to show the correct text in the sheet
-        // Immunities are store as a simple string array, so we use parallel array
-        // for storing the label values, not like we do with resistances and weaknesses
-        const configImmunityTypes = CONFIG.PF2E.immunityTypes;
-
-        const labels = actorData.data.traits.di.value.map((immunity) => {
-            const value = immunity.trim();
-            const label = objectHasKey(configImmunityTypes, value) ? configImmunityTypes[value] : value;
-
-            return label;
-        });
-        if (actorData.data.traits.di.custom) {
-            labels.push(actorData.data.traits.di.custom);
-        }
-
-        (actorData as any).data.traits.di.labels = labels;
-    }
-
-    private prepareSaves(actorData: SheetEnrichedNPCData) {
+    private prepareSaves(actorData: NPCSheetData) {
         if (actorData.data.saves === undefined) return;
 
         const fortitude = actorData.data.saves.fortitude;
@@ -518,7 +481,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the actions list to be accessible from the sheet.
      * @param actorData Data of the actor to be shown in the sheet.
      */
-    private prepareActions(actorData: SheetEnrichedNPCData) {
+    private prepareActions(actorData: NPCSheetData) {
         const actions: ActionActions = {
             passive: { label: game.i18n.localize('PF2E.ActionTypePassive'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionTypeFree'), actions: [] },
@@ -587,7 +550,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         actorData.actions = actions;
     }
 
-    private prepareAttacks(actorData: SheetEnrichedNPCData) {
+    private prepareAttacks(actorData: NPCSheetData) {
         const attacks: Attacks = [];
 
         const configTraitDescriptions = CONFIG.PF2E.traitsDescriptions;
@@ -620,7 +583,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepare spells and spell entries
      * @param actorData Data of the actor to show in the sheet.
      */
-    private prepareSpellcasting(actorData: SheetEnrichedNPCData) {
+    private prepareSpellcasting(actorData: NPCSheetData) {
         const spellsList: SpellData[] & SheetEnrichedItemData[] = [];
         const spellEntriesList: string[] = [];
         const spellbooks: any = [];
@@ -861,11 +824,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         return traits.some((trait) => trait === 'elite');
     }
 
-    private getMonsterTraitLocalizationKey(trait: string): string {
-        const monsterTraits = CONFIG.PF2E.monsterTraits;
-        return objectHasKey(monsterTraits, trait) ? monsterTraits[trait] : '';
-    }
-
     private getSizeLocalizedKey(size: string): string {
         const actorSizes = CONFIG.PF2E.actorSizes;
         return objectHasKey(actorSizes, size) ? actorSizes[size] : '';
@@ -941,24 +899,20 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    // ----
-
-    // EVENTS
-
-    private onTraitEditClicked(event: JQuery.ClickEvent) {
+    private onClickChooseOptions(event: JQuery.ClickEvent) {
         event.preventDefault();
 
-        const a = $(event.currentTarget);
+        const $anchor = $(event.currentTarget);
         const config = CONFIG.PF2E;
-        const traitType = a.parents('div').attr('data-attribute') ?? ''; //a.attr('data-options') ?? '';
-        const choices: string[] = objectHasKey(config, traitType) ? (config[traitType] as string[]) : [];
+        const traitType = $anchor.attr('data-options');
+        const choices = typeof traitType === 'string' && objectHasKey(config, traitType) ? config[traitType] : {};
         const options = {
-            name: a.parents('div').attr('for'),
-            title: a.parent().text().trim(),
+            name: $anchor.attr('data-attribute'),
+            title: $anchor.attr('title'),
             choices,
-            has_values: a.attr('data-has-values') === 'true',
-            allow_empty_values: a.attr('data-allow-empty-values') === 'true',
-            has_exceptions: a.attr('data-has-exceptions') === 'true',
+            has_values: $anchor.attr('data-has-values') === 'true',
+            allow_empty_values: $anchor.attr('data-allow-empty-values') === 'true',
+            has_exceptions: $anchor.attr('data-has-exceptions') === 'true',
         };
         new TraitSelector5e(this.actor, options).render(true);
     }
@@ -1080,22 +1034,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private onLanguagesClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2E.Languages'),
-            choices: CONFIG.PF2E.languages,
-            has_values: htmlElement.attr('data-has-values') === 'true',
-            allow_empty_values: true,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
     private onSensesEditClicked(event: JQuery.ClickEvent) {
         event.preventDefault();
 
@@ -1120,7 +1058,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         skillsEditor.render(true);
     }
 
-    private onSpeedEditClicked(event: JQuery.ClickEvent) {
+    private onClickEditSpeeds(event: JQuery.ClickEvent) {
         event.preventDefault();
         const htmlElement = $(event.currentTarget);
         const options = {
@@ -1159,21 +1097,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             choices: CONFIG.PF2E.resistanceTypes,
             has_values: true,
             allow_empty_values: false,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
-    private onImmunitiesEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2E.ImmunitiesLabel'),
-            choices: CONFIG.PF2E.immunityTypes,
-            has_values: false,
-            allow_empty_values: true,
             has_exceptions: false,
         };
 
@@ -1416,19 +1339,13 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     /** @override */
-    protected async _updateObject(event: Event, formData: any): Promise<void> {
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // update shield hp
-        const equippedShieldId = this.actor.getFirstEquippedShield()?._id;
-        if (equippedShieldId !== undefined) {
-            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
-            if (shieldEntity) {
-                await shieldEntity.update(
-                    {
-                        'data.hp.value': formData['data.attributes.shield.value'],
-                    },
-                    { diff: true },
-                );
-            }
+        const shield = this.actor.heldShield;
+        if (shield && Number.isInteger(formData['data.attributes.shield.value'])) {
+            await shield.update({
+                'data.hp.value': formData['data.attributes.shield.value'],
+            });
         }
         await super._updateObject(event, formData);
     }
