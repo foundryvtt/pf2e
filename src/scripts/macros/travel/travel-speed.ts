@@ -1,4 +1,4 @@
-import { sum, Fraction } from '@module/utils';
+import { Fraction, sum } from '@module/utils';
 
 /**
  * Implementation of travel speed https://2e.aonprd.com/Rules.aspx?ID=470
@@ -219,10 +219,7 @@ export interface TravelDuration {
 
 // general constants
 const minutesPerHour = 60;
-const hoursPerDay = 8;
 const daysPerWeek = 7;
-const minutesPerDay = hoursPerDay * minutesPerHour;
-const minutesPerWeek = minutesPerDay * daysPerWeek;
 
 /**
  * Calculates how long it would take to traverse a certain distance when moving at a certain
@@ -234,12 +231,22 @@ const minutesPerWeek = minutesPerDay * daysPerWeek;
  * @param distanceInFeet
  * @param feetPerMinute
  * @param hustleDurationInMinutes
+ * @param hoursPerDay how many hours you travel per day, reduced by hot or cold climate
  */
-function toTravelDuration(
-    distanceInFeet: number,
-    feetPerMinute: number,
-    hustleDurationInMinutes: number,
-): TravelDuration {
+function toTravelDuration({
+    distanceInFeet,
+    feetPerMinute,
+    hustleDurationInMinutes,
+    hoursPerDay = 8,
+}: {
+    distanceInFeet: number;
+    feetPerMinute: number;
+    hustleDurationInMinutes: number;
+    hoursPerDay?: number;
+}): TravelDuration {
+    const minutesPerDay = hoursPerDay * minutesPerHour;
+    const minutesPerWeek = minutesPerDay * daysPerWeek;
+
     // calculate average speed increased by hustling
     const hustleDuration = Math.min(hustleDurationInMinutes, minutesPerDay);
     const normalTravelDuration = minutesPerDay - hustleDuration;
@@ -272,12 +279,18 @@ function toTravelDuration(
     };
 }
 
-export function calculateTravelDuration(
-    journey: Trip[],
-    velocity: Velocity,
+export function calculateTravelDuration({
+    journey,
+    velocity,
     hustleDurationInMinutes = 0,
-): TravelDuration {
+    hoursPerDay = 8,
+}: {
+    journey: Trip[];
+    velocity: Velocity;
+    hustleDurationInMinutes?: number;
+    hoursPerDay?: number;
+}): TravelDuration {
     const distanceInFeet = sum(journey.map(increaseDistanceByTerrain));
     const feetPerMinute = toFeetPerMinute(velocity);
-    return toTravelDuration(distanceInFeet, feetPerMinute, hustleDurationInMinutes);
+    return toTravelDuration({ distanceInFeet, feetPerMinute, hustleDurationInMinutes, hoursPerDay });
 }

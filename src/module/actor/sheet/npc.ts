@@ -71,7 +71,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
      * Organize and classify Items for NPC sheets
      * @private
      */
-    prepareItems(actorData) {
+    prepareItems(sheetData: any) {
+        const actorData: any = sheetData.actor;
         // Actions
         const attacks = {
             melee: { label: 'NPC Melee Attack', prefix: 'PF2E.NPCAttackMelee', items: [], type: 'melee' },
@@ -119,6 +120,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
                 else i.data.tradition.ritual = false;
 
+                // There are still some bestiary entries where these values are strings.
+                i.data.spelldc.dc = Number(i.data.spelldc.dc);
+                i.data.spelldc.value = Number(i.data.spelldc.value);
+
+                if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite')) {
+                    i.data.spelldc.dc += 2;
+                    i.data.spelldc.value += 2;
+                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak')) {
+                    i.data.spelldc.dc -= 2;
+                    i.data.spelldc.value -= 2;
+                }
                 spellcastingEntries.push(i);
             }
 
@@ -363,15 +375,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             event.preventDefault();
 
             const li = $(event.currentTarget).parents('.item-container');
-            const itemId = li.attr('data-container-id');
-            const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute');
+            const itemId = li.attr('data-container-id') ?? '';
+            const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
 
-            if (spelldcType === 'dc' || spelldcType === 'value') {
-                const key = `data.spelldc.${spelldcType}`;
-                const options = { _id: itemId };
-                options[key] = Number(event.target.value);
-
-                await this.actor.updateEmbeddedEntity('OwnedItem', options);
+            if (['dc', 'value'].includes(spelldcType)) {
+                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                    _id: itemId,
+                    [`data.spelldc.${spelldcType}`]: Number(event.target.value),
+                });
+            } else if (spelldcType === 'ability') {
+                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                    _id: itemId,
+                    ['data.ability.value']: event.target.value,
+                });
             }
         });
 

@@ -13,23 +13,47 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your work as an investigator makes you familiar with the criminal element. You might be a criminal yourself, or you might have gained an understanding of how they operate from the outside. You become trained in Underworld Lore, and you gain your @Compendium[pf2e.actionspf2e.Pursue a Lead]{Pursue a Lead} circumstance bonus to Thievery checks to @Compendium[pf2e.actionspf2e.Investigate]{Investigate} the subject of your lead (such as checks to @Compendium[pf2e.actionspf2e.Steal]{Steal} a clue from a suspect or @Compendium[pf2e.actionspf2e.Pick a Lock]{Pick a Lock} to open a safe with damning documents).</p>"
+            "value": "<p>Your work as an investigator makes you familiar with the criminal element. You might be a criminal yourself, or you might have gained an understanding of how they operate from the outside.</p>\n<p>You become trained in Underworld Lore, and you gain your @Compendium[pf2e.actionspf2e.Pursue a Lead]{Pursue a Lead} circumstance bonus to Thievery checks to investigate the subject of your lead (such as checks to Steal a clue from a suspect or Pick a Lock to open a safe with damning documents).</p>"
         },
         "featType": {
             "value": "class"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
-        "prerequisites": {
-            "value": [
-                ""
-            ]
-        },
+        "location": "",
+        "prerequisites": [],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Pursue a Lead (Underworld Investigator)",
+                "predicate": {
+                    "all": [
+                        "pursue-a-lead"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "thievery",
+                "type": "circumstance",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": 1
+                        },
+                        {
+                            "start": 9,
+                            "value": 2
+                        }
+                    ]
+                }
+            }
+        ],
         "source": {
             "value": ""
         },

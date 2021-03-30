@@ -1,5 +1,181 @@
 # Patch Notes:
 
+## Version 1.11.19
+
+**Warning!** Very old copies of the Toughness and Mountain's Stoutness feats might need to be replaced manually with a new version from the compendium to ensure they keep working as expected. This was necessary to make these feats work better with the translated/renamed versions.
+
+### Bug Fixes
+* (GravenImageRD) Fix spell cards not showing when making Trick Magic Item rolls
+* (GravenImageRD) Fix issues with Trick Magic Item. Closes #1218
+* (Drental) Fix focus spellcasting entry label
+* (Drental) Fix thief racket, hefty hauler and lifting belt to work with translation
+* (Chup) Fix width of strikes description when ammo dropdown is shown
+* (stwlam) Fix setting of speaker from token in item cards
+* (In3luki) Fix NPC elite/weak adjustment being doubled for attack rolls. Closes #939 and #1103
+* (In3luki) Fix empty spell slot data being saved to a spellcasting entry
+* (Schmurf) Fix quantity shown in message when buying from lootsheet. Closes #1233
+* (nikolaj-a) Fix Trick Magic Item DC
+* (nikolaj-a) Fix failure message on recovery roll chat card
+
+### New Features
+* (stwlam) Allow user to pick which shield to use for shield block, and prevent blocking with a broken shield. Closes #1214
+* (nikolaj-a) Add rule element for manipulating actor traits
+* (nikolaj-a) Add rule element to change recovery check DC
+* (nikolaj-a) Support rule elements for NPC spell attacks and saving throw DC
+
+### Content Changes
+* (SpartanCPA) Bestiary 2 brush-up of monsters starting with U through Z
+* (SpartanCPA) Adjust the formatting for the Warpwaves table
+* (SpartanCPA) Reformat class tables - Alchemist, Barbarian, Bard, Champion, Cleric, Druid, Fighter, Investigator, Monk, Oracle, Ranger, Rogue, Sorceror, Swashbuckler, Witch, Wizard
+* (SpartanCPA) Reformat tables in spells starting with A through Z
+* (SpartanCPA) Reformat table and removes page references from Earn Income
+* (SpartanCPA) Fix formatting for Bear form's two attacks
+* (SpartanCPA) Change All-Around Vision to a defensive ability
+* (Tom Parker) Age of Ashes #4 Gashadokuro, updated AC, immunities, and claw strike. Closes #1234
+* (Tom Parker) Age of Ashes #1 bestiary brush-up
+* (TMun) Morlock cultist fix
+* (TMun) Changes _spirit object_ from utility to spell attack, damage type to bludgeoning
+* (TMun) Set text data in rogue class to trained for rogue weapons. Closes #1235
+* (TMun) Move compendia with character building items to dedicated folder
+* (TMun) Updated iconics:
+    * Add new art for Daji and Feiya. Removes placeholders for Daji and Feiya.
+    * Update Amiri, Ezren, Daji and Feiya.
+* (Trollderim) Fix typo in adventurers clothing slug field value. Closes #1236
+* (Jaash) PFS Season 2 Bestiary brush-up of monsters starting with C through E
+* (Jaash) Add missing text and links for Leaper's Elixirs. Closes #1238
+* (Schmurf) Add missing condition links to relevant actions for Titan wrestler, Continual Recovery, Marsh Runner, Combat Grab, and Claws. Closes #1237
+* (Schmurf) Fix Gogiteth size from huge to large. Closes #1228
+* (Schmurf) Fix Qurashith attacks traits. Closes #1244
+* (Schmurf) Changed Dangerous Sorcery feat check by slug and not name, to prevent translation from breaking the damage bonus
+* (Schmurf) Fix Vishkanyan language translation key
+* (Shandyan) Add links to effects for Dragon and Monstrosity Forms. Correct formatting of all Form spells, plus Avatar and Nature Incarnate.
+* (Shandyan) Add Investigator automation:
+    * Effects
+    * Actions (Clue In, Pursue a Lead)
+    * Class features (Investigator Expertise, Keen Recollection)
+    * Class feats (Athletic strategist, Detective's Readiness, Didactic Strike, Just One More Thing, Known Weakness, Lie Detector, Ongoing Strategy, Scapel's Point, Takedown Expert, Thorough Research, Trap Finder, and Underworld Investigator)
+    * Formatting fixes for Clue Them All In, Everyone's a Suspect, Lead Investigator and Shared Stratagem
+* (stwlam) Add size and HP overrides to the Pixie and Unbreakable Goblin heritages, respectively
+
+### Core System Improvements
+* (stwlam) Add compendium folders
+* (stwlam) Use GM-configured pack privacy, if set, before deferring to `metadata.privacy`
+* (stwlam) Implement auto-private compendia by referencing metadata
+* (stwlam) Migrate heritage `ancestryfeature` items to `heritage` items
+* (stwlam) Always show character traits from ancestry and heritage
+* (stwlam) Make travel-speed sheet localization friendly
+* (stwlam) Make spell icons cast on simple NPC sheets, clean up spell-list styling
+* (stwlam) Add more checks to ensure the token border color patch won't crash on botched Foundry upgrades
+* (In3luki) Update simple NPC sheet input fields to show base value on focus
+* (In3luki) Change modifier colors to be more color-blind friendly
+* (nikolaj-a) Add `mundane-attack` and `mundane-damage` selectors
+* (nikolaj-a) Show calculated spell attack modifier and saving throw DC on simple NPC sheet
+* (nikolaj-a) Add dropdown to change NPC spellcasting ability. Closes #195
+
+
+## Version 1.11.18
+### Bug Fixes
+* (stwlam) Only create ABC features once. Closes #1198
+* (stwlam) Prevent error from being thrown when a `controlToken` hook is fired before `game.pf2e` is defined
+* (stwlam) Prevent current stamina from overflowing on CRB sheet. Closes #486
+* (stwlam) Fix display of PC hit points when in the triple digits
+* (stwlam) Fix display of NPC max hit points. Closes #1231
+* (nikolaj-a & stwlam) Fix players unintentionally unidentifying items from item sheet
+
+
+## Version 1.11.17
+### Bug Fixes
+* (stwlam) Fix updating modifiers via roll dialog
+* (stwlam) Remove hard-coded trap trait from hazard sheet template
+* (stwlam) Refrain from disrobing a character when a user edits their armor
+* (stwlam & In3luki) Fix simple NPC sheet HP styling. Closes #1224
+* (In3luki) Fix NPC attack damage with thrown weapons
+* (abrault) Loosen which feats can be put in an archetype slot
+* (Trollderim) Fix Crit Rule label for double dice. Closes #1223
+
+### Content Changes
+* (TMun) Correct spellguard shield effect. Closes #1225
+* (Shandyan) Formatting corrections for form spell effects
+* (Shandyan & ArthurTrumpet) _Dragon form_ spell effects
+* (SpartanCPA) Correct formatting of descriptions for base weapons
+* (SpartanCPA) Bestiary 2 brush-up of monsters starting with T
+* (Jaash) PFS Season 2 Bestiary brush-up of monsters starting with A through B
+* (Drental) Add PFS scenario 2-12 monsters
+
+### Core System Improvements
+* (putty) Add the possibility to specify hours per day spent traveling in travel duration macro
+* (Avery) Add semi-transparent background to the action icons to make them look better on a dark background, like the hotbar and Token Action HUD
+* (stwlam) Allow item-identification status to be set from item sheets
+* (nikolaj-a) Support modifiers for NPC maximum hit points
+
+
+## Version 1.11.16
+### Bug Fixes
+* (stwlam) Okay, fine, you can wear armor and hold a staff too
+* (stwlam) Close spellbook chapter on first click
+* (stwlam) Fix dragging items out of containers
+* (stwlam) Migration: Delete persisted kit items following compendium browser bug
+* (stwlam) Fix deprecated window-exposed class names (PF2ModifierType, PF2StatisticModifier, PF2CheckModifier)
+* (stwlam) Prevent raising a broken shield with the `raiseAShield` macro
+* (stwlam) Do not return early when applying damage with an orphaned token selected
+* (stwlam & GravenImageRD) Fix box shadow in CheckModifiersDialog. Closes #500
+* (GravenImageRD) Embed link to spell on consumables. Closes #1010
+* (Trollderim) Fix error in damage type localization, leading to reset damage type on edit
+* (Trollderim) Fix take from compendium button
+* (Trollderim) Fix error in skill determination within compendium browser. Closes #1191
+* (Drental) Fix earn income macro
+* (In3luki) Substantial changes to the NPC preview sheet. Closes #1170, #1022, #1034, #1042, #1059, #1096
+* (Chup) Fixed actor sheet lore rank colors
+* (nikolaj-a) Fix duplicate attack rolls
+* (nikolaj-a) Change fixed proficiency rule element to ignore untyped bonuses
+* (nikolaj-a) Filter out empty dice modifiers from damage roll tags
+
+### New Features
+* (abrault) Add Free Archetype
+* (abrault) Ancestry Paragon support
+* (nikolaj-a) Add filter on outcome for notes on damage rolls
+
+### Content Changes
+* (SpartanCPA) Improve formatting of spells starting with A through F
+* (SpartanCPA) Add condition links on spells starting with A through Z
+* (SpartanCPA) Bestiary 2 brush-up of monsters starting with G through S
+* (TMun) Add Reach-30 as an option due to Extinction Curse #5 monster
+* (TMun) Add Thrown 60 trait
+* (TMun) Add bounties 6-10 and PFS 2-12 through 2-22 to copyright
+* (TMun) Correct _divine wrath_ critical failure text. Closes #1183
+* (TMun) Convert shield warden to two feats. Update bastion archetype for new feat name. Closes #1091
+* (TMun) Fix wrong prerequisite structures. Closes #1092
+* (TMun) Spell adjustments: Correct minor range or area errors. Correct typo for dragons breath. Add dragons breath by colour
+* (Shandyan) Fix damage bonus to only apply to Blackaxe, rather than all attacks vs. plants. Closes #1217
+* (Shandyan) Fighter feats (effects, formatting), and automation for Agile Grace, Assisting Shot, Brutal Finish, Combat Assessment, Cut from the Air, Disarming Stance, Double Shot, Double Slice, Guardian's Deflection, Impossible Volley, Incredible Aim, Multishot Stance, Point-blank Shot, Reflexive Shield, Resounding Bravery, Triple Shot and Twin Parry
+* (Shandyan & ArthurTrumpet) Aerial, elemental, plant form spell effects
+* (Shandyan & Sanderson Tavares) Monstrosity form spell effects
+* (stwlam) Set `baseItem` field for non-base weapons
+* (stwlam) Update _shield_ spell icon
+* (GravenImageRD) Add action to Flurry of Blows class feature
+* (GravenImageRD) Add starting currency to class kits
+* (GravenImageRD) Remove bad rules effects from the _goodberry_ spell effect. Closes #1194
+* (Drental) Change Treat Wounds macro to support Mortal Healing and use correct Risky Surgery bonus
+* (Jaash) Extinction Curse bestiary - added traits for Giant Aukashungi and Xilvirek
+
+### Core System Improvements
+* (Trollderim) Add missing localization labels
+* (Trollderim) Replace two handed trait toggle in player inventory with help for new toggle. Closes #1177
+* (Chup) Add trait descriptions to show as tooltips in strikes
+* (Chup) Changed Actions tab symbol to the more recognizable Pathfinder single action symbol
+* (stwlam) Hide sheet-config buttons unless there is more than one sheet option
+* (stwlam) Add `baseItem` to weapon sheet
+* (stwlam) Add setting to determine whether the PFS tab is shown on character sheets
+* (stwlam) Tweak styling of NPC and show fake plus signs on modifiers
+* (In3luki) Add shields to simple NPC sheet
+* (In3luki) Update simple NPC sheet spell tab to support prepared and focus spells
+* (Drental) Make Settings dialogs localizeable
+* (Supe) Chat damage buttons are localized, and the title is on the button instead of the icon
+* (nikolaj-a) Add make an impression action macro
+* (nikolaj-a) Add request action macro
+* (nikolaj-a) Add support for multiple deadly dice for monsters
+
+
 ## Version 1.11.15
 ### Bug Fixes
 * (nikolaj-a) Fix equipping any gear always unequipping the currently worn armor

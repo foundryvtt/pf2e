@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You can quickly fire multiple shots with greater control. When you use Double Shot, you can make the attacks against the same target. You can add an additional action to Double Shot to make three ranged Strikes instead of two. If you do, the penalty is -4. All attacks count toward your multiple attack penalty, but the penalty doesn't increase until after you've made all of them.</p>"
+            "value": "<p>You can quickly fire multiple shots with greater control.</p>\n<p>When you use @Compendium[pf2e.feats-srd.Double Shot]{Double Shot}, you can make the attacks against the same target. You can add an additional action to Double Shot to make three ranged Strikes instead of two. If you do, the penalty is -4. All attacks count toward your multiple attack penalty, but the penalty doesn't increase until after you've made all of them.</p>"
         },
         "featType": {
             "value": "class"
@@ -21,13 +21,30 @@
         "level": {
             "value": 6
         },
+        "location": "",
         "prerequisites": [
             "Double Shot"
         ],
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Triple Shot",
+                "predicate": {
+                    "all": [
+                        "ranged",
+                        "triple-shot"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -4
+            }
+        ],
         "source": {
             "value": ""
         },

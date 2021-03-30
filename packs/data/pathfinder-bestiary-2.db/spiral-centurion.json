@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -462,6 +466,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 23,
                     "value": 23
@@ -569,6 +574,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -600,6 +606,59 @@
             "type": "melee"
         },
         {
+            "_id": "7dxhRfITiiUW00kr",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
             "_id": "gPcAYqbYyOADoHwc",
             "data": {
                 "actionCategory": {
@@ -614,7 +673,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A spiral centurion's top-like design makes it susceptible to effects that would cause it to fall prone. The DC of any attempt to knock the spiral centurion @Compendium[pf2e.conditionitems.Prone]{Prone} is reduced by 5. If the spiral centurion attempts a check or saving throw to resist being knocked prone, it takes a -5 status penalty. A spiral centurion that has been knocked prone can-t use any actions other than to attempt to Stand, but it must succeed at a DC 30 Acrobatics check to do so.</p>"
+                    "value": "<p>A spiral centurion's top-like design makes it susceptible to effects that would cause it to fall prone. The DC of any attempt to knock the spiral centurion @Compendium[pf2e.conditionitems.Prone]{Prone} is reduced by 5. If the spiral centurion attempts a check or saving throw to resist being knocked prone, it takes a -5 status penalty. A spiral centurion that has been knocked prone can't use any actions other than to attempt to Stand, but it must succeed at a DC 30 Acrobatics check to do so.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -623,6 +682,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -647,7 +707,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Top-Heavy",
-            "sort": 200000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -660,12 +720,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The spiral centurion hurls one of its blades with an angled spin to ensure a swooping flight path. The blade deals [[/r 6d6 # slashing damage]] slashing damage to each creature in a 40-foot line (DC 30 basic Reflex save). At the start of the spiral centurion-s next turn, the blade swoops around and returns along the same flight path, again dealing [[/r 6d6 # slashing damage]] slashing damage (DC 30 basic Reflex save) to each creature along the same line.</p>"
+                    "value": "<p>The spiral centurion hurls one of its blades with an angled spin to ensure a swooping flight path. The blade deals [[/r 6d6 #slashing]] slashing damage to each creature in a 40-foot line (DC 30 basic Reflex save).</p>\n<p>At the start of the spiral centurion's next turn, the blade swoops around and returns along the same flight path, again dealing [[/r 6d6 #slashing]] slashing damage (DC 30 basic Reflex save) to each creature along the same line.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -674,6 +734,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -696,9 +757,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Hurl Blade",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -711,12 +772,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The spiral centurion has not acted yet this turn; <strong>Effect</strong> The spiral centurion Strides up to its Speed. It then gains a [[/r +2 # circumstance bonus to attack and damage]] circumstance bonus to attack and damage rolls until the end of its turn.</p>"
+                    "value": "<p><strong>Requirements</strong> The spiral centurion has not acted yet this turn;</p>\n<p><strong>Effect</strong> The spiral centurion Strides up to its Speed. It then gains a +2 circumstance bonus to attack and damage rolls until the end of its turn.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -724,7 +785,35 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.rev-up"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "rev-up"
+                            ]
+                        },
+                        "selector": "damage",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "rev-up"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -747,13 +836,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Rev Up",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
-            "_id": "wp9ch8zG0yuUwgSG",
+            "_id": "xPid5CwljZFADBGF",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -762,12 +851,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Medium or smaller, blade, DC 30<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC.</p>"
+                    "value": "<p>Medium or smaller, blade, DC 30</p>\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -776,6 +865,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "trample",
                 "source": {
                     "value": ""
                 },
@@ -789,18 +879,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Trample",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -813,7 +904,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 3
+                    "value": "3"
                 },
                 "description": {
                     "chat": "",
@@ -827,6 +918,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -849,9 +941,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/ThreeActions.png",
             "name": "Whirling Death",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -875,6 +967,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -893,7 +986,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -917,6 +1010,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -935,7 +1029,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
@@ -944,7 +1038,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "q6FDEqLZQVjZfJ3x",
         "actorLink": false,
         "bar1": {
@@ -963,6 +1056,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Spiral Centurion",
         "randomImg": false,

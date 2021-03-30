@@ -77,7 +77,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const sheetData = super.getData();
 
         this.prepareTraits(sheetData.data.traits);
-        this.prepareItems(sheetData.actor);
+        this.prepareItems(sheetData);
 
         return {
             ...sheetData,
@@ -86,7 +86,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         };
     }
 
-    protected abstract prepareItems(actorData: ActorDataPF2e): void;
+    protected abstract prepareItems(sheetData: { actor: ActorDataPF2e }): void;
 
     protected findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
@@ -201,7 +201,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Add chat data
         try {
             const item = this.actor.getOwnedItem(spell._id);
-            if (item) {
+            if (item instanceof SpellPF2e) {
                 spell.spellInfo = item.getSpellInfo();
             }
         } catch (err) {
@@ -316,11 +316,28 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
             );
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        const updates = {
-            _id: entryId,
-            [key]: { id: spell._id },
-        };
-        this.actor.updateEmbeddedEntity('OwnedItem', updates);
+        const entry = this.actor.getOwnedItem(entryId);
+        if (entry) {
+            const updates: any = {
+                _id: entryId,
+                [key]: {
+                    id: spell._id,
+                },
+            };
+            const slot = getProperty(entry, `data.data.slots.slot${spellLevel}.prepared`);
+            if (slot[spellSlot] !== undefined) {
+                if (slot[spellSlot].prepared !== undefined) {
+                    updates[key]['-=prepared'] = null;
+                }
+                if (slot[spellSlot].name !== undefined) {
+                    updates[key]['-=name'] = null;
+                }
+                if (slot[spellSlot].expended !== undefined) {
+                    updates[key]['-=expended'] = null;
+                }
+            }
+            this.actor.updateEmbeddedEntity('OwnedItem', updates);
+        }
     }
 
     /**
@@ -571,11 +588,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             } else {
                 this.actor.rollSkill(event, skill);
             }
-        });
-
-        // Roll Recovery Flat Check when Dying
-        html.find('.recoveryCheck.rollable').on('click', (event) => {
-            this.actor.rollRecovery(event);
         });
 
         // Toggle Levels of stats (like proficiencies conditions or hero points)
@@ -972,13 +984,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         html.find<HTMLInputElement>('.spell-max-input').on('change', async (event) => {
             event.preventDefault();
 
-            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id');
-            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level') ?? 0);
+            const itemId = $(event.currentTarget).parents('.item, .section').attr('data-item-id') ?? '';
+            const slotLvl = Number($(event.currentTarget).parents('.item, .section').attr('data-level')) || 0;
             const key = `data.slots.slot${slotLvl}.max`;
-            const options = { _id: itemId };
-            options[key] = Number(event.target.value);
-
-            await this.actor.updateEmbeddedEntity('OwnedItem', options);
+            await this.actor.updateEmbeddedEntity('OwnedItem', {
+                _id: itemId,
+                [key]: Number(event.target.value),
+            });
         });
 
         // Modify select element
@@ -1656,8 +1668,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}
-                                    ${game.i18n.localize('PF2E.SpellLabelPlural')}`;
+                                    name = [
+                                        CONFIG.PF2E.magicTraditions[magicTradition],
+                                        game.i18n.localize('PF2E.SpellLabelPlural'),
+                                    ].join(' ');
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
                                     name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;

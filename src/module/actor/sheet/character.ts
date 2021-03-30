@@ -128,6 +128,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         sheetData.data.effects.conditions = ConditionManager.getFlattenedConditions(
             sheetData.actor.items.filter((i: any) => i.flags.pf2e?.condition && i.type === 'condition'),
         );
+        // Show the PFS tab only if the setting for it is enabled.
+        sheetData.showPFSTab = game.settings.get('pf2e', 'pfsSheetTab');
         // Is the stamina variant rule enabled?
         sheetData.hasStamina = game.settings.get('pf2e', 'staminaVariant') > 0;
 
@@ -140,7 +142,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /**
      * Organize and classify Items for Character sheets
      */
-    protected prepareItems(actorData: any) {
+    protected prepareItems(sheetData: any) {
+        const actorData: any = sheetData.actor;
         // Inventory
         const inventory = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
@@ -535,7 +538,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             } else {
                 let featType = feat.data.featType.value || 'bonus';
 
-                if (['pfsboon'].includes(featType)) {
+                if (featType === 'heritage') {
+                    featType = 'ancestryfeature';
+                }
+                if (featType === 'pfsboon') {
                     pfsBoons.push(feat);
                 } else if (['deityboon', 'curse'].includes(featType)) {
                     deityBoonsCurses.push(feat);
@@ -618,16 +624,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
-        const featNames = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.name));
+        const featSlugs = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.data.slug));
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
-        if (featNames.has('Hefty Hauler')) {
+        if (featSlugs.has('hefty-hauler')) {
             bonusEncumbranceBulk += 2;
             bonusLimitBulk += 2;
         }
-        const equippedLiftingBelt =
-            actorData.items.find((item: any) => item.name === 'Lifting Belt' && item.data.equipped.value) !== undefined;
+        const equippedLiftingBelt = actorData.items.some(
+            (item: ItemDataPF2e) =>
+                item.type === 'equipment' &&
+                item.data.slug === 'lifting-belt' &&
+                item.data.equipped.value &&
+                item.data.invested.value,
+        );
         if (equippedLiftingBelt) {
             bonusEncumbranceBulk += 1;
             bonusLimitBulk += 1;
@@ -896,13 +907,22 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     private isFeatValidInFeatSlot(_slotId: string, featSlotType: string, feat: FeatData) {
-        const featType = feat.data?.featType?.value;
+        let featType = feat.data?.featType?.value;
         if (featType === 'archetype') {
             if (feat.data.traits.value.includes('skill')) {
-                return featSlotType === 'skill';
+                featType = 'skill';
             } else {
-                return ['class', 'archetype'].includes(featSlotType);
+                featType = 'class';
             }
+        }
+
+        if (featSlotType === 'archetype') {
+            // Archetype feat slots are class feat slots
+            featSlotType = 'class';
+        }
+
+        if (featSlotType === 'ancestryfeature') {
+            return ['ancestryfeature', 'heritage'].includes(featType);
         }
 
         if (featSlotType === 'general') {

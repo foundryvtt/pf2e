@@ -13,6 +13,8 @@ $common: #323232;
 $uncommon: #98513d;
 $rare: #002664;
 $unique: #54166e;
+$positive-modifier: #009988;
+$negative-modifer: #cc3311;
 
 @import 'forms';
 
@@ -77,9 +79,7 @@ $unique: #54166e;
                     width: 32px;
                 }
             }
-
         }
-
 
         .traits-list-container {
             display: flex;
@@ -121,6 +121,10 @@ $unique: #54166e;
             flex-direction: column;
             justify-content: flex-start;
             align-items: flex-start;
+
+            .controls {
+                padding-right: 4px;
+            }
         }
 
         .side-bar-section-header {
@@ -170,6 +174,7 @@ $unique: #54166e;
                 text-align: right;
                 font-weight: bold;
                 color: $value-color;
+                padding-right: 4px;
             }
         }
 
@@ -253,31 +258,42 @@ $unique: #54166e;
         }
 
         .health-section {
-            .health-label {
+            .side-bar-label {
                 color: $health-color;
+                align-items: center;
             }
 
             .health-value {
                 display: flex;
-                flex: auto;
                 flex-direction: row;
-                align-items: flex-end;
-                text-align: right;
-                font-weight: bold;
                 color: $value-color;
+                flex: 0;
+                margin-left: auto;
 
-                #health-current {
-                    flex: 0px;
-                    font-weight: bold;
+                input {
                     color: $value-color;
-                    text-align: right;
+                    &:first-child {
+                        width: 36px;
+                        text-align: right;
+                        padding-right: 3px;
+                    }
+                    &:last-child {
+                        font-weight: bold;
+                        text-align: center;
+                        &.lt10 {
+                          width: 8px;
+                        }
+                        &.lt100 {
+                          width: 24px;
+                        }
+                        &.lt1000 {
+                          width: 36px;
+                        }
+                    }
                 }
-
-                #health-max {
-                    flex: 0px;
-                    font-weight: bold;
-                    color: $value-color;
-                    text-align: left;
+                span {
+                    display: flex;
+                    text-align: center;
                 }
             }
         }
@@ -311,16 +327,58 @@ $unique: #54166e;
             display: flex;
             flex-direction: column;
             text-align: center;
+            label {
+                font-weight: 600;
+            }
+            input.modifier {
+                text-align: center;
+            }
+            span.plus {
+                &::before {
+                    left: -15px;
+                    top: -24px;
+                }
+                &.lt10::before {
+                    left: -10px;
+                }
+            }
         }
     }
 
     .sheet-body {
         flex: auto;
-
         .tab {
-
             &:not(.notes) {
                 overflow: hidden scroll;
+            }
+        }
+    }
+
+    .section-body, .save-container {
+        input.modifier {
+            display: inline;
+            text-align: right;
+
+            &.positive-modifier {
+                color: $positive-modifier;
+            }
+
+            &.negative-modifier {
+                color: $negative-modifer;
+            }
+        }
+        span.plus {
+            display: none;
+            height: 0;
+            &::before {
+                content: "+";
+                font-weight: normal;
+                position: relative;
+            }
+        }
+        input.modifier.not-negative:not(:focus) {
+            + span.plus {
+                display: inline;
             }
         }
     }
@@ -647,11 +705,11 @@ $unique: #54166e;
         align-items: baseline;
 
         label {
-            flex: auto;
+            min-width: 22px;
             font-weight: bold;
         }
 
-        input[type="text"] {
+        input[type="text"], input[type="number"] {
             flex: auto;
             font-weight: normal;
             margin-left: 6px !important;
@@ -674,6 +732,18 @@ $unique: #54166e;
 
             #perception {
                 width: 100%;
+                label {
+                    flex-basis: 5em;
+                }
+                input {
+                    flex: 0 0 24px;
+                }
+                span.plus::before {
+                  left: -22px;
+                }
+                span.plus.lt10::before {
+                  left: -15px;
+                }
             }
         }
 
@@ -683,11 +753,19 @@ $unique: #54166e;
 
             .ability-scores-list {
                 display: grid;
-                grid-template-columns: auto auto auto;
-            }
-
-            input[type="text"] {
-                flex: 0 0 24px;
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+                label {
+                    padding-left: 8px;
+                }
+                input {
+                    flex: 0 0 24px;
+                }
+                span.plus::before {
+                  left: -10px;
+                }
+                span.plus.lt10::before {
+                  left: -15px;
+                }
             }
         }
     }
@@ -724,7 +802,6 @@ $unique: #54166e;
             flex: auto;
             flex-wrap: wrap;
             width: 100%;
-            padding-top: 4px;
             flex-direction: row;
             justify-content: flex-start;
             align-items: baseline;

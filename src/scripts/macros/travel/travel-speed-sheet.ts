@@ -11,7 +11,7 @@ import {
     Trip,
 } from './travel-speed';
 import { Fraction, zip } from '@module/utils';
-import { ActorPF2e } from '@actor/base';
+import { CharacterPF2e } from '@actor/character';
 
 type DetectionModeData = 'none' | 'everything' | 'before';
 type SpeedUnitData = 'feet' | 'miles';
@@ -84,6 +84,7 @@ interface TravelFormData {
     distance: number;
     distanceUnit: SpeedUnitData;
     terrain: TerrainData;
+    hoursPerDay: number;
     normalTerrainSlowdown: Fraction;
     difficultTerrainSlowdown: Fraction;
     greaterDifficultTerrainSlowdown: Fraction;
@@ -123,7 +124,7 @@ class TravelSpeedSheet extends FormApplication {
         this.render(true);
     }
 
-    private actorFormToSheetData(actor: ActorPF2e, data: FormActorData): SheetActorData {
+    private actorFormToSheetData(actor: CharacterPF2e, data: FormActorData): SheetActorData {
         return {
             requiresDetectionMode: data.explorationActivity === 'Search' || data.explorationActivity === 'DetectMagic',
             detectionMode: data.detectionMode,
@@ -141,7 +142,7 @@ class TravelSpeedSheet extends FormApplication {
         };
     }
 
-    private getInitialActorData(actor: ActorPF2e): SheetActorData {
+    private getInitialActorData(actor: CharacterPF2e): SheetActorData {
         return this.actorFormToSheetData(actor, {
             detectionMode: 'before',
             explorationActivity: 'Search',
@@ -149,7 +150,7 @@ class TravelSpeedSheet extends FormApplication {
         });
     }
 
-    private formToSheetData(actors: ActorPF2e[], data: TravelFormData): SheetData {
+    private formToSheetData(actors: CharacterPF2e[], data: TravelFormData): SheetData {
         const journey: Trip[] = [
             {
                 terrainSlowdown: {
@@ -170,7 +171,12 @@ class TravelSpeedSheet extends FormApplication {
         const partySpeedInFeet = Math.min(...actorFormData.map((data) => data.explorationSpeed));
         const velocity = speedToVelocity(partySpeedInFeet);
         return {
-            travelDuration: calculateTravelDuration(journey, velocity, data.hustleMinutes),
+            travelDuration: calculateTravelDuration({
+                journey,
+                hoursPerDay: data.hoursPerDay,
+                velocity,
+                hustleDurationInMinutes: data.hustleMinutes,
+            }),
             distance: data.distance,
             actors: actorFormData,
             normalTerrainSlowdown: data.normalTerrainSlowdown,
@@ -180,10 +186,11 @@ class TravelSpeedSheet extends FormApplication {
             terrain: data.terrain,
             partySpeedInFeet,
             hustleMinutes: data.hustleMinutes,
+            hoursPerDay: data.hoursPerDay,
         };
     }
 
-    private getInitialFormData(actors: ActorPF2e[]): SheetData {
+    private getInitialFormData(actors: CharacterPF2e[]): SheetData {
         return this.formToSheetData(actors, {
             actors: actors.map((actor) => this.getInitialActorData(actor)),
             terrain: 'normal',
@@ -193,6 +200,7 @@ class TravelSpeedSheet extends FormApplication {
             greaterDifficultTerrainSlowdown: { denominator: 1, numerator: 3 },
             distance: 1,
             hustleMinutes: getHustleMinutes(actors),
+            hoursPerDay: 8,
         });
     }
 
@@ -261,7 +269,7 @@ function parseExplorationActivity(activity: ExplorationActivitiesData): Explorat
  * @param actors
  * @return possible minutes spent hustling
  */
-function getHustleMinutes(actors: ActorPF2e[]): number {
+function getHustleMinutes(actors: CharacterPF2e[]): number {
     return Math.min(
         ...actors.map((actor) => {
             return Math.max(1, actor.data.data.abilities.con.mod) * 10;
@@ -269,19 +277,18 @@ function getHustleMinutes(actors: ActorPF2e[]): number {
     );
 }
 
-function hasFeat(actor: ActorPF2e, name: string): boolean {
-    return actor.data.items.some((item) => item.type === 'feat' && item.name?.trim() === name);
+function hasFeat(actor: CharacterPF2e, slug: string): boolean {
+    return actor.itemTypes.feat.some((feat) => feat.slug === slug);
 }
 
-function parseExplorationOptions(actor: ActorPF2e): ExplorationOptions {
+function parseExplorationOptions(actor: CharacterPF2e): ExplorationOptions {
     // FIXME: instead of matching the name these should probably be rule toggles at some point
     return {
-        practicedDefender: hasFeat(actor, 'Practiced Defender'),
-        swiftSneak: hasFeat(actor, 'Swift Sneak'),
-        legendarySneak: hasFeat(actor, 'Legendary Sneak'),
-        expeditiousSearch: hasFeat(actor, 'Expeditious Search'),
-        expeditiousSearchLegendary:
-            hasFeat(actor, 'Expeditious Search') && actor.data.data.attributes?.perception?.rank === 4,
+        practicedDefender: hasFeat(actor, 'practiced-defender'),
+        swiftSneak: hasFeat(actor, 'swift-sneak'),
+        legendarySneak: hasFeat(actor, 'legendary-sneak'),
+        expeditiousSearch: hasFeat(actor, 'expeditious-search'),
+        expeditiousSearchLegendary: hasFeat(actor, 'expeditious-search') && actor.attributes.perception.rank === 4,
     };
 }
 
@@ -295,6 +302,6 @@ function toArray<T>(data: Record<number, T>): T[] {
         .map(([_, a]) => a);
 }
 
-export function launchTravelSheet(actors: ActorPF2e[]): void {
+export function launchTravelSheet(actors: CharacterPF2e[]): void {
     new TravelSpeedSheet({}, { actors }).render(true);
 }

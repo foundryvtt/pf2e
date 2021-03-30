@@ -1,16 +1,41 @@
+declare type CompendiumDirectoryDefaultOptions = typeof Sidebar['defaultOptions'] & {
+    id: string;
+    template: string;
+    title: string;
+};
+
+declare interface PackSummaryByEntity {
+    Actor: PackSummary;
+    Item: PackSummary;
+    JournalEntry: PackSummary;
+    Macro: PackSummary;
+    RollTable: PackSummary;
+}
+declare interface CompendiumDirectoryData {
+    user: User;
+    packs: PackSummaryByEntity;
+}
+
+declare interface PackSummaryData {
+    options: ApplicationOptions;
+    appId: number;
+    metadata: CompendiumMetadata;
+    locked: boolean;
+    private: boolean;
+    index: unknown[];
+}
+
+declare interface PackSummary {
+    label: string;
+    packs: PackSummaryData[];
+}
+
 declare class CompendiumDirectory extends SidebarTab {
     /** @override */
-    static get defaultOptions(): typeof SidebarTab['defaultOptions'] & {
-        id: string;
-        template: string;
-        title: string;
-    };
+    static get defaultOptions(): CompendiumDirectoryDefaultOptions;
 
     /** @override */
-    getData(options?: {}): {
-        user: User;
-        packs: { label: string; packs: Compendium[] };
-    };
+    getData(options?: {}): CompendiumDirectoryData;
 
     /**
      * Compendium sidebar Context Menu creation

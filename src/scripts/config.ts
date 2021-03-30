@@ -8,6 +8,7 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { FeatPF2e } from '@module/item/feat';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
@@ -17,7 +18,6 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     EquipmentPF2e,
-    FeatPF2e,
     KitPF2e,
     LorePF2e,
     MartialPF2e,
@@ -27,6 +27,8 @@ import {
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -632,6 +634,7 @@ export const PF2ECONFIG = {
         cursed: 'PF2E.TraitCursed',
         'deadly-d6': 'PF2E.TraitDeadlyD6',
         'deadly-d8': 'PF2E.TraitDeadlyD8',
+        'deadly-2d8': 'PF2E.TraitDeadly2D8',
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-d12': 'PF2E.TraitDeadlyD12',
         disarm: 'PF2E.TraitDisarm',
@@ -725,6 +728,7 @@ export const PF2ECONFIG = {
         'thrown-20': 'PF2E.TraitThrown20',
         'thrown-30': 'PF2E.TraitThrown30',
         'thrown-40': 'PF2E.TraitThrown40',
+        'thrown-60': 'PF2E.TraitThrown60',
         trip: 'PF2E.TraitTrip',
         twin: 'PF2E.TraitTwin',
         'two-hand-d8': 'PF2E.TraitTwoHandD8',
@@ -949,6 +953,8 @@ export const PF2ECONFIG = {
         aberration: 'PF2E.TraitAberration',
         acid: 'PF2E.TraitAcid',
         aeon: 'PF2E.TraitAeon',
+        aesir: 'PF2E.TraitAesir',
+        agathion: 'PF2E.TraitAgathion',
         air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         amphibious: 'PF2E.TraitAmphibious',
@@ -958,6 +964,7 @@ export const PF2ECONFIG = {
         aquatic: 'PF2E.TraitAquatic',
         archon: 'PF2E.TraitArchon',
         astral: 'PF2E.TraitAstral',
+        asura: 'PF2E.TraitAsura',
         azata: 'PF2E.TraitAzata',
         beast: 'PF2E.TraitBeast',
         boggard: 'PF2E.TraitBoggard',
@@ -973,6 +980,7 @@ export const PF2ECONFIG = {
         dero: 'PF2E.TraitDero',
         devil: 'PF2E.TraitDevil',
         dhampir: 'PF2E.TraitDhampir',
+        div: 'PF2E.TraitDiv',
         dinosaur: 'PF2E.TraitDinosaur',
         dragon: 'PF2E.TraitDragon',
         dream: 'PF2E.TraitDream',
@@ -987,12 +995,14 @@ export const PF2ECONFIG = {
         fiend: 'PF2E.TraitFiend',
         fungus: 'PF2E.TraitFungus',
         genie: 'PF2E.TraitGenie',
+        ghoran: 'PF2E.TraitGhoran',
         ghost: 'PF2E.TraitGhost',
         ghoul: 'PF2E.TraitGhoul',
         giant: 'PF2E.TraitGiant',
         gnoll: 'PF2E.TraitGnoll',
         golem: 'PF2E.TraitGolem',
         gremlin: 'PF2E.TraitGremlin',
+        grioth: 'PF2E.TraitGrioth',
         grippli: 'PF2E.TraitGrippli',
         hag: 'PF2E.TraitHag',
         herald: 'PF2E.TraitHerald',
@@ -1000,50 +1010,69 @@ export const PF2ECONFIG = {
         ifrit: 'PF2E.TraitIfrit',
         incorporeal: 'PF2E.TraitIncorporeal',
         inevitable: 'PF2E.TraitInevitable',
+        kami: 'PF2E.TraitKami',
         kobold: 'PF2E.TraitKobold',
+        kovintus: 'PF2E.TraitKovintus',
+        locathah: 'PF2E.TraitLocathah',
         merfolk: 'PF2E.TraitMerfolk',
         mindless: 'PF2E.TraitMindless',
         minion: 'PF2E.TraitMinion',
         monitor: 'PF2E.TraitMonitor',
+        mortic: 'PF2E.TraitMortic',
         mummy: 'PF2E.TraitMummy',
+        munavri: 'PF2E.TraitMunavri',
         mutant: 'PF2E.TraitMutant',
+        nagaji: 'PF2E.TraitNagaji',
         nymph: 'PF2E.TraitNymph',
         oni: 'PF2E.TraitOni',
         ooze: 'PF2E.TraitOoze',
         orc: 'PF2E.TraitOrc',
         oread: 'PF2E.TraitOread',
+        paaridar: 'PF2E.TraitPaaridar',
         petitioner: 'PF2E.TraitPetitioner',
+        phanton: 'PF2E.TraitPhantom',
         plant: 'PF2E.TraitPlant',
         protean: 'PF2E.TraitProtean',
         psychopomp: 'PF2E.TraitPsychopomp',
         qlippoth: 'PF2E.TraitQlippoth',
         rakshasa: 'PF2E.TraitRakshasa',
         ratfolk: 'PF2E.TraitRatfolk',
+        sahkil: 'PF2E.TraitSahkil',
+        samsaran: 'PF2E.TraitSamsaran',
         'sea devil': 'PF2E.TraitSeaDevil',
         serpentfolk: 'PF2E.TraitSerpentfolk',
+        shabti: 'PF2E.TraitShabti',
         shadow: 'PF2E.TraitShadow',
         skeleton: 'PF2E.TraitSkeleton',
+        skelm: 'PF2E.TraitSkelm',
         skulk: 'PF2E.TraitSkulk',
         soulbound: 'PF2E.TraitSoulbound',
         spirit: 'PF2E.TraitSpirit',
         spriggan: 'PF2E.TraitSpriggan',
         sprite: 'PF2E.TraitSprite',
+        stheno: 'PF2E.TraitStheno',
         suli: 'PF2E.TraitSuli',
         swarm: 'PF2E.TraitSwarm',
         sylph: 'PF2E.TraitSylph',
         tane: 'PF2E.TraitTane',
+        tanggal: 'PF2E.TraitTanggal',
         tengu: 'PF2E.TraitTengu',
         time: 'PF2E.TraitTime',
+        titan: 'PF2E.TraitTitan',
         troll: 'PF2E.TraitTroll',
         undead: 'PF2E.TraitUndead',
         undine: 'PF2E.TraitUndine',
         urdefhan: 'PF2E.TraitUrdefhan',
         vampire: 'PF2E.TraitVampire',
+        vanara: 'PF2E.TraitVanara',
         velstrac: 'PF2E.TraitVelstrac',
+        vishkanya: 'PF2E.TraitVishkanya',
         water: 'PF2E.TraitWater',
+        wayang: 'PF2E.TraitWayang',
         werecreature: 'PF2E.TraitWerecreature',
         wight: 'PF2E.TraitWight',
         wraith: 'PF2E.TraitWraith',
+        wyrwood: 'PF2E.TraitWyrwood',
         xulgath: 'PF2E.TraitXulgath',
         zombie: 'PF2E.TraitZombie',
     },
@@ -1459,6 +1488,7 @@ export const PF2ECONFIG = {
         ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
         class: 'PF2E.FeatTypeClass',
         classfeature: 'PF2E.FeatTypeClassfeature',
+        heritage: 'PF2E.FeatTypeHeritage',
         skill: 'PF2E.FeatTypeSkill',
         general: 'PF2E.FeatTypeGeneral',
         archetype: 'PF2E.FeatTypeArchetype',
@@ -1758,15 +1788,14 @@ export const PF2ECONFIG = {
         undercommon: 'PF2E.LanguageUndercommon',
         ysoki: 'PF2E.LanguageYsoki',
         abyssal: 'PF2E.LanguageAbyssal',
+        adlet: 'PF2E.LanguageAdlet',
         aklo: 'PF2E.LanguageAklo',
         algollthu: 'PF2E.LanguageAlghollthu',
         amurrun: 'PF2E.LanguageAmurrun',
         anadi: 'PF2E.LanguageAnadi',
-        androffan: 'PF2E.LanguageAndroffan',
         aquan: 'PF2E.LanguageAquan',
         arboreal: 'PF2E.LanguageArboreal',
         auran: 'PF2E.LanguageAuran',
-        azlanti: 'PF2E.LanguageAzlanti',
         boggard: 'PF2E.LanguageBoggard',
         caligni: 'PF2E.LanguageCaligni',
         celestial: 'PF2E.LanguageCelestial',
@@ -1777,6 +1806,7 @@ export const PF2ECONFIG = {
         erutaki: 'PF2E.LanguageErutaki',
         garundi: 'PF2E.LanguageGarundi',
         giant: 'PF2E.LanguageGiant',
+        girtablilu: 'PF2E.LanguageGirtablilu',
         gnoll: 'PF2E.LanguageGnoll',
         grippli: 'PF2E.LanguageGrippli',
         hallit: 'PF2E.LanguageHallit',
@@ -1802,9 +1832,21 @@ export const PF2ECONFIG = {
         thassilonian: 'PF2E.LanguageThassilonian',
         tien: 'PF2E.LanguageTien',
         utopian: 'PF2E.LanguageUtopian',
+        vanara: 'PF2E.LanguageVanara',
         varisian: 'PF2E.LanguageVarisian',
         varki: 'PF2E.LanguageVarki',
+        vishkanyan: 'PF2E.LanguageVishkanyan',
         vudrani: 'PF2E.LanguageVudrani',
+        androffan: 'PF2E.LanguageAndroffan',
+        azlanti: 'PF2E.LanguageAzlanti',
+        grioth: 'PF2E.LanguageGrioth',
+        kovintal: 'PF2E.LanguageKovintal',
+        migo: 'PF2E.LanguageMiGo',
+        munavri: 'PF2E.LanguageMunavri',
+        samsaran: 'PF2E.LanguageSamsaran',
+        sasquatch: 'PF2E.LanguageSasquatch',
+        shae: 'PF2E.LanguageShae',
+        yithian: 'PF2E.LanguageYithian',
         druidic: 'PF2E.LanguageDruidic',
     },
 
@@ -2220,13 +2262,25 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e> {
+    /**
+     * Configuration for the default Combat entity class
+     */
+    Combat: {
+        entityClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
+        collection: typeof CombatEncounters;
+        initiative: {
+            decimals: number;
+            formula: ((combatant: CombatantData<Actor>) => string) | null;
+        };
+    };
+
     PF2E: typeof PF2ECONFIG;
     time: {
         roundTime: number;
     };
-    ui: {
+    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e>['ui'] & {
         combat: typeof CombatTrackerPF2e;
-        [key: string]: typeof Application;
+        compendium: typeof CompendiumDirectoryPF2e;
     };
 }

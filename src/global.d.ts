@@ -71,12 +71,27 @@ declare global {
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<ActorPF2e>;
 
+    interface ChatMessage extends Entity {
+        getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+    }
+
+    interface User extends Entity {
+        getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
+    }
+
     interface ClientSettings {
-        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
-        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
-        get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
+        get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
+        get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
+        get(module: 'pf2e', setting: 'freeArchetypeVariant'): boolean;
+        get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
+        get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
+        get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
+        get(module: 'pf2e', setting: 'staminaVariant'): number;
         get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
+        get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
+        get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
     }
 
     interface WorldSettingsStorage {

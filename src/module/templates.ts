@@ -50,7 +50,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-action.html',
         'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
         'systems/pf2e/templates/actors/npc/partials/npc-item.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-spell.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',
@@ -82,7 +81,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/lore-sidebar.html',
         'systems/pf2e/templates/items/spell-details.html',
         'systems/pf2e/templates/items/spell-sidebar.html',
-        'systems/pf2e/templates/items/tool-sidebar.html',
         'systems/pf2e/templates/items/melee-details.html',
         'systems/pf2e/templates/items/weapon-details.html',
         'systems/pf2e/templates/items/weapon-sidebar.html',

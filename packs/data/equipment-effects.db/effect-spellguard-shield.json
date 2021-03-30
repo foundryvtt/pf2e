@@ -4,7 +4,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Spellguard Shield]{Spellguard Shield}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 circumstance bonus to AC</li>\n<li>+2 circumstance bonus to saving throws against spells</li>\n</ul>\n<p>&nbsp;</p>"
+            "value": "<p>Granted by @Compendium[pf2e.equipment-srd.Spellguard Shield]{Spellguard Shield}</p>\n<hr />\n<p>Automatically applied effects:</p>\n<ul>\n<li>+2 circumstance bonus to AC</li>\n<li>+2 circumstance bonus to saving throws against spells</li>\n</ul>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -21,21 +21,21 @@
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "label": "Spellguard Blade (vs. spells)",
+                "label": "Spellguard Shield (vs. spells)",
                 "predicate": {
                     "all": [
-                        "spells"
+                        "spell"
                     ]
                 },
                 "selector": "saving-throw",
                 "type": "circumstance",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "selector": "ac",
                 "type": "circumstance",
-                "value": 1
+                "value": 2
             },
             {
                 "key": "PF2E.RuleElement.TokenEffectIcon"
@@ -48,6 +48,7 @@
             "initiative": null,
             "value": 0
         },
+        "target": null,
         "traits": {
             "custom": "",
             "rarity": {

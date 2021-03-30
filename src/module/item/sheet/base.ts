@@ -1,12 +1,19 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
-import { LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
+
+export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
+    user: User<ActorPF2e>;
+    enabledRulesUI: boolean;
+    activeEffects: AESheetData;
+    isPhysicalItem: boolean;
+}
 
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
@@ -34,6 +41,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     /** @override */
     getData() {
         const data: any = super.getData();
+        data.user = game.user;
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
 
@@ -123,6 +131,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.weaponTraits = traits.map(
                 (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
             );
+            data.baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
             data.weaponGroups = CONFIG.PF2E.weaponGroups;
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
@@ -237,15 +246,19 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
         data.activeEffects = this.getActiveEffectsData();
+        data.isPhysicalItem = false;
 
         return data;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetData<ItemType['data']> & { activeEffects: AESheetData } {
+    protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
         return {
             ...super.getData(),
+            user: game.user,
+            enabledRulesUI: game.settings.get(game.system.id, 'enabledRulesUI') ?? false,
             activeEffects: this.getActiveEffectsData(),
+            isPhysicalItem: false,
         };
     }
 
@@ -283,15 +296,17 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
+        const ruleUIEnabled = game.settings.get(game.system.id, 'enabledRulesUI');
+
         return {
-            showAEs: BUILD_MODE === 'development',
-            canCreate: BUILD_MODE === 'development' && !this.item.uuid.match(/Compendium/),
+            showAEs: ruleUIEnabled,
+            canEdit: this.actor === null && !this.item.uuid.match(/Compendium/),
             effects: effects.map((effect) => ({
                 id: effect.id,
                 iconPath: effect.data.icon ?? null,
                 name: effect.data.label,
                 duration: durationString(effect.data.duration),
-                enabled: !effect.data.disabled,
+                enabled: effect.isEnabled,
             })),
         };
     }
@@ -588,7 +603,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     /**
      * Hide the sheet-config button unless there is more than one sheet option.
-     *@override */
+     * @override */
     protected _getHeaderButtons(): ApplicationHeaderButton[] {
         const buttons = super._getHeaderButtons();
         const hasMultipleSheets = Object.keys(CONFIG.Item.sheetClasses[this.item.type]).length > 1;
@@ -597,5 +612,14 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /** @override */
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Avoid setting a baseItem of an empty string
+        if (formData['data.baseItem'] === '') {
+            formData['data.baseItem'] = null;
+        }
+        super._updateObject(event, formData);
     }
 }

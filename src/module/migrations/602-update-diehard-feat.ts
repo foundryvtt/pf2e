@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { FeatPF2e } from '@item/others';
+import { FeatPF2e } from '@item/feat';
 
 export class Migration602UpdateDiehardFeat extends MigrationBase {
     static version = 0.602;

@@ -1,22 +1,33 @@
 import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
 import { ItemPF2e } from '@item/base';
-import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
+import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
-import { CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
+import { AbilityString, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
 import { RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ConfigPF2e } from '@scripts/config';
-import { ActionData, MeleeData } from '@item/data-definitions';
+import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
 
 export class NPCPF2e extends CreaturePF2e {
+    get rarity(): Rarity {
+        return this.data.data.traits.rarity.value;
+    }
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
         const actorData = this.data;
         const { data } = actorData;
+
+        // Add rarity and custom traits to main trait list
+        const traits = this.data.data.traits;
+        const rarity = traits.rarity.value;
+        const customTraits = traits.traits.custom.split(/\s*[,;|]\s*/).filter((trait) => trait);
+        const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
+        traits.traits.value = Array.from(traitSet).sort();
 
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
@@ -36,10 +47,74 @@ export class NPCPF2e extends CreaturePF2e {
 
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
+        const isElite = data.traits.traits.value.some((trait) => trait === 'elite');
+        const isWeak = data.traits.traits.value.some((trait) => trait === 'weak');
+
+        if (isElite) {
+            statisticsModifiers.all = statisticsModifiers.all ?? [];
+            statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.damage = statisticsModifiers.damage ?? [];
+            statisticsModifiers.damage.push(
+                new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED),
+            );
+            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
+            statisticsModifiers.hp.push(
+                new ModifierPF2e(
+                    'PF2E.NPC.Adjustment.EliteLabel',
+                    this.getHpAdjustment(data.details.level.value),
+                    MODIFIER_TYPE.UNTYPED,
+                ),
+            );
+        } else if (isWeak) {
+            statisticsModifiers.all = statisticsModifiers.all ?? [];
+            statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
+            statisticsModifiers.damage = statisticsModifiers.damage ?? [];
+            statisticsModifiers.damage.push(
+                new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED),
+            );
+            statisticsModifiers.hp = statisticsModifiers.hp ?? [];
+            statisticsModifiers.hp.push(
+                new ModifierPF2e(
+                    'PF2E.NPC.Adjustment.WeakLabel',
+                    this.getHpAdjustment(data.details.level.value) * -1,
+                    MODIFIER_TYPE.UNTYPED,
+                ),
+            );
+        }
+
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
         for (const abl of Object.values(actorData.data.abilities)) {
             abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
             abl.value = abl.mod * 2 + 10;
+        }
+
+        // Hit Points
+        {
+            const base: number = data.attributes.hp.base ?? data.attributes.hp.value;
+            const modifiers: ModifierPF2e[] = [];
+            (statisticsModifiers.hp || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+            (statisticsModifiers['hp-per-level'] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    m.modifier *= data.details.level.value;
+                    modifiers.push(m);
+                });
+
+            const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
+                overwrite: false,
+            });
+
+            stat.base = base;
+            stat.max = stat.max + stat.totalModifier;
+            stat.value = Math.min(stat.value, stat.max); // Make sure the current HP isn't higher than the max HP
+            stat.breakdown = [
+                game.i18n.format('PF2E.MaxHitPointsBaseLabel', { base }),
+                ...stat.modifiers
+                    .filter((m) => m.enabled)
+                    .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+            ].join(', ');
+
+            data.attributes.hp = stat;
         }
 
         // Speeds
@@ -100,6 +175,7 @@ export class NPCPF2e extends CreaturePF2e {
                 new ModifierPF2e('PF2E.BaseModifier', base - 10 - dexterity, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities.dex, dexterity, MODIFIER_TYPE.ABILITY),
             ];
+
             ['ac', 'dex-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
@@ -263,15 +339,15 @@ export class NPCPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = (event, options = [], callback?) => {
+            stat.roll = adaptRoll((args) => {
                 const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: 'skill-check', options, notes },
-                    event,
-                    callback,
+                    { actor: this, type: 'skill-check', options: args.options, notes },
+                    args.event,
+                    args.callback,
                 );
-            };
+            });
             data.skills[shortform] = stat;
         }
 
@@ -373,6 +449,7 @@ export class NPCPF2e extends CreaturePF2e {
                     stats
                         .concat([
                             'attack',
+                            'mundane-attack',
                             `${ability}-attack`,
                             `${ability}-based`,
                             `${item._id}-attack`,
@@ -435,6 +512,15 @@ export class NPCPF2e extends CreaturePF2e {
                         )}`,
                     ];
                 });
+                if (action.damageBreakdown.length > 0) {
+                    if (isElite) {
+                        action.damageBreakdown[0] =
+                            action.damageBreakdown[0] + ` +2 ${game.i18n.localize('PF2E.NPC.Adjustment.EliteLabel')}`;
+                    } else if (isWeak) {
+                        action.damageBreakdown[0] =
+                            action.damageBreakdown[0] + ` -2 ${game.i18n.localize('PF2E.NPC.Adjustment.WeakLabel')}`;
+                    }
+                }
                 // Add attack effects to traits.
                 const attackTraits = item.data.attackEffects.value.map((attackEffect: string) => {
                     return {
@@ -544,6 +630,94 @@ export class NPCPF2e extends CreaturePF2e {
                 });
 
                 data.actions.push(action);
+            } else if (item.type === 'spellcastingEntry') {
+                const tradition = item.data.tradition.value;
+                const rank = item.data.proficiency.value;
+                const ability = (item.data.ability.value || 'int') as AbilityString;
+                const base = Number(item.data?.spelldc?.value ?? 0);
+                const baseModifiers = [
+                    new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
+                    new ModifierPF2e(
+                        CONFIG.PF2E.abilities[ability],
+                        data.abilities[ability].mod,
+                        MODIFIER_TYPE.ABILITY,
+                    ),
+                ];
+                const baseNotes = [] as PF2RollNote[];
+                [`${ability}-based`, 'all'].forEach((key) => {
+                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
+                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
+                });
+
+                {
+                    // add custom modifiers and roll notes relevant to the attack modifier for the spellcasting entry
+                    const modifiers = [...baseModifiers];
+                    const notes = [...baseNotes];
+                    [`${tradition}-spell-attack`, 'spell-attack', 'attack', 'attack-roll'].forEach((key) => {
+                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+                    });
+
+                    const attack: StatisticModifier & Partial<SpellAttackRollModifier> = new StatisticModifier(
+                        item.name,
+                        modifiers,
+                    );
+                    attack.notes = notes;
+                    attack.value = attack.totalModifier;
+                    attack.breakdown = attack.modifiers
+                        .filter((m) => m.enabled)
+                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
+                        .join(', ');
+                    attack.roll = adaptRoll((args) => {
+                        const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
+                        const options = args.options ?? [];
+                        ensureProficiencyOption(options, rank);
+                        CheckPF2e.roll(
+                            new CheckModifier(label, attack, args.modifiers ?? []),
+                            { actor: this, type: 'spell-attack-roll', options, dc: args.dc, notes },
+                            args.event,
+                            args.callback,
+                        );
+                    });
+                    item.data.attack = attack as Required<SpellAttackRollModifier>;
+                }
+
+                {
+                    // add custom modifiers and roll notes relevant to the DC for the spellcasting entry
+                    const base = Number(item.data?.spelldc?.dc ?? 0);
+                    const modifiers = [
+                        new ModifierPF2e(
+                            'PF2E.BaseModifier',
+                            base - 10 - data.abilities[ability].mod,
+                            MODIFIER_TYPE.UNTYPED,
+                        ),
+                        new ModifierPF2e(
+                            CONFIG.PF2E.abilities[ability],
+                            data.abilities[ability].mod,
+                            MODIFIER_TYPE.ABILITY,
+                        ),
+                    ];
+                    const notes = [...baseNotes];
+                    [`${tradition}-spell-dc`, 'spell-dc', `${ability}-based`, 'all'].forEach((key) => {
+                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
+                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+                    });
+
+                    const dc: StatisticModifier & Partial<SpellDifficultyClass> = new StatisticModifier(
+                        item.name,
+                        modifiers,
+                    );
+                    dc.notes = notes;
+                    dc.value = 10 + dc.totalModifier;
+                    dc.breakdown = [game.i18n.localize('PF2E.SpellDCBase')]
+                        .concat(
+                            dc.modifiers
+                                .filter((m) => m.enabled)
+                                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
+                        )
+                        .join(', ');
+                    item.data.dc = dc as Required<SpellDifficultyClass>;
+                }
             }
         }
     }
@@ -618,6 +792,20 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         return notes;
+    }
+
+    protected getHpAdjustment(level: number): number {
+        // Elite/Weak adjustment: Increase/decrease the creature's Hit Points based on its starting level (20+ 30HP, 5~19 20HP, 2~4 15HP, 1 or lower 10HP).
+        if (level >= 20) {
+            return 30;
+        } else if (level <= 19 && level >= 5) {
+            return 20;
+        } else if (level <= 4 && level >= 2) {
+            return 15;
+        } else if (level <= 1) {
+            return 10;
+        }
+        return 0;
     }
 
     protected _onUpdate(data: any, options: object, userId: string, context: object) {

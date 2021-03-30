@@ -59,7 +59,7 @@
             "flatbonushp": 0,
             "flatbonussp": 0,
             "hp": {
-                "details": "regeneration 15 ",
+                "details": "regeneration 15 (deactivated by evil)",
                 "max": 300,
                 "min": 0,
                 "temp": 0,
@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "60 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "60"
                     }
                 ],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -124,6 +126,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NG"
@@ -160,6 +163,74 @@
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Planetar Justice</h3>Planetars know pathways to travel between many planes of existence, and they use these frequently to deliver messages, warnings, and ultimatums to those whose actions have attracted angelic concern. If a situation can be resolved with swift on-the-spot justice, a planetar takes that route in hopes of staving off an escalation of violence.",
             "source": {
                 "value": "Bestiary 2 pg. 15"
+            }
+        },
+        "items": {
+            "0": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot2": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot3": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot6": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot7": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot8": {
+                            "max": 0,
+                            "value": 0
+                        }
+                    },
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 29
+                    }
+                }
+            },
+            "1": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
+            },
+            "EpW87UXlsLxMv5YQ": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 27
+                    }
+                }
+            },
+            "xzuxIMk5QK7iPQ9j": {
+                "data": {
+                    "spelldc": {
+                        "dc": 37,
+                        "value": 29
+                    }
+                }
             }
         },
         "martial": {
@@ -409,6 +480,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -436,7 +510,7 @@
                 "value": "uncommon"
             },
             "senses": {
-                "value": " darkvision, true seeing"
+                "value": "(32 to detect illusions), darkvision, true seeing"
             },
             "size": {
                 "value": "lg"
@@ -486,6 +560,9 @@
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -549,6 +626,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -612,6 +690,9 @@
                 "showUnpreparedSpells": {
                     "value": false
                 },
+                "signatureSpells": {
+                    "value": []
+                },
                 "slots": {
                     "slot0": {
                         "max": 0,
@@ -674,6 +755,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -705,7 +787,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "uiKYh7zPMK5XSHa0",
+            "_id": "dbOkQYP7WwCgZOu4",
             "data": {
                 "ability": {
                     "value": ""
@@ -739,10 +821,10 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -780,8 +862,12 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dispel-magic",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -814,20 +900,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
             "name": "Dispel Magic",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "DqkojYFWub0hJghD",
+            "_id": "n9MAvIwdPob15PdI",
             "data": {
                 "ability": {
                     "value": ""
@@ -835,6 +922,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "20-foot burst"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -844,7 +934,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "4d10"
+                    "value": "8d10"
                 },
                 "damageType": {
                     "value": ""
@@ -852,7 +942,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 2; while it is @Compendium[pf2e.conditionitems.Sickened]{Sickened}, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1.</p>\n<hr /><strong>Heightened</strong> The damage increases by 1d10."
+                    "value": "<p>You can channel the fury of your deity against foes of opposed alignment. Choose an alignment your deity has (chaotic, evil, good, or lawful). You can't cast this spell if you don't have a deity or your deity is true neutral. This spell gains the trait of the alignment you chose. You deal 4d10 damage of the alignment you chose; each creature in the area must attempt a Fortitude save. Creatures that match the alignment you chose are unaffected. Those that neither match nor oppose it treat the result of their saving throw as one degree better.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</p>\n<p><strong>Critical Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Sickened]{Sickened 2}; while it is sickened, it is also @Compendium[pf2e.conditionitems.Slowed]{Slowed 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -861,7 +951,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -870,6 +960,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -881,17 +974,27 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "fortitude"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "divine-wrath",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=86"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -921,20 +1024,21 @@
                     "value": [
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.hVU9msO9yGkxKZ3J"
+                }
+            },
             "img": "systems/pf2e/icons/spells/divine-wrath.jpg",
             "name": "Divine Wrath",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "J2HcjbS66HgYJhnN",
+            "_id": "aCECKfDgfb3PoSkf",
             "data": {
                 "ability": {
                     "value": ""
@@ -942,6 +1046,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot burst"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -954,12 +1061,12 @@
                     "value": "11d6"
                 },
                 "damageType": {
-                    "value": ""
+                    "value": "bludgeoning"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit) A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr /><strong>Critical Success</strong> The creature takes half the collapse damage.\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr /><strong>Heightened</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst."
+                    "value": "<p>You shake the ground, topple creatures into fissures, and collapse structures. The GM might add additional effects in certain areas. Cliffs might collapse, causing creatures to fall, or a lake might drain as fissures open up below its surface, leaving a morass of quicksand. Shaking Ground The ground is difficult terrain, and creatures on it take a -2 circumstance penalty to attack rolls, AC, and skill checks. Fissures Each creature on the ground must attempt a Reflex save at the start of its turn to keep its footing and avoid falling into 40-foot-deep fissures that open beneath it. The fissures are permanent, and their sides require DC 15 Athletics to Climb. Collapse Structures and ceilings might collapse. The GM rolls a flat check for each (DC 16 for a sturdy structure, DC 14 for an average structure and most natural formations, DC 9 for a shoddy structure, all adjusted higher or lower as the GM sees fit). A collapse deals 11d6 bludgeoning damage; each creature caught in a collapse must attempt a Reflex save to avoid it.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature takes half the collapse damage.</p>\n<p><strong>Success</strong> The creature takes half the collapse damage and falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>\n<p><strong>Failure</strong> The creature takes the full collapse damage and falls Prone.</p>\n<p><strong>Critical Failure</strong> The creature takes the full collapse damage and falls into a fissure.</p>\n<hr />\n<p><strong>Heightened (10th)</strong> You create a massive earthquake that can devastate a settlement. The range increases to half a mile and the area to a quarter-mile burst.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -979,6 +1086,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "500 feet"
                 },
@@ -988,7 +1098,7 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "reflex"
                 },
                 "scaling": {
                     "formula": "",
@@ -997,8 +1107,18 @@
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "earthquake",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=95"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1030,20 +1150,21 @@
                         "earth",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.x7SPrsRxGb2Vy2nu"
+                }
+            },
             "img": "systems/pf2e/icons/spells/earthquake.jpg",
             "name": "Earthquake",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "vXPQmPfR9jXUtdF9",
+            "_id": "JmDgxqqc3eNEkSE7",
             "data": {
                 "ability": {
                     "value": ""
@@ -1052,15 +1173,18 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": "varies"
+                },
                 "components": {
-                    "value": "to"
+                    "value": "varies"
                 },
                 "cost": {
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d8"
+                    "value": "8d8"
                 },
                 "damageType": {
                     "value": "positive"
@@ -1068,7 +1192,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1077,7 +1201,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -1086,6 +1210,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1100,14 +1227,24 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "heal",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1122,7 +1259,7 @@
                     "value": "1 willing living creature or 1 undead"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "1 to 3"
                 },
                 "traditions": {
                     "custom": "",
@@ -1141,20 +1278,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.jpg",
             "name": "Heal",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "R2hbQ7pA4kQICGs4",
+            "_id": "UjykjBnpxp7xQ7Io",
             "data": {
                 "ability": {
                     "value": ""
@@ -1162,6 +1300,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "verbal"
@@ -1171,15 +1312,15 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d6"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level. 13th or Lower The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1d6 rounds. 14th-15th The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for 1 round. 16th or Higher The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened</strong> The levels at which each outcome applies increase by 2.</p>"
+                    "value": "<p>You stun the target with an arcane word of power. Once targeted, the target is then temporarily immune for 10 minutes.</p>\n<p>The effect of the spell depends on the target's level.</p>\n<ul>\n<li><strong>13th or Lower</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned} for [[/r 1d6 #rounds]] rounds.</li>\n<li><strong>14th-15th</strong> The target is Stunned for 1 round.</li>\n<li><strong>16th or Higher</strong> The target is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -1197,6 +1338,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1217,8 +1361,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "power-word-stun",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=228"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1243,27 +1397,28 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "auditory",
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7PJSqUeKxTqOVrPk"
+                }
+            },
             "img": "systems/pf2e/icons/spells/power-word-stun.jpg",
             "name": "Power Word Stun",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "qx1q3IRkGI6a1vtb",
+            "_id": "sd6ThosFkLyZxwFM",
             "data": {
                 "ability": {
                     "value": ""
@@ -1271,6 +1426,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": "60-foot burst"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1280,7 +1438,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "8d10"
+                    "value": "9d10"
                 },
                 "damageType": {
                     "value": "fire"
@@ -1288,16 +1446,16 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\n<hr /><strong>Critical Success</strong> The creature or object is unaffected.\n<p><strong>Success</strong> The creature or object takes half damage.</p>\n<p><strong>Failure</strong> The creature or object takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\n<hr /><strong>Heightened</strong> The fire damage increases by 1d10, and the positive damage against undead increases by 1d10."
+                    "value": "<p>A powerful globe of searing sunlight explodes in the area, dealing 8d10 fire damage to creatures and objects in the area, plus 8d10 additional positive damage to undead creatures. Each creature and object in the area must attempt a Reflex save. If the globe overlaps with an area of magical darkness, sunburst attempts to counteract the darkness effect.</p>\n<hr /><strong>Critical Success</strong> The creature or object is unaffected.\n<p><strong>Success</strong> The creature or object takes half damage.</p>\n<p><strong>Failure</strong> The creature or object takes full damage.</p>\n<p><strong>Critical Failure</strong> The creature or object takes full damage. If it's a creature, it becomes @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.</p>\n<hr /><strong>Heightened (+1)</strong> The fire damage increases by 1d10, and the positive damage against undead increases by 1d10."
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "8"
+                    "value": 8
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -1306,6 +1464,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1317,17 +1478,27 @@
                 "rules": [],
                 "save": {
                     "basic": "",
-                    "value": ""
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d10",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "sunburst",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=326"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1361,20 +1532,21 @@
                         "light",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.a3aQxCpoj1q1NQxC"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sunburst.jpg",
             "name": "Sunburst",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "E3ITRzbMhKN8GAZ0",
+            "_id": "aknEGthXml9EVrs1",
             "data": {
                 "ability": {
                     "value": ""
@@ -1382,6 +1554,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1394,12 +1569,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell.</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was Friendly, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes Helpful toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened (8th)</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -1408,7 +1583,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -1417,6 +1592,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1437,8 +1615,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "charm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1473,20 +1661,21 @@
                         "incapacitation",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.vLA0q0WOK2YPuJs6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/charm.jpg",
             "name": "Charm",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "0xPgwJLuwJrbjegt",
+            "_id": "TNXqM4US8kfBfMOP",
             "data": {
                 "ability": {
                     "value": ""
@@ -1494,6 +1683,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "focus, material, somatic, verbal"
@@ -1503,7 +1695,7 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d20"
+                    "value": ""
                 },
                 "damageType": {
                     "value": ""
@@ -1511,7 +1703,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20×25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
+                    "value": "<p>You and your allies traverse the barriers between planes of existence. The targets move to another plane, such as the Plane of Fire, the Shadow Plane, or the Abyss. You must have specific knowledge of the destination plane and use a magic tuning fork created from material from that plane as a focus for the spell. While the tuning forks for most prominent planes are uncommon, just like the spell plane shift, more obscure planes and demiplanes often have rare tuning forks. The spell is highly imprecise, and you appear 1d20x25 miles from the last place one of the targets (of your choice) was located the last time that target traveled to the plane. If it's the first time traveling to a particular plane for all targets, you appear at a random location on the plane. Plane shift doesn't provide a means of return travel, though casting plane shift again allows you to return to your previous plane unless there are extenuating circumstances.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1529,6 +1721,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1549,8 +1744,18 @@
                 "school": {
                     "value": "con"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "plane-shift",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=222"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1565,7 +1770,7 @@
                     "value": "1 willing creature, or up to 8 willing creatures joining hands"
                 },
                 "time": {
-                    "value": " 10 minutes"
+                    "value": "10 minutes"
                 },
                 "traditions": {
                     "value": [
@@ -1578,26 +1783,27 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "conjuration",
                         "teleportation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.5bTt2CvYHPvaR7QQ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/plane-shift.jpg",
             "name": "Plane Shift",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "RSuatbWYrrYAcTZO",
+            "_id": "aK8hjW8uWawfmA33",
             "data": {
                 "ability": {
                     "value": ""
@@ -1605,6 +1811,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "verbal"
@@ -1614,15 +1823,15 @@
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d4"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You utter an arcane word of power that can make the target @Compendium[pf2e.conditionitems.Blinded]{Blinded} upon hearing it. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level.</p>\n<hr /><strong>11th or Lower</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} permanently.\n<p><strong>12th-13th</strong> The target is @Compendium[pf2e.conditionitems.Blinded]{Blinded} for 1d4 minutes.</p>\n<p><strong>14th or Higher</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\n<hr /><strong>Heightened</strong> The levels at which each outcome applies increase by 2."
+                    "value": "<p>You utter an arcane word of power that can make the target @Compendium[pf2e.conditionitems.Blinded]{Blinded} upon hearing it. Once targeted, the target is then temporarily immune for 10 minutes. The effect of the spell depends on the target's level.</p>\n<hr />\n<p><strong>11th or Lower</strong> The target is Blinded permanently.</p>\n<p><strong>12th-13th</strong> The target is Blinded for 1d4 minutes.</p>\n<p><strong>14th or Higher</strong> The target is @Compendium[pf2e.conditionitems.Dazzled]{Dazzled} for 1 minute.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The levels at which each outcome applies increase by 2.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -1640,6 +1849,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1660,8 +1872,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "power-word-blind",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=226"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1686,27 +1908,28 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "auditory",
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Yk3t4ekEiFIoEz9c"
+                }
+            },
             "img": "systems/pf2e/icons/spells/power-word-blind.jpg",
             "name": "Power Word Blind",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "HyLwjo0631SZgPng",
+            "_id": "ofun5QHmnppWzdgV",
             "data": {
                 "ability": {
                     "value": ""
@@ -1714,6 +1937,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1731,16 +1957,16 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>With a touch, you ease a creature's fears. You can attempt to counteract a single fear effect that the target suffers from. This frees only the target, not any other creatures under the fear effect.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 30 feet, and you can target up to 10 creatures.</p>"
+                    "value": "<p>With a touch, you ease a creature's fears. You can attempt to counteract a single fear effect that the target suffers from. This frees only the target, not any other creatures under the fear effect.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The spell's range increases to 30 feet, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "7"
+                    "value": 7
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -1749,6 +1975,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1769,8 +1998,18 @@
                 "school": {
                     "value": "enc"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "remove-fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=252"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1802,20 +2041,21 @@
                     "value": [
                         "enchantment"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.EfFMLVbmkBWmzoLF"
+                }
+            },
             "img": "systems/pf2e/icons/spells/remove-fear.jpg",
-            "name": "Remove Fear ",
+            "name": "Remove Fear (At will)",
             "sort": 1200000,
             "type": "spell"
         },
         {
-            "_id": "SGLtBeQMP0ZLHYRt",
+            "_id": "47RvePSvdLYXjHac",
             "data": {
                 "ability": {
                     "value": ""
@@ -1823,6 +2063,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "material, somatic, verbal"
@@ -1840,7 +2083,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Blades of force form a churning wall. The wall is a straight line 20 feet high, 120 feet long, and 2 inches thick, and it provides cover. The wall deals 7d8 force damage to each creature that's in the wall's space when it is created, that attempts to pass through the wall, or that ends its turn inside the wall. A basic Reflex save reduces the damage. A creature that succeeds at this save when the wall is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the wall fail to do so if they critically fail the save, ending their movement adjacent to the wall.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d8.</p>"
+                    "value": "<p>Blades of force form a churning wall. The wall is a straight line 20 feet high, 120 feet long, and 2 inches thick, and it provides cover. The wall deals 7d8 force damage to each creature that's in the wall's space when it is created, that attempts to pass through the wall, or that ends its turn inside the wall. A basic Reflex save reduces the damage. A creature that succeeds at this save when the wall is created is pushed to the nearest space on the side of its choice. Creatures trying to move through the wall fail to do so if they critically fail the save, ending their movement adjacent to the wall.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d8.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1860,6 +2103,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -1868,18 +2114,28 @@
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "reflex"
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "1d8",
+                    "mode": "level1"
                 },
                 "school": {
                     "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "blade-barrier",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=24"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1910,20 +2166,21 @@
                         "evocation",
                         "force"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.peCF6VArm8urfwxZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/blade-barrier.jpg",
             "name": "Blade Barrier",
             "sort": 1300000,
             "type": "spell"
         },
         {
-            "_id": "74p1SK7yoOqyE9ID",
+            "_id": "0BT4rsp6NVFOXHYe",
             "data": {
                 "ability": {
                     "value": ""
@@ -1957,10 +2214,10 @@
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "6"
+                    "value": 6
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -1998,8 +2255,12 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": "dispel-magic",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2032,20 +2293,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
-            "name": "Dispel Magic ",
+            "name": "Dispel Magic (At will)",
             "sort": 1400000,
             "type": "spell"
         },
         {
-            "_id": "a3ROsTAa6lrivvw5",
+            "_id": "ehfIdAzcCZ4S6g8h",
             "data": {
                 "ability": {
                     "value": ""
@@ -2054,6 +2316,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
                     "value": "verbal"
                 },
@@ -2061,16 +2326,16 @@
                     "value": ""
                 },
                 "damage": {
-                    "applyMod": false,
+                    "applyMod": true,
                     "value": "4d8"
                 },
                 "damageType": {
-                    "value": "positive"
+                    "value": "healing"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your blessing revives a creature at the moment of its death. You prevent the target from @Compendium[pf2e.conditionitems.Dying]{Dying} and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use breath of life if the triggering effect was disintegrate or a death effect.</p>"
+                    "value": "<p><strong>Trigger</strong> A living creature within range would die.</p>\n<hr />\n<p>Your blessing revives a creature at the moment of its death. You prevent the target from @Compendium[pf2e.conditionitems.Dying]{Dying} and restore Hit Points to the target equal to 4d8 plus your spellcasting ability modifier. You can't use breath of life if the triggering effect was disintegrate or a death effect.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2088,6 +2353,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2108,8 +2376,18 @@
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "breath-of-life",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=29"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2141,20 +2419,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Hnc7eGi7vyZenAIm"
+                }
+            },
             "img": "systems/pf2e/icons/spells/breath-of-life.jpg",
             "name": "Breath of Life",
             "sort": 1500000,
             "type": "spell"
         },
         {
-            "_id": "7m9EVp3mzAgNZcmk",
+            "_id": "H0tHTzxLJdapxSTJ",
             "data": {
                 "ability": {
                     "value": ""
@@ -2162,6 +2441,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -2179,7 +2461,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shield a creature from the ravages of negative energy. It receives a +4 status bonus to saves against death and negative effects, gains negative resistance 10, and suppresses the effects of the @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>"
+                    "value": "<p>You shield a creature from the ravages of negative energy.</p>\n<p>It receives a +4 status bonus to saves against death and negative effects, gains negative resistance 10, and suppresses the effects of the @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Death Ward]{Spell Effect: Death Ward}</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2197,6 +2479,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2217,8 +2502,18 @@
                 "school": {
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "death-ward",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=64"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2250,20 +2545,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.YvXKGlHOt7mdW2jZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/death-ward.jpg",
             "name": "Death Ward",
             "sort": 1600000,
             "type": "spell"
         },
         {
-            "_id": "Cg9yZkk6hGytBFDn",
+            "_id": "GqxW8S3qcM8jVqqJ",
             "data": {
                 "ability": {
                     "value": ""
@@ -2271,6 +2567,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -2288,7 +2587,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to Escape an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
+                    "value": "<p>You repel effects that would hinder a creature or slow its movement. While under this spell's effect, the target ignores effects that would give them a circumstance penalty to Speed. When they attempt to @Compendium[pf2e.actionspf2e.Escape]{Escape} an effect that has them @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, @Compendium[pf2e.conditionitems.Grabbed]{Grabbed}, or @Compendium[pf2e.conditionitems.Restrained]{Restrained}, they automatically succeed unless the effect is magical and of a higher level than the freedom of movement spell.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2297,7 +2596,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -2306,6 +2605,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2326,8 +2628,18 @@
                 "school": {
                     "value": "abj"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "freedom-of-movement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=128"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2359,20 +2671,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aqRYNoSvxsVfqglH"
+                }
+            },
             "img": "systems/pf2e/icons/spells/freedom-of-movement.jpg",
             "name": "Freedom of Movement",
             "sort": 1700000,
             "type": "spell"
         },
         {
-            "_id": "Aos0w46ZKxIRMR8d",
+            "_id": "W3iM7tfpYxqNf3Bi",
             "data": {
                 "ability": {
                     "value": ""
@@ -2381,8 +2694,11 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
-                    "value": "1 minute "
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "value": ""
@@ -2397,7 +2713,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p><strong>Heightened</strong> As the 4th-level restoration, but you can reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2406,7 +2722,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -2415,6 +2731,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2435,8 +2754,18 @@
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "restoration",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=258"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2451,7 +2780,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": ""
+                    "value": "1 minute"
                 },
                 "traditions": {
                     "value": [
@@ -2469,20 +2798,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnaLVgxZ9ryUFmUr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/restoration.jpg",
             "name": "Restoration",
             "sort": 1800000,
             "type": "spell"
         },
         {
-            "_id": "grMTXA2RifQ9UKaq",
+            "_id": "rLcYymwkmuAA6DNX",
             "data": {
                 "ability": {
                     "value": ""
@@ -2491,8 +2821,11 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
-                    "value": "1 minute "
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "value": ""
@@ -2507,7 +2840,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p><strong>Heightened</strong> As the 4th-level restoration, but you can reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2516,7 +2849,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -2525,6 +2858,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2545,8 +2881,18 @@
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "restoration",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=258"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2561,7 +2907,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": ""
+                    "value": "1 minute"
                 },
                 "traditions": {
                     "value": [
@@ -2579,20 +2925,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnaLVgxZ9ryUFmUr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/restoration.jpg",
             "name": "Restoration",
             "sort": 1900000,
             "type": "spell"
         },
         {
-            "_id": "MbP30ntgQG8BZLEY",
+            "_id": "l2etec5mXj06i0Ga",
             "data": {
                 "ability": {
                     "value": ""
@@ -2601,8 +2948,11 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
-                    "value": "1 minute "
+                    "value": "material, somatic, verbal"
                 },
                 "cost": {
                     "value": ""
@@ -2617,7 +2967,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition.</p>\n<p><strong>Heightened</strong> As the 4th-level restoration, but you can reduce a permanent @Compendium[pf2e.conditionitems.Doomed]{Doomed} condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
+                    "value": "<p>Restorative magic counters the effects of toxins or conditions that prevent a creature from functioning at its best. When you cast restoration, choose to either reduce a condition or lessen the effect of a toxin. A creature can benefit from only one restoration spell each day, and it can't benefit from restoration more than once to reduce the stage of the same exposure to a given toxin.</p>\n<ul>\n<li><strong>Lessen a Toxin</strong> Reduce the stage of one toxin the target suffers from by one stage. This can't reduce the stage below stage 1 or cure the affliction.</li>\n<li><strong>Reduce a Condition</strong> Reduce the value of the target's @Compendium[pf2e.conditionitems.Clumsy]{Clumsy}, @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled}, or @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} condition by 2. You can instead reduce two of the listed conditions by 1 each.</li>\n</ul>\n<hr />\n<p><strong>Heightened (4th)</strong> Add @Compendium[pf2e.conditionitems.Drained]{Drained} to the list of conditions you can reduce. When you lessen a toxin, reduce the stage by two. You also gain a third option that allows you to reduce the target's @Compendium[pf2e.conditionitems.Doomed]{Doomed} value by 1. You can't use this to reduce a permanent Doomed condition.</p>\n<p><strong>Heightened (6th)</strong> As the 4th-level restoration, but you can reduce a permanent Doomed condition if you add a spellcasting action and a material component while Casting the Spell, during which you provide 100 gp worth of diamond dust as a cost.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2626,7 +2976,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -2635,6 +2985,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2655,8 +3008,18 @@
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "restoration",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=258"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2671,7 +3034,7 @@
                     "value": "1 creature"
                 },
                 "time": {
-                    "value": ""
+                    "value": "1 minute"
                 },
                 "traditions": {
                     "value": [
@@ -2689,20 +3052,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnaLVgxZ9ryUFmUr"
+                }
+            },
             "img": "systems/pf2e/icons/spells/restoration.jpg",
             "name": "Restoration",
             "sort": 2000000,
             "type": "spell"
         },
         {
-            "_id": "6QeQkRVShWgtSOI2",
+            "_id": "R1yZI6IRZc1d6a6H",
             "data": {
                 "ability": {
                     "value": ""
@@ -2710,6 +3074,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "material, somatic"
@@ -2727,7 +3094,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -2745,6 +3112,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2765,8 +3135,18 @@
                 "school": {
                     "value": "ill"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2797,20 +3177,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.jpg",
-            "name": "Invisibility",
+            "name": "Invisibility (At will) (Self only)",
             "sort": 2100000,
             "type": "spell"
         },
         {
-            "_id": "tMGqxTXzRB6o8urb",
+            "_id": "0GQHGctw4eKLa0VU",
             "data": {
                 "ability": {
                     "value": ""
@@ -2818,6 +3199,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -2835,13 +3219,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A surge of energy frees a @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} creature. You can attempt to counteract a single effect imposing the @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} condition on the target. This does not cure someone who is @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} from some natural state or effect, such as paralysis caused by non-magical wounds or toxins.</p>\n<hr />\n<p><strong>Heightened</strong> The spell's range increases to 30 feet, and you can target up to 10 creatures.</p>"
+                    "value": "<p>A surge of energy frees a @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} creature. You can attempt to counteract a single effect imposing the Paralyzed condition on the target. This does not cure someone who is Paralyzed from some natural state or effect, such as paralysis caused by non-magical wounds or toxins.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The spell's range increases to 30 feet, and you can target up to 10 creatures.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 2
@@ -2853,6 +3237,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2873,8 +3260,18 @@
                 "school": {
                     "value": "nec"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "remove-paralysis",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=253"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -2907,20 +3304,21 @@
                         "healing",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.BCuHKrDeJ4eq53M6"
+                }
+            },
             "img": "systems/pf2e/icons/spells/remove-paralysis.jpg",
             "name": "Remove Paralysis",
             "sort": 2200000,
             "type": "spell"
         },
         {
-            "_id": "byRdLDQUegFgZNH4",
+            "_id": "iQ847whFi4kDiEDu",
             "data": {
                 "ability": {
                     "value": ""
@@ -2928,6 +3326,9 @@
                 "area": {
                     "areaType": "emanation",
                     "value": 30
+                },
+                "areasize": {
+                    "value": "30-foot emanation"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -2945,7 +3346,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened</strong> You learn each aura's location and strength.</p>"
+                    "value": "<p>Your eyes glow as you sense aligned auras. Choose chaotic, evil, good, or lawful. You detect auras of that alignment. You receive no information beyond presence or absence. You can choose not to detect creatures or effects you're aware have that alignment.</p>\n<p>Only creatures of 6th level or higher-unless divine spellcasters, undead, or beings from the Outer Sphere-have alignment auras.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> You learn each aura's location and strength.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -2954,7 +3355,7 @@
                     "value": false
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -2963,6 +3364,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -2983,8 +3387,18 @@
                 "school": {
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "detect-alignment",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=65"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3010,26 +3424,27 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "detection",
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.QnTtGCAvdWRU4spv"
+                }
+            },
             "img": "systems/pf2e/icons/spells/detect-alignment.jpg",
-            "name": "Detect Alignment ",
+            "name": "Detect Alignment (Constant) (Evil only)",
             "sort": 2300000,
             "type": "spell"
         },
         {
-            "_id": "uV7GhtXpSS0BzQhm",
+            "_id": "MKjUJB31R5kiPnhA",
             "data": {
                 "ability": {
                     "value": ""
@@ -3037,6 +3452,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -3054,7 +3472,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened</strong> The duration is 8 hours.</p>"
+                    "value": "<p>The target can understand all words regardless of language and also speak the languages of other creatures. When in a mixed group of creatures, each time the target speaks, it can choose a creature and speak in a language that creature understands, even if the target doesn't know what language that is.</p>\n<hr />\n<p><strong>Heightened (7th)</strong> The duration is 8 hours.</p>"
                 },
                 "duration": {
                     "value": "1 hour"
@@ -3072,6 +3490,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -3092,8 +3513,18 @@
                 "school": {
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tongues",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=340"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3120,30 +3551,26 @@
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
                         "divination"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SwUiVavHKMWG7t5K"
                 }
             },
             "img": "systems/pf2e/icons/spells/tongues.jpg",
-            "name": "Tongues",
+            "name": "Tongues (Constant)",
             "sort": 2400000,
             "type": "spell"
         },
         {
-            "_id": "swfJ2wdaUZpV3m8m",
+            "_id": "cMrDWgOf9PHIIIZT",
             "data": {
                 "ability": {
                     "value": ""
@@ -3151,6 +3578,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -3174,10 +3604,10 @@
                     "value": "10 minutes"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
-                    "value": "5"
+                    "value": 5
                 },
                 "location": {
                     "value": "xzuxIMk5QK7iPQ9j"
@@ -3186,6 +3616,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -3206,8 +3639,18 @@
                 "school": {
                     "value": "div"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "true-seeing",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=344"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -3241,21 +3684,414 @@
                         "divination",
                         "revelation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uqlxMQQeSGWEVjki"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-seeing.jpg",
-            "name": "True Seeing ",
+            "name": "True Seeing (Constant)",
             "sort": 2500000,
             "type": "spell"
         },
         {
-            "_id": "9Syx0XXeuK2yvcFa",
+            "_id": "qFXoY7Kx7yafyTFR",
             "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": ""
+                },
+                "cost": {
+                    "value": "rare candles and incense worth a total value of 50 gp"
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.</p>\n<hr />\n<p><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.</p>\n<p><strong>Success</strong> You call the spirit.</p>\n<p><strong>Failure</strong> You fail to call a spirit.</p>\n<p><strong>Critical Failure</strong> One or more evil spirits appear and attack.</p>"
+                },
+                "duration": {
+                    "value": "up to 10 minutes"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "EpW87UXlsLxMv5YQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Occultism (expert) or Religion (expert)"
+                },
+                "range": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": "1"
+                },
+                "secondarycheck": {
+                    "value": "Occultism or Religion (whichever isn't used for the primary check)"
+                },
+                "slug": "call-spirit",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1 hour"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gsYEuWv04XTDxe91"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/call-spirit.jpg",
+            "name": "Call Spirit",
+            "sort": 2600000,
+            "type": "spell"
+        },
+        {
+            "_id": "XFEIF7hbHDH4Ht0r",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": ""
+                },
+                "cost": {
+                    "value": "diamonds worth a total value of 75 gp × the target's level"
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You attempt to call forth the target's soul and return it to its body. This requires the target's body to be present and relatively intact. The target must have died within the past year. If @Compendium[pf2e.deities.Pharasma]{Pharasma} has decided that the target's time has come or the target doesn't wish to return, this ritual automatically fails, but you discover this after the successful Religion check and can end the ritual without paying the cost.</p>\n<hr />\n<p><strong>Critical Success</strong> You resurrect the target. They return to life with full Hit Points and the same spells prepared and points in their pools they had when they died, and still suffering from any long-term debilitations of the old body. The target meets an agent of their deity during the resurrection who inspires them, granting them a +1 status bonus to attack rolls, Perception, saving throws, and skill checks for 1 week. The target is also permanently changed in some way by their time in the afterlife, such as gaining a slight personality shift, a streak of white in the hair, or a strange new birthmark.</p>\n<p><strong>Success</strong> As critical success, except the target returns to life with 1 Hit Point and no spells prepared or points in any pools, and still is affected by any long-term debilitations of the old body. Instead of inspiring them, the character's time in the Boneyard has left them temporarily debilitated. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}, @Compendium[pf2e.conditionitems.Drained]{Drained 1}, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 week; these conditions can't be removed or reduced by any means until the week has passed.</p>\n<p><strong>Failure</strong> Your attempt is unsuccessful.</p>\n<p><strong>Critical Failure</strong> Something goes horribly wrong-an evil spirit possesses the body, the body transforms into a special kind of undead, or some worse fate befalls the target.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> You can resurrect a target of up to 12th level, and the base cost is 125 gp.</p>\n<p><strong>Heightened (7th)</strong> You can use resurrect even with only a small portion of the body; the ritual creates a new body on a success or critical success. The target must have died within the past decade. The ritual requires four secondary casters, each of whom must be at least half the target's level. The target can be up to 14th level, and the base cost is 200 gp.</p>\n<p><strong>Heightened (8th)</strong> As 7th level, but the target can be up to 16th level and the base cost is 300 gp.</p>\n<p><strong>Heightened (9th)</strong> You can use resurrect even without the body as long as you know the target's name and have touched a portion of its body at any time. The target must have died within the past century, and it doesn't gain the negative conditions on a success. The ritual requires eight secondary casters, each of whom must be at least half the target's level. The target can be up to 18th level, and the base cost is 600 gp.</p>\n<p><strong>Heightened (10th)</strong> As 9th level, except it doesn't matter how long ago the target died. The ritual requires 16 secondary casters, each of whom must be at least half the target's level. The target can be up to 20th level, and the ritual's base cost is 1,000 gp.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 5
+                },
+                "location": {
+                    "value": "EpW87UXlsLxMv5YQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Religion (expert)"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": "2"
+                },
+                "secondarycheck": {
+                    "value": "Medicine, Society"
+                },
+                "slug": "resurrect",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 dead creature of up to 10th level"
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "healing",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kqhPt9344UkcGVYO"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/resurrect.jpg",
+            "name": "Resurrect",
+            "sort": 2700000,
+            "type": "spell"
+        },
+        {
+            "_id": "yniZCJzh538SdgOX",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": ""
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You transport yourself to either a celestial plane or a world on the Material Plane where worshippers of your patron can be found. You must be of no higher level than double <em>angelic messenger's</em> spell level</p>\n<hr />\n<p><strong>Critical Success</strong> As success, but if you've never visited that plane or world before, you appear right in front of the message's intended recipient.</p>\n<p><strong>Success</strong> You arrive on the target plane or world at the last location you visited on that plane or world, or to a random location within 10d10 miles of your message's intended recipient if you've never visited that plane or world before.</p>\n<p><strong>Failure</strong> You don't travel.</p>\n<p><strong>Critical Failure</strong> You accidentally travel to the wrong plane, possibly a dangerous plane.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "EpW87UXlsLxMv5YQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Religion (expert; you must be an angel)"
+                },
+                "range": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "con"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "angelic-messenger",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "conjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.joEruBVz31Uxczzq"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/angelic-messenger.jpg",
+            "name": "Angelic Messenger",
+            "sort": 2800000,
+            "type": "spell"
+        },
+        {
+            "_id": "4y7oKh73dC47JOSy",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -3267,6 +4103,187 @@
                 },
                 "containerId": {
                     "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": "0"
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": ""
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": "1"
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "greatsword",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 0
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "versatile-p"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "2"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.jpg",
+            "name": "+2 Greater Striking Greatsword",
+            "sort": 2900000,
+            "type": "weapon"
+        },
+        {
+            "_id": "ED7Sb3O9SLxFnTRr",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "baseItem": null,
+                "bonus": {
+                    "total": 32,
+                    "value": 32
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "die": "3d12+16"
+                },
+                "damageRolls": {
+                    "0": {
+                        "damage": "3d12+16",
+                        "damageType": "slashing"
+                    },
+                    "1": {
+                        "damage": "1d6",
+                        "damageType": "good"
+                    }
                 },
                 "description": {
                     "chat": "",
@@ -3294,14 +4311,299 @@
                 "invested": {
                     "value": false
                 },
-                "level": {
+                "location": {
+                    "value": "EpW87UXlsLxMv5YQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "maxHp": {
                     "value": 0
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Religion (expert)"
+                },
+                "range": {
+                    "value": "10 feet"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "nec"
+                },
+                "secondarycasters": {
+                    "value": "2"
+                },
+                "secondarycheck": {
+                    "value": "Medicine, Society"
+                },
+                "slug": "resurrect",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 dead creature of up to 10th level"
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "healing",
+                        "necromancy"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kqhPt9344UkcGVYO"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/resurrect.jpg",
+            "name": "Resurrect",
+            "sort": 2700000,
+            "type": "spell"
+        },
+        {
+            "_id": "yniZCJzh538SdgOX",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "components": {
+                    "value": ""
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You transport yourself to either a celestial plane or a world on the Material Plane where worshippers of your patron can be found. You must be of no higher level than double <em>angelic messenger's</em> spell level</p>\n<hr />\n<p><strong>Critical Success</strong> As success, but if you've never visited that plane or world before, you appear right in front of the message's intended recipient.</p>\n<p><strong>Success</strong> You arrive on the target plane or world at the last location you visited on that plane or world, or to a random location within 10d10 miles of your message's intended recipient if you've never visited that plane or world before.</p>\n<p><strong>Failure</strong> You don't travel.</p>\n<p><strong>Critical Failure</strong> You accidentally travel to the wrong plane, possibly a dangerous plane.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "EpW87UXlsLxMv5YQ"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": "Religion (expert; you must be an angel)"
+                },
+                "range": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "con"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "angelic-messenger",
+                "source": {
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "ritual"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "1 day"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "ritual"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "uncommon"
+                    },
+                    "value": [
+                        "uncommon",
+                        "conjuration"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.joEruBVz31Uxczzq"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/angelic-messenger.jpg",
+            "name": "Angelic Messenger",
+            "sort": 2800000,
+            "type": "spell"
+        },
+        {
+            "_id": "4y7oKh73dC47JOSy",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "slashing",
+                    "dice": 1,
+                    "die": "d12",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This immense two‑handed sword is nearly as tall as its wielder. Its lower blade is often somewhat dulled to allow it to be gripped for extra leverage in close‑quarter fights.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "sword"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": "0"
                 },
                 "maxHp": {
                     "value": 0
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potencyRune": {
+                    "value": ""
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -3310,22 +4612,61 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "2 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
-                    "value": 1
+                    "value": "1"
+                },
+                "range": {
+                    "value": "melee"
                 },
                 "rarity": {
                     "value": "common"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": "greatsword",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -3333,21 +4674,30 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "versatile-p"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "martial"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "+2 greater striking greatsword",
-            "sort": 2600000,
-            "type": "equipment"
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.UX71GkWBL9g41VwM"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/greatsword.jpg",
+            "name": "+2 Greater Striking Greatsword",
+            "sort": 2900000,
+            "type": "weapon"
         },
         {
             "_id": "ED7Sb3O9SLxFnTRr",
@@ -3358,6 +4708,7 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "total": 32,
                     "value": 32
@@ -3469,6 +4820,7 @@
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3483,7 +4835,7 @@
                     "value": [
                         "good",
                         "magical",
-                        "versatile P"
+                        "versatile-p"
                     ]
                 },
                 "usage": {
@@ -3497,8 +4849,288 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Holy Greatsword",
-            "sort": 2700000,
+            "sort": 3000000,
             "type": "melee"
+        },
+        {
+            "_id": "a8kHbScnPzkgg3j3",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 3100000,
+            "type": "action"
+        },
+        {
+            "_id": "PDKjx7hYxc0mQaVe",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can cast its at-will spells any number of times without using up spell slots.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "at-will-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.2YRDYVnC1eljaXKK"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "At-Will Spells",
+            "sort": 3200000,
+            "type": "action"
+        },
+        {
+            "_id": "Dye4kplXn2HWokpZ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A constant spell affects the monster without the monster needing to cast it, and its duration is unlimited. If a constant spell gets counteracted, the monster can reactivate it by spending the normal spellcasting actions the spell requires.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constant-spells",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kakyXBG5WA8c6Zfd"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Constant Spells",
+            "sort": 3300000,
+            "type": "action"
+        },
+        {
+            "_id": "gKujbrE9tdbREcZi",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "any": [
+                                "magical",
+                                "arcane",
+                                "primal",
+                                "occult",
+                                "divine"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "type": "status",
+                        "value": 1
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+1 Status Bonus on Saves vs Magic",
+            "sort": 3400000,
+            "type": "action"
+        },
+        {
+            "_id": "BsKlvqGTEEIQo1cx",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "illusion"
+                            ]
+                        },
+                        "selector": "perception",
+                        "value": 4
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "+4 Bonus on Perception to Detect Illusions",
+            "sort": 3500000,
+            "type": "action"
         },
         {
             "_id": "EIhaPhUMiN88cQT6",
@@ -3515,7 +5147,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>20 feet. Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a [[/r +2 # status bonus to damage]] status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>"
+                    "value": "<p>20 feet.</p>\n<p>Allies in the planetar's aura gain a +2 status bonus to AC against evil creatures and a +2 status bonus to damage rolls against evil creatures. The area in the aura is difficult terrain for evil creatures.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3524,6 +5156,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3552,11 +5185,11 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Aura of Righteousness",
-            "sort": 2800000,
+            "sort": 3600000,
             "type": "action"
         },
         {
-            "_id": "wYXIzU6qB9SXgjMi",
+            "_id": "H9Hu5uk0AogKrXF4",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -3570,7 +5203,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond @Compendium[pf2e.conditionitems.Dying]{Dying} 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to @Compendium[pf2e.conditionitems.Dying]{Dying} 4.</p>"
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3579,6 +5212,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": "regeneration",
                 "source": {
                     "value": ""
                 },
@@ -3592,18 +5226,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Regeneration",
-            "sort": 2900000,
+            "name": "Regeneration 15 (deactivated by evil)",
+            "sort": 3700000,
             "type": "action"
         },
         {
@@ -3616,12 +5251,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals 1d6 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} good damage to the target. The planetar can convert all the physical damage from the attack into good damage.</p>"
+                    "value": "<p>The planetar makes a greatsword Strike against a target it detects as evil. If the target is evil, the Strike deals three extra weapon damage dice and deals [[/r 1d6 #persistent good]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Good Damage} to the target. The planetar can convert all the physical damage from the attack into good damage.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -3629,7 +5264,23 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.blade-of-justice"
+                    },
+                    {
+                        "diceNumber": 3,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "blade-of-justice"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3652,65 +5303,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Blade of Justice",
-            "sort": 3000000,
-            "type": "action"
-        },
-        {
-            "_id": "d7Bo5f2OtnxidvOk",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>The planetar can take on the appearance of any Small or Medium humanoid. This doesn't change their Speed or Strikes.<br />The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "concentrate",
-                        "divine",
-                        "polymorph",
-                        "transmutation"
-                    ]
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Change Shape",
-            "sort": 3100000,
+            "sort": 3800000,
             "type": "action"
         },
         {
@@ -3737,6 +5332,7 @@
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3764,7 +5360,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Holy Armaments",
-            "sort": 3200000,
+            "sort": 3900000,
             "type": "action"
         },
         {
@@ -3788,6 +5384,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3806,7 +5403,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Athletics",
-            "sort": 3300000,
+            "sort": 4000000,
             "type": "lore"
         },
         {
@@ -3830,6 +5427,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3848,7 +5446,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Intimidation",
-            "sort": 3400000,
+            "sort": 4100000,
             "type": "lore"
         },
         {
@@ -3872,6 +5470,7 @@
                     "value": "common"
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3890,381 +5489,8 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Religion",
-            "sort": 3500000,
+            "sort": 4200000,
             "type": "lore"
-        },
-        {
-            "_id": "I1IMrCQ34KaGq7Dj",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "value": ""
-                },
-                "cost": {
-                    "value": "rare candles and incense worth a total value of 50 gp"
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You tear the veil to the afterlife and call a spirit from its final resting place. You must call the spirit by name, and you must provide a connection to the spirit, such as a possession, a garment, or a piece of its corpse. A spirit unwilling to heed your call can attempt a Will save to avoid it; on a critical success, a trickster spirit impersonates the spirit you meant to call. The DC of the Will save is 2 lower if you haven't met the spirit in life. Either way, the spirit appears as a wispy form of the creature you meant to call. Each minute of the duration, you can ask the spirit a question. It can answer how it pleases or even refuse to answer. If the spirit isn't in the afterlife (such as if it's an undead), all results other than critical failures use the failure effect.<br /></p>\n<p><strong>Critical Success</strong> The spirit is particularly cooperative, and even if it has strong reasons to deceive you, it takes a -2 circumstance penalty to its Deception checks.<br /><strong>Success</strong> You call the spirit.<br /><strong>Failure</strong> You fail to call a spirit.<br /><strong>Critical Failure</strong> One or more evil spirits appear and attack.</p>"
-                },
-                "duration": {
-                    "value": "up to 10 minutes"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "5"
-                },
-                "location": {
-                    "value": "EpW87UXlsLxMv5YQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Occultism (expert) or Religion (expert)"
-                },
-                "range": {
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "nec"
-                },
-                "secondarycasters": {
-                    "value": "1"
-                },
-                "secondarycheck": {
-                    "value": "Occultism or Religion (whichever isn't used for the primary check)"
-                },
-                "source": {
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "ritual"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1 hour"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "ritual"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
-                    "value": [
-                        "uncommon",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/call-spirit.jpg",
-            "name": "Call Spirit",
-            "sort": 3600000,
-            "type": "spell"
-        },
-        {
-            "_id": "yIAKwaLh7wFJnxjp",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "value": ""
-                },
-                "cost": {
-                    "value": "diamonds worth a total value of 75 gp × the target's level"
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You attempt to call forth the target's soul and return it to its body. This requires the target's body to be present and relatively intact. The target must have died within the past year. If Pharasma has decided that the target's time has come or the target doesn't wish to return, this ritual automatically fails, but you discover this after the successful Religion check and can end the ritual without paying the cost.<br /></p>\n<p><strong>Critical Success</strong> You resurrect the target. They return to life with full Hit Points and the same spells prepared and points in their pools they had when they died, and still suffering from any long-term debilitations of the old body. The target meets an agent of their deity during the resurrection who inspires them, granting them a +1 status bonus to attack rolls, Perception, saving throws, and skill checks for 1 week. The target is also permanently changed in some way by their time in the afterlife, such as gaining a slight personality shift, a streak of white in the hair, or a strange new birthmark.<br /><strong>Success</strong> As critical success, except the target returns to life with 1 Hit Point and no spells prepared or points in any pools, and still is affected by any long-term debilitations of the old body. Instead of inspiring them, the character's time in the Boneyard has left them temporarily debilitated. The target is @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, @Compendium[pf2e.conditionitems.Drained]{Drained} 1, and @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 week; these conditions can't be removed or reduced by any means until the week has passed.<br /><strong>Failure</strong> Your attempt is unsuccessful.<br /><strong>Critical Failure</strong> Something goes horribly wrong-an evil spirit possesses the body, the body transforms into a special kind of undead, or some worse fate befalls the target.</p>\n<hr />\n<p><strong>Heightened</strong> You can resurrect a target of up to 12th level, and the base cost is 125 gp.<br /><strong>Heightened</strong> You can use resurrect even with only a small portion of the body; the ritual creates a new body on a success or critical success. The target must have died within the past decade. The ritual requires four secondary casters, each of whom must be at least half the target's level. The target can be up to 14th level, and the base cost is 200 gp.<br /><strong>Heightened</strong> As 7th level, but the target can be up to 16th level and the base cost is 300 gp.<br /><strong>Heightened</strong> You can use resurrect even without the body as long as you know the target's name and have touched a portion of its body at any time. The target must have died within the past century, and it doesn't gain the negative conditions on a success. The ritual requires eight secondary casters, each of whom must be at least half the target's level. The target can be up to 18th level, and the base cost is 600 gp.<br /><strong>Heightened</strong> As 9th level, except it doesn't matter how long ago the target died. The ritual requires 16 secondary casters, each of whom must be at least half the target's level. The target can be up to 20th level, and the ritual's base cost is 1,000 gp.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "5"
-                },
-                "location": {
-                    "value": "EpW87UXlsLxMv5YQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Religion "
-                },
-                "range": {
-                    "value": "10 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "nec"
-                },
-                "secondarycasters": {
-                    "value": "2"
-                },
-                "secondarycheck": {
-                    "value": "Medicine, Society"
-                },
-                "source": {
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "ritual"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 dead creature of up to 10th level"
-                },
-                "time": {
-                    "value": "1 day"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "ritual"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
-                    "value": [
-                        "uncommon",
-                        "healing",
-                        "necromancy"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/resurrect.jpg",
-            "name": "Resurrect",
-            "sort": 3700000,
-            "type": "spell"
-        },
-        {
-            "_id": "CJclDPaPB0YFhEcl",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "value": ""
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You transport yourself to either a celestial plane or a world on the Material Plane where worshippers of your patron can be found. You must be of no higher level than double<em>angelic messenger's</em>spell level.<br /></p>\n<p><strong>Critical Success</strong> As success, but if you've never visited that plane or world before, you appear right in front of the message's intended recipient.<br /><strong>Success</strong> You arrive on the target plane or world at the last location you visited on that plane or world, or to a random location within 10d10 miles of your message's intended recipient if you've never visited that plane or world before.<br /><strong>Failure</strong> You don't travel.<br /><strong>Critical Failure</strong> You accidentally travel to the wrong plane, possibly a dangerous plane.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "1"
-                },
-                "location": {
-                    "value": "EpW87UXlsLxMv5YQ"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": "Religion "
-                },
-                "range": {
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "con"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "value": ""
-                },
-                "spellCategorie": {
-                    "value": "ritual"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "1 day"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "ritual"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
-                    "value": [
-                        "uncommon",
-                        "conjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/angelic-messenger.jpg",
-            "name": "Angelic Messenger",
-            "sort": 3800000,
-            "type": "spell"
         }
     ],
     "name": "Planetar",
@@ -4272,7 +5498,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "cu6Bl5pFByrpinxd",
         "actorLink": false,
         "bar1": {
@@ -4291,6 +5516,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Planetar",
         "randomImg": false,

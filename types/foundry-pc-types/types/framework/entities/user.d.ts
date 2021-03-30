@@ -82,7 +82,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     /**
      * Track references to the current set of Tokens which are targeted by the User
      */
-    targets: Set<Token>;
+    targets: Set<Token<ActorType>>;
 
     /**
      * Track the ID of the Scene that is currently being viewed by the User
@@ -212,4 +212,8 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      * Update the canvas if the player's impersonated character has changed
      */
     protected _onUpdate(data: object, options: object, userId: string, context: object): void;
+}
+
+declare interface User<ActorType extends Actor = Actor> extends Entity {
+    getFlag(scope: string, key: string): any;
 }

@@ -1,7 +1,4 @@
 import {
-    AncestryData,
-    BackgroundData,
-    ClassData,
     ConsumableData,
     ItemDataPF2e,
     LoreData,
@@ -40,6 +37,7 @@ import {
     ZeroToFour,
     CombatProficiencies,
     CombatProficiencyKey,
+    PerceptionData,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
@@ -51,11 +49,36 @@ import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConfigPF2e } from '@scripts/config';
+import { FeatPF2e } from '@item/feat';
 
 export class CharacterPF2e extends CreaturePF2e {
+    get ancestry(): AncestryPF2e | null {
+        return this.itemTypes.ancestry[0] ?? null;
+    }
+
+    get background(): BackgroundPF2e | null {
+        return this.itemTypes.background[0] ?? null;
+    }
+
+    get class(): ClassPF2e | null {
+        return this.itemTypes.class[0] ?? null;
+    }
+
+    get heritage(): FeatPF2e | null {
+        return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
+    }
+
     /** @override */
     static get defaultImg() {
         return CONST.DEFAULT_TOKEN;
+    }
+
+    /** @override */
+    prepareEmbeddedEntities(): void {
+        super.prepareEmbeddedEntities();
+        this.prepareAncestry();
+        this.prepareBackground();
+        this.prepareClass();
     }
 
     /** Prepare Character type specific data. */
@@ -63,10 +86,6 @@ export class CharacterPF2e extends CreaturePF2e {
         super.prepareDerivedData();
 
         const actorData = this.data;
-
-        this.prepareAncestry(actorData);
-        this.prepareBackground(actorData);
-        this.prepareClass(actorData);
 
         const rules: PF2RuleElement[] = actorData.items.reduce(
             (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
@@ -108,7 +127,10 @@ export class CharacterPF2e extends CreaturePF2e {
         {
             const ancestryHP = data.attributes.ancestryhp ?? 0;
             const classHP = data.attributes.classhp ?? 0;
-            const modifiers = [new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED)];
+            const hitPoints = data.attributes.hp;
+            const modifiers = hitPoints.modifiers.concat(
+                new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
+            );
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
                 const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
@@ -696,6 +718,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const selectors = [
                     'attack',
+                    'mundane-attack',
                     `${ability}-attack`,
                     `${ability}-based`,
                     `${item._id}-attack`,
@@ -1031,32 +1054,94 @@ export class CharacterPF2e extends CreaturePF2e {
         });
     }
 
-    prepareAncestry(actorData: CharacterData) {
-        const ancestry: AncestryData = actorData.items.find((x): x is AncestryData => x.type === 'ancestry');
+    private prepareInitiative(
+        actorData: CharacterData,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        rollNotes: Record<string, PF2RollNote[]>,
+    ) {
+        const { data } = actorData;
+        const initSkill = data.attributes?.initiative?.ability || 'perception';
+        const modifiers: ModifierPF2e[] = [];
+        const notes: PF2RollNote[] = [];
 
+        ['initiative'].forEach((key) => {
+            const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;
+            (statisticsModifiers[key] || [])
+                .map((m) => duplicate(m))
+                .forEach((m) => {
+                    // checks if predicated rule is true with only skill name option
+                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
+                        // toggles these so the predicate rule will be included when totalmodifier is calculated
+                        m.enabled = true;
+                        m.ignored = false;
+                    }
+                    modifiers.push(m);
+                });
+            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
+        });
+        const initStat: PerceptionData | SkillData =
+            initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill as SkillAbbreviation];
+        const skillName = game.i18n.localize(
+            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill as SkillAbbreviation],
+        );
+
+        const stat = new CheckModifier('initiative', initStat, modifiers);
+        stat.ability = initSkill;
+        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
+        stat.roll = adaptRoll((args) => {
+            const skillFullName = SKILL_DICTIONARY[stat.ability as SkillAbbreviation] ?? 'perception';
+            const options = args.options ?? [];
+            // push skill name to options if not already there
+            if (!options.includes(skillFullName)) {
+                options.push(skillFullName);
+            }
+            ensureProficiencyOption(options, initStat.rank ?? -1);
+            CheckPF2e.roll(
+                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
+                { actor: this, type: 'initiative', options, notes, dc: args.dc },
+                args.event,
+                (roll) => {
+                    this._applyInitiativeRollToCombatTracker(roll);
+                },
+            );
+        });
+
+        data.attributes.initiative = stat;
+    }
+
+    private prepareAncestry() {
+        const ancestry = this.ancestry;
         if (ancestry) {
+            const actorData = this.data;
             actorData.data.details.ancestry.value = ancestry.name;
-            actorData.data.attributes.ancestryhp = ancestry.data.hp;
-            actorData.data.attributes.speed.value = `${ancestry.data.speed}`;
-            actorData.data.traits.size.value = ancestry.data.size;
-            // should we update the traits as well?
+            actorData.data.attributes.ancestryhp = ancestry.hitPoints;
+            actorData.data.attributes.speed.value = String(ancestry.speed);
+            actorData.data.traits.size.value = ancestry.size;
+
+            // Add traits from ancestry and heritage
+            const ancestryTraits: Set<string> = ancestry?.traits ?? new Set();
+            const heritageTraits: Set<string> = this.heritage?.traits ?? new Set();
+            const traitSet = new Set(
+                [...ancestryTraits, ...heritageTraits].filter(
+                    (trait) => !['common', 'versatile heritage'].includes(trait),
+                ),
+            );
+            for (const trait of Array.from(traitSet).sort()) {
+                this.data.data.traits.traits.value.push(trait);
+            }
         }
     }
 
-    prepareBackground(actorData: CharacterData) {
-        const background: BackgroundData = actorData.items.find((x): x is BackgroundData => x.type === 'background');
-
-        if (background) {
-            actorData.data.details.background.value = background.name;
-        }
+    private prepareBackground() {
+        this.data.data.details.background.value = this.background?.name ?? '';
     }
 
-    prepareClass(actorData: CharacterData) {
-        const classData = actorData.items.find((x): x is ClassData => x.type === 'class');
+    private prepareClass(): void {
+        const classItem = this.class;
 
-        if (classData) {
-            actorData.data.details.class.value = classData.name;
-            actorData.data.attributes.classhp = classData.data.hp;
+        if (classItem) {
+            this.data.data.details.class.value = classItem.name;
+            this.data.data.attributes.classhp = classItem.hpPerLevel;
         }
     }
 
@@ -1087,7 +1172,7 @@ export class CharacterPF2e extends CreaturePF2e {
     ): void {
         super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
 
-        if ('type' in child) {
+        if (game.user.id === userId) {
             const item = this.items.get(child._id);
             if (item instanceof AncestryPF2e || item instanceof BackgroundPF2e || item instanceof ClassPF2e) {
                 item.addFeatures(this);
