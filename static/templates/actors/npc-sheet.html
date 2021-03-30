@@ -363,8 +363,8 @@
                         </li>
                         <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                             <!-- </div> -->
-                            <ol class="npc-defense-list" style="grid: 'dc attack' 40px;">
-                                <li class="npc-defense" data-spelldc-attribute="dc">
+                            <ol class="npc-defense-list" style="display: flex; margin: 4px 0 5px 4px;">
+                                <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="dc" style="flex: 1;">
 
                                     <span class="defense-score spelldc-input">
                                         <input name="data.items.{{eid}}.data.spelldc.dc" type="number" value="{{entry.data.spelldc.dc}}"
@@ -372,12 +372,31 @@
                                     </span>
                                     <h4 class="spelldc-name">{{localize "PF2E.SpellSaveLabel"}}</h4>
                                 </li>
-                                <li class="npc-defense" data-spelldc-attribute="value">
+                                <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="value" style="flex: 1;">
                                         <span class="defense-score spelldc-input">
                                             <input name="data.items.{{eid}}.data.spelldc.value" type="number" value="{{entry.data.spelldc.value}}"
                                                     data-dtype="Number" placeholder="0"/>
                                         </span>
                                         <h4 class="spelldc-name">{{localize "PF2E.SpellAttackLabel"}}</h4>
+                                </li>
+                                <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="ability" style="flex: 1;">
+                                    <span class="spelldc-input" style="margin-top: 3px;">
+                                        <select class="pf-value" name="data.items.{{eid}}.data.ability.value" data-dtype="String">
+                                            {{#select entry.data.ability.value}}
+                                            <option value="str">{{localize 'PF2E.AbilityId.str'}}</option>
+                                            <option value="dex">{{localize 'PF2E.AbilityId.dex'}}</option>
+                                            <option value="con">{{localize 'PF2E.AbilityId.con'}}</option>
+                                            {{#if entry.data.ability.value}}
+                                            <option value="int">{{localize 'PF2E.AbilityId.int'}}</option>
+                                            {{else}}
+                                            <option value="">{{localize 'PF2E.AbilityId.int'}}</option>
+                                            {{/if}}
+                                            <option value="wis">{{localize 'PF2E.AbilityId.wis'}}</option>
+                                            <option value="cha">{{localize 'PF2E.AbilityId.cha'}}</option>
+                                            {{/select}}
+                                        </select>
+                                    </span>
+                                    <h4 class="spelldc-name">{{localize 'PF2E.SpellAbilityLabel'}}</h4>
                                 </li>
                             </ol>
                         </li>
