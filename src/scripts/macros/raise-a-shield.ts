@@ -50,7 +50,9 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 return true;
             }
         } else if (shield?.isBroken) {
-            ui.notifications.warn(game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias }));
+            ui.notifications.warn(
+                game.i18n.format(translations.ShieldIsBroken, { actor: speaker.alias, shield: shield.name }),
+            );
             return false;
         } else {
             ui.notifications.warn(game.i18n.format(translations.NoShieldEquipped, { actor: speaker.alias }));

@@ -1,4 +1,3 @@
-
 .entries-list {
     list-style: none;
     padding: 0px;
@@ -186,21 +185,38 @@
                             display: grid;
                             grid-template-columns: 26px auto 64px 80px 70px;
                             column-gap: 6px;
+
+                            > * {
+                                display: flex;
+                                align-items: center;
+                                justify-content: center;
+                            }
+
                             .spell-icon {
                                 border: 2px solid $faded-color;
                                 border-radius: 3px;
                                 width: 26px;
                                 height: 26px;
-                                background-size: 26px 26px;
+                                &:hover {
+                                    cursor: pointer;
+                                    max-height: 26px;
+                                    background: url("/icons/svg/d20-black.svg") no-repeat center;
+                                    background-size: contain;
+                                    img {
+                                        visibility: hidden;
+                                    }
+                                }
                             }
 
                             .spell-name {
-                                padding-left: 8px;
-
-                                h4 {
-                                    margin: 0px;
+                                align-items: baseline;
+                                justify-content: initial;
+                                margin-left: 8px;
+                                a {
+                                    font-weight: 600;
+                                    position: relative;
+                                    top: -1px;
                                 }
-
                                 .activity-icon {
                                     font-size: 1.4rem;
                                 }
@@ -212,25 +228,32 @@
                                 }
                             }
 
-                            .spell-range {
-                                text-align: center;
-                            }
-
-                            .spell-components {
-                                text-align: center;
-                                display: flex;
-                                flex-direction: row;
-                                flex-wrap: wrap;
-                                justify-content: center;
-                                align-items: baseline;
-                            }
-
                             .controls {
-                                text-align: right;
                                 justify-content: flex-end;
+                                > a {
+                                    margin-left: 2px;
+                                    height: 18px;
+                                }
+                                .item-chat {
+                                    position: relative;
+                                    top: 1px;
+                                }
+                                visibility: hidden;
                             }
                         }
 
+                        &.unprepared {
+                            .spell-header {
+                                grid-template-columns: auto 64px 80px 70px;
+                                .spell-icon {
+                                    visibility: hidden;
+                                }
+                            }
+                        }
+
+                        &:hover .spell-header .controls {
+                            visibility: visible;
+                        }
                     }
                 }
             }

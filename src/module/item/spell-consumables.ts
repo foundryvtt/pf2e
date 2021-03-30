@@ -97,7 +97,8 @@ export function calculateTrickMagicItemCheckDC(
     itemData: ConsumableData,
     options: DCOptions = { proficiencyWithoutLevel: false },
 ): TrickMagicItemDifficultyData {
-    const DC = calculateDC(itemData.data.level.value, options);
+    const level = Number(itemData.data.level.value);
+    const DC = calculateDC(level, options);
     const skills: [string, number][] = itemData.data.traits.value
         .filter((t) => ['arcane', 'primal', 'divine', 'occult'].includes(t))
         .map((s) => [TraditionSkills[s], DC]);

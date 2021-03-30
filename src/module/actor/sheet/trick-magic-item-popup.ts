@@ -10,10 +10,17 @@ import { StatisticModifier } from '@module/modifiers';
 export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
     result: TrickMagicItemCastData | false = false;
     skilloptions: TrickMagicItemDifficultyData;
+    castCallback: (trickMagicItemCastData: TrickMagicItemCastData) => void;
 
-    constructor(object: ActorPF2e, skilloptions: TrickMagicItemDifficultyData, options?: FormApplicationOptions) {
+    constructor(
+        object: ActorPF2e,
+        skilloptions: TrickMagicItemDifficultyData,
+        callback: (trickMagicItemCastData: TrickMagicItemCastData) => void,
+        options?: FormApplicationOptions,
+    ) {
         super(object, options);
         this.skilloptions = skilloptions;
+        this.castCallback = callback;
         let setter = (value: TrickMagicItemCastData | false) => {
             this.result = value;
         };
@@ -70,6 +77,7 @@ export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
                 dc: { value: this.skilloptions[skill] },
             });
             this.result = calculateTrickMagicItemCastData(this.object, lowerSkill);
+            this.castCallback(this.result);
         } else {
             this.result = false;
         }

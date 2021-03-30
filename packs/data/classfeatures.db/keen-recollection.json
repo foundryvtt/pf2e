@@ -19,15 +19,29 @@
             "value": "classfeature"
         },
         "level": {
-            "value": "3"
+            "value": 3
         },
+        "location": "",
         "prerequisites": {
             "value": ""
         },
         "rarity": {
             "value": "common"
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Keen Recollection (to Recall Knowledge)",
+                "predicate": {
+                    "all": [
+                        "action:recall-knowledge"
+                    ]
+                },
+                "selector": "skill-check",
+                "type": "proficiency",
+                "value": "@details.level.value"
+            }
+        ],
         "source": {
             "value": ""
         },

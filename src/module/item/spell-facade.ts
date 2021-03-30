@@ -55,9 +55,11 @@ export class SpellFacade {
             }
         }
         if (this.data.data.duration.value === '' && this.castingActor) {
-            const featDangerousSorcery = this.castingActor.items.find((it) => it.name === 'Dangerous Sorcery');
-            if (featDangerousSorcery !== null && !this.isFocusSpell && this.spellLevel !== 0) {
-                console.log(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
+            const hasDangerousSorcery = this.castingActor.itemTypes.feat.some(
+                (feat) => feat.slug === 'dangerous-sorcery',
+            );
+            if (hasDangerousSorcery && !this.isFocusSpell && this.spellLevel !== 0) {
+                console.debug(`PF2e System | Adding Dangerous Sorcery spell damage for ${this.data.name}`);
                 parts.push(this.castLevel);
             }
         }

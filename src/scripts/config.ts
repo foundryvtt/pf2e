@@ -8,6 +8,7 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { FeatPF2e } from '@module/item/feat';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
@@ -17,7 +18,6 @@ import {
     ConditionPF2e,
     ConsumablePF2e,
     EquipmentPF2e,
-    FeatPF2e,
     KitPF2e,
     LorePF2e,
     MartialPF2e,
@@ -27,6 +27,8 @@ import {
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -1486,6 +1488,7 @@ export const PF2ECONFIG = {
         ancestryfeature: 'PF2E.FeatTypeAncestryfeature',
         class: 'PF2E.FeatTypeClass',
         classfeature: 'PF2E.FeatTypeClassfeature',
+        heritage: 'PF2E.FeatTypeHeritage',
         skill: 'PF2E.FeatTypeSkill',
         general: 'PF2E.FeatTypeGeneral',
         archetype: 'PF2E.FeatTypeArchetype',
@@ -1832,7 +1835,7 @@ export const PF2ECONFIG = {
         vanara: 'PF2E.LanguageVanara',
         varisian: 'PF2E.LanguageVarisian',
         varki: 'PF2E.LanguageVarki',
-        vishkanyan: 'PF2e.LanguageVishkanyan',
+        vishkanyan: 'PF2E.LanguageVishkanyan',
         vudrani: 'PF2E.LanguageVudrani',
         androffan: 'PF2E.LanguageAndroffan',
         azlanti: 'PF2E.LanguageAzlanti',
@@ -2259,13 +2262,25 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e> {
+    /**
+     * Configuration for the default Combat entity class
+     */
+    Combat: {
+        entityClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
+        collection: typeof CombatEncounters;
+        initiative: {
+            decimals: number;
+            formula: ((combatant: CombatantData<Actor>) => string) | null;
+        };
+    };
+
     PF2E: typeof PF2ECONFIG;
     time: {
         roundTime: number;
     };
-    ui: {
+    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e>['ui'] & {
         combat: typeof CombatTrackerPF2e;
-        [key: string]: typeof Application;
+        compendium: typeof CompendiumDirectoryPF2e;
     };
 }

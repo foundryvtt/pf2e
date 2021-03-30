@@ -8,12 +8,12 @@
                     {{/if}}
                     <div class="values">
                         <div class="spellDC inline-field">
-                            <label>{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
-                            <input type="number" class="dc-input" name="data.items.{{entry._id}}.data.spelldc.dc" value="{{entry.data.spelldc.dc}}" data-dtype="Number" placeholder="0"/>
+                            <label title="{{entry.data.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
+                            <input type="number" class="dc-input modifier" data-display-value="{{entry.data.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.data.dc.value}}" data-dtype="Number" placeholder="0"/>
                         </div>
                         <div class="spellAttack inline-field">
-                            <label class="rollable"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
-                            <input type="number" class="attack-input" name="data.items.{{entry._id}}.data.spelldc.value" value="{{ numberFormat entry.data.spelldc.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
+                            <label class="rollable" title="{{entry.data.attack.breakdown}}"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
+                            <input type="number" class="attack-input modifier" data-display-value="{{entry.data.attack.value}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{ numberFormat entry.data.attack.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
                         </div>
                     </div>
                     <div class="name">
@@ -73,13 +73,11 @@
                                     {{#each section.spells as |spell i|}}
                                         <li class="item spell" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{spell.expended}}">
                                             <div class="spell-header">
-                                                <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
+                                                <div class="spell-icon rollable"><img src="{{spell.img}}" /></div>
                                                 <div class="spell-name rollable">
-                                                    <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
+                                                    <a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a>
                                                 </div>
-                                                <div class="spell-range">
-                                                    {{ spell.data.range.value }}
-                                                </div>
+                                                <div class="spell-range">{{spell.data.range.value}}</div>
                                                 <div class="spell-components">
                                                     {{#if spell.data.components.somatic }}<div class="tag">{{ localize 'PF2E.SpellComponentShortS' }}</div>{{/if}}
                                                     {{#if spell.data.components.verbal }}<div class="tag">{{ localize 'PF2E.SpellComponentShortV' }}</div>{{/if}}
@@ -94,7 +92,7 @@
                                                 </div>
                                             </div>
                                             <div class="spell-body">
-                                                <div class="spell-detail expandable">
+                                                <div class="spell-detail sub-section expandable">
                                                     <div class="spell-description">
                                                         {{{ enrichHTML spell.data.description.value }}}
                                                     </div>
@@ -128,17 +126,12 @@
 
                                 {{#unless entry.data.tradition.focus}}
                                     {{#each section.prepared as |spell i|}}
-
                                         {{#if spell.prepared}}
                                             <li class="item spell" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{spell.expended}}">
                                                 <div class="spell-header">
-                                                    <div class="spell-icon" style="background-image: url({{spell.img}})"></div>
+                                                    <div class="spell-icon rollable"><img src="{{spell.img}}" /></div>
                                                     <div class="spell-name rollable">
-                                                        {{#if spell.expended}}
-                                                            <h4 style="text-decoration: line-through;"><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
-                                                        {{else}}
-                                                            <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
-                                                        {{/if}}
+                                                        <a class="{{#if spell.expended}}expended{{/if}}">{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
                                                     </div>
                                                     <div class="spell-range">
                                                         {{ spell.data.range.value }}
@@ -159,7 +152,7 @@
                                                     </div>
                                                 </div>
                                                 <div class="spell-body">
-                                                    <div class="spell-detail expandable">
+                                                    <div class="spell-detail sub-section expandable">
                                                         <div class="spell-description">
                                                             {{{ enrichHTML spell.data.description.value }}}
                                                         </div>
@@ -194,14 +187,12 @@
 
                                                 <!-- Unprepared Spells -->
                                                 {{#each section.spells as |spell i|}}
-                                                <li class="item spell" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}" data-expended-state="{{spell.expended}}">
+                                                <li class="item spell unprepared" data-item-id="{{spell._id}}" data-spell="{{spell._id}}" data-slot-id="{{i}}" data-spell-lvl="{{lvl}}" data-entry-id="{{entry._id}}">
                                                     <div class="spell-header">
-                                                        <div class="spell-name rollable" style="grid-column: 1/span 2;">
-                                                            <h4><a>{{ spell.name }} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
+                                                        <div class="spell-name rollable">
+                                                            <a>{{spell.name}} <span class="activity-icon">{{spell.glyph}}</span></a></h4>
                                                         </div>
-                                                        <div class="spell-range">
-                                                            {{ spell.data.range.value }}
-                                                        </div>
+                                                        <div class="spell-range">{{ spell.data.range.value }}</div>
                                                         <div class="spell-components">
                                                             {{#if spell.data.components.somatic }}<div class="tag">{{ localize 'PF2E.SpellComponentShortS' }}</div>{{/if}}
                                                             {{#if spell.data.components.verbal }}<div class="tag">{{ localize 'PF2E.SpellComponentShortV' }}</div>{{/if}}
@@ -215,7 +206,7 @@
                                                         </div>
                                                     </div>
                                                     <div class="spell-body">
-                                                        <div class="spell-detail expandable">
+                                                        <div class="spell-detail sub-section expandable">
                                                             <div class="spell-description">
                                                                 {{{ enrichHTML spell.data.description.value }}}
                                                             </div>

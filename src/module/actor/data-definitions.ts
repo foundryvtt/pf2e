@@ -147,14 +147,12 @@ export interface RawNPCStrike extends RawCharacterStrike {
 export interface RawHitPointsData {
     /** The current amount of hitpoints the character has. */
     value: number;
-    /** The minimum number of hitpoints this character can have; almost always 0. */
-    min: number;
     /** The maximum number of hitpoints this character has. */
     max: number;
     /** If defined, the amount of temporary hitpoints this character has. */
     temp?: number;
     /** Any details about hit points. */
-    details: string;
+    details?: string;
 }
 
 /** Pathfinder Society Organized Play data fields */
@@ -187,9 +185,8 @@ export interface PathfinderSocietyReputation {
     VW: number;
 }
 
-/** Data related to character hitpoints. */
+/** Data related to actor hitpoints. */
 export type HitPointsData = StatisticModifier & RawHitPointsData;
-export type FamiliarHitPointsData = Pick<RawHitPointsData, 'value' | 'max'>;
 
 /** The full data for charatcer initiative. */
 export type InitiativeData = CheckModifier & RawInitiativeData & Rollable;
@@ -293,14 +290,28 @@ export interface ActorSystemData {
     traits: BaseTraitsData;
 }
 
+/** Miscallenous but mechanically relevant creature attributes.  */
+interface BaseCreatureAttributes {
+    hp: HitPointsData;
+    ac: { value: number };
+    perception: { value: number };
+}
+
 export interface CreatureSystemData extends ActorSystemData {
     /** Traits, languages, and other information. */
     traits: CreatureTraitsData;
+
+    attributes: CreatureAttributes;
 
     /** Maps roll types -> a list of modifiers which should affect that roll type. */
     customModifiers: Record<string, ModifierPF2e[]>;
     /** Maps damage roll types -> a list of damage dice which should be added to that damage roll type. */
     damageDice: Record<string, DamageDicePF2e[]>;
+}
+
+interface AnimalCompanionAttributes extends BaseCreatureAttributes {
+    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
+    [key: string]: any;
 }
 
 export interface RawAnimalCompanionData extends CreatureSystemData {
@@ -329,11 +340,7 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
         };
     };
 
-    attributes: {
-        hp: number;
-        // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-        [key: string]: any;
-    };
+    attributes: AnimalCompanionAttributes;
 
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
@@ -360,6 +367,99 @@ type WeaponGroupProfiencies = {
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
 export type CombatProficiencyKey = keyof CombatProficiencies;
+
+interface CharacterAttributes extends BaseCreatureAttributes {
+    /** The perception skill. */
+    perception: PerceptionData;
+    /** The class DC, used for saves related to class abilities. */
+    classDC: ClassDCData;
+    /** Creature armor class, used to defend against attacks. */
+    ac: ArmorClassData;
+    /** Initiative, used to determine turn order in combat. */
+    initiative: CheckModifier;
+
+    /** Dexterity modifier cap to AC. Undefined means no limit. */
+    dexCap: DexterityModifierCapData[];
+
+    /** The amount of bonus HP gained per level (due a feat or similar). */
+    levelbonushp: number;
+    /** The amount of HP provided per level by the character's class. */
+    classhp: number;
+    /** The amount of HP provided at level 1 by the character's ancestry. */
+    ancestryhp: number;
+    /** A flat bonus (i.e., not scaling with level) to hit points. */
+    flatbonushp: number;
+    /** A flat-bonus (i.e., not scaling with level) to stamina points. */
+    flatbonussp: number;
+    /** Used in variant stamina rules; how much bonus SP is gained per level. */
+    levelbonussp?: number;
+
+    /** A bonus to the maximum amount of bulk that this character can carry. */
+    bonusLimitBulk: number;
+    /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
+    bonusEncumbranceBulk: number;
+
+    /** The current dying level (and maximum) for this character. */
+    dying: { value: number; max: number };
+    /** The current wounded level (and maximum) for this character. */
+    wounded: { value: number; max: number };
+    /** The current doomed level (and maximum) for this character. */
+    doomed: { value: number; max: number };
+    /** The current number of hero points (and maximum) for this character. */
+    heroPoints: { rank: ZeroToThree; max: number };
+
+    /** The number of familiar abilities this character's familiar has access to. */
+    familiarAbilities: StatisticModifier;
+
+    /** Data related to character hitpoints. */
+    hp: HitPointsData;
+
+    /** Data related to character stamina, when using the variant stamina rules. */
+    sp: {
+        /** The current number of stamina points. */
+        value: number;
+        /** The minimum number of stamina points (almost always '0'). */
+        min: number;
+        /** The maximum number of stamina points. */
+        max: number;
+        /** Any details about stamina points. */
+        details: string;
+    };
+
+    /**
+     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+     * allow for the shield health to be shown in a token.
+     */
+    shield: {
+        /** The current shield health. */
+        value: number;
+        /** The maximum shield health. */
+        max: number;
+        /** The shield's AC */
+        ac: number;
+        /** The shield's hardness */
+        hardness: number;
+        /** The shield's broken threshold */
+        brokenThreshold: number;
+        /** The current shield health (added in actor preparation) */
+        hp: {
+            value: number;
+        };
+    };
+
+    /** Records the various land/swim/fly speeds that this actor has. */
+    speed: {
+        /** The actor's primary speed (usually walking/stride speed). */
+        value: string;
+        /** Other speeds that this actor can use (such as swim, climb, etc). */
+        otherSpeeds: LabeledValue[];
+        /** The derived value after applying modifiers, bonuses, and penalties */
+        total: number;
+    };
+
+    /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
+    resolve: { value: number };
+}
 
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
@@ -425,97 +525,7 @@ export interface RawCharacterData extends CreatureSystemData {
         };
     };
 
-    /** Various character attributes.  */
-    attributes: {
-        /** The perception skill. */
-        perception: PerceptionData;
-        /** The class DC, used for saves related to class abilities. */
-        classDC: ClassDCData;
-        /** Creature armor class, used to defend against attacks. */
-        ac: ArmorClassData;
-        /** Initiative, used to determine turn order in combat. */
-        initiative: InitiativeData;
-
-        /** Dexterity modifier cap to AC. Undefined means no limit. */
-        dexCap: DexterityModifierCapData[];
-
-        /** The amount of bonus HP gained per level (due a feat or similar). */
-        levelbonushp: number;
-        /** The amount of HP provided per level by the character's class. */
-        classhp: number;
-        /** The amount of HP provided at level 1 by the character's ancestry. */
-        ancestryhp: number;
-        /** A flat bonus (i.e., not scaling with level) to hit points. */
-        flatbonushp: number;
-        /** A flat-bonus (i.e., not scaling with level) to stamina points. */
-        flatbonussp: number;
-        /** Used in variant stamina rules; how much bonus SP is gained per level. */
-        levelbonussp?: number;
-
-        /** A bonus to the maximum amount of bulk that this character can carry. */
-        bonusLimitBulk: number;
-        /** A bonus to the maximum amount of bulk that this character can carry without being encumbered. */
-        bonusEncumbranceBulk: number;
-
-        /** The current dying level (and maximum) for this character. */
-        dying: { value: number; max: number };
-        /** The current wounded level (and maximum) for this character. */
-        wounded: { value: number; max: number };
-        /** The current doomed level (and maximum) for this character. */
-        doomed: { value: number; max: number };
-        /** The current number of hero points (and maximum) for this character. */
-        heroPoints: { rank: ZeroToThree; max: number };
-
-        /** The number of familiar abilities this character's familiar has access to. */
-        familiarAbilities: StatisticModifier;
-
-        /** Data related to character hitpoints. */
-        hp: HitPointsData;
-
-        /** Data related to character stamina, when using the variant stamina rules. */
-        sp: {
-            /** The current number of stamina points. */
-            value: number;
-            /** The minimum number of stamina points (almost always '0'). */
-            min: number;
-            /** The maximum number of stamina points. */
-            max: number;
-            /** Any details about stamina points. */
-            details: string;
-        };
-
-        /**
-         * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
-         * allow for the shield health to be shown in a token.
-         */
-        shield: {
-            /** The current shield health. */
-            value: number;
-            /** The maximum shield health. */
-            max: number;
-            /** The shield's AC */
-            ac: number;
-            /** The shield's hardness */
-            hardness: number;
-            /** The shield's broken threshold */
-            brokenThreshold: number;
-            /** The current shield health (added in actor preparation) */
-            hp: {
-                value: number;
-            };
-        };
-
-        /** Records the various land/swim/fly speeds that this actor has. */
-        speed: {
-            /** The actor's primary speed (usually walking/stride speed). */
-            value: string;
-            /** Other speeds that this actor can use (such as swim, climb, etc). */
-            otherSpeeds: LabeledValue[];
-        };
-
-        /** Used in the variant stamina rules; a resource expended to regain stamina/hp. */
-        resolve: { value: number };
-    };
+    attributes: CharacterAttributes;
 
     /** Player skills, used for various skill checks. */
     skills: Skills;
@@ -551,6 +561,51 @@ export type NPCSkillData = StatisticModifier &
 
 export type AlignmentString = 'LG' | 'NG' | 'CG' | 'LN' | 'N' | 'CN' | 'LE' | 'NE' | 'CE';
 
+interface NPCInitiativeData extends RawInitiativeData {
+    circumstance: number;
+    status: number;
+    ability: AbilityString | '';
+}
+
+interface NPCAttributes extends BaseCreatureAttributes {
+    /** The armor class of this NPC. */
+    ac: NPCArmorClassData;
+    /** The perception score for this NPC. */
+    perception: NPCPerceptionData;
+
+    /** Dexterity modifier cap to AC. Undefined means no limit. */
+    dexCap?: DexterityModifierCapData[];
+
+    initiative: NPCInitiativeData;
+
+    /** The movement speeds that this NPC has. */
+    speed: {
+        /** The land speed for this actor. */
+        value: string;
+        /** A list of other movement speeds the actor possesses. */
+        otherSpeeds: LabeledValue[];
+    };
+    /**
+     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
+     * allow for the shield health to be shown in a token.
+     */
+    shield: {
+        /** The current shield health. */
+        value: number;
+        /** The maximum shield health. */
+        max: number;
+        /** The shield's AC */
+        ac: number;
+        /** The shield's hardness */
+        hardness: number;
+        /** The shield's broken threshold */
+        brokenThreshold: number;
+    };
+    /** Textual information about any special benefits that apply to all saves. */
+    allSaves: { value: string };
+    familiarAbilities: StatisticModifier;
+}
+
 /** The raw information contained within the actor data object for NPCs. */
 export interface RawNPCData extends CreatureSystemData {
     /** The six primary ability scores. */
@@ -582,45 +637,7 @@ export interface RawNPCData extends CreatureSystemData {
     };
 
     /** Any special attributes for this NPC, such as AC or health. */
-    attributes: {
-        /** The armor class of this NPC. */
-        ac: NPCArmorClassData;
-        /** The perception score for this NPC. */
-        perception: NPCPerceptionData;
-
-        /** Dexterity modifier cap to AC. Undefined means no limit. */
-        dexCap?: DexterityModifierCapData[];
-
-        /** The hit points for this actor. */
-        hp: RawHitPointsData & { base?: number };
-
-        /** The movement speeds that this NPC has. */
-        speed: {
-            /** The land speed for this actor. */
-            value: string;
-            /** A list of other movement speeds the actor possesses. */
-            otherSpeeds: LabeledValue[];
-        };
-        /**
-         * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
-         * allow for the shield health to be shown in a token.
-         */
-        shield: {
-            /** The current shield health. */
-            value: number;
-            /** The maximum shield health. */
-            max: number;
-            /** The shield's AC */
-            ac: number;
-            /** The shield's hardness */
-            hardness: number;
-            /** The shield's broken threshold */
-            brokenThreshold: number;
-        };
-        /** Textual information about any special benefits that apply to all saves. */
-        allSaves: { value: string };
-        familiarAbilities: StatisticModifier;
-    };
+    attributes: NPCAttributes;
 
     /** Skills that this actor possesses; skills the actor is actually trained on are marked 'visible'. */
     skills: Record<string, NPCSkillData>;
@@ -629,8 +646,24 @@ export interface RawNPCData extends CreatureSystemData {
     actions: NPCStrike[];
 }
 
+interface HazardAttributes {
+    hasHealth: boolean;
+    hp: {
+        value: number;
+        max: number;
+        temp: number;
+        details: string;
+    };
+    hardness: number;
+    stealth: {
+        value: number;
+        details: string;
+    };
+}
+
 /** The raw information contained within the actor data object for hazards. */
 export interface RawHazardData {
+    attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData & Pick<CreatureTraitsData, 'rarity'>;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
@@ -639,27 +672,28 @@ export interface RawHazardData {
 
 /** The raw information contained within the actor data object for loot actors. */
 export interface RawLootData extends ActorSystemData {
+    attributes: { [key: string]: never };
     lootSheetType: 'Merchant' | 'Loot';
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
 
+interface FamiliarAttributes extends BaseCreatureAttributes {
+    ac: { value: number; breakdown: string; check?: number };
+    perception: { value: number } & Partial<RawSkillData> & Rollable;
+    /** The movement speeds that this Familiar has. */
+    speed: {
+        /** The land speed for this actor. */
+        value: string;
+        /** A list of other movement speeds the actor possesses. */
+        otherSpeeds: LabeledValue[];
+    };
+    [key: string]: any;
+}
+
 /** The raw information contained within the actor data object for familiar actors. */
 export interface RawFamiliarData extends CreatureSystemData {
-    attributes: {
-        hp: FamiliarHitPointsData;
-        ac: { value: number; breakdown: string; check?: number };
-        perception: { value: number } & Partial<RawSkillData> & Rollable;
-        /** The movement speeds that this Familiar has. */
-        speed: {
-            /** The land speed for this actor. */
-            value: string;
-            /** A list of other movement speeds the actor possesses. */
-            otherSpeeds: LabeledValue[];
-        };
-        [key: string]: any;
-    };
-
+    attributes: FamiliarAttributes;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
@@ -713,8 +747,8 @@ export interface AnimalCompanionData extends BaseCreatureData<RawAnimalCompanion
     type: 'animalCompanion';
 }
 
+export type CreatureAttributes = CharacterAttributes | NPCAttributes | AnimalCompanionAttributes | FamiliarAttributes;
 export type CreatureData = CharacterData | NPCData | AnimalCompanionData | FamiliarData;
-
 export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 
 export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
