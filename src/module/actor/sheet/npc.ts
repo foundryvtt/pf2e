@@ -379,10 +379,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
 
             if (['dc', 'value'].includes(spelldcType)) {
-                const key = `data.spelldc.${spelldcType}`;
                 await this.actor.updateEmbeddedEntity('OwnedItem', {
                     _id: itemId,
-                    [key]: Number(event.target.value),
+                    [`data.spelldc.${spelldcType}`]: Number(event.target.value),
+                });
+            } else if (spelldcType === 'ability') {
+                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                    _id: itemId,
+                    ['data.ability.value']: event.target.value,
                 });
             }
         });
