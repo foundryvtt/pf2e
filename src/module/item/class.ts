@@ -3,8 +3,9 @@ import { ABCItemPF2e } from './abc';
 import { ClassData, FeatData } from './data-definitions';
 
 export class ClassPF2e extends ABCItemPF2e {
-    data!: ClassData;
-    _data!: ClassData;
+    get hpPerLevel(): number {
+        return this.data.data.hp;
+    }
 
     async addFeatures(actor: CharacterPF2e): Promise<void> {
         await this.deleteExistingFeatures(actor);
@@ -44,4 +45,9 @@ export class ClassPF2e extends ABCItemPF2e {
             this.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level),
         ]);
     }
+}
+
+export interface ClassPF2e {
+    data: ClassData;
+    _data: ClassData;
 }

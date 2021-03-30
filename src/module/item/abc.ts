@@ -5,9 +5,6 @@ import { FeatPF2e } from './feat';
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 export abstract class ABCItemPF2e extends ItemPF2e {
-    abstract data: AncestryData | BackgroundData | ClassData;
-    abstract _data: AncestryData | BackgroundData | ClassData;
-
     protected async getFeature(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
             const pack = game.packs.get<Compendium<FeatPF2e>>(entry.pack);
@@ -53,4 +50,9 @@ export abstract class ABCItemPF2e extends ItemPF2e {
             );
         await actor.createEmbeddedEntity('OwnedItem', featuresData);
     }
+}
+
+export interface ABCItemPF2e {
+    data: AncestryData | BackgroundData | ClassData;
+    _data: AncestryData | BackgroundData | ClassData;
 }
