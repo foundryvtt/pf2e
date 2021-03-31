@@ -392,19 +392,19 @@ async function extractPack(filePath: string, packFilename: string) {
 
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
-    
+
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         let preparedEntity = convertLinks(entityData, packFilename);
         if ('items' in preparedEntity) {
-            preparedEntity.items = sortDataItems(preparedEntity);
+            // preparedEntity.items = sortDataItems(preparedEntity); // temporarily disable the custom sorting
         }
 
         // Pretty print JSON data
         const outData = (() => {
             const allKeys: Set<string> = new Set();
             const idKeys: string[] = [];
-            
+
             JSON.stringify(preparedEntity, (key, value) => {
                 if (idPattern.test(key)) {
                     idKeys.push(key);
