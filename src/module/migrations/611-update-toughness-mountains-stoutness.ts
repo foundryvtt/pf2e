@@ -8,11 +8,11 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
     requiresFlush = true;
 
     private featSlugs = ['mountains-stoutness', 'mountain-s-stoutness', 'toughness'];
-    private pack: Compendium<FeatPF2e>;
+    private featsPromise: Promise<FeatPF2e[]>;
 
     constructor() {
         super();
-        this.pack = game.packs.get('pf2e.feats-srd')!;
+        this.featsPromise = game.packs.get('pf2e.feats-srd')!.getContent();
     }
 
     async updateActor(actorData: ActorDataPF2e) {
@@ -29,8 +29,8 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
             const slug = oldFeatData.data.slug;
             const newFeat =
                 slug === 'toughness'
-                    ? await this.pack.getEntity('AmP0qu7c5dlBSath')
-                    : await this.pack.getEntity('COP89tjrNhEucuRW');
+                    ? (await this.featsPromise).find((feat) => feat.slug === 'toughness')
+                    : (await this.featsPromise).find((feat) => feat.slug === 'mountains-stoutness');
             if (!(newFeat instanceof FeatPF2e)) {
                 throw Error('PF2E System | Expected item not found in Compendium');
             }
