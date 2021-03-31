@@ -23,14 +23,14 @@
                 <div class="section-header" data-attribute="languages" for="data.traits.languages">
                     <h4>{{ localize 'PF2E.Languages' }}</h4>
                     {{# if options.editable }}
-                    <div class="languages-controls controls" for="data.traits.languages">
-                        <a class="languages-edit edit" data-options="languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
+                    <div class="languages-controls controls">
+                        <a class="languages-edit edit" data-attribute="data.traits.languages" data-options="languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
                     </div>
                     {{/if}}
                 </div>
                 <div class="section-body">
-                    {{#each data.traits.languages.localizedNames as |localizedName key|}}
-                    <div class="tag language">{{ localizedName }}</div>
+                    {{#each languages as |language|}}
+                        <div class="tag language">{{language}}</div>
                     {{/each}}
                 </div>
             </div>

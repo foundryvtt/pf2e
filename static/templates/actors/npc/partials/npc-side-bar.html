@@ -102,21 +102,21 @@
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.di.labels }} disabled {{/unless}}">
+    <div class="side-bar-section-header{{#unless immunities}} disabled{{/unless}}">
         <div class="side-bar-label">
             <i class="fas fa-ankh"></i>
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
         </div>
         {{#if options.editable }}
-        <div class="immunities-controls controls" data-attribute="immunityTypes" for="data.traits.di">
-            <a class="trait-edit edit" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if data.traits.di.labels }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        <div class="immunities-controls controls">
+            <a class="trait-edit edit" data-options="immunityTypes" data-attribute="data.traits.di" title="{{ localize 'PF2E.NPC.EditImmunities' }}"><i class="fas {{#if immunities}}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
 
     <div class="side-bar-section-content">
-        {{#each data.traits.di.labels as |immunity key|}}
-        <div class="tag immunity" data-weakness="{{key}}">{{ immunity }}</div>
+        {{#each immunities as |immunity|}}
+            <div class="tag immunity" data-weakness="{{key}}">{{immunity}}</div>
         {{/each}}
     </div>
 </div>
@@ -141,8 +141,8 @@
             <h4>{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
         </div>
         {{#if options.editable }}
-        <div class="speed-controls controls" data-attribute="speed" for="data.attributes.speed.otherSpeeds">
-            <a class="speed-edit edit" data-options="speed" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
+        <div class="speed-controls controls">
+            <a class="speed-edit edit" data-attribute="data.attributes.speed.otherSpeeds" data-options="speedTypes" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
         </div>
         {{/if}}
     </div>

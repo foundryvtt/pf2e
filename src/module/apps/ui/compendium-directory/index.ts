@@ -107,12 +107,13 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
 
         const folderNames: Record<string, string> = LocalizePF2e.translations.PF2E.CompendiumDirectory.Folders;
         const folderName = folderNames[folderID.replace(/^[^.]+\./, '')] ?? folderPart;
+        const flagKey = `compendiumFolders.${folderID}.expanded` as const; // `;
         const newFolder = new PackFolderPF2e([], {
             id: folderID,
             name: folderName,
             type: metadata.entity,
             parent,
-            expanded: game.user.getFlag('pf2e', `compendiumFolders.${folderID}.expanded` as const),
+            expanded: game.user.getFlag('pf2e', flagKey),
         });
         parent?.subfolders?.push(newFolder);
 
@@ -131,6 +132,16 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         $html.find('header.folder-header').on('click', (event) => {
             this.toggleFolder(event);
         });
+
+        $html.find('li.compendium-pack').on('click', (event) => {
+            const $li = $(event.currentTarget);
+            const $icon = $li.find('i.folder');
+            // Remove icon added by parent class
+            $icon.removeClass(['fa-folder', 'fa-folder-open']);
+            if ($li.attr('data-open') === '1') {
+                $icon.removeClass('fa-atlas').addClass('fa-book-open');
+            }
+        });
     }
 
     /** @override */
@@ -141,18 +152,27 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     /** @override */
     protected _onSearchFilter(_event: Event, query: string, _html: HTMLElement): void {
         const $lists = $(CompendiumDirectoryPF2e.contentSelector);
-        const $compendiums = $lists.find('li.compendium-pack');
+        const $compendia = $lists.find('li.compendium-pack');
 
         const isSearch = !!query;
         const regexp = new RegExp(this.escape(query), 'i');
 
         const matchesQuery = (_i: number, row: HTMLElement) => regexp.test(($(row).find('h4 a').text() ?? '').trim());
 
-        const $filteredRows = isSearch ? $compendiums.filter(matchesQuery) : $compendiums;
+        const $filteredRows = isSearch ? $compendia.filter(matchesQuery) : $compendia;
         $filteredRows.css({ display: 'list-item' });
 
-        const $rowsToHide = $compendiums.not($filteredRows);
+        const $rowsToHide = $compendia.not($filteredRows);
         $rowsToHide.css({ display: 'none' });
+
+        // Open the folder(s) of the filtered rows
+        const $filteredFolders = $filteredRows.parents('li.folder');
+        const $closedFolders = $filteredFolders.filter('li.folder.collapsed');
+        $closedFolders.children('header.folder-header').trigger('click');
+
+        // Close the other folders
+        const $openFolders = $compendia.parents('li.folder:not(.collapsed)').not($filteredFolders);
+        $openFolders.children('header.folder-header').trigger('click');
     }
 
     /**

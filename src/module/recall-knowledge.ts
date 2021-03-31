@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=UtNS1vM7czM for interpretations
  */
 
-import { NPCData } from '@actor/data-definitions';
+import { RawNPCData } from '@actor/data-definitions';
 import { toNumber } from './utils';
 import {
     adjustDC,
@@ -65,17 +65,15 @@ function toKnowledgeDC(dc: number, rarity: Rarity, loreAdjustment: NegativeDCAdj
 }
 
 export function identifyCreature(
-    creature: NPCData,
+    creature: { data: RawNPCData },
     { proficiencyWithoutLevel = false }: DCOptions = {},
 ): IdentifyCreatureData {
-    const rarity = creature.data.traits?.rarity?.value ?? 'common';
+    const rarity = creature.data.traits.rarity.value ?? 'common';
     const level = toNumber(creature.data.details.level?.value) ?? 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
 
-    const traits = creature.data.traits?.traits?.value;
-    const skills = new Set(
-        traits.filter((trait) => identifySkills.has(trait)).flatMap((trait) => identifySkills.get(trait)),
-    );
+    const traits = creature.data.traits.traits.value;
+    const skills = new Set(traits.flatMap((trait) => identifySkills.get(trait) ?? []));
 
     return {
         specificLoreDC: toKnowledgeDC(dc, rarity, 'very easy'),
