@@ -236,12 +236,11 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
         if (this.options.has_values) {
             const choices = [];
             for (const [k, v] of Object.entries(formData as Record<any, any>)) {
-                if (v.length > 1 && v[0]) {
-                    if ((!Number.isNaN(Number(v[1])) && v[1] !== '') || this.options.allow_empty_values) {
-                        const label = this.options.choices[k];
-                        const exceptions = v[2] || '';
-                        choices.push({ type: k, label, value: v[1], exceptions });
-                    }
+                const value = Number(v[1]);
+                if ((!Number.isNaN(value) && value !== 0) || this.options.allow_empty_values) {
+                    const label = this.options.choices[k];
+                    const exceptions = v[2] || '';
+                    choices.push({ type: k, label, value, exceptions });
                 }
             }
             this.object.update({ [`${this.attribute}`]: choices });
