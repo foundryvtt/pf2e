@@ -293,6 +293,7 @@ export const PF2ECONFIG = {
         weapon: 'PF2E.ResistanceTypeWeapon',
         'critical-hits': 'PF2E.ResistanceTypeCriticalHits',
         'protean anatomy': 'PF2E.ResistanceTypeProteanAnatomy',
+        water: 'PF2E.TraitWater',
     },
 
     stackGroups: {
@@ -344,6 +345,7 @@ export const PF2ECONFIG = {
         vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
         warpglass: 'PF2E.PreciousMaterialWarpglass',
+        water: 'PF2E.TraitWater',
     }, // Weapon Damage Types
 
     weaponDamage: {
