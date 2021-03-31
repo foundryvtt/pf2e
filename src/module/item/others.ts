@@ -32,19 +32,6 @@ export interface KitPF2e {
     _data: KitData;
 }
 
-export class MeleePF2e extends PhysicalItemPF2e {
-    getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = this.data.data;
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
-
-        const isAgile = this.traits.has('agile');
-        const map2 = isAgile ? '-4' : '-5';
-        const map3 = isAgile ? '-8' : '-10';
-
-        return this.processChatData(htmlOptions, { ...data, traits, map2, map3 });
-    }
-}
-
 export interface MeleePF2e {
     data: MeleeData;
     _data: MeleeData;

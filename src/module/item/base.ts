@@ -186,115 +186,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /* -------------------------------------------- */
 
     /**
-     * Roll a NPC Attack
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    rollNPCAttack(event, multiAttackPenalty?) {
-        if (this.type !== 'melee') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted to roll an attack without an actor!');
-        // Prepare roll data
-        // let itemData = this.data.data,
-        const itemData: any = this.getChatData();
-        const rollData = duplicate(this.actor.data.data) as any;
-        const parts = ['@itemBonus'];
-        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
-
-        rollData.item = itemData;
-
-        let adjustment = 0;
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
-            adjustment = 2;
-        } else if (traits.some((trait) => trait === 'weak')) {
-            adjustment = -2;
-        }
-
-        rollData.itemBonus = itemData.bonus.value + adjustment;
-
-        if (multiAttackPenalty === 2) parts.push(itemData.map2);
-        else if (multiAttackPenalty === 3) parts.push(itemData.map3);
-
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            actor: this.actor,
-            data: rollData,
-            rollType: 'attack-roll',
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event ? event.clientY - 80 : 400,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /**
-     * Roll NPC Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
-     */
-    rollNPCDamage(event, critical = false) {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'melee') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted to roll damage without an actor!');
-
-        // Get item and actor data and format it for the damage roll
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        let parts = [];
-        const partsType = [];
-        const dtype = []; // CONFIG.PF2E.damageTypes[itemData.damage.damageType];
-
-        // If the NPC is using the updated NPC Attack data object
-        if (itemData.damageRolls && typeof itemData.damageRolls === 'object') {
-            Object.keys(itemData.damageRolls).forEach((key) => {
-                if (itemData.damageRolls[key].damage) parts.push(itemData.damageRolls[key].damage);
-                partsType.push(`${itemData.damageRolls[key].damage} ${itemData.damageRolls[key].damageType}`);
-            });
-        } else {
-            parts = [(itemData as any).damage.die];
-        }
-
-        // Set the title of the roll
-        let title = `${this.name}: ${partsType.join(', ')}`;
-        if (dtype.length) title += ` (${dtype})`;
-
-        // do nothing if no parts are provided in the damage roll
-        if (parts.length === 0) {
-            console.log('PF2e System | No damage parts provided in damage roll');
-            parts = ['0'];
-        }
-
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
-            parts.push('+2');
-        } else if (traits.some((trait) => trait === 'weak')) {
-            parts.push('-2');
-        }
-
-        // Call the roll helper utility
-        rollData.item = itemData;
-        DicePF2e.damageRoll({
-            event,
-            parts,
-            critical,
-            actor: this.actor,
-            data: rollData,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
-    }
-
-    /* -------------------------------------------- */
-
-    /**
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
@@ -675,32 +566,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 itemData = item?.data;
             }
             if (item && itemData) {
-                const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
-
-                if (action === 'weaponAttack') {
-                    item.rollAttack({ event: ev });
-                } else if (action === 'weaponAttack2') {
-                    item.rollAttack({ event: ev, multiAttackPenalty: 2 });
-                } else if (action === 'weaponAttack3') {
-                    item.rollAttack({ event: ev, multiAttackPenalty: 3 });
-                } else if (action === 'weaponDamage') {
-                    item.rollDamage({ event: ev, options: rollOptions });
-                } else if (action === 'weaponDamageCritical' || action === 'criticalDamage') {
-                    item.rollDamage({ event: ev, options: rollOptions, critical: true });
-                } else if (action === 'npcAttack') item.rollNPCAttack(ev);
-                else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
-                else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
-                else if (action === 'npcDamage') item.rollNPCDamage(ev);
-                else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
-                // Spell actions
-                else if (action === 'spellAttack') item.rollAttack({ event: ev });
-                else if (action === 'spellAttack2') item.rollAttack({ event: ev, multiAttackPenalty: 2 });
-                else if (action === 'spellAttack3') item.rollAttack({ event: ev, multiAttackPenalty: 3 });
-                else if (action === 'spellDamage') item.rollDamage({ event: ev });
-                else if (action === 'spellCounteract') item.rollCounteract(ev);
-                // Consumable usage
-                else if (action === 'consume') item.rollConsumable(ev);
-                else if (action === 'save') ActorPF2e.rollSave(ev, item);
+                item.handleButtonAction(ev, action);
             } else {
                 const strikeIndex = card.attr('data-strike-index');
                 const strikeName = card.attr('data-strike-name');
@@ -716,6 +582,58 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 }
             }
         });
+    }
+
+    /**
+     * Handles a button click event from a chat message or other similar source
+     * @returns true if it was handled, false otherwise
+     */
+    handleButtonAction(event: JQuery.ClickEvent, action: string): boolean {
+        const options = this.actor?.getRollOptions(['all', 'attack-roll']);
+        switch (action) {
+            case 'attack':
+            case 'weaponAttack':
+            case 'spellAttack':
+            case 'npcAttack':
+                this.rollAttack({ event });
+                break;
+            case 'attack2':
+            case 'weaponAttack2':
+            case 'spellAttack2':
+            case 'npcAttack2':
+                this.rollAttack({ event, multiAttackPenalty: 2 });
+                break;
+            case 'attack3':
+            case 'weaponAttack3':
+            case 'spellAttack3':
+            case 'npcAttack23':
+                this.rollAttack({ event, multiAttackPenalty: 3 });
+                break;
+            case 'damage':
+            case 'weaponDamage':
+            case 'spellDamage':
+            case 'npcDamage':
+                this.rollDamage({ event, options });
+                break;
+            case 'criticalDamage':
+            case 'weaponDamageCritical':
+            case 'npcDamageCritical':
+                this.rollDamage({ event, options, critical: true });
+                break;
+            case 'consume':
+                this.rollConsumable(event);
+                break;
+            case 'spellCounteract':
+                this.rollCounteract(event);
+                break;
+            case 'save':
+                ActorPF2e.rollSave(event, this);
+                break;
+            default:
+                return false;
+        }
+
+        return true;
     }
 
     rollAttack(_options: RollAttackOptions) {

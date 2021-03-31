@@ -161,44 +161,9 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             const item = this.actor.getOwnedItem(itemId);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case 'weaponAttack':
-                case 'spellAttack':
-                    item.rollAttack({ event });
-                    break;
-                case 'weaponAttack2':
-                    item.rollAttack({ event, multiAttackPenalty: 2 });
-                    break;
-                case 'weaponAttack3':
-                    item.rollAttack({ event, multiAttackPenalty: 3 });
-                    break;
-                case 'weaponDamage':
-                case 'spellDamage':
-                    item.rollDamage({ event });
-                    break;
-                case 'weaponDamageCritical':
-                    item.rollDamage({ event, critical: true });
-                    break;
-                case 'npcAttack':
-                    item.rollNPCAttack(event);
-                    break;
-                case 'npcAttack2':
-                    item.rollNPCAttack(event, 2);
-                    break;
-                case 'npcAttack3':
-                    item.rollNPCAttack(event, 3);
-                    break;
-                case 'npcDamage':
-                    item.rollNPCDamage(event);
-                    break;
-                case 'npcDamageCritical':
-                    item.rollNPCDamage(event, true);
-                    break;
-                case 'consume':
-                    item.rollConsumable(event);
-                    break;
-                default:
-                    throw new Error('Unknown action type');
+            const dataset = event.target.dataset;
+            if (!item.handleButtonAction(event, dataset.action)) {
+                throw new Error('Unknown action type');
             }
         });
 

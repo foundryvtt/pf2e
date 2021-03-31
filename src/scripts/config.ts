@@ -12,6 +12,7 @@ import { FeatPF2e } from '@module/item/feat';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
+import { MeleePF2e } from '@item/melee';
 import {
     ActionPF2e,
     ContainerPF2e,
@@ -21,7 +22,6 @@ import {
     KitPF2e,
     LorePF2e,
     MartialPF2e,
-    MeleePF2e,
     TreasurePF2e,
 } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
