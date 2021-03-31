@@ -24,8 +24,13 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
 
     protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
         const item = this.getItem();
-
-        item.setIsIdentified(true);
+        console.log(_event)
+        console.log(_formData)
+        if (_event['submitter'].name === "identify") {
+            item.setIdentifiedState("indentified");
+        } else {
+            item.setIdentifiedState("misdentified");
+        }
     }
 
     getData() {
@@ -54,6 +59,6 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
             throw ErrorPF2e(`${item.name} is not a physical item.`);
         }
 
-        return item;
+        return item as PhysicalItemPF2e;
     }
 }

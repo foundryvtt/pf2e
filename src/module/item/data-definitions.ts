@@ -70,7 +70,31 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            data: {
+              description: {
+                value: string;
+              }
+            }
             img: string;
+        };
+        
+        unidentified?: {
+          name: string;
+          data: {
+            description: {
+              value: string;
+            }
+          }
+          img: string;
+        };
+        misidentified?: {
+          name: string;
+          data: {
+            description: {
+              value: string;
+            }
+          }
+          img: string;
         };
     };
     identified: {
@@ -909,7 +933,6 @@ export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItem
 }
 
 export function isInventoryItem(type: string): boolean {
-    console.log(type)
     switch (type) {
         case 'armor':
         case 'backpack':

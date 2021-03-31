@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
 import { TraitSelector5e } from '@system/trait-selector';
-import { FeatData, isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { FeatData, isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData, PhysicalItemData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -25,11 +25,31 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
     isPhysicalItem: boolean;
 }
 
+class ItemUpdateData {
+    identification?: {
+        identified: {
+            name: string;
+            img: string;
+        },
+        unidentified: {
+            name: string;
+            img: string;
+        },
+        misidentified: {
+            name: string;
+            img: string;
+        }
+    };
+    rules?: string[];
+}
+
 /**
  * Override and extend the basic :class:`ItemSheet` implementation.
  * @category Other
  */
 export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
+    private activeMystifyTab: string = "unidentified;"
+
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -43,6 +63,11 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 contentSelector: '.sheet-body',
                 initial: 'description',
             },
+            {
+                navSelector: '.mystify-nav',
+                contentSelector: '.mystify-sheet',
+                initial: 'unidentified',
+            }
         ];
 
         return options;
@@ -435,6 +460,31 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // Set up callback on tabs to make sure that when the Mystify tab is picked it
+        // defaults to the unidentified tab.
+        this._tabs[0].callback = () => {
+           if (this._tabs[0].active === "mystify") {
+               this._tabs[1].activate(this.activeMystifyTab);
+           }
+        };
+        this._tabs[1].callback = () => {
+            this.activeMystifyTab = this._tabs[1].active;
+        };
+
+        console.log(this.editors)
+
+        // html.find('input.mystify-control').on('change', (event) => {
+        //     // See if this input was for the current item state, update base value if so.
+        //     console.log("Here!")
+        //     const inputTarget = event.target as HTMLInputElement;
+        //     const state = inputTarget.parentElement.parentElement.attributes["data-tab"];
+        //     const mystifyItem = this.item.data as PhysicalItemData;
+        //     if (state === mystifyItem.data.identification.status) {
+        //         mystifyItem.name = inputTarget.value;
+        //         this._onSubmit(event.originalEvent);
+        //     }
+        // });
+
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
@@ -571,11 +621,107 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         });
     }
 
+    private updateMystifiedItem(data: Record<string, unknown> & { name?: string, img?: string, data?: ItemUpdateData }): void {
+        const physItemData = this.item.data as PhysicalItemData;
+
+        // First determine if the base values changed.
+        const baseDescription = this.editors["data.description.value"];
+        console.log(baseDescription);
+        if (physItemData.name !== data.name || physItemData.img !== data.img || physItemData.data.description.value !== baseDescription.initial) {
+            // Base values changed, now determine what to update by state.
+            switch (physItemData.data.identification.status) {
+                case 'identified': {
+                    const stateDescription = this.editors["data.identification.identified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        stateDescription.initial = baseDescription.initial;
+                    }
+                    if (data.data.identification.identified.name !== data.name) {
+                        data.data.identification.identified.name = data.name;
+                    }
+                    if (data.data.identification.identified.img !== data.img) {
+                        data.data.identification.identified.img = data.img;
+                    }
+                    break;
+                }
+                case 'unidentified': {
+                    const stateDescription = this.editors["data.identification.unidentified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        stateDescription.initial = baseDescription.initial;
+                    }
+                    if (data.data.identification.unidentified.name !== data.name) {
+                        data.data.identification.unidentified.name = data.name;
+                    }
+                    if (data.data.identification.unidentified.img !== data.img) {
+                        data.data.identification.unidentified.img = data.img;
+                    }
+                    break;
+                }
+                case 'misidentified': {
+                    const stateDescription = this.editors["data.identification.misidentified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        stateDescription.initial = baseDescription.initial;
+                    }
+                    if (data.data.identification.misidentified.name !== data.name) {
+                        data.data.identification.misidentified.name = data.name;
+                    }
+                    if (data.data.identification.misidentified.img !== data.img) {
+                        data.data.identification.misidentified.img = data.img;
+                    }
+                    break;
+                }
+            }
+        } else {
+            // Not the base values, so lets work with the right state to see if anything else needs updating.
+        
+            switch (physItemData.data.identification.status) {
+                case 'identified': {
+                    const stateDescription = this.editors["data.identification.identified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        baseDescription.initial = stateDescription.initial;
+                    }
+                    if (data.data.identification.identified.name !== data.name) {
+                        data.name = data.data.identification.identified.name;
+                    }
+                    if (data.data.identification.identified.img !== data.img) {
+                        data.img = data.data.identification.identified.img;
+                    }
+                    break;
+                }
+                case 'unidentified': {
+                    const stateDescription = this.editors["data.identification.unidentified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        baseDescription.initial = stateDescription.initial;
+                    }
+                    if (data.data.identification.unidentified.name !== data.name) {
+                        data.name = data.data.identification.unidentified.name;
+                    }
+                    if (data.data.identification.unidentified.img !== data.img) {
+                        data.img = data.data.identification.unidentified.img;
+                    }
+                    break;
+                }
+                case 'misidentified': {
+                    const stateDescription = this.editors["data.identification.misidentified.data.description.value"];
+                    if (stateDescription.initial !== baseDescription.initial) {
+                        baseDescription.initial = stateDescription.initial;
+                    }
+                    if (data.data.identification.misidentified.name !== data.name) {
+                        data.name = data.data.identification.misidentified.name;
+                    }
+                    if (data.data.identification.misidentified.img !== data.img) {
+                        data.img = data.data.identification.misidentified.img;
+                    }
+                    break;
+                }
+            }
+        }
+    }
+
     /** @override */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
+        const data: Record<string, unknown> & { name?: string, img?: string, data?: ItemUpdateData } = updateData
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
@@ -590,6 +736,16 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 }
             });
         }
+
+        console.log(fd)
+        console.log(data)
+        
+        // If this is a physical item, handle updating name, image, or description based on identification state.
+        if (this.item.data as PhysicalItemData) {
+            this.updateMystifiedItem(data);
+        }
+
+        console.log("here")
 
         return flattenObject(data); // return the flattened submission data
     }

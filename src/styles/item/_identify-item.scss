@@ -1,12 +1,52 @@
 .identify-popup {
-    min-width: 300px;
+  min-width: 300px;
 }
+
 .item-mystify {
-    &.active .form-group + .editor {
-        height: auto;
-        min-height: 30px;
+  &.active label + .editor {
+      height: auto;
+      min-height: 30px;
+  }
+  .tox.tox-tinymce {
+    min-height: 200px;
+  }
+}
+
+.sheet-body img.image-picker {
+  border: none;
+  flex: 0 0 auto;
+  margin-right: 6px;
+  margin-bottom: 6px;
+  height: 40px;
+  width: 40px;
+  display: flex;
+}
+
+.mystify-nav {
+  height: 30px;
+
+  > .item {
+    line-height: 24px;
+    padding-top: 4px;
+
+    &:last-of-type {
+      padding-right: 4px;
     }
-    .tox.tox-tinymce {
-        min-height: 200px;
+
+    &.active {
+      color: #000;
+      font-weight: 700;
+      text-decoration: underline;
+      text-shadow: 0 0 10px red;
     }
+  }
+}
+
+.mystify-tabs {
+  .mystify-tab[data-tab] {
+    display: none;
+    &.active {
+      display: initial;
+    }
+  }
 }
