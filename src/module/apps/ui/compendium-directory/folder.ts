@@ -34,13 +34,13 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
     }
 
     /** Is the folder visible to non-GMs? */
-    get private() {
-        return this.every((pack) => pack.private);
+    get private(): boolean {
+        return this.every((pack) => pack.private) && this.subfolders.every((folder) => folder.private);
     }
 
     /** Is the folder visible to the current user? */
-    get visible() {
-        return game.user.isGM || this.some((pack) => !pack.private);
+    get visible(): boolean {
+        return game.user.isGM || this.some((pack) => !pack.private) || this.subfolders.some((folder) => folder.visible);
     }
 
     push(summaryData: EnfolderedSummaryData) {
@@ -50,9 +50,5 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
             return super.push(summaryData);
         }
         return this.length;
-    }
-
-    get displayed() {
-        return game.user.isGM || !!this.length;
     }
 }

@@ -57,6 +57,10 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const packSettings = game.settings.get('core', 'compendiumConfiguration');
         for (const pack of game.packs) {
             const metadata: PackMetadataPF2e = pack.metadata;
+            if (metadata.package !== 'pf2e') {
+                delete metadata.folder;
+                delete metadata.private;
+            }
             const packKey = `${metadata.package}.${metadata.name}`;
             pack.private = packSettings[packKey]?.private ?? metadata.private ?? false;
         }
