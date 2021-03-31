@@ -43,7 +43,7 @@
                 "value": "37"
             },
             "allSaves": {
-                "value": ""
+                "value": null
             },
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -91,8 +91,15 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 100 feet"
+                "otherSpeeds": [
+                    {
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "100"
+                    }
+                ],
+                "value": ""
             }
         },
         "currency": {
@@ -109,6 +116,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CN"
@@ -267,8 +275,8 @@
             ],
             "dv": [
                 {
-                    "label": "Any Diner Who Has A “regular” Order",
-                    "type": "any diner who has a “regular” order"
+                    "label": "Any Diner Who Has A \"regular\" Order",
+                    "type": "any diner who has a \"regular\" order"
                 }
             ],
             "languages": {
@@ -309,8 +317,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "weredigo torment"
+                        "Weredigo Torment"
                     ]
                 },
                 "baseItem": null,
@@ -341,7 +350,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(magical, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -412,6 +421,7 @@
             },
             "effects": [],
             "flags": {},
+            "img": "icons/svg/mystery-man.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -455,7 +465,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -517,7 +527,7 @@
                     },
                     "value": [
                         "agile",
-                        "reach 10 feet"
+                        "reach-10"
                     ]
                 },
                 "weight": {
@@ -526,6 +536,7 @@
             },
             "effects": [],
             "flags": {},
+            "img": "icons/svg/mystery-man.svg",
             "name": "Fork",
             "sort": 200000,
             "type": "melee"
@@ -567,7 +578,7 @@
                     }
                 },
                 "description": {
-                    "value": "<p>(agile, reach 10 feet)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -638,12 +649,13 @@
             },
             "effects": [],
             "flags": {},
+            "img": "icons/svg/mystery-man.svg",
             "name": "Knife",
             "sort": 300000,
             "type": "melee"
         },
         {
-            "_id": "aibWh4tuwJyTxul1",
+            "_id": "Xwyap8jGpoVEopa7",
             "data": {
                 "actionCategory": {
                     "value": "interaction"
@@ -655,7 +667,9 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A weredigo adds @Compendium[pf2e.spells-srd.Create Food]{Create Food}, @Compendium[pf2e.spells-srd.Enhance Victuals]{Enhance Victuals}, and @Compendium[pf2e.spells-srd.Ghoulish Cravings]{Ghoulish Cravings} to its coven’s spells. In addition, a weredigo, wendigo, and hoodigo coven can perform a unique ritual to enter the dreams of a creature responsible for hosting an upcoming party and curse them incurable planning indecision.</p>"
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -664,7 +678,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "darkvision",
                 "source": {
                     "value": ""
                 },
@@ -673,10 +687,7 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "divination",
-                        "primal"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
@@ -686,9 +697,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Coven",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
             "sort": 400000,
             "type": "action"
         },
@@ -743,6 +758,120 @@
             "type": "action"
         },
         {
+            "_id": "yxb37QHZ4RqNpk63",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A weredigo adds @Compendium[pf2e.spells-srd.Create Food]{Create Food}, @Compendium[pf2e.spells-srd.Enhance Victuals]{Enhance Victuals}, and @Compendium[pf2e.spells-srd.Ghoulish Cravings]{Ghoulish Cravings} to its coven's spells.</p>\n<p>In addition, a weredigo, wendigo, and hoodigo coven can perform a unique ritual to enter the dreams of a creature responsible for hosting an upcoming party and curse them incurable planning indecision.</p>\n<hr />\n<p>This monster can form a coven with two or more other creatures who also have the coven ability. This involves performing an 8-hour ceremony with all prospective coven members. After the coven is formed, each of its members gains elite adjustments, adjusting their levels accordingly. Coven members can sense other members' locations and conditions by spending a single action, which has the concentrate trait, and can sense what another coven member is sensing as a two-action activity, which has the concentrate trait as well.</p>\n<p>Covens also grant spells and rituals to their members, but these can be cast only in cooperation between three coven members who are all within 30 feet of one another. A coven member can contribute to a coven spell with a single-action spellcasting activity that has a single verbal component. If two coven members have contributed these actions within the last round, a third member can cast a coven spell on her turn by spending the normal spellcasting actions. A coven can cast its coven spells an unlimited number of times but can cast only one coven spell each round. All covens grant the 8th-level @Compendium[pf2e.spells-srd.Baleful Polymorph]{Baleful Polymorph} spell and all the following spells, which the coven can cast at any level up to 5th: @Compendium[pf2e.spells-srd.Augury]{Augury}, @Compendium[pf2e.spells-srd.Charm]{Charm}, @Compendium[pf2e.spells-srd.Clairaudience]{Clairaudience}, @Compendium[pf2e.spells-srd.Clairvoyance]{Clairvoyance}, @Compendium[pf2e.spells-srd.Dream Message]{Dream Message}, @Compendium[pf2e.spells-srd.Illusory Disguise]{Illusory Disguise}, @Compendium[pf2e.spells-srd.Illusory Scene]{Illusory Scene}, @Compendium[pf2e.spells-srd.Prying Eye]{Prying Eye}, and @Compendium[pf2e.spells-srd.Talking Corpse]{Talking Corpse}. Individual creatures with the coven ability also grant additional spells to any coven they join. A coven can also cast the @Compendium[pf2e.spells-srd.Control Weather]{Control Weather} ritual, with a DC of 23 instead of the standard DC.</p>\n<p>If a coven member leaving the coven or the death of a coven member brings the coven below three members, the remaining members keep their elite adjustments for 24 hours, but without enough members to contribute the necessary actions, they can't cast coven spells.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "coven",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "divination",
+                        "mental",
+                        "occult"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.52CdldlWMiVTZk1F"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Coven",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "Z2YFBhPR8PxcKF90",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Telepathy (1 mile)",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
             "_id": "MXZvzCgypC6fZYM6",
             "data": {
                 "actionCategory": {
@@ -755,7 +884,7 @@
                     "value": "2"
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The weredigo is adjacent to two creatures that can’t decide where to get brunch. <br /><strong>Effect</strong> The weredigo makes two fork Strikes and two knife Strikes against one of the adjacent creatures. These attacks don’t count toward the weredigo’s multiple attack penalty.</p>"
+                    "value": "<p><strong>Requirements</strong> The weredigo is adjacent to two creatures that can't decide where to get brunch.</p>\n<p><strong>Effect</strong> The weredigo makes two fork Strikes and two knife Strikes against one of the adjacent creatures. These attacks don't count toward the weredigo's multiple attack penalty.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -791,7 +920,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.png",
             "name": "Reduce Options",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -807,7 +936,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>A creature affected by weredigo torment can’t recover beyond stage 1 until it has been restored to full HP. <br /><strong>Saving Throw</strong> Will DC 35; <br /><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} (1 day); <br /><strong>Stage 2</strong> As stage 1 (1 day); <br /><strong>Stage 3</strong> The creature becomes permanently afflicted with analysis paralysis, unable to make even the simplest of dining decisions, absentmindedly sipping their water whenever asked for their order.</p>"
+                    "value": "<p>A creature affected by weredigo torment can't recover beyond stage 1 until it has been restored to full HP.</p>\n<p><strong>Saving Throw</strong> Will DC 35;</p>\n<p><strong>Stage 1</strong>@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 4} (1 day);</p>\n<p><strong>Stage 2</strong> As stage 1 (1 day);</p>\n<p><strong>Stage 3</strong> The creature becomes permanently afflicted with analysis paralysis, unable to make even the simplest of dining decisions, absentmindedly sipping their water whenever asked for their order.</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -843,7 +972,60 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Weredigo Torment",
-            "sort": 700000,
+            "sort": 900000,
+            "type": "action"
+        },
+        {
+            "_id": "6s0qKpsktuEdGlgX",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Grab",
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -880,7 +1062,7 @@
             "effects": [],
             "flags": {},
             "name": "Acrobatics",
-            "sort": 800000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -917,7 +1099,7 @@
             "effects": [],
             "flags": {},
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -953,8 +1135,8 @@
             },
             "effects": [],
             "flags": {},
-            "name": "Lore",
-            "sort": 1000000,
+            "name": "Restaurant Lore",
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -991,7 +1173,7 @@
             "effects": [],
             "flags": {},
             "name": "Society",
-            "sort": 1100000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
