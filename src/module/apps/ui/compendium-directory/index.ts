@@ -142,6 +142,16 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
                 $icon.removeClass('fa-atlas').addClass('fa-book-open');
             }
         });
+
+        // What follows is evil but necessary given the stakes.
+        const original = Compendium.prototype.close;
+        Compendium.prototype.close = async function (this: Compendium) {
+            const packID = `${this.metadata.package}.${this.metadata.name}`;
+            const $packRow = $html.find(`li.compendium-pack[data-pack="${packID}"]`);
+            const $icon = $packRow.find('h4.pack-title i.folder');
+            await original.apply(this);
+            $icon.removeClass(['fa-folder', 'fa-book-open']).addClass('fa-atlas');
+        };
     }
 
     /** @override */
