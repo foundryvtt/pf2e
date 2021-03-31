@@ -1,13 +1,13 @@
-import { DicePF2e } from "@scripts/dice";
-import { RollAttackOptions, RollDamageOptions } from "./base";
-import { PhysicalItemPF2e } from "./physical";
+import { DicePF2e } from '@scripts/dice';
+import { RollAttackOptions, RollDamageOptions } from './base';
+import { PhysicalItemPF2e } from './physical';
 
 export class MeleePF2e extends PhysicalItemPF2e {
     /**
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-     rollAttack({ event, multiAttackPenalty = 1 }: RollAttackOptions) {
+    rollAttack({ event, multiAttackPenalty = 1 }: RollAttackOptions) {
         if (this.type !== 'melee') throw new Error('Wrong item type!');
         if (!this.actor) throw new Error('Attempted to roll an attack without an actor!');
         // Prepare roll data
@@ -43,7 +43,7 @@ export class MeleePF2e extends PhysicalItemPF2e {
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
                 width: 400,
-                top: event ? event.clientY - 80 : 400,
+                top: event?.clientY ? event.clientY - 80 : 400,
                 left: window.innerWidth - 710,
             },
         });
@@ -61,9 +61,9 @@ export class MeleePF2e extends PhysicalItemPF2e {
         // Get item and actor data and format it for the damage roll
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data) as any;
-        let parts = [];
-        const partsType = [];
-        const dtype = []; // CONFIG.PF2E.damageTypes[itemData.damage.damageType];
+        let parts = new Array<string | number>();
+        const partsType = new Array<string>();
+        const dtype = new Array<string>(); // CONFIG.PF2E.damageTypes[itemData.damage.damageType];
 
         // If the NPC is using the updated NPC Attack data object
         if (itemData.damageRolls && typeof itemData.damageRolls === 'object') {
@@ -104,7 +104,7 @@ export class MeleePF2e extends PhysicalItemPF2e {
             speaker: ChatMessage.getSpeaker({ actor: this.actor }),
             dialogOptions: {
                 width: 400,
-                top: event.clientY - 80,
+                top: event?.clientY ? event.clientY - 80 : 400,
                 left: window.innerWidth - 710,
             },
         });

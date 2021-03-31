@@ -588,7 +588,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Handles a button click event from a chat message or other similar source
      * @returns true if it was handled, false otherwise
      */
-    handleButtonAction(event: JQuery.ClickEvent, action: string): boolean {
+    handleButtonAction(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, action: string | undefined): boolean {
         const options = this.actor?.getRollOptions(['all', 'attack-roll']);
         switch (action) {
             case 'attack':
