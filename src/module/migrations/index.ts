@@ -40,6 +40,9 @@ import { Migration606SignatureSpells } from './606-signature-spells';
 import { Migration607MeleeItemDamageRolls } from './607-melee-item-damage-rolls';
 import { Migration608DeletePersistedKits } from './608-delete-persisted-kits';
 import { Migration609LootActorTraits } from './609-loot-actor-traits';
+import { Migration610SetHeritageFeatType } from './610-set-heritage-feat-type';
+import { Migration611UpdateToughnessMountainsStoutness } from './611-update-toughness-mountains-stoutness';
+import { Migration612NormalizeRarities } from './612-normalize-rarities';
 
 export class Migrations {
     private static list = [
@@ -84,6 +87,9 @@ export class Migrations {
         Migration607MeleeItemDamageRolls,
         Migration608DeletePersistedKits,
         Migration609LootActorTraits,
+        Migration610SetHeritageFeatType,
+        Migration611UpdateToughnessMountainsStoutness,
+        Migration612NormalizeRarities,
     ];
 
     static get latestVersion(): number {
@@ -92,5 +98,9 @@ export class Migrations {
 
     static constructAll(): MigrationBase[] {
         return this.list.map((Migration) => new Migration());
+    }
+
+    static constructForWorld(version: number): MigrationBase[] {
+        return this.list.filter((Migration) => Migration.version > version).map((Migration) => new Migration());
     }
 }

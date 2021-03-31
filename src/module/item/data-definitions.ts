@@ -140,7 +140,7 @@ export interface ActivatedEffectData {
 }
 
 export interface MagicDetailsData extends PhysicalDetailsData {
-    invested?: {
+    invested: {
         value: boolean;
     };
 }
@@ -243,7 +243,8 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     selectedAmmoId?: string;
 }
 
-export type ArmorCategory = 'unarmored' | 'light' | 'medium' | 'heavy' | 'shield';
+export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
+export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
 
 export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
@@ -253,7 +254,7 @@ export interface ArmorDetailsData extends MagicDetailsData {
         value: ArmorCategory;
     };
     group: {
-        value: string;
+        value: ArmorGroup;
     };
     strength: {
         value: number;
@@ -435,7 +436,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
         value: FeatType;
     };
     actionType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['actionTypes'];
     };
     actionCategory: {
         value: string;
@@ -473,7 +474,7 @@ export interface MartialDetailsData extends ItemDescriptionData {
 
 export interface ActionDetailsData extends ItemDescriptionData {
     actionType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['actionTypes'];
     };
     actionCategory: {
         value: string;
@@ -530,8 +531,8 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
         value: string;
     };
     area: {
-        value: number;
-        areaType: string;
+        value: keyof ConfigPF2e['PF2E']['areaSizes'];
+        areaType: keyof ConfigPF2e['PF2E']['areaTypes'];
     };
     time: {
         value: string;

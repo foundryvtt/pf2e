@@ -120,6 +120,17 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
                 else i.data.tradition.ritual = false;
 
+                // There are still some bestiary entries where these values are strings.
+                i.data.spelldc.dc = Number(i.data.spelldc.dc);
+                i.data.spelldc.value = Number(i.data.spelldc.value);
+
+                if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'elite')) {
+                    i.data.spelldc.dc += 2;
+                    i.data.spelldc.value += 2;
+                } else if (this.actor.data.data.traits.traits.value.some((trait) => trait === 'weak')) {
+                    i.data.spelldc.dc -= 2;
+                    i.data.spelldc.value -= 2;
+                }
                 spellcastingEntries.push(i);
             }
 
@@ -368,10 +379,14 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
 
             if (['dc', 'value'].includes(spelldcType)) {
-                const key = `data.spelldc.${spelldcType}`;
                 await this.actor.updateEmbeddedEntity('OwnedItem', {
                     _id: itemId,
-                    [key]: Number(event.target.value),
+                    [`data.spelldc.${spelldcType}`]: Number(event.target.value),
+                });
+            } else if (spelldcType === 'ability') {
+                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                    _id: itemId,
+                    ['data.ability.value']: event.target.value,
                 });
             }
         });

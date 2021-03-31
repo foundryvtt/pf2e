@@ -103,7 +103,8 @@ export interface DCOptions {
  * @param proficiencyWithoutLevel
  */
 export function calculateDC(level: number, { proficiencyWithoutLevel = false }: DCOptions = {}): number {
-    // assume level 0 if garbage comes in
+    // assume level 0 if garbage comes in. We cast level to number because the backing data may actually have it
+    // stored as a string, which we can't catch at compile time
     const dc = dcByLevel.get(level) ?? 14;
     if (proficiencyWithoutLevel) {
         // -1 shouldn't be subtracted since it's just

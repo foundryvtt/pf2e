@@ -1,20 +1,22 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
-import { MigrationRunnerBase } from '../../src/module/migration-runner-base';
-import { Migration595AddItemSize } from '../../src/module/migrations/595-item-sizes';
-import { Migration605CatchUpToTemplateJSON } from '../../src/module/migrations/605-catch-up-to-template-json';
-import { Migration607MeleeItemDamageRolls } from '../../src/module/migrations/607-melee-item-damage-rolls';
+import { MigrationRunnerBase } from '@module/migration-runner-base';
 import { ItemDataPF2e } from '@item/data-definitions';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { MigrationBase } from 'src/module/migrations/base';
+import { MigrationBase } from '@module/migrations/base';
+import { Migration595AddItemSize } from '@module/migrations/595-item-sizes';
+import { Migration607MeleeItemDamageRolls } from '@module/migrations/607-melee-item-damage-rolls';
+import { Migration610SetHeritageFeatType } from '@module/migrations/610-set-heritage-feat-type';
+import { Migration612NormalizeRarities } from '@module/migrations/612-normalize-rarities';
 
 const migrations: MigrationBase[] = [
     new Migration595AddItemSize(),
-    new Migration605CatchUpToTemplateJSON(),
     new Migration607MeleeItemDamageRolls(),
+    new Migration610SetHeritageFeatType(),
+    new Migration612NormalizeRarities(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

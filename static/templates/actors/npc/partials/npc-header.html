@@ -43,15 +43,13 @@
         {{/if}}
     </div>
     <div class="flexrow">
-        {{#each data.traits.traits.localizationMap}}
-            {{#if this}}
-            <div class="traits-list-item trait {{@key}}">{{ this }}</div>
-            {{/if}}
+        {{#each traits as |trait key|}}
+            <div class="traits-list-item trait {{key}}">{{trait}}</div>
         {{/each}}
         {{# if options.editable }}
-        <div class="trait-controls" style="flex: 0 0 32px;" for="data.traits.traits">
-            <a class="trait-edit" data-options="monsterTraits" title="{{ localize 'PF2E.NPC.EditTraits' }}"><i class="fas fa-edit"></i></a>
-        </div>
+            <div class="trait-controls" style="flex: 0 0 32px;">
+                <a class="trait-edit" data-attribute="data.traits.traits" data-options="monsterTraits" title="{{localize 'PF2E.NPC.EditTraits'}}"><i class="fas fa-edit"></i></a>
+            </div>
         {{/if}}
     </div>
 </header>

@@ -2,6 +2,7 @@ import { CheckModifiersDialog, CheckModifiersContext } from './check-modifiers-d
 import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
+import { DamageTemplate } from '@system/damage/weapon';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -176,7 +177,7 @@ export class PF2DamageRoll {
      * @param event
      * @param callback
      */
-    static roll(damage, context: any = {}, _event: JQuery.Event | undefined, callback?) {
+    static roll(damage: DamageTemplate, context: any = {}, _event: JQuery.Event | undefined, callback?) {
         if (context?.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
             if (context.options.map((o) => o.toLowerCase()).includes('secret')) {

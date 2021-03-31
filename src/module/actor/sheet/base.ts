@@ -201,7 +201,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Add chat data
         try {
             const item = this.actor.getOwnedItem(spell._id);
-            if (item) {
+            if (item instanceof SpellPF2e) {
                 spell.spellInfo = item.getSpellInfo();
             }
         } catch (err) {
@@ -316,11 +316,28 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
             );
         const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        const updates = {
-            _id: entryId,
-            [key]: { id: spell._id },
-        };
-        this.actor.updateEmbeddedEntity('OwnedItem', updates);
+        const entry = this.actor.getOwnedItem(entryId);
+        if (entry) {
+            const updates: any = {
+                _id: entryId,
+                [key]: {
+                    id: spell._id,
+                },
+            };
+            const slot = getProperty(entry, `data.data.slots.slot${spellLevel}.prepared`);
+            if (slot[spellSlot] !== undefined) {
+                if (slot[spellSlot].prepared !== undefined) {
+                    updates[key]['-=prepared'] = null;
+                }
+                if (slot[spellSlot].name !== undefined) {
+                    updates[key]['-=name'] = null;
+                }
+                if (slot[spellSlot].expended !== undefined) {
+                    updates[key]['-=expended'] = null;
+                }
+            }
+            this.actor.updateEmbeddedEntity('OwnedItem', updates);
+        }
     }
 
     /**
@@ -571,11 +588,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             } else {
                 this.actor.rollSkill(event, skill);
             }
-        });
-
-        // Roll Recovery Flat Check when Dying
-        html.find('.recoveryCheck.rollable').on('click', (event) => {
-            this.actor.rollRecovery(event);
         });
 
         // Toggle Levels of stats (like proficiencies conditions or hero points)

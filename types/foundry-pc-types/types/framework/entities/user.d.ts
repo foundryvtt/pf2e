@@ -213,3 +213,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      */
     protected _onUpdate(data: object, options: object, userId: string, context: object): void;
 }
+
+declare interface User<ActorType extends Actor = Actor> extends Entity {
+    getFlag(scope: string, key: string): any;
+}

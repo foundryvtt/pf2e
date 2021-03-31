@@ -1,24 +1,10 @@
-/**
- * Extend the base Actor class to implement additional logic specialized for PF2e.
- */
-import {
-    ensureProficiencyOption,
-    CheckModifier,
-    DamageDicePF2e,
-    ModifierPF2e,
-    ModifierPredicate,
-    ProficiencyModifier,
-    RawPredicate,
-} from '../modifiers';
+import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { ConditionManager } from '../conditions';
-import { adaptRoll, CheckPF2e } from '@system/rolls';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
 import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
-    CharacterData,
-    InitiativeData,
     DexterityModifierCapData,
     ActorDataPF2e,
     VehicleData,
@@ -30,7 +16,6 @@ import {
     SkillData,
     SaveData,
     SaveString,
-    PerceptionData,
 } from './data-definitions';
 import { PF2RuleElement, RuleElements } from '../rules/rules';
 import {
@@ -43,6 +28,8 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { ArmorPF2e } from '@item/armor';
+import { LocalizePF2e } from '@module/system/localize';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -108,6 +95,7 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
 }
 
 /**
+ * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
 export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
@@ -131,6 +119,10 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return this.data.type;
     }
 
+    get traits(): Set<string> {
+        return new Set(this.data.data.traits.traits.value);
+    }
+
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
@@ -139,6 +131,11 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     get defaultImg(): string {
         return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
+    }
+
+    /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
+    get heldShield(): Owned<ArmorPF2e> | null {
+        return null;
     }
 
     /** As of Foundry 0.7.9: All subclasses of ActorPF2e need to use this factory method rather than having their own
@@ -227,63 +224,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 this.data.token.img = this.img;
             }
         }
-    }
-
-    /* -------------------------------------------- */
-
-    prepareInitiative(
-        actorData: CharacterData,
-        statisticsModifiers: Record<string, ModifierPF2e[]>,
-        rollNotes: Record<string, PF2RollNote[]>,
-    ) {
-        const { data } = actorData;
-        const initSkill = data.attributes?.initiative?.ability || 'perception';
-        const modifiers: ModifierPF2e[] = [];
-        const notes: PF2RollNote[] = [];
-
-        ['initiative'].forEach((key) => {
-            const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;
-            (statisticsModifiers[key] || [])
-                .map((m) => duplicate(m))
-                .forEach((m) => {
-                    // checks if predicated rule is true with only skill name option
-                    if (m.predicate && ModifierPredicate.test(m.predicate, [skillFullName])) {
-                        // toggles these so the predicate rule will be included when totalmodifier is calculated
-                        m.enabled = true;
-                        m.ignored = false;
-                    }
-                    modifiers.push(m);
-                });
-            (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-        });
-        const initStat: PerceptionData | SkillData =
-            initSkill === 'perception' ? data.attributes.perception : data.skills[initSkill as SkillAbbreviation];
-        const skillName = game.i18n.localize(
-            initSkill === 'perception' ? 'PF2E.PerceptionLabel' : CONFIG.PF2E.skills[initSkill as SkillAbbreviation],
-        );
-
-        const stat = new CheckModifier('initiative', initStat, modifiers) as InitiativeData;
-        stat.ability = initSkill;
-        stat.label = game.i18n.format('PF2E.InitiativeWithSkill', { skillName });
-        stat.roll = adaptRoll((args) => {
-            const skillFullName = SKILL_DICTIONARY[stat.ability as SkillAbbreviation] ?? 'perception';
-            const options = args.options ?? [];
-            // push skill name to options if not already there
-            if (!options.includes(skillFullName)) {
-                options.push(skillFullName);
-            }
-            ensureProficiencyOption(options, initStat.rank ?? -1);
-            CheckPF2e.roll(
-                new CheckModifier(data.attributes.initiative.label, data.attributes.initiative),
-                { actor: this, type: 'initiative', options, notes, dc: args.dc },
-                args.event,
-                (roll) => {
-                    this._applyInitiativeRollToCombatTracker(roll);
-                },
-            );
-        });
-
-        data.attributes.initiative = stat;
     }
 
     _applyInitiativeRollToCombatTracker(roll: Roll) {
@@ -552,63 +492,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     /**
-     * Roll a Recovery Check
-     * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
-     * @param skill {String}    The skill id
-     */
-    rollRecovery(_event: JQuery.Event) {
-        if (this.data.type !== 'character') {
-            throw Error('Recovery rolls are only applicable to characters');
-        }
-
-        const dying = this.data.data.attributes.dying.value;
-        // const wounded = this.data.data.attributes.wounded.value; // not needed currently as the result is currently not automated
-        const recoveryMod = getProperty(this.data.data.attributes, 'dying.recoveryMod') || 0;
-        const recoveryDc = 10 + recoveryMod;
-        const flatCheck = new Roll('1d20').roll();
-        const total = flatCheck.total ?? 0;
-        const dc = recoveryDc + dying;
-        let result = '';
-
-        if (total === 20 || total >= dc + 10) {
-            result = `${game.i18n.localize('PF2E.CritSuccess')} ${game.i18n.localize('PF2E.Recovery.critSuccess')}`;
-        } else if (total === 1 || total <= dc - 10) {
-            result = `${game.i18n.localize('PF2E.CritFailure')} ${game.i18n.localize('PF2E.Recovery.critFailure')}`;
-        } else if (flatCheck?.result ?? 0 >= dc) {
-            result = `${game.i18n.localize('PF2E.Success')} ${game.i18n.localize('PF2E.Recovery.success')}`;
-        } else {
-            result = `${game.i18n.localize('PF2E.Failure')} ${game.i18n.localize('PF2E.Recovery.failure')}`;
-        }
-        const rollingDescription = game.i18n.format('PF2E.Recovery.rollingDescription', { dc, dying });
-
-        const message = `
-      ${rollingDescription}.
-      <div class="dice-roll">
-        <div class="dice-formula" style="padding: 0 10px; word-break: normal;">
-          <span style="font-size: 12px; font-weight: 400;">
-            ${result}
-          </span>
-        </div>
-      </div>
-      `;
-
-        flatCheck.toMessage(
-            {
-                speaker: ChatMessage.getSpeaker({ actor: this }),
-                flavor: message,
-            },
-            {
-                rollMode: game.settings.get('core', 'rollMode'),
-            },
-        );
-
-        // No automated update yet, not sure if Community wants that.
-        // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
-    }
-
-    /* -------------------------------------------- */
-
-    /**
      * Roll a Lore (Item) Skill Check
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
@@ -726,56 +609,66 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * @param roll The chat entry which contains the roll data
      * @param multiplier A damage multiplier to apply to the rolled damage.
      */
-    static async applyDamage(roll: JQuery, multiplier: number, attribute = 'attributes.hp', modifier = 0) {
-        if (canvas.tokens.controlled.length > 0) {
-            const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
-            const messageSender = roll.find('.message-sender').text();
-            const flavorText = roll.find('.flavor-text').text();
-            const shieldFlavor =
-                attribute === 'attributes.shield'
-                    ? game.i18n.localize('PF2E.UI.applyDamage.shieldActive')
-                    : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
-            for (const token of canvas.tokens.controlled) {
-                const actor = token.actor;
-                if (!actor) {
-                    continue;
-                }
-                const appliedResult =
-                    value > 0
-                        ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
-                        : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
-                const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
-                const by = game.i18n.localize('PF2E.UI.applyDamage.by');
-                const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
-                const message = `
-          <div class="dice-roll">
-          <div class="dice-result">
-            <div class="dice-tooltip dmg-tooltip" style="display: none;">
-              <div class="dice-formula" style="background: 0;">
-                <span>${flavorText}, ${by} ${messageSender}</span>
-                <span>${modifiedByGM}</span>
-              </div>
-            </div>
-            <div class="dice-total" style="padding: 0 10px; word-break: normal;">
-              <span style="font-size: 12px; font-style:oblique; font-weight: 400; line-height: 15px;">
-                ${token.name} ${shieldFlavor} ${appliedResult} ${hitpoints}.
-              </span>
-            </div>
-          </div>
-          </div>
-          `;
-                actor.modifyTokenAttribute(attribute, value * -1, true, true).then(() => {
-                    ChatMessage.create({
-                        user: game.user._id,
-                        speaker: { alias: token.name },
-                        content: message,
-                        type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-                    });
-                });
-            }
-        } else {
+    static async applyDamage(
+        roll: JQuery,
+        multiplier: number,
+        attribute = 'attributes.hp',
+        modifier = 0,
+        { shieldID }: { shieldID?: string } = {},
+    ) {
+        const tokens = canvas.tokens.controlled.filter((token) => token.actor);
+        if (tokens.length === 0) {
             ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
             return false;
+        }
+
+        const value = Math.floor(parseFloat(roll.find('.dice-total').text()) * multiplier) + modifier;
+        const messageSender = roll.find('.message-sender').text();
+        const flavorText = roll.find('.flavor-text').text();
+        for (const token of tokens) {
+            const actor = token.actor!;
+            const shield =
+                attribute === 'attributes.shield'
+                    ? shieldID
+                        ? actor.itemTypes.armor.find((armor) => armor.isShield && armor.id === shieldID) ?? null
+                        : actor.heldShield
+                    : null;
+            if (attribute === 'attributes.shield' && shield?.isBroken) {
+                const warnings = LocalizePF2e.translations.PF2E.Actions.RaiseAShield;
+                ui.notifications.warn(
+                    game.i18n.format(warnings.ShieldIsBroken, { actor: token.name, shield: shield.name }),
+                );
+            }
+
+            const shieldFlavor =
+                attribute === 'attributes.shield' && shield?.isBroken === false
+                    ? game.i18n.format('PF2E.UI.applyDamage.shieldActive', { shield: shield.name })
+                    : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
+            const appliedResult =
+                value > 0
+                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
+                    : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
+            const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
+            const by = game.i18n.localize('PF2E.UI.applyDamage.by');
+            const hitpoints = game.i18n.localize('PF2E.HitPointsHeader').toLowerCase();
+            const message = await renderTemplate('systems/pf2e/templates/chat/damage/result-message.html', {
+                flavorText,
+                by,
+                messageSender,
+                modifiedByGM,
+                actor: token.name,
+                shieldFlavor,
+                appliedResult,
+                hitpoints,
+            });
+            actor.modifyTokenAttribute(attribute, value * -1, true, true, shield).then(() => {
+                ChatMessage.create({
+                    user: game.user._id,
+                    speaker: { alias: token.name },
+                    content: message,
+                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                });
+            });
         }
         return true;
     }
@@ -951,8 +844,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * @param isDelta   Whether the number represents a relative change (true) or an absolute change (false)
      * @param isBar     Whether the new value is part of an attribute bar, or just a direct value
      */
-    async modifyTokenAttribute(attribute: string, value: number, isDelta = false, isBar = true): Promise<this> {
-        if (value === undefined || value === null || Number.isNaN(value)) {
+    async modifyTokenAttribute(
+        attribute: string,
+        value: number,
+        isDelta = false,
+        isBar = true,
+        selectedShield: Owned<ArmorPF2e> | null = null,
+    ): Promise<this> {
+        if (!Number.isInteger(value)) {
             return Promise.reject();
         }
 
@@ -967,20 +866,20 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 },
             };
             if (attribute === 'attributes.shield') {
-                const shield = this.getFirstEquippedShield();
-                if (shield) {
-                    let shieldHitPoints = shield.data.hp.value;
+                const shield = selectedShield ?? this.heldShield;
+                if (shield?.isBroken === false) {
+                    let shieldHitPoints = shield.hitPoints.current;
                     if (isDelta && value < 0) {
                         // shield block
-                        value = Math.min(shield.data.hardness.value + value, 0); // value is now a negative modifier (or zero), taking into account hardness
+                        value = Math.min(shield.hardness + value, 0); // value is now a negative modifier (or zero), taking into account hardness
                         if (value < 0) {
                             attribute = 'attributes.hp'; // update the actor's hit points after updating the shield
-                            shieldHitPoints = Math.clamped(shield.data.hp.value + value, 0, shield.data.maxHp.value);
+                            shieldHitPoints = Math.clamped(shield.hitPoints.current + value, 0, shield.hitPoints.max);
                         }
                     } else {
-                        shieldHitPoints = Math.clamped(value, 0, shield.data.maxHp.value);
+                        shieldHitPoints = Math.clamped(value, 0, shield.hitPoints.max);
                     }
-                    shield.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
+                    shield.data.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
                     updateShieldData._id = shield._id;

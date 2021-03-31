@@ -1,13 +1,14 @@
-import { PackSummaryDataPF2e } from './index';
+import { EnfolderedSummaryData } from './index';
 
 interface DataParameters {
     id: string;
     name: string;
     type: CompendiumEntityString;
+    parent?: PackFolderPF2e | null;
     expanded?: boolean;
 }
 
-export class CompendiumFolderPF2e extends Array<PackSummaryDataPF2e> {
+export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
     id: string;
     /** The localized name of this folder */
     name: string;
@@ -15,12 +16,20 @@ export class CompendiumFolderPF2e extends Array<PackSummaryDataPF2e> {
     type: CompendiumEntityString;
     /** Whether the sidebar view of the folder is expanded or collapsed */
     expanded: boolean;
+    /** The parent of this folder, if any */
+    parent: PackFolderPF2e | null;
+    /** Subfolders of this folder */
+    subfolders: PackFolderPF2e[] = [];
 
-    constructor(items: PackSummaryDataPF2e[] = [], { id, name, type, expanded = false }: DataParameters) {
+    constructor(
+        items: EnfolderedSummaryData[] = [],
+        { id, name, type, parent = null, expanded = false }: DataParameters,
+    ) {
         super(...items);
         this.id = id;
         this.type = type;
         this.name = name;
+        this.parent = parent;
         this.expanded = expanded;
     }
 
@@ -34,11 +43,11 @@ export class CompendiumFolderPF2e extends Array<PackSummaryDataPF2e> {
         return game.user.isGM || this.some((pack) => !pack.private);
     }
 
-    push(pack: PackSummaryDataPF2e) {
-        const packID = `pf2e.${pack.metadata.name}`;
+    push(summaryData: EnfolderedSummaryData) {
+        const packID = `pf2e.${summaryData.metadata.name}`;
         const compendium = game.packs.get(packID);
         if (compendium?.entity === this.type) {
-            return super.push(pack);
+            return super.push(summaryData);
         }
         return this.length;
     }
