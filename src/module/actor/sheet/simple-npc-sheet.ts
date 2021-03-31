@@ -266,13 +266,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         if (!this.options.editable) return;
 
         html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
-        html.find('.languages-edit').on('click', (event) => this.onClickChooseOptions(event));
-        html.find('.senses-edit').on('click', (event) => this.onSensesEditClicked(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
-        html.find('.speed-edit').on('click', (event) => this.onClickEditSpeeds(event));
-        html.find('.weaknesses-edit').on('click', (event) => this.onWeaknessesEditClicked(event));
-        html.find('.resistances-edit').on('click', (event) => this.onResistancesEditClicked(event));
-        html.find('.immunities-edit').on('click', (event) => this.onClickChooseOptions(event));
         html.find('.action-add').on('click', () => this.onAddActionClicked());
         html.find('.add-weapon').on('click', () => this.onAddWeaponClicked());
         html.find('.add-armor').on('click', () => this.onAddArmorClicked());
@@ -1034,73 +1028,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private onSensesEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2E.Senses'),
-            choices: CONFIG.PF2E.senses,
-            has_values: 'true',
-            allow_empty_values: true,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
     private onSkillsEditClicked(event: JQuery.ClickEvent) {
         event.preventDefault();
         const options = {};
         const skillsEditor = new NPCSkillsEditor(this.actor, options);
 
         skillsEditor.render(true);
-    }
-
-    private onClickEditSpeeds(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2.Speed'),
-            choices: CONFIG.PF2E.speedTypes,
-            has_values: 'true',
-            allow_empty_values: false,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
-    private onWeaknessesEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2E.WeaknessesLabel'),
-            choices: CONFIG.PF2E.weaknessTypes,
-            has_values: true,
-            allow_empty_values: false,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
-    private onResistancesEditClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const htmlElement = $(event.currentTarget);
-        const options = {
-            name: htmlElement.parents('div').attr('for'),
-            title: game.i18n.localize('PF2E.ResistancesLabel'),
-            choices: CONFIG.PF2E.resistanceTypes,
-            has_values: true,
-            allow_empty_values: false,
-            has_exceptions: false,
-        };
-
-        new TraitSelector5e(this.actor, options).render(true);
     }
 
     private onAddActionClicked() {}

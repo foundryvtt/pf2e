@@ -72,8 +72,8 @@
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
         </div>
         {{#if options.editable }}
-        <div class="weaknesses-controls controls" data-attribute="weaknessTypes" for="data.traits.dv">
-            <a class="trait-edit edit" data-has-values="true" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        <div class="weaknesses-controls controls">
+            <a class="trait-edit edit" data-options="weaknessTypes" data-attribute="data.traits.dv" data-has-values="true" title="{{ localize 'PF2E.NPC.EditWeaknesses' }}"><i class="fas {{#if data.traits.dv }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -90,8 +90,8 @@
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
         </div>
         {{#if options.editable }}
-        <div class="resistances-controls controls" data-attribute="resistanceTypes" for="data.traits.dr">
-            <a class="trait-edit edit" data-has-values="true" data-has-exceptions="true" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if data.traits.dr }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
+        <div class="resistances-controls controls">
+            <a class="trait-edit edit" data-options="resistanceTypes" data-attribute="data.traits.dr" data-has-values="true" data-has-exceptions="true" title="{{ localize 'PF2E.NPC.EditResistances' }}"><i class="fas {{#if data.traits.dr }}fa-edit {{else}}fa-plus{{/if}}"></i></a>
         </div>
         {{/if}}
     </div>
@@ -142,7 +142,7 @@
         </div>
         {{#if options.editable }}
         <div class="speed-controls controls">
-            <a class="speed-edit edit" data-attribute="data.attributes.speed.otherSpeeds" data-options="speedTypes" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
+            <a class="trait-edit edit" data-attribute="data.attributes.speed.otherSpeeds" data-options="speedTypes" data-has-values="true" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
         </div>
         {{/if}}
     </div>
