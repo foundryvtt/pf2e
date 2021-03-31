@@ -233,6 +233,8 @@ export interface ValuesList<T extends string = string> {
 }
 
 export interface BaseTraitsData {
+    /** The rarity of the actor (common, uncommon, etc.) */
+    rarity: { value: Rarity };
     /** The character size (such as 'med'). */
     size: { value: Size };
     /** Actual Pathfinder traits */
@@ -285,8 +287,6 @@ export interface CreatureTraitsData extends BaseTraitsData {
     senses: LabeledString[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
-    /** The rarity of this creature (common, uncommon, etc.) */
-    rarity: { value: Rarity };
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
     attitude: { value: string };
     traits: ValuesList;
@@ -671,7 +671,7 @@ interface HazardAttributes {
 export interface RawHazardData {
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
-    traits: BaseTraitsData & Pick<CreatureTraitsData, 'rarity'>;
+    traits: BaseTraitsData;
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
