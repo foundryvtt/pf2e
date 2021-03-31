@@ -43,7 +43,7 @@
                 "value": "16"
             },
             "allSaves": {
-                "value": ""
+                "value": null
             },
             "bonusEncumbranceBulk": 0,
             "bonusLimitBulk": 0,
@@ -93,11 +93,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Fly",
-                        "value": "40 feet"
+                        "exceptions": "",
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
                     }
                 ],
-                "value": "5 feet"
+                "value": "5"
             }
         },
         "currency": {
@@ -114,6 +116,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "NE"
@@ -309,8 +312,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "bitter heart"
+                        "Bitter Heart"
                     ]
                 },
                 "baseItem": null,
@@ -462,6 +466,63 @@
             "type": "action"
         },
         {
+            "_id": "JDeVXzew9W8MmDim",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with telepathy can communicate mentally with any creatures within the listed radius, as long as they share a language. This doesn't give any special access to their thoughts, and communicates no more information than normal speech would.</p>"
+                },
+                "rarity": {
+                    "value": "common"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "telepathy",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "aura",
+                        "divination",
+                        "magical"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.kdhbPaBMK1d1fpbA"
+                }
+            },
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Telepathy (100 feet)",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
             "_id": "VrsczLHcQqAYzNPZ",
             "data": {
                 "actionCategory": {
@@ -474,7 +535,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>The dissonance between the cacaodaemon’s sweet scent and bitter inside drains the victim’s spirit<br /><strong>Saving Throw</strong> DC 17 Fortitude<br /><strong>Maximum Duration</strong> 6 rounds<br /><strong>Stage 1</strong> [[/r 1d8 # mental damage]] mental damage and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round).</p>\n<p><strong>Stage 2</strong> [[/r 1d8 # mental damage]] mental damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12 # mental damage]] mental damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>"
+                    "value": "<p>The dissonance between the cacaodaemon's sweet scent and bitter inside drains the victim's spirit</p>\n<p><strong>Saving Throw</strong> DC 17 Fortitude</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d8 #mental]] mental damage and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round).</p>\n<p><strong>Stage 2</strong> [[/r 1d8 #mental]] mental damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 1d12 #mental]] mental damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} (1 round)</p>"
                 },
                 "rarity": {
                     "value": "common"
@@ -507,7 +568,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Bitter Heart",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -528,7 +589,18 @@
                 "rarity": {
                     "value": "common"
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "inanimate"
+                            ]
+                        },
+                        "selector": "deception",
+                        "value": 3
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -539,12 +611,19 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to appear as an inanimate object",
+                        "options": "inanimate"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
-            "name": "Deception (+10 to appear as an inanimate object)",
-            "sort": 400000,
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Deception",
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -581,7 +660,7 @@
             "effects": [],
             "flags": {},
             "name": "Nature",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -618,7 +697,7 @@
             "effects": [],
             "flags": {},
             "name": "Religion",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -655,7 +734,7 @@
             "effects": [],
             "flags": {},
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
