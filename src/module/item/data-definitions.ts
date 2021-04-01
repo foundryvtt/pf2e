@@ -27,9 +27,6 @@ export interface ItemDescriptionData {
     options?: {
         value: string[];
     };
-    rarity: {
-        value: Rarity;
-    };
     usage: {
         value: string;
     };
