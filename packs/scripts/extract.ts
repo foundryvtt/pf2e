@@ -102,7 +102,6 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
-    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
     type EntityKey = keyof PackEntry;
     if ('label' in entityData && 'type' in entityData && ['Boolean', 'Number', 'String'].includes(entityData['type'])) {
         delete entityData['label'];
@@ -111,9 +110,8 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
+            delete (entityData as any).data?.rarity;
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
-            delete entityData[key as EntityKey];
-        } else if (key === 'containerId' && 'type' in topLevel && !physicalItemTypes.includes(topLevel.type)) {
             delete entityData[key as EntityKey];
         } else if (entityData[key as EntityKey] instanceof Object) {
             pruneTree(entityData[key as EntityKey] as PackEntry, topLevel);
@@ -402,7 +400,7 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
                 return levelDiff;
             }
         }
- 
+
         return a.name.localeCompare(b.name);
     });
 }
