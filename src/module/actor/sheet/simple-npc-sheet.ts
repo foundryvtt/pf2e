@@ -275,8 +275,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.add-treasure').on('click', () => this.onAddTreasureClicked());
 
         // Adjustments
-        html.find('.npc-elite-adjustment').on('click', (event) => this.onEliteAdjustmentClicked(event));
-        html.find('.npc-weak-adjustment').on('click', (event) => this.onWeakAdjustmentClicked(event));
+        html.find('.npc-elite-adjustment').on('click', () => this.onClickMakeElite());
+        html.find('.npc-weak-adjustment').on('click', () => this.onClickMakeWeak());
 
         // Handle spellcastingEntry attack and DC updates
         html.find('.attack-input, .dc-input, .focus-points, .focus-pool').on('change', (event) =>
@@ -1128,59 +1128,19 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private onWeakAdjustmentClicked(event: JQuery.ClickEvent): void {
-        event.preventDefault();
-
-        const container = $(event.currentTarget).parents('.adjustment-select');
-
-        const eliteButton = container.find('.elite');
-        const weakButton = container.find('.weak');
-
-        const isCurrentlyElite = eliteButton.hasClass('active');
-        const isAlreadyWeak = weakButton.hasClass('active');
-
-        if (isCurrentlyElite) {
-            eliteButton.removeClass('active');
-        }
-
-        if (isAlreadyWeak) {
-            // Revert to normal
-            weakButton.removeClass('active');
-
-            this.npcAdjustment(true);
+    private onClickMakeWeak() {
+        if (this.actor.isWeak) {
+            this.actor.applyAdjustment('normal');
         } else {
-            // Apply weak
-            //weakButton.addClass('active');
-
-            this.npcAdjustment(false);
+            this.actor.applyAdjustment('weak');
         }
     }
 
-    private onEliteAdjustmentClicked(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const container = $(event.currentTarget).parents('.adjustment-select');
-
-        const eliteButton = container.find('.elite');
-        const weakButton = container.find('.weak');
-
-        const isCurrentlyWeak = weakButton.hasClass('active');
-        const isAlreadyElite = eliteButton.hasClass('active');
-
-        if (isCurrentlyWeak) {
-            weakButton.removeClass('active');
-        }
-
-        if (isAlreadyElite) {
-            // Revert to normal
-            eliteButton.removeClass('active');
-
-            this.npcAdjustment(false);
+    private onClickMakeElite() {
+        if (this.actor.isElite) {
+            this.actor.applyAdjustment('normal');
         } else {
-            // Apply elite
-            //eliteButton.addClass('active');
-
-            this.npcAdjustment(true);
+            this.actor.applyAdjustment('elite');
         }
     }
 
@@ -1230,34 +1190,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         data.data.slots[slot].value = data.data.slots[slot].max;
 
         item.update(data);
-    }
-
-    /**
-     * Increases the NPC via the Elite/Weak adjustment rules
-     */
-    private npcAdjustment(increase: boolean): void {
-        let traits = duplicate(this.actor.data.data.traits.traits.value) ?? [];
-        const isElite = traits.some((trait) => trait === 'elite');
-        const isWeak = traits.some((trait) => trait === 'weak');
-
-        if (increase) {
-            if (isWeak) {
-                console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits = traits.filter((trait) => trait !== 'weak');
-            } else if (!isWeak && !isElite) {
-                console.log(`PF2e System | Adjusting NPC to become more powerful`);
-                traits.push('elite');
-            }
-        } else {
-            if (isElite) {
-                console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits = traits.filter((trait) => trait !== 'elite');
-            } else if (!isElite && !isWeak) {
-                console.log(`PF2e System | Adjusting NPC to become less powerful`);
-                traits.push('weak');
-            }
-        }
-        this.actor.update({ ['data.traits.traits.value']: traits });
     }
 
     // Helper functions

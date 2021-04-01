@@ -16,6 +16,16 @@ export class NPCPF2e extends CreaturePF2e {
         return this.data.data.traits.rarity.value;
     }
 
+    /** Does this NPC have the Elite adjustment? */
+    get isElite(): boolean {
+        return this.traits.has('elite');
+    }
+
+    /** Does this NPC have the Weak adjustment? */
+    get isWeak(): boolean {
+        return this.traits.has('weak');
+    }
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -47,10 +57,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
-        const isElite = data.traits.traits.value.some((trait) => trait === 'elite');
-        const isWeak = data.traits.traits.value.some((trait) => trait === 'weak');
-
-        if (isElite) {
+        if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED));
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
@@ -65,7 +72,7 @@ export class NPCPF2e extends CreaturePF2e {
                     MODIFIER_TYPE.UNTYPED,
                 ),
             );
-        } else if (isWeak) {
+        } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
@@ -513,10 +520,10 @@ export class NPCPF2e extends CreaturePF2e {
                     ];
                 });
                 if (action.damageBreakdown.length > 0) {
-                    if (isElite) {
+                    if (this.isElite) {
                         action.damageBreakdown[0] =
                             action.damageBreakdown[0] + ` +2 ${game.i18n.localize('PF2E.NPC.Adjustment.EliteLabel')}`;
-                    } else if (isWeak) {
+                    } else if (this.isWeak) {
                         action.damageBreakdown[0] =
                             action.damageBreakdown[0] + ` -2 ${game.i18n.localize('PF2E.NPC.Adjustment.WeakLabel')}`;
                     }
@@ -827,7 +834,44 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    public updateNPCAttitudeFromDisposition(disposition: number) {
+    /** Make the NPC elite, weak, or normal */
+    async applyAdjustment(adjustment: 'elite' | 'weak' | 'normal'): Promise<void> {
+        if (
+            (this.isElite && adjustment === 'elite') ||
+            (this.isWeak && adjustment === 'weak') ||
+            (!this.isElite && !this.isWeak && adjustment === 'normal')
+        ) {
+            return;
+        }
+
+        const extraHP = this.getHpAdjustment(this.level);
+        const currentHP = this.data.data.attributes.hp.value;
+        const newHP = (() => {
+            switch (adjustment) {
+                case 'elite':
+                    return this.isWeak ? currentHP + extraHP * 2 : currentHP + extraHP;
+                case 'weak':
+                    return this.isElite ? currentHP - extraHP * 2 : currentHP - extraHP;
+                default:
+                    return this.isElite ? currentHP - extraHP : currentHP + extraHP;
+            }
+        })();
+
+        const traits = this.data.data.traits.traits;
+        const toAdd = adjustment === 'normal' ? [] : [adjustment];
+        const toRemove = adjustment === 'weak' ? ['elite'] : adjustment === 'elite' ? ['weak'] : ['elite', 'weak'];
+        traits.value = traits.value.filter((trait) => !toRemove.includes(trait)).concat(toAdd);
+
+        await this.update(
+            {
+                'data.attributes.hp.value': Math.max(0, newHP),
+                'data.traits.traits.value': traits.value,
+            },
+            { diff: false },
+        );
+    }
+
+    updateNPCAttitudeFromDisposition(disposition: number) {
         this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
 }
