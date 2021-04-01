@@ -1,5 +1,15 @@
 # Patch Notes:
 
+## Version 1.11.21
+### Bug Fixes
+* (stwlam) Avoid localizing custom (lore) skills on NPCs
+* (stwlam) Ensure an NPC's hit points are adjusted when changing weak/elite adjustment. Closes #1248
+* (nikolaj-a) Fix senses selector window, so it's not always selecting all senses
+
+### Content Changes
+* (SpartanCPA) Fix broken monsters from the Paizo blog
+
+
 ## Version 1.11.20
 ### Bug Fixes
 * (stwlam) Fix display/editing of traits, immunities, and languages on simple NPC sheet
