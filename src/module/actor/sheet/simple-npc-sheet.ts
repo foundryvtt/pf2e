@@ -418,7 +418,10 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         const skills = duplicate(actorData.data.skills);
         for (const skillId of sortedSkillsIds) {
-            skills[skillId].label = game.i18n.localize('PF2E.Skill' + skills[skillId].name);
+            skills[skillId].label =
+                skillId in CONFIG.PF2E.skillList
+                    ? game.i18n.localize('PF2E.Skill' + skills[skillId].name)
+                    : skills[skillId].name;
         }
 
         sortedSkillsIds.sort((a: string, b: string) => {
