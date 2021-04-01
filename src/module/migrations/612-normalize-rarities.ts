@@ -4,7 +4,6 @@ import { Rarity } from '@item/data-definitions';
 
 export class Migration612NormalizeRarities extends MigrationBase {
     static version = 0.612;
-    requiresFlush = true;
 
     async updateActor(actorData: ActorDataPF2e) {
         const traits = actorData.data.traits;
