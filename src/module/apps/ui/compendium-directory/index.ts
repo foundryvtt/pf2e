@@ -67,9 +67,9 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const data: PackDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
-        const entityStrings = ['Actor', 'Item', 'JournalEntry', 'Macro', 'RollTable'] as const;
+        const entityStrings = Object.keys(data.packs) as Array<keyof PackSummaryByEntityPF2e>;
         for (const entityString of entityStrings) {
-            data.packs[entityString].title = LocalizePF2e.translations.PF2E[entityString].Plural;
+            data.packs[entityString].title = LocalizePF2e.translations.PF2E[entityString]?.Plural ?? entityString;
             this.setupFolders(data.packs[entityString]);
         }
         return data;
