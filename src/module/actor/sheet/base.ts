@@ -21,7 +21,7 @@ import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@actor/data-definitions';
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
-import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
+import { createConsumableFromSpell, SpellConsumableTypes } from '@item/consumable';
 import { SpellPF2e } from '@item/spell';
 import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';

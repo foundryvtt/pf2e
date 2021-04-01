@@ -325,7 +325,7 @@ export interface MeleeDetailsData extends MagicDetailsData {
 
 export interface ConsumableDetailsData extends MagicDetailsData {
     consumableType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['consumableTypes'];
     };
     uses: {
         value: number;

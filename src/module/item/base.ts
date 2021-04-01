@@ -11,8 +11,6 @@ import {
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, TokenPF2e } from '../actor/base';
 import { ItemDataPF2e, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
-import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
-import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -301,61 +299,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /* -------------------------------------------- */
-
-    /**
-     * Use a consumable item
-     */
-    async rollConsumable(this: Owned<ItemPF2e>, _ev: JQuery.ClickEvent) {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
-        if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
-
-        const itemData = item.data;
-        // Submit the roll to chat
-        if (
-            ['scroll', 'wand'].includes(item.data.consumableType.value) &&
-            item.data.spell?.data &&
-            this.actor instanceof ActorPF2e
-        ) {
-            if (canCastConsumable(this.actor, item)) {
-                this._castEmbeddedSpell();
-            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
-                const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
-                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                };
-                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                popup.render(true);
-            } else {
-                const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
-                ChatMessage.create({
-                    user: game.user._id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    whisper: ChatMessage.getWhisperRecipients(this.actor.name),
-                    content,
-                });
-            }
-        } else {
-            const cv = itemData.consume.value;
-            const content = `Uses ${this.name}`;
-            if (cv) {
-                new Roll(cv).toMessage({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: content,
-                });
-            } else {
-                ChatMessage.create({
-                    user: game.user._id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    content,
-                });
-            }
-        }
-
-        // Deduct consumed charges from the item
-        if (itemData.autoUse.value) this.consume();
-    }
 
     consume() {
         const item: ItemDataPF2e = this.data;

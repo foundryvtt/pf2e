@@ -1,10 +1,9 @@
 import { PhysicalItemPF2e } from './physical';
-import { ItemPF2e, RollDamageOptions } from './base';
+import { ItemPF2e } from './base';
 import {
     ActionData,
     ContainerData,
     ConditionData,
-    ConsumableData,
     EquipmentData,
     KitData,
     LoreData,
@@ -12,7 +11,6 @@ import {
     MeleeData,
     TreasureData,
 } from './data-definitions';
-import { SpellPF2e } from './spell';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
 export interface ContainerPF2e {
@@ -35,55 +33,6 @@ export interface KitPF2e {
 export interface MeleePF2e {
     data: MeleeData;
     _data: MeleeData;
-}
-
-export class ConsumablePF2e extends PhysicalItemPF2e {
-    rollAttack(options: RollDamageOptions) {
-        const itemData = this.data.data;
-        if (itemData.spell?.data) {
-            SpellPF2e.prototype.rollAttack.call(this, options, itemData.spell.data);
-        }
-    }
-
-    rollDamage(options: RollDamageOptions) {
-        const itemData = this.data.data;
-        if (itemData.spell?.data) {
-            SpellPF2e.prototype.rollDamage.call(this, options, itemData.spell.data);
-        }
-    }
-
-    getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = this.data.data;
-        const localize = game.i18n.localize.bind(game.i18n);
-        const consumableType = CONFIG.PF2E.consumableTypes[data.consumableType.value];
-        return this.processChatData(htmlOptions, {
-            ...data,
-            consumableType: {
-                ...data.consumableType,
-                str: consumableType,
-            },
-            properties: [
-                consumableType,
-                `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`,
-            ],
-            hasCharges: data.charges.value >= 0,
-        });
-    }
-
-    handleButtonAction(this: Owned<ConsumablePF2e>, event: JQuery.ClickEvent, action: string | undefined): boolean {
-        if (action === 'consume') {
-            this.rollConsumable(event);
-            return true;
-        }
-
-        // without binding, the this: Owned<ItemPF2e> errors in betterer
-        return super.handleButtonAction.bind(this)(event, action);
-    }
-}
-
-export interface ConsumablePF2e {
-    data: ConsumableData;
-    _data: ConsumableData;
 }
 
 export class EquipmentPF2e extends PhysicalItemPF2e {

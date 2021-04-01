@@ -1,6 +1,6 @@
 import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
 import { TrickMagicItemCastData } from '@item/data-definitions';
-import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
+import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/consumable';
 import { SkillAbbreviation } from '@actor/data-definitions';
 import { StatisticModifier } from '@module/modifiers';
 

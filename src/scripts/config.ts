@@ -13,11 +13,11 @@ import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import { MeleePF2e } from '@item/melee';
+import { ConsumablePF2e } from '@item/consumable';
 import {
     ActionPF2e,
     ContainerPF2e,
     ConditionPF2e,
-    ConsumablePF2e,
     EquipmentPF2e,
     KitPF2e,
     LorePF2e,

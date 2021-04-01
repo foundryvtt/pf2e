@@ -13,13 +13,12 @@ export class SpellPF2e extends ItemPF2e {
     /**
      * Roll Spell Damage
      */
-    rollAttack({ event, multiAttackPenalty = 1 }: RollAttackOptions, overrideData?: SpellData) {
-        const data = overrideData ?? this.data;
+    rollAttack({ event, multiAttackPenalty = 1 }: RollAttackOptions) {
         if (!this.actor) throw new Error('Attempted to cast a spell without an actor');
 
         // Prepare roll data
-        const trickMagicItemData = data.data.trickMagicItemData;
-        const itemData = data.data;
+        const trickMagicItemData = this.data.data.trickMagicItemData;
+        const itemData = this.data.data;
         const rollData = duplicate(this.actor.data.data);
         const spellcastingEntry =
             (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
@@ -75,18 +74,17 @@ export class SpellPF2e extends ItemPF2e {
         }
     }
 
-    rollDamage({ event }: RollDamageOptions, overrideData?: SpellData) {
+    rollDamage({ event }: RollDamageOptions) {
         if (!this.actor) return;
 
         // Get data
-        const data = overrideData ?? this.data;
-        const itemData = data.data;
+        const itemData = this.data.data;
         const rollData = duplicate(this.actor.data.data) as any;
         const isHeal = itemData.spellType.value === 'heal';
         const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
 
         const spellLvl = ItemPF2e.findSpellLevel(event);
-        const spell = new SpellFacade(data, { castingActor: this.actor, castLevel: spellLvl });
+        const spell = new SpellFacade(this.data, { castingActor: this.actor, castLevel: spellLvl });
         const parts = spell.damageParts;
 
         // Append damage type to title
