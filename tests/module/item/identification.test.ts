@@ -96,7 +96,7 @@ describe('test identification DCs', () => {
                     value: [],
                 },
             },
-        } as PhysicalItemData;
+        } as unknown as PhysicalItemData;
         const dcs = identifyItem(item, {notMatchingTraditionModifier: 3});
         expect(dcs).toEqual({
             dc: 14,
