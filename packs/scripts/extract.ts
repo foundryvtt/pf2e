@@ -18,18 +18,25 @@ const PackError = (message: string) => {
 };
 
 interface ExtractArgs {
-    foundryConfig?: string;
     packDb: string;
+    foundryConfig?: string;
+    disablePresort?: boolean;
 }
+
 const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
-    .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
+    .command('$0 <packDb> [foundryConfig] [disablePresort]', 'Extract one or all compendium packs to packs/data', () => {
         yargs
             .positional('packDb', {
                 describe: 'A compendium pack filename (*.db) or otherwise "all"',
             })
             .positional('foundryConfig', {
                 describe: "The path to your local Foundry server's config.json file",
-                default: 'foundryconfig.json',
+                default: '.\\foundryconfig.json',
+            })
+            .option('disablePresort', {
+                describe: "Turns off data item presorting.",
+                type: 'boolean',
+                default: false,
             })
             .example([
                 ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
@@ -294,10 +301,13 @@ function sortDataItems(entityData: PackEntry): any[] {
 
     const entityItems: ItemData[] = entityData.items;
     const groupedItems: Map<string, Set<ItemData>> = new Map();
-    const ungroupedItems: Set<ItemData> = new Set<ItemData>();
 
     // Separate the data items into type collections.
     entityItems.forEach(item => {
+        if (!item?.type) {
+            return;
+        }
+
         if (!groupedItems.has(item.type)) {
             groupedItems.set(item.type, new Set<ItemData>());
         }
@@ -330,7 +340,18 @@ function sortDataItems(entityData: PackEntry): any[] {
         }
     });
 
-    return sortedItems.concat(ungroupedItems);
+    // Make sure to add any items that are of a type not defined in the list.
+    groupedItems.forEach((itemGroup,key) => {
+        if (!itemTypeList.includes(key)) {
+            console.error(`Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`);
+            Array.from(itemGroup).forEach(item => {
+                sortedItems[itemIndex++] = item;
+                item.sort = 100000 * itemIndex;
+            })
+        }
+    });
+
+    return sortedItems;
 }
 
 function sortActions(actions: Set<ItemData>): ItemData[] {
@@ -381,7 +402,7 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
                 return levelDiff;
             }
         }
-
+ 
         return a.name.localeCompare(b.name);
     });
 }
@@ -393,12 +414,17 @@ async function extractPack(filePath: string, packFilename: string) {
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
 
+    if (args.disablePresort) {
+        console.log("Presorting: Disabled");
+    } else {
+        console.log("Presorting: Enabled");
+    }
+
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         let preparedEntity = convertLinks(entityData, packFilename);
-        if ('items' in preparedEntity) {
-            // preparedEntity.items = sortDataItems(preparedEntity); // temporarily disable the custom sorting
-            sortDataItems(preparedEntity); // dummy call to fool the linter - remove when above line is added back in
+        if ('items' in preparedEntity && !args.disablePresort) {
+            preparedEntity.items = sortDataItems(preparedEntity);
         }
 
         // Pretty print JSON data
