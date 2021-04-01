@@ -19,7 +19,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
-    const sheetLabelNew = translations.SheetLabelNew;
+    const sheetLabelOld = translations.SheetLabelOld;
 
     // ACTORS
     Actors.unregisterSheet('core', ActorSheet);
@@ -39,15 +39,15 @@ export function registerSheets() {
     // Register NPC Sheet
     Actors.registerSheet('pf2e', UpdatedNPCSheetPF2e, {
         types: ['npc'],
-        label: game.i18n.format(sheetLabel, { type: localizeType('npc') }),
-        makeDefault: true,
+        label: game.i18n.format(sheetLabelOld, { type: localizeType('npc') }),
+        makeDefault: false,
     });
 
-    // Regiser NEW NPC Sheet (don't make it default, it's on testing phase)
+    // Regiser NEW NPC Sheet
     Actors.registerSheet('pf2e', ActorSheetPF2eSimpleNPC, {
         types: ['npc'],
-        label: game.i18n.format(sheetLabelNew, { type: localizeType('npc') }),
-        makeDefault: false,
+        label: game.i18n.format(sheetLabel, { type: localizeType('npc') }),
+        makeDefault: true,
     });
 
     // Register Hazard Sheet
