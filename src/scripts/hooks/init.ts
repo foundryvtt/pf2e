@@ -22,6 +22,7 @@ import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
 import * as MonkeyPatch from '../🐵🩹';
 import { CombatPF2e } from '@module/combat';
+import { ChatLogPF2e } from '@module/apps/ui/chat-log';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -43,6 +44,8 @@ export function listen(): void {
         CONFIG.ui.combat = CombatTrackerPF2e;
         // Assign the PF2e CompendiumDirectory
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
+        // Assign the PF2e Chat Log
+        CONFIG.ui.chat = ChatLogPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
