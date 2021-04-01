@@ -310,7 +310,7 @@ export const PF2ECONFIG = {
 
     weaknessTypes: {
         acid: 'PF2E.DamageTypeAcid',
-        air: 'PF2e.TraitAir',
+        air: 'PF2E.TraitAir',
         bludgeoning: 'PF2E.DamageTypeBludgeoning',
         cold: 'PF2E.DamageTypeCold',
         earth: 'PF2E.TraitEarth',
