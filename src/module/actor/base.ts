@@ -644,9 +644,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 attribute === 'attributes.shield' && shield?.isBroken === false
                     ? game.i18n.format('PF2E.UI.applyDamage.shieldActive', { shield: shield.name })
                     : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
+            const shieldDamage =
+                attribute === 'attributes.shield' && shield?.isBroken === false && value > 0
+                    ? `(${Math.max(0, value - shield.hardness)})`
+                    : '';
             const appliedResult =
                 value > 0
-                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
+                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value + shieldDamage
                     : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
             const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
             const by = game.i18n.localize('PF2E.UI.applyDamage.by');
