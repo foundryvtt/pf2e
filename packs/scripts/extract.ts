@@ -440,7 +440,7 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
 }
 
 async function extractPack(filePath: string, packFilename: string) {
-    console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? "Disabled" : "Enabled"})`);
+    console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? 'Disabled' : 'Enabled'})`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
     const packEntities = await getAllData(filePath);
