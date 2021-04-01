@@ -8,8 +8,17 @@ import { ActorDataPF2e } from '@actor/data-definitions';
 import { ActionData, ItemDataPF2e, SpellData } from '@item/data-definitions';
 import { sluggify } from '@module/utils';
 
-const { window } = new JSDOM('');
-const $ = require('jquery')(window);
+declare global {
+    interface Global {
+        document: Document;
+        window: Window;
+        navigator: Navigator;
+    }
+}
+const { window } = new JSDOM();
+global.document = window.document;
+global.window = global.document.defaultView!;
+import $ from 'jquery';
 
 // show error message without needless traceback
 const PackError = (message: string) => {
@@ -24,27 +33,31 @@ interface ExtractArgs {
 }
 
 const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
-    .command('$0 <packDb> [foundryConfig] [disablePresort]', 'Extract one or all compendium packs to packs/data', () => {
-        yargs
-            .positional('packDb', {
-                describe: 'A compendium pack filename (*.db) or otherwise "all"',
-            })
-            .positional('foundryConfig', {
-                describe: "The path to your local Foundry server's config.json file",
-                default: '.\\foundryconfig.json',
-            })
-            .option('disablePresort', {
-                describe: "Turns off data item presorting.",
-                type: 'boolean',
-                default: false,
-            })
-            .example([
-                ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
-                ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
-                ['npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/'],
-                ['npm run $0 all       # same'],
-            ]);
-    })
+    .command(
+        '$0 <packDb> [foundryConfig] [disablePresort]',
+        'Extract one or all compendium packs to packs/data',
+        () => {
+            yargs
+                .positional('packDb', {
+                    describe: 'A compendium pack filename (*.db) or otherwise "all"',
+                })
+                .positional('foundryConfig', {
+                    describe: "The path to your local Foundry server's config.json file",
+                    default: '.\\foundryconfig.json',
+                })
+                .option('disablePresort', {
+                    describe: 'Turns off data item presorting.',
+                    type: 'boolean',
+                    default: false,
+                })
+                .example([
+                    ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
+                    ['npm run $0 spells.db C:\\Users\\me\\this\\way\\to\\options.json'],
+                    ['npm run $0 spells.db # copy of config at ./foundryconfig.json or otherwise using dist/'],
+                    ['npm run $0 all       # same'],
+                ]);
+        },
+    )
     .check((argv) => {
         if (
             typeof argv.foundryConfig === 'string' &&
@@ -102,7 +115,6 @@ function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
 
 /** Walk object tree and make appropriate deletions */
 function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
-    const physicalItemTypes = ['armor', 'weapon', 'equipment', 'consumable', 'melee', 'backpack', 'kit', 'treasure'];
     type EntityKey = keyof PackEntry;
     if ('label' in entityData && 'type' in entityData && ['Boolean', 'Number', 'String'].includes(entityData['type'])) {
         delete entityData['label'];
@@ -111,9 +123,8 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
     for (const key in entityData) {
         if (key === '_id') {
             topLevel = entityData;
+            delete (entityData as { data?: { rarity?: unknown } }).data?.rarity;
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
-            delete entityData[key as EntityKey];
-        } else if (key === 'containerId' && 'type' in topLevel && !physicalItemTypes.includes(topLevel.type)) {
             delete entityData[key as EntityKey];
         } else if (entityData[key as EntityKey] instanceof Object) {
             pruneTree(entityData[key as EntityKey] as PackEntry, topLevel);
@@ -164,7 +175,8 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
                         ? description
                         : `<p>${description}</p>`,
                 );
-            } catch {
+            } catch (error) {
+                console.error(error);
                 throw PackError(
                     `Failed to parse description of ${entityData.name} (${entityData._id}):\n${description}`,
                 );
@@ -175,7 +187,7 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         const selectors = ['span#ctl00_MainContent_DetailedOutput', 'span.fontstyle0'];
         for (const selector of selectors) {
             $description.find(selector).each((_i, span) => {
-                ($(span) as JQuery)
+                $(span)
                     .contents()
                     .unwrap(selector)
                     .each((_j, node) => {
@@ -294,7 +306,18 @@ async function getAllData(filename: string): Promise<PackEntry[]> {
 }
 
 function sortDataItems(entityData: PackEntry): any[] {
-    const itemTypeList: string[] = [ "spellcastingEntry","spell","weapon","armor","equipment","consumable","treasure","melee","action","lore" ];
+    const itemTypeList: string[] = [
+        'spellcastingEntry',
+        'spell',
+        'weapon',
+        'armor',
+        'equipment',
+        'consumable',
+        'treasure',
+        'melee',
+        'action',
+        'lore',
+    ];
     if (!('items' in entityData)) {
         return [];
     }
@@ -303,7 +326,7 @@ function sortDataItems(entityData: PackEntry): any[] {
     const groupedItems: Map<string, Set<ItemData>> = new Map();
 
     // Separate the data items into type collections.
-    entityItems.forEach(item => {
+    entityItems.forEach((item) => {
         if (!item?.type) {
             return;
         }
@@ -321,19 +344,25 @@ function sortDataItems(entityData: PackEntry): any[] {
     // Create new array of items.
     const sortedItems: any[] = new Array(entityItems.length);
     let itemIndex = 0;
-    itemTypeList.forEach(itemType => {
+    itemTypeList.forEach((itemType) => {
         if (groupedItems.has(itemType)) {
             const itemGroup = groupedItems.get(itemType);
             if (itemGroup) {
                 let items: ItemData[];
                 switch (itemType) {
-                    case 'spell': items = sortSpells(itemGroup); break;
-                    case 'action': items = sortActions(itemGroup); break;
-                    default: items = Array.from(itemGroup);
+                    case 'spell':
+                        items = sortSpells(itemGroup);
+                        break;
+                    case 'action':
+                        items = sortActions(itemGroup);
+                        break;
+                    default:
+                        items = Array.from(itemGroup);
                 }
 
-                items.forEach(item => {
-                    sortedItems[itemIndex++] = item;
+                items.forEach((item) => {
+                    itemIndex += 1;
+                    sortedItems[itemIndex] = item;
                     item.sort = 100000 * itemIndex;
                 });
             }
@@ -341,13 +370,16 @@ function sortDataItems(entityData: PackEntry): any[] {
     });
 
     // Make sure to add any items that are of a type not defined in the list.
-    groupedItems.forEach((itemGroup,key) => {
+    groupedItems.forEach((itemGroup, key) => {
         if (!itemTypeList.includes(key)) {
-            console.error(`Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`);
-            Array.from(itemGroup).forEach(item => {
-                sortedItems[itemIndex++] = item;
+            console.error(
+                `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
+            );
+            Array.from(itemGroup).forEach((item) => {
+                itemIndex += 1;
+                sortedItems[itemIndex] = item;
                 item.sort = 100000 * itemIndex;
-            })
+            });
         }
     });
 
@@ -402,7 +434,7 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
                 return levelDiff;
             }
         }
- 
+
         return a.name.localeCompare(b.name);
     });
 }
@@ -415,14 +447,14 @@ async function extractPack(filePath: string, packFilename: string) {
     const idPattern = /^[a-z0-9]{20,}$/g;
 
     if (args.disablePresort) {
-        console.log("Presorting: Disabled");
+        console.log('Presorting: Disabled');
     } else {
-        console.log("Presorting: Enabled");
+        console.log('Presorting: Enabled');
     }
 
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
-        let preparedEntity = convertLinks(entityData, packFilename);
+        const preparedEntity = convertLinks(entityData, packFilename);
         if ('items' in preparedEntity && !args.disablePresort) {
             preparedEntity.items = sortDataItems(preparedEntity);
         }
