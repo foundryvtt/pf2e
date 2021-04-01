@@ -18,18 +18,25 @@ const PackError = (message: string) => {
 };
 
 interface ExtractArgs {
-    foundryConfig?: string;
     packDb: string;
+    foundryConfig?: string;
+    enablePresort?: boolean;
 }
+
 const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
-    .command('$0 <packDb> [foundryConfig]', 'Extract one or all compendium packs to packs/data', () => {
+    .command('$0 <packDb> [foundryConfig] [enablePresort]', 'Extract one or all compendium packs to packs/data', () => {
         yargs
             .positional('packDb', {
                 describe: 'A compendium pack filename (*.db) or otherwise "all"',
             })
             .positional('foundryConfig', {
                 describe: "The path to your local Foundry server's config.json file",
-                default: 'foundryconfig.json',
+                default: '.\\foundryconfig.json',
+            })
+            .option('enablePresort', {
+                describe: "Turns on data item presorting.",
+                type: 'boolean',
+                default: false,
             })
             .example([
                 ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
@@ -410,7 +417,7 @@ async function extractPack(filePath: string, packFilename: string) {
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         let preparedEntity = convertLinks(entityData, packFilename);
-        if ('items' in preparedEntity) {
+        if ('items' in preparedEntity && args.enablePresort) {
             preparedEntity.items = sortDataItems(preparedEntity);
         }
 
