@@ -293,6 +293,7 @@ export const PF2ECONFIG = {
         weapon: 'PF2E.ResistanceTypeWeapon',
         'critical-hits': 'PF2E.ResistanceTypeCriticalHits',
         'protean anatomy': 'PF2E.ResistanceTypeProteanAnatomy',
+        water: 'PF2E.TraitWater',
     },
 
     stackGroups: {
@@ -309,8 +310,10 @@ export const PF2ECONFIG = {
 
     weaknessTypes: {
         acid: 'PF2E.DamageTypeAcid',
+        air: 'PF2e.TraitAir',
         bludgeoning: 'PF2E.DamageTypeBludgeoning',
         cold: 'PF2E.DamageTypeCold',
+        earth: 'PF2E.TraitEarth',
         fire: 'PF2E.DamageTypeFire',
         force: 'PF2E.DamageTypeForce',
         electricity: 'PF2E.DamageTypeElectricity',
@@ -342,6 +345,7 @@ export const PF2ECONFIG = {
         vorpal: 'PF2E.WeaknessTypeVorpal',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
         warpglass: 'PF2E.PreciousMaterialWarpglass',
+        water: 'PF2E.TraitWater',
     }, // Weapon Damage Types
 
     weaponDamage: {
@@ -674,6 +678,7 @@ export const PF2ECONFIG = {
         range: 'PF2E.TraitRange',
         'range-increment-5': 'PF2E.TraitRangeIncrement5',
         'range-increment-10': 'PF2E.TraitRangeIncrement10',
+        'range-increment-15': 'PF2E.TraitRangeIncrement15',
         'range-increment-20': 'PF2E.TraitRangeIncrement20',
         'range-increment-30': 'PF2E.TraitRangeIncrement30',
         'range-increment-40': 'PF2E.TraitRangeIncrement40',
@@ -712,6 +717,8 @@ export const PF2ECONFIG = {
         'reach-20': 'PF2E.TraitReach20',
         'reach-25': 'PF2E.TraitReach25',
         'reach-30': 'PF2E.TraitReach30',
+        'reach-40': 'PF2E.TraitReach40',
+        'reach-60': 'PF2E.TraitReach60',
         'reload-0': 'PF2E.TraitReload0',
         'reload-1': 'PF2E.TraitReload1',
         'reload-2': 'PF2E.TraitReload2',
