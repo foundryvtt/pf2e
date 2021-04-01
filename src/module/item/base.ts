@@ -620,9 +620,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             case 'npcDamageCritical':
                 this.rollDamage({ event, options, critical: true });
                 break;
-            case 'consume':
-                this.rollConsumable(event);
-                break;
             case 'spellCounteract':
                 this.rollCounteract(event);
                 break;

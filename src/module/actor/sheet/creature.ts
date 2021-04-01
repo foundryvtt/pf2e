@@ -93,38 +93,15 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             event.preventDefault();
             event.stopPropagation();
 
-            // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (event.target.dataset.action) {
-                case 'toggleHands':
-                    if (item.data.type === 'weapon') {
-                        item.data.data.hands.value = !item.data.data.hands.value;
-                        // this.actor.updateOwnedItem(item.data, true);
-                        this.actor.updateEmbeddedEntity('OwnedItem', item.data);
-                        this._render();
-                    }
-
-                    break;
-                case 'weaponAttack':
-                case 'spellAttack':
-                    item.rollAttack({ event });
-                    break;
-                case 'weaponAttack2':
-                    item.rollAttack({ event, multiAttackPenalty: 2 });
-                    break;
-                case 'weaponAttack3':
-                    item.rollAttack({ event, multiAttackPenalty: 3 });
-                    break;
-                case 'weaponDamage':
-                case 'spellDamage':
-                    item.rollDamage({ event });
-                    break;
-                case 'weaponDamageCritical':
-                    item.rollDamage({ event, critical: true });
-                    break;
-                case 'consume':
-                    item.rollConsumable(event);
-                    break;
-                default:
+            if (event.target.dataset.action === 'toggleHands') {
+                if (item.data.type === 'weapon') {
+                    item.data.data.hands.value = !item.data.data.hands.value;
+                    // this.actor.updateOwnedItem(item.data, true);
+                    this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+                    this._render();
+                }
+            } else {
+                item.handleButtonAction(event, event.target.dataset.action);
             }
         });
     }

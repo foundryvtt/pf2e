@@ -69,6 +69,16 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             hasCharges: data.charges.value >= 0,
         });
     }
+
+    handleButtonAction(this: Owned<ConsumablePF2e>, event: JQuery.ClickEvent, action: string | undefined): boolean {
+        if (action === 'consume') {
+            this.rollConsumable(event);
+            return true;
+        }
+
+        // without binding, the this: Owned<ItemPF2e> errors in betterer
+        return super.handleButtonAction.bind(this)(event, action);
+    }
 }
 
 export interface ConsumablePF2e {
