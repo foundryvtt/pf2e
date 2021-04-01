@@ -8,6 +8,9 @@ export class Migration609LootActorTraits extends MigrationBase {
     async updateActor(actorData: ActorDataPF2e) {
         if (actorData.type === 'loot' && actorData.data.traits === undefined) {
             actorData.data.traits = {
+                rarity: {
+                    value: 'common',
+                },
                 size: {
                     value: 'med',
                 },

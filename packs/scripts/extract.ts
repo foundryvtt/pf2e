@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ActionData, ItemDataPF2e, SpellData } from '@item/data-definitions';
 import { sluggify } from '@module/utils';
 
 const { window } = new JSDOM('');
@@ -286,6 +286,106 @@ async function getAllData(filename: string): Promise<PackEntry[]> {
     return packDB.find({}) as Promise<PackEntry[]>;
 }
 
+function sortDataItems(entityData: PackEntry): any[] {
+    const itemTypeList: string[] = [ "spellcastingEntry","spell","weapon","armor","equipment","consumable","treasure","melee","action","lore" ];
+    if (!('items' in entityData)) {
+        return [];
+    }
+
+    const entityItems: ItemData[] = entityData.items;
+    const groupedItems: Map<string, Set<ItemData>> = new Map();
+    const ungroupedItems: Set<ItemData> = new Set<ItemData>();
+
+    // Separate the data items into type collections.
+    entityItems.forEach(item => {
+        if (!groupedItems.has(item.type)) {
+            groupedItems.set(item.type, new Set<ItemData>());
+        }
+
+        const itemGroup = groupedItems.get(item.type);
+        if (itemGroup) {
+            itemGroup.add(item);
+        }
+    });
+
+    // Create new array of items.
+    const sortedItems: any[] = new Array(entityItems.length);
+    let itemIndex = 0;
+    itemTypeList.forEach(itemType => {
+        if (groupedItems.has(itemType)) {
+            const itemGroup = groupedItems.get(itemType);
+            if (itemGroup) {
+                let items: ItemData[];
+                switch (itemType) {
+                    case 'spell': items = sortSpells(itemGroup); break;
+                    case 'action': items = sortActions(itemGroup); break;
+                    default: items = Array.from(itemGroup);
+                }
+
+                items.forEach(item => {
+                    sortedItems[itemIndex++] = item;
+                    item.sort = 100000 * itemIndex;
+                });
+            }
+        }
+    });
+
+    return sortedItems.concat(ungroupedItems);
+}
+
+function sortActions(actions: Set<ItemData>): ItemData[] {
+    return Array.from(actions).sort((a, b) => {
+        const actionA = a as ActionData;
+        const actionB = b as ActionData;
+        const aActionCategory = actionA.data.actionCategory.value;
+        const bActionCategory = actionB.data.actionCategory.value;
+        if (aActionCategory && !bActionCategory) {
+            return -1;
+        } else if (!aActionCategory && bActionCategory) {
+            return 1;
+        } else {
+            if (aActionCategory == bActionCategory) {
+                return 0;
+            }
+
+            if (aActionCategory == 'interaction') {
+                return -1;
+            }
+
+            if (bActionCategory == 'interaction') {
+                return 1;
+            }
+
+            if (aActionCategory == 'defensive') {
+                return -1;
+            }
+
+            return 1;
+        }
+    });
+}
+
+function sortSpells(spells: Set<ItemData>): ItemData[] {
+    return Array.from(spells).sort((a, b) => {
+        const spellA = a as SpellData;
+        const spellB = b as SpellData;
+        const aLevel = spellA.data.level;
+        const bLevel = spellB.data.level;
+        if (aLevel && !bLevel) {
+            return -1;
+        } else if (!aLevel && bLevel) {
+            return 1;
+        } else if (aLevel && bLevel) {
+            const levelDiff = bLevel.value - aLevel.value;
+            if (levelDiff != 0) {
+                return levelDiff;
+            }
+        }
+
+        return a.name.localeCompare(b.name);
+    });
+}
+
 async function extractPack(filePath: string, packFilename: string) {
     console.log(`Extracting pack: ${packFilename}`);
     const outPath = path.resolve(tempDataPath, packFilename);
@@ -295,12 +395,17 @@ async function extractPack(filePath: string, packFilename: string) {
 
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
-        const preparedEntity = convertLinks(entityData, packFilename);
+        let preparedEntity = convertLinks(entityData, packFilename);
+        if ('items' in preparedEntity) {
+            // preparedEntity.items = sortDataItems(preparedEntity); // temporarily disable the custom sorting
+            sortDataItems(preparedEntity); // dummy call to fool the linter - remove when above line is added back in
+        }
 
         // Pretty print JSON data
         const outData = (() => {
             const allKeys: Set<string> = new Set();
             const idKeys: string[] = [];
+
             JSON.stringify(preparedEntity, (key, value) => {
                 if (idPattern.test(key)) {
                     idKeys.push(key);
@@ -310,6 +415,7 @@ async function extractPack(filePath: string, packFilename: string) {
 
                 return value;
             });
+
             const sortedKeys = Array.from(allKeys).sort().concat(idKeys);
 
             const newJson = JSON.stringify(preparedEntity, sortedKeys, 4);

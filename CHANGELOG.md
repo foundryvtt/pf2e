@@ -1,5 +1,24 @@
 # Patch Notes:
 
+## Version 1.11.20
+### Bug Fixes
+* (stwlam) Fix display/editing of traits, immunities, and languages on simple NPC sheet
+* (stwlam) Open and close compendium folders as necessary while searching
+* (stwlam) Fix tripping Foundry concurrent compendium-access bug in migration 611
+* (stwlam) Fix copied enfoldered compendia not appearing in directory. Closes #1253 and #1254
+* (stwlam) Match up damage icons to right buttons again
+* (In3luki) Add `expended` class to simple NPC sheet CSS. Closes #1251
+
+### Content Changes
+* (Schmurf) Fix Xotanispawn size from 1x1 to 2x2
+* (SpartanCPA) _Animal form_ spell description missing a closing tag
+* (Tikael & SpartanCPA) Brush-up Ancient Brass Dragon and Medusa
+* (Tikael & SpartanCPA) Add Paizo blog content (Closes #1008) and updated OpenGameLicense.md to add blog sources
+
+### Core System Improvements
+* (In3luki) Add the attack description to roll notes
+
+
 ## Version 1.11.19
 
 **Warning!** Very old copies of the Toughness and Mountain's Stoutness feats might need to be replaced manually with a new version from the compendium to ensure they keep working as expected. This was necessary to make these feats work better with the translated/renamed versions.
