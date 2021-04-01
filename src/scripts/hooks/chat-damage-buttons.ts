@@ -31,7 +31,7 @@ export function listen() {
                 theme: 'crb-hover',
             });
         $shield.tooltipster('disable');
-
+        html.find('button.shield-block').attr({ title: LocalizePF2e.translations.PF2E.DamageButton.ShieldBlock });
         // Handle button clicks
         full.on('click', (event) => {
             applyDamage(html, 1, event.shiftKey);
