@@ -343,7 +343,7 @@ function sortDataItems(entityData: PackEntry): any[] {
     // Make sure to add any items that are of a type not defined in the list.
     groupedItems.forEach((itemGroup,key) => {
         if (!itemTypeList.includes(key)) {
-            console.warn(`Item type ${key} is currently unhandled in sortDataItems. Consider adding.`);
+            console.warn(`\x1b[33mWarning in ${entityData.name}:\x1b[0m Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`, );
             Array.from(itemGroup).forEach(item => {
                 sortedItems[itemIndex++] = item;
                 item.sort = 100000 * itemIndex;
