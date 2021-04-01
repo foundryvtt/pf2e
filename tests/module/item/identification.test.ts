@@ -92,9 +92,6 @@ describe('test identification DCs', () => {
     test('identify item without level', () => {
         const item = {
             data: {
-                rarity: {
-                    value: 'common',
-                },
                 traits: {
                     value: [],
                 },
@@ -108,10 +105,10 @@ describe('test identification DCs', () => {
 
     test('potency runes are magical', () => {
         const item = createItem({
-            level: 2, 
-            rarity: 'rare', 
-            traits: [], 
-            potencyRune: '1', 
+            level: 2,
+            rarity: 'rare',
+            traits: [],
+            potencyRune: '1',
             type: 'weapon'
         });
         expect(isMagical(item))
@@ -120,10 +117,10 @@ describe('test identification DCs', () => {
 
     test('striking runes are magical', () => {
         const item = createItem({
-            level: 2, 
-            rarity: 'rare', 
-            traits: [], 
-            strikingRune: '2',  
+            level: 2,
+            rarity: 'rare',
+            traits: [],
+            strikingRune: '2',
             type: 'weapon'
         });
         expect(isMagical(item))
@@ -132,10 +129,10 @@ describe('test identification DCs', () => {
 
     test('resiliency runes are magical', () => {
         const item = createItem({
-            level: 2, 
-            rarity: 'rare', 
-            traits: [], 
-            resilienceRune: '3',  
+            level: 2,
+            rarity: 'rare',
+            traits: [],
+            resilienceRune: '3',
             type: 'armor'
         });
         expect(isMagical(item))

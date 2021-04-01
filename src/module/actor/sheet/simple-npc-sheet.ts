@@ -85,7 +85,6 @@ interface NPCSystemSheetData extends RawNPCData {
         alignment: {
             localizedName?: string;
         };
-        rarity: string;
     };
     sortedSkills: Record<string, NPCSkillData>;
     traits: CreatureTraitsData & {
@@ -195,7 +194,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareAbilities(sheetData.data.abilities);
         this.prepareSize(sheetData.data);
         this.prepareAlignment(sheetData.data);
-        this.prepareRarity(sheetData.data);
         this.preparePerception(sheetData.data);
         this.prepareSkills(sheetData.data);
         this.prepareSpeeds(sheetData.data);
@@ -367,12 +365,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const localizedName = game.i18n.localize(`PF2E.Alignment${alignmentCode}`);
 
         actorData.details.alignment.localizedName = localizedName;
-    }
-
-    private prepareRarity(actorData: NPCSystemSheetData) {
-        if (actorData.details.rarity === undefined) {
-            actorData.details.rarity = 'normal';
-        }
     }
 
     private preparePerception(actorData: NPCSystemSheetData) {
