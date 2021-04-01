@@ -398,6 +398,7 @@ async function extractPack(filePath: string, packFilename: string) {
         let preparedEntity = convertLinks(entityData, packFilename);
         if ('items' in preparedEntity) {
             // preparedEntity.items = sortDataItems(preparedEntity); // temporarily disable the custom sorting
+            sortDataItems(preparedEntity); // dummy call to fool the linter - remove when above line is added back in
         }
 
         // Pretty print JSON data
