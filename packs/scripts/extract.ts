@@ -440,22 +440,16 @@ function sortSpells(spells: Set<ItemData>): ItemData[] {
 }
 
 async function extractPack(filePath: string, packFilename: string) {
-    console.log(`Extracting pack: ${packFilename}`);
+    console.log(`Extracting pack: ${packFilename} (Presorting: ${args.disablePresort ? 'Disabled' : 'Enabled'})`);
     const outPath = path.resolve(tempDataPath, packFilename);
 
     const packEntities = await getAllData(filePath);
     const idPattern = /^[a-z0-9]{20,}$/g;
 
-    if (args.disablePresort) {
-        console.log('Presorting: Disabled');
-    } else {
-        console.log('Presorting: Enabled');
-    }
-
     for await (const entityData of packEntities) {
         // Remove or replace unwanted values from the entity
         const preparedEntity = convertLinks(entityData, packFilename);
-        if ('items' in preparedEntity && !args.disablePresort) {
+        if ('items' in preparedEntity && preparedEntity.type === 'npc' && !args.disablePresort) {
             preparedEntity.items = sortDataItems(preparedEntity);
         }
 
