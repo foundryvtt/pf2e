@@ -906,7 +906,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
-        if (['melee', 'weapon'].includes(item.type)) {
+        if (item.type === 'melee' || item.type === 'weapon') {
             // calculate multiple attack penalty tiers
             const agile = item.data.traits.value.includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;

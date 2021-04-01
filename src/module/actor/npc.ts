@@ -3,7 +3,7 @@ import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
-import { AbilityString, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
+import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
 import { RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
@@ -760,7 +760,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    private static mapTokenDispositionToNPCAttitude(disposition: number): string {
+    private static mapTokenDispositionToNPCAttitude(disposition: number): Attitude {
         if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) {
             return 'friendly';
         } else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) {
