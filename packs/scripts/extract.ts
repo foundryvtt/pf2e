@@ -424,7 +424,6 @@ async function extractPack(filePath: string, packFilename: string) {
         // Remove or replace unwanted values from the entity
         let preparedEntity = convertLinks(entityData, packFilename);
         if ('items' in preparedEntity && !args.disablePresort) {
-            console.log("Presorting enabled!")
             preparedEntity.items = sortDataItems(preparedEntity);
         }
 
