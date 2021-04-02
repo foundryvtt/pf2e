@@ -1,4 +1,5 @@
-import { ActorPF2e, HazardPF2e, VehiclePF2e } from '@module/actor/base';
+import { ActorPF2e, HazardPF2e } from '@module/actor/base';
+import { VehiclePF2e } from '@module/actor/vehicle';
 import { CharacterPF2e } from '@module/actor/character';
 import { LootPF2e } from '@module/actor/loot';
 import { NPCPF2e } from '@module/actor/npc';

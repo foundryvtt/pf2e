@@ -7,7 +7,6 @@ import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData 
 import {
     DexterityModifierCapData,
     ActorDataPF2e,
-    VehicleData,
     HazardData,
     AbilityString,
     isCreatureData,
@@ -338,40 +337,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             promises.push(scene.updateEmbeddedEntity('Token', local));
         }
         return Promise.all(promises);
-    }
-
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I,
-        options?: EntityCreateOptions,
-    ): Promise<I | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I[],
-        options?: EntityCreateOptions,
-    ): Promise<I | I[] | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I | I[],
-        options: EntityCreateOptions = {},
-    ): Promise<I | I[] | null> {
-        const createData = Array.isArray(data) ? data : [data];
-        for (const datum of createData) {
-            if (this.data.type === 'familiar' && !['condition', 'effect'].includes(datum.type)) {
-                ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
-                return null;
-            } else if (
-                this.data.type === 'vehicle' &&
-                !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(
-                    datum.type,
-                )
-            ) {
-                ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
-                return null;
-            }
-        }
-
-        return super.createEmbeddedEntity(embeddedName, createData, options);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -1308,12 +1273,6 @@ export class HazardPF2e extends ActorPF2e {}
 export interface HazardPF2e {
     data: HazardData;
     _data: HazardData;
-}
-
-export class VehiclePF2e extends ActorPF2e {}
-export interface VehiclePF2e {
-    data: VehicleData;
-    _data: VehicleData;
 }
 
 export type TokenPF2e = Token<ActorPF2e>;
