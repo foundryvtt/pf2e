@@ -537,22 +537,29 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * Prompt the user for input regarding Advantage/Disadvantage and any Situational Bonus
      * @param skill {String}    The skill id
      */
-    rollSave(event: JQuery.Event, saveName: SaveString) {
+    rollSave(event: JQuery.Event, saveName: SaveString, options: { traits?: string[] } = {}) {
         const save: SaveData = this.data.data.saves[saveName];
-        const parts = ['@mod', '@itemBonus'];
-        const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
 
-        // Call the roll helper utility
-        DicePF2e.d20Roll({
-            event,
-            parts,
-            data: {
-                mod: save.value - (save.item ?? 0),
-                itemBonus: save.item ?? 0,
-            },
-            title: flavor,
-            speaker: ChatMessage.getSpeaker({ actor: this }),
-        });
+        if (save?.roll) {
+            const rollOptions = this.getRollOptions(['all', 'saving-throw', saveName]);
+            if (options?.traits) rollOptions.push(...options.traits);
+            save.roll({ event, options: rollOptions });
+        } else {
+            const parts = ['@mod', '@itemBonus'];
+            const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
+
+            // Call the roll helper utility
+            DicePF2e.d20Roll({
+                event,
+                parts,
+                data: {
+                    mod: save.value - (save.item ?? 0),
+                    itemBonus: save.item ?? 0,
+                },
+                title: flavor,
+                speaker: ChatMessage.getSpeaker({ actor: this }),
+            });
+        }
     }
 
     /**
@@ -685,20 +692,16 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
-                const save = $(ev.currentTarget).attr('data-save') as SaveString;
-                const itemTraits = item.data.data.traits.value;
                 if (!actor) return;
 
-                if (actor.data.data.saves[save]?.roll) {
-                    const options = actor.getRollOptions(['all', 'saving-throw', save]);
-                    options.push('magical', 'spell');
-                    if (itemTraits) {
-                        options.push(...itemTraits);
-                    }
-                    actor.data.data.saves[save].roll({ event: ev, options });
-                } else {
-                    actor.rollSave(ev, save);
+                const save = $(ev.currentTarget).attr('data-save') as SaveString;
+                const itemTraits = item.data.data.traits.value;
+                const traits = ['magical', 'spell'];
+                if (itemTraits) {
+                    traits.push(...itemTraits);
                 }
+
+                actor.rollSave(ev, save, { traits });
             }
         } else {
             throw ErrorPF2e(game.i18n.localize('PF2E.UI.errorTargetToken'));

@@ -814,14 +814,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     rollSave(event: JQuery.ClickEvent, saveId: SaveString) {
-        const save = this.actor.data.data.saves[saveId];
-
-        if (save?.roll) {
-            const options = this.actor.getRollOptions(['all', 'saving-throw', saveId]);
-            save.roll({ event, options });
-        } else {
-            this.actor.rollSave(event, saveId);
-        }
+        this.actor.rollSave(event, saveId);
     }
 
     private onClickChooseOptions(event: JQuery.ClickEvent) {
