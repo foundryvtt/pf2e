@@ -862,6 +862,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
             spellData.properties = props.filter((p) => p !== null);
+            const originalTraits = spellData.traits;
             spellData.traits = ItemPF2e.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
 
             spellData.item = JSON.stringify(this.data);
@@ -886,6 +887,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 flags: {
                     core: {
                         canPopout: true,
+                    },
+                    [game.system.id]: {
+                        itemType: 'spell',
+                        traits: originalTraits.value,
                     },
                 },
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,
@@ -936,7 +941,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     /* -------------------------------------------- */
 
-    static handleButtonEvent(message: ChatMessage, ev: JQuery.ClickEvent) {
+    static async handleButtonEvent(message: ChatMessage, ev: JQuery.ClickEvent) {
         ev.preventDefault();
 
         // Extract card data
@@ -944,6 +949,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const senderId = message.user._id;
         const card = button.parents('.chat-card');
         const action = button.attr('data-action');
+        const messageData = (message.data.flags[game.system.id] ?? {}) as Record<string, unknown>;
 
         // Confirm roll permission
         if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
@@ -965,8 +971,16 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             actor = ActorPF2e.fromToken(token);
         } else actor = game.actors.get(card.attr('data-actor-id'));
 
-        // Get the Item
         if (!actor) return;
+
+        // Events that can be performed without an item.
+        // Eventually most events will be of this kind to fix certain bugs
+        // such as the final scroll's spell card not working.
+        if (action === 'save' && messageData.traits instanceof Array) {
+            return ActorPF2e.rollSave(ev, { traits: messageData.traits });
+        }
+
+        // Get the Item
         const itemId = card.attr('data-item-id') ?? '';
         let item: Owned<ItemPF2e> | null = null;
         let itemData: ItemDataPF2e | undefined = undefined;
@@ -980,6 +994,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             item = actor.getOwnedItem(itemId);
             itemData = item?.data;
         }
+
         if (item && itemData) {
             const strike: StatisticModifier = actor.data.data?.actions?.find(
                 (a: StatisticModifier) => a.item === itemId,
@@ -1029,7 +1044,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             else if (action === 'spellCounteract') item.rollCounteract(ev);
             // Consumable usage
             else if (action === 'consume') item.rollConsumable(ev);
-            else if (action === 'save') ActorPF2e.rollSave(ev, item);
+            else if (action === 'save') ActorPF2e.rollSave(ev, { item });
         } else {
             const strikeIndex = card.attr('data-strike-index');
             const strikeName = card.attr('data-strike-name');
