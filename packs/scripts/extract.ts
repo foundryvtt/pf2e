@@ -361,7 +361,8 @@ function sortDataItems(entityData: PackEntry): any[] {
                 }
 
                 items.forEach((item) => {
-                    sortedItems[itemIndex++] = item;
+                    sortedItems[itemIndex] = item;
+                    itemIndex += 1;
                     item.sort = 100000 * itemIndex;
                 });
             }
@@ -375,7 +376,8 @@ function sortDataItems(entityData: PackEntry): any[] {
                 `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
             );
             Array.from(itemGroup).forEach((item) => {
-                sortedItems[itemIndex++] = item;
+                sortedItems[itemIndex] = item;
+                itemIndex += 1;
                 item.sort = 100000 * itemIndex;
             });
         }
