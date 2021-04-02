@@ -66,13 +66,15 @@ export class FakeActor {
         }
 
         for (const itemChanges of data) {
-            let obj;
+            let obj: unknown;
             if (type == 'OwnedItem') {
                 obj = this._data.items.find((x) => x._id === itemChanges._id);
             }
 
             for (const [k, v] of Object.entries(itemChanges)) {
-                global.setProperty(obj, k, v);
+                if (typeof obj === 'object' && obj !== null) {
+                    global.setProperty(obj, k, v);
+                }
             }
         }
     }
