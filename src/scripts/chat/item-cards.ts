@@ -6,7 +6,7 @@ export function registerItemCardEvents(html: JQuery) {
 }
 
 function handleButtonEvent(event: JQuery.ClickEvent) {
-    const messageId = $(event.currentTarget).parents('.message').attr('data-message-id');
+    const messageId = $(event.currentTarget).parents('.message').attr('data-message-id') ?? '';
     const message = game.messages.get(messageId);
     if (!message) return;
 
