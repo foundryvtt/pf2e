@@ -146,7 +146,7 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
             iconName = itemData.data.armorType.value === 'shield' ? 'shields' : 'armor';
             break;
         case 'consumable':
-            switch (itemData.data.consumableType.value) {
+            switch (itemData.data.consumableType.value as string) {
                 case 'ammo':
                     iconName = 'ammunition';
                     break;
