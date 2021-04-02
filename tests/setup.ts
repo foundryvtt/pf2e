@@ -60,7 +60,7 @@ global.game = Object.freeze({
     }),
 });
 
-function getType(token) {
+function getType(token: Token | null) {
     const tof = typeof token;
     if (tof === 'object') {
         if (token === null) return 'null';
@@ -72,13 +72,13 @@ function getType(token) {
     return tof;
 }
 
-function setProperty(object, key, value) {
+function setProperty(object: Record<string, any>, key: string, value: unknown) {
     let target = object;
     let changed = false;
     // Convert the key to an object reference if it contains dot notation
     if (key.indexOf('.') !== -1) {
         let parts = key.split('.');
-        key = parts.pop();
+        key = parts.pop() ?? '';
         target = parts.reduce((o, i) => {
             if (!o.hasOwnProperty(i)) o[i] = {};
             return o[i];
@@ -97,7 +97,7 @@ function duplicate(original: unknown) {
     return JSON.parse(JSON.stringify(original));
 }
 
-function expandObject(obj, _d = 0) {
+function expandObject(obj: Record<string, any>, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error('Maximum depth exceeded');
     for (let [k, v] of Object.entries(obj)) {
@@ -108,8 +108,8 @@ function expandObject(obj, _d = 0) {
 }
 
 function mergeObject(
-    original,
-    other = {},
+    original: Record<string, any>,
+    other: Record<string, any> = {},
     {
         insertKeys = true,
         insertValues = true,
@@ -121,8 +121,8 @@ function mergeObject(
     _d = 0,
 ) {
     other = other || {};
-    if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw new Error('One of original or other are not Objects!');
+    if (!(original instanceof Object && other instanceof Object)) {
+        throw Error('One of original or other are not Objects!');
     }
     let depth = _d + 1;
 
@@ -130,7 +130,7 @@ function mergeObject(
     if (!inplace && _d === 0) original = duplicate(original);
 
     // Enforce object expansion at depth 0
-    if (_d === 0 && Object.keys(original).some((k) => /\./.test(k))) {
+    if (_d === 0 && Object.keys(original as {}).some((k) => /\./.test(k))) {
         original = expandObject(original);
     }
 

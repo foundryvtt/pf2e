@@ -59,12 +59,12 @@ export class FakeScene {
     }
 
     updateEmbeddedEntity(entityType: string, changes: any) {
-        let obj;
+        let obj: TokenData | undefined;
         if (entityType === 'Token') {
             obj = this.data.tokens?.find((x) => x._id === changes._id);
         }
         for (const [k, v] of Object.entries(changes)) {
-            global.setProperty(obj, k, v);
+            global.setProperty(obj!, k, v);
         }
     }
 }
