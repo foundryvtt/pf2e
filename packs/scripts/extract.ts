@@ -356,6 +356,9 @@ function sortDataItems(entityData: PackEntry): any[] {
                     case 'action':
                         items = sortActions(itemGroup);
                         break;
+                    case 'lore':
+                        items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
+                        break;
                     default:
                         items = Array.from(itemGroup);
                 }
