@@ -5,9 +5,10 @@ import { LocalizePF2e } from '@module/system/localize';
 export function listen() {
     Hooks.on('renderChatMessage', async (message, html) => {
         const damageRoll = message.getFlag('pf2e', 'damageRoll');
-        const isRoll = damageRoll || message.isRoll;
-        const isD20 = message.roll && message.roll.dice[0]?.faces === 20;
-        if (!isRoll || isD20) return;
+        const rolledFromChat = message.getFlag('pf2e', 'rolledFromChat') ?? false;
+        const skip = rolledFromChat ? (message.roll.dice[0]?.faces === 20 ? true : false) : true;
+
+        if (!damageRoll && skip) return;
 
         const $buttons = $(await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html'));
         html.append($buttons);
@@ -100,6 +101,17 @@ export function listen() {
             event.stopPropagation();
             applyDamage(html, -1, event.shiftKey);
         });
+    });
+
+    // Add fromChat flag to rolls created with the '/r[oll] ' chat command.
+    Hooks.on('chatMessage', (_chatLog: ChatLog, message: string, data: ChatMessageData) => {
+        if (message.startsWith('/r ') || message.startsWith('/roll ')) {
+            data.flags = {
+                pf2e: {
+                    rolledFromChat: true,
+                },
+            };
+        }
     });
 }
 

@@ -73,6 +73,7 @@ declare global {
 
     interface ChatMessage extends Entity {
         getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+        getFlag(scope: 'pf2e', key: 'rolledFromChat'): boolean | undefined;
     }
 
     interface User extends Entity {

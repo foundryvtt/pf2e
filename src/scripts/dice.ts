@@ -263,6 +263,11 @@ export class DicePF2e {
                 {
                     speaker,
                     flavor: flav,
+                    flags: {
+                        pf2e: {
+                            damageRoll: {},
+                        },
+                    },
                 },
                 {
                     rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
