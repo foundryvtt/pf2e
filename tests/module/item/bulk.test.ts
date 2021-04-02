@@ -25,6 +25,20 @@ function createItem({
     quantity = 1,
     stackGroup = undefined,
     size = 'med',
+}: {
+    id?: string,
+    weight?: string,
+    unequippedBulk?: string;
+    equippedBulk?: string;
+    negateBulk?: string;
+    bulkCapacity?: string;
+    containerId?: string;
+    equipped?: boolean;
+    type?: string;
+    traits?: string[];
+    quantity?: number;
+    stackGroup?: string;
+    size?: string;
 }): PhysicalItemData & WithTraits {
     return ({
         _id: id,
@@ -856,7 +870,7 @@ describe('Bulk conversions', () => {
             }),
         );
     });
-    
+
     test('L items become 1 bulk after one increase', () => {
         expect(convertBulkToSize(new Bulk({ light: 1 }), 'lg', 'med')).toEqual(
             new Bulk({
