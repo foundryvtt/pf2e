@@ -502,6 +502,7 @@ export const PF2ECONFIG = {
         necromancy: 'PF2E.TraitNecromancy',
         negative: 'PF2E.TraitNegative',
         nonlethal: 'PF2E.TraitNonlethal',
+        olfactory: 'PF2E.TraitOlfactory',
         plant: 'PF2E.TraitPlant',
         poison: 'PF2E.TraitPoison',
         polymorph: 'PF2E.TraitPolymorph',
