@@ -975,9 +975,12 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         let itemData: ItemDataPF2e | undefined = undefined;
         const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
         if (embeddedItem) {
+            // TODO: This code path is old and should be phased out.
+            // Currently it resolves the scenario where the last spell scroll is consumed and the item no longer exists,
+            // but a different solution should be preferred over embeddeding the entire consumable in the DOM
             itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
             if (itemData) {
-                item = actor.items.get(itemData._id);
+                item = actor.items.get(itemData._id) ?? await ItemPF2e.createOwned(itemData, actor);
             }
         } else {
             item = actor.getOwnedItem(itemId);
