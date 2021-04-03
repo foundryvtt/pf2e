@@ -518,11 +518,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        let item: ItemDataPF2e = this.data;
-        if (item.type === 'consumable' && item.data.spell?.data) {
-            item = item.data.spell.data;
-        }
+    async rollSpellAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+        const item: ItemDataPF2e = this.data;
         if (item.type !== 'spell') throw new Error('Wrong item type!');
         if (!this.actor) throw new Error('Attempted to cast a spell without an actor');
 
@@ -568,7 +565,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             }
 
             // Call the roll helper utility
-            DicePF2e.d20Roll({
+            await DicePF2e.d20Roll({
                 event,
                 parts,
                 data: rollData,
@@ -602,11 +599,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollSpellDamage(event: JQuery.ClickEvent) {
-        let item = this.data;
-        if (item.type === 'consumable' && item.data.spell?.data) {
-            item = item.data.spell.data;
-        }
+    async rollSpellDamage(event: JQuery.ClickEvent) {
+        const item = this.data;
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
         // Get data
@@ -642,7 +636,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         }
 
         // Call the roll helper utility
-        DicePF2e.damageRoll({
+        await DicePF2e.damageRoll({
             event,
             parts,
             data: rollData,
