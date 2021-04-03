@@ -10,6 +10,14 @@ function createItem({
     bulkCapacity = '',
     containerId = '',
     equipped = false,
+}: {
+    id: string;
+    weight?: string;
+    equippedBulk?: string;
+    negateBulk?: string;
+    bulkCapacity?: string;
+    containerId?: string;
+    equipped?: boolean;
 }): PhysicalItemData {
     return {
         _id: id,
@@ -37,7 +45,7 @@ function createItem({
                 value: 1,
             },
         },
-    } as PhysicalItemData;
+    } as unknown as PhysicalItemData;
 }
 
 describe('should create container data', () => {
@@ -80,7 +88,7 @@ describe('should create container data', () => {
         const containerData = getContainerMap({ items, bulkItemsById });
 
         expect(containerData.size).toBe(5);
-        const backPack = containerData.get('1');
+        const backPack = containerData.get('1')!;
         expect(backPack.isInContainer).toBe(false);
         expect(backPack.isContainer).toBe(true);
         expect(backPack.heldItems.length).toBe(1);
@@ -89,7 +97,7 @@ describe('should create container data', () => {
         expect(backPack.formattedNegateBulk).toBe('2');
         expect(backPack.formattedCapacity).toBe('4');
 
-        const nestedBackPack = containerData.get('2');
+        const nestedBackPack = containerData.get('2')!;
         expect(nestedBackPack.isInContainer).toBe(true);
         expect(nestedBackPack.isContainer).toBe(true);
         expect(nestedBackPack.heldItems.length).toBe(2);
@@ -99,7 +107,7 @@ describe('should create container data', () => {
         expect(nestedBackPack.formattedNegateBulk).toBe('2');
         expect(nestedBackPack.formattedCapacity).toBe('4');
 
-        const itemInNestedBackPack1 = containerData.get('3');
+        const itemInNestedBackPack1 = containerData.get('3')!;
         expect(itemInNestedBackPack1.isInContainer).toBe(true);
         expect(itemInNestedBackPack1.isContainer).toBe(false);
         expect(itemInNestedBackPack1.heldItems).toEqual([]);
@@ -107,7 +115,7 @@ describe('should create container data', () => {
         expect(itemInNestedBackPack1.formattedNegateBulk).toBe('-');
         expect(itemInNestedBackPack1.formattedCapacity).toBe('-');
 
-        const itemInNestedBackPack2 = containerData.get('4');
+        const itemInNestedBackPack2 = containerData.get('4')!;
         expect(itemInNestedBackPack2.isInContainer).toBe(true);
         expect(itemInNestedBackPack2.isContainer).toBe(false);
         expect(itemInNestedBackPack2.heldItems).toEqual([]);
@@ -115,7 +123,7 @@ describe('should create container data', () => {
         expect(itemInNestedBackPack2.formattedNegateBulk).toBe('-');
         expect(itemInNestedBackPack2.formattedCapacity).toBe('-');
 
-        const tobLevelItem = containerData.get('5');
+        const tobLevelItem = containerData.get('5')!;
         expect(tobLevelItem.isInContainer).toBe(false);
         expect(tobLevelItem.isContainer).toBe(false);
         expect(tobLevelItem.heldItems).toEqual([]);
@@ -186,28 +194,28 @@ describe('should create container data', () => {
 
         expect(containerData.size).toBe(8);
 
-        const backpack = containerData.get('1');
+        const backpack = containerData.get('1')!;
         expect(backpack.fullPercentage).toBe(98);
         expect(backpack.fullPercentageMax100).toBe(98);
         expect(backpack.isOverLoaded).toBe(false);
 
-        const backpackItem = containerData.get('2');
+        const backpackItem = containerData.get('2')!;
         expect(backpackItem.fullPercentage).toBe(0);
 
-        const beltPouch = containerData.get('3');
+        const beltPouch = containerData.get('3')!;
         expect(beltPouch.fullPercentage).toBe(100);
         expect(beltPouch.fullPercentageMax100).toBe(100);
         expect(beltPouch.isOverLoaded).toBe(false);
 
-        const beltPouchItem = containerData.get('4');
+        const beltPouchItem = containerData.get('4')!;
         expect(beltPouchItem.fullPercentage).toBe(0);
 
-        const overloadedPouch = containerData.get('5');
+        const overloadedPouch = containerData.get('5')!;
         expect(overloadedPouch.fullPercentage).toBe(125);
         expect(overloadedPouch.fullPercentageMax100).toBe(100);
         expect(overloadedPouch.isOverLoaded).toBe(true);
 
-        const overloadedBackpack = containerData.get('7');
+        const overloadedBackpack = containerData.get('7')!;
         expect(overloadedBackpack.fullPercentage).toBe(100);
         expect(overloadedBackpack.isOverLoaded).toBe(true);
     });

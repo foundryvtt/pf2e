@@ -7,6 +7,7 @@ import { FamiliarData, SkillAbbreviation } from './data-definitions';
 import { RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
+import { ItemDataPF2e } from '@item/data-definitions';
 
 export class FamiliarPF2e extends CreaturePF2e {
     /** Prepare Character type specific data. */
@@ -282,27 +283,33 @@ export class FamiliarPF2e extends CreaturePF2e {
                 });
                 data.skills[shortform] = stat;
             }
-        } else {
-            data.master.name = undefined;
-            data.master.level = 0;
-            data.master.familiarAbilities = {
-                breakdown: '',
-                value: 0,
-            };
-            data.details.level.value = 0;
-            data.attributes.ac = {
-                value: 10,
-                breakdown: game.i18n.localize('PF2E.ArmorClassBase'),
-            };
-            data.saves = {
-                fortitude: { value: 0 },
-                reflex: { value: 0 },
-                will: { value: 0 },
-            };
-            data.attributes.perception = {
-                value: 0,
-            };
         }
+    }
+
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
+        embeddedName: string,
+        data: I,
+        options?: EntityCreateOptions,
+    ): Promise<I | null>;
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
+        embeddedName: string,
+        data: I[],
+        options?: EntityCreateOptions,
+    ): Promise<I | I[] | null>;
+    async createEmbeddedEntity<I extends ItemDataPF2e>(
+        embeddedName: string,
+        data: I | I[],
+        options: EntityCreateOptions = {},
+    ): Promise<I | I[] | null> {
+        const createData = Array.isArray(data) ? data : [data];
+        for (const datum of createData) {
+            if (!['condition', 'effect'].includes(datum.type)) {
+                ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
+                return null;
+            }
+        }
+
+        return super.createEmbeddedEntity(embeddedName, createData, options);
     }
 }
 

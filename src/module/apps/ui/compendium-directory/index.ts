@@ -18,13 +18,7 @@ interface PackSummaryPF2e extends PackSummary {
     folders?: PackFolderPF2e[];
     packs: PackSummaryDataPF2e[];
 }
-interface PackSummaryByEntityPF2e {
-    Actor: PackSummaryPF2e;
-    Item: PackSummaryPF2e;
-    JournalEntry: PackSummaryPF2e;
-    Macro: PackSummaryPF2e;
-    RollTable: PackSummaryPF2e;
-}
+type PackSummaryByEntityPF2e = Record<CompendiumEntityString, PackSummaryPF2e>;
 
 interface PackDirectoryDataPF2e extends CompendiumDirectoryData {
     packs: PackSummaryByEntityPF2e;
@@ -57,16 +51,20 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
         const packSettings = game.settings.get('core', 'compendiumConfiguration');
         for (const pack of game.packs) {
             const metadata: PackMetadataPF2e = pack.metadata;
+            if (metadata.package !== 'pf2e') {
+                delete metadata.folder;
+                delete metadata.private;
+            }
             const packKey = `${metadata.package}.${metadata.name}`;
             pack.private = packSettings[packKey]?.private ?? metadata.private ?? false;
         }
         const data: PackDirectoryDataPF2e = super.getData(options);
 
         // Get compendia in folders
-        const entityStrings = ['Actor', 'Item', 'JournalEntry', 'Macro', 'RollTable'] as const;
-        for (const entityString of entityStrings) {
-            data.packs[entityString].title = LocalizePF2e.translations.PF2E[entityString].Plural;
-            this.setupFolders(data.packs[entityString]);
+        const packSummaries = Object.values(data.packs);
+        for (const summary of packSummaries) {
+            summary.title = LocalizePF2e.translations.PF2E[summary.label]?.Plural ?? summary.label;
+            this.setupFolders(summary);
         }
         return data;
     }

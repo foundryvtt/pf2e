@@ -62,7 +62,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     get traits(): Set<string> {
-        const rarity: string = this.data.data.rarity.value;
+        const rarity: string = this.data.data.traits.rarity.value;
         return new Set([rarity].concat(this.data.data.traits.value));
     }
 
@@ -906,7 +906,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     static calculateMap(item: ItemDataPF2e): { label: string; map2: number; map3: number } {
-        if (['melee', 'weapon'].includes(item.type)) {
+        if (item.type === 'melee' || item.type === 'weapon') {
             // calculate multiple attack penalty tiers
             const agile = item.data.traits.value.includes('agile');
             const alternateMAP = ((item.data as any).MAP || {}).value;
@@ -1046,6 +1046,21 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 }
             }
         });
+    }
+
+    /**
+     * Don't allow the user to create a condition or spellcasting entry from the sidebar.
+     * @override
+     */
+    static async createDialog(data: { folder?: string } = {}, options: FormApplicationOptions = {}): Promise<ItemPF2e> {
+        const original = game.system.entityTypes.Item;
+        game.system.entityTypes.Item = original.filter(
+            (itemType: string) =>
+                !(['condition', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+        );
+        const newItem = super.createDialog(data, options);
+        game.system.entityTypes.Item = original;
+        return newItem as Promise<ItemPF2e>;
     }
 }
 

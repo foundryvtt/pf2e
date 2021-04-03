@@ -67,7 +67,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
 
         html.find('[data-perception-check]').on('click', '*', (event) => {
             const options = this.actor.getRollOptions(['all', 'perception']);
-            this.actor.data.data.attributes.perception.roll({ event, options });
+            this.actor.attributes.perception.roll({ event, options });
         });
 
         html.find('[data-attack-roll]').on('click', '*', (event) => {
@@ -96,8 +96,10 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         });
 
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
-            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
+            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id') ?? '';
             const item = this.actor.getOwnedItem(itemID);
+            if (!item) return;
+
             new Dialog({
                 title: `Remove ${item.type}?`,
                 content: `<p>Are you sure you want to remove ${item.name}?</p>`,

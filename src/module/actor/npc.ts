@@ -3,7 +3,7 @@ import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
-import { AbilityString, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
+import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
 import { RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
@@ -14,6 +14,16 @@ import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficulty
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
         return this.data.data.traits.rarity.value;
+    }
+
+    /** Does this NPC have the Elite adjustment? */
+    get isElite(): boolean {
+        return this.traits.has('elite');
+    }
+
+    /** Does this NPC have the Weak adjustment? */
+    get isWeak(): boolean {
+        return this.traits.has('weak');
     }
 
     /** Prepare Character type specific data. */
@@ -47,10 +57,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
 
-        const isElite = data.traits.traits.value.some((trait) => trait === 'elite');
-        const isWeak = data.traits.traits.value.some((trait) => trait === 'weak');
-
-        if (isElite) {
+        if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.EliteLabel', 2, MODIFIER_TYPE.UNTYPED));
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
@@ -65,7 +72,7 @@ export class NPCPF2e extends CreaturePF2e {
                     MODIFIER_TYPE.UNTYPED,
                 ),
             );
-        } else if (isWeak) {
+        } else if (this.isWeak) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
             statisticsModifiers.all.push(new ModifierPF2e('PF2E.NPC.Adjustment.WeakLabel', -2, MODIFIER_TYPE.UNTYPED));
             statisticsModifiers.damage = statisticsModifiers.damage ?? [];
@@ -329,25 +336,25 @@ export class NPCPF2e extends CreaturePF2e {
                     expanded: skill,
                     label: name,
                     visible: false,
+                    roll: adaptRoll((args) => {
+                        const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
+                        CheckPF2e.roll(
+                            new CheckModifier(label, stat),
+                            { actor: this, type: 'skill-check', options: args.options, notes },
+                            args.event,
+                            args.callback,
+                        );
+                    }),
+                    lore: false,
+                    rank: 0, // default to untrained
                 },
                 { overwrite: false },
             );
-            stat.lore = false;
-            stat.rank = 0; // default to untrained
             stat.value = stat.totalModifier;
             stat.breakdown = stat.modifiers
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
-            stat.roll = adaptRoll((args) => {
-                const label = game.i18n.format('PF2E.SkillCheckWithName', { skillName: name });
-                CheckPF2e.roll(
-                    new CheckModifier(label, stat),
-                    { actor: this, type: 'skill-check', options: args.options, notes },
-                    args.event,
-                    args.callback,
-                );
-            });
             data.skills[shortform] = stat;
         }
 
@@ -513,10 +520,10 @@ export class NPCPF2e extends CreaturePF2e {
                     ];
                 });
                 if (action.damageBreakdown.length > 0) {
-                    if (isElite) {
+                    if (this.isElite) {
                         action.damageBreakdown[0] =
                             action.damageBreakdown[0] + ` +2 ${game.i18n.localize('PF2E.NPC.Adjustment.EliteLabel')}`;
-                    } else if (isWeak) {
+                    } else if (this.isWeak) {
                         action.damageBreakdown[0] =
                             action.damageBreakdown[0] + ` -2 ${game.i18n.localize('PF2E.NPC.Adjustment.WeakLabel')}`;
                     }
@@ -753,7 +760,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    private static mapTokenDispositionToNPCAttitude(disposition: number): string {
+    private static mapTokenDispositionToNPCAttitude(disposition: number): Attitude {
         if (disposition === CONST.TOKEN_DISPOSITIONS.FRIENDLY) {
             return 'friendly';
         } else if (disposition === CONST.TOKEN_DISPOSITIONS.NEUTRAL) {
@@ -827,7 +834,44 @@ export class NPCPF2e extends CreaturePF2e {
         }
     }
 
-    public updateNPCAttitudeFromDisposition(disposition: number) {
+    /** Make the NPC elite, weak, or normal */
+    async applyAdjustment(adjustment: 'elite' | 'weak' | 'normal'): Promise<void> {
+        if (
+            (this.isElite && adjustment === 'elite') ||
+            (this.isWeak && adjustment === 'weak') ||
+            (!this.isElite && !this.isWeak && adjustment === 'normal')
+        ) {
+            return;
+        }
+
+        const extraHP = this.getHpAdjustment(this.level);
+        const currentHP = this.data.data.attributes.hp.value;
+        const newHP = (() => {
+            switch (adjustment) {
+                case 'elite':
+                    return this.isWeak ? currentHP + extraHP * 2 : currentHP + extraHP;
+                case 'weak':
+                    return this.isElite ? currentHP - extraHP * 2 : currentHP - extraHP;
+                default:
+                    return this.isElite ? currentHP - extraHP : currentHP + extraHP;
+            }
+        })();
+
+        const traits = this.data.data.traits.traits;
+        const toAdd = adjustment === 'normal' ? [] : [adjustment];
+        const toRemove = adjustment === 'weak' ? ['elite'] : adjustment === 'elite' ? ['weak'] : ['elite', 'weak'];
+        traits.value = traits.value.filter((trait) => !toRemove.includes(trait)).concat(toAdd);
+
+        await this.update(
+            {
+                'data.attributes.hp.value': Math.max(0, newHP),
+                'data.traits.traits.value': traits.value,
+            },
+            { diff: false },
+        );
+    }
+
+    updateNPCAttitudeFromDisposition(disposition: number) {
         this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
 }
