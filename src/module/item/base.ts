@@ -980,7 +980,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             // but a different solution should be preferred over embeddeding the entire consumable in the DOM
             itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
             if (itemData) {
-                item = actor.items.get(itemData._id) ?? await ItemPF2e.createOwned(itemData, actor);
+                item = actor.items.get(itemData._id) ?? (await ItemPF2e.createOwned(itemData, actor));
             }
         } else {
             item = actor.getOwnedItem(itemId);
