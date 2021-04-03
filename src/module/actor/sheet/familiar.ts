@@ -36,13 +36,19 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.data.data.traits.size.value] ?? null;
+        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities ?? {
+            value: 0,
+            breakdown: '',
+        };
 
         return {
             ...super.getData(),
             owners,
+            master: this.actor.master,
             masters,
             abilities,
             size,
+            familiarAbilities,
         };
     }
 

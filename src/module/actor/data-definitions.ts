@@ -701,6 +701,10 @@ interface FamiliarAttributes extends BaseCreatureAttributes {
 /** The raw information contained within the actor data object for familiar actors. */
 export interface RawFamiliarData extends CreatureSystemData {
     attributes: FamiliarAttributes;
+    master: {
+        id: string | null;
+        ability: AbilityString | null;
+    };
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
