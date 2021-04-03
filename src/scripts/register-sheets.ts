@@ -1,4 +1,4 @@
-import { CharacterSheetPF2e } from '../module/actor/sheet/character';
+import { CharacterSheetPF2e } from '@actor/sheet/character';
 import { UpdatedNPCSheetPF2e } from '@actor/sheet/updated-npc-sheet';
 import { HazardSheetPF2e } from '@actor/sheet/hazard';
 import { LootSheetPF2e } from '@actor/sheet/loot';
@@ -15,12 +15,14 @@ import { ItemPF2e } from '@item/base';
 import { LocalizePF2e } from '@system/localize';
 import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
 import { PhysicalItemPF2e } from '@item/physical';
+import { ActorSheetPF2eDataEntryNPC } from '@actor/sheet/data-entry-npc-sheet';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
     const sheetLabelNew = translations.SheetLabelNew;
     const sheetLabelOld = translations.SheetLabelOld;
+    const sheetLabelDataEntry = translations.SheetLabelDataEntry;
 
     // ACTORS
     Actors.unregisterSheet('core', ActorSheet);
@@ -50,6 +52,14 @@ export function registerSheets() {
         label: game.i18n.format(sheetLabel, { type: localizeType('npc') }),
         makeDefault: true,
     });
+
+    if (BUILD_MODE === 'development') {
+        Actors.registerSheet('pf2e', ActorSheetPF2eDataEntryNPC, {
+            types: ['npc'],
+            label: game.i18n.format(sheetLabelDataEntry, { type: localizeType('npc') }),
+            makeDefault: false,
+        });
+    }
 
     // Register Hazard Sheet
     Actors.registerSheet('pf2e', HazardSheetPF2e, {
