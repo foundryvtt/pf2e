@@ -85,7 +85,7 @@ export interface DexterityModifierCapData {
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
-    roll?: RollFunction;
+    roll: RollFunction;
 }
 
 export interface CharacterStrikeTrait {
