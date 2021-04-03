@@ -21,6 +21,7 @@ export function ensureProficiencyOption(options: string[], proficiencyRank: numb
  */
 export const MODIFIER_TYPE = Object.freeze({
     ABILITY: 'ability' as const,
+    BASE: 'base' as const,
     PROFICIENCY: 'proficiency' as const,
     CIRCUMSTANCE: 'circumstance' as const,
     ITEM: 'item' as const,
