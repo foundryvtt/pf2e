@@ -283,26 +283,6 @@ export class FamiliarPF2e extends CreaturePF2e {
                 });
                 data.skills[shortform] = stat;
             }
-        } else {
-            data.master.name = undefined;
-            data.master.level = 0;
-            data.master.familiarAbilities = {
-                breakdown: '',
-                value: 0,
-            };
-            data.details.level.value = 0;
-            data.attributes.ac = {
-                value: 10,
-                breakdown: game.i18n.localize('PF2E.ArmorClassBase'),
-            };
-            data.saves = {
-                fortitude: { value: 0 },
-                reflex: { value: 0 },
-                will: { value: 0 },
-            };
-            data.attributes.perception = {
-                value: 0,
-            };
         }
     }
 
