@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ActionData, ItemDataPF2e, SpellData } from '@item/data-definitions';
+import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data-definitions';
 import { sluggify } from '@module/utils';
 
 declare global {
@@ -359,6 +359,9 @@ function sortDataItems(entityData: PackEntry): any[] {
                     case 'lore':
                         items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
                         break;
+                    case 'melee':
+                        items = sortAttacks(entityData.name, itemGroup);
+                        break;
                     default:
                         items = Array.from(itemGroup);
                 }
@@ -387,6 +390,30 @@ function sortDataItems(entityData: PackEntry): any[] {
     });
 
     return sortedItems;
+}
+
+function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
+    attacks.forEach(attack => {
+        const attackData = attack as MeleeData;
+        if (!attackData.data.weaponType?.value) {
+            console.log(`Warning in ${entityName}: Melee item '${attackData.name}' has no weaponType defined!`);
+        }
+    });
+    return Array.from(attacks).sort((a, b) => {
+        const attackA = a as MeleeData;
+        const attackB = b as MeleeData;
+        if (attackA.data.weaponType?.value) {
+            if (!attackB.data.weaponType?.value) {
+                return -1;
+            }
+
+            return attackA.data.weaponType.value.localeCompare(attackB.data.weaponType.value);
+        } else if (attackB.data.weaponType?.value) {
+            return 1;
+        }
+
+        return 0;
+    });
 }
 
 function sortActions(actions: Set<ItemData>): ItemData[] {
