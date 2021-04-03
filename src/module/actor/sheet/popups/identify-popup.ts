@@ -24,12 +24,10 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
 
     protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
         const item = this.getItem();
-        console.log(_event)
-        console.log(_formData)
         if (_event['submitter'].name === "identify") {
-            item.setIdentifiedState("indentified");
+            item.setIdentifiedState("identified");
         } else {
-            item.setIdentifiedState("misdentified");
+            item.setIdentifiedState("misidentified");
         }
     }
 

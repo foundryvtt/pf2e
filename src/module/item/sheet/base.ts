@@ -471,20 +471,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             this.activeMystifyTab = this._tabs[1].active;
         };
 
-        console.log(this.editors)
-
-        // html.find('input.mystify-control').on('change', (event) => {
-        //     // See if this input was for the current item state, update base value if so.
-        //     console.log("Here!")
-        //     const inputTarget = event.target as HTMLInputElement;
-        //     const state = inputTarget.parentElement.parentElement.attributes["data-tab"];
-        //     const mystifyItem = this.item.data as PhysicalItemData;
-        //     if (state === mystifyItem.data.identification.status) {
-        //         mystifyItem.name = inputTarget.value;
-        //         this._onSubmit(event.originalEvent);
-        //     }
-        // });
-
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
@@ -626,7 +612,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         // First determine if the base values changed.
         const baseDescription = this.editors["data.description.value"];
-        console.log(baseDescription);
         if (physItemData.name !== data.name || physItemData.img !== data.img || physItemData.data.description.value !== baseDescription.initial) {
             // Base values changed, now determine what to update by state.
             switch (physItemData.data.identification.status) {
@@ -737,15 +722,10 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             });
         }
 
-        console.log(fd)
-        console.log(data)
-        
         // If this is a physical item, handle updating name, image, or description based on identification state.
         if (this.item.data as PhysicalItemData) {
             this.updateMystifiedItem(data);
         }
-
-        console.log("here")
 
         return flattenObject(data); // return the flattened submission data
     }

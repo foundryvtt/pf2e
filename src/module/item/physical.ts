@@ -4,7 +4,7 @@ import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     static isIdentified(itemData: any): boolean {
-        let identificationStatus = itemData.data?.identification?.status;
+        const identificationStatus = itemData.data?.identification?.status;
         return identificationStatus !== 'unidentified' && identificationStatus !== 'misidentified';
     }
 
@@ -51,7 +51,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get hasShowableMystifiedState(): boolean {
         const itemData = this.data as PhysicalItemData;
-        switch (itemData.data?.identification?.status) {
+        switch (PhysicalItemPF2e.getIdentificationState(itemData)) {
             case 'unidentified': return !!itemData.data.identification.unidentified?.data?.description?.value;
             case 'misidentified': return !!itemData.data.identification.misidentified?.data?.description?.value;
             default: return true;
@@ -65,29 +65,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         let updateData = {
             _id: this.id,
+            'data.identified.value': state === 'identified',
             'data.identification.status': state
         };
-
-        switch (state) {
-            case 'identified': {
-                setProperty(updateData, 'name', this.data.data.identification.identified.name);
-                setProperty(updateData, 'img', this.data.data.identification.identified.name);
-                setProperty(updateData, 'desc.description.value', this.data.data.identification.identified.data.description.value);
-                break;
-            }
-            case 'unidentified': {
-                setProperty(updateData, 'name', this.data.data.identification.unidentified.name);
-                setProperty(updateData, 'img', this.data.data.identification.unidentified.name);
-                setProperty(updateData, 'desc.description.value', this.data.data.identification.unidentified.data.description.value);
-                break;
-            }
-            case 'misidentified': {
-                setProperty(updateData, 'name', this.data.data.identification.misidentified.name);
-                setProperty(updateData, 'img', this.data.data.identification.misidentified.name);
-                setProperty(updateData, 'desc.description.value', this.data.data.identification.misidentified.data.description.value);
-                break;
-            }
-        }
 
         return this.update(updateData);
     }
@@ -95,8 +75,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     static setMystifiedDefaults(itemData: PhysicalItemData, state: string, update: { [key: string]: any }, diff: { [key: string]: any }) {
         let name =
             getProperty(update, `data.identification.${state}.name`) ??
-            getProperty(itemData, `data.identification.${state}.name`) ??
-            itemData.name;
+            getProperty(itemData, `data.identification.${state}.name`);
 
         const translateFallback = (translated: string, key: string) => {
             if (translated) {
@@ -125,22 +104,21 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         if (!getProperty(itemData, basePath)) {
             diff[`${basePath}.name`] = name;
             diff[`${basePath}.img`] = diff.img;
-            diff[`${basePath}.data.description.value`] = `This is an unidentified ${itemData.type}.`;
+            diff[`${basePath}.data.description.value`] = `This ${itemData.type} is ${state}.`;
         }
     }
 
     static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
         if (!isPhysicalItem(itemData)) return;
-        console.log(itemData)
         const update = mergeObject({}, diff); // expands the "flattened" fields in the diff object
         const identificationState = getProperty(update, 'data.identification.status');
         if (identificationState && getProperty(itemData, 'data.identification.status') !== identificationState) {
             // provide some defaults for mystified items if necessary.
             if (!itemData.data.identification.unidentified) {
-                this.setMystifiedDefaults(itemData, identificationState, update, diff);
+                this.setMystifiedDefaults(itemData, 'unidentified', update, diff);
             }
             if (!itemData.data.identification.misidentified) {
-                this.setMystifiedDefaults(itemData, identificationState, update, diff);
+                this.setMystifiedDefaults(itemData, 'misidentified', update, diff);
             }
 
             // ensure an "identified" name so the item can always be restored
