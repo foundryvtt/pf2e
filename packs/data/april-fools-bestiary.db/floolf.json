@@ -294,6 +294,111 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
+            "_id": "dejQYTAxiY4smNZO",
+            "data": {
+                "attack": {
+                    "value": ""
+                },
+                "attackEffects": {
+                    "value": []
+                },
+                "baseItem": null,
+                "bonus": {
+                    "value": 10
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damageRolls": {
+                    "wejb3c2urg8frt99m868": {
+                        "damage": "1d8+3",
+                        "damageType": "piercing"
+                    }
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "status": "identified"
+                },
+                "identified": {
+                    "value": true
+                },
+                "invested": {
+                    "value": false
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": 0
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "weaponType": {
+                    "value": "melee"
+                },
+                "weight": {
+                    "value": 0
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Jaws",
+            "sort": 100000,
+            "type": "melee"
+        },
+        {
             "_id": "PbbPgVS2y8b9zkfV",
             "data": {
                 "actionCategory": {
@@ -391,6 +496,110 @@
             "img": "systems/pf2e/icons/default-icons/action.svg",
             "name": "Scent (Imprecise) (20 feet)",
             "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "U3ko77Ip12zOsdtU",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>Floolf pups are so adorable that any creature that is either a mammal, or has an Intelligence above 3 that sees or touches a floolf pup must succeed at a DC 27 Will save or it will defend the floolf pup with its life. This effect ends when the creature is no longer able to perceive the pup.</p>\n<p>If the creature can speak, anytime it remembers the floolf pup, it feels a compulsion (Will save DC 15) to tell their story of the encounter, invariably ending with the phrase, “I would die for that floolf.”</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Cute Aggression",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "0d7t9d9FM1tmJZDw",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p>The floolf’s attack deals [[/r 1d8]] extra damage to creatures within the reach of at least two of floolf’s allies.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d8",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Pack Attack",
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -532,215 +741,6 @@
             "name": "Survival",
             "sort": 900000,
             "type": "lore"
-        },
-        {
-            "_id": "dejQYTAxiY4smNZO",
-            "data": {
-                "attack": {
-                    "value": ""
-                },
-                "attackEffects": {
-                    "value": []
-                },
-                "baseItem": null,
-                "bonus": {
-                    "value": 10
-                },
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "damageRolls": {
-                    "wejb3c2urg8frt99m868": {
-                        "damage": "1d8+3",
-                        "damageType": "piercing"
-                    }
-                },
-                "description": {
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
-                },
-                "invested": {
-                    "value": false
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "weaponType": {
-                    "value": "melee"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Jaws",
-            "sort": 100000,
-            "type": "melee"
-        },
-        {
-            "_id": "0d7t9d9FM1tmJZDw",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>The floolf’s attack deals [[/r 1d8]] extra damage to creatures within the reach of at least two of floolf’s allies.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.ToggleProperty",
-                        "property": "flags.pf2e.rollOptions.damage-roll.pack-attack"
-                    },
-                    {
-                        "diceNumber": 1,
-                        "dieSize": "d8",
-                        "key": "PF2E.RuleElement.DamageDice",
-                        "predicate": {
-                            "all": [
-                                "pack-attack"
-                            ]
-                        },
-                        "selector": "damage"
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Pack Attack",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "U3ko77Ip12zOsdtU",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": "<p>Floolf pups are so adorable that any creature that is either a mammal, or has an Intelligence above 3 that sees or touches a floolf pup must succeed at a DC 27 Will save or it will defend the floolf pup with its life. This effect ends when the creature is no longer able to perceive the pup.</p>\n<p>If the creature can speak, anytime it remembers the floolf pup, it feels a compulsion (Will save DC 15) to tell their story of the encounter, invariably ending with the phrase, “I would die for that floolf.”</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Cute Aggression",
-            "sort": 400000,
-            "type": "action"
         }
     ],
     "name": "Floolf",
