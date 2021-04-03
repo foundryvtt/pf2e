@@ -41,7 +41,7 @@
             <div class="section-body">
                 <div id="perception" class="labelled-field" data-attribute="perception">
                     <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
-                    <input class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}" type="number" value="{{ data.attributes.perception.value }}" data-base-property="data.attributes.perception.base" data-display-value="{{ data.attributes.perception.value }}" data-dtype="Number" placeholder="0"/>
+                    <input class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}" type="number" name="data.attributes.perception.value" value="{{ data.attributes.perception.value }}" data-base-property="data.attributes.perception.base" data-display-value="{{ data.attributes.perception.value }}" data-dtype="Number" placeholder="0"/>
                     <span class="plus{{#if (lt data.attributes.perception.value 10)}} lt10{{/if}}"></span>
                 </div>
                 {{# if options.editable }}
