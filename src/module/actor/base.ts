@@ -688,18 +688,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * Apply rolled dice damage to the token or tokens which are currently controlled.
      * This allows for damage to be scaled by a multiplier to account for healing, critical hits, or resistance
      */
-    static async rollSave(
-        ev: JQuery.ClickEvent,
-        options: { item?: Owned<ItemPF2e>; traits?: string[] },
-    ): Promise<void> {
-        const { item, traits } = options;
+    static async rollSave(ev: JQuery.ClickEvent, item: Owned<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
                 if (!actor) return;
 
                 const save = $(ev.currentTarget).attr('data-save') as SaveString;
-                const itemTraits = traits ?? item?.data.data.traits.value ?? [];
+                const itemTraits = item?.data.data.traits.value ?? [];
                 const rollTraits = ['magical', 'spell', ...itemTraits];
                 actor.rollSave(ev, save, { traits: rollTraits });
             }
