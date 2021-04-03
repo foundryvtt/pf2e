@@ -67,7 +67,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
 
         html.find('[data-perception-check]').on('click', '*', (event) => {
             const options = this.actor.getRollOptions(['all', 'perception']);
-            this.actor.attributes.perception.roll?.({ event, options });
+            this.actor.attributes.perception.roll({ event, options });
         });
 
         html.find('[data-attack-roll]').on('click', '*', (event) => {
