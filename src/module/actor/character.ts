@@ -39,6 +39,7 @@ import {
     CombatProficiencies,
     CombatProficiencyKey,
     PerceptionData,
+    Perception,
     ProficiencyData,
     WeaponGroupProficiencyKey,
 } from './data-definitions';
@@ -69,6 +70,33 @@ export class CharacterPF2e extends CreaturePF2e {
 
     get heritage(): FeatPF2e | null {
         return this.itemTypes.feat.find((feat) => feat.featType.value === 'heritage') ?? null;
+    }
+
+    get perception(): Perception {
+        const perception = this.data.data.attributes.perception;
+        return {
+            dc: (_options) => {
+                // take the specified options into consideration when that functionality eventually exists
+                return 10 + perception.value;
+            },
+            roll: (options): Promise<number> => {
+                const label = game.i18n.localize('PF2E.PerceptionCheck');
+                const opts = options.options ?? this.getRollOptions(['all', 'perception', 'perception-check']);
+                ensureProficiencyOption(opts, perception.rank || 0);
+                const context = {
+                    actor: this,
+                    type: 'perception-check',
+                    options: opts,
+                    dc: options.dc,
+                    notes: perception.notes,
+                };
+                const check = new CheckModifier(label, perception, options.modifiers ?? []);
+                return new Promise((resolve, _reject) => {
+                    CheckPF2e.roll(check, context, options.event, (roll) => resolve(roll.total!));
+                });
+            },
+            total: perception.value,
+        };
     }
 
     /** @override */
@@ -290,7 +318,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     ),
                 );
             }
-            ['perception', 'wis-based', 'all'].forEach((key) => {
+            ['perception-check', 'perception', 'wis-based', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
@@ -302,6 +330,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 .filter((m) => m.enabled)
                 .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                 .join(', ');
+            stat.notes = notes;
             stat.value = stat.totalModifier;
             stat.roll = adaptRoll((args) => {
                 const label = game.i18n.localize('PF2E.PerceptionCheck');

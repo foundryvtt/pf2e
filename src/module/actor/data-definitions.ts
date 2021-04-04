@@ -3,6 +3,7 @@ import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIE
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { DamageType } from '@module/damage-calculation';
+import { PF2CheckDC } from '@system/check-degree-of-success';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
 export type ZeroToFour = ZeroToThree | 4; // +1!
@@ -763,4 +764,22 @@ export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 
 export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
     return ['character', 'npc', 'animalCompanion', 'familiar'].includes(actorData.type);
+}
+
+export type CheckOptions = {
+    dc?: PF2CheckDC;
+    event: JQuery.Event;
+    modifiers?: ModifierPF2e[];
+    options?: string[];
+};
+
+export type DifficultyClassOptions = {
+    modifiers?: ModifierPF2e[];
+    options?: string[];
+};
+
+export interface Perception {
+    dc(options: DifficultyClassOptions): number;
+    roll(options: CheckOptions): Promise<number>;
+    total: number;
 }
