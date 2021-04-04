@@ -584,9 +584,10 @@ export class CharacterPF2e extends CreaturePF2e {
             stat.base = baseAbilities;
             stat.value = baseAbilities + stat.totalModifier;
             stat.breakdown = [`Base Value ${stat.base} from ${stat.baseSource},`].concat(
-                stat.modifiers.filter((m) => m.enabled)
+                stat.modifiers.
+                    filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
-                    .join(', ')
+                    .join(', '),
             );
             data.attributes.familiarAbilities = stat;
         }
