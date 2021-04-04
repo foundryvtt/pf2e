@@ -10,6 +10,11 @@ import { CreaturePF2e } from './creature';
 import { ItemDataPF2e } from '@item/data-definitions';
 
 export class FamiliarPF2e extends CreaturePF2e {
+    /** The familiar's master, if selected */
+    get master(): CharacterPF2e | NPCPF2e | null {
+        return game.actors.get(this.data.data.master.id ?? '') ?? null;
+    }
+
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
@@ -20,24 +25,17 @@ export class FamiliarPF2e extends CreaturePF2e {
             [],
         );
 
-        // traits
-        data.traits.traits.value = ['minion'];
-
-        // traits
-        data.traits.traits.value = [CONFIG.PF2E.monsterTraits.minion];
-
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);
 
+        // Ensure presence of "minion" trait
+        data.traits.traits.value = data.traits.traits.value
+            .concat('minion')
+            .filter((trait, index, self) => self.indexOf(trait) === index);
+
         if (master instanceof CharacterPF2e || master instanceof NPCPF2e) {
-            data.master.name = master.name;
-            data.master.level = master.data.data.details.level.value ?? 0;
-            data.master.ability = data.master.ability ?? 'cha';
-            data.master.familiarAbilities = {
-                breakdown: master.data.data.attributes.familiarAbilities?.breakdown ?? '',
-                value: master.data.data.attributes.familiarAbilities?.value ?? 0,
-            };
-            data.details.level.value = data.master.level;
+            data.master.ability ||= 'cha';
+            data.details.level.value = master.level;
             const spellcastingAbilityModifier = master.data.data.abilities[data.master.ability].mod;
 
             // base size
@@ -85,9 +83,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
             // hit points
             {
-                const modifiers = [
-                    new ModifierPF2e('PF2E.MasterLevelHP', data.master.level * 5, MODIFIER_TYPE.UNTYPED),
-                ];
+                const modifiers = [new ModifierPF2e('PF2E.MasterLevelHP', this.level * 5, MODIFIER_TYPE.UNTYPED)];
                 (statisticsModifiers.hp || [])
                     .filter(filter_modifier)
                     .map((m) => duplicate(m))
