@@ -43,7 +43,7 @@
                 "value": "18"
             },
             "allSaves": {
-                "value": ""
+                "value": null
             },
             "ancestryhp": 0,
             "bonusEncumbranceBulk": 0,
@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -1312,6 +1312,9 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "melee"
+                },
                 "weight": {
                     "value": 0
                 }
@@ -1473,7 +1476,7 @@
             "type": "melee"
         },
         {
-            "_id": "4GjxQYpMOVTwq6Oo",
+            "_id": "vW9HyDB5AVx7jGzl",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1482,12 +1485,84 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": ""
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration. <br />You gain a +2 circumstance bonus to Perception checks when you Seek your prey and a +2 circumstance bonus to Survival checks when you Track your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting. <br />You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+                    "value": "<p>The mercenary designates a single creature as their prey and focuses their attacks against that creature. The mercenary must be able to see or hear the prey, or they must be tracking the prey during exploration.</p>\n<p>The mercenary gains a +2 circumstance bonus to Perception checks when they Seek their prey and a +2 circumstance bonus to Survival checks when they @Compendium[pf2e.actionspf2e.Track]{Track} your prey. The mercenary also ignores the penalty for making ranged attacks within thier second range increment against the prey you're hunting.</p>\n<p>The mercenary can have only one creature designated as their prey at a time. If the mercenary uses Hunt Prey against a creature when they already have a creature designated, the prior creature loses the designation and the new prey gains the designation. The mercenary's designation lasts until their next daily preparations.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is your Hunted Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey",
+                                "action:seek"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey",
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Hunt Prey",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "3479tVLSjsvDWOTd",
+            "data": {
+                "actionCategory": {
+                    "value": ""
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": "<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Frequency</strong> once per round</p>\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-size: 13px;\"><strong style=\"box-sizing: border-box; user-select: text;\">Requirement</strong> The mercenary is wielding a ranged weapon with reload 0</p>\n<hr style=\"box-sizing: border-box; user-select: text; color: #191813; font-size: 13px;\">\n<p style=\"box-sizing: border-box; user-select: text; color: #191813; font-size: 13px;\">The mercenary takes two quick shots against the one they hunt. Make two Strikes against your prey with the required weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to each Strike normally.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1507,18 +1582,15 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hunt Prey",
-            "sort": 800000,
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Hunted Shot",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1542,11 +1614,6 @@
                     "value": ""
                 },
                 "rules": [
-                    {
-                        "key": "PF2E.RuleElement.ToggleProperty",
-                        "label": "Target is your Hunted Prey",
-                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
-                    },
                     {
                         "category": "precision",
                         "diceNumber": 1,
@@ -1585,9 +1652,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Precision",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "action"
         },
         {
@@ -1627,7 +1694,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1667,7 +1734,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1707,7 +1774,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1747,7 +1814,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         },
         {
@@ -1787,7 +1854,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "lore"
         },
         {
@@ -1827,7 +1894,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -1867,60 +1934,8 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 1600000,
-            "type": "lore"
-        },
-        {
-            "_id": "NXBaNDvuWRKjVcc3",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> You are wielding a ranged weapon with reload 0</p>\n<hr />\n<p>You take two quick shots against the one you hunt. Make two Strikes against your prey with the required weapon. If both hit the same creature, combine their damage for the purpose of resistances and weaknesses. Apply your multiple attack penalty to each Strike normally.</p>"
-                },
-                "featType": {
-                    "value": "class"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": [],
-                "rules": [],
-                "slug": "hunted-shot",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "ranger",
-                        "flourish"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.c3b7DhnDBC7YEgRG"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.jpg",
-            "name": "Hunted Shot",
             "sort": 1700000,
-            "type": "feat"
+            "type": "lore"
         }
     ],
     "name": "Bloody Blade Mercenary",
