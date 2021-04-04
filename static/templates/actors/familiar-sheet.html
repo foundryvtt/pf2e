@@ -9,8 +9,8 @@
       </h1>
 
       <div class="traits">
-        {{#each data.traits.traits.value as |trait idx|}}
-        <span>{{localize trait}}</span>
+        {{#each traits as |trait|}}
+        <span data-trait="{{trait.value}}" title="{{trait.description}}">{{trait.label}}</span>
         {{/each}}
       </div>
     </section>
@@ -23,15 +23,15 @@
         <h2>Master</h2>
           <label for="{{data._id}}-master"><b>Master Actor</b></label>
           <select id="{{data._id}}-master" name="data.master.id">
-            {{#select data.master.id}}
+            {{#select master.id}}
             <option value="">Select a master...</option>
-            {{#each masters as |master idx|}}
-            <option value="{{master.data._id}}">{{master.name}}</option>
+            {{#each masters as |eligible idx|}}
+            <option value="{{eligible.id}}">{{eligible.name}}</option>
             {{/each}}
             {{/select}}
           </select>
           {{#if data.master.id}}
-            <div><b>Master Level</b> {{data.master.level}}</div>
+            <div><b>Master Level</b> {{data.details.level.value}}</div>
 
             <div>
               <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
@@ -44,8 +44,8 @@
               </select>
             </div>
 
-            <div title="{{data.master.familiarAbilities.breakdown}}">
-              <strong>Total # of Familiar Abilities</strong> {{numberFormat data.master.familiarAbilities.value decimals=0}}
+            <div title="{{familiarAbilities.breakdown}}">
+              <strong>Total # of Familiar Abilities</strong> {{numberFormat familiarAbilities.value decimals=0}}
             </div>
           {{/if}}
         </div>
