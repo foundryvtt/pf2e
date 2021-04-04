@@ -906,6 +906,7 @@ export const PF2ECONFIG = {
         litany: 'PF2E.TraitLitany',
         metamagic: 'PF2E.TraitMetamagic',
         move: 'PF2E.TraitMove',
+        olfactory: 'PF2E.TraitOlfactory',
         possession: 'PF2E.TraitPossession',
         prediction: 'PF2E.TraitPrediction',
         revelation: 'PF2E.TraitRevelation',
