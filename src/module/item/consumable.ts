@@ -18,11 +18,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
         // If there's no proficiency set, set one up
         if (spell && this.actor && !spell.data.data.location.value) {
-            const allSpellcastingEntries = this.actor.items.filter(
-                (i) => i instanceof SpellcastingEntryPF2e,
-            ) as SpellcastingEntryPF2e[];
-
-            const spellcastingEntries = allSpellcastingEntries
+            const spellcastingEntries = this.actor.itemTypes.spellcastingEntry
                 .filter((i) => ['prepared', 'spontaneous'].includes(i.data.data.prepared.value))
                 .filter((i) => spell?.data.data.traditions.value.includes(i.data.data.tradition.value));
 
