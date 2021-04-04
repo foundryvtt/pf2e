@@ -41,6 +41,17 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
             breakdown: '',
         };
 
+        const familiarTraits: Record<string, string> = CONFIG.PF2E.monsterTraits;
+        const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
+
+        const traits = Array.from(this.actor.data.data.traits.traits.value)
+            .map((trait) => ({
+                value: trait,
+                label: familiarTraits[trait] ?? trait,
+                description: traitDescriptions[trait] ?? '',
+            }))
+            .sort();
+
         return {
             ...super.getData(),
             owners,
@@ -48,8 +59,8 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
             masters,
             abilities,
             size,
-            traits: Array.from(this.actor.traits).sort(),
             familiarAbilities,
+            traits,
         };
     }
 
