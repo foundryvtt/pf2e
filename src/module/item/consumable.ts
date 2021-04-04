@@ -5,22 +5,18 @@ import { SpellcastingEntryPF2e } from './spellcasting-entry';
 
 export class ConsumablePF2e extends PhysicalItemPF2e {
     /**
-     * Loads the embedded spell for wand/scroll consumables, and returns it.
+     * Loads the associated spell for wand/scroll consumables, and returns it.
      */
     async loadSpell() {
-        // Currently it looks at nested item data, but instead it should use an "item link"
+        // Currently it looks at nested item data, in the future this might use an "item link"
         const innerSpellData = this.data.data.spell?.data;
         let spell: SpellPF2e | null = null;
-        if (innerSpellData && this.actor) {
-            spell = await SpellPF2e.createOwned(innerSpellData, this.actor);
-        } else if (innerSpellData) {
-            spell = await SpellPF2e.create(innerSpellData);
+        if (innerSpellData) {
+            spell = await SpellPF2e.create(innerSpellData, { temporary: true });
+            spell.options.actor = this.actor; // in 0.8, pass it in using the parent option above
         }
 
         // If there's no proficiency set, set one up
-        // TODO: DO NOT COMPUTE THIS HERE.
-        // Dealing with spellcasting entries is something the actor should do.
-        // But that requires an update to the spellcasting entry handling, so its here for now.
         if (spell && this.actor && !spell.data.data.location.value) {
             const allSpellcastingEntries = this.actor.items.filter(
                 (i) => i instanceof SpellcastingEntryPF2e,
