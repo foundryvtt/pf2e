@@ -139,6 +139,8 @@ export class PF2WeaponDamage {
                 modifier += Number(digits);
             }
 
+
+
             if (parsedBaseDamage) {
                 // amend damage dice with any extra dice
                 if (dice && die) {
@@ -271,7 +273,7 @@ export class PF2WeaponDamage {
         }
 
         // custom damage
-        const normalDice = weapon.data?.property1?.dice ?? 0;
+        let normalDice = weapon.data?.property1?.dice ?? 0;
         if (normalDice > 0) {
             const damageType = weapon.data?.property1?.damageType ?? baseDamageType;
             diceModifiers.push(
@@ -291,19 +293,45 @@ export class PF2WeaponDamage {
                 new DiceModifierPF2e({
                     name: 'PF2E.WeaponCustomDamageLabel',
                     diceNumber: critDice,
-                    dieSize: weapon.data?.property1?.critDie as DamageDieSize,
+                    dieSize: baseDamageDie,
                     damageType: damageType,
                     critical: true,
                     traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
                 }),
             );
         }
+        // ABP
+        if ( game.settings.get('pf2e', 'automaticBonusVariant') !== "noABP" && actor.type === "character") {
+        let devastatingDice = 0;
+          if (actor.data.details.level.value >= 4 && actor.data.details.level.value < 12 ) {devastatingDice += 1}
+          else if (actor.data.details.level.value >= 12 && actor.data.details.level.value < 19) {devastatingDice += 2}
+          else if (actor.data.details.level.value >= 19) {devastatingDice += 3}
 
+          if (devastatingDice > 0) {
+            diceModifiers.push(
+                new DiceModifierPF2e({
+                    name: 'Devastating Attack',
+                    diceNumber: devastatingDice,
+                    damageType: baseDamageType,
+                }),
+            );
+          }
+        };
         // potency
-        const potency = weaponPotency?.bonus ?? 0;
-
+        let potency = weaponPotency?.bonus ?? 0;
+          if ( game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPRulesAsIntended' && actor.type === "character") {
+          if (actor.data.details.level.value >= 2 && actor.data.details.level.value < 10 ) {potency = 1}
+          else if (actor.data.details.level.value >= 10 && actor.data.details.level.value < 16) {potency = 2}
+          else if (actor.data.details.level.value >= 16) {potency = 3}
+        };
         // striking rune
         let strikingDice = 0;
+        if ( game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPRulesAsIntended' && actor.type === "character") {
+          if (actor.data.details.level.value >= 4 && actor.data.details.level.value < 12 ) {strikingDice = 1}
+          else if (actor.data.details.level.value >= 12 && actor.data.details.level.value < 19) {strikingDice = 2}
+          else if (actor.data.details.level.value >= 19) {strikingDice = 3}
+        };
+
         {
             const strikingList: PF2Striking[] = [];
             selectors.forEach((key) => {

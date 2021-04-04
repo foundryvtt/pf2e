@@ -24,6 +24,7 @@ export const MODIFIER_TYPE = Object.freeze({
     PROFICIENCY: 'proficiency' as const,
     CIRCUMSTANCE: 'circumstance' as const,
     ITEM: 'item' as const,
+    POTENCY: 'potency' as const,
     STATUS: 'status' as const,
     UNTYPED: 'untyped' as const,
 });
@@ -228,6 +229,41 @@ export const ProficiencyModifier = Object.freeze({
                 return LEGENDARY.atLevel(level);
             default:
                 throw new RangeError(`invalid proficiency rank: ${rank}`);
+        }
+    },
+});
+
+export const PotencyModifier = Object.freeze({
+    /**
+     * Create a modifier for a given proficiency level of some ability.
+     * @param level The level of the character which this modifier is being applied to.
+     * @param potencyType 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+     * @returns The modifier for the given proficiency rank and character level.
+     */
+    fromLevelAndType: (level: number, potencyType: string): ModifierPF2e => {
+        switch (potencyType) {
+            case "attack":
+                if (level >= 2 && level < 10) {return new ModifierPF2e('Attack Potency', 1, MODIFIER_TYPE.POTENCY)
+                  } else if (level >= 10 && level < 16) {return new ModifierPF2e('Attack Potency', 2, MODIFIER_TYPE.POTENCY)
+                    } else if (level >= 16) {return new ModifierPF2e('Attack Potency', 3, MODIFIER_TYPE.POTENCY)
+                      } else {return new ModifierPF2e('Attack Potency', 0, MODIFIER_TYPE.POTENCY)};
+            case "defence":
+              if (level >= 5 && level < 11) {return new ModifierPF2e('Defence Potency', 1, MODIFIER_TYPE.POTENCY)
+                } else if (level >= 11 && level < 18) {return new ModifierPF2e('Defence Potency', 2, MODIFIER_TYPE.POTENCY)
+                  } else if (level >= 18) {return new ModifierPF2e('Defence Potency', 3, MODIFIER_TYPE.POTENCY)
+                    } else {return new ModifierPF2e('Defence Potency', 0, MODIFIER_TYPE.POTENCY)};
+            case "perception":
+              if (level >= 7 && level < 13) {return new ModifierPF2e('Perception Potency', 1, MODIFIER_TYPE.POTENCY)
+                } else if (level >= 13 && level < 19) {return new ModifierPF2e('Perception Potency', 2, MODIFIER_TYPE.POTENCY)
+                  } else if (level >= 19) {return new ModifierPF2e('Perception Potency', 3, MODIFIER_TYPE.POTENCY)
+                    } else {return new ModifierPF2e('Perception Potency', 0, MODIFIER_TYPE.POTENCY)};
+            case "save":
+              if (level >= 8 && level < 14) {return new ModifierPF2e('Save Potency', 1, MODIFIER_TYPE.POTENCY)
+                } else if (level >= 14 && level < 20) {return new ModifierPF2e('Save Potency', 2, MODIFIER_TYPE.POTENCY)
+                  } else if (level >= 20) {return new ModifierPF2e('Save Potency', 3, MODIFIER_TYPE.POTENCY)
+                    } else {return new ModifierPF2e('Save Potency', 0, MODIFIER_TYPE.POTENCY)};
+            default:
+                throw new RangeError(`invalid potency type: ${potencyType}`);
         }
     },
 });

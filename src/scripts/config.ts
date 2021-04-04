@@ -1507,6 +1507,7 @@ export const PF2ECONFIG = {
         pfsboon: 'PF2E.FeatPFSBoonHeader',
         deityboon: 'PF2E.FeatDeityBoonHeader',
         curse: 'PF2E.FeatCurseHeader',
+        variantrule: 'PF2E.FeatVariantRule',
     },
     // Feat Action Types
     featActionTypes: {
