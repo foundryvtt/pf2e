@@ -57,7 +57,7 @@ export class RuleElements {
         'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
         'PF2E.RuleElement.ActorTraits': (ruleData, item) => new PF2ActorTraits(ruleData, item),
         'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
-		'PF2E.RuleElement.BaseAttribute': (ruleData, item) => new PF2BaseAttributeRuleElement(ruleData, item),
+        'PF2E.RuleElement.BaseAttribute': (ruleData, item) => new PF2BaseAttributeRuleElement(ruleData, item),
     });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => PF2RuleElement> = {};
