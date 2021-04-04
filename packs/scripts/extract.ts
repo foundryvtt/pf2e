@@ -393,7 +393,7 @@ function sortDataItems(entityData: PackEntry): any[] {
 }
 
 function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
-    attacks.forEach(attack => {
+    attacks.forEach((attack) => {
         const attackData = attack as MeleeData;
         if (!attackData.data.weaponType?.value) {
             console.log(`Warning in ${entityName}: Melee item '${attackData.name}' has no weaponType defined!`);
