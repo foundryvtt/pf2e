@@ -1129,6 +1129,7 @@ export const PF2ECONFIG = {
         halfling: 'PF2E.TraitDescriptionHalfling',
         'jousting-d6': 'PF2E.TraitDescriptionJoustingD6',
         nonlethal: 'PF2E.TraitDescriptionNonlethal',
+        olfactory: 'PF2E.TraitDescrpitionOlfactory',
         orc: 'PF2E.TraitDescriptionOrc',
         parry: 'PF2E.TraitDescriptionParry',
         plant: 'PF2E.TraitDescriptionPlant',
