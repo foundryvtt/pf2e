@@ -20,6 +20,7 @@ import { ConditionManager } from './module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
 import { ItemType } from '@item/data-definitions';
+import { RuleElements } from '@module/rules/rules';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -47,6 +48,7 @@ declare global {
             StatisticModifier: typeof StatisticModifier;
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
+            RuleElements: typeof RuleElements;
         };
     }
 
