@@ -7,22 +7,23 @@ import { CharacterData, FamiliarData, NPCData } from '@actor/data-definitions';
 export class PF2BaseAttributeRuleElement extends PF2RuleElement {
     onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
-        const label = super.getDefaultLabel(this.ruleData, this.item);
+        const label = super.getDefaultLabel(this.ruleData, this.item);		
         if (this.ruleData.selector && label && value) {
             const attributeName = getMappedAttribute(this.ruleData.selector);
-            if(attributeName != null){
+            if (attributeName != null){
                 const existing = (actorData as any).data.attributes[attributeName];
-                if (existing != null && existing.base != null) {
+                if (existing != null && existing.base != null) {				
                     if (existing.base < value) {
                         existing.base = value;
                         existing.baseSource = label;
                     }
                 } else {
-                    (actorData as any).data.attributes[attributeName] = {base:value, baseSource: label};
+                    (actorData as any).data.attributes[attributeName] = { base:value, baseSource: label };
                 }
-            }
-            else{
-                 console.warn('PF2E | Attribute ', this.ruleData.selector,' is not currently supported for BaseAttribute');
+            } else{
+                console.warn('PF2E | Attribute ',
+                    this.ruleData.selector,
+                    ' is not currently supported for BaseAttribute');
             }
         } else {
             console.warn(
@@ -32,11 +33,11 @@ export class PF2BaseAttributeRuleElement extends PF2RuleElement {
     }
 }
 
-function getMappedAttribute(attributeName: String ){
-        switch (attributeName) {
-            case 'familiar-abilities':
-                return 'familiarAbilities';
-            default:
-                return null;
-        }
+function getMappedAttribute(attributeName: String) {
+    switch (attributeName) {
+        case 'familiar-abilities':
+            return 'familiarAbilities';
+        default:
+            return null;
+    }
 }

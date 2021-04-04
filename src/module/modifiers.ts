@@ -319,7 +319,7 @@ export class StatisticModifier {
     protected _modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
     totalModifier!: number;
-	/** The base for the statistic, from the highest base value. */
+    /** The base for the statistic, from the highest base value. */
     base: number;
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
     [key: string]: any;
