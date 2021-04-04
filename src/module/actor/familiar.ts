@@ -28,6 +28,11 @@ export class FamiliarPF2e extends CreaturePF2e {
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);
 
+        // Ensure presence of "minion" trait
+        data.traits.traits.value = data.traits.traits.value
+            .concat('minion')
+            .filter((trait, index, self) => self.indexOf(trait) === index);
+
         if (master instanceof CharacterPF2e || master instanceof NPCPF2e) {
             data.master.ability ||= 'cha';
             data.details.level.value = master.level;

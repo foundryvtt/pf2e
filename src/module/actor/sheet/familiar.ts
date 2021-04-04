@@ -48,6 +48,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
             masters,
             abilities,
             size,
+            traits: Array.from(this.actor.traits).sort(),
             familiarAbilities,
         };
     }
