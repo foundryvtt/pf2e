@@ -857,18 +857,16 @@ export class NPCPF2e extends CreaturePF2e {
             }
         })();
 
-        const traits = this.data.data.traits.traits;
         const toAdd = adjustment === 'normal' ? [] : [adjustment];
         const toRemove = adjustment === 'weak' ? ['elite'] : adjustment === 'elite' ? ['weak'] : ['elite', 'weak'];
-        traits.value = traits.value.filter((trait) => !toRemove.includes(trait)).concat(toAdd);
+        const newTraits = this._data.data.traits.traits.value
+            .filter((trait) => !toRemove.includes(trait))
+            .concat(toAdd);
 
-        await this.update(
-            {
-                'data.attributes.hp.value': Math.max(0, newHP),
-                'data.traits.traits.value': traits.value,
-            },
-            { diff: false },
-        );
+        await this.update({
+            'data.attributes.hp.value': Math.max(0, newHP),
+            'data.traits.traits.value': newTraits,
+        });
     }
 
     updateNPCAttitudeFromDisposition(disposition: number) {
