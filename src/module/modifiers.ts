@@ -330,6 +330,7 @@ export class StatisticModifier {
      */
     constructor(name: string, modifiers?: ModifierPF2e[]) {
         this.name = name;
+        this.base = 0;
         this._modifiers = modifiers ?? [];
         {
             // de-duplication
