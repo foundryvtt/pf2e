@@ -801,7 +801,7 @@ export class NPCPF2e extends CreaturePF2e {
                         note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
                         notes.push(note);
                     } else {
-                        ui.notifications.warn(game.i18n.format('PF2E.NPC.AttackEffectMissing', { attackEffect }));
+                        console.warn(game.i18n.format('PF2E.NPC.AttackEffectMissing', { attackEffect }));
                     }
                 }
             }
