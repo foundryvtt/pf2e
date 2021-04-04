@@ -21,32 +21,19 @@ declare type HookParamsGetChatLogEntryContext = HookParameters<
     [JQuery, EntryContextOption[]]
 >;
 declare type HookParamsHotbarDrop = HookParameters<'hotbarDrop', [Hotbar, unknown, string]>;
+declare type HookParamsPreCreateItem = HookParameters<
+    'preCreateItem',
+    [PreCreate<ItemData>, EntityCreateOptions, string]
+>;
 declare type HookParamsPreUpdateToken = HookParameters<
     'preUpdateToken',
     [Scene, TokenData, Partial<TokenData>, { diff: boolean; [key: string]: any }, string]
 >;
-declare type HookParamsRenderChatLog = HookParameters<
-    'renderChatLog',
-    [ChatLog, JQuery, ReturnType<ChatLog['getData']>]
+declare type HookParamsRender<T extends Application, N extends string> = HookParameters<
+    `render${N}`,
+    [T, JQuery, ReturnType<T['getData']>]
 >;
-declare type HookParamsRenderChatPopout = HookParameters<'renderChatPopout', [ChatPopout, JQuery, {}]>;
 declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
-declare type HookParamsRenderCompendiumDirectory = HookParameters<
-    'renderCompendiumDirectory',
-    [CompendiumDirectory, JQuery, ReturnType<CompendiumDirectory['getData']>]
->;
-declare type HookParamsRenderActorDirectory = HookParameters<
-    'renderActorDirectory',
-    [ActorDirectory, JQuery, ReturnType<ActorDirectory['getData']>]
->;
-declare type HookParamsRenderItemDirectory = HookParameters<
-    'renderItemDirectory',
-    [ItemDirectory, JQuery, ReturnType<ItemDirectory['getData']>]
->;
-declare type HookParamsRenderSettings = HookParameters<
-    'renderSettings',
-    [Settings, JQuery, ReturnType<Settings['getData']>]
->;
 declare type HookParamsUpdateWorldTime = HookParameters<'updateWorldTime', [number, number]>;
 
 declare class Hooks {
@@ -63,14 +50,15 @@ declare class Hooks {
     static on(...args: HookParamsDropCanvasData): number;
     static on(...args: HookParamsHotbarDrop): number;
     static on(...args: HookParamsGetChatLogEntryContext): number;
+    static on(...args: HookParamsPreCreateItem): number;
     static on(...args: HookParamsPreUpdateToken): number;
-    static on(...args: HookParamsRenderChatLog): number;
-    static on(...args: HookParamsRenderChatPopout): number;
     static on(...args: HookParamsRenderChatMessage): number;
-    static on(...args: HookParamsRenderCompendiumDirectory): number;
-    static on(...args: HookParamsRenderActorDirectory): number;
-    static on(...args: HookParamsRenderItemDirectory): number;
-    static on(...args: HookParamsRenderSettings): number;
+    static on(...args: HookParamsRender<ChatLog, 'ChatLog'>): number;
+    static on(...args: HookParamsRender<ChatPopout, 'ChatPopout'>): number;
+    static on(...args: HookParamsRender<CompendiumDirectory, 'CompendiumDirectory'>): number;
+    static on(...args: HookParamsRender<ActorDirectory, 'ActorDirectory'>): number;
+    static on(...args: HookParamsRender<ItemDirectory, 'ItemDirectory'>): number;
+    static on(...args: HookParamsRender<Settings, 'Settings'>): number;
     static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParameters<string, any>): number;
 
@@ -88,13 +76,15 @@ declare class Hooks {
     static once(...args: HookParamsDropCanvasData): number;
     static once(...args: HookParamsHotbarDrop): number;
     static once(...args: HookParamsGetChatLogEntryContext): number;
+    static once(...args: HookParamsPreCreateItem): number;
     static once(...args: HookParamsPreUpdateToken): number;
     static once(...args: HookParamsRenderChatMessage): number;
-    static once(...args: HookParamsRenderChatPopout): number;
-    static once(...args: HookParamsRenderCompendiumDirectory): number;
-    static once(...args: HookParamsRenderActorDirectory): number;
-    static once(...args: HookParamsRenderItemDirectory): number;
-    static once(...args: HookParamsRenderSettings): number;
+    static once(...args: HookParamsRender<ChatLog, 'ChatLog'>): number;
+    static once(...args: HookParamsRender<ChatPopout, 'ChatPopout'>): number;
+    static once(...args: HookParamsRender<CompendiumDirectory, 'CompendiumDirectory'>): number;
+    static once(...args: HookParamsRender<ActorDirectory, 'ActorDirectory'>): number;
+    static once(...args: HookParamsRender<ItemDirectory, 'ItemDirectory'>): number;
+    static once(...args: HookParamsRender<Settings, 'Settings'>): number;
     static once(...args: HookParamsUpdateWorldTime): number;
     static once(...args: HookParameters<string, any>): number;
 

@@ -85,7 +85,7 @@ declare class Game<
     /* -------------------------------------------- */
 
     users: Users<ActorType>;
-    messages: Messages;
+    messages: Messages<ActorType>;
     scenes: Scenes;
     actors: Actors<ActorType>;
     items: Items<ItemType>;

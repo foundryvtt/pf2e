@@ -126,7 +126,7 @@ declare class ClientSettings {
      * @param module    The module namespace under which the setting is registered
      * @param key       The setting key to retrieve
      */
-    get(module: 'core', key: 'compendiumConfiguration'): Record<string, { private: boolean, locked: boolean }>;
+    get(module: 'core', key: 'compendiumConfiguration'): Record<string, { private: boolean; locked: boolean }>;
     get(module: 'core', key: 'rollMode'): typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
     get(module: string, key: string): any;
 

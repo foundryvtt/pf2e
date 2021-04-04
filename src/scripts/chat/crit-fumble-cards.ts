@@ -1,16 +1,18 @@
-class PF2eCritFumbleCards {
+import { ActorPF2e } from '@actor/base';
+
+export class CritFumbleCardsPF2e {
     static critTable: RollTable;
     static fumbleTable: RollTable;
     static diceSoNice: boolean;
 
     static async init() {
-        const rollableTables = game.packs.get<Compendium<RollTable>>('pf2e.rollable-tables');
+        const rollableTables = game.packs.get<Compendium<RollTable>>('pf2e.rollable-tables')!;
         this.critTable = (await rollableTables.getEntity('FTEpsIWWVrDj0jNG'))!;
         this.fumbleTable = (await rollableTables.getEntity('WzMGWMIrrPvSp75D'))!;
+        this.diceSoNice = !!game.modules.get('dice-so-nice')?.active;
 
         if (game.settings.get('pf2e', 'drawCritFumble')) {
             // Support diceSoNice module
-            this.diceSoNice = !!game.modules.get('dice-so-nice')?.active;
             const hooksOn = this.diceSoNice ? 'diceSoNiceRollComplete' : 'createChatMessage';
 
             Hooks.on(hooksOn, this.handleRoll.bind(this));
@@ -56,10 +58,10 @@ class PF2eCritFumbleCards {
         }
     }
 
-    static handleRoll(chatMessage: any) {
+    static handleRoll(messageOrId: string | ChatMessage<ActorPF2e>) {
         // diceSoNiceRollComplete has a chat message id instead of the original chat message
-        chatMessage = this.diceSoNice ? game.messages.get(chatMessage) : chatMessage;
-        if (chatMessage.isAuthor && chatMessage.isRoll && chatMessage.isContentVisible) {
+        const chatMessage = typeof messageOrId === 'string' ? game.messages.get(messageOrId) : messageOrId;
+        if (chatMessage && chatMessage.isAuthor && chatMessage.isRoll && chatMessage.isContentVisible) {
             const context = chatMessage.getFlag('pf2e', 'context');
             if (context?.type === 'attack-roll') {
                 const die = chatMessage.roll.dice[0];
@@ -74,39 +76,9 @@ class PF2eCritFumbleCards {
         }
     }
 
-    static drawCard(table: any, chatMessage: ChatMessage) {
+    static drawCard(table: RollTable, chatMessage: ChatMessage<ActorPF2e>) {
         // Remove roll sound of original chat message to avoid double sounds. Not needed for Dice so Nice.
         if (!this.diceSoNice) mergeObject(chatMessage.data, { '-=sound': null });
         table.draw();
     }
 }
-
-Hooks.once('renderChatLog', async () => {
-    game.settings.register('pf2e', 'critFumbleButtons', {
-        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
-        scope: 'world',
-        config: true,
-        default: false,
-        type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
-    });
-
-    game.settings.register('pf2e', 'drawCritFumble', {
-        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.name'),
-        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.hint'),
-        scope: 'world',
-        config: true,
-        default: false,
-        type: Boolean,
-        onChange: () => {
-            window.location.reload();
-        },
-    });
-
-    if (game.settings.get('pf2e', 'drawCritFumble') || game.settings.get('pf2e', 'critFumbleButtons')) {
-        await PF2eCritFumbleCards.init();
-    }
-});

@@ -71,6 +71,7 @@ declare global {
     const canvas: Canvas<ActorPF2e>;
 
     interface ChatMessage extends Entity {
+        getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
         getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
     }
 
@@ -91,6 +92,8 @@ declare global {
         get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
+        get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
+        get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
     }
 
     interface WorldSettingsStorage {
