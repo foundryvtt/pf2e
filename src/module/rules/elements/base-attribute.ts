@@ -25,7 +25,7 @@ export class PF2BaseAttributeRuleElement extends PF2RuleElement {
                     'PF2E | Attribute ',
                     this.ruleData.selector,
                     ' is not currently supported for BaseAttribute',
-                    );
+                );
             }
         } else {
             console.warn(
