@@ -37,7 +37,7 @@ const SETTINGS = {
         choices: {
             noABP: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP',
             ABPRulesAsWritten: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten',
-            ABPRulesAsIntended: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsIntended',
+            ABPFundamentalPotency: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency',
         },
     },
     proficiencyVariant: {

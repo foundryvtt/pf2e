@@ -321,7 +321,7 @@ export class PF2WeaponDamage {
         }
         // potency
         let potency = weaponPotency?.bonus ?? 0;
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPRulesAsIntended' && actor.type === 'character') {
+        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' && actor.type === 'character') {
             if (actor.data.details.level.value >= 2 && actor.data.details.level.value < 10) {
                 potency = 1;
             } else if (actor.data.details.level.value >= 10 && actor.data.details.level.value < 16) {
@@ -332,7 +332,7 @@ export class PF2WeaponDamage {
         }
         // striking rune
         let strikingDice = 0;
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPRulesAsIntended' && actor.type === 'character') {
+        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' && actor.type === 'character') {
             if (actor.data.details.level.value >= 4 && actor.data.details.level.value < 12) {
                 strikingDice = 1;
             } else if (actor.data.details.level.value >= 12 && actor.data.details.level.value < 19) {
