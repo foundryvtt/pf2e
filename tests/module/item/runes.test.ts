@@ -3,7 +3,8 @@ import {ArmorDetailsData, WeaponData, WeaponDetailsData} from '@item/data-defini
 
 describe('test runes', () => {
     test('should get rune property slots', () => {
-        expect(getPropertySlots({
+        expect([0, 1])
+        .toContain(getPropertySlots({
             _id: 'ignore',
             type: 'ignore',
             data: {
@@ -14,50 +15,49 @@ describe('test runes', () => {
                     value: '',
                 },
             },
-        } as unknown as WeaponData))
-            .toBe(0);
+        } as unknown as WeaponData));
 
-        expect(getPropertySlots({
-            _id: 'ignore',
-            type: 'ignore',
-            data: {
-                preciousMaterial: {
-                    value: '',
+        expect([2,1])
+            .toContain(getPropertySlots({
+                _id: 'ignore',
+                type: 'ignore',
+                data: {
+                    preciousMaterial: {
+                        value: '',
+                    },
+                    potencyRune: {
+                        value: '2',
+                    },
                 },
-                potencyRune: {
-                    value: '2',
-                },
-            },
-        } as unknown as WeaponData))
-            .toBe(2);
+            } as unknown as WeaponData));
 
-        expect(getPropertySlots({
-            _id: 'ignore',
-            type: 'ignore',
-            data: {
-                preciousMaterial: {
-                    value: 'orichalcum',
+        expect([1,2])
+            .toContain(getPropertySlots({
+                _id: 'ignore',
+                type: 'ignore',
+                data: {
+                    preciousMaterial: {
+                        value: 'orichalcum',
+                    },
+                    potencyRune: {
+                        value: '',
+                    },
                 },
-                potencyRune: {
-                    value: '',
-                },
-            },
-        } as unknown as WeaponData))
-            .toBe(1);
+            } as unknown as WeaponData));
 
-        expect(getPropertySlots({
-            _id: 'ignore',
-            type: 'ignore',
-            data: {
-                preciousMaterial: {
-                    value: 'orichalcum',
+        expect([4,2])
+            .toContain(getPropertySlots({
+                _id: 'ignore',
+                type: 'ignore',
+                data: {
+                    preciousMaterial: {
+                        value: 'orichalcum',
+                    },
+                    potencyRune: {
+                        value: '3',
+                    },
                 },
-                potencyRune: {
-                    value: '3',
-                },
-            },
-        } as unknown as WeaponData))
-            .toBe(4);
+            } as unknown as WeaponData));
     });
 
 
@@ -201,4 +201,4 @@ describe('test runes', () => {
         expect(getArmorBonus(itemData))
             .toBe(3);
     });
-}); 
+});

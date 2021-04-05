@@ -11,12 +11,12 @@ export function getPropertySlots(itemData: WeaponData | ArmorData): number {
     if (itemData?.data?.preciousMaterial?.value === 'orichalcum') {
         slots += 1;
     }
-    let potencyRune = itemData?.data?.potencyRune?.value
-    if(game.settings.get("pf2e","automaticBonusVariant") !== 'noABP'){
-      potencyRune = "0";
-      slots += getPropertyRunes(itemData, 4).length
-      slots += 1;
-     }
+    let potencyRune = itemData?.data?.potencyRune?.value;
+    if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+        potencyRune = '0';
+        slots += getPropertyRunes(itemData, 4).length;
+        slots += 1;
+    }
     if (!isBlank(potencyRune)) {
         slots += parseInt(potencyRune, 10);
     }
