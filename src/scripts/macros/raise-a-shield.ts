@@ -23,10 +23,14 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
         throw Error(`PF2e System | ${translations.BadArgs}.`);
     }
 
-    const shield = actor.itemTypes.armor
-        .filter((armor) => armor.data.data.armorType.value === 'shield')
-        .find((shield) => shield.data.data.equipped.value === true);
     const speaker = ChatMessage.getSpeaker({ actor: actor });
+    const npcShield = {
+        name: LocalizePF2e.translations.PF2E.ArmorTypeShield,
+        acBonus: actor.attributes.shield.ac,
+        isBroken: actor.attributes.shield.value <= actor.attributes.shield.brokenThreshold,
+        img: 'systems/pf2e/icons/actions/raise-a-shield.webp',
+    };
+    const shield = actor.heldShield ?? (actor instanceof NPCPF2e && npcShield.acBonus > 0 ? npcShield : null);
 
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield && !shield.isBroken) {
@@ -45,7 +49,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 const rule = effect.data.data.rules!.find(
                     (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
                 );
-                rule!.value = shield.data.data.armor.value;
+                rule!.value = shield.acBonus;
                 await actor.createEmbeddedEntity('OwnedItem', effect.data);
                 return true;
             }
