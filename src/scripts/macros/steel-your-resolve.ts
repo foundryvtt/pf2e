@@ -1,7 +1,10 @@
 import { ErrorPF2e } from '@module/utils';
 import { LocalizePF2e } from '../../module/system/localize';
+import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 
-export function steelYourResolve(): void {
+export function steelYourResolve(options: ActionDefaultOptions): void {
+    const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
+    const token = actors[0];
     const toChat = (alias: string, content: string) => {
         ChatMessage.create({
             user: game.user.id,
@@ -24,24 +27,22 @@ export function steelYourResolve(): void {
         title: title,
         content: content,
         yes: () => {
-            for (const token of canvas.tokens.controlled) {
-                const { resolve, sp } = token.actor.data.data.attributes;
-                const spRatio = `${sp.value}/${sp.max}`;
-                const recoverStamina = game.i18n.format(translations.RecoverStamina, {
-                    name: token.name,
-                    ratio: spRatio,
+            const { resolve, sp } = token.data.data.attributes;
+            const spRatio = `${sp.value}/${sp.max}`;
+            const recoverStamina = game.i18n.format(translations.RecoverStamina, {
+                name: token.name,
+                ratio: spRatio,
+            });
+            const noStamina = game.i18n.format(translations.NoStamina, { name: token.name });
+            if (resolve.value > 0) {
+                toChat(token.name, recoverStamina);
+                const newSP = sp.value + Math.floor(sp.max / 2);
+                token.update({
+                    'data.attributes.sp.value': Math.min(newSP, sp.max),
+                    'data.attributes.resolve.value': resolve.value - 1,
                 });
-                const noStamina = game.i18n.format(translations.NoStamina, { name: token.name });
-                if (resolve.value > 0) {
-                    toChat(token.name, recoverStamina);
-                    const newSP = sp.value + Math.floor(sp.max / 2);
-                    token.actor.update({
-                        'data.attributes.sp.value': Math.min(newSP, sp.max),
-                        'data.attributes.resolve.value': resolve.value - 1,
-                    });
-                } else {
-                    toChat(token.name, noStamina);
-                }
+            } else {
+                toChat(token.name, noStamina);
             }
         },
         defaultYes: true,
