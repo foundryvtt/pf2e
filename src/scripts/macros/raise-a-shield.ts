@@ -24,13 +24,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     }
 
     const speaker = ChatMessage.getSpeaker({ actor: actor });
-    const npcShield = {
-        name: LocalizePF2e.translations.PF2E.ArmorTypeShield,
-        acBonus: actor.attributes.shield.ac,
-        isBroken: actor.attributes.shield.value <= actor.attributes.shield.brokenThreshold,
-        img: 'systems/pf2e/icons/actions/raise-a-shield.webp',
-    };
-    const shield = actor.heldShield ?? (actor instanceof NPCPF2e && npcShield.acBonus > 0 ? npcShield : null);
+    const shield = actor.heldShield ?? null;
 
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield && !shield.isBroken) {
