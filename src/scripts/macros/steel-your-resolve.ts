@@ -53,3 +53,4 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
         },
         defaultYes: true,
     });
+}
