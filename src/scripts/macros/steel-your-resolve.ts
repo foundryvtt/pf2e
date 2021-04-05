@@ -27,15 +27,17 @@ export function steelYourResolve(): void {
         yes: () => {
             for (const token of canvas.tokens.controlled) {
                 const { resolve, sp } = token.actor.data.data.attributes;
-                const spratio = `${sp.value}/${sp.max}`;
-                const recoverStamina = game.i18n.format(translations.RecoverStamina, { name: token.name, ratio: spratio});
+                const spRatio = `${sp.value}/${sp.max}`;
+                const recoverStamina = game.i18n.format(translations.RecoverStamina, {
+                    name: token.name,
+                    ratio: spRatio
+                    });
                 const noStamina = game.i18n.format(translations.NoStamina, { name: token.name });
                 if (resolve.value > 0) {
                     toChat(
-                        token.name,
-                        recoverStamina,
+                        token.name, recoverStamina
                     );
-                    const newSP = sp.value + Math.floor(sp.max / 2)
+                    const newSP = sp.value + Math.floor(sp.max / 2);
                     token.actor.update({
                         'data.attributes.sp.value': Math.min(newSP, sp.max),
                         'data.attributes.resolve.value': resolve.value - 1,
