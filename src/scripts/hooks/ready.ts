@@ -55,7 +55,7 @@ export function listen(): void {
             actions: {
                 earnIncome,
                 raiseAShield,
-                steelYourResolve
+                steelYourResolve,
             },
             rollItemMacro,
             rollActionMacro,
