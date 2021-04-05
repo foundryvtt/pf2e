@@ -1,5 +1,4 @@
 import { CharacterPF2e } from '@actor/character';
-import { NPCPF2e } from '@actor/npc';
 import { ErrorPF2e } from '@module/utils';
 import { LocalizePF2e } from '../../module/system/localize';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
@@ -9,7 +8,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
 
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
-    if (actors.length > 1 || !(actor instanceof CharacterPF2e) || actor instanceof NPCPF2e) {
+    if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
         throw ErrorPF2e(translations.BadArgs);
     }
 
