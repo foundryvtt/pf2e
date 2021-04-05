@@ -7,6 +7,7 @@ import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
+import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { ActionsPF2e } from '@system/actions/actions';
 import { ConditionManager } from '@module/conditions';
@@ -54,6 +55,7 @@ export function listen(): void {
             actions: {
                 earnIncome,
                 raiseAShield,
+                steelYourResolve
             },
             rollItemMacro,
             rollActionMacro,

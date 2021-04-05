@@ -1,0 +1,50 @@
+import { ErrorPF2e } from '@module/utils';
+import { LocalizePF2e } from '../../module/system/localize';
+
+export function steelYourResolve(): void {
+    const toChat = (alias: string, content: string) => {
+        ChatMessage.create({
+            user: game.user.id,
+            content,
+            speaker: { alias },
+        });
+    };
+
+    const translations = LocalizePF2e.translations.PF2E.Actions.SteelYourResolve;
+
+    const title = translations.Title;
+    const content = translations.Content;
+
+
+    if (!game.settings.get('pf2e', 'staminaVariant')) {
+        throw ErrorPF2e(translations.StaminaNotEnabled);
+        return;
+    }
+
+    Dialog.confirm({
+        title: title,
+        content: content,
+        yes: () => {
+            for (const token of canvas.tokens.controlled) {
+                const { resolve, sp } = token.actor.data.data.attributes;
+                const spratio = `${sp.value}/${sp.max}`;
+                const recoverStamina = game.i18n.format(translations.RecoverStamina, { name: token.name, ratio: spratio});
+                const noStamina = game.i18n.format(translations.NoStamina, { name: token.name });
+                if (resolve.value > 0) {
+                    toChat(
+                        token.name,
+                        recoverStamina,
+                    );
+                    const newSP = sp.value + Math.floor(sp.max / 2)
+                    token.actor.update({
+                        'data.attributes.sp.value': Math.min(newSP, sp.max),
+                        'data.attributes.resolve.value': resolve.value - 1,
+                    });
+                } else {
+                    toChat(token.name, noStamina);
+                }
+            }
+        },
+        defaultYes: true,
+    });
+}
