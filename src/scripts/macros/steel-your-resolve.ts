@@ -15,7 +15,6 @@ export function steelYourResolve(): void {
     const title = translations.Title;
     const content = translations.Content;
 
-
     if (!game.settings.get('pf2e', 'staminaVariant')) {
         throw ErrorPF2e(translations.StaminaNotEnabled);
         return;
@@ -30,13 +29,11 @@ export function steelYourResolve(): void {
                 const spRatio = `${sp.value}/${sp.max}`;
                 const recoverStamina = game.i18n.format(translations.RecoverStamina, {
                     name: token.name,
-                    ratio: spRatio
-                    });
+                    ratio: spRatio,
+                });
                 const noStamina = game.i18n.format(translations.NoStamina, { name: token.name });
                 if (resolve.value > 0) {
-                    toChat(
-                        token.name, recoverStamina
-                    );
+                    toChat(token.name, recoverStamina);
                     const newSP = sp.value + Math.floor(sp.max / 2);
                     token.actor.update({
                         'data.attributes.sp.value': Math.min(newSP, sp.max),
