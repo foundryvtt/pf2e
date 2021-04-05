@@ -15,6 +15,7 @@ import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-defini
 import { CreaturePF2e } from '@actor/creature';
 import { ConditionPF2e } from '@item/others';
 import { PF2CheckDC } from '@module/system/check-degree-of-success';
+import { ConsumablePF2e } from '@item/consumable';
 
 /**
  * Base class for NPC and character sheets
@@ -128,7 +129,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(event);
+                    if (item instanceof ConsumablePF2e) item.rollConsumable();
                     break;
                 default:
             }
@@ -299,6 +300,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 target,
             };
         };
+
+        // Action Rolling (strikes)
         const createAttackRollContext = (event: JQuery.TriggeredEvent, rollNames: string[]) => {
             const ctx = createStrikeRollContext(rollNames);
             let dc: PF2CheckDC | undefined;
@@ -317,6 +320,29 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 dc,
             };
         };
+
+        html.find('.action-strike').on('click', (event) => {
+            if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
+            event.stopImmediatePropagation();
+            const $button = $(event.currentTarget);
+            const $item = $button.closest('li.item');
+            const actionIndex = Number($item.attr('data-action-index'));
+            const variantIndex = Number($button.attr('data-variant-index')) || 0;
+            const action = this.actor.data.data.actions[actionIndex];
+
+            const ammo = this.actor.getOwnedItem(action.selectedAmmoId ?? '');
+            if (ammo instanceof ConsumablePF2e) {
+                if (ammo.quantity < 1) {
+                    ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
+                    return;
+                }
+                ammo.consume();
+            }
+
+            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
+            action.variants[Number(variantIndex)].roll(rollContext);
+        });
+
         const createDamageRollContext = (event: JQuery.TriggeredEvent) => {
             const ctx = createStrikeRollContext(['all', 'damage-roll']);
             return {
@@ -372,37 +398,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             if (item) {
                 item.rollSpellcastingEntryCheck(event);
             }
-        });
-
-        // Action Rolling (strikes)
-        html.find('[data-action-index].item .item-image.action-strike').on('click', (event) => {
-            if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
-
-            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
-            this.actor.data.data.actions[Number(actionIndex)].roll(rollContext);
-        });
-
-        html.find('[data-variant-index].variant-strike').on('click', (event) => {
-            if (!('actions' in this.actor.data.data)) throw Error('Strikes are not supported on this actor');
-            event.stopImmediatePropagation();
-            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
-            const variantIndex = $(event.currentTarget).attr('data-variant-index');
-            const action = this.actor.data.data.actions[Number(actionIndex)];
-
-            if (action.selectedAmmoId) {
-                const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
-                if (ammo instanceof PhysicalItemPF2e) {
-                    if (ammo.quantity < 1) {
-                        ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
-                        return;
-                    }
-                    ammo.consume();
-                }
-            }
-
-            const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
-            action.variants[Number(variantIndex)].roll(rollContext);
         });
     }
 }

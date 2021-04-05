@@ -37,7 +37,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     /** @override */
-    protected async _updateObject(event: Event, formData: any): Promise<void> {
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // update shield hp
         const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
         if (equippedShieldId !== undefined) {

@@ -1,5 +1,6 @@
 import { ActorSheetPF2e } from './base';
 import { HazardPF2e } from '../base';
+import { ConsumablePF2e } from '@item/consumable';
 
 /**
  * @category Actor
@@ -204,7 +205,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                     item.rollSpellDamage(event);
                     break;
                 case 'consume':
-                    item.rollConsumable(event);
+                    if (item instanceof ConsumablePF2e) item.rollConsumable();
                     break;
                 default:
                     throw new Error('Unknown action type');

@@ -19,8 +19,6 @@ import {
     SpellcastingEntryData,
     TrickMagicItemCastData,
 } from './data-definitions';
-import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
-import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -83,7 +81,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
-    async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+    async roll(this: ItemPF2e, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+        if (!this.actor) throw ErrorPF2e('Only owned items can be rolled.');
+
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -721,96 +721,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         );
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Use a consumable item
-     */
-    async rollConsumable(this: Owned<ItemPF2e>, _ev: JQuery.ClickEvent) {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
-        if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
-
-        const itemData = item.data;
-        // Submit the roll to chat
-        if (
-            ['scroll', 'wand'].includes(item.data.consumableType.value) &&
-            item.data.spell?.data &&
-            this.actor instanceof ActorPF2e
-        ) {
-            if (canCastConsumable(this.actor, item)) {
-                this._castEmbeddedSpell();
-            } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
-                const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
-                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                };
-                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                popup.render(true);
-            } else {
-                const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
-                ChatMessage.create({
-                    user: game.user._id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    whisper: ChatMessage.getWhisperRecipients(this.actor.name),
-                    content,
-                });
-            }
-        } else {
-            const cv = itemData.consume.value;
-            const content = `Uses ${this.name}`;
-            if (cv) {
-                new Roll(cv).toMessage({
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    flavor: content,
-                });
-            } else {
-                ChatMessage.create({
-                    user: game.user._id,
-                    speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    content,
-                });
-            }
-        }
-
-        // Deduct consumed charges from the item
-        if (itemData.autoUse.value) this.consume();
-    }
-
-    consume() {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'consumable') throw Error('Tried to consume non-consumable');
-
-        const itemData = item.data;
-        const qty = itemData.quantity;
-        const chg = itemData.charges;
-
-        if (!this.actor) return;
-
-        // Optionally destroy the item
-        if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-            this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
-        }
-        // Deduct one from quantity if this item doesn't have charges
-        else if (chg.max < 1) {
-            const options = {
-                _id: this.data._id,
-                'data.quantity.value': Math.max(qty.value - 1, 0),
-                'data.charges.value': chg.max,
-            };
-            this.actor.updateEmbeddedEntity('OwnedItem', options);
-        }
-        // Deduct one charge
-        else {
-            this.actor.updateEmbeddedEntity('OwnedItem', {
-                _id: this.data._id,
-                'data.charges.value': Math.max(chg.value - 1, 0),
-            });
-        }
-    }
-
-    protected async _castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData) {
+    protected async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData): Promise<ChatMessage | void> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;

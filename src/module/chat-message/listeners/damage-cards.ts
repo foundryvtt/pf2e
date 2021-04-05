@@ -1,5 +1,6 @@
 import { ActorPF2e, TokenPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { ConsumablePF2e } from '@item/consumable';
 import { ItemDataPF2e } from '@item/data-definitions';
 import { MeleePF2e } from '@item/others';
 import { StatisticModifier } from '@module/modifiers';
@@ -49,8 +50,7 @@ export const DamageCards = {
                 // Pulling data from embedded items should eventually be phased out
                 itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
                 if (itemData) {
-                    // the call to createOwned is a temporary measure since it triggers extra actor updates
-                    item = actor.items.get(itemData._id) ?? (await ItemPF2e.createOwned(itemData, actor));
+                    item = actor.items.get(itemData._id) ?? ItemPF2e.createOwned(itemData, actor);
                 }
             } else {
                 item = actor.getOwnedItem(itemId);
@@ -105,7 +105,7 @@ export const DamageCards = {
                 else if (action === 'spellDamage') item.rollSpellDamage(event);
                 else if (action === 'spellCounteract') item.rollCounteract(event);
                 // Consumable usage
-                else if (action === 'consume') item.rollConsumable(event);
+                else if (action === 'consume' && item instanceof ConsumablePF2e) item.rollConsumable();
                 else if (action === 'save') ActorPF2e.rollSave(event, item);
             } else {
                 const strikeIndex = card.attr('data-strike-index');

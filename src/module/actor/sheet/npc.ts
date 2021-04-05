@@ -4,6 +4,7 @@ import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
+import { ConsumablePF2e } from '@item/consumable';
 
 /**
  * @category Actor
@@ -343,7 +344,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                     item.rollSpellDamage(ev);
                     break;
                 case 'consume':
-                    item.rollConsumable(ev);
+                    if (item instanceof ConsumablePF2e) item.rollConsumable();
                     break;
                 default:
                     throw new Error('Unknown action type');
