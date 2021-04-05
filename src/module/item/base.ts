@@ -72,6 +72,14 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         return new Set([rarity].concat(this.data.data.traits.value));
     }
 
+    /**
+     * Is this a real owned item or a mere ephemera, as a dew drop on a flower petal that shines quietly,
+     * oscillates slightly, and falls like a tear of love?
+     */
+    get isReal(): boolean {
+        return this.actor ? this.actor.items.has(this.id) : true;
+    }
+
     /** @override */
     prepareData(): void {
         // Remove any empty-string traits that somehow got snuck their way in

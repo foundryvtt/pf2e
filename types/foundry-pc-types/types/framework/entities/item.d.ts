@@ -117,11 +117,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     /**
      * A convenience constructor method to create an Item instance which is owned by an Actor
      */
-    static createOwned<A extends Actor, I extends Item<A>>(
-        this: new (data: I['data'], options?: ItemConstructorOptions<A>) => I,
-        itemData: DeepPartial<I['data']>,
-        actor: A,
-    ): Promise<I>;
+    static createOwned(itemData: ItemData, actor: Actor): Owned<Item>;
 
     getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;

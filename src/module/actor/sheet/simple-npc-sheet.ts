@@ -1138,7 +1138,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
         // update shield hp
         const shield = this.actor.heldShield;
-        if (shield && Number.isInteger(formData['data.attributes.shield.value'])) {
+        if (shield && shield.isReal && Number.isInteger(formData['data.attributes.shield.value'])) {
             await shield.update({
                 'data.hp.value': formData['data.attributes.shield.value'],
             });

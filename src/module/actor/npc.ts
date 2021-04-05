@@ -9,7 +9,17 @@ import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ConfigPF2e } from '@scripts/config';
-import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
+import {
+    ActionData,
+    ArmorData,
+    MeleeData,
+    Rarity,
+    SpellAttackRollModifier,
+    SpellDifficultyClass,
+} from '@item/data-definitions';
+import { LocalizePF2e } from '@module/system/localize';
+import { ArmorPF2e } from '@item/armor';
+import SteelShieldData from '../../../packs/data/equipment.db/steel-shield.json';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -24,6 +34,27 @@ export class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.traits.has('weak');
+    }
+
+    /** @override */
+    get heldShield(): Owned<ArmorPF2e> | null {
+        const realShield = super.heldShield;
+        if (realShield instanceof ArmorPF2e) return realShield;
+
+        const actorShield = this.attributes.shield;
+        if (actorShield.ac === 0) return null;
+
+        const shieldData = (duplicate(SteelShieldData) as unknown) as ArmorData;
+        shieldData._id = randomID(16);
+        shieldData.name = LocalizePF2e.translations.PF2E.ArmorTypeShield;
+        shieldData.img = 'systems/pf2e/icons/actions/raise-a-shield.webp';
+        shieldData.data.armor.value = actorShield.ac;
+        shieldData.data.hardness.value = actorShield.hardness;
+        shieldData.data.hp.value = actorShield.value;
+        shieldData.data.maxHp.value = actorShield.max;
+        shieldData.data.equipped.value = true;
+
+        return ArmorPF2e.createOwned(shieldData, this);
     }
 
     /** Prepare Character type specific data. */

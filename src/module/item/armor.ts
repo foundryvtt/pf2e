@@ -1,8 +1,10 @@
+import { CreaturePF2e } from '@actor/creature';
 import { addSign } from '@module/utils';
 import { ArmorCategory, ArmorData } from './data-definitions';
 import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
+// eslint-disable-next-line import/export
 export class ArmorPF2e extends PhysicalItemPF2e {
     get traits(): Set<string> {
         const traits = super.traits;
@@ -92,4 +94,9 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 export interface ArmorPF2e {
     data: ArmorData;
     _data: ArmorData;
+}
+
+// eslint-disable-next-line import/export
+export declare namespace ArmorPF2e {
+    function createOwned(itemData: ArmorData, actor: CreaturePF2e): Owned<ArmorPF2e>;
 }
