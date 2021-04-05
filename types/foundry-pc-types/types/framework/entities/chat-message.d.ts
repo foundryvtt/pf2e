@@ -106,7 +106,7 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     /**
      * Return the Roll instance contained in this chat message, if one is present
      */
-    get roll(): Roll;
+    get roll(): Rolled<Roll>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
