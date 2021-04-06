@@ -338,41 +338,9 @@
                 {{/each}}
                 {{/select}}
             </select>
-<!--             <select name="data.property1.criticalConditionDie" data-dtype="String">
-                {{#select data.property1.criticalConditionDie}}
-                <option value=""></option>
-                {{#each damageDie as |name type|}}
-                <option value="{{type}}">{{name}}</option>
-                {{/each}}
-                {{/select}}
-            </select> -->
         </div>
     </li>
-
 </ol>
-
-<!-- <div class="form-group">
-    <label>{{data.damage.label}}</label>
-    <select name="data.damage.value" data-dtype="{{data.damage.type}}">
-        {{#select data.damage.value}}
-        {{#each damageDice as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-
-<div class="form-group">
-    <label>{{data.damageType.label}}</label>
-    <select name="data.damageType.value" data-dtype="{{data.damageType.type}}">
-        {{#select data.damageType.value}}
-        <option value=""></option>
-        {{#each damageTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div> -->
 
 <div class="form-group">
     <label>{{localize "PF2E.WeaponRangeLabel"}}</label>
@@ -438,15 +406,3 @@
     <label>{{localize "PF2E.ArmorEquippedLabel"}}</label>
     <input type="checkbox" name="data.equipped.value" value="1" data-dtype="Boolean" {{checked data.equipped.value}}/>
 </div>
-
-<!-- <div class="bio-item form-group-stacked pf-container">
-        <label class="pf-title" for="data.traits.languages">
-            Languages
-            <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
-        </label>
-        <ul class="traits-list pf-value">
-        {{#each data.traits.languages.selected as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
-        {{/each}}
-        </ul>
-    </div> -->
