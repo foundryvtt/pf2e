@@ -210,7 +210,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
 
-            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && data.details.level.value >= 8) {
                 modifiers.push(PotencyModifier.fromLevelAndType(data.details.level.value, 'save'));
             }
             const notes = [] as PF2RollNote[];
@@ -283,7 +283,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers[1].automation.key = activeEffects.length > 0 ? 'data.attributes.perception.rank' : null;
             modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
 
-            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && data.details.level.value >= 7) {
                 modifiers.push(PotencyModifier.fromLevelAndType(data.details.level.value, 'perception'));
             }
 
@@ -388,7 +388,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
             });
 
-            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+            if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && data.details.level.value >= 5) {
                 modifiers.push(PotencyModifier.fromLevelAndType(data.details.level.value, 'defence'));
             }
 
@@ -729,7 +729,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     groupRank ?? 0,
                 );
                 modifiers.push(ProficiencyModifier.fromLevelAndRank(data.details.level.value, proficiencyRank));
-                if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+                if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && data.details.level.value >= 2) {
                     modifiers.push(PotencyModifier.fromLevelAndType(data.details.level.value, 'attack'));
                 }
 

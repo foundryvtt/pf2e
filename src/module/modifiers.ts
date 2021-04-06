@@ -252,6 +252,16 @@ export const PotencyModifier = Object.freeze({
                 } else {
                     return new ModifierPF2e('Attack Potency', 0, MODIFIER_TYPE.POTENCY);
                 }
+            case 'devastating':
+                if (level >= 4 && level < 12) {
+                    return new ModifierPF2e('Devastating Attack', 1, MODIFIER_TYPE.POTENCY);
+                } else if (level >= 12 && level < 19) {
+                    return new ModifierPF2e('Devastating Attack', 2, MODIFIER_TYPE.POTENCY);
+                } else if (level >= 19) {
+                    return new ModifierPF2e('Devastating Attack', 3, MODIFIER_TYPE.POTENCY);
+                } else {
+                    return new ModifierPF2e('Devastating Attack', 0, MODIFIER_TYPE.POTENCY);
+                }
             case 'defence':
                 if (level >= 5 && level < 11) {
                     return new ModifierPF2e('Defence Potency', 1, MODIFIER_TYPE.POTENCY);

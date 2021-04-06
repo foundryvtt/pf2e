@@ -6,6 +6,7 @@ import {
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     DiceModifierPF2e,
+    PotencyModifier,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
@@ -298,17 +299,11 @@ export class PF2WeaponDamage {
                 }),
             );
         }
+
         // ABP
         if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && actor.type === 'character') {
-            let devastatingDice = 0;
-            if (actor.data.details.level.value >= 4 && actor.data.details.level.value < 12) {
-                devastatingDice += 1;
-            } else if (actor.data.details.level.value >= 12 && actor.data.details.level.value < 19) {
-                devastatingDice += 2;
-            } else if (actor.data.details.level.value >= 19) {
-                devastatingDice += 3;
-            }
-
+            const devastatingDice = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'devastating')
+                .modifier;
             if (devastatingDice > 0) {
                 diceModifiers.push(
                     new DiceModifierPF2e({
@@ -319,27 +314,23 @@ export class PF2WeaponDamage {
                 );
             }
         }
+
         // potency
         let potency = weaponPotency?.bonus ?? 0;
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' && actor.type === 'character') {
-            if (actor.data.details.level.value >= 2 && actor.data.details.level.value < 10) {
-                potency = 1;
-            } else if (actor.data.details.level.value >= 10 && actor.data.details.level.value < 16) {
-                potency = 2;
-            } else if (actor.data.details.level.value >= 16) {
-                potency = 3;
-            }
+        if (
+            game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' &&
+            actor.type === 'character'
+        ) {
+            potency = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'attack').modifier;
         }
+
         // striking rune
         let strikingDice = 0;
-        if (game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' && actor.type === 'character') {
-            if (actor.data.details.level.value >= 4 && actor.data.details.level.value < 12) {
-                strikingDice = 1;
-            } else if (actor.data.details.level.value >= 12 && actor.data.details.level.value < 19) {
-                strikingDice = 2;
-            } else if (actor.data.details.level.value >= 19) {
-                strikingDice = 3;
-            }
+        if (
+            game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' &&
+            actor.type === 'character'
+        ) {
+            strikingDice = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'devastating').modifier;
         }
 
         {
