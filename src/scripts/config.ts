@@ -291,7 +291,7 @@ export const PF2ECONFIG = {
         piercing: 'PF2E.DamageTypePiercing',
         plant: 'PF2E.TraitPlant',
         poison: 'PF2E.DamageTypePoison',
-        positive: 'PF2E.DamageTypePositive',      
+        positive: 'PF2E.DamageTypePositive',
         precision: 'PF2E.DamageTypePrecision',
         'protean anatomy': 'PF2E.ResistanceTypeProteanAnatomy',
         slashing: 'PF2E.DamageTypeSlashing',
