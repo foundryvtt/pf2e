@@ -30,11 +30,12 @@ interface ExtractArgs {
     packDb: string;
     foundryConfig?: string;
     disablePresort?: boolean;
+    logWarnings?: boolean;
 }
 
 const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
     .command(
-        '$0 <packDb> [foundryConfig] [disablePresort]',
+        '$0 <packDb> [foundryConfig] [disablePresort] [logWarnings]',
         'Extract one or all compendium packs to packs/data',
         () => {
             yargs
@@ -49,6 +50,11 @@ const args = (yargs(process.argv.slice(2)) as yargs.Argv<ExtractArgs>)
                     describe: 'Turns off data item presorting.',
                     type: 'boolean',
                     default: false,
+                })
+                .option('logWarnings', {
+                    describe: 'Turns on logging out warnings about extracted data.',
+                    type: 'boolean',
+                    default: true,
                 })
                 .example([
                     ['npm run $0 spells.db /path/to/foundryvtt/Config/options.json'],
@@ -378,9 +384,11 @@ function sortDataItems(entityData: PackEntry): any[] {
     // Make sure to add any items that are of a type not defined in the list.
     groupedItems.forEach((itemGroup, key) => {
         if (!itemTypeList.includes(key)) {
-            console.error(
-                `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
-            );
+            if (args.logWarnings) {
+                console.log(
+                    `Warning in ${entityData.name}: Item type '${key}' is currently unhandled in sortDataItems. Consider adding.`,
+                );
+            }
             Array.from(itemGroup).forEach((item) => {
                 sortedItems[itemIndex] = item;
                 itemIndex += 1;
@@ -395,7 +403,7 @@ function sortDataItems(entityData: PackEntry): any[] {
 function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
     attacks.forEach((attack) => {
         const attackData = attack as MeleeData;
-        if (!attackData.data.weaponType?.value) {
+        if (!attackData.data.weaponType?.value && args.logWarnings) {
             console.log(`Warning in ${entityName}: Melee item '${attackData.name}' has no weaponType defined!`);
         }
     });

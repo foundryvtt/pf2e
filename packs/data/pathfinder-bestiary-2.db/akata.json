@@ -103,11 +103,13 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "15 feet"
+                        "exceptions": "",
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "15"
                     }
                 ],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -155,9 +157,9 @@
                 "min": 1,
                 "value": 1
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=541",
+            "nethysUrl": "",
             "recallKnowledgeText": "Recall Knowledge - Aberration : DC 20",
-            "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Treasure and Rewards\" title=\"Sidebar - Treasure and Rewards\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_5_TreasureAndRewards.png\"> Noqual Cocoons</h3>An akata&apos;s noqual cocoon, despite its crystalline appearance, is in fact made of a rare skymetal with a glassy green sheen. Noqual is as easy to work as iron but much lighter, and it is valued for its magic-resistant qualities, but the noqual from an akata&apos;s cocoon is very low quality and can&apos;t be used as a crafting material.",
+            "sidebarText": "",
             "source": {
                 "value": "Bestiary 2 pg. 13"
             }
@@ -471,13 +473,13 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "void death"
+                        "Void Death"
                     ]
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 9,
                     "value": 9
                 },
                 "brokenThreshold": {
@@ -599,6 +601,9 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "melee"
+                },
                 "weight": {
                     "value": 0
                 }
@@ -609,55 +614,6 @@
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
-        },
-        {
-            "_id": "sYzEwjtXD4GsP03b",
-            "data": {
-                "actionCategory": {
-                    "value": "interaction"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>After 3 or more days without eating, an akata can secrete resin that encases it in a noqual cocoon. The cocoon has Hardness 9, 40 HP, and a Broken Threshold of 18. It has resistance [[/r 5 # to damage]] to damage from magical sources. As long as the cocoon remains intact, the akata can't be harmed, and it doesn't need to eat or drink. While inside the cocoon, the akata gains @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} 30 feet. The akata remains in a state of hibernation until it is exposed to extreme heat or senses a living creature, at which point it can burst free of its cocoon in 1d4 minutes.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Hibernation",
-            "sort": 200000,
-            "type": "action"
         },
         {
             "_id": "tKbplFnGrHjbOkKF",
@@ -706,7 +662,7 @@
             },
             "img": "icons/svg/mystery-man.svg",
             "name": "Darkvision",
-            "sort": 300000,
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -757,7 +713,7 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "No Hearing",
-            "sort": 400000,
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -806,7 +762,56 @@
                 }
             },
             "img": "icons/svg/mystery-man.svg",
-            "name": "Scent",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "sYzEwjtXD4GsP03b",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>After 3 or more days without eating, an akata can secrete resin that encases it in a noqual cocoon. The cocoon has Hardness 9, 40 HP, and a Broken Threshold of 18. It has resistance 5 to damage from magical sources. As long as the cocoon remains intact, the akata can't be harmed, and it doesn't need to eat or drink.</p>\n<p>While inside the cocoon, the akata gains @Compendium[pf2e.bestiary-ability-glossary-srd.Lifesense]{Lifesense} 30 feet.</p>\n<p>The akata remains in a state of hibernation until it is exposed to extreme heat or senses a living creature, at which point it can burst free of its cocoon in [[/r 1d4 #minutes]] minutes.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "Hibernation",
             "sort": 500000,
             "type": "action"
         },

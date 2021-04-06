@@ -1,4 +1,4 @@
-declare type CompendiumEntityString = 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+declare type CompendiumEntityString = 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable' | 'Playlist' | 'Scene';
 
 declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEntity> {
     absPath: string;
@@ -10,8 +10,12 @@ declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEnti
         ? 'JournalEntry'
         : T extends Macro
         ? 'Macro'
+        : T extends Playlist
+        ? 'Playlist'
         : T extends RollTable
         ? 'RollTable'
+        : T extends Scene
+        ? 'Scene'
         : CompendiumEntityString;
     label: string;
     module: string;
@@ -27,7 +31,7 @@ declare type CompendiumIndex = {
     image: string;
 }[];
 
-declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | RollTable;
+declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
 
 /**
  * The Compendium class provides an interface for interacting with compendium packs which are
