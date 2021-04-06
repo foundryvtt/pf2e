@@ -124,7 +124,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
-        return match ? `systems/pf2e/icons/default-icons/${match[0]}.svg` : `icons/svg/mystery-man.svg`;
+        const filename = match ? `${match[0]}.svg` : 'mystery-man.svg';
+        return `systems/pf2e/icons/default-icons/${filename}`;
     }
 
     get defaultImg(): string {
