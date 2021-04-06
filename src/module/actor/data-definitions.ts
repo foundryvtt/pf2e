@@ -695,7 +695,6 @@ interface FamiliarAttributes extends BaseCreatureAttributes {
         /** A list of other movement speeds the actor possesses. */
         otherSpeeds: LabeledValue[];
     };
-    [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
