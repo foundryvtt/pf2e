@@ -5,6 +5,11 @@ interface DiceTermConstructorParams {
     options?: Record<string, unknown>;
 }
 
+interface PlainRollResult {
+    result: number;
+    active: boolean;
+}
+
 type ComparisonOperatorString = '=' | '<' | '<=' | '>' | '>=';
 declare abstract class DiceTerm {
     /**
@@ -30,7 +35,7 @@ declare abstract class DiceTerm {
     /**
      * The array of dice term results which have been rolled
      */
-    results: unknown[];
+    results: PlainRollResult[];
 
     /**
      * An internal flag for whether the dice term has been evaluated

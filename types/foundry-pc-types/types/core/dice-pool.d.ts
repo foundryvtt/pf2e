@@ -28,29 +28,34 @@ declare class DicePool {
     /**
      * The string modifiers applied to resolve the pool
      */
-    modifiers: string;
+    modifiers: string[];
+
+    /**
+     * The array of dice pool results which have been rolled
+     */
+    results: { result: number; active: boolean }[];
+
+    constructor(options?: { rolls: Roll[]; modifiers?: string[]; options?: any });
 
     /**
      * An Array of rolled Die instances created through this Pool
      */
-    dice: Die[];
+    get dice(): Die[];
 
     /**
      * The final numeric total resulting from the rolled DicePool
      */
-    total: number;
-
-    constructor(options?: { rolls: Roll[]; modifiers?: any[]; options?: any });
+    get total(): number | null;
 
     /**
      * For now, for testing purposes, choose the maximum result always
      */
-    roll(): DicePool;
+    roll(): RolledDicePool;
 
     /**
      * Evaluate the DicePool, populating the results Array.
      */
-    evaluate(): DicePool;
+    evaluate(): RolledDicePool;
 
     /**
      * Return a standardized representation for the displayed formula associated with this DicePool.
@@ -116,4 +121,9 @@ declare class DicePool {
      * @return      The constructed Dice Pool
      */
     static fromJSON(json: string): DicePool;
+}
+
+declare interface RolledDicePool extends DicePool {
+    readonly rolls: Rolled<Roll>[];
+    readonly total: number;
 }
