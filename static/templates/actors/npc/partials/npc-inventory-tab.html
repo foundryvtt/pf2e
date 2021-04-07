@@ -9,12 +9,12 @@
         </div>
         <div class="body">
             <ul class="items-list">
-                {{#each actor.equipment as |category categoryId|}}
+                {{#each inventory as |category categoryId|}}
                 <div class="category-header">
-                    <h4>{{ category.label }}</h4>
+                    <h4>{{category.label}}</h4>
                     <div class="category-controls controls">
-                        {{# if ../options.editable }}
-                        <a class="item-add add-{{category.type}} add" data-type="item" data-item-type="{{ category.type }}"><i class="fas fa-plus"></i></a>
+                        {{#if ../options.editable}}
+                            <a class="item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
                         {{/if}}
                     </div>
                 </div>

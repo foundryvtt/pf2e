@@ -206,9 +206,11 @@ declare class Application {
 
     /**
      * An asynchronous inner function which handles the rendering of the Application
-     * @param options   Provided rendering options, see the render function for details
+     * @param {boolean} force   Render and display the application even if it is not currently displayed.
+     * @param {Object} options  Provided rendering options, see the render function for details
+     * @return {Promise<void>}  A Promise that resolves to the Application once rendering is complete
      */
-    protected _render(force?: boolean, options?: RenderOptions): void;
+    protected _render(force?: boolean, options?: RenderOptions): Promise<void>;
 
     /**
      * Persist the scroll positions of containers within the app before re-rendering the content

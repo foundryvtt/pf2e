@@ -3,6 +3,7 @@ import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
+import { PF2RollNote } from '@module/notes';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -13,7 +14,7 @@ export interface RollParameters {
     /** Optional DC data for the roll */
     dc?: PF2CheckDC;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Roll) => void;
+    callback?: (roll: Rolled<Roll>) => void;
     /** Other roll-specific options */
     [keys: string]: any;
 }
@@ -34,9 +35,9 @@ export class CheckPF2e {
         check: StatisticModifier,
         context: CheckModifiersContext = {},
         event?: JQuery.Event,
-        callback?: (roll: Roll) => void,
+        callback?: (roll: Rolled<Roll>) => void,
     ) {
-        if (context?.options?.length > 0) {
+        if (context.options?.length) {
             // toggle modifiers based on the specified options and re-apply stacking rules, if necessary
             check.modifiers.forEach((modifier) => {
                 modifier.ignored = !ModifierPredicate.test(modifier.predicate, context.options);
@@ -50,8 +51,8 @@ export class CheckPF2e {
         }
 
         if (context) {
-            const visible = (note) => ModifierPredicate.test(note.predicate, context.options ?? []);
-            context.notes = (context?.notes ?? []).filter(visible);
+            const visible = (note: PF2RollNote) => ModifierPredicate.test(note.predicate, context.options ?? []);
+            context.notes = (context.notes ?? []).filter(visible);
         }
 
         // if control (or meta) is held, set roll mode to blind GM roll
@@ -74,7 +75,7 @@ export class CheckPF2e {
             return;
         }
 
-        const actor = game.actors.get(message.data.speaker.actor);
+        const actor = game.actors.get(message.data.speaker.actor ?? '');
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
@@ -177,10 +178,10 @@ export class PF2DamageRoll {
      * @param event
      * @param callback
      */
-    static roll(damage: DamageTemplate, context: any = {}, _event: JQuery.Event | undefined, callback?) {
+    static roll(damage: DamageTemplate, context: any = {}, _event: JQuery.Event | undefined, callback?: Function) {
         if (context?.options?.length > 0) {
             // change default roll mode to blind GM roll if the 'secret' option is specified
-            if (context.options.map((o) => o.toLowerCase()).includes('secret')) {
+            if (context.options.map((o: string) => o.toLowerCase()).includes('secret')) {
                 context.secret = true;
             }
         }

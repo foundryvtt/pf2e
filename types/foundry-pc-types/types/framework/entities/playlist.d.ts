@@ -23,6 +23,14 @@ declare interface PlaylistClassConfig extends EntityClassConfig<Playlist> {
     };
 }
 
+declare interface PlaylistData extends BaseEntityData {
+    mode: number;
+    playing: boolean;
+    sort: number;
+    folder?: string | null;
+    sounds: string[];
+}
+
 declare class Playlist extends Entity {
     /**
      * Each sound which is played within the Playlist has a created Howl instance.
@@ -114,4 +122,9 @@ declare class Playlist extends Entity {
      * @return  A promise which resolves to the updated Playlist instance
      */
     cycleMode(): Promise<Playlist>;
+}
+
+declare interface Playlist extends Entity {
+    data: PlaylistData;
+    _data: PlaylistData;
 }

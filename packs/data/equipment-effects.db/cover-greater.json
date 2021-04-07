@@ -8,19 +8,16 @@
             "expiry": "turn-start",
             "sustained": false,
             "unit": "rounds",
-            "value": 0
+            "value": 1
         },
         "level": {
             "value": 1
-        },
-        "rarity": {
-            "value": "common"
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
                 "selector": "ac",
-                "type": "cicumstance",
+                "type": "circumstance",
                 "value": 4
             },
             {
@@ -28,14 +25,26 @@
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
+                "predicate":{
+                    "all":[
+                        "area-effect"
+                    ]
+                },
                 "selector": "reflex",
-                "type": "cicumstance",
+                "type": "circumstance",
                 "value": 4
             },
             {
                 "key": "PF2E.RuleElement.FlatModifier",
+                "predicate":{
+                    "any":[
+                        "action:hide",
+                        "action:sneak",
+                        "avoid-detection"
+                    ]
+                },
                 "selector": "stealth",
-                "type": "cicumstance",
+                "type": "circumstance",
                 "value": 4
             }
         ],

@@ -129,6 +129,30 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register('pf2e', 'critFumbleButtons', {
+        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            window.location.reload();
+        },
+    });
+
+    game.settings.register('pf2e', 'drawCritFumble', {
+        name: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.name'),
+        hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCards.hint'),
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+        onChange: () => {
+            window.location.reload();
+        },
+    });
+
     game.settings.registerMenu('pf2e', 'worldClock', {
         name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
         label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),

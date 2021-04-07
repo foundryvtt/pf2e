@@ -36,13 +36,31 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         const abilities = CONFIG.PF2E.abilities;
 
         const size = CONFIG.PF2E.actorSizes[familiar.data.data.traits.size.value] ?? null;
+        const familiarAbilities = this.actor.master?.attributes?.familiarAbilities ?? {
+            value: 0,
+            breakdown: '',
+        };
+
+        const familiarTraits: Record<string, string> = CONFIG.PF2E.monsterTraits;
+        const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
+
+        const traits = Array.from(this.actor.data.data.traits.traits.value)
+            .map((trait) => ({
+                value: trait,
+                label: familiarTraits[trait] ?? trait,
+                description: traitDescriptions[trait] ?? '',
+            }))
+            .sort();
 
         return {
             ...super.getData(),
             owners,
+            master: this.actor.master,
             masters,
             abilities,
             size,
+            familiarAbilities,
+            traits,
         };
     }
 
@@ -67,7 +85,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
 
         html.find('[data-perception-check]').on('click', '*', (event) => {
             const options = this.actor.getRollOptions(['all', 'perception']);
-            this.actor.data.data.attributes.perception.roll({ event, options });
+            this.actor.attributes.perception.roll({ event, options });
         });
 
         html.find('[data-attack-roll]').on('click', '*', (event) => {
@@ -96,8 +114,10 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         });
 
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
-            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id');
+            const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id') ?? '';
             const item = this.actor.getOwnedItem(itemID);
+            if (!item) return;
+
             new Dialog({
                 title: `Remove ${item.type}?`,
                 content: `<p>Are you sure you want to remove ${item.name}?</p>`,

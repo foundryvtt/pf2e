@@ -1,4 +1,4 @@
-declare class Messages extends EntityCollection<ChatMessage> {
+declare class Messages<ActorType extends Actor> extends EntityCollection<ChatMessage<ActorType>> {
     /** @override */
     get entity(): 'ChatMessage';
 
@@ -43,8 +43,8 @@ declare interface ChatMessageData extends BaseEntityData {
     whisper?: string[] | User[];
 }
 
-declare interface ChatMessageClassConfig extends EntityClassConfig<ChatMessage> {
-    collection: Messages;
+declare interface ChatMessageClassConfig extends EntityClassConfig<ChatMessage<Actor>> {
+    collection: Messages<Actor>;
 }
 
 declare interface MessageCreateOptions extends EntityCreateOptions {
@@ -98,14 +98,15 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     get isRoll(): boolean;
 
     /**
-     * Return whether the message contains a visible dice roll.
+     * Return whether the content of the message is visible to the current user
+     * @type
      */
-    get isRollVisible(): boolean | null;
+    get isContentVisible(): boolean;
 
     /**
      * Return the Roll instance contained in this chat message, if one is present
      */
-    get roll(): Roll;
+    get roll(): Rolled<Roll>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers

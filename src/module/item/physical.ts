@@ -16,7 +16,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isInContainer(): boolean {
-        return !!this.data.data.containerId;
+        return !!this.data.data.containerId.value;
     }
 
     get isMagical(): boolean {

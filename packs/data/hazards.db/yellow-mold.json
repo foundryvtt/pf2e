@@ -74,6 +74,9 @@
             "rarity": {
                 "value": "common"
             },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -104,13 +107,11 @@
                     "unidentified": "",
                     "value": "<p><strong>Trigger</strong> A creature moves into the mold's space or damages the mold. The mold can't use this reaction if it's in direct sunlight or if the damage was fire damage.<br /><strong>Effect</strong> The triggering creature and all creatures within 10 feet are exposed to yellow mold spores.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -135,6 +136,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Spore Explosion ",
+            "sort": 100000,
             "type": "action"
         },
         {
@@ -154,13 +156,11 @@
                     "unidentified": "",
                     "value": "<p>Any drained condition from the spores persists after the poison's duration ends; <strong>Saving Throw</strong> DC 26 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 1d8 poison damage and drained 1 (1 round); <strong>Stage 2</strong> 2d8 poison damage and drained 2 (1 round); <strong>Stage 3</strong> 3d8 poison damage and drained 3 (1 round)</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -188,6 +188,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.png",
             "name": "Yellow Mold Spores",
+            "sort": 200000,
             "type": "action"
         }
     ],
@@ -196,23 +197,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "A93flWUsot3FmC7t",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Yellow Mold",
         "randomImg": false,

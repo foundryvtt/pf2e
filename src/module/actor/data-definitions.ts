@@ -85,7 +85,7 @@ export interface DexterityModifierCapData {
 /** Any skill or similar which provides a roll option for rolling this save. */
 export interface Rollable {
     /** Roll this save or skill with the given options (caused by the given event, and with the given optional callback). */
-    roll?: RollFunction;
+    roll: RollFunction;
 }
 
 export interface CharacterStrikeTrait {
@@ -282,13 +282,14 @@ export interface Abilities {
 /** A type representing the possible ability strings. */
 export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
+export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
     senses: LabeledString[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
-    attitude: { value: string };
+    attitude: { value: Attitude };
     traits: ValuesList;
 }
 
@@ -573,7 +574,7 @@ interface NPCInitiativeData extends RawInitiativeData {
     ability: AbilityString | '';
 }
 
-interface NPCAttributes extends BaseCreatureAttributes {
+export interface NPCAttributes extends BaseCreatureAttributes {
     /** The armor class of this NPC. */
     ac: NPCArmorClassData;
     /** The perception score for this NPC. */
@@ -694,12 +695,15 @@ interface FamiliarAttributes extends BaseCreatureAttributes {
         /** A list of other movement speeds the actor possesses. */
         otherSpeeds: LabeledValue[];
     };
-    [key: string]: any;
 }
 
 /** The raw information contained within the actor data object for familiar actors. */
 export interface RawFamiliarData extends CreatureSystemData {
     attributes: FamiliarAttributes;
+    master: {
+        id: string | null;
+        ability: AbilityString | null;
+    };
     // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
     [key: string]: any;
 }
