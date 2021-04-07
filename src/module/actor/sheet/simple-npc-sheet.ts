@@ -297,12 +297,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
-        html.find('.action-add').on('click', () => this.onAddActionClicked());
-        html.find('.add-weapon').on('click', () => this.onAddWeaponClicked());
-        html.find('.add-armor').on('click', () => this.onAddArmorClicked());
-        html.find('.add-equipment').on('click', () => this.onAddEquipmentClicked());
-        html.find('.add-consumable').on('click', () => this.onAddConsumableClicked());
-        html.find('.add-treasure').on('click', () => this.onAddTreasureClicked());
 
         // Adjustments
         html.find('.npc-elite-adjustment').on('click', () => this.onClickMakeElite());
@@ -965,63 +959,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const skillsEditor = new NPCSkillsEditor(this.actor, options);
 
         skillsEditor.render(true);
-    }
-
-    private onAddActionClicked() {}
-
-    private onAddTreasureClicked() {
-        const itemType = 'treasure';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddConsumableClicked(): void {
-        const itemType = 'consumable';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddEquipmentClicked(): void {
-        const itemType = 'equipment';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddArmorClicked(): void {
-        const itemType = 'armor';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddWeaponClicked() {
-        const itemType = 'weapon';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
     }
 
     private onClickExpandable(event: JQuery.ClickEvent): void {
