@@ -648,6 +648,7 @@ export const PF2ECONFIG = {
         'deadly-d10': 'PF2E.TraitDeadlyD10',
         'deadly-d12': 'PF2E.TraitDeadlyD12',
         'deadly-3d12': 'PF2E.TraitDeadly3D12',
+        death: 'PF2E.TraitDeath',
         disarm: 'PF2E.TraitDisarm',
         earth: 'PF2E.TraitEarth',
         electricity: 'PF2E.TraitElectricity',
