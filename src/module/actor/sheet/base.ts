@@ -1581,6 +1581,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
         const header = event.currentTarget;
         const data = duplicate(header.dataset);
+        data.img = `systems/pf2e/icons/default-icons/${data.type}.svg`;
 
         if (data.type === 'feat') {
             const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
