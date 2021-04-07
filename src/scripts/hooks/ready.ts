@@ -23,6 +23,7 @@ import {
     StatisticModifier,
 } from '../../module/modifiers';
 import { CheckPF2e } from '@system/rolls';
+import { RuleElements } from '@module/rules/rules';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -72,6 +73,7 @@ export function listen(): void {
             StatisticModifier: StatisticModifier,
             CheckModifier: CheckModifier,
             Check: CheckPF2e,
+            RuleElements,
         };
         ActionsPF2e.exposeActions(game.pf2e.actions);
 

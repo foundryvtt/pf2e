@@ -4,7 +4,7 @@
         "abilities": {
             "cha": {
                 "min": 3,
-                "mod": 0,
+                "mod": -2,
                 "value": 10
             },
             "con": {
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "35 feet"
+                "value": "35"
             }
         },
         "currency": {
@@ -445,6 +445,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -492,13 +495,14 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Knockdown",
-                        "bloodfire fever"
+                        "Bloodfire Fever",
+                        "Knockdown"
                     ]
                 },
+                "baseItem": null,
                 "bonus": {
-                    "total": 9,
                     "value": 9
                 },
                 "brokenThreshold": {
@@ -597,13 +601,11 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -620,6 +622,9 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "melee"
+                },
                 "weight": {
                     "value": 0
                 }
@@ -630,6 +635,156 @@
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "QId6z0fIIEK63EQD",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
+        },
+        {
+            "_id": "SWazpLJCrgRpWQVI",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "llcfXV2QITSMqsXC",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Regeneration",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "viQYjDAyUKgEOmaJ",
@@ -646,15 +801,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>; <br />\n<strong>Saving Throw</strong> DC 16 Fortitude; <br />\n<strong>Stage 1</strong> carrier with no ill effect (1 day); <br />\n<strong>Stage 2</strong> enfeebled 1 (1 day); <br />\n<strong>Stage 3</strong> enfeebled 1 and clumsy 1 (1 day); <br />\n<strong>Stage 4</strong> enfeebled 2 and clumsy 2 (1 day); <br />\n<strong>Stage 5</strong> enfeebled 2, clumsy 2, and fatigued (1 day)</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p><strong>Saving Throw</strong> DC 16 Fortitude;</p>\n<p><strong>Stage 1</strong> carrier with no ill effect (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 day);</p>\n<p><strong>Stage 4</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 day);</p>\n<p><strong>Stage 5</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2}, and @Compendium[pf2e.conditionitems.Fatigued]{Fatigued} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -679,9 +832,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Bloodfire Fever",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -699,15 +852,29 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The frostbitten trollhound deals an extra [[/r 1d4 # damage]] damage to any creature within reach of at least two of the it's allies.</p>"
-                },
-                "rarity": {
-                    "value": "common"
+                    "value": "<p>The frostbitten trollhound deals an extra [[/r 1d4]] damage to any creature within reach of at least two of its allies.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.pack-attack"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "dieSize": "d4",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "pack-attack"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -730,9 +897,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Pack Attack",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -752,10 +919,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -774,7 +939,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -794,10 +959,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -816,7 +979,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -836,10 +999,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -858,7 +1019,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -878,10 +1039,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -900,7 +1059,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -909,7 +1068,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "3ShJKXoXXENIToA8",
         "actorLink": false,
         "bar1": {
@@ -928,6 +1086,10 @@
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Frostbitten Trollhound",
         "randomImg": false,

@@ -125,6 +125,15 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
 
     getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+
+    /**
+     * Provide a Dialog form to create a new Entity of this type.
+     * Choose a name and a type from a select menu of types.
+     * @param data    Initial data with which to populate the creation form
+     * @param options Initial positioning and sizing options for the dialog form
+     * @return A Promise which resolves to the created Entity
+     */
+    static createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Item>;
 }
 
 declare interface Item extends Entity {

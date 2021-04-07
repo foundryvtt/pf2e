@@ -4,13 +4,8 @@ declare type CompendiumDirectoryDefaultOptions = typeof Sidebar['defaultOptions'
     title: string;
 };
 
-declare interface PackSummaryByEntity {
-    Actor: PackSummary;
-    Item: PackSummary;
-    JournalEntry: PackSummary;
-    Macro: PackSummary;
-    RollTable: PackSummary;
-}
+declare type PackSummaryByEntity = Record<CompendiumEntityString, PackSummary>;
+
 declare interface CompendiumDirectoryData {
     user: User;
     packs: PackSummaryByEntity;
@@ -26,7 +21,7 @@ declare interface PackSummaryData {
 }
 
 declare interface PackSummary {
-    label: string;
+    label: CompendiumEntityString;
     packs: PackSummaryData[];
 }
 

@@ -11,12 +11,16 @@ import { Migration595AddItemSize } from '@module/migrations/595-item-sizes';
 import { Migration607MeleeItemDamageRolls } from '@module/migrations/607-melee-item-damage-rolls';
 import { Migration610SetHeritageFeatType } from '@module/migrations/610-set-heritage-feat-type';
 import { Migration612NormalizeRarities } from '@module/migrations/612-normalize-rarities';
+import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
+import { Migration614NumifyMeleeBonuses } from '@module/migrations/614-numify-melee-bonuses';
 
 const migrations: MigrationBase[] = [
     new Migration595AddItemSize(),
     new Migration607MeleeItemDamageRolls(),
     new Migration610SetHeritageFeatType(),
     new Migration612NormalizeRarities(),
+    new Migration613RemoveAmmoCharges(),
+    new Migration614NumifyMeleeBonuses(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
@@ -72,7 +76,7 @@ function JSONstringifyOrder(obj: object): string {
 }
 
 async function getAllFiles(): Promise<string[]> {
-    let allEntries = [];
+    const allEntries = [];
     const packs = fs.readdirSync(packsDataPath);
     for (const pack of packs) {
         console.log(`Collecting data for '${pack}'`);

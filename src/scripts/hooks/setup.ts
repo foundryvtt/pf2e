@@ -1,17 +1,56 @@
 import { LocalizePF2e } from '@system/localize';
 import { registerSheets } from '../register-sheets';
+import { ActorPF2e } from '@actor/base';
+import { Rollable } from '@actor/data-definitions';
+import { PF2CheckDC } from '@system/check-degree-of-success';
+
+function resolveActors(): ActorPF2e[] {
+    const actors: ActorPF2e[] = [];
+    if (canvas.tokens.controlled.length) {
+        actors.push(...(canvas.tokens.controlled.map((token) => token.actor) as ActorPF2e[]));
+    } else if (game.user.character) {
+        actors.push(game.user.character);
+    }
+    return actors;
+}
 
 function registerPF2ActionClickListener() {
-    document.body.addEventListener('click', (event) => {
-        const target = event.target as HTMLElement | undefined;
-        const { pf2Action, pf2Glyph, pf2Variant } = target?.dataset ?? {};
-        if (pf2Action && target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
-            const action = game.pf2e.actions[pf2Action];
-            if (action) {
+    $<HTMLBodyElement>('body').on('click', (event) => {
+        const target = event.target;
+        if (target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
+            const { pf2Action, pf2Glyph, pf2Variant } = target.dataset ?? {};
+            const action = game.pf2e.actions[pf2Action ?? ''];
+            if (pf2Action && action) {
                 action({
                     event,
                     glyph: pf2Glyph,
                     variant: pf2Variant,
+                });
+            } else {
+                console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
+            }
+        } else if (target?.matches('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')) {
+            const actors = resolveActors();
+            if (actors.length) {
+                const { pf2SavingThrow, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
+                actors.forEach((actor) => {
+                    const savingThrow = actor.data.data.saves[pf2SavingThrow ?? ''] as Rollable | undefined;
+                    if (pf2SavingThrow && savingThrow) {
+                        const dc = Number.isInteger(Number(pf2Dc))
+                            ? ({ label: pf2Label, value: Number(pf2Dc), visibility: 'gm' } as PF2CheckDC)
+                            : undefined;
+                        const options = actor.getRollOptions(['all', 'saving-throw', pf2SavingThrow]);
+                        if (pf2Traits) {
+                            const traits = pf2Traits
+                                .split(',')
+                                .map((trait) => trait.trim())
+                                .filter((trait) => !!trait);
+                            options.push(...traits);
+                        }
+                        savingThrow.roll({ event, options, dc });
+                    } else {
+                        console.warn(`PF2e System | Skip rolling unknown saving throw '${pf2SavingThrow}'`);
+                    }
                 });
             }
         }
@@ -23,6 +62,9 @@ function registerPF2ActionClickListener() {
  */
 export function listen() {
     Hooks.once('setup', () => {
+        // Set local mystery-man icon
+        CONST.DEFAULT_TOKEN = 'systems/pf2e/icons/default-icons/mystery-man.svg';
+
         LocalizePF2e.ready = true;
 
         // Register actor and item sheets

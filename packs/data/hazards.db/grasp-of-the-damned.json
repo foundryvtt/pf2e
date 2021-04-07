@@ -70,6 +70,9 @@
             "rarity": {
                 "value": "common"
             },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -99,13 +102,11 @@
                     "unidentified": "",
                     "value": "<p><strong>Trigger</strong> Three or more sentient living creatures of 13th level or higher enter the haunt's area. <br /><strong>Effect</strong> The haunt deals 6d12+35 negative damage to each creature in the haunt's area, and each creature must attempt a DC 40 Will save. <br /><br /><strong>Critical Success</strong> The creature takes no damage and is doomed 1.<br /><strong>Success</strong> The creature takes half damage and is doomed 1.<br /><strong>Failure</strong> The creature takes full damage, becomes doomed 2, and is marked for damnation.<br /><strong>Critical Failure</strong> The creature takes double damage, becomes doomed 3, and is marked for damnation.If a creature that is marked for damnation dies within the next 24 hours, including from the haunt's damage, its soul is immediately dragged away to the plane of the evil deity that the damned spirits served, where the creature's soul is held captive by one of that deity's powerful servitors. Only <i>wish</i> and similarly potent effects are able to recover the lost soul directly; however, it is also possible to recover the soul by journeying to the evil plane and defeating the soul's captor.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -134,6 +135,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Mark for Damnation",
+            "sort": 100000,
             "type": "action"
         }
     ],
@@ -142,23 +144,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "siylw0zIh1g4VnCW",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Grasp Of The Damned",
         "randomImg": false,

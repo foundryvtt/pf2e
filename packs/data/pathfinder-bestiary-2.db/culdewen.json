@@ -577,9 +577,6 @@
                 "range": {
                     "value": "melee"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "reload": {
                     "value": ""
                 },
@@ -627,7 +624,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/mace.jpg",
             "name": "Oar (Functions as Mace)",
-            "sort": 1800000,
+            "sort": 100000,
             "type": "weapon"
         },
         {
@@ -749,9 +746,6 @@
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "reload": {
                     "value": ""
                 },
@@ -800,7 +794,7 @@
             },
             "img": "systems/pf2e/icons/equipment/weapons/ogre-hook.jpg",
             "name": "Fish Hook",
-            "sort": 1900000,
+            "sort": 200000,
             "type": "weapon"
         },
         {
@@ -816,7 +810,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 17,
                     "value": 17
                 },
                 "brokenThreshold": {
@@ -915,9 +908,6 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
@@ -941,6 +931,9 @@
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "melee"
+                },
                 "weight": {
                     "value": 0
                 }
@@ -963,7 +956,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 17,
                     "value": 17
                 },
                 "brokenThreshold": {
@@ -1062,9 +1054,6 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
@@ -1087,6 +1076,9 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "melee"
                 },
                 "weight": {
                     "value": 0
@@ -1112,7 +1104,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 18,
                     "value": 18
                 },
                 "brokenThreshold": {
@@ -1211,9 +1202,6 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
@@ -1268,9 +1256,6 @@
                     "unidentified": "",
                     "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
@@ -1305,64 +1290,6 @@
             "type": "action"
         },
         {
-            "_id": "GYapjknILGOMiV84",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "passive"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "value": ""
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [
-                    {
-                        "key": "PF2E.RuleElement.FlatModifier",
-                        "predicate": {
-                            "all": [
-                                "curse"
-                            ]
-                        },
-                        "selector": "saving-throw",
-                        "value": -2
-                    }
-                ],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "-2 Status Bonus on Saves vs Curses",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
             "_id": "bJzQGcgwU0vilj1V",
             "data": {
                 "actionCategory": {
@@ -1378,9 +1305,6 @@
                     "chat": "",
                     "unidentified": "",
                     "value": "<p>A culdewen that captures a creature is compelled to immediately retreat to a secluded place to eat, typically journeying by boat. The travel to the secluded place always takes at least 1 day. Their captive is cursed to vanish on the journey-typically being lost in the water or consumed by aquatic creatures-and can be recovered only by a @Compendium[pf2e.spells-srd.Wish]{Wish} spell or similarly powerful magic.</p>"
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
@@ -1428,6 +1352,61 @@
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
             "name": "Culdewen's Curse",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "GYapjknILGOMiV84",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "curse"
+                            ]
+                        },
+                        "selector": "saving-throw",
+                        "value": -2
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "icons/svg/mystery-man.svg",
+            "name": "-2 Status Bonus on Saves vs Curses",
             "sort": 800000,
             "type": "action"
         },
@@ -1447,9 +1426,6 @@
                     "chat": "",
                     "unidentified": "",
                     "value": "<p>A creature struck by the culdewen's fish hook is skewered, taking [[/r 1d4]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} as long as the hook remains stuck in it. The fish hook can be removed if a creature @Compendium[pf2e.actionspf2e.Escape]{Escapes} (DC 25), pulling it free.</p>"
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
@@ -1499,9 +1475,6 @@
                     "chat": "",
                     "unidentified": "",
                     "value": "<p><strong>Requirements</strong> A creature is hooked by the culdewen's fish hook and adjacent to the culdewen</p>\n<p><strong>Effect</strong> The culdewen hoists the creature over their shoulder, as though it weighs no more than a fish. Unless the creature is unable to act, the culdewen must attempt an Athletics check against the creature's Fortitude DC. On a success, the creature is @Compendium[pf2e.conditionitems.Restrained]{Restrained} by the culdewen. @Compendium[pf2e.actionspf2e.Escape]{Escaping} from the restrained condition (DC 25) also allows a creature to remove the hook.</p>\n<p>While hoisting a creature, the culdewen gains a +20-foot status bonus to their Speeds and is compelled to escape with it (see culdewen's curse above).</p>"
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
@@ -1568,9 +1541,6 @@
                     "unidentified": "",
                     "value": "<p>The culdewen pulls the rope attached to their hook. If they have no creature hooked, the fish hook returns to the culdewen's hand. If a creature is hooked, the culdewen attempts an Athletics check against the creature's Fortitude DC, pulling it up to 30 feet closer on a success (60 feet on a critical success).</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
@@ -1621,9 +1591,6 @@
                     "chat": "",
                     "unidentified": "",
                     "value": "<p>The culdewen unleashes a string of invectives. Each creature that hears them must attempt a DC 25 Will save, with the effects of @Compendium[pf2e.spells-srd.Mariner's Curse]{Mariner's Curse} and is then temporarily immune for 24 hours. Even on a failed save, the curse ends automatically after 1 day.</p>"
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "requirements": {
                     "value": ""
@@ -1679,9 +1646,6 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "slug": null,
                 "source": {
@@ -1721,9 +1685,6 @@
                 },
                 "proficient": {
                     "value": 0
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "rules": [],
                 "slug": null,
@@ -1765,9 +1726,6 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "slug": null,
                 "source": {
@@ -1807,9 +1765,6 @@
                 },
                 "proficient": {
                     "value": 0
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "rules": [],
                 "slug": null,
@@ -1851,9 +1806,6 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "slug": null,
                 "source": {
@@ -1894,9 +1846,6 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "slug": null,
                 "source": {
@@ -1936,9 +1885,6 @@
                 },
                 "proficient": {
                     "value": 0
-                },
-                "rarity": {
-                    "value": "common"
                 },
                 "rules": [],
                 "slug": null,

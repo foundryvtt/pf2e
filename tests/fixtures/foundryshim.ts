@@ -6,16 +6,16 @@
  * @param key {String}      The string key
  * @param value             The value to be assigned
  *
- * @return {Boolean}        A flag for whether or not the object was updated
+ * @return A flag for whether or not the object was updated
  */
-function setProperty(object: object, key: string, value): boolean {
+function setProperty(object: object, key: string, value: unknown): boolean {
     let target = object;
     let changed = false;
 
     // Convert the key to an object reference if it contains dot notation
     if (key.indexOf('.') !== -1) {
         const parts = key.split('.');
-        key = parts.pop();
+        key = parts.pop() ?? '';
         target = parts.reduce((o, i) => {
             if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
             return o[i];
@@ -34,10 +34,10 @@ function setProperty(object: object, key: string, value): boolean {
 
 /**
  * Learn the named type of a token - extending the functionality of typeof to recognize some core Object types
- * @param {*} token     Some passed token
- * @return {string}     The named type of the token
+ * @param token     Some passed token
+ * @return The named type of the token
  */
-function getType(token) {
+function getType(token: Token | null) {
     const tof = typeof token;
     if (tof === 'object') {
         if (token === null) return 'null';
@@ -53,11 +53,11 @@ function getType(token) {
  * Expand a flattened object to be a standard multi-dimensional nested Object by converting all dot-notation keys to
  * inner objects.
  *
- * @param {Object} obj  The object to expand
- * @param {Number} _d   Recursion depth, to prevent overflow
- * @return {Object}     An expanded object
+ * @param obj  The object to expand
+ * @param _d   Recursion depth, to prevent overflow
+ * @return An expanded object
  */
-function expandObject(obj, _d = 0) {
+function expandObject(obj: any, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error('Maximum depth exceeded');
     for (const [k, v0] of Object.entries(obj)) {
@@ -70,43 +70,43 @@ function expandObject(obj, _d = 0) {
 
 /**
  * A simple function to test whether or not an Object is empty
- * @param {Object} obj    The object to test
- * @return {Boolean}      Is the object empty?
+ * @param obj The object to test
+ * @return Is the object empty?
  */
-function isObjectEmpty(obj) {
-    if (getType(obj) !== 'Object') throw new Error('The provided data is not an object!');
+function isObjectEmpty(obj: unknown): boolean {
+    if (!(obj instanceof Object)) throw new Error('The provided data is not an object!');
     return Object.keys(obj).length === 0;
 }
 
 /**
  * A cheap data duplication trick, surprisingly relatively performant
- * @param {Object} original   Some sort of data
+ * @param original Some sort of data
  */
-function duplicate(original) {
+function duplicate<T>(original: T): T {
     return JSON.parse(JSON.stringify(original));
 }
 
 /**
  * Update a source object by replacing its keys and values with those from a target object.
  *
- * @param {Object} original     The initial object which should be updated with values from the target
- * @param {Object} other        A new object whose values should replace those in the source
+ * @param original     The initial object which should be updated with values from the target
+ * @param other        A new object whose values should replace those in the source
  *
- * @param {boolean} [insertKeys]      Control whether to insert new top-level objects into the resulting structure
+ * @param [insertKeys]      Control whether to insert new top-level objects into the resulting structure
  *                                    which do not previously exist in the original object.
- * @param {boolean} [insertValues]    Control whether to insert new nested values into child objects in the resulting
+ * @param [insertValues]    Control whether to insert new nested values into child objects in the resulting
  *                                    structure which did not previously exist in the original object.
- * @param {boolean} [overwrite]       Control whether to replace existing values in the source, or only merge values
+ * @param [overwrite]       Control whether to replace existing values in the source, or only merge values
  *                                    which do not already exist in the original object.
- * @param {boolean} [recursive]       Control whether to merge inner-objects recursively (if true), or whether to
+ * @param [recursive]       Control whether to merge inner-objects recursively (if true), or whether to
  *                                    simply replace inner objects with a provided new value.
- * @param {boolean} [inplace]         Control whether to apply updates to the original object in-place (if true),
+ * @param [inplace]         Control whether to apply updates to the original object in-place (if true),
  *                                    otherwise the original object is duplicated and the copy is merged.
- * @param {boolean} [enforceTypes]    Control whether strict type checking requires that the value of a key in the
+ * @param [enforceTypes]    Control whether strict type checking requires that the value of a key in the
  *                                    other object must match the data type in the original data to be merged.
- * @param {number} [_d]               A privately used parameter to track recursion depth.
+ * @param [_d]               A privately used parameter to track recursion depth.
  *
- * @returns {Object}            The original source object including updated, inserted, or overwritten records.
+ * @returns The original source object including updated, inserted, or overwritten records.
  *
  * @example <caption>Control how new keys and values are added</caption>
  * mergeObject({k1: "v1"}, {k2: "v2"}, {insertKeys: false}); // {k1: "v1"}
@@ -126,7 +126,7 @@ function duplicate(original) {
  * mergeObject({k1: "v1", k2: "v2"}, {"-=k1": null});   // {k2: "v2"}
  */
 function mergeObject(
-    original,
+    original: any,
     other = {},
     {
         insertKeys = true,
@@ -140,7 +140,7 @@ function mergeObject(
 ) {
     other = other || {};
     if (!(original instanceof Object) || !(other instanceof Object)) {
-        throw new Error('One of original or other are not Objects!');
+        throw Error('One of original or other are not Objects!');
     }
     const depth = _d + 1;
 
@@ -154,7 +154,7 @@ function mergeObject(
     // Iterate over the other object
     for (const [k0, v] of Object.entries(other)) {
         let k = k0;
-        const tv = getType(v);
+        const tv = getType(v as Token);
 
         // Prepare to delete
         let toDelete = false;
@@ -182,7 +182,7 @@ function mergeObject(
             if (tv === 'Object' && tx === 'Object' && recursive) {
                 mergeObject(
                     x,
-                    v,
+                    v as Token,
                     {
                         insertKeys,
                         insertValues,
@@ -231,13 +231,13 @@ function arrayEquals(self: any[], other: any[]) {
 
 /**
  * Deeply difference an object against some other, returning the update keys and values
- * @param {object} original     An object comparing data against which to compare.
- * @param {object} other        An object containing potentially different data.
- * @param {boolean} [inner]     Only recognize differences in other for keys which also exist in original.
- * @return {object}             An object of the data in other which differs from that in original.
+ * @param original     An object comparing data against which to compare.
+ * @param other        An object containing potentially different data.
+ * @param [inner]     Only recognize differences in other for keys which also exist in original.
+ * @return An object of the data in other which differs from that in original.
  */
-function diffObject(original, other, { inner = false } = {}) {
-    function _difference(v0, v1) {
+function diffObject(original: any, other: any, { inner = false } = {}) {
+    function _difference(v0: any, v1: any) {
         let t0 = getType(v0);
         let t1 = getType(v1);
         if (t0 !== t1) return [true, v1];

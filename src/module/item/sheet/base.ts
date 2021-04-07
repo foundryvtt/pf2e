@@ -7,6 +7,7 @@ import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
+import { SpellPF2e } from '@item/spell';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -66,7 +67,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
 
-        const itemData = duplicate(this.item.data);
+        const item = this.item;
+        const itemData = duplicate(item.data);
         const traits = itemData.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
@@ -89,7 +91,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (type === 'spell') {
+        } else if (item instanceof SpellPF2e) {
             // Spell Data
             mergeObject(data, {
                 spellTypes: CONFIG.PF2E.spellTypes,
@@ -102,6 +104,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 areaSizes: CONFIG.PF2E.areaSizes,
                 areaTypes: CONFIG.PF2E.areaTypes,
                 spellScalingModes: CONFIG.PF2E.spellScalingModes,
+                isRitual: item.data.data.traditions.value.includes('ritual'),
             });
 
             this.prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));

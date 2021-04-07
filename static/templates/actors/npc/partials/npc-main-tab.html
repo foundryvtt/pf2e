@@ -41,7 +41,7 @@
             <div class="section-body">
                 <div id="perception" class="labelled-field" data-attribute="perception">
                     <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
-                    <input class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}" type="number" value="{{ data.attributes.perception.value }}" data-base-property="data.attributes.perception.base" data-display-value="{{ data.attributes.perception.value }}" data-dtype="Number" placeholder="0"/>
+                    <input class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}" type="number" name="data.attributes.perception.value" value="{{ data.attributes.perception.value }}" data-base-property="data.attributes.perception.base" data-display-value="{{ data.attributes.perception.value }}" data-dtype="Number" placeholder="0"/>
                     <span class="plus{{#if (lt data.attributes.perception.value 10)}} lt10{{/if}}"></span>
                 </div>
                 {{# if options.editable }}
@@ -92,7 +92,7 @@
         </div>
         <div class="section-body">
             <ol class="attacks-list">
-                {{#each actor.attacks as |attack index|}}
+                {{#each attacks as |attack index|}}
                     {{> 'systems/pf2e/templates/actors/npc/partials/npc-attack.html' action=attack.attack traits=attack.traits actionId=index isEditable=../options.editable }}
                 {{/each}}
             </ol>
@@ -110,7 +110,7 @@
         </div>
         <div class="section-body">
             <ol class="actions-list">
-                {{#each actor.actions as |section sectionId|}}
+                {{#each actions as |section sectionId|}}
                     {{#unless (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}
                             {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
@@ -132,7 +132,7 @@
         </div>
         <div class="section-body">
             <ol class="actions-list">
-                {{#each actor.actions as |section sectionId|}}
+                {{#each actions as |section sectionId|}}
                     {{#if (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}
                             {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}

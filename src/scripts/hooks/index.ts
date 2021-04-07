@@ -7,7 +7,8 @@ import * as RenderSettings from './render-settings';
 import * as Setup from './setup';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
-import * as ChatDamageButtons from './chat-damage-buttons';
+import * as RenderChatLog from './render-chat-log';
+import * as RenderChatMessage from './render-chat-message';
 
 // eslint-disable-next-line @typescript-eslint/no-namespace
 export namespace PF2E {
@@ -18,11 +19,12 @@ export namespace PF2E {
             Init.listen();
             HotbarDrop.listen();
             Ready.listen();
+            RenderChatLog.listen();
+            RenderChatMessage.listen();
             RenderSettings.listen();
             Setup.listen();
             UpdateScene.listen();
             UpdateWorldTime.listen();
-            ChatDamageButtons.listen();
         },
     };
 }

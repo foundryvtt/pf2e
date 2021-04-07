@@ -5,9 +5,7 @@ import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
 import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
-    DexterityModifierCapData,
     ActorDataPF2e,
-    VehicleData,
     HazardData,
     AbilityString,
     isCreatureData,
@@ -126,7 +124,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
-        return match ? `systems/pf2e/icons/default-icons/${match[0]}.svg` : `icons/svg/mystery-man.svg`;
+        const filename = match ? `${match[0]}.svg` : 'mystery-man.svg';
+        return `systems/pf2e/icons/default-icons/${filename}`;
     }
 
     get defaultImg(): string {
@@ -338,40 +337,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             promises.push(scene.updateEmbeddedEntity('Token', local));
         }
         return Promise.all(promises);
-    }
-
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I,
-        options?: EntityCreateOptions,
-    ): Promise<I | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I[],
-        options?: EntityCreateOptions,
-    ): Promise<I | I[] | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I | I[],
-        options: EntityCreateOptions = {},
-    ): Promise<I | I[] | null> {
-        const createData = Array.isArray(data) ? data : [data];
-        for (const datum of createData) {
-            if (this.data.type === 'familiar' && !['condition', 'effect'].includes(datum.type)) {
-                ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
-                return null;
-            } else if (
-                this.data.type === 'vehicle' &&
-                !['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack', 'kit', 'action'].includes(
-                    datum.type,
-                )
-            ) {
-                ui.notifications.error(game.i18n.localize('PF2E.vehicle.ItemTypeError'));
-                return null;
-            }
-        }
-
-        return super.createEmbeddedEntity(embeddedName, createData, options);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -644,9 +609,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 attribute === 'attributes.shield' && shield?.isBroken === false
                     ? game.i18n.format('PF2E.UI.applyDamage.shieldActive', { shield: shield.name })
                     : game.i18n.localize('PF2E.UI.applyDamage.shieldInActive');
+            const shieldDamage =
+                attribute === 'attributes.shield' && shield?.isBroken === false && value > 0
+                    ? `(${Math.max(0, value - shield.hardness)})`
+                    : '';
             const appliedResult =
                 value > 0
-                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value
+                    ? game.i18n.localize('PF2E.UI.applyDamage.damaged') + value + shieldDamage
                     : game.i18n.localize('PF2E.UI.applyDamage.healed') + value * -1;
             const modifiedByGM = modifier !== 0 ? `Modified by GM: ${modifier < 0 ? '-' : '+'}${modifier}` : '';
             const by = game.i18n.localize('PF2E.UI.applyDamage.by');
@@ -1153,45 +1122,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
     }
 
-    /**
-     * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
-     *
-     * @param dexCap
-     */
-    async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-        if (!isCreatureData(this.data)) {
-            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
-        }
-        if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
-            throw new Error('numeric value is mandatory');
-        }
-        if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
-            throw new Error('source of cap is mandatory');
-        }
-
-        await this.update({ 'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap) });
-    }
-
-    /**
-     * Removes a previously added Dexterity modifier cap to AC.
-     */
-    async removeDexterityModifierCap(source: string) {
-        if (!isCreatureData(this.data)) {
-            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
-        }
-        if (!source) {
-            throw new Error('source of cap is mandatory');
-        }
-
-        // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
-        if (this.data.data.attributes.dexCap) {
-            const updated = this.data.data.attributes.dexCap.filter(
-                (cap: DexterityModifierCapData) => cap.source !== source,
-            );
-            await this.update({ 'data.attributes.dexCap': updated });
-        }
-    }
-
     /** Adds custom damage dice. */
     async addDamageDice(param: DamageDicePF2e) {
         if (!isCreatureData(this.data)) {
@@ -1304,12 +1234,6 @@ export class HazardPF2e extends ActorPF2e {}
 export interface HazardPF2e {
     data: HazardData;
     _data: HazardData;
-}
-
-export class VehiclePF2e extends ActorPF2e {}
-export interface VehiclePF2e {
-    data: VehicleData;
-    _data: VehicleData;
 }
 
 export type TokenPF2e = Token<ActorPF2e>;

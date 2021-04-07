@@ -27,9 +27,6 @@ export interface ItemDescriptionData {
     options?: {
         value: string[];
     };
-    rarity: {
-        value: Rarity;
-    };
     usage: {
         value: string;
     };
@@ -325,7 +322,7 @@ export interface MeleeDetailsData extends MagicDetailsData {
 
 export interface ConsumableDetailsData extends MagicDetailsData {
     consumableType: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['consumableTypes'];
     };
     uses: {
         value: number;
@@ -500,8 +497,13 @@ export interface TrickMagicItemCastData {
 }
 
 export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
+interface SpellTraits extends ItemTraits {
+    value: SpellTrait[];
+}
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
+    traits: SpellTraits;
     spellType: {
         value: string;
     };
