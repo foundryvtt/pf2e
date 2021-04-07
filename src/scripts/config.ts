@@ -344,7 +344,7 @@ export const PF2ECONFIG = {
         'salt water': 'PF2E.WeaknessTypeSaltWater',
         silver: 'PF2E.WeaknessTypeSilver',
         slashing: 'PF2E.DamageTypeSlashing',
-        sonic: 'PF2E.DamageTypeSonic',        
+        sonic: 'PF2E.DamageTypeSonic',
         'splash-damage': 'PF2E.WeaknessTypeSplashDamage',
         'vampire weaknesses': 'PF2E.WeaknessTypeVampireWeaknesses',
         vorpal: 'PF2E.WeaknessTypeVorpal',
