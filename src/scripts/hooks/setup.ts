@@ -3,6 +3,26 @@ import { registerSheets } from '../register-sheets';
 import { ActorPF2e } from '@actor/base';
 import { Rollable } from '@actor/data-definitions';
 import { PF2CheckDC } from '@system/check-degree-of-success';
+import { calculateXP } from '@scripts/macros/xp';
+import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
+import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
+import { raiseAShield } from '@scripts/macros/raise-a-shield';
+import { earnIncome } from '@scripts/macros/earn-income';
+import { WorldClock } from '@system/world-clock';
+import { EffectPanel } from '@system/effect-panel';
+import { DicePF2e } from '@scripts/dice';
+import {
+    AbilityModifier,
+    CheckModifier,
+    ModifierPF2e,
+    MODIFIER_TYPE,
+    ProficiencyModifier,
+    StatisticModifier,
+} from '@module/modifiers';
+import { CheckPF2e } from '@system/rolls';
+import { RuleElements } from '@module/rules/rules';
+import { ConditionManager } from '@module/conditions';
+import { StatusEffects } from '@scripts/actor/status-effects';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -154,5 +174,32 @@ export function listen() {
                 return obj;
             }, {});
         }
+
+        // Exposed objects for macros and modules
+        game.pf2e = {
+            actions: {
+                earnIncome,
+                raiseAShield,
+            },
+            rollItemMacro,
+            rollActionMacro,
+            gm: {
+                calculateXP,
+                launchTravelSheet,
+            },
+            effectPanel: new EffectPanel(),
+            worldClock: new WorldClock(),
+            DicePF2e: DicePF2e,
+            StatusEffects: StatusEffects,
+            ConditionManager: ConditionManager,
+            ModifierType: MODIFIER_TYPE,
+            Modifier: ModifierPF2e,
+            AbilityModifier: AbilityModifier,
+            ProficiencyModifier: ProficiencyModifier,
+            StatisticModifier: StatisticModifier,
+            CheckModifier: CheckModifier,
+            Check: CheckPF2e,
+            RuleElements,
+        };
     });
 }
