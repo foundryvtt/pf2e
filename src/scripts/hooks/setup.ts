@@ -15,8 +15,8 @@ function resolveActors(): ActorPF2e[] {
 }
 
 function registerPF2ActionClickListener() {
-    $('body').on('click', (event) => {
-        const target = event.target as HTMLElement | undefined;
+    $<HTMLBodyElement>('body').on('click', (event) => {
+        const target = event.target;
         if (target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
             const { pf2Action, pf2Glyph, pf2Variant } = target.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ?? ''];
@@ -62,6 +62,9 @@ function registerPF2ActionClickListener() {
  */
 export function listen() {
     Hooks.once('setup', () => {
+        // Set local mystery-man icon
+        CONST.DEFAULT_TOKEN = 'systems/pf2e/icons/default-icons/mystery-man.svg';
+
         LocalizePF2e.ready = true;
 
         // Register actor and item sheets
