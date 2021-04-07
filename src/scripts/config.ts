@@ -1056,6 +1056,7 @@ export const PF2ECONFIG = {
         serpentfolk: 'PF2E.TraitSerpentfolk',
         shabti: 'PF2E.TraitShabti',
         shadow: 'PF2E.TraitShadow',
+        siktempora: 'PF2E.TraitSiktempora',
         skeleton: 'PF2E.TraitSkeleton',
         skelm: 'PF2E.TraitSkelm',
         skulk: 'PF2E.TraitSkulk',
