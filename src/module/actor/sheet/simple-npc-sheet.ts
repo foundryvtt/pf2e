@@ -583,7 +583,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         for (const spell of spellsList) {
             const spellType = spell.data.time.value;
 
-            // Assign icon based on spell type
+            // Assign icon based on type of action
             if (spellType === 'reaction') {
                 spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
@@ -660,39 +660,40 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
             // Add prepared spells to spellcastinEntry
             if (entry.data.prepared && spellbooks[entry._id]) {
-                const preparedSpellBook = spellbooks[entry._id];
+                type SheetSpellData = SpellData & SheetEnrichedItemData;
+                type SpellbookSection = { prepared: Array<SheetSpellData | { _id?: unknown }> };
+
+                const preparedSpellBook: Record<string, SpellbookSection> = spellbooks[entry._id];
                 this.preparedSpellSlots(entry, preparedSpellBook);
                 // Enrich prepared spells
-                Object.values(preparedSpellBook as Record<string, any>).forEach((section) => {
-                    const prepared = section?.prepared as (SpellData & SheetEnrichedItemData)[];
-                    if (prepared.length > 0) {
-                        Object.values(prepared).forEach((spell) => {
-                            const spellType = spell.data.time.value;
-                            if (spellType) {
-                                // Assign icon based on spell type
-                                if (spellType === 'reaction') {
-                                    spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-                                } else if (spellType === 'free') {
-                                    spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-                                } else {
-                                    const actionsCost = parseInt(spellType, 10);
-                                    spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-                                }
-                                // Assign components
-                                spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                                spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                                spell.data.components.material = spell.data.components.value.includes('material');
-
-                                spell.traits = spell.data.traits.value.map((trait) => {
-                                    return {
-                                        label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                                        description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                                    };
-                                });
+                for (const section of Object.values(preparedSpellBook)) {
+                    const preparedSpells = section.prepared.filter(
+                        (spellData): spellData is SheetSpellData => !!spellData._id,
+                    );
+                    for (const spell of preparedSpells) {
+                        const actionType = spell.data.time.value;
+                        if (actionType) {
+                            // Assign icon based on spell type
+                            if (actionType === 'reaction') {
+                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
+                            } else if (actionType === 'free') {
+                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
+                            } else {
+                                const actionsCost = parseInt(actionType, 10);
+                                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
                             }
-                        });
+                            // Assign components
+                            spell.data.components.somatic = spell.data.components.value.includes('somatic');
+                            spell.data.components.verbal = spell.data.components.value.includes('verbal');
+                            spell.data.components.material = spell.data.components.value.includes('material');
+
+                            spell.traits = spell.data.traits.value.map((trait) => ({
+                                label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
+                                description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
+                            }));
+                        }
                     }
-                });
+                }
             }
             entry.spellbook = spellbooks[entry._id];
             spellcastingEntries.push(entry);
