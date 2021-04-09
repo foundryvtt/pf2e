@@ -20,6 +20,7 @@ import { ConditionManager } from './module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
 import { ItemType } from '@item/data-definitions';
+import { RuleElements } from '@module/rules/rules';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -47,6 +48,7 @@ declare global {
             StatisticModifier: typeof StatisticModifier;
             CheckModifier: typeof CheckModifier;
             Check: typeof CheckPF2e;
+            RuleElements: typeof RuleElements;
         };
     }
 
@@ -71,6 +73,7 @@ declare global {
     const canvas: Canvas<ActorPF2e>;
 
     interface ChatMessage extends Entity {
+        getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
         getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
     }
 
@@ -91,6 +94,8 @@ declare global {
         get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
+        get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
+        get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
     }
 
     interface WorldSettingsStorage {

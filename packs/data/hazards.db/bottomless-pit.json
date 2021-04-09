@@ -74,6 +74,9 @@
             "rarity": {
                 "value": "common"
             },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -104,13 +107,11 @@
                     "unidentified": "",
                     "value": "<p><strong>Trigger</strong> A creature walks onto the trapdoor. <br /><strong>Effect</strong> The triggering creature falls in and continues to fall, potentially forever. That creature can try to Grab an Edge to avoid falling (page 472). The DC to Climb the walls or Grab an Edge is 26.The pit contains many handholds, so the falling creature can try to Grab an Edge again every 6 seconds. If the creature succeeds, it can start to Climb out from that point (though it might be a very long climb, depending on how far the creature fell). Since the creature falls endlessly, it can rest and even prepare spells while falling, though items dropped while falling are usually lost forever.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -135,6 +136,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Infinite Pitfall",
+            "sort": 100000,
             "type": "action"
         }
     ],
@@ -143,23 +145,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "xkqjwu1ox0pQLOnb",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Bottomless Pit",
         "randomImg": false,

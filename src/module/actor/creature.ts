@@ -1,10 +1,11 @@
 import { ActorPF2e } from './base';
-import { CreatureAttributes, CreatureData } from './data-definitions';
+import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
 import { ItemDataPF2e } from '@item/data-definitions';
 import { MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
+import { ErrorPF2e } from '@module/utils';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -223,6 +224,47 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
         // No automated update yet, not sure if Community wants that.
         // return this.update({[`data.attributes.dying.value`]: dying}, [`data.attributes.wounded.value`]: wounded});
+    }
+
+    /**
+     * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
+     *
+     * @param dexCap
+     */
+    async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
+        console.warn('This method is deprecated and may be removed by June, 2021. Please use rule elements instead.');
+        if (this.data.type !== 'character' && this.data.type !== 'npc') {
+            throw ErrorPF2e('Custom dexterity caps only work on characters and NPCs');
+        }
+        if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
+            throw new Error('numeric value is mandatory');
+        }
+        if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
+            throw new Error('source of cap is mandatory');
+        }
+
+        await this.update({ 'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap) });
+    }
+
+    /**
+     * Removes a previously added Dexterity modifier cap to AC.
+     */
+    async removeDexterityModifierCap(source: string) {
+        console.warn('This method is deprecated and may be removed by June, 2021. Please use rule elements instead.');
+        if (this.data.type !== 'character' && this.data.type !== 'npc') {
+            throw ErrorPF2e('Custom dexterity caps only work on characters and NPCs');
+        }
+        if (!source) {
+            throw ErrorPF2e('Source of cap is mandatory');
+        }
+
+        // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
+        if (this.data.data.attributes.dexCap) {
+            const updated = this.data.data.attributes.dexCap.filter(
+                (cap: DexterityModifierCapData) => cap.source !== source,
+            );
+            await this.update({ 'data.attributes.dexCap': updated });
+        }
     }
 }
 

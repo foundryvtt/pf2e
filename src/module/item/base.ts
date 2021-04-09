@@ -12,13 +12,20 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, TokenPF2e } from '../actor/base';
-import { ItemDataPF2e, ItemTraits, SpellcastingEntryData, TrickMagicItemCastData } from './data-definitions';
+import {
+    ItemDataPF2e,
+    ItemTraits,
+    MeleeDetailsData,
+    SpellcastingEntryData,
+    TrickMagicItemCastData,
+} from './data-definitions';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
-import { AbilityString } from '@actor/data-definitions';
+import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { ErrorPF2e } from '@module/utils';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -171,10 +178,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll a Weapon Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollWeaponAttack(event?: JQuery.TriggeredEvent, multiAttackPenalty?: number) {
-        if (this.type === 'action') {
-            throw new Error('Wrong item type!');
-        }
+    rollWeaponAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== 'weapon' && this.type !== 'melee') throw new Error('Wrong item type!');
 
         // Prepare roll data
@@ -189,7 +193,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const prof = itemData.weaponType.value || 'simple';
         let parts = ['@itemBonus', `@abilities.${abl}.mod`];
 
-        const title = `${this.name} - Attack Roll${multiAttackPenalty ?? 1 > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
+        const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
         if (this.actor.data.type === 'npc') {
             parts = ['@itemBonus'];
@@ -231,10 +235,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Weapon Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollWeaponDamage(event: JQuery.TriggeredEvent, critical = false) {
+    rollWeaponDamage(event: JQuery.ClickEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
-        const item: ItemDataPF2e = this.data;
+        const item = this.data;
         // Check to see if this is a damage roll for either: a weapon, a NPC attack or an action associated with a weapon.
         if (item.type !== 'weapon') throw new Error('Wrong item type!');
         const itemData = item.data;
@@ -361,19 +365,20 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         });
     }
 
-    /* -------------------------------------------- */
-
     /**
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollNPCAttack(event, multiAttackPenalty?) {
-        if (this.type !== 'melee') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted to roll an attack without an actor!');
+    rollNPCAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+        if (this.type !== 'melee') throw ErrorPF2e('Wrong item type!');
+        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
+            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        }
         // Prepare roll data
-        // let itemData = this.data.data,
         const itemData: any = this.getChatData();
-        const rollData = duplicate(this.actor.data.data) as any;
+        const rollData: (RawNPCData | RawHazardData) & { item?: unknown; itemBonus?: number } = duplicate(
+            this.actor.data.data,
+        );
         const parts = ['@itemBonus'];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
@@ -387,7 +392,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             adjustment = -2;
         }
 
-        rollData.itemBonus = itemData.bonus.value + adjustment;
+        rollData.itemBonus = Number(itemData.bonus.value) + adjustment;
 
         if (multiAttackPenalty === 2) parts.push(itemData.map2);
         else if (multiAttackPenalty === 3) parts.push(itemData.map3);
@@ -413,17 +418,18 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll NPC Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamage(event, critical = false) {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'melee') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted to roll damage without an actor!');
+    rollNPCDamage(event: JQuery.ClickEvent, critical = false) {
+        if (this.data.type !== 'melee') throw ErrorPF2e('Wrong item type!');
+        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
+            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        }
 
         // Get item and actor data and format it for the damage roll
+        const item = this.data;
         const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        let parts = [];
-        const partsType = [];
-        const dtype = []; // CONFIG.PF2E.damageTypes[itemData.damage.damageType];
+        const rollData: (RawNPCData | RawHazardData) & { item?: MeleeDetailsData } = duplicate(this.actor.data.data);
+        let parts: Array<string | number> = [];
+        const partsType: string[] = [];
 
         // If the NPC is using the updated NPC Attack data object
         if (itemData.damageRolls && typeof itemData.damageRolls === 'object') {
@@ -436,8 +442,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         }
 
         // Set the title of the roll
-        let title = `${this.name}: ${partsType.join(', ')}`;
-        if (dtype.length) title += ` (${dtype})`;
+        const title = `${this.name}: ${partsType.join(', ')}`;
 
         // do nothing if no parts are provided in the damage roll
         if (parts.length === 0) {
@@ -513,7 +518,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellAttack(event, multiAttackPenalty?) {
+    rollSpellAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
@@ -548,7 +553,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             const spellAttack = useTrickData
                 ? trickMagicItemData?.data.spelldc.value
                 : spellcastingEntry?.data.spelldc.value;
-            const parts: number[] = [spellAttack ?? 0];
+            const parts = [Number(spellAttack) || 0];
             const title = `${this.name} - Spell Attack Roll`;
 
             const traits = this.actor.data.data.traits.traits.value;

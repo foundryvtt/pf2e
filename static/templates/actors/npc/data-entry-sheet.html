@@ -1,0 +1,67 @@
+<form class="{{cssClass}}" autocomplete="off">
+    <!-- data lists -->
+    <datalist id="creature-traits">
+        {{#each dataset.traits.creature as |label trait|}}
+        <option value="{{trait}}" label="{{label}}">
+        {{/each}}
+    </datalist>
+
+    <!-- input fields -->
+    <div class="form-group">
+        <label for="{{app.id}}-name">Name</label>
+        <input id="{{app.id}}-name" name="name" type="text" data-dtype="String" value="{{actor.name}}" tabindex="1" autofocus>
+    </div>
+    <div class="form-group">
+        <label for="{{app.id}}-level">Level</label>
+        <input id="{{app.id}}-level" name="data.details.level.value" type="number" data-dtype="Number" value="{{actor.data.details.level.value}}" tabindex="2">
+    </div>
+    <div class="form-group">
+        <label for="{{app.id}}-rarity">Rarity</label>
+        <select id="{{app.id}}-rarity" name="data.traits.rarity.value" data-dtype="String" tabindex="3">
+            {{#select data.traits.rarity.value}}
+            {{#each dataset.rarity as |label rarity|}}
+            <option value="{{rarity}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="{{app.id}}-alignment">Alignment</label>
+        <select id="{{app.id}}-alignment" name="data.details.alignment.value" data-dtype="String" tabindex="4">
+            {{#select data.details.alignment.value}}
+            {{#each dataset.alignment as |label alignment|}}
+            <option value="{{alignment}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="{{app.id}}-size">Size</label>
+        <select id="{{app.id}}-size" name="data.traits.size.value" data-dtype="String" tabindex="5">
+            {{#select data.traits.size.value}}
+            {{#each dataset.size as |label size|}}
+            <option value="{{size}}">{{label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
+    <div class="form-group">
+        <label for="{{app.id}}-actor-trait">Traits</label>
+        <input id="{{app.id}}-actor-trait" type="text" list="creature-traits" placeholder="Press &lt;Enter&gt; to add trait" tabindex="6">
+    </div>
+    {{#if (any data.traits.traits.value data.traits.traits.custom)}}
+    <div class="actor-traits tags">
+        {{#each data.traits.traits.value}}
+        {{#if (lookup ../dataset.traits.creature this)}}
+        <span class="tag" data-trait="{{this}}">{{lookup ../dataset.traits.creature this}}</span>
+        {{else}}
+        <span class="tag" data-trait="{{this}}">{{localize this}}</span>
+        {{/if}}
+        {{/each}}
+    </div>
+    {{/if}}
+    <div class="form-group">
+        <label for="{{app.id}}-perception">Perception</label>
+        <input id="{{app.id}}-perception" name="data.attributes.perception.value" type="number" data-dtype="Number" value="{{actor.data.attributes.perception.value}}" tabindex="7">
+    </div>
+</form>

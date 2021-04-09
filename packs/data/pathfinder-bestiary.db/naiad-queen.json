@@ -487,12 +487,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -609,6 +609,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -665,12 +666,12 @@
                 "proficiency": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "showUnpreparedSpells": {
                     "value": false
+                },
+                "signatureSpells": {
+                    "value": []
                 },
                 "slots": {
                     "slot0": {
@@ -734,6 +735,7 @@
                         "value": 0
                     }
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -765,7 +767,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "NeEIqc5xJzr36Ib4",
+            "_id": "QQqp1RinZl6aKTwr",
             "data": {
                 "ability": {
                     "value": ""
@@ -774,23 +776,26 @@
                     "areaType": "",
                     "value": null
                 },
+                "areasize": {
+                    "value": ""
+                },
                 "components": {
-                    "value": "to"
+                    "value": "somatic"
                 },
                 "cost": {
                     "value": ""
                 },
                 "damage": {
                     "applyMod": false,
-                    "value": "1d8"
+                    "value": ""
                 },
                 "damageType": {
-                    "value": "positive"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You call forth a tremendous wave to move the target either in a body of water or on the ground. The target must attempt a Fortitude save.</p>\n<hr /><strong>Failure</strong> You move the target 5 feet in any direction along the ground or 10 feet in any direction through a body of water.\n<p><strong>Critical Failure</strong> You move the target up to 10 feet in any direction along the ground or 20 feet in any direction through a body of water.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -799,11 +804,10 @@
                     "value": false
                 },
                 "level": {
-                    "preparedValue": 4,
-                    "value": 1
+                    "value": "4"
                 },
                 "location": {
-                    "value": "5o0UUpKthXNajkk0"
+                    "value": "KjfcluFESHubiTd6"
                 },
                 "materials": {
                     "value": ""
@@ -811,58 +815,66 @@
                 "prepared": {
                     "value": ""
                 },
-                "range": {
-                    "value": "varies"
+                "primarycheck": {
+                    "value": ""
                 },
-                "rarity": {
-                    "value": "common"
+                "range": {
+                    "value": "60 feet"
                 },
                 "rules": [],
                 "save": {
-                    "basic": "",
-                    "value": ""
+                    "basic": "basic",
+                    "value": "fortitude"
                 },
                 "scaling": {
                     "formula": "",
                     "mode": "none"
                 },
                 "school": {
-                    "value": "nec"
+                    "value": "evo"
                 },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": null,
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=458"
+                },
+                "spellCategorie": {
+                    "value": "focus"
                 },
                 "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
-                    "value": "heal"
+                    "value": "save"
                 },
                 "sustained": {
                     "value": false
                 },
                 "target": {
-                    "value": "1 willing living creature or 1 undead"
+                    "value": "1 creature"
                 },
                 "time": {
-                    "value": "3"
+                    "value": "1"
                 },
                 "traditions": {
-                    "custom": "",
                     "value": [
-                        "divine",
-                        "primal"
+                        "focus"
                     ]
                 },
                 "traits": {
                     "custom": "",
                     "rarity": {
-                        "value": "common"
+                        "value": "uncommon"
                     },
                     "value": [
-                        "healing",
-                        "necromancy",
-                        "positive"
+                        "cleric",
+                        "evocation",
+                        "water"
                     ]
                 },
                 "usage": {
@@ -870,119 +882,15 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.jpg",
-            "name": "Heal",
+            "flags": {
+                "dynamiceffects": {
+                    "alwaysActive": false,
+                    "equipActive": false
+                }
+            },
+            "img": "systems/pf2e/icons/spells/tidal-surge.jpg",
+            "name": "Tidal Surge",
             "sort": 300000,
-            "type": "spell"
-        },
-        {
-            "_id": "GseIPmpB0cigDpl9",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "components": {
-                    "value": "material, somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You conjure an animal to fight for you. You summon a common creature that has the animal trait and whose level is -1. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened</strong> Level 1</p>\n<p><strong>Heightened</strong> Level 2</p>\n<p><strong>Heightened</strong> Level 3</p>\n<p><strong>Heightened</strong> Level 5</p>\n<p><strong>Heightened</strong> Level 7</p>\n<p><strong>Heightened</strong> Level 9</p>\n<p><strong>Heightened</strong> Level 11</p>\n<p><strong>Heightened</strong> Level 13</p>\n<p><strong>Heightened</strong> Level 15</p>"
-                },
-                "duration": {
-                    "value": "sustained up to 1 minute"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "preparedValue": 4,
-                    "value": 1
-                },
-                "location": {
-                    "value": "5o0UUpKthXNajkk0"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "con"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=316"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "conjuration"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/summon-animal.jpg",
-            "name": "Summon Animal",
-            "sort": 400000,
             "type": "spell"
         },
         {
@@ -1034,9 +942,6 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1049,6 +954,7 @@
                 "school": {
                     "value": "trs"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=94"
                 },
@@ -1090,7 +996,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/earthbind.jpg",
             "name": "Earthbind",
-            "sort": 500000,
+            "sort": 400000,
             "type": "spell"
         },
         {
@@ -1148,9 +1054,6 @@
                 "range": {
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1169,6 +1072,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=147"
                 },
@@ -1211,119 +1115,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/haste.jpg",
             "name": "Haste",
-            "sort": 600000,
-            "type": "spell"
-        },
-        {
-            "_id": "gAjLBQR9zOAkEj4k",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "components": {
-                    "value": "to"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": "1d8"
-                },
-                "damageType": {
-                    "value": "positive"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "preparedValue": 3,
-                    "value": 1
-                },
-                "location": {
-                    "value": "5o0UUpKthXNajkk0"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "varies"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "nec"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "heal"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 willing living creature or 1 undead"
-                },
-                "time": {
-                    "value": "3"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "healing",
-                        "necromancy",
-                        "positive"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/heal.jpg",
-            "name": "Heal",
-            "sort": 700000,
+            "sort": 500000,
             "type": "spell"
         },
         {
@@ -1375,9 +1167,6 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1390,6 +1179,7 @@
                 "school": {
                     "value": "enc"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=11"
                 },
@@ -1431,7 +1221,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/animal-messenger.jpg",
             "name": "Animal Messenger",
-            "sort": 800000,
+            "sort": 600000,
             "type": "spell"
         },
         {
@@ -1483,9 +1273,6 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1498,6 +1285,7 @@
                 "school": {
                     "value": "evo"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=107"
                 },
@@ -1541,7 +1329,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/faerie-fire.jpg",
             "name": "Faerie Fire",
-            "sort": 900000,
+            "sort": 700000,
             "type": "spell"
         },
         {
@@ -1593,9 +1381,6 @@
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1608,6 +1393,7 @@
                 "school": {
                     "value": "trs"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=342"
                 },
@@ -1650,6 +1436,224 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/tree-shape.jpg",
             "name": "Tree Shape",
+            "sort": 800000,
+            "type": "spell"
+        },
+        {
+            "_id": "IGKOsdABGroJuUQF",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": "mental"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
+                },
+                "duration": {
+                    "value": "1 hour"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "KjfcluFESHubiTd6"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": "will"
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "enc"
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "save"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "emotion",
+                        "enchantment",
+                        "incapacitation",
+                        "mental"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/spells/charm.jpg",
+            "name": "Charm",
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "3Exir7CKTtG6xsLt",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>As you cup your hands, water begins to flow forth from them. You create 2 gallons of water. If no one drinks it, it evaporates after 1 day.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 1
+                },
+                "location": {
+                    "value": "KjfcluFESHubiTd6"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "0 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "con"
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=53"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "conjuration",
+                        "water"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/spells/create-water.jpg",
+            "name": "Create Water",
             "sort": 1000000,
             "type": "spell"
         },
@@ -1702,9 +1706,6 @@
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1717,6 +1718,7 @@
                 "school": {
                     "value": "trs"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=122"
                 },
@@ -1810,9 +1812,6 @@
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1825,6 +1824,7 @@
                 "school": {
                     "value": "evo"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=143"
                 },
@@ -1868,6 +1868,226 @@
             "img": "systems/pf2e/icons/spells/gust-of-wind.jpg",
             "name": "Gust of Wind",
             "sort": 1200000,
+            "type": "spell"
+        },
+        {
+            "_id": "NeEIqc5xJzr36Ib4",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "components": {
+                    "value": "to"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "1d8"
+                },
+                "damageType": {
+                    "value": "positive"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "preparedValue": 4,
+                    "value": 1
+                },
+                "location": {
+                    "value": "5o0UUpKthXNajkk0"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "nec"
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "healing",
+                        "necromancy",
+                        "positive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/spells/heal.jpg",
+            "name": "Heal",
+            "sort": 1300000,
+            "type": "spell"
+        },
+        {
+            "_id": "gAjLBQR9zOAkEj4k",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "components": {
+                    "value": "to"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": "1d8"
+                },
+                "damageType": {
+                    "value": "positive"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "preparedValue": 3,
+                    "value": 1
+                },
+                "location": {
+                    "value": "5o0UUpKthXNajkk0"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "varies"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "nec"
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "heal"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 willing living creature or 1 undead"
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "divine",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "healing",
+                        "necromancy",
+                        "positive"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/spells/heal.jpg",
+            "name": "Heal",
+            "sort": 1400000,
             "type": "spell"
         },
         {
@@ -1919,9 +2139,6 @@
                 "range": {
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -1934,6 +2151,7 @@
                 "school": {
                     "value": "abj"
                 },
+                "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=206"
                 },
@@ -1975,7 +2193,114 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/negate-aroma.jpg",
             "name": "Negate Aroma",
-            "sort": 1300000,
+            "sort": 1500000,
+            "type": "spell"
+        },
+        {
+            "_id": "GseIPmpB0cigDpl9",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": null
+                },
+                "components": {
+                    "value": "material, somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>You conjure an animal to fight for you. You summon a common creature that has the animal trait and whose level is -1. Heightening the spell increases the maximum level of creature you can summon.</p>\n<hr />\n<p><strong>Heightened</strong> Level 1</p>\n<p><strong>Heightened</strong> Level 2</p>\n<p><strong>Heightened</strong> Level 3</p>\n<p><strong>Heightened</strong> Level 5</p>\n<p><strong>Heightened</strong> Level 7</p>\n<p><strong>Heightened</strong> Level 9</p>\n<p><strong>Heightened</strong> Level 11</p>\n<p><strong>Heightened</strong> Level 13</p>\n<p><strong>Heightened</strong> Level 15</p>"
+                },
+                "duration": {
+                    "value": "sustained up to 1 minute"
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "preparedValue": 4,
+                    "value": 1
+                },
+                "location": {
+                    "value": "5o0UUpKthXNajkk0"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "con"
+                },
+                "slug": null,
+                "source": {
+                    "value": "https://2e.aonprd.com/Spells.aspx?ID=316"
+                },
+                "spellCategory": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "utility"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": ""
+                },
+                "time": {
+                    "value": "3"
+                },
+                "traditions": {
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "conjuration"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/spells/summon-animal.jpg",
+            "name": "Summon Animal",
+            "sort": 1600000,
             "type": "spell"
         },
         {
@@ -2027,9 +2352,6 @@
                 "range": {
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -2042,6 +2364,7 @@
                 "school": {
                     "value": "div"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2088,7 +2411,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/detect-magic.jpg",
             "name": "Detect Magic - Cantrips ",
-            "sort": 1400000,
+            "sort": 1700000,
             "type": "spell"
         },
         {
@@ -2140,9 +2463,6 @@
                 "range": {
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -2155,6 +2475,7 @@
                 "school": {
                     "value": "div"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2199,7 +2520,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/guidance.jpg",
             "name": "Guidance - Cantrips ",
-            "sort": 1500000,
+            "sort": 1800000,
             "type": "spell"
         },
         {
@@ -2251,9 +2572,6 @@
                 "range": {
                     "value": "touch"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -2266,6 +2584,7 @@
                 "school": {
                     "value": "evo"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2312,7 +2631,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/light.jpg",
             "name": "Light - Cantrips ",
-            "sort": 1600000,
+            "sort": 1900000,
             "type": "spell"
         },
         {
@@ -2364,9 +2683,6 @@
                 "range": {
                     "value": "120 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -2379,6 +2695,7 @@
                 "school": {
                     "value": "evo"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2424,7 +2741,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/spells/ray-of-frost.jpg",
             "name": "Ray of Frost - Cantrips ",
-            "sort": 1700000,
+            "sort": 2000000,
             "type": "spell"
         },
         {
@@ -2476,9 +2793,6 @@
                 "range": {
                     "value": "30 feet"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "save": {
                     "basic": "",
@@ -2491,6 +2805,7 @@
                 "school": {
                     "value": "nec"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -2537,357 +2852,6 @@
             },
             "img": "systems/pf2e/icons/spells/stabelize.jpg",
             "name": "Stabilize - Cantrips ",
-            "sort": 1800000,
-            "type": "spell"
-        },
-        {
-            "_id": "QQqp1RinZl6aKTwr",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "areasize": {
-                    "value": ""
-                },
-                "components": {
-                    "value": "somatic"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You call forth a tremendous wave to move the target either in a body of water or on the ground. The target must attempt a Fortitude save.</p>\n<hr /><strong>Failure</strong> You move the target 5 feet in any direction along the ground or 10 feet in any direction through a body of water.\n<p><strong>Critical Failure</strong> You move the target up to 10 feet in any direction along the ground or 20 feet in any direction through a body of water.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": "4"
-                },
-                "location": {
-                    "value": "KjfcluFESHubiTd6"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "primarycheck": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "60 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "basic",
-                    "value": "fortitude"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "evo"
-                },
-                "secondarycasters": {
-                    "value": ""
-                },
-                "secondarycheck": {
-                    "value": ""
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=458"
-                },
-                "spellCategorie": {
-                    "value": "focus"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "1"
-                },
-                "traditions": {
-                    "value": [
-                        "focus"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "uncommon"
-                    },
-                    "value": [
-                        "cleric",
-                        "evocation",
-                        "water"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
-                }
-            },
-            "img": "systems/pf2e/icons/spells/tidal-surge.jpg",
-            "name": "Tidal Surge",
-            "sort": 1900000,
-            "type": "spell"
-        },
-        {
-            "_id": "IGKOsdABGroJuUQF",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "components": {
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": "mental"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>To the target, your words are honey and your visage seems bathed in a dreamy haze. It must attempt a Will save, with a +4 circumstance bonus if you or your allies recently threatened it or used hostile actions against it.</p>\n<p>You can Dismiss the spell. If you use hostile actions against the target, the spell ends. When the spell ends, the target doesn't necessarily realize it was charmed unless its friendship with you or the actions you convinced it to take clash with its expectations, meaning you could potentially convince the target to continue being your friend via mundane means.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected and aware you tried to charm it.</p>\n<p><strong>Success</strong> The target is unaffected but thinks your spell was something harmless instead of charm, unless it identifies the spell (Identifying Spells section on page 305).</p>\n<p><strong>Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Friendly]{Friendly} toward you. If it was @Compendium[pf2e.conditionitems.Friendly]{Friendly}, it becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful}. It can't use hostile actions against you.</p>\n<p><strong>Critical Failure</strong> The target's attitude becomes @Compendium[pf2e.conditionitems.Helpful]{Helpful} toward you, and it can't use hostile actions against you.</p>\n<hr />\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations.</p>\n<p><strong>Heightened</strong> The duration lasts until the next time you make your daily preparations, and you can target up to 10 creatures.</p>"
-                },
-                "duration": {
-                    "value": "1 hour"
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "KjfcluFESHubiTd6"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": "will"
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "enc"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=34"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "save"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "occult",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "emotion",
-                        "enchantment",
-                        "incapacitation",
-                        "mental"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/charm.jpg",
-            "name": "Charm",
-            "sort": 2000000,
-            "type": "spell"
-        },
-        {
-            "_id": "3Exir7CKTtG6xsLt",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "components": {
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>As you cup your hands, water begins to flow forth from them. You create 2 gallons of water. If no one drinks it, it evaporates after 1 day.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": {
-                    "value": "KjfcluFESHubiTd6"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "0 feet"
-                },
-                "rarity": {
-                    "value": "common"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "con"
-                },
-                "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=53"
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "utility"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": ""
-                },
-                "time": {
-                    "value": "2"
-                },
-                "traditions": {
-                    "value": [
-                        "arcane",
-                        "divine",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "conjuration",
-                        "water"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/create-water.jpg",
-            "name": "Create Water",
             "sort": 2100000,
             "type": "spell"
         },
@@ -2900,8 +2864,8 @@
                 "attackEffects": {
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
-                    "total": 17,
                     "value": 17
                 },
                 "brokenThreshold": {
@@ -3000,13 +2964,11 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3027,6 +2989,9 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "melee"
                 },
                 "weight": {
                     "value": 0
@@ -3056,13 +3021,11 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3107,13 +3070,11 @@
                     "unidentified": "",
                     "value": "<p>The naiad can use Diplomacy to Make an Impression on and make very simple Requests of animals.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3158,13 +3119,11 @@
                     "unidentified": "",
                     "value": "<p>30 feet. DC 23. On a failed save, the target is stunned 1 for this turn and whenever it begins its turn within 30 feet of the naiad queen for the next 24 hours, even if it can't see her on subsequent turns.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3216,13 +3175,11 @@
                     "unidentified": "",
                     "value": "<p><br /> The monster changes its shape indefinitely. It can use this action again to return to its natural shape or adopt a new shape. Unless otherwise noted, a monster cannot use Change Shape to appear as a specific individual. Using Change Shape counts as creating a disguise for the Impersonate use of Deception. The monster's transformation automatically defeats Perception DCs to determine whether the creature is a member of the ancestry or creature type into which it transformed, and it gains a +4 status bonus to its Deception DC to prevent others from seeing through its disguise. Change Shape abilities specify what shapes the monster can adopt. The monster doesn't gain any special abilities of the new shape, only its physical form. For example, in each shape, it replaces its normal Speeds and Strikes, and might potentially change its senses or size. Any changes are listed in its stat block.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3272,13 +3229,11 @@
                     "unidentified": "",
                     "value": "<p>On a failed save, if the target was already affected by the naiad queen's beauty, the image of the queen sears into the creature's mind, allowing no further sight and effectively blinding the creature until restored via restore senses or a similar effect, or until the naiad queen chooses to remove the effect using a single action, which has the concentrate trait.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3331,13 +3286,11 @@
                     "unidentified": "",
                     "value": ""
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3387,13 +3340,11 @@
                     "unidentified": "",
                     "value": "<p>While within any body of water in her domain, the naiad queen heals 28 Hit Points every 10 minutes.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3443,10 +3394,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3485,9 +3434,6 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
@@ -3501,6 +3447,7 @@
                         "value": 4
                     }
                 ],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3545,10 +3492,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3587,10 +3532,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3629,10 +3572,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3671,10 +3612,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3713,10 +3652,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3755,10 +3692,8 @@
                 "proficient": {
                     "value": 0
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -3786,7 +3721,6 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "zA1I5YXI9GCSaksP",
         "actorLink": false,
         "bar1": {
@@ -3805,6 +3739,10 @@
         "img": "icons/svg/mystery-man.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Naiad Queen",
         "randomImg": false,

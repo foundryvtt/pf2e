@@ -74,6 +74,9 @@
             "rarity": {
                 "value": "common"
             },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -103,13 +106,11 @@
                     "unidentified": "",
                     "value": "<p><strong>Trigger</strong> The trip wire is pulled or severed.<br /><strong>Effect</strong> Both blades swing down, each one attacking all creatures under the ceiling grooves.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -136,6 +137,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Falling Scythes",
+            "sort": 100000,
             "type": "action"
         },
         {
@@ -144,7 +146,10 @@
                 "attack": {
                     "value": ""
                 },
-                "attackEffects": {},
+                "attackEffects": {
+                    "value": []
+                },
+                "baseItem": null,
                 "bonus": {
                     "value": 17
                 },
@@ -240,13 +245,11 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -274,6 +277,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/hazard.svg",
             "name": "Scythe",
+            "sort": 200000,
             "type": "melee"
         }
     ],
@@ -282,23 +286,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "7VqibTAEXXX6PIhh",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Scythe Blades",
         "randomImg": false,

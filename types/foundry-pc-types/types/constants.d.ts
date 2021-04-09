@@ -42,7 +42,7 @@ declare const CONST: {
     /**
      * The default artwork used for Token images if none is provided
      */
-    DEFAULT_TOKEN: 'icons/svg/mystery-man.svg';
+    DEFAULT_TOKEN: string;
 
     /**
      * The default artwork used for Note placeables if none is provided

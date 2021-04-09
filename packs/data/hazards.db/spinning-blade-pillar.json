@@ -74,6 +74,9 @@
             "rarity": {
                 "value": "common"
             },
+            "size": {
+                "value": "med"
+            },
             "traits": {
                 "custom": "",
                 "value": [
@@ -103,13 +106,11 @@
                     "unidentified": "",
                     "value": "<p><strong>Trigger</strong> A creature steps on one of the trapped floor tiles.<br /><strong>Effect</strong> The trap pops up in a grid intersection and makes a spinning blade attack against one adjacent creature (if any), then rolls initiative.</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -136,6 +137,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Rising Pillar",
+            "sort": 100000,
             "type": "action"
         },
         {
@@ -155,13 +157,11 @@
                     "unidentified": "",
                     "value": "<p>10 feet</p>"
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -186,6 +186,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.png",
             "name": "Speed",
+            "sort": 200000,
             "type": "action"
         },
         {
@@ -198,6 +199,7 @@
                     "custom": "",
                     "value": []
                 },
+                "baseItem": null,
                 "bonus": {
                     "value": 12
                 },
@@ -293,13 +295,11 @@
                 "quantity": {
                     "value": 1
                 },
-                "rarity": {
-                    "value": "common"
-                },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
+                "slug": null,
                 "source": {
                     "value": ""
                 },
@@ -327,6 +327,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/hazard.svg",
             "name": "Spinning Blade",
+            "sort": 300000,
             "type": "melee"
         }
     ],
@@ -335,23 +336,28 @@
         "default": 0
     },
     "token": {
-        "actorData": {},
         "actorId": "HnPd9Vqh5NHKEdRq",
         "actorLink": false,
-        "bar1": {},
+        "bar1": {
+            "attribute": "attributes.hp"
+        },
         "bar2": {},
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
         "dimSight": 0,
-        "displayBars": 0,
-        "displayName": 0,
-        "disposition": -1,
+        "displayBars": 20,
+        "displayName": 20,
+        "disposition": 0,
         "flags": {},
         "height": 1,
         "img": "systems/pf2e/icons/default-icons/hazard.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
+        "lightAnimation": {
+            "intensity": 5,
+            "speed": 5
+        },
         "lockRotation": false,
         "name": "Spinning Blade Pillar",
         "randomImg": false,

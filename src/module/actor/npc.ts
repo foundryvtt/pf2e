@@ -801,7 +801,7 @@ export class NPCPF2e extends CreaturePF2e {
                         note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
                         notes.push(note);
                     } else {
-                        ui.notifications.warn(game.i18n.format('PF2E.NPC.AttackEffectMissing', { attackEffect }));
+                        console.warn(game.i18n.format('PF2E.NPC.AttackEffectMissing', { attackEffect }));
                     }
                 }
             }
@@ -857,18 +857,16 @@ export class NPCPF2e extends CreaturePF2e {
             }
         })();
 
-        const traits = this.data.data.traits.traits;
         const toAdd = adjustment === 'normal' ? [] : [adjustment];
         const toRemove = adjustment === 'weak' ? ['elite'] : adjustment === 'elite' ? ['weak'] : ['elite', 'weak'];
-        traits.value = traits.value.filter((trait) => !toRemove.includes(trait)).concat(toAdd);
+        const newTraits = this._data.data.traits.traits.value
+            .filter((trait) => !toRemove.includes(trait))
+            .concat(toAdd);
 
-        await this.update(
-            {
-                'data.attributes.hp.value': Math.max(0, newHP),
-                'data.traits.traits.value': traits.value,
-            },
-            { diff: false },
-        );
+        await this.update({
+            'data.attributes.hp.value': Math.max(0, newHP),
+            'data.traits.traits.value': newTraits,
+        });
     }
 
     updateNPCAttitudeFromDisposition(disposition: number) {

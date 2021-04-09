@@ -11,8 +11,6 @@ import '@system/measure';
 import './styles/pf2e.scss';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
-require('./scripts/dice.ts');
-require('./scripts/chat/crit-fumble-cards.ts');
 require('./scripts/system/canvas-drop-handler');
 
 PF2E.Hooks.listen();
