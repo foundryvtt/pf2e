@@ -142,7 +142,7 @@ export class StatusEffects {
             Hooks.on('updateCombat', (combat) => {
                 const combatant = combat?.combatant;
                 const tokenId = combatant?.tokenId;
-                if (tokenId !== lastTokenId && combat?.started && combatant?.hasRolled && !combatant?.defeated) {
+                if (tokenId !== lastTokenId && combat?.started && combatant?.initiative != null && !combatant?.defeated) {
                     const token = canvas.tokens.get(tokenId);
                     lastTokenId = tokenId;
                     this._createChatMessage(token, combatant.hidden);
