@@ -1108,6 +1108,7 @@ export const PF2ECONFIG = {
         magical: 'PF2E.TraitMagical',
         mechanical: 'PF2E.TraitMechanical',
         summon: 'PF2E.TraitSummon',
+        trap: 'PF2E.TraitTrap',
     },
 
     traitsDescriptions: {
