@@ -618,7 +618,32 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Hide while in a Tree",
+                        "predicate": {
+                            "all": [
+                                "in-tree",
+                                "action:hide"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Sneak while in a Tree",
+                        "predicate": {
+                            "all": [
+                                "in-tree",
+                                "action:sneak"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -632,8 +657,12 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+7 to Hide and Sneak while in a tree",
-                        "options": ""
+                        "label": "+7 to Hide",
+                        "options": "action:hide,in-tree"
+                    },
+                    "1": {
+                        "label": "and Sneak , while in a tree",
+                        "options": "action:sneak,in-tree"
                     }
                 }
             },

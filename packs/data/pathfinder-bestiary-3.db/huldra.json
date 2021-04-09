@@ -814,7 +814,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Impersonate a human version of themselves",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate"
+                            ]
+                        },
+                        "selector": "deception",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -825,12 +837,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+17 to Impersonate a human version of themselves",
+                        "options": "action:impersonate"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Deception (+17 to Impersonate a human version of themselves)",
+            "name": "Deception",
             "sort": 900000,
             "type": "lore"
         },

@@ -727,7 +727,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "For paintings",
+                        "predicate": {
+                            "all": [
+                                "painting"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -738,12 +750,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+21 for paintings",
+                        "options": "painting"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Craft (+21 for Paintings)",
+            "name": "Crafting",
             "sort": 900000,
             "type": "lore"
         },

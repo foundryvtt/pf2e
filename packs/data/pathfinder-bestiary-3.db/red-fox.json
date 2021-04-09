@@ -557,7 +557,7 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "to Escape",
+                        "label": "To Escape",
                         "predicate": {
                             "all": [
                                 "action:escape"
@@ -610,10 +610,20 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "to High Jump or Long Jump",
+                        "label": "To High Jump",
                         "predicate": {
-                            "any": [
-                                "action:high-jump",
+                            "all": [
+                                "action:high-jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Long Jump",
+                        "predicate": {
+                            "all": [
                                 "action:long-jump"
                             ]
                         },
@@ -634,8 +644,12 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+4 to High Jump or Long Jump",
-                        "options": "action:high-jump, action:long-jump"
+                        "label": "+4 to High Jump",
+                        "options": "action:high-jump"
+                    },
+                    "1": {
+                        "label": "or Long Jump",
+                        "options": "action:long-jump"
                     }
                 }
             },

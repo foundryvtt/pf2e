@@ -2356,7 +2356,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p>An arcane living rune can move only along flat surfaces. If the surface it’s on is destroyed (such as a portrait hit by a @Compendium[pf2e.spells-srd.Fireball]{Fireball} spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
+                    "value": "<p>An occult living rune can move only along flat surfaces. If the surface it’s on is destroyed (such as a portrait hit by a @Compendium[pf2e.spells-srd.Fireball]{Fireball} spell or a wall being smashed), the living rune takes [[/r 7d6]] damage and is shunted to the nearest flat surface. If there is no flat surface within 5 feet, the living rune is destroyed.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2474,14 +2474,23 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "To Hide or Sneak among Inscriptions",
+                        "label": "To Sneak among inscriptions",
                         "predicate": {
                             "all": [
-                                "inscriptions"
-                            ],
-                            "any": [
-                                "action:hide",
+                                "inscription",
                                 "action:sneak"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 6
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Hide among inscriptions",
+                        "predicate": {
+                            "all": [
+                                "inscription",
+                                "action:hide"
                             ]
                         },
                         "selector": "stealth",
@@ -2501,8 +2510,12 @@
                 },
                 "variants": {
                     "0": {
-                        "label": "+31 to Hide or Sneak among inscriptions",
-                        "options": "action:hide;action:sneak;inscriptions"
+                        "label": "+31 to Hide",
+                        "options": "action:hide,inscription"
+                    },
+                    "1": {
+                        "label": "or Sneak , among inscriptions",
+                        "options": "action:sneak,inscription"
                     }
                 }
             },

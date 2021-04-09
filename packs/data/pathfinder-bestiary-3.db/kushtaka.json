@@ -2330,7 +2330,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Ocean",
+                        "predicate": {
+                            "all": [
+                                "terrain:ocean"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forest",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2341,12 +2364,22 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 in Oceans",
+                        "options": "terrain:ocean"
+                    },
+                    "1": {
+                        "label": "and Forest",
+                        "options": "terrain:forest"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+13 in Oceans and Forest)",
+            "name": "Stealth",
             "sort": 2400000,
             "type": "lore"
         }

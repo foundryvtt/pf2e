@@ -657,7 +657,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Escape",
+                        "predicate": {
+                            "all": [
+                                "action:escape"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -668,12 +680,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 to Escape",
+                        "options": "action:escape"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics (+7 to Escape)",
+            "name": "Acrobatics",
             "sort": 700000,
             "type": "lore"
         },

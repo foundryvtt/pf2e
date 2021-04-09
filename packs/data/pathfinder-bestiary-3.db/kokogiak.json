@@ -998,7 +998,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Snow",
+                        "predicate": {
+                            "all": [
+                                "terrain:snow"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1009,12 +1021,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+25 in Snow",
+                        "options": "terrain:snow"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+25 in Snow)",
+            "name": "Stealth",
             "sort": 1300000,
             "type": "lore"
         },
