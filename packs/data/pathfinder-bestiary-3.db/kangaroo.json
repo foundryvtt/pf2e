@@ -742,7 +742,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Long Jump",
+                        "predicate": {
+                            "all": [
+                                "action:long-jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -753,12 +765,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+9 to Long Jump",
+                        "options": "action:long-jump"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics (+9 to Long Jump)",
+            "name": "Athletics",
             "sort": 800000,
             "type": "lore"
         },

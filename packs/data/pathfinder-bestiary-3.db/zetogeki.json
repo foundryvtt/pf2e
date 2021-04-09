@@ -793,7 +793,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Mountains",
+                        "predicate": {
+                            "all": [
+                                "terrain:mountain"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -804,12 +816,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+16 in mountains",
+                        "options": "terrain:mountain"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+16 in mountains)",
+            "name": "Stealth",
             "sort": 900000,
             "type": "lore"
         }

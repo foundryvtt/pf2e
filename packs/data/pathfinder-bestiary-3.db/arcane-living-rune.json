@@ -2302,7 +2302,32 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Sneak among inscriptions",
+                        "predicate": {
+                            "all": [
+                                "inscription",
+                                "action:sneak"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 6
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Hide among inscriptions",
+                        "predicate": {
+                            "all": [
+                                "inscription",
+                                "action:hide"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 6
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2313,12 +2338,22 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+31 to Hide",
+                        "options": "action:hide,inscription"
+                    },
+                    "1": {
+                        "label": "or Sneak , among inscriptions",
+                        "options": "inscription,action:sneak"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+31 to Hide or Sneak among inscriptions)",
+            "name": "Stealth",
             "sort": 2100000,
             "type": "lore"
         }

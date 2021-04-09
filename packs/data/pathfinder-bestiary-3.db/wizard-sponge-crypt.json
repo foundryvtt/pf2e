@@ -653,7 +653,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Amid Decaying Plant Matter",
+                        "predicate": {
+                            "all": [
+                                "decaying-plants"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Amid Fungus",
+                        "predicate": {
+                            "all": [
+                                "terrain:fungus"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -664,12 +687,22 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+15 amid decaying plant matter",
+                        "options": "decaying-plants"
+                    },
+                    "1": {
+                        "label": "or fungus",
+                        "options": "terrain:fungus"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+15 amid decaying plant matter or fungus)",
+            "name": "Stealth",
             "sort": 800000,
             "type": "lore"
         }
