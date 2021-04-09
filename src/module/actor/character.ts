@@ -21,6 +21,7 @@ import {
     StatisticModifier,
     ProficiencyModifier,
     WISDOM,
+    ItemModifier,
 } from '../modifiers';
 import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '@system/damage/weapon';
@@ -976,6 +977,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const baseModifiers = [
                     AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
                     ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank),
+                    ItemModifier.fromValue(spellcastingEntry.data.item.value),
                 ];
                 const baseNotes = [] as PF2RollNote[];
                 [`${ability}-based`, 'all'].forEach((key) => {
