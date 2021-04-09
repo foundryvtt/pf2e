@@ -865,6 +865,7 @@ export const PF2ECONFIG = {
         morph: 'PF2E.TraitMorph',
         mutagen: 'PF2E.TraitMutagen',
         negative: 'PF2E.TraitNegative',
+        olfactory: 'PF2E.TraitOlfactory',
         oil: 'PF2E.TraitOil',
         poison: 'PF2E.TraitPoison',
         polymorph: 'PF2E.TraitPolymorph',
