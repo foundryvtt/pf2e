@@ -1378,7 +1378,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Command an Animal that is a reptile",
+                        "predicate": {
+                            "all": [
+                                "action:command-an-animal",
+                                "reptile"
+                            ]
+                        },
+                        "selector": "nature",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1389,12 +1402,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+8 to Command an Animal that is a reptile",
+                        "options": "action:command-an-animal,reptile"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Nature (+8 to Command an Animal that is a reptile)",
+            "name": "Nature",
             "sort": 1200000,
             "type": "lore"
         }

@@ -747,7 +747,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Underwater Vegetation",
+                        "predicate": {
+                            "all": [
+                                "underwater-vegetation"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -758,12 +770,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 in underwater vegetation",
+                        "options": "underwater-vegetation"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+12 in underwater vegetation)",
+            "name": "Stealth",
             "sort": 800000,
             "type": "lore"
         }

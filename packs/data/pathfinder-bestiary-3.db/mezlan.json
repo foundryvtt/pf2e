@@ -1005,7 +1005,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Impersonate",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate"
+                            ]
+                        },
+                        "selector": "deception",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1016,12 +1028,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+31 to Impersonate",
+                        "options": "action:impersonate"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Deception (+31 to Impersonate)",
+            "name": "Deception",
             "sort": 1300000,
             "type": "lore"
         },

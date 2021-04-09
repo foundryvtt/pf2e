@@ -921,7 +921,20 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Craft jewelry",
+                        "predicate": {
+                            "all": [
+                                "action:craft",
+                                "jewelry"
+                            ]
+                        },
+                        "selector": "crafting",
+                        "value": 5
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -932,12 +945,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+18 to Craft jewelry",
+                        "options": "action:craft,jewelry"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Crafting (+18 to Craft jewelry)",
+            "name": "Crafting",
             "sort": 900000,
             "type": "lore"
         },

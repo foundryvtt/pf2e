@@ -971,7 +971,41 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Disarm",
+                        "predicate": {
+                            "all": [
+                                "action:disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Grapple",
+                        "predicate": {
+                            "all": [
+                                "action:grapple"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To avoid being Disarmed",
+                        "predicate": {
+                            "all": [
+                                "avoid-disarm"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -982,12 +1016,26 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+17 to Disarm",
+                        "options": "action:disarm"
+                    },
+                    "1": {
+                        "label": "Grapple",
+                        "options": "action:grapple"
+                    },
+                    "2": {
+                        "label": "or to avoid being Disarmed",
+                        "options": "avoid-disarm"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics (+17 to Disarm, Grapple, or avoid being Disarmed)",
+            "name": "Athletics",
             "sort": 900000,
             "type": "lore"
         }
