@@ -905,6 +905,7 @@ export const PF2ECONFIG = {
         healing: 'PF2E.TraitHealing',
         hex: 'PF2E.TraitHex',
         incapacitation: 'PF2E.TraitIncapacitation',
+        inhaled: 'PF2E.TraitInhaled',
         light: 'PF2E.TraitLight',
         linguistic: 'PF2E.TraitLinguistic',
         litany: 'PF2E.TraitLitany',
