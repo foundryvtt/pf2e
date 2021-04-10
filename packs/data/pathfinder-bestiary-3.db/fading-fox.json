@@ -748,7 +748,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Escape",
+                        "predicate": {
+                            "all": [
+                                "action:escape"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -759,12 +771,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 to Escape",
+                        "options": "action:escape"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Acrobatics (+10 to Escape)",
+            "name": "Acrobatics",
             "sort": 900000,
             "type": "lore"
         },
@@ -783,7 +801,30 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To High Jump",
+                        "predicate": {
+                            "all": [
+                                "action:high-jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Long Jump",
+                        "predicate": {
+                            "all": [
+                                "action:long-jump"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -794,12 +835,22 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 to High Jump",
+                        "options": "action:high-jump"
+                    },
+                    "1": {
+                        "label": "or Long Jump",
+                        "options": "action:long-jump"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics (+7 to High Jump or Long Jump)",
+            "name": "Athletics",
             "sort": 1000000,
             "type": "lore"
         },

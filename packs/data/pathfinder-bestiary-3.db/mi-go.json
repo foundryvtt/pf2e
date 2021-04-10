@@ -884,7 +884,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Impersonate",
+                        "predicate": {
+                            "all": [
+                                "action:impersonate"
+                            ]
+                        },
+                        "selector": "deception",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -895,12 +907,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+18 to Impersonate",
+                        "options": "action:impersonate"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Deception (+18 to Impersonate)",
+            "name": "Deception",
             "sort": 1200000,
             "type": "lore"
         },
@@ -1108,7 +1126,7 @@
             "speed": 5
         },
         "lockRotation": false,
-        "name": "Mi-go",
+        "name": "Mi-Go",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,

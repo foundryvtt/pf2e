@@ -1256,7 +1256,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Steal",
+                        "predicate": {
+                            "all": [
+                                "action:steal"
+                            ]
+                        },
+                        "selector": "thievery",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1267,12 +1279,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+7 to Steal",
+                        "options": "action:steal"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Thievery (+7 to Steal)",
+            "name": "Thievery",
             "sort": 1300000,
             "type": "lore"
         }

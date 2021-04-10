@@ -159,16 +159,34 @@
         "items": {
             "0": {
                 "data": {
+                    "ability": {
+                        "value": ""
+                    },
                     "slots": {
                         "slot1": {
+                            "max": 1,
                             "value": 1
                         },
                         "slot2": {
+                            "max": 1,
                             "value": 1
                         },
                         "slot3": {
+                            "max": 1,
                             "value": 1
+                        },
+                        "slot4": {
+                            "max": 0,
+                            "value": 0
+                        },
+                        "slot5": {
+                            "max": 0,
+                            "value": 0
                         }
+                    },
+                    "spelldc": {
+                        "dc": 29,
+                        "value": 19
                     }
                 }
             },
@@ -290,6 +308,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -2061,7 +2082,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Forests",
+                        "predicate": {
+                            "all": [
+                                "terrain:forest"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 4
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
