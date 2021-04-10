@@ -1597,6 +1597,7 @@ export const PF2ECONFIG = {
         darkvision: 'PF2E.SensesDarkvision',
         greaterDarkvision: 'PF2E.SensesGreaterDarkvision',
         lowLightVision: 'PF2E.SensesLowLightVision',
+        motionsense: 'PF2E.SensesMotionsense',
         scent: 'PF2E.SensesScent',
         Tremorsense: 'PF2E.SensesTremorsense',
         tremorsense: 'PF2E.SensesTremorsense',
