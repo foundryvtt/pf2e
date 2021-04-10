@@ -30,8 +30,8 @@ declare global {
     interface Game {
         pf2e: {
             actions: { [key: string]: Function };
-            worldClock?: WorldClock;
-            effectPanel?: EffectPanel;
+            worldClock: WorldClock;
+            effectPanel: EffectPanel;
             rollActionMacro: typeof rollActionMacro;
             rollItemMacro: typeof rollItemMacro;
             gm: {
@@ -78,6 +78,7 @@ declare global {
     }
 
     interface User extends Entity {
+        getFlag(scope: 'pf2e', key: `showEffectPanel`): boolean | undefined;
         getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
     }
 
