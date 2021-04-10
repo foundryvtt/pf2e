@@ -232,6 +232,18 @@ export const ProficiencyModifier = Object.freeze({
     },
 });
 
+export const ItemModifier = Object.freeze({
+    /**
+     * Create a modifier for the given value. This is just a utility function to encapsulate item modifiers.
+     * @param level The level of the character which this modifier is being applied to.
+     * @param rank 0 = untrained, 1 = trained, 2 = expert, 3 = master, 4 = legendary
+     * @returns The modifier for the given proficiency rank and character level.
+     */
+    fromValue: (value: number): ModifierPF2e => {
+        return new ModifierPF2e(game.i18n.localize('PF2E.ItemBonusLabel'), value, MODIFIER_TYPE.ITEM);
+    },
+});
+
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as large. */
 const HIGHER_BONUS = (a: ModifierPF2e, b: ModifierPF2e) => a.modifier >= b.modifier;
 /** A comparison which rates the first modifier as better than the second if it's modifier is at least as small. */
