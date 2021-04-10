@@ -184,6 +184,7 @@ export function listen() {
             actions: {
                 earnIncome,
                 raiseAShield,
+                steelYourResolve,
             },
             rollItemMacro,
             rollActionMacro,
