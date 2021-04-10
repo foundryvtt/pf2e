@@ -3,6 +3,7 @@ import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
 import { CharacterPF2e } from '@actor/character';
+import { HomebrewElements } from './homebrew';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
@@ -153,16 +154,6 @@ export function registerSettings() {
         },
     });
 
-    game.settings.registerMenu('pf2e', 'worldClock', {
-        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
-        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
-        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
-        icon: 'far fa-clock',
-        type: WorldClockSettings,
-        restricted: true,
-    });
-    WorldClockSettings.registerSettings();
-
     game.settings.registerMenu('pf2e', 'variantRules', {
         name: 'PF2E.SETTINGS.Variant.Name',
         label: 'PF2E.SETTINGS.Variant.Label', // The text label used in the button
@@ -172,6 +163,26 @@ export function registerSettings() {
         restricted: true, // Restrict this submenu to gamemaster only?
     });
     VariantRulesSettings.registerSettings();
+
+    game.settings.registerMenu('pf2e', 'homebrew', {
+        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.name),
+        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.label),
+        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.hint),
+        icon: 'fas fa-beer',
+        type: HomebrewElements,
+        restricted: true,
+    });
+    HomebrewElements.registerSettings();
+
+    game.settings.registerMenu('pf2e', 'worldClock', {
+        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.name),
+        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.label),
+        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.hint),
+        icon: 'far fa-clock',
+        type: WorldClockSettings,
+        restricted: true,
+    });
+    WorldClockSettings.registerSettings();
 
     // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
     game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
