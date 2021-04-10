@@ -2426,7 +2426,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Swamps",
+                        "predicate": {
+                            "all": [
+                                "terrain:swamp"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2437,12 +2449,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+21 in Swamps",
+                        "options": "terrain:swamp"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+21 in Swamps)",
+            "name": "Stealth",
             "sort": 2600000,
             "type": "lore"
         }

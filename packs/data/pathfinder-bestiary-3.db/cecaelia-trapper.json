@@ -1123,7 +1123,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "To Grapple",
+                        "predicate": {
+                            "all": [
+                                "action:grapple"
+                            ]
+                        },
+                        "selector": "athletics",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1134,12 +1146,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+13 to Grapple",
+                        "options": "action:grapple"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Athletics (+13 to Grapple)",
+            "name": "Athletics",
             "sort": 1200000,
             "type": "lore"
         },

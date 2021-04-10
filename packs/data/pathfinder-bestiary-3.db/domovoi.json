@@ -1484,7 +1484,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Within their bound home",
+                        "predicate": {
+                            "all": [
+                                "bound-home"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1495,12 +1507,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+9 within their bound home",
+                        "options": "bound-home"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+9 within their bound home)",
+            "name": "Stealth",
             "sort": 1500000,
             "type": "lore"
         }
