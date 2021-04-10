@@ -24,8 +24,24 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => traits.has(trait));
     }
 
+    get isInvested(): boolean | null {
+        if (!this.traits.has('invested')) return null;
+        return 'invested' in this.data.data && this.data.data.invested.value === true;
+    }
+
     get isIdentified(): boolean {
         return PhysicalItemPF2e.isIdentified(this.data);
+    }
+
+    /** @override */
+    prepareData(): void {
+        super.prepareData();
+        // Disable active effects if the item isn't equipped and (if applicable) invested
+        if (!this.isEquipped || this.isInvested === false) {
+            for (const effectData of this.data.effects) {
+                effectData.disabled = true;
+            }
+        }
     }
 
     async setIsIdentified(value: boolean): Promise<this> {
