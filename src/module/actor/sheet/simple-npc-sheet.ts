@@ -303,9 +303,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.npc-weak-adjustment').on('click', () => this.onClickMakeWeak());
 
         // Handle spellcastingEntry attack and DC updates
-        html.find('.attack-input, .dc-input, .focus-points, .focus-pool').on('change', (event) =>
-            this.onSpellcastingEntryValueChanged(event),
-        );
+        html.find('.spellcasting-entry')
+            .find<HTMLInputElement | HTMLSelectElement>(
+                '.attack-input, .dc-input, .focus-points, .focus-pool, .ability-score select',
+            )
+            .on('change', (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
         html.find('.spell-slots-increment-reset').on('click', (event) => this.onSpellSlotIncrementReset(event));
@@ -1010,27 +1012,22 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private async onSpellcastingEntryValueChanged(event: JQuery.ChangeEvent) {
+    private async onChangeSpellcastingEntry(event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         event.preventDefault();
 
-        const itemId = $(event.currentTarget).parents('.spellcasting-entry').attr('data-container-id');
-        let value = Number(event.target.value);
-        let key = '';
-
-        if (event.currentTarget.classList.contains('dc-input')) {
-            key = 'data.spelldc.dc';
-        } else if (event.currentTarget.classList.contains('attack-input')) {
-            key = 'data.spelldc.value';
-        } else if (event.currentTarget.classList.contains('focus-points')) {
-            key = 'data.focus.points';
-        } else if (event.currentTarget.classList.contains('focus-pool')) {
-            if (value > 3) value = 3;
-            key = 'data.focus.pool';
-        }
-        const options: any = { _id: itemId };
-        options[key] = value;
-
-        await this.actor.updateEmbeddedEntity('OwnedItem', options);
+        const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
+        const itemId = $input.closest('.spellcasting-entry').attr('data-container-id') ?? '';
+        const key = $input.attr('data-base-property')?.replace(/data\.items\.\d+\./, '') ?? '';
+        const value =
+            $input.hasClass('focus-points') || $input.hasClass('focus-pool')
+                ? Math.min(Number($input.val()), 3)
+                : $input.is('select')
+                ? String($input.val())
+                : Number($input.val());
+        await this.actor.updateEmbeddedEntity('OwnedItem', {
+            _id: itemId,
+            [key]: value,
+        });
     }
 
     private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {
