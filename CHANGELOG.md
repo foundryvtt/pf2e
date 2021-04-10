@@ -1,5 +1,93 @@
 # Patch Notes:
 
+## Version 1.12.1
+### Bug Fixes
+* (stwlam) Fix price on physical item sheet sidebars. Closes #1301
+* (stwlam) Fix rolling of melee items from hazard actors
+* (stwlam) Fix spell preparation on simple NPC sheet
+* (stwlam) Reduce opacity of background image on legacy NPC sheet
+* (stwlam) Fix "new spell" label on simple NPC sheet
+* (oleh.krupko) Fix "Show Status Effects in Combat". Closes #1309
+
+### Content Changes
+* (stwlam) Add drop shadow to shoony ancestry default icon
+* (stwlam) Make _vomit swarm_ spell name on Volluk Azrinae less verbose
+* (stwlam) Fix _worm's repast_ spell on Volluk Azrinae
+* (stwlam) Fix save type of Flaming Sphere. Closes #1292
+* (SpartanCPA) Add Active Effect to Hold-Scarred Orc to update racial health. Closes #1262
+* (SpartanCPA) Ancient Sovereign Dragon is now properly 4x4 squares
+* (SpartanCPA) Add or correct variant skill rolls for Bestiary 3
+* (SpartanCPA) Correct typo in Divine Ally
+* (SpartanCPA) Remove page references from class descriptions
+* (Tikael) Add tusk attacks to Orc and Half-Orc feats
+* (TMun) Abomination Vaults Book 3 item and feat updates:
+    * Add trap trait to hazards list
+    * Add inhaled trait to respective sections for which it now applies
+    * Add repeating trait to weapons
+    * Add olfactory trait to consumables
+    * Add four new spells
+    * Update Nhimbaloth deity entry
+    * Add non-magical and magical items
+    * Add equipment effects for items
+    * Add drow shootist archetype and feats
+* (PimpWilly) Remove duplicate currency entries from the Advanced Players Guide classes. Closes #1308
+* (Ustin) Add Urdefhan Hunter, Kharostan, and Dominator to Extinction Curse Bestiary
+
+### Core System Improvements
+* (stwlam) Change default name for new melee items to "New Attack". Closes #1303
+* (stwlam) Make NPC gallery compendium easier to find for those looking for "GMG"
+* (stwlam) Add casting ability score select menu to simple NPC sheet
+
+
+## Version 1.12.0
+
+This release includes all monsters from the Bestiary 3, thanks to the hard work of TMun, Shandyan, SpartanCPA, Jaash, and others.
+
+### Bug Fixes
+* (Schmurf) Add tooltip for shield and healing icons in the damage chat card
+* (Schmurf) Add damage done to shield in damage chat card
+* (stwlam) Fix issue causing failure to show folders if all of one entity type is marked private
+* (stwlam) Update CompendiumDirectory ambient declarations to reflect what Foundry is serving out
+* (stwlam) Fix updating saves and perception values on simple sheet
+* (stwlam) Show rarity correctly on ancestry and background sheets. Closes #1270
+* (stwlam) Fix legacy NPC attacks with stringy melee attack modifiers. Closes #1275
+* (stwlam) Allow text for the saving throw comment in the new NPC sheet, instead of only a number
+* (stwlam) Fix drop & drop resorting of inventory items. Closes #1264
+* (In3luki) Fix damage buttons being appended to rollable table results
+
+### Content Changes
+* (SpartanCPA) Change Storm Retribution to be a reaction
+* (SpartanCPA) Remove page references from archetypes, ancestry features, actions, backgrounds, and bestiary ability glossary compendia
+* (SpartanCPA) Correct the type of bonus and duration for Cover. Closes #1268
+* (SpartanCPA) Remove feats and backpacks from NPCs who cannot display those item types
+* (stwlam) Change icon for the _mirror image_ spell
+* (stwlam) Mark the Paizo blog bestiary as private
+* (Overdox) Icon updates for equipment, spells, wands, and staves
+* (Tikael) Add April fools 2021 monsters
+* (Tikael) Brush up a few action descriptions with correct condition linking.
+* (Jaash) Changed Forensic Medicine description to match Advanced Player's Guide. Closes #1250
+* (Jaash) PFS Season 2 Bestiary brush-up for monsters starting with F through K
+* (Schmurf) Fix Spiritbound Aluum token size 1x1 to 2x2. Closes #1247
+* (VestOfHolding) Update spells to be in line with CRB 2nd Printing
+* (VestOfHolding) Update ancestries and their feats to be in line with CRB 2nd Printing
+* (TMun) Add olfactory trait and the description
+* (TMun) Add Change Shape to Kitsune ancestry automation. Closes #1278
+* (TMun) Change text for cleric skill feat increases to start at level 2. Remove reference to Druid Class DC. Fix name of Familiar Ability Verdant Burst. Add links to Leshy Familiar Secrets feat. Closes #1285 and #1287
+* (TMun) Add additional deadly traits. Closes #966
+* (Drental) Add duration to dueling parry and add dueling dance stance effect
+* (Ustin) Add Ararda and Iffdahsil from Extinction Curse Book 5
+
+### Core System Improvements
+* (stwlam) Make the simple sheet the default NPC sheet
+* (stwlam) Do not allow the user to create a condition or spellcasting entry from the sidebar
+* (stwlam) Mark `addDexterityModifierCap` and `removeDexterityModifierCap` as deprecated
+* (stwlam) Align item creation on simple NPC sheet
+* (stwlam) Add drop-shadow filters to default icons and utilize when creating actors/items
+* (Supe) Fix spell traits and only show ritual properties if ritual
+* (Supe) Expose RuleElements instance to allow modules to install custom rule elements
+* (nikolaj-a) Add support for inline saving throws
+
+
 ## Version 1.11.21
 ### Bug Fixes
 * (stwlam) Avoid localizing custom (lore) skills on NPCs

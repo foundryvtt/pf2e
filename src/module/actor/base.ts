@@ -5,7 +5,6 @@ import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
 import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
-    DexterityModifierCapData,
     ActorDataPF2e,
     HazardData,
     AbilityString,
@@ -125,7 +124,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
-        return match ? `systems/pf2e/icons/default-icons/${match[0]}.svg` : `icons/svg/mystery-man.svg`;
+        const filename = match ? `${match[0]}.svg` : 'mystery-man.svg';
+        return `systems/pf2e/icons/default-icons/${filename}`;
     }
 
     get defaultImg(): string {
@@ -1119,45 +1119,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             await this.update({ 'data.customModifiers': customModifiers });
         } else {
             throw Error('Custom modifiers can only be removed by name (string) or index (number)');
-        }
-    }
-
-    /**
-     * Adds a Dexterity modifier cap to AC. The cap with the lowest value will automatically be applied.
-     *
-     * @param dexCap
-     */
-    async addDexterityModifierCap(dexCap: DexterityModifierCapData) {
-        if (!isCreatureData(this.data)) {
-            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
-        }
-        if (dexCap.value === undefined || typeof dexCap.value !== 'number') {
-            throw new Error('numeric value is mandatory');
-        }
-        if (dexCap.source === undefined || typeof dexCap.source !== 'string') {
-            throw new Error('source of cap is mandatory');
-        }
-
-        await this.update({ 'data.attributes.dexCap': (this.data.data.attributes.dexCap ?? []).concat(dexCap) });
-    }
-
-    /**
-     * Removes a previously added Dexterity modifier cap to AC.
-     */
-    async removeDexterityModifierCap(source: string) {
-        if (!isCreatureData(this.data)) {
-            throw Error('Custom dexterity caps only work for characters, NPCs, and familiars');
-        }
-        if (!source) {
-            throw new Error('source of cap is mandatory');
-        }
-
-        // Dexcap may not exist / be unset if no custom dexterity caps have been added before.
-        if (this.data.data.attributes.dexCap) {
-            const updated = this.data.data.attributes.dexCap.filter(
-                (cap: DexterityModifierCapData) => cap.source !== source,
-            );
-            await this.update({ 'data.attributes.dexCap': updated });
         }
     }
 

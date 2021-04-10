@@ -189,7 +189,7 @@ function createOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onCreateOwnedItem(child, options, userID);
         }
 
-        game.pf2e.effectPanel?.refresh();
+        game.pf2e.effectPanel.refresh();
     }
 }
 
@@ -201,7 +201,7 @@ function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
-        game.pf2e.effectPanel?.refresh();
+        game.pf2e.effectPanel.refresh();
     }
 }
 
@@ -209,13 +209,13 @@ Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent) => {
     if (parent instanceof ActorPF2e) {
-        game.pf2e.effectPanel?.refresh();
+        game.pf2e.effectPanel.refresh();
     }
 });
 
 // effect panel
 Hooks.on('updateUser', () => {
-    game.pf2e.effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
@@ -275,11 +275,11 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
         }
     }
 
-    game.pf2e.effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('controlToken', () => {
-    game.pf2e?.effectPanel?.refresh();
+    game.pf2e?.effectPanel.refresh();
 });
 
 // world clock application

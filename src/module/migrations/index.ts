@@ -43,6 +43,8 @@ import { Migration609LootActorTraits } from './609-loot-actor-traits';
 import { Migration610SetHeritageFeatType } from './610-set-heritage-feat-type';
 import { Migration611UpdateToughnessMountainsStoutness } from './611-update-toughness-mountains-stoutness';
 import { Migration612NormalizeRarities } from './612-normalize-rarities';
+import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
+import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
 
 export class Migrations {
     private static list = [
@@ -90,6 +92,8 @@ export class Migrations {
         Migration610SetHeritageFeatType,
         Migration611UpdateToughnessMountainsStoutness,
         Migration612NormalizeRarities,
+        Migration613RemoveAmmoCharges,
+        Migration614NumifyMeleeBonuses,
     ];
 
     static get latestVersion(): number {

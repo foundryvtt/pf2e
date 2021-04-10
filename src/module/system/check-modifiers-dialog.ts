@@ -37,9 +37,9 @@ export class CheckModifiersDialog extends Application {
     /** Relevant context for this roll, like roll options. */
     context: CheckModifiersContext;
     /** Callback called when the roll occurs. */
-    callback?: (roll: Roll) => void;
+    callback?: (roll: Rolled<Roll>) => void;
 
-    constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    constructor(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Rolled<Roll>) => void) {
         super({
             title: context?.title || check.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html',
@@ -59,7 +59,11 @@ export class CheckModifiersDialog extends Application {
     }
 
     /** Roll the given check, rendering the roll to the chat menu. */
-    static async roll(check: StatisticModifier, context?: CheckModifiersContext, callback?: (roll: Roll) => void) {
+    static async roll(
+        check: StatisticModifier,
+        context?: CheckModifiersContext,
+        callback?: (roll: Rolled<Roll>) => void,
+    ) {
         const options: string[] = [];
         const ctx = (context as any) ?? {};
         let dice = '1d20';

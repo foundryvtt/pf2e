@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -1219,8 +1219,8 @@
                 },
                 "charges": {
                     "_deprecated": true,
-                    "max": 1,
-                    "value": 1
+                    "max": 0,
+                    "value": 0
                 },
                 "collapsed": {
                     "value": false
@@ -1357,7 +1357,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 13,
                     "value": 13
                 },
                 "brokenThreshold": {
@@ -1506,7 +1505,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 12,
                     "value": 12
                 },
                 "brokenThreshold": {
@@ -1655,7 +1653,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 12,
                     "value": 12
                 },
                 "brokenThreshold": {
@@ -1804,7 +1801,6 @@
                 },
                 "baseItem": null,
                 "bonus": {
-                    "total": 12,
                     "value": 12
                 },
                 "brokenThreshold": {
@@ -1992,7 +1988,7 @@
             "type": "action"
         },
         {
-            "_id": "lO8IH0sUZJBDoreu",
+            "_id": "OVyCsNi5aandXp9w",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2001,17 +1997,45 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration. <br />You gain a +2 circumstance bonus to Perception checks when you Seek your prey and a +2 circumstance bonus to Survival checks when you Track your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting. <br />You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
+                    "value": "<p>You designate a single creature as your prey and focus your attacks against that creature. You must be able to see or hear the prey, or you must be tracking the prey during exploration.</p>\n<p>You gain a +2 circumstance bonus to Perception checks when you Seek your prey and a +2 circumstance bonus to Survival checks when you @Compendium[pf2e.actionspf2e.Track]{Track} your prey. You also ignore the penalty for making ranged attacks within your second range increment against the prey you're hunting.</p>\n<p>You can have only one creature designated as your prey at a time. If you use Hunt Prey against a creature when you already have a creature designated, the prior creature loses the designation and the new prey gains the designation. Your designation lasts until your next daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is your Hunted Prey",
+                        "property": "flags.pf2e.rollOptions.all.hunted-prey"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey",
+                                "action:seek"
+                            ]
+                        },
+                        "selector": "perception",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hunted-prey",
+                                "action:track"
+                            ]
+                        },
+                        "selector": "survival",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2026,22 +2050,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.png",
             "name": "Hunt Prey",
             "sort": 1200000,
             "type": "action"
         },
         {
-            "_id": "WwBdO1t1vlxs1twb",
+            "_id": "Okk4imbIUOwkYs3E",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2050,12 +2071,93 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": "<p>When you focus on aiming, your attack becomes particularly accurate. Make a ranged weapon Strike against your hunted prey. On this Strike, you gain a +2 circumstance bonus to the attack roll and ignore your prey's concealed condition.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Hunter's Aim",
+                        "property": "flags.pf2e.rollOptions.attack-roll.hunters-aim"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Hunter's Aim",
+                        "predicate": {
+                            "all": [
+                                "hunters-aim",
+                                "hunted-prey"
+                            ],
+                            "not": [
+                                "finesse"
+                            ]
+                        },
+                        "selector": "dex-attack",
+                        "type": "circumstance",
+                        "value": 2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "all": [
+                                "hunters-aim",
+                                "hunted-prey"
+                            ],
+                            "not": [
+                                "finesse"
+                            ]
+                        },
+                        "selector": "dex-attack",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> Ignore your prey’s concealed condition.</p>"
+                    }
+                ],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "concentrate",
+                        "ranger"
+                    ]
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "name": "Hunter's Aim",
+            "sort": 1300000,
+            "type": "action"
+        },
+        {
+            "_id": "plcsZ25Y6jlruAMn",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, one in each hand</p>\n<hr />\n<p>You use your two weapons to parry attacks.</p>\n<p>You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if either weapon has the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry]{Effect: Twin Parry}</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry (Parry Trait)]{Effect: Twin Parry (Parry Trait)}</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2075,8 +2177,49 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Twin Parry",
+            "sort": 1400000,
+            "type": "action"
+        },
+        {
+            "_id": "TBCoGqPy0fhFmpMq",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> You are wielding two melee weapons, each in a different hand</p>\n<hr />\n<p>You swiftly attack your hunted prey with both weapons. Make two Strikes against your hunted prey, one with each of the required weapons. If both hit the same hunted prey, combine their damage for the purpose of its resistances and weaknesses. Apply your multiple attack penalty to each Strike normally.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
@@ -2084,9 +2227,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hunter's Aim",
-            "sort": 1300000,
+            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "name": "Twin Takedown",
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -2126,7 +2269,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1400000,
+            "sort": 1600000,
             "type": "lore"
         },
         {
@@ -2166,7 +2309,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1500000,
+            "sort": 1700000,
             "type": "lore"
         },
         {
@@ -2206,7 +2349,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 1600000,
+            "sort": 1800000,
             "type": "lore"
         },
         {
@@ -2246,7 +2389,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1700000,
+            "sort": 1900000,
             "type": "lore"
         },
         {
@@ -2286,7 +2429,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1800000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2326,7 +2469,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1900000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2366,113 +2509,8 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2000000,
-            "type": "lore"
-        },
-        {
-            "_id": "sBmoz7YFueCusAIJ",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> You are wielding two melee weapons, one in each hand</p>\n<hr />\n<p>You use your two weapons to parry attacks.</p>\n<p>You gain a +1 circumstance bonus to AC until the start of your next turn, or a +2 circumstance bonus if either weapon has the parry trait. You lose this circumstance bonus if you no longer meet this feat's requirement.</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry]{Effect: Twin Parry}</p>\n<p>@Compendium[pf2e.feat-effects.Effect: Twin Parry (Parry Trait)]{Effect: Twin Parry (Parry Trait)}</p>"
-                },
-                "featType": {
-                    "value": "class"
-                },
-                "level": {
-                    "value": 4
-                },
-                "location": "",
-                "prerequisites": [],
-                "rules": [],
-                "slug": "twin-parry",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "fighter",
-                        "ranger",
-                        "swashbuckler"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Y8LHfkzGyOhPlUou"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.jpg",
-            "name": "Twin Parry",
-            "sort": 2100000,
-            "type": "feat"
-        },
-        {
-            "_id": "jIX8bhDjp7xsgeM6",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": "1"
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Frequency</strong> once per round</p>\n<p><strong>Requirement</strong> You are wielding two melee weapons, each in a different hand</p>\n<hr />\n<p>You swiftly attack your hunted prey with both weapons. Make two Strikes against your hunted prey, one with each of the required weapons. If both hit the same hunted prey, combine their damage for the purpose of its resistances and weaknesses. Apply your multiple attack penalty to each Strike normally.</p>"
-                },
-                "featType": {
-                    "value": "class"
-                },
-                "level": {
-                    "value": 1
-                },
-                "location": "",
-                "prerequisites": [],
-                "rules": [],
-                "slug": "twin-takedown",
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "ranger",
-                        "flourish"
-                    ]
-                }
-            },
-            "effects": [],
-            "flags": {
-                "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.Gw0wGXikhAhiGoud"
-                }
-            },
-            "img": "systems/pf2e/icons/features/feats/feats.jpg",
-            "name": "Twin Takedown",
             "sort": 2200000,
-            "type": "feat"
+            "type": "lore"
         }
     ],
     "name": "Dmiri Yoltosha",

@@ -297,21 +297,17 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
-        html.find('.action-add').on('click', () => this.onAddActionClicked());
-        html.find('.add-weapon').on('click', () => this.onAddWeaponClicked());
-        html.find('.add-armor').on('click', () => this.onAddArmorClicked());
-        html.find('.add-equipment').on('click', () => this.onAddEquipmentClicked());
-        html.find('.add-consumable').on('click', () => this.onAddConsumableClicked());
-        html.find('.add-treasure').on('click', () => this.onAddTreasureClicked());
 
         // Adjustments
         html.find('.npc-elite-adjustment').on('click', () => this.onClickMakeElite());
         html.find('.npc-weak-adjustment').on('click', () => this.onClickMakeWeak());
 
         // Handle spellcastingEntry attack and DC updates
-        html.find('.attack-input, .dc-input, .focus-points, .focus-pool').on('change', (event) =>
-            this.onSpellcastingEntryValueChanged(event),
-        );
+        html.find('.spellcasting-entry')
+            .find<HTMLInputElement | HTMLSelectElement>(
+                '.attack-input, .dc-input, .focus-points, .focus-pool, .ability-score select',
+            )
+            .on('change', (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
         html.find('.spell-slots-increment-reset').on('click', (event) => this.onSpellSlotIncrementReset(event));
@@ -589,7 +585,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         for (const spell of spellsList) {
             const spellType = spell.data.time.value;
 
-            // Assign icon based on spell type
+            // Assign icon based on type of action
             if (spellType === 'reaction') {
                 spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
             } else if (spellType === 'free') {
@@ -666,39 +662,40 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
             // Add prepared spells to spellcastinEntry
             if (entry.data.prepared && spellbooks[entry._id]) {
-                const preparedSpellBook = spellbooks[entry._id];
+                type SheetSpellData = SpellData & SheetEnrichedItemData;
+                type SpellbookSection = { prepared: Array<SheetSpellData | { _id?: unknown }> };
+
+                const preparedSpellBook: Record<string, SpellbookSection> = spellbooks[entry._id];
                 this.preparedSpellSlots(entry, preparedSpellBook);
                 // Enrich prepared spells
-                Object.values(preparedSpellBook as Record<string, any>).forEach((section) => {
-                    const prepared = section?.prepared as (SpellData & SheetEnrichedItemData)[];
-                    if (prepared.length > 0) {
-                        Object.values(prepared).forEach((spell) => {
-                            const spellType = spell.data.time.value;
-                            if (spellType) {
-                                // Assign icon based on spell type
-                                if (spellType === 'reaction') {
-                                    spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-                                } else if (spellType === 'free') {
-                                    spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-                                } else {
-                                    const actionsCost = parseInt(spellType, 10);
-                                    spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-                                }
-                                // Assign components
-                                spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                                spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                                spell.data.components.material = spell.data.components.value.includes('material');
-
-                                spell.traits = spell.data.traits.value.map((trait) => {
-                                    return {
-                                        label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                                        description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                                    };
-                                });
+                for (const section of Object.values(preparedSpellBook)) {
+                    const preparedSpells = section.prepared.filter(
+                        (spellData): spellData is SheetSpellData => !!spellData._id,
+                    );
+                    for (const spell of preparedSpells) {
+                        const actionType = spell.data.time.value;
+                        if (actionType) {
+                            // Assign icon based on spell type
+                            if (actionType === 'reaction') {
+                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
+                            } else if (actionType === 'free') {
+                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
+                            } else {
+                                const actionsCost = parseInt(actionType, 10);
+                                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
                             }
-                        });
+                            // Assign components
+                            spell.data.components.somatic = spell.data.components.value.includes('somatic');
+                            spell.data.components.verbal = spell.data.components.value.includes('verbal');
+                            spell.data.components.material = spell.data.components.value.includes('material');
+
+                            spell.traits = spell.data.traits.value.map((trait) => ({
+                                label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
+                                description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
+                            }));
+                        }
                     }
-                });
+                }
             }
             entry.spellbook = spellbooks[entry._id];
             spellcastingEntries.push(entry);
@@ -967,63 +964,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         skillsEditor.render(true);
     }
 
-    private onAddActionClicked() {}
-
-    private onAddTreasureClicked() {
-        const itemType = 'treasure';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddConsumableClicked(): void {
-        const itemType = 'consumable';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddEquipmentClicked(): void {
-        const itemType = 'equipment';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddArmorClicked(): void {
-        const itemType = 'armor';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
-    private onAddWeaponClicked() {
-        const itemType = 'weapon';
-
-        const data: any = {
-            name: game.i18n.localize('ITEM.Type' + itemType.titleCase()),
-            type: itemType,
-        };
-
-        this.actor.createOwnedItem(data);
-    }
-
     private onClickExpandable(event: JQuery.ClickEvent): void {
         const $details = $(event.currentTarget).closest('li.item').find('.sub-section.expandable');
 
@@ -1072,27 +1012,22 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
     }
 
-    private async onSpellcastingEntryValueChanged(event: JQuery.ChangeEvent) {
+    private async onChangeSpellcastingEntry(event: JQuery.ChangeEvent<HTMLInputElement | HTMLSelectElement>) {
         event.preventDefault();
 
-        const itemId = $(event.currentTarget).parents('.spellcasting-entry').attr('data-container-id');
-        let value = Number(event.target.value);
-        let key = '';
-
-        if (event.currentTarget.classList.contains('dc-input')) {
-            key = 'data.spelldc.dc';
-        } else if (event.currentTarget.classList.contains('attack-input')) {
-            key = 'data.spelldc.value';
-        } else if (event.currentTarget.classList.contains('focus-points')) {
-            key = 'data.focus.points';
-        } else if (event.currentTarget.classList.contains('focus-pool')) {
-            if (value > 3) value = 3;
-            key = 'data.focus.pool';
-        }
-        const options: any = { _id: itemId };
-        options[key] = value;
-
-        await this.actor.updateEmbeddedEntity('OwnedItem', options);
+        const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
+        const itemId = $input.closest('.spellcasting-entry').attr('data-container-id') ?? '';
+        const key = $input.attr('data-base-property')?.replace(/data\.items\.\d+\./, '') ?? '';
+        const value =
+            $input.hasClass('focus-points') || $input.hasClass('focus-pool')
+                ? Math.min(Number($input.val()), 3)
+                : $input.is('select')
+                ? String($input.val())
+                : Number($input.val());
+        await this.actor.updateEmbeddedEntity('OwnedItem', {
+            _id: itemId,
+            [key]: value,
+        });
     }
 
     private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {

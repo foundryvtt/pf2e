@@ -10,21 +10,6 @@ import { raiseAShield } from '@scripts/macros/raise-a-shield';
 import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { ActionsPF2e } from '@system/actions/actions';
-import { ConditionManager } from '@module/conditions';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import { WorldClock } from '@system/world-clock';
-import { EffectPanel } from '@system/effect-panel';
-import { DicePF2e } from '@scripts/dice';
-import {
-    AbilityModifier,
-    CheckModifier,
-    ModifierPF2e,
-    MODIFIER_TYPE,
-    ProficiencyModifier,
-    StatisticModifier,
-} from '../../module/modifiers';
-import { CheckPF2e } from '@system/rolls';
-import { RuleElements } from '@module/rules/rules';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -79,22 +64,12 @@ export function listen(): void {
         };
         ActionsPF2e.exposeActions(game.pf2e.actions);
 
-        // Effect Panel singleton application
-        if (game.pf2e.effectPanel && (game.user.getFlag(game.system.id, 'showEffectPanel') ?? true)) {
-            game.pf2e.effectPanel.render(true);
-        }
-
         PlayerConfigPF2e.init();
         PlayerConfigPF2e.activateColorScheme();
 
         // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
         updateMinionActors();
         activateSocketListener();
-
-        // Requires ConditionManager to be fully loaded.
-        ConditionManager.init().then(() => {
-            StatusEffects.init();
-        });
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
         $('body').on('dragstart', 'a.entity-link', (event: JQuery.DragStartEvent) => {

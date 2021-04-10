@@ -1,6 +1,6 @@
 type TermUnion = Roll | DicePool | DiceTerm | number | string;
 
-type RollMode = 'blindroll' | 'gmroll' | 'roll' | 'selfroll';
+type RollMode = typeof CONST.DICE_ROLL_MODES[keyof typeof CONST.DICE_ROLL_MODES];
 
 /**
  * This class provides an interface and API for conducting dice rolls.
@@ -44,7 +44,7 @@ declare class Roll {
     /**
      * The identified terms of the Roll
      */
-    terms: ReturnType<Roll['_identifyTerms']>;
+    terms: TermUnion[];
 
     /**
      * The original "raw" formula before any substitutions or evaluation
@@ -140,7 +140,7 @@ declare class Roll {
      * console.log(r.result); // 5 + 4 + 2
      * console.log(r.total);  // 11
      */
-    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Roll;
+    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Rolled<Roll>;
 
     /**
      * Get an Array of any Die objects which were rolled as part of the evaluation of this roll
@@ -177,14 +177,14 @@ declare class Roll {
      * r.roll();
      * > 12
      */
-    roll(): Roll;
+    roll(): Rolled<Roll>;
 
     /**
      * Create a new Roll object using the original provided formula and data
      * Each roll is immutable, so this method returns a new Roll instance using the same data.
      * @returns A new Roll object, rolled using the same formula and data
      */
-    reroll(): Roll;
+    reroll(): Rolled<Roll>;
 
     /* -------------------------------------------- */
     /*  Helpers
@@ -287,7 +287,7 @@ declare class Roll {
      * @param terms  The input array of terms
      * @return The cleaned array of terms
      */
-    static cleanTerms(terms: DiceTerm | string | number[]): (Roll | DicePool | DiceTerm | number | string)[];
+    static cleanTerms(terms: TermUnion[]): TermUnion[];
 
     /**
      * Acquire data object representing the most-likely current actor.
@@ -316,3 +316,11 @@ declare class Roll {
      */
     static fromJSON(json: string): Roll;
 }
+
+/** An evaluated Roll instance */
+declare type Rolled<T extends Roll> = T & {
+    readonly result: string;
+    readonly total: number;
+    _rolled: true;
+    terms: (Rolled<Roll> | RolledDicePool | DiceTerm | number | string)[];
+};

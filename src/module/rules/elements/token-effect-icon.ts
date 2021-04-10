@@ -7,7 +7,7 @@ import { PF2RuleElement } from '../rule-element';
  */
 export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
     onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        const value = this.ruleData.value ?? item.img ?? 'icons/svg/mystery-man.svg';
+        const value = this.ruleData.value ?? item.img ?? 'systems/pf2e/icons/default-icons/mystery-man.svg';
         const safeValue = value.replace(/[.]/g, '-');
 
         // add the token effect if it is missing
@@ -31,7 +31,7 @@ export class PF2TokenEffectIconRuleElement extends PF2RuleElement {
     }
 
     onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
-        const value = this.ruleData.value ?? item.img ?? 'icons/svg/mystery-man.svg';
+        const value = this.ruleData.value ?? item.img ?? 'systems/pf2e/icons/default-icons/mystery-man.svg';
         const safeValue = value.replace(/[.]/g, '-');
         const effects =
             getProperty(actorUpdates, 'flags.pf2e.token.effects') ??

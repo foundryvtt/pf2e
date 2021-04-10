@@ -21,10 +21,11 @@ import {
 } from './data-definitions';
 import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
-import { AbilityString, RawNPCData } from '@actor/data-definitions';
+import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { ErrorPF2e } from '@module/utils';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -369,12 +370,15 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollNPCAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        if (this.type !== 'melee') throw new Error('Wrong item type!');
-        if (this.actor?.data?.type !== 'npc') throw new Error('Attempted to roll an attack without an actor!');
+        if (this.type !== 'melee') throw ErrorPF2e('Wrong item type!');
+        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
+            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        }
         // Prepare roll data
-        // let itemData = this.data.data,
         const itemData: any = this.getChatData();
-        const rollData: RawNPCData & { item?: unknown; itemBonus?: number } = duplicate(this.actor.data.data);
+        const rollData: (RawNPCData | RawHazardData) & { item?: unknown; itemBonus?: number } = duplicate(
+            this.actor.data.data,
+        );
         const parts = ['@itemBonus'];
         const title = `${this.name} - Attack Roll${multiAttackPenalty > 1 ? ` (MAP ${multiAttackPenalty})` : ''}`;
 
@@ -415,13 +419,15 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollNPCDamage(event: JQuery.ClickEvent, critical = false) {
-        const item = this.data;
-        if (item.type !== 'melee') throw new Error('Wrong item type!');
-        if (this.actor?.data?.type !== 'npc') throw new Error('Attempted to roll damage without an actor!');
+        if (this.data.type !== 'melee') throw ErrorPF2e('Wrong item type!');
+        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
+            throw ErrorPF2e('Attempted to roll an attack without an actor!');
+        }
 
         // Get item and actor data and format it for the damage roll
+        const item = this.data;
         const itemData = item.data;
-        const rollData: RawNPCData & { item?: MeleeDetailsData } = duplicate(this.actor.data.data);
+        const rollData: (RawNPCData | RawHazardData) & { item?: MeleeDetailsData } = duplicate(this.actor.data.data);
         let parts: Array<string | number> = [];
         const partsType: string[] = [];
 
