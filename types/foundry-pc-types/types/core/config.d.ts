@@ -3,7 +3,8 @@
 declare interface Config<
     ActorType extends Actor,
     ItemType extends Item,
-    EffectType extends ActiveEffect<ActorType | ItemType>
+EffectType extends ActiveEffect<ActorType | ItemType>,
+MessageType extends ChatMessage<ActorType>
 > {
     /**
      * Configure debugging flags to display additional information
@@ -47,6 +48,14 @@ declare interface Config<
         normalLightColor: number;
         objectBorderThickness: number;
         unexploredColor: number;
+    };
+
+    ChatMessage: {
+        batchSize: number;
+        collection: typeof Messages;
+        entityClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): MessageType };
+        sidebarIcon: string;
+        template: string;
     };
 
     /**
