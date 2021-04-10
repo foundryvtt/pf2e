@@ -109,6 +109,15 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     get roll(): Rolled<Roll>;
 
     /* -------------------------------------------- */
+    /*  HTML Rendering
+    /* -------------------------------------------- */
+
+    /**
+     * Render the HTML for the ChatMessage which should be added to the log
+     */
+    render(force?: boolean, options?: EntityRenderOptions): Promise<JQuery<HTMLLIElement>>;
+
+    /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
     /* -------------------------------------------- */
 

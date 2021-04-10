@@ -44,6 +44,12 @@ declare interface EntityDeleteOptions {
     [key: string]: unknown;
 }
 
+declare interface EntityRenderOptions extends RenderOptions {
+    data: {
+        permission?: boolean;
+    }
+}
+
 /**
  * An abstract class pattern for all primary data entities within the Foundry VTT Framework
  * An entity represents a primary data concept, for example: Actor, Item, Scene, or ChatMessage.
@@ -251,9 +257,10 @@ declare class Entity {
     /**
      * Render all of the Application instances which are connected to this Entity by calling their respective
      * {@link Application#render} methods.
-     * @param {...*} args      Variable arguments which are forwarded to each Application's render call
+     * @param  force   Force rendering
+     * @param  context Optional context
      */
-    render(...args: any): void;
+    render(force?: boolean, context?: EntityRenderOptions): unknown;
 
     /**
      * Test whether a provided User a specific permission level (or greater) over the Entity instance

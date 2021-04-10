@@ -9,11 +9,11 @@ import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
+import { ConsumablePF2e } from '@module/item/consumable';
 import { FeatPF2e } from '@module/item/feat';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
-import { ConsumablePF2e } from '@module/item/consumable';
 import {
     ActionPF2e,
     ContainerPF2e,
@@ -30,6 +30,7 @@ import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -2297,7 +2298,7 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.rarityTraits); // Traits Descriptions
 // TODO: Compute these!
 
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e> {
     /**
      * Configuration for the default Combat entity class
      */
@@ -2314,7 +2315,7 @@ export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e
     time: {
         roundTime: number;
     };
-    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e>['ui'] & {
+    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e>['ui'] & {
         combat: typeof CombatTrackerPF2e;
         compendium: typeof CompendiumDirectoryPF2e;
     };

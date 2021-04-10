@@ -3,7 +3,6 @@ import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
 import { ItemDataPF2e } from '@item/data-definitions';
-import { ItemPF2e } from './module/item/base';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
@@ -18,10 +17,6 @@ PF2E.Hooks.listen();
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
 /* -------------------------------------------- */
-
-// Activate global listeners
-Hooks.on('renderChatLog', (_log, html) => ItemPF2e.chatListeners(html));
-Hooks.on('renderChatPopout', (_log, html) => ItemPF2e.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**
