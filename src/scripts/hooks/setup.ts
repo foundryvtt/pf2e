@@ -7,6 +7,7 @@ import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
+import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';

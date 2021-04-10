@@ -3,12 +3,6 @@ import { PlayerConfigPF2e } from '@module/user/player-config';
 import { updateMinionActors } from '@scripts/actor/update-minions';
 import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
-import { calculateXP } from '@scripts/macros/xp';
-import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
-import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
-import { raiseAShield } from '@scripts/macros/raise-a-shield';
-import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
-import { earnIncome } from '@scripts/macros/earn-income';
 import { ActionsPF2e } from '@system/actions/actions';
 
 export function listen(): void {
@@ -35,33 +29,6 @@ export function listen(): void {
             }
         }
 
-        // Exposed objects for macros and modules
-        game.pf2e = {
-            actions: {
-                earnIncome,
-                raiseAShield,
-                steelYourResolve,
-            },
-            rollItemMacro,
-            rollActionMacro,
-            gm: {
-                calculateXP,
-                launchTravelSheet,
-            },
-            effectPanel: new EffectPanel(),
-            worldClock: new WorldClock(),
-            DicePF2e: DicePF2e,
-            StatusEffects: StatusEffects,
-            ConditionManager: ConditionManager,
-            ModifierType: MODIFIER_TYPE,
-            Modifier: ModifierPF2e,
-            AbilityModifier: AbilityModifier,
-            ProficiencyModifier: ProficiencyModifier,
-            StatisticModifier: StatisticModifier,
-            CheckModifier: CheckModifier,
-            Check: CheckPF2e,
-            RuleElements,
-        };
         ActionsPF2e.exposeActions(game.pf2e.actions);
 
         PlayerConfigPF2e.init();
