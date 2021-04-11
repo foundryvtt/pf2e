@@ -151,6 +151,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
+
         // NPC Weapon Rolling
         html.find('button').on('click', (event) => {
             event.preventDefault();
