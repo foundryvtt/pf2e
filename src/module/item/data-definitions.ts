@@ -638,9 +638,6 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     showUnpreparedSpells: {
         value: boolean;
     };
-    item: {
-        value: number;
-    };
     proficiency: {
         value: number;
     };
