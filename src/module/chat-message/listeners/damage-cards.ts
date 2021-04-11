@@ -6,7 +6,7 @@ import { StatisticModifier } from '@module/modifiers';
 
 export const DamageCards = {
     listen: ($html: JQuery) => {
-        $html.on('click', '.card-buttons button', (event) => {
+        $html.on('click', '.card-buttons button', async (event) => {
             event.preventDefault();
 
             // Extract card data
@@ -38,21 +38,24 @@ export const DamageCards = {
                 actor = game.actors.get(card.attr('data-actor-id') ?? '');
             }
 
-            // Get the Item
             if (!actor) return;
+
+            // Get the Item
             const itemId = card.attr('data-item-id') ?? '';
             let item: Owned<ItemPF2e> | null = null;
             let itemData: ItemDataPF2e | undefined = undefined;
             const embeddedItem = $(event.target).parents('.item-card').attr('data-embedded-item');
             if (embeddedItem) {
+                // Pulling data from embedded items should eventually be phased out
                 itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
                 if (itemData) {
-                    item = actor.items.get(itemData._id);
+                    item = actor.items.get(itemData._id) ?? (await ItemPF2e.createOwned(itemData, actor));
                 }
             } else {
                 item = actor.getOwnedItem(itemId);
                 itemData = item?.data;
             }
+
             if (item && itemData) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
                     (a: StatisticModifier) => a.item === itemId,
