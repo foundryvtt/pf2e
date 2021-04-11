@@ -3,9 +3,12 @@ import { SpellData } from './data-definitions';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export class SpellPF2e extends ItemPF2e {
-    // todo: does this still have a point? If not, remove it
-    getSpellInfo() {
-        return this.getChatData();
+    get level(): number {
+        return this.data.data.level.value;
+    }
+
+    get heightenedLevel(): number {
+        return this.data.data.heightenedLevel.value;
     }
 
     get spellcasting(): SpellcastingEntryPF2e | undefined {

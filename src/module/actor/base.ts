@@ -24,7 +24,7 @@ import {
 } from '../rules/rules-data-definitions';
 import { PhysicalItemPF2e } from '@item/physical';
 import { PF2RollNote } from '../notes';
-import { ErrorPF2e, objectHasKey } from '@module/utils';
+import { objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
@@ -666,7 +666,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 }
             }
         } else {
-            throw ErrorPF2e(game.i18n.localize('PF2E.UI.errorTargetToken'));
+            ui.notifications.error(game.i18n.localize('PF2E.UI.errorTargetToken'));
         }
     }
 
