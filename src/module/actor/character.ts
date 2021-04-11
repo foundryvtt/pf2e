@@ -734,7 +734,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
                 const traits = item.data.traits.value;
                 const melee =
-                    ['melee', 'reach', ''].includes(item.data.range?.value.trim()) ||
+                    ['melee', 'reach', ''].includes(item.data.range?.value?.trim()) ||
                     traits.some((t) => t.startsWith('thrown'));
                 const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
                     .concat(...traits) // always add weapon traits as options
