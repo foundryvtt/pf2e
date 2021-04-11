@@ -7,7 +7,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     latestVersion: number;
     migrations: MigrationBase[];
 
-    constructor(migrations: MigrationBase[]) {
+    constructor(migrations: MigrationBase[] = []) {
         super(migrations);
     }
 

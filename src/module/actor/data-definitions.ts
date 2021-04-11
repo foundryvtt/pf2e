@@ -283,6 +283,8 @@ export interface Abilities {
 export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
+export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
     senses: LabeledString[];

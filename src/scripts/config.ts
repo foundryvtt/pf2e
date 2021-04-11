@@ -2213,6 +2213,35 @@ export const PF2ECONFIG = {
     },
 
     SETTINGS: {
+        homebrew: {
+            name: 'PF2E.SETTINGS.Homebrew.Name',
+            label: 'PF2E.SETTINGS.Homebrew.Label',
+            hint: 'PF2E.SETTINGS.Homebrew.Hint',
+            creatureTraits: {
+                name: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Hint',
+            },
+            languages: {
+                name: 'PF2E.SETTINGS.Homebrew.Languages.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.Languages.Hint',
+            },
+            spellSchools: {
+                name: 'PF2E.SETTINGS.Homebrew.SpellSchools.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.SpellSchools.Hint',
+            },
+            weaponCategories: {
+                name: 'PF2E.SETTINGS.Homebrew.WeaponCategories.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.WeaponCategories.Hint',
+            },
+            weaponGroups: {
+                name: 'PF2E.SETTINGS.Homebrew.WeaponGroups.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.WeaponGroups.Hint',
+            },
+            baseWeapons: {
+                name: 'PF2E.SETTINGS.Homebrew.BaseWeapons.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.BaseWeapons.Hint',
+            },
+        },
         worldClock: {
             name: 'PF2E.SETTINGS.WorldClock.Name',
             label: 'PF2E.SETTINGS.WorldClock.Label',

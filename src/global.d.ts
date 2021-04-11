@@ -21,6 +21,7 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
 import { ItemType } from '@item/data-definitions';
 import { RuleElements } from '@module/rules/rules';
+import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -97,6 +98,7 @@ declare global {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
+        get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
     }
 
     interface WorldSettingsStorage {
