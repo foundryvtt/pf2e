@@ -45,6 +45,7 @@ import { Migration611UpdateToughnessMountainsStoutness } from './611-update-toug
 import { Migration612NormalizeRarities } from './612-normalize-rarities';
 import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
 import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
+import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 
 export class Migrations {
     private static list = [
@@ -94,6 +95,7 @@ export class Migrations {
         Migration612NormalizeRarities,
         Migration613RemoveAmmoCharges,
         Migration614NumifyMeleeBonuses,
+        Migration615RemoveInstinctTrait,
     ];
 
     static get latestVersion(): number {
