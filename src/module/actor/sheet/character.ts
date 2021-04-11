@@ -301,7 +301,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     spellRank,
                 ).modifier;
                 const spellAbl = i.data.ability.value || 'int';
-                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
                 if (i.data.spelldc.value !== spellAttack) {
                     const updatedItem = {
                         _id: i._id,
@@ -316,7 +316,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.actor.updateEmbeddedEntity('OwnedItem', updatedItem);
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
+                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
