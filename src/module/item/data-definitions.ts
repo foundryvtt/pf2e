@@ -166,8 +166,9 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+export type WeaponCategoryKey = keyof ConfigPF2e['PF2E']['weaponCategories'];
 export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export interface WeaponDamage {
     value: string;
     dice: number;
@@ -178,11 +179,12 @@ export interface WeaponDamage {
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string;
+        value: string | null;
     };
     group: {
-        value: WeaponGroupKey;
+        value: WeaponGroupKey | null;
     };
+    baseItem: BaseWeaponKey | null;
     hands: {
         value: boolean;
     };

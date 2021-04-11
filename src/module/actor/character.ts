@@ -710,7 +710,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank;
                 const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank;
                 const proficiencyRank = Math.max(
-                    proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                    proficiencies[item.data.weaponType.value ?? '']?.rank ?? 0,
                     baseWeaponRank ?? 0,
                     groupRank ?? 0,
                 );
@@ -727,14 +727,14 @@ export class CharacterPF2e extends CreaturePF2e {
                     'all',
                 ];
 
-                const itemGroup = item.data?.group?.value;
+                const itemGroup = item.data.group.value ?? '';
                 if (itemGroup) {
-                    selectors.push(`${item.data.group.value.toLowerCase()}-weapon-group-attack`);
+                    selectors.push(`${itemGroup.toLowerCase()}-weapon-group-attack`);
                 }
 
                 const traits = item.data.traits.value;
                 const melee =
-                    ['melee', 'reach', ''].includes(item.data?.range?.value?.trim()) ||
+                    ['melee', 'reach', ''].includes(item.data.range?.value?.trim()) ||
                     traits.some((t) => t.startsWith('thrown'));
                 const defaultOptions = this.getRollOptions(['all', 'attack-roll'])
                     .concat(...traits) // always add weapon traits as options
@@ -930,7 +930,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         action.traits,
                         statisticsModifiers,
                         damageDice,
-                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                        proficiencies[item.data.weaponType.value ?? '']?.rank ?? 0,
                         options,
                         rollNotes,
                         weaponPotency,
@@ -951,7 +951,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         action.traits,
                         statisticsModifiers,
                         damageDice,
-                        proficiencies[item.data.weaponType.value]?.rank ?? 0,
+                        proficiencies[item.data.weaponType.value ?? '']?.rank ?? 0,
                         options,
                         rollNotes,
                         weaponPotency,
