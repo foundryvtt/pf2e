@@ -7,7 +7,7 @@ export class SpellPF2e extends ItemPF2e {
         return this.getChatData();
     }
 
-    get spellcasting() {
+    get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
     }
