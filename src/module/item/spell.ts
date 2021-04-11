@@ -1,5 +1,6 @@
 import { ItemPF2e } from './base';
 import { SpellData } from './data-definitions';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export class SpellPF2e extends ItemPF2e {
     // todo: does this still have a point? If not, remove it
