@@ -675,6 +675,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        // ACTIONS
+        html.find('[name="ammo-used"]').on('change', (event) => {
+            event.stopPropagation();
+
+            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const weapon = this.actor.getOwnedItem(action.item);
+            const ammo = this.actor.getOwnedItem($(event.currentTarget).val() as string);
+
+            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
+        });
+
         {
             // ensure correct tab name is displayed after actor update
             const title = $('.sheet-navigation .active').data('tabTitle');

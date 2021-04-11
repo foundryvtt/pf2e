@@ -290,7 +290,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        // NPC Weapon Rolling
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
+
+        // Melee Weapon Rolling
         html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
