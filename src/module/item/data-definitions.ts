@@ -502,6 +502,8 @@ interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
 }
 
+export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
+
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
     spellType: {
@@ -555,7 +557,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     };
     save: {
         basic: string;
-        value: string;
+        value: SaveType | '';
         dc?: number;
         str?: string;
     };
