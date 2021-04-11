@@ -30,15 +30,17 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     get storedSpell(): Owned<SpellPF2e> | null {
         if (!this.actor) {
-            throw ErrorPF2e('Only spells from owned consumables can cast.');
+            throw ErrorPF2e('Only spells from owned consumables can be cast.');
         }
-        const spellData = this.data.data.spell.data;
-        const spell = spellData ? SpellPF2e.createOwned(spellData, this.actor) : null;
-        if (spell)
+        const storedData = this.data.data.spell;
+        if (storedData?.data) {
+            const spell = SpellPF2e.createOwned(storedData.data, this.actor);
             spell.data.data.heightenedLevel = {
-                value: this.data.data.spell.heightenedLevel ?? spell.data.data.level.value,
+                value: storedData.heightenedLevel ?? spell.data.data.level.value,
             };
-        return spell;
+            return spell;
+        }
+        return null;
     }
 
     /** Use a consumable item, sending the card to chat */
@@ -100,7 +102,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     }
 
     /** Cast a stored spell on the item (typically from a wand or scroll) */
-    private async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData): Promise<ChatMessagePF2e | void> {
+    private async castEmbeddedSpell(
+        this: Owned<ConsumablePF2e>,
+        trickMagicItemData?: TrickMagicItemCastData,
+    ): Promise<ChatMessagePF2e | void> {
         const storedSpell = this.storedSpell;
         if (storedSpell === null) return;
 
@@ -123,36 +128,34 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
                     bestEntry = i;
                 }
             }
-            this.data.data.spell.data.data.trickMagicItemData = trickMagicItemData;
-            this.data.data.spell.data.data.location.value = spellcastingEntries[bestEntry]._id;
+            spellData.trickMagicItemData = trickMagicItemData;
+            spellData.location.value = spellcastingEntries[bestEntry]._id;
             spellData.isSave = spellData.spellType.value === 'save' || spellData.save.value !== '';
             if (spellData.isSave) {
                 spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.dc;
             } else spellData.save.dc = spellcastingEntries[bestEntry].data.spelldc.value;
-            spellData.save.str = spellData.save.value ? CONFIG.PF2E.saves[spellData.save.value.toLowerCase()] : '';
+            spellData.save.str = spellData.save.value ? CONFIG.PF2E.saves[spellData.save.value] : '';
             spellData.damageLabel =
                 spellData.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
             spellData.isAttack = spellData.spellType.value === 'attack';
+            const areaSize = CONFIG.PF2E.areaSizes[spellData.area.value];
+            const areaType = CONFIG.PF2E.areaTypes[spellData.area.areaType];
 
-            const props: (number | string)[] = [
+            const props: (number | string | null)[] = [
                 CONFIG.PF2E.spellLevels[spellData.level.value],
                 `${localize('PF2E.SpellComponentsLabel')}: ${spellData.components.value}`,
                 spellData.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${spellData.range.value}` : null,
                 spellData.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${spellData.target.value}` : null,
-                spellData.area.value
-                    ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[spellData.area.value]} ${
-                          CONFIG.PF2E.areaTypes[spellData.area.areaType]
-                      }`
-                    : null,
-                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
+                spellData.area.value ? `${localize('PF2E.SpellAreaLabel')}: ${areaSize} ${areaType}` : null,
+                spellData.areasize.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
                 spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
                 spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
             ];
-            spellData.spellLvl = this.data.data.spell.heightenedLevel.toString();
+            spellData.spellLvl = spellData.heightenedLevel.toString();
             if (spellData.level.value < parseInt(spellData.spellLvl, 10)) {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
-            spellData.properties = props.filter((p) => p !== null);
+            spellData.properties = props.filter((p): p is string | number => p !== null);
             spellData.traits = ConsumablePF2e.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
 
             spellData.item = JSON.stringify(this.data);

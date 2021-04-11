@@ -284,7 +284,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             } else if (item instanceof SpellPF2e) {
                 // Spells
                 try {
-                    i.spellInfo = item.getSpellInfo();
+                    i.spellInfo = item.getChatData();
                 } catch (err) {
                     console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
                 }

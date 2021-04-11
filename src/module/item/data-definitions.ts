@@ -7,6 +7,8 @@ import { LocalizePF2e } from '@module/system/localize';
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
+export type ZeroToTen = ZeroToFour | 5 | 6 | 7 | 8 | 9 | 10;
+export type ZeroToEleven = ZeroToTen | 11; // +1!
 
 export interface ItemTraits {
     rarity: { value: Rarity };
@@ -509,6 +511,9 @@ interface SpellTraits extends ItemTraits {
 export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
+    level: {
+        value: ZeroToTen;
+    };
     traits: SpellTraits;
     spellType: {
         value: string;

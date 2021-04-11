@@ -54,7 +54,7 @@ export class SpellPF2e extends ItemPF2e {
             data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
 
         // Combine properties
-        const properties: (number | string)[] = [
+        const properties: (number | string | null)[] = [
             CONFIG.PF2E.spellLevels[data.level.value],
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,

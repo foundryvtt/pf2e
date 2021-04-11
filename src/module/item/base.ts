@@ -75,9 +75,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
-    async roll(this: ItemPF2e, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
-        if (!this.actor) throw ErrorPF2e('Only owned items can be rolled.');
-
+    async roll(this: Owned<this>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;

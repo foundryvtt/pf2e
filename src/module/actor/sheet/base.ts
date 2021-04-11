@@ -200,7 +200,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         try {
             const item = this.actor.getOwnedItem(spell._id);
             if (item instanceof SpellPF2e) {
-                spell.spellInfo = item.getSpellInfo();
+                spell.spellInfo = item.getChatData();
             }
         } catch (err) {
             console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell._id}`, spell);
@@ -258,7 +258,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
                                 // Add chat data
                                 try {
-                                    spl.prepared[i].spellInfo = item.getSpellInfo();
+                                    spl.prepared[i].spellInfo = item.getChatData();
                                 } catch (err) {
                                     console.debug(
                                         `PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`,

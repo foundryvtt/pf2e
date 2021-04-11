@@ -80,7 +80,8 @@ export class SpellFacade {
     }
 
     get autoScalingSpell() {
-        return this.spellLevel === 0 || this.spellLevel === 11 || this.isFocusSpell;
+        const spellLevel: number = this.spellLevel;
+        return this.spellLevel === 0 || spellLevel === 11 || this.isFocusSpell;
     }
 
     get isCantrip(): boolean {
