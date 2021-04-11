@@ -27,6 +27,7 @@ import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ConditionPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
+import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -1669,16 +1670,20 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     protected onCrbTraitSelector(event: JQuery.ClickEvent) {
         event.preventDefault();
-        const a = $(event.currentTarget);
-        const options = {
-            name: a.parents('li').attr('for'),
-            title: a.parent().parent().siblings('h4').text().trim(),
-            choices: CONFIG.PF2E[a.attr('data-options') as keyof ConfigPF2e['PF2E']],
-            has_values: a.attr('data-has-values') === 'true',
-            allow_empty_values: a.attr('data-allow-empty-values') === 'true',
-            has_exceptions: a.attr('data-has-exceptions') === 'true',
-        };
-        new TraitSelector5e(this.actor, options).render(true);
+        const $anchor = $(event.currentTarget);
+        const traitSelector = $anchor.attr('data-trait-selector') ?? '';
+        if (traitSelector === 'basic') {
+            const objectProperty = $anchor.attr('data-property') ?? '';
+            const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
+            getTraitSelector(this.actor, 'basic', {
+                basicTraitSelector: {
+                    objectProperty,
+                    configTypes,
+                },
+            }).render(true);
+        } else {
+            getTraitSelector(this.actor, traitSelector as TraitSelectorTypes).render(true);
+        }
     }
 
     /** @override */
