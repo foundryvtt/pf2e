@@ -36,6 +36,7 @@ declare type EmbeddedEntityUpdateData =
 declare interface EntityUpdateOptions {
     diff?: boolean;
     noHook?: boolean;
+    enforceTypes?: boolean;
     [key: string]: unknown;
 }
 
@@ -47,7 +48,7 @@ declare interface EntityDeleteOptions {
 declare interface EntityRenderOptions extends RenderOptions {
     data: {
         permission?: boolean;
-    }
+    };
 }
 
 /**

@@ -1,4 +1,4 @@
-declare type CollectionElement<T extends unknown> = T extends Collection<infer T> ? T : never;
+declare type CollectionValue<T extends unknown> = T extends Collection<infer T> ? T : never;
 
 /**
  * A reusable storage concept which blends the functionality of an Array with the efficient key-based lookup of a Map.

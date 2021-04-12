@@ -3,8 +3,8 @@
 declare interface Config<
     ActorType extends Actor,
     ItemType extends Item,
-EffectType extends ActiveEffect<ActorType | ItemType>,
-MessageType extends ChatMessage<ActorType>
+    EffectType extends ActiveEffect<ActorType | ItemType>,
+    MessageType extends ChatMessage<ActorType>
 > {
     /**
      * Configure debugging flags to display additional information
