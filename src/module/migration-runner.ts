@@ -74,7 +74,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    protected async migrateSceneToken(migrations: MigrationBase[], scene: Scene, tokenData: TokenData) {
+    private async migrateSceneToken(migrations: MigrationBase[], scene: Scene, tokenData: TokenData) {
         try {
             if (tokenData.actorLink || !game.actors.has(tokenData.actorId)) {
                 // if the token is linked or has no actor, we don't need to do anything
@@ -207,8 +207,6 @@ export class MigrationRunner extends MigrationRunnerBase {
                 await this.runMigrations(migrationPhase);
             }
         }
-
-        //for await (
 
         game.settings.set('pf2e', 'worldSchemaVersion', this.latestVersion);
         ui.notifications.info(`PF2E System Migration to version ${systemVersion} completed!`, { permanent: true });
