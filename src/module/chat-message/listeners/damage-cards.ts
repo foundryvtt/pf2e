@@ -49,6 +49,7 @@ export const DamageCards = {
                 // Pulling data from embedded items should eventually be phased out
                 itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
                 if (itemData) {
+                    // the call to createOwned is a temporary measure since it triggers extra actor updates
                     item = actor.items.get(itemData._id) ?? (await ItemPF2e.createOwned(itemData, actor));
                 }
             } else {
