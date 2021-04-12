@@ -1,0 +1,82 @@
+{
+    "_id": "U2ekk5iBaSfZlEkp",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike} if you have @Compendium[pf2e.feats-srd.Elemental Fist]{Elemental Fist} and selecting earth.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "rounds",
+            "value": 0
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ki Strike",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "bludgeoning",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Ki Strike",
+                "selector": "damage",
+                "traits": [
+                    "earth"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 4,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 8,
+                            "start": 5,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ki-strike.jpg",
+    "name": "Spell Effect: Ki Strike (Earth)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

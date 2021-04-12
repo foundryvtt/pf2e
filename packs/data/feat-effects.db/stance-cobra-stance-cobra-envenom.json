@@ -1,10 +1,10 @@
 {
-    "_id": "pf9yvKNg6jZLrE30",
+    "_id": "2Qpt0CHuOMeL48rN",
     "data": {
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Tiger Stance]{Tiger Stance}</p>\n<p>You enter the stance of a tiger and can make tiger claw attacks. These deal 1d8 slashing damage; are in the brawling group; and have the agile, finesse, nonlethal, and unarmed traits.</p>\n<p>On a critical success with your tiger claws, if you deal damage, the target takes 1d4 persistent bleed damage.</p>\n<p>As long as your Speed is at least 20 feet while in Tiger Stance, you can Step 10 feet.</p>"
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Cobra Stance]{Cobra Stance} if you have @Compendium[pf2e.feats-srd.Cobra Envenom]{Cobra Envenom}, which increases the circumstance bonus to Fortitude saves and Fortitude DC to +2.</p>\n<p>You enter a tight stance, coiled up like a lashing cobra with your hands poised as venomous fangs. While in this stance, the only Strikes you can make are cobra fang unarmed attacks. These deal 1d4 poison damage; are in the brawling group; and have the agile, deadly d10, finesse, nonlethal, poison, and unarmed traits.<br /><br />While in Cobra Stance, you gain a +2 circumstance bonus to Fortitude saves and your Fortitude DC, and you gain poison resistance equal to half your level.</p>"
         },
         "duration": {
             "expiry": "turn-start",
@@ -20,32 +20,32 @@
                 "category": "unarmed",
                 "damage": {
                     "base": {
-                        "damageType": "slashing",
+                        "damageType": "poison",
                         "dice": 1,
-                        "die": "d8"
+                        "die": "d4"
                     }
                 },
                 "group": "brawling",
                 "key": "PF2E.RuleElement.Strike",
-                "label": "Tiger Claw",
+                "label": "Cobra Fang",
                 "range": "melee",
                 "traits": [
                     "agile",
+                    "deadly-d10",
                     "finesse",
+                    "poison",
                     "unarmed",
                     "nonlethal"
                 ]
             },
             {
-                "key": "PF2E.RuleElement.TokenEffectIcon"
+                "key": "PF2E.RuleElement.FlatModifier",
+                "selector": "fortitude",
+                "type": "circumstance",
+                "value": 2
             },
             {
-                "key": "PF2E.RuleElement.Note",
-                "outcome": [
-                    "criticalSuccess"
-                ],
-                "selector": "tiger-claw-damage",
-                "text": "<p class='compact-text'><strong> Tiger Stance</strong> On a critical success with your tiger claws, if you deal damage, the target takes [[/r 1d4]] persistent bleed damage.</p>"
+                "key": "PF2E.RuleElement.TokenEffectIcon"
             }
         ],
         "source": {
@@ -66,8 +66,8 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/tiger-stance.jpg",
-    "name": "Stance: Tiger Stance",
+    "img": "systems/pf2e/icons/features/feats/cobra-stance.jpg",
+    "name": "Stance: Cobra Stance (Cobra Envenom)",
     "permission": {
         "default": 0
     },
