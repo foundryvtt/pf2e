@@ -775,20 +775,26 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== 'spellcastingEntry') {
+            if (item == null || item.data.type !== 'spellcastingEntry') {
                 return;
             }
             const data = duplicate(item.data);
 
-            if (data.data.slots == null) {
-                return;
-            }
-            data.data.slots['slot' + itemLevel].value -= 1;
-            if (data.data.slots['slot' + itemLevel].value < 0) {
-                data.data.slots['slot' + itemLevel].value = 0;
+            if (data.data.tradition.value === 'focus') {
+                if (data.data.focus.points > 0) {
+                    data.data.focus.points -= 1;
+                } else {
+                    ui.notifications.warn(game.i18n.localize('PF2E.Focus.NotEnoughFocusPointsError'));
+                }
+            } else {
+                if (item.data.data.slots === null) {
+                    return;
+                }
+
+                data.data.slots['slot' + itemLevel].value -= 1;
+                if (data.data.slots['slot' + itemLevel].value < 0) {
+                    data.data.slots['slot' + itemLevel].value = 0;
+                }
             }
 
             item.update(data);
