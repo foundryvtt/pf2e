@@ -13,8 +13,8 @@ import { ArmorData } from '@item/data-definitions';
 import { FoundryUtils } from 'tests/utils';
 import { FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
 
-const characterData = FoundryUtils.duplicate(characterJSON) as unknown as CharacterData;
-const armorData = FoundryUtils.duplicate(armorJSON) as unknown as ArmorData;
+const characterData = (FoundryUtils.duplicate(characterJSON) as unknown) as CharacterData;
+const armorData = (FoundryUtils.duplicate(armorJSON) as unknown) as ArmorData;
 
 declare let game: any;
 
