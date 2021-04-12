@@ -24,7 +24,12 @@ export interface TreasurePF2e {
     _data: TreasureData;
 }
 
-export class KitPF2e extends PhysicalItemPF2e {}
+export class KitPF2e extends PhysicalItemPF2e {
+    get isEquipped(): false {
+        return false;
+    }
+}
+
 export interface KitPF2e {
     data: KitData;
     _data: KitData;
