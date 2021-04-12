@@ -18,7 +18,7 @@ declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetDat
  */
 declare class ActorSheet<
     ActorType extends Actor,
-    ItemDataType extends CollectionElement<ActorType['items']>['data'] = CollectionElement<ActorType['items']>['data']
+    ItemDataType extends CollectionValue<ActorType['items']>['data'] = CollectionValue<ActorType['items']>['data']
 > extends BaseEntitySheet<ActorType> {
     /** @override */
     constructor(actor: ActorType, options?: FormApplicationOptions);
