@@ -502,7 +502,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 (item as ItemDataPF2e & SheetEnrichedItemData).traits = traits.filter((p) => !!p);
 
                 // Select appropiate image for the action, based on type of action
-                const actionType = itemData.actionType.value || 'action'; // Default to action if not set
+                const actionType = this.getActionType(itemData); // Default to action if not set
 
                 this.assignActionGraphics(item as ActionData & SheetEnrichedItemData);
 
@@ -512,6 +512,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             });
 
         actorData.actions = actions;
+    }
+
+    private getActionType(action: ActionDetailsData): string {
+        if (action.traits.value.some((value) => value === 'exploration')) {
+            return 'action';
+        }
+
+        return action.actionType.value || 'action';
     }
 
     private prepareAttacks(sheetData: NPCSystemSheetData): Attacks {
