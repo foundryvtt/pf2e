@@ -1,4 +1,5 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
+import { FoundryUtils } from 'tests/utils';
 import { FakeItem } from './fake-item';
 
 export class FakeActorItem {
@@ -28,7 +29,11 @@ export class FakeActor {
     _data: ActorDataPF2e;
     _itemGuid: number = 1;
     constructor(data: ActorDataPF2e) {
-        this._data = duplicate(data);
+        this._data = FoundryUtils.duplicate(data);
+    }
+
+    get id(): string {
+        return this.data._id;
     }
 
     get data() {
