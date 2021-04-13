@@ -22,6 +22,7 @@ import { DicePF2e } from '@scripts/dice';
 import { ItemType } from '@item/data-definitions';
 import { RuleElements } from '@module/rules/rules';
 import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
+import { MacroPF2e } from '@module/macro';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -69,7 +70,7 @@ declare global {
         PF2CheckModifier: typeof CheckModifier;
         PF2Check: typeof CheckPF2e;
     }
-    const game: Game<ActorPF2e, ItemPF2e, CombatPF2e>;
+    const game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
     const CONFIG: ConfigPF2e;
     const canvas: Canvas<ActorPF2e>;
 
