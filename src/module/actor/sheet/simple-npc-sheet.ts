@@ -829,7 +829,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const traitType = $anchor.attr('data-options');
         const choices = typeof traitType === 'string' && objectHasKey(config, traitType) ? config[traitType] : {};
         const options = {
-            name: $anchor.attr('data-attribute'),
+            name: $anchor.attr('data-attribute') ?? '',
             title: $anchor.attr('title'),
             choices,
             has_values: $anchor.attr('data-has-values') === 'true',

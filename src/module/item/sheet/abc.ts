@@ -53,10 +53,10 @@ export abstract class ABCSheetPF2e<
         event.preventDefault();
         const a = $(event.currentTarget);
         const options = {
-            name: a.parents('label').attr('for'),
+            name: a.parents('label').attr('for') ?? '',
             title: a.parent().text().trim(),
             choices: CONFIG.PF2E[a.attr('data-options') as keyof ConfigPF2e['PF2E']],
-            no_custom: a.attr('data-no-custom') ?? true,
+            no_custom: a.attr('data-no-custom') ? a.attr('data-no-custom') === 'true' : true,
         };
         new TraitSelector5e(this.item, options).render(true);
     }

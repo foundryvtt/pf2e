@@ -394,8 +394,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         } else {
             choices = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
         }
-        const options: FormApplicationOptions = {
-            name: a.parents('label').attr('for'),
+        const options = {
+            name: a.parents('label').attr('for') ?? '',
             title: a.parent().text().trim(),
             width: a.attr('data-width') || 'auto',
             has_placeholders: a.attr('data-has-placeholders') === 'true',
