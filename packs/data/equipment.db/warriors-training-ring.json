@@ -41,7 +41,7 @@
             "value": false
         },
         "level": {
-            "value": "5"
+            "value": 5
         },
         "maxHp": {
             "value": 0
@@ -60,12 +60,20 @@
             "value": "160 gp"
         },
         "quantity": {
-            "value": "1"
+            "value": 1
         },
         "rules": [
             {
                 "key": "PF2E.RuleElement.FlatModifier",
-                "selector": "attack",
+                "predicate": {
+                    "all": [
+                        "proficiency:untrained"
+                    ],
+                    "not": [
+                        "unarmed"
+                    ]
+                },
+                "selector": "mundane-attack",
                 "type": "proficiency",
                 "value": "@details.level.value"
             }
