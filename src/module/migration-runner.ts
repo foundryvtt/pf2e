@@ -4,9 +4,6 @@ import { MigrationRunnerBase } from './migration-runner-base';
 import { MigrationBase } from './migrations/base';
 
 export class MigrationRunner extends MigrationRunnerBase {
-    latestVersion: number;
-    migrations: MigrationBase[];
-
     constructor(migrations: MigrationBase[] = []) {
         super(migrations);
     }
@@ -37,8 +34,8 @@ export class MigrationRunner extends MigrationRunnerBase {
             const baseItems = baseActor.items;
             const updatedItems = updatedActor.items;
 
-            delete baseActor.items;
-            delete updatedActor.items;
+            delete (baseActor as { items?: unknown[] }).items;
+            delete (updatedActor as { items?: unknown[] }).items;
             if (JSON.stringify(baseActor) !== JSON.stringify(updatedActor)) {
                 pack
                     ? await pack.updateEntity(updatedActor, { enforceTypes: false })
@@ -83,6 +80,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
             // build up the actor data
             const baseActor = game.actors.get(tokenData.actorId);
+            if (!baseActor) return;
             const actorData = mergeObject(baseActor._data, tokenData.actorData, { inplace: false });
 
             const updatedActor = await this.getUpdatedActor(actorData, migrations);
@@ -194,7 +192,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // the foundry backend in order to get an id for the item.
         // This way if a later migration depends on the item actually being created,
         // it will work.
-        const migrationPhases = [[]];
+        const migrationPhases: MigrationBase[][] = [[]];
         for (const migration of migrationsToRun) {
             migrationPhases[migrationPhases.length - 1].push(migration);
             if (migration.requiresFlush) {
