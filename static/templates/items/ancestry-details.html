@@ -44,7 +44,7 @@
 
         <ul class="abc-traits-list">
             {{#each (lookup ../selectedBoosts idx) as |v k|}}
-                <span class="tag {{k}}">{{v}}</span>
+                <span class="tag {{k}}">{{localize v}}</span>
             {{/each}}
         </ul>
     </div>
@@ -60,7 +60,7 @@
         {{lookup selectedFlaws @idx}}
         <ul class="abc-traits-list">
             {{#each (lookup ../selectedFlaws idx) as |v k|}}
-                <span class="tag {{k}}">{{v}}</span>
+                <span class="tag {{k}}">{{localize v}}</span>
             {{/each}}
         </ul>
     </div>
@@ -76,7 +76,7 @@
         {{#each languages}}
             {{#if this.selected}}
                 <span class="tag {{@key}}">
-                    {{this.label}}
+                    {{localize this.label}}
                 </span>
             {{/if}}
         {{/each}}
@@ -98,7 +98,7 @@
         {{#each additionalLanguages}}
             {{#if this.selected}}
                 <span class="tag {{@key}}">
-                    {{this.label}}
+                    {{localize this.label}}
                 </span>
             {{/if}}
         {{/each}}
@@ -113,7 +113,7 @@
     <ul class="abc-traits-list">
         {{#each traits}}
             {{#if this.selected}}
-                <span class="tag {{@key}}">{{this.label}}</span>
+                <span class="tag {{@key}}">{{localize this.label}}</span>
             {{/if}}
         {{/each}}
     </ul>

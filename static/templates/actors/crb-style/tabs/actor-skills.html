@@ -8,7 +8,7 @@
                 {{#unless skill.lore}}
                     <li class="skill" data-skill="{{s}}">
                         <h1 class="skill-score rollable" title="{{skill.breakdown}}">{{numberFormat skill.value decimals=0 sign=true}}</h1>
-                        <h4 class="skill-name rollable">{{skill.label}}</h4>
+                        <h4 class="skill-name rollable">{{localize skill.label}}</h4>
                         <div class="skill-prof button-group">
                             <input type="hidden" name="data.skills.{{s}}.rank" value="{{skill.rank}}" data-dtype="Number" data-category="proficiency"/>
                             <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{skill.rank}}" title="{{skill.hover}}">{{localize (add 'PF2E.ProficiencyLevel' skill.rank)}}</span>
@@ -75,8 +75,8 @@
                     {{#if proficiency.custom}}
                         <a class="delete"><i class="fa fa-trash"></i></a>
                     {{/if}}
-                    <h1 class="skill-score lore-score" title="{{proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
-                    <h4 class="skill-name lore-name-input">{{proficiency.label}}</h4>
+                    <h1 class="skill-score lore-score" title="{{localize proficiency.breakdown}}">{{numberFormat proficiency.value decimals=0 sign=true}}</h1>
+                    <h4 class="skill-name lore-name-input">{{localize proficiency.label}}</h4>
                     <div class="skill-prof button-group skill-container">
                         <input type="hidden" name="data.martial.{{key}}.rank" value="{{proficiency.rank}}" data-dtype="Number" data-category="proficiency"/>
                         <span class="skill-proficiency pf-value pf-rank click-stat-level" value="{{proficiency.rank}}" title="{{proficiency.hover}}">{{localize (add 'PF2E.ProficiencyLevel' proficiency.rank)}}</span>

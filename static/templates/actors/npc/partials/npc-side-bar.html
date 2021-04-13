@@ -115,8 +115,8 @@
     </div>
 
     <div class="side-bar-section-content">
-        {{#each immunities as |immunity|}}
-            <div class="tag immunity" data-weakness="{{key}}">{{immunity}}</div>
+        {{#each immunities as |immunity key|}}
+            <div class="tag immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
         {{/each}}
     </div>
 </div>
@@ -153,8 +153,8 @@
         <div id="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
             {{#if speed.value }}
-            <div class="tag speed" data-speed="{{speed.type}}">
-                {{speed.label}} {{speed.value}}
+            <div class="tag speed" data-speed="{{localize speed.type}}">
+                {{localize speed.label}} {{speed.value}}
             </div>
             {{/if}}
             {{/each}}

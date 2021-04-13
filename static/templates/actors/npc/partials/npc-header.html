@@ -12,21 +12,21 @@
             <select class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}" name="data.traits.rarity.value" data-dtype="String">
                 {{#select data.traits.rarity.value}}
                 {{#each rarity as |label key|}}
-                <option value="{{key}}">{{label}}</option>
+                <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
                 {{/select}}
             </select>
             <select class="alignment-select traits-list-item alignment" name="data.details.alignment.value" data-dtype="String">
                 {{#select data.details.alignment.value}}
                 {{#each alignment as |label key|}}
-                <option value="{{key}}">{{label}}</option>
+                <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
                 {{/select}}
             </select>
             <select class="size-select traits-list-item size" name="data.traits.size.value" data-dtype="String">
                 {{#select data.traits.size.value}}
                 {{#each actorSizes as |label key|}}
-                <option value="{{key}}">{{label}}</option>
+                <option value="{{key}}">{{localize label}}</option>
                 {{/each}}
                 {{/select}}
             </select>
@@ -44,7 +44,7 @@
     </div>
     <div class="flexrow">
         {{#each traits as |trait key|}}
-            <div class="traits-list-item trait {{key}}">{{trait}}</div>
+            <div class="traits-list-item trait {{key}}">{{localize trait}}</div>
         {{/each}}
         {{# if options.editable }}
             <div class="trait-controls" style="flex: 0 0 32px;">
