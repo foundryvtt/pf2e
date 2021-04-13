@@ -1,5 +1,4 @@
 import { CreatureSheetPF2e } from './creature';
-import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
@@ -295,7 +294,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
+        html.find('.trait-edit').on('click', (event) => this.onTraitSelector(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
 
         // Adjustments
@@ -819,24 +818,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         } else {
             this.actor.rollSave(event, saveId);
         }
-    }
-
-    private onClickChooseOptions(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const $anchor = $(event.currentTarget);
-        const config = CONFIG.PF2E;
-        const traitType = $anchor.attr('data-options');
-        const choices = typeof traitType === 'string' && objectHasKey(config, traitType) ? config[traitType] : {};
-        const options = {
-            name: $anchor.attr('data-attribute') ?? '',
-            title: $anchor.attr('title'),
-            choices,
-            has_values: $anchor.attr('data-has-values') === 'true',
-            allow_empty_values: $anchor.attr('data-allow-empty-values') === 'true',
-            has_exceptions: $anchor.attr('data-has-exceptions') === 'true',
-        };
-        new TraitSelector5e(this.actor, options).render(true);
     }
 
     private onClickRollable(event: JQuery.ClickEvent) {

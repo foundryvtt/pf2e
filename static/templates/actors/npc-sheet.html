@@ -86,9 +86,9 @@
                 </div>
                 <li>
                      <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.di">
+                        <label class="pf-title">
                             {{localize "PF2E.ImmunitiesLabel"}}
-                            <a class="trait-selector" data-options="immunityTypes"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.di.selected as |v k|}}
@@ -99,9 +99,9 @@
                 </li>
                 <li>
                     <div class="form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.dr">
+                        <label class="pf-title">
                             {{localize "PF2E.ResistancesLabel"}}
-                            <a class="trait-selector" data-options="resistanceTypes" data-has-values="true" data-has-exceptions="true"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul id="actor-resistances" class="traits-list pf-value">
                         {{#each data.traits.dr.selected as |v k|}}
@@ -112,9 +112,9 @@
                 </li>
                 <li>
                     <div class="form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.dv">
+                        <label class="pf-title">
                             {{localize "PF2E.WeaknessesLabel"}}
-                            <a class="trait-selector" data-options="weaknessTypes" data-has-values="true"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="weaknesses"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul id="actor-resistances" class="traits-list pf-value">
                         {{#each data.traits.dv.selected as |v k|}}
@@ -158,9 +158,9 @@
             <h3 class="defense-title pf-heading">{{localize "PF2E.DetailsHeading"}}</h3>
                 <ol class="singleColumn-list" style="margin-bottom: 2px; margin-top: 2px;">
                     <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.languages">
+                        <label class="pf-title">
                             {{localize "PF2E.Languages"}}
-                            <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="languages" data-property="data.traits.languages"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.languages.selected as |v k|}}
@@ -169,9 +169,9 @@
                         </ul>
                     </div>
                     <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.traits">
+                        <label class="pf-title">
                             {{localize "PF2E.TraitsLabel"}}
-                            <a class="trait-selector" data-options="monsterTraits"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.traits.selected as |v k|}}
