@@ -1,9 +1,7 @@
 <ol class="ability-scores">
     {{#each data.abilities as |ability id|}}
         <li class="ability" data-ability="{{id}}">
-            <h4 class="ability-name">
-                {{ability.label}}
-            </h4>
+            <h4 class="ability-name">{{localize ability.label}}</h4>
             <h2 class="ability-id" title="{{localize 'PF2E.AbilityTitle'}}">
                 {{localize (add 'PF2E.AbilityId.' id)}}
             </h2>
