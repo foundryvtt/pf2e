@@ -21,7 +21,7 @@ declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
      */
     static registerSheet<I extends Item>(
         scope: string,
-        sheetClass: new (item: I, options?: FormApplicationOptions) => I['sheet'],
+        sheetClass: new (item: I, options?: BaseEntitySheetOptions) => I['sheet'],
         options?: RegisterSheetOptions,
     ): void;
 

@@ -574,7 +574,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Toggle identified
         html.find('.item-toggle-identified').on('click', (event) => {
             const f = $(event.currentTarget);
-            const itemId = f.parents('.item').attr('data-item-id');
+            const itemId = f.parents('.item').attr('data-item-id') ?? '';
             const identified = f.hasClass('identified');
             if (identified) {
                 const item = this.actor.getOwnedItem(itemId);
@@ -1658,7 +1658,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
         const a = $(event.currentTarget);
         const options = {
-            name: a.parents('label').attr('for'),
+            name: a.parents('label').attr('for') ?? '',
             title: a.parent().text().trim(),
             choices: CONFIG.PF2E[a.attr('data-options') as keyof ConfigPF2e['PF2E']],
             has_values: a.attr('data-has-values') === 'true',
