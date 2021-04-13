@@ -1,6 +1,6 @@
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
-import { ArmorData, TreasureData, WeaponData } from '@item/data-definitions';
+import { ArmorData, PhysicalItemData, TreasureData, WeaponData } from '@item/data-definitions';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
@@ -49,7 +49,7 @@ describe('should calculate wealth based on inventory', () => {
     populateFoundryUtilFunctions();
 
     test('empty inventory', () => {
-        const items = [];
+        const items: PhysicalItemData[] = [];
 
         const result = calculateWealth(items);
         expect(result).toEqual({
@@ -257,7 +257,7 @@ describe('should calculate wealth based on inventory', () => {
                 _id: 'backpack',
                 data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 gp' } },
             },
-        ];
+        ] as unknown[] as PhysicalItemData[];
         const wealth = calculateTotalWealth(items);
         expect(wealth).toEqual({ pp: 30, gp: 3003, sp: 34, cp: 3 });
     });
