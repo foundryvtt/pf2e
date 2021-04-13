@@ -27,10 +27,10 @@ describe('test migration runner', () => {
 
     game = {
         settings: {
-            get(_context: string, key: string) {
+            get<K extends keyof typeof settings>(_context: string, key: K): typeof settings[K] {
                 return settings[key];
             },
-            set(_context: string, key: string, value: any) {
+            set<K extends keyof typeof settings>(_context: string, key: K, value: typeof settings[K]): void {
                 settings[key] = value;
             },
         },
