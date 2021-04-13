@@ -1,15 +1,26 @@
 import { ActorPF2e } from '../actor/base';
 import { ItemPF2e } from '../item/base';
 
+export interface TraitSelector5eOptions extends FormApplicationOptions {
+    name: string;
+    choices: any;
+    allow_empty_values?: boolean;
+    has_exceptions?: boolean;
+    has_placeholders?: boolean;
+    has_values?: boolean;
+    no_custom?: boolean;
+    ordered_choices?: Record<string, string>;
+}
+
 /**
  * A specialized form used to select damage or condition types which apply to an Actor
  * @category Other
  */
-export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
+export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e, TraitSelector5eOptions> {
     searchString: string | null;
     _filterTimeout: number | null;
 
-    constructor(object: ActorPF2e | ItemPF2e, options?: FormApplicationOptions) {
+    constructor(object: ActorPF2e | ItemPF2e, options: TraitSelector5eOptions) {
         super(object, options);
 
         // Internal flags
@@ -21,7 +32,7 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
         this._filterTimeout = null;
     }
 
-    static get defaultOptions() {
+    static get defaultOptions(): FormApplicationOptions {
         const options = super.defaultOptions;
         options.id = 'trait-selector';
         options.classes = ['pf2e'];
@@ -214,7 +225,7 @@ export class TraitSelector5e extends FormApplication<ActorPF2e | ItemPF2e> {
      * Support backwards compatibility for old-style string separated traits
      * @private
      */
-    static _backCompat(current, choices) {
+    static _backCompat(current: any, choices: any) {
         if (!current || current.length === 0) return [];
         current = current.split(/[\s,]/).filter((t) => !!t);
         return current

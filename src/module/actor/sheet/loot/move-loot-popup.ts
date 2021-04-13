@@ -11,7 +11,7 @@ type MoveLootCallback = (quantity: number) => void;
 /**
  * @category Other
  */
-export class MoveLootPopup extends FormApplication {
+export class MoveLootPopup extends FormApplication<{}, MoveLootOptions> {
     onSubmitCallback: MoveLootCallback;
 
     constructor(object: ActorPF2e, options: MoveLootOptions, callback: MoveLootCallback) {

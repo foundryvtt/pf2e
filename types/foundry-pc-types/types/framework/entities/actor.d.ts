@@ -46,7 +46,7 @@ declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType
      */
     static registerSheet<A extends Actor>(
         scope: string,
-        sheetClass: new (actor: A, options?: FormApplicationOptions) => A['sheet'],
+        sheetClass: new (actor: A, options?: BaseEntitySheetOptions) => A['sheet'],
         options?: RegisterSheetOptions,
     ): void;
 
