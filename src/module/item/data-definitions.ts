@@ -429,6 +429,10 @@ export interface ClassDetailsData extends ItemDescriptionData {
 
 export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
 
+interface PrerequisiteTagData {
+    value: string;
+}
+
 export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
         value: FeatType;
@@ -443,7 +447,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
         value: string;
     };
     prerequisites: {
-        value: string;
+        value: PrerequisiteTagData[];
     };
     location: string;
 }
