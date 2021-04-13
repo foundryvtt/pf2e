@@ -4,6 +4,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { ItemPF2e } from '@item/base';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { CharacterPF2e } from './character';
+import { ErrorPF2e } from '@module/utils';
 
 export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
@@ -301,11 +302,13 @@ export class LootTransfer implements LootTransferData {
                 ];
             } else {
                 // Possibly to fill out later: Merchant sells item to character directly from loot container
-                throw Error('Unexpected item transfer');
+                throw ErrorPF2e('Unexpected item-transfer failure');
             }
         })();
-        formatArgs[1].quantity = this.quantity;
-        formatArgs[1].item = item.name;
+        const formatProperties = formatArgs[1];
+        if (!formatProperties) throw ErrorPF2e('Unexpected item-transfer failure');
+        formatProperties.quantity = this.quantity;
+        formatProperties.item = item.name;
 
         const flavor = await renderTemplate(this.templatePaths.flavor, {
             action: {
