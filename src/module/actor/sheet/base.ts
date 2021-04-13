@@ -5,7 +5,6 @@ import { addKit } from '@item/kits';
 import { compendiumBrowser } from '@module/packs/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
-import { TraitSelector5e } from '@system/trait-selector';
 import { ItemPF2e } from '@item/base';
 import {
     ConditionData,
@@ -26,7 +25,6 @@ import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ConditionPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
-import { ConfigPF2e } from '@scripts/config';
 import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
 
 interface SpellSheetData extends SpellData {
@@ -1654,21 +1652,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         });
     }
 
-    private onTraitSelector(event: JQuery.ClickEvent) {
-        event.preventDefault();
-        const a = $(event.currentTarget);
-        const options = {
-            name: a.parents('label').attr('for') ?? '',
-            title: a.parent().text().trim(),
-            choices: CONFIG.PF2E[a.attr('data-options') as keyof ConfigPF2e['PF2E']],
-            has_values: a.attr('data-has-values') === 'true',
-            allow_empty_values: a.attr('data-allow-empty-values') === 'true',
-            has_exceptions: a.attr('data-has-exceptions') === 'true',
-        };
-        new TraitSelector5e(this.actor, options).render(true);
-    }
-
-    protected onCrbTraitSelector(event: JQuery.ClickEvent) {
+    protected onTraitSelector(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const traitSelector = $anchor.attr('data-trait-selector') ?? '';
