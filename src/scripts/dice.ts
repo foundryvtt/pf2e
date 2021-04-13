@@ -66,8 +66,8 @@ export class DicePF2e {
     }) {
         // Inner roll function
         rollMode = rollMode || game.settings.get('core', 'rollMode');
-        const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
-        const _roll = (rollParts, adv, form?) => {
+        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.settings.showRollDialogs');
+        const _roll = (rollParts, adv: number, form?) => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
@@ -224,9 +224,9 @@ export class DicePF2e {
     }) {
         // Inner roll function
         const rollMode = game.settings.get('core', 'rollMode');
-        const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
+        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.settings.showRollDialogs');
         let rolled = false;
-        const _roll = (rollParts, crit, form?) => {
+        const _roll = (rollParts, crit: boolean, form?) => {
             // Don't include situational bonuses unless they are defined
             if (form) {
                 data.itemBonus = form.find('[name="itemBonus"]').val();
@@ -235,7 +235,7 @@ export class DicePF2e {
             }
             for (const key of ['itemBonus', 'statusBonus', 'circumstanceBonus']) {
                 if (!data[key] || data[key] === 0) {
-                    let index;
+                    let index: number;
                     const part = `@${key}`;
 
                     index = rollParts.indexOf(part);
