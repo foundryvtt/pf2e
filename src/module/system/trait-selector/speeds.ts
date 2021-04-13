@@ -1,38 +1,22 @@
 import { ActorPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
-import { ItemPF2e } from '@item/base';
 import { LabeledValue } from '@actor/data-definitions';
-import { ErrorPF2e } from '@module/utils';
 import { TraitSelectorBase } from './base';
-import { TraitSelectorOptions } from './index';
+import { SelectableTagField } from './index';
 
-export class TraitSelectorSpeedTypes extends TraitSelectorBase {
-    object: ActorPF2e;
-    configTypes = ['speedTypes'];
+export class TraitSelectorSpeeds extends TraitSelectorBase<ActorPF2e> {
     objectProperty = 'data.attributes.speed.otherSpeeds';
-    choices: Record<string, string>;
-
-    constructor(object: ActorPF2e | ItemPF2e, options?: TraitSelectorOptions) {
-        super(options?.formOptions);
-
-        if (object instanceof ActorPF2e) {
-            this.object = object;
-            this.choices = this.getChoices();
-        } else {
-            throw ErrorPF2e('Object is not an actor!');
-        }
-    }
 
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: 'trait-selector',
-            classes: ['pf2e'],
             template: 'systems/pf2e/templates/system/trait-selector/speed-types.html',
             title: 'PF2E.SpeedTypes',
-            width: 'auto',
-            height: 700,
         });
+    }
+
+    protected get configTypes(): readonly SelectableTagField[] {
+        return ['speedTypes'] as const;
     }
 
     /** @override */
@@ -85,10 +69,11 @@ export class TraitSelectorSpeedTypes extends TraitSelectorBase {
     }
 
     protected getUpdateData(formData: FormData) {
-        const choices = [];
-        for (const [k, v] of Object.entries(formData as Record<any, any>)) {
-            if (v.length > 1 && v[0]) {
-                if (!Number.isNaN(Number(v[1])) && v[1] !== '') {
+        type TagChoice = { type: string; label: string; value: string };
+        const choices: TagChoice[] = [];
+        for (const [k, v] of Object.entries(formData)) {
+            if (v.length > 1 && Array.isArray(v) && v[0]) {
+                if (!Number.isNaN(Number(v[1])) && v[1]) {
                     const label = this.choices[k];
                     choices.push({ type: k, label, value: v[1] });
                 }
@@ -96,4 +81,8 @@ export class TraitSelectorSpeedTypes extends TraitSelectorBase {
         }
         return choices;
     }
+}
+
+export interface TraitSelectorSpeeds {
+    options: FormApplicationOptions;
 }

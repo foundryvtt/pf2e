@@ -1,38 +1,22 @@
 import { ActorPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
-import { ItemPF2e } from '@item/base';
 import { LabeledValue } from '@actor/data-definitions';
-import { ErrorPF2e } from '@module/utils';
 import { TraitSelectorBase } from './base';
-import { TraitSelectorOptions } from './index';
+import { SelectableTagField } from './index';
 
-export class TraitSelectorSenses extends TraitSelectorBase {
-    object: ActorPF2e;
-    configTypes = ['senses'];
+export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
     objectProperty = 'data.traits.senses';
-    choices: Record<string, string>;
-
-    constructor(object: ActorPF2e | ItemPF2e, options?: TraitSelectorOptions) {
-        super(options?.formOptions);
-
-        if (object instanceof ActorPF2e) {
-            this.object = object;
-            this.choices = this.getChoices();
-        } else {
-            throw ErrorPF2e('Object is not an actor!');
-        }
-    }
 
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            id: 'trait-selector',
-            classes: ['pf2e'],
             template: 'systems/pf2e/templates/system/trait-selector/senses.html',
             title: 'PF2E.Senses',
-            width: 'auto',
-            height: 700,
         });
+    }
+
+    protected get configTypes(): readonly SelectableTagField[] {
+        return ['senses'] as const;
     }
 
     /** @override */
@@ -96,4 +80,8 @@ export class TraitSelectorSenses extends TraitSelectorBase {
         }
         return choices;
     }
+}
+
+export interface TraitSelectorSenses {
+    options: FormApplicationOptions;
 }
