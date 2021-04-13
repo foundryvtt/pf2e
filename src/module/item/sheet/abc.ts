@@ -6,10 +6,8 @@ import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { ItemPF2e } from '@item/base';
-import { TraitSelector5e } from '@system/trait-selector';
 import { LocalizePF2e } from '@system/localize';
 import { ABCSheetData } from './data-types';
-import { ConfigPF2e } from '@scripts/config';
 
 /**
  * @category Other
@@ -46,19 +44,6 @@ export abstract class ABCSheetPF2e<
         }
 
         return {};
-    }
-
-    /** @override */
-    onTraitSelector(event: JQuery.TriggeredEvent) {
-        event.preventDefault();
-        const a = $(event.currentTarget);
-        const options = {
-            name: a.parents('label').attr('for') ?? '',
-            title: a.parent().text().trim(),
-            choices: CONFIG.PF2E[a.attr('data-options') as keyof ConfigPF2e['PF2E']],
-            no_custom: a.attr('data-no-custom') ? a.attr('data-no-custom') === 'true' : true,
-        };
-        new TraitSelector5e(this.item, options).render(true);
     }
 
     /** Is the dropped feat or feature valid for the given section? */
