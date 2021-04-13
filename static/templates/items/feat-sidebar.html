@@ -19,8 +19,8 @@
 {{#unless (any (eq data.featType.value "classfeature") (eq data.featType.value "ancestryfeature") (eq data.featType.value "curse") (eq data.featType.value "dietyboon") )}}
   <span class="item-summary">{{localize "PF2E.FeatPrereqLabel"}}</span>
   <ol class="item-tags">
-  {{#each data.prerequisites as |v k|}}
-    <li class="tag {{k}}">{{v}}</li>
+  {{#each data.prerequisites.value as |v k|}}
+    <li class="tag {{k}}">{{v.value}}</li>
   {{/each}}
   </ol>
 {{/unless}}

@@ -1,7 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { TraitSelector5e } from '@system/trait-selector';
-import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { FeatData, ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -9,6 +8,7 @@ import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 import { SpellPF2e } from '@item/spell';
 import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
+import Tagify from '@yaireo/tagify';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -165,6 +165,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.actionsNumber = CONFIG.PF2E.actionsNumber;
             data.categories = CONFIG.PF2E.actionCategories;
             data.featTags = [data.data.level.value, data.data.traits.value].filter((t) => !!t);
+            data.prerequisites = JSON.stringify((itemData as FeatData).data.prerequisites?.value ?? []);
 
             this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'condition') {
@@ -379,51 +380,39 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const traitSelector = $anchor.attr('data-trait-selector') ?? '';
-        if (traitSelector) {
-            if (traitSelector === 'basic') {
-                const objectProperty = $anchor.attr('data-property') ?? '';
-                const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
-                const basicTraitSelector: any = {
-                    objectProperty,
-                    configTypes,
-                };
+        if (traitSelector === 'basic') {
+            const objectProperty = $anchor.attr('data-property') ?? '';
+            const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
+            const basicTraitSelector: any = {
+                objectProperty,
+                configTypes,
+            };
 
-                const noCustom = $anchor.attr('data-no-custom') === 'true';
-                if (noCustom) {
-                    basicTraitSelector.allowCustom = false;
-                }
+            const noCustom = $anchor.attr('data-no-custom') === 'true';
+            if (noCustom) {
+                basicTraitSelector.allowCustom = false;
+            }
 
-                // we're special casing this because it is unique per npc
-                // and there's a bunch of magic with .trait-selector so
-                // making this a separate function would be more complicated
-                const actions: Record<string, string> = {};
-                if (configTypes.includes('attackEffects')) {
-                    if (this.actor) {
-                        for (const i of this.actor.data.items) {
-                            if (i.type === 'action') actions[i.name] = i.name;
-                        }
+            // we're special casing this because it is unique per npc
+            // and there's a bunch of magic with .trait-selector so
+            // making this a separate function would be more complicated
+            const actions: Record<string, string> = {};
+            if (configTypes.includes('attackEffects')) {
+                if (this.actor) {
+                    for (const i of this.actor.data.items) {
+                        if (i.type === 'action') actions[i.name] = i.name;
                     }
                 }
-                if (!isObjectEmpty(actions)) {
-                    basicTraitSelector.customChoices = actions;
-                }
-
-                getTraitSelector(this.item, 'basic', {
-                    basicTraitSelector,
-                }).render(true);
-            } else {
-                getTraitSelector(this.item, traitSelector as TraitSelectorTypes).render(true);
             }
+            if (!isObjectEmpty(actions)) {
+                basicTraitSelector.customChoices = actions;
+            }
+
+            getTraitSelector(this.item, 'basic', {
+                basicTraitSelector,
+            }).render(true);
         } else {
-            // Handle feat prerequisites until they are using Tagify
-            const options = {
-                name: $anchor.parents('label').attr('for') ?? '',
-                title: $anchor.parent().text().trim(),
-                width: $anchor.attr('data-width') || 'auto',
-                has_placeholders: $anchor.attr('data-has-placeholders') === 'true',
-                choices: CONFIG.PF2E[($anchor.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {},
-            };
-            new TraitSelector5e(this.item, options).render(true);
+            getTraitSelector(this.item, traitSelector as TraitSelectorTypes).render(true);
         }
     }
 
@@ -527,6 +516,13 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
+
+        const $prerequisites = html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
+        if ($prerequisites[0]) {
+            new Tagify($prerequisites[0], {
+                editTags: 1,
+            });
+        }
 
         // Active Effect controls
         html.find('.tab.effects table th a[data-action="create"]').on('click', () => {
@@ -638,6 +634,23 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /**
+     * Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error
+     * @override
+     */
+    protected async _onSubmit(
+        event: Event,
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
+        const $form = $<HTMLFormElement>(this.form);
+        $form.find<HTMLInputElement>('tags ~ input').each((_i, input) => {
+            if (input.value === '') {
+                input.value = '[]';
+            }
+        });
+        return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
     /** @override */
