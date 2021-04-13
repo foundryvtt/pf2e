@@ -10083,9 +10083,8 @@ declare namespace PIXI {
         /**
          * Clears the graphics that were drawn to this Graphics object, and resets fill and line style settings.
          *
-         * @return {PIXI.Graphics} This Graphics object. Good for chaining method calls
          */
-        clear(): PIXI.Graphics;
+        clear(): void;
         /**
          * True if graphics consists of one rectangle, and thus, can be drawn like a Sprite and
          * masked with gl.scissor.
@@ -14213,7 +14212,7 @@ declare namespace PIXI {
      *    +---+----------------------+---+
      *  D | 7 |          8           | 9 |
      *    +---+----------------------+---+
-    
+
      *  When changing this objects width and/or height:
      *     areas 1 3 7 and 9 will remain unscaled.
      *     areas 2 and 8 will be stretched horizontally

@@ -16,6 +16,13 @@ declare class Canvas<ActorType extends Actor = Actor> {
     scene: Scene | null;
     tokens: TokenLayer<ActorType>;
     templates: TemplateLayer;
+    stage: PIXI.Container;
+    app: PIXI.Application;
+
+    /**
+     * Return a reference to the active Canvas Layer
+     */
+    get activeLayer(): CanvasLayer | null;
 }
 
 declare type DrawnCanvas<A extends Actor = Actor> = {

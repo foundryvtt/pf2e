@@ -506,6 +506,12 @@ interface SpellTraits extends ItemTraits {
 
 export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
 
+export type AreaShape = 'burst' | 'cone' | 'emanation' | 'line';
+export interface EffectArea {
+    value: keyof ConfigPF2e['PF2E']['areaSizes'];
+    areaType: AreaShape | '';
+}
+
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
     spellType: {
@@ -536,10 +542,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     range: {
         value: string;
     };
-    area: {
-        value: keyof ConfigPF2e['PF2E']['areaSizes'];
-        areaType: keyof ConfigPF2e['PF2E']['areaTypes'];
-    };
+    area: EffectArea | null;
     time: {
         value: string;
     };

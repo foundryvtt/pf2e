@@ -25,6 +25,7 @@ declare interface SceneData extends BaseEntityData {
     tokens: TokenData[];
     folder?: string | null;
     sort: number;
+    gridUnits: string;
 }
 
 /**

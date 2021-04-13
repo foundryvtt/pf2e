@@ -402,6 +402,8 @@ declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveE
     data: ActorData<ItemType['data']>;
     _data: ActorData<ItemType['data']>;
 
+    readonly sheet: ActorSheet<this, ItemType['data']>;
+
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

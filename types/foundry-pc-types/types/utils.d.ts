@@ -11,6 +11,15 @@ declare type DeepPartial<T> = {
 };
 
 /**
+ * Bound a number between some minimum and maximum value, inclusively
+ * @param num The current value
+ * @param min The minimum allowed value
+ * @param max The maximum allowed value
+ * @return The clamped number
+ */
+declare function clampNumber(num: number, min: number, max: number): number;
+
+/**
  * Export data content to be saved to a local file
  * @param data      Data content converted to a string
  * @param type      The type of

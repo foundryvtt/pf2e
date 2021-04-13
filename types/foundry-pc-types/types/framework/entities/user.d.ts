@@ -40,7 +40,7 @@ declare class Users<ActorType extends Actor = Actor> extends EntityCollection<Us
 
 declare interface UserData extends BaseEntityData {
     type: string;
-    color: string;
+    color: `#${string}`;
 }
 
 declare interface UserClassConfig extends EntityClassConfig<User> {
@@ -88,6 +88,8 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      * Track the ID of the Scene that is currently being viewed by the User
      */
     viewedScene: string;
+
+    color?: `#${string}`;
 
     /** @override */
     static get config(): UserClassConfig;

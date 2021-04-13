@@ -6,7 +6,7 @@ interface MeasuredTemplateData extends PlaceableObjectData {
     distance: number;
     borderColor: string;
     fillColor: string;
-    texture: string;
+    texture: string | null;
 }
 
 /**
@@ -28,12 +28,25 @@ interface MeasuredTemplateData extends PlaceableObjectData {
  * });
  */
 declare class MeasuredTemplate extends PlaceableObject {
-    /* -------------------------------------------- */
-    /*  Properties                                  */
-    /* -------------------------------------------- */
-
     /** @override */
-    data: MeasuredTemplateData;
+    constructor(data: Partial<MeasuredTemplateData>, scene: Scene);
+
+    ruler: PreciseText;
+
+    /**
+     * The tiling texture used for this template, if any
+     */
+    texture: PIXI.Texture;
+
+    /**
+     * The template shape used for testing point intersection
+     */
+    shape: PIXI.Circle | PIXI.Ellipse | PIXI.Polygon | PIXI.Rectangle | PIXI.RoundedRectangle;
+
+    /**
+     * Internal property used to configure the control border thickness
+     */
+    protected _borderThickness: number;
 
     /**
      * A convenience accessor for the border color as a numeric hex code
@@ -107,9 +120,8 @@ declare class MeasuredTemplate extends PlaceableObject {
 
     /**
      * Update the displayed ruler tooltip text
-     * @private
      */
-    _refreshRulerText(): void;
+    protected _refreshRulerText(): void;
 
     /* -------------------------------------------- */
 
@@ -127,23 +139,25 @@ declare class MeasuredTemplate extends PlaceableObject {
     /* -------------------------------------------- */
 
     /** @override */
-    _canControl(user: User, event?: Event): boolean;
+    protected _canControl(user: User, event?: Event): boolean;
 
     /** @override */
-    _canConfigure(user: User, event?: Event): boolean;
+    protected _canConfigure(user: User, event?: Event): boolean;
 
     /** @override */
-    _canView(user: User, event?: Event): boolean;
+    protected _canView(user: User, event?: Event): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */
     /* -------------------------------------------- */
 
     /** @override */
-    _onUpdate(data: any): void;
-
-    /* -------------------------------------------- */
+    protected _onUpdate(data: any): void;
 
     /** @override */
-    _onDelete(): void;
+    protected _onDelete(): void;
+}
+
+declare interface MeasuredTemplate {
+    data: MeasuredTemplateData;
 }

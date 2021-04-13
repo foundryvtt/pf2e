@@ -1,16 +1,27 @@
 import { ItemPF2e } from './base';
-import { SpellData } from './data-definitions';
+import { EffectArea, SpellData } from './data-definitions';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { AreaEffectTemplate } from '@module/canvas/area-effect/template';
 
 export class SpellPF2e extends ItemPF2e {
-    // todo: does this still have a point? If not, remove it
-    getSpellInfo() {
-        return this.getChatData();
-    }
-
     get spellcasting(): SpellcastingEntryPF2e | undefined {
         const spellcastingId = this.data.data.location.value;
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+    }
+
+    get effectArea(): EffectArea {
+        return this.data.data.area;
+    }
+
+    /** @override */
+    async roll(event?: JQuery.TriggeredEvent): Promise<ChatMessage | null> {
+        if (this.effectArea) {
+            const areaTemplate = AreaEffectTemplate.fromItem(this);
+            if (areaTemplate) {
+                await areaTemplate.drawPreview();
+            }
+        }
+        return super.roll(event);
     }
 
     getChatData(htmlOptions?: Record<string, boolean>, rollOptions: { spellLvl?: number } = {}) {

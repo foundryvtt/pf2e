@@ -174,7 +174,7 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
     /**
      * The Token's current central position
      */
-    get center(): any;
+    get center(): Point;
 
     /* -------------------------------------------- */
     /*  State Attributes

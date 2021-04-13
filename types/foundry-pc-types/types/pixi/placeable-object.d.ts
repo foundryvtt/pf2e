@@ -57,17 +57,16 @@ declare abstract class PlaceableObject extends PIXI.Container {
      */
     protected _sheet: FormApplication | null;
 
-    constructor(data: PlaceableObjectData, scene: Scene);
+    constructor(data: Partial<PlaceableObjectData>, scene: Scene);
 
     /* -------------------------------------------- */
     /* Properties
     /* -------------------------------------------- */
 
-    get _id(): string;
     /**
      * The central coordinate pair of the placeable object based on it's own width and height
      */
-    get center(): PIXI.Point;
+    get center(): Point;
 
     /**
      * This EmbeddedEntity ID of the underlying data object
@@ -213,7 +212,7 @@ declare abstract class PlaceableObject extends PIXI.Container {
     update(updateData: {}, options?: EntityUpdateOptions): Promise<this>;
 
     /** @extends {Entity.deleteEmbeddedEntity} */
-    delete(createData: Partial<this['data']>, options?: EntityDeleteOptions): Promise<this>;
+    delete(options?: EntityDeleteOptions): Promise<this>;
 
     /**
      * Get the value of a "flag" for this PlaceableObject

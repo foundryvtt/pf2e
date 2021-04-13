@@ -91,23 +91,25 @@ import './types/framework/embedded-entity/active-effect';
 // PIXI
 
 import './types/pixi/canvas-layer';
-import './types/pixi/mouseinteractionmanager';
+import './types/pixi/grid-highlight';
+import './types/pixi/mouse-interaction-manager';
 import './types/pixi/placeableslayer/base';
 import './types/pixi/placeableslayer/drawinglayer';
-import './types/pixi/placeableslayer/gridlayer';
+import './types/pixi/placeableslayer/grid-layer';
 import './types/pixi/placeableslayer/lighting-layer';
 import './types/pixi/placeableslayer/tileslayer';
-import './types/pixi/placeableslayer/templatelayer';
+import './types/pixi/placeableslayer/template-layer';
 import './types/pixi/placeableslayer/tokenlayer';
 import './types/pixi/placeableslayer/point-source';
 
-import './types/pixi/helpers/controlicon';
+import './types/pixi/helpers/control-icon';
+import './types/pixi/helpers/precise-text';
 import './types/pixi/helpers/ray';
 import './types/pixi/helpers/ruler';
 
-import './types/pixi/placeableobject';
+import './types/pixi/placeable-object';
 import './types/pixi/placeables/ambient-light';
-import './types/pixi/placeables/measuredtemplate';
+import './types/pixi/placeables/measured-template';
 import './types/pixi/placeables/token';
 import './types/pixi/placeables/note';
 import './types/pixi/placeables/tile';
