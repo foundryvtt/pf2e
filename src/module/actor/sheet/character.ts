@@ -726,7 +726,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 .addClass('active');
         });
 
-        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
+        html.find('.crb-trait-selector').on('click', (event) => this.onTraitSelector(event));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
