@@ -1,20 +1,25 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
 import { PhysicalItemPF2e } from '@item/physical';
-import { ActorPF2e } from '../../base';
+import { ActorPF2e } from '@actor/base';
+import { ErrorPF2e } from '@module/utils';
+
+interface IdentifyPopupOptions extends FormApplicationOptions {
+    itemId: string;
+}
 
 /**
  * @category Other
  */
-export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
+export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupOptions> {
     static get defaultOptions(): FormApplicationOptions {
-        const options = super.defaultOptions;
-        options.id = 'identify-item';
-        options.classes = [];
-        options.title = game.i18n.localize('PF2E.identification.Identify');
-        options.template = 'systems/pf2e/templates/actors/identify-item.html';
-        options.width = 'auto';
-        options.classes = ['identify-popup'];
-        return options;
+        return {
+            ...super.defaultOptions,
+            id: 'identify-item',
+            title: game.i18n.localize('PF2E.identification.Identify'),
+            template: 'systems/pf2e/templates/actors/identify-item.html',
+            width: 'auto',
+            classes: ['identify-popup'],
+        };
     }
 
     protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
@@ -40,13 +45,13 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
         };
     }
 
-    getItem(): any {
+    getItem(): PhysicalItemPF2e {
         const { itemId } = this.options;
         const item = this.object.getOwnedItem(itemId);
         if (!item) {
-            throw Error(`PF2e | Could not load item with id: ${itemId} for identification`);
+            throw ErrorPF2e(`Could not load item with id: ${itemId} for identification`);
         } else if (!(item instanceof PhysicalItemPF2e)) {
-            throw Error(`PF2e | ${item?.name} is not a physical item.`);
+            throw ErrorPF2e(`${item.name} is not a physical item.`);
         }
 
         return item;

@@ -21,7 +21,7 @@ declare class ActorSheet<
     ItemDataType extends CollectionValue<ActorType['items']>['data'] = CollectionValue<ActorType['items']>['data']
 > extends BaseEntitySheet<ActorType> {
     /** @override */
-    constructor(actor: ActorType, options?: FormApplicationOptions);
+    constructor(actor: ActorType, options?: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;

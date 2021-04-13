@@ -30,7 +30,6 @@ interface ApplicationOptions {
      * have their vertical scroll positions preserved during a re-render.
      */
     scrollY?: string[];
-    [key: string]: any;
 }
 
 interface ApplicationHeaderButton {
@@ -75,11 +74,11 @@ declare let _maxZ: number;
 /**
  * The standard application window that is rendered for a large variety of UI elements in Foundry VTT
  */
-declare class Application {
+declare class Application<OptionsType extends ApplicationOptions = ApplicationOptions> {
     /**
      * The options provided to this application upon initialization
      */
-    options: ApplicationOptions;
+    options: OptionsType;
 
     /**
      * The application ID is a unique incrementing integer which is used to identify every application window
@@ -130,7 +129,7 @@ declare class Application {
 
     protected static RENDER_STATES: any;
 
-    constructor(options?: ApplicationOptions);
+    constructor(options?: OptionsType);
 
     /**
      * Create drag-and-drop workflow handlers for this Application
