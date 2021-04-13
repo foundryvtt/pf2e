@@ -152,7 +152,7 @@ export const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean {
+function isTopLevelCoin(item: ItemPlaceholder, currencies: typeof CURRENCIES): boolean {
     return (
         item?.type === 'treasure' &&
         item?.data?.value?.value === 1 &&
@@ -202,6 +202,8 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
     }
 }
 
+const CURRENCIES = new Set(['pp', 'gp', 'sp', 'cp'] as const);
+
 export async function addCoins(
     actor: ActorPF2e,
     {
@@ -215,11 +217,10 @@ export async function addCoins(
     }: { coins?: Coins; combineStacks?: boolean } = {},
 ): Promise<void> {
     const items: ItemPlaceholder[] = actor.data.items;
-    const currencies = new Set(Object.keys(coins));
-    const topLevelCoins = items.filter((item) => combineStacks && isTopLevelCoin(item, currencies));
+    const topLevelCoins = items.filter((item) => combineStacks && isTopLevelCoin(item, CURRENCIES));
     const coinsByDenomination = groupBy(topLevelCoins, (item) => item?.data?.denomination?.value);
 
-    for await (const denomination of currencies) {
+    for await (const denomination of CURRENCIES) {
         const quantity = coins[denomination];
         if (quantity > 0) {
             if (coinsByDenomination.has(denomination)) {
@@ -244,10 +245,9 @@ export async function removeCoins(
     }: { coins?: Coins; combineStacks?: boolean } = {},
 ): Promise<void> {
     const items: ItemPlaceholder[] = actor.data.items;
-    const currencies = new Set(Object.keys(coins));
-    const topLevelCoins = items.filter((item) => isTopLevelCoin(item, currencies));
+    const topLevelCoins = items.filter((item) => isTopLevelCoin(item, CURRENCIES));
     const coinsByDenomination = groupBy(topLevelCoins, (item) => item?.data?.denomination?.value);
-    for await (const denomination of currencies) {
+    for await (const denomination of CURRENCIES) {
         const quantity = coins[denomination];
         if (quantity > 0) {
             if (coinsByDenomination.has(denomination)) {
