@@ -8,6 +8,7 @@ import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 import { SpellPF2e } from '@item/spell';
+import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -376,32 +377,54 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     protected onTraitSelector(event: JQuery.TriggeredEvent) {
         event.preventDefault();
-        const a = $(event.currentTarget);
-        let choices: any;
-        // we're special casing this because it is unique per npc
-        // and there's a bunch of magic with .trait-selector so
-        // making this a separate function would be more complicated
-        if (a.attr('data-options') === 'attackEffects') {
-            const actions: Record<string, string> = {};
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'action') actions[i.name] = i.name;
-                }
-            }
+        const $anchor = $(event.currentTarget);
+        const traitSelector = $anchor.attr('data-trait-selector') ?? '';
+        if (traitSelector) {
+            if (traitSelector === 'basic') {
+                const objectProperty = $anchor.attr('data-property') ?? '';
+                const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
+                const basicTraitSelector: any = {
+                    objectProperty,
+                    configTypes,
+                };
 
-            choices = duplicate(CONFIG.PF2E.attackEffects);
-            mergeObject(choices, actions);
+                const noCustom = $anchor.attr('data-no-custom') === 'true';
+                if (noCustom) {
+                    basicTraitSelector.allowCustom = false;
+                }
+
+                // we're special casing this because it is unique per npc
+                // and there's a bunch of magic with .trait-selector so
+                // making this a separate function would be more complicated
+                const actions: Record<string, string> = {};
+                if (configTypes.includes('attackEffects')) {
+                    if (this.actor) {
+                        for (const i of this.actor.data.items) {
+                            if (i.type === 'action') actions[i.name] = i.name;
+                        }
+                    }
+                }
+                if (!isObjectEmpty(actions)) {
+                    basicTraitSelector.customChoices = actions;
+                }
+
+                getTraitSelector(this.item, 'basic', {
+                    basicTraitSelector,
+                }).render(true);
+            } else {
+                getTraitSelector(this.item, traitSelector as TraitSelectorTypes).render(true);
+            }
         } else {
-            choices = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
+            // Handle feat prerequisites until they are using Tagify
+            const options = {
+                name: $anchor.parents('label').attr('for') ?? '',
+                title: $anchor.parent().text().trim(),
+                width: $anchor.attr('data-width') || 'auto',
+                has_placeholders: $anchor.attr('data-has-placeholders') === 'true',
+                choices: CONFIG.PF2E[($anchor.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {},
+            };
+            new TraitSelector5e(this.item, options).render(true);
         }
-        const options = {
-            name: a.parents('label').attr('for') ?? '',
-            title: a.parent().text().trim(),
-            width: a.attr('data-width') || 'auto',
-            has_placeholders: a.attr('data-has-placeholders') === 'true',
-            choices: choices,
-        };
-        new TraitSelector5e(this.item, options).render(true);
     }
 
     /**
