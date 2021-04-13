@@ -2,9 +2,9 @@
     <label>{{localize "PF2E.FeatTypeLabel"}}</label>
     <select name="data.featType.value" data-dtype="String">
         {{#select data.featType.value}}
-        {{#each featTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            {{#each featTypes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -13,9 +13,9 @@
     <label>{{localize "PF2E.FeatActionTypeLabel"}}</label>
     <select name="data.actionType.value" data-dtype="String">
         {{#select data.actionType.value}}
-        {{#each featActionTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            {{#each featActionTypes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -24,10 +24,10 @@
     <label>{{localize "PF2E.FeatActionsLabel"}}</label>
     <select name="data.actions.value" data-dtype="String">
         {{#select data.actions.value}}
-        <option value=""></option>
-        {{#each actionsNumber as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each actionsNumber as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -36,10 +36,10 @@
     <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
     <select name="data.actionCategory.value" data-dtype="String">
         {{#select data.actionCategory.value}}
-        <option value=""></option>
-        {{#each categories as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each categories as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -48,9 +48,9 @@
     <label>{{localize "PF2E.Rarity"}}</label>
     <select name="data.traits.rarity.value" data-dtype="String">
         {{#select data.traits.rarity.value}}
-        {{#each rarity as |label key|}}
-        <option value="{{key}}">{{localize label}}</option>
-        {{/each}}
+            {{#each rarity as |label key|}}
+                <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>

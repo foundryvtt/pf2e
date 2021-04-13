@@ -25,7 +25,21 @@ import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ConditionPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
-import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
+import {
+    SelectableTagField,
+    SELECTABLE_TAG_FIELDS,
+    TagSelectorType,
+    TAG_SELECTOR_TYPES,
+    BasicSelectorOptions,
+} from '@system/trait-selector';
+import { ErrorPF2e, objectHasKey, tupleHasValue } from '@module/utils';
+import {
+    TraitSelectorBasic,
+    TraitSelectorResistances,
+    TraitSelectorSenses,
+    TraitSelectorSpeeds,
+    TraitSelectorWeaknesses,
+} from '@module/system/trait-selector';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -97,7 +111,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             di: CONFIG.PF2E.immunityTypes,
             dv: CONFIG.PF2E.weaknessTypes,
             ci: CONFIG.PF2E.immunityTypes,
-            traits: CONFIG.PF2E.monsterTraits,
+            traits: CONFIG.PF2E.creatureTraits,
         };
 
         for (const [t, choices] of Object.entries(map)) {
@@ -108,21 +122,25 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 (trait as any).selected = {};
                 for (const entry of trait) {
                     if (typeof entry === 'object') {
+                        const entryType = game.i18n.localize(choices[entry.type]);
                         if ('exceptions' in entry && entry.exceptions !== '') {
-                            (trait as any).selected[entry.type] = `${choices[entry.type]} (${entry.value}) [${
-                                entry.exceptions
-                            }]`;
+                            const exceptions = entry.exceptions;
+                            (trait as any).selected[entry.type] = `${entryType} (${entry.value}) [${exceptions}]`;
                         } else {
-                            let text = `${choices[entry.type]}`;
+                            let text = entryType;
                             if (entry.value !== '') text = `${text} (${entry.value})`;
                             (trait as any).selected[entry.type] = text;
                         }
                     } else {
-                        (trait as any).selected[entry] = choices[entry] || `${entry}`;
+                        (trait as any).selected[entry] = choices[entry] || String(entry);
                     }
                 }
             } else if (trait.value) {
-                trait.selected = Object.fromEntries(trait.value.map((name: string) => [name, name]));
+                trait.selected = Object.fromEntries(
+                    (trait.value as string[])
+                        .filter((key): key is keyof typeof choices => objectHasKey(choices, key))
+                        .map((key) => [key, choices[key]]),
+                );
             }
 
             // Add custom entry
@@ -1655,18 +1673,44 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     protected onTraitSelector(event: JQuery.ClickEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
-        const traitSelector = $anchor.attr('data-trait-selector') ?? '';
-        if (traitSelector === 'basic') {
+        const selectorType = $anchor.attr('data-trait-selector') ?? '';
+        if (!tupleHasValue(TAG_SELECTOR_TYPES, selectorType)) {
+            throw ErrorPF2e(`Unrecognized trait selector type "${selectorType}"`);
+        }
+        if (selectorType === 'basic') {
             const objectProperty = $anchor.attr('data-property') ?? '';
-            const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
-            getTraitSelector(this.actor, 'basic', {
-                basicTraitSelector: {
-                    objectProperty,
-                    configTypes,
-                },
-            }).render(true);
+            const configTypes = ($anchor.attr('data-config-types') ?? '')
+                .split(',')
+                .map((type) => type.trim())
+                .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
+            this.tagSelector('basic', {
+                objectProperty,
+                configTypes,
+            });
         } else {
-            getTraitSelector(this.actor, traitSelector as TraitSelectorTypes).render(true);
+            this.tagSelector(selectorType);
+        }
+    }
+
+    /** Construct and render a tag selection menu */
+    protected tagSelector(selectorType: Exclude<TagSelectorType, 'basic'>, options?: FormApplicationOptions): void;
+    protected tagSelector(selectorType: 'basic', options: BasicSelectorOptions): void;
+    protected tagSelector(
+        selectorType: TagSelectorType,
+        options: FormApplicationOptions | BasicSelectorOptions = {},
+    ): void {
+        if (selectorType === 'basic' && 'objectProperty' in options) {
+            new TraitSelectorBasic(this.object, options).render(true);
+        } else if (selectorType === 'basic') {
+            throw ErrorPF2e('Insufficient options provided to render basic tag selector');
+        } else {
+            const TagSelector = {
+                resistances: TraitSelectorResistances,
+                senses: TraitSelectorSenses,
+                'speed-types': TraitSelectorSpeeds,
+                weaknesses: TraitSelectorWeaknesses,
+            }[selectorType];
+            new TagSelector(this.object, options).render(true);
         }
     }
 

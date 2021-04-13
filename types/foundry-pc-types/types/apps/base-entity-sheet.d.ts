@@ -22,7 +22,7 @@ declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication
     constructor(object: EntityType, options: Partial<BaseEntitySheetOptions>);
 
     /** @override */
-    static get defaultOptions(): BaseEntitySheetOptions & { classes: string[] };
+    static get defaultOptions(): BaseEntitySheetOptions;
 
     /**
      * A convenience accessor for the object property of the inherited FormApplication instance
