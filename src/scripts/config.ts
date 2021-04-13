@@ -31,6 +31,7 @@ import { AnimalCompanionPF2e } from '@actor/animal-companion';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
+import { MacroPF2e } from '@module/macro';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -2338,7 +2339,7 @@ mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.magicalSchools);
 mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.damageTypes);
 
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e> {
+export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
     /**
      * Configuration for the default Combat entity class
      */
@@ -2355,7 +2356,7 @@ export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e
     time: {
         roundTime: number;
     };
-    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e>['ui'] & {
+    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e>['ui'] & {
         combat: typeof CombatTrackerPF2e;
         compendium: typeof CompendiumDirectoryPF2e;
     };

@@ -2,7 +2,7 @@
  * The Collection of Macro entities
  * @extends {Collection}
  */
-declare class Macros extends EntityCollection<Macro> {
+declare class Macros<MacroType extends Macro> extends EntityCollection<MacroType> {
     /** @override */
     get entity(): 'Macro';
 
@@ -31,8 +31,8 @@ declare interface MacroData extends BaseEntityData {
     sort: number;
 }
 
-declare interface MacroClassConfig extends EntityClassConfig<Macro> {
-    collection: Macros;
+declare interface MacroClassConfig<MacroType extends Macro> extends EntityClassConfig<MacroType> {
+    collection: Macros<MacroType>;
 }
 
 /**
@@ -49,7 +49,7 @@ declare class Macro extends Entity {
     _data: MacroData;
 
     /** @override */
-    static get config(): MacroClassConfig;
+    static get config(): MacroClassConfig<Macro>;
 
     /**
      * Execute the Macro command

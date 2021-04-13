@@ -23,6 +23,7 @@ import { DicePF2e } from '../dice';
 import * as MonkeyPatch from '../🐵🩹';
 import { CombatPF2e } from '@module/combat';
 import { ChatMessagePF2e } from '@module/chat-message';
+import { MacroPF2e } from '@module/macro';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -36,6 +37,7 @@ export function listen(): void {
         CONFIG.Actor.entityClass = ActorPF2e;
         CONFIG.ChatMessage.entityClass = ChatMessagePF2e;
         CONFIG.Combat.entityClass = CombatPF2e;
+        CONFIG.Macro.entityClass = MacroPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
