@@ -4,7 +4,8 @@ declare interface Config<
     ActorType extends Actor,
     ItemType extends Item,
     EffectType extends ActiveEffect<ActorType | ItemType>,
-    MessageType extends ChatMessage<ActorType>
+    MessageType extends ChatMessage<ActorType>,
+    MacroType extends Macro
 > {
     /**
      * Configure debugging flags to display additional information
@@ -89,6 +90,16 @@ declare interface Config<
             Anchor: string;
             [key: string]: string;
         };
+        sidebarIcon: string;
+    };
+
+    /**
+     * Configuration for the Macro entity
+     */
+    Macro: {
+        entityClass: { new (data: MacroType['data'], options?: EntityConstructorOptions): MacroType };
+        collection: typeof Macros;
+        sheetClass: typeof MacroConfig;
         sidebarIcon: string;
     };
 
