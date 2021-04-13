@@ -51,7 +51,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         const data: any = super.getData();
 
         const property = getProperty(this.object.data, this.objectProperty);
-        const chosen: string[] = property.value ?? [];
+        const chosen = ((property.value ?? []) as string[] | number[]).map((c: string | number) => c.toString());
 
         if (this.allowCustom) {
             data.allowCustom = true;
@@ -62,7 +62,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         Object.entries(this.choices).forEach(([type, label]) => {
             choices[type] = {
                 label,
-                selected: chosen.includes(type),
+                selected: chosen.includes(type) || chosen.includes(type.toLocaleLowerCase()),
             };
         });
         data.choices = choices;

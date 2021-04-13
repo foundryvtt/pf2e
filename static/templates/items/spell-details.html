@@ -32,9 +32,9 @@
 </div>
 
 <div class="form-group scalable">
-    <label for="data.traditions">
+    <label>
         {{localize "PF2E.SpellTraditionsLabel"}}
-        <a class="trait-selector" data-options="spellTraditions"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="spellTraditions" data-property="data.traditions"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list" style="margin: 3px 0; padding: 0;">
         {{#each data.traditions.value as |v k|}}
@@ -189,9 +189,9 @@
 {{/if}}
 
 <div class="form-group-stacked">
-    <label for="data.traits">
+    <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-options="spellTraits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="spellTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
         {{#each data.traits.value as |v k|}}
