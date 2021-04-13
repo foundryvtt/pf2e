@@ -1,18 +1,19 @@
 import { MigrationBase } from './base';
 import { PhysicalItemPF2e } from '../item/physical';
 import { ActorDataPF2e } from '@actor/data-definitions';
+import { ErrorPF2e } from '@module/utils';
 
 export class Migration576AddCoins extends MigrationBase {
     static version = 0.576;
     requiresFlush = true;
 
     async addCoin(actor: ActorDataPF2e, treasureId: string, denomination: string, quantity: number) {
-        if (quantity !== null && `${quantity}`.trim() !== '0') {
+        if (quantity !== null && String(quantity).trim() !== '0') {
             console.log(`Adding ${quantity} of ${denomination} to actors ${actor.name}'s inventory`);
-            const pack = game.packs.find<Compendium<PhysicalItemPF2e>>((p) => p.collection === 'pf2e.equipment-srd');
-            const item = await pack.getEntity(treasureId);
-            if (item === null) {
-                return Promise.reject(new Error(`PF2e System | Unexpected missing inventory item: ${treasureId}`));
+            const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
+            const item = await pack?.getEntity(treasureId);
+            if (!(item instanceof PhysicalItemPF2e)) {
+                throw ErrorPF2e(`Unexpected missing inventory item: ${treasureId}`);
             }
             item.data.data.quantity.value = quantity;
             actor.items.push(item.data);
