@@ -622,7 +622,7 @@ class CompendiumBrowser extends Application {
             classes: classesObj,
             times: [...times].sort(),
             schools: schoolsObj,
-            traditions: CONFIG.PF2E.spellTraditions,
+            traditions: CONFIG.PF2E.magicTraditions,
             spells,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: CONFIG.PF2E.spellOtherTraits,
