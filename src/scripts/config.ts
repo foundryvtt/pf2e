@@ -2213,9 +2213,6 @@ export const PF2ECONFIG = {
 
     SETTINGS: {
         homebrew: {
-            name: 'PF2E.SETTINGS.Homebrew.Name',
-            label: 'PF2E.SETTINGS.Homebrew.Label',
-            hint: 'PF2E.SETTINGS.Homebrew.Hint',
             creatureTraits: {
                 name: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Name',
                 hint: 'PF2E.SETTINGS.Homebrew.CreatureTraits.Hint',

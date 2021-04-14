@@ -28,7 +28,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            title: CONFIG.PF2E.SETTINGS.homebrew.name,
+            title: 'PF2E.SETTINGS.Homebrew.Name',
             id: 'homebrew-settings',
             template: 'systems/pf2e/templates/system/settings/homebrew.html',
             width: 550,
