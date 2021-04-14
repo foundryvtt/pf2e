@@ -4,7 +4,7 @@ import { ItemDataPF2e } from '@item/data-definitions';
 import { MeleePF2e } from '@item/others';
 import { StatisticModifier } from '@module/modifiers';
 
-export const DamageCards = {
+export const ChatCards = {
     listen: ($html: JQuery) => {
         $html.on('click', '.card-buttons button', async (event) => {
             event.preventDefault();
