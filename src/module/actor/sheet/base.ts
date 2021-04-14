@@ -82,9 +82,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return this.actor.data.type;
     }
 
-    /** Is the sheet lootable by non-owners? */
+    /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
-        return !this.actor.owner && this.actor.isLootableBy(game.user);
+        return false;
     }
 
     /** @override */

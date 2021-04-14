@@ -199,7 +199,7 @@ declare class Entity {
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
      * configuration sheet.
      */
-    protected get _sheetClass(): BaseEntitySheet<this>;
+    protected get _sheetClass(): typeof BaseEntitySheet;
 
     /**
      * Return a reference to the Folder which this Entity belongs to, if any.

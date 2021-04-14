@@ -42,6 +42,11 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     /** @override */
+    get isLootSheet(): boolean {
+        return !this.actor.owner && this.actor.isLootableBy(game.user);
+    }
+
+    /** @override */
     getData() {
         const sheetData = super.getData();
 

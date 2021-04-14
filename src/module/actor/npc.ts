@@ -10,6 +10,7 @@ import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ConfigPF2e } from '@scripts/config';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
+import { ActorSheetPF2eSimpleNPC } from './sheet/simple-npc-sheet';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -31,22 +32,28 @@ export class NPCPF2e extends CreaturePF2e {
      * @override
      */
     static can(user: User, action: UserAction, target: NPCPF2e): boolean {
-        if (action === 'update' && target.hitPoints.current === 0) {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (action === 'update' && target.hitPoints.current === 0 && npcsAreLootable) {
             return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
         return super.can(user, action, target);
     }
 
-    /** A user can see an NPC in the actor directory only if they have at least Observer permission
+    /**
+     * A user can see an NPC in the actor directory only if they have at least Observer permission
      * @override
      */
     get visible(): boolean {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 
-    /** @override */
+    /**
+     * Grant all users at least limited permission on dead NPCs
+     * @override
+     */
     get permission(): ZeroToThree {
-        if (game.user.isGM || this.hitPoints.current > 0) {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
             return super.permission;
         }
         return Math.max(super.permission, 1) as ZeroToThree;
@@ -57,7 +64,12 @@ export class NPCPF2e extends CreaturePF2e {
      * @override
      */
     hasPerm(user: User, permission: string | ZeroToThree, exact = false) {
-        if (game.user.isGM || this.hitPoints.current > 0) {
+        // Temporary measure until a lootable view of the legacy sheet is ready
+        if (!game.ready || this._sheetClass !== ActorSheetPF2eSimpleNPC) {
+            return super.hasPerm(user, permission, exact);
+        }
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
             return super.hasPerm(user, permission, exact);
         }
         if ([1, 'LIMITED'].includes(permission) && !exact) {

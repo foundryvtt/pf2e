@@ -201,6 +201,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         return super.title;
     }
 
+    /** @override */
+    get isLootSheet(): boolean {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        return npcsAreLootable && !this.actor.owner && this.actor.isLootableBy(game.user);
+    }
+
     /**
      * Prepares items in the actor for easier access during sheet rendering.
      * @param actorData Data from the actor associated to this sheet.
