@@ -1,6 +1,5 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { TraitSelector5e } from '@system/trait-selector';
 import {
     FeatData,
     isInventoryItem,
