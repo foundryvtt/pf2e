@@ -108,7 +108,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 isRitual: item.data.data.traditions.value.includes('ritual'),
             });
 
-            this.prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
+            this.prepareTraits(traits, { ...CONFIG.PF2E.magicTraditions, ...CONFIG.PF2E.spellTraits });
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
