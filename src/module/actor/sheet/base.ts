@@ -82,6 +82,11 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return this.actor.data.type;
     }
 
+    /** Is the sheet lootable by non-owners? */
+    get isLootSheet(): boolean {
+        return !this.actor.owner && this.actor.isLootableBy(game.user);
+    }
+
     /** @override */
     getData(): any {
         const sheetData = super.getData();
@@ -753,7 +758,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         });
 
         // Item Dragging
-        const handler = (event: DragEvent) => this._onDragItemStart(event as ElementDragEvent);
+        const handler = (event: DragEvent) => this.onDragItemStart(event as ElementDragEvent);
         html.find('.item').each((_i, li) => {
             li.setAttribute('draggable', 'true');
             li.addEventListener('dragstart', handler, false);
@@ -948,7 +953,19 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         this._onSubmit(event.originalEvent!);
     }
 
-    protected _onDragItemStart(event: ElementDragEvent): boolean {
+    /** @override */
+    protected _canDragStart(selector: string): boolean {
+        if (this.isLootSheet) return true;
+        return super._canDragStart(selector);
+    }
+
+    /** @override */
+    protected _canDragDrop(selector: string): boolean {
+        if (this.isLootSheet) return true;
+        return super._canDragDrop(selector);
+    }
+
+    protected onDragItemStart(event: ElementDragEvent): boolean {
         event.stopImmediatePropagation();
 
         const itemId = event.currentTarget.getAttribute('data-item-id');

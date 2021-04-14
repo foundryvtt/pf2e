@@ -230,7 +230,7 @@ declare class Entity {
      * entity.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * entity.permission; // 2
      */
-    get permission(): number;
+    get permission(): 0 | 1 | 2 | 3;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Entity

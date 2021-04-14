@@ -129,6 +129,7 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     notAdjusted: boolean;
     inventory: Inventory;
     hasShield?: boolean;
+    tokenName?: string;
 }
 
 interface SheetEnrichedItemData {
@@ -182,7 +183,22 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Returns the path to the HTML template to use to render this sheet.
      */
     get template() {
+        if (this.isLootSheet) {
+            return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
+        }
         return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
+    }
+
+    /**
+     * Use the token name as the title if showing a lootable NPC sheet
+     * @override
+     */
+    get title() {
+        if (this.isLootSheet) {
+            const actorName = this.token?.name ?? this.actor.name;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+        }
+        return super.title;
     }
 
     /**
@@ -202,7 +218,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
-    getData() {
+    /** @override */
+    getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
         // recall knowledge DCs
@@ -264,6 +281,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.weakState = 'inactive';
         }
 
+        // Data for lootable token-actor sheets
+        if (this.isLootSheet) {
+            sheetData.tokenName = this.token?.name ?? sheetData.actor.name;
+        }
+
         // Return data for rendering
         return sheetData;
     }
@@ -274,6 +296,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      */
     activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
+
+        // Set the inventory tab as active on a loot-sheet rendering.
+        if (this.isLootSheet) {
+            html.find('.tab.inventory').addClass('active');
+            html.find('.inventory-section li.item')
+                .attr({ draggable: true })
+                .on('dragstart', (event) => this.onDragItemStart(event.originalEvent as ElementDragEvent));
+        }
 
         // Subscribe to roll events
         const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');

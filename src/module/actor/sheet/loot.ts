@@ -153,18 +153,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    /** @override
-     * Anyone can loot from a loot sheet
-     */
-    protected _canDragStart(_selector: string): boolean {
-        return true;
-    }
-
-    /** @override */
-    protected _canDragDrop(_selector: string): boolean {
-        return true;
-    }
-
     /** @override */
     protected async _onDropItem(
         event: ElementDragEvent,
