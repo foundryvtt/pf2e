@@ -2,9 +2,9 @@
     <label>{{localize "PF2E.ActionActionTypeLabel"}}</label>
     <select name="data.actionType.value" data-dtype="String">
         {{#select data.actionType.value}}
-        {{#each actionTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            {{#each actionTypes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -13,10 +13,10 @@
     <label>{{localize "PF2E.ActionActionsLabel"}}</label>
     <select name="data.actions.value" data-dtype="String">
         {{#select data.actions.value}}
-        <option value=""></option>
-        {{#each actionsNumber as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each actionsNumber as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -25,10 +25,10 @@
     <label>{{localize "PF2E.ActionCategoryLabel"}}</label>
     <select name="data.actionCategory.value" data-dtype="String">
         {{#select data.actionCategory.value}}
-        <option value=""></option>
-        {{#each categories as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each categories as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>

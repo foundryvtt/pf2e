@@ -7,8 +7,15 @@ import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 import { SpellPF2e } from '@item/spell';
-import { getTraitSelector, TraitSelectorTypes } from '@system/trait-selector/index';
 import Tagify from '@yaireo/tagify';
+import {
+    BasicSelectorOptions,
+    SelectableTagField,
+    SELECTABLE_TAG_FIELDS,
+    TraitSelectorBasic,
+    TAG_SELECTOR_TYPES,
+} from '@module/system/trait-selector';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -379,41 +386,41 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected onTraitSelector(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
-        const traitSelector = $anchor.attr('data-trait-selector') ?? '';
-        if (traitSelector === 'basic') {
-            const objectProperty = $anchor.attr('data-property') ?? '';
-            const configTypes = ($anchor.attr('data-config-types') ?? '').split(',').map((type) => type.trim());
-            const basicTraitSelector: any = {
-                objectProperty,
-                configTypes,
-            };
+        const selectorType = $anchor.attr('data-trait-selector') ?? '';
+        if (!(selectorType === 'basic' && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
+            throw ErrorPF2e('Item sheets can only use the basic tag selector');
+        }
+        const objectProperty = $anchor.attr('data-property') ?? '';
+        const configTypes = ($anchor.attr('data-config-types') ?? '')
+            .split(',')
+            .map((type) => type.trim())
+            .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
+        const selectorOptions: BasicSelectorOptions = {
+            objectProperty,
+            configTypes,
+        };
 
-            const noCustom = $anchor.attr('data-no-custom') === 'true';
-            if (noCustom) {
-                basicTraitSelector.allowCustom = false;
-            }
+        const noCustom = $anchor.attr('data-no-custom') === 'true';
+        if (noCustom) {
+            selectorOptions.allowCustom = false;
+        }
 
-            // we're special casing this because it is unique per npc
-            // and there's a bunch of magic with .trait-selector so
-            // making this a separate function would be more complicated
-            const actions: Record<string, string> = {};
-            if (configTypes.includes('attackEffects')) {
-                if (this.actor) {
-                    for (const i of this.actor.data.items) {
-                        if (i.type === 'action') actions[i.name] = i.name;
-                    }
+        // we're special casing this because it is unique per npc
+        // and there's a bunch of magic with .trait-selector so
+        // making this a separate function would be more complicated
+        const actions: Record<string, string> = {};
+        if (configTypes.includes('attackEffects')) {
+            if (this.actor) {
+                for (const i of this.actor.data.items) {
+                    if (i.type === 'action') actions[i.name] = i.name;
                 }
             }
-            if (!isObjectEmpty(actions)) {
-                basicTraitSelector.customChoices = actions;
-            }
-
-            getTraitSelector(this.item, 'basic', {
-                basicTraitSelector,
-            }).render(true);
-        } else {
-            getTraitSelector(this.item, traitSelector as TraitSelectorTypes).render(true);
         }
+        if (!isObjectEmpty(actions)) {
+            selectorOptions.customChoices = actions;
+        }
+
+        new TraitSelectorBasic(this.item, selectorOptions).render(true);
     }
 
     /**

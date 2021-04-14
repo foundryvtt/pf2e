@@ -150,7 +150,7 @@
                         <span class="defense-score">
                                 <input name="data.saves.{{sid}}.base" type="number" value="{{save.base}}" data-dtype="Number" placeholder="0" />
                         </span>
-                        <h4 class="save-name rollable">{{save.label}}</h4>
+                        <h4 class="save-name rollable">{{localize save.label}}</h4>
                     </li>
                 {{/each}}
             </ol>
@@ -186,7 +186,7 @@
                             <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="String">
                                 {{#select data.traits.size.value}}
                                 {{#each actorSizes as |label size|}}
-                                    <option value="{{size}}">{{label}}</option>
+                                    <option value="{{size}}">{{localize label}}</option>
                                 {{/each}}
                                 {{/select}}
                             </select>
@@ -204,7 +204,7 @@
                         <select class="pf-value pf-small pf-width-100" name="data.details.alignment.value" data-dtype="String">
                             {{#select data.details.alignment.value}}
                             {{#each alignment as |label key|}}
-                                <option value="{{key}}">{{label}}</option>
+                                <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
@@ -411,7 +411,7 @@
                                         <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}"
                                             data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                             <div class="item-name flexrow">
-                                                <h3>{{section.label}}</h3>
+                                                <h3>{{localize section.label}}</h3>
 
                                                 {{#unless entry.data.tradition.ritual}}
                                                     {{#unless section.isCantrip}}
@@ -481,7 +481,7 @@
                                     <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}"
                                         data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                         <div class="item-name flexrow">
-                                            <h3>{{section.label}}</h3>
+                                            <h3>{{localize section.label}}</h3>
 
                                             {{#if section.isFocus}}
                                             <span class="spell-slots-input">
