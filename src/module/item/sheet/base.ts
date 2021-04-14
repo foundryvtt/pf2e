@@ -98,7 +98,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         mergeObject(data, {
             type,
             hasSidebar: true,
-            hasMystify: game.user.isGM && isInventoryItem(type) && !PhysicalItemPF2e.isIdentified(data),
+            hasMystify: game.user.isGM && isInventoryItem(type),
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
