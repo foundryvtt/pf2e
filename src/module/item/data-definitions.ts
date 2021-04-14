@@ -71,30 +71,31 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         identified?: {
             name: string;
             data: {
-              description: {
-                value: string;
-              }
-            }
+                description: {
+                    value: string;
+                };
+            };
             img: string;
         };
-        
+
         unidentified?: {
-          name: string;
-          data: {
-            description: {
-              value: string;
-            }
-          }
-          img: string;
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
         };
+
         misidentified?: {
-          name: string;
-          data: {
-            description: {
-              value: string;
-            }
-          }
-          img: string;
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
         };
     };
     identified: {

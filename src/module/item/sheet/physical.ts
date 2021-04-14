@@ -14,8 +14,7 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
             isPhysicalItem: true,
             isIdentified: this.item.isIdentified,
         };
-        console.log(sheetdata)
-        return sheetdata
+        return sheetdata;
     }
 
     /** @override */

@@ -52,9 +52,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get hasShowableMystifiedState(): boolean {
         const itemData = this.data as PhysicalItemData;
         switch (PhysicalItemPF2e.getIdentificationState(itemData)) {
-            case 'unidentified': return !!itemData.data.identification.unidentified?.data?.description?.value;
-            case 'misidentified': return !!itemData.data.identification.misidentified?.data?.description?.value;
-            default: return true;
+            case 'unidentified':
+                return !!itemData.data.identification.unidentified?.data?.description?.value;
+            case 'misidentified':
+                return !!itemData.data.identification.misidentified?.data?.description?.value;
+            default:
+                return true;
         }
     }
 
@@ -63,16 +66,21 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             return this;
         }
 
-        let updateData = {
+        const updateData = {
             _id: this.id,
             'data.identified.value': state === 'identified',
-            'data.identification.status': state
+            'data.identification.status': state,
         };
 
         return this.update(updateData);
     }
 
-    static setMystifiedDefaults(itemData: PhysicalItemData, state: string, update: { [key: string]: any }, diff: { [key: string]: any }) {
+    static setMystifiedDefaults(
+        itemData: PhysicalItemData,
+        state: string,
+        update: { [key: string]: any },
+        diff: { [key: string]: any },
+    ) {
         let name =
             getProperty(update, `data.identification.${state}.name`) ??
             getProperty(itemData, `data.identification.${state}.name`);

@@ -7,6 +7,10 @@ interface IdentifyPopupOptions extends FormApplicationOptions {
     itemId: string;
 }
 
+interface SubmitEvent extends Event {
+    submitter: HTMLElement;
+}
+
 /**
  * @category Other
  */
@@ -22,12 +26,13 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         };
     }
 
-    protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
+    protected async _updateObject(_event: SubmitEvent, _formData: FormData): Promise<void> {
         const item = this.getItem();
-        if (_event['submitter'].name === "identify") {
-            item.setIdentifiedState("identified");
+        const button = _event.submitter as HTMLButtonElement;
+        if (button && button.name === 'identify') {
+            item.setIdentifiedState('identified');
         } else {
-            item.setIdentifiedState("misidentified");
+            item.setIdentifiedState('misidentified');
         }
     }
 
