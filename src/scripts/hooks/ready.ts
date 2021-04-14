@@ -4,6 +4,7 @@ import { updateMinionActors } from '@scripts/actor/update-minions';
 import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
+import { HomebrewElements } from '@module/settings/homebrew';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -58,5 +59,8 @@ export function listen(): void {
             const index = game.system.entityTypes.Actor.indexOf('animalCompanion');
             game.system.entityTypes.Actor.splice(index, 1);
         }
+
+        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+        HomebrewElements.refreshTags();
     });
 }

@@ -3,7 +3,6 @@ import { registerSheets } from '../register-sheets';
 import { ActorPF2e } from '@actor/base';
 import { Rollable } from '@actor/data-definitions';
 import { PF2CheckDC } from '@system/check-degree-of-success';
-import { HomebrewElements } from '@module/settings/homebrew';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
@@ -122,8 +121,5 @@ export function listen() {
             Check: CheckPF2e,
             RuleElements,
         };
-
-        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        HomebrewElements.updateConfig();
     });
 }
