@@ -4,6 +4,8 @@ import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
 import { CharacterPF2e } from '@actor/character';
 import { HomebrewElements } from './homebrew';
+import { StatusEffects } from '@scripts/actor/status-effects';
+import { objectHasKey } from '@module/utils';
 
 export function registerSettings() {
     game.settings.register('pf2e', 'worldSchemaVersion', {
@@ -14,6 +16,7 @@ export function registerSettings() {
         default: Migrations.latestVersion,
         type: Number,
     });
+
     game.settings.register('pf2e', 'defaultTokenSettings', {
         name: 'PF2E.SETTINGS.DefaultTokenSettings.Name',
         hint: 'PF2E.SETTINGS.DefaultTokenSettings.Hint',
@@ -22,6 +25,7 @@ export function registerSettings() {
         default: true,
         type: Boolean,
     });
+
     game.settings.register('pf2e', 'defaultTokenSettingsName', {
         name: 'PF2E.SETTINGS.DefaultTokenSettingsName.Name',
         hint: 'PF2E.SETTINGS.DefaultTokenSettingsName.Hint',
@@ -38,6 +42,7 @@ export function registerSettings() {
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
     });
+
     game.settings.register('pf2e', 'defaultTokenSettingsBar', {
         name: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Name',
         hint: 'PF2E.SETTINGS.DefaultTokenSettingsBar.Hint',
@@ -54,6 +59,7 @@ export function registerSettings() {
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
     });
+
     game.settings.register('pf2e', 'ignoreCoinBulk', {
         name: 'PF2E.SETTINGS.IgnoreCoinBulk.Name',
         hint: 'PF2E.SETTINGS.IgnoreCoinBulk.Hint',
@@ -62,6 +68,7 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
+
     game.settings.register('pf2e', 'ignoreContainerOverflow', {
         name: 'PF2E.SETTINGS.IgnoreContainerOverflow.Name',
         hint: 'PF2E.SETTINGS.IgnoreContainerOverflow.Hint',
@@ -70,6 +77,7 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
+
     game.settings.register('pf2e', 'identifyMagicNotMatchingTraditionModifier', {
         name: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Name',
         hint: 'PF2E.SETTINGS.IdentifyMagicNotMatchingTraditionModifier.Hint',
@@ -84,6 +92,7 @@ export function registerSettings() {
         scope: 'world',
         config: true,
     });
+
     game.settings.register('pf2e', 'critRule', {
         name: 'PF2E.SETTINGS.CritRule.Name',
         hint: 'PF2E.SETTINGS.CritRule.Hint',
@@ -96,6 +105,7 @@ export function registerSettings() {
             doubledice: 'PF2E.SETTINGS.CritRule.Choices.Doubledice',
         },
     });
+
     game.settings.register('pf2e', 'compendiumBrowserPacks', {
         name: 'PF2E.SETTINGS.CompendiumBrowserPacks.Name',
         hint: 'PF2E.SETTINGS.CompendiumBrowserPacks.Hint',
@@ -106,6 +116,7 @@ export function registerSettings() {
             compendiumBrowser.loadSettings();
         },
     });
+
     game.settings.register('pf2e', 'pfsSheetTab', {
         name: 'PF2E.SETTINGS.PFSSheetTab.Name',
         hint: 'PF2E.SETTINGS.PFSSheetTab.Hint',
@@ -121,6 +132,7 @@ export function registerSettings() {
             }
         },
     });
+
     game.settings.register('pf2e', 'enabledRulesUI', {
         name: 'PF2E.SETTINGS.EnabledRulesUI.Name',
         hint: 'PF2E.SETTINGS.EnabledRulesUI.Hint',
@@ -154,6 +166,35 @@ export function registerSettings() {
         },
     });
 
+    const iconChoices = {
+        blackWhite: 'PF2E.SETTINGS.statusEffectType.blackWhite',
+        default: 'PF2E.SETTINGS.statusEffectType.default',
+        legacy: 'PF2E.SETTINGS.statusEffectType.legacy',
+    };
+    game.settings.register('pf2e', 'statusEffectType', {
+        name: 'PF2E.SETTINGS.statusEffectType.name',
+        hint: 'PF2E.SETTINGS.statusEffectType.hint',
+        scope: 'world',
+        config: true,
+        default: 'blackWhite',
+        type: String,
+        choices: iconChoices,
+        onChange: (iconType = '') => {
+            if (objectHasKey(iconChoices, iconType)) {
+                StatusEffects.migrateStatusEffectUrls(iconType);
+            }
+        },
+    });
+
+    game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
+        name: 'PF2E.SETTINGS.statusEffectShowCombatMessage.name',
+        hint: 'PF2E.SETTINGS.statusEffectShowCombatMessage.hint',
+        scope: 'client',
+        config: true,
+        default: true,
+        type: Boolean,
+    });
+
     game.settings.registerMenu('pf2e', 'variantRules', {
         name: 'PF2E.SETTINGS.Variant.Name',
         label: 'PF2E.SETTINGS.Variant.Label', // The text label used in the button
@@ -165,9 +206,9 @@ export function registerSettings() {
     VariantRulesSettings.registerSettings();
 
     game.settings.registerMenu('pf2e', 'homebrew', {
-        name: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.name),
-        label: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.label),
-        hint: game.i18n.localize(CONFIG.PF2E.SETTINGS.homebrew.hint),
+        name: 'PF2E.SETTINGS.Homebrew.Name',
+        label: 'PF2E.SETTINGS.Homebrew.Label',
+        hint: 'PF2E.SETTINGS.Homebrew.Hint',
         icon: 'fas fa-beer',
         type: HomebrewElements,
         restricted: true,
