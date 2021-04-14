@@ -281,31 +281,14 @@ Hooks.on('controlToken', () => {
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls
         .find((c) => c.name === 'token')
-        .tools.push(
-            {
-                name: 'effectpanel',
-                title: 'CONTROLS.EffectPanel',
-                icon: 'fas fa-star',
-                onClick: (toggled: boolean) => {
-                    if (toggled) {
-                        game.pf2e.effectPanel?.render(true);
-                    } else {
-                        game.pf2e.effectPanel?.close();
-                    }
-                    game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
-                },
-                active: !!(game.user.getFlag(game.system.id, 'showEffectPanel') ?? true),
-                toggle: true,
-            },
-            {
-                name: 'worldclock',
-                title: 'CONTROLS.WorldClock',
-                icon: 'fas fa-clock',
-                visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
-                onClick: () => game.pf2e.worldClock!.render(true),
-                button: true,
-            },
-        );
+        .tools.push({
+            name: 'worldclock',
+            title: 'CONTROLS.WorldClock',
+            icon: 'fas fa-clock',
+            visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+            onClick: () => game.pf2e.worldClock!.render(true),
+            button: true,
+        });
 });
 
 Hooks.on('updateCombat', () => {

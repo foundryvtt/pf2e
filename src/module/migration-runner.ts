@@ -62,7 +62,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         const baseUser = duplicate(user._data);
         const updatedUser = await this.getUpdatedUser(baseUser, migrations);
         try {
-            const changes = diffObject(user, updatedUser);
+            const changes = diffObject(user._data, updatedUser);
             if (!isObjectEmpty(changes)) {
                 await user.update(changes, { enforceTypes: false });
             }
