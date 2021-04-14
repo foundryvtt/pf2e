@@ -613,7 +613,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data) as any;
         const isHeal = itemData.spellType.value === 'heal';
-        const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
         const spellLvl = ItemPF2e.findSpellLevel(event);
         const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
@@ -622,7 +622,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
-        if (dtype && !isHeal) title += ` (${dtype})`;
+        if (damageType && !isHeal) title += ` (${damageType})`;
 
         // Add item to roll data
         if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {

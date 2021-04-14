@@ -225,7 +225,7 @@
                                                 {{/if}}
                                             </div>
 
-                                            <div class="spell-school">{{item.data.school.str}}</div>
+                                            <div class="spell-school">{{localize item.data.school.str}}</div>
                                             <div class="spell-action">{{item.data.time.value}}</div>
 
                                             {{#if @root.owner}}
@@ -259,7 +259,7 @@
                                                     <h4>{{item.name}}</h4>
                                                 </div>
 
-                                                <div class="spell-school">{{item.data.school.str}}</div>
+                                                <div class="spell-school">{{localize item.data.school.str}}</div>
                                                 <div class="spell-action">{{item.data.time.value}}</div>
 
                                                 {{#if @root.owner}}
@@ -283,7 +283,7 @@
                                             <h4>{{item.name}}</h4>
                                         </div>
 
-                                        <div class="spell-school">{{item.data.school.str}}</div>
+                                        <div class="spell-school">{{localize item.data.school.str}}</div>
                                         <div class="spell-action">{{item.data.time.value}}</div>
 
                                         {{#if @root.owner}}
@@ -341,16 +341,10 @@
                     {{#each section.spells as |item i|}}
                         <li class="item" data-item-id="{{item._id}}">
                             <div class="item-name rollable">
-                                <!-- <img class="item-image" src="{{item.img}}" alt="{{item.name}}"> -->
                                 <h5>{{item.name}}</h5>
                             </div>
-                            <!--
-                                 <div class="spell-school">{{item.data.school.str}}</div>
-                                 <div class="spell-action">{{item.data.time.value}}</div> -->
-
                             {{#if @root.owner}}
                                 <div class="item-controls">
-                                    <!-- <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a> -->
                                     <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
                                 </div>
                             {{/if}}
