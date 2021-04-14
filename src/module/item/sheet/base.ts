@@ -15,7 +15,6 @@ import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 import { SpellPF2e } from '@item/spell';
-import { PhysicalItemPF2e } from '@item/physical';
 import Tagify from '@yaireo/tagify';
 import {
     BasicSelectorOptions,
