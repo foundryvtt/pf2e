@@ -403,8 +403,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
-                if (actionType === 'passive') actions.free.actions.push(i);
-                else actions[actionType].actions.push(i);
+                if (actionType === 'passive' || actionType === 'exploration' || actionType === 'downtime') {
+                    actions.free.actions.push(i);
+                } else {
+                    actions[actionType].actions.push(i);
+                }
 
                 // Read-Only Actions
                 if (i.data.actionCategory && i.data.actionCategory.value) {
@@ -548,8 +551,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         Object.values(actions)
             .flatMap((section) => section.actions)
             .forEach((action: any) => {
-                action.downtime = action.data.traits.value.includes('downtime');
-                action.exploration = action.data.traits.value.includes('exploration');
+                action.downtime = action.data.actionType.value === 'downtime';
+                action.exploration = action.data.actionType.value === 'exploration';
                 action.encounter = !(action.downtime || action.exploration);
             });
 
