@@ -764,12 +764,12 @@ export interface EffectDetailsData extends ItemDescriptionData {
     expired: boolean;
     remaining: string;
     duration: {
-        value: 0;
+        value: number;
         unit: string;
         sustained: boolean;
         expiry: 'turn-start' | 'turn-end';
     };
-    start?: {
+    start: {
         value: number;
         initiative: number | null;
     };
