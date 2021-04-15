@@ -5,6 +5,7 @@ import {
     SpellAttackRollModifier,
     SpellcastingEntryData,
     SpellDifficultyClass,
+    WeaponCategoryKey,
     WeaponDamage,
     WeaponData,
 } from '@item/data-definitions';
@@ -622,37 +623,53 @@ export class CharacterPF2e extends CreaturePF2e {
         const weaponMap = LocalizePF2e.translations.PF2E.Weapon.Base;
         const weaponProficiencies = getProficiencies(weaponMap, data.martial, 'weapon-base-');
         const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, data.martial, 'weapon-group-');
-        const fromItems = this.itemTypes.martial.reduce(
-            (accumulated, item) => ({
-                ...accumulated,
-                [item.id]: {
-                    name: item.name,
-                    rank: item.data.data.proficient.value,
-                },
-            }),
-            {} as ProficienciesBrief,
+
+        // Add any homebrew categories
+        const homebrewCategoryKeys = Object.keys(CONFIG.PF2E.weaponCategories).filter(
+            (category): category is WeaponCategoryKey =>
+                !['simple', 'martial', 'advanced', 'unarmed'].includes(category),
+        );
+        for (const key of homebrewCategoryKeys) {
+            if (!(key in data.martial)) {
+                data.martial[key] = {
+                    rank: 0,
+                    value: 0,
+                    breakdown: '',
+                };
+            }
+        }
+
+        const homebrewCategories = homebrewCategoryKeys.reduce(
+            (categories, category) =>
+                mergeObject(categories, {
+                    [category]: {
+                        name: CONFIG.PF2E.weaponCategories[category],
+                        rank: data.martial[category]?.rank ?? 0,
+                    },
+                }),
+            {} as Partial<Record<WeaponCategoryKey, { name: string; rank: ZeroToFour }>>,
         );
 
         const proficiencies: Record<string, { name: string; rank: ZeroToFour }> = {
             simple: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
-                rank: data?.martial?.simple?.rank ?? 0,
+                rank: data.martial.simple.rank ?? 0,
             },
             martial: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.martial),
-                rank: data?.martial?.martial?.rank ?? 0,
+                rank: data.martial.martial.rank ?? 0,
             },
             advanced: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.advanced),
-                rank: data?.martial?.advanced?.rank ?? 0,
+                rank: data.martial.advanced.rank ?? 0,
             },
             unarmed: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
-                rank: data?.martial?.unarmed?.rank ?? 0,
+                rank: data.martial.unarmed.rank ?? 0,
             },
+            ...homebrewCategories,
             ...weaponProficiencies,
             ...groupProficiencies,
-            ...fromItems,
         };
 
         // Always add a basic unarmed strike.
