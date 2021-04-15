@@ -37,8 +37,13 @@ function resolveActors(): ActorPF2e[] {
 
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
-        const target = event.target;
-        if (target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
+        let target = event.target;
+        if (
+            target?.matches(
+                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-action]:not([data-pf2-action=""])')!;
             const { pf2Action, pf2Glyph, pf2Variant } = target.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ?? ''];
             if (pf2Action && action) {
@@ -50,7 +55,12 @@ function registerPF2ActionClickListener() {
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
             }
-        } else if (target?.matches('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')) {
+        } else if (
+            target?.matches(
+                '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')!;
             const actors = resolveActors();
             if (actors.length) {
                 const { pf2SavingThrow, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
