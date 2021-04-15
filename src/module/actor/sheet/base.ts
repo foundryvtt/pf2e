@@ -1520,19 +1520,19 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                 magicTradition = `${html.find('[name="magicTradition"]').val()}`;
                                 if (magicTradition === 'ritual') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}s`;
+                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else if (magicTradition === 'focus') {
                                     spellcastingType = '';
                                     name = [
-                                        CONFIG.PF2E.magicTraditions[magicTradition],
+                                        game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]),
                                         game.i18n.localize('PF2E.SpellLabelPlural'),
                                     ].join(' ');
                                 } else if (magicTradition === 'scroll') {
                                     spellcastingType = '';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else if (magicTradition === 'wand') {
                                     spellcastingType = 'prepared';
-                                    name = `${CONFIG.PF2E.magicTraditions[magicTradition]}`;
+                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
                                     name = game.i18n.format('PF2E.SpellCastingFormat', {

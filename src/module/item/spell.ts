@@ -51,8 +51,8 @@ export class SpellPF2e extends ItemPF2e {
             data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
 
         // Combine properties
-        const properties: (number | string)[] = [
-            CONFIG.PF2E.spellLevels[data.level.value],
+        const properties: string[] = [
+            localize(CONFIG.PF2E.spellLevels[data.level.value]),
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
             data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
@@ -61,10 +61,10 @@ export class SpellPF2e extends ItemPF2e {
                       CONFIG.PF2E.areaTypes[data.area.areaType]
                   }`
                 : null,
-            data.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
+            data.areasize.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
             data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
             data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
-        ].filter((p) => p !== null);
+        ].filter((p): p is string => p !== null);
 
         const spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
         const castedLevel = Number(spellLvl ?? 0);
