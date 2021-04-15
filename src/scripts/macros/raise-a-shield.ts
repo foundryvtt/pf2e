@@ -24,7 +24,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
     }
 
     const speaker = ChatMessage.getSpeaker({ actor: actor });
-    const shield = actor.heldShield ?? null;
+    const shield = actor.heldShield;
 
     const isSuccess = await (async (): Promise<boolean> => {
         if (shield && !shield.isBroken) {
