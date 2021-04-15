@@ -14,6 +14,7 @@ import { Migration612NormalizeRarities } from '@module/migrations/612-normalize-
 import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
 import { Migration614NumifyMeleeBonuses } from '@module/migrations/614-numify-melee-bonuses';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
+import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
 
 const migrations: MigrationBase[] = [
     new Migration595AddItemSize(),
@@ -23,6 +24,7 @@ const migrations: MigrationBase[] = [
     new Migration613RemoveAmmoCharges(),
     new Migration614NumifyMeleeBonuses(),
     new Migration615RemoveInstinctTrait(),
+    new Migration616MigrateFeatPrerequisites(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
