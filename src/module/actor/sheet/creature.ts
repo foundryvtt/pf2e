@@ -11,10 +11,11 @@ import { ItemPF2e } from '@item/base';
 import { BaseWeaponKey, SpellcastingEntryData, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 import { PhysicalItemPF2e } from '@item/physical';
-import { CategoryProficiencies, SkillData, ZeroToFour } from '@actor/data-definitions';
+import { SkillData, ZeroToFour } from '@actor/data-definitions';
 import { CreaturePF2e } from '@actor/creature';
 import { ConditionPF2e } from '@item/others';
 import { PF2CheckDC } from '@module/system/check-degree-of-success';
+import { objectHasKey } from '@module/utils';
 
 /**
  * Base class for NPC and character sheets
@@ -144,8 +145,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 const groupMatch = /weapon-group-([-a-z0-9]+)$/.exec(key);
                 const baseWeaponMatch = /weapon-base-([-a-z0-9]+)$/.exec(key);
                 const label = ((): string => {
-                    if (key in CONFIG.PF2E.martialSkills) {
-                        return CONFIG.PF2E.martialSkills[key as keyof CategoryProficiencies];
+                    if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
+                        return CONFIG.PF2E.martialSkills[key];
+                    }
+                    if (objectHasKey(CONFIG.PF2E.weaponCategories, key)) {
+                        return CONFIG.PF2E.weaponCategories[key];
                     }
                     if (Array.isArray(groupMatch)) {
                         const weaponGroup = groupMatch[1] as WeaponGroupKey;

@@ -4,6 +4,7 @@ import { prepareCleanup } from './cleanup-migration';
 import { LocalizePF2e } from '@module/system/localize';
 import { MigrationRunner } from '@module/migration-runner';
 import '@yaireo/tagify/src/tagify.scss';
+import { CharacterPF2e } from '@actor/character';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
@@ -15,6 +16,9 @@ export interface HomebrewTag<T extends ConfigPF2eListName = ConfigPF2eListName> 
 
 export class HomebrewElements extends SettingsMenuPF2e {
     static readonly namespace = 'homebrew';
+
+    /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
+    private static initialRefresh = true;
 
     static readonly SETTINGS = [
         'creatureTraits',
@@ -125,7 +129,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         await super._updateObject(_event, data);
 
         // Process updates
-        HomebrewElements.updateConfig();
+        HomebrewElements.refreshTags();
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
@@ -148,7 +152,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */
-    static updateConfig() {
+    static refreshTags() {
         for (const key of HomebrewElements.SETTINGS) {
             // The base-weapons map only exists in the localization file
             const coreElements: Record<string, string> =
@@ -157,6 +161,17 @@ export class HomebrewElements extends SettingsMenuPF2e {
             const elements = game.settings.get('pf2e', settingsKey);
             for (const element of elements) {
                 coreElements[element.id] = element.value;
+            }
+        }
+
+        // Refresh any open character sheet to show the new settings
+        if (this.initialRefresh) {
+            this.initialRefresh = false;
+        } else {
+            const characters = game.actors.entities?.filter((actor) => actor instanceof CharacterPF2e) ?? [];
+            for (const character of characters) {
+                character.prepareData();
+                character.sheet.render(false);
             }
         }
     }
