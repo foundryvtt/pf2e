@@ -48,6 +48,8 @@ interface ActionsDetails {
 }
 
 interface ActionActions {
+    downtime: ActionsDetails;
+    exploration: ActionsDetails;
     passive: ActionsDetails;
     free: ActionsDetails;
     reaction: ActionsDetails;
@@ -447,6 +449,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      */
     private prepareActions(actorData: NPCSheetData) {
         const actions: ActionActions = {
+            downtime: { label: game.i18n.localize('PF2E.ActionTypeDowntime'), actions: [] },
+            exploration: { label: game.i18n.localize('PF2E.ActionTypeExploration'), actions: [] },
             passive: { label: game.i18n.localize('PF2E.ActionTypePassive'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionTypeFree'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionTypeReaction'), actions: [] },
@@ -515,10 +519,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private getActionType(action: ActionDetailsData): string {
-        if (action.traits.value.some((value) => value === 'exploration')) {
-            return 'action';
-        }
-
         return action.actionType.value || 'action';
     }
 

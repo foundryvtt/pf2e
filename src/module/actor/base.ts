@@ -1039,10 +1039,11 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
         let actionImg: number | string = 0;
-        if (actionType === 'action') actionImg = actionCount ?? 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
+        if (actionType === 'action') {
+            actionImg = actionCount ?? 1;
+        } else {
+            actionImg = actionType;
+        }
         const graphics = {
             1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
             2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
@@ -1050,6 +1051,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
             reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
             passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+            exploration: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: 'E' },
+            downtime: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: 'D' },
         };
         if (objectHasKey(graphics, actionImg)) {
             return {

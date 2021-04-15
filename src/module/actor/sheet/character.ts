@@ -394,7 +394,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Actions
             else if (i.type === 'action') {
-                const actionType = ['free', 'reaction', 'passive'].includes(i.data.actionType.value)
+                const actionType = ['free', 'reaction', 'passive', 'exploration', 'downtime'].includes(
+                    i.data.actionType.value,
+                )
                     ? i.data.actionType.value
                     : 'action';
                 i.img = CharacterPF2e.getActionGraphics(

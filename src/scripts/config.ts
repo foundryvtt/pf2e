@@ -1556,6 +1556,8 @@ export const PF2ECONFIG = {
         reaction: 'PF2E.ActionTypeReaction',
         free: 'PF2E.ActionTypeFree',
         passive: 'PF2E.ActionTypePassive',
+        downtime: 'PF2E.ActionTypeDowntime',
+        exploration: 'PF2E.ActionTypeExploration',
     }, // Actions Number
 
     actionsNumber: {

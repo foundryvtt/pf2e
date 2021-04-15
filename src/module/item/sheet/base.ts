@@ -181,13 +181,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             }
 
             const actionType = data.data.actionType.value || 'action';
-            let actionImg: string | number = 0;
-            if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
-            else if (actionType === 'reaction') actionImg = 'reaction';
-            else if (actionType === 'free') actionImg = 'free';
-            else if (actionType === 'passive') actionImg = 'passive';
 
-            data.item.img = this.getActionImg(actionImg.toString());
+            data.item.img = this.getActionImg(actionType);
             data.categories = CONFIG.PF2E.actionCategories;
             data.weapons = actorWeapons;
             data.actionTypes = CONFIG.PF2E.actionTypes;
