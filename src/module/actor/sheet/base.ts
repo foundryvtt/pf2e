@@ -30,6 +30,7 @@ import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { CreaturePF2e } from '@actor/creature';
 import { PF2CheckDC } from '@system/check-degree-of-success';
+import { DeleteFromPfsDb, ExportIntoPfsDb, ImportFromPfsDb } from '@actor/pfsdb';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -1045,6 +1046,38 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Select all text in an input field on focus
         html.find<HTMLInputElement>('input[type=text], input[type=number]').on('focus', (event) => {
             event.currentTarget.select();
+        });
+
+        // PFS DB import/export/delete
+        html.find<HTMLButtonElement>('.pfs-button-import').on('click', async (event) => {
+            event.preventDefault();
+            if (!(this.actor.data.type === 'character')) throw Error('Cannot import non-PC characters.');
+            if (this.actor.data.data.pfs.playerNumber === '' || this.actor.data.data.pfs.characterNumber === '')
+                throw Error('No PFS data on this Actor.');
+            const pfsData = this.actor.data.data.pfs;
+            const newRawCharacterData = await ImportFromPfsDb(
+                pfsData.playerNumber,
+                pfsData.characterNumber,
+                this.actor.data.data,
+            );
+            await this.actor.update({ [`data`]: newRawCharacterData });
+            this.render(true);
+        });
+        html.find<HTMLButtonElement>('.pfs-button-export').on('click', async (event) => {
+            event.preventDefault();
+            if (!(this.actor.data.type === 'character')) throw Error('Cannot export non-PC characters.');
+            await ExportIntoPfsDb(this.actor.data.data);
+            console.log(`PF2e | Wrote ${this.actor.data.name} PFS information to PFS DB`);
+        });
+        html.find<HTMLButtonElement>('.pfs-button-delete').on('click', async (event) => {
+            event.preventDefault();
+            if (!(this.actor.data.type === 'character'))
+                throw Error("Cannot delete non-PC characters. They don't exist in the DB.");
+            if (!this.actor.data.data.pfs) throw Error('No PFS data on this Actor.');
+            const pfs = this.actor.data.data.pfs;
+            // TODO: Prompt for confirmation
+            await DeleteFromPfsDb(pfs.playerNumber, pfs.characterNumber);
+            console.log(`PF2e | ${this.actor.data.name} PFS data removed from the PFS DB.`);
         });
     }
 
