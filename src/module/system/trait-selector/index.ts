@@ -85,6 +85,7 @@ export const SELECTABLE_TAG_FIELDS = [
     'resistanceTypes',
     'weaknessTypes',
     'languages',
+    'creatureTraits',
     'monsterTraits',
     'spellScalingModes',
     'attackEffects',
