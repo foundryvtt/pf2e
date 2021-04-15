@@ -199,7 +199,7 @@ declare class Entity {
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
      * configuration sheet.
      */
-    protected get _sheetClass(): BaseEntitySheet<this>;
+    protected get _sheetClass(): typeof BaseEntitySheet;
 
     /**
      * Return a reference to the Folder which this Entity belongs to, if any.
@@ -230,7 +230,7 @@ declare class Entity {
      * entity.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * entity.permission; // 2
      */
-    get permission(): number;
+    get permission(): 0 | 1 | 2 | 3;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Entity

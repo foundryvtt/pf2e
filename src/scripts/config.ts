@@ -1931,27 +1931,6 @@ export const PF2ECONFIG = {
         Trip: 'PF2E.AttackEffectTrip',
     },
 
-    loot: {
-        subtitles: {
-            take: 'PF2E.loot.TakeSubtitle',
-            deposit: 'PF2E.loot.DepositSubtitle',
-            transfer: 'PF2E.loot.TransferSubtitle',
-            sell: 'PF2E.loot.SellSubtitle',
-            give: 'PF2E.loot.GiveSubtitle',
-        },
-        messages: {
-            take: 'PF2E.loot.TakeMessage',
-            deposit: 'PF2E.loot.DepositMessage',
-            transfer: 'PF2E.loot.TransferMessage',
-            sell: 'PF2E.loot.SellMessage',
-            give: 'PF2E.loot.GiveMessage',
-        },
-        errors: {
-            insufficient: 'PF2E.loot.InsufficientCurrencyError',
-            supervision: 'PF2E.loot.GMSupervisionError',
-        },
-    },
-
     // Year offsets relative to the current actual year
     worldClock: {
         AR: { yearOffset: 2700 },
