@@ -703,10 +703,8 @@ class CompendiumBrowser extends Application {
         });
 
         // toggle hints
-        html.on('mousedown', 'input[name=textFilter]', (ev) => {
-            if (ev.which === 3) {
-                $(html.find('.hint')).toggle(100);
-            }
+        html.on('contextmenu', 'input[name=textFilter]', () => {
+            html.find('.hint').toggle(100);
         });
 
         // sort spell list
