@@ -60,6 +60,15 @@ export function registerSettings() {
         },
     });
 
+    game.settings.register('pf2e', 'automation.lootableNPCs', {
+        name: 'PF2E.SETTINGS.Automation.LootableNPCs.Name',
+        hint: 'PF2E.SETTINGS.Automation.LootableNPCs.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
     game.settings.register('pf2e', 'ignoreCoinBulk', {
         name: 'PF2E.SETTINGS.IgnoreCoinBulk.Name',
         hint: 'PF2E.SETTINGS.IgnoreCoinBulk.Hint',

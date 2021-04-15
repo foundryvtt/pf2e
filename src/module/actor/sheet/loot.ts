@@ -42,6 +42,11 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     /** @override */
+    get isLootSheet(): boolean {
+        return !this.actor.owner && this.actor.isLootableBy(game.user);
+    }
+
+    /** @override */
     getData() {
         const sheetData = super.getData();
 
@@ -151,18 +156,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         } else {
             ui.notifications.warn('No tokens selected.');
         }
-    }
-
-    /** @override
-     * Anyone can loot from a loot sheet
-     */
-    protected _canDragStart(_selector: string): boolean {
-        return true;
-    }
-
-    /** @override */
-    protected _canDragDrop(_selector: string): boolean {
-        return true;
     }
 
     /** @override */

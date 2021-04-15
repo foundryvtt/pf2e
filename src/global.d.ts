@@ -96,6 +96,7 @@ declare global {
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
         get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
