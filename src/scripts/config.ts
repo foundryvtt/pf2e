@@ -5,6 +5,7 @@ import { LootPF2e } from '@module/actor/loot';
 import { NPCPF2e } from '@module/actor/npc';
 import { FamiliarPF2e } from '@module/actor/familiar';
 import { ItemPF2e } from '@module/item/base';
+import { ActionPF2e } from '@item/action';
 import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
 import { BackgroundPF2e } from '@module/item/background';
@@ -15,7 +16,6 @@ import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import {
-    ActionPF2e,
     ContainerPF2e,
     ConditionPF2e,
     EquipmentPF2e,
