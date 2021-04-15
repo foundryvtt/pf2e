@@ -121,7 +121,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
         this: new (data: I['data'], options?: ItemConstructorOptions<A>) => I,
         itemData: DeepPartial<I['data']>,
         actor: A,
-    ): Promise<Owned<I>>;
+    ): Owned<I>;
 
     getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
     getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;

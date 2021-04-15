@@ -1,7 +1,6 @@
 /**
  * Override and extend the basic :class:`Item` implementation
  */
-import { SpellFacade } from './spell-facade';
 import { getAttackBonus, getStrikingDice } from './runes';
 import {
     AbilityModifier,
@@ -514,73 +513,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         });
     }
 
-    /**
-     * Roll Spell Damage
-     * Rely upon the DicePF2e.d20Roll logic for the core implementation
-     */
-    async rollSpellAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        const item: ItemDataPF2e = this.data;
-        if (item.type !== 'spell') throw new Error('Wrong item type!');
-        if (!this.actor) throw new Error('Attempted to cast a spell without an actor');
-
-        // Prepare roll data
-        const trickMagicItemData = item.data.trickMagicItemData;
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry =
-            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
-            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
-        let useTrickData = false;
-        if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
-
-        if (useTrickData && !trickMagicItemData)
-            throw new Error('Spell points to location that is not a spellcasting type');
-
-        // calculate multiple attack penalty
-        const map = this.calculateMap();
-
-        if (spellcastingEntry.data?.attack?.roll) {
-            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
-            const modifiers: ModifierPF2e[] = [];
-            if (multiAttackPenalty > 1) {
-                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
-            }
-            spellcastingEntry.data.attack.roll({ event, options, modifiers });
-        } else {
-            const spellAttack = useTrickData
-                ? trickMagicItemData?.data.spelldc.value
-                : spellcastingEntry?.data.spelldc.value;
-            const parts = [Number(spellAttack) || 0];
-            const title = `${this.name} - Spell Attack Roll`;
-
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
-                parts.push(2);
-            } else if (traits.some((trait) => trait === 'weak')) {
-                parts.push(-2);
-            }
-
-            if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty}`]);
-            }
-
-            // Call the roll helper utility
-            await DicePF2e.d20Roll({
-                event,
-                parts,
-                data: rollData,
-                rollType: 'attack-roll',
-                title,
-                speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                dialogOptions: {
-                    width: 400,
-                    top: event.clientY - 80,
-                    left: window.innerWidth - 710,
-                },
-            });
-        }
-    }
-
     /* -------------------------------------------- */
     /**
      * The heightened level is not transferred correctly to spell chat cards.
@@ -597,58 +529,18 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     /**
      * Roll Spell Damage
-     * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    async rollSpellDamage(event: JQuery.ClickEvent) {
-        const item = this.data;
-        if (item.type !== 'spell') throw new Error('Wrong item type!');
+    rollSpellAttack(_event: JQuery.ClickEvent, _multiAttackPenalty = 1) {
+        // temporary, this stub will go away once the item action refactor goes through
+        throw new Error('Wrong item type!');
+    }
 
-        // Get data
-        const itemData = item.data;
-        const rollData = duplicate(this.actor.data.data) as any;
-        const isHeal = itemData.spellType.value === 'heal';
-        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
-
-        const spellLvl = ItemPF2e.findSpellLevel(event);
-        const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
-        const parts = spell.damageParts;
-
-        // Append damage type to title
-        const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
-        let title = `${this.name} - ${damageLabel}`;
-        if (damageType && !isHeal) title += ` (${damageType})`;
-
-        // Add item to roll data
-        if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
-            rollData.mod = rollData.abilities[spell.data.data.trickMagicItemData.ability].mod;
-        } else {
-            rollData.mod = rollData.abilities[spell.spellcastingEntry?.ability ?? 'int'].mod;
-        }
-        rollData.item = itemData;
-
-        if (this.isOwned) {
-            const traits = this.actor.data.data.traits.traits.value;
-            if (traits.some((trait) => trait === 'elite')) {
-                parts.push(4);
-            } else if (traits.some((trait) => trait === 'weak')) {
-                parts.push(-4);
-            }
-        }
-
-        // Call the roll helper utility
-        await DicePF2e.damageRoll({
-            event,
-            parts,
-            data: rollData,
-            actor: this.actor,
-            title,
-            speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-            dialogOptions: {
-                width: 400,
-                top: event.clientY - 80,
-                left: window.innerWidth - 710,
-            },
-        });
+    /**
+     * Roll Spell Damage
+     */
+    rollSpellDamage(_event: JQuery.ClickEvent) {
+        // temporary, this stub will go away once the item action refactor goes through
+        throw new Error('Wrong item type!');
     }
 
     /**
