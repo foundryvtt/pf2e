@@ -11,12 +11,12 @@ interface EffectPanelData {
 export class EffectPanel extends Application {
     actor?: any;
 
-    private static readonly UNITS = Object.freeze({
+    private static readonly UNITS: Record<string, number> = {
         rounds: 6,
         minutes: 60,
         hours: 3600,
         days: 86400,
-    });
+    };
 
     private timeout: number | undefined = undefined;
 
@@ -111,12 +111,12 @@ export class EffectPanel extends Application {
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
             if (actor?.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
-                const item = actor.items.get(event.currentTarget.dataset.itemId);
-                if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
+                const item = actor.items.get(event.currentTarget.dataset.itemId ?? '');
+                if (item && item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
                     const data = item.data.data as ConditionDetailsData;
-                    const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : undefined;
+                    const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
                     actor.getActiveTokens().forEach((token) => {
-                        if (data.value.isValued) {
+                        if (value !== null) {
                             ConditionManager.updateConditionValue(item._id, token, value);
                         } else {
                             ConditionManager.removeConditionFromToken(item._id, token);
@@ -146,7 +146,7 @@ export class EffectPanel extends Application {
         return breakdown;
     }
 
-    private static getEffectDuration(effect: any): number {
+    private static getEffectDuration(effect: EffectData): number {
         const { duration } = effect.data;
         if (duration.unit === 'unlimited') {
             return -1;
