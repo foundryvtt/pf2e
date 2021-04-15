@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/base';
+import { ActorPF2e, HazardPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
 import { LabeledValue } from '@actor/data-definitions';
 import { TraitSelectorBase } from './base';
@@ -27,7 +27,7 @@ export class TraitSelectorResistances extends TraitSelectorBase<ActorPF2e> {
     getData() {
         const data: any = super.getData();
 
-        if (this.object instanceof NPCPF2e) {
+        if (this.object instanceof NPCPF2e || this.object instanceof HazardPF2e) {
             data.hasExceptions = true;
         }
 
