@@ -19,9 +19,9 @@ declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
      * Register an Item sheet class as a candidate which can be used to display Items of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<I extends Item>(
+    static registerSheet(
         scope: string,
-        sheetClass: new (item: I, options?: BaseEntitySheetOptions) => I['sheet'],
+        sheetClass: new (...args: any) => ItemSheet,
         options?: RegisterSheetOptions,
     ): void;
 

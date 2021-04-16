@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { FeatData, ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -80,7 +80,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const traits = itemData.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
-        if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
+        if (type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
         data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
         const stackGroup = data.data?.stackGroup?.value;
@@ -165,16 +165,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.weaponDamage = CONFIG.PF2E.damageTypes;
 
             this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
-        } else if (type === 'feat') {
-            // Feat types
-            data.featTypes = CONFIG.PF2E.featTypes;
-            data.featActionTypes = CONFIG.PF2E.featActionTypes;
-            data.actionsNumber = CONFIG.PF2E.actionsNumber;
-            data.categories = CONFIG.PF2E.actionCategories;
-            data.featTags = [data.data.level.value, data.data.traits.value].filter((t) => !!t);
-            data.prerequisites = JSON.stringify((itemData as FeatData).data.prerequisites?.value ?? []);
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'condition') {
             // Condition types
 
