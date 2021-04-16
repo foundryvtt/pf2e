@@ -6,6 +6,8 @@ import { MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
 import { ErrorPF2e } from '@module/utils';
+import { PF2RuleElementSynthetics } from '@module/rules/rules-data-definitions';
+import { PF2RuleElement, RuleElements } from '@module/rules/rules';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -273,6 +275,36 @@ export abstract class CreaturePF2e extends ActorPF2e {
             await this.update({ 'data.attributes.dexCap': updated });
         }
     }
+
+    prepareDerivedData(): void {
+        super.prepareDerivedData();
+
+        const actorData = this.data;
+        const rules: PF2RuleElement[] = actorData.items.reduce(
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
+            [],
+        );
+
+        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        this.applyEffects(synthetics);
+        this.items.forEach((i) => i.onPrepareDerivedData(synthetics));
+
+        rules.forEach((rule) => {
+            try {
+                rule.onAfterPrepareData(actorData, synthetics);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
+            }
+        });
+    }
+
+    /**
+     * Applies actor specific derived data as well as any data
+     * that may derive from effect rule elements.
+     * @param _synthetics
+     */
+    protected applyEffects(_synthetics: PF2RuleElementSynthetics) {}
 }
 
 export interface CreaturePF2e {
