@@ -85,25 +85,35 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             getProperty(update, `data.identification.${state}.name`) ??
             getProperty(itemData, `data.identification.${state}.name`);
 
-        const translateFallback = (translated: string, key: string) => {
-            if (translated) {
-                return translated;
-            } else {
-                const value = game.i18n.localize(key);
-                return key === value ? null : value;
-            }
-        };
-
         // customise unidentified name slightly to match the item type
-        if (itemData.type === 'weapon') {
-            const key = `PF2E.identification.${state}.ItemType.WeaponType.${itemData.data?.group?.value}`;
-            name = translateFallback(name, key);
-        } else if (itemData.type === 'armor') {
-            const key = `PF2E.identification.${state}.ItemType.ArmorType.${itemData.data?.armorType?.value}`;
-            name = translateFallback(name, key);
+        switch (itemData.type) {
+            case 'weapon':
+                name = game.i18n.format(`PF2E.identification.${state}`, {
+                    itemtype: (itemData.data?.group?.value ?? `Weapon`).capitalize(),
+                });
+                break;
+            case 'armor':
+                switch (itemData.data?.armorType?.value) {
+                    case 'shield':
+                        name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Shield' });
+                        break;
+                    case 'unarmored':
+                        name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Clothes' });
+                        break;
+                    default:
+                        name = game.i18n.format(`PF2E.identification.${state}`, {
+                            itemtype: `${itemData.data?.armorType?.value.capitalize()} Armor`,
+                        });
+                }
+                break;
+            case 'consumable':
+                name = game.i18n.format(`PF2E.identification.${state}`, {
+                    itemtype: itemData.data.consumableType.value.capitalize(),
+                });
+                break;
+            default:
+                name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Item' });
         }
-        name = translateFallback(name, `PF2E.identification.${state}.ItemType.${itemData.type}`);
-        name = translateFallback(name, `PF2E.identification.${state}.Item`);
 
         diff.name = name;
         diff.img = getUnidentifiedPlaceholderImage(itemData);

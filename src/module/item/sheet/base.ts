@@ -1,14 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import {
-    FeatData,
-    isInventoryItem,
-    ItemDataPF2e,
-    LoreDetailsData,
-    MartialData,
-    PhysicalItemData,
-    WeaponData,
-} from '../data-definitions';
+import { FeatData, isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -30,30 +22,6 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
     isPhysicalItem: boolean;
-}
-
-class MystifyData {
-    name?: string;
-    img?: string;
-    data?: {
-        description?: {
-            value: string;
-        };
-    };
-}
-
-class ItemUpdateData {
-    identification?: {
-        identified?: MystifyData;
-        unidentified?: MystifyData;
-        misidentified?: MystifyData;
-    };
-
-    description?: {
-        value: string;
-    };
-
-    rules?: string[];
 }
 
 /**
@@ -620,59 +588,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         });
     }
 
-    private checkForMystifyUpdates(
-        data: Record<string, unknown> & { name?: string; img?: string; data?: ItemUpdateData },
-    ): void {
-        const physItemData = this.item.data as PhysicalItemData;
-
-        if (!data.data?.identification) {
-            return;
-        }
-
-        let currentItemData: MystifyData;
-        let stateData: MystifyData;
-        switch (physItemData.data.identification.status) {
-            case 'unidentified': {
-                currentItemData = physItemData.data.identification.unidentified ?? new MystifyData();
-                stateData = data.data.identification.unidentified ?? new MystifyData();
-                break;
-            }
-            case 'misidentified': {
-                currentItemData = physItemData.data.identification.misidentified ?? new MystifyData();
-                stateData = data.data.identification.misidentified ?? new MystifyData();
-                break;
-            }
-            case 'identified':
-            default: {
-                currentItemData = physItemData.data.identification.identified ?? new MystifyData();
-                stateData = data.data.identification.identified ?? new MystifyData();
-                break;
-            }
-        }
-
-        // Determine if the base values changed.
-        if (physItemData.name !== data.name) {
-            stateData.name = data.name;
-        } else if (stateData.name !== currentItemData.name) {
-            data.name = stateData.name;
-        }
-
-        if (physItemData.img !== data.img) {
-            stateData.img = data.img;
-        } else if (stateData.img !== currentItemData.img) {
-            data.img = stateData.img;
-        }
-
-        if (data.data.description && physItemData.data.description.value !== data.data.description?.value) {
-            if (!stateData.data) {
-                stateData.data = { description: { value: '' } };
-            }
-            stateData.data.description = data.data.description;
-        } else if (stateData.data?.description?.value !== currentItemData.data?.description?.value) {
-            data.data.description = stateData.data?.description;
-        }
-    }
-
     /** @override */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
@@ -682,8 +597,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
-        if (data?.data?.rules) {
-            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
+        if (data?.data && 'rules' in data?.data) {
+            data.data.rules = Object.entries(data.data.rules as PF2RuleElementData).map(([_, value]) => {
                 try {
                     return JSON.parse(value as string);
                 } catch (error) {
@@ -691,11 +606,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                     throw error;
                 }
             });
-        }
-
-        // If this is a physical item, handle updating name, image, or description based on identification state.
-        if (this.item.data as PhysicalItemData) {
-            this.checkForMystifyUpdates(data);
         }
 
         return flattenObject(data); // return the flattened submission data
