@@ -50,18 +50,27 @@ export class SpellPF2e extends ItemPF2e {
         const damageLabel =
             data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
 
+        // Determine spell area, first using the area object and then falling back to the old areasize structure
+        const area = (() => {
+            if (data.area.value) {
+                const areaSize = game.i18n.localize(CONFIG.PF2E.areaSizes[data.area.value] ?? '');
+                const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[data.area.areaType] ?? '');
+                return `${localize('PF2E.SpellAreaLabel')}: ${areaSize} ${areaType}`.trim();
+            } else if (data.areasize.value) {
+                // This is the fallback for old data
+                return `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}`;
+            }
+
+            return null;
+        })();
+
         // Combine properties
         const properties: string[] = [
             localize(CONFIG.PF2E.spellLevels[data.level.value]),
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
             data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
-            data.area.value
-                ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${
-                      CONFIG.PF2E.areaTypes[data.area.areaType]
-                  }`
-                : null,
-            data.areasize.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
+            area,
             data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
             data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
         ].filter((p): p is string => p !== null);
