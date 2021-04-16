@@ -1,5 +1,6 @@
 import { CharacterSheetPF2e } from '@actor/sheet/character';
 import { UpdatedNPCSheetPF2e } from '@actor/sheet/updated-npc-sheet';
+import { ActionSheetPF2e } from '@item/sheet/action';
 import { HazardSheetPF2e } from '@actor/sheet/hazard';
 import { LootSheetPF2e } from '@actor/sheet/loot';
 import { FamiliarSheetPF2e } from '@actor/sheet/familiar';
@@ -100,7 +101,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
-    const itemTypes = ['action', 'condition', 'effect', 'lore', 'martial', 'spell', 'spellcastingEntry'];
+    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'spell', 'spellcastingEntry'];
     for (const itemType of itemTypes) {
         Items.registerSheet('pf2e', ItemSheetPF2e, {
             types: [itemType],
@@ -119,6 +120,7 @@ export function registerSheets() {
     }
 
     const sheetEntries = [
+        ['action', ActionSheetPF2e],
         ['ancestry', AncestrySheetPF2e],
         ['background', BackgroundSheetPF2e],
         ['class', ClassSheetPF2e],
