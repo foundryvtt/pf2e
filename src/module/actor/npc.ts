@@ -10,7 +10,6 @@ import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ConfigPF2e } from '@scripts/config';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
-import { ActorSheetPF2eSimpleNPC } from './sheet/simple-npc-sheet';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -65,9 +64,6 @@ export class NPCPF2e extends CreaturePF2e {
      */
     hasPerm(user: User, permission: string | ZeroToThree, exact = false) {
         // Temporary measure until a lootable view of the legacy sheet is ready
-        if (!game.ready || this._sheetClass !== ActorSheetPF2eSimpleNPC) {
-            return super.hasPerm(user, permission, exact);
-        }
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
             return super.hasPerm(user, permission, exact);
