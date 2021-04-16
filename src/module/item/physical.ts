@@ -89,7 +89,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         switch (itemData.type) {
             case 'weapon':
                 name = game.i18n.format(`PF2E.identification.${state}`, {
-                    itemtype: (itemData.data?.group?.value ?? `Weapon`).capitalize(),
+                    itemtype: (itemData.data?.group?.value ?? 'Weapon').capitalize(),
                 });
                 break;
             case 'armor':
