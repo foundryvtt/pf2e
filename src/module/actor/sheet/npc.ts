@@ -12,7 +12,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet']),
+            classes: options.classes.concat('npc-sheet'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,

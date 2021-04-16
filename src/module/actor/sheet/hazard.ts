@@ -8,7 +8,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'hazard']),
+            classes: options.classes.concat('hazard'),
             width: 650,
             height: 680,
         });

@@ -22,7 +22,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'loot']),
+            classes: options.classes.concat('loot'),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
