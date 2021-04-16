@@ -458,19 +458,10 @@ class CompendiumBrowser extends Application {
                     // (Basic Arcana)
                     {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = feat.data.prerequisites;
+                        const prereqs = feat.data.prerequisites.value;
                         let prerequisitesArr = [];
-                        if (Array.isArray(prereqs.value)) {
-                            prerequisitesArr = prereqs.value;
-                        } else if (typeof prereqs.value === 'string') {
-                            prerequisitesArr = prereqs.value.split(' ');
-                        } else if (Array.isArray(prereqs)) {
-                            prerequisitesArr = prereqs;
-                        } else if (typeof prereqs === 'string') {
-                            prerequisitesArr = prereqs.split(' ');
-                        }
 
-                        prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
+                        prerequisitesArr = prereqs.map((y: { value: string }) => y.value.toLowerCase());
 
                         const skillIntersection = skillList.filter((x) =>
                             prerequisitesArr.some((entry) => entry.includes(x)),
