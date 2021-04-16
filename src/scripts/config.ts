@@ -499,7 +499,7 @@ export const PF2ECONFIG = {
         arrows: 'PF2E.StackGroupArrows',
         slingBullets: 'PF2E.StackGroupSlingBullets',
         blowgunDarts: 'PF2E.StackGroupBlowgunDarts',
-        taws: 'PF2E.StackGroupTaws',
+        woodenTaws: 'PF2E.StackGroupWoodenTaws',
         rations: 'PF2E.StackGroupRations',
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
