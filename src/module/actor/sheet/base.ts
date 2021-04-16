@@ -59,7 +59,9 @@ interface SpellSheetData extends SpellData {
 export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorSheet<ActorType, ItemDataPF2e> {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        const options = super.defaultOptions;
+        return mergeObject(options, {
+            classes: options.classes.concat(['pf2e', 'actor']),
             scrollY: [
                 '.sheet-sidebar',
                 '.spellcastingEntry-list',
