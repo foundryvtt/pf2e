@@ -12,7 +12,7 @@
           <a class="npc-elite-adjustment trait{{npcEliteActive}}{{npcEliteHidden}}">ELITE</a>
           <a class="npc-weak-adjustment trait{{npcWeakActive}}{{npcWeakHidden}}">WEAK</a>
         </h1>
-      <h1 class='level'>Creature {{data.details.level.value}}</h1>
+        <h1 class="level">{{localize "PF2E.NPC.Creature"}} {{data.details.level.value}}</h1>
     </div>
 
     <div class="top-section">
@@ -45,7 +45,7 @@
           <span class="trait size">{{localize actorSize}}</span>
           <!-- Put Trait #each here-->
           {{#each actor.data.traits.traits.selected as |trait id|}}
-          <span class="trait">{{trait}}</span>
+              <span class="trait">{{localize trait}}</span>
           {{/each}}
         </div>
 
@@ -84,7 +84,7 @@
             <label class="stat-title">{{localize "PF2E.Languages"}}</label>
             {{#each actor.data.traits.languages.selected as |lang lid|}}
             <span class="stat-list">
-              <span class="stat-minortitle">{{lang}}</span>
+              <span class="stat-minortitle">{{localize lang}}</span>
             </span>
             {{/each}}
           </span>
@@ -224,7 +224,7 @@
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
           {{#each data.traits.di.selected as |trait id|}}
-            <span class="stat-value">{{trait}}</span>
+            <span class="stat-value">{{localize trait}}</span>
           {{/each}}
         </span>
         {{/if}}
