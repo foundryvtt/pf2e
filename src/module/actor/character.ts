@@ -85,7 +85,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     /** @override */
-    applyEffects(synthetics: PF2RuleElementSynthetics): void {
+    protected applyEffects(synthetics: PF2RuleElementSynthetics): void {
         super.applyEffects(synthetics);
 
         const actorData = this.data;

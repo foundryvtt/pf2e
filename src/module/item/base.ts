@@ -82,7 +82,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** Handles any item specific setup that may happen during Actor#prepareDerivedData() */
-    onPrepareDerivedData(this: Owned<ItemPF2e>, _synthetics: PF2RuleElementSynthetics) {}
+    protected onPrepareDerivedData(this: Owned<ItemPF2e>, _synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options

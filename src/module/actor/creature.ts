@@ -304,7 +304,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      * that may derive from effect rule elements.
      * @param _synthetics
      */
-    applyEffects(_synthetics: PF2RuleElementSynthetics) {}
+    protected applyEffects(_synthetics: PF2RuleElementSynthetics) {}
 }
 
 export interface CreaturePF2e {
