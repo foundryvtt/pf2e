@@ -1,14 +1,4 @@
-import {
-    Bulk,
-    BulkConfig,
-    BulkItem,
-    calculateBulk,
-    defaultBulkConfig,
-    formatBulk,
-    StackDefinitions,
-    stacks,
-    weightToBulk,
-} from './bulk';
+import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from './bulk';
 import { PhysicalItemData, Size } from './data-definitions';
 import { groupBy } from '../utils';
 
@@ -120,7 +110,6 @@ function toContainer({
     heldItems = [],
     heldBulkItems = [],
     isInContainer,
-    stackDefinitions,
     bulkConfig,
     actorSize,
 }: {
@@ -128,14 +117,12 @@ function toContainer({
     heldItems: PhysicalItemData[];
     heldBulkItems: BulkItem[];
     isInContainer: boolean;
-    stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
     actorSize: Size;
 }): ContainerData {
     const negateBulk = weightToBulk(item.data?.negateBulk?.value) ?? new Bulk();
     const [heldItemBulk] = calculateBulk({
         items: heldBulkItems,
-        stackDefinitions,
         bulkConfig,
         actorSize,
     });
@@ -186,7 +173,6 @@ export function isCycle(itemId: string, containerId: string, items: PhysicalItem
  * in the templates, because you don't have a lot of leeway there
  * @param items all items on the actor
  * @param bulkItemsById all items on the actor transformed into bulk items; used to look up how much bulk a container stores
- * @param stackDefinitions used to calculated bulk
  * @param bulkConfig used to calculated bulk
  * @param actorSize
  * @return
@@ -194,13 +180,11 @@ export function isCycle(itemId: string, containerId: string, items: PhysicalItem
 export function getContainerMap({
     items = [],
     bulkItemsById = new Map(),
-    stackDefinitions = stacks,
     bulkConfig = defaultBulkConfig,
     actorSize = 'med',
 }: {
     items?: PhysicalItemData[];
     bulkItemsById?: Map<string, BulkItem>;
-    stackDefinitions?: StackDefinitions;
     bulkConfig?: BulkConfig;
     actorSize?: Size;
 } = {}): Map<string, ContainerData> {
@@ -226,7 +210,6 @@ export function getContainerMap({
                 heldItems,
                 heldBulkItems: bulkItemsById.get(item._id)?.holdsItems ?? [],
                 isInContainer,
-                stackDefinitions,
                 bulkConfig,
                 actorSize,
             }),
