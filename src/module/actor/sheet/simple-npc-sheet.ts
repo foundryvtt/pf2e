@@ -27,7 +27,6 @@ import {
     EquipmentData,
     ItemDataPF2e,
     MeleeData,
-    PhysicalItemData,
     SpellcastingEntryData,
     SpellcastingEntryDetailsData,
     SpellData,
@@ -36,6 +35,7 @@ import {
 } from '@item/data-definitions';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
+import { SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -62,19 +62,6 @@ interface Attack {
 }
 
 type Attacks = Attack[];
-
-interface SheetItemList<D extends PhysicalItemData> {
-    label: string;
-    type: D['type'];
-    items: D[];
-}
-interface Inventory {
-    weapon: SheetItemList<WeaponData>;
-    armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData>;
-    consumable: SheetItemList<ConsumableData>;
-    treasure: SheetItemList<TreasureData>;
-}
 
 interface NPCSystemSheetData extends RawNPCData {
     attributes: NPCAttributes & {
@@ -127,9 +114,8 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     eliteState: 'active' | 'inactive';
     weakState: 'active' | 'inactive';
     notAdjusted: boolean;
-    inventory: Inventory;
+    inventory: SheetInventory;
     hasShield?: boolean;
-    tokenName?: string;
 }
 
 interface SheetEnrichedItemData {
@@ -169,7 +155,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Mix default options with new ones
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc']),
+            classes: options.classes.concat('npc'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
@@ -289,7 +275,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Data for lootable token-actor sheets
         if (this.isLootSheet) {
-            sheetData.tokenName = this.token?.name ?? sheetData.actor.name;
+            sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
         // Return data for rendering
@@ -742,7 +728,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the equipment list of the actor.
      * @param sheetData Data of the sheet.
      */
-    private prepareInventory(sheetData: NPCSheetData): Inventory {
+    prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
         return {
             weapon: {
