@@ -140,7 +140,24 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellAreaLabel"}}</label>
-    <input type="text" name="data.areasize.value" value="{{data.areasize.value}}" data-dtype="String"/>
+    <div class="details-container-two-columns">
+        <select name="data.area.value" data-dtype="String">
+            <option value=""></option>
+            {{#select data.area.value}}
+            {{#each areaSizes as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+        <select name="data.area.areaType" data-dtype="String">
+            <option value=""></option>
+            {{#select data.area.areaType}}
+            {{#each areaTypes as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}}
+            {{/select}}
+        </select>
+    </div>
 </div>
 
 <div class="form-group">
