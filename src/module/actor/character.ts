@@ -23,7 +23,6 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
-import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2WeaponDamage } from '@system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
 import { SKILL_DICTIONARY } from './base';
@@ -44,7 +43,7 @@ import {
     WeaponGroupProficiencyKey,
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
-import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
+import { PF2MultipleAttackPenalty, PF2RuleElementSynthetics, PF2WeaponPotency } from '../rules/rules-data-definitions';
 import { toNumber } from '@module/utils';
 import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
@@ -85,16 +84,11 @@ export class CharacterPF2e extends CreaturePF2e {
         this.prepareClass();
     }
 
-    /** Prepare Character type specific data. */
-    prepareDerivedData(): void {
-        super.prepareDerivedData();
+    /** @override */
+    applyEffects(synthetics: PF2RuleElementSynthetics): void {
+        super.applyEffects(synthetics);
 
         const actorData = this.data;
-
-        const rules: PF2RuleElement[] = actorData.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
-            [],
-        );
         const { data } = actorData;
 
         // Compute ability modifiers from raw ability scores.
@@ -113,7 +107,6 @@ export class CharacterPF2e extends CreaturePF2e {
             ],
         };
 
-        const synthetics = this._prepareCustomModifiers(actorData, rules);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -1063,15 +1056,6 @@ export class CharacterPF2e extends CreaturePF2e {
             });
 
         this.prepareInitiative(actorData, statisticsModifiers, rollNotes);
-
-        rules.forEach((rule) => {
-            try {
-                rule.onAfterPrepareData(actorData, synthetics);
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
-            }
-        });
     }
 
     private prepareInitiative(
