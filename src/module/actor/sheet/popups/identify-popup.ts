@@ -26,10 +26,10 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         };
     }
 
-    protected async _updateObject(_event: SubmitEvent, _formData: FormData): Promise<void> {
+    protected async _updateObject(event: SubmitEvent, _formData: FormData): Promise<void> {
         const item = this.getItem();
-        const button = _event.submitter as HTMLButtonElement;
-        if (button && button.name === 'identify') {
+        const button = event.submitter;
+        if (button instanceof HTMLButtonElement && button.name === 'identify') {
             item.setIdentifiedState('identified');
         } else {
             item.setIdentifiedState('misidentified');
@@ -62,6 +62,6 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
             throw ErrorPF2e(`${item.name} is not a physical item.`);
         }
 
-        return item as PhysicalItemPF2e;
+        return item;
     }
 }
