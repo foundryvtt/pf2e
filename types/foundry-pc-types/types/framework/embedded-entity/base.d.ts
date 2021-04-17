@@ -1,6 +1,6 @@
 interface EmbeddedEntityData {
     _id: string;
-    flags: Record<string, any>;
+    flags: Record<string, unknown>;
 }
 
 declare abstract class EmbeddedEntity<ParentType extends Actor | Item = _Actor | Item> {
