@@ -320,9 +320,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
-                i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
-                i.data.tradition.title = CONFIG.PF2E.magicTraditions[i.data.tradition.value];
-                i.data.prepared.title = CONFIG.PF2E.preparationType[i.data.prepared.value];
+                i.data.spelldc.hover = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value]);
+                i.data.tradition.title = game.i18n.localize(CONFIG.PF2E.magicTraditions[i.data.tradition.value]);
+                i.data.prepared.title = game.i18n.localize(CONFIG.PF2E.preparationType[i.data.prepared.value]);
                 // Check if prepared spellcasting type and set Boolean
                 if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
                 else i.data.prepared.preparedSpells = false;
