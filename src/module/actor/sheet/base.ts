@@ -173,11 +173,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-        const isNotLevelBasedSpellcasting =
-            spellcastingEntry.data.tradition?.value === 'wand' ||
-            spellcastingEntry.data.tradition?.value === 'scroll' ||
-            spellcastingEntry.data.tradition?.value === 'ritual' ||
-            spellcastingEntry.data.tradition?.value === 'focus';
+        const tradition = spellcastingEntry.data.tradition?.value;
+        const isNotLevelBasedSpellcasting = tradition === 'ritual' || tradition === 'focus';
 
         const slots = spellcastingEntry.data.slots;
         const spellsSlotsWhereThisIsPrepared = Object.entries((slots ?? {}) as Record<any, any>)?.filter(
@@ -1546,12 +1543,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                         game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]),
                                         game.i18n.localize('PF2E.SpellLabelPlural'),
                                     ].join(' ');
-                                } else if (magicTradition === 'scroll') {
-                                    spellcastingType = '';
-                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
-                                } else if (magicTradition === 'wand') {
-                                    spellcastingType = 'prepared';
-                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
                                     const preparationType = game.i18n.localize(

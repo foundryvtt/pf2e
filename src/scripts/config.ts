@@ -651,9 +651,6 @@ export const PF2ECONFIG = {
         divine: 'PF2E.TraitDivine',
         occult: 'PF2E.TraitOccult',
         primal: 'PF2E.TraitPrimal',
-        focus: 'PF2E.TraitFocus',
-        ritual: 'PF2E.TraitRitual',
-        halcyon: 'PF2E.TraitHalcyon',
     }, // Magic Traditon
 
     spellOtherTraits: {
@@ -718,10 +715,13 @@ export const PF2ECONFIG = {
     }, // Spell Traits (does not include custom)
 
     magicTraditions: {
+        arcane: 'PF2E.TraitArcane',
+        divine: 'PF2E.TraitDivine',
+        occult: 'PF2E.TraitOccult',
+        primal: 'PF2E.TraitPrimal',
         focus: 'PF2E.TraitFocus',
         ritual: 'PF2E.TraitRitual',
-        scroll: 'PF2E.TraitScroll',
-        wand: 'PF2E.TraitWand',
+        halcyon: 'PF2E.TraitHalcyon',
     },
 
     magicalSchools: {
@@ -2289,7 +2289,6 @@ export const PF2ECONFIG = {
 };
 
 // TODO: Compute these!
-mergeObject(PF2ECONFIG.magicTraditions, PF2ECONFIG.spellTraditions);
 mergeObject(PF2ECONFIG.weaponTraits, PF2ECONFIG.classTraits);
 mergeObject(PF2ECONFIG.weaponTraits, PF2ECONFIG.ancestryTraits);
 mergeObject(PF2ECONFIG.weaponTraits, PF2ECONFIG.magicalSchools);
