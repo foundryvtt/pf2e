@@ -24,14 +24,14 @@
     <h4 class="initiative-select">
         <select name="data.attributes.initiative.ability">
             {{#select data.attributes.initiative.ability}}
-            <option value="perception">{{localize 'PF2E.PerceptionLabel'}}</option>
-            {{#each skills as |label skill|}}
-            <option value="{{skill}}">{{label}}</option>
-            {{/each}}
+                <option value="perception">{{localize 'PF2E.PerceptionLabel'}}</option>
+                {{#each skills as |label skill|}}
+                    <option value="{{skill}}">{{localize label}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </h4>
 </div>
 {{#with data.attributes.initiative}}
-{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
+    {{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title=label }}
 {{/with}}

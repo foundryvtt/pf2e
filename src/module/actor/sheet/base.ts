@@ -1554,9 +1554,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                                    const preparationType = game.i18n.localize(
+                                        CONFIG.PF2E.preparationType[spellcastingType],
+                                    );
+                                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                     name = game.i18n.format('PF2E.SpellCastingFormat', {
-                                        preparationType: CONFIG.PF2E.preparationType[spellcastingType],
-                                        tradition: CONFIG.PF2E.magicTraditions[magicTradition],
+                                        preparationType,
+                                        tradition,
                                     });
                                 }
 
