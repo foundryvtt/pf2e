@@ -140,6 +140,8 @@ declare interface Item extends Entity {
     data: ItemData;
     _data: ItemData;
 
+    readonly sheet: ItemSheet<Item>;
+
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }
