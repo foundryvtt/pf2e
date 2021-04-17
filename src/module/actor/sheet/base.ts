@@ -281,7 +281,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
                                 // Add chat data
                                 try {
-                                    spl.prepared[i].spellInfo = item.getSpellInfo();
+                                    spl.prepared[i].spellInfo = item.getChatData();
                                 } catch (err) {
                                     console.debug(
                                         `PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`,
@@ -294,7 +294,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                             // prepared spell not found
                             else {
                                 spl.prepared[i] = {
-                                    name: 'Empty Slot (drag spell here)',
+                                    name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                                     id: null,
                                     prepared: false,
                                 };
@@ -302,7 +302,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                         } else {
                             // Could not find an item for ID: ${entrySlot.id}. Marking the slot as empty so it can be overwritten.
                             spl.prepared[i] = {
-                                name: 'Empty Slot (drag spell here)',
+                                name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                                 id: null,
                                 prepared: false,
                             };
@@ -310,7 +310,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     } else {
                         // if there is no prepared spell for this slot then make it empty.
                         spl.prepared[i] = {
-                            name: 'Empty Slot (drag spell here)',
+                            name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                             id: null,
                             prepared: false,
                         };
