@@ -2,9 +2,7 @@ import {
     ConsumableData,
     ItemDataPF2e,
     LoreData,
-    SpellAttackRollModifier,
     SpellcastingEntryData,
-    SpellDifficultyClass,
     WeaponCategoryKey,
     WeaponDamage,
     WeaponData,
@@ -45,7 +43,7 @@ import {
 } from './data-definitions';
 import { PF2RollNote } from '../notes';
 import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
-import { toNumber } from '@module/utils';
+import { keyBy, toNumber } from '@module/utils';
 import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
@@ -987,81 +985,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 data.actions.push(action);
             });
 
-        (actorData.items ?? [])
-            .filter((item): item is SpellcastingEntryData => item.type === 'spellcastingEntry')
-            .forEach((spellcastingEntry) => {
-                const tradition = spellcastingEntry.data.tradition.value;
-                const rank = spellcastingEntry.data.proficiency.value;
-                const ability = (spellcastingEntry.data.ability.value || 'int') as AbilityString;
-                const baseModifiers = [
-                    AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
-                    ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank),
-                ];
-                const baseNotes = [] as PF2RollNote[];
-                [`${ability}-based`, 'all'].forEach((key) => {
-                    (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
-                    (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
-                });
-
-                {
-                    // add custom modifiers and roll notes relevant to the attack modifier for the spellcasting entry
-                    const modifiers = [...baseModifiers];
-                    const notes = [...baseNotes];
-                    [`${tradition}-spell-attack`, 'spell-attack', 'attack', 'attack-roll'].forEach((key) => {
-                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-                    });
-
-                    const attack: StatisticModifier & Partial<SpellAttackRollModifier> = new StatisticModifier(
-                        spellcastingEntry.name,
-                        modifiers,
-                    );
-                    attack.notes = notes;
-                    attack.value = attack.totalModifier;
-                    attack.breakdown = attack.modifiers
-                        .filter((m) => m.enabled)
-                        .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
-                        .join(', ');
-                    attack.roll = adaptRoll((args) => {
-                        const label = game.i18n.format(`PF2E.SpellAttack.${tradition}`);
-                        const options = args.options ?? [];
-                        ensureProficiencyOption(options, rank);
-                        CheckPF2e.roll(
-                            new CheckModifier(label, attack, args.modifiers ?? []),
-                            { actor: this, type: 'spell-attack-roll', options, dc: args.dc, notes },
-                            args.event,
-                            args.callback,
-                        );
-                    });
-                    spellcastingEntry.data.attack = attack as Required<SpellAttackRollModifier>;
-                }
-
-                {
-                    // add custom modifiers and roll notes relevant to the DC for the spellcasting entry
-                    const modifiers = [...baseModifiers];
-                    const notes = [...baseNotes];
-                    [`${tradition}-spell-dc`, 'spell-dc'].forEach((key) => {
-                        (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
-                        (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
-                    });
-
-                    const dc: StatisticModifier & Partial<SpellDifficultyClass> = new StatisticModifier(
-                        spellcastingEntry.name,
-                        modifiers,
-                    );
-                    dc.notes = notes;
-                    dc.value = 10 + dc.totalModifier;
-                    dc.breakdown = [game.i18n.localize('PF2E.SpellDCBase')]
-                        .concat(
-                            dc.modifiers
-                                .filter((m) => m.enabled)
-                                .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`),
-                        )
-                        .join(', ');
-                    spellcastingEntry.data.dc = dc as Required<SpellDifficultyClass>;
-                }
-            });
-
+        this.prepareSpellcasting(actorData, statisticsModifiers, rollNotes);
         this.prepareInitiative(actorData, statisticsModifiers, rollNotes);
 
         rules.forEach((rule) => {
@@ -1072,6 +996,34 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+    }
+
+    private prepareSpellcasting(
+        actorData: CharacterData,
+        statisticsModifiers: Record<string, ModifierPF2e[]>,
+        rollNotes: Record<string, PF2RollNote[]>,
+    ) {
+        for (const spellcastingEntry of this.itemTypes.spellcastingEntry) {
+            const ability = spellcastingEntry.ability;
+            const rank = spellcastingEntry.data.data.proficiency.value;
+            spellcastingEntry.initializeAttack(statisticsModifiers, rollNotes, [
+                AbilityModifier.fromAbilityScore(ability, this.data.data.abilities[ability].value),
+                ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank),
+            ]);
+        }
+
+        // Backwards compatibility, assign attack data to actor.data.items so that things don't break
+        const items = (actorData.items ?? []).filter(
+            (item): item is SpellcastingEntryData => item.type === 'spellcastingEntry',
+        );
+        const spellcastingMap = keyBy(items, (item) => item._id);
+        for (const spellcastingEntry of this.itemTypes.spellcastingEntry) {
+            const data = spellcastingMap.get(spellcastingEntry._id)?.data;
+            if (data) {
+                data.attack = spellcastingEntry.attack;
+                data.dc = spellcastingEntry.dc;
+            }
+        }
     }
 
     private prepareInitiative(

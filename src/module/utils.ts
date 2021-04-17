@@ -21,6 +21,22 @@ export function groupBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T[
 }
 
 /**
+ * Given an array and a key function, create a map where the key is the value that
+ * gets returned when each item is pushed into the function, and the value is that item.
+ * @param array
+ * @param criterion
+ * @return
+ */
+export function keyBy<T, R>(array: T[], criterion: (value: T) => R): Map<R, T> {
+    const result = new Map<R, T>();
+    for (const elem of array) {
+        const key = criterion(elem);
+        result.set(key, elem);
+    }
+    return result;
+}
+
+/**
  * Given an array, adds a certain amount of elements to it
  * until the desired length is being reached
  */

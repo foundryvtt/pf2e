@@ -25,6 +25,7 @@ import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ErrorPF2e } from '@module/utils';
+import { PF2RuleElementSynthetics } from '@module/rules/rules-data-definitions';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -78,6 +79,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         this._data.data.traits.value = this._data.data.traits.value.filter((trait) => !!trait);
         super.prepareData();
     }
+
+    /** Handles any item specific setup that may happen during Actor#prepareDerivedData() */
+    onPrepareDerivedData(this: Owned<ItemPF2e>, _synthetics: PF2RuleElementSynthetics) {}
 
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options

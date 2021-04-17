@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { SpellcastingEntryData, SpellData } from './data-definitions';
+import { SpellData } from './data-definitions';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { SpellFacade } from './spell-facade';
 import { DicePF2e } from '@scripts/dice';
@@ -26,11 +26,8 @@ export class SpellPF2e extends ItemPF2e {
 
         // Prepare roll data
         const trickMagicItemData = item.data.trickMagicItemData;
-        const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry =
-            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
-            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
+        const spellcastingEntry = this.spellcasting;
         let useTrickData = false;
         if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
 
@@ -40,17 +37,18 @@ export class SpellPF2e extends ItemPF2e {
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry.data?.attack?.roll) {
+        if (spellcastingEntry?.attack?.roll) {
             const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
-                modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
+                const mapValue = multiAttackPenalty === 2 ? map.map2 : map.map3;
+                modifiers.push(new ModifierPF2e(map.label, mapValue, 'untyped'));
             }
-            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+            spellcastingEntry.attack.roll({ event, options, modifiers });
         } else {
             const spellAttack = useTrickData
                 ? trickMagicItemData?.data.spelldc.value
-                : spellcastingEntry?.data.spelldc.value;
+                : spellcastingEntry?.data.data.spelldc.value;
             const parts = [Number(spellAttack) || 0];
             const title = `${this.name} - Spell Attack Roll`;
 
@@ -62,7 +60,8 @@ export class SpellPF2e extends ItemPF2e {
             }
 
             if (multiAttackPenalty > 1) {
-                parts.push(map[`map${multiAttackPenalty}`]);
+                const mapValue = multiAttackPenalty === 2 ? map.map2 : map.map3;
+                parts.push(mapValue);
             }
 
             // Call the roll helper utility
