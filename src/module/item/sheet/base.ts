@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -169,34 +169,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             // Condition types
 
             data.conditions = [];
-        } else if (type === 'action') {
-            // Action types
-            const actorWeapons: WeaponData[] = [];
-
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'weapon') actorWeapons.push(i);
-                }
-            }
-
-            const actionType = data.data.actionType.value || 'action';
-            let actionImg: string | number = 0;
-            if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
-            else if (actionType === 'reaction') actionImg = 'reaction';
-            else if (actionType === 'free') actionImg = 'free';
-            else if (actionType === 'passive') actionImg = 'passive';
-
-            data.item.img = this.getActionImg(actionImg.toString());
-            data.categories = CONFIG.PF2E.actionCategories;
-            data.weapons = actorWeapons;
-            data.actionTypes = CONFIG.PF2E.actionTypes;
-            data.actionsNumber = CONFIG.PF2E.actionsNumber;
-            data.featTraits = CONFIG.PF2E.featTraits;
-            data.skills = CONFIG.PF2E.skillList;
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-            data.actionTags = [data.data.traits.value].filter((t) => !!t);
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'equipment') {
             // Equipment data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
