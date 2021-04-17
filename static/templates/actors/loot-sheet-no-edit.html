@@ -16,14 +16,7 @@
         {{#if isGM }}
         <div class="editsheet">
             <label>{{localize "PF2E.loot.EditLootLabel"}}</label>
-            <input
-                class="isLootEditable"
-                name="actor.flags.pf2e.editLoot.value"
-                type="checkbox"
-                data-dtype="Boolean"
-                {{checked
-                actor.flags.pf2e.editLoot.value}}
-            />
+            <input class="editMode" type="checkbox" {{checked inEditMode}} />
         </div>
         {{/if}}
         <div class="traits-bar">

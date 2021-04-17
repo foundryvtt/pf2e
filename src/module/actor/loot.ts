@@ -4,6 +4,7 @@ import { PhysicalItemPF2e } from '@item/physical';
 import { ItemPF2e } from '@item/base';
 import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { LocalizePF2e } from '@module/system/localize';
+import { LootSheetPF2e } from './sheet/loot';
 
 export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
@@ -43,7 +44,7 @@ export class LootPF2e extends ActorPF2e {
         if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
-        if (this.isMerchant && !this.getFlag('pf2e', 'editLoot.value') && item instanceof PhysicalItemPF2e) {
+        if (this.isMerchant && !this.sheet?.inEditMode && item instanceof PhysicalItemPF2e) {
             const itemValue = extractPriceFromItem(item.data, quantity);
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
                 return super.transferItemToActor(targetActor, item, quantity, containerId);
@@ -60,7 +61,13 @@ export class LootPF2e extends ActorPF2e {
     }
 }
 
-export interface LootPF2e {
+export interface LootPF2e extends ActorPF2e {
     data: LootData;
     _data: LootData;
+
+    readonly sheet: LootSheetPF2e;
+
+    getFlag(scope: string, key: string): unknown;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'editLoot.value'): boolean | undefined;
 }
