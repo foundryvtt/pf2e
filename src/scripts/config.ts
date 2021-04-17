@@ -1121,6 +1121,7 @@ export const PF2ECONFIG = {
     monsterTraits: creatureTraits,
 
     hazardTraits: {
+        alchemical: 'PF2E.TraitAlchemical',
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
         curse: 'PF2E.TraitCurse',
