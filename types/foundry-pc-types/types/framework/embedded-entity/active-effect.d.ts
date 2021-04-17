@@ -61,7 +61,9 @@ declare interface ActiveEffectData extends EmbeddedEntityData {
     transfer: boolean;
 }
 
-declare class ActiveEffect<ParentType extends Actor | Item = Actor | Item> extends EmbeddedEntity<ParentType> {
+declare class ActiveEffect<ParentType extends Actor | Item = Actor | Item>
+    extends EmbeddedEntity<ParentType>
+    implements TemporaryEffect {
     _sourceName: string | null;
 
     /** @override */
@@ -195,4 +197,8 @@ declare class ActiveEffect<ParentType extends Actor | Item = Actor | Item> exten
 
 declare interface ActiveEffect {
     data: ActiveEffectData;
+
+    getFlag(scope: 'core', key: 'overlay'): string | undefined;
+    getFlag(scope: 'core', key: 'statusId'): string | undefined;
+    getFlag(scope: string, key: string): unknown;
 }

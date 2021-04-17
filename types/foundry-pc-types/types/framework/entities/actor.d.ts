@@ -66,6 +66,20 @@ type Owned<I extends Item> = I & {
     actor: NonNullable<I['actor']>;
 };
 
+/** A structural subset of an ActiveEffect instance */
+interface TemporaryEffect {
+    isTemporary: boolean;
+    data: {
+        disabled: boolean;
+        icon: string;
+        tint: string;
+    };
+
+    getFlag(scope: 'core', key: 'overlay'): string | undefined;
+    getFlag(scope: 'core', key: 'statusId'): string | undefined;
+    getFlag(scope: string, key: string): unknown;
+}
+
 /**
  * The Actor Entity which represents the protagonists, characters, enemies, and more that inhabit and take actions
  * within the World.
@@ -114,6 +128,8 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
      * Cache an Array of allowed Token images if using a wildcard path
      */
     protected _tokenImages: string[] | null;
+
+    get temporaryEffects(): TemporaryEffect[];
 
     /** @override */
     static get config(): ActorClassConfig<Actor>;
