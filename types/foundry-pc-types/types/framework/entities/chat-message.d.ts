@@ -57,6 +57,8 @@ declare interface MessageCreateOptions extends EntityCreateOptions {
  */
 declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     data: ChatMessageData;
+    _data: ChatMessageData;
+
     /**
      * Get a reference to the user who sent the chat message
      */
