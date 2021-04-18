@@ -8,8 +8,8 @@ import { RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
-import { ConfigPF2e } from '@scripts/config';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
+import { DamageType } from '@module/damage-calculation';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -543,7 +543,7 @@ export class NPCPF2e extends CreaturePF2e {
                         const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                         const option: CharacterStrikeTrait = {
                             name: trait,
-                            label: key,
+                            label: game.i18n.localize(key),
                             toggle: false,
                         };
                         return option;
@@ -561,11 +561,8 @@ export class NPCPF2e extends CreaturePF2e {
                 }
                 // Add a damage roll breakdown
                 action.damageBreakdown = Object.values(item.data.damageRolls).flatMap((roll) => {
-                    return [
-                        `${roll.damage} ${game.i18n.localize(
-                            CONFIG.PF2E.damageTypes[roll.damageType as keyof ConfigPF2e['PF2E']['damageTypes']],
-                        )}`,
-                    ];
+                    const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
+                    return [`${roll.damage} ${damageType}`];
                 });
                 if (action.damageBreakdown.length > 0) {
                     if (this.isElite) {
@@ -580,7 +577,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const attackTraits = item.data.attackEffects.value.map((attackEffect: string) => {
                     return {
                         name: attackEffect.toLowerCase(),
-                        label: attackEffect,
+                        label: game.i18n.localize(attackEffect),
                         toggle: false,
                     };
                 });
