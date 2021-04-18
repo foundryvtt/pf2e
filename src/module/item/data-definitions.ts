@@ -1,5 +1,5 @@
 import { AbilityString, ZeroToFour } from '@actor/data-definitions';
-import { PF2RuleElementData } from '../rules/rules-data-definitions';
+import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
 import { LocalizePF2e } from '@module/system/localize';
@@ -474,6 +474,8 @@ export interface MartialDetailsData extends ItemDescriptionData {
     };
 }
 
+export type ModeOfPlay = 'encounter' | 'exploration' | 'downtime';
+
 export interface ActionDetailsData extends ItemDescriptionData {
     actionType: {
         value: keyof ConfigPF2e['PF2E']['actionTypes'];
@@ -481,6 +483,9 @@ export interface ActionDetailsData extends ItemDescriptionData {
     actionCategory: {
         value: string;
     };
+    modeOfPlay: {
+        value: Record<ModeOfPlay, boolean>;
+    }
     weapon: {
         value: string;
     };

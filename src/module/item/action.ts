@@ -3,15 +3,29 @@ import { ActionData } from './data-definitions';
 
 export class ActionPF2e extends ItemPF2e {
     /** @override */
-    prepareData() {
-        const data = super.prepareData();
+    prepareData(): void {
+        super.prepareData();
 
-        /**
-         * @todo Fill this out like so or whatever we settle on
-         * data.data.playMode.encounter ??= false; // etc.
-         **/
+        const hasExplorationTrait = this.hasTrait('exploration');
+        const hasDowntimeTrait = this.hasTrait('downtime');
 
-        return data;
+        const availableInEncounterMode = this.data.data.actionType.value === 'action';
+        const availableInExplorationMode = hasExplorationTrait;
+        const availableInDowntimeMode = hasDowntimeTrait;
+
+        if (this.data.data.modeOfPlay) {
+            this.data.data.modeOfPlay.value.encounter ??= availableInEncounterMode;
+            this.data.data.modeOfPlay.value.exploration ??= availableInExplorationMode;
+            this.data.data.modeOfPlay.value.downtime ??= availableInDowntimeMode;
+        } else {
+            this.data.data.modeOfPlay = {
+                value: {
+                    encounter: availableInEncounterMode,
+                    exploration: availableInExplorationMode,
+                    downtime: availableInDowntimeMode,
+                },
+            };
+        }
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {

@@ -81,6 +81,14 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /**
+     * Find out whether an item has a specific trait. Case insensitive.
+     * @param traitToCheck
+     */
+    public hasTrait(traitToCheck: string): boolean {
+        return this.traits.has(traitToCheck.toLowerCase());
+    }
+
+    /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
     async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
