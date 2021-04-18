@@ -48,6 +48,7 @@ import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 import { Migration616MigrateFeatPrerequisites } from './616-migrate-feat-prerequisites';
 import { Migration617FixUserFlags } from './617-fix-user-flags';
+import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
 
 export class Migrations {
     private static list = [
@@ -100,6 +101,7 @@ export class Migrations {
         Migration615RemoveInstinctTrait,
         Migration616MigrateFeatPrerequisites,
         Migration617FixUserFlags,
+        Migration618MigrateItemImagePaths,
     ];
 
     static get latestVersion(): number {
