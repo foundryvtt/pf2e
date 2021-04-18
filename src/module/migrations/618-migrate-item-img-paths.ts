@@ -65,7 +65,6 @@ export class Migration618MigrateItemImagePaths extends MigrationBase {
     };
 
     async updateItem(itemData: ItemDataPF2e) {
-        console.log(`${itemData.img}? ${itemData.img in this.IMAGE_PATHS}`);
         if (itemData.img in this.IMAGE_PATHS) {
             itemData.img = this.IMAGE_PATHS[itemData.img];
         }
