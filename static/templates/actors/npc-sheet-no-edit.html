@@ -52,11 +52,17 @@
         <div class="stats-line recall-knowledge">
           <span class="inline-stats">
             <label class="stat-title attribute-name">{{localize "PF2E.RecallKnowledge.Label"}}</label>
-            {{#if identificationSkillList}}
-            <span class="stat-list" title="{{identifySkillProgression}}">
-              <span class="stat-minortitle">{{localize identificationSkillList}}</span>
-              <span class="stat-value">{{identifySkillDC}} ({{localize identifySkillAdjustment}})</span>
-            </span>
+            {{#if identificationSkills}}
+                <span class="stat-list" title="{{identifySkillProgression}}">
+                    <span class="stat-minortitle">
+                        <ul class="skill-list">
+                            {{#each identificationSkills as |skill|}}
+                                <li>{{localize skill}}</li>
+                            {{/each}}
+                        </ul>
+                    </span>
+                    <span class="stat-value">{{identifySkillDC}} ({{localize identifySkillAdjustment}})</span>
+                </span>
             {{/if}}
             <span class="stat-list" title="{{unspecificLoreProgression}}">
               <span class="stat-minortitle">{{localize "PF2E.RecallKnowledge.UnspecificLore"}}</span>
