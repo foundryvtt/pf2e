@@ -1,15 +1,20 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
-    <div class="flexcol" style="height: 100%;">
-        <div class="flexrow" style="flex: 0;">
-            <div id="recall-knowledge" class="section-container" style="flex: 2;">
+    <div class="flexcol">
+        <div class="flexrow">
+            <div class="recall-knowledge section-container">
                 <div class="section-header">
                     <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
                 </div>
                 <div class="section-body">
-                    {{#if identificationSkillList }}
-                    <div id="identification-skill" class="tag" title="{{identifySkillProgression}}">
-                        {{localize identificationSkillList}} {{identifySkillDC}} ({{localize identifySkillAdjustment}})
-                    </div>
+                    {{#if identificationSkills }}
+                        <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                            <ul>
+                                {{#each identificationSkills as |skill|}}
+                                    <li>{{localize skill}}</li>
+                                {{/each}}
+                            </ul>
+                            {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+                        </div>
                     {{/if}}
                     <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
                         {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
