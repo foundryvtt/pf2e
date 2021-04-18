@@ -1,169 +1,78 @@
 <div class="sidebar_title">
-    <h2>
-        {{localize 'PF2E.ArmorClassLabel'}}
-    </h2>
+    <h2>{{localize "PF2E.ArmorClassLabel"}}</h2>
     <h2 class="hover" data-tooltip-content="#{{uid}}-ac-modifiers">
-        <i class="fas fa-eye"></i> {{localize 'PF2E.ModifiersTitle'}}
+        <i class="fas fa-eye"></i> {{localize "PF2E.ModifiersTitle"}}
     </h2>
-  <a class="shield-action {{#if data.attributes.shieldBroken}}disabled-action{{/if}}">
-        <img src="systems/pf2e/icons/actions/OneAction.webp">Raise Shield
+  <a class="shield-action {{#if data.attributes.shield.broken}}disabled-action{{/if}}">
+        <img src="systems/pf2e/icons/actions/OneAction.webp" />Raise Shield
     </a>
 </div>
 <div class="armor-class">
     <div class="shield ac">
-        <div class="data-value">
-            <h2>
-                {{data.attributes.ac.value}}
-            </h2>
-        </div>
-        <label>
-            {{localize 'PF2E.ArmorClassShortLabel'}}
-        </label>
+        <h2>{{data.attributes.ac.value}}</h2>
+        <label>{{localize "PF2E.ArmorClassShortLabel"}}</label>
     </div>
     <div class="shield hp">
-        <div class="data-value"> <!-- TODO: need to add a method in base.js to prevent shield HP to be larger then max shield HP-->
-            <input
-                id="shield-hp"
-                type="number"
-                data-dtype="Number"
-                placeholder="0"
-                name="data.attributes.shield.hp.value"
-                value="{{data.attributes.shield.hp.value}}"
-                title="{{localize 'PF2E.ShieldCurrentTitle'}}"
-            />
+        <div class="data-value">
+            <input type="number" data-dtype="Number" placeholder="0" name="data.attributes.shield.value" value="{{data.attributes.shield.value}}" title="{{localize "PF2E.ShieldCurrentTitle"}}" {{#if (not hasShield)}} class="no-shield" disabled="disabled"{{/if}} />
         </div>
-        <label for="shield-hp">
-            {{localize 'PF2E.ShieldCurrentLabel'}}
-        </label>
+        <label for="shield-hp"{{#if (not hasShield)}} class="no-shield"{{/if}}>{{localize "PF2E.ShieldCurrentLabel"}}</label>
     </div>
-    <div class="shield-stats">
-        <ol>
-            <li>
-                <div class="shield-label">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 11.9 14"
-                    >
-                        <defs>
-                            <filter id="shadow">
-                                <feDropShadow
-                                    dx="0"
-                                    dy="0"
-                                    stdDeviation="0.5"
-                                    flood-color="cyan"
-                                />
-                            </filter>
-                        </defs>
-                        <path
-                            filter:url(#shadow)
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize 'PF2E.ArmorClassShortLabel'}}</text>
-                    </svg>
-                </div>
-                <span
-                    class="data-value"
-                    title="{{localize 'PF2E.ShieldACBonusTitle'}}"
-                >
-                  <input
-                    id="shield-ac"
-                    type="number"
-                    placeholder="0"
-                    value="{{data.attributes.shield.armor.value}}"
-                    title="{{localize 'PF2E.ShieldACBonusTitle'}}"
-                    readonly
-                  />
-              </span>
-            </li>
-            <li>
-                <div class="shield-label">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 11.9 14"
-                    >
-                        <path
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize 'PF2E.ShieldHardnessShortLabel'}}</text>
-                    </svg>
-                </div>
-                <span
-                    class="data-value"
-                    title="{{localize 'PF2E.ShieldHardnessTitle'}}"
-                >
-                  <input type="number" placeholder="0" value="{{data.attributes.shield.hardness.value}}" readonly/>
-                </span>
-            </li>
-            <li>
-                <div class="shield-label">
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 11.9 14"
-                    >
-                        <path
-                            d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z"
-                            fill="#fff"
-                        />
-                        <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize 'PF2E.ShieldBTShortLabel'}}</text>
-                    </svg>
-                </div>
-                <span
-                    class="data-value"
-                    title="{{localize 'PF2E.ShieldBTTitle'}}"
-                ><input readonly type="number" value="{{data.attributes.shield.brokenThreshold.value}}"></span>
-            </li>
-        </ol>
-    </div>
-    <div class="armor_footer">
+    {{#if hasShield}}
+        <div class="shield-stats">
+            <ol>
+                <li>
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <defs>
+                                <filter id="shadow">
+                                    <feDropShadow dx="0" dy="0" stdDeviation="0.5" flood-color="cyan" />
+                                </filter>
+                            </defs>
+                            <path filter:url(#shadow) d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z" fill="#fff" />
+                            <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ArmorClassShortLabel"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value" title="{{localize "PF2E.ShieldACBonusTitle"}}">{{data.attributes.shield.ac}}</span>
+                </li>
+                <li>
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <path d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z" fill="#fff" />
+                            <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ShieldHardnessShortLabel"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value" title="{{localize "PF2E.ShieldHardnessTitle"}}">{{data.attributes.shield.hardness}}</span>
+                </li>
+                <li>
+                    <div class="shield-label">
+                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 11.9 14">
+                            <path d="M5.9 13.5c-.9-.4-1.9-1-2.7-1.6-.7-.5-1.3-1.1-1.9-1.7C.8 9.6.5 8.9.5 8.1v-6L6 .5l5.4 1.6v6c0 .7-.3 1.5-.8 2.1-.6.7-1.2 1.3-1.9 1.7-.9.6-1.8 1.2-2.8 1.6z" fill="#fff" />
+                            <text x="6" y="8" font-family="Verdana" text-anchor="middle" font-size="5" fill="black">{{localize "PF2E.ShieldBTShortLabel"}}</text>
+                        </svg>
+                    </div>
+                    <span class="data-value" title="{{localize "PF2E.ShieldBTTitle"}}">{{data.attributes.shield.brokenThreshold}}</span>
+                </li>
+            </ol>
+        </div>
+    {{/if}}
+    <div class="armor-footer">
         <div class="shield-max">
-            <label
-                for="shield-max"
-                class="defense-item pf-title"
-                title="{{localize 'PF2E.ShieldMaxTitle'}}"
-            >
-                {{localize 'PF2E.ShieldLabel'}}<br>{{localize 'PF2E.MaxHitPointsShortLabel'}}
+            <label for="shield-max" class="defense-item pf-title{{#if (not hasShield)}} no-shield{{/if}}" title="{{localize "PF2E.ShieldMaxTitle"}}">
+                {{localize "PF2E.ShieldLabel"}}<br />{{localize "PF2E.MaxHitPointsShortLabel"}}
             </label>
-            <span class="data-value" title="{{localize 'PF2E.ShieldMaxTitle'}}">
-              <input
-                id="shield-max"
-                type="number"
-                placeholder="0"
-                value="{{data.attributes.shield.maxHp.value}}"
-                readonly
-              />
-
-            </span>
+            <h2{{#if (not hasShield)}} class="no-shield"{{/if}}>{{data.attributes.shield.max}}</h2>
         </div>
-        <div class="shield-status">
-            <label
-                id="shield-status"
-                title="{{localize 'PF2E.ShieldBTTitle'}}"
-            >
-                {{localize 'PF2E.ShieldBTLabel'}}
-            </label>
-            {{#if data.attributes.shieldBroken}}<i class="far fa-times-circle"></i>{{/if}}
-            {{#unless data.attributes.shieldBroken}}<i class="far fa-circle"></i>{{/unless}}
+        <div class="shield-status{{#if (not hasShield)}} no-shield{{/if}}">
+            <label title="{{localize "PF2E.ShieldBTTitle"}}">{{localize "PF2E.ShieldBTLabel"}}</label>
+            {{#if data.attributes.shield.broken}}
+                <i class="far fa-times-circle"></i>
+            {{else}}
+                <i class="far fa-circle"></i>
+            {{/if}}
         </div>
     </div>
 </div>
-<!--
-<div class="hover-content" id="{{uid}}-ac-modifiers">
-    <div class="sidebar_title">
-        <h2>Armor Class</h2>
-    </div>
-    <ul>
-        {{#each data.attributes.ac._modifiers as |modifier|}}
-        <li class="item {{#unless modifier.enabled}}no-effect{{/unless}}">
-            <span class="tag">{{localize (add 'PF2E.ModifierType.' modifier.type)}}</span>
-            <span class="label">{{localize modifier.name}}</span>
-            <span class="data">{{numberFormat modifier.modifier decimals=0 sign=true}}</span>
-        </li>
-        {{/each}}
-    </ul>
-</div>
--->
 {{#with data.attributes.ac}}
-{{> systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html uid=../uid title='PF2E.ArmorClassLabel' }}
+    {{> "systems/pf2e/templates/actors/crb-style/partials/modifiers-tooltip.html" uid=@root.uid title="PF2E.ArmorClassLabel"}}
 {{/with}}

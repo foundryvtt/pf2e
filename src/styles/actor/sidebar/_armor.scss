@@ -19,6 +19,13 @@
         / 66px 59px auto;
     grid-column-gap: 4px;
 
+    h2, label, input[type="number"], div {
+        &.no-shield {
+            color: var(--sidebar-label);
+            opacity: 0.8;
+        }
+    }
+
     .shield {
         display: flex;
         justify-content: center;
@@ -33,27 +40,24 @@
             font-weight: 500;
             white-space: normal;
         }
-        .data-value {
-            h2,
-            input[type='number'] {
-                font-size: 32px;
-                color: white;
-                line-height: 24px;
-                border-bottom: 1px solid transparent;
-                height: 26px;
-                width: 55px;
-            }
-        }
         label {
             font-size: 10px;
+        }
+        h2, input[type="number"] {
+            font-size: 32px;
+            line-height: 24px;
+            height: 26px;
+            width: 55px;
         }
         &.ac {
             grid-area: ac;
             color: $sidebar-label;
-            background: url('../assets/sheet/shield-blue.webp') no-repeat center
-                center;
+            background: url('../assets/sheet/shield-blue.webp') no-repeat center center;
             h2 {
-                color: $sidebar-label;
+                color: var(--sidebar-label);
+                border-bottom: none;
+                font-family: $serif;
+                font-weight: 500;
             }
         }
         &.hp {
@@ -116,24 +120,22 @@
                 }
                 .data-value {
                     flex: 1;
-                    @include input-border;
-                    padding-left: 4px;
-                    margin-left: -8px;
+                    border: 1px solid #956d58;
                     height: 20px;
+                    color: var(--sidebar-label);
+                    font-size: 14px;
+                    font-weight: 400;
+                    padding: 4px 12px 0 18px;
+                    margin-left: -8px;
+
                     &:focus-within {
                         border: 1px solid;
-                    }
-                    input[type='number'] {
-                        font-size: 14px;
-                        font-weight: 400;
-                        padding-top: 2px;
-                        height: 14px;
                     }
                 }
             }
         }
     }
-    .armor_footer {
+    .armor-footer {
         grid-area: shield-footer;
         display: inline-flex;
         flex-direction: column;
@@ -141,25 +143,19 @@
         justify-self: center;
         width: calc(100% - 6px);
         .shield-max {
-            display: flex;
-            flex-direction: column;
             @include flex-center;
+            flex-direction: column;
+            text-align: center;
             label {
                 white-space: normal;
-                text-align: center;
                 margin-bottom: 4px;
             }
-            .data-value {
-                border-bottom: 1px solid transparent;
+            h2 {
+                color: var(--sidebar-label);
+                font-size: 26px;
+                font-weight: 500;
+                border-bottom: none;
                 width: 75%;
-                input {
-                    &:hover {
-                        @include input-glow;
-                    }
-                    &:focus {
-                        border-bottom: 1px solid var(--tertiary);
-                    }
-                }
             }
         }
         .shield-status {

@@ -218,6 +218,8 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             sheetData.totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
         }
 
+        sheetData.hasShield = 'shield' in sheetData.data.attributes && sheetData.data.attributes.shield.max > 0;
+
         // Update traits
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.skills = CONFIG.PF2E.skills;
@@ -408,5 +410,18 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
             action.variants[Number(variantIndex)].roll(rollContext);
         });
+    }
+
+    /** @override */
+    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
+        // Update shield HP
+        const shield = this.actor.heldShield;
+        const actorShieldHP = Number(formData['data.attributes.shield.value']);
+        if (shield && Number.isInteger(actorShieldHP)) {
+            await shield.update({ 'data.hp.value': Math.min(actorShieldHP, shield.hitPoints.max) });
+            delete formData['data.attributes.shield.value'];
+            this.render();
+        }
+        await super._updateObject(event, formData);
     }
 }

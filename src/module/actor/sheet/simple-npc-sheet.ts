@@ -10,7 +10,6 @@ import {
     AbilityString,
     CreatureTraitsData,
     LabeledString,
-    NPCAttributes,
     NPCData,
     NPCSkillData,
     NPCStrike,
@@ -66,9 +65,6 @@ interface Attack {
 type Attacks = Attack[];
 
 interface NPCSystemSheetData extends RawNPCData {
-    attributes: NPCAttributes & {
-        shieldBroken?: boolean;
-    };
     details: RawNPCData['details'] & {
         alignment: {
             localizedName?: string;
@@ -94,6 +90,7 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
+    hasShield: boolean;
     identifyCreatureData?: IdentifyCreatureData;
     identifySkillDC?: number;
     identifySkillAdjustment?: string;
@@ -119,7 +116,6 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     weakState: 'active' | 'inactive';
     notAdjusted: boolean;
     inventory: SheetInventory;
-    hasShield?: boolean;
 }
 
 interface SheetEnrichedItemData {
@@ -247,17 +243,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
         sheetData.inventory = this.prepareInventory(sheetData);
-
-        // Shield
-        const shield = this.actor.heldShield;
-        const actorShieldData = sheetData.data.attributes.shield;
-        if (shield) {
-            sheetData.hasShield = true;
-            sheetData.data.attributes.shieldBroken = shield.isBroken;
-        } else if (actorShieldData.max > 0) {
-            sheetData.hasShield = true;
-            sheetData.data.attributes.shieldBroken = actorShieldData.value > actorShieldData.max / 2;
-        }
 
         const isElite = this.isElite;
         const isWeak = this.isWeak;
@@ -1077,17 +1062,5 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         item.glyph = actionGlyph;
         item.imageUrl = imageUrl;
-    }
-
-    /** @override */
-    protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // update shield hp
-        const shield = this.actor.heldShield;
-        if (shield && Number.isInteger(formData['data.attributes.shield.value'])) {
-            await shield.update({
-                'data.hp.value': formData['data.attributes.shield.value'],
-            });
-        }
-        await super._updateObject(event, formData);
     }
 }
