@@ -67,5 +67,7 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
 
 export interface ActiveEffectPF2e {
     getFlag(scope: string, key: string): unknown;
+    getFlag(scope: 'core', key: 'overlay'): string | undefined;
+    getFlag(scope: 'core', key: 'statusId'): string | undefined;
     getFlag(scope: 'pf2e', key: 'applyOnCast'): boolean | undefined;
 }
