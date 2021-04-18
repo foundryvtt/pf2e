@@ -30,6 +30,10 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.data.data.armorType.value;
     }
 
+    get isFlexible(): boolean {
+        return this.traits.has('flexible');
+    }
+
     get dexCap(): number | null {
         return this.isShield ? null : this.data.data.dex.value;
     }

@@ -205,20 +205,21 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Saves
-        const worn = this.getFirstWornArmor();
-        for (const [saveName, save] of Object.entries(data.saves)) {
+        const wornArmor = this.wornArmor;
+        for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
+            const save = data.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
             const modifiers = [
                 AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes: PF2RollNote[] = [];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
-            if (worn) {
-                const resiliencyBonus = getResiliencyBonus(worn.data);
+            if (wornArmor) {
+                const resiliencyBonus = getResiliencyBonus(wornArmor.data.data);
                 if (resiliencyBonus > 0) {
-                    modifiers.push(new ModifierPF2e(worn.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
+                    modifiers.push(new ModifierPF2e(wornArmor.name, resiliencyBonus, MODIFIER_TYPE.ITEM));
                 }
             }
 
@@ -357,14 +358,16 @@ export class CharacterPF2e extends CreaturePF2e {
             let armorCheckPenalty = 0;
             let proficiency = 'unarmored';
 
-            if (worn) {
-                dexCap.push({ value: Number(worn.data.dex.value ?? 0), source: worn.name });
-                proficiency = worn.data.armorType?.value;
+            if (wornArmor) {
+                dexCap.push({ value: Number(wornArmor.dexCap ?? 0), source: wornArmor.name });
+                proficiency = wornArmor.category;
                 // armor check penalty
-                if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
-                    armorCheckPenalty = Number(worn.data.check.value ?? 0);
+                if (data.abilities.str.value < Number(wornArmor.strength ?? 0)) {
+                    armorCheckPenalty = Number(wornArmor.checkPenalty ?? 0);
                 }
-                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), MODIFIER_TYPE.ITEM));
+                modifiers.push(
+                    new ModifierPF2e(wornArmor.name, getArmorBonus(wornArmor.data.data), MODIFIER_TYPE.ITEM),
+                );
             }
 
             // proficiency
@@ -404,13 +407,6 @@ export class CharacterPF2e extends CreaturePF2e {
             data.attributes.ac = stat;
         }
 
-        // Shield
-        const shield = this.getFirstEquippedShield();
-        if (shield) {
-            data.attributes.shield.value = shield.data.hp.value;
-            data.attributes.shield.max = shield.data.maxHp.value;
-        }
-
         // Skill modifiers
 
         const skills: Partial<RawCharacterData['skills']> = {}; // rebuild the skills object to clear out any deleted or renamed skills from previous iterations
@@ -427,11 +423,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, MODIFIER_TYPE.ITEM));
             }
 
-            const ignoreArmorCheckPenalty = !(
-                worn &&
-                worn.data.traits.value.includes('flexible') &&
-                ['acr', 'ath'].includes(skillName)
-            );
+            const ignoreArmorCheckPenalty = !(wornArmor?.isFlexible && ['acr', 'ath'].includes(skillName));
             if (skill.armor && data.attributes.ac.check && data.attributes.ac.check < 0 && ignoreArmorCheckPenalty) {
                 modifiers.push(
                     new ModifierPF2e('PF2E.ArmorCheckPenalty', data.attributes.ac.check, MODIFIER_TYPE.UNTYPED),

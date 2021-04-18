@@ -72,6 +72,36 @@ export abstract class CreaturePF2e extends ActorPF2e {
         hitPoints.modifiers = [];
     }
 
+    prepareEmbeddedEntities(): void {
+        super.prepareEmbeddedEntities();
+
+        /**
+         * Set actor-shield data after any shield items are prepared but before `ActiveEffect`s and `RuleElement`s
+         * are applied.
+         */
+        const calculateFromShield = (shield: ArmorPF2e | null) => ({
+            value: shield?.hitPoints.current ?? 0,
+            max: shield?.hitPoints.max ?? 0,
+            ac: shield?.acBonus ?? 0,
+            hardness: shield?.hardness ?? 0,
+            brokenThreshold: shield?.brokenThreshold ?? 0,
+            broken: shield?.isBroken ?? false,
+            raised: false,
+        });
+
+        const heldShield = this.heldShield;
+        if (this.data.type === 'character') {
+            this.data.data.attributes.shield = calculateFromShield(heldShield);
+        } else if (this.data.type === 'npc') {
+            // NPCs can have an actor shield with or without an actual one
+            const attributes = this.data.data.attributes;
+            attributes.shield = heldShield ? calculateFromShield(heldShield) : attributes.shield;
+            attributes.shield.broken =
+                attributes.shield.max > 0 && attributes.shield.value <= attributes.shield.brokenThreshold;
+            attributes.shield.raised = false;
+        }
+    }
+
     /** @override */
     async updateEmbeddedEntity(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
@@ -106,9 +136,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         // Prepare changes with non-primitive values
         for (const effectData of effectsData) {
             for (const change of effectData.changes) {
-                if (typeof change.value === 'string' && change.value.startsWith('{')) {
+                if (typeof change.value === 'string' && /^(?:true|false|\{)/.test(change.value)) {
                     type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
-                    const parsedValue = ((): UnprocessedModifier => {
+                    const parsedValue = ((): boolean | UnprocessedModifier => {
                         try {
                             return JSON.parse(change.value);
                         } catch {
@@ -118,6 +148,12 @@ export abstract class CreaturePF2e extends ActorPF2e {
                             return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
                         }
                     })();
+
+                    if (typeof parsedValue === 'boolean') {
+                        change.value = (parsedValue as unknown) as string;
+                        continue;
+                    }
+
                     // Assign localized name to the effect from its originating item
                     const originItem = this.items.find((item) => item.uuid === effectData.origin);
                     parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : effectData.label;

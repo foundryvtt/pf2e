@@ -361,6 +361,22 @@ export interface RawAnimalCompanionData extends CreatureSystemData {
     [key: string]: any;
 }
 
+/**
+ * Data related to the currently equipped shield. This is copied from the shield data itself, and exists so effects can
+ * be applied to it and to allow for shield health to be shown in a token.
+ */
+interface ActorShieldData {
+    value: number;
+    max: number;
+    ac: number;
+    hardness: number;
+    brokenThreshold: number;
+    /** Whether the shield is broken according to its current hitpoints and brokenThreshold */
+    broken: boolean;
+    /** Whether the wielder has raised the shield */
+    raised: boolean;
+}
+
 export interface CategoryProficiencies {
     unarmored: ProficiencyData;
     light: ProficiencyData;
@@ -441,22 +457,7 @@ interface CharacterAttributes extends BaseCreatureAttributes {
      * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
      * allow for the shield health to be shown in a token.
      */
-    shield: {
-        /** The current shield health. */
-        value: number;
-        /** The maximum shield health. */
-        max: number;
-        /** The shield's AC */
-        ac: number;
-        /** The shield's hardness */
-        hardness: number;
-        /** The shield's broken threshold */
-        brokenThreshold: number;
-        /** The current shield health (added in actor preparation) */
-        hp: {
-            value: number;
-        };
-    };
+    shield: ActorShieldData;
 
     /** Records the various land/swim/fly speeds that this actor has. */
     speed: {
@@ -596,22 +597,7 @@ export interface NPCAttributes extends BaseCreatureAttributes {
         /** A list of other movement speeds the actor possesses. */
         otherSpeeds: LabeledValue[];
     };
-    /**
-     * Data related to the currently equipped shield. This is copied from the shield data itself, and exists to
-     * allow for the shield health to be shown in a token.
-     */
-    shield: {
-        /** The current shield health. */
-        value: number;
-        /** The maximum shield health. */
-        max: number;
-        /** The shield's AC */
-        ac: number;
-        /** The shield's hardness */
-        hardness: number;
-        /** The shield's broken threshold */
-        brokenThreshold: number;
-    };
+    shield: ActorShieldData;
     /** Textual information about any special benefits that apply to all saves. */
     allSaves: { value: string };
     familiarAbilities: StatisticModifier;

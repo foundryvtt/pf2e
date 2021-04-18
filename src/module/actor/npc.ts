@@ -253,42 +253,6 @@ export class NPCPF2e extends CreaturePF2e {
             data.attributes.ac = stat;
         }
 
-        // Shield
-        {
-            const shield = this.getFirstEquippedShield();
-            if (shield) {
-                // Use shield item data
-                const isBroken = shield.data.hp.value <= shield.data.brokenThreshold.value;
-                const shieldData = {
-                    value: shield.data.hp.value,
-                    max: shield.data.maxHp.value,
-                    ac: isBroken ? 0 : shield.data.armor.value,
-                    hardness: shield.data.hardness.value,
-                    brokenThreshold: shield.data.brokenThreshold.value,
-                };
-                data.attributes.shield = shieldData;
-            } else {
-                if (!data.attributes.shield.max) {
-                    // No shield and no existing data
-                    const shieldData = {
-                        value: 0,
-                        max: 0,
-                        ac: 0,
-                        hardness: 0,
-                        brokenThreshold: 0,
-                    };
-                    data.attributes.shield = shieldData;
-                } else {
-                    // Use existing data
-                    const isBroken =
-                        Number(data.attributes.shield.value) <= Number(data.attributes.shield.brokenThreshold);
-                    if (isBroken) {
-                        data.attributes.shield.ac = 0;
-                    }
-                }
-            }
-        }
-
         // Saving Throws
         for (const [saveName, save] of Object.entries(data.saves as Record<string, any>)) {
             const base: number = save.base ?? Number(save.value);

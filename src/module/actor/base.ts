@@ -3,7 +3,7 @@ import { ConditionManager } from '../conditions';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e, ConditionData, ArmorData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
 import {
     ActorDataPF2e,
     HazardData,
@@ -270,22 +270,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 roll,
             );
         }
-    }
-
-    /** Obtain the first equipped armor the character has. */
-    getFirstWornArmor(): ArmorData | undefined {
-        return this.data.items
-            .filter((item): item is ArmorData => item.type === 'armor')
-            .filter((armor) => armor.data.armorType.value !== 'shield')
-            .find((armor) => armor.data.equipped.value);
-    }
-
-    /** Obtain the first equipped shield the character has. */
-    getFirstEquippedShield(): ArmorData | undefined {
-        return this.data.items
-            .filter((item): item is ArmorData => item.type === 'armor')
-            .filter((armor) => armor.data.armorType.value === 'shield')
-            .find((shield) => shield.data.equipped.value);
     }
 
     /* -------------------------------------------- */
