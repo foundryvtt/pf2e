@@ -1,5 +1,4 @@
 import { CreatureSheetPF2e } from './creature';
-import { TraitSelector5e } from '@system/trait-selector';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
@@ -28,7 +27,6 @@ import {
     EquipmentData,
     ItemDataPF2e,
     MeleeData,
-    PhysicalItemData,
     SpellcastingEntryData,
     SpellcastingEntryDetailsData,
     SpellData,
@@ -37,6 +35,7 @@ import {
 } from '@item/data-definitions';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
+import { SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -63,19 +62,6 @@ interface Attack {
 }
 
 type Attacks = Attack[];
-
-interface SheetItemList<D extends PhysicalItemData> {
-    label: string;
-    type: D['type'];
-    items: D[];
-}
-interface Inventory {
-    weapon: SheetItemList<WeaponData>;
-    armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData>;
-    consumable: SheetItemList<ConsumableData>;
-    treasure: SheetItemList<TreasureData>;
-}
 
 interface NPCSystemSheetData extends RawNPCData {
     attributes: NPCAttributes & {
@@ -128,7 +114,7 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     eliteState: 'active' | 'inactive';
     weakState: 'active' | 'inactive';
     notAdjusted: boolean;
-    inventory: Inventory;
+    inventory: SheetInventory;
     hasShield?: boolean;
 }
 
@@ -169,7 +155,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Mix default options with new ones
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc']),
+            classes: options.classes.concat('npc'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
@@ -183,7 +169,28 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Returns the path to the HTML template to use to render this sheet.
      */
     get template() {
+        if (this.isLootSheet) {
+            return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
+        }
         return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
+    }
+
+    /**
+     * Use the token name as the title if showing a lootable NPC sheet
+     * @override
+     */
+    get title() {
+        if (this.isLootSheet) {
+            const actorName = this.token?.name ?? this.actor.name;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+        }
+        return super.title;
+    }
+
+    /** @override */
+    get isLootSheet(): boolean {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        return npcsAreLootable && !this.actor.owner && this.actor.isLootableBy(game.user);
     }
 
     /**
@@ -203,7 +210,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
-    getData() {
+    /** @override */
+    getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
         // recall knowledge DCs
@@ -265,6 +273,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.weakState = 'inactive';
         }
 
+        // Data for lootable token-actor sheets
+        if (this.isLootSheet) {
+            sheetData.actor.name = this.token?.name ?? this.actor.name;
+        }
+
         // Return data for rendering
         return sheetData;
     }
@@ -275,6 +288,14 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      */
     activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
+
+        // Set the inventory tab as active on a loot-sheet rendering.
+        if (this.isLootSheet) {
+            html.find('.tab.inventory').addClass('active');
+            html.find('.inventory-section li.item')
+                .attr({ draggable: true })
+                .on('dragstart', (event) => this.onDragItemStart(event.originalEvent as ElementDragEvent));
+        }
 
         // Subscribe to roll events
         const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');
@@ -295,7 +316,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
-        html.find('.trait-edit').on('click', (event) => this.onClickChooseOptions(event));
+        html.find('.trait-edit').on('click', (event) => this.onTraitSelector(event));
         html.find('.skills-edit').on('click', (event) => this.onSkillsEditClicked(event));
 
         // Adjustments
@@ -707,7 +728,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the equipment list of the actor.
      * @param sheetData Data of the sheet.
      */
-    private prepareInventory(sheetData: NPCSheetData): Inventory {
+    prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
         return {
             weapon: {
@@ -819,24 +840,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         } else {
             this.actor.rollSave(event, saveId);
         }
-    }
-
-    private onClickChooseOptions(event: JQuery.ClickEvent) {
-        event.preventDefault();
-
-        const $anchor = $(event.currentTarget);
-        const config = CONFIG.PF2E;
-        const traitType = $anchor.attr('data-options');
-        const choices = typeof traitType === 'string' && objectHasKey(config, traitType) ? config[traitType] : {};
-        const options = {
-            name: $anchor.attr('data-attribute'),
-            title: $anchor.attr('title'),
-            choices,
-            has_values: $anchor.attr('data-has-values') === 'true',
-            allow_empty_values: $anchor.attr('data-allow-empty-values') === 'true',
-            has_exceptions: $anchor.attr('data-has-exceptions') === 'true',
-        };
-        new TraitSelector5e(this.actor, options).render(true);
     }
 
     private onClickRollable(event: JQuery.ClickEvent) {

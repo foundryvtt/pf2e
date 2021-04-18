@@ -1,5 +1,6 @@
 import { ItemPF2e } from './base';
 import { SpellData } from './data-definitions';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export class SpellPF2e extends ItemPF2e {
     // todo: does this still have a point? If not, remove it
@@ -7,67 +8,91 @@ export class SpellPF2e extends ItemPF2e {
         return this.getChatData();
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>, rollOptions?: any) {
+    get spellcasting(): SpellcastingEntryPF2e | undefined {
+        const spellcastingId = this.data.data.location.value;
+        return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+    }
+
+    getChatData(htmlOptions?: Record<string, boolean>, rollOptions: { spellLvl?: number } = {}) {
         if (!this.actor) {
             return {};
         }
+
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
-        if (this.data.type != 'spell')
-            throw new Error("Tried to create spell chat data from an item that wasn't a spell");
-        const data = duplicate(this.data.data);
+        const data = this.data.data;
 
-        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
-            (entry) => entry.id === data.location.value,
-        );
-        const entryData = spellcastingEntry?.data;
-        if (!entryData) return {};
+        const spellcastingEntryData = this.spellcasting?.data;
+        if (!spellcastingEntryData) return {};
 
-        let spellDC = entryData.data.dc?.value ?? entryData.data.spelldc.dc;
-        let spellAttack = entryData.data.attack?.value ?? entryData.data.spelldc.value;
+        let spellDC = spellcastingEntryData.data.dc?.value ?? spellcastingEntryData.data.spelldc.dc;
+        let spellAttack = spellcastingEntryData.data.attack?.value ?? spellcastingEntryData.data.spelldc.value;
 
-        const traits = this.actor.data.data.traits.traits.value;
-        if (traits.some((trait) => trait === 'elite')) {
+        // Adjust spell dcs and attacks for elite/weak
+        /** @todo: handle elsewhere */
+        const actorTraits = this.actor.data.data.traits.traits.value;
+        if (actorTraits.some((trait) => trait === 'elite')) {
             spellDC = Number(spellDC) + 2;
             spellAttack = Number(spellAttack) + 2;
-        } else if (traits.some((trait) => trait === 'weak')) {
+        } else if (actorTraits.some((trait) => trait === 'weak')) {
             spellDC = Number(spellDC) - 2;
             spellAttack = Number(spellAttack) - 2;
         }
 
+        const isAttack = data.spellType.value === 'attack';
+        const isSave = data.spellType.value === 'save' || data.save.value !== '';
+
         // Spell saving throw text and DC
-        data.isSave = data.spellType.value === 'save' || data.save.value !== '';
-        data.save.dc = data.isSave ? spellDC : spellAttack;
-        data.save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
+        const save = duplicate(this.data.data.save);
+        save.dc = isSave ? spellDC : spellAttack;
+        save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
 
         // Spell attack labels
-        data.damageLabel =
+        const damageLabel =
             data.spellType.value === 'heal' ? localize('PF2E.SpellTypeHeal') : localize('PF2E.DamageLabel');
-        data.isAttack = data.spellType.value === 'attack';
+
+        // Determine spell area, first using the area object and then falling back to the old areasize structure
+        const area = (() => {
+            if (data.area.value) {
+                const areaSize = game.i18n.localize(CONFIG.PF2E.areaSizes[data.area.value] ?? '');
+                const areaType = game.i18n.localize(CONFIG.PF2E.areaTypes[data.area.areaType] ?? '');
+                return `${localize('PF2E.SpellAreaLabel')}: ${areaSize} ${areaType}`.trim();
+            } else if (data.areasize.value) {
+                // This is the fallback for old data
+                return `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}`;
+            }
+
+            return null;
+        })();
 
         // Combine properties
-        const props: (number | string)[] = [
-            CONFIG.PF2E.spellLevels[data.level.value],
+        const properties: string[] = [
+            localize(CONFIG.PF2E.spellLevels[data.level.value]),
             `${localize('PF2E.SpellComponentsLabel')}: ${data.components.value}`,
             data.range.value ? `${localize('PF2E.SpellRangeLabel')}: ${data.range.value}` : null,
             data.target.value ? `${localize('PF2E.SpellTargetLabel')}: ${data.target.value}` : null,
-            data.area.value
-                ? `${localize('PF2E.SpellAreaLabel')}: ${CONFIG.PF2E.areaSizes[data.area.value]} ${
-                      CONFIG.PF2E.areaTypes[data.area.areaType]
-                  }`
-                : null,
-            data.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${data.areasize.value}` : null,
+            area,
             data.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${data.time.value}` : null,
             data.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${data.duration.value}` : null,
-        ];
-        data.spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
-        const spellLvl = parseInt(data.spellLvl ?? '0', 10);
-        if (data.level.value < spellLvl) {
-            props.push(`Heightened: +${spellLvl - data.level.value}`);
-        }
-        data.properties = props.filter((p) => p !== null);
-        data.traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits) as any;
+        ].filter((p): p is string => p !== null);
 
-        return this.processChatData(htmlOptions, data);
+        const spellLvl = (rollOptions || {}).spellLvl ?? data.heightenedLevel?.value;
+        const castedLevel = Number(spellLvl ?? 0);
+        if (data.level.value < castedLevel) {
+            properties.push(`Heightened: +${castedLevel - data.level.value}`);
+        }
+
+        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
+
+        return this.processChatData(htmlOptions, {
+            ...data,
+            save,
+            isAttack,
+            isSave,
+            spellLvl,
+            damageLabel,
+            properties,
+            traits,
+        });
     }
 }
 

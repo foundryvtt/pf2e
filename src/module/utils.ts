@@ -189,6 +189,13 @@ export function objectHasKey<O>(obj: O, key: keyof any): key is keyof O {
 }
 
 /**
+ * Check if a value is present in the provided array. Especially useful for checking against literal tuples
+ */
+export function tupleHasValue<A extends readonly unknown[]>(array: A, value: unknown): value is A[number] {
+    return array.includes(value);
+}
+
+/**
  * The system's sluggification algorithm of entity names
  * @param name The name of the entity (or other object as needed)
  */

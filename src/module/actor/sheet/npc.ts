@@ -12,7 +12,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet']),
+            classes: options.classes.concat('npc-sheet'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -290,7 +290,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        // NPC Weapon Rolling
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
+
+        // Melee Weapon Rolling
         html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();

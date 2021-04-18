@@ -1,12 +1,11 @@
-
 <div class="form-group">
     <label>{{localize "PF2E.ArmorArmorTypeLabel"}}</label>
     <select name="data.armorType.value" data-dtype="String">
         {{#select data.armorType.value}}
-        <option value=""></option>
-        {{#each armorTypes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each armorTypes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -15,10 +14,10 @@
     <label>{{localize "PF2E.PreciousMaterialLabel"}}</label>
     <select name="data.preciousMaterial.value" data-dtype="String">
         {{#select data.preciousMaterial.value}}
-        <option value=""></option>
-        {{#each preciousMaterials as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each preciousMaterials as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -27,10 +26,10 @@
     <label>{{localize "PF2E.PreciousMaterialGradeLabel"}}</label>
     <select name="data.preciousMaterialGrade.value" data-dtype="String">
         {{#select data.preciousMaterialGrade.value}}
-        <option value=""></option>
-        {{#each preciousMaterialGrades as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each preciousMaterialGrades as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -39,10 +38,10 @@
     <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
     <select name="data.potencyRune.value" data-dtype="String">
         {{#select data.potencyRune.value}}
-        <option value=""></option>
-        {{#each armorPotencyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each armorPotencyRunes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -51,68 +50,68 @@
     <label>{{localize "PF2E.ResiliencyRuneLabel"}}</label>
     <select name="data.resiliencyRune.value" data-dtype="String">
         {{#select data.resiliencyRune.value}}
-        <option value=""></option>
-        {{#each armorResiliencyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each armorResiliencyRunes as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
 
 {{#if propertyRuneSlots1}}
-<div class="form-group">
-    <label>{{localize "PF2E.PropertyRuneLabel1"}}</label>
-    <select name="data.propertyRune1.value" data-dtype="String">
-        {{#select data.propertyRune1.value}}
-        <option value=""></option>
-        {{#each armorPropertyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.PropertyRuneLabel1"}}</label>
+        <select name="data.propertyRune1.value" data-dtype="String">
+            {{#select data.propertyRune1.value}}
+                <option value=""></option>
+                {{#each armorPropertyRunes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
 {{/if}}
 
 {{#if propertyRuneSlots2}}
-<div class="form-group">
-    <label>{{localize "PF2E.PropertyRuneLabel2"}}</label>
-    <select name="data.propertyRune2.value" data-dtype="String">
-        {{#select data.propertyRune2.value}}
-        <option value=""></option>
-        {{#each armorPropertyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.PropertyRuneLabel2"}}</label>
+        <select name="data.propertyRune2.value" data-dtype="String">
+            {{#select data.propertyRune2.value}}
+                <option value=""></option>
+                {{#each armorPropertyRunes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
 {{/if}}
 
 {{#if propertyRuneSlots3}}
-<div class="form-group">
-    <label>{{localize "PF2E.PropertyRuneLabel3"}}</label>
-    <select name="data.propertyRune3.value" data-dtype="String">
-        {{#select data.propertyRune3.value}}
-        <option value=""></option>
-        {{#each armorPropertyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.PropertyRuneLabel3"}}</label>
+        <select name="data.propertyRune3.value" data-dtype="String">
+            {{#select data.propertyRune3.value}}
+                <option value=""></option>
+                {{#each armorPropertyRunes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
 {{/if}}
 
 {{#if propertyRuneSlots4}}
-<div class="form-group">
-    <label>{{localize "PF2E.PropertyRuneLabel4"}}</label>
-    <select name="data.propertyRune4.value" data-dtype="String">
-        {{#select data.propertyRune4.value}}
-        <option value=""></option>
-        {{#each armorPropertyRunes as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
+    <div class="form-group">
+        <label>{{localize "PF2E.PropertyRuneLabel4"}}</label>
+        <select name="data.propertyRune4.value" data-dtype="String">
+            {{#select data.propertyRune4.value}}
+                <option value=""></option>
+                {{#each armorPropertyRunes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
+    </div>
 {{/if}}
 
 <div class="form-group">
@@ -144,10 +143,10 @@
     <label>{{localize "PF2E.ArmorGroupLabel"}}</label>
     <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
-        <option value=""></option>
-        {{#each armorGroups as |name type|}}
-        <option value="{{type}}">{{name}}</option>
-        {{/each}}
+            <option value=""></option>
+            {{#each armorGroups as |name type|}}
+                <option value="{{type}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>
@@ -178,9 +177,9 @@
 </div>
 
 <div class="form-group-stacked">
-    <label for="data.traits">
+    <label>
         {{localize "PF2E.TraitsLabel"}}
-        <a class="trait-selector" data-options="armorTraits"><i class="fas fa-edit"></i></a>
+        <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
         {{#each data.traits.value as |v k|}}

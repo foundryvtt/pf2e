@@ -151,7 +151,6 @@ export interface BackpackDetailsData extends PhysicalDetailsData {
     currency: {
         cp: 0;
         sp: 0;
-        ep: 0;
         gp: 0;
         pp: 0;
     };
@@ -166,8 +165,9 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+export type WeaponCategoryKey = keyof ConfigPF2e['PF2E']['weaponCategories'];
 export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export interface WeaponDamage {
     value: string;
     dice: number;
@@ -178,11 +178,12 @@ export interface WeaponDamage {
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string;
+        value: string | null;
     };
     group: {
-        value: WeaponGroupKey;
+        value: WeaponGroupKey | null;
     };
+    baseItem: BaseWeaponKey | null;
     hands: {
         value: boolean;
     };
@@ -428,6 +429,10 @@ export interface ClassDetailsData extends ItemDescriptionData {
 
 export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
 
+interface PrerequisiteTagData {
+    value: string;
+}
+
 export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
         value: FeatType;
@@ -442,7 +447,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
         value: string;
     };
     prerequisites: {
-        value: string;
+        value: PrerequisiteTagData[];
     };
     location: string;
 }
@@ -502,6 +507,8 @@ interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
 }
 
+export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
+
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
     spellType: {
@@ -555,7 +562,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     };
     save: {
         basic: string;
-        value: string;
+        value: SaveType | '';
         dc?: number;
         str?: string;
     };
@@ -633,9 +640,6 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     };
     showUnpreparedSpells: {
         value: boolean;
-    };
-    item: {
-        value: number;
     };
     proficiency: {
         value: number;
@@ -760,12 +764,12 @@ export interface EffectDetailsData extends ItemDescriptionData {
     expired: boolean;
     remaining: string;
     duration: {
-        value: 0;
+        value: number;
         unit: string;
         sustained: boolean;
         expiry: 'turn-start' | 'turn-end';
     };
-    start?: {
+    start: {
         value: number;
         initiative: number | null;
     };

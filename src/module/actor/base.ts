@@ -28,6 +28,7 @@ import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
+import { ItemTransfer } from './item-transfer';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -803,7 +804,9 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return super.updateEmbeddedEntity(embeddedName, updateData, options);
     }
 
-    /* -------------------------------------------- */
+    isLootableBy(user: User) {
+        return this.can(user, 'update');
+    }
 
     /**
      * Handle how changes to a Token attribute bar are applied to the Actor.
@@ -920,23 +923,16 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         // Loot transfers can be performed by non-owners when a GM is online */
-        const isPlayerLootTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
+        const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
             const bothAreOwned = source.hasPerm(game.user, 'owner') && target.hasPerm(game.user, 'owner');
-            const sourceIsOwnedOrLoot = source.hasPerm(game.user, 'owner') || source.data.type === 'loot';
-            const targetIsOwnedOrLoot = target.hasPerm(game.user, 'owner') || target.data.type === 'loot';
+            const sourceIsOwnedOrLoot = source.isLootableBy(game.user);
+            const targetIsOwnedOrLoot = target.isLootableBy(game.user);
             return !bothAreOwned && sourceIsOwnedOrLoot && targetIsOwnedOrLoot;
         };
-        if (isPlayerLootTransfer(this, targetActor)) {
+        if (gmMustTransfer(this, targetActor)) {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
-            const LootTransfer: {
-                new (sourceId: typeof source, targetId: typeof target, quantity: number, containerId?: string): {
-                    request(): Promise<void>;
-                };
-            } = require('./loot').LootTransfer; // eslint-disable-line @typescript-eslint/no-var-requires
-            const lootTransfer = new LootTransfer(source, target, quantity, containerId);
-            await lootTransfer.request();
-
+            await new ItemTransfer(source, target, quantity, containerId).request();
             return;
         }
 

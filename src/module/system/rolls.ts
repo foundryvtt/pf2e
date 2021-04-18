@@ -60,7 +60,7 @@ export class CheckPF2e {
             context.secret = true;
         }
 
-        const userSettingQuickD20Roll = ((game.user.data.flags.PF2e || {}).settings || {}).quickD20roll;
+        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.showRollDialogs');
         if (userSettingQuickD20Roll !== event?.shiftKey) {
             CheckModifiersDialog.roll(check, context, callback);
         } else {

@@ -36,12 +36,19 @@ declare type EmbeddedEntityUpdateData =
 declare interface EntityUpdateOptions {
     diff?: boolean;
     noHook?: boolean;
+    enforceTypes?: boolean;
     [key: string]: unknown;
 }
 
 declare interface EntityDeleteOptions {
     noHook?: boolean;
     [key: string]: unknown;
+}
+
+declare interface EntityRenderOptions extends RenderOptions {
+    data: {
+        permission?: boolean;
+    };
 }
 
 /**
@@ -186,13 +193,13 @@ declare class Entity {
      * let actor = game.entities.actors[0];
      * actor.sheet; // ActorSheet
      */
-    get sheet(): BaseEntitySheet<this>;
+    readonly sheet: BaseEntitySheet<Entity>;
 
     /**
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
      * configuration sheet.
      */
-    protected get _sheetClass(): BaseEntitySheet<this>;
+    protected get _sheetClass(): typeof BaseEntitySheet;
 
     /**
      * Return a reference to the Folder which this Entity belongs to, if any.
@@ -223,7 +230,7 @@ declare class Entity {
      * entity.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * entity.permission; // 2
      */
-    get permission(): number;
+    get permission(): 0 | 1 | 2 | 3;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Entity
@@ -251,9 +258,10 @@ declare class Entity {
     /**
      * Render all of the Application instances which are connected to this Entity by calling their respective
      * {@link Application#render} methods.
-     * @param {...*} args      Variable arguments which are forwarded to each Application's render call
+     * @param  force   Force rendering
+     * @param  context Optional context
      */
-    render(...args: any): void;
+    render(force?: boolean, context?: EntityRenderOptions): unknown;
 
     /**
      * Test whether a provided User a specific permission level (or greater) over the Entity instance

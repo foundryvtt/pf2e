@@ -118,6 +118,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
     *  Pathfinder Adventure Path #163: Ruins of Gauntlight © 2021, Paizo Inc.; Authors: James Jacobs
     *  Pathfinder Adventure Path #164: Hands of the Devil © 2021, Paizo Inc.; Authors: Vanessa Hoskins
     *  Pathfinder Adventure Path #165: Eyes of Empty Death © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
+    *  Fist of the Ruby Phoenix Player's Guide © 2021, Paizo Inc.; Author: Patrick Renie.
     *  Pathfinder Adventure Path #166: Despair on Danger Island © 2021, Paizo Inc.; Authors: Luis Loza
     *  Pathfinder Adventure Path #167: Ready? Fight! © 2021, Paizo Inc.; Authors: Stephen Radney-MacFarland
     *  Pathfinder Adventure Path #168: King of the Mountain © 2021, Paizo Inc.; Authors: Vanessa Hoskins
@@ -218,7 +219,7 @@ The following text is the property of Wizards of the Coast, Inc. and is Copyrigh
 
 *  One Shots
     *  Pathfinder One-Shot: Sundered Waves Adventure © 2021, Paizo Inc.; Author: Jason Bulmahn
-    *  Pathfinder One-Shot: Sundered Waves Adventure Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn   
+    *  Pathfinder One-Shot: Sundered Waves Adventure Pregenerated Characters © 2021, Paizo Inc.; Author: Jason Bulmahn
 
 *  Decks
     *  Pathfinder Chase Cards Deck © 2020, Paizo Inc.; Author: Logan Bonner, Illustrator: Riccardo Rullo.

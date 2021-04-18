@@ -2,14 +2,14 @@
  * A helper function which searches through an object to assign a value using a string key
  * This string key supports the notation a.b.c which would target object[a][b][c]
  *
- * @param object {Object}   The object to update
+ * @param obj {Object}   The object to update
  * @param key {String}      The string key
  * @param value             The value to be assigned
  *
  * @return A flag for whether or not the object was updated
  */
-function setProperty(object: object, key: string, value: unknown): boolean {
-    let target = object;
+function setProperty(obj: Record<string, any>, key: string, value: any): boolean {
+    let target = obj;
     let changed = false;
 
     // Convert the key to an object reference if it contains dot notation
@@ -19,7 +19,7 @@ function setProperty(object: object, key: string, value: unknown): boolean {
         target = parts.reduce((o, i) => {
             if (!Object.prototype.hasOwnProperty.call(o, i)) o[i] = {};
             return o[i];
-        }, object);
+        }, obj);
     }
 
     // Update the target
@@ -236,8 +236,8 @@ function arrayEquals(self: any[], other: any[]) {
  * @param [inner]     Only recognize differences in other for keys which also exist in original.
  * @return An object of the data in other which differs from that in original.
  */
-function diffObject(original: any, other: any, { inner = false } = {}) {
-    function _difference(v0: any, v1: any) {
+function diffObject(original: any, other: any, { inner = false } = {}): any {
+    function _difference(v0: any, v1: any): [boolean, any] {
         let t0 = getType(v0);
         let t1 = getType(v1);
         if (t0 !== t1) return [true, v1];
@@ -253,10 +253,10 @@ function diffObject(original: any, other: any, { inner = false } = {}) {
     // Recursively call the _difference function
     return Object.keys(other).reduce((obj, key) => {
         if (inner && original[key] === undefined) return obj;
-        let [isDifferent, difference] = _difference(original[key], other[key]);
+        const [isDifferent, difference] = _difference(original[key], other[key]);
         if (isDifferent) obj[key] = difference;
         return obj;
-    }, {});
+    }, {} as Record<string, any>);
 }
 
 export function populateFoundryUtilFunctions() {

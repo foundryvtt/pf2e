@@ -18,7 +18,7 @@ export abstract class MigrationBase {
      */
     static readonly version: number;
 
-    readonly version = this.constructor['version'];
+    readonly version = (this.constructor as typeof MigrationBase).version;
 
     /**
      * Setting requiresFlush to true will indicate that the migration runner should not call any more

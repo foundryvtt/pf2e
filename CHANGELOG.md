@@ -1,5 +1,44 @@
 # Patch Notes:
 
+## Version 1.12.1
+### Bug Fixes
+* (stwlam) Fix price on physical item sheet sidebars. Closes #1301
+* (stwlam) Fix rolling of melee items from hazard actors
+* (stwlam) Fix spell preparation on simple NPC sheet
+* (stwlam) Reduce opacity of background image on legacy NPC sheet
+* (stwlam) Fix "new spell" label on simple NPC sheet
+* (oleh.krupko) Fix "Show Status Effects in Combat". Closes #1309
+
+### Content Changes
+* (stwlam) Add drop shadow to shoony ancestry default icon
+* (stwlam) Make _vomit swarm_ spell name on Volluk Azrinae less verbose
+* (stwlam) Fix _worm's repast_ spell on Volluk Azrinae
+* (stwlam) Fix save type of Flaming Sphere. Closes #1292
+* (SpartanCPA) Add Active Effect to Hold-Scarred Orc to update racial health. Closes #1262
+* (SpartanCPA) Ancient Sovereign Dragon is now properly 4x4 squares
+* (SpartanCPA) Add or correct variant skill rolls for Bestiary 3
+* (SpartanCPA) Correct typo in Divine Ally
+* (SpartanCPA) Remove page references from class descriptions
+* (Tikael) Add tusk attacks to Orc and Half-Orc feats
+* (TMun) Abomination Vaults Book 3 item and feat updates:
+    * Add trap trait to hazards list
+    * Add inhaled trait to respective sections for which it now applies
+    * Add repeating trait to weapons
+    * Add olfactory trait to consumables
+    * Add four new spells
+    * Update Nhimbaloth deity entry
+    * Add non-magical and magical items
+    * Add equipment effects for items
+    * Add drow shootist archetype and feats
+* (PimpWilly) Remove duplicate currency entries from the Advanced Players Guide classes. Closes #1308
+* (Ustin) Add Urdefhan Hunter, Kharostan, and Dominator to Extinction Curse Bestiary
+
+### Core System Improvements
+* (stwlam) Change default name for new melee items to "New Attack". Closes #1303
+* (stwlam) Make NPC gallery compendium easier to find for those looking for "GMG"
+* (stwlam) Add casting ability score select menu to simple NPC sheet
+
+
 ## Version 1.12.0
 
 This release includes all monsters from the Bestiary 3, thanks to the hard work of TMun, Shandyan, SpartanCPA, Jaash, and others.

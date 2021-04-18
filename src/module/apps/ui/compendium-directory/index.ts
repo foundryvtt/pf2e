@@ -32,7 +32,7 @@ export class CompendiumDirectoryPF2e extends CompendiumDirectory {
     private static readonly contentSelector = 'ol.compendium-list';
 
     /** @override */
-    static get defaultOptions(): CompendiumDirectoryDefaultOptions {
+    static get defaultOptions(): CompendiumDirectoryOptions {
         return {
             ...super.defaultOptions,
             template: 'systems/pf2e/templates/system/ui/compendium-directory.html',

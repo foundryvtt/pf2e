@@ -3,9 +3,9 @@ import { ItemDataPF2e } from '@item/data-definitions';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
-    inserted: any[];
+    inserted: ItemDataPF2e[];
     deleted: string[];
-    updated: any[];
+    updated: ItemDataPF2e[];
 }
 
 export class MigrationRunnerBase {
@@ -21,22 +21,22 @@ export class MigrationRunnerBase {
         return currentVersion < this.latestVersion;
     }
 
-    diffItems(orig: any[], updated: any[]): ItemsDiff {
-        const ret = {
+    diffItems(orig: ItemDataPF2e[], updated: ItemDataPF2e[]): ItemsDiff {
+        const ret: ItemsDiff = {
             inserted: [],
             deleted: [],
             updated: [],
         };
 
-        const origItems = new Map();
+        const origItems: Map<string, ItemDataPF2e> = new Map();
         for (const item of orig) {
             origItems.set(item._id, item);
         }
 
         for (const item of updated) {
-            if (origItems.has(item._id)) {
+            const origItem = origItems.get(item._id);
+            if (origItem) {
                 // check to see if anything changed
-                const origItem = origItems.get(item._id);
                 if (JSON.stringify(origItem) !== JSON.stringify(item)) {
                     ret.updated.push(item);
                 }

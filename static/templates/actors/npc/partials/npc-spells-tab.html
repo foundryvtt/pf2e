@@ -64,7 +64,7 @@
                             <div class="section spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{lvl}}">
                                 {{#if section.spells.length}}
                                 <div class="section-header">
-                                    <h4>{{ section.label }}</h4>
+                                    <h4>{{localize section.label}}</h4>
                                     {{#if section.isCantrip}}
                                         <span class="spell-slots">&infin;</span>
                                         <span class="flex0"> / </span>
@@ -132,7 +132,7 @@
                                             <i class="fas {{#if section.displayPrepared}}fa-book-open{{else}}fa-book{{/if}}"></i>
                                         </a>
                                     {{/if}}
-                                    <h4>{{ section.label }}</h4>
+                                    <h4>{{localize section.label}}</h4>
                                     <input class="spell-max-input" type="number" name="data.items.{{entry._id}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
                                 </div>
                                 <ul class="spells-list">

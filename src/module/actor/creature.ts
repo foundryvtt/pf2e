@@ -9,6 +9,13 @@ import { ErrorPF2e } from '@module/utils';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
+    get hitPoints() {
+        return {
+            current: this.data.data.attributes.hp.value,
+            max: this.data.data.attributes.hp.max,
+        };
+    }
+
     get attributes(): this['data']['data']['attributes'] {
         return this.data.data.attributes;
     }

@@ -1,5 +1,5 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
-	<div class="contentcontainer">
+    <div class="contentcontainer">
 
     <div class="npc-title-bar">
       <h1 class='name'>{{actor.name}}</h1>
@@ -12,7 +12,7 @@
           <a class="npc-elite-adjustment trait{{npcEliteActive}}{{npcEliteHidden}}">ELITE</a>
           <a class="npc-weak-adjustment trait{{npcWeakActive}}{{npcWeakHidden}}">WEAK</a>
         </h1>
-      <h1 class='level'>Creature {{data.details.level.value}}</h1>
+        <h1 class="level">{{localize "PF2E.NPC.Creature"}} {{data.details.level.value}}</h1>
     </div>
 
     <div class="top-section">
@@ -42,10 +42,10 @@
           <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
           {{/if}}
           <span class="trait alignment">{{actorAlignment}}</span>
-          <span class="trait size">{{actorSize}}</span>
+          <span class="trait size">{{localize actorSize}}</span>
           <!-- Put Trait #each here-->
           {{#each actor.data.traits.traits.selected as |trait id|}}
-          <span class="trait">{{trait}}</span>
+              <span class="trait">{{localize trait}}</span>
           {{/each}}
         </div>
 
@@ -54,17 +54,17 @@
             <label class="stat-title attribute-name">{{localize "PF2E.RecallKnowledge.Label"}}</label>
             {{#if identificationSkillList}}
             <span class="stat-list" title="{{identifySkillProgression}}">
-              <span class="stat-minortitle">{{identificationSkillList}}</span>
-              <span class="stat-value">{{identifySkillDC}} ({{identifySkillAdjustment}})</span>
+              <span class="stat-minortitle">{{localize identificationSkillList}}</span>
+              <span class="stat-value">{{identifySkillDC}} ({{localize identifySkillAdjustment}})</span>
             </span>
             {{/if}}
             <span class="stat-list" title="{{unspecificLoreProgression}}">
               <span class="stat-minortitle">{{localize "PF2E.RecallKnowledge.UnspecificLore"}}</span>
-              <span class="stat-value">{{unspecificLoreDC}} ({{unspecificLoreAdjustment}})</span>
+              <span class="stat-value">{{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})</span>
             </span>
             <span class="stat-list" title="{{specificLoreProgression}}">
               <span class="stat-minortitle">{{localize "PF2E.RecallKnowledge.SpecificLore"}}</span>
-              <span class="stat-value">{{specificLoreDC}} ({{specificLoreAdjustment}})</span>
+              <span class="stat-value">{{specificLoreDC}} ({{localize specificLoreAdjustment}})</span>
             </span>
             <button class="recall-knowledge-breakdown">{{localize "PF2E.RecallKnowledge.Breakdown"}}</button>
           </span>
@@ -84,7 +84,7 @@
             <label class="stat-title">{{localize "PF2E.Languages"}}</label>
             {{#each actor.data.traits.languages.selected as |lang lid|}}
             <span class="stat-list">
-              <span class="stat-minortitle">{{lang}}</span>
+              <span class="stat-minortitle">{{localize lang}}</span>
             </span>
             {{/each}}
           </span>
@@ -129,7 +129,7 @@
           </span>
         </div>
 
-    	{{#if hasEquipment}}
+        {{#if hasEquipment}}
         <div class="stats-line equipment">
           <span class="inline-stats">
             <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
@@ -165,7 +165,7 @@
             {{/if}}
         </li>
         {{/each}}
-   	 {{/each}}
+     {{/each}}
     </ol>
 
     <hr>
@@ -200,12 +200,12 @@
           <span class="stat-detail save-name">{{data.saves.will.saveDetail}}</span>
           {{/if}}
         </span>
-      	{{#if hasAllSaveDetails}}
+        {{#if hasAllSaveDetails}}
         <span class="stat-list" data-save="will">
           <label class="stat-title">{{localize "PF2E.AllSavesLabel"}}</label>
           <span class="stat-value">{{data.attributes.allSaves.value}}</span>
         </span>
-      	{{/if}}
+        {{/if}}
 
       </span>
     </div>
@@ -215,7 +215,7 @@
         <span class="stat-list major-stat" title="{{data.attributes.hp.breakdown}}">
           <label class="stat-title">{{localize "PF2E.HitPointsShortLabel"}}</label>
           <span class="stat-value">{{data.attributes.hp.max}}</span>
-  	      {{#if hasHPDetails}}
+          {{#if hasHPDetails}}
           <span class="stat-detail">{{data.attributes.hp.details}}</span>
           {{/if}}
         </span>
@@ -224,7 +224,7 @@
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
           {{#each data.traits.di.selected as |trait id|}}
-            <span class="stat-value">{{trait}}</span>
+            <span class="stat-value">{{localize trait}}</span>
           {{/each}}
         </span>
         {{/if}}
@@ -263,9 +263,9 @@
                 {{#if action.traits}}
                   {{#each action.traits as |trait tid|}}
                     {{#if trait.description}}
-                      <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                      <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                     {{else}}
-                      <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                      <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
                     {{/if}}
                   {{/each}}
                 {{/if}}
@@ -273,7 +273,7 @@
             </div>
         </li>
         {{/each}}
-   	 {{/each}}
+     {{/each}}
     </ol>
 
     <hr>
@@ -312,9 +312,9 @@
                   {{#if item.traits}}
                     {{#each item.traits as |trait tid|}}
                       {{#if trait.description}}
-                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                        <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                        <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{/if}}
                     {{/each}}
                   {{/if}}
@@ -369,9 +369,9 @@
                   {{#if action.traits}}
                     {{#each action.traits as |trait tid|}}
                       {{#if trait.description}}
-                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                        <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                        <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
                       {{/if}}
                     {{/each}}
                   {{/if}}
@@ -379,7 +379,7 @@
             </div>
         </li>
         {{/each}}
-   	 {{/each}}
+     {{/each}}
     </ol>
 
     <ol class="inventory-list toggles-list">
@@ -443,7 +443,7 @@
                   {{#if section.spells.length}}
                     <li class="item inventory-header sub-category spellbook-header">
                         <div class="item-name flexrow">
-                            <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
+                            <h3 style="background-color: var(--alternate-background);">{{localize section.label}}</h3>
                         </div>
                     </li>
 
@@ -458,15 +458,15 @@
                           {{#if item.spellInfo.traits}}
                             {{#each item.spellInfo.traits as |trait tid|}}
                               {{#if trait.description}}
-                                <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                                <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                               {{else}}
-                                <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                                <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
                               {{/if}}
                             {{/each}}
                           {{/if}}
 
                           {{#if item.spellInfo.isSave}}
-                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
+                            <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{localize item.spellInfo.save.str}}</span>
                           {{/if}}
                           {{#if item.spellInfo.isAttack}}
                             <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
@@ -491,7 +491,7 @@
                     {{#if section.prepared.length}}
                         <li class="item inventory-header sub-category spellbook-header">
                             <div class="item-name flexrow">
-                                <h3 style="background-color: var(--alternate-background);">{{section.label}}</h3>
+                                <h3 style="background-color: var(--alternate-background);">{{localize section.label}}</h3>
                             </div>
                         </li>
 
@@ -510,15 +510,15 @@
                               {{#if item.spellInfo.traits}}
                                 {{#each item.spellInfo.traits as |trait tid|}}
                                   {{#if trait.description}}
-                                    <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
+                                    <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
                                   {{else}}
-                                    <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                                    <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
                                   {{/if}}
                                 {{/each}}
                               {{/if}}
 
                               {{#if item.spellInfo.isSave}}
-                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{item.spellInfo.save.str}}</span>
+                                <span class="tag">{{localize "PF2E.SaveDCLabel"}} {{item.spellInfo.save.dc}} {{item.spellInfo.save.basic}} {{localize item.spellInfo.save.str}}</span>
                               {{/if}}
                               {{#if item.spellInfo.isAttack}}
                                 <span class="tag"><button data-action="spellAttack" title="{{entry.data.attack.breakdown}}">{{localize "PF2E.AttackLabel"}} {{numberFormat entry.data.attack.value decimals=0 sign=true}}</button></span>
