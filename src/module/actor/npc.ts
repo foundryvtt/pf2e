@@ -4,7 +4,7 @@ import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensurePr
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
 import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike, ZeroToThree } from './data-definitions';
-import { RuleElements } from '../rules/rules';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
@@ -90,7 +90,7 @@ export class NPCPF2e extends CreaturePF2e {
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
             [],
-        );
+        ) as PF2RuleElement[];
 
         // Toggles
         (data as any).toggles = {
@@ -103,7 +103,9 @@ export class NPCPF2e extends CreaturePF2e {
             ],
         };
 
-        const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
+        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        // Extract as separate variables for easier use in this method.
+        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -772,6 +774,15 @@ export class NPCPF2e extends CreaturePF2e {
                 }
             }
         }
+
+        rules.forEach((rule) => {
+            try {
+                rule.onAfterPrepareData(actorData, synthetics);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
+            }
+        });
     }
 
     private updateTokenAttitude(attitude: string) {
