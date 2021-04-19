@@ -32,7 +32,7 @@ export class RemoveCoinsPopup extends FormApplication<ActorPF2e> {
                 ui.notifications.warn('Insufficient coins');
             }
         } else {
-            const actorCoins = calculateValueOfCurrency(actor.data.items || []);
+            const actorCoins = calculateValueOfCurrency(actor.items.map((item) => item.data));
             if (
                 coinsToRemove.pp <= actorCoins.pp &&
                 coinsToRemove.gp <= actorCoins.gp &&
