@@ -112,8 +112,8 @@ function expandObject(obj: Record<string, any>, _d = 0) {
 }
 
 function mergeObject(
-    original: Record<string, any>,
-    other: Record<string, any> = {},
+    original: any,
+    other: any = {},
     {
         insertKeys = true,
         insertValues = true,
@@ -125,7 +125,7 @@ function mergeObject(
     _d = 0,
 ): any {
     other = other || {};
-    if (!(original instanceof Object && other instanceof Object)) {
+    if (!(original instanceof Object) || !(other instanceof Object)) {
         throw Error('One of original or other are not Objects!');
     }
     const depth = _d + 1;
@@ -134,18 +134,13 @@ function mergeObject(
     if (!inplace && _d === 0) original = duplicate(original);
 
     // Enforce object expansion at depth 0
-    if (_d === 0 && Object.keys(original as {}).some((k) => /\./.test(k))) {
-        original = expandObject(original);
-    }
-
-    if (_d === 0 && Object.keys(other).some((k) => /\./.test(k))) {
-        other = expandObject(other);
-    }
+    if (_d === 0 && Object.keys(original).some((k) => /\./.test(k))) original = expandObject(original);
+    if (_d === 0 && Object.keys(other).some((k) => /\./.test(k))) other = expandObject(other);
 
     // Iterate over the other object
     for (let k of Object.keys(other)) {
         const v = other[k];
-        const tv = getType(v);
+        const tv = getType(v as any);
 
         // Prepare to delete
         let toDelete = false;
@@ -194,7 +189,6 @@ function mergeObject(
                 if (tx && tv !== tx && enforceTypes) {
                     throw new Error(`Mismatched data types encountered during object merge.`);
                 }
-
                 original[k] = v;
             }
 
@@ -210,6 +204,7 @@ function mergeObject(
             if (canInsert) original[k] = v;
         }
     }
+
     // Return the object for use
     return original;
 }
