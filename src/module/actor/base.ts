@@ -1035,16 +1035,18 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
         let actionImg: number | string = 0;
-        if (actionType === 'action') actionImg = actionCount ?? 1;
-        else if (actionType === 'reaction') actionImg = 'reaction';
-        else if (actionType === 'free') actionImg = 'free';
-        else if (actionType === 'passive') actionImg = 'passive';
+        if (actionType === 'action') {
+            actionImg = actionCount ?? 1;
+        } else {
+            actionImg = actionType;
+        }
         const graphics = {
             1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
             2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
             3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
             free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
             reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
+            activity: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: 'AC' },
             passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
         };
         if (objectHasKey(graphics, actionImg)) {

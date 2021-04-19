@@ -12,6 +12,7 @@ import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
+import {ActionPF2e} from "@item/action";
 
 /**
  * @category Other
@@ -394,40 +395,45 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             // Actions
-            else if (i.type === 'action') {
-                const actionType = ['free', 'reaction', 'activity'].includes(i.data.actionType.value)
-                    ? i.data.actionType.value
+            else if (item instanceof ActionPF2e) {
+                const actionType = ['free', 'reaction', 'activity'].includes(item.data.data.actionType.value)
+                    ? item.data.data.actionType.value
                     : 'action';
-                i.img = CharacterPF2e.getActionGraphics(
+                item.data.img = CharacterPF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1,
+                    parseInt((item.data.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
-                if (actionType === 'other') actions.free.actions.push(i);
-                else if (actionType === 'passive') actions.activity.actions.push(i);
-                else actions[actionType].actions.push(i);
+
+                if (item.data.data.modeOfPlay.value.exploration || item.data.data.modeOfPlay.value.downtime) {
+                    actions.activity.actions.push(item.data);
+                } else if (actionType === 'passive') {
+                    actions.free.actions.push(item.data);
+                } else {
+                    actions[actionType].actions.push(item.data);
+                }
 
                 // Read-Only Actions
                 if (i.data.actionCategory && i.data.actionCategory.value) {
-                    switch (i.data.actionCategory.value) {
+                    switch (item.data.data.actionCategory.value) {
                         case 'interaction':
-                            readonlyActions.interaction.actions.push(i);
+                            readonlyActions.interaction.actions.push(item.data);
                             actorData.hasInteractionActions = true;
                             break;
                         case 'defensive':
-                            readonlyActions.defensive.actions.push(i);
+                            readonlyActions.defensive.actions.push(item.data);
                             actorData.hasDefensiveActions = true;
                             break;
                         case 'offensive':
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(item.data);
                             actorData.hasOffensiveActions = true;
                             break;
                         // Should be offensive but throw anything else in there too
                         default:
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(item.data);
                             actorData.hasOffensiveActions = true;
                     }
                 } else {
-                    readonlyActions.offensive.actions.push(i);
+                    readonlyActions.offensive.actions.push(item.data);
                     actorData.hasOffensiveActions = true;
                 }
             }

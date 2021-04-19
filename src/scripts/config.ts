@@ -1557,7 +1557,7 @@ export const PF2ECONFIG = {
         activity: 'PF2E.ActionTypeActivity',
         free: 'PF2E.ActionTypeFree',
         // This is a legacy action type, grouping everything previously handled in actions
-        other: 'PF2E.ActionTypeOther',
+        passive: 'PF2E.ActionTypePassive',
         reaction: 'PF2E.ActionTypeReaction',
     }, // Actions Number
 
