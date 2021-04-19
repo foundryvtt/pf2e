@@ -105,7 +105,6 @@ declare global {
         get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
         get(module: 'pf2e', setting: 'staminaVariant'): number;
-        get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;

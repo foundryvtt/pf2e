@@ -141,9 +141,7 @@ export class StatusEffects {
                 );
             });
 
-        CONFIG.statusEffects = CONFIG.PF2E.statusEffects.keepFoundryStatusEffects
-            ? effects.concat(CONFIG.PF2E.statusEffects.foundryStatusEffects)
-            : effects;
+        CONFIG.statusEffects = effects;
     }
 
     static async _hookOnRenderTokenHUD(app, html, tokenData) {
