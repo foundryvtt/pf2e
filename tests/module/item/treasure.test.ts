@@ -1,6 +1,6 @@
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { populateFoundryUtilFunctions } from 'tests/fixtures/foundryshim';
-import { ArmorData, PhysicalItemData, TreasureData, WeaponData } from '@item/data-definitions';
+import { ArmorData, EquipmentData, ItemDataPF2e, ItemLevelData, PhysicalItemData, TreasureData, TreasureDetailsData, WeaponData } from '@item/data-definitions';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
@@ -10,6 +10,8 @@ import {
     sellAllTreasure,
 } from '@module/item/treasure';
 import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorPF2e } from '@actor/base';
+import { FakeItem } from 'tests/fakes/fake-item';
 
 function treasure({
     id = 'unknown',
@@ -21,15 +23,22 @@ function treasure({
 }): TreasureData {
     return {
         _id: id,
+        name: id,
         type: 'treasure',
+        img: 'icons/svg/mystery-man.svg',
+        permission: {},
+        sort: 1,
+        flags: {},
+        effects: [],
         data: {
+            level: 0,
             denomination: { value: denomination as 'cp' | 'sp' | 'gp' | 'pp' },
             quantity: { value: quantity },
             value: { value: value },
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
-        },
-    } as unknown as TreasureData;
+        } as unknown as TreasureDetailsData & ItemLevelData,
+    };
 }
 function coin({
     denomination,
@@ -68,7 +77,7 @@ describe('should calculate wealth based on inventory', () => {
                 data: {},
             },
             coin({ denomination: 'gp', quantity: 1 }),
-        ];
+        ] as PhysicalItemData[];
 
         const result = calculateWealth(items);
         expect(result).toEqual({
@@ -100,7 +109,7 @@ describe('should calculate wealth based on inventory', () => {
             coin({ denomination: 'gp', quantity: 9 }),
             coin({ denomination: 'sp', quantity: 8 }),
             coin({ denomination: 'cp', quantity: 7 }),
-        ];
+        ] as PhysicalItemData[];
 
         const result = calculateWealth(items);
         expect(result).toEqual({
@@ -130,7 +139,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('should be able to add coins to an existing stack', async () => {
-        const actor = new FakeActor({
+        const actor: any = new FakeActor({
             items: [
                 // ignored because of only value 1 is taken
                 treasure({ denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins', id: '1' }),
@@ -139,7 +148,7 @@ describe('should calculate wealth based on inventory', () => {
                 coin({ denomination: 'cp', quantity: 6, id: '4', containerId: 'yo' }),
             ] as TreasureData[],
         } as ActorDataPF2e);
-        await addCoins(actor as any, {
+        await addCoins(actor, {
             coins: {
                 pp: 3,
                 gp: 6,
@@ -149,7 +158,7 @@ describe('should calculate wealth based on inventory', () => {
             combineStacks: true,
         });
 
-        const items = actor.data.items!.map((x) => x as TreasureData);
+        const items = actor.data.items!.map((x: TreasureData) => x) as TreasureData[];
         expect(items[1].data.quantity.value).toBe(13);
         expect(items[4].data.denomination.value).toBe('pp');
         expect(items[4].data.quantity.value).toBe(3);
@@ -158,7 +167,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('sell ignores coins', async () => {
-        const actor = new FakeActor({
+        const actor: any = new FakeActor({
             items: [treasure({ id: 'abcdef', denomination: 'gp', value: 5, quantity: 7, stackGroup: 'coins' })] as TreasureData[],
         } as ActorDataPF2e);
         await sellAllTreasure(actor);
@@ -184,16 +193,16 @@ describe('should calculate wealth based on inventory', () => {
                             value: 1,
                         },
                     },
-                } as any,
+                } as unknown as EquipmentData,
                 treasure({ denomination: 'pp', value: 1, quantity: 10 }),
                 treasure({ denomination: 'gp', value: 1, quantity: 9 }),
                 treasure({ denomination: 'sp', value: 1, quantity: 8 }),
                 treasure({ denomination: 'cp', value: 1, quantity: 7 }),
-            ] as TreasureData[],
-        } as ActorDataPF2e);
+            ],
+        } as ActorDataPF2e) as unknown as ActorPF2e;
 
         await sellAllTreasure(actor);
-        const wealth = calculateValueOfCurrency(actor.items!);
+        const wealth = calculateValueOfCurrency(actor.data.items);
 
         expect(wealth).toEqual({
             pp: 10,
@@ -204,7 +213,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('sell only finds treasure', async () => {
-        const actor = new FakeActor({
+        const actor: any = new FakeActor({
             items: [
                 treasure({ denomination: 'pp', value: 1, quantity: 10, stackGroup: '', id: 'treasure 1' }),
                 treasure({ denomination: 'gp', value: 1, quantity: 9, stackGroup: '', id: 'treasure 2' }),
@@ -222,7 +231,7 @@ describe('should calculate wealth based on inventory', () => {
         } as ActorDataPF2e);
 
         await sellAllTreasure(actor);
-        expect(actor.data.items!.map((x) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
+        expect(actor.data.items.map((x: ItemDataPF2e) => x._id)).toEqual(['weapon', 'armor', 'item1', 'item2']);
     });
 
     test('calculateTotalWealth correctly combines all item types', () => {
@@ -263,13 +272,21 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('attemptToRemoveCoinsByValue resolves to false if not enough coins are available and makes no changes', async () => {
-        const actor = {
+        const actor: any = {
             data: {
                 items: [
                     coin({ id: '1', denomination: 'gp', quantity: 7 }),
                     coin({ id: '2', denomination: 'gp', quantity: 9 }),
                 ],
             },
+            get items() {
+                return this.data.items.map((itemData: any) => new FakeItem(itemData));
+            },
+            get itemTypes() {
+                return {
+                    treasure: this.items,
+                };
+            }
         };
         expect(await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 0, gp: 18, sp: 0, cp: 0 } })).toEqual(
             false,
@@ -278,7 +295,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('attemptToRemoveCoinsByValue resolves to true if sufficient coins are available after updating coin counts', async () => {
-        const actor = new FakeActor({
+        const actor: any = new FakeActor({
             items: [
                 coin({ id: '1', denomination: 'gp', quantity: 7 }),
                 coin({ id: '2', denomination: 'gp', quantity: 9 }),
@@ -297,7 +314,7 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('attemptToRemoveCoinsByValue breaks coins when needed', async () => {
-        const actor = new FakeActor({
+        const actor: any = new FakeActor({
             items: [coin({ id: '3', denomination: 'pp', quantity: 9 })],
         } as ActorDataPF2e);
         const result = await attemptToRemoveCoinsByValue({ actor, coinsToRemove: { pp: 1, gp: 3, sp: 2, cp: 1 } });
@@ -313,8 +330,7 @@ describe('should calculate wealth based on inventory', () => {
         //  7 6 7 9
 
         const simpleItems = actor.data.items
-            .map((x) => x as TreasureData)
-            .map((x) => ({ quantity: x.data.quantity.value, denomination: x.data.denomination.value }));
+            .map((x: TreasureData) => ({ quantity: x.data.quantity.value, denomination: x.data.denomination.value }));
         expect(simpleItems).toEqual([
             { quantity: 7, denomination: 'pp' },
             { quantity: 6, denomination: 'gp' },

@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import { FakeActor } from './fakes/fake-actor';
+import { FakeItem } from './fakes/fake-item';
 
 export const fetchSpell = (name: string) => {
     const spellsDb = './packs/data/spells.db/';
@@ -119,7 +121,7 @@ function mergeObject(
         enforceTypes = false,
     } = {},
     _d = 0,
-) {
+): any {
     other = other || {};
     if (!(original instanceof Object && other instanceof Object)) {
         throw Error('One of original or other are not Objects!');
@@ -209,8 +211,11 @@ function mergeObject(
     return original;
 }
 
-// @ts-ignore
-global.mergeObject = mergeObject;
+globalThis.mergeObject = mergeObject;
 
-// @ts-ignore
+(global as any).Actor = FakeActor;
+(global as any).Item = FakeItem;
+(global as any).FormApplication = class {};
+(global as any).Roll = class {};
+
 Math.clamped = (value, min, max) => Math.min(Math.max(value, min), max);

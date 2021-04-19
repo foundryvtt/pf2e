@@ -8,7 +8,7 @@
         "build:dev": "npm run build:packs && webpack",
         "build:packs": "ts-node -r tsconfig-paths/register ./packs/scripts/build.ts",
         "extractPacks": "ts-node -r tsconfig-paths/register ./packs/scripts/extract.ts",
-        "pretest": "eslint ./src --ext .ts && eslint ./packs/scripts --ext .ts",
+        "pretest": "eslint ./src ./packs/scripts --ext .ts",
         "test": "jest",
         "posttest": "npm run betterer",
         "migrate": "ts-node -r tsconfig-paths/register ./packs/scripts/run-migration.ts",
