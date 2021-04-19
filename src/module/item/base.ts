@@ -954,4 +954,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 export interface ItemPF2e {
     data: ItemDataPF2e;
     _data: ItemDataPF2e;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

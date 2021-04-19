@@ -29,6 +29,7 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
+import { ConditionPF2e } from '@item/others';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -122,8 +123,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return new Set(this.data.data.traits.traits.value);
     }
 
+    get level(): number {
+        return this.data.data.details.level.value;
+    }
+
     get temporaryEffects(): TemporaryEffect[] {
-        const effects = super.temporaryEffects ?? ([] as TemporaryEffect[]);
+        const effects = super.temporaryEffects;
         return effects.concat(this.data.data.tokenEffects ?? []);
     }
 
@@ -1221,8 +1226,47 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return this.data.data.abilities[ability].mod;
     }
 
-    get level(): number {
-        return this.data.data.details.level.value;
+    /** Reduce a valued condition, or deletion one or more linked conditions */
+    async removeOrReduceCondition(
+        condition: Owned<ConditionPF2e>,
+        { forceRemove = false }: { forceRemove: boolean } = { forceRemove: false },
+    ): Promise<void> {
+        if (!condition.fromSystem) {
+            return;
+        }
+
+        const details = condition.data.data;
+        // Get all linked conditions if force-removing
+        const conditionList = forceRemove
+            ? [condition].concat(
+                  this.itemTypes.condition.filter(
+                      (maybeLinked) =>
+                          maybeLinked.fromSystem &&
+                          maybeLinked.data.data.base === details.base &&
+                          maybeLinked.data.data.value.value === details.value.value,
+                  ),
+              )
+            : [condition];
+
+        const tokens = this.token ? [this.token] : this.getActiveTokens();
+        if (tokens.length === 0) {
+            const idList = conditionList.map((condition) => condition.id);
+            await this.deleteEmbeddedEntity('OwnedItem', idList);
+            return;
+        }
+
+        for await (const condition of conditionList) {
+            const data = condition.data.data;
+            const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+
+            for await (const token of tokens) {
+                if (value !== null && !forceRemove) {
+                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, value);
+                } else {
+                    await game.pf2e.ConditionManager.removeConditionFromToken(condition.id, token);
+                }
+            }
+        }
     }
 }
 
