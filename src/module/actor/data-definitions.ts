@@ -628,6 +628,8 @@ export interface RawNPCData extends CreatureSystemData {
         alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
+        /** The deity this creature worships */
+        deity: { value: string; image: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
