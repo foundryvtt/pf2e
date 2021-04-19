@@ -1,5 +1,7 @@
 import * as path from 'path';
 import * as fs from 'fs';
+import { FakeActor } from './fakes/fake-actor';
+import { FakeItem } from './fakes/fake-item';
 
 export const fetchSpell = (name: string) => {
     const spellsDb = './packs/data/spells.db/';
@@ -64,7 +66,7 @@ function getType(token: Token | null) {
     const tof = typeof token;
     if (tof === 'object') {
         if (token === null) return 'null';
-        let cn = token.constructor.name;
+        const cn = token.constructor.name;
         if (['String', 'Number', 'Boolean', 'Array', 'Set'].includes(cn)) return cn;
         else if (/^HTML/.test(cn)) return 'HTMLElement';
         else return 'Object';
@@ -77,10 +79,10 @@ function setProperty(object: Record<string, any>, key: string, value: unknown) {
     let changed = false;
     // Convert the key to an object reference if it contains dot notation
     if (key.indexOf('.') !== -1) {
-        let parts = key.split('.');
+        const parts = key.split('.');
         key = parts.pop() ?? '';
         target = parts.reduce((o, i) => {
-            if (!o.hasOwnProperty(i)) o[i] = {};
+            if (!(i in o)) o[i] = {};
             return o[i];
         }, object);
     }
@@ -100,7 +102,9 @@ function duplicate(original: unknown) {
 function expandObject(obj: Record<string, any>, _d = 0) {
     const expanded = {};
     if (_d > 10) throw new Error('Maximum depth exceeded');
-    for (let [k, v] of Object.entries(obj)) {
+    for (const entry of Object.entries(obj)) {
+        const k = entry[0];
+        let v = entry[1];
         if (v instanceof Object && !Array.isArray(v)) v = expandObject(v, _d + 1);
         setProperty(expanded, k, v);
     }
@@ -119,12 +123,12 @@ function mergeObject(
         enforceTypes = false,
     } = {},
     _d = 0,
-) {
+): any {
     other = other || {};
     if (!(original instanceof Object && other instanceof Object)) {
         throw Error('One of original or other are not Objects!');
     }
-    let depth = _d + 1;
+    const depth = _d + 1;
 
     // Maybe copy the original data at depth 0
     if (!inplace && _d === 0) original = duplicate(original);
@@ -139,8 +143,9 @@ function mergeObject(
     }
 
     // Iterate over the other object
-    for (let [k, v] of Object.entries(other)) {
-        let tv = getType(v);
+    for (let k of Object.keys(other)) {
+        const v = other[k];
+        const tv = getType(v);
 
         // Prepare to delete
         let toDelete = false;
@@ -151,7 +156,7 @@ function mergeObject(
 
         // Get the existing object
         let x = original[k];
-        let has = original.hasOwnProperty(k);
+        let has = k in original;
         let tx = getType(x);
 
         // Ensure that inner objects exist
@@ -201,7 +206,7 @@ function mergeObject(
 
         // Case 2 - Key does not exist
         else if (!toDelete) {
-            let canInsert = (depth === 1 && insertKeys) || (depth > 1 && insertValues);
+            const canInsert = (depth === 1 && insertKeys) || (depth > 1 && insertValues);
             if (canInsert) original[k] = v;
         }
     }
@@ -209,8 +214,11 @@ function mergeObject(
     return original;
 }
 
-// @ts-ignore
-global.mergeObject = mergeObject;
+globalThis.mergeObject = mergeObject;
 
-// @ts-ignore
+(global as any).Actor = FakeActor;
+(global as any).Item = FakeItem;
+(global as any).FormApplication = class {};
+(global as any).Roll = class {};
+
 Math.clamped = (value, min, max) => Math.min(Math.max(value, min), max);

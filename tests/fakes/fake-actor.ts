@@ -27,7 +27,7 @@ export class FakeActorItem {
 
 export class FakeActor {
     _data: ActorDataPF2e;
-    _itemGuid: number = 1;
+    _itemGuid = 1;
     constructor(data: ActorDataPF2e) {
         this._data = FoundryUtils.duplicate(data);
     }
