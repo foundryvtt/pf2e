@@ -12,7 +12,7 @@ import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
-import {ActionPF2e} from "@item/action";
+import {ActionCollection, ActionPF2e} from "@item/action";
 
 /**
  * @category Other
@@ -197,16 +197,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const deityBoonsCurses: FeatData[] = [];
 
         // Actions
-        const actions = {
-            action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
-            reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
-            free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
-        };
-
-        const activities = {
-            downtime: {activities: []},
-            exploration: {activities: []},
-        };
+        const actions = new ActionCollection();
 
         // Read-Only Actions
         const readonlyActions = {
@@ -408,17 +399,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     parseInt((item.data.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
 
-                if (item.data.data.modeOfPlay.value.exploration || item.data.data.modeOfPlay.value.downtime) {
-                    if (item.data.data.modeOfPlay.value.exploration) {
-                        activities.exploration.activities.push(item.data);
-                    } else {
-                        activities.downtime.activities.push(item.data);
-                    }
-                } else if (actionType === 'passive') {
-                    actions.free.actions.push(item.data);
-                } else {
-                    actions[actionType].actions.push(item.data);
-                }
+                actions.addActionToCollection(item.data);
 
                 // Read-Only Actions
                 if (item.data.data.actionCategory && item.data.data.actionCategory.value) {
@@ -580,7 +561,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
-        actorData.activities = activities;
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;

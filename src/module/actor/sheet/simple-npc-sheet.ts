@@ -85,7 +85,7 @@ interface NPCSystemSheetData extends RawNPCData {
 
 /** Additional fields added in sheet data preparation */
 interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
-    actions: ActionActions;
+    actions: ActionCollection;
     attacks: Attacks;
     data: NPCSystemSheetData;
     items: ItemDataPF2e[] & SheetEnrichedItemData[];
