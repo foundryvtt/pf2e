@@ -1602,11 +1602,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                             console.debug('PF2e System | Deleting Spell Container: ', item.name);
                             // Delete all child objects
                             const itemsToDelete = [];
-                            for (const i of this.actor.data.items) {
-                                if (i.type === 'spell') {
-                                    if (i.data.location.value === itemId) {
-                                        itemsToDelete.push(i._id);
-                                    }
+                            for (const item of this.actor.itemTypes.spell) {
+                                if (item.data.data.location.value === itemId) {
+                                    itemsToDelete.push(item.id);
                                 }
                             }
 
