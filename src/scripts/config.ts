@@ -1554,9 +1554,11 @@ export const PF2ECONFIG = {
 
     actionTypes: {
         action: 'PF2E.ActionTypeAction',
-        reaction: 'PF2E.ActionTypeReaction',
+        activity: 'PF2E.ActionTypeActivity',
         free: 'PF2E.ActionTypeFree',
-        passive: 'PF2E.ActionTypePassive',
+        // This is a legacy action type, grouping everything previously handled in actions
+        other: 'PF2E.ActionTypeOther',
+        reaction: 'PF2E.ActionTypeReaction',
     }, // Actions Number
 
     actionsNumber: {
@@ -1570,6 +1572,12 @@ export const PF2ECONFIG = {
         defensive: 'PF2E.ActionCategoryDefensive',
         offensive: 'PF2E.ActionCategoryOffensive',
     }, // Proficiency Multipliers
+
+    modesOfPlay: {
+        downtime: 'PF2E.ModesOfPlayDowntime',
+        encounter: 'PF2E.ModesOfPlayEncounter',
+        exploration: 'PF2E.ModesOfPlayExploration',
+    },
 
     proficiencyLevels: Object.freeze([
         'PF2E.ProficiencyLevel0', // untrained

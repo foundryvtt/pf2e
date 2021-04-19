@@ -200,6 +200,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
+            activity: { label: game.i18n.localize('PF2E.ActionsActivityHeader'), actions: [] },
         };
 
         // Read-Only Actions
@@ -394,14 +395,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             // Actions
             else if (i.type === 'action') {
-                const actionType = ['free', 'reaction', 'passive'].includes(i.data.actionType.value)
+                const actionType = ['free', 'reaction', 'activity'].includes(i.data.actionType.value)
                     ? i.data.actionType.value
                     : 'action';
                 i.img = CharacterPF2e.getActionGraphics(
                     actionType,
                     parseInt((i.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
-                if (actionType === 'passive') actions.free.actions.push(i);
+                if (actionType === 'other') actions.free.actions.push(i);
+                else if (actionType === 'passive') actions.activity.actions.push(i);
                 else actions[actionType].actions.push(i);
 
                 // Read-Only Actions

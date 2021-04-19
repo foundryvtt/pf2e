@@ -474,8 +474,6 @@ export interface MartialDetailsData extends ItemDescriptionData {
     };
 }
 
-export type ModeOfPlay = 'encounter' | 'exploration' | 'downtime';
-
 export interface ActionDetailsData extends ItemDescriptionData {
     actionType: {
         value: keyof ConfigPF2e['PF2E']['actionTypes'];
@@ -484,8 +482,8 @@ export interface ActionDetailsData extends ItemDescriptionData {
         value: string;
     };
     modeOfPlay: {
-        value: Record<ModeOfPlay, boolean>;
-    }
+        value: Record<keyof ConfigPF2e['PF2E']['modesOfPlay'], boolean>;
+    };
     weapon: {
         value: string;
     };

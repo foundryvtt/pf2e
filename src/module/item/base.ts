@@ -69,8 +69,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     get traits(): Set<string> {
-        const rarity: string = this.data.data.traits.rarity.value;
-        return new Set([rarity].concat(this.data.data.traits.value));
+        const rarity: string = this.data.data.traits?.rarity?.value ?? 'common';
+        return new Set([rarity].concat(this.data.data.traits?.value ?? []));
     }
 
     /** @override */
