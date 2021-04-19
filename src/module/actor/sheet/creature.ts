@@ -8,7 +8,7 @@ import {
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
-import { BaseWeaponKey, SpellcastingEntryData, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 import { PhysicalItemPF2e } from '@item/physical';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
@@ -361,10 +361,10 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 throw Error('This sheet only works for characters');
             }
             const index = $(event.currentTarget).closest('[data-container-id]').data('containerId');
-            const entry = this.actor.data.items.find((item) => item._id === index) as SpellcastingEntryData;
-            if (entry?.data?.attack?.roll) {
+            const entryData = this.actor.itemTypes.spellcastingEntry.find((item) => item._id === index)?.data;
+            if (entryData && entryData.data.attack?.roll) {
                 const rollContext = createAttackRollContext(event, ['all', 'attack-roll', 'spell-attack-roll']);
-                entry.data.attack.roll(rollContext);
+                entryData.data.attack.roll(rollContext);
             }
         });
 
