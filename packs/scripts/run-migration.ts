@@ -7,25 +7,10 @@ import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { MigrationBase } from '@module/migrations/base';
-import { Migration595AddItemSize } from '@module/migrations/595-item-sizes';
-import { Migration607MeleeItemDamageRolls } from '@module/migrations/607-melee-item-damage-rolls';
-import { Migration610SetHeritageFeatType } from '@module/migrations/610-set-heritage-feat-type';
-import { Migration612NormalizeRarities } from '@module/migrations/612-normalize-rarities';
-import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
-import { Migration614NumifyMeleeBonuses } from '@module/migrations/614-numify-melee-bonuses';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
 
-const migrations: MigrationBase[] = [
-    new Migration595AddItemSize(),
-    new Migration607MeleeItemDamageRolls(),
-    new Migration610SetHeritageFeatType(),
-    new Migration612NormalizeRarities(),
-    new Migration613RemoveAmmoCharges(),
-    new Migration614NumifyMeleeBonuses(),
-    new Migration615RemoveInstinctTrait(),
-    new Migration616MigrateFeatPrerequisites(),
-];
+const migrations: MigrationBase[] = [new Migration615RemoveInstinctTrait(), new Migration616MigrateFeatPrerequisites()];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
@@ -54,11 +39,17 @@ const itemTypes = [
     'effect',
 ];
 
-const isActorData = (entityData: { type: string }): entityData is ActorDataPF2e => {
-    return actorTypes.includes(entityData.type);
+const isActorData = (entityData: CompendiumEntity['data']): entityData is ActorDataPF2e => {
+    return 'type' in entityData && actorTypes.includes(entityData.type);
 };
-const isItemData = (entityData: { type: string }): entityData is ItemDataPF2e => {
-    return itemTypes.includes(entityData.type);
+const isItemData = (entityData: CompendiumEntity['data']): entityData is ItemDataPF2e => {
+    return 'type' in entityData && itemTypes.includes(entityData.type);
+};
+const isMacroData = (entityData: CompendiumEntity['data']): entityData is MacroData => {
+    return 'type' in entityData && ['chat', 'script'].includes(entityData.type);
+};
+const isTableData = (entityData: CompendiumEntity['data']): entityData is RollTableData => {
+    return 'results' in entityData && Array.isArray(entityData.results);
 };
 
 function JSONstringifyOrder(obj: object): string {
@@ -119,15 +110,16 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        if (!('type' in entity) || ['chat', 'script'].includes(entity.type)) continue;
-
-        let updatedEntity: ActorData | ItemDataPF2e;
+        let updatedEntity: ActorData | ItemDataPF2e | MacroData | RollTableData;
         if (isActorData(entity)) {
             updatedEntity = await migrationRunner.getUpdatedActor(entity, migrationRunner.migrations);
         } else if (isItemData(entity)) {
             updatedEntity = await migrationRunner.getUpdatedItem(entity, migrationRunner.migrations);
+        } else if (isMacroData(entity)) {
+            updatedEntity = await migrationRunner.getUpdatedMacro(entity, migrationRunner.migrations);
+        } else if (isTableData(entity)) {
+            updatedEntity = await migrationRunner.getUpdatedTable(entity, migrationRunner.migrations);
         } else {
-            console.log(`unknown item type ${entity.type} in ${entity.name}`);
             continue;
         }
 
