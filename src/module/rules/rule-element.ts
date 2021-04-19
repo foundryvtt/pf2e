@@ -15,6 +15,30 @@ export interface BracketedValue {
 
 export type RuleValue = string | number | BracketedValue;
 
+export class TokenEffect implements TemporaryEffect {
+    public data: { disabled: boolean; icon: string; tint: string } = {
+        disabled: false,
+        icon: '',
+        tint: '',
+    };
+
+    public readonly isTemporary = true;
+
+    public readonly flags: { [scope: string]: any } = {};
+
+    constructor(icon: string, overlay = false, tint?: string | null | undefined) {
+        this.data.icon = icon;
+        if (tint) {
+            this.data.tint = tint;
+        }
+        this.flags.core = { overlay };
+    }
+
+    getFlag(scope: string, flag: string): string | undefined {
+        return this.flags[scope]?.[flag];
+    }
+}
+
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
  * in the item's Rules tab which has to be enabled using the "Advanced Rule Element UI" system setting.

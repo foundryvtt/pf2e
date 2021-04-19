@@ -299,6 +299,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export interface ActorSystemData {
     traits: BaseTraitsData;
+    tokenEffects: TemporaryEffect[] | null;
 }
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -669,7 +670,7 @@ interface HazardAttributes {
 }
 
 /** The raw information contained within the actor data object for hazards. */
-export interface RawHazardData {
+export interface RawHazardData extends ActorSystemData {
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;
