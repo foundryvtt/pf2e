@@ -4,8 +4,11 @@ import { MigrationRunner } from '@module/migration-runner';
 import { MigrationBase } from '@module/migrations/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
 import { FakeItem } from 'tests/fakes/fake-item';
+import { FakeMacro } from 'tests/fakes/fake-macro';
+import { FakeRollTable } from 'tests/fakes/fake-roll-table';
 import { FakeUser } from 'tests/fakes/fake-user';
 import { FakeScene } from 'tests/fakes/fake-scene';
+import { FakeChatMessage } from 'tests/fakes/fake-chat-message';
 
 import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
 import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
@@ -41,6 +44,9 @@ describe('test migration runner', () => {
         },
         actors: new FakeEntityCollection<FakeActor>(),
         items: new FakeEntityCollection<FakeItem>(),
+        macros: new FakeEntityCollection<FakeMacro>(),
+        messages: new FakeEntityCollection<FakeChatMessage>(),
+        tables: new FakeEntityCollection<FakeRollTable>(),
         users: new FakeEntityCollection<FakeUser>(),
         packs: new FakeCollection(),
         scenes: new FakeEntityCollection<FakeScene>(),
