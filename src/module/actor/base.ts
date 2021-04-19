@@ -30,6 +30,7 @@ import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { ConditionPF2e } from '@item/others';
+import { TokenEffect } from '@module/rules/rule-element';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -128,8 +129,15 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     get temporaryEffects(): TemporaryEffect[] {
-        const effects = super.temporaryEffects;
-        return effects.concat(this.data.data.tokenEffects ?? []);
+        // might fit better in the Actor#prepareDerivedData method
+        const conditionDataEntries = this.itemTypes.condition
+            .filter((condition) => condition.fromSystem)
+            .map((condition) => condition.data);
+        const conditionTokenEffects = ConditionManager.getFlattenedConditions(conditionDataEntries).map(
+            (c) => new TokenEffect(c.img),
+        );
+
+        return super.temporaryEffects.concat(this.data.data.tokenEffects ?? []).concat(conditionTokenEffects);
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
@@ -218,6 +226,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         return super.create(data, options) as Promise<A[] | A>;
+    }
+
+    /** @override */
+    prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.data.tokenEffects = [];
     }
 
     /** @override */
