@@ -13,7 +13,9 @@ describe('#physicalBase', () => {
     });
 
     test('we can obtain the three basic physical damage types', () => {
-        expect(DamageCategory.toDamageTypes(DamageCategory.PHYSICAL)).toEqual(new Set(['piercing', 'slashing', 'bludgeoning']));
+        expect(DamageCategory.toDamageTypes(DamageCategory.PHYSICAL)).toEqual(
+            new Set(['piercing', 'slashing', 'bludgeoning']),
+        );
     });
 });
 
@@ -44,15 +46,17 @@ describe('#physicalOverride', () => {
 
 describe('#utilityMethods', () => {
     test('the base categories are physical, energy, and alignment', () => {
-        expect(DamageCategory.baseCategories()).toEqual(new Set([DamageCategory.PHYSICAL, DamageCategory.ALIGNMENT, DamageCategory.ENERGY]));
+        expect(DamageCategory.baseCategories()).toEqual(
+            new Set([DamageCategory.PHYSICAL, DamageCategory.ALIGNMENT, DamageCategory.ENERGY]),
+        );
         expect(DamageCategory.customCategories()).toEqual(new Set([]));
     });
 
     test('customCategories returns custom categories', () => {
         DamageCategory.addCustomDamageType('cool', 'bludgeoning');
         expect(DamageCategory.customCategories()).toEqual(new Set(['cool']));
-    })
-})
+    });
+});
 
 describe('#customCategory', () => {
     test('cool is a custom category', () => {

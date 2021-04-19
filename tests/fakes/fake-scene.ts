@@ -1,4 +1,4 @@
-import { FoundryUtils } from "tests/utils";
+import { FoundryUtils } from 'tests/utils';
 
 export class FakeScene {
     data: Partial<SceneData> & { _id: string; name: string };

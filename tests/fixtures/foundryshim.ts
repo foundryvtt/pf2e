@@ -238,13 +238,13 @@ function arrayEquals(self: any[], other: any[]) {
  */
 function diffObject(original: any, other: any, { inner = false } = {}): any {
     function _difference(v0: any, v1: any): [boolean, any] {
-        let t0 = getType(v0);
-        let t1 = getType(v1);
+        const t0 = getType(v0);
+        const t1 = getType(v1);
         if (t0 !== t1) return [true, v1];
         if (t0 === 'Array') return [!arrayEquals(v0, v1), v1];
         if (t0 === 'Object') {
             if (isObjectEmpty(v0) !== isObjectEmpty(v1)) return [true, v1];
-            let d = diffObject(v0, v1, { inner });
+            const d = diffObject(v0, v1, { inner });
             return [!isObjectEmpty(d), d];
         }
         return [v0 !== v1, v1];
