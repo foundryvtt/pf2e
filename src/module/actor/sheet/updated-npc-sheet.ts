@@ -112,6 +112,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     reaction: { label: 'Reactions', actions: [] },
                     free: { label: 'Free Actions', actions: [] },
                     passive: { label: 'Passive Actions', actions: [] },
+                    activity: { label: 'Activities', actions: [] },
                 },
             },
             defensive: {
@@ -121,6 +122,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     reaction: { label: 'Reactions', actions: [] },
                     free: { label: 'Free Actions', actions: [] },
                     passive: { label: 'Passive Actions', actions: [] },
+                    activity: { label: 'Activities', actions: [] },
                 },
             },
             offensive: {
@@ -130,6 +132,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     reaction: { label: 'Reactions', actions: [] },
                     free: { label: 'Free Actions', actions: [] },
                     passive: { label: 'Passive Actions', actions: [] },
+                    activity: { label: 'Activities', actions: [] },
                 },
             },
         };

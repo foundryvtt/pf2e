@@ -85,6 +85,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             reaction: { label: 'Reactions', actions: [] },
             free: { label: 'Free Actions', actions: [] },
             passive: { label: 'Passive Actions', actions: [] },
+            activity: { label: 'Activities', actions: [] },
         };
 
         // Spellbook

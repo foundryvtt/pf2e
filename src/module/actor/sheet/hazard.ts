@@ -72,6 +72,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             reaction: { label: 'Reactions', actions: [] },
             free: { label: 'Free Actions', actions: [] },
             passive: { label: 'Passive Actions', actions: [] },
+            activity: { label: 'Activities', actions: [] },
         };
 
         // Iterate through items, allocating to containers

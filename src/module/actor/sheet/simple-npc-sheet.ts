@@ -43,7 +43,7 @@ interface NPCSheetLabeledValue extends LabeledString {
 
 interface ActionsDetails {
     label: string;
-    actions: ItemDataPF2e[];
+    actions: ActionData[];
 }
 
 interface ActionActions {
@@ -51,6 +51,7 @@ interface ActionActions {
     free: ActionsDetails;
     reaction: ActionsDetails;
     action: ActionsDetails;
+    activity: ActionsDetails;
 }
 
 interface Attack {
@@ -486,6 +487,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             free: { label: game.i18n.localize('PF2E.ActionTypeFree'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionTypeReaction'), actions: [] },
             action: { label: game.i18n.localize('PF2E.ActionTypeAction'), actions: [] },
+            activity: { label: game.i18n.localize('PF2E.ActionTypeActivity'), actions: [] },
         };
 
         actorData.items
