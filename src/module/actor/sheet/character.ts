@@ -201,7 +201,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
-            activity: { label: game.i18n.localize('PF2E.ActionsActivityHeader'), actions: [] },
+        };
+
+        const activities = {
+            downtime: {activities: []},
+            exploration: {activities: []},
         };
 
         // Read-Only Actions
@@ -405,7 +409,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 ).imageUrl;
 
                 if (item.data.data.modeOfPlay.value.exploration || item.data.data.modeOfPlay.value.downtime) {
-                    actions.activity.actions.push(item.data);
+                    if (item.data.data.modeOfPlay.value.exploration) {
+                        activities.exploration.activities.push(item.data);
+                    } else {
+                        activities.downtime.activities.push(item.data);
+                    }
                 } else if (actionType === 'passive') {
                     actions.free.actions.push(item.data);
                 } else {
@@ -413,7 +421,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
 
                 // Read-Only Actions
-                if (i.data.actionCategory && i.data.actionCategory.value) {
+                if (item.data.data.actionCategory && item.data.data.actionCategory.value) {
                     switch (item.data.data.actionCategory.value) {
                         case 'interaction':
                             readonlyActions.interaction.actions.push(item.data);
@@ -572,6 +580,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.deityBoonsCurses = deityBoonsCurses;
         actorData.attacks = attacks;
         actorData.actions = actions;
+        actorData.activities = activities;
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;

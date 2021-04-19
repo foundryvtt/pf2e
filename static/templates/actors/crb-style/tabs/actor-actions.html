@@ -123,8 +123,7 @@
                             </div>
                             {{/if}}
                         </li>
-                        {{#each actor.actions.activity.actions as |action aid|}}
-                        {{#if action.data.modeOfPlay.value.exploration}}
+                        {{#each actor.activities.exploration.activities as |action aid|}}
                         <li class="item" data-item-id="{{action._id}}">
                             <div class="item-name rollable">
                                 <div class="item-image" style="background-image: url({{action.img}})">
@@ -141,7 +140,6 @@
                             </div>
                             {{/if}}
                         </li>
-                        {{/if}}
                         {{/each}}
                     </ol>
                 </div>
@@ -157,8 +155,7 @@
                             </div>
                             {{/if}}
                         </li>
-                        {{#each actor.actions.activity.actions as |action aid|}}
-                        {{#if action.data.modeOfPlay.value.downtime}}
+                        {{#each actor.activities.downtime.activities as |action aid|}}
                         <li class="item" data-item-id="{{action._id}}">
                             <div class="item-name rollable">
                                 <div class="item-image" style="background-image: url({{action.img}})">
@@ -175,7 +172,6 @@
                             </div>
                             {{/if}}
                         </li>
-                        {{/if}}
                         {{/each}}
                     </ol>
                 </div>
