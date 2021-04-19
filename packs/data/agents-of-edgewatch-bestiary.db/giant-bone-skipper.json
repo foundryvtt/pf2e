@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -108,8 +108,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "25 feet, fly 40 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "40"
+                    }
+                ],
+                "value": "25"
             }
         },
         "currency": {
@@ -439,6 +445,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -481,7 +490,7 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "marrow rot "
+                        "Marrow Rot"
                     ]
                 },
                 "baseItem": null,
@@ -611,15 +620,65 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "mandibles",
+            "name": "Mandibles",
             "sort": 100000,
             "type": "melee"
+        },
+        {
+            "_id": "lMrRe942X6FotrEf",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 200000,
+            "type": "action"
         },
         {
             "_id": "yX6VKlUamzU5KOQr",
             "data": {
                 "actionCategory": {
-                    "value": "defensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -660,8 +719,8 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Bonesense",
-            "sort": 200000,
+            "name": "Bonesense (Imprecise) 30 feet",
+            "sort": 300000,
             "type": "action"
         },
         {
@@ -679,12 +738,28 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The giant bone skipper Leaps up to 20 feet. It then makes a mandibles Strike, gaining a +1 circumstance bonus to its attack roll.</p>"
+                    "value": "<p>The giant bone skipper @Compendium[pf2e.actionspf2e.Leap]{Leaps} up to 20 feet. It then makes a mandibles Strike, gaining a +1 circumstance bonus to its attack roll.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.leaping-charge"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "leaping-charge"
+                            ]
+                        },
+                        "selector": "attack",
+                        "type": "circumstance",
+                        "value": 1
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -710,7 +785,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Leaping Charge",
-            "sort": 300000,
+            "sort": 400000,
             "type": "action"
         },
         {
@@ -728,7 +803,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Marrow rot affects only creatures with a skeletal system; <strong>Saving Throw</strong> DC 25 Fortitude; <strong>Onset</strong> 1 day; <strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day); <strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day); <strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>"
+                    "value": "<p>Marrow rot affects only creatures with a skeletal system;</p>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"25\" data-pf2-traits=\"disease\"><span data-visibility=\"gm\">DC 25 </span>Fortitude save</span>;</p>\n<p><strong>Onset</strong> 1 day;</p>\n<p><strong>Stage 1</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} (1 day);</p>\n<p><strong>Stage 2</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} (1 day);</p>\n<p><strong>Stage 3</strong> @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2} and @Compendium[pf2e.conditionitems.Drained]{Drained 1} (1 day)</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -759,7 +834,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Marrow Rot",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -799,7 +874,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         },
         {
@@ -839,7 +914,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 600000,
+            "sort": 700000,
             "type": "lore"
         },
         {
@@ -879,7 +954,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         }
     ],
