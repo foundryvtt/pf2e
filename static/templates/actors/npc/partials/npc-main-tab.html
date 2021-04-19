@@ -111,7 +111,7 @@
         <div class="section-body">
             <ol class="actions-list">
                 {{#each actions as |section sectionId|}}
-                    {{#unless (or (eq sectionId 'passive') (eq sectionId 'activity'))}}
+                    {{#unless (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}
                             {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
                         {{/each}}
@@ -133,7 +133,7 @@
         <div class="section-body">
             <ol class="actions-list">
                 {{#each actions as |section sectionId|}}
-                    {{#if (or (eq sectionId 'passive') (eq sectionId 'activity'))}}
+                    {{#if (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}
                             {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
                         {{/each}}
