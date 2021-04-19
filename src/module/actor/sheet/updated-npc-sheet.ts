@@ -2,7 +2,7 @@ import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../base';
 import { ItemPF2e } from '@item/base';
-import {ActionCollection} from "@item/action";
+import { ActionCollection } from '@item/action';
 
 /**
  * @category Other

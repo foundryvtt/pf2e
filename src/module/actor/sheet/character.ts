@@ -12,7 +12,7 @@ import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
-import {ActionCollection, ActionPF2e} from "@item/action";
+import { ActionCollection, ActionPF2e } from '@item/action';
 
 /**
  * @category Other

@@ -36,7 +36,7 @@ import {
 } from '@item/data-definitions';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
-import {ActionCollection} from "@item/action";
+import { ActionCollection } from '@item/action';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;

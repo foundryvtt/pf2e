@@ -4,7 +4,7 @@ import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
-import {ActionCollection} from "@item/action";
+import { ActionCollection } from '@item/action';
 
 /**
  * @category Actor
