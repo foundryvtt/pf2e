@@ -94,8 +94,18 @@ export interface MartialPF2e {
     _data: MartialData;
 }
 
-export class ConditionPF2e extends ItemPF2e {}
+export class ConditionPF2e extends ItemPF2e {
+    /** Is the condition from the pf2e system or a module */
+    get fromSystem(): boolean {
+        return !!this.getFlag('pf2e', 'condition');
+    }
+}
+
 export interface ConditionPF2e {
     data: ConditionData;
     _data: ConditionData;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'condition'): true | undefined;
 }

@@ -23,7 +23,9 @@ import {
     ActionData,
     ActionDetailsData,
     ArmorData,
+    ConditionData,
     ConsumableData,
+    EffectData,
     EquipmentData,
     ItemDataPF2e,
     MeleeData,
@@ -87,6 +89,8 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     attacks: Attacks;
     data: NPCSystemSheetData;
     items: ItemDataPF2e[] & SheetEnrichedItemData[];
+    effects: EffectData[];
+    conditions: ConditionData[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
@@ -182,7 +186,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`; // `;
         }
         return super.title;
     }
@@ -207,6 +211,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
+        sheetData.conditions = sheetData.items.filter((data): data is ConditionData => data.type === 'condition');
+        sheetData.effects = sheetData.items.filter((data): data is EffectData => data.type === 'effect');
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
@@ -336,6 +342,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.modifier')
             .on('focusin', (event) => this.baseInputOnFocus(event))
             .on('focusout', (event) => this.baseInputOnFocusOut(event));
+
+        html.find('.effects-list > .effect > .item-image').on('contextmenu', (event) => this.onClickDeleteItem(event));
     }
 
     // TRAITS MANAGEMENT
