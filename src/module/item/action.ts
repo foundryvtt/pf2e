@@ -2,18 +2,18 @@ import { ItemPF2e } from './base';
 import { ActionData } from './data-definitions';
 
 export class ActionCollection {
-    action: { label: 'Actions'; actions: ActionData[] };
-    reaction: { label: 'Reactions'; actions: ActionData[] };
-    free: { label: 'Free Actions'; actions: ActionData[] };
-    passive: { label: 'Passive Actions'; actions: ActionData[] };
-    activity: { label: 'Activities'; actions: ActionData[] };
+    action: { label: string; actions: ActionData[] };
+    reaction: { label: string; actions: ActionData[] };
+    free: { label: string; actions: ActionData[] };
+    passive: { label: string; actions: ActionData[] };
+    activity: { label: string; actions: ActionData[] };
 
     constructor() {
-        this.action = { label: 'Actions', actions: [] };
-        this.reaction = { label: 'Reactions', actions: [] };
-        this.free = { label: 'Free Actions', actions: [] };
-        this.passive = { label: 'Passive Actions', actions: [] };
-        this.activity = { label: 'Activities', actions: [] };
+        this.action = { label: game.i18n.localize('PF2E.ActionCollections.Action'), actions: [] };
+        this.reaction = { label: game.i18n.localize('PF2E.ActionCollections.Reaction'), actions: [] };
+        this.free = { label: game.i18n.localize('PF2E.ActionCollections.Free'), actions: [] };
+        this.passive = { label: game.i18n.localize('PF2E.ActionCollections.Passive'), actions: [] };
+        this.activity = { label: game.i18n.localize('PF2E.ActionCollections.Activity'), actions: [] };
     }
 
     public addActionToCollection(action: ActionData): void {

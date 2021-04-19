@@ -77,7 +77,7 @@
                         {{/if}}
                         {{/each}}
                         {{#each actor.actions as |section sid|}}
-                        {{#unless (eq section.label 'Activities')}}
+                        {{#unless (eq section.label (localize 'PF2E.ActionCollections.Activity'))}}
                             <li class="item action-header">
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
                                 {{#if ../owner}}

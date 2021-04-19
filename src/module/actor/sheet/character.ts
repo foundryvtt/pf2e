@@ -6,7 +6,7 @@ import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
 import { PhysicalItemPF2e } from '@item/physical';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData, ActionData } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -201,9 +201,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Read-Only Actions
         const readonlyActions = {
-            interaction: { label: 'Interaction Actions', actions: [] },
-            defensive: { label: 'Defensive Actions', actions: [] },
-            offensive: { label: 'Offensive Actions', actions: [] },
+            interaction: { label: 'Interaction Actions', actions: [] as ActionData[] },
+            defensive: { label: 'Defensive Actions', actions: [] as ActionData[] },
+            offensive: { label: 'Offensive Actions', actions: [] as ActionData[] },
         };
 
         const readonlyEquipment = [];
