@@ -1452,6 +1452,7 @@ export const PF2ECONFIG = {
         40: 'PF2E.AreaSize40',
         50: 'PF2E.AreaSize50',
         60: 'PF2E.AreaSize60',
+        100: 'PF2E.AreaSize100',
         120: 'PF2E.AreaSize120',
     }, // Alignment
 
