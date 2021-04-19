@@ -36,22 +36,10 @@ import {
 } from '@item/data-definitions';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
+import {ActionCollection} from "@item/action";
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
-}
-
-interface ActionsDetails {
-    label: string;
-    actions: ActionData[];
-}
-
-interface ActionActions {
-    passive: ActionsDetails;
-    free: ActionsDetails;
-    reaction: ActionsDetails;
-    action: ActionsDetails;
-    activity: ActionsDetails;
 }
 
 interface Attack {
@@ -482,13 +470,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * @param actorData Data of the actor to be shown in the sheet.
      */
     private prepareActions(actorData: NPCSheetData) {
-        const actions: ActionActions = {
-            passive: { label: game.i18n.localize('PF2E.ActionTypePassive'), actions: [] },
-            free: { label: game.i18n.localize('PF2E.ActionTypeFree'), actions: [] },
-            reaction: { label: game.i18n.localize('PF2E.ActionTypeReaction'), actions: [] },
-            action: { label: game.i18n.localize('PF2E.ActionTypeAction'), actions: [] },
-            activity: { label: game.i18n.localize('PF2E.ActionTypeActivity'), actions: [] },
-        };
+        const actions = new ActionCollection();
 
         actorData.items
             .filter((item): item is ActionData => item.type === 'action')
@@ -544,7 +526,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 this.assignActionGraphics(item as ActionData & SheetEnrichedItemData);
 
                 if (objectHasKey(actions, actionType)) {
-                    actions[actionType].actions.push(item);
+                    actions.addActionToCollection(item);
                 }
             });
 

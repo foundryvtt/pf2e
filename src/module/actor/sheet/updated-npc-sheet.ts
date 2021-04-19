@@ -2,6 +2,7 @@ import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../base';
 import { ItemPF2e } from '@item/base';
+import {ActionCollection} from "@item/action";
 
 /**
  * @category Other
@@ -107,33 +108,15 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         const reorgActions = {
             interaction: {
                 label: 'Interaction Actions',
-                actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
-                    activity: { label: 'Activities', actions: [] },
-                },
+                actions: new ActionCollection(),
             },
             defensive: {
                 label: 'Defensive Actions',
-                actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
-                    activity: { label: 'Activities', actions: [] },
-                },
+                actions: new ActionCollection(),
             },
             offensive: {
                 label: 'Offensive Actions',
-                actions: {
-                    action: { label: 'Actions', actions: [] },
-                    reaction: { label: 'Reactions', actions: [] },
-                    free: { label: 'Free Actions', actions: [] },
-                    passive: { label: 'Passive Actions', actions: [] },
-                    activity: { label: 'Activities', actions: [] },
-                },
+                actions: new ActionCollection(),
             },
         };
         sheetData.hasInteractionActions = false;
@@ -160,20 +143,19 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             }
             // Actions
             else if (i.type === 'action') {
-                const actionType = i.data.actionType.value || 'action';
                 const actionCategory = i.data.actionCategory?.value || 'offensive';
                 switch (actionCategory) {
                     case 'interaction':
-                        reorgActions.interaction.actions[actionType].actions.push(i);
+                        reorgActions.interaction.actions.addActionToCollection(i);
                         sheetData.hasInteractionActions = true;
                         break;
                     case 'defensive':
-                        reorgActions.defensive.actions[actionType].actions.push(i);
+                        reorgActions.defensive.actions.addActionToCollection(i);
                         sheetData.hasDefensiveActions = true;
                         break;
                     // Should be offensive but throw anything else in there too
                     default:
-                        reorgActions.offensive.actions[actionType].actions.push(i);
+                        reorgActions.offensive.actions.addActionToCollection(i);
                         sheetData.hasOffensiveActions = true;
                 }
             }

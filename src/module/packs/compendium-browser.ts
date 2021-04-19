@@ -867,6 +867,7 @@ class CompendiumBrowser extends Application {
             free: 'systems/pf2e/icons/actions/FreeAction.png',
             reaction: 'systems/pf2e/icons/actions/Reaction.png',
             passive: 'systems/pf2e/icons/actions/Passive.png',
+            activity: 'systems/pf2e/icons/actions/Passive.png',
         };
         return img[action] ?? 'icons/svg/mystery-man.svg';
     }

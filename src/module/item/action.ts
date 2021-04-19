@@ -1,6 +1,27 @@
 import { ItemPF2e } from './base';
 import { ActionData } from './data-definitions';
 
+export class ActionCollection {
+    action: { label: 'Actions'; actions: ActionData[] };
+    reaction: { label: 'Reactions'; actions: ActionData[] };
+    free: { label: 'Free Actions'; actions: ActionData[] };
+    passive: { label: 'Passive Actions'; actions: ActionData[] };
+    activity: { label: 'Activities'; actions: ActionData[] };
+
+    constructor() {
+        this.action = { label: 'Actions', actions: [] };
+        this.reaction = { label: 'Reactions', actions: [] };
+        this.free = { label: 'Free Actions', actions: [] };
+        this.passive = { label: 'Passive Actions', actions: [] };
+        this.activity = { label: 'Activities', actions: [] };
+    }
+
+    public addActionToCollection(action: ActionData): void {
+        const actionType = action.data.actionType.value ?? 'action';
+        this[actionType].actions.push(action);
+    }
+}
+
 export class ActionPF2e extends ItemPF2e {
     /** @override */
     prepareData(): void {

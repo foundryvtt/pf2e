@@ -4,6 +4,7 @@ import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
+import {ActionCollection} from "@item/action";
 
 /**
  * @category Actor
@@ -80,13 +81,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         };
 
         // Actions
-        const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
-            activity: { label: 'Activities', actions: [] },
-        };
+        const actions = new ActionCollection();
 
         // Spellbook
         // const spellbook = {};
@@ -193,7 +188,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 }
                 i.traits = traits.filter((p) => !!p);
 
-                actions[actionType].actions.push(i);
+                actions.addActionToCollection(i);
             }
 
             // Feats
@@ -206,7 +201,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                         actionType,
                         parseInt((i.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
-                    actions[actionType].actions.push(i);
+                    actions.addActionToCollection(i);
                 }
             }
 

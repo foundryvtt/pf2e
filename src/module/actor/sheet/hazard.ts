@@ -1,5 +1,6 @@
 import { ActorSheetPF2e } from './base';
 import { HazardPF2e } from '../base';
+import { ActionCollection } from '@item/action';
 
 /**
  * @category Actor
@@ -67,13 +68,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
         };
 
         // Actions
-        const actions = {
-            action: { label: 'Actions', actions: [] },
-            reaction: { label: 'Reactions', actions: [] },
-            free: { label: 'Free Actions', actions: [] },
-            passive: { label: 'Passive Actions', actions: [] },
-            activity: { label: 'Activities', actions: [] },
-        };
+        const actions = new ActionCollection();
 
         // Iterate through items, allocating to containers
         for (const i of actorData.items) {
@@ -135,7 +130,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 }
                 i.traits = traits.filter((p) => !!p);
 
-                actions[actionType].actions.push(i);
+                actions.addActionToCollection(i);
             }
         }
 
