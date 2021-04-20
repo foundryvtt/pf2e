@@ -54,6 +54,8 @@ export interface ProficiencyData {
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
     breakdown: string;
+    /** Is this proficiency a custom addition (not among a default set or added via system automation)? */
+    custom?: boolean;
 }
 
 /** Basic skill and save data (not including custom modifiers). */
@@ -283,6 +285,8 @@ export interface Abilities {
 export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
+export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
     senses: LabeledString[];
@@ -295,6 +299,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export interface ActorSystemData {
     traits: BaseTraitsData;
+    tokenEffects: TemporaryEffect[] | null;
 }
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -363,14 +368,10 @@ export interface CategoryProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
-type BaseWeaponProficiencyKeys = `weapon-base-${BaseWeaponKey}`;
-type BaseWeaponProficiencies = {
-    [K in BaseWeaponProficiencyKeys]?: ProficiencyData;
-};
-type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
-type WeaponGroupProfiencies = {
-    [K in WeaponGroupProficiencyKey]?: ProficiencyData;
-};
+export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponKey}`;
+type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
+export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
+type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
 export type CombatProficiencyKey = keyof CombatProficiencies;
@@ -627,6 +628,8 @@ export interface RawNPCData extends CreatureSystemData {
         alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
+        /** The deity this creature worships */
+        deity: { value: string; image: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
@@ -669,7 +672,7 @@ interface HazardAttributes {
 }
 
 /** The raw information contained within the actor data object for hazards. */
-export interface RawHazardData {
+export interface RawHazardData extends ActorSystemData {
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;

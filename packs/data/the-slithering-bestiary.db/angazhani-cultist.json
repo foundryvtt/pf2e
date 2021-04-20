@@ -160,20 +160,23 @@
         "items": {
             "0": {
                 "data": {
+                    "ability": {
+                        "value": "wis"
+                    },
                     "slots": {
                         "slot0": {
-                            "max": "4"
+                            "max": 4
                         },
                         "slot1": {
-                            "max": "4"
+                            "max": 4
                         },
                         "slot2": {
-                            "max": "3"
+                            "max": 3
                         }
                     },
                     "spelldc": {
                         "dc": 21,
-                        "value": 11
+                        "value": 13
                     }
                 }
             }
@@ -425,6 +428,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -467,7 +473,7 @@
             "_id": "uSJqYXtYlTJIH07L",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "description": {
                     "chat": "",
@@ -492,7 +498,7 @@
                 },
                 "rules": [],
                 "showUnpreparedSpells": {
-                    "value": true
+                    "value": false
                 },
                 "signatureSpells": {
                     "value": []
@@ -502,29 +508,16 @@
                         "max": 4,
                         "prepared": {
                             "0": {
-                                "id": "Rj7E4BYH9O4e9S9G",
-                                "name": "Empty Slot (drag spell here)",
-                                "prepared": false
+                                "id": "BI73SfYcglqAvsfy"
                             },
                             "1": {
-                                "id": "TAPlaIk6ztMEpQMk",
-                                "name": "Empty Slot (drag spell here)",
-                                "prepared": false
+                                "id": "NsGQDkoTOJrCrz15"
                             },
                             "2": {
-                                "id": "P7DJ9olKVLLwBrBt",
-                                "name": "Empty Slot (drag spell here)",
-                                "prepared": false
+                                "id": "QKjh4DKeDn89cX78"
                             },
                             "3": {
-                                "id": "rzLHazKcRko4BjGt",
-                                "name": "Empty Slot (drag spell here)",
-                                "prepared": false
-                            },
-                            "4": {
-                                "id": null,
-                                "name": "Empty Slot (drag spell here)",
-                                "prepared": false
+                                "id": "RRfljalqABDtoIsW"
                             }
                         },
                         "value": 0
@@ -533,16 +526,16 @@
                         "max": 4,
                         "prepared": {
                             "0": {
-                                "id": "2W8OImEqDFMOK4MY"
+                                "id": "KIKgFDFBTn9e02W2"
                             },
                             "1": {
-                                "id": "xeMZMBtfVVPd7GPK"
+                                "id": "oAJrpEwnaWrtSiKk"
                             },
                             "2": {
-                                "id": "NEw3CQDbg3VZhTqC"
+                                "id": "fEpUTyTjwfnFomti"
                             },
                             "3": {
-                                "id": "sVD4k05xaLAWgJHM"
+                                "id": "vxFSKhrJuxBmuwwd"
                             }
                         },
                         "value": 0
@@ -561,13 +554,13 @@
                         "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "mWvI8idh8f4PjsNW"
+                                "id": "43lPigrdSUWgnsQO"
                             },
                             "1": {
-                                "id": "0HolBLu5zd6ZWpei"
+                                "id": "LMze85FZoHy34oCV"
                             },
                             "2": {
-                                "id": "A7hgDNHI7fshYXHo"
+                                "id": "JuwLfE7Z6HYvGbDL"
                             }
                         },
                         "value": 0
@@ -616,7 +609,7 @@
                     "dc": "21",
                     "item": 0,
                     "mod": 0,
-                    "value": 11
+                    "value": 13
                 },
                 "tradition": {
                     "value": "divine"
@@ -640,7 +633,7 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "mWvI8idh8f4PjsNW",
+            "_id": "43lPigrdSUWgnsQO",
             "data": {
                 "ability": {
                     "value": ""
@@ -668,13 +661,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you succeed against a spell effect, you counteract it. If you succeed against a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
+                    "value": "<p>You unravel the magic behind a spell or effect. Attempt a counteract check against the target. If you successfully counteract a magic item, the item becomes a mundane item of its type for 10 minutes. This doesn't change the item's non-magical properties. If the target is an artifact or similar item, you automatically fail.</p>"
                 },
                 "duration": {
                     "value": ""
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 2
@@ -712,9 +705,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "dispel-magic",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=78"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -750,20 +743,21 @@
                     "value": [
                         "abjuration"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9HpwDN4MYQJnW0LG"
+                }
+            },
             "img": "systems/pf2e/icons/spells/dispel-magic.jpg",
             "name": "Dispel Magic",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "A7hgDNHI7fshYXHo",
+            "_id": "JuwLfE7Z6HYvGbDL",
             "data": {
                 "ability": {
                     "value": ""
@@ -791,7 +785,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A cacophonous noise blasts out, dealing 2d10 sonic damage. Each creature must attempt a Fortitude save.</p>\n<hr /><strong>Critical Success</strong> The creature is unaffected.\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute, and is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr /><strong>Heightened (+1)</strong> The damage increases by 1d10."
+                    "value": "<p>A cacophonous noise blasts out, dealing 2d10 sonic damage. Each creature must attempt a Fortitude save.</p>\n<hr />\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature takes half damage.</p>\n<p><strong>Failure</strong> The creature takes full damage and is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature takes double damage, is Deafened for 1 minute, and is @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d10.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -835,9 +829,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "sound-burst",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=292"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -872,20 +866,21 @@
                         "evocation",
                         "sonic"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wzLkNU3AAqOSKFPR"
+                }
+            },
             "img": "systems/pf2e/icons/spells/sound-burst.jpg",
             "name": "Sound Burst",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "2W8OImEqDFMOK4MY",
+            "_id": "KIKgFDFBTn9e02W2",
             "data": {
                 "ability": {
                     "value": ""
@@ -913,13 +908,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You fill the minds of your enemies with doubt. Targets that fail their Will saves take a -1 status penalty to attack rolls as long as they are in the area. Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw. Bane can counteract bless.</p>"
+                    "value": "<p>You fill the minds of your enemies with doubt.</p>\n<p>Enemies in the area must succeed at a Will save or take a -1 status penalty to attack rolls as long as they are in the area.</p>\n<p>Once per turn, starting the turn after you cast bane, you can use a single action, which has the concentrate trait, to increase the emanation's radius by 5 feet and force enemies in the area that weren't yet affected to attempt another saving throw.</p>\n<p>Bane can counteract bless.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Bane]{Spell Effect: Bane}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
                 },
                 "hasCounteractCheck": {
-                    "value": false
+                    "value": true
                 },
                 "level": {
                     "value": 1
@@ -957,9 +952,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "bane",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=18"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -994,20 +989,21 @@
                         "enchantment",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.7ZinJNzxq0XF0oMx"
+                }
+            },
             "img": "systems/pf2e/icons/spells/bane.jpg",
             "name": "Bane",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "xeMZMBtfVVPd7GPK",
+            "_id": "oAJrpEwnaWrtSiKk",
             "data": {
                 "ability": {
                     "value": ""
@@ -1079,9 +1075,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "command",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=45"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1119,20 +1115,21 @@
                         "linguistic",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.aIHY2DArKFweIrpf"
+                }
+            },
             "img": "systems/pf2e/icons/spells/command.jpg",
             "name": "Command",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "0HolBLu5zd6ZWpei",
+            "_id": "LMze85FZoHy34oCV",
             "data": {
                 "ability": {
                     "value": ""
@@ -1160,7 +1157,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, verbal, somatic) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel negative energy to harm the living or heal the undead. If the target is a living creature, you deal 1d8 negative damage to it, and it gets a basic Fortitude save. If the target is a willing undead creature, you restore that amount of Hit Points. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing an undead creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse negative energy in a 30-foot emanation. This targets all living and undead creatures in the area.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1169,7 +1166,6 @@
                     "value": false
                 },
                 "level": {
-                    "preparedValue": 2,
                     "value": 1
                 },
                 "location": {
@@ -1205,9 +1201,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "harm",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=146"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1241,20 +1237,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.wdA52JJnsuQWeyqz"
+                }
+            },
             "img": "systems/pf2e/icons/spells/harm.jpg",
             "name": "Harm",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "NEw3CQDbg3VZhTqC",
+            "_id": "fEpUTyTjwfnFomti",
             "data": {
                 "ability": {
                     "value": ""
@@ -1282,7 +1279,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (verbal, somatic) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
+                    "value": "<p>You channel positive energy to heal the living or damage the undead. If the target is a willing living creature, you restore 1d8 Hit Points. If the target is undead, you deal that amount of positive damage to it, and it gets a basic Fortitude save. The number of actions you spend when Casting this Spell determines its targets, range, area, and other parameters.</p>\n<hr />\n<p><strong>1 Action</strong> (somatic) The spell has a range of touch.</p>\n<p><strong>2 Actions</strong> (somatic, verbal) The spell has a range of 30 feet. If you're healing a living creature, increase the Hit Points restored by 8.</p>\n<p><strong>3 Actions</strong> (material, somatic, verbal) You disperse positive energy in a 30-foot emanation. This targets all living and undead creatures in the burst.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The amount of healing or damage increases by 1d8, and the extra healing for the 2-action version increases by 8.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1326,9 +1323,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "heal",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=148"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1365,20 +1362,21 @@
                         "necromancy",
                         "positive"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.rfZpqmj0AIIdkVIs"
+                }
+            },
             "img": "systems/pf2e/icons/spells/heal.jpg",
             "name": "Heal",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "sVD4k05xaLAWgJHM",
+            "_id": "vxFSKhrJuxBmuwwd",
             "data": {
                 "ability": {
                     "value": ""
@@ -1406,7 +1404,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 3.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1450,9 +1448,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1488,20 +1486,21 @@
                         "attack",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.J7Y7tl0bbdz7TcCc"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.jpg",
             "name": "Ray of Enfeeblement",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "Rj7E4BYH9O4e9S9G",
+            "_id": "BI73SfYcglqAvsfy",
             "data": {
                 "ability": {
                     "value": ""
@@ -1529,7 +1528,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
+                    "value": "<p>You cloud the target's mind and daze it with a mental jolt. The jolt deals mental damage equal to your spellcasting ability modifier; the target must attempt a basic Will save. If the target critically fails the save, it is also @Compendium[pf2e.conditionitems.Stunned]{Stunned 1}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": "1 round"
@@ -1573,9 +1572,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "daze",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=61"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1613,20 +1612,21 @@
                         "mental",
                         "nonlethal"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4gBIw4IDrSfFHik4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/daze.jpg",
             "name": "Daze",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "TAPlaIk6ztMEpQMk",
+            "_id": "NsGQDkoTOJrCrz15",
             "data": {
                 "ability": {
                     "value": ""
@@ -1654,7 +1654,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
+                    "value": "<p>You ward an ally against the attacks and hostile spells from the target enemy. The target ally gains a +1 status bonus to Armor Class and saving throws against the target enemy's attacks, spells, and other effects.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Forbidding Ward]{Spell Effect: Forbidding Ward}</p>\n<hr />\n<p><strong>Heightened (6th)</strong> The status bonus increases to +2.</p>"
                 },
                 "duration": {
                     "value": "sustained up to 1 minute"
@@ -1698,9 +1698,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "forbidding-ward",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=126"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1735,20 +1735,21 @@
                         "abjuration",
                         "cantrip"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.RA7VKcen3p56rVyZ"
+                }
+            },
             "img": "systems/pf2e/icons/spells/forbidding-ward.jpg",
             "name": "Forbidding Ward",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "P7DJ9olKVLLwBrBt",
+            "_id": "QKjh4DKeDn89cX78",
             "data": {
                 "ability": {
                     "value": ""
@@ -1820,7 +1821,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "light",
                 "source": {
                     "value": ""
                 },
@@ -1861,20 +1862,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.WBmvzNDfpwka3qT4"
+                }
+            },
             "img": "systems/pf2e/icons/spells/light.jpg",
             "name": "Light",
             "sort": 1100000,
             "type": "spell"
         },
         {
-            "_id": "rzLHazKcRko4BjGt",
+            "_id": "RRfljalqABDtoIsW",
             "data": {
                 "ability": {
                     "value": ""
@@ -1946,7 +1948,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "stabilize",
                 "source": {
                     "value": ""
                 },
@@ -1986,16 +1988,12 @@
                         "cantrip",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.SnjhtQYexDtNDdEg"
                 }
             },
             "img": "systems/pf2e/icons/spells/stabelize.jpg",
@@ -2183,7 +2181,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/spear.png",
+            "img": "systems/pf2e/icons/equipment/weapons/spear.jpg",
             "name": "Spear",
             "sort": 1300000,
             "type": "weapon"
@@ -2371,7 +2369,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": ""
+                    "value": null
                 },
                 "collapsed": {
                     "value": false
@@ -2382,10 +2380,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table style=\"height: 32px;\" border=\"1\">\n<tbody>\n<tr style=\"height: 15px;\">\n<td style=\"height: 15px; width: 115px;\">Hardness</td>\n<td style=\"height: 15px; width: 115px;\">HP</td>\n<td style=\"height: 15px; width: 116px;\">BT</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 115px;\">3</td>\n<td style=\"height: 17px; width: 115px;\">12</td>\n<td style=\"height: 17px; width: 116px;\">6</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody>\n<tr>\n<td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "dex": {
-                    "value": ""
+                    "value": null
                 },
                 "equipped": {
                     "value": true
@@ -2491,13 +2489,13 @@
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -2926,7 +2924,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The cultist rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait; <br />\n<strong>Effect</strong> The cultist takes [[/r 2d8 # mental damage]] mental damage, and the saving throw is a success.</p>"
+                    "value": "<p><strong>Trigger</strong> The cultist rolls a failure (but not a critical failure) on a Will save against an effect with the mental or fear trait;</p>\n<p><strong>Effect</strong> The cultist takes [[/r 2d8 #mental]] mental damage, and the saving throw is a success.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2955,13 +2953,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Bloody Fanaticism",
             "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "OsZtqJYdYaKxHshB",
+            "_id": "0cJCEvWDRTXxx59x",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2975,13 +2973,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p>The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "shield-block",
                 "source": {
                     "value": ""
                 },
@@ -2995,16 +2993,17 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.m4HQ2o5aPxjXf2kY"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.png",
             "name": "Shield Block",
             "sort": 2000000,
             "type": "action"
@@ -3024,7 +3023,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Angazhani cultists inflict an extra 1d6 damage with their spears, and any spear gains the fatal d10 trait while the cultist is using it (both the extra weapon damage die and the fatal trait have already been included in the cultist's spear Strikes above).</p>"
+                    "value": "<p>Angazhani cultists inflict an extra [[/r 1d6 #damage]] damage with their spears, and any spear gains the fatal d10 trait while the cultist is using it (both the extra weapon damage die and the fatal trait have already been included in the cultist's spear Strikes above).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3053,7 +3052,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "icons/svg/mystery-man.svg",
             "name": "Demonic Strength",
             "sort": 2100000,
             "type": "action"
@@ -3155,7 +3154,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "Against Demons",
+                        "predicate": {
+                            "all": [
+                                "target:demon"
+                            ]
+                        },
+                        "selector": "diplomacy",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -3169,12 +3180,18 @@
                 },
                 "usage": {
                     "value": "held-in-one-hand"
+                },
+                "variants": {
+                    "0": {
+                        "label": "+10 against demons",
+                        "options": "target:demon"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Diplomacy (+10 against demons)",
+            "name": "Diplomacy",
             "sort": 2400000,
             "type": "lore"
         },

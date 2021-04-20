@@ -35,10 +35,10 @@
         <label>{{localize "PF2E.BulkLabel"}}</label>
         <select name="data.weight.value" data-dtype="String" {{#if bulkDisabled}}disabled="disabled"{{/if}}>
             {{#select data.weight.value}}
-            <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
-            {{#each bulkTypes as |name type|}}
-            <option value="{{type}}">{{name}}</option>
-            {{/each}}
+                <option value="-">{{localize "PF2E.NegligibleOption"}}</option>
+                {{#each bulkTypes as |name type|}}
+                    <option value="{{type}}">{{localize name}}</option>
+                {{/each}}
             {{/select}}
         </select>
     </div>
@@ -69,19 +69,19 @@
     </div>
 
     <div class="form-group">
-      <label>{{localize "PF2E.Size"}}</label>
-      <select name="data.size.value" data-dtype="String">
-        {{#select data.size.value}}
-        {{#each sizes as |name value|}}
-        <option value="{{value}}">{{name}}</option>
-        {{/each}}
-        {{/select}}
-      </select>
+        <label>{{localize "PF2E.Size"}}</label>
+        <select name="data.size.value" data-dtype="String">
+            {{#select data.size.value}}
+                {{#each sizes as |name value|}}
+                    <option value="{{value}}">{{localize name}}</option>
+                {{/each}}
+            {{/select}}
+        </select>
     </div>
 
     <div class="form-group">
       <label>{{localize "PF2E.PriceLabel"}}</label>
-      <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
+      <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String" />
     </div>
 
     <div class="form-group consumable-details">
@@ -99,7 +99,7 @@
     {{/if}}
 
     <ol class="item-tags">
-        <li class="tag">{{lookup consumableTypes data.consumableType.value}}</li>
+        <li class="tag">{{localize (lookup consumableTypes data.consumableType.value)}}</li>
         {{#if data.equipped.value}}
             <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
         {{/if}}

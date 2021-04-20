@@ -201,6 +201,6 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         });
 
         // get buttons
-        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
+        html.find('.crb-trait-selector').on('click', (event) => this.onTraitSelector(event));
     }
 }

@@ -133,7 +133,7 @@ export class VariantRulesSettings extends FormApplication {
     /** @override */
     activateListeners(html: JQuery) {
         super.activateListeners(html);
-        html.find('button[name="reset"]').on('click', this._onResetDefaults.bind(this));
+        html.find('button[name="reset"]').on('click', (event) => this.onResetDefaults(event));
     }
 
     /* -------------------------------------------- */
@@ -142,7 +142,7 @@ export class VariantRulesSettings extends FormApplication {
      * Handle button click to reset default settings
      * @param event The initial button click event
      */
-    protected async _onResetDefaults(event: Event): Promise<this> {
+    private async onResetDefaults(event: JQuery.ClickEvent): Promise<this> {
         event.preventDefault();
         for await (const [k, v] of Object.entries(SETTINGS)) {
             await game.settings.set('pf2e', k, v?.default);

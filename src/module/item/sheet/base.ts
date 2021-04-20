@@ -1,13 +1,21 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { TraitSelector5e } from '@system/trait-selector';
-import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
 import { SpellPF2e } from '@item/spell';
+import Tagify from '@yaireo/tagify';
+import {
+    BasicSelectorOptions,
+    SelectableTagField,
+    SELECTABLE_TAG_FIELDS,
+    TraitSelectorBasic,
+    TAG_SELECTOR_TYPES,
+} from '@module/system/trait-selector';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -72,7 +80,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const traits = itemData.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
-        if (['spell', 'feat'].includes(type)) mergeObject(dt, CONFIG.PF2E.healingTypes);
+        if (type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
         data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
         const stackGroup = data.data?.stackGroup?.value;
@@ -107,7 +115,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 isRitual: item.data.data.traditions.value.includes('ritual'),
             });
 
-            this.prepareTraits(traits, mergeObject(CONFIG.PF2E.magicTraditions, CONFIG.PF2E.spellTraits));
+            this.prepareTraits(traits, { ...CONFIG.PF2E.magicTraditions, ...CONFIG.PF2E.spellTraits });
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
@@ -157,47 +165,10 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.weaponDamage = CONFIG.PF2E.damageTypes;
 
             this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
-        } else if (type === 'feat') {
-            // Feat types
-            data.featTypes = CONFIG.PF2E.featTypes;
-            data.featActionTypes = CONFIG.PF2E.featActionTypes;
-            data.actionsNumber = CONFIG.PF2E.actionsNumber;
-            data.categories = CONFIG.PF2E.actionCategories;
-            data.featTags = [data.data.level.value, data.data.traits.value].filter((t) => !!t);
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'condition') {
             // Condition types
 
             data.conditions = [];
-        } else if (type === 'action') {
-            // Action types
-            const actorWeapons: WeaponData[] = [];
-
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'weapon') actorWeapons.push(i);
-                }
-            }
-
-            const actionType = data.data.actionType.value || 'action';
-            let actionImg: string | number = 0;
-            if (actionType === 'action') actionImg = parseInt((data.data.actions || {}).value, 10) || 1;
-            else if (actionType === 'reaction') actionImg = 'reaction';
-            else if (actionType === 'free') actionImg = 'free';
-            else if (actionType === 'passive') actionImg = 'passive';
-
-            data.item.img = this.getActionImg(actionImg.toString());
-            data.categories = CONFIG.PF2E.actionCategories;
-            data.weapons = actorWeapons;
-            data.actionTypes = CONFIG.PF2E.actionTypes;
-            data.actionsNumber = CONFIG.PF2E.actionsNumber;
-            data.featTraits = CONFIG.PF2E.featTraits;
-            data.skills = CONFIG.PF2E.skillList;
-            data.proficiencies = CONFIG.PF2E.proficiencyLevels;
-            data.actionTags = [data.data.traits.value].filter((t) => !!t);
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.featTraits);
         } else if (type === 'equipment') {
             // Equipment data
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
@@ -376,32 +347,42 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     protected onTraitSelector(event: JQuery.TriggeredEvent) {
         event.preventDefault();
-        const a = $(event.currentTarget);
-        let choices: any;
+        const $anchor = $(event.currentTarget);
+        const selectorType = $anchor.attr('data-trait-selector') ?? '';
+        if (!(selectorType === 'basic' && tupleHasValue(TAG_SELECTOR_TYPES, selectorType))) {
+            throw ErrorPF2e('Item sheets can only use the basic tag selector');
+        }
+        const objectProperty = $anchor.attr('data-property') ?? '';
+        const configTypes = ($anchor.attr('data-config-types') ?? '')
+            .split(',')
+            .map((type) => type.trim())
+            .filter((tag): tag is SelectableTagField => tupleHasValue(SELECTABLE_TAG_FIELDS, tag));
+        const selectorOptions: BasicSelectorOptions = {
+            objectProperty,
+            configTypes,
+        };
+
+        const noCustom = $anchor.attr('data-no-custom') === 'true';
+        if (noCustom) {
+            selectorOptions.allowCustom = false;
+        }
+
         // we're special casing this because it is unique per npc
         // and there's a bunch of magic with .trait-selector so
         // making this a separate function would be more complicated
-        if (a.attr('data-options') === 'attackEffects') {
-            const actions: Record<string, string> = {};
+        const actions: Record<string, string> = {};
+        if (configTypes.includes('attackEffects')) {
             if (this.actor) {
                 for (const i of this.actor.data.items) {
                     if (i.type === 'action') actions[i.name] = i.name;
                 }
             }
-
-            choices = duplicate(CONFIG.PF2E.attackEffects);
-            mergeObject(choices, actions);
-        } else {
-            choices = CONFIG.PF2E[(a.attr('data-options') ?? '') as keyof ConfigPF2e['PF2E']] ?? {};
         }
-        const options: FormApplicationOptions = {
-            name: a.parents('label').attr('for'),
-            title: a.parent().text().trim(),
-            width: a.attr('data-width') || 'auto',
-            has_placeholders: a.attr('data-has-placeholders') === 'true',
-            choices: choices,
-        };
-        new TraitSelector5e(this.item, options).render(true);
+        if (!isObjectEmpty(actions)) {
+            selectorOptions.customChoices = actions;
+        }
+
+        new TraitSelectorBasic(this.item, selectorOptions).render(true);
     }
 
     /**
@@ -504,6 +485,13 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const index = event.currentTarget.dataset.skillVariantIndex;
             this.item.update({ [`data.variants.-=${index}`]: null });
         });
+
+        const $prerequisites = html.find<HTMLInputElement>('input[name="data.prerequisites.value"]');
+        if ($prerequisites[0]) {
+            new Tagify($prerequisites[0], {
+                editTags: 1,
+            });
+        }
 
         // Active Effect controls
         html.find('.tab.effects table th a[data-action="create"]').on('click', () => {
@@ -615,6 +603,23 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             buttons.splice(buttons.indexOf(sheetButton), 1);
         }
         return buttons;
+    }
+
+    /**
+     * Tagify sets an empty input field to "" instead of "[]", which later causes the JSON parse to throw an error
+     * @override
+     */
+    protected async _onSubmit(
+        event: Event,
+        { updateData = null, preventClose = false, preventRender = false }: OnSubmitFormOptions = {},
+    ): Promise<Record<string, unknown>> {
+        const $form = $<HTMLFormElement>(this.form);
+        $form.find<HTMLInputElement>('tags ~ input').each((_i, input) => {
+            if (input.value === '') {
+                input.value = '[]';
+            }
+        });
+        return super._onSubmit(event, { updateData, preventClose, preventRender });
     }
 
     /** @override */

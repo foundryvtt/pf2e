@@ -3,16 +3,16 @@ import { ItemDataPF2e } from '@item/data-definitions';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
-    inserted: any[];
+    inserted: ItemDataPF2e[];
     deleted: string[];
-    updated: any[];
+    updated: ItemDataPF2e[];
 }
 
 export class MigrationRunnerBase {
     latestVersion: number;
     migrations: MigrationBase[];
 
-    constructor(migrations: MigrationBase[]) {
+    constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
         this.latestVersion = Math.max(...migrations.map((x) => x.version));
     }
@@ -21,22 +21,22 @@ export class MigrationRunnerBase {
         return currentVersion < this.latestVersion;
     }
 
-    diffItems(orig: any[], updated: any[]): ItemsDiff {
-        const ret = {
+    diffItems(orig: ItemDataPF2e[], updated: ItemDataPF2e[]): ItemsDiff {
+        const ret: ItemsDiff = {
             inserted: [],
             deleted: [],
             updated: [],
         };
 
-        const origItems = new Map();
+        const origItems: Map<string, ItemDataPF2e> = new Map();
         for (const item of orig) {
             origItems.set(item._id, item);
         }
 
         for (const item of updated) {
-            if (origItems.has(item._id)) {
+            const origItem = origItems.get(item._id);
+            if (origItem) {
                 // check to see if anything changed
-                const origItem = origItems.get(item._id);
                 if (JSON.stringify(origItem) !== JSON.stringify(item)) {
                     ret.updated.push(item);
                 }
@@ -78,6 +78,61 @@ export class MigrationRunnerBase {
                 for (const item of current.items) {
                     await migration.updateItem(item, current);
                 }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedMessage(messageData: ChatMessageData, migrations: MigrationBase[]): Promise<ChatMessageData> {
+        const current = duplicate(messageData);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateMessage(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedMacro(macroData: MacroData, migrations: MigrationBase[]): Promise<MacroData> {
+        const current = duplicate(macroData);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateMacro(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedTable(table: RollTableData, migrations: MigrationBase[]): Promise<RollTableData> {
+        const current = duplicate(table);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateTable(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedToken(tokenData: TokenData, migrations: MigrationBase[]): Promise<TokenData> {
+        const current = duplicate(tokenData);
+        for (const migration of migrations) {
+            try {
+                await migration.updateToken(current);
             } catch (err) {
                 console.error(err);
             }

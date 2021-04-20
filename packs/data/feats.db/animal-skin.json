@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>Your proficiency in unarmored defense increases to expert.</p>\n<p>While you are raging and unarmored, your skin transforms into a thick hide resembling your animal's skin.</p>\n<p>You gain a +1 item bonus to AC instead of taking a -1 penalty to AC; if you have the greater juggernaut class feature, this item bonus increases to +2. The thickness of your hide gives you a Dexterity modifier cap to your AC of +3.</p>"
+            "value": "<p>Your proficiency in unarmored defense increases to expert.</p>\n<p>While you are raging and unarmored, your skin transforms into a thick hide. You gain a +2 item bonus to AC (+3 if you have the greater juggernaut class feature). The thickness of your hide gives you a Dexterity modifier cap to your AC of +3. This item bonus to AC is cumulative with armor potency runes on your explorer's clothing, mage armor, and bracers of armor.</p>"
         },
         "featType": {
             "value": "class"
@@ -22,9 +22,13 @@
             "value": 6
         },
         "location": "",
-        "prerequisites": [
-            "Animal Instinct"
-        ],
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Animal Instinct"
+                }
+            ]
+        },
         "rules": [
             {
                 "key": "PF2E.RuleElement.DexterityModifierCap",
@@ -78,7 +82,6 @@
             },
             "value": [
                 "barbarian",
-                "instinct",
                 "morph",
                 "primal",
                 "transmutation"

@@ -1,6 +1,8 @@
 /** Item sheet form types */
 
-import { AncestryData, BackgroundData, ClassData } from '@item/data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from '@item/data-definitions';
+import { ConfigPF2e } from '@scripts/config';
+import { ItemSheetDataPF2e } from './base';
 
 export interface SheetOption {
     label: string;
@@ -54,6 +56,7 @@ export interface BackgroundSheetData extends ABCSheetData<BackgroundData> {
 
 export interface ClassSheetData extends ABCSheetData<ClassData> {
     rarities: SheetOptions;
+    items: { key: string; item: ABCFeatureEntryData }[];
     skills: typeof CONFIG.PF2E.skills;
     proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
     selectedKeyAbility: Record<string, string>;
@@ -65,4 +68,15 @@ export interface ClassSheetData extends ABCSheetData<ClassData> {
     skillFeatLevels: SheetOptions;
     skillIncreaseLevels: SheetOptions;
     abilityBoostLevels: SheetOptions;
+}
+
+export interface FeatSheetData extends ItemSheetDataPF2e<FeatData> {
+    featTypes: ConfigPF2e['PF2E']['featTypes'];
+    featActionTypes: ConfigPF2e['PF2E']['featActionTypes'];
+    actionsNumber: ConfigPF2e['PF2E']['actionsNumber'];
+    damageTypes: ConfigPF2e['PF2E']['damageTypes'] & ConfigPF2e['PF2E']['healingTypes'];
+    categories: ConfigPF2e['PF2E']['actionCategories'];
+    prerequisites: string;
+    rarities: SheetOptions;
+    traits: SheetOptions;
 }

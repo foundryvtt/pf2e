@@ -45,6 +45,11 @@ import { Migration611UpdateToughnessMountainsStoutness } from './611-update-toug
 import { Migration612NormalizeRarities } from './612-normalize-rarities';
 import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
 import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
+import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
+import { Migration616MigrateFeatPrerequisites } from './616-migrate-feat-prerequisites';
+import { Migration617FixUserFlags } from './617-fix-user-flags';
+import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
+import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
 
 export class Migrations {
     private static list = [
@@ -94,6 +99,11 @@ export class Migrations {
         Migration612NormalizeRarities,
         Migration613RemoveAmmoCharges,
         Migration614NumifyMeleeBonuses,
+        Migration615RemoveInstinctTrait,
+        Migration616MigrateFeatPrerequisites,
+        Migration617FixUserFlags,
+        Migration618MigrateItemImagePaths,
+        Migration619TraditionLowercaseAndRemoveWandScroll,
     ];
 
     static get latestVersion(): number {

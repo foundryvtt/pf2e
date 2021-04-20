@@ -1,0 +1,78 @@
+{
+    "_id": "ytqvHyF0oMKbo65P",
+    "data": {
+        "description": {
+            "value": "<p>You gain a +2 item bonus to saving throws against fear effects and a +2 item bonus to your melee Strike damage (this increases to a +4 item bonus to damage if the melee Strike is a jaws attack).</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 9
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Crimson Fulcrum Lens (vs fear)",
+                "predicate": {
+                    "all": [
+                        "fear"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Crimson Fulcrum Lens",
+                "predicate": {
+                    "all": [
+                        "melee"
+                    ]
+                },
+                "selector": "damage",
+                "type": "item",
+                "value": 2
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Crimson Fulcrum Lens - Jaws",
+                "predicate": {
+                    "all": [
+                        "melee"
+                    ]
+                },
+                "selector": "jaws-damage",
+                "type": "item",
+                "value": 4
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/default-icons/effect.svg",
+    "name": "Effect: Crimson Fulcrum Lens",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

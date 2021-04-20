@@ -3087,7 +3087,7 @@ button > i.far {
       background-repeat: no-repeat;
       background-size: 100%;
       background-position: center center;
-      opacity: 0.25;
+      opacity: 0.15;
       content: none;
       z-index: 1;
       position: absolute;
@@ -3341,14 +3341,28 @@ li.item.hover-container {
   }
 
   .stat-list, .stat-value {
-    *:not(:last-of-type) {
-      padding-right: 0.25em;
-    }
+      *:not(:last-of-type) {
+          padding-right: 0.25em;
+      }
 
-    &:not(:last-of-type):after {
-      content: ",";
-      padding-right: 0.25em;
-    }
+      &:not(:last-of-type):after {
+          content: ",";
+          padding-right: 0.25em;
+      }
+
+      ul.skill-list {
+          display: inline;
+          list-style-type: none;
+          padding: 0;
+
+          li {
+              display: inline;
+              padding: 0;
+              &:not(:last-of-type):after {
+                  content: ",";
+              }
+          }
+      }
   }
 
   .stat-list.major-stat:not(:last-of-type):after {

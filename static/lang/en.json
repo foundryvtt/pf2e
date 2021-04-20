@@ -119,6 +119,14 @@
             },
             "Shove": "Shove",
             "Squeeze": "Squeeze",
+                "SteelYourResolve": {
+                "Title": "Steel Your Resolve",
+                "Content": "Spend a resolve point and regain stamina?",
+                "BadArgs": "This action must be performed with exactly one character or NPC.",
+                "StaminaNotEnabled": "The Stamina variant is not enabled.",
+                "NoStamina":"{name} is tired and needs to go to bed! No resolve points remaining.",
+                "RecoverStamina":"{name} has {ratio} SP and spends a resolve point, recovering half their maximum Stamina."
+            },
             "Swim": "Swim",
             "Trip": "Trip",
             "TumbleThrough": "Tumble Through"
@@ -183,6 +191,10 @@
         "AdamantineStrikes": "Adamantine Strikes",
         "AddCoinsCombineStacksLabel": "Combine Stacks",
         "AddCoinsTitle": "Add Coins",
+        "AddCombatProficiency": {
+            "Title": "Add Combat Proficiency",
+            "Message": "Select a weapon group or base weapon"
+        },
         "AddModifierTitle": "Add Modifier",
         "RemoveModifierTitle": "Remove Modifier",
         "AddShortLabel": "Add",
@@ -213,6 +225,7 @@
         },
         "AncestryFeatLevels": "Ancestry Feat Levels",
         "AreaSize10": "10 Foot",
+        "AreaSize100": "100 Foot",
         "AreaSize120": "120 Foot",
         "AreaSize15": "15 Foot",
         "AreaSize20": "20 Foot",
@@ -317,6 +330,7 @@
             "Summary": "Background Summary"
         },
         "BaseModifier": "Base Modifier",
+        "BaseWeapons": "Base Weapons",
         "BestiaryBrowserSearchHint": "You can search for name or custom attributes. Possible searchable attributes are:<br> source, spellType, level, school, components, materials, target, range, time, duration, damage, damageType, save, concentration, ritual, ability and classes. <br>Example: 'fire, damage:d6' to show all spells that have fire in their name and a d6 in the damage",
         "Biography": "Biography",
         "BiographyPrivateHeading": "Private Notes",
@@ -401,6 +415,7 @@
                 "bestiaries/campaign": "Campaign",
                 "bestiaries/rulebook": "Rulebook",
                 "bestiaries/pfs": "Pathfinder Society",
+                "bestiaries/other":  "Other",
                 "character-building": "Character Building",
                 "character-building/feats": "Feats",
                 "effects": "Effects",
@@ -533,6 +548,7 @@
         "CurrentStaminaPointsShortLabel": "Current SP",
         "CurrentStaminaTitle": "The amount of stamina points you have",
         "DCLabel": "DC",
+        "DCWithValue": "DC {dc}",
         "DamageDieD10": "d10",
         "DamageDieD12": "d12",
         "DamageDieD4": "d4",
@@ -577,6 +593,8 @@
         "DefencesLabel": "Defences",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
+        "DeleteConditionQuestion": "Are you sure you want to delete {condition}?",
+        "DeleteConditionTitle": "Delete Condition",
         "DeleteItemQuestion": "Are you sure you want to delete:",
         "DeleteItemTitle": "Delete Item",
         "DeleteShortLabel": "Del",
@@ -683,6 +701,7 @@
         "FlatBonusSPperLevel": "Bonus SP / Lvl",
         "Focus": {
             "label": "Focus Points",
+            "NotEnoughFocusPointsError": "You do not have enough focus points to cast this spell.",
             "pointLabel": "Points",
             "pointTitle": "Your remaining Focus Points",
             "poolLabel": "Pool",
@@ -958,7 +977,7 @@
             "Kit": "New Kit",
             "Lore": "New Lore",
             "Martial": "New Martial",
-            "Melee": "New Melee",
+            "Melee": "New Attack",
             "Spell": "New Spell",
             "SpellcastingEntry": "New Spellcasting Entry",
             "Skill": "New Skill",
@@ -1079,6 +1098,10 @@
         },
         "RemoveCoinsByValueLabel": "Remove value, not specific type",
         "RemoveCoinsTitle": "Remove Coins",
+        "RemoveCombatProficiency": {
+            "Title": "Remove Combat Proficiency",
+            "Message": "Remove {proficiency} proficiency?"
+        },
         "RemoveSpellcastingEntryTitle": "Remove Spellcasting Entry",
         "RerollMenu": {
             "ErrorNoActor": "No actor is associated to the roll",
@@ -1139,6 +1162,12 @@
         },
         "SETTINGS": {
             "Settings": "Settings",
+            "Automation": {
+                "LootableNPCs": {
+                    "Name": "NPCs are lootable",
+                    "Hint": "Upon their demise, NPCs become lootable by players."
+                }
+            },
             "critFumbleCards": {
                 "hint": "Automatically draw a critical hit or fumble card on appropriate rolls.",
                 "name": "Critical Hit and Fumble Cards"
@@ -1164,7 +1193,13 @@
             },
             "Player": {
                 "QuickRolls": {
-                    "DialogHint": "Show this window only if I shift-click to roll."
+                    "DialogHint": "Always show this window before attempting checks."
+                }
+            },
+            "User": {
+                "EffectPanel": {
+                    "Name": "Show Effect Panel",
+                    "Hint": "Show the Effect Panel when a token is selected."
                 }
             },
             "WorldSchemaVersion": {
@@ -1213,14 +1248,49 @@
                 "Name": "Compendium Browser Packs",
                 "Hint": "Settings to exclude packs from loading"
             },
-            "PFSSheetTab": {
-                "Name": "Pathfinder Society Sheet Tab",
-                "Hint": "Show the Pathfinder Society tab on character sheets."
-            },
             "EnabledRulesUI": {
                 "Name": "Advanced Rule Element UI",
                 "Hint": "When enabled, show the advanced rule element UI on items. Be very careful with this, as it can break the actors and items if you are not sure what you are doing or make a mistake."
             },
+            "Homebrew": {
+                "Name": "Homebrew Settings",
+                "Label": "Manage Homebrew Settings",
+                "Hint": "Manage custom traits, languages, and other elements of a homebrew world.",
+                "Instructions": "These settings allow GMs to add traits, languages, and other elements to a homebrew world. To add such elements, simply type the desired terms in the appropriate fields, separated by commas or tab keystrokes. They will then appear in the appropriate places on actor and item sheets. To update a term, click it to make the desired changes.",
+                "ConfirmDelete": {
+                    "Title": "Delete Homebrew Element?",
+                    "Message": "Delete Homebrew element <strong>{element}</strong>?"
+                },
+                "CreatureTraits": {
+                    "Name": "Creature Traits",
+                    "Hint": "Traits that can be applied to any creature as well as most item types (e.g., Dragon, Gnome)"
+                },
+                "Languages": {
+                    "Name": "Languages",
+                    "Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)"
+                },
+                "SpellSchools": {
+                    "Name": "Magical Schools",
+                    "Hint": "The magical schools to which all spells and most magic items belong (e.g., Conjuration, Evocation)"
+                },
+                "WeaponCategories": {
+                    "Name": "Weapon Categories",
+                    "Hint": "The top level of Pathfinder 2e weapon taxonomy (e.g., Simple, Martial)"
+                },
+                "WeaponGroups": {
+                    "Name": "Weapon Groups",
+                    "Hint": "The mid level of Pathfinder 2e weapon taxonomy (e.g, Crossbow, Sword)"
+                },
+                "BaseWeapons": {
+                    "Name": "Base Weapons",
+                    "Hint": "The bottom level of Pathfinder 2e weapon taxonomy (e.g, Heavy Crossbow, Longsword)"
+                }
+            },
+            "PFSSheetTab": {
+                "Name": "Pathfinder Society Sheet Tab",
+                "Hint": "Show the Pathfinder Society tab on character sheets."
+            },
+            "ResetChanges": "Reset Changes",
             "WorldClock": {
                 "Name": "World Clock Settings",
                 "Label": "Configure World Clock",
@@ -1360,18 +1430,19 @@
         "SensesGreaterDarkvision": "Greater Darkvision",
         "SensesLowLightVision": "Low-Light Vision",
         "SensesLifesense": "Lifesense",
+        "SensesMotionsense": "Motionsense",
         "SensesScent": "Scent",
         "SensesTitle": "Your character's senses",
         "SensesTremorsense": "Tremorsense",
         "SensesWavesense": "Wavesense",
         "SettingsColorBlue": "Bluegray",
-        "SettingsColorLabel": "Color Scheme",
-        "SettingsColorNotes": "You can set the color scheme of system here, mostly used in the sheets.",
+        "SettingsColorLabel": "UI Theme",
+        "SettingsColorNotes": "UI themes are most visible on the sidebar and chat cards.",
         "SettingsColorOriginal": "Original",
         "SettingsColorRed": "Darkred",
         "SettingsColorFoundry-UI": "Work in Progress",
-        "SettingsQuickRollsLabel": "Quick Rolls",
-        "SettingsQuickRollsNotes": "If enabled, when you roll dice from a sheet, you only get a pop-up to modify the roll ad-hoc when you hold the SHIFT button.",
+        "SettingsQuickRollsLabel": "Show Roll Dialogs",
+        "SettingsQuickRollsNotes": "If disabled, dialogs to modify D20 rolls ad hoc will appear only a roll button is shift-clicked.",
         "SettingsDataUriHighlightLabel": "Highlight images that use data: URI",
         "SettingsDataUriHighlightNotes": "Images that use a data: URI are embedded in the character sheet. This has a negative performance impact on the character. If enabled, such images will be highlighted with a red border to make it easy to find and remove them.<br>This setting is only active for the current session.",
         "SheetLabel": "{type} Sheet",
@@ -1469,6 +1540,7 @@
         "SpellComponentShortS": "S",
         "SpellComponentShortV": "V",
         "SpellComponentsLabel": "Components",
+        "SpellSlotEmpty": "Empty Slot (drag spell here)",
         "SpellPrimaryCheckLabel": "Primary Check",
         "SpellSecondaryChecksLabel": "Secondary Checks",
         "SpellSecondaryCasters": "Secondary Casters",
@@ -1553,7 +1625,7 @@
         "StackGroupRations": "Rations",
         "StackGroupSacks": "Sacks",
         "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupTaws": "Taws",
+        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
@@ -1700,6 +1772,10 @@
         "TraitDeadlyD6": "Deadly d6",
         "TraitDeadlyD8": "Deadly d8",
         "TraitDeadly2D8": "Deadly 2d8",
+        "TraitDeadly2D10": "Deadly 2d10",
+        "TraitDeadly2D12": "Deadly 2d12",
+        "TraitDeadly3D10": "Deadly 3d10",
+        "TraitDeadly3D12": "Deadly 3d12",
         "TraitDeath": "Death",
         "TraitDedication": "Dedication",
         "TraitDemon": "Demon",
@@ -1750,6 +1826,11 @@
         "TraitDescriptionDeadlyD12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadlyD6": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeadlyD8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly2D8": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly2D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly2D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly3D10": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
+        "TraitDescriptionDeadly3D12": "On a critical hit, the weapon adds a weapon damage die of the listed size. Roll this after doubling the weapon's damage. This increases to two dice if the weapon has a greater striking rune and three dice if the weapon has a major striking rune. For instance, a rapier with a greater striking rune deals 2d8 extra piercing damage on a critical hit. An ability that changes the size of the weapon's normal damage dice doesn't change the size of its deadly die.",
         "TraitDescriptionDeath": "An effect with the death trait kills you immediately if it reduces you to 0 HP. Some death effects can bring you closer to death or slay you outright without reducing you to 0 HP.",
         "TraitDescriptionDedication": "You must select a feat with this trait to apply an archetype to your character.",
         "TraitDescriptionDetection": "Effects with this trait attempt to determine the presence or location of a person, object, or aura.",
@@ -1807,7 +1888,6 @@
         "TraitDescriptionIngested": "This poison is delivered when drunk or eaten.",
         "TraitDescriptionInhaled": "This poison is delivered when breathed in.",
         "TraitDescriptionInjury": "This poison is delivered by damaging the recipient.",
-        "TraitDescriptionInstinct": "Instinct abilities require a specific instinct; you lose access if you perform acts anathema to your instinct.",
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
         "TraitDescriptionJoustingD6": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKobold": "A creature with this trait is a member of the kobold ancestry.",
@@ -1845,7 +1925,7 @@
         "TraitDescriptionPossession": "Effects with this trait allow a creature to project its mind and spirit into a target. A creature immune to mental effects can't use a possession effect. While possessing a target, a possessor's true body is unconscious (and can't wake up normally), unless the possession effect allows the creature to physically enter the target. Whenever the target takes damage, the possessor takes half that amount of damage as mental damage. A possessor loses the benefits of any of its active spells or abilities that affect its physical body, though it gains the benefits of the target's active spells and abilities that affect their body. A possessor can use any of the target's abilities that are purely physical, and it can't use any of its own abilities except spells and purely mental abilities. The GM decides whether an ability is purely physical or purely mental. A possessor uses the target's attack modifier, AC, Fortitude save, Reflex save, Perception, and physical skills, and its own Will save, mental skills, spell attack roll, and spell DC; benefits of invested items apply where relevant (the possessor's invested items apply when using its own values, and the target's invested items apply when using the target's values). A possessor gains no benefit from casting spells that normally affect only the caster, since it isn't in its own body. The possessor must use its own actions to make the possessed creature act. If a possessor reaches 0 Hit Points through any combination of damage to its true body and mental damage from the possession, it is knocked out as normal and the possession immediately ends. If the target reaches 0 Hit Points first, the possessor can either fall unconscious with the body and continue the possession or end the effect as a free action and return to its body. If the target dies, the possession ends immediately and the possessor is stunned for 1 minute.",
         "TraitDescriptionPrecious": "Valuable materials with special properties have the precious trait. They can be substituted for base materials when you Craft items.",
         "TraitDescriptionPrediction": "Effects with this trait determine what is likely to happen in the near future. Most predictions are divinations.",
-        "TraitDescriptionPress": "Actions with this trait allow you to follow up earlier attacks. An action with the press trait can be used only if you are currently affected by a multiple attack penalty. Some actions with the press trait also grant an effect on a failure. The effects that are added on a failure don't apply on a critical failure. If your press action succeeds, you can choose to apply the failure effect instead. (For example, you may wish to do this when an attack deals no damage due to resistance.) Because a press action requires a multiple attack penalty, you can't use one when it's not your turn, even if you use the Ready activity.",
+        "TraitDescriptionPress": "Actions with this trait allow you to follow up earlier attacks. An action with the press trait can be used only if you are currently affected by a multiple attack penalty. You can’t use a press action when it’s not your turn, even if you use the Ready activity. Some actions with the press trait also grant an effect on a failure. The effects that are added on a failure don’t apply on a critical failure. If your press action succeeds, you can choose to apply the failure effect instead. (For example, you may wish to do this when an attack deals no damage due to resistance.)",
         "TraitDescriptionPrimal": "This magic comes from the primal tradition, connecting to the natural world and instinct. Anything with this trait is magical.",
         "TraitDescriptionPropulsive": "You add half your Strength modifier (if positive) to damage rolls with a propulsive ranged weapon. If you have a negative Strength modifier, you add your full Strength modifier instead.",
         "TraitDescriptionRage": "You must be raging to use abilities with the rage trait, and they end automatically when you stop raging.",
@@ -1861,6 +1941,7 @@
         "TraitDescriptionReach25": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReach30": "Natural attacks with this trait can be used to attack creatures up to the listed distance away instead of only adjacent creatures.",
         "TraitDescriptionReload": "While all weapons need some amount of time to get into position, many ranged weapons also need to be loaded and reloaded. This entry indicates how many Interact actions it takes to reload such weapons. This can be 0 if drawing ammunition and firing the weapon are part of the same action. If an item takes 2 or more actions to reload, the GM determines whether they must be performed together as an activity, or you can spend some of those actions during one turn and the rest during your next turn.",
+        "TraitDescriptionRepeating": "A repeating weapon is typically a type of crossbow that has a shorter reload time. These weapons can’t be loaded with individual bolts like other crossbows; instead, they require a magazine of specialized ammunition to be loaded into a special slot. Once that magazine is in place, the ammunition is automatically loaded each time the weapon is cocked to fire, reducing its reload to the value in its reload entry (typically 0). When the ammunition runs out, a new magazine must be loaded, which requires a free hand and 3 Interact actions (to remove the old magazine, retrieve the new magazine, and slot the new magazine in place). These actions don’t need to be consecutive.",
         "TraitDescriptionRevelation": "Effects with this trait see things as they truly are.",
         "TraitDescriptionRogue": "This indicates abilities from the rogue class.",
         "TraitDescriptionScrying": "A scrying effect lets you see, hear, or otherwise get sensory information from a distance using a sensor or apparatus, rather than your own eyes and ears.",
@@ -1998,7 +2079,6 @@
         "TraitIngested": "Ingested",
         "TraitInhaled": "Inhaled",
         "TraitInjury": "Injury",
-        "TraitInstinct": "Instinct",
         "TraitIntelligent": "Intelligent",
         "TraitInteract": "Interact",
         "TraitInvested": "Invested",
@@ -2123,6 +2203,7 @@
         "TraitReload0": "Reload 0",
         "TraitReload1": "Reload 1",
         "TraitReload2": "Reload 2",
+        "TraitRepeating": "Repeating",
         "TraitResonant": "Resonant",
         "TraitRevelation": "Revelation",
         "TraitRitual": "Ritual",
@@ -2140,6 +2221,7 @@
         "TraitShadow": "Shadow",
         "TraitShoony": "Shoony",
         "TraitShove": "Shove",
+        "TraitSiktempora": "Siktempora",
         "TraitSimple": "Simple",
         "TraitSkeleton": "Skeleton",
         "TraitSkelm": "Skelm",
@@ -2503,6 +2585,7 @@
         "WeaponDescriptionSling": "Critical Specialization Effect: The target must succeed at a Fortitude save against your class DC or be stunned 1.",
         "WeaponDescriptionSpear": "Critical Specialization Effect: The weapon pierces the target, weakening its attacks. The target is clumsy 1 until the start of your next turn.",
         "WeaponDescriptionSword": "Critical Specialization Effect: The target is made off‑balance by your attack, becoming flat‑footed until the start of your next turn.",
+        "WeaponGroups": "Weapon Groups",
         "WeaponGroupAxe": "Axe",
         "WeaponGroupBomb": "Bomb",
         "WeaponGroupBow": "Bow",
@@ -2941,11 +3024,15 @@
             "TakeSubtitle": "Take item",
             "DepositSubtitle": "Deposit item",
             "TransferSubtitle": "Transfer item",
+            "LootSubtitle": "Loot item",
+            "PlantSubtitle": "Plant Item",
             "SellSubtitle": "Sell item",
             "GiveSubtitle": "Give item",
             "TakeMessage": "{taker} takes {quantity} × {item} from {container}.",
             "DepositMessage": "{depositor} deposits {quantity} × {item} in {container}.",
             "TransferMessage": "{transferrer} moves {quantity} × {item} from {fromContainer} to {toContainer}.",
+            "LootMessage": "{looter} loots {quantity} × {item} off {corpse}.",
+            "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
             "InsufficientFundsMessage": "{buyer} reaches for their coins but comes up short!",
@@ -2985,6 +3072,7 @@
             "EditTraits": "Edit Traits",
             "AddTrait": "Add Trait",
             "AddSkill": "Add Skill",
+            "Dead": "Dead",
             "EditLanguages": "Edit Languages",
             "EditSenses": "Edit Senses",
             "EditSkills": "Edit Skills",

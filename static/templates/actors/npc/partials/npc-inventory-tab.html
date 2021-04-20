@@ -2,8 +2,8 @@
     <div id="items" class="inventory-section">
         <div class="header">
             <div></div>
-            <div class="item-name">{{ localize 'PF2E.NPC.Inventory.Header.NameLabel'}}</div>
-            <div class="item-quantity">{{ localize 'PF2E.NPC.Inventory.Header.QuantityLabel'}}</div>
+            <div class="item-name">{{localize "PF2E.NPC.Inventory.Header.NameLabel"}}</div>
+            <div class="item-quantity">{{localize "PF2E.NPC.Inventory.Header.QuantityLabel"}}</div>
             <div>
             </div>
         </div>
@@ -11,15 +11,15 @@
             <ul class="items-list">
                 {{#each inventory as |category categoryId|}}
                 <div class="category-header">
-                    <h4>{{ category.label }}</h4>
+                    <h4>{{category.label}}</h4>
                     <div class="category-controls controls">
-                        {{# if ../options.editable }}
-                        <a class="item-add add-{{category.type}} add" data-type="item" data-item-type="{{ category.type }}"><i class="fas fa-plus"></i></a>
+                        {{#if @root.options.editable}}
+                            <a class="item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
                         {{/if}}
                     </div>
                 </div>
                     {{#each category.items as |item itemId|}}
-                        {{> 'systems/pf2e/templates/actors/npc/partials/npc-item.html' item=item isEditable=../../options.editable }}
+                        {{> "systems/pf2e/templates/actors/npc/partials/npc-item.html" item=item isEditable=@root.options.editable}}
                     {{/each}}
                 {{/each}}
             </ul>

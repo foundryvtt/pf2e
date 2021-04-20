@@ -8,7 +8,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'hazard']),
+            classes: options.classes.concat('hazard'),
             width: 650,
             height: 680,
         });
@@ -150,6 +150,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     /** @override */
     activateListeners(html: JQuery) {
         super.activateListeners(html);
+
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
 
         // NPC Weapon Rolling
         html.find('button').on('click', (event) => {

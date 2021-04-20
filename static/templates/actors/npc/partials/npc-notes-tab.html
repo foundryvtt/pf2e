@@ -1,36 +1,41 @@
 <div class="tab notes" data-group="primary" data-tab="notes">
-    <div class="flexcol" style="height: 100%;">
-        <div class="flexrow" style="flex: 0;">
-            <div id="recall-knowledge" class="section-container" style="flex: 2;">
+    <div class="flexcol">
+        <div class="flexrow">
+            <div class="recall-knowledge section-container">
                 <div class="section-header">
-                    <h4>{{ localize 'PF2E.RecallKnowledge.Label' }}</h4>
+                    <h4>{{localize "PF2E.RecallKnowledge.Label"}}</h4>
                 </div>
                 <div class="section-body">
-                    {{#if identificationSkillList }}
-                    <div id="identification-skill" class="tag" title="{{identifySkillProgression}}">
-                        {{identificationSkillList}} {{identifySkillDC}} ({{identifySkillAdjustment}})
-                    </div>
+                    {{#if identificationSkills }}
+                        <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                            <ul>
+                                {{#each identificationSkills as |skill|}}
+                                    <li>{{localize skill}}</li>
+                                {{/each}}
+                            </ul>
+                            {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+                        </div>
                     {{/if}}
                     <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
-                        {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{unspecificLoreAdjustment}})
+                        {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize unspecificLoreAdjustment}})
                     </div>
                     <div id="specific-lore" class="tag" title="{{specificLoreProgression}}">
-                        {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{specificLoreAdjustment}})
+                        {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
                     </div>
                 </div>
             </div>
             <div id="languages" class="section-container" style="flex: 1;">
                 <div class="section-header" data-attribute="languages" for="data.traits.languages">
-                    <h4>{{ localize 'PF2E.Languages' }}</h4>
+                    <h4>{{localize "PF2E.Languages"}}</h4>
                     {{# if options.editable }}
                     <div class="languages-controls controls">
-                        <a class="trait-edit edit" data-attribute="data.traits.languages" data-options="languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
+                        <a class="trait-edit edit" data-trait-selector="basic" data-config-types="languages" data-property="data.traits.languages" title="{{ localize 'PF2E.NPC.EditLanguages' }}"><i class="fas fa-edit"></i></a>
                     </div>
                     {{/if}}
                 </div>
                 <div class="section-body">
                     {{#each languages as |language|}}
-                        <div class="tag language">{{language}}</div>
+                        <div class="tag language">{{localize language}}</div>
                     {{/each}}
                 </div>
             </div>

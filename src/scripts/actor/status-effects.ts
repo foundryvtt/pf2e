@@ -25,7 +25,6 @@ export class StatusEffects {
         CONFIG.PF2E.statusEffects.effectsIconFileType =
             StatusEffects.SETTINGOPTIONS.iconTypes[statusEffectType].effectsIconFileType;
         CONFIG.PF2E.statusEffects.foundryStatusEffects = CONFIG.statusEffects;
-        CONFIG.PF2E.statusEffects.keepFoundryStatusEffects = game.settings.get('pf2e', 'statusEffectKeepFoundry');
         /** Update FoundryVTT's CONFIG.statusEffects */
         this._updateStatusIcons();
     }
@@ -58,65 +57,6 @@ export class StatusEffects {
      * Hook PF2e's status effects into FoundryVTT
      */
     static hookIntoFoundry() {
-        /** Register PF2e System setting into FoundryVTT */
-        const statusEffectTypeChoices = {};
-        const translations = LocalizePF2e.translations.PF2E.SETTINGS;
-        const statusEffectTypes = translations.statusEffectType;
-        type StatusEffectType = keyof typeof statusEffectTypes;
-        for (const type of Object.keys(StatusEffects.SETTINGOPTIONS.iconTypes)) {
-            statusEffectTypeChoices[type] = statusEffectTypes[type as StatusEffectType];
-        }
-
-        game.settings.register('pf2e', 'statusEffectType', {
-            name: statusEffectTypes.name,
-            hint: statusEffectTypes.hint,
-            scope: 'world',
-            config: true,
-            default: 'blackWhite',
-            type: String,
-            choices: statusEffectTypeChoices,
-            onChange: (iconType) => {
-                if (iconType) {
-                    StatusEffects.migrateStatusEffectUrls(iconType as StatusEffectIconType);
-                }
-            },
-        });
-
-        game.settings.register('pf2e', 'statusEffectKeepFoundry', {
-            name: translations.statusEffectKeepFoundry.name,
-            hint: translations.statusEffectKeepFoundry.hint,
-            scope: 'world',
-            config: true,
-            default: false,
-            type: Boolean,
-            onChange: () => {
-                window.location.reload();
-            },
-        });
-
-        if (game.user.isGM) {
-            game.settings.register('pf2e', 'statusEffectShowCombatMessage', {
-                name: translations.statusEffectShowCombatMessage.name,
-                hint: translations.statusEffectShowCombatMessage.hint,
-                scope: 'client',
-                config: true,
-                default: true,
-                type: Boolean,
-            });
-            game.settings.register('pf2e', 'showConditionChatBubbles', {
-                name: 'Show Condition Chat Bubbles',
-                hint:
-                    'When enabled, a token will speak out any changes to conditions applied from the token HUD' +
-                    ' condition panel.',
-                scope: 'world',
-                config: true,
-                default: false,
-                type: Boolean,
-                onChange: () => {
-                    window.location.reload();
-                },
-            });
-        }
         /** Create hooks onto FoundryVTT */
         Hooks.on('renderTokenHUD', (app, html, data) => {
             console.log('PF2e System | Rendering PF2e customized status effects');
@@ -142,7 +82,12 @@ export class StatusEffects {
             Hooks.on('updateCombat', (combat) => {
                 const combatant = combat?.combatant;
                 const tokenId = combatant?.tokenId;
-                if (tokenId !== lastTokenId && combat?.started && combatant?.hasRolled && !combatant?.defeated) {
+                if (
+                    tokenId !== lastTokenId &&
+                    combat?.started &&
+                    combatant?.initiative != null &&
+                    !combatant?.defeated
+                ) {
                     const token = canvas.tokens.get(tokenId);
                     lastTokenId = tokenId;
                     this._createChatMessage(token, combatant.hidden);
@@ -196,9 +141,7 @@ export class StatusEffects {
                 );
             });
 
-        CONFIG.statusEffects = CONFIG.PF2E.statusEffects.keepFoundryStatusEffects
-            ? effects.concat(CONFIG.PF2E.statusEffects.foundryStatusEffects)
-            : effects;
+        CONFIG.statusEffects = effects;
     }
 
     static async _hookOnRenderTokenHUD(app, html, tokenData) {
@@ -519,7 +462,6 @@ export class StatusEffects {
      */
     static _createChatMessage(token, whisper = false) {
         let statusEffectList = '';
-        let bubbleContent = '';
 
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
@@ -543,7 +485,6 @@ export class StatusEffects {
             }</div>
                     </span>
                 </li>`;
-            bubbleContent = `${bubbleContent + summary}<br>`;
         }
 
         if (statusEffectList === '') {
@@ -569,20 +510,13 @@ export class StatusEffects {
         };
         if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients('GM');
         ChatMessage.create(chatData);
-
-        if (!token.data.hidden && game.settings.get(game.system.id, 'showConditionChatBubbles')) {
-            bubbleContent = StatusEffects._changeYouToI(bubbleContent);
-            canvas.hud.bubbles.say(token, bubbleContent, {
-                emote: true,
-            });
-        }
     }
 
     /**
      * If the system setting statusEffectType is changed, we need to upgrade CONFIG
      * And migrate all statusEffect URLs of all Tokens
      */
-    private static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconType) {
+    static async migrateStatusEffectUrls(chosenSetting: StatusEffectIconType) {
         if (CONFIG.PF2E.statusEffects.overruledByModule) {
             console.log('PF2e System | The PF2eStatusEffect icons are overruled by a module');
             ui.notifications.error(

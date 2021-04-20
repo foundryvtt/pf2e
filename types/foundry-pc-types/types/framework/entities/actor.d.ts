@@ -46,7 +46,7 @@ declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType
      */
     static registerSheet<A extends Actor>(
         scope: string,
-        sheetClass: new (actor: A, options?: FormApplicationOptions) => A['sheet'],
+        sheetClass: new (actor: A, options?: BaseEntitySheetOptions) => A['sheet'],
         options?: RegisterSheetOptions,
     ): void;
 
@@ -65,6 +65,20 @@ declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType
 type Owned<I extends Item> = I & {
     actor: NonNullable<I['actor']>;
 };
+
+/** A structural subset of an ActiveEffect instance */
+interface TemporaryEffect {
+    isTemporary: boolean;
+    data: {
+        disabled: boolean;
+        icon: string;
+        tint: string;
+    };
+
+    getFlag(scope: 'core', key: 'overlay'): string | undefined;
+    getFlag(scope: 'core', key: 'statusId'): string | undefined;
+    getFlag(scope: string, key: string): unknown;
+}
 
 /**
  * The Actor Entity which represents the protagonists, characters, enemies, and more that inhabit and take actions
@@ -114,6 +128,8 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
      * Cache an Array of allowed Token images if using a wildcard path
      */
     protected _tokenImages: string[] | null;
+
+    get temporaryEffects(): TemporaryEffect[];
 
     /** @override */
     static get config(): ActorClassConfig<Actor>;
@@ -401,6 +417,8 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
 declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = ActiveEffect> {
     data: ActorData<ItemType['data']>;
     _data: ActorData<ItemType['data']>;
+
+    readonly sheet: ActorSheet<Actor, ItemType['data']>;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
