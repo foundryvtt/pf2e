@@ -91,13 +91,6 @@
       <input type="number" name="data.charges.max" value="{{data.charges.max}}" data-dtype="Number"/>
     </div>
 
-    {{#if user.isGM}}
-        <div class="form-group">
-            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
-            <input type="checkbox" name="identified" {{checked isIdentified}} />
-        </div>
-    {{/if}}
-
     <ol class="item-tags">
         <li class="tag">{{localize (lookup consumableTypes data.consumableType.value)}}</li>
         {{#if data.equipped.value}}

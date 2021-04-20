@@ -24,6 +24,9 @@
             {{#if detailsActive}}
                 <a class="item" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                 <a class="item active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                {{#if hasMystify}}
+                <a class="item" data-tab="mystify">{{localize "PF2E.ItemMystify"}}</a>
+                {{/if}}
                 {{#if enabledRulesUI}}
                   <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
@@ -38,6 +41,9 @@
                 <a class="item active" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                 {{#if hasDetails}}
                 <a class="item" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                {{/if}}
+                {{#if hasMystify}}
+                <a class="item" data-tab="mystify">{{localize "PF2E.ItemMystify"}}</a>
                 {{/if}}
                 {{#if enabledRulesUI}}
                 <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
@@ -60,6 +66,13 @@
             {{#if hasDetails}}
             <div class="tab item-details" data-tab="details">
                 {{> (detailsTemplate)}}
+            </div>
+            {{/if}}
+
+            <!-- Mystify Details -->
+            {{#if hasMystify}}
+            <div class="tab item-mystify" data-tab="mystify">
+              {{> systems/pf2e/templates/items/mystify-panel.html item=item }}
             </div>
             {{/if}}
 
