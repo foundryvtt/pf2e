@@ -1141,10 +1141,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = duplicate(item._data);
 
         const actor = this.actor;
-        const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token.id);
+        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
         if (data.actorId && isPhysicalItem(itemData)) {
@@ -1152,7 +1152,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 event,
                 data.actorId,
                 data.tokenId ?? '',
-                actor._id,
+                actor.id,
                 actor.token?.id ?? '',
                 data.id,
             );

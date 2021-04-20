@@ -59,7 +59,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** The sluggified name of the item **/
-    get slug(): string {
+    get slug(): string | null {
         return this.data.data.slug;
     }
 
@@ -71,6 +71,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     get traits(): Set<string> {
         const rarity: string = this.data.data.traits.rarity.value;
         return new Set([rarity].concat(this.data.data.traits.value));
+    }
+
+    get description(): string {
+        return this.data.data.description.value;
     }
 
     /** @override */
