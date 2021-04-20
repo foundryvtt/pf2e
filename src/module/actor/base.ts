@@ -940,7 +940,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             await this.updateEmbeddedEntity('OwnedItem', update);
         }
 
-        const newItemData = duplicate(item.data);
+        const newItemData = duplicate(item._data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
         if (isMagicDetailsData(newItemData.data)) {
