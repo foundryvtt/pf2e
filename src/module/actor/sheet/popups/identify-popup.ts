@@ -22,13 +22,20 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         };
     }
 
-    protected async _updateObject(event: any, _formData: FormData): Promise<void> {
-        const item = this.getItem();
-        if (event?.submitter?.name && event.submitter.name === 'identify') {
-            item.setIdentifiedState('identified');
-        } else {
-            item.setIdentifiedState('misidentified');
-        }
+    /** @override */
+    activateListeners(html: JQuery): void {
+        super.activateListeners(html);
+
+        html.find('.identify').on('click', () => {
+            this.getItem().setIdentifiedState('identified');
+        });
+
+        html.find('.misidentify').on('click', () => {
+            this.getItem().setIdentifiedState('misidentified');
+        });
+    }
+
+    protected async _updateObject(_event: any, _formData: FormData): Promise<void> {
     }
 
     getData() {
