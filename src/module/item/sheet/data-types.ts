@@ -1,6 +1,6 @@
 /** Item sheet form types */
 
-import { AncestryData, BackgroundData, ClassData, FeatData } from '@item/data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from '@item/data-definitions';
 import { ConfigPF2e } from '@scripts/config';
 import { ItemSheetDataPF2e } from './base';
 
@@ -56,6 +56,7 @@ export interface BackgroundSheetData extends ABCSheetData<BackgroundData> {
 
 export interface ClassSheetData extends ABCSheetData<ClassData> {
     rarities: SheetOptions;
+    items: { key: string; item: ABCFeatureEntryData }[];
     skills: typeof CONFIG.PF2E.skills;
     proficiencyChoices: typeof CONFIG.PF2E.proficiencyLevels;
     selectedKeyAbility: Record<string, string>;
