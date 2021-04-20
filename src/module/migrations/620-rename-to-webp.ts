@@ -14,7 +14,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         if (typeof imgPath === 'string' && this.regexp.test(imgPath)) {
             return imgPath.replace(this.regexp, '$1.webp');
         }
-        return imgPath;
+        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg');
     }
 
     private isABCK(itemData: ItemDataPF2e): itemData is AncestryData | BackgroundData | ClassData | KitData {
@@ -92,6 +92,7 @@ export class Migration620RenameToWebp extends MigrationBase {
 
     async updateToken(tokenData: TokenData): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
+        tokenData.effects = tokenData.effects.map((effect) => this.renameToWebP(effect));
     }
 
     async updateUser(userData: UserData): Promise<void> {
