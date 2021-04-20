@@ -1020,12 +1020,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
         const graphics = {
-            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
-            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
-            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
-            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
-            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
-            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.webp', actionGlyph: 'A' },
+            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.webp', actionGlyph: 'D' },
+            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.webp', actionGlyph: 'T' },
+            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.webp', actionGlyph: 'F' },
+            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.webp', actionGlyph: 'R' },
+            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.webp', actionGlyph: '' },
         };
         if (objectHasKey(graphics, actionImg)) {
             return {

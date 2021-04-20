@@ -39,15 +39,15 @@ export class StatusEffects {
             iconTypes: {
                 default: {
                     effectsIconFolder: 'systems/pf2e/icons/conditions/',
-                    effectsIconFileType: 'png',
+                    effectsIconFileType: 'webp',
                 },
                 blackWhite: {
                     effectsIconFolder: 'systems/pf2e/icons/conditions-2/',
-                    effectsIconFileType: 'png',
+                    effectsIconFileType: 'webp',
                 },
                 legacy: {
                     effectsIconFolder: 'systems/pf2e/icons/conditions-3/',
-                    effectsIconFileType: 'png',
+                    effectsIconFileType: 'webp',
                 },
             },
         };

@@ -255,7 +255,7 @@ export const PF2ECONFIG = {
         overruledByModule: false,
         lastIconType: 'default' as StatusEffectIconType,
         effectsIconFolder: 'systems/pf2e/icons/conditions/',
-        effectsIconFileType: 'png',
+        effectsIconFileType: 'webp',
         keepFoundryStatusEffects: true,
         foundryStatusEffects: [] as string[],
     }, // Ability labels
