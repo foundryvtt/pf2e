@@ -629,7 +629,7 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: string;
+        value: keyof ConfigPF2e['PF2E']['magicTraditions'];
     };
     focus: {
         points: number;
