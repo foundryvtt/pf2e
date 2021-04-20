@@ -2,7 +2,6 @@ import { AbilityString } from '@actor/data-definitions';
 import { ConfigPF2e } from '@scripts/config';
 import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
-import { ConsumablePF2e } from './consumable';
 import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
 import { ErrorPF2e } from '@module/utils';
 
@@ -61,14 +60,15 @@ export async function createConsumableFromSpell(
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
     const itemID = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getEntity(itemID);
-    if (!(consumable instanceof ConsumablePF2e)) {
+    if (!(consumable && 'type' in consumable._data && consumable._data.type === 'consumable')) {
         throw ErrorPF2e('Failed to retrieve consumable item');
     }
 
     const consumableData = consumable._data;
     consumableData.data.traits.value.push(...spellData.data.traditions.value);
     consumableData.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
-    consumableData.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${consumable.description}`;
+    const description = consumableData.data.description.value;
+    consumableData.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${description}`;
     consumableData.data.spell = {
         data: duplicate(spellData),
         heightenedLevel: heightenedLevel,
