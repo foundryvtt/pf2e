@@ -677,7 +677,7 @@ export class CharacterPF2e extends CreaturePF2e {
             _id: 'fist',
             name: game.i18n.localize('PF2E.Strike.Fist.Label'),
             type: 'weapon',
-            img: 'systems/pf2e/icons/features/classes/powerful-fist.jpg',
+            img: 'systems/pf2e/icons/features/classes/powerful-fist.webp',
             data: {
                 ability: { value: 'str' },
                 weaponType: { value: 'unarmed' },

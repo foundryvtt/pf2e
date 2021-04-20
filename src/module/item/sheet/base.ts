@@ -391,11 +391,11 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected getActionImg(action: string) {
         const img: Record<string, string> = {
             0: 'icons/svg/mystery-man.svg',
-            1: 'systems/pf2e/icons/actions/OneAction.png',
-            2: 'systems/pf2e/icons/actions/TwoActions.png',
-            3: 'systems/pf2e/icons/actions/ThreeActions.png',
-            free: 'systems/pf2e/icons/actions/FreeAction.png',
-            reaction: 'systems/pf2e/icons/actions/Reaction.png',
+            1: 'systems/pf2e/icons/actions/OneAction.webp',
+            2: 'systems/pf2e/icons/actions/TwoActions.webp',
+            3: 'systems/pf2e/icons/actions/ThreeActions.webp',
+            free: 'systems/pf2e/icons/actions/FreeAction.webp',
+            reaction: 'systems/pf2e/icons/actions/Reaction.webp',
             passive: 'icons/svg/mystery-man.svg',
         };
         return img[action ?? '0'];

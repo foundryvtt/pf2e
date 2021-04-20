@@ -849,15 +849,15 @@ class CompendiumBrowser extends Application {
 
     _getActionImg(action) {
         const img = {
-            1: 'systems/pf2e/icons/actions/OneAction.png',
-            2: 'systems/pf2e/icons/actions/TwoActions.png',
-            3: 'systems/pf2e/icons/actions/ThreeActions.png',
-            '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.png',
-            '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.png',
-            '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.png',
-            free: 'systems/pf2e/icons/actions/FreeAction.png',
-            reaction: 'systems/pf2e/icons/actions/Reaction.png',
-            passive: 'systems/pf2e/icons/actions/Passive.png',
+            1: 'systems/pf2e/icons/actions/OneAction.webp',
+            2: 'systems/pf2e/icons/actions/TwoActions.webp',
+            3: 'systems/pf2e/icons/actions/ThreeActions.webp',
+            '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.webp',
+            '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.webp',
+            '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.webp',
+            free: 'systems/pf2e/icons/actions/FreeAction.webp',
+            reaction: 'systems/pf2e/icons/actions/Reaction.webp',
+            passive: 'systems/pf2e/icons/actions/Passive.webp',
         };
         return img[action] ?? 'icons/svg/mystery-man.svg';
     }
