@@ -95,15 +95,6 @@ export class StatusEffects {
                 if (!combat?.started && lastTokenId !== '') lastTokenId = '';
             });
         }
-
-        Hooks.on('createToken', (scene: Scene, tokenData: TokenData, _options: {}, _someId: string) => {
-            console.log('PF2e System | Updating the new token with the actors status effects');
-            StatusEffects._hookOnCreateToken(scene, tokenData);
-        });
-        Hooks.on('canvasReady', (_canvas: Canvas) => {
-            console.log('PF2e System | Updating the scenes token with the actors status effects');
-            StatusEffects._hookOnCanvasReady();
-        });
     }
 
     static setPF2eStatusEffectControls(html, token) {
@@ -282,41 +273,6 @@ export class StatusEffects {
     }
 
     /**
-     * Adding the Actors statuseffects to the newly created token.
-     */
-    static _hookOnCreateToken(scene: Scene, tokenData: TokenData): void {
-        if (!scene.visible) return;
-
-        const token: TokenPF2e = new Token(tokenData);
-
-        if (token.owner) {
-            const token = canvas.tokens.get(tokenData._id);
-
-            if (!token) {
-                throw Error(`PF2E | StatusEffects | Could not get token with id: ${tokenData._id}`);
-            }
-
-            ConditionManager.renderEffects(token);
-        }
-    }
-
-    /**
-     * Updating all tokens on the canvas with the actors status effects.
-     */
-    static _hookOnCanvasReady() {
-        const scene = canvas.scene!;
-
-        for (const tokenData of scene.data.tokens) {
-            const token = canvas.tokens.get(tokenData._id);
-            if (token === undefined) continue;
-
-            if (token.owner) {
-                ConditionManager.renderEffects(token);
-            }
-        }
-    }
-
-    /**
      * A click event handler to increment or decrement valued conditions.
      *
      * @param event    The window click event
@@ -440,8 +396,6 @@ export class StatusEffects {
                 token.statusEffectChanged = true;
 
                 await ConditionManager.addConditionToToken(newCondition, token);
-            } else if (!token.data.effects.includes(src)) {
-                await token.toggleEffect(src);
             }
         }
     }
