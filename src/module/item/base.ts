@@ -858,7 +858,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                           CONFIG.PF2E.areaTypes[spellData.area.areaType]
                       }`
                     : null,
-                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
                 spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
                 spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
             ];

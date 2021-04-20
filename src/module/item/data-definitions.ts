@@ -515,9 +515,6 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     spellType: {
         value: string;
     };
-    areasize: {
-        value: string;
-    };
     spellCategory: {
         value: string;
     };
