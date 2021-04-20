@@ -35,8 +35,7 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         });
     }
 
-    protected async _updateObject(_event: any, _formData: FormData): Promise<void> {
-    }
+    protected async _updateObject(_event: any, _formData: FormData): Promise<void> {}
 
     getData() {
         const item = this.getItem();
