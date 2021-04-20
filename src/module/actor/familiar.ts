@@ -282,6 +282,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                 data.skills[shortform] = stat;
             }
         }
+
+        this.getActiveTokens().forEach((token) => token.drawEffects());
     }
 
     async createEmbeddedEntity<I extends ItemDataPF2e>(

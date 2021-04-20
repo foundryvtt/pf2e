@@ -1072,6 +1072,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
             }
         });
+
+        this.getActiveTokens().forEach((token) => token.drawEffects());
     }
 
     private prepareInitiative(
