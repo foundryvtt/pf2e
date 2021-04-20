@@ -8,6 +8,7 @@ import { RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
 import { ItemDataPF2e } from '@item/data-definitions';
+import { objectHasKey } from '@module/utils';
 
 export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -259,7 +260,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m)),
                 );
-                const stat = new StatisticModifier(game.i18n.localize(`PF2E.Skill${skillName}`), modifiers);
+                const label = objectHasKey(CONFIG.PF2E.skills, skillName) ? CONFIG.PF2E.skills[skillName] : skillName;
+                const stat = new StatisticModifier(label, modifiers);
                 stat.value = stat.totalModifier;
                 stat.ability = ability;
                 stat.breakdown = stat.modifiers
