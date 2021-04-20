@@ -1,4 +1,4 @@
-import { AbilityString, ZeroToFour } from '@actor/data-definitions';
+import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
