@@ -60,7 +60,7 @@ export async function createConsumableFromSpell(
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
     const itemID = getIdForSpellConsumable(type, heightenedLevel);
     const consumable = await pack?.getEntity(itemID);
-    if (!(consumable && 'type' in consumable._data && consumable._data.type == 'consumable')) {
+    if (!(consumable && 'type' in consumable._data && consumable._data.type === 'consumable')) {
         throw ErrorPF2e('Failed to retrieve consumable item');
     }
 
