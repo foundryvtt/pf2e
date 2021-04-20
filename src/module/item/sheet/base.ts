@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
+import { isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -29,6 +29,8 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
  * @category Other
  */
 export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
+    private activeMystifyTab = 'unidentified';
+
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -41,6 +43,11 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 navSelector: '.tabs',
                 contentSelector: '.sheet-body',
                 initial: 'description',
+            },
+            {
+                navSelector: '.mystify-nav',
+                contentSelector: '.mystify-sheet',
+                initial: 'unidentified',
             },
         ];
 
@@ -58,6 +65,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         mergeObject(data, {
             type,
             hasSidebar: true,
+            hasMystify: game.user.isGM && isInventoryItem(type),
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
@@ -433,6 +441,17 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     activateListeners(html: JQuery): void {
         super.activateListeners(html);
 
+        // Set up callback on tabs to make sure that when the Mystify tab is picked it
+        // defaults to the unidentified tab.
+        this._tabs[0].callback = () => {
+            if (this._tabs[0].active === 'mystify') {
+                this._tabs[1].activate(this.activeMystifyTab);
+            }
+        };
+        this._tabs[1].callback = () => {
+            this.activeMystifyTab = this._tabs[1].active;
+        };
+
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
             if (event.originalEvent instanceof MouseEvent) {
                 this._onSubmit(event.originalEvent); // Trait Selector
@@ -573,13 +592,13 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
+        const data: Record<string, unknown> & { name?: string; img?: string; data?: ItemUpdateData } = updateData
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
-        if (data?.data?.rules) {
-            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
+        if (data?.data && 'rules' in data?.data) {
+            data.data.rules = Object.entries(data.data.rules as PF2RuleElementData).map(([_, value]) => {
                 try {
                     return JSON.parse(value as string);
                 } catch (error) {
