@@ -23,7 +23,7 @@
 
     <ul class="abc-traits-list">
         {{#each selectedKeyAbility}}
-            <span class="tag {{@key}}">{{this}}</span>
+            <span class="tag {{@key}}">{{localize this}}</span>
         {{/each}}
     </ul>
 </div>
@@ -296,24 +296,28 @@
     </ul>
 </div>
 
+{{~#*inline "abcItem"~}}
+    <li class="abc-item" data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
+        <img class="-item-image" src="{{item.img}}">
+        <div class="abc-item-name">
+            {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
+        </div>
+        <div class="abc-item-level">{{item.level}}</div>
+        <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
+        <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype="String">
+        <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype="String">
+        <a class="abc-item-remove" data-action='remove'><i class="fa fa-times"></i></a>
+        {{#if item.items~}}
+        {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
+        {{~/if}}
+    </li>
+{{~/inline~}}
+
 {{~#*inline "abcItems"~}}
 <ul class="abc-items">
-    {{~#each items as |item i|}}
-        <li class="abc-item" data-pack-id="{{item.pack}}" data-index="{{i}}" data-item-id="{{item.id}}">
-            <img class="-item-image" src="{{item.img}}">
-            <div class="abc-item-name">
-                {{item.name}}{{#unless item.pack}}<i class="fa fa-globe" title="{{localize "PF2E.AncestryFeatures"}}"></i>{{/unless}}
-            </div>
-            <div class="abc-item-level">{{item.level}}</div>
-            <input value="{{item.name}}" name="{{@partial-block}}items.{{i}}.name" type="hidden" data-dtype="String">
-            <input value="{{item.pack}}" name="{{@partial-block}}items.{{i}}.pack" type="hidden" data-dtype="String">
-            <input value="{{item.id}}" name="{{@partial-block}}items.{{i}}.id" type="hidden" data-dtype="String">
-            <a class="abc-item-remove" data-action='remove'><i class="fa fa-times"></i></a>
-            {{#if item.items~}}
-               {{#> abcItems item}}{{@partial-block}}items.{{i}}.{{/abcItems}}
-            {{~/if}}
-        </li>
-    {{/each~}}
+    {{#each items}}
+        {{#> abcItem item=this.item i=this.key}}{{@partial-block}}{{/abcItem}}
+    {{/each}}
 </ul>
 {{~/inline~}}
 
@@ -321,6 +325,6 @@
     <label for="data.traits">
         {{localize "PF2E.ClassFeatures"}}
     </label>
-    {{#> abcItems data}}data.{{/abcItems}}
+    {{#> abcItems}}{{/abcItems}}
     {{#unless data.items}}{{localize PF2E.DragDropFeats}}{{/unless}}
 </div>

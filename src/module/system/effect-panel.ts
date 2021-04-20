@@ -2,6 +2,7 @@ import { ActorPF2e } from '../actor/base';
 import { ConditionManager } from '../conditions';
 import { ConditionData, EffectData } from '@item/data-definitions';
 import { ConditionPF2e } from '@item/others';
+import { EffectPF2e } from '@item/effect';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -48,11 +49,11 @@ export class EffectPanel extends Application {
         data.effects = [];
         data.actor = EffectPanel.actor;
         if (data.actor) {
-            for (const item of data.actor.data.items) {
-                if (item.type === 'condition' && item.flags[game.system.id]?.condition) {
-                    data.conditions.push(item);
-                } else if (item.type === 'effect') {
-                    const effect = duplicate(item);
+            for (const item of data.actor.items) {
+                if (item instanceof ConditionPF2e && item.fromSystem) {
+                    data.conditions.push(item.data);
+                } else if (item instanceof EffectPF2e) {
+                    const effect = duplicate(item.data);
                     const duration = EffectPanel.getEffectDuration(effect);
                     if (duration < 0) {
                         effect.data.expired = false;
@@ -111,9 +112,12 @@ export class EffectPanel extends Application {
         // handle right-click on condition and effect icons
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
-            const condition = actor?.items.get(event.currentTarget.dataset.itemId ?? '');
-            if (actor instanceof ActorPF2e && condition instanceof ConditionPF2e) {
-                await actor.removeOrReduceCondition(condition);
+            if (!actor) return;
+            const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
+            if (effect instanceof ConditionPF2e) {
+                await actor.removeOrReduceCondition(effect);
+            } else if (effect instanceof EffectPF2e) {
+                await effect.delete();
             }
         });
     }

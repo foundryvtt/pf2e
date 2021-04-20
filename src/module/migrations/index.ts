@@ -49,6 +49,7 @@ import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-i
 import { Migration616MigrateFeatPrerequisites } from './616-migrate-feat-prerequisites';
 import { Migration617FixUserFlags } from './617-fix-user-flags';
 import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
+import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
 
 export class Migrations {
     private static list = [
@@ -102,6 +103,7 @@ export class Migrations {
         Migration616MigrateFeatPrerequisites,
         Migration617FixUserFlags,
         Migration618MigrateItemImagePaths,
+        Migration619TraditionLowercaseAndRemoveWandScroll,
     ];
 
     static get latestVersion(): number {

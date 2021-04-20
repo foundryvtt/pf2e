@@ -1,4 +1,4 @@
-import { AbilityString, ZeroToFour } from '@actor/data-definitions';
+import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
@@ -508,6 +508,7 @@ interface SpellTraits extends ItemTraits {
 }
 
 export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
+export type MagicTraditionKey = keyof ConfigPF2e['PF2E']['magicTraditions'];
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
@@ -520,10 +521,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     spellCategory: {
         value: string;
     };
-    traditions: {
-        value: string[];
-        custom: string;
-    };
+    traditions: ValuesList<MagicTraditionKey>;
     school: {
         value: MagicSchoolAbbreviation;
     };
@@ -629,7 +627,7 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: string;
+        value: MagicTraditionKey;
     };
     focus: {
         points: number;
