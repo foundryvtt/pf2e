@@ -286,10 +286,13 @@ export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+export interface SenseData extends LabeledString {
+    acuity?: 'precise' | 'imprecise' | 'vague';
+}
 
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: LabeledString[];
+    senses: SenseData[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
