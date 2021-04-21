@@ -6,7 +6,6 @@ import {
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     DiceModifierPF2e,
-    PotencyModifier,
 } from '../../modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
@@ -300,39 +299,11 @@ export class PF2WeaponDamage {
             );
         }
 
-        // ABP
-        if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP' && actor.type === 'character') {
-            const devastatingDice = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'devastating')
-                .modifier;
-            if (devastatingDice > 0) {
-                diceModifiers.push(
-                    new DiceModifierPF2e({
-                        name: 'Devastating Attack',
-                        diceNumber: devastatingDice,
-                        damageType: baseDamageType,
-                    }),
-                );
-            }
-        }
-
         // potency
-        let potency = weaponPotency?.bonus ?? 0;
-        if (
-            game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' &&
-            actor.type === 'character'
-        ) {
-            potency = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'attack').modifier;
-        }
+        const potency = weaponPotency?.bonus ?? 0;
 
         // striking rune
         let strikingDice = 0;
-        if (
-            game.settings.get('pf2e', 'automaticBonusVariant') === 'ABPFundamentalPotency' &&
-            actor.type === 'character'
-        ) {
-            strikingDice = PotencyModifier.fromLevelAndType(actor.data.details.level.value, 'devastating').modifier;
-        }
-
         {
             const strikingList: PF2Striking[] = [];
             selectors.forEach((key) => {
