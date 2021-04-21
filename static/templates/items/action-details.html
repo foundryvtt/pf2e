@@ -38,9 +38,11 @@
         {{localize "PF2E.TraitsLabel"}}
         <a class="trait-selector" data-trait-selector="basic" data-config-types="featTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
-    <ul class="traits-list">
-        {{#each data.traits.selected as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
+    <ul class="traits-list pf-value pf-large">
+        {{#each traits as |trait|}}
+            {{#if trait.selected}}
+                <li class="tag">{{localize trait.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>
