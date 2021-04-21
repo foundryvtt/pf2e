@@ -27,6 +27,19 @@ const SETTINGS = {
         default: 0,
         type: Boolean,
     },
+    automaticBonusVariant: {
+        name: 'PF2E.SETTINGS.Variant.AutomaticBonus.Name',
+        hint: 'PF2E.SETTINGS.Variant.AutomaticBonus.Hint',
+        scope: 'world',
+        config: false,
+        default: 0,
+        type: String,
+        choices: {
+            noABP: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP',
+            ABPRulesAsWritten: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten',
+            ABPFundamentalPotency: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency',
+        },
+    },
     proficiencyVariant: {
         name: 'PF2E.SETTINGS.Variant.Proficiency.Name',
         hint: 'PF2E.SETTINGS.Variant.Proficiency.Hint',

@@ -1,69 +1,69 @@
 import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes';
 import { ArmorDetailsData, WeaponData, WeaponDetailsData } from '@item/data-definitions';
-
 describe('test runes', () => {
-    test('should get rune property slots', () => {
-        expect(
-            getPropertySlots(({
-                _id: 'ignore',
-                type: 'ignore',
-                data: {
-                    preciousMaterial: {
-                        value: '',
+    if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') {
+        test('should get rune property slots', () => {
+            expect(
+                getPropertySlots(({
+                    _id: 'ignore',
+                    type: 'ignore',
+                    data: {
+                        preciousMaterial: {
+                            value: '',
+                        },
+                        potencyRune: {
+                            value: '',
+                        },
                     },
-                    potencyRune: {
-                        value: '',
-                    },
-                },
-            } as unknown) as WeaponData),
-        ).toBe(0);
+                } as unknown) as WeaponData),
+            ).toBe(0);
 
-        expect(
-            getPropertySlots(({
-                _id: 'ignore',
-                type: 'ignore',
-                data: {
-                    preciousMaterial: {
-                        value: '',
+            expect(
+                getPropertySlots(({
+                    _id: 'ignore',
+                    type: 'ignore',
+                    data: {
+                        preciousMaterial: {
+                            value: '',
+                        },
+                        potencyRune: {
+                            value: '2',
+                        },
                     },
-                    potencyRune: {
-                        value: '2',
-                    },
-                },
-            } as unknown) as WeaponData),
-        ).toBe(2);
+                } as unknown) as WeaponData),
+            ).toBe(2);
 
-        expect(
-            getPropertySlots(({
-                _id: 'ignore',
-                type: 'ignore',
-                data: {
-                    preciousMaterial: {
-                        value: 'orichalcum',
+            expect(
+                getPropertySlots(({
+                    _id: 'ignore',
+                    type: 'ignore',
+                    data: {
+                        preciousMaterial: {
+                            value: 'orichalcum',
+                        },
+                        potencyRune: {
+                            value: '',
+                        },
                     },
-                    potencyRune: {
-                        value: '',
-                    },
-                },
-            } as unknown) as WeaponData),
-        ).toBe(1);
+                } as unknown) as WeaponData),
+            ).toBe(1);
 
-        expect(
-            getPropertySlots(({
-                _id: 'ignore',
-                type: 'ignore',
-                data: {
-                    preciousMaterial: {
-                        value: 'orichalcum',
+            expect(
+                getPropertySlots(({
+                    _id: 'ignore',
+                    type: 'ignore',
+                    data: {
+                        preciousMaterial: {
+                            value: 'orichalcum',
+                        },
+                        potencyRune: {
+                            value: '3',
+                        },
                     },
-                    potencyRune: {
-                        value: '3',
-                    },
-                },
-            } as unknown) as WeaponData),
-        ).toBe(4);
-    });
-
+                } as unknown) as WeaponData),
+            ).toBe(4);
+        });
+    }
     test('should get property runes', () => {
         expect(
             getPropertyRunes(

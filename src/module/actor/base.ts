@@ -30,6 +30,7 @@ import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { ConditionPF2e } from '@item/others';
+import { AutomaticBonusProgression } from '../rules/automatic-bonus';
 import { TokenEffect } from '@module/rules/rule-element';
 
 export const SKILL_DICTIONARY = Object.freeze({
@@ -390,7 +391,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             striking,
             multipleAttackPenalties,
         };
-
+        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
         rules.forEach((rule) => {
             try {
                 rule.onBeforePrepareData(actorData, synthetics);
