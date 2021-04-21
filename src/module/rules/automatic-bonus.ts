@@ -6,7 +6,7 @@ export class AutomaticBonusProgression {
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    constructor(level: number, synthetics: PF2RuleElementSynthetics) {
+    static concatModifiers(level: number, synthetics: PF2RuleElementSynthetics) {
         if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
             const values = ABPvalues(level);
             const ac = values.ac;

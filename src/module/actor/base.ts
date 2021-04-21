@@ -384,7 +384,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             striking,
             multipleAttackPenalties,
         };
-        new AutomaticBonusProgression(actorData.data.details.level.value, synthetics);
+        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
         rules.forEach((rule) => {
             try {
                 rule.onBeforePrepareData(actorData, synthetics);
