@@ -793,6 +793,9 @@ export interface EffectDetailsData extends ItemDescriptionData {
         value: number;
         initiative: number | null;
     };
+    tokenIcon?: {
+        show: boolean;
+    };
 }
 
 export type PhysicalItemType = 'armor' | 'backpack' | 'consumable' | 'equipment' | 'melee' | 'treasure' | 'weapon';
