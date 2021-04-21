@@ -35,6 +35,8 @@ global.game = Object.freeze({
                 /* Variant rules */
                 case 'proficiencyVariant':
                     return 'ProficiencyWithLevel';
+                case 'automaticBonusVariant':
+                    return 'automaticBonusVariant';
                 default:
                     throw new Error('Undefined setting.');
             }
