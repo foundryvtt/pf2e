@@ -62,10 +62,31 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
 
         async updateItem(itemData: ItemDataPF2e) {
             switch (listKey) {
-                // Creature traits can be on almost any item
+                // Creature traits can be on many item
                 case 'creatureTraits': {
                     const traits = itemData.data.traits;
                     traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    break;
+                }
+                case 'featTraits': {
+                    if (itemData.type === 'feat') {
+                        const traits = itemData.data.traits;
+                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    }
+                    break;
+                }
+                case 'spellSchools': {
+                    if (itemData.type === 'spell') {
+                        const school = itemData.data.school;
+                        school.value = deletions.includes(school.value ?? '') ? 'evo' : school.value;
+                    }
+                    break;
+                }
+                case 'spellTraits': {
+                    if (itemData.type === 'spell') {
+                        const traits = itemData.data.traits;
+                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    }
                     break;
                 }
                 case 'weaponCategories': {
