@@ -212,7 +212,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
-
             const notes = [] as PF2RollNote[];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
@@ -235,7 +234,6 @@ export class CharacterPF2e extends CreaturePF2e {
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
 
-            //}
             // Create a new modifier from the modifiers, then merge in other fields from the old save data, and finally
             // overwrite potentially changed fields.
             const stat = mergeObject(new StatisticModifier(saveName, modifiers), save, { overwrite: false });

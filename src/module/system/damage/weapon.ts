@@ -291,7 +291,7 @@ export class PF2WeaponDamage {
                 new DiceModifierPF2e({
                     name: 'PF2E.WeaponCustomDamageLabel',
                     diceNumber: critDice,
-                    dieSize: baseDamageDie,
+                    dieSize: weapon.data?.property1?.critDie as DamageDieSize,
                     damageType: damageType,
                     critical: true,
                     traits: isNonPhysicalDamage(damageType) ? [damageType] : [],
