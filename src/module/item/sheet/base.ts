@@ -112,9 +112,9 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             mergeObject(data, {
                 spellTypes: CONFIG.PF2E.spellTypes,
                 spellCategories: CONFIG.PF2E.spellCategories,
-                spellSchools: CONFIG.PF2E.spellSchools,
+                magicSchools: CONFIG.PF2E.magicSchools,
                 spellLevels: CONFIG.PF2E.spellLevels,
-                magicTraditions: CONFIG.PF2E.magicTraditions,
+                magicTraditions: this.prepareOptions(CONFIG.PF2E.magicTraditions, item.data.data.traditions),
                 traits: this.prepareOptions(CONFIG.PF2E.spellTraits, itemData.data.traits),
                 spellComponents: this.formatSpellComponents(data.data),
                 areaSizes: CONFIG.PF2E.areaSizes,

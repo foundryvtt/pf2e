@@ -24,7 +24,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         'creatureTraits',
         'featTraits',
         'languages',
-        'spellSchools',
+        'magicSchools',
         'spellTraits',
         'weaponCategories',
         'weaponGroups',

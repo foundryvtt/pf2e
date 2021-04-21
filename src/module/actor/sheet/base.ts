@@ -10,7 +10,7 @@ import {
     ConditionData,
     isPhysicalItem,
     ItemDataPF2e,
-    MagicSchoolAbbreviation,
+    MagicSchoolKey,
     SpellData,
     SpellDetailsData,
 } from '@item/data-definitions';
@@ -45,7 +45,7 @@ interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
     data: SpellDetailsData & {
         school: {
-            value: MagicSchoolAbbreviation;
+            value: MagicSchoolKey;
             str?: string;
         };
     };
@@ -215,7 +215,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // Add the spell to the spellbook at the appropriate level
-        spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
+        spell.data.school.str = CONFIG.PF2E.magicSchools[spell.data.school.value];
         // Add chat data
         try {
             const item = this.actor.getOwnedItem(spell._id);
@@ -266,14 +266,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
                             spl.prepared[i] = itemCopy;
                             if (spl.prepared[i]) {
+                                const school = spl.prepared[i].data.school.value;
                                 // enrich data with spell school formatted string
                                 if (
                                     spl.prepared[i].data &&
                                     spl.prepared[i].data.school &&
-                                    spl.prepared[i].data.school.str
+                                    spl.prepared[i].data.school.str &&
+                                    objectHasKey(CONFIG.PF2E.magicSchools, school)
                                 ) {
-                                    spl.prepared[i].data.school.str =
-                                        CONFIG.PF2E.spellSchools[spl.prepared[i].data.school.value];
+                                    spl.prepared[i].data.school.str = CONFIG.PF2E.magicSchools[school];
                                 }
 
                                 // Add chat data

@@ -51,6 +51,7 @@ import { Migration617FixUserFlags } from './617-fix-user-flags';
 import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
 import { Migration620RenameToWebp } from './620-rename-to-webp';
+import { Migration621RemoveConfigSpellSchools } from './621-remove-config-spellSchools';
 
 export class Migrations {
     private static list = [
@@ -106,6 +107,7 @@ export class Migrations {
         Migration618MigrateItemImagePaths,
         Migration619TraditionLowercaseAndRemoveWandScroll,
         Migration620RenameToWebp,
+        Migration621RemoveConfigSpellSchools,
     ];
 
     static get latestVersion(): number {
