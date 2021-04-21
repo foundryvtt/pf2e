@@ -302,7 +302,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export interface ActorSystemData {
     traits: BaseTraitsData;
-    tokenEffects: TemporaryEffect[] | null;
+    tokenEffects: TemporaryEffect[];
 }
 
 /** Miscallenous but mechanically relevant creature attributes.  */
