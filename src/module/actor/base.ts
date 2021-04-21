@@ -137,7 +137,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             (c) => new TokenEffect(c.img),
         );
 
-        return super.temporaryEffects.concat(this.data.data.tokenEffects ?? []).concat(conditionTokenEffects);
+        const effectTokenEffects = this.itemTypes.effect
+            .filter((effect) => effect.data.data.tokenIcon?.show)
+            .map((effect) => new TokenEffect(effect.img));
+
+        return super.temporaryEffects
+            .concat(this.data.data.tokenEffects)
+            .concat(conditionTokenEffects)
+            .concat(effectTokenEffects);
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
