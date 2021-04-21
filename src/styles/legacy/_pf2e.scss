@@ -169,7 +169,8 @@
 
         > .item {
           line-height: 24px;
-          padding-top: 4px;
+          padding-top: 3px;
+          font-size: 12px;
 
           &:last-of-type {
             padding-right: 4px;
@@ -2513,7 +2514,7 @@
 
       .sheet-sidebar {
         flex: 0 0 220px;
-        height: 100%;
+        height: inherit;
         overflow-y: auto;
       }
     }
@@ -2564,7 +2565,6 @@
       flex-direction: column;
       flex-wrap: nowrap;
       overflow-y: hidden;
-      clear: both;
 
       > * {
         flex: 1;
@@ -2631,9 +2631,13 @@
     }
 
     .pf-value {
-      background: #fff;
-      border: 1px solid var(--tertiary-background);
-      text-align: center;
+        background: white;
+        border: 1px solid var(--tertiary-background);
+        text-align: center;
+        &.traits-list {
+            list-style-type: none;
+            padding: 3px;
+        }
     }
 
     .pf-large {
