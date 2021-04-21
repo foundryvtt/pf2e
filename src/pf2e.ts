@@ -315,7 +315,11 @@ Hooks.on('renderChatMessage', (message, html) => {
             (role === 'gm' && game.user.isGM) ||
             (role === 'owner' && ((actor && actor.owner) || game.user.isGM || message.isAuthor))
         ) {
-            elem.innerHTML = `${game.i18n.format('PF2E.DCWithValue', { dc })} ${elem.innerHTML}`;
+            elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                dc,
+                text: elem.innerHTML,
+            });
+            elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
         }
     });
 });
