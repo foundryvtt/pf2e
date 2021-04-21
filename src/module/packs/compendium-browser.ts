@@ -847,7 +847,7 @@ class CompendiumBrowser extends Application {
         return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
-    _getActionImg(action) {
+    _getActionImg(action: string) {
         const img = {
             1: 'systems/pf2e/icons/actions/OneAction.webp',
             2: 'systems/pf2e/icons/actions/TwoActions.webp',
@@ -859,7 +859,7 @@ class CompendiumBrowser extends Application {
             reaction: 'systems/pf2e/icons/actions/Reaction.webp',
             passive: 'systems/pf2e/icons/actions/Passive.webp',
         };
-        return img[action] ?? 'icons/svg/mystery-man.svg';
+        return img[action] ?? 'systems/pf2e/icons/actions/OneAction.webp';
     }
 
     getData() {
