@@ -22,8 +22,10 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     static readonly SETTINGS = [
         'creatureTraits',
+        'featTraits',
         'languages',
         'spellSchools',
+        'spellTraits',
         'weaponCategories',
         'weaponGroups',
         'baseWeapons',
