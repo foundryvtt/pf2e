@@ -211,8 +211,10 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="spellTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
-        {{#each data.traits.value as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
+        {{#each traits as |trait|}}
+            {{#if trait.selected}}
+                <li class="tag">{{localize trait.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>

@@ -64,11 +64,8 @@
     </div>
 
     <ol class="item-tags">
-      {{#each weaponTraits}}
-        <li class="tag">{{localize this}}</li>
+      {{#each weaponTraits as |trait|}}
+          <li class="tag">{{localize trait}}</li>
       {{/each}}
-      {{#if data.equipped.value}}
-        <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
-      {{/if}}
     </ol>
 </div>

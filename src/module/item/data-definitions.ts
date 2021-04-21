@@ -8,10 +8,8 @@ export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
-export interface ItemTraits {
+export interface ItemTraits extends ValuesList {
     rarity: { value: Rarity };
-    value: string[];
-    custom: string;
 }
 
 export interface ItemDescriptionData {

@@ -88,7 +88,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const traits = itemData.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
-        if (type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
+        if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
         data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
 
         const stackGroup = data.data?.stackGroup?.value;
@@ -99,7 +99,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         if (type === 'treasure') {
             data.currencies = CONFIG.PF2E.currencies;
-            data.bulkTypes = CONFIG.PF2E.bulkTypes; // Consumable Data
+            data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'consumable') {
             data.consumableTypes = CONFIG.PF2E.consumableTypes;
@@ -115,7 +115,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 spellSchools: CONFIG.PF2E.spellSchools,
                 spellLevels: CONFIG.PF2E.spellLevels,
                 magicTraditions: CONFIG.PF2E.magicTraditions,
-                // spellBasic: CONFIG.PF2E.spellBasic,
+                traits: this.prepareOptions(CONFIG.PF2E.spellTraits, itemData.data.traits),
                 spellComponents: this.formatSpellComponents(data.data),
                 areaSizes: CONFIG.PF2E.areaSizes,
                 areaTypes: CONFIG.PF2E.areaTypes,
@@ -199,7 +199,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.armorTypes = CONFIG.PF2E.armorTypes;
             data.armorGroups = CONFIG.PF2E.armorGroups;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.armorTraits = CONFIG.PF2E.armorTraits;
+            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, item.data.data.traits);
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
             data.sizes = CONFIG.PF2E.actorSizes;
