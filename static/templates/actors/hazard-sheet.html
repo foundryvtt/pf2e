@@ -58,12 +58,12 @@
             <li>
                     <div class="bio-item form-group-stacked pf-container">
                     <label class="pf-title">
-                        {{localize 'PF2E.ImmunitiesLabel'}}
+                        {{localize "PF2E.ImmunitiesLabel"}}
                         <a class="trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                     </label>
                     <ul class="traits-list pf-value">
                     {{#each data.traits.di.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
+                        <span class="tag {{k}}">{{localize v}}</span>
                     {{/each}}
                     </ul>
                 </div>
@@ -112,7 +112,7 @@
                     <span class="defense-score">
                             <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
                     </span>
-                    <h4 class="save-name rollable">{{save.label}}</h4>
+                    <h4 class="save-name rollable">{{localize save.label}}</h4>
                 </li>
             {{/each}}
         </ol>
