@@ -1,19 +1,18 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
     <div class="contentcontainer">
 
-    <div class="npc-title-bar">
-      <h1 class='name'>{{actor.name}}</h1>
-        <h1 class="editNPCButton">
-          <div style="font-size: 10px; font-weight: normal; margin-right: 50px; text-align: center;">
-            <label>{{localize "PF2E.EditNPCLabel"}}</label><input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}}/>
-          </div>
-        </h1>
-        <h1 class="creature-adjustment traits-bar" style="font-size: 1em;font-weight: normal;">
-          <a class="npc-elite-adjustment trait{{npcEliteActive}}{{npcEliteHidden}}">ELITE</a>
-          <a class="npc-weak-adjustment trait{{npcWeakActive}}{{npcWeakHidden}}">WEAK</a>
-        </h1>
-        <h1 class="level">{{localize "PF2E.NPC.Creature"}} {{data.details.level.value}}</h1>
-    </div>
+        <div class="npc-title-bar">
+            <h1 class="name">{{actor.name}}</h1>
+            <h1 class="editNPCButton">
+                <label>{{localize "PF2E.EditNPCLabel"}}</label>
+                <input class="isNPCEditable" name="flags.pf2e.editNPC.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editNPC.value}} />
+            </h1>
+            <h1 class="creature-adjustment traits-bar" style="font-size: 1em;font-weight: normal;">
+                <a class="npc-elite-adjustment trait{{npcEliteActive}}{{npcEliteHidden}}">ELITE</a>
+                <a class="npc-weak-adjustment trait{{npcWeakActive}}{{npcWeakHidden}}">WEAK</a>
+            </h1>
+            <h1 class="level">{{localize "PF2E.NPC.Creature"}} {{data.details.level.value}}</h1>
+        </div>
 
     <div class="top-section">
 
@@ -389,7 +388,7 @@
     </ol>
 
     <ol class="inventory-list toggles-list">
-      <li class="item action-header">
+      <li class="action-header">
         <h3 class="pf-heading pf-actions">Toggles (Experimental)</h3>
       </li>
       <li class="actions-options">
