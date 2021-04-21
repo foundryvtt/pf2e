@@ -79,6 +79,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/kit-sidebar.html',
         'systems/pf2e/templates/items/lore-details.html',
         'systems/pf2e/templates/items/lore-sidebar.html',
+        'systems/pf2e/templates/items/mystify-panel.html',
         'systems/pf2e/templates/items/spell-details.html',
         'systems/pf2e/templates/items/spell-sidebar.html',
         'systems/pf2e/templates/items/melee-details.html',

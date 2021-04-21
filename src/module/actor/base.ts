@@ -30,6 +30,7 @@ import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { ConditionPF2e } from '@item/others';
+import { TokenEffect } from '@module/rules/rule-element';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -128,8 +129,15 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     get temporaryEffects(): TemporaryEffect[] {
-        const effects = super.temporaryEffects;
-        return effects.concat(this.data.data.tokenEffects ?? []);
+        // might fit better in the Actor#prepareDerivedData method
+        const conditionDataEntries = this.itemTypes.condition
+            .filter((condition) => condition.fromSystem)
+            .map((condition) => condition.data);
+        const conditionTokenEffects = ConditionManager.getFlattenedConditions(conditionDataEntries).map(
+            (c) => new TokenEffect(c.img),
+        );
+
+        return super.temporaryEffects.concat(this.data.data.tokenEffects ?? []).concat(conditionTokenEffects);
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
@@ -218,6 +226,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         return super.create(data, options) as Promise<A[] | A>;
+    }
+
+    /** @override */
+    prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.data.tokenEffects = [];
     }
 
     /** @override */
@@ -940,7 +954,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             await this.updateEmbeddedEntity('OwnedItem', update);
         }
 
-        const newItemData = duplicate(item.data);
+        const newItemData = duplicate(item._data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
         if (isMagicDetailsData(newItemData.data)) {
@@ -1020,12 +1034,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
         const graphics = {
-            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
-            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
-            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
-            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
-            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
-            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.webp', actionGlyph: 'A' },
+            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.webp', actionGlyph: 'D' },
+            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.webp', actionGlyph: 'T' },
+            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.webp', actionGlyph: 'F' },
+            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.webp', actionGlyph: 'R' },
+            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.webp', actionGlyph: '' },
         };
         if (objectHasKey(graphics, actionImg)) {
             return {

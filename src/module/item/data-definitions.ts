@@ -70,6 +70,31 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        unidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        misidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
             img: string;
         };
     };
@@ -515,9 +540,6 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     spellType: {
         value: string;
     };
-    areasize: {
-        value: string;
-    };
     spellCategory: {
         value: string;
     };
@@ -904,6 +926,21 @@ export type ItemDataPF2e =
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
+}
+
+export function isInventoryItem(type: string): boolean {
+    switch (type) {
+        case 'armor':
+        case 'backpack':
+        case 'consumable':
+        case 'equipment':
+        case 'treasure':
+        case 'weapon': {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 export function isMagicDetailsData(

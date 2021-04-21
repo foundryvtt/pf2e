@@ -10,11 +10,13 @@ import { MigrationBase } from '@module/migrations/base';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from '@module/migrations/619-remove-wand-and-scroll-tradition';
+import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
     new Migration616MigrateFeatPrerequisites(),
     new Migration619TraditionLowercaseAndRemoveWandScroll(),
+    new Migration620RenameToWebp(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

@@ -8,10 +8,9 @@
             {{#if isNotCommon}}
                 <span class="trait {{data.traits.rarity.value}}">{{localize actorRarity}}</span>
             {{/if}}
-            <span class="trait size">{{actorSize}}</span>
-            <!-- Put Trait #each here-->
+            <span class="trait size">{{localize actorSize}}</span>
             {{#each actor.data.traits.traits.selected as |trait id|}}
-            <span class="trait">{{trait}}</span>
+                <span class="trait">{{localize trait}}</span>
             {{/each}}
         </div>
     </div>

@@ -4,7 +4,12 @@ import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
     static isIdentified(itemData: any): boolean {
-        return itemData.data?.identification?.status !== 'unidentified';
+        const identificationStatus = itemData.data?.identification?.status;
+        return identificationStatus !== 'unidentified' && identificationStatus !== 'misidentified';
+    }
+
+    static getIdentificationState(itemData: any): string {
+        return itemData.data?.identification?.status;
     }
 
     get quantity(): number {
@@ -44,68 +49,105 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
     }
 
-    async setIsIdentified(value: boolean): Promise<this> {
-        if (value === this.isIdentified) {
+    get hasShowableMystifiedState(): boolean {
+        const itemData = this.data as PhysicalItemData;
+        switch (PhysicalItemPF2e.getIdentificationState(itemData)) {
+            case 'unidentified':
+                return !!itemData.data.identification.unidentified?.data?.description?.value;
+            case 'misidentified':
+                return !!itemData.data.identification.misidentified?.data?.description?.value;
+            default:
+                return true;
+        }
+    }
+
+    async setIdentifiedState(state: string): Promise<this> {
+        if (state === PhysicalItemPF2e.getIdentificationState(this.data)) {
             return this;
         }
-        if (value) {
-            return this.update({
-                _id: this.id,
-                'data.identification.status': value ? 'identified' : 'unidentified',
-            });
-        } else {
-            return this.update({
-                _id: this.id,
-                'data.identification.status': value ? 'identified' : 'unidentified',
-                'data.identification.identified.name': this.data.name,
-                'data.identification.identified.img': this.data.img,
-            });
+
+        const updateData = {
+            _id: this.id,
+            'data.identified.value': state === 'identified',
+            'data.identification.status': state,
+        };
+
+        return this.update(updateData);
+    }
+
+    static setMystifiedDefaults(
+        itemData: PhysicalItemData,
+        state: string,
+        update: { [key: string]: any },
+        diff: { [key: string]: any },
+    ) {
+        let name =
+            getProperty(update, `data.identification.${state}.name`) ??
+            getProperty(itemData, `data.identification.${state}.name`);
+
+        // customise unidentified name slightly to match the item type
+        switch (itemData.type) {
+            case 'weapon':
+                name = game.i18n.format(`PF2E.identification.${state}`, {
+                    itemtype: (itemData.data?.group?.value ?? 'Weapon').capitalize(),
+                });
+                break;
+            case 'armor':
+                switch (itemData.data?.armorType?.value) {
+                    case 'shield':
+                        name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Shield' });
+                        break;
+                    case 'unarmored':
+                        name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Clothes' });
+                        break;
+                    default:
+                        name = game.i18n.format(`PF2E.identification.${state}`, {
+                            itemtype: `${itemData.data?.armorType?.value.capitalize()} Armor`,
+                        });
+                }
+                break;
+            case 'consumable':
+                name = game.i18n.format(`PF2E.identification.${state}`, {
+                    itemtype: itemData.data.consumableType.value.capitalize(),
+                });
+                break;
+            default:
+                name = game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Item' });
+        }
+
+        diff.name = name;
+        diff.img = getUnidentifiedPlaceholderImage(itemData);
+
+        const basePath = `data.identification.${state}`;
+        if (!getProperty(itemData, basePath)) {
+            diff[`${basePath}.name`] = name;
+            diff[`${basePath}.img`] = diff.img;
+            diff[`${basePath}.data.description.value`] = `This ${itemData.type} is ${state}.`;
         }
     }
 
     static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
         if (!isPhysicalItem(itemData)) return;
         const update = mergeObject({}, diff); // expands the "flattened" fields in the diff object
-        const status = getProperty(update, 'data.identification.status');
-        if (status && getProperty(itemData, 'data.identification.status') !== status) {
-            // provide some defaults for unidentified items
-            if (status === 'unidentified') {
-                let name =
-                    getProperty(update, `data.identification.unidentified.name`) ??
-                    getProperty(itemData, `data.identification.unidentified.name`);
-
-                const translateFallback = (translated: string, key: string) => {
-                    if (translated) {
-                        return translated;
-                    } else {
-                        const value = game.i18n.localize(key);
-                        return key === value ? null : value;
-                    }
-                };
-
-                // customise unidentified name slightly to match the item type
-                if (itemData.type === 'weapon') {
-                    const key = `PF2E.identification.ItemType.WeaponType.${itemData.data?.group?.value}`;
-                    name = translateFallback(name, key);
-                } else if (itemData.type === 'armor') {
-                    const key = `PF2E.identification.ItemType.ArmorType.${itemData.data?.armorType?.value}`;
-                    name = translateFallback(name, key);
-                }
-                name = translateFallback(name, `PF2E.identification.ItemType.${itemData.type}`);
-                name = translateFallback(name, `PF2E.identification.UnidentifiedItem`);
-
-                diff.name = name;
-                diff.img = getUnidentifiedPlaceholderImage(itemData);
+        const identificationState = getProperty(update, 'data.identification.status');
+        if (identificationState && getProperty(itemData, 'data.identification.status') !== identificationState) {
+            // provide some defaults for mystified items if necessary.
+            if (!itemData.data.identification.unidentified) {
+                this.setMystifiedDefaults(itemData, 'unidentified', update, diff);
+            }
+            if (!itemData.data.identification.misidentified) {
+                this.setMystifiedDefaults(itemData, 'misidentified', update, diff);
             }
 
             // ensure an "identified" name so the item can always be restored
-            if (status !== 'identified' && !getProperty(itemData, 'data.identification.identified')) {
+            if (identificationState !== 'identified' && !getProperty(itemData, 'data.identification.identified')) {
                 diff['data.identification.identified.name'] = itemData.name;
                 diff['data.identification.identified.img'] = itemData.img;
+                diff['data.identification.identified.data.description.value'] = itemData.data.description.value;
             }
 
             // load data of referenced item - if any
-            const uuid = getProperty(update, `data.identification.${status}.link`);
+            const uuid = getProperty(update, `data.identification.${identificationState}.link`);
             if (uuid) {
                 const baseItem = (await fromUuid(uuid)) as ItemPF2e | null;
                 if (baseItem instanceof PhysicalItemPF2e) {
@@ -126,8 +168,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
             // override specific fields, if there are any
             const override =
-                getProperty(update, `data.identification.${status}`) ??
-                getProperty(itemData, `data.identification.${status}`);
+                getProperty(update, `data.identification.${identificationState}`) ??
+                getProperty(itemData, `data.identification.${identificationState}`);
             if (override) {
                 delete override.link;
                 for (const [key, value] of Object.entries(flattenObject(override))) {

@@ -58,6 +58,10 @@
 /* Sheet Structure
 /* ----------------------------------------- */
 
+.window-app .window-content {
+  background: url("../assets/sheet/parchment.webp") repeat;
+}
+
 .pf2e {
   &.sheet {
     .window-content {
@@ -2535,11 +2539,13 @@
       }
     }
 
-    .sheet-body input {
-      &[type="text"], &[type="number"] {
-        background: rgba(255, 255, 255, 0.5);
-        border: 1px solid #aaa;
-        padding: 3px;
+    .sheet-body {
+      input {
+        &[type="text"], &[type="number"] {
+          background: rgba(255, 255, 255, 0.5);
+          border: 1px solid #aaa;
+          padding: 3px;
+        }
       }
     }
 
@@ -2732,6 +2738,16 @@
         line-height: 24px;
         font-size: 14px;
         text-align: center;
+      }
+    }
+
+    .item-mystify {
+      padding: 8px 8px 0;
+      overflow-y: auto;
+
+      label {
+        color: #353535;
+        font-weight: bold;
       }
     }
 
@@ -3498,7 +3514,7 @@ li.item.hover-container {
     font-size: 14px;
     font-weight: 400;
     line-height: normal;
-    background: url(../../../ui/parchment.jpg) repeat;
+    background: url("../assets/sheet/parchment.webp") repeat;
     border: 1px solid #999;
     border-radius: 3px;
     box-shadow: 0 0 3px #fff inset;

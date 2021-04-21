@@ -124,7 +124,7 @@ export abstract class PF2RuleElement {
      * @param item
      * @return human readable label of the rule
      */
-    getDefaultLabel(ruleData, item: ItemDataPF2e): string {
+    getDefaultLabel(ruleData: any, item: ItemDataPF2e): string {
         return game.i18n.localize(ruleData.label ?? item?.name);
     }
 

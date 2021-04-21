@@ -601,7 +601,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (!(item instanceof PhysicalItemPF2e)) {
                     throw Error(`PF2e | ${item.name} is not a physical item.`);
                 }
-                item.setIsIdentified(false);
+                item.setIdentifiedState('unidentified');
             } else {
                 new IdentifyItemPopup(this.actor, { itemId }).render(true);
             }
@@ -1141,10 +1141,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = duplicate(item._data);
 
         const actor = this.actor;
-        const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token.id);
+        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
         if (data.actorId && isPhysicalItem(itemData)) {
@@ -1152,7 +1152,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 event,
                 data.actorId,
                 data.tokenId ?? '',
-                actor._id,
+                actor.id,
                 actor.token?.id ?? '',
                 data.id,
             );
@@ -1353,11 +1353,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
 
-        if (
-            game.user.isGM ||
-            !(item instanceof PhysicalItemPF2e) ||
-            (item instanceof PhysicalItemPF2e && item.isIdentified)
-        ) {
+        if (game.user.isGM || !(item instanceof PhysicalItemPF2e) || item.hasShowableMystifiedState) {
             this.renderItemSummary(li, item, chatData);
         }
     }

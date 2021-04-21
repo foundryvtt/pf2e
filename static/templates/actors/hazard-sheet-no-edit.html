@@ -1,5 +1,5 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
-	<div class="container">
+    <div class="container">
 
     <header class="title-bar">
       <h1 class='name'>{{actor.name}}</h1>
@@ -122,7 +122,7 @@
           <label class="stat-title">{{localize "PF2E.HitPointsShortLabel"}}</label>
           <span class="stat-value">{{data.attributes.hp.max}}</span>
           <span class="stat-value"> (BT {{brokenThreshold}})</span>
-  	      {{#if hasHPDetails}}
+          {{#if hasHPDetails}}
           <span class="stat-detail">{{{data.attributes.hp.details}}}</span>
           {{/if}}
 
@@ -133,7 +133,7 @@
         <span class="stat-list major-stat">
           <label class="stat-title">{{localize "PF2E.ImmunitiesLabel"}}</label>
           {{#each data.traits.di.selected as |trait id|}}
-            <span class="stat-value">{{trait}}</span>
+            <span class="stat-value">{{localize trait}}</span>
           {{/each}}
         </span>
         {{/if}}
@@ -188,8 +188,8 @@
             </div>
             {{/if}}
           </li>
-   	    {{/each}}
-   	  {{/each}}
+        {{/each}}
+      {{/each}}
 
       {{#each actor.attacks as |section sid|}}
         <li class="item inventory-header sub-category spellbook-header attack-header">
