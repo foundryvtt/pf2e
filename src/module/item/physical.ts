@@ -43,6 +43,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         super.prepareData();
         // Disable active effects if the item isn't equipped and (if applicable) invested
         if (!this.isEquipped || this.isInvested === false) {
+            this.data.data.rules = [];
             for (const effectData of this.data.effects) {
                 effectData.disabled = true;
             }

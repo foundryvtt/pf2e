@@ -19,6 +19,7 @@ import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
+    editableRules: PF2RuleElementData[];
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
     isPhysicalItem: boolean;
@@ -60,6 +61,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         data.user = game.user;
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
+        data.editableRules = this.item._data.data.rules;
 
         const { type } = this.item;
         mergeObject(data, {
@@ -237,6 +239,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
         return {
             ...super.getData(),
+            editableRules: this.item._data.data.rules,
             user: game.user,
             enabledRulesUI: game.settings.get(game.system.id, 'enabledRulesUI') ?? false,
             activeEffects: this.getActiveEffectsData(),

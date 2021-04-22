@@ -91,8 +91,8 @@ export class CharacterPF2e extends CreaturePF2e {
 
         const actorData = this.data;
 
-        const rules: PF2RuleElement[] = actorData.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
+        const rules: PF2RuleElement[] = this.items.reduce(
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
         );
         const { data } = actorData;
