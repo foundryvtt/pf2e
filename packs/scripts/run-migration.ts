@@ -12,6 +12,7 @@ import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-mig
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from '@module/migrations/619-remove-wand-and-scroll-tradition';
 import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp';
 import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
+import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-potency-runes';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
@@ -19,6 +20,7 @@ const migrations: MigrationBase[] = [
     new Migration619TraditionLowercaseAndRemoveWandScroll(),
     new Migration620RenameToWebp(),
     new Migration621RemoveConfigSpellSchools(),
+    new Migration623NumifyPotencyRunes(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

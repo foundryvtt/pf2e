@@ -53,6 +53,7 @@ import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-
 import { Migration620RenameToWebp } from './620-rename-to-webp';
 import { Migration621RemoveConfigSpellSchools } from './621-remove-config-spellSchools';
 import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-remove-old-token-effect-icons';
+import { Migration623NumifyPotencyRunes } from './623-numify-potency-runes';
 
 export class Migrations {
     private static list = [
@@ -110,6 +111,7 @@ export class Migrations {
         Migration620RenameToWebp,
         Migration621RemoveConfigSpellSchools,
         Migration622RemoveOldTokenEffectIcons,
+        Migration623NumifyPotencyRunes,
     ];
 
     static get latestVersion(): number {
