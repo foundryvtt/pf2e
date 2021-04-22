@@ -88,7 +88,7 @@
                                 {{/if}}
                             </li>
                             {{#each section.actions as |action aid|}}
-                            {{#if action.encounter}}
+                            {{#if action.data.modeOfPlay.value.encounter}}
                             <li class="item" data-item-id="{{action._id}}">
                                 <div class="item-name rollable">
                                     <div class="item-image" style="background-image: url({{action.img}})">
@@ -117,7 +117,7 @@
                 <div id="exploration" class="actions-panel">
                     <ol class="actions-list inventory-list directory-list strikes-list">
                         <li class="item action-header">
-                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
+                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionCollections.Activity'}}</h3>
                             {{#if owner}}
                             <div class="item-controls" style="display: flex">
                                 <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
@@ -130,12 +130,10 @@
                         {{#if action.data.modeOfPlay.value.exploration}}
                         <li class="item" data-item-id="{{action._id}}">
                             <div class="item-name rollable">
-                                <div class="item-image" style="background-image: url({{action.img}})">
-                                    <i class="fas fa-comment-alt"></i>
-                                </div>
+                                <i class="fas fa-clock"></i>
                                 <h4>{{action.name}}</h4>
                             </div>
-                            {{#if ../owner}}
+                            {{#if ../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
                                 {{#unless action.feat}}
@@ -153,7 +151,7 @@
                 <div id="downtime" class="actions-panel">
                     <ol class="actions-list inventory-list directory-list strikes-list">
                         <li class="item action-header">
-                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionsActionsHeader'}}</h3>
+                            <h3 class="pf-heading pf-actions">{{localize 'PF2E.ActionCollections.Activity'}}</h3>
                             {{#if owner}}
                             <div class="item-controls" style="display: flex">
                                 <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="free"><i class="fas fa-plus"></i></a>
@@ -166,12 +164,10 @@
                         {{#if action.data.modeOfPlay.value.downtime}}
                         <li class="item" data-item-id="{{action._id}}">
                             <div class="item-name rollable">
-                                <div class="item-image" style="background-image: url({{action.img}})">
-                                  <i class="fas fa-comment-alt"></i>
-                                </div>
+                                <i class="fas fa-clock"></i>
                                 <h4>{{action.name}}</h4>
                             </div>
-                            {{#if ../owner}}
+                            {{#if ../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
                                 {{#unless action.feat}}

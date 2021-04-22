@@ -1046,7 +1046,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
             free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
             reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
-            activity: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: 'AC' },
+            activity: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
             passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
         };
         if (objectHasKey(graphics, actionImg)) {
