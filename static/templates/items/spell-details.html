@@ -37,8 +37,10 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="magicTraditions" data-property="data.traditions"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list" style="margin: 3px 0; padding: 0;">
-        {{#each data.traditions.value as |v k|}}
-            <span class="tag {{k}}">{{v}}</span>
+        {{#each magicTraditions as |tradition|}}
+            {{#if tradition.selected}}
+                <li class="tag">{{localize tradition.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>
@@ -47,9 +49,9 @@
     <label>{{localize "PF2E.SpellSchoolLabel"}}</label>
     <select name="data.school.value" data-dtype="String">
         {{#select data.school.value}}
-        {{#each spellSchools as |name sch|}}
-        <option value="{{sch}}">{{localize name}}</option>
-        {{/each}}
+            {{#each magicSchools as |name sch|}}
+                <option value="{{sch}}">{{localize name}}</option>
+            {{/each}}
         {{/select}}
     </select>
 </div>

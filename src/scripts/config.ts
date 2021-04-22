@@ -104,6 +104,7 @@ const classTraits = {
     witch: 'PF2E.TraitWitch',
     wizard: 'PF2E.TraitWizard',
 };
+
 const damageTypes = {
     acid: 'PF2E.DamageTypeAcid',
     bleed: 'PF2E.DamageTypeBleed',
@@ -125,6 +126,31 @@ const damageTypes = {
     precision: 'PF2E.DamageTypePrecision',
     slashing: 'PF2E.DamageTypeSlashing',
     sonic: 'PF2E.DamageTypeSonic',
+};
+
+const spellTraditions = {
+    arcane: 'PF2E.TraitArcane',
+    divine: 'PF2E.TraitDivine',
+    occult: 'PF2E.TraitOccult',
+    primal: 'PF2E.TraitPrimal',
+};
+
+const magicSchools = {
+    abjuration: 'PF2E.TraitAbjuration',
+    conjuration: 'PF2E.TraitConjuration',
+    divination: 'PF2E.TraitDivination',
+    enchantment: 'PF2E.TraitEnchantment',
+    evocation: 'PF2E.TraitEvocation',
+    illusion: 'PF2E.TraitIllusion',
+    necromancy: 'PF2E.TraitNecromancy',
+    transmutation: 'PF2E.TraitTransmutation',
+};
+
+const weaponCategories = {
+    simple: 'PF2E.WeaponTypeSimple',
+    martial: 'PF2E.WeaponTypeMartial',
+    advanced: 'PF2E.WeaponTypeAdvanced',
+    unarmed: 'PF2E.WeaponTypeUnarmed',
 };
 
 const traitsDescriptions = {
@@ -463,6 +489,7 @@ const creatureTraits = {
 const spellTraits = {
     ...classTraits,
     ...damageTraits,
+    ...spellTraditions,
     air: 'PF2E.TraitAir',
     attack: 'PF2E.TraitAttack',
     auditory: 'PF2E.TraitAuditory',
@@ -509,13 +536,6 @@ const spellTraits = {
     water: 'PF2E.TraitWater',
 };
 
-const weaponCategories = {
-    simple: 'PF2E.WeaponTypeSimple',
-    martial: 'PF2E.WeaponTypeMartial',
-    advanced: 'PF2E.WeaponTypeAdvanced',
-    unarmed: 'PF2E.WeaponTypeUnarmed',
-};
-
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
@@ -527,7 +547,7 @@ export const PF2ECONFIG = {
         effectsIconFileType: 'webp',
         keepFoundryStatusEffects: true,
         foundryStatusEffects: [] as string[],
-    }, // Ability labels
+    },
 
     levels: {
         1: 'PF2E.Level1',
@@ -565,7 +585,7 @@ export const PF2ECONFIG = {
         perception: 'PF2E.PerceptionLabel',
         stealth: 'PF2E.StealthLabel',
         initiative: 'PF2E.PerceptionLabel',
-    }, // Skill labels
+    },
 
     dcAdjustments: {
         'incredibly easy': 'PF2E.DCAdjustmentIncrediblyEasy',
@@ -594,7 +614,7 @@ export const PF2ECONFIG = {
         ste: 'PF2E.SkillSte',
         sur: 'PF2E.SkillSur',
         thi: 'PF2E.SkillThi',
-    }, // Martial skill labels
+    },
 
     martialSkills: {
         unarmored: 'PF2E.MartialUnarmored',
@@ -605,13 +625,13 @@ export const PF2ECONFIG = {
         martial: 'PF2E.MartialMartial',
         advanced: 'PF2E.MartialAdvanced',
         unarmed: 'PF2E.MartialUnarmed',
-    }, // Saves labels
+    },
 
     saves: {
         reflex: 'PF2E.SavesReflex',
         fortitude: 'PF2E.SavesFortitude',
         will: 'PF2E.SavesWill',
-    }, // Inventory currency labels
+    },
 
     currencies: {
         pp: 'PF2E.CurrencyPP',
@@ -731,7 +751,6 @@ export const PF2ECONFIG = {
 
     damageTypes,
 
-    // Resistance Types
     resistanceTypes: {
         acid: 'PF2E.DamageTypeAcid',
         air: 'PF2E.TraitAir',
@@ -773,7 +792,7 @@ export const PF2ECONFIG = {
         coins: 'PF2E.StackGroupCoins',
         gems: 'PF2E.StackGroupGems',
         sacks: 'PF2E.StackGroupSacks',
-    }, // Weakness Types
+    },
 
     weaknessTypes: {
         acid: 'PF2E.DamageTypeAcid',
@@ -814,7 +833,7 @@ export const PF2ECONFIG = {
         'vorpal fear': 'PF2E.WeaknessTypeVorpalFear',
         warpglass: 'PF2E.PreciousMaterialWarpglass',
         water: 'PF2E.TraitWater',
-    }, // Weapon Damage Types
+    },
 
     weaponDamage: {
         bludgeoning: 'PF2E.DamageTypeBludgeoning',
@@ -823,7 +842,6 @@ export const PF2ECONFIG = {
         modular: 'PF2E.DamageTypeModular',
     },
 
-    // Healing Types
     healingTypes: {
         healing: 'PF2E.HealingTypeHealing',
         temphp: 'PF2E.HealingTypeTemporaryHealing',
@@ -850,7 +868,6 @@ export const PF2ECONFIG = {
         bomb: 'PF2E.WeaponGroupBomb',
     },
 
-    // Weapon Descriptions
     weaponDescriptions: {
         club: 'PF2E.WeaponDescriptionClub',
         knife: 'PF2E.WeaponDescriptionKnife',
@@ -913,14 +930,9 @@ export const PF2ECONFIG = {
         uncommon: 'PF2E.TraitUncommon',
         rare: 'PF2E.TraitRare',
         unique: 'PF2E.TraitUnique',
-    }, // Spell Traditions
+    },
 
-    spellTraditions: {
-        arcane: 'PF2E.TraitArcane',
-        divine: 'PF2E.TraitDivine',
-        occult: 'PF2E.TraitOccult',
-        primal: 'PF2E.TraitPrimal',
-    }, // Magic Traditon
+    spellTraditions,
 
     spellOtherTraits: {
         acid: 'PF2E.TraitAcid',
@@ -981,7 +993,7 @@ export const PF2ECONFIG = {
         teleportation: 'PF2E.TraitTeleportation',
         visual: 'PF2E.TraitVisual',
         water: 'PF2E.TraitWater',
-    }, // Spell Traits (does not include custom)
+    },
 
     magicTraditions: {
         arcane: 'PF2E.TraitArcane',
@@ -993,28 +1005,7 @@ export const PF2ECONFIG = {
         halcyon: 'PF2E.TraitHalcyon',
     },
 
-    magicalSchools: {
-        abjuration: 'PF2E.TraitAbjuration',
-        conjuration: 'PF2E.TraitConjuration',
-        divination: 'PF2E.TraitDivination',
-        enchantment: 'PF2E.TraitEnchantment',
-        evocation: 'PF2E.TraitEvocation',
-        illusion: 'PF2E.TraitIllusion',
-        necromancy: 'PF2E.TraitNecromancy',
-        transmutation: 'PF2E.TraitTransmutation',
-    },
-
-    spellSchools: {
-        abj: 'PF2E.SpellSchoolAbj',
-        con: 'PF2E.SpellSchoolCon',
-        div: 'PF2E.SpellSchoolDiv',
-        enc: 'PF2E.SpellSchoolEnc',
-        evo: 'PF2E.SpellSchoolEvo',
-        ill: 'PF2E.SpellSchoolIll',
-        nec: 'PF2E.SpellSchoolNec',
-        trs: 'PF2E.SpellSchoolTrs',
-    },
-
+    magicSchools,
     classTraits,
     ancestryTraits,
     ancestryItemTraits: ancestryTraits,
@@ -1022,6 +1013,8 @@ export const PF2ECONFIG = {
     weaponTraits: {
         ...ancestryTraits,
         ...classTraits,
+        ...magicSchools,
+        ...spellTraditions,
         acid: 'PF2E.TraitAcid',
         adamantine: 'PF2E.PreciousMaterialAdamantine',
         air: 'PF2E.TraitAir',
@@ -1162,6 +1155,8 @@ export const PF2ECONFIG = {
     },
 
     armorTraits: {
+        ...magicSchools,
+        ...spellTraditions,
         apex: 'PF2E.TraitApex',
         artifact: 'PF2E.TraitArtifact',
         bulwark: 'PF2E.TraitBulwark',
@@ -1180,6 +1175,8 @@ export const PF2ECONFIG = {
 
     equipmentTraits: {
         ...ancestryTraits,
+        ...magicSchools,
+        ...spellTraditions,
         acid: 'PF2E.TraitAcid',
         air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
@@ -1232,6 +1229,8 @@ export const PF2ECONFIG = {
     },
 
     consumableTraits: {
+        ...magicSchools,
+        ...spellTraditions,
         air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         auditory: 'PF2E.TraitAuditory',
@@ -1288,6 +1287,8 @@ export const PF2ECONFIG = {
         ...ancestryTraits,
         ...classTraits,
         ...damageTraits,
+        ...magicSchools,
+        ...spellTraditions,
         ...spellTraits,
         move: 'PF2E.TraitMove',
         manipulate: 'PF2E.TraitManipulate',
@@ -1334,6 +1335,7 @@ export const PF2ECONFIG = {
 
     hazardTraits: {
         ...damageTraits,
+        ...magicSchools,
         alchemical: 'PF2E.TraitAlchemical',
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
@@ -1361,7 +1363,7 @@ export const PF2ECONFIG = {
         1: 'PF2E.ItemBonus1',
         2: 'PF2E.ItemBonus2',
         3: 'PF2E.ItemBonus3',
-    }, // Damage Dice
+    },
 
     damageDice: {
         0: '0',
@@ -1369,7 +1371,7 @@ export const PF2ECONFIG = {
         2: '2',
         3: '3',
         4: '4',
-    }, // Damage Die
+    },
 
     damageDie: {
         d4: 'PF2E.DamageDieD4',
@@ -1377,7 +1379,7 @@ export const PF2ECONFIG = {
         d8: 'PF2E.DamageDieD8',
         d10: 'PF2E.DamageDieD10',
         d12: 'PF2E.DamageDieD12',
-    }, // Weapon Range
+    },
 
     weaponRange: {
         melee: 'PF2E.WeaponRangeMelee',
@@ -1393,7 +1395,6 @@ export const PF2ECONFIG = {
         120: 'PF2E.WeaponRange120',
         140: 'PF2E.WeaponRange140',
     }, // TODO: Compute range!
-    // Weapon MAP
 
     weaponMAP: {
         1: '-1/-2',
@@ -1401,7 +1402,7 @@ export const PF2ECONFIG = {
         3: '-3/-6',
         4: '-4/-8',
         5: '-5/-10',
-    }, // Weapon Reload
+    },
 
     weaponReload: {
         '-': '-',
@@ -1409,7 +1410,7 @@ export const PF2ECONFIG = {
         1: '1',
         2: '2',
         3: '3',
-    }, // Armor Types
+    },
 
     armorTypes: {
         unarmored: 'PF2E.ArmorTypeUnarmored',
@@ -1417,14 +1418,14 @@ export const PF2ECONFIG = {
         medium: 'PF2E.ArmorTypeMedium',
         heavy: 'PF2E.ArmorTypeHeavy',
         shield: 'PF2E.ArmorTypeShield',
-    }, // Armor Groups
+    },
 
     armorGroups: {
         leather: 'PF2E.ArmorGroupLeather',
         composite: 'PF2E.ArmorGroupComposite',
         chain: 'PF2E.ArmorGroupChain',
         plate: 'PF2E.ArmorGroupPlate',
-    }, // Consumable Types
+    },
 
     consumableTypes: {
         ammo: 'PF2E.ConsumableTypeAmmo',
@@ -1441,13 +1442,13 @@ export const PF2ECONFIG = {
         poison: 'PF2E.ConsumableTypePoison',
         tool: 'PF2E.ConsumableTypeTool',
         wand: 'PF2E.ConsumableTypeWand',
-    }, // Preparation Type
+    },
 
     preparationType: {
         prepared: 'PF2E.PreparationTypePrepared',
         spontaneous: 'PF2E.PreparationTypeSpontaneous',
         innate: 'PF2E.PreparationTypeInnate',
-    }, // Area Types
+    },
 
     areaTypes: {
         burst: 'PF2E.AreaTypeBurst',
@@ -1479,7 +1480,7 @@ export const PF2ECONFIG = {
         LE: 'PF2E.AlignmentLE',
         NE: 'PF2E.AlignmentNE',
         CE: 'PF2E.AlignmentCE',
-    }, // Attitude
+    },
 
     attitude: {
         hostile: 'PF2E.Attitudes.Hostile',
@@ -1487,7 +1488,7 @@ export const PF2ECONFIG = {
         indifferent: 'PF2E.Attitudes.Indifferent',
         friendly: 'PF2E.Attitudes.Friendly',
         helpful: 'PF2E.Attitudes.Helpful',
-    }, // Skill List
+    },
 
     skillList: {
         acrobatics: 'PF2E.SkillAcrobatics',
@@ -1507,19 +1508,19 @@ export const PF2ECONFIG = {
         survival: 'PF2E.SkillSurvival',
         thievery: 'PF2E.SkillThievery',
         lore: 'PF2E.SkillLore',
-    }, // Spell Components
+    },
 
     spellComponents: {
         V: 'PF2E.SpellComponentV',
         S: 'PF2E.SpellComponentS',
         M: 'PF2E.SpellComponentM',
-    }, // Spell Category
+    },
 
     spellCategories: {
         spell: 'PF2E.SpellCategorySpell',
         focus: 'PF2E.SpellCategoryFocus',
         ritual: 'PF2E.SpellCategoryRitual',
-    }, // Spell Types
+    },
 
     spellTypes: {
         attack: 'PF2E.SpellTypeAttack',
@@ -1528,7 +1529,7 @@ export const PF2ECONFIG = {
         utility: 'PF2E.SpellTypeUtility',
         focus: 'PF2E.SpellTypeFocus',
         ritual: 'PF2E.SpellTypeRitual',
-    }, // Spell Levels
+    },
 
     spellLevels: {
         0: 'PF2E.SpellLevel0',
@@ -1543,7 +1544,6 @@ export const PF2ECONFIG = {
         9: 'PF2E.SpellLevel9',
         10: 'PF2E.SpellLevel10',
     }, // TODO: Compute levels!
-    // Feat Types
 
     featTypes: {
         ancestry: 'PF2E.FeatTypeAncestry',
@@ -1560,20 +1560,20 @@ export const PF2ECONFIG = {
         curse: 'PF2E.FeatCurseHeader',
         variantrule: 'PF2E.FeatVariantRule',
     },
-    // Feat Action Types
+
     featActionTypes: {
         passive: 'PF2E.FeatActionTypePassive',
         action: 'PF2E.FeatActionTypeAction',
         reaction: 'PF2E.FeatActionTypeReaction',
         free: 'PF2E.FeatActionTypeFree',
-    }, // Action Action Types
+    },
 
     actionTypes: {
         action: 'PF2E.ActionTypeAction',
         reaction: 'PF2E.ActionTypeReaction',
         free: 'PF2E.ActionTypeFree',
         passive: 'PF2E.ActionTypePassive',
-    }, // Actions Number
+    },
 
     actionsNumber: {
         1: 'PF2E.ActionNumber1',
@@ -2223,9 +2223,9 @@ export const PF2ECONFIG = {
                 name: 'PF2E.SETTINGS.Homebrew.Languages.Name',
                 hint: 'PF2E.SETTINGS.Homebrew.Languages.Hint',
             },
-            spellSchools: {
-                name: 'PF2E.SETTINGS.Homebrew.SpellSchools.Name',
-                hint: 'PF2E.SETTINGS.Homebrew.SpellSchools.Hint',
+            magicSchools: {
+                name: 'PF2E.SETTINGS.Homebrew.MagicSchools.Name',
+                hint: 'PF2E.SETTINGS.Homebrew.MagicSchools.Hint',
             },
             spellTraits: {
                 name: 'PF2E.SETTINGS.Homebrew.SpellTraits.Name',
@@ -2314,20 +2314,6 @@ export const PF2ECONFIG = {
         },
     },
 };
-
-mergeObject(PF2ECONFIG.weaponTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.weaponTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.armorTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.armorTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.equipmentTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.equipmentTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.consumableTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.consumableTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.spellTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.spellTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.featTraits, PF2ECONFIG.spellTraditions);
-mergeObject(PF2ECONFIG.featTraits, PF2ECONFIG.magicalSchools);
-mergeObject(PF2ECONFIG.hazardTraits, PF2ECONFIG.magicalSchools);
 
 export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
     /**
