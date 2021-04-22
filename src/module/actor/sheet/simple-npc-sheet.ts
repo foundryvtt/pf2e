@@ -23,11 +23,12 @@ import {
     ActionData,
     ActionDetailsData,
     ArmorData,
+    ConditionData,
     ConsumableData,
+    EffectData,
     EquipmentData,
     ItemDataPF2e,
     MeleeData,
-    PhysicalItemData,
     SpellcastingEntryData,
     SpellcastingEntryDetailsData,
     SpellData,
@@ -37,6 +38,7 @@ import {
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
 import { ActionCollection } from '@item/action';
+import { SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -51,19 +53,6 @@ interface Attack {
 }
 
 type Attacks = Attack[];
-
-interface SheetItemList<D extends PhysicalItemData> {
-    label: string;
-    type: D['type'];
-    items: D[];
-}
-interface Inventory {
-    weapon: SheetItemList<WeaponData>;
-    armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData>;
-    consumable: SheetItemList<ConsumableData>;
-    treasure: SheetItemList<TreasureData>;
-}
 
 interface NPCSystemSheetData extends RawNPCData {
     attributes: NPCAttributes & {
@@ -89,6 +78,8 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     attacks: Attacks;
     data: NPCSystemSheetData;
     items: ItemDataPF2e[] & SheetEnrichedItemData[];
+    effects: EffectData[];
+    conditions: ConditionData[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
@@ -116,9 +107,8 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     eliteState: 'active' | 'inactive';
     weakState: 'active' | 'inactive';
     notAdjusted: boolean;
-    inventory: Inventory;
+    inventory: SheetInventory;
     hasShield?: boolean;
-    tokenName?: string;
 }
 
 interface SheetEnrichedItemData {
@@ -158,7 +148,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Mix default options with new ones
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc']),
+            classes: options.classes.concat('npc'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
@@ -185,7 +175,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     get title() {
         if (this.isLootSheet) {
             const actorName = this.token?.name ?? this.actor.name;
-            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`; // `;
         }
         return super.title;
     }
@@ -210,6 +200,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
+        sheetData.conditions = sheetData.items.filter((data): data is ConditionData => data.type === 'condition');
+        sheetData.effects = sheetData.items.filter((data): data is EffectData => data.type === 'effect');
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
@@ -227,7 +219,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.identificationSkills = Array.from(sheetData.identifyCreatureData.skills)
             .sort()
             .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym as SkillAbbreviation]);
-        sheetData.identificationSkillList = sheetData.identificationSkills.join(', ');
 
         sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
         sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
@@ -278,7 +269,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Data for lootable token-actor sheets
         if (this.isLootSheet) {
-            sheetData.tokenName = this.token?.name ?? sheetData.actor.name;
+            sheetData.actor.name = this.token?.name ?? this.actor.name;
         }
 
         // Return data for rendering
@@ -340,6 +331,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.modifier')
             .on('focusin', (event) => this.baseInputOnFocus(event))
             .on('focusout', (event) => this.baseInputOnFocusOut(event));
+
+        html.find('.effects-list > .effect > .item-image').on('contextmenu', (event) => this.onClickDeleteItem(event));
     }
 
     // TRAITS MANAGEMENT
@@ -726,7 +719,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the equipment list of the actor.
      * @param sheetData Data of the sheet.
      */
-    private prepareInventory(sheetData: NPCSheetData): Inventory {
+    prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
         return {
             weapon: {

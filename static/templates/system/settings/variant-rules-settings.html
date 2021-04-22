@@ -29,6 +29,20 @@
     </div>
     <p class="notes">{{localize 'PF2E.SETTINGS.Variant.FreeArchetype.Hint'}}</p>
   </div>
+  <h2>{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Title'}}</h2>
+  <div class="form-group">
+    <label>{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Name'}}</label>
+    <div class="form-fields">
+          <select name="automaticBonusVariant">
+          {{#select automaticBonusVariant.value}}
+          {{#each automaticBonusVariant.setting.choices as |label value|}}
+          <option value="{{value}}">{{localize label}}</option>
+          {{/each}}
+          {{/select}}
+        </select>
+    </div>
+    <p class="notes">{{localize 'PF2E.SETTINGS.Variant.AutomaticBonus.Hint'}}</p>
+  </div>
   <h2>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Title'}}</h2>
   <div class="form-group">
       <label>{{localize 'PF2E.SETTINGS.Variant.Proficiency.Name'}}</label>

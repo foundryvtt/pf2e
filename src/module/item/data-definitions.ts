@@ -1,4 +1,4 @@
-import { AbilityString, ZeroToFour } from '@actor/data-definitions';
+import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
@@ -8,10 +8,8 @@ export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
-export interface ItemTraits {
+export interface ItemTraits extends ValuesList {
     rarity: { value: Rarity };
-    value: string[];
-    custom: string;
 }
 
 export interface ItemDescriptionData {
@@ -70,6 +68,31 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        unidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        misidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
             img: string;
         };
     };
@@ -504,31 +527,26 @@ export interface TrickMagicItemCastData {
     _id: string;
 }
 
-export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+export type MagicSchoolKey = keyof ConfigPF2e['PF2E']['magicSchools'];
 type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
 }
 
 export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
+export type MagicTraditionKey = keyof ConfigPF2e['PF2E']['magicTraditions'];
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
     spellType: {
         value: string;
     };
-    areasize: {
-        value: string;
-    };
     spellCategory: {
         value: string;
     };
-    traditions: {
-        value: string[];
-        custom: string;
-    };
+    traditions: ValuesList<MagicTraditionKey>;
     school: {
-        value: MagicSchoolAbbreviation;
+        value: MagicSchoolKey;
     };
     components: {
         value: string;
@@ -632,7 +650,7 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: string;
+        value: MagicTraditionKey;
     };
     focus: {
         points: number;
@@ -776,6 +794,9 @@ export interface EffectDetailsData extends ItemDescriptionData {
         value: number;
         initiative: number | null;
     };
+    tokenIcon?: {
+        show: boolean;
+    };
 }
 
 export type PhysicalItemType = 'armor' | 'backpack' | 'consumable' | 'equipment' | 'melee' | 'treasure' | 'weapon';
@@ -909,6 +930,21 @@ export type ItemDataPF2e =
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
+}
+
+export function isInventoryItem(type: string): boolean {
+    switch (type) {
+        case 'armor':
+        case 'backpack':
+        case 'consumable':
+        case 'equipment':
+        case 'treasure':
+        case 'weapon': {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 export function isMagicDetailsData(

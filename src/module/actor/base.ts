@@ -29,6 +29,9 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
+import { ConditionPF2e } from '@item/others';
+import { AutomaticBonusProgression } from '../rules/automatic-bonus';
+import { TokenEffect } from '@module/rules/rule-element';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -122,6 +125,29 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return new Set(this.data.data.traits.traits.value);
     }
 
+    get level(): number {
+        return this.data.data.details.level.value;
+    }
+
+    get temporaryEffects(): TemporaryEffect[] {
+        // might fit better in the Actor#prepareDerivedData method
+        const conditionDataEntries = this.itemTypes.condition
+            .filter((condition) => condition.fromSystem)
+            .map((condition) => condition.data);
+        const conditionTokenEffects = ConditionManager.getFlattenedConditions(conditionDataEntries).map(
+            (c) => new TokenEffect(c.img),
+        );
+
+        const effectTokenEffects = this.itemTypes.effect
+            .filter((effect) => effect.data.data.tokenIcon?.show)
+            .map((effect) => new TokenEffect(effect.img));
+
+        return super.temporaryEffects
+            .concat(this.data.data.tokenEffects)
+            .concat(conditionTokenEffects)
+            .concat(effectTokenEffects);
+    }
+
     /** The default sheet, token, etc. image of a newly created world actor */
     static get defaultImg(): string {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
@@ -208,6 +234,12 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         return super.create(data, options) as Promise<A[] | A>;
+    }
+
+    /** @override */
+    prepareBaseData(): void {
+        super.prepareBaseData();
+        this.data.data.tokenEffects = [];
     }
 
     /** @override */
@@ -359,7 +391,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             striking,
             multipleAttackPenalties,
         };
-
+        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
         rules.forEach((rule) => {
             try {
                 rule.onBeforePrepareData(actorData, synthetics);
@@ -758,36 +790,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     /** @override */
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
@@ -960,7 +962,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             await this.updateEmbeddedEntity('OwnedItem', update);
         }
 
-        const newItemData = duplicate(item.data);
+        const newItemData = duplicate(item._data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
         if (isMagicDetailsData(newItemData.data)) {
@@ -1041,13 +1043,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             actionImg = actionType;
         }
         const graphics = {
-            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.png', actionGlyph: 'A' },
-            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.png', actionGlyph: 'D' },
-            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.png', actionGlyph: 'T' },
-            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.png', actionGlyph: 'F' },
-            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.png', actionGlyph: 'R' },
+            1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.webp', actionGlyph: 'A' },
+            2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.webp', actionGlyph: 'D' },
+            3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.webp', actionGlyph: 'T' },
+            free: { imageUrl: 'systems/pf2e/icons/actions/FreeAction.webp', actionGlyph: 'F' },
+            reaction: { imageUrl: 'systems/pf2e/icons/actions/Reaction.webp', actionGlyph: 'R' },
             activity: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
-            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.png', actionGlyph: '' },
+            passive: { imageUrl: 'systems/pf2e/icons/actions/Passive.webp', actionGlyph: '' },
         };
         if (objectHasKey(graphics, actionImg)) {
             return {
@@ -1056,7 +1058,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             };
         } else {
             return {
-                imageUrl: 'icons/svg/mystery-man.svg',
+                imageUrl: 'systems/pf2e/icons/actions/OneAction.webp',
                 actionGlyph: '',
             };
         }
@@ -1218,14 +1220,88 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return this.data.data.abilities[ability].mod;
     }
 
-    get level(): number {
-        return this.data.data.details.level.value;
+    /** Reduce a valued condition, or deletion one or more linked conditions */
+    async removeOrReduceCondition(
+        condition: Owned<ConditionPF2e>,
+        { forceRemove = false }: { forceRemove: boolean } = { forceRemove: false },
+    ): Promise<void> {
+        if (!condition.fromSystem) {
+            return;
+        }
+
+        const details = condition.data.data;
+        // Get all linked conditions if force-removing
+        const conditionList = forceRemove
+            ? [condition].concat(
+                  this.itemTypes.condition.filter(
+                      (maybeLinked) =>
+                          maybeLinked.fromSystem &&
+                          maybeLinked.data.data.base === details.base &&
+                          maybeLinked.data.data.value.value === details.value.value,
+                  ),
+              )
+            : [condition];
+
+        const tokens = this.token ? [this.token] : this.getActiveTokens();
+        if (tokens.length === 0) {
+            const idList = conditionList.map((condition) => condition.id);
+            await this.deleteEmbeddedEntity('OwnedItem', idList);
+            return;
+        }
+
+        for await (const condition of conditionList) {
+            const data = condition.data.data;
+            const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
+
+            for await (const token of tokens) {
+                if (value !== null && !forceRemove) {
+                    await game.pf2e.ConditionManager.updateConditionValue(condition.id, token, value);
+                } else {
+                    await game.pf2e.ConditionManager.removeConditionFromToken(condition.id, token);
+                }
+            }
+        }
     }
 }
 
 export interface ActorPF2e {
     data: ActorDataPF2e;
     _data: ActorDataPF2e;
+
+    /**
+     * See implementation in class
+     * @override
+     */
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
 }
 
 export class HazardPF2e extends ActorPF2e {}

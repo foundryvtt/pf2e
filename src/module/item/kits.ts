@@ -15,7 +15,7 @@ async function getKitItemData(
                 const pack = game.packs.get<Compendium<PhysicalItemPF2e>>(item.pack);
                 itemData = await pack.getEntry(item.id);
             } else {
-                itemData = duplicate(game.items.get(item.id)?.data) as PhysicalItemData;
+                itemData = duplicate(game.items.get(item.id)?._data) as PhysicalItemData;
             }
 
             if (!itemData) {

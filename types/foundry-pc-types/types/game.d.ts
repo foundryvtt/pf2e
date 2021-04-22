@@ -96,7 +96,7 @@ declare class Game<
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium>;
+    packs: Collection<Compendium<ActorType | ItemType | JournalEntry | MacroType | Playlist | RollTable | Scene>>;
 
     constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 

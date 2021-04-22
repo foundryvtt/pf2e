@@ -233,6 +233,7 @@
         },
         "AncestryFeatLevels": "Ancestry Feat Levels",
         "AreaSize10": "10 Foot",
+        "AreaSize100": "100 Foot",
         "AreaSize120": "120 Foot",
         "AreaSize15": "15 Foot",
         "AreaSize20": "20 Foot",
@@ -330,6 +331,13 @@
             "Friendly": "Friendly",
             "Helpful": "Helpful"
         },
+        "AutomaticBonusProgression":{
+          "attackPotency": "Attack Potency",
+          "defensePotency": "Defense Potency",
+          "devastatingAttacks": "Devastating Attacks",
+          "perceptionPotency": "Perception Potency",
+          "savePotency": "Save Potency"
+        },
         "Background": "Background",
         "BackgroundSkillFeats": "Skill Feats",
         "BackgroundTitle": "Your character's background",
@@ -422,6 +430,7 @@
                 "bestiaries/campaign": "Campaign",
                 "bestiaries/rulebook": "Rulebook",
                 "bestiaries/pfs": "Pathfinder Society",
+                "bestiaries/other":  "Other",
                 "character-building": "Character Building",
                 "character-building/feats": "Feats",
                 "effects": "Effects",
@@ -554,6 +563,7 @@
         "CurrentStaminaPointsShortLabel": "Current SP",
         "CurrentStaminaTitle": "The amount of stamina points you have",
         "DCLabel": "DC",
+        "DCWithValue": "DC {dc} {text}",
         "DamageDieD10": "d10",
         "DamageDieD12": "d12",
         "DamageDieD4": "d4",
@@ -598,6 +608,8 @@
         "DefencesLabel": "Defences",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
+        "DeleteConditionQuestion": "Are you sure you want to delete {condition}?",
+        "DeleteConditionTitle": "Delete Condition",
         "DeleteItemQuestion": "Are you sure you want to delete:",
         "DeleteItemTitle": "Delete Item",
         "DeleteShortLabel": "Del",
@@ -635,7 +647,7 @@
                 "ZeroRoundsExpireTurnEnd": "0 rounds remaining, expires end of initiative {initiative}",
                 "ZeroRoundsExpireTurnStart": "0 rounds remaining, expires start of initiative {initiative}"
             },
-            "Sustained": "Sustained",
+            "Sustained": "Sustained?",
             "UnlimitedDuration": "Unlimited duration"
         },
         "EffectSummary": "Effect Summary",
@@ -694,6 +706,7 @@
         "FeatTypeSkill": "Skill Feat",
         "FeaturesAncestryHeader": "Ancestry Features",
         "FeaturesClassHeader": "Class Features",
+        "FeatVariantRule": "Variant Rule",
         "Feet": "feet",
         "FlatBonusHP": "Flat Bonus HP",
         "FlatBonusHPTitle": "Adds a static number to your HP",
@@ -770,6 +783,9 @@
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
+            "Effect": {
+                "ShowTokenIcon": "Show token icon?"
+            },
             "Plural": "Items"
         },
         "ItemBonus0": "0",
@@ -781,6 +797,8 @@
         "ItemBonusShortLabel": "Item",
         "ItemDescription": "Description",
         "ItemDetails": "Details",
+        "ItemMystified": "Mystified",
+        "ItemMystify": "Mystify",
         "ItemNamePlaceholder": "Name",
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRules": "Rules",
@@ -874,6 +892,7 @@
         "Languages": "Languages",
         "LanguagesAdditional": "Additional Languages",
         "LevelLabel": "Level",
+        "LevelN": "Level {level}",
         "Level1": "Level 1",
         "Level2": "Level 2",
         "Level3": "Level 3",
@@ -951,6 +970,7 @@
             "proficiency": "Proficiency",
             "circumstance": "Circumstance",
             "item": "Item",
+            "potency": "Potency",
             "status": "Status",
             "untyped": "Untyped"
         },
@@ -1197,7 +1217,7 @@
             },
             "Player": {
                 "QuickRolls": {
-                    "DialogHint": "Show this window only if I shift-click to roll."
+                    "DialogHint": "Always show this window before attempting checks."
                 }
             },
             "User": {
@@ -1267,15 +1287,23 @@
                 },
                 "CreatureTraits": {
                     "Name": "Creature Traits",
-                    "Hint": "Traits that can be applied to any creature as well as most item types (e.g., Dragon, Gnome)"
+                    "Hint": "Traits that can be applied to any creature and some item types (e.g., Dragon, Gnome)"
+                },
+                "FeatTraits": {
+                    "Name": "Feat Traits",
+                    "Hint": "Traits that can be applied to feats (e.g., Lineage, Monk)"
                 },
                 "Languages": {
                     "Name": "Languages",
                     "Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)"
                 },
-                "SpellSchools": {
-                    "Name": "Magical Schools",
-                    "Hint": "The magical schools to which all spells and most magic items belong (e.g., Conjuration, Evocation)"
+                "MagicSchools": {
+                    "Name": "Magic Schools",
+                    "Hint": "The magical schools to which all spells belong (e.g., Conjuration, Evocation)"
+                },
+                "SpellTraits": {
+                    "Name": "Spell Traits",
+                    "Hint": " Traits that can be applied to any spell (e.g., Cursebound, Healing)"
                 },
                 "WeaponCategories": {
                     "Name": "Weapon Categories",
@@ -1364,6 +1392,16 @@
                     "Name": "Free Archetype Variant Rules",
                     "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194"
                 },
+                "AutomaticBonus": {
+                    "Title": "Automatic Bonus Progression",
+                    "Name": "Automatic Bonus Variant Rules",
+                    "Hint": "Reload Required: Support for Automatic Bonus Progression variant rules, except skills/apex ability.",
+                    "Choices": {
+                        "noABP": "Use default rules",
+                        "ABPRulesAsWritten": "Use variant rules as written",
+                        "ABPFundamentalPotency": "Treat bonus progression as fundamental runes"
+                    }
+                },
                 "Proficiency": {
                     "Title": "Proficiency without Level",
                     "Name": "Proficiency without Level Variant Rules",
@@ -1436,7 +1474,7 @@
         "SettingsColorRed": "Darkred",
         "SettingsColorFoundry-UI": "Work in Progress",
         "SettingsQuickRollsLabel": "Show Roll Dialogs",
-        "SettingsQuickRollsNotes": "If disabled, dialogs to modify D20 rolls ad-hoc will appear only when the SHIFT key is also held down.",
+        "SettingsQuickRollsNotes": "If disabled, dialogs to modify D20 rolls ad hoc will appear only a roll button is shift-clicked.",
         "SettingsDataUriHighlightLabel": "Highlight images that use data: URI",
         "SettingsDataUriHighlightNotes": "Images that use a data: URI are embedded in the character sheet. This has a negative performance impact on the character. If enabled, such images will be highlighted with a red border to make it easy to find and remove them.<br>This setting is only active for the current session.",
         "SheetLabel": "{type} Sheet",
@@ -1495,6 +1533,7 @@
         "SkillThi": "Thievery",
         "SkillThievery": "Thievery",
         "SkillsLabel": "Skills",
+        "SkillPotencyHeader": "Skill Potencies",
         "SkillFeatLevels": "Skill Feat Levels",
         "SkillIncreaseLevels": "Skill Increase Levels",
         "SpecialLabel": "Special",
@@ -1533,6 +1572,7 @@
         "SpellComponentShortS": "S",
         "SpellComponentShortV": "V",
         "SpellComponentsLabel": "Components",
+        "SpellSlotEmpty": "Empty Slot (drag spell here)",
         "SpellPrimaryCheckLabel": "Primary Check",
         "SpellSecondaryChecksLabel": "Secondary Checks",
         "SpellSecondaryCasters": "Secondary Casters",
@@ -1577,15 +1617,7 @@
         "SpellScalingModeLeveltenth": "Heightened (10th)",
         "SpellScalingModeLevelthird": "Heightened (3rd)",
         "SpellScalingModeNone": "None",
-        "SpellSchoolAbj": "Abjuration",
-        "SpellSchoolCon": "Conjuration",
-        "SpellSchoolDiv": "Divination",
-        "SpellSchoolEnc": "Enchantment",
-        "SpellSchoolEvo": "Evocation",
-        "SpellSchoolIll": "Illusion",
         "SpellSchoolLabel": "Spell School",
-        "SpellSchoolNec": "Necromancy",
-        "SpellSchoolTrs": "Transmutation",
         "SpellSummary": "Spell Summary",
         "SpellTargetLabel": "Target",
         "SpellTimeLabel": "Cast Time",
@@ -1617,7 +1649,7 @@
         "StackGroupRations": "Rations",
         "StackGroupSacks": "Sacks",
         "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupTaws": "Taws",
+        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
@@ -2960,43 +2992,17 @@
         },
         "identification": {
             "Identify": "Identify Item",
+            "Misidentify": "Misidentify Item",
             "Mystify": "Mystify Item",
             "IsIdentified": "Identified?",
+            "IdentifiedItem": "Identified Item",
+            "MisidentifiedItem": "Misidentified Item",
             "UnidentifiedItem": "Unidentified Item",
             "IdentifyMagicDCs": "Identify Magic DCs",
             "IdentifyAlchemyDCs": "Identify Alchemy DCs",
             "IdentifyGenericDCs": "Identify Generic DCs",
-            "ItemType": {
-                "armor": "Unidentified Armor",
-                "ArmorType": {
-                    "heavy": "Unidentified Heavy Armor",
-                    "light": "Unidentified Light Armor",
-                    "medium": "Unidentified Medium",
-                    "shield": "Unidentified Shield"
-                },
-                "backpack": "Unidentified Container",
-                "consumable": "Unidentified Consumable",
-                "equipment": "Unidentified Equipment",
-                "kit": "Unidentified Kit",
-                "treasure": "Unidentified Treasure",
-                "weapon": "Unidentified Weapon",
-                "WeaponType": {
-                    "axe": "Unidentified Axe",
-                    "bomb": "Unidentified Bomb",
-                    "bow": "Unidentified Bow",
-                    "club": "Unidentified Club",
-                    "dart": "Unidentified Dart",
-                    "flail": "Unidentified Flail",
-                    "hammer": "Unidentified Hammer",
-                    "knife": "Unidentified Knife",
-                    "pick": "Unidentified Pick",
-                    "polearm": "Unidentified Polearm",
-                    "shield": "Unidentified Shield",
-                    "sling": "Unidentified Sling",
-                    "spear": "Unidentified Spear",
-                    "sword": "Unidentified Sword"
-                }
-            }
+            "unidentified": "Unidentified {itemtype}",
+            "misidentified": "Misidentified {itemtype}"
         },
         "loot": {
             "EditLootLabel": "Configure Loot?",

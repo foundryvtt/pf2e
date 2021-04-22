@@ -1,6 +1,8 @@
 import { ActorPF2e } from '../actor/base';
 import { ConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
+import { ConditionData, EffectData } from '@item/data-definitions';
+import { ConditionPF2e } from '@item/others';
+import { EffectPF2e } from '@item/effect';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -47,11 +49,11 @@ export class EffectPanel extends Application {
         data.effects = [];
         data.actor = EffectPanel.actor;
         if (data.actor) {
-            for (const item of data.actor.data.items) {
-                if (item.type === 'condition' && item.flags[game.system.id]?.condition) {
-                    data.conditions.push(item);
-                } else if (item.type === 'effect') {
-                    const effect = duplicate(item);
+            for (const item of data.actor.items) {
+                if (item instanceof ConditionPF2e && item.fromSystem) {
+                    data.conditions.push(item.data);
+                } else if (item instanceof EffectPF2e) {
+                    const effect = duplicate(item.data);
                     const duration = EffectPanel.getEffectDuration(effect);
                     if (duration < 0) {
                         effect.data.expired = false;
@@ -110,23 +112,12 @@ export class EffectPanel extends Application {
         // handle right-click on condition and effect icons
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
-            if (actor?.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
-                const item = actor.items.get(event.currentTarget.dataset.itemId ?? '');
-                if (item && item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
-                    const data = item.data.data as ConditionDetailsData;
-                    const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : null;
-                    actor.getActiveTokens().forEach((token) => {
-                        if (value !== null) {
-                            ConditionManager.updateConditionValue(item._id, token, value);
-                        } else {
-                            ConditionManager.removeConditionFromToken(item._id, token);
-                        }
-                    });
-                } else {
-                    actor.deleteEmbeddedEntity('OwnedItem', event.currentTarget.dataset.itemId);
-                }
-            } else {
-                console.debug('Cannot delete condition or effect on actor you do not own.');
+            if (!actor) return;
+            const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
+            if (effect instanceof ConditionPF2e) {
+                await actor.removeOrReduceCondition(effect);
+            } else if (effect instanceof EffectPF2e) {
+                await effect.delete();
             }
         });
     }

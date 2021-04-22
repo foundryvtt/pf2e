@@ -286,10 +286,13 @@ export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+export interface SenseData extends LabeledString {
+    acuity?: 'precise' | 'imprecise' | 'vague';
+}
 
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: LabeledString[];
+    senses: SenseData[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
@@ -299,6 +302,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export interface ActorSystemData {
     traits: BaseTraitsData;
+    tokenEffects: TemporaryEffect[];
 }
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -627,6 +631,8 @@ export interface RawNPCData extends CreatureSystemData {
         alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
+        /** The deity this creature worships */
+        deity: { value: string; image: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
@@ -669,7 +675,7 @@ interface HazardAttributes {
 }
 
 /** The raw information contained within the actor data object for hazards. */
-export interface RawHazardData {
+export interface RawHazardData extends ActorSystemData {
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;

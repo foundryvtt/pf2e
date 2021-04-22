@@ -4,13 +4,12 @@ import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensurePr
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
 import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike, ZeroToThree } from './data-definitions';
-import { RuleElements } from '../rules/rules';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
-import { ConfigPF2e } from '@scripts/config';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
-import { ActorSheetPF2eSimpleNPC } from './sheet/simple-npc-sheet';
+import { DamageType } from '@module/damage-calculation';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -65,9 +64,6 @@ export class NPCPF2e extends CreaturePF2e {
      */
     hasPerm(user: User, permission: string | ZeroToThree, exact = false) {
         // Temporary measure until a lootable view of the legacy sheet is ready
-        if (!game.ready || this._sheetClass !== ActorSheetPF2eSimpleNPC) {
-            return super.hasPerm(user, permission, exact);
-        }
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
             return super.hasPerm(user, permission, exact);
@@ -94,7 +90,7 @@ export class NPCPF2e extends CreaturePF2e {
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
             [],
-        );
+        ) as PF2RuleElement[];
 
         // Toggles
         (data as any).toggles = {
@@ -107,7 +103,9 @@ export class NPCPF2e extends CreaturePF2e {
             ],
         };
 
-        const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
+        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        // Extract as separate variables for easier use in this method.
+        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -547,7 +545,7 @@ export class NPCPF2e extends CreaturePF2e {
                         const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                         const option: CharacterStrikeTrait = {
                             name: trait,
-                            label: key,
+                            label: game.i18n.localize(key),
                             toggle: false,
                         };
                         return option;
@@ -565,11 +563,8 @@ export class NPCPF2e extends CreaturePF2e {
                 }
                 // Add a damage roll breakdown
                 action.damageBreakdown = Object.values(item.data.damageRolls).flatMap((roll) => {
-                    return [
-                        `${roll.damage} ${game.i18n.localize(
-                            CONFIG.PF2E.damageTypes[roll.damageType as keyof ConfigPF2e['PF2E']['damageTypes']],
-                        )}`,
-                    ];
+                    const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
+                    return [`${roll.damage} ${damageType}`];
                 });
                 if (action.damageBreakdown.length > 0) {
                     if (this.isElite) {
@@ -584,7 +579,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const attackTraits = item.data.attackEffects.value.map((attackEffect: string) => {
                     return {
                         name: attackEffect.toLowerCase(),
-                        label: attackEffect,
+                        label: game.i18n.localize(attackEffect),
                         toggle: false,
                     };
                 });
@@ -779,6 +774,17 @@ export class NPCPF2e extends CreaturePF2e {
                 }
             }
         }
+
+        rules.forEach((rule) => {
+            try {
+                rule.onAfterPrepareData(actorData, synthetics);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
+            }
+        });
+
+        this.getActiveTokens().forEach((token) => token.drawEffects());
     }
 
     private updateTokenAttitude(attitude: string) {

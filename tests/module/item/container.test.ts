@@ -19,7 +19,7 @@ function createItem({
     containerId?: string;
     equipped?: boolean;
 }): PhysicalItemData {
-    return {
+    return ({
         _id: id,
         type: 'equipment',
         data: {
@@ -45,7 +45,7 @@ function createItem({
                 value: 1,
             },
         },
-    } as unknown as PhysicalItemData;
+    } as unknown) as PhysicalItemData;
 }
 
 describe('should create container data', () => {

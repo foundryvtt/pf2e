@@ -41,6 +41,30 @@ export abstract class MigrationBase {
     async updateItem(_item: ItemDataPF2e, _actor?: ActorDataPF2e): Promise<void> {}
 
     /**
+     * Update the macro to the latest schema version.
+     * @param macroData Macro data to update. This should be a `MacroData` from the previous version.
+     */
+    async updateMacro(_macroData: MacroData): Promise<void> {}
+
+    /**
+     * Update the chat message to the latest schema version.
+     * @param messageData Message data to update. This should be a `ChatMessageData` from the previous version.
+     */
+    async updateMessage(_macroData: ChatMessageData): Promise<void> {}
+
+    /**
+     * Update the rollable table to the latest schema version.
+     * @param tableData Rolltable data to update. This should be a `RollTableData` from the previous version.
+     */
+    async updateTable(_tableData: RollTableData): Promise<void> {}
+
+    /**
+     * Update the token to the latest schema version.
+     * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
+     */
+    async updateToken(_tokenData: TokenData): Promise<void> {}
+
+    /**
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */

@@ -59,7 +59,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** The sluggified name of the item **/
-    get slug(): string {
+    get slug(): string | null {
         return this.data.data.slug;
     }
 
@@ -71,6 +71,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     get traits(): Set<string> {
         const rarity: string = this.data.data.traits?.rarity?.value ?? 'common';
         return new Set([rarity].concat(this.data.data.traits?.value ?? []));
+    }
+
+    get description(): string {
+        return this.data.data.description.value;
     }
 
     /** @override */
@@ -538,11 +542,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry =
-            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
-            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
-        let useTrickData = false;
-        if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === itemData.location.value,
+        )?.data;
+        const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
@@ -550,7 +553,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry.data?.attack?.roll) {
+        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
             const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
@@ -862,7 +865,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                           CONFIG.PF2E.areaTypes[spellData.area.areaType]
                       }`
                     : null,
-                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
                 spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
                 spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
             ];
@@ -962,4 +964,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 export interface ItemPF2e {
     data: ItemDataPF2e;
     _data: ItemDataPF2e;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

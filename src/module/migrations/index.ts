@@ -48,6 +48,11 @@ import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 import { Migration616MigrateFeatPrerequisites } from './616-migrate-feat-prerequisites';
 import { Migration617FixUserFlags } from './617-fix-user-flags';
+import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
+import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
+import { Migration620RenameToWebp } from './620-rename-to-webp';
+import { Migration621RemoveConfigSpellSchools } from './621-remove-config-spellSchools';
+import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-remove-old-token-effect-icons';
 
 export class Migrations {
     private static list = [
@@ -100,6 +105,11 @@ export class Migrations {
         Migration615RemoveInstinctTrait,
         Migration616MigrateFeatPrerequisites,
         Migration617FixUserFlags,
+        Migration618MigrateItemImagePaths,
+        Migration619TraditionLowercaseAndRemoveWandScroll,
+        Migration620RenameToWebp,
+        Migration621RemoveConfigSpellSchools,
+        Migration622RemoveOldTokenEffectIcons,
     ];
 
     static get latestVersion(): number {

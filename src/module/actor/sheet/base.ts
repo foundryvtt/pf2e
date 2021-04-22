@@ -10,7 +10,7 @@ import {
     ConditionData,
     isPhysicalItem,
     ItemDataPF2e,
-    MagicSchoolAbbreviation,
+    MagicSchoolKey,
     SpellData,
     SpellDetailsData,
 } from '@item/data-definitions';
@@ -45,7 +45,7 @@ interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
     data: SpellDetailsData & {
         school: {
-            value: MagicSchoolAbbreviation;
+            value: MagicSchoolKey;
             str?: string;
         };
     };
@@ -59,7 +59,9 @@ interface SpellSheetData extends SpellData {
 export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorSheet<ActorType, ItemDataPF2e> {
     /** @override */
     static get defaultOptions() {
-        return mergeObject(super.defaultOptions, {
+        const options = super.defaultOptions;
+        return mergeObject(options, {
+            classes: options.classes.concat(['pf2e', 'actor']),
             scrollY: [
                 '.sheet-sidebar',
                 '.spellcastingEntry-list',
@@ -171,11 +173,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-        const isNotLevelBasedSpellcasting =
-            spellcastingEntry.data.tradition?.value === 'wand' ||
-            spellcastingEntry.data.tradition?.value === 'scroll' ||
-            spellcastingEntry.data.tradition?.value === 'ritual' ||
-            spellcastingEntry.data.tradition?.value === 'focus';
+        const tradition = spellcastingEntry.data.tradition?.value;
+        const isNotLevelBasedSpellcasting = tradition === 'ritual' || tradition === 'focus';
 
         const slots = spellcastingEntry.data.slots;
         const spellsSlotsWhereThisIsPrepared = Object.entries((slots ?? {}) as Record<any, any>)?.filter(
@@ -216,7 +215,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // Add the spell to the spellbook at the appropriate level
-        spell.data.school.str = CONFIG.PF2E.spellSchools[spell.data.school.value];
+        spell.data.school.str = CONFIG.PF2E.magicSchools[spell.data.school.value];
         // Add chat data
         try {
             const item = this.actor.getOwnedItem(spell._id);
@@ -267,19 +266,20 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
                             spl.prepared[i] = itemCopy;
                             if (spl.prepared[i]) {
+                                const school = spl.prepared[i].data.school.value;
                                 // enrich data with spell school formatted string
                                 if (
                                     spl.prepared[i].data &&
                                     spl.prepared[i].data.school &&
-                                    spl.prepared[i].data.school.str
+                                    spl.prepared[i].data.school.str &&
+                                    objectHasKey(CONFIG.PF2E.magicSchools, school)
                                 ) {
-                                    spl.prepared[i].data.school.str =
-                                        CONFIG.PF2E.spellSchools[spl.prepared[i].data.school.value];
+                                    spl.prepared[i].data.school.str = CONFIG.PF2E.magicSchools[school];
                                 }
 
                                 // Add chat data
                                 try {
-                                    spl.prepared[i].spellInfo = item.getSpellInfo();
+                                    spl.prepared[i].spellInfo = item.getChatData();
                                 } catch (err) {
                                     console.debug(
                                         `PF2e System | Character Sheet | Could not load prepared spell ${entrySlot.id}`,
@@ -292,7 +292,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                             // prepared spell not found
                             else {
                                 spl.prepared[i] = {
-                                    name: 'Empty Slot (drag spell here)',
+                                    name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                                     id: null,
                                     prepared: false,
                                 };
@@ -300,7 +300,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                         } else {
                             // Could not find an item for ID: ${entrySlot.id}. Marking the slot as empty so it can be overwritten.
                             spl.prepared[i] = {
-                                name: 'Empty Slot (drag spell here)',
+                                name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                                 id: null,
                                 prepared: false,
                             };
@@ -308,7 +308,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     } else {
                         // if there is no prepared spell for this slot then make it empty.
                         spl.prepared[i] = {
-                            name: 'Empty Slot (drag spell here)',
+                            name: LocalizePF2e.translations.PF2E.SpellSlotEmpty,
                             id: null,
                             prepared: false,
                         };
@@ -602,118 +602,14 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (!(item instanceof PhysicalItemPF2e)) {
                     throw Error(`PF2e | ${item.name} is not a physical item.`);
                 }
-                item.setIsIdentified(false);
+                item.setIdentifiedState('unidentified');
             } else {
                 new IdentifyItemPopup(this.actor, { itemId }).render(true);
             }
         });
 
         // Delete Inventory Item
-        html.find('.item-delete').on(
-            'click',
-            async (event): Promise<void> => {
-                const li = $(event.currentTarget).parents('.item');
-                const itemId = li.attr('data-item-id') ?? '';
-                const item = this.actor.getOwnedItem(itemId);
-
-                if (item instanceof ConditionPF2e && item.getFlag(game.system.id, 'condition')) {
-                    // Condition Item.
-
-                    const condition = item.data as ConditionData;
-                    const list: string[] = [];
-                    const references = li.find('.condition-references');
-
-                    const deleteCondition = async (): Promise<void> => {
-                        this.actor.data.items
-                            .filter(
-                                (i) =>
-                                    i.type === 'condition' &&
-                                    i.flags.pf2e?.condition &&
-                                    i.data.base === condition.data.base &&
-                                    i.data.value.value === condition.data.value.value,
-                            )
-                            .forEach((i: ConditionData) => {
-                                list.push(i._id);
-                            });
-
-                        if (this.token) {
-                            await ConditionManager.removeConditionFromToken(list, this.token);
-                        } else {
-                            await this.actor.deleteEmbeddedEntity('OwnedItem', list);
-                        }
-                    };
-
-                    if (event.ctrlKey) {
-                        deleteCondition();
-                        return;
-                    }
-
-                    const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {
-                        name: item.name,
-                        ref: references.html(),
-                    });
-                    new Dialog({
-                        title: 'Remove Condition',
-                        content,
-                        buttons: {
-                            Yes: {
-                                icon: '<i class="fa fa-check"></i>',
-                                label: 'Yes',
-                                callback: deleteCondition,
-                            },
-                            cancel: {
-                                icon: '<i class="fas fa-times"></i>',
-                                label: 'Cancel',
-                            },
-                        },
-                        default: 'Yes',
-                    }).render(true);
-                } else if (item instanceof ItemPF2e) {
-                    const deleteItem = async (): Promise<void> => {
-                        await this.actor.deleteOwnedItem(itemId);
-                        if (item.type === 'lore') {
-                            // normalize skill name to lower-case and dash-separated words
-                            const skill = item.name.toLowerCase().replace(/\s+/g, '-');
-                            // remove derived skill data
-                            await this.actor.update({ [`data.skills.-=${skill}`]: null });
-                        } else {
-                            // clean up any individually targeted modifiers to attack and damage
-                            await this.actor.update({
-                                [`data.customModifiers.-=${itemId}-attack`]: null,
-                                [`data.customModifiers.-=${itemId}-damage`]: null,
-                            });
-                        }
-                        li.slideUp(200, () => this.render(false));
-                    };
-                    if (event.ctrlKey) {
-                        deleteItem();
-                        return;
-                    }
-
-                    const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {
-                        name: item.name,
-                    });
-                    new Dialog({
-                        title: 'Delete Confirmation',
-                        content,
-                        buttons: {
-                            Yes: {
-                                icon: '<i class="fa fa-check"></i>',
-                                label: 'Yes',
-                                callback: deleteItem,
-                            },
-                            cancel: {
-                                icon: '<i class="fas fa-times"></i>',
-                                label: 'Cancel',
-                            },
-                        },
-                        default: 'Yes',
-                    }).render(true);
-                } else {
-                    return Promise.reject(new Error('PF2E System | Item not found'));
-                }
-            },
-        );
+        html.find('.item-delete').on('click', (event) => this.onClickDeleteItem(event));
 
         // Increase Item Quantity
         html.find('.item-increase-quantity').on('click', (event) => {
@@ -953,6 +849,89 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         this._onSubmit(event.originalEvent!);
     }
 
+    async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
+        const li = $(event.currentTarget).closest('.item');
+        const itemId = li.attr('data-item-id') ?? '';
+        const item = this.actor.getOwnedItem(itemId);
+
+        if (item instanceof ConditionPF2e && item.fromSystem) {
+            const references = li.find('.condition-references');
+
+            const deleteCondition = async (): Promise<void> => {
+                this.actor.removeOrReduceCondition(item, { forceRemove: true });
+            };
+
+            if (event.ctrlKey) {
+                deleteCondition();
+                return;
+            }
+
+            const content = await renderTemplate('systems/pf2e/templates/actors/delete-condition-dialog.html', {
+                question: game.i18n.format('PF2E.DeleteConditionQuestion', { condition: item.name }),
+                ref: references.html(),
+            });
+            new Dialog({
+                title: game.i18n.localize('PF2E.DeleteConditionTitle'),
+                content,
+                buttons: {
+                    Yes: {
+                        icon: '<i class="fa fa-check"></i>',
+                        label: 'Yes',
+                        callback: deleteCondition,
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: 'Cancel',
+                    },
+                },
+                default: 'Yes',
+            }).render(true);
+        } else if (item instanceof ItemPF2e) {
+            const deleteItem = async (): Promise<void> => {
+                await this.actor.deleteOwnedItem(itemId);
+                if (item.type === 'lore') {
+                    // normalize skill name to lower-case and dash-separated words
+                    const skill = item.name.toLowerCase().replace(/\s+/g, '-');
+                    // remove derived skill data
+                    await this.actor.update({ [`data.skills.-=${skill}`]: null });
+                } else {
+                    // clean up any individually targeted modifiers to attack and damage
+                    await this.actor.update({
+                        [`data.customModifiers.-=${itemId}-attack`]: null,
+                        [`data.customModifiers.-=${itemId}-damage`]: null,
+                    });
+                }
+                li.slideUp(200, () => this.render(false));
+            };
+            if (event.ctrlKey) {
+                deleteItem();
+                return;
+            }
+
+            const content = await renderTemplate('systems/pf2e/templates/actors/delete-item-dialog.html', {
+                name: item.name,
+            });
+            new Dialog({
+                title: 'Delete Confirmation',
+                content,
+                buttons: {
+                    Yes: {
+                        icon: '<i class="fa fa-check"></i>',
+                        label: 'Yes',
+                        callback: deleteItem,
+                    },
+                    cancel: {
+                        icon: '<i class="fas fa-times"></i>',
+                        label: 'Cancel',
+                    },
+                },
+                default: 'Yes',
+            }).render(true);
+        } else {
+            throw ErrorPF2e('Item not found');
+        }
+    }
+
     /** @override */
     protected _canDragStart(selector: string): boolean {
         if (this.isLootSheet) return true;
@@ -1163,10 +1142,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = duplicate(item._data);
 
         const actor = this.actor;
-        const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token.id);
+        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
         if (data.actorId && isPhysicalItem(itemData)) {
@@ -1174,7 +1153,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 event,
                 data.actorId,
                 data.tokenId ?? '',
-                actor._id,
+                actor.id,
                 actor.token?.id ?? '',
                 data.id,
             );
@@ -1375,11 +1354,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
 
-        if (
-            game.user.isGM ||
-            !(item instanceof PhysicalItemPF2e) ||
-            (item instanceof PhysicalItemPF2e && item.isIdentified)
-        ) {
+        if (game.user.isGM || !(item instanceof PhysicalItemPF2e) || item.hasShowableMystifiedState) {
             this.renderItemSummary(li, item, chatData);
         }
     }
@@ -1544,17 +1519,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                         game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]),
                                         game.i18n.localize('PF2E.SpellLabelPlural'),
                                     ].join(' ');
-                                } else if (magicTradition === 'scroll') {
-                                    spellcastingType = '';
-                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
-                                } else if (magicTradition === 'wand') {
-                                    spellcastingType = 'prepared';
-                                    name = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                 } else {
                                     spellcastingType = `${html.find('[name="spellcastingType"]').val()}`;
+                                    const preparationType = game.i18n.localize(
+                                        CONFIG.PF2E.preparationType[spellcastingType],
+                                    );
+                                    const tradition = game.i18n.localize(CONFIG.PF2E.magicTraditions[magicTradition]);
                                     name = game.i18n.format('PF2E.SpellCastingFormat', {
-                                        preparationType: CONFIG.PF2E.preparationType[spellcastingType],
-                                        tradition: CONFIG.PF2E.magicTraditions[magicTradition],
+                                        preparationType,
+                                        tradition,
                                     });
                                 }
 
@@ -1626,11 +1599,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                             console.debug('PF2e System | Deleting Spell Container: ', item.name);
                             // Delete all child objects
                             const itemsToDelete = [];
-                            for (const i of this.actor.data.items) {
-                                if (i.type === 'spell') {
-                                    if (i.data.location.value === itemId) {
-                                        itemsToDelete.push(i._id);
-                                    }
+                            for (const item of this.actor.itemTypes.spell) {
+                                if (item.data.data.location.value === itemId) {
+                                    itemsToDelete.push(item.id);
                                 }
                             }
 

@@ -52,7 +52,7 @@
         <ol class="item-list">
             {{#each section.items as |item itemId|}}
                 {{#if item.isNotInContainer}}
-                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=../../owner level=1}}                            
+                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=@root.owner level=1}}
                 {{/if}}
             {{/each}}
         </ol>
@@ -61,7 +61,7 @@
 
     {{#with data.attributes.encumbrance}}
     <div class="encumbrance {{#if isEncumbered}}encumbered{{/if}} {{#if isOverLimit}}over-limit{{/if}}">
-        <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.jpg" alt="Encumbrance">
+        <img src="systems/pf2e/icons/equipment/adventuring-gear/backpack.webp" alt="Encumbrance">
         <span class="encumbrance-bar" style="width:{{limitPercentageMax100}}%"></span>
         <div class="encumbrance-label">
             <span>{{localize 'PF2E.BulkLabel'}} {{bulk}} / {{localize 'PF2E.ConditionTypeEncumbered'}}: {{encumberedAt}}</span>

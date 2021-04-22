@@ -12,7 +12,7 @@ export class MigrationRunnerBase {
     latestVersion: number;
     migrations: MigrationBase[];
 
-    constructor(migrations: MigrationBase[]) {
+    constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
         this.latestVersion = Math.max(...migrations.map((x) => x.version));
     }
@@ -78,6 +78,61 @@ export class MigrationRunnerBase {
                 for (const item of current.items) {
                     await migration.updateItem(item, current);
                 }
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedMessage(messageData: ChatMessageData, migrations: MigrationBase[]): Promise<ChatMessageData> {
+        const current = duplicate(messageData);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateMessage(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedMacro(macroData: MacroData, migrations: MigrationBase[]): Promise<MacroData> {
+        const current = duplicate(macroData);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateMacro(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedTable(table: RollTableData, migrations: MigrationBase[]): Promise<RollTableData> {
+        const current = duplicate(table);
+
+        for (const migration of migrations) {
+            try {
+                await migration.updateTable(current);
+            } catch (err) {
+                console.error(err);
+            }
+        }
+
+        return current;
+    }
+
+    async getUpdatedToken(tokenData: TokenData, migrations: MigrationBase[]): Promise<TokenData> {
+        const current = duplicate(tokenData);
+        for (const migration of migrations) {
+            try {
+                await migration.updateToken(current);
             } catch (err) {
                 console.error(err);
             }

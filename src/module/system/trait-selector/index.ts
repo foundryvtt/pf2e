@@ -68,7 +68,6 @@ export const SELECTABLE_TAG_FIELDS = [
     'spellComponents',
     'spellTypes',
     'spellTraditions',
-    'spellSchools',
     'spellLevels',
     'featTypes',
     'featActionTypes',

@@ -193,7 +193,7 @@ declare class Entity {
      * let actor = game.entities.actors[0];
      * actor.sheet; // ActorSheet
      */
-    get sheet(): BaseEntitySheet<this>;
+    readonly sheet: BaseEntitySheet<Entity>;
 
     /**
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
