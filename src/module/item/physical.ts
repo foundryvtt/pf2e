@@ -118,11 +118,27 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     static setMystifiedDefaults(item: PhysicalItemPF2e, state: string) {
         if (state === 'identified') {
-            item.data.data.identification.identified = { name: item.name, img: item.img, data: { description: { value: item.data.data.description.value }} };
+            item.data.data.identification.identified = {
+                name: item.name,
+                img: item.img,
+                data: {
+                    description: {
+                        value: item.data.data.description.value,
+                    },
+                },
+            };
         } else {
             const mystifiedName = this.getMystifiedName(item.data, state);
             const img = getMystifiedPlaceholderImage(item.data);
-            setProperty(item, `data.data.identification.${state}`, { name: mystifiedName, img: img, data: { description: { value: `This ${item.data.type} is ${state}.`}}});
+            setProperty(item, `data.data.identification.${state}`, {
+                name: mystifiedName,
+                img: img,
+                data: {
+                    description: {
+                        value: `This ${item.data.type} is ${state}.`,
+                    },
+                },
+            });
         }
     }
 
