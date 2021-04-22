@@ -11,12 +11,14 @@ import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-i
 import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from '@module/migrations/619-remove-wand-and-scroll-tradition';
 import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp';
+import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
     new Migration616MigrateFeatPrerequisites(),
     new Migration619TraditionLowercaseAndRemoveWandScroll(),
     new Migration620RenameToWebp(),
+    new Migration621RemoveConfigSpellSchools(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

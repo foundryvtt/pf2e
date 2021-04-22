@@ -524,7 +524,7 @@ export interface TrickMagicItemCastData {
     _id: string;
 }
 
-export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+export type MagicSchoolKey = keyof ConfigPF2e['PF2E']['magicSchools'];
 type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
@@ -543,7 +543,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     };
     traditions: ValuesList<MagicTraditionKey>;
     school: {
-        value: MagicSchoolAbbreviation;
+        value: MagicSchoolKey;
     };
     components: {
         value: string;

@@ -75,10 +75,10 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                     }
                     break;
                 }
-                case 'spellSchools': {
+                case 'magicSchools': {
                     if (itemData.type === 'spell') {
                         const school = itemData.data.school;
-                        school.value = deletions.includes(school.value ?? '') ? 'evo' : school.value;
+                        school.value = deletions.includes(school.value ?? '') ? 'evocation' : school.value;
                     }
                     break;
                 }
