@@ -945,7 +945,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !(['condition', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+                !(['condition', 'martial', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
         );
         const newItem = super.createDialog(data, options);
         game.system.entityTypes.Item = original;
