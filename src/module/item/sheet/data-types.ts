@@ -5,6 +5,7 @@ import { ConfigPF2e } from '@scripts/config';
 import { ItemSheetDataPF2e } from './base';
 
 export interface SheetOption {
+    value: string;
     label: string;
     selected: boolean;
 }
