@@ -58,6 +58,20 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
         data: Record<string, unknown> & { name?: string; img?: string; data?: ItemUpdateData },
     ): void {
         let currentItemData: MystifyData;
+        // Always make sure data has all the up to date data descriptions if possible
+        data[
+            `data.identification.identified.data.description.value`
+        ] = this.item.data.data.identification?.identified?.data?.description?.value;
+        data[
+            `data.identification.unidentified.data.description.value`
+        ] = this.item.data.data.identification?.unidentified?.data?.description?.value;
+        data[
+            `data.identification.misidentified.data.description.value`
+        ] = this.item.data.data.identification?.misidentified?.data?.description?.value;
+
+        if (!getProperty(data, `data.identification.${this.item.data.data.identification.status}`)) {
+            return;
+        }
         const namePath = `data.identification.${this.item.data.data.identification.status}.name`;
         const imgPath = `data.identification.${this.item.data.data.identification.status}.img`;
         const mystifyDescPath = `data.identification.${this.item.data.data.identification.status}.data.description.value`;
