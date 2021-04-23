@@ -5,6 +5,7 @@ import { LocalizePF2e } from '@module/system/localize';
 import { MigrationRunner } from '@module/migration-runner';
 import '@yaireo/tagify/src/tagify.scss';
 import { CharacterPF2e } from '@actor/character';
+import { MigrationBase } from '@module/migrations/base';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
@@ -120,14 +121,15 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     /** @override */
     protected async _updateObject(_event: Event, data: Record<ConfigPF2eListName, HomebrewTag[]>): Promise<void> {
-        for await (const key of HomebrewElements.SETTINGS) {
+        const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
                 tag.id ??= randomID(16);
             }
 
-            await this.processDeletions(key, data[key]);
-        }
+            return this.processDeletions(key, data[key]);
+        }).filter((task): task is MigrationBase => !!task);
 
+        await new MigrationRunner().runMigrations(cleanupTasks);
         await super._updateObject(_event, data);
 
         // Process updates
@@ -135,7 +137,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private async processDeletions(listKey: ConfigPF2eListName, newTagList: HomebrewTag[]) {
+    private processDeletions(listKey: ConfigPF2eListName, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get('pf2e', `homebrew.${listKey}` as const); // `;
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -147,10 +149,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
             delete coreElements[id];
         }
 
-        if (game.user.isGM && deletions.length > 0) {
-            const CleanupTask = prepareCleanup(listKey, deletions);
-            await new MigrationRunner().runMigrations([new CleanupTask()]);
-        }
+        return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */

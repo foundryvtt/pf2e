@@ -4,8 +4,8 @@ import { ActorDataPF2e, BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } fr
 import { ConfigPF2eListName } from './index';
 import { objectHasKey } from '@module/utils';
 
-export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]) {
-    return class extends MigrationBase {
+export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]): MigrationBase {
+    const Migration = class extends MigrationBase {
         async updateActor(actorData: ActorDataPF2e) {
             if (!(actorData.type === 'character' || actorData.type === 'npc')) {
                 return;
@@ -113,4 +113,6 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
             }
         }
     };
+
+    return new Migration();
 }
