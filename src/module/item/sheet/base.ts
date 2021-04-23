@@ -170,9 +170,9 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             // Melee Data
             data.hasSidebar = false;
             data.detailsActive = true;
-            data.weaponDamage = CONFIG.PF2E.damageTypes;
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
+            data.damageTypes = CONFIG.PF2E.damageTypes;
+            data.attackEffects = this.prepareOptions(CONFIG.PF2E.attackEffects, data.data.attackEffects);
+            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
         } else if (type === 'condition') {
             // Condition types
 
@@ -325,6 +325,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const key = typeof selections.value[0] === 'number' ? Number(stringKey) : stringKey;
             sheetOptions[key] = {
                 label,
+                value: stringKey,
                 selected: selections.value.includes(key),
             };
             return sheetOptions;
@@ -333,6 +334,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         if (selections.custom) {
             sheetOptions.custom = {
                 label: selections.custom,
+                value: '',
                 selected: true,
             };
         }
@@ -373,21 +375,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const noCustom = $anchor.attr('data-no-custom') === 'true';
         if (noCustom) {
             selectorOptions.allowCustom = false;
-        }
-
-        // we're special casing this because it is unique per npc
-        // and there's a bunch of magic with .trait-selector so
-        // making this a separate function would be more complicated
-        const actions: Record<string, string> = {};
-        if (configTypes.includes('attackEffects')) {
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'action') actions[i.name] = i.name;
-                }
-            }
-        }
-        if (!isObjectEmpty(actions)) {
-            selectorOptions.customChoices = actions;
         }
 
         new TraitSelectorBasic(this.item, selectorOptions).render(true);
