@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -65,7 +65,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         mergeObject(data, {
             type,
             hasSidebar: true,
-            hasMystify: game.user.isGM && isInventoryItem(type),
+            hasMystify: false,
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
