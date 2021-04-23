@@ -53,9 +53,9 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         if (sheetData.actor.items !== undefined) {
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasure = {};
-            for (const [denomination, value] of Object.entries(treasure)) {
+            for (const denomination of ['cp', 'sp', 'gp', 'pp'] as const) {
                 sheetData.totalTreasure[denomination] = {
-                    value,
+                    value: treasure[denomination],
                     label: CONFIG.PF2E.currencies[denomination],
                 };
             }

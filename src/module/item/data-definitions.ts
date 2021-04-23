@@ -184,7 +184,7 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
     value: {
-        value: string;
+        value: number;
     };
 }
 

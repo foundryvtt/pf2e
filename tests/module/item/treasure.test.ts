@@ -22,6 +22,8 @@ import { ActorDataPF2e } from '@actor/data-definitions';
 import { ActorPF2e } from '@actor/base';
 import { FakeItem } from 'tests/fakes/fake-item';
 
+(game.user as { isGM: boolean }).isGM = true;
+
 function treasure({
     id = 'unknown',
     denomination = 'gp',
@@ -46,6 +48,7 @@ function treasure({
             value: { value: value },
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
+            identification: { status: 'identified' },
         } as unknown) as TreasureDetailsData & ItemLevelData,
     };
 }
@@ -83,7 +86,7 @@ describe('should calculate wealth based on inventory', () => {
             {
                 _id: 'ignore',
                 type: 'no treasure type',
-                data: {},
+                data: { identification: { status: 'identified' } },
             },
             coin({ denomination: 'gp', quantity: 1 }),
         ] as PhysicalItemData[];
@@ -246,36 +249,37 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('calculateTotalWealth correctly combines all item types', () => {
+        const identification = { status: 'identified' };
         const items = ([
             {
                 type: 'weapon',
                 _id: 'weapon',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3,000 gp' } },
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3,000 gp' }, identification },
             },
             {
                 type: 'armor',
                 _id: 'armor',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 pp' } },
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 pp' }, identification },
             },
             {
                 type: 'equipment',
                 _id: 'equipment',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 cp' } },
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 cp' }, identification },
             },
             {
                 type: 'consumable',
                 _id: 'consumable',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 sp' } },
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '30 sp' }, identification },
             },
             {
                 type: 'treasure',
                 _id: 'treasure',
-                data: { denomination: { value: 'sp' }, quantity: { value: 2 }, value: { value: 2 } },
+                data: { denomination: { value: 'sp' }, quantity: { value: 2 }, value: { value: 2 }, identification },
             },
             {
                 type: 'backpack',
                 _id: 'backpack',
-                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 gp' } },
+                data: { quantity: { value: 1 }, price: { denomination: 'gp', value: '3 gp' }, identification },
             },
         ] as unknown[]) as PhysicalItemData[];
         const wealth = calculateTotalWealth(items);
