@@ -203,7 +203,7 @@ export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string | null;
+        value: WeaponCategoryKey | null;
     };
     group: {
         value: WeaponGroupKey | null;
