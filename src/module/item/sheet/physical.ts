@@ -1,6 +1,6 @@
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 import { PhysicalItemPF2e } from '@item/physical';
-import { PhysicalItemData } from '@item/data-definitions';
+import { isInventoryItem, PhysicalItemData } from '@item/data-definitions';
 
 export interface PhysicalSheetDataPF2e<D extends PhysicalItemData> extends ItemSheetData<D> {
     isIdentified: boolean;
@@ -36,6 +36,7 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
         const sheetdata = {
             ...super.getData(),
             isPhysicalItem: true,
+            hasMystify: game.user.isGM && isInventoryItem(this.item.type) && BUILD_MODE === 'development',
             isIdentified: this.item.isIdentified,
         };
         return sheetdata;
