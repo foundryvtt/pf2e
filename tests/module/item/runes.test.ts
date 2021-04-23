@@ -12,7 +12,7 @@ describe('test runes', () => {
                             value: '',
                         },
                         potencyRune: {
-                            value: '',
+                            value: 0,
                         },
                     },
                 } as unknown) as WeaponData),
@@ -27,7 +27,7 @@ describe('test runes', () => {
                             value: '',
                         },
                         potencyRune: {
-                            value: '2',
+                            value: 2,
                         },
                     },
                 } as unknown) as WeaponData),
@@ -42,7 +42,7 @@ describe('test runes', () => {
                             value: 'orichalcum',
                         },
                         potencyRune: {
-                            value: '',
+                            value: 0,
                         },
                     },
                 } as unknown) as WeaponData),
@@ -57,7 +57,7 @@ describe('test runes', () => {
                             value: 'orichalcum',
                         },
                         potencyRune: {
-                            value: '3',
+                            value: 3,
                         },
                     },
                 } as unknown) as WeaponData),
@@ -108,7 +108,7 @@ describe('test runes', () => {
     test('bonus attack from potency runes', () => {
         const itemData = ({
             potencyRune: {
-                value: '3',
+                value: 3,
             },
             bonus: {
                 value: 0,
@@ -121,7 +121,7 @@ describe('test runes', () => {
     test('bonus attack from bombs', () => {
         const itemData = ({
             potencyRune: {
-                value: '3',
+                value: 3,
             },
             bonus: {
                 value: 2,
@@ -137,7 +137,7 @@ describe('test runes', () => {
     test('no bonus attack', () => {
         const itemData = ({
             potencyRune: {
-                value: '',
+                value: 0,
             },
             bonus: {
                 value: 0,
@@ -150,7 +150,7 @@ describe('test runes', () => {
     test('no bonus armor', () => {
         const itemData = ({
             potencyRune: {
-                value: '',
+                value: 0,
             },
             armor: {
                 value: 0,
@@ -163,7 +163,7 @@ describe('test runes', () => {
     test('no potency rune', () => {
         const itemData = ({
             potencyRune: {
-                value: '',
+                value: 0,
             },
             armor: {
                 value: 2,
@@ -176,7 +176,7 @@ describe('test runes', () => {
     test('potency rune', () => {
         const itemData = ({
             potencyRune: {
-                value: '1',
+                value: 1,
             },
             armor: {
                 value: 0,
@@ -189,7 +189,7 @@ describe('test runes', () => {
     test('armor and potency rune', () => {
         const itemData = {
             potencyRune: {
-                value: '1',
+                value: 1,
             },
             armor: {
                 value: 2,

@@ -81,12 +81,12 @@
 
         <div class="form-group">
             <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
-            <select name="data.potencyRune.value" data-dtype="String">
+            <select name="data.potencyRune.value" data-dtype="Number">
                 {{#select data.potencyRune.value}}
-                <option value=""></option>
-                {{#each weaponPotencyRunes as |name type|}}
-                <option value="{{type}}">{{localize name}}</option>
-                {{/each}}
+                    <option value="0"></option>
+                    {{#each weaponPotencyRunes as |name type|}}
+                        <option value="{{type}}">{{localize name}}</option>
+                    {{/each}}
                 {{/select}}
             </select>
         </div>
