@@ -62,6 +62,7 @@ global.game = Object.freeze({
             });
         },
     }),
+    user: {},
 });
 
 function getType(token: Token | null) {
