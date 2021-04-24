@@ -26,6 +26,13 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             hasCharges: this.charges.max > 0,
         });
     }
+
+    /** @override */
+    generateUnidentifiedName(): string {
+        return game.i18n.format(`PF2E.identification.${status}`, {
+            item: game.i18n.localize(CONFIG.PF2E.consumableTypes[this.data.data.consumableType.value]),
+        });
+    }
 }
 
 export interface ConsumablePF2e {
