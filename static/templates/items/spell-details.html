@@ -39,7 +39,7 @@
     <ul class="traits-list" style="margin: 3px 0; padding: 0;">
         {{#each magicTraditions as |tradition|}}
             {{#if tradition.selected}}
-                <li class="tag">{{localize tradition.label}}</li>
+                <li class="tag" data-tradition="{{tradition.value}}">{{localize tradition.label}}</li>
             {{/if}}
         {{/each}}
     </ul>
@@ -224,7 +224,7 @@
     <ul class="traits-list pf-value pf-large">
         {{#each traits as |trait|}}
             {{#if trait.selected}}
-                <li class="tag">{{localize trait.label}}</li>
+                <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
             {{/if}}
         {{/each}}
     </ul>
