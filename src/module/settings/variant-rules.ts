@@ -32,7 +32,7 @@ const SETTINGS = {
         hint: 'PF2E.SETTINGS.Variant.AutomaticBonus.Hint',
         scope: 'world',
         config: false,
-        default: 0,
+        default: 'noABP',
         type: String,
         choices: {
             noABP: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP',
@@ -150,23 +150,16 @@ export class VariantRulesSettings extends FormApplication {
         return this.render();
     }
 
-    /* -------------------------------------------- */
-
     /** @override */
     protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         event.preventDefault();
         return super._onSubmit(event, options);
     }
 
-    /* -------------------------------------------- */
-
     /** @override */
-    protected async _updateObject(
-        _event: Event,
-        data: { [K in keyof typeof SETTINGS]: typeof SETTINGS[K]['default'] },
-    ): Promise<void> {
-        for await (const k of Object.keys(SETTINGS)) {
-            game.settings.set('pf2e', k, data[k]);
+    protected async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+        for await (const key of Object.keys(SETTINGS)) {
+            game.settings.set('pf2e', key, data[key]);
         }
     }
 }
