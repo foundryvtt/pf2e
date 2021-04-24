@@ -35,6 +35,18 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         traits.value = Array.from(new Set(traits.value));
     }
 
+    get baseType(): BaseWeaponKey | null {
+        return this.data.data.baseItem ?? null;
+    }
+
+    get group(): WeaponGroupKey | null {
+        return this.data.data.group.value ?? null;
+    }
+
+    get category(): WeaponCategoryKey | null {
+        return this.data.data.weaponType.value ?? null;
+    }
+
     getChatData(htmlOptions?: Record<string, boolean>) {
         if (!this.actor) {
             return {};
