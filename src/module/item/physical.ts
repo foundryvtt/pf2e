@@ -148,10 +148,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
         if (!isPhysicalItem(itemData)) return;
         const update = mergeObject({}, diff); // expands the "flattened" fields in the diff object
-        const identificationState = getProperty(update, 'data.identification.status');
-        if (identificationState && getProperty(itemData, 'data.identification.status') !== identificationState) {
+        const oldIdentificationState = getProperty(itemData, 'data.identification.status');
+        const newIdentificationState = getProperty(update, 'data.identification.status');
+        if (newIdentificationState && oldIdentificationState !== newIdentificationState) {
+            // Make sure the old state is preserved
+            diff[`data.identification.${oldIdentificationState}.name`] = itemData.name;
+            diff[`data.identification.${oldIdentificationState}.img`] = itemData.img;
+            diff[`data.identification.${oldIdentificationState}.data.description.value`] =
+                itemData.data.description.value;
+
             // load data of referenced item - if any
-            const uuid = getProperty(update, `data.identification.${identificationState}.link`);
+            const uuid = getProperty(update, `data.identification.${newIdentificationState}.link`);
             if (uuid) {
                 const baseItem = (await fromUuid(uuid)) as ItemPF2e | null;
                 if (baseItem instanceof PhysicalItemPF2e) {
@@ -171,9 +178,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             }
 
             // override specific fields, if there are any
-            let override = getProperty(update, `data.identification.${identificationState}`);
+            let override = getProperty(update, `data.identification.${newIdentificationState}`);
             if (!override || override.name === '') {
-                override = getProperty(itemData, `data.identification.${identificationState}`);
+                override = getProperty(itemData, `data.identification.${newIdentificationState}`);
             }
             if (override) {
                 delete override.link;
