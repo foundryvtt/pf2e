@@ -15,8 +15,8 @@ export interface ItemTraits extends ValuesList {
 export interface ItemDescriptionData {
     description: {
         value: string;
-        chat: string;
-        unidentified: string;
+        chat?: string;
+        unidentified?: string;
     };
     source: {
         value: string;
@@ -59,7 +59,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         value: string;
     };
     price: {
-        value: number;
+        value: string;
     };
     equipped: {
         value: boolean;

@@ -6,7 +6,6 @@ import {
     SpellcastingEntryData,
     SpellDifficultyClass,
     WeaponCategoryKey,
-    WeaponDamage,
     WeaponData,
 } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
@@ -54,6 +53,8 @@ import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { FeatPF2e } from '@item/feat';
+import { WeaponPF2e } from '@item/weapon';
+import { unarmedAttackData } from '@item/unarmed-attack';
 
 export class CharacterPF2e extends CreaturePF2e {
     get ancestry(): AncestryPF2e | null {
@@ -673,30 +674,14 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         // Always add a basic unarmed strike.
-        const unarmed: DeepPartial<WeaponData> & { data: { damage: Partial<WeaponDamage> } } = {
-            _id: 'fist',
-            name: game.i18n.localize('PF2E.Strike.Fist.Label'),
-            type: 'weapon',
-            img: 'systems/pf2e/icons/features/classes/powerful-fist.webp',
-            data: {
-                ability: { value: 'str' },
-                weaponType: { value: 'unarmed' },
-                bonus: { value: 0 },
-                damage: { dice: 1, die: 'd4', damageType: 'bludgeoning' },
-                group: { value: 'brawling' },
-                range: { value: 'melee' },
-                strikingRune: { value: '' },
-                traits: { value: ['agile', 'finesse', 'nonlethal', 'unarmed'] },
-                equipped: {
-                    value: true, // consider checking for free hands
-                },
-            },
-        };
+        const unarmed = WeaponPF2e.createOwned(duplicate(unarmedAttackData), this);
+        unarmed.data.name = game.i18n.localize('PF2E.WeaponTypeUnarmed');
 
         // powerful fist
-        if ((actorData.items ?? []).some((i) => i.type === 'feat' && i.name === 'Powerful Fist')) {
-            unarmed.name = 'Powerful Fist';
-            unarmed.data.damage.die = 'd6';
+        const powerfulFist = this.itemTypes.feat.find((feat) => feat.slug === 'powerful-fist');
+        if (powerfulFist) {
+            unarmed.data.name = powerfulFist.name;
+            unarmed.data.data.damage.die = 'd6';
         }
 
         const ammo = (actorData.items ?? [])
@@ -705,7 +690,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         actorData.items
             .filter((item): item is WeaponData => item.type === 'weapon')
-            .concat([unarmed as WeaponData])
+            .concat(unarmed.data)
             .concat(strikes)
             .forEach((item) => {
                 const modifiers: ModifierPF2e[] = [];
