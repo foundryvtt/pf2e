@@ -1,7 +1,8 @@
 import { PhysicalItemPF2e } from './physical';
-import { WeaponData } from './data-definitions';
+import { BaseWeaponKey, WeaponCategoryKey, WeaponData, WeaponGroupKey } from './data-definitions';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
+import { LocalizePF2e } from '@module/system/localize';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
     get traits(): Set<string> {
@@ -16,6 +17,18 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         }
 
         return traits;
+    }
+
+    get baseType(): BaseWeaponKey | null {
+        return this.data.data.baseItem ?? null;
+    }
+
+    get group(): WeaponGroupKey | null {
+        return this.data.data.group.value ?? null;
+    }
+
+    get category(): WeaponCategoryKey | null {
+        return this.data.data.weaponType.value ?? null;
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {
@@ -94,6 +107,19 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             map2,
             map3,
         });
+    }
+
+    /** @override */
+    generateUnidentifiedName() {
+        const translations = LocalizePF2e.translations.PF2E;
+        const formatString = translations.identification.UnidentifiedItem;
+
+        const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
+        const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
+        const fallback = 'ITEM.TypeWeapon';
+
+        const item = game.i18n.localize(base ?? group ?? fallback);
+        return game.i18n.format(formatString, { item });
     }
 }
 
