@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { SpellcastingEntryData } from './data-definitions';
+import { SpellAttackRollModifier, SpellcastingEntryData } from './data-definitions';
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
     get ability() {
@@ -12,6 +12,11 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
     get isInnate(): boolean {
         return this.data.data.prepared.value === 'innate';
+    }
+
+    get attack(): SpellAttackRollModifier | undefined {
+        // todo: replace with this.data once setup is done on prepared data
+        return this._data.data.attack;
     }
 }
 

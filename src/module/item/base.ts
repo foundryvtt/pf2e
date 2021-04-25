@@ -536,8 +536,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const rollData = duplicate(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === itemData.location.value,
-        )?.data;
-        const useTrickData = !spellcastingEntry;
+        );
+        const useTrickData = !spellcastingEntry?.data;
 
         if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
@@ -545,7 +545,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
+        if (spellcastingEntry?.attack?.roll) {
             const options = this.actor
                 .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
                 .concat(...this.traits);
@@ -553,11 +553,11 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
             }
-            spellcastingEntry.data.attack.roll({ event, options, modifiers });
+            spellcastingEntry.attack.roll({ event, options, modifiers });
         } else {
             const spellAttack = useTrickData
                 ? trickMagicItemData?.data.spelldc.value
-                : spellcastingEntry?.data.spelldc.value;
+                : spellcastingEntry?.data.data.spelldc.value;
             const parts = [Number(spellAttack) || 0];
             const title = `${this.name} - Spell Attack Roll`;
 
