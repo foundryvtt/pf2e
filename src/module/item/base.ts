@@ -747,8 +747,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 this._castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
                 const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
+                const trickMagicItemCallback = async (trickMagicItemData: TrickMagicItemCastData): Promise<void> => {
                     if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
                 };
                 const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
