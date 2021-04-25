@@ -546,7 +546,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const map = this.calculateMap();
 
         if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
-            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+            const options = this.actor
+                .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
+                .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
