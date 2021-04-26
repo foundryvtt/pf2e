@@ -27,7 +27,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
     static version = 0.619;
 
     async updateItem(item: ItemDataPF2e, actorData?: ActorDataPF2e) {
-        if (item.type !== 'spellcastingEntry') {
+        if (!actorData || item.type !== 'spellcastingEntry') {
             return;
         }
 
@@ -35,7 +35,7 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
         item.data.tradition.value = makeLowercase(item.data.tradition.value);
 
         // Do not change regular spellcasting entries any further
-        if (tupleHasValue(LEGIT_TRADITIONS, item.data.tradition.value) || !actorData) {
+        if (tupleHasValue(LEGIT_TRADITIONS, item.data.tradition.value)) {
             return;
         }
 
