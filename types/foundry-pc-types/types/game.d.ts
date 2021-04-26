@@ -33,7 +33,16 @@ declare class Game<
     view: string;
 
     /** The object of world data passed from the server */
-    data: any;
+    data: {
+        actors: ActorType['data'][];
+        items: ItemType['data'][];
+        macros: MacroType['data'][];
+        messages: ChatMessageData[];
+        packs: CompendiumMetadata[];
+        tables: RollTableData[];
+        users: UserData[];
+        version: string;
+    };
 
     /** Localization support */
     i18n: Localization;
