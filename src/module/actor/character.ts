@@ -1072,7 +1072,7 @@ export class CharacterPF2e extends CreaturePF2e {
             }
         });
 
-        this.getActiveTokens().forEach((token) => token.drawEffects());
+        this.redrawTokenEffects();
     }
 
     private prepareInitiative(
