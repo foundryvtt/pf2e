@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>You exude an aura of resolve. You and allies within 15 feet of you gain a +2 status bonus to Will saving throws against mental effects.</p>"
+            "value": "<p>You exude an aura of resolve. You and allies within 15 feet of you gain a +2 status bonus to Will saving throws against mental effects.</p>\n<p>@Compendium[pf2e.feat-effects.Feat Effect: Enlightened Presence]{Feat Effect: Enlightened Presence}</p>"
         },
         "featType": {
             "value": "class"
@@ -21,8 +21,23 @@
         "level": {
             "value": 16
         },
-        "prerequisites": [],
-        "rules": [],
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "mental"
+                    ]
+                },
+                "selector": "will",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -40,7 +55,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Enlightened Presence",
     "permission": {
         "default": 0

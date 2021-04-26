@@ -98,6 +98,9 @@ export class CompendiumPack {
                     if (!imgPath.match(/^\/?icons\/svg/) && !fs.existsSync(repoImgPath)) {
                         throw PackError(`${entityName} (${this.name}) has a broken image link: ${imgPath}`);
                     }
+                    if (!(imgPath == '' || imgPath.match(/\.(?:svg|webp)$/))) {
+                        throw PackError(`${entityName} (${this.name}) references a non-WEBP/SVG image: ${imgPath}`);
+                    }
                 }
             }
         }

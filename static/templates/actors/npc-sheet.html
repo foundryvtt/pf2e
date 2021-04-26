@@ -86,22 +86,22 @@
                 </div>
                 <li>
                      <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.di">
+                        <label class="pf-title">
                             {{localize "PF2E.ImmunitiesLabel"}}
-                            <a class="trait-selector" data-options="immunityTypes"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.di.selected as |v k|}}
-                            <span class="tag {{k}}">{{v}}</span>
+                            <span class="tag {{k}}">{{localize v}}</span>
                         {{/each}}
                         </ul>
                     </div>
                 </li>
                 <li>
                     <div class="form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.dr">
+                        <label class="pf-title">
                             {{localize "PF2E.ResistancesLabel"}}
-                            <a class="trait-selector" data-options="resistanceTypes" data-has-values="true" data-has-exceptions="true"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul id="actor-resistances" class="traits-list pf-value">
                         {{#each data.traits.dr.selected as |v k|}}
@@ -112,9 +112,9 @@
                 </li>
                 <li>
                     <div class="form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.dv">
+                        <label class="pf-title">
                             {{localize "PF2E.WeaknessesLabel"}}
-                            <a class="trait-selector" data-options="weaknessTypes" data-has-values="true"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="weaknesses"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul id="actor-resistances" class="traits-list pf-value">
                         {{#each data.traits.dv.selected as |v k|}}
@@ -150,7 +150,7 @@
                         <span class="defense-score">
                                 <input name="data.saves.{{sid}}.base" type="number" value="{{save.base}}" data-dtype="Number" placeholder="0" />
                         </span>
-                        <h4 class="save-name rollable">{{save.label}}</h4>
+                        <h4 class="save-name rollable">{{localize save.label}}</h4>
                     </li>
                 {{/each}}
             </ol>
@@ -158,24 +158,24 @@
             <h3 class="defense-title pf-heading">{{localize "PF2E.DetailsHeading"}}</h3>
                 <ol class="singleColumn-list" style="margin-bottom: 2px; margin-top: 2px;">
                     <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.languages">
+                        <label class="pf-title">
                             {{localize "PF2E.Languages"}}
-                            <a class="trait-selector" data-options="languages"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="languages" data-property="data.traits.languages"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.languages.selected as |v k|}}
-                            <span class="trait {{k}}">{{v}}</span>
+                            <span class="trait {{k}}">{{localize v}}</span>
                         {{/each}}
                         </ul>
                     </div>
                     <div class="bio-item form-group-stacked pf-container">
-                        <label class="pf-title" for="data.traits.traits">
+                        <label class="pf-title">
                             {{localize "PF2E.TraitsLabel"}}
-                            <a class="trait-selector" data-options="monsterTraits"><i class="fas fa-edit"></i></a>
+                            <a class="trait-selector" data-trait-selector="basic" data-config-types="monsterTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
                         </label>
                         <ul class="traits-list pf-value">
                         {{#each data.traits.traits.selected as |v k|}}
-                            <span class="tag {{k}}">{{v}}</span>
+                            <span class="tag {{k}}">{{localize v}}</span>
                         {{/each}}
                         </ul>
                     </div>
@@ -186,7 +186,7 @@
                             <select class="pf-value pf-small pf-width-100" name="data.traits.size.value" data-dtype="String">
                                 {{#select data.traits.size.value}}
                                 {{#each actorSizes as |label size|}}
-                                    <option value="{{size}}">{{label}}</option>
+                                    <option value="{{size}}">{{localize label}}</option>
                                 {{/each}}
                                 {{/select}}
                             </select>
@@ -204,7 +204,7 @@
                         <select class="pf-value pf-small pf-width-100" name="data.details.alignment.value" data-dtype="String">
                             {{#select data.details.alignment.value}}
                             {{#each alignment as |label key|}}
-                                <option value="{{key}}">{{label}}</option>
+                                <option value="{{key}}">{{localize label}}</option>
                             {{/each}}
                             {{/select}}
                         </select>
@@ -411,7 +411,7 @@
                                         <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}"
                                             data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                             <div class="item-name flexrow">
-                                                <h3>{{section.label}}</h3>
+                                                <h3>{{localize section.label}}</h3>
 
                                                 {{#unless entry.data.tradition.ritual}}
                                                     {{#unless section.isCantrip}}
@@ -481,7 +481,7 @@
                                     <li class="item inventory-header spellbook-header item-container" style="background: var(--secondary-background);" data-item-id="{{entry._id}}" data-level="{{lvl}}"
                                         data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
                                         <div class="item-name flexrow">
-                                            <h3>{{section.label}}</h3>
+                                            <h3>{{localize section.label}}</h3>
 
                                             {{#if section.isFocus}}
                                             <span class="spell-slots-input">

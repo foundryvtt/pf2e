@@ -1,7 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/others';
-import { KitEntryData } from '@item/data-definitions';
+import { KitEntryData, MagicSchoolKey } from '@item/data-definitions';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -458,19 +458,10 @@ class CompendiumBrowser extends Application {
                     // (Basic Arcana)
                     {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
-                        const prereqs = feat.data.prerequisites;
+                        const prereqs = feat.data.prerequisites.value;
                         let prerequisitesArr = [];
-                        if (Array.isArray(prereqs.value)) {
-                            prerequisitesArr = prereqs.value;
-                        } else if (typeof prereqs.value === 'string') {
-                            prerequisitesArr = prereqs.value.split(' ');
-                        } else if (Array.isArray(prereqs)) {
-                            prerequisitesArr = prereqs;
-                        } else if (typeof prereqs === 'string') {
-                            prerequisitesArr = prereqs.split(' ');
-                        }
 
-                        prerequisitesArr = prerequisitesArr.map((y) => y.toLowerCase());
+                        prerequisitesArr = prereqs.map((y: { value: string }) => y.value.toLowerCase());
 
                         const skillIntersection = skillList.filter((x) =>
                             prerequisitesArr.some((entry) => entry.includes(x)),
@@ -546,7 +537,7 @@ class CompendiumBrowser extends Application {
 
         const spells = {};
         const classes: Set<string> = new Set();
-        const schools: Set<string> = new Set();
+        const schools: Set<MagicSchoolKey> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
@@ -614,7 +605,7 @@ class CompendiumBrowser extends Application {
         // sorting and assigning proper school names
         const schoolsObj = {};
         for (const school of [...schools].sort()) {
-            schoolsObj[school] = CONFIG.PF2E.spellSchools[school];
+            schoolsObj[school] = CONFIG.PF2E.magicSchools[school];
         }
 
         console.log('PF2e System | Compendium Browser | Finished loading spells');
@@ -622,7 +613,7 @@ class CompendiumBrowser extends Application {
             classes: classesObj,
             times: [...times].sort(),
             schools: schoolsObj,
-            traditions: CONFIG.PF2E.spellTraditions,
+            traditions: CONFIG.PF2E.magicTraditions,
             spells,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: CONFIG.PF2E.spellOtherTraits,
@@ -703,10 +694,8 @@ class CompendiumBrowser extends Application {
         });
 
         // toggle hints
-        html.on('mousedown', 'input[name=textFilter]', (ev) => {
-            if (ev.which === 3) {
-                $(html.find('.hint')).toggle(100);
-            }
+        html.on('contextmenu', 'input[name=textFilter]', () => {
+            html.find('.hint').toggle(100);
         });
 
         // sort spell list
@@ -858,19 +847,19 @@ class CompendiumBrowser extends Application {
         return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
-    _getActionImg(action) {
+    _getActionImg(action: string) {
         const img = {
-            1: 'systems/pf2e/icons/actions/OneAction.png',
-            2: 'systems/pf2e/icons/actions/TwoActions.png',
-            3: 'systems/pf2e/icons/actions/ThreeActions.png',
-            '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.png',
-            '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.png',
-            '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.png',
-            free: 'systems/pf2e/icons/actions/FreeAction.png',
-            reaction: 'systems/pf2e/icons/actions/Reaction.png',
-            passive: 'systems/pf2e/icons/actions/Passive.png',
+            1: 'systems/pf2e/icons/actions/OneAction.webp',
+            2: 'systems/pf2e/icons/actions/TwoActions.webp',
+            3: 'systems/pf2e/icons/actions/ThreeActions.webp',
+            '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.webp',
+            '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.webp',
+            '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.webp',
+            free: 'systems/pf2e/icons/actions/FreeAction.webp',
+            reaction: 'systems/pf2e/icons/actions/Reaction.webp',
+            passive: 'systems/pf2e/icons/actions/Passive.webp',
         };
-        return img[action] ?? 'icons/svg/mystery-man.svg';
+        return img[action] ?? 'systems/pf2e/icons/actions/OneAction.webp';
     }
 
     getData() {

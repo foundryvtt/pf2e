@@ -8,8 +8,13 @@ export class ClassSheetPF2e extends ABCSheetPF2e<ClassPF2e> {
         const data = super.getData();
         const itemData = data.item;
 
+        const items = Object.entries(data.data.items)
+            .map(([key, item]) => ({ key, item }))
+            .sort((first, second) => first.item.level - second.item.level);
+
         return {
             ...data,
+            items,
             rarities: this.prepareOptions(CONFIG.PF2E.rarityTraits, { value: [itemData.data.traits.rarity.value] }),
             skills: CONFIG.PF2E.skills,
             proficiencyChoices: CONFIG.PF2E.proficiencyLevels,

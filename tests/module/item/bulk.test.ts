@@ -26,8 +26,8 @@ function createItem({
     stackGroup = undefined,
     size = 'med',
 }: {
-    id?: string,
-    weight?: string,
+    id?: string;
+    weight?: string;
     unequippedBulk?: string;
     equippedBulk?: string;
     negateBulk?: string;

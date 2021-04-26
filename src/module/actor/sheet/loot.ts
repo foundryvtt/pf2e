@@ -12,17 +12,19 @@ import { LootNPCsPopup } from './loot/loot-npcs-popup';
  * @category Actor
  */
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
+    /** Is the application in edit mode? */
+    inEditMode = false;
+
     /** @override */
-    constructor(actor: LootPF2e, options: FormApplicationOptions = {}) {
-        options.editable = true;
-        super(actor, options);
+    constructor(actor: LootPF2e, options: Partial<BaseEntitySheetOptions> = {}) {
+        super(actor, { ...options, editable: true });
     }
 
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'loot']),
+            classes: options.classes.concat('loot'),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
@@ -33,25 +35,27 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     get template() {
         const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
         const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
+        return this.inEditMode && game.user.isGM ? editableSheetPath : nonEditableSheetPath;
+    }
 
-        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
-
-        if (isEditable && game.user.isGM) return editableSheetPath;
-
-        return nonEditableSheetPath;
+    /** @override */
+    get isLootSheet(): boolean {
+        return !this.actor.owner && this.actor.isLootableBy(game.user) && !this.inEditMode;
     }
 
     /** @override */
     getData() {
         const sheetData = super.getData();
 
+        sheetData.inEditMode = this.inEditMode;
+
         // update currency based on items
         if (sheetData.actor.items !== undefined) {
             const treasure = calculateWealth(sheetData.actor.items);
             sheetData.totalTreasure = {};
-            for (const [denomination, value] of Object.entries(treasure)) {
+            for (const denomination of ['cp', 'sp', 'gp', 'pp'] as const) {
                 sheetData.totalTreasure[denomination] = {
-                    value,
+                    value: treasure[denomination],
                     label: CONFIG.PF2E.currencies[denomination],
                 };
             }
@@ -73,6 +77,37 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         sheetData.isGM = game.user.isGM;
 
         return sheetData;
+    }
+
+    /** @override */
+    activateListeners(html: JQuery<HTMLElement>) {
+        super.activateListeners(html);
+
+        if (this.options.editable) {
+            html.find('.split-coins')
+                .removeAttr('disabled')
+                .on('click', (event) => this._distributeCoins(event));
+            html.find('.loot-npcs')
+                .removeAttr('disabled')
+                .on('click', (event) => this._lootNPCs(event));
+
+            html.find<HTMLInputElement>('input.editMode').on('change', (event) => {
+                const checkbox = event.delegateTarget;
+                if (checkbox.checked != this.inEditMode) {
+                    this.inEditMode = checkbox.checked;
+                    this.render(false);
+                }
+            });
+        }
+    }
+
+    /**
+     * Take the loot sheet out of edit mode upon close
+     * @override
+     */
+    async close(options: { force?: boolean }) {
+        this.inEditMode = false;
+        super.close(options);
     }
 
     prepareItems(sheetData: any) {
@@ -153,18 +188,6 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         }
     }
 
-    /** @override
-     * Anyone can loot from a loot sheet
-     */
-    protected _canDragStart(_selector: string): boolean {
-        return true;
-    }
-
-    /** @override */
-    protected _canDragDrop(_selector: string): boolean {
-        return true;
-    }
-
     /** @override */
     protected async _onDropItem(
         event: ElementDragEvent,
@@ -176,23 +199,5 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             return null;
         }
         return super._onDropItem(event, data);
-    }
-
-    activateListeners(html: JQuery<HTMLElement>) {
-        super.activateListeners(html);
-
-        const shouldListenToEvents = this.options.editable;
-
-        if (shouldListenToEvents) {
-            html.find('.split-coins')
-                .removeAttr('disabled')
-                .on('click', (ev) => this._distributeCoins(ev));
-            html.find('.loot-npcs')
-                .removeAttr('disabled')
-                .on('click', (ev) => this._lootNPCs(ev));
-            html.find('.isLootEditable').on('change', (ev: JQuery.ChangeEvent<HTMLInputElement>) => {
-                this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
-            });
-        }
     }
 }

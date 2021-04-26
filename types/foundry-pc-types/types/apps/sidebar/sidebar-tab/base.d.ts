@@ -1,3 +1,7 @@
+declare interface SidebarTabOptions extends ApplicationOptions {
+    filters: { inputSelector: string; contentSelector: string }[];
+    renderUpdateKeys: string[];
+}
 declare type ContextOptionCondition = (li: JQuery) => boolean;
 declare interface EntryContextOption {
     name: string;
@@ -9,9 +13,9 @@ declare interface EntryContextOption {
 /**
  * An abstract pattern followed by the different tabs of the sidebar
  */
-declare abstract class SidebarTab extends Application {
+declare abstract class SidebarTab extends Application<SidebarTabOptions> {
     /** @override */
-    constructor(options?: ApplicationOptions);
+    constructor(options?: SidebarTabOptions);
 
     /**
      * The base name of this sidebar tab

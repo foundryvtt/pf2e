@@ -137,7 +137,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -611,7 +611,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong><span class=\"fontstyle2\">The spark troll would take sonic damage;</span></p>\n<p><span class=\"fontstyle2\"><strong></strong> </span><strong>Effect</strong><span class=\"fontstyle2\">The spark troll redirects hazardous sonic vibrations to </span><span class=\"fontstyle2\">another target within 30 feet. The spark troll gains resistance 5 against the triggering damage, and their chosen target must succeed at a DC 16 Reflex save or be knocked prone.</span></p>"
+                    "value": "<p><strong>Trigger</strong><span class=\"fontstyle2\">The spark troll would take sonic damage;</span></p>\n<p><span class=\"fontstyle2\"><strong></strong> </span><strong>Effect</strong><span class=\"fontstyle2\">The spark troll redirects hazardous sonic vibrations to </span><span class=\"fontstyle2\">another target within 30 feet. The spark troll gains resistance 5 against the triggering damage, and their chosen target must succeed at a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"16\" data-pf2-label=\"Sonic Redirection DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or be knocked prone.</span></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -640,7 +640,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Sonic Redirection",
             "sort": 200000,
             "type": "action"
@@ -660,7 +660,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(concentration, electricity, evocation, primal) The spark troll calls lightning down from the sky, then redirects it out from their hands in a 40-foot line. Creatures in the line take 1d4 electricity damage (DC 16 basic Reflex save).</p>"
+                    "value": "<p>The spark troll calls lightning down from the sky, then redirects it out from their hands in a 40-foot line. Creatures in the line take [[/r 1d4 #electricity]] electricity damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"16\" data-pf2-traits=\"concentration,damaging-effect,electricity,evocation,primal\" data-pf2-label=\"Lightning Blast DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -675,7 +675,12 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "concentration",
+                        "electricity",
+                        "evocation",
+                        "primal"
+                    ]
                 },
                 "trigger": {
                     "value": ""
@@ -689,7 +694,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Lightning Blast",
             "sort": 300000,
             "type": "action"

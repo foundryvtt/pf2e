@@ -1,21 +1,34 @@
 import { isBlank, toNumber } from '../utils';
 import { DamageDieSize } from '../system/damage/damage';
-import { ArmorData, ArmorDetailsData, WeaponData, WeaponDetailsData } from './data-definitions';
+import {
+    ArmorData,
+    ArmorDetailsData,
+    ResilientRuneType,
+    StrikingRuneType,
+    WeaponData,
+    WeaponDetailsData,
+} from './data-definitions';
 import { DiceModifierPF2e } from '../modifiers';
 import { ConfigPF2e } from '@scripts/config';
+import { ZeroToFour, ZeroToThree } from '@actor/data-definitions';
 
 type WeaponPropertyRuneType = keyof ConfigPF2e['PF2E']['weaponPropertyRunes'];
 
-export function getPropertySlots(itemData: WeaponData | ArmorData): number {
+export function getPropertySlots(itemData: WeaponData | ArmorData): ZeroToFour {
     let slots = 0;
-    if (itemData?.data?.preciousMaterial?.value === 'orichalcum') {
+    if (itemData.data.preciousMaterial?.value === 'orichalcum') {
         slots += 1;
     }
-    const potencyRune = itemData?.data?.potencyRune?.value;
-    if (!isBlank(potencyRune)) {
-        slots += parseInt(potencyRune, 10);
+    let potencyRune = itemData.data.potencyRune?.value;
+    if (game.settings.get('pf2e', 'automaticBonusVariant') !== 'noABP') {
+        potencyRune = 0;
+        slots += getPropertyRunes(itemData, 4).length;
+        slots += 1;
     }
-    return slots;
+    if (potencyRune) {
+        slots += potencyRune;
+    }
+    return slots as ZeroToFour;
 }
 
 export function getPropertyRunes(itemData: WeaponData | ArmorData, slots: number): WeaponPropertyRuneType[] {
@@ -34,31 +47,32 @@ export function getAttackBonus(itemData: WeaponDetailsData): number {
     if (itemData.group?.value === 'bomb') {
         return toNumber(itemData?.bonus?.value) ?? 0;
     }
-    return toNumber(itemData?.potencyRune?.value) ?? 0;
+    return itemData.potencyRune.value;
 }
 
 export function getArmorBonus(itemData: ArmorDetailsData): number {
-    const potencyRune = toNumber(itemData?.potencyRune?.value) ?? 0;
+    const potencyRune = itemData.potencyRune.value;
     const baseArmor = toNumber(itemData.armor.value) ?? 0;
     return baseArmor + potencyRune;
 }
 
-const strikingRuneValues = new Map<string, number>();
-strikingRuneValues.set('striking', 1);
-strikingRuneValues.set('greaterStriking', 2);
-strikingRuneValues.set('majorStriking', 3);
+const strikingRuneValues: Map<StrikingRuneType | '', ZeroToThree> = new Map([
+    ['striking', 1],
+    ['greaterStriking', 2],
+    ['majorStriking', 3],
+]);
 
-export function getStrikingDice(itemData: WeaponDetailsData): number {
-    return strikingRuneValues.get(itemData?.strikingRune?.value) || 0;
+export function getStrikingDice(itemData: WeaponDetailsData): ZeroToThree {
+    return strikingRuneValues.get(itemData.strikingRune.value) ?? 0;
 }
 
-const resiliencyRuneValues = new Map<string, number>();
-resiliencyRuneValues.set('resilient', 1);
-resiliencyRuneValues.set('greaterResilient', 2);
-resiliencyRuneValues.set('majorResilient', 3);
-
-export function getResiliencyBonus(itemData: ArmorDetailsData): number {
-    return resiliencyRuneValues.get(itemData?.resiliencyRune?.value) || 0;
+const resilientRuneValues: Map<ResilientRuneType, ZeroToThree> = new Map([
+    ['resilient', 1],
+    ['greaterResilient', 2],
+    ['majorResilient', 3],
+]);
+export function getResiliencyBonus(itemData: ArmorDetailsData): ZeroToThree {
+    return resilientRuneValues.get(itemData?.resiliencyRune?.value) ?? 0;
 }
 
 interface RuneDiceModifier {

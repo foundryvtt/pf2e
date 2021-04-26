@@ -13,7 +13,7 @@
         "description": {
             "chat": "",
             "unidentified": "",
-            "value": "<p>The debilitations you dish out seriously impair your foes. Add the following debilitations to the list you can choose from when you use Debilitating Strike.</p>\n<ul>\n<li><strong>Debilitation:</strong> The target gains weakness 5 to your choice of bludgeoning, piercing, or slashing damage.</li>\n<li><strong>Debilitation:</strong> The target becomes clumsy 1.</li>\n</ul>"
+            "value": "<p>The debilitations you dish out seriously impair your foes. Add the following debilitations to the list you can choose from when you use Debilitating Strike.</p>\n<ul>\n<li><strong>Debilitation:</strong> The target gains weakness 5 to your choice of bludgeoning, piercing, or slashing damage.</li>\n<li><strong>Debilitation:</strong> The target becomes @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1}.</li>\n</ul>"
         },
         "featType": {
             "value": "class"
@@ -21,11 +21,29 @@
         "level": {
             "value": 10
         },
-        "prerequisites": [
-            "ruffian racket",
-            "Debilitating Strike"
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "ruffian racket"
+                },
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<span class='pf2-icon'>f</span> @Compendium[pf2e.feats-srd.Vicious Debilitations]{Vicious Debilitations}"
+            }
         ],
-        "rules": [],
         "source": {
             "value": ""
         },
@@ -41,7 +59,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Vicious Debilitations",
     "permission": {
         "default": 0

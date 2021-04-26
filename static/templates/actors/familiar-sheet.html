@@ -10,7 +10,7 @@
 
       <div class="traits">
         {{#each traits as |trait|}}
-        <span data-trait="{{trait.value}}" title="{{trait.description}}">{{trait.label}}</span>
+            <span data-trait="{{trait.value}}" title="{{trait.description}}">{{localize trait.label}}</span>
         {{/each}}
       </div>
     </section>
@@ -20,35 +20,35 @@
   <section class="sheet-content">
     <div class="container">
       <div class="master">
-        <h2>Master</h2>
+          <h2>Master</h2>
           <label for="{{data._id}}-master"><b>Master Actor</b></label>
           <select id="{{data._id}}-master" name="data.master.id">
-            {{#select master.id}}
-            <option value="">Select a master...</option>
-            {{#each masters as |eligible idx|}}
-            <option value="{{eligible.id}}">{{eligible.name}}</option>
-            {{/each}}
-            {{/select}}
+              {{#select master.id}}
+                  <option value="">Select a master...</option>
+                  {{#each masters as |eligible idx|}}
+                      <option value="{{eligible.id}}">{{eligible.name}}</option>
+                  {{/each}}
+              {{/select}}
           </select>
           {{#if data.master.id}}
-            <div><b>Master Level</b> {{data.details.level.value}}</div>
+              <div><b>Master Level</b> {{data.details.level.value}}</div>
 
-            <div>
-              <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
-              <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
-                {{#select data.master.ability}}
-                {{#each abilities as |ability abbr|}}
-                <option value="{{abbr}}">{{ability}}</option>
-                {{/each}}
-                {{/select}}
-              </select>
-            </div>
+              <div>
+                  <label for="{{data._id}}-spellcasting-ability"><b>Master Spellcasting Ability</b></label>
+                  <select id="{{data._id}}-spellcasting-ability" name="data.master.ability">
+                      {{#select data.master.ability}}
+                          {{#each abilities as |ability abbr|}}
+                              <option value="{{abbr}}">{{localize ability}}</option>
+                          {{/each}}
+                      {{/select}}
+                  </select>
+              </div>
 
-            <div title="{{familiarAbilities.breakdown}}">
-              <strong>Total # of Familiar Abilities</strong> {{numberFormat familiarAbilities.value decimals=0}}
-            </div>
+              <div title="{{familiarAbilities.breakdown}}">
+                  <strong>Total # of Familiar Abilities</strong> {{numberFormat familiarAbilities.value decimals=0}}
+              </div>
           {{/if}}
-        </div>
+      </div>
 
       <div class="basic-stats">
         <h2>Familiar</h2>
@@ -108,15 +108,15 @@
       </div>
 
       <div class="skills">
-        <h2>Skills</h2>
-        <div class="skill-list">
-          {{#each data.skills}}
-          <div class="skill-item" title="{{this.breakdown}}" data-skill-check="{{@key}}">
-            <b>{{this.name}}</b>
-            <span>{{numberFormat this.value decimals=0 sign=true}}</span>
+          <h2>Skills</h2>
+          <div class="skill-list">
+              {{#each data.skills}}
+                  <div class="skill-item" title="{{this.breakdown}}" data-skill-check="{{@key}}">
+                      <b>{{localize this.name}}</b>
+                      <span>{{numberFormat this.value decimals=0 sign=true}}</span>
+                  </div>
+              {{/each}}
           </div>
-          {{/each}}
-        </div>
       </div>
 
       <div class="conditions">

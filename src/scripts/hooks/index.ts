@@ -1,4 +1,5 @@
 import * as CanvasInit from './canvas-init';
+import * as CanvasReady from './canvas-ready';
 import * as CloseWorldClockSettings from './close-world-clock-settings';
 import * as Init from './init';
 import * as HotbarDrop from './hotbar-drop';
@@ -15,6 +16,7 @@ export namespace PF2E {
     export const Hooks = {
         listen(): void {
             CanvasInit.listen();
+            CanvasReady.listen();
             CloseWorldClockSettings.listen();
             Init.listen();
             HotbarDrop.listen();

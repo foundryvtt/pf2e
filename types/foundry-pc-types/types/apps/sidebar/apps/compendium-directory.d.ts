@@ -1,8 +1,8 @@
-declare type CompendiumDirectoryDefaultOptions = typeof Sidebar['defaultOptions'] & {
+declare interface CompendiumDirectoryOptions extends SidebarTabOptions {
     id: string;
     template: string;
     title: string;
-};
+}
 
 declare type PackSummaryByEntity = Record<CompendiumEntityString, PackSummary>;
 
@@ -27,7 +27,7 @@ declare interface PackSummary {
 
 declare class CompendiumDirectory extends SidebarTab {
     /** @override */
-    static get defaultOptions(): CompendiumDirectoryDefaultOptions;
+    static get defaultOptions(): CompendiumDirectoryOptions;
 
     /** @override */
     getData(options?: {}): CompendiumDirectoryData;
@@ -58,4 +58,8 @@ declare class CompendiumDirectory extends SidebarTab {
 
     /** @override */
     protected _onSearchFilter(event: Event, query: string, html: HTMLElement): void;
+}
+
+declare interface CompendiumDirectory {
+    options: CompendiumDirectoryOptions;
 }
