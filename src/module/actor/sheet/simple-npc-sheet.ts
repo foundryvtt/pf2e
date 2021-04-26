@@ -37,7 +37,7 @@ import {
 } from '@item/data-definitions';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
-import { SheetInventory } from './data-types';
+import { InventoryItem, SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -741,27 +741,35 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             weapon: {
                 label: game.i18n.localize('PF2E.InventoryWeaponsHeader'),
                 type: 'weapon',
-                items: itemsData.filter((itemData): itemData is WeaponData => itemData.type === 'weapon'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<WeaponData> => itemData.type === 'weapon',
+                ),
             },
             armor: {
                 label: game.i18n.localize('PF2E.InventoryArmorHeader'),
                 type: 'armor',
-                items: itemsData.filter((itemData): itemData is ArmorData => itemData.type === 'armor'),
+                items: itemsData.filter((itemData): itemData is InventoryItem<ArmorData> => itemData.type === 'armor'),
             },
             equipment: {
                 label: game.i18n.localize('PF2E.InventoryEquipmentHeader'),
                 type: 'equipment',
-                items: itemsData.filter((itemData): itemData is EquipmentData => itemData.type === 'equipment'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<EquipmentData> => itemData.type === 'equipment',
+                ),
             },
             consumable: {
                 label: game.i18n.localize('PF2E.InventoryConsumablesHeader'),
                 type: 'consumable',
-                items: itemsData.filter((itemData): itemData is ConsumableData => itemData.type === 'consumable'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<ConsumableData> => itemData.type === 'consumable',
+                ),
             },
             treasure: {
                 label: game.i18n.localize('PF2E.InventoryTreasureHeader'),
                 type: 'treasure',
-                items: itemsData.filter((itemData): itemData is TreasureData => itemData.type === 'treasure'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<TreasureData> => itemData.type === 'treasure',
+                ),
             },
         };
     }
