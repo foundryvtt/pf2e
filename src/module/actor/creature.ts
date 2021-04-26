@@ -72,19 +72,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         hitPoints.modifiers = [];
     }
 
-    /** Redraw token effect icons after populating Actor#temporaryEffects with partial ActiveEffects */
-    protected redrawTokenEffects(): void {
-        if (!canvas.scene) return;
-        const tokens = this.token
-            ? [this.token]
-            : canvas.tokens.placeables.filter((token) => token.actor?.id === this.id);
-        for (const token of tokens) {
-            if (token.scene.id === canvas.scene.id) {
-                token.drawEffects();
-            }
-        }
-    }
-
     /** @override */
     async updateEmbeddedEntity(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
@@ -112,6 +99,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : updateData;
 
         return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+    }
+
+    protected _onModifyEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context: EntityRenderOptions = {},
+    ): void {
+        super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+        this.redrawTokenEffects();
     }
 
     /** @override */
@@ -255,6 +253,38 @@ export abstract class CreaturePF2e extends ActorPF2e {
             );
             await this.update({ 'data.attributes.dexCap': updated });
         }
+    }
+
+    /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
+    redrawTokenEffects() {
+        if (!(game.ready && canvas.scene)) return;
+        const tokens = this.token ? [this.token] : this.getActiveTokens();
+        for (const token of tokens) {
+            if (token.scene.id === canvas.scene.id && token.parent) {
+                token.drawEffects();
+            }
+        }
+    }
+
+    /** @override */
+    protected _createItemActiveEffects(created: ItemDataPF2e, options?: EntityCreateOptions): Promise<ActiveEffectData>;
+    protected _createItemActiveEffects(
+        created: ItemDataPF2e | ItemDataPF2e[],
+        options?: EntityCreateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    protected async _createItemActiveEffects(
+        created: ItemDataPF2e | ItemDataPF2e[],
+        { temporary = false } = {},
+    ): Promise<ActiveEffectData | ActiveEffectData[]> {
+        const data = await super._createItemActiveEffects(created, { temporary });
+        this.redrawTokenEffects();
+        return data;
+    }
+
+    /** @override */
+    protected _deleteItemActiveEffects(deleted: ItemDataPF2e[]): ActiveEffectData[] | void {
+        super._deleteItemActiveEffects(deleted);
+        this.redrawTokenEffects();
     }
 }
 

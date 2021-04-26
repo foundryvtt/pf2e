@@ -14,7 +14,7 @@ import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
 import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
 import { ArmorData } from '@item/data-definitions';
 import { FoundryUtils } from 'tests/utils';
-import { FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
+import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
 
 const characterData = (FoundryUtils.duplicate(characterJSON) as unknown) as CharacterData;
 const armorData = (FoundryUtils.duplicate(armorJSON) as unknown) as ArmorData;
@@ -39,10 +39,11 @@ describe('test migration runner', () => {
         },
         system: {
             data: {
-                version: 1234,
+                version: '1.2.3',
+                schema: 5,
             },
         },
-        actors: new FakeEntityCollection<FakeActor>(),
+        actors: new FakeActors(),
         items: new FakeEntityCollection<FakeItem>(),
         macros: new FakeEntityCollection<FakeMacro>(),
         messages: new FakeEntityCollection<FakeChatMessage>(),
@@ -100,12 +101,14 @@ describe('test migration runner', () => {
 
     test('expect needs upgrade when version older', () => {
         settings.worldSchemaVersion = 5;
+        game.system.data.schema = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(true);
     });
 
     test("expect doesn't need upgrade when version at latest", () => {
         settings.worldSchemaVersion = 11;
+        game.system.data.schema = 11;
         const migrationRunner = new MigrationRunner([new Version10(), new Version11()]);
         expect(migrationRunner.needsMigration()).toEqual(false);
     });
@@ -121,6 +124,7 @@ describe('test migration runner', () => {
 
     test('expect update causes version to be updated', async () => {
         game.actors.set(characterData._id, new FakeActor(characterData));
+        game.system.data.schema = 12;
 
         const migrationRunner = new MigrationRunner([new ChangeNameMigration()]);
         await migrationRunner.runMigration();

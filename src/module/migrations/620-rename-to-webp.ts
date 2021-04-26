@@ -92,7 +92,7 @@ export class Migration620RenameToWebp extends MigrationBase {
 
     async updateToken(tokenData: TokenData): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
-        tokenData.effects = tokenData.effects.map((effect) => this.renameToWebP(effect));
+        tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
     async updateUser(userData: UserData): Promise<void> {
