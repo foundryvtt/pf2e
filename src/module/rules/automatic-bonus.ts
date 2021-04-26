@@ -107,7 +107,7 @@ function ABPvalues(level: number) {
     let perception;
     let save;
     if (level >= 2 && level < 10) {
-        attack = 0;
+        attack = 1;
     } else if (level >= 10 && level < 16) {
         attack = 2;
     } else if (level >= 16) {
