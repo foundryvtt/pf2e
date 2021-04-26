@@ -153,7 +153,7 @@
 * (nikolaj-a) Support a `data-pf2-show-dc` attribute for inline checks
 
 
-## Version 1.12.1
+    ## Version 1.12.1
 ### Bug Fixes
 * (stwlam) Fix price on physical item sheet sidebars. Closes #1301
 * (stwlam) Fix rolling of melee items from hazard actors
