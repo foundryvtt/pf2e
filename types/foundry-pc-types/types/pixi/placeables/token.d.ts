@@ -126,7 +126,7 @@ declare class Token<ActorType extends Actor = Actor> extends PlaceableObject {
      */
     actor: ActorType | null;
 
-    constructor(...args: any[]);
+    constructor(tokenData: TokenData, scene: Scene);
 
     /**
      * Provide a reference to the canvas layer which contains placeable objects of this type

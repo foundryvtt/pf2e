@@ -46,7 +46,7 @@ declare interface EntityDeleteOptions {
 }
 
 declare interface EntityRenderOptions extends RenderOptions {
-    data: {
+    data?: {
         permission?: boolean;
     };
 }
@@ -541,14 +541,15 @@ declare class Entity {
 
     /**
      * A generic helper since we take the same actions for every type of Embedded Entity update
+     * Unlike the specific _onCreate, _onUpdate, and _onDelete methods this only runs once per updated batch
      */
-    protected _onModifyEmbeddedEntity({
-        embeddedName,
-        renderContext,
-    }: {
-        embeddedName: string;
-        renderContext: object;
-    }): void;
+    protected _onModifyEmbeddedEntity(
+        embeddedName: string,
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context?: EntityRenderOptions,
+    ): void;
 
     /* -------------------------------------------- */
     /*  Data Flags                                  */

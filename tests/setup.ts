@@ -2,6 +2,7 @@ import * as path from 'path';
 import * as fs from 'fs';
 import { FakeActor } from './fakes/fake-actor';
 import { FakeItem } from './fakes/fake-item';
+import { FakeToken } from './fakes/fake-token';
 
 export const fetchSpell = (name: string) => {
     const spellsDb = './packs/data/spells.db/';
@@ -216,6 +217,7 @@ globalThis.mergeObject = mergeObject;
 
 (global as any).Actor = FakeActor;
 (global as any).Item = FakeItem;
+(global as any).Token = FakeToken;
 (global as any).FormApplication = class {};
 (global as any).Roll = class {};
 
