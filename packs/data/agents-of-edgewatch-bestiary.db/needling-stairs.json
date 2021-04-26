@@ -15,19 +15,19 @@
                 "value": 25
             },
             "stealth": {
-                "details": "(expert)",
+                "details": "<p>(expert)</p>",
                 "value": 20
             }
         },
         "creatureType": "",
         "customModifiers": {},
         "details": {
-            "description": "This staircase has springs in each step, which send poisoned needles shooting up through tiny holes in the wood when stepped on. Each step, 6 in total, takes up one 5-foot square.",
-            "disable": "DC 33 Thievery (master) on each stair to disable its spring, or deactivate the switch in area <b>C8</b> to deactivate the whole trap. Cutting the wire on the topmost stair (DC 35 to Disable the Device) that connects the staircase to the control switch prevents the control switch from turning the trap on or off.",
+            "description": "<p>This staircase has springs in each step, which send poisoned needles shooting up through tiny holes in the wood when stepped on. Each step, 6 in total, takes up one 5-foot square.</p>",
+            "disable": "<p>DC 33 Thievery (master) on each stair to disable its spring, or deactivate the switch in area <strong>C8</strong> to deactivate the whole trap. Cutting the wire on the topmost stair (DC 35 to Disable the Device) that connects the staircase to the control switch prevents the control switch from turning the trap on or off.</p>",
             "isComplex": true,
             "level": 11,
-            "reset": "If deactivated via the switch, the trap can be reactivated with the switch in area <b>C8</b>.",
-            "routine": "(1 action) The trap makes a separate poisoned needle Strike against each creature currently on an active step as 1 action. Because it is constantly jabbing needles up through any weight-bearing steps, the trap can also use its Bloody Feet free action (see below) to jab at a creature on one of the steps during that creature's turn."
+            "reset": "<p>If deactivated via the switch, the trap can be reactivated with the switch in area <strong>C8</strong>.</p>",
+            "routine": "<p>(1 action) The trap makes a separate poisoned needle Strike against each creature currently on an active step as 1 action. Because it is constantly jabbing needles up through any weight-bearing steps, the trap can also use its Bloody Feet free action to jab at a creature on one of the steps during that creature's turn.</p>"
         },
         "flavourText": "",
         "nethysUrl": "",
@@ -65,9 +65,9 @@
                 "custom": "",
                 "selected": {},
                 "value": [
+                    "precision",
                     "critical-hits",
-                    "object-immunities",
-                    "precision"
+                    "object-immunities"
                 ]
             },
             "dr": [],
@@ -81,7 +81,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -105,7 +106,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature ends its movement on one of the stairs; <strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature, then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature ends its movement on one of the stairs;</p>\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature, then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -148,7 +149,6 @@
                 "attackEffects": {
                     "custom": "",
                     "value": [
-                        "1d6 persistent bleed and 4d6 persistent poison",
                         "no multiple attack penalty"
                     ]
                 },
@@ -177,7 +177,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent bleed]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage}</p>\n<p>[[/r 4d6 #peristent poison]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Poison Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -192,7 +192,28 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
                     "value": false
@@ -279,7 +300,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "poisoned needle",
+            "name": "Poisoned Needle",
             "sort": 200000,
             "type": "melee"
         },
@@ -298,7 +319,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature moves onto an active step; <strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature moves onto an active step;</p>\n<p><strong>Effect</strong> The trap makes a poisoned needle Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
