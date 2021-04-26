@@ -23,6 +23,7 @@ export class PF2StrikeRuleElement extends PF2RuleElement {
                 damageRolls: {},
                 attackEffects: { value: [] },
                 range: { value: this.ruleData.range || 'melee' },
+                strikingRune: { value: '' },
                 traits: { value: this.ruleData.traits ?? [], rarity: { value: 'common' }, custom: '' },
                 options: { value: this.ruleData.options ?? [] },
                 equipped: { value: true },
