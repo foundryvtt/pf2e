@@ -340,7 +340,7 @@ export interface MeleeDetailsData extends MagicDetailsData {
         value: number;
     };
     attackEffects: {
-        value: any[];
+        value: string[];
     };
     weaponType: {
         value: string;
