@@ -234,8 +234,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let investedCount = 0; // Tracking invested items
 
-        for (const i of actorData.items) {
-            const item = this.actor.items.get(i._id);
+        for (const item of this.actor.items) {
+            const i: any = item.data;
             if (item instanceof PhysicalItemPF2e) {
                 // item identification
                 i.identified = item.isIdentified;
