@@ -30,7 +30,7 @@ export const ChatCards = {
                     const scene = game.scenes.get(sceneId);
                     if (!scene) return;
                     const tokenData = scene.data.tokens.find((t) => t._id === tokenId);
-                    if (tokenData) token = new Token(tokenData);
+                    if (tokenData) token = new Token(tokenData, scene);
                 }
                 if (!token) return;
                 actor = ActorPF2e.fromToken(token);
