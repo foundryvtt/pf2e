@@ -1,5 +1,5 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { SpellcastingEntryData } from '@item/data-definitions';
+import { ItemDataPF2e, SpellcastingEntryData } from '@item/data-definitions';
 import { tupleHasValue } from '@module/utils';
 import { MigrationBase } from './base';
 
@@ -26,24 +26,23 @@ function makeLowercase<T extends string>(value: T): Lowercase<T> {
 export class Migration619TraditionLowercaseAndRemoveWandScroll extends MigrationBase {
     static version = 0.619;
 
-    async updateActor(actorData: ActorDataPF2e) {
-        const allEntries = actorData.items.filter(
-            (itemData) => itemData.type === 'spellcastingEntry',
-        ) as SpellcastingEntryData[];
-
-        // First Convert to lowercase
-        for (const entry of allEntries) {
-            entry.data.tradition.value = makeLowercase(entry.data.tradition.value);
-        }
-
-        const invalidEntries = allEntries.filter(
-            (itemData) => !tupleHasValue(LEGIT_TRADITIONS, itemData.data.tradition.value),
-        );
-
-        if (invalidEntries.length === 0) {
+    async updateItem(item: ItemDataPF2e, actorData?: ActorDataPF2e) {
+        if (item.type !== 'spellcastingEntry') {
             return;
         }
 
+        // Convert to lowercase
+        item.data.tradition.value = makeLowercase(item.data.tradition.value);
+
+        // Do not change regular spellcasting entries any further
+        if (tupleHasValue(LEGIT_TRADITIONS, item.data.tradition.value) || !actorData) {
+            return;
+        }
+
+        // Calculate the highest tradition in the actor
+        const allEntries = actorData.items.filter(
+            (itemData) => itemData.type === 'spellcastingEntry',
+        ) as SpellcastingEntryData[];
         const highestTradition = allEntries.reduce<HighestTradition>(
             (prev, current) => {
                 if (tupleHasValue(LEGIT_TRADITIONS, current.data.tradition.value)) {
@@ -59,8 +58,6 @@ export class Migration619TraditionLowercaseAndRemoveWandScroll extends Migration
             { name: 'arcane', value: 0 },
         );
 
-        for (const invalidEntry of invalidEntries) {
-            invalidEntry.data.tradition.value = highestTradition.name;
-        }
+        item.data.tradition.value = highestTradition.name;
     }
 }
