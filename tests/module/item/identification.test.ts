@@ -1,5 +1,5 @@
-import {PhysicalItemData, Rarity} from '@item/data-definitions';
-import {identifyItem, isMagical} from '../../../src/module/item/identification';
+import { PhysicalItemData, Rarity } from '@item/data-definitions';
+import { identifyItem, isMagical } from '../../../src/module/item/identification';
 
 interface TestItemData {
     level: number;
@@ -11,18 +11,16 @@ interface TestItemData {
     type?: string;
 }
 
-function createItem(
-    {
-        level,
-        rarity,
-        traits,
-        potencyRune,
-        strikingRune,
-        resilienceRune,
-        type,
-    }: TestItemData,
-): PhysicalItemData {
-    return {
+function createItem({
+    level,
+    rarity,
+    traits,
+    potencyRune,
+    strikingRune,
+    resilienceRune,
+    type,
+}: TestItemData): PhysicalItemData {
+    return ({
         type,
         data: {
             level: {
@@ -44,13 +42,13 @@ function createItem(
                 value: resilienceRune,
             },
         },
-    } as unknown as PhysicalItemData;
+    } as unknown) as PhysicalItemData;
 }
 
 describe('test identification DCs', () => {
     test('identify normal item', () => {
-        const item = createItem({level: 2, rarity: 'common', traits: ['magical']});
-        const dcs = identifyItem(item, {notMatchingTraditionModifier: 5});
+        const item = createItem({ level: 2, rarity: 'common', traits: ['magical'] });
+        const dcs = identifyItem(item, { notMatchingTraditionModifier: 5 });
         expect(dcs).toEqual({
             arc: 16,
             nat: 16,
@@ -60,8 +58,8 @@ describe('test identification DCs', () => {
     });
 
     test('identify rare item', () => {
-        const item = createItem({level: 2, rarity: 'rare', traits: ['magical']});
-        const dcs = identifyItem(item, {notMatchingTraditionModifier: 5});
+        const item = createItem({ level: 2, rarity: 'rare', traits: ['magical'] });
+        const dcs = identifyItem(item, { notMatchingTraditionModifier: 5 });
         expect(dcs).toEqual({
             arc: 21,
             nat: 21,
@@ -71,8 +69,8 @@ describe('test identification DCs', () => {
     });
 
     test('identify rare item with tradition', () => {
-        const item = createItem({level: 2, rarity: 'rare', traits: ['primal', 'occult']});
-        const dcs = identifyItem(item, {notMatchingTraditionModifier: 3});
+        const item = createItem({ level: 2, rarity: 'rare', traits: ['primal', 'occult'] });
+        const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             arc: 24,
             nat: 21,
@@ -82,22 +80,22 @@ describe('test identification DCs', () => {
     });
 
     test('identify rare alchemical ingredient', () => {
-        const item = createItem({level: 2, rarity: 'rare', traits: ['alchemical']});
-        const dcs = identifyItem(item, {notMatchingTraditionModifier: 3});
+        const item = createItem({ level: 2, rarity: 'rare', traits: ['alchemical'] });
+        const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             cra: 21,
         });
     });
 
     test('identify item without level', () => {
-        const item = {
+        const item = ({
             data: {
                 traits: {
                     value: [],
                 },
             },
-        } as unknown as PhysicalItemData;
-        const dcs = identifyItem(item, {notMatchingTraditionModifier: 3});
+        } as unknown) as PhysicalItemData;
+        const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             dc: 14,
         });
@@ -109,10 +107,9 @@ describe('test identification DCs', () => {
             rarity: 'rare',
             traits: [],
             potencyRune: '1',
-            type: 'weapon'
+            type: 'weapon',
         });
-        expect(isMagical(item))
-            .toBe(true);
+        expect(isMagical(item)).toBe(true);
     });
 
     test('striking runes are magical', () => {
@@ -121,10 +118,9 @@ describe('test identification DCs', () => {
             rarity: 'rare',
             traits: [],
             strikingRune: '2',
-            type: 'weapon'
+            type: 'weapon',
         });
-        expect(isMagical(item))
-            .toBe(true);
+        expect(isMagical(item)).toBe(true);
     });
 
     test('resiliency runes are magical', () => {
@@ -133,9 +129,8 @@ describe('test identification DCs', () => {
             rarity: 'rare',
             traits: [],
             resilienceRune: '3',
-            type: 'armor'
+            type: 'armor',
         });
-        expect(isMagical(item))
-            .toBe(true);
+        expect(isMagical(item)).toBe(true);
     });
 });

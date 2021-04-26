@@ -9,6 +9,13 @@ import { ErrorPF2e } from '@module/utils';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
+    get hitPoints() {
+        return {
+            current: this.data.data.attributes.hp.value,
+            max: this.data.data.attributes.hp.max,
+        };
+    }
+
     get attributes(): this['data']['data']['attributes'] {
         return this.data.data.attributes;
     }
@@ -66,36 +73,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** @override */
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
@@ -122,6 +99,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 : updateData;
 
         return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+    }
+
+    protected _onModifyEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context: EntityRenderOptions = {},
+    ): void {
+        super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+        this.redrawTokenEffects();
     }
 
     /** @override */
@@ -266,9 +254,76 @@ export abstract class CreaturePF2e extends ActorPF2e {
             await this.update({ 'data.attributes.dexCap': updated });
         }
     }
+
+    /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
+    redrawTokenEffects() {
+        if (!(game.ready && canvas.scene)) return;
+        const tokens = this.token ? [this.token] : this.getActiveTokens();
+        for (const token of tokens) {
+            if (token.scene.id === canvas.scene.id && token.parent) {
+                token.drawEffects();
+            }
+        }
+    }
+
+    /** @override */
+    protected _createItemActiveEffects(created: ItemDataPF2e, options?: EntityCreateOptions): Promise<ActiveEffectData>;
+    protected _createItemActiveEffects(
+        created: ItemDataPF2e | ItemDataPF2e[],
+        options?: EntityCreateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    protected async _createItemActiveEffects(
+        created: ItemDataPF2e | ItemDataPF2e[],
+        { temporary = false } = {},
+    ): Promise<ActiveEffectData | ActiveEffectData[]> {
+        const data = await super._createItemActiveEffects(created, { temporary });
+        this.redrawTokenEffects();
+        return data;
+    }
+
+    /** @override */
+    protected _deleteItemActiveEffects(deleted: ItemDataPF2e[]): ActiveEffectData[] | void {
+        super._deleteItemActiveEffects(deleted);
+        this.redrawTokenEffects();
+    }
 }
 
 export interface CreaturePF2e {
     data: CreatureData;
     _data: CreatureData;
+
+    /**
+     * See implementation in class
+     * @override
+     */
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
 }

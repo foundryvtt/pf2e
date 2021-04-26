@@ -11,6 +11,7 @@ import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
+import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
 
 /**
  * @category Other
@@ -216,7 +217,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores = [];
-        const martialSkills = [];
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -234,8 +234,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let investedCount = 0; // Tracking invested items
 
-        for (const i of actorData.items) {
-            const item = this.actor.items.get(i._id);
+        for (const item of this.actor.items) {
+            const i: any = item.data;
             if (item instanceof PhysicalItemPF2e) {
                 // item identification
                 i.identified = item.isIdentified;
@@ -301,7 +301,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     spellRank,
                 ).modifier;
                 const spellAbl = i.data.ability.value || 'int';
-                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
+                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
                 if (i.data.spelldc.value !== spellAttack) {
                     const updatedItem = {
                         _id: i._id,
@@ -316,13 +316,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.actor.updateEmbeddedEntity('OwnedItem', updatedItem);
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
+                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
-                i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
-                i.data.tradition.title = CONFIG.PF2E.magicTraditions[i.data.tradition.value];
-                i.data.prepared.title = CONFIG.PF2E.preparationType[i.data.prepared.value];
+                i.data.spelldc.hover = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value]);
+                i.data.tradition.title = game.i18n.localize(CONFIG.PF2E.magicTraditions[i.data.tradition.value]);
+                i.data.prepared.title = game.i18n.localize(CONFIG.PF2E.preparationType[i.data.prepared.value]);
                 // Check if prepared spellcasting type and set Boolean
                 if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
                 else i.data.prepared.preparedSpells = false;
@@ -390,22 +390,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
                 lores.push(i);
-            }
-
-            // Martial Skills
-            else if (i.type === 'martial') {
-                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
-                i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
-
-                const rank = i.data.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank)
-                    .modifier;
-                /* const itemBonus = Number((i.data.item || {}).value || 0);
-        i.data.itemBonus = itemBonus; */
-                i.data.value = proficiency; // + itemBonus;
-                i.data.breakdown = `proficiency(${proficiency})`;
-
-                martialSkills.push(i);
             }
 
             // Actions
@@ -583,7 +567,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-        actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
             // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
@@ -675,6 +658,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        // ACTIONS
+        html.find('[name="ammo-used"]').on('change', (event) => {
+            event.stopPropagation();
+
+            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const weapon = this.actor.getOwnedItem(action.item);
+            const ammo = this.actor.getOwnedItem($(event.currentTarget).val() as string);
+
+            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
+        });
+
         {
             // ensure correct tab name is displayed after actor update
             const title = $('.sheet-navigation .active').data('tabTitle');
@@ -731,7 +726,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 .addClass('active');
         });
 
-        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
+        html.find('.crb-trait-selector').on('click', (event) => this.onTraitSelector(event));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
@@ -742,6 +737,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
         html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
+
+        {
+            // Add and remove combat proficiencies
+            const $tab = html.find('.tab.skills');
+            const $header = $tab.find('ol.inventory-header.combat-proficiencies');
+            $header.find('a.add').on('click', (event) => {
+                ManageCombatProficiencies.add(this.actor, event);
+            });
+            const $list = $tab.find('ol.combat-list');
+            $list.find('li.skill.custom a.delete').on('click', (event) => {
+                ManageCombatProficiencies.remove(this.actor, event);
+            });
+        }
 
         html.find('.hover').tooltipster({
             animation: 'fade',
@@ -767,20 +775,26 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== 'spellcastingEntry') {
+            if (item == null || item.data.type !== 'spellcastingEntry') {
                 return;
             }
             const data = duplicate(item.data);
 
-            if (data.data.slots == null) {
-                return;
-            }
-            data.data.slots['slot' + itemLevel].value -= 1;
-            if (data.data.slots['slot' + itemLevel].value < 0) {
-                data.data.slots['slot' + itemLevel].value = 0;
+            if (data.data.tradition.value === 'focus') {
+                if (data.data.focus.points > 0) {
+                    data.data.focus.points -= 1;
+                } else {
+                    ui.notifications.warn(game.i18n.localize('PF2E.Focus.NotEnoughFocusPointsError'));
+                }
+            } else {
+                if (item.data.data.slots === null) {
+                    return;
+                }
+
+                data.data.slots['slot' + itemLevel].value -= 1;
+                if (data.data.slots['slot' + itemLevel].value < 0) {
+                    data.data.slots['slot' + itemLevel].value = 0;
+                }
             }
 
             item.update(data);

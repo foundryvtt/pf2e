@@ -8,7 +8,7 @@
 
     <div class="card-buttons">
         {{#if data.hasCharges}}
-        <button data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{data.consumableType.str}}</button>
+        <button data-action="consume">{{localize "PF2E.ConsumableUseLabel"}} {{localize data.consumableType.str}}</button>
         {{else}}
         <button disabled>{{localize "PF2E.ConsumableNoChargesLabel"}}</button>
         {{/if}}
@@ -16,7 +16,7 @@
 
     <footer class="card-footer">
         {{#each data.properties}}
-        <span>{{this}}</span>
+            <span>{{localize this}}</span>
         {{/each}}
     </footer>
 </div>

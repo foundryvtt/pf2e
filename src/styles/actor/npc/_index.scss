@@ -35,15 +35,6 @@ $negative-modifer: #cc3311;
         flex: 1 0 auto;
         flex-direction: column;
 
-        img.profile-img {
-            flex: 0 0 64px;
-            height: 64px;
-            width: 64px;
-            object-fit: cover;
-            overflow: hidden;
-            height: auto;
-        }
-
         #name {
             justify-content: space-between;
 
@@ -352,6 +343,31 @@ $negative-modifer: #cc3311;
             &:not(.notes) {
                 overflow: hidden scroll;
             }
+
+            &.notes {
+                > .flexcol {
+                    height: 100%;
+
+                    > .flexrow {
+                        flex: 0;
+
+                        .identification-skills {
+                            ul {
+                                display: inline;
+                                list-style-type: none;
+                                padding: 0;
+
+                                li {
+                                    display: inline;
+                                    &:not(:last-of-type):after {
+                                        content: ",";
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
         }
     }
 
@@ -424,7 +440,7 @@ $negative-modifer: #cc3311;
             border-left: 2px solid $color;
         }
 
-        .effects {
+        > .effect {
             display: flex;
             flex: 0 0 32px;
             height: 32px;
@@ -762,7 +778,7 @@ $negative-modifer: #cc3311;
                     flex: 0 0 24px;
                 }
                 span.plus::before {
-                  left: -10px;
+                  left: -21px;
                 }
                 span.plus.lt10::before {
                   left: -15px;
@@ -894,4 +910,23 @@ $negative-modifer: #cc3311;
         }
     }
 
+    &.dead {
+        .profile {
+            background-size: cover;
+            background-color: #dbd9cd;
+            box-sizing: border-box;
+            border: 1px solid black;
+            border-radius: 2px;
+            > img {
+                border: none;
+                width: 100%;
+                opacity: 0.33;
+            }
+        }
+        h2.name {
+            margin-top: 3px;
+            text-align: center;
+            border-bottom: none;
+        }
+    }
 }

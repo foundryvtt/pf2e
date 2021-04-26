@@ -1,4 +1,4 @@
-import { LootTransfer, LootTransferData } from '../module/actor/loot';
+import { ItemTransfer, ItemTransferData } from '@actor/item-transfer';
 
 export type SocketEventCallback = [
     message: {
@@ -12,11 +12,11 @@ export function activateSocketListener() {
     game.socket.on('system.pf2e', async (...[message, userId]: SocketEventCallback) => {
         const sender = game.users.find((user) => user.id === userId);
         switch (message.request) {
-            case 'lootTransfer':
+            case 'itemTransfer':
                 if (game.user.isGM) {
-                    console.debug(`PF2e System | Received item transfer request from ${sender.name}`);
-                    const data = message.data as LootTransferData;
-                    const transfer = new LootTransfer(data.source, data.target, data.quantity, data.containerId);
+                    console.debug(`PF2e System | Received item-transfer request from ${sender.name}`);
+                    const data = message.data as ItemTransferData;
+                    const transfer = new ItemTransfer(data.source, data.target, data.quantity, data.containerId);
                     transfer.enact(sender);
                 }
                 break;

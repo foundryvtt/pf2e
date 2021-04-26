@@ -1,4 +1,6 @@
+import { ActorPF2e } from '@actor/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
+import { FoundryUtils } from 'tests/utils';
 import { FakeItem } from './fake-item';
 
 export class FakeActorItem {
@@ -26,9 +28,13 @@ export class FakeActorItem {
 
 export class FakeActor {
     _data: ActorDataPF2e;
-    _itemGuid: number = 1;
-    constructor(data: ActorDataPF2e) {
-        this._data = duplicate(data);
+    _itemGuid = 1;
+    constructor(data: ActorDataPF2e, public options: EntityConstructorOptions = {}) {
+        this._data = FoundryUtils.duplicate(data);
+    }
+
+    get id(): string {
+        return this.data._id;
     }
 
     get data() {
@@ -41,6 +47,21 @@ export class FakeActor {
 
     get items() {
         return this._data.items?.map((x) => new FakeItem(x.data as any) as any);
+    }
+
+    static fromToken(token: Token): ActorPF2e | null {
+        let actor = game.actors.get(token.data.actorId);
+        if (!actor) return null;
+        if (!token.data._id) return actor;
+        if (!token.data.actorLink) actor = FakeActor.createTokenActor(actor, token);
+        return actor;
+    }
+
+    static createTokenActor(baseActor: ActorPF2e, token: Token): ActorPF2e {
+        const actor = game.actors.tokens[token.id];
+        if (actor) return actor;
+        const actorData = mergeObject(baseActor._data, token.data.actorData, { inplace: false });
+        return (new this(actorData, { token }) as unknown) as ActorPF2e;
     }
 
     update(changes: object) {

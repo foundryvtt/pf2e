@@ -6,7 +6,7 @@
 
     <div class="item-properties tags">
         {{#each data.traits}}
-        <span class="tag tag_alt" title="{{this.description}}">{{this.label}}</span>
+            <span class="tag tag_alt" title="{{localize this.description}}">{{localize this.label}}</span>
         {{/each}}
     </div>
 
@@ -14,18 +14,18 @@
         {{{data.description.value}}}
 
         {{#if data.materials.value}}
-        <p><strong>Required Materials.</strong> {{data.materials.value}}</p>
+            <p><strong>{{localize "PF2E.SpellRequirementsLabel"}}</strong> {{data.materials.value}}</p>
         {{/if}}
     </div>
 
     <div class="card-buttons">
-        {{#if data.isSave}}<button data-action="save" data-save="{{data.save.value}}" data-dc="{{data.save.dc}}">Save DC {{data.save.dc}} {{data.save.basic}} {{data.save.str}}</button>{{/if}}
+        {{#if data.isSave}}<button data-action="save" data-save="{{data.save.value}}" data-dc="{{data.save.dc}}">Save DC {{data.save.dc}} {{data.save.basic}} {{localize data.save.str}}</button>{{/if}}
         {{#if data.isAttack}}
-        <div class="spell-attack-buttons">
-            <button data-action="spellAttack">Attack</button>
-            <button data-action="spellAttack2">MAP -5</button>
-            <button data-action="spellAttack3">MAP -10</button>
-        </div>
+            <div class="spell-attack-buttons">
+                <button data-action="spellAttack">{{localize "PF2E.AttackLabel"}}</button>
+                <button data-action="spellAttack2">MAP -5</button>
+                <button data-action="spellAttack3">MAP -10</button>
+            </div>
         {{/if}}
         {{#if data.damage.value}}<button data-action="spellDamage">{{data.damageLabel}}</button>{{/if}}
         {{#if data.hasCounteractCheck.value}}<button data-action="spellCounteract">{{localize "PF2E.Counteract"}}</button>{{/if}}
@@ -33,7 +33,7 @@
 
     <footer class="card-footer">
         {{#each data.properties}}
-        <span>{{this}}</span>
+            <span>{{localize this}}</span>
         {{/each}}
     </footer>
 </div>

@@ -3,13 +3,13 @@ import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
 import { PF2WeaponDamage } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
-import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike } from './data-definitions';
-import { RuleElements } from '../rules/rules';
+import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike, ZeroToThree } from './data-definitions';
+import { PF2RuleElement, RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
-import { ConfigPF2e } from '@scripts/config';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
+import { DamageType } from '@module/damage-calculation';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -24,6 +24,54 @@ export class NPCPF2e extends CreaturePF2e {
     /** Does this NPC have the Weak adjustment? */
     get isWeak(): boolean {
         return this.traits.has('weak');
+    }
+
+    /**
+     *  Users with limited permission can loot a dead NPC
+     * @override
+     */
+    static can(user: User, action: UserAction, target: NPCPF2e): boolean {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (action === 'update' && target.hitPoints.current === 0 && npcsAreLootable) {
+            return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+        }
+        return super.can(user, action, target);
+    }
+
+    /**
+     * A user can see an NPC in the actor directory only if they have at least Observer permission
+     * @override
+     */
+    get visible(): boolean {
+        return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
+    }
+
+    /**
+     * Grant all users at least limited permission on dead NPCs
+     * @override
+     */
+    get permission(): ZeroToThree {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+            return super.permission;
+        }
+        return Math.max(super.permission, 1) as ZeroToThree;
+    }
+
+    /**
+     * Grant players limited permission on dead NPCs
+     * @override
+     */
+    hasPerm(user: User, permission: string | ZeroToThree, exact = false) {
+        // Temporary measure until a lootable view of the legacy sheet is ready
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {
+            return super.hasPerm(user, permission, exact);
+        }
+        if ([1, 'LIMITED'].includes(permission) && !exact) {
+            return this.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
+        }
+        return super.hasPerm(user, permission, exact);
     }
 
     /** Prepare Character type specific data. */
@@ -42,7 +90,7 @@ export class NPCPF2e extends CreaturePF2e {
         const rules = actorData.items.reduce(
             (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
             [],
-        );
+        ) as PF2RuleElement[];
 
         // Toggles
         (data as any).toggles = {
@@ -55,7 +103,9 @@ export class NPCPF2e extends CreaturePF2e {
             ],
         };
 
-        const { statisticsModifiers, damageDice, strikes, rollNotes } = this._prepareCustomModifiers(actorData, rules);
+        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        // Extract as separate variables for easier use in this method.
+        const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
         if (this.isElite) {
             statisticsModifiers.all = statisticsModifiers.all ?? [];
@@ -495,7 +545,7 @@ export class NPCPF2e extends CreaturePF2e {
                         const key = CONFIG.PF2E.weaponTraits[trait] ?? trait;
                         const option: CharacterStrikeTrait = {
                             name: trait,
-                            label: key,
+                            label: game.i18n.localize(key),
                             toggle: false,
                         };
                         return option;
@@ -513,11 +563,8 @@ export class NPCPF2e extends CreaturePF2e {
                 }
                 // Add a damage roll breakdown
                 action.damageBreakdown = Object.values(item.data.damageRolls).flatMap((roll) => {
-                    return [
-                        `${roll.damage} ${game.i18n.localize(
-                            CONFIG.PF2E.damageTypes[roll.damageType as keyof ConfigPF2e['PF2E']['damageTypes']],
-                        )}`,
-                    ];
+                    const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[roll.damageType as DamageType]);
+                    return [`${roll.damage} ${damageType}`];
                 });
                 if (action.damageBreakdown.length > 0) {
                     if (this.isElite) {
@@ -532,7 +579,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const attackTraits = item.data.attackEffects.value.map((attackEffect: string) => {
                     return {
                         name: attackEffect.toLowerCase(),
-                        label: attackEffect,
+                        label: game.i18n.localize(attackEffect),
                         toggle: false,
                     };
                 });
@@ -727,6 +774,15 @@ export class NPCPF2e extends CreaturePF2e {
                 }
             }
         }
+
+        rules.forEach((rule) => {
+            try {
+                rule.onAfterPrepareData(actorData, synthetics);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
+            }
+        });
     }
 
     private updateTokenAttitude(attitude: string) {

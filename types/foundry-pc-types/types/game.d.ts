@@ -23,7 +23,8 @@ declare const ui: {
 declare class Game<
     ActorType extends Actor = Actor,
     ItemType extends Item = Item,
-    CombatType extends Combat<ActorType> = Combat<ActorType>
+    CombatType extends Combat<ActorType> = Combat<ActorType>,
+    MacroType extends Macro = Macro
 > {
     /**
      * The named view which is currently active.
@@ -32,7 +33,16 @@ declare class Game<
     view: string;
 
     /** The object of world data passed from the server */
-    data: any;
+    data: {
+        actors: ActorType['data'][];
+        items: ItemType['data'][];
+        macros: MacroType['data'][];
+        messages: ChatMessageData[];
+        packs: CompendiumMetadata[];
+        tables: RollTableData[];
+        users: UserData[];
+        version: string;
+    };
 
     /** Localization support */
     i18n: Localization;
@@ -90,12 +100,12 @@ declare class Game<
     actors: Actors<ActorType>;
     items: Items<ItemType>;
     journal: Journal;
-    macros: Macros;
+    macros: Macros<MacroType>;
     playlists: Playlists;
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium>;
+    packs: Collection<Compendium<ActorType | ItemType | JournalEntry | MacroType | Playlist | RollTable | Scene>>;
 
     constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 
@@ -199,7 +209,7 @@ declare class Game<
             minimumCoreVersion: string;
             name: string;
             packs: {
-                entity: 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable';
+                entity: CompendiumEntityString;
                 label: string;
                 module: string;
                 name: string;
@@ -219,7 +229,16 @@ declare class Game<
         };
         entityTypes: {
             Actor: string[];
+            ChatMessage: string[];
+            Combat: string[];
+            Folder: string[];
             Item: string[];
+            JournalEntry: string[];
+            Macro: string[];
+            Playlist: string[];
+            RollTable: string[];
+            Scene: string[];
+            User: string[];
         };
     };
 

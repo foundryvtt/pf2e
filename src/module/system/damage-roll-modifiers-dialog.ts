@@ -75,7 +75,7 @@ export class DamageRollModifiersDialog extends Application {
         let flavor = `<b>${damage.name}</b> (${outcomeLabel})`;
         if (damage.traits) {
             const traits = damage.traits
-                .map((trait) => CONFIG.PF2E.weaponTraits[trait] ?? trait)
+                .map((trait) => game.i18n.localize(CONFIG.PF2E.weaponTraits[trait]) ?? trait)
                 .map((trait) => `<span class="tag">${trait}</span>`)
                 .join('');
             flavor += `<div class="tags">${traits}</div><hr>`;
@@ -131,7 +131,7 @@ export class DamageRollModifiersDialog extends Application {
             )}"></i></h3>`;
             rollData.diceResults[damageType] = {};
             for (const [damageCategory, partial] of Object.entries(categories)) {
-                const roll: any = new Roll(partial as string, formula.data).roll();
+                const roll = new Roll(partial, formula.data).roll();
                 rolls.push(roll);
                 const damageValue = rollData.types[damageType] ?? {};
                 damageValue[damageCategory] = roll.total;

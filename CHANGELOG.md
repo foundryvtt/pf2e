@@ -1,5 +1,113 @@
 # Patch Notes:
 
+## Version 1.13.0
+### Bug Fixes
+* (stwlam) Remove free-text item modifier from spellcasting entries on CRB sheet. Closes #1259
+* (stwlam) Prevent CRB h3 styling from leaking to biography text. Closes #1322
+* (stwlam) Prevent error in effect panel when an icon is repeatedly right-clicked
+* (stwlam) Normalize stack group for taws, prevent failed stack-group lookups from breaking actor sheets
+* (stwlam) Fix display of traits in action sheet sidebar. Closes #1143
+* (stwlam) Prevent errors from being thrown when sense or strike rule elements are applied to NPCs
+* (stwlam) Fix display of effects on simple NPC sheet
+* (stwlam) Numify potency runes on weapons and armor
+* (stwlam) Avoid calculating asset/financial wealth from unidentified items. Closes #1345
+* (stwlam) Fix display of double-digit ability scores on simple NPC sheet
+* (Supe) Fix last scroll bug by using existing embedded item
+* (Supe) Prevent magic traditions from expanding with all the spell traits when opening the item sheet
+* (Supe) Fix area printout in chat card, allow spell details to edit new area object
+* (Supe) Fix applying class features that don't come from a compendium
+* (Chup) Ensure inline actions and saving throws do not break lines unnecessarily, and clicking works more smoothly
+* (Ustin & In3luki) Fix editing speed on NPC sheet
+
+### New Features
+* (stwlam) Add settings to manage homebrew traits and other elements
+* (stwlam) Update combat proficiency management to pull from the weapon-group and base-weapon lists
+* (stwlam) Allow players to loot dead NPCs
+* (Avery) Support for Automatic Bonus Progression variant rule
+
+### Content Changes
+* (TMun) Add motionsense
+* (TMun) Abomination Vaults Bestiary Book 3
+* (TMun) Correct typo in skill feats for fighter. Closes #1324
+* (TMun) Add one shot bestiary
+* (TMun) Fix feats mislabeled as ancestry instead of general. Closes #1338
+* (TMun) Correct spelling in en.json from algollthu to alghollthu. Closes #1341
+* (TMun) Correct data entry for Terotricus in Bestiary 1. Closes #1320
+* (Tikael) Add macro for Steel Your Resolve action
+* (Tikael) Add roll notes for fighter and barbarian critical specialization
+* (Tikael) Add Rogue Debilitation roll notes
+* (Tikael) Add new Backgrounds from Ruby Phoenix Player's Guide
+* (VestOfHolding) Update all CRB classes and their feats to be in line with CRB 2nd Printing. Closes #1311 and #1337
+* (VestOfHolding) Update all CRB spells to be in line with CRB 2nd Printing
+* (VestOfHolding) Update skill actions to be in line with CRB 2nd printing
+* (stwlam) Fix feat type of Suli-Jann. Closes #1299
+* (stwlam) Reduce size of some static files to get smaller sheet assets and avatar images
+* (Shandyan) Correcting cognitive mutagens and warrior's training ring to only apply to the correct type of attacks, rather than also affecting spell attacks
+* (Shandyan) Monk automation - Effects. Formatting of monk feats & spells
+* (Shandyan) Champion Oaths
+* (Shandyan) Fixing blade of justice, and splitting champion oaths
+* (Shandyan) Correct predicates for consumable effects, and add duration to minor elixir of life
+* (Shandyan) Automation for Oracle curses, feats, and spells
+* (Drental) Update of the Mountain Stance/_mage armor_ macro
+* (Drental) Inline saving throws for:
+    * Bestiary 1, 2, and 3
+    * Hazards
+    * NPC Gallery
+    * Abomination Vaults NPCs
+    * Adventure bestiaries (The Fall of Plaguestone, Little Trouble in Big Absalom, Menace Under Otari, Troubles in Otari)
+    * Age of Ashes bestiary
+    * Agents of Edgewatch bestiary
+    * Extinction Curse bestiary
+    * Pathfinder Society bestiaries
+    * April's Fool and Paizo blog monsters
+* (Drental) Remove skill tag from Acclimatization feat
+* (kageru) Make noble's rapier deal piercing damage
+* (Jaash) Fix The Slithering hazards stealth DCs. Closes #1300
+* (Jaash) Fix Agents of Edgewatch Mother Venom. Closes #1317
+* (Jaash) Add missing hazards for PFS 1-11. Closes #1291
+* (Jaash & SpartanCPA) Add Pathfinder Society S02-13 bestiary entries
+* (SpartanCPA) The Slithering bestiary brush-up
+* (SpartanCPA) Agents of Edgewatch Book 2 bestiary brush-up
+* (SpartanCPA) Agents of Edgewatch Book 3, Chapter 1 + 2 bestiary brush-up
+* (SpartanCPA) Format the table of Draconic Exemplar
+* (SpartanCPA) Correct Tail Whip and Shed Tail Lizardfolk Feats
+* (SpartanCPA) Add the pregens from The Slithering
+* (SpartanCPA) Add `alchemical` as a hazard trait
+* (SpartanCPA) Add spell effect to _longstrider_
+* (SpartanCPA) Add inline damage rolls to the poison in the _spider sting_ spell
+* (SpartanCPA) Correct the range increment of the Sling. Closes #1336
+* (SpartanCPA) Correct Agile Feet spell effect. Closes #1339
+* (SpartanCPA) Rename the Agents of Edgewatch Cobbleswarm as a variant compared to Bestiary 3
+* (SpartanCPA) Correct spellType of Deceiver's Cloak. Closes #1348
+* (SpartanCPA) Update Succubus in Bestiary 1
+* (Ustin) Added Ammut to Extinction Curse bestiary
+* (Overdox) Equipment Icons
+* (Overdox) Added icons for the following spells: _call the blood_, _ectoplasmic expulsion_, _ephemeral tracking_, and _lift natures caul_
+* (Overdox) Added missing spells _split the tongue_ and _ordained purpose_ from Belly of the Black Whale
+* (Overdox) Replace icons with images that better represent the item
+* (Supe) Migrate tradition capitalization and wand/scroll entries
+
+### Core System Improvements
+* (stwlam) Disable active effects if the item isn't equipped and (if applicable) invested
+* (stwlam) Update migration runner to operate on world compendia
+* (stwlam) Subclass the `Macro` class to require observer permission to view contents of `MacroDirectory`
+* (stwlam) Fix PF2E player settings flag structure and move the Effect Panel setting from a toolbar button to a user setting
+* (stwlam) Allow ancestry items to have any creature trait
+* (stwlam) Exit out of edit mode upon closing a loot sheet
+* (stwlam) Add actor-based `removeOrReduceCondition` method, use from effect panel, character sheet, and simple NPC sheet
+* (stwlam) Convert all icons and images bundled with the system to webp format
+* (stwlam) Add `tokenIcon` property to effect data
+* (stwlam) Make Powerful Fist feat lookup localization friendly
+* (In3luki) Update character sheet, hazard sheet, item sheet, NPC sheet, and vehicle sheet to use new trait selector
+* (In3luki) Use tags UI for feat prerequisites
+* (Trollderim) Add automatic subtraction of focus points on a cast click. Closes #1313
+* (Supe) Cleanup spell traits, remove wand spellcasting entries
+* (Supe) Add spell traits to spell attack roll options
+* (Supe) Move spell category to the top, group "cast" fields together near the top
+* (Supe) Sort class features in editor
+* (nikolaj-a) Support a `data-pf2-show-dc` attribute for inline checks
+
+
 ## Version 1.12.1
 ### Bug Fixes
 * (stwlam) Fix price on physical item sheet sidebars. Closes #1301
