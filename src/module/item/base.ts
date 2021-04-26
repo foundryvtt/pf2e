@@ -77,13 +77,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         return this.data.data.description.value;
     }
 
-    /** @override */
-    prepareData(): void {
-        // Remove any empty-string traits that somehow got snuck their way in
-        this._data.data.traits.value = this._data.data.traits.value.filter((trait) => !!trait);
-        super.prepareData();
-    }
-
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
