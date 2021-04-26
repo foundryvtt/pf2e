@@ -1,0 +1,21 @@
+<form autocomplete="off" onsubmit="event.preventDefault();">
+    <p class="notes">{{localize "PF2E.SETTINGS.Homebrew.Instructions"}}</p>
+    {{#each settings as |setting|}}
+        <!-- {{setting.key}} -->
+        <div class="form-group setting">
+            <label for="{{setting.key}}">{{localize setting.name}}</label>
+            <div class="form-fields">
+                <input type="text" name="{{setting.key}}" data-dtype="JSON" value="{{setting.value}}" />
+            </div>
+            <p class="notes">{{localize setting.hint}}</p>
+        </div>
+    {{/each}}
+    <div class="form-group buttons">
+        <button type="submit" name="submit">
+            <i class="far fa-save"></i> {{localize "SETTINGS.Save"}}
+        </button>
+        <button type="reset" name="reset">
+            <i class="fas fa-undo"></i> {{localize "PF2E.SETTINGS.ResetChanges"}}
+        </button>
+    </div>
+</form>

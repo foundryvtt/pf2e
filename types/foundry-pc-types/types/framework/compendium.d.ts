@@ -112,7 +112,9 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     searchString: string | null;
     protected _searchTime: number;
 
-    constructor(metadata: CompendiumMetadata<EntityType>, options: object);
+    constructor(metadata: CompendiumMetadata<EntityType>, options?: ApplicationOptions);
+
+    static CONFIG_SETTING: 'compendiumConfiguration';
 
     /** @override */
     get title(): string;
@@ -158,6 +160,13 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * @param metadata The compendium metadata used to create the new pack
      */
     static create(metadata: CompendiumMetadata, options?: {}): Promise<Compendium>;
+
+    /**
+     * Assign configuration metadata settings to the compendium pack
+     * @param settings The object of compendium settings to define
+     * @return A Promise which resolves once the setting is updated
+     */
+    configure(settings?: { locked?: boolean; private?: boolean }): Promise<{ locked: boolean; private: boolean }>;
 
     /**
      * Duplicate a compendium pack to the current World
@@ -238,7 +247,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
      * @param options   Additional options which modify the update request
      * @return          A Promise which resolves with the updated Entity once the operation is complete
      */
-    updateEntity(data: any, options?: any): Promise<Entity>;
+    updateEntity(data: EntityUpdateData<EntityType['data']>, options?: EntityUpdateOptions): Promise<EntityType>;
 
     /**
      * Delete a single Compendium entry by its provided _id

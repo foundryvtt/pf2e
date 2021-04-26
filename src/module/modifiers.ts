@@ -24,6 +24,7 @@ export const MODIFIER_TYPE = Object.freeze({
     PROFICIENCY: 'proficiency' as const,
     CIRCUMSTANCE: 'circumstance' as const,
     ITEM: 'item' as const,
+    POTENCY: 'potency' as const,
     STATUS: 'status' as const,
     UNTYPED: 'untyped' as const,
 });

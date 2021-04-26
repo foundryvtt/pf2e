@@ -21,10 +21,29 @@
         "level": {
             "value": 12
         },
-        "prerequisites": [
-            "Debilitating Strike"
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "Debilitating Strike"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "predicate": {
+                    "all": [
+                        "target:flatFooted"
+                    ]
+                },
+                "selector": "damage",
+                "text": "<span class='pf2-icon'>f</span> @Compendium[pf2e.feats-srd.Critical Debilitation]{Critical Debilitation}"
+            }
         ],
-        "rules": [],
         "source": {
             "value": ""
         },
@@ -41,7 +60,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Critical Debilitation",
     "permission": {
         "default": 0

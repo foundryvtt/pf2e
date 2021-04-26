@@ -27,6 +27,19 @@ const SETTINGS = {
         default: 0,
         type: Boolean,
     },
+    automaticBonusVariant: {
+        name: 'PF2E.SETTINGS.Variant.AutomaticBonus.Name',
+        hint: 'PF2E.SETTINGS.Variant.AutomaticBonus.Hint',
+        scope: 'world',
+        config: false,
+        default: 'noABP',
+        type: String,
+        choices: {
+            noABP: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.noABP',
+            ABPRulesAsWritten: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPRulesAsWritten',
+            ABPFundamentalPotency: 'PF2E.SETTINGS.Variant.AutomaticBonus.Choices.ABPFundamentalPotency',
+        },
+    },
     proficiencyVariant: {
         name: 'PF2E.SETTINGS.Variant.Proficiency.Name',
         hint: 'PF2E.SETTINGS.Variant.Proficiency.Hint',
@@ -120,7 +133,7 @@ export class VariantRulesSettings extends FormApplication {
     /** @override */
     activateListeners(html: JQuery) {
         super.activateListeners(html);
-        html.find('button[name="reset"]').on('click', this._onResetDefaults.bind(this));
+        html.find('button[name="reset"]').on('click', (event) => this.onResetDefaults(event));
     }
 
     /* -------------------------------------------- */
@@ -129,7 +142,7 @@ export class VariantRulesSettings extends FormApplication {
      * Handle button click to reset default settings
      * @param event The initial button click event
      */
-    protected async _onResetDefaults(event: Event): Promise<this> {
+    private async onResetDefaults(event: JQuery.ClickEvent): Promise<this> {
         event.preventDefault();
         for await (const [k, v] of Object.entries(SETTINGS)) {
             await game.settings.set('pf2e', k, v?.default);
@@ -137,23 +150,16 @@ export class VariantRulesSettings extends FormApplication {
         return this.render();
     }
 
-    /* -------------------------------------------- */
-
     /** @override */
     protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         event.preventDefault();
         return super._onSubmit(event, options);
     }
 
-    /* -------------------------------------------- */
-
     /** @override */
-    protected async _updateObject(
-        _event: Event,
-        data: { [K in keyof typeof SETTINGS]: typeof SETTINGS[K]['default'] },
-    ): Promise<void> {
-        for await (const k of Object.keys(SETTINGS)) {
-            game.settings.set('pf2e', k, data[k]);
+    protected async _updateObject(_event: Event, data: Record<string, unknown>): Promise<void> {
+        for await (const key of Object.keys(SETTINGS)) {
+            game.settings.set('pf2e', key, data[key]);
         }
     }
 }

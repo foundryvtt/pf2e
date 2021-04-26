@@ -54,8 +54,11 @@ declare interface FormApplicationOptions extends ApplicationOptions {
  *
  * @param options   Additional options which modify the rendering of the sheet.
  */
-declare abstract class FormApplication<ObjectType extends {} = {}> extends Application {
-    options: FormApplicationOptions;
+declare abstract class FormApplication<
+    ObjectType extends {} = {},
+    OptionsType extends FormApplicationOptions = FormApplicationOptions
+> extends Application<OptionsType> {
+    options: OptionsType;
 
     /**
      * The object target which we are using this form to modify
@@ -77,7 +80,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     editors: Record<string, unknown>[];
 
-    constructor(object?: ObjectType, options?: FormApplicationOptions);
+    constructor(object?: ObjectType, options?: OptionsType);
 
     /**
      * Assign the default options which are supported by the entity edit sheet
@@ -89,7 +92,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      */
     get isEditable(): boolean;
 
-    getData(options?: FormApplicationOptions): FormApplicationData<ObjectType>;
+    getData(options?: OptionsType): FormApplicationData<ObjectType>;
 
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers                */
@@ -167,7 +170,7 @@ declare abstract class FormApplication<ObjectType extends {} = {}> extends Appli
      * Extend the logic applied when the application is closed to destroy any remaining MCE instances
      * This function returns a Promise which resolves once the window closing animation concludes
      */
-    close(): Promise<void>;
+    close(options?: { force?: boolean }): Promise<void>;
 
     /**
      * Submit the contents of a Form Application, processing its content as defined by the Application

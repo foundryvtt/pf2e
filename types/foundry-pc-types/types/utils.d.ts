@@ -135,7 +135,7 @@ declare function isObjectEmpty(obj: object): boolean;
  * @param other
  * @return
  */
-declare function diffObject(original: object, other: object): object;
+declare function diffObject(original: object, other: object): Record<string, unknown>;
 
 /**
  * A helper function which tests whether an object has a property or nested property given a string key.

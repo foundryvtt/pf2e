@@ -1,0 +1,39 @@
+<div class="mystify-sheet">
+<h4 class="tabs mystify-nav" data-tab-container="mystify-tabs">
+  <a class="item active" data-tab="unidentified">{{localize "PF2E.identification.UnidentifiedItem"}}</a>
+  <a class="item" data-tab="misidentified">{{localize "PF2E.identification.MisidentifiedItem"}}</a>
+  <a class="item" data-tab="identified">{{localize "PF2E.identification.IdentifiedItem"}}</a>
+</h4>
+
+<div class="mystify-tabs">
+  <div class="tab item-unidentified active" data-tab="unidentified">
+    <div class="form-group" style="height: fit-content">
+      <img class="mystify-control image-picker" src="{{data.identification.unidentified.img}}" data-edit="data.identification.unidentified.img" />
+      <input class="mystify-control" type="text" value="{{data.identification.unidentified.name}}" name="data.identification.unidentified.name" data-dtype="String"/>
+    </div>
+
+    <label>{{localize "PF2E.ItemDescription"}}</label>
+    {{editor content=data.identification.unidentified.data.description.value target="data.identification.unidentified.data.description.value" button=true owner=owner editable=editable}}
+  </div>
+
+  <div class="tab item-misidentified" data-tab="misidentified">
+    <div class="form-group" style="height: fit-content">
+        <img class="mystify-control image-picker" src="{{data.identification.misidentified.img}}" data-edit="data.identification.misidentified.img" />
+        <input class="mystify-control" type="text" value="{{data.identification.misidentified.name}}" name="data.identification.misidentified.name" data-dtype="String"/>
+    </div>
+
+    <label>{{localize "PF2E.ItemDescription"}}</label>
+    {{editor content=data.identification.misidentified.data.description.value target="data.identification.misidentified.data.description.value" button=true owner=owner editable=editable}}
+  </div>
+
+  <div class="tab item-identified" data-tab="identified">
+    <div class="form-group" style="height: fit-content">
+      <img class="mystify-control image-picker" src="{{data.identification.identified.img}}" data-edit="data.identification.identified.img" />
+      <input class="mystify-control" type="text" value="{{data.identification.identified.name}}" name="data.identification.identified.name" data-dtype="String"/>
+    </div>
+
+    <label>{{localize "PF2E.ItemDescription"}}</label>
+    {{editor content=data.identification.identified.data.description.value target="data.identification.identified.data.description.value" button=true owner=owner editable=editable}}
+  </div>
+</div>
+</div>

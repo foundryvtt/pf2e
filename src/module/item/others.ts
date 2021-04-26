@@ -1,7 +1,6 @@
 import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
 import {
-    ActionData,
     ContainerData,
     ConditionData,
     EquipmentData,
@@ -24,7 +23,12 @@ export interface TreasurePF2e {
     _data: TreasureData;
 }
 
-export class KitPF2e extends PhysicalItemPF2e {}
+export class KitPF2e extends PhysicalItemPF2e {
+    get isEquipped(): false {
+        return false;
+    }
+}
+
 export interface KitPF2e {
     data: KitData;
     _data: KitData;
@@ -90,30 +94,18 @@ export interface MartialPF2e {
     _data: MartialData;
 }
 
-export class ActionPF2e extends ItemPF2e {
-    getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = this.data.data;
-
-        let associatedWeapon: ItemPF2e | null = null;
-        if (data.weapon.value && this.actor) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
-
-        // Feat properties
-        const properties = [
-            CONFIG.PF2E.actionTypes[data.actionType.value],
-            associatedWeapon ? associatedWeapon.name : null,
-        ].filter((p) => p);
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
+export class ConditionPF2e extends ItemPF2e {
+    /** Is the condition from the pf2e system or a module */
+    get fromSystem(): boolean {
+        return !!this.getFlag('pf2e', 'condition');
     }
 }
 
-export interface ActionPF2e {
-    data: ActionData;
-    _data: ActionData;
-}
-
-export class ConditionPF2e extends ItemPF2e {}
 export interface ConditionPF2e {
     data: ConditionData;
     _data: ConditionData;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
+    getFlag(scope: 'pf2e', key: 'condition'): true | undefined;
 }

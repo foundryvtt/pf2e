@@ -46,7 +46,7 @@
         }
         .skills-list,
         .lores-list,
-        .martial-list {
+        .combat-list {
             list-style: none;
             @include p-reset;
             display: grid;
@@ -128,11 +128,32 @@
                         }
                     }
                 }
+
+                // Proficiencies added by the user
+                &.custom {
+                    position: relative;
+                    a.delete {
+                        position: absolute;
+                        top: -8px;
+                        right: -8px;
+                        z-index: -1;
+                        opacity: 0.75;
+                        &:hover {
+                            z-index: 1;
+                            opacity: 1;
+                        }
+                    }
+                    &:hover {
+                        a.delete {
+                            z-index: 1;
+                        }
+                    }
+                }
             }
         }
 
         .lores-list,
-        .martial-list {
+        .combat-list {
             .skill {
                 grid:
                     'score name btn' min-content
@@ -172,7 +193,7 @@
             grid-template-columns: 1fr;
         }
 
-        .martial-list {
+        .combat-list {
             grid-template: repeat(2, 1fr);
 
             .item {

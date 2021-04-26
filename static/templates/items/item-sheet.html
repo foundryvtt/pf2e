@@ -24,14 +24,14 @@
             {{#if detailsActive}}
                 <a class="item" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                 <a class="item active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                {{#if hasMystify}}
+                <a class="item" data-tab="mystify">{{localize "PF2E.ItemMystify"}}</a>
+                {{/if}}
                 {{#if enabledRulesUI}}
                   <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
                 {{#if activeEffects.showAEs}}
-                    <a class="item" data-tab="active-effects">
-                        <i class="fas fa-code-branch" title="Development Mode"></i>
-                        {{localize "PF2E.ActiveEffects.Label"}}
-                    </a>
+                    <a class="item" data-tab="active-effects">{{localize "PF2E.ActiveEffects.Label"}}</a>
                 {{/if}}
             {{/if}}
             {{#unless detailsActive}}
@@ -39,14 +39,14 @@
                 {{#if hasDetails}}
                 <a class="item" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                 {{/if}}
+                {{#if hasMystify}}
+                <a class="item" data-tab="mystify">{{localize "PF2E.ItemMystify"}}</a>
+                {{/if}}
                 {{#if enabledRulesUI}}
                 <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
                 {{#if activeEffects.showAEs}}
-                    <a class="item" data-tab="active-effects">
-                        <i class="fas fa-code-branch" title="Development Mode"></i>
-                        {{localize "PF2E.ActiveEffects.Label"}}
-                    </a>
+                    <a class="item" data-tab="active-effects">{{localize "PF2E.ActiveEffects.Label"}}</a>
                 {{/if}}
                 {{/unless}}
             </h4>
@@ -60,6 +60,13 @@
             {{#if hasDetails}}
             <div class="tab item-details" data-tab="details">
                 {{> (detailsTemplate)}}
+            </div>
+            {{/if}}
+
+            <!-- Mystify Details -->
+            {{#if hasMystify}}
+            <div class="tab item-mystify" data-tab="mystify">
+              {{> systems/pf2e/templates/items/mystify-panel.html item=item }}
             </div>
             {{/if}}
 

@@ -57,22 +57,22 @@
         <ol class="singleColumn-list" style="margin-bottom: 2px; margin-top: 2px;">
             <li>
                     <div class="bio-item form-group-stacked pf-container">
-                    <label class="pf-title" for="data.traits.di">
-                        {{localize 'PF2E.ImmunitiesLabel'}}
-                        <a class="trait-selector" data-options="immunityTypes"><i class="fas fa-edit"></i></a>
+                    <label class="pf-title">
+                        {{localize "PF2E.ImmunitiesLabel"}}
+                        <a class="trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di"><i class="fas fa-edit"></i></a>
                     </label>
                     <ul class="traits-list pf-value">
                     {{#each data.traits.di.selected as |v k|}}
-                        <span class="tag {{k}}">{{v}}</span>
+                        <span class="tag {{k}}">{{localize v}}</span>
                     {{/each}}
                     </ul>
                 </div>
             </li>
             <li>
                 <div class="form-group-stacked pf-container">
-                    <label class="pf-title" for="data.traits.dr">
+                    <label class="pf-title">
                         {{localize 'PF2E.ResistancesLabel'}}
-                        <a class="trait-selector" data-options="resistanceTypes" data-has-values="true" data-has-exceptions="true"><i class="fas fa-edit"></i></a>
+                        <a class="trait-selector" data-trait-selector="resistances"><i class="fas fa-edit"></i></a>
                     </label>
                     <ul id="actor-resistances" class="traits-list pf-value">
                     {{#each data.traits.dr.selected as |v k|}}
@@ -83,9 +83,9 @@
             </li>
             <li>
                 <div class="form-group-stacked pf-container">
-                    <label class="pf-title" for="data.traits.dv">
+                    <label class="pf-title">
                         {{localize 'PF2E.WeaknessesLabel'}}
-                        <a class="trait-selector" data-options="weaknessTypes" data-has-values="true"><i class="fas fa-edit"></i></a>
+                        <a class="trait-selector" data-trait-selector="weaknesses"><i class="fas fa-edit"></i></a>
                     </label>
                     <ul id="actor-resistances" class="traits-list pf-value">
                     {{#each data.traits.dv.selected as |v k|}}
@@ -112,16 +112,16 @@
                     <span class="defense-score">
                             <input name="data.saves.{{sid}}.value" type="number" value="{{save.value}}" data-dtype="Number" placeholder="0" />
                     </span>
-                    <h4 class="save-name rollable">{{save.label}}</h4>
+                    <h4 class="save-name rollable">{{localize save.label}}</h4>
                 </li>
             {{/each}}
         </ol>
 
         <h3 class="defense-title pf-heading">{{localize 'PF2E.DetailsHeading'}}</h3>
         <div class="bio-item form-group-stacked pf-container">
-            <label for="data.traits.traits">
+            <label>
                 {{localize 'PF2E.TraitsLabel'}}
-                <a class="trait-selector" data-options="hazardTraits"><i class="fas fa-edit"></i></a>
+                <a class="trait-selector" data-trait-selector="basic" data-config-types="hazardTraits" data-property="data.traits.traits"><i class="fas fa-edit"></i></a>
             </label>
             <ul class="traits-list pf-value pf-large">
                 {{#each data.traits.traits.value as |v k|}}
@@ -129,7 +129,7 @@
                 {{/each}}
             </ul>
         </div>
-        
+
         <div class="bio-item trait-size pf-container">
             <label class="pf-title">{{localize 'PF2E.ImageLabel'}}</label>
             <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="110" width="110" data-edit="img"/>
@@ -146,11 +146,11 @@
         <li class="item action-header">
           <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.StealthLabel'}}</h3>
         </li>
-  
+
         <li class="item hazard-editor">
           {{editor content=data.attributes.stealth.details target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
         </li>
-      
+
         <li class="item action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardDescriptionLabel'}}</h3>
         </li>
@@ -192,7 +192,7 @@
             </div>
             {{/if}}
         </li>
-        
+
         <!-- List Actions -->
         {{#each actor.actions as |section sid|}}
             {{#each section.actions as |action aid|}}
@@ -206,7 +206,7 @@
                 {{#if ../../owner}}
                 <div class="item-controls">
                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                    <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>                            
+                    <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                 </div>
                 {{/if}}
             </li>

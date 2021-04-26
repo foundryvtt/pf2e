@@ -57,6 +57,8 @@ declare interface MessageCreateOptions extends EntityCreateOptions {
  */
 declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
     data: ChatMessageData;
+    _data: ChatMessageData;
+
     /**
      * Get a reference to the user who sent the chat message
      */
@@ -107,6 +109,15 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
      * Return the Roll instance contained in this chat message, if one is present
      */
     get roll(): Rolled<Roll>;
+
+    /* -------------------------------------------- */
+    /*  HTML Rendering
+    /* -------------------------------------------- */
+
+    /**
+     * Render the HTML for the ChatMessage which should be added to the log
+     */
+    render(force?: boolean, options?: EntityRenderOptions): Promise<JQuery<HTMLLIElement>>;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers

@@ -102,7 +102,11 @@ interface SheetData extends TravelFormData {
     partySpeedInFeet: number;
 }
 
-class TravelSpeedSheet extends FormApplication {
+interface TravelSpeedSheetOptions extends FormApplicationOptions {
+    actors: CharacterPF2e[];
+}
+
+class TravelSpeedSheet extends FormApplication<{}, TravelSpeedSheetOptions> {
     private formData?: TravelFormData = undefined;
 
     static get defaultOptions() {

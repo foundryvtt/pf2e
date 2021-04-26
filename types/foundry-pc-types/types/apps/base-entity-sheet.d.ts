@@ -17,7 +17,10 @@ declare interface BaseEntitySheetData<D extends BaseEntityData> {
 /**
  * A simple implementation of the FormApplication pattern which is specialized in editing Entity instances
  */
-declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication<EntityType> {
+declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication<EntityType, BaseEntitySheetOptions> {
+    /** @override */
+    constructor(object: EntityType, options: Partial<BaseEntitySheetOptions>);
+
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
 
