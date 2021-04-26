@@ -1,5 +1,5 @@
 {
-    "_id": "AmGYa9TLOkHg2JKD",
+    "_id": "JdMqHbaTwtOHVE7Y",
     "data": {
         "abilities": {
             "cha": {
@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -449,6 +449,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -488,7 +491,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "Ri4jqgxaQ0hj1sHG",
+            "_id": "NOvbOqZ37Tq8TaMA",
             "data": {
                 "MAP": {
                     "value": ""
@@ -496,7 +499,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 1
                 },
@@ -524,7 +527,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>This flask filled with corrosive acid deals 1 acid damage, the listed persistent acid damage, and the listed acid splash damage. Many types grant an item bonus to attack rolls.</span></p>\n<p><span>You gain a +1 item bonus to attack rolls. The bomb deals 2d6 persistent acid damage and 2 acid splash damage. </span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</span></p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -545,10 +548,31 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -588,26 +612,6 @@
                     "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -633,7 +637,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "acid-flask-moderate",
                 "source": {
                     "value": ""
                 },
@@ -670,14 +674,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Acid Flask (Moderate)"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
             "name": "Acid Flask (Moderate)",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "67lRq5QDsY3ezgdo",
+            "_id": "b45B3Ns6mwEya56I",
             "data": {
                 "MAP": {
                     "value": ""
@@ -685,7 +693,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 1
                 },
@@ -713,7 +721,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals the listed fire damage, persistent fire damage, and splash damage. Many types grant an item bonus to attack rolls.</span></p>\n<p><span>You gain a +1 item bonus to attack rolls. The bomb deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. </span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</span></p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -734,10 +742,31 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -777,26 +806,6 @@
                     "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -822,7 +831,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "alchemists-fire-moderate",
                 "source": {
                     "value": ""
                 },
@@ -859,14 +868,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Alchemist's Fire (Moderate)"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
             "name": "Alchemist's Fire (Moderate)",
             "sort": 200000,
             "type": "weapon"
         },
         {
-            "_id": "cEPk2N0isGAjSL04",
+            "_id": "pqU7Jju4NexrS8E1",
             "data": {
                 "MAP": {
                     "value": ""
@@ -923,10 +936,31 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p>Originally a farming tool used for reaping grain, this one‑handed weapon has a short wooden handle ending in a curved blade, sometimes sharpened on both sides.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -950,7 +984,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "2 sp"
+                    "value": "100 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -964,26 +998,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -1011,7 +1025,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "sickle",
                 "source": {
                     "value": ""
                 },
@@ -1022,7 +1036,7 @@
                     "value": ""
                 },
                 "strikingRune": {
-                    "value": "striking"
+                    "value": ""
                 },
                 "traits": {
                     "custom": "",
@@ -1046,14 +1060,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ynnBwzkzsR6B73iO"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/sickle.webp",
             "name": "+1 Striking Sickle",
             "sort": 300000,
             "type": "weapon"
         },
         {
-            "_id": "c6lTvYT9tX1ZLrFz",
+            "_id": "hwWZSwxCvpgbQsMo",
             "data": {
                 "armor": {
                     "value": 2
@@ -1069,7 +1087,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -1083,7 +1101,7 @@
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": true
@@ -1101,10 +1119,31 @@
                     "value": null
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This armor is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This armor is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1129,37 +1168,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "140 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
+                    "value": "160 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1184,18 +1193,18 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -1205,21 +1214,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "+1 Studded Leather Armor",
             "sort": 400000,
             "type": "armor"
         },
         {
-            "_id": "7up77vL0jsa5ibqK",
+            "_id": "FnOoWUqsRQWlwgHs",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1255,7 +1268,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1285,7 +1298,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "alchemists-tools",
                 "source": {
                     "value": ""
                 },
@@ -1303,21 +1316,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "held-in-two-hands"
                 },
                 "weight": {
                     "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4ftXXUCBHcf4b0MH"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
             "name": "Alchemist's Tools",
             "sort": 500000,
             "type": "equipment"
         },
         {
-            "_id": "OrNVAba82Cj9mm7q",
+            "_id": "1zoRmOnSV1QGpitd",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1350,10 +1367,31 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p>A formula book holds the formulas necessary to make items other than the common equipment from this chapter; alchemists typically get one for free. Each formula book can hold the formulas for up to 100 different items. Formulas can also appear on parchment sheets, tablets, and almost any other medium; there's no need for you to copy them into a specific book as long as you can keep them on hand to reference them.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This equipment is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This equipment is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1383,7 +1421,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "formula-book-blank",
                 "source": {
                     "value": ""
                 },
@@ -1408,9 +1446,13 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.qCEOZ6109Yo34tRx"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/adventuring-gear/formula-book.webp",
-            "name": "Formula Book (Blank)",
+            "name": "Formula Book",
             "sort": 600000,
             "type": "equipment"
         },
@@ -1464,7 +1506,28 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
                     "value": false
@@ -1555,7 +1618,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "sickle",
+            "name": "Sickle",
             "sort": 700000,
             "type": "melee"
         },
@@ -1587,16 +1650,11 @@
                 "containerId": {
                     "value": ""
                 },
-                "damageRolls": {
-                    "0": {
-                        "damage": "2d6 persistent",
-                        "damageType": "acid"
-                    }
-                },
+                "damageRolls": {},
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d6 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>\n<p>[[/r 2 #acid]] acid splash damage</p>"
                 },
                 "equipped": {
                     "value": false
@@ -1611,7 +1669,28 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
                     "value": false
@@ -1705,7 +1784,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "moderate acid flask",
+            "name": "Moderate Acid Flask",
             "sort": 800000,
             "type": "melee"
         },
@@ -1746,7 +1825,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>[[/r 2 #fire]] fire splash damage</p>"
                 },
                 "equipped": {
                     "value": false
@@ -1761,7 +1840,28 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
                     "value": false
@@ -1855,7 +1955,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "moderate alchemist's fire",
+            "name": "Moderate Alchemist's Fire",
             "sort": 900000,
             "type": "melee"
         },
@@ -1874,7 +1974,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The chemist has at least one bomb in their possession; <strong>Effect</strong> The chemist adds a hasty mix of noxious substances to the bomb and makes a ranged Strike with it. If it hits and deals damage, the target must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"27\" data-pf2-label=\"Dirty Bomb DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become stupefied 2 for 1d6 rounds; if the result of the save is a critical failure, this increases to stupefied 3. For the next 24 hours, the affected target takes a -2 circumstance penalty (-3 on a critical failure) to additional Fortitude saving throws against the same chemist's Crude Bombs.</p>"
+                    "value": "<p><strong>Requirements</strong> The chemist has at least one bomb in their possession;</p>\n<p><strong>Effect</strong> The chemist adds a hasty mix of noxious substances to the bomb and makes a ranged Strike with it. If it hits and deals damage, the target must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"27\" data-pf2-label=\"Dirty Bomb DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save<em data-visibility=\"gm\"> or become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} for [[/br 1d6 #rounds]] rounds; if the result of the save is a critical failure, this increases to @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 3}. For the next 24 hours, the affected target takes a -2 circumstance penalty (-3 on a critical failure) to additional Fortitude saving throws against the same chemist's Crude Bombs</em>.</p>\n<p><em data-visibility=\"gm\">@Compendium[pf2e.bestiary-effects.Effect: Dirty Bomb]{Effect: Dirty Bomb}</em></p>\n<p><em data-visibility=\"gm\">@Compendium[pf2e.bestiary-effects.Effect: Dirty Bomb (Critical Failure)]{Effect: Dirty Bomb (Critical Failure)}</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1923,7 +2023,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The chemist has their alchemist's tools, formula book, and a free hand; <strong>Effect</strong> The chemist creates a moderate acid flask or alchemist's fire that they must use before the end of their next turn or else it becomes inert.</p>"
+                    "value": "<p><strong>Requirements</strong> The chemist has their alchemist's tools, formula book, and a free hand;</p>\n<p><strong>Effect</strong> The chemist creates a @Compendium[pf2e.equipment-srd.Acid Flask (Moderate)]{Moderate Acid Flask} or @Compendium[pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Alchemist's Fire} that they must use before the end of their next turn or else it becomes inert.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2118,12 +2218,12 @@
             "type": "lore"
         }
     ],
-    "name": "Tonla And Yvelle",
+    "name": "Diobel Sweeper Chemist",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "AmGYa9TLOkHg2JKD",
+        "actorId": "JdMqHbaTwtOHVE7Y",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
