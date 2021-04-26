@@ -5,13 +5,13 @@ interface FakeUserData {
         PF2e?: {
             settings?: {
                 quickD20roll?: boolean;
-            }
-        }
-    }
+            };
+        };
+    };
 }
 
 export class FakeUser {
-    _data: FakeUserData
+    _data: FakeUserData;
     constructor(data: FakeUserData) {
         this._data = duplicate(data);
     }

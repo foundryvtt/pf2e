@@ -11,7 +11,7 @@ import {
     ProficiencyModifier,
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
-import { ActorPF2e, TokenPF2e } from '../actor/base';
+import { ActorPF2e } from '../actor/base';
 import {
     ItemDataPF2e,
     ItemTraits,
@@ -59,7 +59,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** The sluggified name of the item **/
-    get slug(): string {
+    get slug(): string | null {
         return this.data.data.slug;
     }
 
@@ -71,6 +71,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     get traits(): Set<string> {
         const rarity: string = this.data.data.traits.rarity.value;
         return new Set([rarity].concat(this.data.data.traits.value));
+    }
+
+    get description(): string {
+        return this.data.data.description.value;
     }
 
     /** @override */
@@ -530,11 +534,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry =
-            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
-            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
-        let useTrickData = false;
-        if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === itemData.location.value,
+        )?.data;
+        const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
@@ -542,8 +545,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry.data?.attack?.roll) {
-            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
+            const options = this.actor
+                .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
+                .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
@@ -613,7 +618,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data) as any;
         const isHeal = itemData.spellType.value === 'heal';
-        const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
         const spellLvl = ItemPF2e.findSpellLevel(event);
         const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
@@ -622,7 +627,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
-        if (dtype && !isHeal) title += ` (${dtype})`;
+        if (damageType && !isHeal) title += ` (${damageType})`;
 
         // Add item to roll data
         if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
@@ -854,7 +859,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                           CONFIG.PF2E.areaTypes[spellData.area.areaType]
                       }`
                     : null,
-                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
                 spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
                 spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
             ];
@@ -935,124 +939,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         return { label: 'PF2E.MultipleAttackPenalty', map2: -5, map3: -10 };
     }
 
-    /* -------------------------------------------- */
-
-    /* -------------------------------------------- */
-
-    static chatListeners(html: JQuery) {
-        // Chat card actions
-        html.on('click', '.card-buttons button', (ev) => {
-            ev.preventDefault();
-
-            // Extract card data
-            const button = $(ev.currentTarget);
-            const messageId = button.parents('.message').attr('data-message-id');
-            const senderId = game.messages.get(messageId).user._id;
-            const card = button.parents('.chat-card');
-            const action = button.attr('data-action');
-
-            // Confirm roll permission
-            if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
-
-            // Get the Actor from a synthetic Token
-            let actor: ActorPF2e | null;
-            const tokenKey = card.attr('data-token-id');
-            if (tokenKey) {
-                const [sceneId, tokenId] = tokenKey.split('.');
-                let token: TokenPF2e | undefined;
-                if (sceneId === canvas.scene?._id) token = canvas.tokens.get(tokenId);
-                else {
-                    const scene = game.scenes.get(sceneId);
-                    if (!scene) return;
-                    const tokenData = scene.data.tokens.find((t) => t._id === tokenId);
-                    if (tokenData) token = new Token(tokenData);
-                }
-                if (!token) return;
-                actor = ActorPF2e.fromToken(token);
-            } else actor = game.actors.get(card.attr('data-actor-id'));
-
-            // Get the Item
-            if (!actor) return;
-            const itemId = card.attr('data-item-id') ?? '';
-            let item: Owned<ItemPF2e> | null = null;
-            let itemData: ItemDataPF2e | undefined = undefined;
-            const embeddedItem = $(ev.target).parents('.item-card').attr('data-embedded-item');
-            if (embeddedItem) {
-                itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
-                if (itemData) {
-                    item = actor.items.get(itemData._id);
-                }
-            } else {
-                item = actor.getOwnedItem(itemId);
-                itemData = item?.data;
-            }
-            if (item && itemData) {
-                const strike: StatisticModifier = actor.data.data?.actions?.find(
-                    (a: StatisticModifier) => a.item === itemId,
-                );
-                const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
-
-                if (action === 'weaponAttack') {
-                    if (strike && rollOptions) {
-                        strike.variants[0].roll({ event: ev, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(ev);
-                    }
-                } else if (action === 'weaponAttack2') {
-                    if (strike && rollOptions) {
-                        strike.variants[1].roll({ event: ev, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(ev, 2);
-                    }
-                } else if (action === 'weaponAttack3') {
-                    if (strike && rollOptions) {
-                        strike.variants[2].roll({ event: ev, options: rollOptions });
-                    } else {
-                        item.rollWeaponAttack(ev, 3);
-                    }
-                } else if (action === 'weaponDamage') {
-                    if (strike && rollOptions) {
-                        strike.damage({ event: ev, options: rollOptions });
-                    } else {
-                        item.rollWeaponDamage(ev);
-                    }
-                } else if (action === 'weaponDamageCritical' || action === 'criticalDamage') {
-                    if (strike && rollOptions) {
-                        strike.critical({ event: ev, options: rollOptions });
-                    } else {
-                        item.rollWeaponDamage(ev, true);
-                    }
-                } else if (action === 'npcAttack') item.rollNPCAttack(ev);
-                else if (action === 'npcAttack2') item.rollNPCAttack(ev, 2);
-                else if (action === 'npcAttack3') item.rollNPCAttack(ev, 3);
-                else if (action === 'npcDamage') item.rollNPCDamage(ev);
-                else if (action === 'npcDamageCritical') item.rollNPCDamage(ev, true);
-                // Spell actions
-                else if (action === 'spellAttack') item.rollSpellAttack(ev);
-                else if (action === 'spellAttack2') item.rollSpellAttack(ev, 2);
-                else if (action === 'spellAttack3') item.rollSpellAttack(ev, 3);
-                else if (action === 'spellDamage') item.rollSpellDamage(ev);
-                else if (action === 'spellCounteract') item.rollCounteract(ev);
-                // Consumable usage
-                else if (action === 'consume') item.rollConsumable(ev);
-                else if (action === 'save') ActorPF2e.rollSave(ev, item);
-            } else {
-                const strikeIndex = card.attr('data-strike-index');
-                const strikeName = card.attr('data-strike-name');
-                const strikeAction = actor.data.data.actions[Number(strikeIndex)];
-
-                if (strikeAction && strikeAction.name === strikeName) {
-                    const options = (actor as ActorPF2e).getRollOptions(['all', 'attack-roll']);
-                    if (action === 'strikeAttack') strikeAction.variants[0].roll({ event: ev, options });
-                    else if (action === 'strikeAttack2') strikeAction.variants[1].roll({ event: ev, options });
-                    else if (action === 'strikeAttack3') strikeAction.variants[2].roll({ event: ev, options });
-                    else if (action === 'strikeDamage') strikeAction.damage({ event: ev, options });
-                    else if (action === 'strikeCritical') strikeAction.critical({ event: ev, options });
-                }
-            }
-        });
-    }
-
     /**
      * Don't allow the user to create a condition or spellcasting entry from the sidebar.
      * @override
@@ -1061,7 +947,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !(['condition', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+                !(['condition', 'martial', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
         );
         const newItem = super.createDialog(data, options);
         game.system.entityTypes.Item = original;
@@ -1072,4 +958,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 export interface ItemPF2e {
     data: ItemDataPF2e;
     _data: ItemDataPF2e;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

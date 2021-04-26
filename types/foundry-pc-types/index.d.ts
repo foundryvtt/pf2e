@@ -15,6 +15,7 @@ import './types/apps/forms/actor-sheet';
 import './types/apps/forms/entity-sheet-config';
 import './types/apps/forms/forms';
 import './types/apps/forms/item-sheet';
+import './types/apps/forms/macro-config';
 import './types/apps/forms/permission';
 import './types/apps/forms/roll-table-config';
 import './types/apps/forms/scene';

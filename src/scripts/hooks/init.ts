@@ -22,6 +22,8 @@ import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
 import * as MonkeyPatch from '../🐵🩹';
 import { CombatPF2e } from '@module/combat';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { MacroPF2e } from '@module/macro';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -33,15 +35,17 @@ export function listen(): void {
         CONFIG.Item.entityClass = ItemPF2e;
         CONFIG.ActiveEffect.entityClass = ActiveEffectPF2e;
         CONFIG.Actor.entityClass = ActorPF2e;
+        CONFIG.ChatMessage.entityClass = ChatMessagePF2e;
         CONFIG.Combat.entityClass = CombatPF2e;
+        CONFIG.Macro.entityClass = MacroPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
         // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
         CONFIG.Combat.initiative.decimals = 1;
-        // Assign the PF2e Combat Tracker
+
+        // Assign the PF2e Sidebar subclasses
         CONFIG.ui.combat = CombatTrackerPF2e;
-        // Assign the PF2e CompendiumDirectory
         CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options

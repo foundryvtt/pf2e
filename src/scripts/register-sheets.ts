@@ -1,5 +1,6 @@
 import { CharacterSheetPF2e } from '@actor/sheet/character';
 import { UpdatedNPCSheetPF2e } from '@actor/sheet/updated-npc-sheet';
+import { ActionSheetPF2e } from '@item/sheet/action';
 import { HazardSheetPF2e } from '@actor/sheet/hazard';
 import { LootSheetPF2e } from '@actor/sheet/loot';
 import { FamiliarSheetPF2e } from '@actor/sheet/familiar';
@@ -11,11 +12,10 @@ import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
-import { ItemPF2e } from '@item/base';
 import { LocalizePF2e } from '@system/localize';
 import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
-import { PhysicalItemPF2e } from '@item/physical';
 import { ActorSheetPF2eDataEntryNPC } from '@actor/sheet/data-entry-npc-sheet';
+import { FeatSheetPF2e } from '@item/sheet/feat';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -101,9 +101,9 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
-    const itemTypes = ['action', 'condition', 'effect', 'feat', 'lore', 'martial', 'spell', 'spellcastingEntry'];
+    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'spell', 'spellcastingEntry'];
     for (const itemType of itemTypes) {
-        Items.registerSheet<ItemPF2e>('pf2e', ItemSheetPF2e, {
+        Items.registerSheet('pf2e', ItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
@@ -112,31 +112,26 @@ export function registerSheets() {
 
     const physicalItemTypes = ['armor', 'backpack', 'consumable', 'equipment', 'melee', 'treasure', 'weapon'];
     for (const itemType of physicalItemTypes) {
-        Items.registerSheet<PhysicalItemPF2e>('pf2e', PhysicalItemSheetPF2e, {
+        Items.registerSheet('pf2e', PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),
             makeDefault: true,
         });
     }
 
-    Items.registerSheet('pf2e', KitSheetPF2e, {
-        types: ['kit'],
-        label: game.i18n.format(sheetLabel, { type: localizeType('kit') }),
-        makeDefault: true,
-    });
-    Items.registerSheet('pf2e', AncestrySheetPF2e, {
-        types: ['ancestry'],
-        label: game.i18n.format(sheetLabel, { type: localizeType('ancestry') }),
-        makeDefault: true,
-    });
-    Items.registerSheet('pf2e', BackgroundSheetPF2e, {
-        types: ['background'],
-        label: game.i18n.format(sheetLabel, { type: localizeType('background') }),
-        makeDefault: true,
-    });
-    Items.registerSheet('pf2e', ClassSheetPF2e, {
-        types: ['class'],
-        label: game.i18n.format(sheetLabel, { type: localizeType('class') }),
-        makeDefault: true,
-    });
+    const sheetEntries = [
+        ['action', ActionSheetPF2e],
+        ['ancestry', AncestrySheetPF2e],
+        ['background', BackgroundSheetPF2e],
+        ['class', ClassSheetPF2e],
+        ['feat', FeatSheetPF2e],
+        ['kit', KitSheetPF2e],
+    ] as const;
+    for (const [type, Sheet] of sheetEntries) {
+        Items.registerSheet('pf2e', Sheet, {
+            types: [type],
+            label: game.i18n.format(sheetLabel, { type: localizeType(type) }),
+            makeDefault: true,
+        });
+    }
 }

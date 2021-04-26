@@ -21,8 +21,32 @@
         "level": {
             "value": 4
         },
-        "prerequisites": [],
-        "rules": [],
+        "location": "",
+        "prerequisites": {
+            "value": []
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Guarded Movement (against reactions triggered by movement)",
+                "predicate": {
+                    "all": [
+                        "guarded-movement"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "ac",
+                "type": "circumstance",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Guarded Movement (your movement triggers a reaction)",
+                "property": "flags.pf2e.rollOptions.all.guarded-movement"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -38,7 +62,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Guarded Movement",
     "permission": {
         "default": 0

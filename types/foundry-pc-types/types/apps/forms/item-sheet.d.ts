@@ -14,9 +14,9 @@ declare interface ItemSheetData<D extends ItemData> extends BaseEntitySheetData<
  * @param item      The Item instance being displayed within the sheet.
  * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<ItemType extends Item> extends BaseEntitySheet<ItemType> {
+declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<ItemType> {
     /** @override */
-    constructor(item: ItemType, options?: FormApplicationOptions);
+    constructor(item: ItemType, options?: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;

@@ -62,24 +62,38 @@ export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
         return sheetData;
     }
 
-    async _updateObject(event: any) {
-        if (event.submitter?.name) {
-            const skill = event.submitter.name;
-            const lowerSkill = skill.toLowerCase() as SkillAbbreviation;
-            const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[lowerSkill]);
-            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as StatisticModifier;
-            stat.roll({
-                actor: this.object,
-                event: event,
-                options: options,
-                notes: stat.notes,
-                type: 'skill-check',
-                dc: { value: this.skilloptions[skill] },
-            });
-            this.result = calculateTrickMagicItemCastData(this.object, lowerSkill);
-            this.castCallback(this.result);
-        } else {
-            this.result = false;
-        }
+    /** @override */
+    activateListeners(html: JQuery): void {
+        super.activateListeners(html);
+
+        html.find("input[name*='Arc'").on('click', () => {
+            this.handleTrickItem('Arc');
+        });
+        html.find("input[name*='Div'").on('click', () => {
+            this.handleTrickItem('Div');
+        });
+        html.find("input[name*='Occ'").on('click', () => {
+            this.handleTrickItem('Occ');
+        });
+        html.find("input[name*='Pri'").on('click', () => {
+            this.handleTrickItem('Pri');
+        });
     }
+
+    handleTrickItem(skill: string) {
+        const lowerSkill = skill.toLowerCase() as SkillAbbreviation;
+        const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[lowerSkill]);
+        const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as StatisticModifier;
+        stat.roll({
+            actor: this.object,
+            options: options,
+            notes: stat.notes,
+            type: 'skill-check',
+            dc: { value: this.skilloptions[skill] },
+        });
+        this.result = calculateTrickMagicItemCastData(this.object, lowerSkill);
+        this.castCallback(this.result);
+    }
+
+    async _updateObject(_event: any) {}
 }

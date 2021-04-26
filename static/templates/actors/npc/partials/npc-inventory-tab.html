@@ -2,8 +2,8 @@
     <div id="items" class="inventory-section">
         <div class="header">
             <div></div>
-            <div class="item-name">{{ localize 'PF2E.NPC.Inventory.Header.NameLabel'}}</div>
-            <div class="item-quantity">{{ localize 'PF2E.NPC.Inventory.Header.QuantityLabel'}}</div>
+            <div class="item-name">{{localize "PF2E.NPC.Inventory.Header.NameLabel"}}</div>
+            <div class="item-quantity">{{localize "PF2E.NPC.Inventory.Header.QuantityLabel"}}</div>
             <div>
             </div>
         </div>
@@ -13,13 +13,13 @@
                 <div class="category-header">
                     <h4>{{category.label}}</h4>
                     <div class="category-controls controls">
-                        {{#if ../options.editable}}
+                        {{#if @root.options.editable}}
                             <a class="item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
                         {{/if}}
                     </div>
                 </div>
                     {{#each category.items as |item itemId|}}
-                        {{> 'systems/pf2e/templates/actors/npc/partials/npc-item.html' item=item isEditable=../../options.editable }}
+                        {{> "systems/pf2e/templates/actors/npc/partials/npc-item.html" item=item isEditable=@root.options.editable}}
                     {{/each}}
                 {{/each}}
             </ul>

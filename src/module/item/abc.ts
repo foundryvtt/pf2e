@@ -13,7 +13,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                 ? featData
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         } else {
-            const feat = game.items.get(entry.id)?._data;
+            const feat = game.items.get(entry.id);
             if (feat === undefined || !(feat instanceof FeatPF2e)) {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }

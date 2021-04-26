@@ -1,0 +1,96 @@
+{
+    "_id": "LZsTt6zPZfNyjIZl",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You've sworn to slay evil dragons. Add the following tenet to your code after the others: \"You must slay evil dragons you encounter as long as you have a reasonable chance of success.</p>\n<p>Your @Compendium[pf2e.actionspf2e.Retributive Strike]{Retributive Strike} gains a +4 circumstance bonus to damage against an evil dragon, or +6 if you have master proficiency with the weapon you used.</p>\n<p>You don't consider evil dragons to be legitimate authorities, even in nations they rule.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 2
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "tenets of good"
+                },
+                {
+                    "value": "paladin cause"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Retributive Strike against an evil dragon",
+                "property": "flags.pf2e.rollOptions.damage-roll.dragonslayer-oath"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Dragonslayer Oath",
+                "name": "dragonslayer-not-master",
+                "predicate": {
+                    "all": [
+                        "dragonslayer-oath"
+                    ],
+                    "not": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 4
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Dragonslayer Oath",
+                "name": "dragonslayer-master",
+                "predicate": {
+                    "all": [
+                        "dragonslayer-oath"
+                    ],
+                    "any": [
+                        "proficiency:master",
+                        "proficiency:legendary"
+                    ]
+                },
+                "selector": "damage",
+                "value": 6
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "champion",
+                "oath"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Dragonslayer Oath (Paladin)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

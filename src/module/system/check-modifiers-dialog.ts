@@ -186,7 +186,7 @@ export class CheckModifiersDialog extends Application {
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
-            quickRolls: game.user.data.flags.PF2e?.settings?.quickD20roll,
+            showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
             fortune,
             none,
             misfortune,
@@ -223,9 +223,9 @@ export class CheckModifiersDialog extends Application {
             theme: 'crb-hover',
             minWidth: 165,
         });
-        html.find('.settings-list input.quick-rolls-submit').on('change', async (event) => {
-            const $checkbox = $(event.target);
-            await game.user.update({ flags: { PF2e: { settings: { quickD20roll: $checkbox.prop('checked') } } } });
+        html.find<HTMLInputElement>('.settings-list input.quick-rolls-submit').on('change', async (event) => {
+            const $checkbox = $(event.delegateTarget);
+            await game.user.setFlag('pf2e', 'settings.showRollDialogs', $checkbox[0].checked);
             $tooltip.tooltipster('close');
         });
     }

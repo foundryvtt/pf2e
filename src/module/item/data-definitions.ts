@@ -1,4 +1,4 @@
-import { AbilityString, ZeroToFour } from '@actor/data-definitions';
+import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
 import { PF2RollNote } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
@@ -8,10 +8,8 @@ export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
-export interface ItemTraits {
+export interface ItemTraits extends ValuesList {
     rarity: { value: Rarity };
-    value: string[];
-    custom: string;
 }
 
 export interface ItemDescriptionData {
@@ -70,6 +68,31 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
         status: string;
         identified?: {
             name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        unidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
+            img: string;
+        };
+
+        misidentified?: {
+            name: string;
+            data: {
+                description: {
+                    value: string;
+                };
+            };
             img: string;
         };
     };
@@ -151,7 +174,6 @@ export interface BackpackDetailsData extends PhysicalDetailsData {
     currency: {
         cp: 0;
         sp: 0;
-        ep: 0;
         gp: 0;
         pp: 0;
     };
@@ -162,12 +184,13 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
     value: {
-        value: string;
+        value: number;
     };
 }
 
-export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+export type WeaponCategoryKey = keyof ConfigPF2e['PF2E']['weaponCategories'];
 export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export interface WeaponDamage {
     value: string;
     dice: number;
@@ -176,13 +199,16 @@ export interface WeaponDamage {
     modifier: number;
 }
 
+export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
+
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string;
+        value: WeaponCategoryKey | null;
     };
     group: {
-        value: WeaponGroupKey;
+        value: WeaponGroupKey | null;
     };
+    baseItem: BaseWeaponKey | null;
     hands: {
         value: boolean;
     };
@@ -209,10 +235,10 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
         value: string;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     strikingRune: {
-        value: string;
+        value: StrikingRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -242,6 +268,7 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
 
 export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
+export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
 
 export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
@@ -266,10 +293,10 @@ export interface ArmorDetailsData extends MagicDetailsData {
         value: number;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     resiliencyRune: {
-        value: string;
+        value: ResilientRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -428,6 +455,10 @@ export interface ClassDetailsData extends ItemDescriptionData {
 
 export type FeatType = keyof ConfigPF2e['PF2E']['featTypes'];
 
+interface PrerequisiteTagData {
+    value: string;
+}
+
 export interface FeatDetailsData extends ItemDescriptionData {
     featType: {
         value: FeatType;
@@ -442,7 +473,7 @@ export interface FeatDetailsData extends ItemDescriptionData {
         value: string;
     };
     prerequisites: {
-        value: string;
+        value: PrerequisiteTagData[];
     };
     location: string;
 }
@@ -496,29 +527,26 @@ export interface TrickMagicItemCastData {
     _id: string;
 }
 
-export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+export type MagicSchoolKey = keyof ConfigPF2e['PF2E']['magicSchools'];
 type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
 }
+
+export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
+export type MagicTraditionKey = keyof ConfigPF2e['PF2E']['magicTraditions'];
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
     spellType: {
         value: string;
     };
-    areasize: {
-        value: string;
-    };
     spellCategory: {
         value: string;
     };
-    traditions: {
-        value: string[];
-        custom: string;
-    };
+    traditions: ValuesList<MagicTraditionKey>;
     school: {
-        value: MagicSchoolAbbreviation;
+        value: MagicSchoolKey;
     };
     components: {
         value: string;
@@ -555,7 +583,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     };
     save: {
         basic: string;
-        value: string;
+        value: SaveType | '';
         dc?: number;
         str?: string;
     };
@@ -622,7 +650,7 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: string;
+        value: MagicTraditionKey;
     };
     focus: {
         points: number;
@@ -633,9 +661,6 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     };
     showUnpreparedSpells: {
         value: boolean;
-    };
-    item: {
-        value: number;
     };
     proficiency: {
         value: number;
@@ -760,14 +785,17 @@ export interface EffectDetailsData extends ItemDescriptionData {
     expired: boolean;
     remaining: string;
     duration: {
-        value: 0;
+        value: number;
         unit: string;
         sustained: boolean;
         expiry: 'turn-start' | 'turn-end';
     };
-    start?: {
+    start: {
         value: number;
         initiative: number | null;
+    };
+    tokenIcon?: {
+        show: boolean;
     };
 }
 
@@ -902,6 +930,21 @@ export type ItemDataPF2e =
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
+}
+
+export function isInventoryItem(type: string): boolean {
+    switch (type) {
+        case 'armor':
+        case 'backpack':
+        case 'consumable':
+        case 'equipment':
+        case 'treasure':
+        case 'weapon': {
+            return true;
+        }
+    }
+
+    return false;
 }
 
 export function isMagicDetailsData(

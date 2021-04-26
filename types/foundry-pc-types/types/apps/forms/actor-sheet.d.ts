@@ -18,10 +18,10 @@ declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetDat
  */
 declare class ActorSheet<
     ActorType extends Actor,
-    ItemDataType extends CollectionElement<ActorType['items']>['data'] = CollectionElement<ActorType['items']>['data']
+    ItemDataType extends CollectionValue<ActorType['items']>['data'] = CollectionValue<ActorType['items']>['data']
 > extends BaseEntitySheet<ActorType> {
     /** @override */
-    constructor(actor: ActorType, options?: FormApplicationOptions);
+    constructor(actor: ActorType, options?: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
@@ -66,7 +66,7 @@ declare class ActorSheet<
     /**
      * Default handler for beginning a drag-drop workflow of an Owned Item on an Actor Sheet
      */
-    protected _onDragItemStart(event: ElementDragEvent): boolean;
+    protected onDragItemStart(event: ElementDragEvent): boolean;
 
     /**
      * Allow the Actor sheet to be a displayed as a valid drop-zone
