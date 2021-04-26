@@ -674,10 +674,11 @@ export class CharacterPF2e extends CreaturePF2e {
         // Always add a basic unarmed strike.
         const unarmed: DeepPartial<WeaponData> & { data: { damage: Partial<WeaponDamage> } } = {
             _id: 'fist',
-            name: game.i18n.localize('PF2E.Strike.Fist.Label'),
+            name: game.i18n.localize('PF2E.WeaponTypeUnarmed'),
             type: 'weapon',
             img: 'systems/pf2e/icons/features/classes/powerful-fist.webp',
             data: {
+                baseItem: null,
                 ability: { value: 'str' },
                 weaponType: { value: 'unarmed' },
                 bonus: { value: 0 },
@@ -693,8 +694,10 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         // powerful fist
-        if ((actorData.items ?? []).some((i) => i.type === 'feat' && i.name === 'Powerful Fist')) {
-            unarmed.name = 'Powerful Fist';
+        const fistFeat = this.itemTypes.feat.find((feat) => feat.slug === 'powerful-fist');
+        if (fistFeat) {
+            unarmed.name = fistFeat.name;
+            unarmed.data.baseItem = 'fist';
             unarmed.data.damage.die = 'd6';
         }
 
