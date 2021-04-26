@@ -5,6 +5,7 @@
             "value": ""
         },
         "area": {
+            "areaType": "",
             "value": ""
         },
         "areasize": {
@@ -52,7 +53,24 @@
         "range": {
             "value": ""
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Cast Battlefield Persistence",
+                "property": "flags.pf2e.rollOptions.all.battlefield-persistence"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "predicate": {
+                    "all": [
+                        "battlefield-persistence"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "status",
+                "value": 2
+            }
+        ],
         "save": {
             "basic": "",
             "value": ""
@@ -62,7 +80,7 @@
             "mode": "none"
         },
         "school": {
-            "value": "div"
+            "value": "divination"
         },
         "secondarycasters": {
             "value": ""
@@ -92,7 +110,10 @@
             "value": "reaction"
         },
         "traditions": {
-            "value": []
+            "custom": "",
+            "value": [
+                "focus"
+            ]
         },
         "traits": {
             "custom": "",

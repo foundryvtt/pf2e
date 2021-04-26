@@ -1,3 +1,4 @@
+import { LocalizePF2e } from '@module/system/localize';
 import { addSign } from '@module/utils';
 import { ArmorCategory, ArmorData } from './data-definitions';
 import { PhysicalItemPF2e } from './physical';
@@ -86,6 +87,18 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         ].filter((property) => property);
 
         return this.processChatData(htmlOptions, { ...data, properties, traits: null });
+    }
+
+    /** @override */
+    generateUnidentifiedName() {
+        const translations = LocalizePF2e.translations.PF2E;
+        const formatString = translations.identification.UnidentifiedItem;
+
+        const group = CONFIG.PF2E.armorGroups[this.data.data.group.value] ?? null;
+        const fallback = this.isShield ? 'PF2E.ArmorTypeShield' : 'ITEM.TypeArmor';
+
+        const item = game.i18n.localize(group ?? fallback);
+        return game.i18n.format(formatString, { item });
     }
 }
 

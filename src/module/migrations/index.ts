@@ -51,6 +51,10 @@ import { Migration617FixUserFlags } from './617-fix-user-flags';
 import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
 import { Migration620RenameToWebp } from './620-rename-to-webp';
+import { Migration621RemoveConfigSpellSchools } from './621-remove-config-spellSchools';
+import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-remove-old-token-effect-icons';
+import { Migration623NumifyPotencyRunes } from './623-numify-potency-runes';
+import { Migration624RemoveTokenEffectIconFlags } from '@module/migrations/624-removed-token-effect-icon-flags';
 
 export class Migrations {
     private static list = [
@@ -106,6 +110,10 @@ export class Migrations {
         Migration618MigrateItemImagePaths,
         Migration619TraditionLowercaseAndRemoveWandScroll,
         Migration620RenameToWebp,
+        Migration621RemoveConfigSpellSchools,
+        Migration622RemoveOldTokenEffectIcons,
+        Migration623NumifyPotencyRunes,
+        Migration624RemoveTokenEffectIconFlags,
     ];
 
     static get latestVersion(): number {

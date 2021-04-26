@@ -35,6 +35,29 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
+function registerGlobalDCInjection() {
+    const selectorShowDC = '[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])';
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            mutation.addedNodes.forEach((node) => {
+                if (!(node instanceof HTMLElement)) return;
+                node.querySelectorAll(selectorShowDC).forEach((element) => {
+                    if (!(element instanceof HTMLElement)) return;
+                    const dc = element.dataset.pf2Dc!.trim()!;
+                    const role = element.dataset.pf2ShowDc!.trim();
+                    if (['all', 'owner'].includes(role) || (role === 'gm' && game.user.isGM)) {
+                        element.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                            dc,
+                            text: element.innerHTML,
+                        });
+                    }
+                });
+            });
+        }
+    });
+    observer.observe(window.document.body, { childList: true, subtree: true });
+}
+
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
         let target = event.target;
@@ -100,6 +123,9 @@ export function listen() {
 
         // Register actor and item sheets
         registerSheets();
+
+        // register global DC injection
+        registerGlobalDCInjection();
 
         // register click listener for elements with a data-pf2-action attribute
         registerPF2ActionClickListener();

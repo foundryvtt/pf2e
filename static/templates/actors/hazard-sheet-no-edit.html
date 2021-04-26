@@ -166,22 +166,20 @@
           <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
-                <h4>
-                    {{action.name}}
-                </h4>
+                <h4>{{action.name}}</h4>
                 <div class="melee-buttons">
-                {{#if action.traits}}
-                  {{#each action.traits as |trait tid|}}
-                    {{#if trait.description}}
-                      <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
-                    {{else}}
-                      <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
+                    {{#if action.traits}}
+                        {{#each action.traits as |trait tid|}}
+                            {{#if trait.description}}
+                                <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                            {{else}}
+                                <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                            {{/if}}
+                        {{/each}}
                     {{/if}}
-                  {{/each}}
-                {{/if}}
                 </div>
             </div>
-            {{#if ../../owner}}
+            {{#if @root.owner}}
             <div class="item-controls">
                 <a class="item-control item-edit" title="{{localize "PF2E.EditItemTitle"}}"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-delete" title="{{localize "PF2E.DeleteItemTitle"}}"><i class="fas fa-trash"></i></a>
@@ -208,15 +206,15 @@
                     {{item.name}}
                 </h4>
                 <div class="melee-buttons">
-                  {{#if item.traits}}
-                    {{#each item.traits as |trait tid|}}
-                      {{#if trait.description}}
-                        <span class="tag" title="{{trait.description}}" style="padding: 0 3px;">{{trait.label}}</span>
-                      {{else}}
-                        <span class="tag" style="padding: 0 3px;">{{trait.label}}</span>
-                      {{/if}}
-                    {{/each}}
-                  {{/if}}
+                    {{#if item.traits}}
+                        {{#each item.traits as |trait tid|}}
+                            {{#if trait.description}}
+                                <span class="tag" title="{{localize trait.description}}" style="padding: 0 3px;">{{localize trait.label}}</span>
+                            {{else}}
+                                <span class="tag" style="padding: 0 3px;">{{localize trait.label}}</span>
+                            {{/if}}
+                        {{/each}}
+                    {{/if}}
                   <span class="tag"><button data-action="npcAttack" >{{localize "PF2E.WeaponStrikeLabel"}} (+{{item.data.bonus.total}})</button></span>
                     <span class="tag"><button data-action="npcAttack2" >{{#unless item.data.isAgile}}-5{{else}}-4{{/unless}}</button></span>
                     <span class="tag"><button data-action="npcAttack3" >{{#unless item.data.isAgile}}-10{{else}}-8{{/unless}}</button></span>

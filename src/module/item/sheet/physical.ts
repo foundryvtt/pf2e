@@ -1,6 +1,6 @@
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 import { PhysicalItemPF2e } from '@item/physical';
-import { PhysicalItemData } from '@item/data-definitions';
+import { isInventoryItem, PhysicalItemData } from '@item/data-definitions';
 
 export interface PhysicalSheetDataPF2e<D extends PhysicalItemData> extends ItemSheetData<D> {
     isIdentified: boolean;
@@ -36,6 +36,7 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
         const sheetdata = {
             ...super.getData(),
             isPhysicalItem: true,
+            hasMystify: game.user.isGM && isInventoryItem(this.item.type) && BUILD_MODE === 'development',
             isIdentified: this.item.isIdentified,
         };
         return sheetdata;
@@ -43,10 +44,6 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
 
     /** @override */
     protected async _updateObject(event: Event, formData: Record<string, unknown>): Promise<void> {
-        // Toggle item identification status
-        if ('identified' in formData && formData['identified'] !== this.item.isIdentified) {
-            formData['data.identification.status'] = formData['identified'] ? 'identified' : 'unidentified';
-        }
         if (this.item.data.data.identification) {
             this.checkForMystifyUpdates(formData);
         }
@@ -90,9 +87,9 @@ export class PhysicalItemSheetPF2e<I extends PhysicalItemPF2e = PhysicalItemPF2e
             data.img = data[imgPath] as string;
         }
 
-        if (mystifyDescPath in data) {
+        if (data[mystifyDescPath] && data[mystifyDescPath] !== currentItemData.data?.description?.value) {
             data[baseDescPath] = data[mystifyDescPath];
-        } else if (baseDescPath in data) {
+        } else if (data[baseDescPath] && data[baseDescPath] !== this.item.data.data.description.value) {
             data[mystifyDescPath] = data[baseDescPath];
         }
     }

@@ -150,7 +150,7 @@
         box-shadow: none;
       }
 
-      span, label {
+      label {
         display: block;
       }
 
@@ -169,7 +169,8 @@
 
         > .item {
           line-height: 24px;
-          padding-top: 4px;
+          padding-top: 3px;
+          font-size: 12px;
 
           &:last-of-type {
             padding-right: 4px;
@@ -196,6 +197,7 @@
         border: 1px solid #999;
         border-radius: 3px;
         background: rgba(0, 0, 0, 0.05);
+        white-space: nowrap;
       }
     }
   }
@@ -1952,6 +1954,10 @@
         flex-wrap: wrap;
         justify-content: flex-start;
         cursor: pointer;
+        padding: 1px 0;
+        &:first-child {
+            padding-left: 4px;
+        }
       }
 
       .feat-name {
@@ -2055,16 +2061,17 @@
     }
 
     .item-controls {
-      flex: 0 0 80px;
+        flex: 0 0 80px;
 
-      a {
-        display: block;
-        float: left;
-        width: 22px;
-        font-size: 10px;
-        text-align: center;
-        color: #666;
-      }
+        a {
+            padding-left: 1px;
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+            &:first-child {
+                padding-left: 8px;
+            }
+        }
     }
   }
 
@@ -2099,7 +2106,7 @@
     .action-header h3 {
       font-size: 24px;
       margin: 0;
-      padding-left: 32px;
+      padding: 2px 0;
       text-align: center;
 
       /* font-weight: bold;
@@ -2513,7 +2520,7 @@
 
       .sheet-sidebar {
         flex: 0 0 220px;
-        height: 100%;
+        height: inherit;
         overflow-y: auto;
       }
     }
@@ -2564,7 +2571,6 @@
       flex-direction: column;
       flex-wrap: nowrap;
       overflow-y: hidden;
-      clear: both;
 
       > * {
         flex: 1;
@@ -2604,12 +2610,12 @@
 
       .inventory-details {
         overflow-y: auto;
-        padding-right: 4px;
-        max-height: fit-content;
+        padding: 0 4px;
 
         label {
           color: #353535;
           font-weight: bold;
+          white-space: nowrap;
         }
 
         .form-group input {
@@ -2631,9 +2637,13 @@
     }
 
     .pf-value {
-      background: #fff;
-      border: 1px solid var(--tertiary-background);
-      text-align: center;
+        background: white;
+        border: 1px solid var(--tertiary-background);
+        text-align: center;
+        &.traits-list {
+            list-style-type: none;
+            padding: 3px;
+        }
     }
 
     .pf-large {
@@ -2997,170 +3007,168 @@ button > i.far {
 }
 
 .pf2e {
-  &.sheet form .defense-list input.stat-detail {
-    display: flex;
-    font-size: 13px;
-    height: 18px;
-    background: rgba(183, 91, 91, 0.2);
-    color: black;
-    border: 1px solid black;
-    width: calc(100% - 4px);
-  }
-
-  &.actor .sheet-header .charlevel .level > input[type="checkbox"] {
-    flex: 0 0 26px;
-  }
-
-  &.sheet form .defense-list.stats-section {
-    grid-auto-rows: auto;
-    grid: "defense" auto;
-  }
-
-  &.updatedNPCSheet form .inventory-list.toggles-list {
-      min-height: min-content;
-      width: 100%;
-
-      .actions-options {
-          display: flex;
-          flex-wrap: wrap;
-          margin: 0 1rem;
-          padding: 0.5rem 1rem;
-
-          .actions-option {
-              display: flex;
-              align-items: center;
-              width: 100%;
-
-              label {
-                  width: 100%;
-
-                  * {
-                      display: inline;
-                      vertical-align: middle;
-                  }
-
-                  input {
-                      margin: 0;
-                      padding: 0;
-                  }
-              }
-          }
-      }
-  }
-
-  &.updatedNPCSheet form .inventory-list .item {
-    .item-name h4 {
-      flex: 2;
-      line-height: 1.4em;
-      padding-top: 0.2em;
+    &.sheet form .defense-list input.stat-detail {
+        display: flex;
+        font-size: 13px;
+        height: 18px;
+        background: rgba(183, 91, 91, 0.2);
+        color: black;
+        border: 1px solid black;
+        width: calc(100% - 4px);
     }
 
-    .melee-name {
-      h4 {
-        flex: 2;
-        line-height: 1.4em;
-        padding-top: 0.2em;
-      }
+    &.actor .sheet-header .charlevel .level > input[type="checkbox"] {
+        flex: 0 0 26px;
+    }
 
-      div.melee-buttons {
-        max-width: 80%;
+    &.sheet form .defense-list.stats-section {
+        grid-auto-rows: auto;
+        grid: "defense" auto;
+    }
+
+    &.updatedNPCSheet form .inventory-list.toggles-list {
+        min-height: min-content;
+        width: 100%;
+
+        .actions-options {
+            display: flex;
+            flex-wrap: wrap;
+            padding: 0.5rem 1rem;
+
+            .actions-option {
+                display: flex;
+                align-items: center;
+                width: 100%;
+
+                label {
+                    width: 100%;
+
+                    * {
+                        display: inline;
+                        vertical-align: middle;
+                    }
+
+                    input {
+                        margin: 0;
+                        padding: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.updatedNPCSheet form .inventory-list .item {
+        .item-name h4 {
+            flex: 2;
+            line-height: 1.4em;
+            padding-top: 0.2em;
+        }
+
+        .melee-name {
+            h4 {
+                flex: 2;
+                line-height: 1.4em;
+                padding-top: 0.2em;
+            }
+
+            div.melee-buttons {
+                max-width: 80%;
+                display: inline-flex;
+                justify-content: flex-end;
+                align-items: flex-end;
+                flex-wrap: wrap;
+            }
+
+            h4 span.strike {
+                font-weight: normal;
+                display: inline;
+            }
+        }
+    }
+
+    &.actor .inventory-list .item .spell-buttons {
+        flex: none;
         display: inline-flex;
         justify-content: flex-end;
         align-items: flex-end;
         flex-wrap: wrap;
-      }
-
-      h4 span.strike {
-        font-weight: normal;
-        display: inline;
-      }
-    }
-  }
-
-  &.actor .inventory-list .item .spell-buttons {
-    flex: none;
-    display: inline-flex;
-    justify-content: flex-end;
-    align-items: flex-end;
-    flex-wrap: wrap;
-  }
-
-  &.sheet form.updatedNPCSheet {
-    overflow-y: scroll;
-
-    .contentcontainer {
-      position: relative;
-      display: block;
-      background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
-      z-index: 2;
     }
 
-    .bgcontainer {
-      top: 0;
-      bottom: 0;
-      width: 100%;
-      height: 100%;
-      background-repeat: no-repeat;
-      background-size: 100%;
-      background-position: center center;
-      opacity: 0.15;
-      content: none;
-      z-index: 1;
-      position: absolute;
-      pointer-events: none;
+    &.sheet form.updatedNPCSheet {
+        overflow-y: scroll;
 
-      &.hidden {
-        visibility: hidden;
-      }
+        .contentcontainer {
+            position: relative;
+            display: block;
+            background: linear-gradient(rgba(255, 255, 255, 0), rgba(255, 255, 255, 0));
+            z-index: 2;
+        }
+
+        .bgcontainer {
+            top: 0;
+            bottom: 0;
+            width: 100%;
+            height: 100%;
+            background-repeat: no-repeat;
+            background-size: 100%;
+            background-position: center center;
+            opacity: 0.15;
+            content: none;
+            z-index: 1;
+            position: absolute;
+            pointer-events: none;
+
+            &.hidden {
+                visibility: hidden;
+            }
+        }
+
+        .npc-title-bar {
+            display: flex;
+            margin-bottom: 0.1em;
+            width: 100%;
+            justify-content: space-between;
+            border-bottom: 2px solid #782e22;
+            margin: 0 0 0.5rem;
+
+            h1 {
+                font-family: 'Oswald', sans-serif;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 0;
+                border-bottom: 0;
+            }
+
+            .name {
+                justify-content: flex-start;
+                font-variant: small-caps;
+            }
+
+            .level, .editNPCButton {
+                flex-shrink: 0;
+            }
+        }
+
+        hr {
+            border-top: 2px solid black;
+            margin-block-start: 0;
+        }
+
+        .item hr {
+            border-width: 1px;
+            border-top-color: #111;
+            margin-block-start: 0.5em;
+        }
+
+        h1.editNPCButton {
+            display: flex;
+            justify-content: end;
+            flex-direction: column;
+            margin-left: 4em;
+            font-size: 10px;
+            font-weight: normal;
+        }
     }
-
-    .npc-title-bar {
-      display: flex;
-      margin-bottom: 0.1em;
-      width: 100%;
-      justify-content: space-between;
-      border-bottom: 2px solid #782e22;
-      margin: 0 0 0.5rem;
-
-      h1 {
-        font-family: 'Oswald', sans-serif;
-        font-weight: 600;
-        text-transform: uppercase;
-        margin-bottom: 0;
-        border-bottom: 0;
-      }
-
-      .name {
-        justify-content: flex-start;
-        font-variant: small-caps;
-      }
-
-      .level, .editNPCButton {
-        flex-shrink: 0;
-      }
-    }
-
-    hr {
-      border-top: 2px solid black;
-      margin-block-start: 0;
-    }
-
-    .item hr {
-      border-width: 1px;
-      border-top-color: #111;
-      margin-block-start: 0.5em;
-    }
-
-    .editNPCButton {
-      display: flex;
-      justify-content: flex-end;
-      margin-left: 1em;
-
-      * {
-        align-self: center;
-      }
-    }
-  }
 }
 
 @font-face {
@@ -3309,25 +3317,31 @@ li.item.hover-container {
 /* Stats */
 
 .pf2e.sheet form.updatedNPCSheet {
-  .inline-stats {
-    display: block;
+    .inline-stats {
+        display: block;
 
-    * {
-      display: inline;
-      justify-content: flex-start;
+        * {
+            display: inline;
+            justify-content: flex-start;
+            padding-left: 0.05em;
+        }
+
+        > .stat-list {
+            > span.stat-minortitle {
+                padding-right: 0.2em;
+            }
+        }
+        .stat-detail {
+            &.perception:before {
+                white-space: pre-wrap;
+            }
+
+            &.speed + .speed:before {
+                content: ", ";
+                white-space: pre-wrap;
+            }
+        }
     }
-
-    .stat-detail {
-      &.perception:before {
-        white-space: pre-wrap;
-      }
-
-      &.speed + .speed:before {
-        content: ", ";
-        white-space: pre-wrap;
-      }
-    }
-  }
 
   .stats-line {
     display: block;
@@ -3357,13 +3371,9 @@ li.item.hover-container {
   }
 
   .stat-list, .stat-value {
-      *:not(:last-of-type) {
-          padding-right: 0.25em;
-      }
-
       &:not(:last-of-type):after {
           content: ",";
-          padding-right: 0.25em;
+          padding-right: 0.2em;
       }
 
       ul.skill-list {
@@ -3387,7 +3397,7 @@ li.item.hover-container {
 
   span .stat-title {
     font-weight: bold;
-    margin-right: 0.2em;
+    margin-right: 0.25em;
 
     &.ability-name {
       text-transform: capitalize;

@@ -42,7 +42,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
         const choices = Object.keys(this.choices).reduce((accumulated, type) => {
             accumulated[type] = {
                 label: this.choices[type],
-                selected: chosen.includes(type.toLowerCase()),
+                selected: chosen.includes(type) || chosen.includes(type.toLowerCase()),
             };
             return accumulated;
         }, {} as Record<string, { label: string; selected: boolean }>);

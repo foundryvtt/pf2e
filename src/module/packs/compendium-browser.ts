@@ -1,7 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/others';
-import { KitEntryData } from '@item/data-definitions';
+import { KitEntryData, MagicSchoolKey } from '@item/data-definitions';
 
 /**
  * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
@@ -537,7 +537,7 @@ class CompendiumBrowser extends Application {
 
         const spells = {};
         const classes: Set<string> = new Set();
-        const schools: Set<string> = new Set();
+        const schools: Set<MagicSchoolKey> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
@@ -605,7 +605,7 @@ class CompendiumBrowser extends Application {
         // sorting and assigning proper school names
         const schoolsObj = {};
         for (const school of [...schools].sort()) {
-            schoolsObj[school] = CONFIG.PF2E.spellSchools[school];
+            schoolsObj[school] = CONFIG.PF2E.magicSchools[school];
         }
 
         console.log('PF2e System | Compendium Browser | Finished loading spells');
@@ -847,7 +847,7 @@ class CompendiumBrowser extends Application {
         return Object.fromEntries(Object.entries(obj).filter(([_key, value]) => value));
     }
 
-    _getActionImg(action) {
+    _getActionImg(action: string) {
         const img = {
             1: 'systems/pf2e/icons/actions/OneAction.webp',
             2: 'systems/pf2e/icons/actions/TwoActions.webp',
@@ -859,7 +859,7 @@ class CompendiumBrowser extends Application {
             reaction: 'systems/pf2e/icons/actions/Reaction.webp',
             passive: 'systems/pf2e/icons/actions/Passive.webp',
         };
-        return img[action] ?? 'icons/svg/mystery-man.svg';
+        return img[action] ?? 'systems/pf2e/icons/actions/OneAction.webp';
     }
 
     getData() {

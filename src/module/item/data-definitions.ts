@@ -8,10 +8,8 @@ export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
-export interface ItemTraits {
+export interface ItemTraits extends ValuesList {
     rarity: { value: Rarity };
-    value: string[];
-    custom: string;
 }
 
 export interface ItemDescriptionData {
@@ -186,7 +184,7 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
     value: {
-        value: string;
+        value: number;
     };
 }
 
@@ -201,9 +199,11 @@ export interface WeaponDamage {
     modifier: number;
 }
 
+export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
+
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string | null;
+        value: WeaponCategoryKey | null;
     };
     group: {
         value: WeaponGroupKey | null;
@@ -235,10 +235,10 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
         value: string;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     strikingRune: {
-        value: string;
+        value: StrikingRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -268,6 +268,7 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
 
 export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
+export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
 
 export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
@@ -292,10 +293,10 @@ export interface ArmorDetailsData extends MagicDetailsData {
         value: number;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     resiliencyRune: {
-        value: string;
+        value: ResilientRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -339,7 +340,7 @@ export interface MeleeDetailsData extends MagicDetailsData {
         value: number;
     };
     attackEffects: {
-        value: any[];
+        value: string[];
     };
     weaponType: {
         value: string;
@@ -526,7 +527,7 @@ export interface TrickMagicItemCastData {
     _id: string;
 }
 
-export type MagicSchoolAbbreviation = keyof ConfigPF2e['PF2E']['spellSchools'];
+export type MagicSchoolKey = keyof ConfigPF2e['PF2E']['magicSchools'];
 type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
@@ -545,7 +546,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     };
     traditions: ValuesList<MagicTraditionKey>;
     school: {
-        value: MagicSchoolAbbreviation;
+        value: MagicSchoolKey;
     };
     components: {
         value: string;
@@ -792,6 +793,9 @@ export interface EffectDetailsData extends ItemDescriptionData {
     start: {
         value: number;
         initiative: number | null;
+    };
+    tokenIcon?: {
+        show: boolean;
     };
 }
 

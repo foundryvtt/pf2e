@@ -52,7 +52,9 @@
             {{#if (and item.hasInvestedTrait item.identified (not lootsheet))}}
                 <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
             {{/if}}
-            <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+            {{#if (not lootsheet)}}
+                <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
+            {{/if}}
         {{/if}}
         {{#if item.showGMInfo}}
           {{#if item.identified}}

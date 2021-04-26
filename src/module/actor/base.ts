@@ -138,7 +138,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             (c) => new TokenEffect(c.img),
         );
 
-        return super.temporaryEffects.concat(this.data.data.tokenEffects ?? []).concat(conditionTokenEffects);
+        const effectTokenEffects = this.itemTypes.effect
+            .filter((effect) => effect.data.data.tokenIcon?.show)
+            .map((effect) => new TokenEffect(effect.img));
+
+        return super.temporaryEffects
+            .concat(this.data.data.tokenEffects)
+            .concat(conditionTokenEffects)
+            .concat(effectTokenEffects);
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
@@ -531,7 +538,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     rollSave(event: JQuery.Event, saveName: SaveString) {
         const save: SaveData = this.data.data.saves[saveName];
         const parts = ['@mod', '@itemBonus'];
-        const flavor = `${CONFIG.PF2E.saves[saveName]} Save Check`;
+        const flavor = `${game.i18n.localize(CONFIG.PF2E.saves[saveName])} Save Check`;
 
         // Call the roll helper utility
         DicePF2e.d20Roll({
@@ -554,7 +561,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     rollAbility(event: JQuery.Event, abilityName: AbilityString) {
         const skl = this.data.data.abilities[abilityName];
         const parts = ['@mod'];
-        const flavor = `${CONFIG.PF2E.abilities[abilityName]} Check`;
+        const flavor = `${game.i18n.localize(CONFIG.PF2E.abilities[abilityName])} Check`;
 
         // Call the roll helper utility
         DicePF2e.d20Roll({
@@ -578,7 +585,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const parts = ['@mod', '@itemBonus'];
         const configAttributes = CONFIG.PF2E.attributes;
         if (objectHasKey(configAttributes, attributeName)) {
-            const flavor = `${configAttributes[attributeName]} Check`;
+            const flavor = `${game.i18n.localize(configAttributes[attributeName])} Check`;
             // Call the roll helper utility
             DicePF2e.d20Roll({
                 event,
@@ -1049,7 +1056,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             };
         } else {
             return {
-                imageUrl: 'icons/svg/mystery-man.svg',
+                imageUrl: 'systems/pf2e/icons/actions/OneAction.webp',
                 actionGlyph: '',
             };
         }

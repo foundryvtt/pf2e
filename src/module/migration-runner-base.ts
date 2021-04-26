@@ -14,7 +14,7 @@ export class MigrationRunnerBase {
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
-        this.latestVersion = Math.max(...migrations.map((x) => x.version));
+        this.latestVersion = game.system.data.schema;
     }
 
     needsMigration(currentVersion: number): boolean {

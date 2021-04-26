@@ -36,9 +36,9 @@
 
 <div class="form-group">
     <label>{{localize "PF2E.PotencyRuneLabel"}}</label>
-    <select name="data.potencyRune.value" data-dtype="String">
+    <select name="data.potencyRune.value" data-dtype="Number">
         {{#select data.potencyRune.value}}
-            <option value=""></option>
+            <option value="0"></option>
             {{#each armorPotencyRunes as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}
@@ -182,8 +182,10 @@
         <a class="trait-selector" data-trait-selector="basic" data-config-types="armorTraits" data-property="data.traits"><i class="fas fa-edit"></i></a>
     </label>
     <ul class="traits-list pf-value pf-large">
-        {{#each data.traits.value as |v k|}}
-        <span class="tag {{k}}">{{v}}</span>
+        {{#each traits as |trait|}}
+            {{#if trait.selected}}
+                <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
+            {{/if}}
         {{/each}}
     </ul>
 </div>
