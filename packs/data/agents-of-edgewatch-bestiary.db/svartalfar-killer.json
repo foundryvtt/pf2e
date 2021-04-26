@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -168,27 +168,45 @@
         "items": {
             "0": {
                 "data": {
+                    "ability": {
+                        "value": ""
+                    },
                     "slots": {
                         "slot1": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot2": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot3": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         },
                         "slot4": {
-                            "max": "0",
-                            "value": "0"
+                            "max": 0,
+                            "value": 0
                         }
                     },
                     "spelldc": {
                         "dc": 26,
                         "value": 18
+                    }
+                }
+            },
+            "vL5RasoMgasgdDwB": {
+                "data": {
+                    "slots": {
+                        "slot1": {
+                            "max": 0
+                        },
+                        "slot2": {
+                            "max": 0
+                        },
+                        "slot3": {
+                            "max": 0
+                        }
                     }
                 }
             }
@@ -489,6 +507,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -660,14 +681,14 @@
             "type": "spellcastingEntry"
         },
         {
-            "_id": "j1IQFLFPeJQMEXe5",
+            "_id": "jWo6aKJ0dpeDsVjg",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -688,7 +709,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 2d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes 1d4 persistent electricity damage on a hit. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
+                    "value": "<p>You shroud your hands in a crackling field of lightning. Make a melee spell attack roll. On a hit, the target takes 4d12 electricity damage. If the target is wearing metal armor or is made of metal, you gain a +1 circumstance bonus to your attack roll with shocking grasp, and the target also takes [[/r 1d4+2 #persistent electricity]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage} on a hit. On a critical hit, double the initial damage, but not the persistent damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d12, and the persistent electricity damage increases by 1.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -732,9 +753,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "shocking-grasp",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=283"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -770,20 +791,21 @@
                         "electricity",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Shocking Grasp"
+                }
+            },
             "img": "systems/pf2e/icons/spells/shocking-grasp.webp",
             "name": "Shocking Grasp",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "asx6KkYSDcLahkJ9",
+            "_id": "Y9aVbKREziniQhDe",
             "data": {
                 "ability": {
                     "value": ""
@@ -811,7 +833,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead (page 466). If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -855,9 +877,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -891,20 +913,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "NweiuFjk7v8dVpcB",
+            "_id": "x7QF2Rlt76hw9XGB",
             "data": {
                 "ability": {
                     "value": ""
@@ -932,7 +955,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead (page 466). If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
+                    "value": "<p>Cloaked in illusion, the target becomes @Compendium[pf2e.conditionitems.Invisible]{Invisible}. This makes it @Compendium[pf2e.conditionitems.Undetected]{Undetected} to all creatures, though the creatures can attempt to find the target, making it @Compendium[pf2e.conditionitems.Hidden]{Hidden} to them instead. If the target uses a hostile action, the spell ends after that hostile action is completed.</p>\n<hr />\n<p><strong>Heightened (4th)</strong> The spell lasts 1 minute, but it doesn't end if the target uses a hostile action.</p>"
                 },
                 "duration": {
                     "value": "10 minutes"
@@ -976,9 +999,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "invisibility",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=164"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1012,20 +1035,21 @@
                     "value": [
                         "illusion"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.XXqE1eY3w3z6xJCB"
+                }
+            },
             "img": "systems/pf2e/icons/spells/invisibility.webp",
             "name": "Invisibility",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "mLcUgq4YDdUOpQvs",
+            "_id": "2KyPxnvN5fyWvupO",
             "data": {
                 "ability": {
                     "value": ""
@@ -1053,7 +1077,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A ray with the power to sap a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save in order to determine the spell's effect. If you critically succeed on your attack roll, use the outcome for one degree of success worse than the result of its save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 2.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 3.</p>"
+                    "value": "<p>A ray that saps a foe's strength flashes from your hand. Attempt a ranged spell attack against the target. If you succeed, that creature attempts a Fortitude save to determine the spell's effect. If your attack roll is a critical success, use the outcome for one degree of success worse than the result of its save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1}.</p>\n<p><strong>Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 2}.</p>\n<p><strong>Critical Failure</strong> The target becomes @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 3}.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1097,9 +1121,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "ray-of-enfeeblement",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=244"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1135,20 +1159,21 @@
                         "attack",
                         "necromancy"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Ray of Enfeeblement"
+                }
+            },
             "img": "systems/pf2e/icons/spells/ray-of-enfeeblement.webp",
             "name": "Ray of Enfeeblement",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "fHu2BmbXdkWORiPP",
+            "_id": "BIePCyMDGvSuJVT6",
             "data": {
                 "ability": {
                     "value": ""
@@ -1220,9 +1245,9 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "true-strike",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=345"
+                    "value": ""
                 },
                 "spellCategorie": {
                     "value": "spell"
@@ -1257,27 +1282,28 @@
                         "divination",
                         "fortune"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Gb7SeieEvd0pL2Eh"
+                }
+            },
             "img": "systems/pf2e/icons/spells/true-strike.webp",
             "name": "True Strike",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "ormXsRywpPiVy7FL",
+            "_id": "xmJhQdCUQWrW6Z0a",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
                 },
                 "areasize": {
                     "value": ""
@@ -1298,7 +1324,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You splash a glob of acid that splatters creatures and objects alike. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.<br /><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 3, and the splash damage increases to 2.<br /><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 4, and the splash damage increases to 3.<br /><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.<br /><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to 3, and the splash damage increases to 2.<br /><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to 4, and the splash damage increases to 3.<br /><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to 5, and the splash damage increases to 4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1342,7 +1368,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "acid-splash",
                 "source": {
                     "value": ""
                 },
@@ -1359,7 +1385,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -1382,27 +1408,31 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Acid Splash"
+                }
+            },
             "img": "systems/pf2e/icons/spells/acid-splash.webp",
             "name": "Acid Splash",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "QyS5pPOie7jXwocC",
+            "_id": "DywwqwHvNNe0TVyQ",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1420,7 +1450,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled} 1 for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
+                    "value": "<p>Siphoning negative energy into yourself, your hand radiates a pale darkness. Your touch weakens the living and disorients undead, possibly even causing them to flee. The effect depends on whether the target is living or undead.</p>\n<ul>\n<li><strong>Living Creature</strong> The spell deals negative damage equal to 1d4 plus your spellcasting modifier. The target attempts a basic Fortitude save, but is also @Compendium[pf2e.conditionitems.Enfeebled]{Enfeebled 1} for 1 round on a critical failure.</li>\n<li><strong>Undead Creature</strong> The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round on a failed Fortitude save. On a critical failure, the target is also @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round unless it succeeds at a Will save.</li>\n</ul>\n<hr />\n<p><strong>Heightened (+1)</strong> The negative damage to living creatures increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1440,6 +1470,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -1455,9 +1488,18 @@
                 "school": {
                     "value": "necromancy"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "chill-touch",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=35"
+                    "value": ""
+                },
+                "spellCategorie": {
+                    "value": "spell"
                 },
                 "spellCategory": {
                     "value": ""
@@ -1491,20 +1533,21 @@
                         "necromancy",
                         "negative"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.mAMEt4FFbdqoRnkN"
+                }
+            },
             "img": "systems/pf2e/icons/spells/chill-touch.webp",
             "name": "Chill Touch",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "jrD30ESsEHtmdFdX",
+            "_id": "lBD66cdt5jSvNGDE",
             "data": {
                 "ability": {
                     "value": ""
@@ -1576,7 +1619,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "electric-arc",
                 "source": {
                     "value": ""
                 },
@@ -1615,20 +1658,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kBhaPuzLUSwS6vVf"
+                }
+            },
             "img": "systems/pf2e/icons/spells/electric-arc.webp",
             "name": "Electric Arc",
             "sort": 900000,
             "type": "spell"
         },
         {
-            "_id": "jZCvf70MIlBz0vJu",
+            "_id": "xbIDaVYEZMA8E2cj",
             "data": {
                 "ability": {
                     "value": ""
@@ -1700,7 +1744,7 @@
                 "secondarycheck": {
                     "value": ""
                 },
-                "slug": null,
+                "slug": "produce-flame",
                 "source": {
                     "value": ""
                 },
@@ -1740,20 +1784,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Produce Flame"
+                }
+            },
             "img": "systems/pf2e/icons/spells/produce-flame.webp",
             "name": "Produce Flame",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "AdUC4WuPE67EMTEA",
+            "_id": "EZFgxQ2p8bQugDtE",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1789,7 +1834,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt. </span></p>"
+                    "value": "<p>This ranged weapon has a bow-like assembly mounted on a handled frame called a tiller. The tiller has a mechanism to lock the bowstring in place, attached to a trigger mechanism that releases the tension and launches a bolt.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -1813,7 +1858,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -1853,26 +1898,6 @@
                     "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -1898,7 +1923,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "crossbow",
                 "source": {
                     "value": ""
                 },
@@ -1929,14 +1954,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.62nnVQvGhoVLLl2K"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/crossbow.webp",
             "name": "Crossbow",
             "sort": 1100000,
             "type": "weapon"
         },
         {
-            "_id": "szrzlCSm1YxfPGzG",
+            "_id": "z1QK6YTYHTWWeQ9e",
             "data": {
                 "MAP": {
                     "value": ""
@@ -1993,16 +2022,19 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "+1 Striking Elven Curve Blade"
+                    },
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 4
                 },
                 "maxHp": {
                     "value": 0
@@ -2036,26 +2068,6 @@
                     "strikeConditionValue": null,
                     "value": ""
                 },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -2081,7 +2093,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "elven-curve-blade",
                 "source": {
                     "value": ""
                 },
@@ -2116,14 +2128,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.mgrabKkyLmvxgLBK"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/elven-curve-blade.webp",
             "name": "+1 Striking Elven Curve Blade",
             "sort": 1200000,
             "type": "weapon"
         },
         {
-            "_id": "xhRSw28jp6Zk31Vx",
+            "_id": "B6oc9yxKOyAJxeuo",
             "data": {
                 "armor": {
                     "value": 1
@@ -2174,7 +2190,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -2201,36 +2217,6 @@
                 "price": {
                     "value": "2 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -2254,7 +2240,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "leather-armor",
                 "source": {
                     "value": ""
                 },
@@ -2275,21 +2261,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4tIVTg9wj56RrveA"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/leather-armor.webp",
             "name": "Leather Armor",
             "sort": 1300000,
             "type": "armor"
         },
         {
-            "_id": "fLxyPpx7qGlWVmu8",
+            "_id": "UX0pWOWataMTRHnx",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2354,7 +2344,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -2389,7 +2379,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "bolts",
                 "source": {
                     "value": ""
                 },
@@ -2430,14 +2420,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AITVZmakiu3RgfKo"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/bolts.webp",
             "name": "Bolts",
             "sort": 1400000,
             "type": "consumable"
         },
         {
-            "_id": "XA898im8EYhh8Cdq",
+            "_id": "geGkPY2Pq1GYIJoN",
             "data": {
                 "activation": {
                     "condition": "",
@@ -2480,7 +2474,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>The opaque white sap from the graveroot shrub clouds the mind.<br /></span></p>\n<p><span><strong>Saving Throw</strong> DC 19 Fortitude; <strong>Maximum Duration</strong> 4 rounds; <strong>Stage 1</strong> 1d10 poison damage (1 round); <strong>Stage 2</strong> 1d12 poison damage and stupefied 1 (1 round); <strong>Stage 3</strong> 2d6 poison damage and stupefied 2 (1 round)<br /></span></p>\n<p><span><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact</span></p>"
+                    "value": "<p>The opaque white sap from the graveroot shrub clouds the mind.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Graveroot DC\" data-pf2-dc=\"19\" data-pf2-show-dc=\"gm\">Fortitude</span></p>\n<p><strong>Maximum Duration</strong> 4 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10#poison]] poison damage (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12#poison]] poison damage and @Compendium[pf2e.conditionitems.Stupefied]{Stupefied} 1 (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6#poison]] poison damage and stupefied 2 (1 round)</p>"
                 },
                 "duration": {
                     "units": "",
@@ -2502,7 +2496,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -2523,7 +2517,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": " 10 gp"
+                    "value": "10 gp"
                 },
                 "quantity": {
                     "value": 2
@@ -2537,7 +2531,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "graveroot",
                 "source": {
                     "value": ""
                 },
@@ -2583,7 +2577,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.qQqAY59NgGNoy2xr"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/graveroot.webp",
             "name": "Graveroot",
             "sort": 1500000,
@@ -2639,6 +2637,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Elven Curve Blade"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -2729,7 +2730,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "elven curve blade",
+            "name": "Elven Curve Blade",
             "sort": 1600000,
             "type": "melee"
         },
@@ -2783,6 +2784,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Crossbow"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -2873,9 +2877,59 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "crossbow",
+            "name": "Crossbow",
             "sort": 1700000,
             "type": "melee"
+        },
+        {
+            "_id": "LzeE4Oi1C9zb69rd",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1800000,
+            "type": "action"
         },
         {
             "_id": "C01m9GnZW7b5Uk9K",
@@ -2892,7 +2946,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The svartalfar killer fades into shadow, Strides up to twice its Speed, and reforms. This movement doesn't trigger reactions, but the svartalfar killer must begin and end in an area of dim light or darkness.</p>"
+                    "value": "<p>The svartalfar killer fades into shadow, Strides up to twice its Speed, and reforms.</p>\n<p>This movement doesn't trigger reactions, but the svartalfar killer must begin and end in an area of dim light or darkness.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2923,11 +2977,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Shadow Step",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
-            "_id": "pp7f7kAh9sISZHJD",
+            "_id": "1sozJvnrR9nNQ2qu",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -2941,7 +2995,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A svartalfar killer deals an extra 2d6 precision damage to flat-footed creatures.</p>"
+                    "value": "<p>A svartalfar killer deals an extra [[/r 2d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2965,7 +3019,7 @@
                         "selector": "damage"
                     }
                 ],
-                "slug": null,
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -2979,18 +3033,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "action"
         },
         {
@@ -3008,7 +3063,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The svartalfar killer chooses <i>acid splash, produce flame, ray of enfeeblement</i>, or <i>shocking grasp</i> and makes a melee Strike. If the svartalfar killer hits, they cast the chosen spell through the weapon at the same target. The spell's attack roll is the same result as the Strike.</p>"
+                    "value": "<p>The svartalfar killer chooses @Compendium[pf2e.spells-srd.Acid Splash]{Acid Splash}, @Compendium[pf2e.spells-srd.Produce Flame]{Produce Flame}, @Compendium[pf2e.spells-srd.Ray of Enfeeblement]{Ray of Enfeeblement}, or @Compendium[pf2e.spells-srd.Shocking Grasp]{Shocking Grasp} and makes a melee Strike.</p>\n<p>If the svartalfar killer hits, they cast the chosen spell through the weapon at the same target. The spell's attack roll is the same result as the Strike.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -3039,7 +3094,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spell-Imbued Blade",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "action"
         },
         {
@@ -3079,7 +3134,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -3119,7 +3174,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -3159,15 +3214,13 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
-            "_id": "fITGW72BhIpI9f3j",
+            "_id": "U0URknPTc8dEsn9b",
             "data": {
                 "description": {
-                    "chat": "",
-                    "unidentified": "",
                     "value": ""
                 },
                 "item": {
@@ -3190,16 +3243,13 @@
                         "value": "common"
                     },
                     "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
-            "name": "Intimidate",
-            "sort": 2400000,
+            "name": "Intimidation",
+            "sort": 2500000,
             "type": "lore"
         },
         {
@@ -3239,7 +3289,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Occultism",
-            "sort": 2500000,
+            "sort": 2600000,
             "type": "lore"
         },
         {
@@ -3279,7 +3329,42 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2600000,
+            "sort": 2700000,
+            "type": "lore"
+        },
+        {
+            "_id": "gHKswitMYzoHIrZh",
+            "data": {
+                "description": {
+                    "value": ""
+                },
+                "item": {
+                    "value": 0
+                },
+                "mod": {
+                    "value": 14
+                },
+                "proficient": {
+                    "value": 0
+                },
+                "rules": [],
+                "slug": null,
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                }
+            },
+            "effects": [],
+            "flags": {},
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Thievery",
+            "sort": 2800000,
             "type": "lore"
         }
     ],
