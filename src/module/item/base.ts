@@ -530,13 +530,13 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         if (item.type !== 'spell') throw new Error('Wrong item type!');
         if (!this.actor) throw new Error('Attempted to cast a spell without an actor');
 
-        // Prepare roll data
+        // Prepare roll data (fetching unprepared via _data is temporary)
         const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
         const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
             (entry) => entry.id === itemData.location.value,
-        )?.data;
+        )?._data;
         const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)
