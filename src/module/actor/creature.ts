@@ -101,6 +101,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
     }
 
+    protected _onModifyEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context: EntityRenderOptions = {},
+    ): void {
+        super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+        this.redrawTokenEffects();
+    }
+
     /** @override */
     protected _prepareActiveEffects(effectsData: ActiveEffectData[]): Collection<ActiveEffectPF2e> {
         // Prepare changes with non-primitive values
@@ -245,7 +256,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
-    protected redrawTokenEffects() {
+    redrawTokenEffects() {
         if (!(game.ready && canvas.scene)) return;
         const tokens = this.token ? [this.token] : this.getActiveTokens();
         for (const token of tokens) {
