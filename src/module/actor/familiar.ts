@@ -283,7 +283,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             }
         }
 
-        this.getActiveTokens().forEach((token) => token.drawEffects());
+        this.redrawTokenEffects();
     }
 
     async createEmbeddedEntity<I extends ItemDataPF2e>(

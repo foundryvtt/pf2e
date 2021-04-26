@@ -47,9 +47,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 effectData.disabled = true;
             }
         }
-        if (this.data.type === 'kit') {
-            return;
+        if (this.data.type === 'kit' || this.data.type === 'melee') return;
+
+        if (!this.data.data.identification) {
+            this.data.data.identification = { status: 'identified' };
         }
+
         if (!this.data.data.identification.identified || this.data.data.identification.identified.name === '') {
             PhysicalItemPF2e.setMystifiedDefaults(this, 'identified');
         }
