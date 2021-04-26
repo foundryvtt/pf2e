@@ -171,7 +171,15 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.hasSidebar = false;
             data.detailsActive = true;
             data.damageTypes = CONFIG.PF2E.damageTypes;
-            data.attackEffects = this.prepareOptions(CONFIG.PF2E.attackEffects, data.data.attackEffects);
+
+            // Melee attack effects can be chosen from the NPC's actions
+            const attackEffectOptions: Record<string, string> =
+                this.actor?.itemTypes.action.reduce(
+                    (options, action) =>
+                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
+                    CONFIG.PF2E.attackEffects,
+                ) ?? {};
+            data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
         } else if (type === 'condition') {
             // Condition types
@@ -355,7 +363,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         return comps;
     }
 
-    protected onTraitSelector(event: JQuery.TriggeredEvent) {
+    protected onTraitSelector(event: JQuery.TriggeredEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr('data-trait-selector') ?? '';
@@ -375,6 +383,15 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const noCustom = $anchor.attr('data-no-custom') === 'true';
         if (noCustom) {
             selectorOptions.allowCustom = false;
+        } else if (this.actor && configTypes.includes('attackEffects')) {
+            // Melee attack effects can be chosen from the NPC's actions
+            const attackEffectOptions: Record<string, string> =
+                this.actor.itemTypes.action.reduce(
+                    (options: Record<string, string>, action) =>
+                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
+                    CONFIG.PF2E.attackEffects,
+                ) ?? {};
+            selectorOptions.customChoices = attackEffectOptions;
         }
 
         new TraitSelectorBasic(this.item, selectorOptions).render(true);
