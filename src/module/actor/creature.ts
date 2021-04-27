@@ -265,27 +265,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
     }
-
-    /** @override */
-    protected _createItemActiveEffects(created: ItemDataPF2e, options?: EntityCreateOptions): Promise<ActiveEffectData>;
-    protected _createItemActiveEffects(
-        created: ItemDataPF2e | ItemDataPF2e[],
-        options?: EntityCreateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    protected async _createItemActiveEffects(
-        created: ItemDataPF2e | ItemDataPF2e[],
-        { temporary = false } = {},
-    ): Promise<ActiveEffectData | ActiveEffectData[]> {
-        const data = await super._createItemActiveEffects(created, { temporary });
-        this.redrawTokenEffects();
-        return data;
-    }
-
-    /** @override */
-    protected _deleteItemActiveEffects(deleted: ItemDataPF2e[]): ActiveEffectData[] | void {
-        super._deleteItemActiveEffects(deleted);
-        this.redrawTokenEffects();
-    }
 }
 
 export interface CreaturePF2e {
