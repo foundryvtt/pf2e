@@ -12,6 +12,7 @@ import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
 import { BackgroundSheetPF2e } from '@item/sheet/background';
 import { ClassSheetPF2e } from '@item/sheet/class';
+import { SpellSheetPF2e } from '@item/sheet/spell';
 import { LocalizePF2e } from '@system/localize';
 import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
 import { ActorSheetPF2eDataEntryNPC } from '@actor/sheet/data-entry-npc-sheet';
@@ -101,7 +102,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
-    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'spell', 'spellcastingEntry'];
+    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'spellcastingEntry'];
     for (const itemType of itemTypes) {
         Items.registerSheet('pf2e', ItemSheetPF2e, {
             types: [itemType],
@@ -125,6 +126,7 @@ export function registerSheets() {
         ['background', BackgroundSheetPF2e],
         ['class', ClassSheetPF2e],
         ['feat', FeatSheetPF2e],
+        ['spell', SpellSheetPF2e],
         ['kit', KitSheetPF2e],
     ] as const;
     for (const [type, Sheet] of sheetEntries) {
