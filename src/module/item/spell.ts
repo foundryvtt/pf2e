@@ -21,11 +21,12 @@ export class SpellPF2e extends ItemPF2e {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;
 
-        const spellcastingEntryData = this.spellcasting?.data;
+        const spellcastingEntry = this.spellcasting;
+        const spellcastingEntryData = spellcastingEntry?.data;
         if (!spellcastingEntryData) return {};
 
-        let spellDC = spellcastingEntryData.data.dc?.value ?? spellcastingEntryData.data.spelldc.dc;
-        let spellAttack = spellcastingEntryData.data.attack?.value ?? spellcastingEntryData.data.spelldc.value;
+        let spellDC = spellcastingEntry?.dc?.value ?? spellcastingEntryData.data.spelldc.dc;
+        let spellAttack = spellcastingEntry?.attack?.value ?? spellcastingEntryData.data.spelldc.value;
 
         // Adjust spell dcs and attacks for elite/weak
         /** @todo: handle elsewhere */
