@@ -197,6 +197,7 @@
         border: 1px solid #999;
         border-radius: 3px;
         background: rgba(0, 0, 0, 0.05);
+        white-space: nowrap;
       }
     }
   }
@@ -1954,6 +1955,9 @@
         justify-content: flex-start;
         cursor: pointer;
         padding: 1px 0;
+        &:first-child {
+            padding-left: 4px;
+        }
       }
 
       .feat-name {
@@ -2057,16 +2061,17 @@
     }
 
     .item-controls {
-      flex: 0 0 80px;
+        flex: 0 0 80px;
 
-      a {
-        display: block;
-        float: left;
-        width: 22px;
-        font-size: 10px;
-        text-align: center;
-        color: #666;
-      }
+        a {
+            padding-left: 1px;
+            font-size: 10px;
+            text-align: center;
+            color: #666;
+            &:first-child {
+                padding-left: 8px;
+            }
+        }
     }
   }
 
@@ -3312,26 +3317,31 @@ li.item.hover-container {
 /* Stats */
 
 .pf2e.sheet form.updatedNPCSheet {
-  .inline-stats {
-    display: block;
+    .inline-stats {
+        display: block;
 
-    * {
-      display: inline;
-      justify-content: flex-start;
-      padding-left: 0.05em;
+        * {
+            display: inline;
+            justify-content: flex-start;
+            padding-left: 0.05em;
+        }
+
+        > .stat-list {
+            > span.stat-minortitle {
+                padding-right: 0.2em;
+            }
+        }
+        .stat-detail {
+            &.perception:before {
+                white-space: pre-wrap;
+            }
+
+            &.speed + .speed:before {
+                content: ", ";
+                white-space: pre-wrap;
+            }
+        }
     }
-
-    .stat-detail {
-      &.perception:before {
-        white-space: pre-wrap;
-      }
-
-      &.speed + .speed:before {
-        content: ", ";
-        white-space: pre-wrap;
-      }
-    }
-  }
 
   .stats-line {
     display: block;

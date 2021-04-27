@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -443,6 +443,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -480,7 +483,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "WCGgnrKJ7TqhAjfo",
+            "_id": "AhneRV8i356zRma8",
             "data": {
                 "MAP": {
                     "value": ""
@@ -537,16 +540,37 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": "<p>This weapon has a short shaft ending in a metal ball studded with spikes.</p>"
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This weapon is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 2
                 },
                 "maxHp": {
                     "value": 0
@@ -555,7 +579,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": "1"
+                    "value": 1
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -564,7 +588,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": "35 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -578,26 +602,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -625,7 +629,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "morningstar",
                 "source": {
                     "value": ""
                 },
@@ -658,7 +662,11 @@
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.5fu6dCtqhdBnHNqh"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/weapons/morningstar.webp",
             "name": "+1 Morningstar",
             "sort": 100000,
@@ -714,7 +722,28 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "identified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        }
+                    },
+                    "misidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is misidentified."
+                            }
+                        }
+                    },
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": "This melee is unidentified."
+                            }
+                        }
+                    }
                 },
                 "identified": {
                     "value": false
@@ -804,7 +833,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "morningstar",
+            "name": "Morningstar",
             "sort": 200000,
             "type": "melee"
         },
@@ -828,7 +857,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "any": [
+                                "bullyrag-beatdown",
+                                "target:frightened"
+                            ],
+                            "not": [
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "label": "Target is frightened",
+                        "property": "flags.pf2e.rollOptions.all.bullyrag-beatdown"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -872,12 +921,21 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes frightened 1.</p>"
+                    "value": "<p>When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "outcome": [
+                            "criticalSuccess"
+                        ],
+                        "selector": "damage",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> When the gang tough's Strike with a bludgeoning weapon is a critical hit and deals damage, the target becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}."
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""

@@ -184,7 +184,7 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
     value: {
-        value: string;
+        value: number;
     };
 }
 
@@ -199,9 +199,11 @@ export interface WeaponDamage {
     modifier: number;
 }
 
+export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
+
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: string | null;
+        value: WeaponCategoryKey | null;
     };
     group: {
         value: WeaponGroupKey | null;
@@ -233,10 +235,10 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
         value: string;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     strikingRune: {
-        value: string;
+        value: StrikingRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -266,6 +268,7 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
 
 export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
+export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
 
 export interface ArmorDetailsData extends MagicDetailsData {
     armor: {
@@ -290,10 +293,10 @@ export interface ArmorDetailsData extends MagicDetailsData {
         value: number;
     };
     potencyRune: {
-        value: string;
+        value: ZeroToFour;
     };
     resiliencyRune: {
-        value: string;
+        value: ResilientRuneType | '';
     };
     propertyRune1: {
         value: string;
@@ -337,7 +340,7 @@ export interface MeleeDetailsData extends MagicDetailsData {
         value: number;
     };
     attackEffects: {
-        value: any[];
+        value: string[];
     };
     weaponType: {
         value: string;

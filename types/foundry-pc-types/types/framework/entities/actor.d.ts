@@ -313,18 +313,33 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
      * @param options.renderSheet   Render the Item sheet for the newly created item data
      * @return                      A Promise containing the data of the newly created owned Item instance
      */
-    createOwnedItem<D extends ItemType['data']>(
-        itemData: DeepPartial<D>,
+    createOwnedItem(
+        itemData: DeepPartial<ItemType['data']>,
         options?: EntityCreateOptions,
-    ): Promise<D | null>;
-    createOwnedItem<D extends ItemType['data']>(
-        itemData: DeepPartial<D>[],
+    ): Promise<ItemType['data'] | null>;
+    createOwnedItem(
+        itemData: DeepPartial<ItemType['data']>,
         options?: EntityCreateOptions,
-    ): Promise<D | null | (D | null)[]>;
-    createOwnedItem<D extends ItemType['data']>(
-        itemData: DeepPartial<D> | DeepPartial<D>[],
+    ): Promise<ItemType['data'] | null | ItemType['data'][]>;
+    createOwnedItem(
+        itemData: DeepPartial<ItemType['data']>[],
         options?: EntityCreateOptions,
-    ): Promise<D | null | (D | null)[]>;
+    ): Promise<ItemType['data'] | null | ItemType['data'][]>;
+
+    /**
+     * When Owned Items are created process each item and extract Active Effects to transfer to the Actor.
+     * @param created     Created owned Item data objects
+     * @param [temporary] Is this a temporary item creation?
+     * @return An array of effects to transfer to the Actor
+     */
+    protected _createItemActiveEffects(
+        created: ItemType['data'],
+        { temporary }?: EntityCreateOptions,
+    ): Promise<ActiveEffectData>;
+    protected _createItemActiveEffects(
+        created: ItemType['data'] | ItemType['data'][],
+        { temporary }?: EntityCreateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
 
     /**
      * Update an owned item using provided new data
@@ -387,6 +402,24 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     ): void;
 
     /** @override */
+    protected _onUpdateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        updateData: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+    ): void;
+
+    /** @override */
+    protected _onModifyEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context?: EntityRenderOptions,
+    ): void;
+
+    /** @override */
     deleteEmbeddedEntity(
         embeddedName: 'ActiveEffect',
         dataId: string,
@@ -412,6 +445,12 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
         dataId: string | string[],
         options?: EntityDeleteOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
+
+    /**
+     * When Owned Items are created process each item and extract Active Effects to transfer to the Actor.
+     * @param deleted   The array of deleted owned Item data
+     */
+    protected _deleteItemActiveEffects(deleted: ItemType['data'][]): ActiveEffectData[] | void;
 }
 
 declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = ActiveEffect> {

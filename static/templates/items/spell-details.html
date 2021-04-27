@@ -1,4 +1,15 @@
 <div class="form-group">
+    <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
+    <select name="data.spellCategorie.value" data-dtype="String">
+        {{#select data.spellCategorie.value}}
+        {{#each spellCategories as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+        {{/each}}
+        {{/select}}
+    </select>
+</div>
+
+<div class="form-group">
     <label>{{localize "PF2E.SpellLevelLabel"}}</label>
     <select name="data.level.value" data-dtype="Number">
         {{#select data.level.value}}
@@ -20,17 +31,6 @@
     </select>
 </div>
 
-<div class="form-group">
-    <label>{{localize "PF2E.SpellCategoryLabel"}}</label>
-    <select name="data.spellCategorie.value" data-dtype="String">
-        {{#select data.spellCategorie.value}}
-        {{#each spellCategories as |label key|}}
-            <option value="{{key}}">{{localize label}}</option>
-        {{/each}}
-        {{/select}}
-    </select>
-</div>
-
 <div class="form-group scalable">
     <label>
         {{localize "PF2E.SpellTraditionsLabel"}}
@@ -39,7 +39,7 @@
     <ul class="traits-list" style="margin: 3px 0; padding: 0;">
         {{#each magicTraditions as |tradition|}}
             {{#if tradition.selected}}
-                <li class="tag">{{localize tradition.label}}</li>
+                <li class="tag" data-tradition="{{tradition.value}}">{{localize tradition.label}}</li>
             {{/if}}
         {{/each}}
     </ul>
@@ -55,6 +55,34 @@
         {{/select}}
     </select>
 </div>
+
+<ol class="form-list">
+    <li class="form-group">
+        <label>
+            {{localize "PF2E.CastLabel"}}
+        </label>
+    </li>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellTimeLabel"}}</label>
+        <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
+        <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
+        <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="String"/>
+    </div>
+
+    <div class="form-group">
+        <label>{{localize "PF2E.SpellCostLabel"}}</label>
+        <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="String"/>
+    </div>
+</ol>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellDamageLabel"}}</label>
@@ -120,20 +148,6 @@
         {{/select}}
     </select>
 </div>
-<div class="form-group">
-    <label>{{localize "PF2E.SpellComponentsLabel"}}</label>
-    <input type="text" name="data.components.value" value="{{data.components.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellRequirementsLabel"}}</label>
-    <input type="text" name="data.materials.value" value="{{data.materials.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellCostLabel"}}</label>
-    <input type="text" name="data.cost.value" value="{{data.cost.value}}" data-dtype="String"/>
-</div>
 
 <div class="form-group">
     <label>{{localize "PF2E.SpellTargetLabel"}}</label>
@@ -165,11 +179,6 @@
 <div class="form-group">
     <label>{{localize "PF2E.SpellRangeLabel"}}</label>
     <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="String"/>
-</div>
-
-<div class="form-group">
-    <label>{{localize "PF2E.SpellTimeLabel"}}</label>
-    <input type="text" name="data.time.value" value="{{data.time.value}}" data-dtype="String"/>
 </div>
 
 <div class="form-group">
@@ -215,7 +224,7 @@
     <ul class="traits-list pf-value pf-large">
         {{#each traits as |trait|}}
             {{#if trait.selected}}
-                <li class="tag">{{localize trait.label}}</li>
+                <li class="tag" data-trait="{{trait.value}}">{{localize trait.label}}</li>
             {{/if}}
         {{/each}}
     </ul>

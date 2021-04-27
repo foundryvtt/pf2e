@@ -7,7 +7,7 @@
  */
 
 import { isLevelItem, PhysicalItemData } from './data-definitions';
-import { isBlank, toNumber } from '../utils';
+import { toNumber } from '../utils';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
 
 const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
@@ -87,9 +87,9 @@ function identifyMagic(itemData: PhysicalItemData, baseDc: number, notMatchingTr
 
 function hasRunes(itemData: PhysicalItemData): boolean {
     if (itemData.type === 'weapon') {
-        return !isBlank(itemData.data.potencyRune?.value) || !isBlank(itemData.data.strikingRune?.value);
+        return !!(itemData.data.potencyRune.value || itemData.data.strikingRune.value);
     } else if (itemData.type === 'armor') {
-        return !isBlank(itemData.data.potencyRune?.value) || !isBlank(itemData.data.resiliencyRune?.value);
+        return !!(itemData.data.potencyRune.value || itemData.data.resiliencyRune.value);
     } else {
         return false;
     }

@@ -8,6 +8,7 @@ import { NPCPF2e } from './module/actor/npc';
 
 import '@system/measure';
 import './styles/pf2e.scss';
+import { CreaturePF2e } from '@actor/creature';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
@@ -260,6 +261,9 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
             options.pf2e.items.removed.forEach((item: ItemDataPF2e) => {
                 deleteOwnedItem(actor, item, options, userID);
             });
+            if (actor instanceof CreaturePF2e) {
+                actor.redrawTokenEffects();
+            }
         }
     }
 

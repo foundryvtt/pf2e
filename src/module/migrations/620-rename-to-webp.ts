@@ -1,5 +1,13 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { AncestryData, BackgroundData, ClassData, ItemDataPF2e, KitData } from '@item/data-definitions';
+import {
+    ABCFeatureEntryData,
+    AncestryData,
+    BackgroundData,
+    ClassData,
+    ItemDataPF2e,
+    KitData,
+    KitEntryData,
+} from '@item/data-definitions';
 import { MigrationBase } from './base';
 
 export class Migration620RenameToWebp extends MigrationBase {
@@ -57,15 +65,14 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
 
         if (this.isABCK(itemData)) {
-            type EmbeddedItemData = {
-                img: string;
-                items?: Record<string, EmbeddedItemData>;
-            };
-            const embedData: Record<string, EmbeddedItemData> = itemData.data.items;
-            for (const embed of Object.values(embedData)) {
+            const embedData = itemData.data.items;
+            const embeds = Object.values(embedData).filter(
+                (maybeEmbed): maybeEmbed is KitEntryData | ABCFeatureEntryData => !!maybeEmbed,
+            );
+            for (const embed of embeds) {
                 embed.img = this.renameToWebP(embed.img);
                 if ('items' in embed && embed.items) {
-                    const deepEmbeds = Object.values(embed.items);
+                    const deepEmbeds = Object.values(embed.items).filter((maybeDeepEmbed) => !!maybeDeepEmbed);
                     for (const deepEmbed of deepEmbeds) {
                         deepEmbed.img = this.renameToWebP(deepEmbed.img);
                     }
@@ -92,7 +99,7 @@ export class Migration620RenameToWebp extends MigrationBase {
 
     async updateToken(tokenData: TokenData): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
-        tokenData.effects = tokenData.effects.map((effect) => this.renameToWebP(effect));
+        tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
     async updateUser(userData: UserData): Promise<void> {

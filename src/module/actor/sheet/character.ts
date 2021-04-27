@@ -70,14 +70,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const { hp } = sheetData.data.attributes;
         if (hp.temp === 0) delete hp.temp;
 
-        const ancestryItem = this.actor.items.find((x) => x.type === 'ancestry');
-        sheetData.ancestryItemId = ancestryItem ? ancestryItem.id : '';
-
-        const backgroundItem = this.actor.items.find((x) => x.type === 'background');
-        sheetData.backgroundItemId = backgroundItem ? backgroundItem.id : '';
-
-        const classItem = this.actor.items.find((x) => x.type === 'class');
-        sheetData.classItemId = classItem ? classItem.id : '';
+        sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
+        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
+        sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -232,8 +227,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let investedCount = 0; // Tracking invested items
 
-        for (const i of actorData.items) {
-            const item = this.actor.items.get(i._id);
+        for (const item of this.actor.items) {
+            const i: any = item.data;
             if (item instanceof PhysicalItemPF2e) {
                 // item identification
                 i.identified = item.isIdentified;

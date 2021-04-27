@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { isInventoryItem, ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
@@ -65,7 +65,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         mergeObject(data, {
             type,
             hasSidebar: true,
-            hasMystify: game.user.isGM && isInventoryItem(type),
+            hasMystify: false,
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
@@ -170,9 +170,17 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             // Melee Data
             data.hasSidebar = false;
             data.detailsActive = true;
-            data.weaponDamage = CONFIG.PF2E.damageTypes;
+            data.damageTypes = CONFIG.PF2E.damageTypes;
 
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
+            // Melee attack effects can be chosen from the NPC's actions
+            const attackEffectOptions: Record<string, string> =
+                this.actor?.itemTypes.action.reduce(
+                    (options, action) =>
+                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
+                    CONFIG.PF2E.attackEffects,
+                ) ?? {};
+            data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
+            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
         } else if (type === 'condition') {
             // Condition types
 
@@ -325,6 +333,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const key = typeof selections.value[0] === 'number' ? Number(stringKey) : stringKey;
             sheetOptions[key] = {
                 label,
+                value: stringKey,
                 selected: selections.value.includes(key),
             };
             return sheetOptions;
@@ -333,6 +342,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         if (selections.custom) {
             sheetOptions.custom = {
                 label: selections.custom,
+                value: '',
                 selected: true,
             };
         }
@@ -353,7 +363,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         return comps;
     }
 
-    protected onTraitSelector(event: JQuery.TriggeredEvent) {
+    protected onTraitSelector(event: JQuery.TriggeredEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
         const selectorType = $anchor.attr('data-trait-selector') ?? '';
@@ -373,21 +383,15 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const noCustom = $anchor.attr('data-no-custom') === 'true';
         if (noCustom) {
             selectorOptions.allowCustom = false;
-        }
-
-        // we're special casing this because it is unique per npc
-        // and there's a bunch of magic with .trait-selector so
-        // making this a separate function would be more complicated
-        const actions: Record<string, string> = {};
-        if (configTypes.includes('attackEffects')) {
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'action') actions[i.name] = i.name;
-                }
-            }
-        }
-        if (!isObjectEmpty(actions)) {
-            selectorOptions.customChoices = actions;
+        } else if (this.actor && configTypes.includes('attackEffects')) {
+            // Melee attack effects can be chosen from the NPC's actions
+            const attackEffectOptions: Record<string, string> =
+                this.actor.itemTypes.action.reduce(
+                    (options: Record<string, string>, action) =>
+                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
+                    CONFIG.PF2E.attackEffects,
+                ) ?? {};
+            selectorOptions.customChoices = attackEffectOptions;
         }
 
         new TraitSelectorBasic(this.item, selectorOptions).render(true);

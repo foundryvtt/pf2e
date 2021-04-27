@@ -12,14 +12,8 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import {
-    ItemDataPF2e,
-    ItemTraits,
-    MeleeDetailsData,
-    SpellcastingEntryData,
-    TrickMagicItemCastData,
-} from './data-definitions';
-import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
+import { ItemDataPF2e, ItemTraits, MeleeDetailsData, TrickMagicItemCastData } from './data-definitions';
+import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
@@ -75,13 +69,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     get description(): string {
         return this.data.data.description.value;
-    }
-
-    /** @override */
-    prepareData(): void {
-        // Remove any empty-string traits that somehow got snuck their way in
-        this._data.data.traits.value = this._data.data.traits.value.filter((trait) => !!trait);
-        super.prepareData();
     }
 
     /**
@@ -554,7 +541,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const map = this.calculateMap();
 
         if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
-            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+            const options = this.actor
+                .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
+                .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
@@ -737,7 +726,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /**
      * Use a consumable item
      */
-    async rollConsumable(this: Owned<ItemPF2e>, _ev: JQuery.ClickEvent) {
+    async rollConsumable(this: Owned<ItemPF2e>, _event: JQuery.ClickEvent): Promise<void> {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
         if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
@@ -750,15 +739,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             this.actor instanceof ActorPF2e
         ) {
             if (canCastConsumable(this.actor, item)) {
-                this._castEmbeddedSpell();
+                this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
-                const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
-                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                };
-                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                popup.render(true);
+                new TrickMagicItemPopup(this);
             } else {
                 const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
                 ChatMessage.create({
@@ -821,19 +804,18 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         }
     }
 
-    protected async _castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData) {
+    async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData): Promise<void> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
         const spellData = duplicate(this.data.data.spell.data.data);
-        let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
-            (i) => i.type === 'spellcastingEntry',
-        ) as SpellcastingEntryData[];
+
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        spellcastingEntries = spellcastingEntries
+        const realEntries = actor.itemTypes.spellcastingEntry
+            .map((entry) => entry.data)
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
             .filter((i) => spellData.traditions.value.includes(i.data.tradition.value));
-        if (spellcastingEntries.length === 0 && trickMagicItemData) spellcastingEntries = [trickMagicItemData];
+        const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
         if (spellcastingEntries.length > 0) {
             const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
             let maxBonus = 0;
@@ -912,7 +894,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             chatData.content = await renderTemplate(template, templateData);
 
             // Create the chat message
-            return ChatMessage.create(chatData, { displaySheet: false });
+            await ChatMessage.create(chatData, { displaySheet: false });
         }
     }
 
@@ -953,7 +935,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !(['condition', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+                !(['condition', 'martial', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
         );
         const newItem = super.createDialog(data, options);
         game.system.entityTypes.Item = original;
