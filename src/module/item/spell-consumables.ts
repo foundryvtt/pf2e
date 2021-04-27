@@ -89,17 +89,17 @@ export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boole
 }
 
 export interface TrickMagicItemDifficultyData {
-    Arc?: number;
-    Rel?: number;
-    Occ?: number;
-    Nat?: number;
+    arc?: number;
+    rel?: number;
+    occ?: number;
+    nat?: number;
 }
 
 const TraditionSkills = {
-    arcane: 'Arc',
-    divine: 'Rel',
-    occult: 'Occ',
-    primal: 'Nat',
+    arcane: 'arc',
+    divine: 'rel',
+    occult: 'occ',
+    primal: 'nat',
 };
 
 export function calculateTrickMagicItemCheckDC(

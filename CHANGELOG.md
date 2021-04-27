@@ -1,5 +1,18 @@
 # Patch Notes:
 
+## Version 1.13.1
+### Bug Fixes
+* (Supe) Initialize an empty striking rune in strike rule element
+* (Supe) Fix deity default image
+* (Avery) Fix automatic bonus progression attack potency for levels 2 through 9
+* (stwlam) Fix image filename extensions in work-in-progress stylesheet
+* (stwlam) Add non-null checks to migration for replacing image filename extensions
+* (stwlam) Fix trick magic item
+
+### Content Changes
+* (SpartanCPA) Correct duration of Profane Gift
+
+
 ## Version 1.13.0
 ### Bug Fixes
 * (stwlam) Remove free-text item modifier from spellcasting entries on CRB sheet. Closes #1259
