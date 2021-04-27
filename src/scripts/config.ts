@@ -1340,6 +1340,7 @@ export const PF2ECONFIG = {
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
         curse: 'PF2E.TraitCurse',
+        fungus: 'PF2E.TraitFungus',
         haunt: 'PF2E.TraitHaunt',
         inhaled: 'PF2E.TraitInhaled',
         magic: 'PF2E.TraitMagic',
