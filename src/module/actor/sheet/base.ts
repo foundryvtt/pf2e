@@ -40,6 +40,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
+import { InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -91,7 +92,31 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     /** @override */
     getData(): any {
-        const sheetData = super.getData();
+        // The Actor and its Items
+        const actorData = duplicate(this.actor.data);
+        const items = duplicate(
+            this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0)),
+        );
+        actorData.items = items;
+
+        const inventoryItems = items.filter((itemData): itemData is InventoryItem => isPhysicalItem(itemData));
+        for (const itemData of inventoryItems) {
+            itemData.isEquipped = itemData.data.equipped.value;
+            itemData.isIdentified = itemData.data.identification.status === 'identified';
+        }
+
+        const sheetData: ActorSheetData<this['actor']['data']> = {
+            cssClass: this.actor.owner ? 'editable' : 'locked',
+            editable: this.isEditable,
+            entity: actorData,
+            limited: this.actor.limited,
+            options: this.options,
+            owner: this.actor.owner,
+            title: this.title,
+            actor: actorData,
+            data: actorData.data,
+            items: items,
+        };
 
         this.prepareTraits(sheetData.data.traits);
         this.prepareItems(sheetData);
