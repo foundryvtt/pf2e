@@ -13,6 +13,7 @@ import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
 import { ActionCollection, ActionPF2e } from '@item/action';
+import {FeatPF2e} from "@item/feat";
 
 /**
  * @category Other
@@ -336,22 +337,21 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             // Feats
-            else if (i.type === 'feat') {
-                const actionType = i.data.actionType.value || 'passive';
+            else if (item instanceof FeatPF2e) {
+                const actionType = item.data.data.actionType.value || 'passive';
 
-                tempFeats.push(i);
+                tempFeats.push(item.data);
 
                 if (Object.keys(actions).includes(actionType)) {
-                    i.feat = true;
-                    i.img = CharacterPF2e.getActionGraphics(
+                    item.data.img = CharacterPF2e.getActionGraphics(
                         actionType,
-                        parseInt((i.data.actions || {}).value, 10) || 1,
+                        parseInt((item.data.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
-                    actions[actionType].actions.push(i);
+                    actions.addActionToCollection(item.data);
 
                     // Read-Only Actions
-                    if (i.data.actionCategory && i.data.actionCategory.value) {
-                        switch (i.data.actionCategory.value) {
+                    if (item.data.data.actionCategory && item.data.data.actionCategory.value) {
+                        switch (item.data.data.actionCategory.value) {
                             case 'interaction':
                                 readonlyActions.interaction.actions.push(i);
                                 actorData.hasInteractionActions = true;

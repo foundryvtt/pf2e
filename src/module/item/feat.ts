@@ -1,7 +1,14 @@
 import { ItemPF2e } from './base';
 import { FeatData, FeatType } from './data-definitions';
+import { ActionPF2e } from '@item/action';
 
 export class FeatPF2e extends ItemPF2e {
+    prepareData() {
+        super.prepareData();
+
+        ActionPF2e.addActionType(this);
+    }
+
     get featType(): { value: FeatType; label: string } {
         return {
             value: this.data.data.featType.value,

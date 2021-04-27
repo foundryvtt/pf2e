@@ -466,6 +466,9 @@ export interface FeatDetailsData extends ItemDescriptionData {
     actionCategory: {
         value: string;
     };
+    modeOfPlay: {
+        value: Record<keyof ConfigPF2e['PF2E']['modesOfPlay'], boolean>;
+    };
     actions: {
         value: string;
     };

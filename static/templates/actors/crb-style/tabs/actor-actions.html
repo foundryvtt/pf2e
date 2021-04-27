@@ -101,7 +101,7 @@
                                 {{#if ../../owner}}
                                 <div class="item-controls">
                                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                                    {{#unless action.feat}}
+                                    {{#unless (eq action.type 'feat')}}
                                     <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                                     {{/unless}}
                                 </div>
@@ -136,7 +136,7 @@
                             {{#if ../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                                {{#unless action.feat}}
+                                {{#unless (eq action.type 'feat')}}
                                 <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                                 {{/unless}}
                             </div>
@@ -170,7 +170,7 @@
                             {{#if ../../owner}}
                             <div class="item-controls">
                                 <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
-                                {{#unless action.feat}}
+                                {{#unless (eq action.type 'feat')}}
                                 <a class="item-control item-delete" title="{{localize 'PF2E.DeleteItemTitle'}}"><i class="fas fa-trash"></i></a>
                                 {{/unless}}
                             </div>

@@ -1,12 +1,13 @@
 import { ItemPF2e } from './base';
-import { ActionData } from './data-definitions';
+import { ActionData, FeatData } from './data-definitions';
+import { FeatPF2e } from '@item/feat';
 
 export class ActionCollection {
-    action: { label: string; actions: ActionData[] };
-    reaction: { label: string; actions: ActionData[] };
-    free: { label: string; actions: ActionData[] };
-    passive: { label: string; actions: ActionData[] };
-    activity: { label: string; actions: ActionData[] };
+    action: { label: string; actions: (ActionData | FeatData)[] };
+    reaction: { label: string; actions: (ActionData | FeatData)[] };
+    free: { label: string; actions: (ActionData | FeatData)[] };
+    passive: { label: string; actions: (ActionData | FeatData)[] };
+    activity: { label: string; actions: (ActionData | FeatData)[] };
 
     constructor() {
         this.action = { label: game.i18n.localize('PF2E.ActionCollections.Action'), actions: [] };
@@ -16,7 +17,7 @@ export class ActionCollection {
         this.activity = { label: game.i18n.localize('PF2E.ActionCollections.Activity'), actions: [] };
     }
 
-    public addActionToCollection(action: ActionData): void {
+    public addActionToCollection(action: ActionData | FeatData): void {
         const actionType = action.data.actionType.value ?? 'action';
         this[actionType].actions.push(action);
     }
@@ -27,19 +28,23 @@ export class ActionPF2e extends ItemPF2e {
     prepareData(): void {
         super.prepareData();
 
-        const hasExplorationTrait = this.hasTrait('exploration');
-        const hasDowntimeTrait = this.hasTrait('downtime');
+        ActionPF2e.addActionType(this);
+    }
 
-        const availableInEncounterMode = this.data.data.actionType.value === 'action';
+    public static addActionType(item: ActionPF2e | FeatPF2e) {
+        const hasExplorationTrait = item.hasTrait('exploration');
+        const hasDowntimeTrait = item.hasTrait('downtime');
+
+        const availableInEncounterMode = item.data.data.actionType.value === 'action';
         const availableInExplorationMode = hasExplorationTrait;
         const availableInDowntimeMode = hasDowntimeTrait;
 
-        if (this.data.data.modeOfPlay) {
-            this.data.data.modeOfPlay.value.encounter ??= availableInEncounterMode;
-            this.data.data.modeOfPlay.value.exploration ??= availableInExplorationMode;
-            this.data.data.modeOfPlay.value.downtime ??= availableInDowntimeMode;
+        if (item.data.data.modeOfPlay) {
+            item.data.data.modeOfPlay.value.encounter ??= availableInEncounterMode;
+            item.data.data.modeOfPlay.value.exploration ??= availableInExplorationMode;
+            item.data.data.modeOfPlay.value.downtime ??= availableInDowntimeMode;
         } else {
-            this.data.data.modeOfPlay = {
+            item.data.data.modeOfPlay = {
                 value: {
                     encounter: availableInEncounterMode,
                     exploration: availableInExplorationMode,
