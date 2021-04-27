@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -150,11 +151,11 @@
                 "min": 1,
                 "value": 8
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=121",
+            "nethysUrl": "1",
             "recallKnowledgeText": "Recall Knowledge : DC 24",
             "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 99"
+                "value": ""
             }
         },
         "martial": {
@@ -448,8 +449,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Knockdown"
+                        "Knockdown",
+                        "Vicious Gore"
                     ]
                 },
                 "baseItem": null,
@@ -850,7 +853,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The rider is targeted with an attack. <strong>Requirements</strong> A creature must be mounted on the triceratops. <strong>Effect</strong> The triceratops intercepts the attack with its bony frill. The rider gains a +2 circumstance bonus to its AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> The rider is targeted with an attack.</p>\n<p><strong>Requirements</strong> A creature must be mounted on the triceratops.</p>\n<p><strong>Effect</strong> The triceratops intercepts the attack with its bony frill. The rider gains a +2 circumstance bonus to its AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -879,58 +882,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Frill Defense",
             "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "Z23X1087gaDflbKh",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry. <strong>Effect</strong> The monster knocks the target prone.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Knockdown",
-            "sort": 600000,
             "type": "action"
         },
         {
@@ -943,7 +897,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -977,58 +931,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lumbering Charge",
-            "sort": 700000,
-            "type": "action"
-        },
-        {
-            "_id": "9zKbFndAo2jl79fu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>Large or smaller, foot, DC 26<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Trample",
-            "sort": 800000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1046,7 +951,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A triceratops deals [[/r 2d6 # extra persistent bleed damage]] extra persistent bleed damage to prone targets it hits with its horns.</p>"
+                    "value": "<p>A triceratops deals [[/r 2d6 #persistent bleed]] extra @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to @Compendium[pf2e.conditionitems.Prone]{Prone} targets it hits with its horns.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1075,8 +980,108 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vicious Gore",
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "bcl3zcX6TOOupNt9",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "OKzqL9XBxnlVikDo",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "3"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Large or smaller, foot, <span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trample",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
             "sort": 900000,
             "type": "action"
         },
@@ -1115,7 +1120,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Athletics",
             "sort": 1000000,
             "type": "lore"
