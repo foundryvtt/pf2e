@@ -1,5 +1,4 @@
 import { CharacterPF2e } from '@actor/character';
-import { ErrorPF2e } from '@module/utils';
 import { LocalizePF2e } from '../../module/system/localize';
 import { ActionDefaultOptions } from '../..//module/system/actions/actions';
 
@@ -9,7 +8,8 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
     const actors = Array.isArray(options.actors) ? options.actors : [options.actors];
     const actor = actors[0];
     if (actors.length > 1 || !(actor instanceof CharacterPF2e)) {
-        throw ErrorPF2e(translations.BadArgs);
+        ui.notifications.error(translations.BadArgs);
+        return;
     }
 
     const toChat = (alias: string, content: string) => {
@@ -24,7 +24,7 @@ export function steelYourResolve(options: ActionDefaultOptions): void {
     const content = translations.Content;
 
     if (!game.settings.get('pf2e', 'staminaVariant')) {
-        throw ErrorPF2e(translations.StaminaNotEnabled);
+        ui.notifications.error(translations.StaminaNotEnabled);
         return;
     }
 
