@@ -1,4 +1,4 @@
-import { compendiumBrowser } from '../packs/compendium-browser';
+import { compendiumBrowser } from '../apps/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';

@@ -2,7 +2,7 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '@item/kits';
-import { compendiumBrowser } from '@module/packs/compendium-browser';
+import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { ItemPF2e } from '@item/base';
