@@ -1,12 +1,11 @@
 import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
-import { MigrationRunnerBase } from '@module/migration-runner-base';
 import { ItemDataPF2e } from '@item/data-definitions';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { MigrationBase } from '@module/migrations/base';
+import { MigrationRunnerBase } from '@module/migration-runner-base';
 import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
 import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
 import { Migration619TraditionLowercaseAndRemoveWandScroll } from '@module/migrations/619-remove-wand-and-scroll-tradition';
@@ -14,8 +13,9 @@ import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp'
 import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
 import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-potency-runes';
 import { Migration625EnsurePresenceOfSaves } from '@module/migrations/625-ensure-presence-of-saves';
+import { Migration626SetTokenIconProperty } from '@module/migrations/626-set-token-icon-property';
 
-const migrations: MigrationBase[] = [
+const migrations = [
     new Migration615RemoveInstinctTrait(),
     new Migration616MigrateFeatPrerequisites(),
     new Migration619TraditionLowercaseAndRemoveWandScroll(),
@@ -23,6 +23,7 @@ const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
     new Migration623NumifyPotencyRunes(),
     new Migration625EnsurePresenceOfSaves(),
+    new Migration626SetTokenIconProperty(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

@@ -14,6 +14,7 @@ export class MigrationRunnerBase {
 
     constructor(migrations: MigrationBase[] = []) {
         this.migrations = migrations.sort((a, b) => a.version - b.version);
+        // Check in case running from Node.js
         this.latestVersion = 'game' in globalThis ? globalThis.game.system.data.schema : 0;
     }
 

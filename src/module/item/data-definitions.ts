@@ -794,8 +794,9 @@ export interface EffectDetailsData extends ItemDescriptionData {
         value: number;
         initiative: number | null;
     };
-    tokenIcon?: {
+    tokenIcon: {
         show: boolean;
+        alternative: string | null;
     };
 }
 
