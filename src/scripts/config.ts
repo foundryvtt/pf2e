@@ -32,6 +32,7 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
+import { AbilityString } from '@actor/data-definitions';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -628,10 +629,16 @@ export const PF2ECONFIG = {
     },
 
     saves: {
-        reflex: 'PF2E.SavesReflex',
         fortitude: 'PF2E.SavesFortitude',
+        reflex: 'PF2E.SavesReflex',
         will: 'PF2E.SavesWill',
     },
+
+    savingThrowDefaultAbilities: {
+        fortitude: 'con',
+        reflex: 'dex',
+        will: 'wis',
+    } as { [save: string]: AbilityString },
 
     currencies: {
         pp: 'PF2E.CurrencyPP',
