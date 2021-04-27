@@ -35,7 +35,7 @@ export class ActionPF2e extends ItemPF2e {
         const hasExplorationTrait = item.hasTrait('exploration');
         const hasDowntimeTrait = item.hasTrait('downtime');
 
-        const availableInEncounterMode = item.data.data.actionType.value === 'action';
+        const availableInEncounterMode = ['action', 'reaction', 'free'].includes(item.data.data.actionType.value);
         const availableInExplorationMode = hasExplorationTrait;
         const availableInDowntimeMode = hasDowntimeTrait;
 
