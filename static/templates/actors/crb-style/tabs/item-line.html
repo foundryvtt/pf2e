@@ -8,9 +8,8 @@
               {{/if}}
               {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
               {{#if item.isTwoHanded}}
-              <span title="{{localize 'PF2E.TraitTwoHandedHelp'}}">
-              <i class="far fa-hand-paper"></i> (<i class="far fa-hand-paper"></i>)
-              </span>
+              {{#if item.wieldedTwoHanded}}<i class="far fa-hand-paper"></i>{{/if}}
+              <i class="far fa-hand-paper"></i>
               {{/if}}
           </h4>
         {{#if item.hasCharges}}
