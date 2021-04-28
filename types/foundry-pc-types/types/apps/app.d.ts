@@ -120,15 +120,21 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
      * Track the render state of the Application
      * @see {Application.RENDER_STATES}
      */
-    protected _state: any;
+    protected _state: keyof typeof Application['RENDER_STATES'];
 
     /**
      * Track the most recent scroll positions for any vertically scrolling containers
      */
     protected _scrollPositions: any | null;
 
-    protected static RENDER_STATES: any;
-
+    static readonly RENDER_STATES: {
+        CLOSING: -2;
+        CLOSED: -1;
+        NONE: 0;
+        RENDERING: 1;
+        RENDERED: 2;
+        ERROR: 3;
+    };
     constructor(options?: OptionsType);
 
     /**
