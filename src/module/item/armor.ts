@@ -5,20 +5,6 @@ import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
-    get traits(): Set<string> {
-        const traits = super.traits;
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const fundamentalRunes = [this.data.data.potencyRune, this.data.data.resiliencyRune];
-        if (fundamentalRunes.some((rune) => rune.value)) {
-            traits.add('invested').add('abjuration');
-            if (!traditionTraits.some((trait) => traits.has(trait))) {
-                traits.add('magical');
-            }
-        }
-
-        return traits;
-    }
-
     get isShield(): boolean {
         return this.data.data.armorType.value === 'shield';
     }
@@ -70,6 +56,23 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     get isBroken(): boolean {
         return this.hitPoints.current <= this.brokenThreshold;
+    }
+
+    /** @override */
+    prepareData() {
+        super.prepareData();
+
+        // Add traits from potency rune
+        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
+        const potencyRune = this.data.data.potencyRune;
+        const traits = this.data.data.traits;
+        traits.value = [
+            ...traits.value,
+            potencyRune.value ? ['invested', 'abjuration'] : [],
+            !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
+        ].flat();
+
+        traits.value = Array.from(new Set(traits.value));
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {
