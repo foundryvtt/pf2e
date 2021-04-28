@@ -11,6 +11,7 @@ import {
 export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
     isEquipped: boolean;
     isIdentified: boolean;
+    isContainer: boolean;
 };
 
 interface SheetItemList<D extends PhysicalItemData> {

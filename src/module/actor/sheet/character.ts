@@ -5,8 +5,7 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { PhysicalItemPF2e } from '@item/physical';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData, isPhysicalItem } from '@item/data-definitions';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -229,18 +228,17 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let investedCount = 0; // Tracking invested items
 
-        for (const item of this.actor.items) {
-            const i: any = item.data;
-            if (item instanceof PhysicalItemPF2e) {
-                // item identification
-                i.identified = item.isIdentified;
+        for (const itemData of sheetData.items) {
+            const i: any = itemData;
+            if (isPhysicalItem(itemData)) {
                 i.showGMInfo = game.user.isGM;
-                i.showEdit = i.showGMInfo || i.identified;
+                i.showEdit = i.showGMInfo || i.isIdentified;
 
-                i.img = i.img || CONST.DEFAULT_TOKEN;
-                i.containerData = containers.get(i._id);
-                i.isContainer = i.containerData.isContainer;
-                i.isNotInContainer = i.containerData.isNotInContainer;
+                i.img ||= CONST.DEFAULT_TOKEN;
+
+                const containerData = containers.get(i._id)!;
+                i.containerData = containerData;
+                i.isInContainer = containerData.isInContainer;
 
                 // Read-Only Equipment
                 if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
@@ -248,11 +246,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.hasEquipment = true;
                 }
 
-                i.canBeEquipped = i.isNotInContainer;
-                i.isEquipped = item.isEquipped;
+                i.canBeEquipped = !containerData.isInContainer;
                 i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-                i.hasInvestedTrait = item.traits.has('invested');
-                i.isInvested = i.data?.invested?.value ?? false;
+                i.hasInvestedTrait = itemData.data.traits.value.includes('invested');
+                i.isInvested = 'invested' in itemData.data && itemData.data.invested.value;
                 if (i.isInvested) {
                     investedCount += 1;
                 }
@@ -276,15 +273,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     }
                     inventory[i.type].items.push(i);
                 }
-            } else if (item instanceof SpellPF2e) {
+            } else if (itemData.type === 'spell') {
                 // Spells
                 try {
-                    i.spellInfo = item.getSpellInfo();
+                    const item = this.actor.items.get(itemData._id);
+                    i.spellInfo = item.getChatData();
                 } catch (err) {
                     console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
                 }
-                tempSpellbook.push(i);
-            } else if (i.type === 'spellcastingEntry') {
+                tempSpellbook.push(itemData);
+            } else if (itemData.type === 'spellcastingEntry') {
                 // Spellcasting Entries
                 // collect list of entries to use later to match spells against.
                 spellcastingEntriesList.push(i._id);
@@ -295,9 +293,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.data.details.level.value,
                     spellRank,
                 ).modifier;
-                const spellAbl = i.data.ability.value || 'int';
+                const spellAbl = itemData.data.ability.value || 'int';
                 const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
-                if (i.data.spelldc.value !== spellAttack) {
+                if (itemData.data.spelldc.value !== spellAttack) {
                     const updatedItem = {
                         _id: i._id,
                         data: {
@@ -602,7 +600,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
-        const featSlugs = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.data.slug));
+        const featSlugs = new Set(
+            actorData.items
+                .filter((item: ItemDataPF2e) => item.type === 'feat')
+                .map((item: ItemDataPF2e) => item.data.slug),
+        );
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
