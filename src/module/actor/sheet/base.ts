@@ -103,6 +103,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         for (const itemData of inventoryItems) {
             itemData.isEquipped = itemData.data.equipped.value;
             itemData.isIdentified = itemData.data.identification.status === 'identified';
+            itemData.isContainer = itemData.type === 'backpack';
         }
 
         const sheetData: ActorSheetData<this['actor']['data']> = {
@@ -245,7 +246,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         try {
             const item = this.actor.getOwnedItem(spell._id);
             if (item instanceof SpellPF2e) {
-                spell.spellInfo = item.getSpellInfo();
+                spell.spellInfo = item.getChatData();
             }
         } catch (err) {
             console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell._id}`, spell);

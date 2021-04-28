@@ -51,9 +51,9 @@
         </div>
         <ol class="item-list">
             {{#each section.items as |item itemId|}}
-                {{#if item.isNotInContainer}}
-                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=@root.owner level=1}}
-                {{/if}}
+                {{#unless item.isInContainer}}
+                    {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=@root.owner}}
+                {{/unless}}
             {{/each}}
         </ol>
     {{/each}}
