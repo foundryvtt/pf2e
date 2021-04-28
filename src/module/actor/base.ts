@@ -130,13 +130,15 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     get temporaryEffects(): TemporaryEffect[] {
-        // might fit better in the Actor#prepareDerivedData method
-        const conditionDataEntries = this.itemTypes.condition
+        const tokenIcon = (data: ConditionData) => {
+            const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
+            const statusName = data.data.hud.statusName;
+            return `${folder}${statusName}.webp`;
+        };
+        const conditionTokenIcons = this.itemTypes.condition
             .filter((condition) => condition.fromSystem)
-            .map((condition) => condition.data);
-        const conditionTokenEffects = ConditionManager.getFlattenedConditions(conditionDataEntries).map(
-            (c) => new TokenEffect(c.img),
-        );
+            .map((condition) => tokenIcon(condition.data));
+        const conditionTokenEffects = Array.from(new Set(conditionTokenIcons)).map((icon) => new TokenEffect(icon));
 
         const effectTokenEffects = this.itemTypes.effect
             .filter((effect) => effect.data.data.tokenIcon?.show)
