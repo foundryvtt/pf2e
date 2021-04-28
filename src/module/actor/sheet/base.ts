@@ -1058,15 +1058,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const newRawCharacterData = await ImportFromPfsDb(
                 pfsData.playerNumber,
                 pfsData.characterNumber,
-                this.actor.data.data,
+                this.actor,
             );
+            // TODO: Update the actor
             await this.actor.update({ [`data`]: newRawCharacterData });
             this.render(true);
         });
         html.find<HTMLButtonElement>('.pfs-button-export').on('click', async (event) => {
             event.preventDefault();
             if (!(this.actor.data.type === 'character')) throw Error('Cannot export non-PC characters.');
-            await ExportIntoPfsDb(this.actor.data.data);
+            await ExportIntoPfsDb(this.actor);
             console.log(`PF2e | Wrote ${this.actor.data.name} PFS information to PFS DB`);
         });
         html.find<HTMLButtonElement>('.pfs-button-delete').on('click', async (event) => {
