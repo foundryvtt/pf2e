@@ -3,7 +3,7 @@ import { CharacterPF2e } from './character';
 import { NPCPF2e } from './npc';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
 import { CheckPF2e } from '@system/rolls';
-import { FamiliarData, SkillAbbreviation } from './data-definitions';
+import { AbilityString, FamiliarData, SkillAbbreviation } from './data-definitions';
 import { RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
@@ -148,7 +148,8 @@ export class FamiliarPF2e extends CreaturePF2e {
                         MODIFIER_TYPE.UNTYPED,
                     ),
                 ];
-                [save.name, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) =>
+                const ability = (save.ability as AbilityString) ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
+                [save.name, `${ability}-based`, 'saving-throw', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filter_modifier)
                         .map((m) => duplicate(m))

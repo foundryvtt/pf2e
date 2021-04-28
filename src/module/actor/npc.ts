@@ -292,16 +292,13 @@ export class NPCPF2e extends CreaturePF2e {
         // Saving Throws
         for (const [saveName, save] of Object.entries(data.saves as Record<string, any>)) {
             const base: number = save.base ?? Number(save.value);
+            const ability = (save.ability as AbilityString) ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
             const modifiers = [
-                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[save.ability].mod, MODIFIER_TYPE.UNTYPED),
-                new ModifierPF2e(
-                    CONFIG.PF2E.abilities[save.ability],
-                    data.abilities[save.ability].mod,
-                    MODIFIER_TYPE.ABILITY,
-                ),
+                new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
+                new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
             ];
             const notes = [] as PF2RollNote[];
-            [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
+            [saveName, `${ability}-based`, 'saving-throw', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
