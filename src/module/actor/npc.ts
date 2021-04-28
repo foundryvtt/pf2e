@@ -10,6 +10,7 @@ import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
 import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
 import { DamageType } from '@module/damage-calculation';
+import { sluggify } from '@module/utils';
 
 export class NPCPF2e extends CreaturePF2e {
     get rarity(): Rarity {
@@ -87,10 +88,10 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = actorData.items.reduce(
-            (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
+        const rules = this.items.reduce(
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
-        ) as PF2RuleElement[];
+        );
 
         // Toggles
         (data as any).toggles = {
@@ -290,14 +291,15 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Saving Throws
-        for (const [saveName, save] of Object.entries(data.saves as Record<string, any>)) {
+        for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
+            const save = data.saves[saveName];
             const base: number = save.base ?? Number(save.value);
             const ability = (save.ability as AbilityString) ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
             const modifiers = [
                 new ModifierPF2e('PF2E.BaseModifier', base - data.abilities[ability].mod, MODIFIER_TYPE.UNTYPED),
                 new ModifierPF2e(CONFIG.PF2E.abilities[ability], data.abilities[ability].mod, MODIFIER_TYPE.ABILITY),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes: PF2RollNote[] = [];
             [saveName, `${ability}-based`, 'saving-throw', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -409,7 +411,8 @@ export class NPCPF2e extends CreaturePF2e {
         data.actions = [];
 
         // process OwnedItem instances, which for NPCs include skills, attacks, equipment, special abilities etc.
-        for (const item of actorData.items.concat(strikes)) {
+        const items = this.items.map((item) => item.data).concat(strikes);
+        for (const item of items) {
             if (item.type === 'lore') {
                 // override untrained skills if defined in the NPC data
                 const skill = item.name.slugify(); // normalize skill name to lower-case and dash-separated words
@@ -835,11 +838,11 @@ export class NPCPF2e extends CreaturePF2e {
             );
         }
         for (const attackEffect of item.data.attackEffects.value) {
-            const effectItem = this.data.items.find((item) => item.name.toLowerCase() === attackEffect.toLowerCase());
+            const item = this.items.find((item) => (item.slug ?? sluggify(item.name)) === sluggify(attackEffect))?.data;
             const note = new PF2RollNote('all', '');
-            if (effectItem) {
+            if (item) {
                 // Get description from the actor item.
-                const description = effectItem.data.description.value;
+                const description = item.data.description.value;
                 note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><p><strong>${attackEffect}</strong></p>${description}</div>`;
                 notes.push(note);
             } else {
