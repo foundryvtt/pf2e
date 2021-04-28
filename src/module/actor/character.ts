@@ -883,11 +883,13 @@ export class CharacterPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
 
+                const strikeLabel = game.i18n.localize('PF2E.WeaponStrikeLabel');
+
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(defaultOptions);
                     CheckPF2e.roll(
-                        new CheckModifier(`Strike: ${action.name}`, action),
+                        new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                         args.event,
                         args.callback,
@@ -902,7 +904,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action),
+                                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                                 args.callback,
