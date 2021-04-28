@@ -11,6 +11,7 @@ import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
+import { WeaponPF2e } from '@item/weapon';
 
 /**
  * @category Other
@@ -726,7 +727,22 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.crb-trait-selector').on('click', (event) => this.onTraitSelector(event));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
-            this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
+            const $tag = $(event.currentTarget);
+            const rollOption = $tag.attr('data-roll-option');
+            if (rollOption === 'two-handed') {
+                // Have the two-handed roll option be applied only if the weapon is being wielded with two hands
+                const $item = $tag.closest('li.item');
+                const weaponID = $item.attr('data-weapon-id') ?? '';
+                const weapon = this.actor.items.get(weaponID);
+                if (weapon instanceof WeaponPF2e) {
+                    weapon.update({ 'data.hands.value': !weapon.heldInTwoHands });
+                }
+            } else {
+                const rollName = $tag.attr('data-roll-name');
+                if (typeof rollName === 'string' && typeof rollOption === 'string') {
+                    this.actor.toggleRollOption(rollName, rollOption);
+                }
+            }
         });
 
         html.find('.add-modifier').on('click', '.fas.fa-plus-circle', (event) => this.onIncrementModifierValue(event));

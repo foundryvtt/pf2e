@@ -870,9 +870,14 @@ export class CharacterPF2e extends CreaturePF2e {
                         // trait can be toggled on/off
                         if (option.rollName && option.rollOption) {
                             option.toggle = true;
-                            option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption)
-                                ? 'toggled-on'
-                                : 'toggled-off';
+                            if (option.rollOption == 'two-handed') {
+                                option.cssClass =
+                                    item.data.equipped.value && item.data.hands.value ? 'toggled-on' : 'toggled-off';
+                            } else {
+                                option.cssClass = this.getRollOptions([option.rollName]).includes(option.rollOption)
+                                    ? 'toggled-on'
+                                    : 'toggled-off';
+                            }
                         }
                         return option;
                     }),

@@ -100,7 +100,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                         item.data.data.hands.value = !item.data.data.hands.value;
                         // this.actor.updateOwnedItem(item.data, true);
                         this.actor.updateEmbeddedEntity('OwnedItem', item.data);
-                        this._render();
                     }
 
                     break;

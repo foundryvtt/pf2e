@@ -35,6 +35,11 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         traits.value = Array.from(new Set(traits.value));
     }
 
+    /** Is the weapon being wielded with two hands */
+    get heldInTwoHands(): boolean {
+        return !!this.data.data.hands.value;
+    }
+
     getChatData(htmlOptions?: Record<string, boolean>) {
         if (!this.actor) {
             return {};

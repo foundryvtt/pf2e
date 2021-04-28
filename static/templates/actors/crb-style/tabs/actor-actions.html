@@ -32,7 +32,7 @@
                         </li>
                         {{#each actor.data.actions as |action ai|}}
                         {{#if (any action.ready ../actor.flags.pf2e.showUnreadyStrikes)}}
-                        <li class="item expandable" data-action-index="{{ai}}">
+                        <li class="item expandable" data-action-index="{{ai}}" data-weapon-id="{{action.item}}">
                             <div class="item-name rollable">
                                 <div class="item-image action-strike" style="background-image: url({{action.imageUrl}})">
                                     <i class="fas fa-dice-d20"></i>

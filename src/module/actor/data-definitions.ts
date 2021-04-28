@@ -125,7 +125,8 @@ export interface RawCharacterStrike {
     traits: CharacterStrikeTrait[];
     /** Any options always applied to this strike. */
     options: string[];
-
+    /** The item ID associated with the strike, if any */
+    item: string;
     /** Alias for `attack`. */
     roll?: RollFunction;
     /** Roll to attack with the given strike (with no MAP penalty; see `variants` for MAP penalties.) */
