@@ -584,13 +584,16 @@ export class NPCPF2e extends CreaturePF2e {
                     };
                 });
                 action.traits.push(...attackTraits);
+
+                const strikeLabel = game.i18n.localize('PF2E.WeaponStrikeLabel');
+
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = adaptRoll(async (args) => {
                     const attackEffects = await this.getAttackEffects(item);
                     const rollNotes = notes.concat(attackEffects);
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     CheckPF2e.roll(
-                        new CheckModifier(`Strike: ${action.name}`, action),
+                        new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes: rollNotes, dc: args.dc },
                         args.event,
                     );
@@ -600,7 +603,7 @@ export class NPCPF2e extends CreaturePF2e {
                 const map = ItemPF2e.calculateMap(item);
                 action.variants = [
                     {
-                        label: `Strike ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
+                        label: `${strikeLabel} ${action.totalModifier < 0 ? '' : '+'}${action.totalModifier}`,
                         roll: adaptRoll(async (args) => {
                             const attackEffects = await this.getAttackEffects(item);
                             const rollNotes = notes.concat(attackEffects);
