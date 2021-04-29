@@ -39,7 +39,7 @@ export class SpellPF2e extends ItemPF2e {
         // Spell saving throw text and DC
         const save = duplicate(this.data.data.save);
         save.dc = isSave ? spellDC : spellAttack;
-        save.str = data.save.value ? CONFIG.PF2E.saves[data.save.value.toLowerCase()] : '';
+        save.str = game.i18n.localize(CONFIG.PF2E.saves[data.save.value.toLowerCase()]);
 
         // Spell attack labels
         const damageLabel =
