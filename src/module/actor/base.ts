@@ -921,7 +921,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         item: Owned<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<Owned<PhysicalItemPF2e> | void> {
+    ): Promise<Owned<PhysicalItemPF2e> | null> {
         if (!(item instanceof PhysicalItemPF2e)) {
             return Promise.reject(new Error('Only physical items (with quantities) can be transfered between actors'));
         }
@@ -937,16 +937,16 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             const source = { tokenId: this.token?.id, actorId: this.id, itemId: item.id };
             const target = { tokenId: targetActor.token?.id, actorId: targetActor.id };
             await new ItemTransfer(source, target, quantity, containerId).request();
-            return;
+            return null;
         }
 
         if (!this.can(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
-            return;
+            return null;
         }
         if (!targetActor.can(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
-            return;
+            return null;
         }
 
         // Limit the amount of items transfered to how many are actually available.
@@ -973,11 +973,11 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
         const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
         if (result === null) {
-            return;
+            return null;
         }
         const movedItem = targetActor.items.get(result._id);
         if (!(movedItem instanceof PhysicalItemPF2e)) {
-            return;
+            return null;
         }
         await targetActor.stashOrUnstash(movedItem, containerId);
 
