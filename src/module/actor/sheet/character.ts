@@ -231,8 +231,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         for (const itemData of sheetData.items) {
             const i: any = itemData;
             if (isPhysicalItem(itemData)) {
-                i.showGMInfo = game.user.isGM;
-                i.showEdit = i.showGMInfo || i.isIdentified;
+                i.showEdit = sheetData.user.isGM || i.isIdentified;
 
                 i.img ||= CONST.DEFAULT_TOKEN;
 

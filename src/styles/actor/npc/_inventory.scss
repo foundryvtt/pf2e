@@ -25,14 +25,6 @@ $unique: #54166e;
         background-color: $primary-accent;
         border-radius: 3px 3px 0px 0px;
         padding: 6px;
-
-        .item-quantity {
-            text-align: center;
-        }
-
-        .controls {
-            text-align: right;
-        }
     }
 
     .body {
@@ -69,7 +61,7 @@ $unique: #54166e;
                 .item-header {
                     display: grid;
                     padding: 0px;
-                    grid-template-columns: 26px 3fr 1fr 1fr;
+                    grid-template-columns: 26px 3fr 1fr 2fr;
                     column-gap: 6px;
                     align-items: center;
                 }
@@ -82,55 +74,69 @@ $unique: #54166e;
                     border-bottom: 1px solid $faded-color;
                 }
 
-                .item-icon {
-                    border: 2px solid $faded-color;
-                    border-radius: 3px;
-                    width: 26px;
-                    height: 26px;
-                    background-size: 26px 26px;
+                .item-header {
+
+                    .item-icon {
+                        border: 2px solid $faded-color;
+                        border-radius: 3px;
+                        width: 26px;
+                        height: 26px;
+                        background-size: 26px 26px;
+                        &:hover {
+                            cursor: pointer;
+                        }
+                    }
+
+                    .common {
+                        border-color: $common;
+                        color: $common;
+                    }
+
+                    .uncommon {
+                        border-color: $uncommon;
+                        color: $uncommon;
+                    }
+
+                    .rare {
+                        border-color: $rare;
+                        color: $rare;
+                    }
+
+                    .unique {
+                        border-color: $unique;
+                        color: $unique;
+                    }
+
+                    .item-name {
+                        h4 {
+                            margin: 0px;
+                        }
+                    }
+
+                    .item-quantity {
+                        text-align: center;
+                    }
+
+                    .controls {
+                        text-align: right;
+                        visibility: hidden;
+
+                        .chat {
+                            position: relative;
+                            top: 1px;
+                        }
+
+                        .item-toggle-equip {
+                            color: rgba(black, 0.4);
+
+                            &.active {
+                                color: rgba(black, 0.75);
+                            }
+                        }
+                    }
                     &:hover {
-                      cursor: pointer;
-                    }
-                }
-
-                .common {
-                    border-color: $common;
-                    color: $common;
-                }
-
-                .uncommon {
-                    border-color: $uncommon;
-                    color: $uncommon;
-                }
-
-                .rare {
-                    border-color: $rare;
-                    color: $rare;
-                }
-
-                .unique {
-                    border-color: $unique;
-                    color: $unique;
-                }
-
-                .item-name {
-                    h4 {
-                        margin: 0px;
-                    }
-                }
-
-                .item-quantity {
-                    text-align: center;
-                }
-
-                .controls {
-                    text-align: right;
-
-                    .item-toggle-equip {
-                        color: rgba(black, 0.4);
-
-                        &.active {
-                            color: rgba(black, 0.75);
+                        .controls {
+                            visibility: visible;
                         }
                     }
                 }

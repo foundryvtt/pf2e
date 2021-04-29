@@ -314,9 +314,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.action')
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.npc-item')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
 
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
