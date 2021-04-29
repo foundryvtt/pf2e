@@ -24,7 +24,6 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
         dip.roll({
             dc: dc,
-            event: _event,
             options: options,
             callback: (roll) => {
                 let healFormula, successLabel;
