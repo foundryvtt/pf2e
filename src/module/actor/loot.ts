@@ -2,9 +2,9 @@ import { ActorPF2e } from './base';
 import { LootData } from './data-definitions';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ItemPF2e } from '@item/base';
-import { attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
-import { LocalizePF2e } from '@module/system/localize';
+import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
 import { LootSheetPF2e } from './sheet/loot';
+import { ErrorPF2e } from '@module/utils';
 
 export class LootPF2e extends ActorPF2e {
     get isLoot(): boolean {
@@ -39,7 +39,7 @@ export class LootPF2e extends ActorPF2e {
         item: Owned<ItemPF2e>,
         quantity: number,
         containerId?: string,
-    ): Promise<Owned<PhysicalItemPF2e> | void> {
+    ): Promise<Owned<PhysicalItemPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
         if (!(this.owner && targetActor.owner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
@@ -47,13 +47,12 @@ export class LootPF2e extends ActorPF2e {
         if (this.isMerchant && !this.sheet?.inEditMode && item instanceof PhysicalItemPF2e) {
             const itemValue = extractPriceFromItem(item.data, quantity);
             if (await attemptToRemoveCoinsByValue({ actor: targetActor, coinsToRemove: itemValue })) {
+                await addCoins(item.actor, { coins: itemValue, combineStacks: true });
                 return super.transferItemToActor(targetActor, item, quantity, containerId);
+            } else if (this.isLoot) {
+                throw ErrorPF2e('Loot transfer failed');
             } else {
-                const translation = LocalizePF2e.translations.PF2E.loot.InsufficientFundsMessage;
-                ui.notifications.warn(game.i18n.format(translation), {
-                    buyer: targetActor.name,
-                });
-                return Promise.reject();
+                return null;
             }
         }
 
