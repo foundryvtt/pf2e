@@ -3,9 +3,6 @@
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
           <h4>
               {{item.name}}
-              {{#if (and (not item.isIdentified) item.data.identification.identified.name item.showGMInfo)}}
-                  ({{item.data.identification.identified.name}})
-              {{/if}}
               {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
               {{#if item.isTwoHanded}}
               <span title="{{localize 'PF2E.TraitTwoHandedHelp'}}">
@@ -19,9 +16,9 @@
     </div>
     {{#if lootsheet}}
         {{#if (eq item.type 'treasure')}}
-            <span class="item-sell-value">{{#if (or item.isIdentified item.showGMInfo)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
+            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.value.value}} {{localize (add "PF2E.CurrencyAbbreviations." (lower item.data.denomination.value))}}{{/if}}</span>
         {{else}}
-            <span class="item-sell-value">{{#if (or item.isIdentified item.showGMInfo)}}{{item.data.price.value}}{{/if}}</span>
+            <span class="item-sell-value">{{#if (or item.isIdentified user.isGM)}}{{item.data.price.value}}{{/if}}</span>
         {{/if}}
     {{else}}
         {{#if (eq item.type 'treasure')}}
@@ -29,13 +26,13 @@
         {{/if}}
     {{/if}}
     <span class="item-quantity">
-      <a class="item-decrease-quantity{{#unless owner}} hidden{{/unless}}">&ndash;</a>
+      <a class="item-decrease-quantity{{#unless editable}} hidden{{/unless}}">&ndash;</a>
       <span>{{item.data.quantity.value}}</span>
-      <a class="item-increase-quantity{{#unless owner}} hidden{{/unless}}">+</a>
+      <a class="item-increase-quantity{{#unless editable}} hidden{{/unless}}">+</a>
     </span>
     <span class="item-weight">{{item.totalWeight}}</span>
 
-    {{#if owner}}
+    {{#if editable}}
         <div class="item-controls">
             {{#if item.isContainer}}
                 {{#if item.containerData.isCollapsed}}
@@ -47,13 +44,13 @@
 
             {{#if item.canBeEquipped}}
                 {{#if (and item.hasInvestedTrait item.isIdentified (not lootsheet))}}
-                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon sparkle"></i></a>
+                    <a class="item-control item-toggle-invest {{#if item.isInvested}}active{{/if}}" title="{{localize "PF2E.ui.equipmentInvested"}}"><i class="icon diamond-with-diamond"></i></a>
                 {{/if}}
                 {{#if (not lootsheet)}}
                     <a class="item-control item-toggle-equip {{#if item.isEquipped}}active{{/if}}" title="{{localize "PF2E.ui.armorEquipped"}}"><i class="fas fa-tshirt"></i></a>
                 {{/if}}
             {{/if}}
-            {{#if item.showGMInfo}}
+            {{#if user.isGM}}
                 {{#if item.isIdentified}}
                     <a class="item-control item-toggle-identified identified" title="{{localize "PF2E.identification.Mystify"}}"><i class="far fa-question-circle"></i></a>
                 {{else}}
@@ -83,7 +80,7 @@
         {{/if}}
         <div class="container-held-items">
             {{#each item.containerData.heldItems}}
-                {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=this owner=@root.owner}}
+                {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=this editable=@root.editable user=@root.user}}
             {{/each}}
         </div>
     {{/unless}}
