@@ -24,7 +24,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
 
         dip.roll({
             dc: dc,
-            event: event,
+            event: _event,
             options: options,
             callback: (roll) => {
                 let healFormula, successLabel;
@@ -45,38 +45,40 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                 if (healFormula !== undefined) {
                     const healRoll = new Roll(healFormula).roll();
                     const rollType = roll.data.degreeOfSuccess > 1 ? translations.Recovery : translations.Damage;
-                    ChatMessage.create(
-                        {
-                            user: game.user.id,
-                            type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                            flavor: `<strong>${rollType}$ ${translations.Title}</strong> (${successLabel})`,
-                            roll: healRoll,
-                            speaker: ChatMessage.getSpeaker(),
-                        }
-                    );
+                    ChatMessage.create({
+                        user: game.user.id,
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
+                        flavor: `<strong>${rollType}$ ${translations.Title}</strong> (${successLabel})`,
+                        roll: healRoll,
+                        speaker: ChatMessage.getSpeaker(),
+                    });
                 }
             },
         });
     };
 
     async function applyChanges($html) {
-            var { dip } = actor.data.data.skills;
-            const { name } = actor;
-            const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
+        const { dip } = actor.data.data.skills;
+        const { name } = actor;
+        const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
 
-            var usedProf = 0;
-            usedProf = dip.rank;
+        let usedProf = 0;
+        usedProf = dip.rank;
 
-            const roll = [
-                () => ui.notifications.warn(game.i18n.format(translations.NotTrained, {
-                    name: name,})),
-                () => encouragingWordsMacro({ DC: 15 + mod, bonus: 0, dip}),
-                () => encouragingWordsMacro({ DC: 20 + mod, bonus: 5, dip}),
-                () => encouragingWordsMacro({ DC: 30 + mod, bonus: 15, dip}),
-                () => encouragingWordsMacro({ DC: 40 + mod, bonus: 25, dip}),
-            ][usedProf];
+        const roll = [
+            () =>
+                ui.notifications.warn(
+                    game.i18n.format(translations.NotTrained, {
+                        name: name,
+                    }),
+                ),
+            () => encouragingWordsMacro({ DC: 15 + mod, bonus: 0, dip }),
+            () => encouragingWordsMacro({ DC: 20 + mod, bonus: 5, dip }),
+            () => encouragingWordsMacro({ DC: 30 + mod, bonus: 15, dip }),
+            () => encouragingWordsMacro({ DC: 40 + mod, bonus: 25, dip }),
+        ][usedProf];
 
-            roll();
+        roll();
     }
 
     if (actor === undefined) {
@@ -85,26 +87,26 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         const dialog = new Dialog({
             title: translations.Title,
             content: `
-    <div>${translations.ContentMain}</div>
-    <hr/>
-    <form>
-    <div class="form-group">
-    <label>${translations.ContentLabel1}</label>
-    <select id="dc-type" name="dc-type">
-    <option value="1">${translations.ContentOption1}</option>
-    <option value="2">${translations.ContentOption2}</option>
-    <option value="3">${translations.ContentOption3}</option>
-    <option value="4">${translations.ContentOption4}</option>
-    </select>
-    </div>
-    </form>
-    <form>
-    <div class="form-group">
-    <label>${translations.ContentLabel2}</label>
-    <input id="modifier" name="modifier" type="number"/>
-    </div>
-    </form>
-    `,
+	<div>${translations.ContentMain}</div>
+	<hr/>
+	<form>
+	<div class="form-group">
+	<label>${translations.ContentLabel1}</label>
+	<select id="dc-type" name="dc-type">
+	<option value="1">${translations.ContentOption1}</option>
+	<option value="2">${translations.ContentOption2}</option>
+	<option value="3">${translations.ContentOption3}</option>
+	<option value="4">${translations.ContentOption4}</option>
+	</select>
+	</div>
+	</form>
+	<form>
+	<div class="form-group">
+	<label>${translations.ContentLabel2}</label>
+	<input id="modifier" name="modifier" type="number"/>
+	</div>
+	</form>
+	`,
             buttons: {
                 yes: {
                     icon: `<i class="fas fa-hand-holding-dipical"></i>`,
