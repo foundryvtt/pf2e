@@ -7,8 +7,8 @@ import { LocalizePF2e } from '@module/system/localize';
 export class WeaponPF2e extends PhysicalItemPF2e {
     /** @override */
     isStackableWith(item: PhysicalItemPF2e): boolean {
-        const equippedButStackable = ['bomb', 'dart'];
-        if ((this.isEquipped || item.isEquipped) && !equippedButStackable.includes(this.group)) return false;
+        const equippedButStackable = ['bomb', 'dart'].includes(this.group ?? '');
+        if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
         return super.isStackableWith(item);
     }
 

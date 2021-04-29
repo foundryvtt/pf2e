@@ -100,6 +100,8 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
  * @category Actor
  */
 export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
+    physicalItems!: Collection<Owned<PhysicalItemPF2e>>;
+
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -113,6 +115,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
+        this.physicalItems = new Collection();
     }
 
     /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
@@ -128,6 +131,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return this.data.data.details.level.value;
     }
 
+    /** @override */
     get temporaryEffects(): TemporaryEffect[] {
         const tokenIcon = (data: ConditionData) => {
             const folder = CONFIG.PF2E.statusEffects.effectsIconFolder;
@@ -242,6 +246,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     prepareBaseData(): void {
         super.prepareBaseData();
         this.data.data.tokenEffects = [];
+    }
+
+    /** @override */
+    prepareEmbeddedEntities(): void {
+        super.prepareEmbeddedEntities();
+        const physicalItems: Owned<PhysicalItemPF2e>[] = this.items.filter((item) => item instanceof PhysicalItemPF2e);
+        this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
     }
 
     /** @override */
@@ -780,8 +791,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
         for (const datum of updateData) {
-            const item = this.items.get(datum._id);
-            if (item instanceof PhysicalItemPF2e) {
+            const item = this.physicalItems.get(datum._id);
+            if (item) {
                 await PhysicalItemPF2e.updateIdentificationData(item.data, datum);
             }
         }
@@ -963,10 +974,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         if (result === null) {
             return null;
         }
-        const movedItem = targetActor.items.get(result._id);
-        if (!(movedItem instanceof PhysicalItemPF2e)) {
-            return null;
-        }
+        const movedItem = targetActor.physicalItems.get(result._id);
+        if (!movedItem) return null;
         await targetActor.stashOrUnstash(movedItem, containerId);
 
         return item;
@@ -975,9 +984,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /** Find an item already owned by the actor that can stack with the to-be-transferred item */
     private findStackableItem(actor: ActorPF2e, itemData: ItemDataPF2e): Owned<PhysicalItemPF2e> | null {
         const testItem = new ItemPF2e(itemData);
-        const stackCandidates: Owned<PhysicalItemPF2e>[] = actor.items.filter(
-            (stackCandidate): stackCandidate is PhysicalItemPF2e =>
-                stackCandidate instanceof PhysicalItemPF2e &&
+        const stackCandidates = actor.physicalItems.filter(
+            (stackCandidate) =>
                 !stackCandidate.isInContainer &&
                 testItem instanceof PhysicalItemPF2e &&
                 stackCandidate.isStackableWith(testItem),
