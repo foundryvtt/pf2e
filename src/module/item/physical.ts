@@ -64,6 +64,16 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
     }
 
+    /** Can the provided item stack with this item? */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.type !== item.type || this.name != item.name) return false;
+        const thisData = duplicate(this._data.data);
+        const otherData = duplicate(item._data.data);
+        thisData.quantity.value = otherData.quantity.value;
+        thisData.containerId.value = otherData.containerId.value;
+        return JSON.stringify(thisData) === JSON.stringify(otherData);
+    }
+
     get hasShowableMystifiedState(): boolean {
         const itemData = this.data as PhysicalItemData;
         switch (PhysicalItemPF2e.getIdentificationState(itemData)) {

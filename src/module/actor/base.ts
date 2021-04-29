@@ -931,17 +931,16 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         // Limit the amount of items transfered to how many are actually available.
-        const sourceItemQuantity = Number(item.data.data.quantity.value);
-        quantity = Math.min(quantity, sourceItemQuantity);
+        quantity = Math.min(quantity, item.quantity);
 
         // Remove the item from the source if we are transferring all of it; otherwise, subtract the appropriate number.
-        const newItemQuantity = sourceItemQuantity - quantity;
-        const hasToRemoveFromSource = newItemQuantity < 1;
+        const newQuantity = item.quantity - quantity;
+        const removeFromSource = newQuantity < 1;
 
-        if (hasToRemoveFromSource) {
+        if (removeFromSource) {
             await this.deleteEmbeddedEntity('OwnedItem', item._id);
         } else {
-            const update = { _id: item._id, 'data.quantity.value': newItemQuantity };
+            const update = { _id: item._id, 'data.quantity.value': newQuantity };
             await this.updateEmbeddedEntity('OwnedItem', update);
         }
 
@@ -952,6 +951,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             newItemData.data.invested.value = false;
         }
 
+        // Stack with an existing item if possible
+        const stackItem = this.findStackableItem(targetActor, newItemData);
+        if (stackItem && stackItem.data.type !== 'backpack') {
+            const stackQuantity = stackItem.quantity + quantity;
+            return stackItem.update({ 'data.quantity.value': stackQuantity });
+        }
+
+        // Otherwise create a new item
         const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
         if (result === null) {
             return null;
@@ -963,6 +970,27 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         await targetActor.stashOrUnstash(movedItem, containerId);
 
         return item;
+    }
+
+    /** Find an item already owned by the actor that can stack with the to-be-transferred item */
+    private findStackableItem(actor: ActorPF2e, itemData: ItemDataPF2e): Owned<PhysicalItemPF2e> | null {
+        const testItem = new ItemPF2e(itemData);
+        const stackCandidates: Owned<PhysicalItemPF2e>[] = actor.items.filter(
+            (stackCandidate): stackCandidate is PhysicalItemPF2e =>
+                stackCandidate instanceof PhysicalItemPF2e &&
+                !stackCandidate.isInContainer &&
+                testItem instanceof PhysicalItemPF2e &&
+                stackCandidate.isStackableWith(testItem),
+        );
+        if (stackCandidates.length === 0) {
+            return null;
+        } else if (stackCandidates.length > 1) {
+            // Prefer stacking with unequipped items
+            const notEquipped = stackCandidates.filter((item) => !item.isEquipped);
+            return notEquipped.length > 0 ? notEquipped[0] : stackCandidates[0];
+        } else {
+            return stackCandidates[0];
+        }
     }
 
     /**

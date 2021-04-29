@@ -5,6 +5,13 @@ import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
+    /** @override */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        const equippedButStackable = ['bomb', 'dart'];
+        if ((this.isEquipped || item.isEquipped) && !equippedButStackable.includes(this.group)) return false;
+        return super.isStackableWith(item);
+    }
+
     get baseType(): BaseWeaponKey | null {
         return this.data.data.baseItem ?? null;
     }
