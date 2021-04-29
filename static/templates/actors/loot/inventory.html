@@ -36,7 +36,7 @@
     </li>
     {{#each section.items as |item itemId|}}
         {{#if item.isNotInContainer}}
-            {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item owner=@root.owner level=1 lootsheet=true}}
+            {{> systems/pf2e/templates/actors/crb-style/tabs/item-line.html item=item editable=@root.editable user=@root.user lootsheet=true}}
         {{/if}}
     {{/each}}
 {{/each}}

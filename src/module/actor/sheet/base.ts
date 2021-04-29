@@ -40,7 +40,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { InventoryItem } from './data-types';
+import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -85,6 +85,11 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return this.actor.data.type;
     }
 
+    /** @override */
+    get isEditable(): boolean {
+        return this.actor.can(game.user, 'update');
+    }
+
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
         return false;
@@ -104,9 +109,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             itemData.isEquipped = itemData.data.equipped.value;
             itemData.isIdentified = itemData.data.identification.status === 'identified';
             itemData.isContainer = itemData.type === 'backpack';
+
+            // Reveal the unidentified item's real name to the GM
+            const realName = itemData.data.identification?.identified?.name ?? '';
+            if (!itemData.isIdentified && realName && game.user.isGM) {
+                itemData.name = `${itemData.name} (${realName})`;
+            }
         }
 
-        const sheetData: ActorSheetData<this['actor']['data']> = {
+        const sheetData: ActorSheetDataPF2e<this['actor']['data']> = {
             cssClass: this.actor.owner ? 'editable' : 'locked',
             editable: this.isEditable,
             entity: actorData,
@@ -117,16 +128,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             actor: actorData,
             data: actorData.data,
             items: items,
+            user: { isGM: game.user.isGM },
+            isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
+            isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
         };
 
         this.prepareTraits(sheetData.data.traits);
         this.prepareItems(sheetData);
 
-        return {
-            ...sheetData,
-            isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
-            isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
-        };
+        return sheetData;
     }
 
     protected abstract prepareItems(sheetData: { actor: ActorDataPF2e }): void;

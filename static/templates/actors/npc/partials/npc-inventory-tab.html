@@ -13,13 +13,13 @@
                 <div class="category-header">
                     <h4>{{category.label}}</h4>
                     <div class="category-controls controls">
-                        {{#if @root.options.editable}}
+                        {{#if @root.editable}}
                             <a class="item-create" data-type="{{category.type}}"><i class="fas fa-plus"></i></a>
                         {{/if}}
                     </div>
                 </div>
                     {{#each category.items as |item itemId|}}
-                        {{> "systems/pf2e/templates/actors/npc/partials/npc-item.html" item=item isEditable=@root.options.editable}}
+                        {{> "systems/pf2e/templates/actors/npc/partials/npc-item.html" item=item user=@root.user editable=@root.editable}}
                     {{/each}}
                 {{/each}}
             </ul>
