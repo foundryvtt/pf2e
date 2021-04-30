@@ -23,13 +23,13 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         // Add trait(s) from potency rune
         const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const potencyRune = this.data.data.potencyRune;
+        const hasPotencyRune = !!this.data.data.potencyRune.value;
         const traits = this.data.data.traits;
 
         traits.value = [
             ...traits.value,
-            potencyRune.value ? 'evocation' : [],
-            !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
+            hasPotencyRune ? 'evocation' : [],
+            hasPotencyRune && !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
         ].flat();
 
         traits.value = Array.from(new Set(traits.value));
