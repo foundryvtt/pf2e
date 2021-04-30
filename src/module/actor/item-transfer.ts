@@ -81,8 +81,11 @@ export class ItemTransfer implements ItemTransferData {
             this.quantity,
             this.containerId,
         );
-        if (!(targetItem instanceof PhysicalItemPF2e)) {
-            return Promise.reject();
+        const sourceIsLoot = sourceActor.data.type === 'loot' && sourceActor.data.data.lootSheetType === 'Loot';
+
+        // A merchant transaction can fail if funds are insufficient, but a loot transfer failing is an error.
+        if (!sourceItem && sourceIsLoot) {
+            return;
         }
 
         this.sendMessage(requester, sourceActor, targetActor, targetItem);
@@ -135,8 +138,37 @@ export class ItemTransfer implements ItemTransferData {
         requester: UserPF2e,
         sourceActor: ActorPF2e,
         targetActor: ActorPF2e,
-        item: PhysicalItemPF2e,
+        item: PhysicalItemPF2e | null,
     ): Promise<void> {
+        const translations = LocalizePF2e.translations.PF2E.loot;
+
+        if (!item) {
+            const sourceIsMerchant =
+                sourceActor.data.type === 'loot' && sourceActor.data.data.lootSheetType === 'Merchant';
+            if (sourceIsMerchant) {
+                const message = translations.InsufficientFundsMessage;
+                // The buyer didn't have enough funds! No transaction.
+
+                const content = await renderTemplate(this.templatePaths.content, {
+                    imgPath: targetActor.img,
+                    message: game.i18n.format(message, { buyer: targetActor.name }),
+                });
+
+                const flavor = await this.messageFlavor(sourceActor, targetActor, translations.BuySubtitle);
+
+                await ChatMessage.create({
+                    user: requester.id,
+                    speaker: { alias: ItemTransfer.tokenName(targetActor) },
+                    type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+                    flavor,
+                    content,
+                });
+                return;
+            } else {
+                throw ErrorPF2e('Unexpected item-transfer failure');
+            }
+        }
+
         // Exhaustive pattern match to determine speaker and item-transfer parties
         type PatternMatch = [speaker: string, subtitle: string, formatArgs: Parameters<Game['i18n']['format']>];
 
@@ -155,7 +187,6 @@ export class ItemTransfer implements ItemTransferData {
             });
             const source = isWhat(sourceActor);
             const target = isWhat(targetActor);
-            const translations = LocalizePF2e.translations.PF2E.loot;
 
             if (source.isCharacter && target.isLoot) {
                 // Character deposits item in loot container
@@ -270,7 +301,25 @@ export class ItemTransfer implements ItemTransferData {
         formatProperties.quantity = this.quantity;
         formatProperties.item = item.name;
 
-        const flavor = await renderTemplate(this.templatePaths.flavor, {
+        // Don't bother showing quantity if it's only 1:
+        const content = await renderTemplate(this.templatePaths.content, {
+            imgPath: item.img,
+            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ''),
+        });
+
+        const flavor = await this.messageFlavor(sourceActor, targetActor, subtitle);
+
+        await ChatMessage.create({
+            user: requester.id,
+            speaker: { alias: speaker },
+            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
+            flavor,
+            content,
+        });
+    }
+
+    private async messageFlavor(sourceActor: ActorPF2e, targetActor: ActorPF2e, subtitle: string): Promise<string> {
+        return await renderTemplate(this.templatePaths.flavor, {
             action: {
                 title: CONFIG.PF2E.featTraits.interact,
                 subtitle: subtitle,
@@ -283,20 +332,6 @@ export class ItemTransfer implements ItemTransferData {
                     description: CONFIG.PF2E.traitsDescriptions.manipulate,
                 },
             ],
-        });
-        // Don't bother showing quantity if it's only 1:
-        const content = await renderTemplate(this.templatePaths.content, {
-            imgPath: item.img,
-            message: game.i18n.format(...formatArgs).replace(/\b1 × /, ''),
-        });
-
-        await ChatMessage.create({
-            user: requester.id,
-            speaker: { alias: speaker },
-            type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-            img: item.img,
-            flavor: flavor,
-            content: content,
         });
     }
 }
