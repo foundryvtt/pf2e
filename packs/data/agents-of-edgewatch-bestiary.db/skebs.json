@@ -88,9 +88,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CN"
@@ -403,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -441,9 +445,21 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "vFjztVaGeUWL4XRH",
+            "_id": "GiEEHQoDGSbmqUgh",
             "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
                 "baseItem": null,
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -456,15 +472,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "piercing",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This small, bladed weapon is held in one hand and used to stab a creature in close combat. It can also be thrown.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "knife"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -477,7 +505,7 @@
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -491,6 +519,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -498,20 +529,58 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "2 sp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 4
                 },
+                "range": {
+                    "value": "10"
+                },
+                "reload": {
+                    "value": ""
+                },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "dagger",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -519,31 +588,52 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "agile",
+                        "finesse",
+                        "thrown-10",
+                        "versatile-s"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "L"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "daggers",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.rQWaJhI5Bko5x14Z"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/dagger.webp",
+            "name": "Dagger",
             "sort": 100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
-            "_id": "bc4ObHin5rjnqkSQ",
+            "_id": "sN86M2wujGmVXx0e",
             "data": {
+                "armor": {
+                    "value": 2
+                },
+                "armorType": {
+                    "value": "light"
+                },
                 "baseItem": null,
                 "brokenThreshold": {
-                    "value": 0
+                    "value": null
                 },
                 "bulkCapacity": {
                     "value": ""
+                },
+                "check": {
+                    "value": "-1"
                 },
                 "collapsed": {
                     "value": false
@@ -554,25 +644,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
+                },
+                "dex": {
+                    "value": "3"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
-                    "value": ""
+                    "value": "1"
+                },
+                "group": {
+                    "value": "leather"
                 },
                 "hardness": {
-                    "value": 0
+                    "value": null
                 },
                 "hp": {
-                    "value": 0
+                    "value": null
                 },
                 "identification": {
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -581,10 +677,14 @@
                     "value": 0
                 },
                 "maxHp": {
-                    "value": 0
+                    "value": null
                 },
                 "negateBulk": {
                     "value": "0"
+                },
+                "potency": {},
+                "potencyRune": {
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -593,21 +693,43 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "3 gp"
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
                 },
+                "resiliencyRune": {
+                    "value": ""
+                },
+                "resilient": {},
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
+                    "value": ""
+                },
+                "speed": {
                     "value": ""
                 },
                 "stackGroup": {
                     "value": ""
+                },
+                "strength": {
+                    "value": "12"
                 },
                 "traits": {
                     "custom": "",
@@ -617,18 +739,22 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
-                    "value": 0
+                    "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "studded leather armor",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
+            "name": "Studded Leather Armor",
             "sort": 200000,
-            "type": "equipment"
+            "type": "armor"
         },
         {
             "_id": "qnVCozwzjFK6gieU",
@@ -680,6 +806,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Dagger"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -772,7 +901,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "dagger",
+            "name": "Dagger",
             "sort": 300000,
             "type": "melee"
         },
@@ -826,6 +955,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Dagger"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -918,7 +1050,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "dagger",
+            "name": "Dagger",
             "sort": 400000,
             "type": "melee"
         },
@@ -926,7 +1058,7 @@
             "_id": "3aasDsiXoE4xtSVZ",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -937,7 +1069,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Skebs can use creatures that are at least one size larger than themself as cover for the Hide and Sneak actions.</p>"
+                    "value": "<p>Skebs can use creatures that are at least one size larger than themself as cover for the @Compendium[pf2e.actionspf2e.Hide]{Hide} and @Compendium[pf2e.actionspf2e.Sneak]{Sneak} actions.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -972,10 +1104,10 @@
             "type": "action"
         },
         {
-            "_id": "cbWnol26PUUwgRU7",
+            "_id": "ZEbYuhDFGc3fADE1",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -986,13 +1118,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Skebs deals [[1d6]] extra precision damage to flat-footed creatures.</p>"
+                    "value": "<p>Skebs deals [[/r 1d6 #precision]] extra precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 1,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -1001,22 +1151,21 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "precision"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Sneak Attack",
             "sort": 600000,
