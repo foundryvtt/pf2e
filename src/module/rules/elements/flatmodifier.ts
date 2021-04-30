@@ -33,9 +33,14 @@ export class PF2FlatModifierRuleElement extends PF2RuleElement {
                 );
             }
             statisticsModifiers[selector] = (statisticsModifiers[selector] || []).concat(modifier);
-        } else {
+        } else if (value === 0) {
+            // omit modifiers with a value of zero
+        } else if (CONFIG.debug.ruleElement) {
             console.warn(
-                'PF2E | Flat modifier requires at least a selector field, a label field or item name, and a non-zero value field',
+                'PF2E | Flat modifier requires at least a selector field, a label field or item name, and a value field',
+                this.ruleData,
+                this.item,
+                actorData,
             );
         }
     }
