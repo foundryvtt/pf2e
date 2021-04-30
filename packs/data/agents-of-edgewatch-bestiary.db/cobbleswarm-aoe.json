@@ -1,5 +1,5 @@
 {
-    "_id": "DksV8jfwsP3VDAXz",
+    "_id": "Wb4Md6byPhBWe56J",
     "data": {
         "abilities": {
             "cha": {
@@ -101,8 +101,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "20 feet, burrow 10 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Burrow",
+                        "type": "burrow",
+                        "value": "10"
+                    }
+                ],
+                "value": "20"
             }
         },
         "currency": {
@@ -474,7 +480,7 @@
             "_id": "TLLEMhBLZebrCg2V",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -523,7 +529,7 @@
             "_id": "26ZZztmP0cFmWp6x",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -534,7 +540,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The cobbleswarm's tremorsense is a precise sense out to 40 feet and an imprecise sense out to 80 feet. The cobbleswarm can't sense anything beyond the range of its tremorsense.</p>"
+                    "value": "<p>The cobbleswarm's tremorsense is a precise sense out to 40 feet and an imprecise sense out to 80 feet. The cobbleswarm can't sense anything beyond the range of its tremorsense.</p>\n<hr />\n<p>Tremorsense allows a monster to feel the vibrations through a solid surface caused by movement. It is an imprecise sense with a limited range (listed in the ability). Tremorsense functions only if the monster is on the same surface as the subject, and only if the subject is moving along (or burrowing through) the surface.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -564,7 +570,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/actions/Passive.webp",
-            "name": "Precise Tremorsense",
+            "name": "Precise Tremorsense 40 feet",
             "sort": 200000,
             "type": "action"
         },
@@ -572,7 +578,7 @@
             "_id": "TBb2TTPl5fRKJQJU",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -583,7 +589,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The cobbleswarm attempts an Athletics check and compares the result to the Fortitude DC of all creatures in its space.</p>\n<p><strong>Critical Success</strong> The creature falls prone and takes 1d6 bludgeoning damage, and is restrained by the cobbleswarm until the end of the cobbleswarm's next turn.</p>\n<p><strong>Success</strong> The creature falls prone, and is grabbed by the cobbleswarm until the creature until the end of the cobbleswarm's next turn.</p>"
+                    "value": "<p>The cobbleswarm attempts an Athletics check and compares the result to the Fortitude DC of all creatures in its space.</p>\n<hr />\n<p><em data-visibility=\"gm\"><strong>Critical Success</strong> The creature falls @Compendium[pf2e.conditionitems.Prone]{Prone} and takes [[/r 1d6 #bludgeoning]] bludgeoning damage, and is @Compendium[pf2e.conditionitems.Restrained]{Restrained} by the cobbleswarm until the end of the cobbleswarm's next turn.</em></p>\n<p><em data-visibility=\"gm\"><strong>Success</strong> The creature falls prone, and is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the cobbleswarm until the creature until the end of the cobbleswarm's next turn.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -626,7 +632,7 @@
             "_id": "S00gbcUTroHxccVJ",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -637,7 +643,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Each enemy in the cobbleswarm's space takes [[/r 2d4 #blugeoning]] bludgeoning damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pummeling Assault DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
+                    "value": "<p>Each enemy in the cobbleswarm's space takes [[/r 2d4 #bludgeoning]] bludgeoning damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"17\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Pummeling Assault DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -752,12 +758,12 @@
             "type": "lore"
         }
     ],
-    "name": "Cobbleswarm (Agents of Edgewatch)",
+    "name": "Cobbleswarm (AoE)",
     "permission": {
         "default": 0
     },
     "token": {
-        "actorId": "DksV8jfwsP3VDAXz",
+        "actorId": "Wb4Md6byPhBWe56J",
         "actorLink": false,
         "bar1": {
             "attribute": "attributes.hp"
@@ -786,7 +792,7 @@
         "lockRotation": false,
         "mirrorX": false,
         "mirrorY": false,
-        "name": "Cobbleswarm (Agents of Edgewatch)",
+        "name": "Cobbleswarm (AoE)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
