@@ -1,0 +1,149 @@
+{
+    "_id": "UH2sT6eW5e31Xytd",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Dutiful Challenge]{Dutiful Challenge}</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 4
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Attacking target of Dutiful Challenge",
+                "property": "flags.pf2e.rollOptions.all.dutiful-challenge"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": {
+                    "not": [
+                        "dutiful-challenge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": {
+                    "not": [
+                        "dutiful-challenge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "damage",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Dutiful Challenge (against other targets)",
+                "predicate": {
+                    "not": [
+                        "dutiful-challenge"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "skill-check",
+                "type": "status",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 6,
+                            "start": 4,
+                            "value": -1
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": -2
+                        },
+                        {
+                            "start": 10,
+                            "value": -3
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/dutiful-challenge.webp",
+    "name": "Spell Effect: Dutiful Challenge",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

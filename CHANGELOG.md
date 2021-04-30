@@ -1,5 +1,37 @@
 # Patch Notes:
 
+## Version 1.13.2
+### Bug Fixes
+* (stwlam) Fix filtering NPCs and hazards by trait in compendium browser. Closes #1352
+* (stwlam) Fix path of "dark-tire" image in Work in Progress theme
+* (stwlam) Prevent multiple asynchronous token-icon redraw requests from throwing an error
+* (stwlam) Fix containers in containers not showing their contents
+* (stwlam) Fix localization and trait wrapping of strikes on simple NPC sheet. Closes #1358
+* (stwlam) Skip orphaned tokens in `migrateSceneToken`
+* (stwlam) Avoid uncaught exception when a buyer has insufficient funds for a merchant actor
+* (stwlam) Fix bug causing coin values to floor at 1
+* (stwlam) Fix display of loot sheet inventory for non-owners
+* (stwlam) Add `acid` to consumable traits
+* (Supe) Localize save in item description
+* (Supe) Localize spell attack rolls from focus spells
+
+### Content Changes
+* (stwlam) Reapply 1.13.0 migrations to PFS Season 2 Bestiary
+* (Tikael) Add Zhang Yong to Paizo blog bestiary
+* (SpartanCPA) Brush-up of Bestiary 1 monsters appearing in the Slithering
+* (SpartanCPA) Agents of Edgewatch Book 3, Chapter 3 bestiary brush-up
+* (pearcebasmanm) Audit Aasimar Redeemer from Bestiary 1
+* (GravenImageRD) Audit of Bloodsiphon from Abomination Vaults Book 1
+* (GravenImageRD) Add effect for Battle Medicine
+* (Shandyan) Spell effects for _dutiful challenge_ and _ki form_
+
+### Core System Improvements
+* (stwlam) Send notification messages instead of throwing JS errors in Steel Your Resolve and Raise a Shield macros
+* (stwlam) Add "Claw" and "Jaws" as base weapons
+* (stwlam) Add identify-item toggles to loot and NPC sheets, change invested icon from asterisk to diamond
+* (nikolaj-a) Reduce console warnings from flat modifier rule element
+
+
 ## Version 1.13.1
 ### Bug Fixes
 * (Supe) Initialize an empty striking rune in strike rule element

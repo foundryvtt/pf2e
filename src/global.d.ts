@@ -58,6 +58,13 @@ declare global {
         itemTypes: ItemTypeMap;
     }
 
+    const CONFIG: ConfigPF2e;
+    const canvas: Canvas<ActorPF2e>;
+    namespace globalThis {
+        // eslint-disable-next-line no-var
+        var game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
+    }
+
     interface Window {
         DicePF2e: typeof DicePF2e;
         PF2eStatusEffects: typeof StatusEffects;
@@ -70,9 +77,6 @@ declare global {
         PF2CheckModifier: typeof CheckModifier;
         PF2Check: typeof CheckPF2e;
     }
-    const game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
-    const CONFIG: ConfigPF2e;
-    const canvas: Canvas<ActorPF2e>;
 
     interface ChatMessage extends Entity {
         getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;

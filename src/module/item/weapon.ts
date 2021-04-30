@@ -5,20 +5,6 @@ import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
-    get traits(): Set<string> {
-        const traits = super.traits;
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const fundamentalRunes = [this.data.data.potencyRune, this.data.data.strikingRune];
-        if (fundamentalRunes.some((rune) => rune.value)) {
-            traits.add('evocation');
-            if (!traditionTraits.some((trait) => traits.has(trait))) {
-                traits.add('magical');
-            }
-        }
-
-        return traits;
-    }
-
     get baseType(): BaseWeaponKey | null {
         return this.data.data.baseItem ?? null;
     }
@@ -29,6 +15,24 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     get category(): WeaponCategoryKey | null {
         return this.data.data.weaponType.value ?? null;
+    }
+
+    /** @override */
+    prepareData() {
+        super.prepareData();
+
+        // Add trait(s) from potency rune
+        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
+        const potencyRune = this.data.data.potencyRune;
+        const traits = this.data.data.traits;
+
+        traits.value = [
+            ...traits.value,
+            potencyRune.value ? 'evocation' : [],
+            !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
+        ].flat();
+
+        traits.value = Array.from(new Set(traits.value));
     }
 
     getChatData(htmlOptions?: Record<string, boolean>) {

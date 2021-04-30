@@ -87,7 +87,7 @@ type TabData<T> = {
  */
 class CompendiumBrowser extends Application {
     sorters: any;
-    filters: Record<any, any>;
+    filters: Record<string, Record<string, boolean>>;
     ranges: any;
     settings: TabData<{ [key: string]: PackInfo }>;
     navigationTab: any;
@@ -239,7 +239,9 @@ class CompendiumBrowser extends Application {
         const sources: Set<string> = new Set();
 
         for await (const { pack, content } of packLoader.loadPacks('Actor', this._loadedPacks('bestiary'))) {
-            console.log(`PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`);
+            console.debug(
+                `PF2e System | Compendium Browser | ${pack.metadata.label} - ${content.length} entries found`,
+            );
             for (let actor of content) {
                 actor = actor.data;
                 if (actor.type === 'npc') {

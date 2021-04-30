@@ -402,6 +402,15 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     ): void;
 
     /** @override */
+    protected _onUpdateEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        child: ActiveEffectData | ItemType['data'],
+        updateData: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+    ): void;
+
+    /** @override */
     protected _onModifyEmbeddedEntity(
         embeddedName: 'ActiveEffect' | 'OwnedItem',
         changes: EmbeddedEntityUpdateData,

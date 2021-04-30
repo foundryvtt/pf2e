@@ -31,7 +31,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',
-        'systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/inventory.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html',
@@ -87,7 +87,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/weapon-sidebar.html',
         // Loot partials
         'systems/pf2e/templates/actors/loot/loot-avatar.html',
-        'systems/pf2e/templates/actors/loot/loot-inventory.html',
+        'systems/pf2e/templates/actors/loot/inventory.html',
 
         // Vehicle partials
         'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html',

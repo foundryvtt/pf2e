@@ -207,8 +207,9 @@ export class CharacterPF2e extends CreaturePF2e {
         const worn = this.getFirstWornArmor();
         for (const [saveName, save] of Object.entries(data.saves)) {
             // Base modifiers from ability scores & level/proficiency rank.
+            const ability = (save.ability as AbilityString) ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
             const modifiers = [
-                AbilityModifier.fromAbilityScore(save.ability, data.abilities[save.ability as AbilityString].value),
+                AbilityModifier.fromAbilityScore(ability, data.abilities[ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
             const notes = [] as PF2RollNote[];
@@ -228,7 +229,7 @@ export class CharacterPF2e extends CreaturePF2e {
             }
 
             // Add custom modifiers and roll notes relevant to this save.
-            [saveName, `${save.ability}-based`, 'saving-throw', 'all'].forEach((key) => {
+            [saveName, `${ability}-based`, 'saving-throw', 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
             });
@@ -882,11 +883,13 @@ export class CharacterPF2e extends CreaturePF2e {
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
 
+                const strikeLabel = game.i18n.localize('PF2E.WeaponStrikeLabel');
+
                 // Add the base attack roll (used for determining on-hit)
                 action.attack = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(defaultOptions);
                     CheckPF2e.roll(
-                        new CheckModifier(`Strike: ${action.name}`, action),
+                        new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                         { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                         args.event,
                         args.callback,
@@ -901,7 +904,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         roll: adaptRoll((args) => {
                             const options = (args.options ?? []).concat(defaultOptions);
                             CheckPF2e.roll(
-                                new CheckModifier(`Strike: ${action.name}`, action),
+                                new CheckModifier(`${strikeLabel}: ${action.name}`, action),
                                 { actor: this, type: 'attack-roll', options, notes, dc: args.dc },
                                 args.event,
                                 args.callback,

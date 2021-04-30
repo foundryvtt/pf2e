@@ -2,7 +2,7 @@ import { AbilityString } from '@actor/data-definitions';
 import { ConfigPF2e } from '@scripts/config';
 import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
-import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
+import { ConsumableData, SpellData, TrickMagicItemCastData } from './data-definitions';
 import { ErrorPF2e } from '@module/utils';
 
 export enum SpellConsumableTypes {
@@ -77,14 +77,13 @@ export async function createConsumableFromSpell(
 }
 
 export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boolean {
-    const spellData = item.data.spell?.data?.data ?? null;
-    const spellcastingEntries = actor.data.items.filter(
-        (i) => i.type === 'spellcastingEntry',
-    ) as SpellcastingEntryData[];
+    const spellData = item.data.spell?.data?.data;
     return (
-        spellcastingEntries
-            .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
-            .filter((i) => spellData?.traditions?.value.includes(i.data.tradition.value)).length > 0
+        !!spellData &&
+        actor.itemTypes.spellcastingEntry
+            .map((entry) => entry.data)
+            .filter((entryData) => ['prepared', 'spontaneous'].includes(entryData.data.prepared.value))
+            .some((entryData) => spellData.traditions.value.includes(entryData.data.tradition.value))
     );
 }
 
