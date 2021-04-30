@@ -814,6 +814,7 @@ export type ItemType =
     | 'spell'
     | 'spellcastingEntry'
     | PhysicalItemType;
+export type InventoryItemType = Exclude<PhysicalItemType, 'melee'>;
 
 export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
     type: ItemType;
