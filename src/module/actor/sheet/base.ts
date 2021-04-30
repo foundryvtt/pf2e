@@ -2,7 +2,7 @@ import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { addKit } from '@item/kits';
-import { compendiumBrowser } from '@module/packs/compendium-browser';
+import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { ItemPF2e } from '@item/base';
@@ -40,7 +40,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { InventoryItem } from './data-types';
+import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -85,6 +85,11 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return this.actor.data.type;
     }
 
+    /** @override */
+    get isEditable(): boolean {
+        return this.actor.can(game.user, 'update');
+    }
+
     /** Can non-owning users loot items from this sheet? */
     get isLootSheet(): boolean {
         return false;
@@ -103,9 +108,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         for (const itemData of inventoryItems) {
             itemData.isEquipped = itemData.data.equipped.value;
             itemData.isIdentified = itemData.data.identification.status === 'identified';
+            itemData.isContainer = itemData.type === 'backpack';
+
+            // Reveal the unidentified item's real name to the GM
+            const realName = itemData.data.identification?.identified?.name ?? '';
+            if (!itemData.isIdentified && realName && game.user.isGM) {
+                itemData.name = `${itemData.name} (${realName})`;
+            }
         }
 
-        const sheetData: ActorSheetData<this['actor']['data']> = {
+        const sheetData: ActorSheetDataPF2e<this['actor']['data']> = {
             cssClass: this.actor.owner ? 'editable' : 'locked',
             editable: this.isEditable,
             entity: actorData,
@@ -116,16 +128,15 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             actor: actorData,
             data: actorData.data,
             items: items,
+            user: { isGM: game.user.isGM },
+            isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
+            isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
         };
 
         this.prepareTraits(sheetData.data.traits);
         this.prepareItems(sheetData);
 
-        return {
-            ...sheetData,
-            isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
-            isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
-        };
+        return sheetData;
     }
 
     protected abstract prepareItems(sheetData: { actor: ActorDataPF2e }): void;
@@ -245,7 +256,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         try {
             const item = this.actor.getOwnedItem(spell._id);
             if (item instanceof SpellPF2e) {
-                spell.spellInfo = item.getSpellInfo();
+                spell.spellInfo = item.getChatData();
             }
         } catch (err) {
             console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell._id}`, spell);

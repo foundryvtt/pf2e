@@ -98,17 +98,21 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateSceneToken(migrations: MigrationBase[], token: TokenPF2e): Promise<void> {
         try {
+            const actorData = duplicate(token.actor?._data ?? null);
+
+            // Don't bother updating orphaned tokens
+            if (!actorData) return;
+
             const updatedToken = await this.getUpdatedToken(token.data, migrations);
-            const changes = diffObject(token.data, updatedToken);
+            const changes: Record<string, unknown> & { actorData?: object } = diffObject(token.data, updatedToken);
 
             // Only perform an actor update on unlinked tokens
-            const actorData = duplicate(token.actor?._data ?? null);
-            const updatedActor =
-                actorData && !token.data.actorLink ? await this.getUpdatedActor(actorData, migrations) : null;
-            const actorChanges = actorData && updatedActor ? diffObject(actorData, updatedActor) : {};
+            if (!token.data.actorLink) {
+                const updatedActor = await this.getUpdatedActor(actorData, migrations);
+                changes['actorData'] = diffObject(actorData, updatedActor);
+            }
 
-            if (!isObjectEmpty(changes) || !isObjectEmpty(actorChanges)) {
-                changes['actorData'] = actorChanges;
+            if (!isObjectEmpty(changes)) {
                 await token.update(changes, { enforceTypes: false });
             }
         } catch (err) {

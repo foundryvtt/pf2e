@@ -32,6 +32,7 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
+import { AbilityString } from '@actor/data-definitions';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -628,10 +629,16 @@ export const PF2ECONFIG = {
     },
 
     saves: {
-        reflex: 'PF2E.SavesReflex',
         fortitude: 'PF2E.SavesFortitude',
+        reflex: 'PF2E.SavesReflex',
         will: 'PF2E.SavesWill',
     },
+
+    savingThrowDefaultAbilities: {
+        fortitude: 'con',
+        reflex: 'dex',
+        will: 'wis',
+    } as { [save: string]: AbilityString },
 
     currencies: {
         pp: 'PF2E.CurrencyPP',
@@ -1231,6 +1238,7 @@ export const PF2ECONFIG = {
     consumableTraits: {
         ...magicSchools,
         ...spellTraditions,
+        acid: 'PF2E.TraitAcid',
         air: 'PF2E.TraitAir',
         alchemical: 'PF2E.TraitAlchemical',
         auditory: 'PF2E.TraitAuditory',
@@ -1340,6 +1348,7 @@ export const PF2ECONFIG = {
         auditory: 'PF2E.TraitAuditory',
         environmental: 'PF2E.TraitEnvironmental',
         curse: 'PF2E.TraitCurse',
+        fungus: 'PF2E.TraitFungus',
         haunt: 'PF2E.TraitHaunt',
         inhaled: 'PF2E.TraitInhaled',
         magic: 'PF2E.TraitMagic',
@@ -2324,6 +2333,10 @@ export const PF2ECONFIG = {
 };
 
 export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
+    debug: Config['debug'] & {
+        ruleElement: boolean;
+    };
+
     /**
      * Configuration for the default Combat entity class
      */

@@ -809,7 +809,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
         const spellData = duplicate(this.data.data.spell.data.data);
-
         // Filter to only spellcasting entries that are eligible to cast this consumable
         const realEntries = actor.itemTypes.spellcastingEntry
             .map((entry) => entry.data)
