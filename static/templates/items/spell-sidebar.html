@@ -6,7 +6,7 @@
 <span class="item-summary">{{data.time.value}}</span>
 
 <ol class="item-tags">
-    <li class="tag">{{data.traits.rarity.value}}</li>
+    <li class="tag">{{#with (lookup rarities data.traits.rarity.value)}}{{localize this.label}}{{/with}}</li>
     {{#each spellComponents}}
         <li class="tag">{{this}}</li>
     {{/each}}
