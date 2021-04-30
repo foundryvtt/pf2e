@@ -8,6 +8,22 @@ export class SpellPF2e extends ItemPF2e {
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
     }
 
+    get spellLevel() {
+        return this.data.data.level.value;
+    }
+
+    get isCantrip(): boolean {
+        return this.spellLevel === 0;
+    }
+
+    get isFocusSpell() {
+        return this.data.data.category.value === 'focus';
+    }
+
+    get isRitual(): boolean {
+        return this.data.data.category.value === 'ritual';
+    }
+
     getChatData(htmlOptions?: Record<string, boolean>, rollOptions: { spellLvl?: number } = {}) {
         if (!this.actor) {
             return {};

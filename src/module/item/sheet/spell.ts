@@ -20,7 +20,7 @@ export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
             areaSizes: CONFIG.PF2E.areaSizes,
             areaTypes: CONFIG.PF2E.areaTypes,
             spellScalingModes: CONFIG.PF2E.spellScalingModes,
-            isRitual: data.data.traditions.value.includes('ritual'),
+            isRitual: this.item.isRitual,
         };
     }
 

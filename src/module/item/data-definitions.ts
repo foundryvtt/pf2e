@@ -541,10 +541,10 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     spellType: {
         value: string;
     };
-    spellCategory: {
-        value: string;
+    category: {
+        value: keyof ConfigPF2e['PF2E']['spellCategories'];
     };
-    traditions: ValuesList<MagicTraditionKey>;
+    traditions: ValuesList<keyof ConfigPF2e['PF2E']['spellTraditions']>;
     school: {
         value: MagicSchoolKey;
     };
