@@ -330,6 +330,19 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         return sheetOptions;
     }
 
+    private formatSpellComponents(data: any) {
+        if (!data.components.value) return [];
+        const comps = data.components.value
+            .split(',')
+            .map(
+                (component: string) =>
+                    CONFIG.PF2E.spellComponents[component.trim() as keyof ConfigPF2e['PF2E']['spellComponents']] ??
+                    component.trim(),
+            );
+        if (data.materials.value) comps.push(data.materials.value);
+        return comps;
+    }
+
     protected onTraitSelector(event: JQuery.TriggeredEvent): void {
         event.preventDefault();
         const $anchor = $(event.currentTarget);
