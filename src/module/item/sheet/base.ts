@@ -6,7 +6,6 @@ import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
 import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
-import { SpellPF2e } from '@item/spell';
 import Tagify from '@yaireo/tagify';
 import {
     BasicSelectorOptions,
@@ -24,10 +23,7 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
     isPhysicalItem: boolean;
 }
 
-/**
- * Override and extend the basic :class:`ItemSheet` implementation.
- * @category Other
- */
+/** @override */
 export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
     private activeMystifyTab = 'unidentified';
 
@@ -89,11 +85,12 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
-        data.damageTypes = dt; // do not let user set bulk if in a stack group because the group determines bulk
+        data.damageTypes = dt;
 
+        // do not let user set bulk if in a stack group because the group determines bulk
         const stackGroup = data.data?.stackGroup?.value;
         data.bulkDisabled = stackGroup !== undefined && stackGroup !== null && stackGroup.trim() !== '';
-        data.rarity = CONFIG.PF2E.rarityTraits; // treasure data
+        data.rarity = CONFIG.PF2E.rarityTraits;
         data.usage = CONFIG.PF2E.usageTraits; // usage data
         data.stackGroups = CONFIG.PF2E.stackGroups;
 
@@ -107,23 +104,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.stackGroups = CONFIG.PF2E.stackGroups;
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
-        } else if (item instanceof SpellPF2e) {
-            // Spell Data
-            mergeObject(data, {
-                spellTypes: CONFIG.PF2E.spellTypes,
-                spellCategories: CONFIG.PF2E.spellCategories,
-                magicSchools: CONFIG.PF2E.magicSchools,
-                spellLevels: CONFIG.PF2E.spellLevels,
-                magicTraditions: this.prepareOptions(CONFIG.PF2E.magicTraditions, item.data.data.traditions),
-                traits: this.prepareOptions(CONFIG.PF2E.spellTraits, itemData.data.traits),
-                spellComponents: this.formatSpellComponents(data.data),
-                areaSizes: CONFIG.PF2E.areaSizes,
-                areaTypes: CONFIG.PF2E.areaTypes,
-                spellScalingModes: CONFIG.PF2E.spellScalingModes,
-                isRitual: item.data.data.traditions.value.includes('ritual'),
-            });
-
-            this.prepareTraits(traits, { ...CONFIG.PF2E.magicTraditions, ...CONFIG.PF2E.spellTraits });
         } else if (type === 'weapon') {
             // get a list of all custom martial skills
             const martialSkills: MartialData[] = [];
@@ -348,19 +328,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         }
 
         return sheetOptions;
-    }
-
-    private formatSpellComponents(data: any) {
-        if (!data.components.value) return [];
-        const comps = data.components.value
-            .split(',')
-            .map(
-                (component: string) =>
-                    CONFIG.PF2E.spellComponents[component.trim() as keyof ConfigPF2e['PF2E']['spellComponents']] ??
-                    component.trim(),
-            );
-        if (data.materials.value) comps.push(data.materials.value);
-        return comps;
     }
 
     protected onTraitSelector(event: JQuery.TriggeredEvent): void {
