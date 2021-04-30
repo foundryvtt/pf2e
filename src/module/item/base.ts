@@ -19,7 +19,7 @@ import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definition
 import { CheckPF2e } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { ErrorPF2e } from '@module/utils';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -805,7 +805,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const realEntries = actor.itemTypes.spellcastingEntry
             .map((entry) => entry.data)
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
-            .filter((i) => spellData.traditions.value.includes(i.data.tradition.value));
+            .filter((i) => tupleHasValue(spellData.traditions.value, i.data.tradition.value));
         const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
         if (spellcastingEntries.length > 0) {
             const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
