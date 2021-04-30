@@ -12,7 +12,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return;
     }
 
-    const encouragingWordsMacro = async ({ DC, bonus, dip }) => {
+    const encouragingWordsMacro = async ({ DC: int, bonus: int, dip: string }) => {
         const options = actor.getRollOptions(['all', 'skill-check', 'diplomacy']);
 
         options.push(translations.Title);
@@ -25,7 +25,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: (roll) => {
+            callback: (roll: string) => {
                 let healFormula, successLabel;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : '';
@@ -56,10 +56,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         });
     };
 
-    async function applyChanges($html) {
+    async function applyChanges($html: JQuery) {
         const { dip } = actor.data.data.skills;
         const { name } = actor;
-        const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
+        const mod = Number($html.find('[name="modifier"]').val()) || 0;
 
         let usedProf = 0;
         usedProf = dip.rank;
