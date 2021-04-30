@@ -24,10 +24,8 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.category.value === 'ritual';
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>, rollOptions: { spellLvl?: number } = {}) {
-        if (!this.actor) {
-            return {};
-        }
+    getChatData(this: Owned<SpellPF2e>, htmlOptions: EnrichHTMLOptions = {}, rollOptions: { spellLvl?: number } = {}) {
+        if (!this.actor) return {};
 
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;

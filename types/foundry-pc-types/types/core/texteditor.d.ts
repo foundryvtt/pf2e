@@ -1,3 +1,11 @@
+declare interface EnrichHTMLOptions {
+    secrets?: boolean;
+    entities?: boolean;
+    links?: boolean;
+    rolls?: boolean;
+    rollData?: boolean;
+}
+
 /**
  * A collection of helper functions and utility methods related to the rich text editor
  */
@@ -22,7 +30,7 @@ declare class TextEditor {
      */
     static enrichHTML(
         content: string,
-        { secrets, entities, links, rolls, rollData }?: { [x: string]: boolean },
+        { secrets, entities, links, rolls, rollData }?: EnrichHTMLOptions,
     ): string;
 
     /**

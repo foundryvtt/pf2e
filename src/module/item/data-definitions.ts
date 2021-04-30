@@ -928,6 +928,10 @@ export type ItemDataPF2e =
     | ClassData
     | EffectData;
 
+export function isItemSystemData(data: Record<string, any>): data is ItemDescriptionData {
+    return data['description'] instanceof Object && typeof data['description']['value'] === 'string';
+}
+
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
     return 'quantity' in itemData.data;
