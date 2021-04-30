@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -108,8 +108,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "20 feet, swim 10 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "10"
+                    }
+                ],
+                "value": "20"
             }
         },
         "currency": {
@@ -451,6 +457,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -497,7 +506,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "TkcW1ugfpwNdIO5p",
+            "_id": "0bwOzjr3mbDPuipM",
             "data": {
                 "armor": {
                     "value": 2
@@ -513,7 +522,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -527,7 +536,7 @@
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": true
@@ -545,10 +554,13 @@
                     "value": null
                 },
                 "identification": {
+                    "identified": {
+                        "name": "+1 Resilient Studded Leather Armor"
+                    },
                     "status": "identified"
                 },
                 "identified": {
-                    "value": false
+                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -575,36 +587,6 @@
                 "price": {
                     "value": "500 gp"
                 },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
                 "propertyRune1": {
                     "value": ""
                 },
@@ -628,18 +610,18 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -649,14 +631,18 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
             "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "+1 Resilient Studded Leather Armor",
             "sort": 100000,
@@ -712,6 +698,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Jaws"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -801,7 +790,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 200000,
             "type": "melee"
         },
@@ -834,7 +823,7 @@
                 "damageRolls": {
                     "awpofqpnwc0zf0pr97fus8": {
                         "damage": "3d8+8",
-                        "damageType": "acid"
+                        "damageType": "slashing"
                     }
                 },
                 "description": {
@@ -855,6 +844,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Claw"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -945,7 +937,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "claw",
+            "name": "Claw",
             "sort": 300000,
             "type": "melee"
         },
@@ -999,7 +991,57 @@
             "type": "action"
         },
         {
-            "_id": "KICV22LYPNUTmhiJ",
+            "_id": "aSvIfWvkrhDYQZn3",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>This monster regains the listed number of Hit Points each round at the beginning of its turn. Its @Compendium[pf2e.conditionitems.Dying]{Dying} condition never increases beyond Dying 3 as long as its regeneration is active. However, if it takes damage of a type listed in the regeneration entry, its regeneration deactivates until the end of its next turn. Deactivate the regeneration before applying any damage of a listed type, since that damage might kill the monster by bringing it to Dying 4.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "regeneration",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.lR9R5Vld8Eu2Dha5"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Regeneration 20 (Deactivated by Fire or Acid)",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "IBTLrjDIdwriv1Sh",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -1019,7 +1061,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -1033,18 +1075,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
             "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -1062,12 +1105,27 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The ravenile's regeneration is currently deactivated; <strong>Effect</strong> The ravenile makes a melee Strike. This counts as two attacks for the ravenile's multiple attack penalty. If this Strike hits, the ravenile deals an extra die of weapon damage and the target falls prone.</p>"
+                    "value": "<p><strong>Requirements</strong> The ravenile's regeneration is currently deactivated;</p>\n<p><strong>Effect</strong> The ravenile makes a melee Strike.</p>\n<p>This counts as two attacks for the ravenile's multiple attack penalty.</p>\n<p>If this Strike hits, the ravenile deals an extra die of weapon damage and the target falls @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.furious-wallop"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "furious-wallop"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -1093,11 +1151,11 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Furious Wallop",
-            "sort": 600000,
+            "sort": 700000,
             "type": "action"
         },
         {
-            "_id": "uyHTDGawjpFZxvA1",
+            "_id": "1mBHiJQyWY7LwsCN",
             "data": {
                 "actionCategory": {
                     "value": "offensive"
@@ -1111,13 +1169,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive claw Strikes in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
+                    "value": "<p>Claw</p>\n<hr />\n<p><strong>Requirements</strong> The monster hit the same enemy with two consecutive Strikes of the listed type in the same round.</p>\n<p><strong>Effect</strong> The monster automatically deals that Strike's damage again to the enemy.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "rend",
                 "source": {
                     "value": ""
                 },
@@ -1131,18 +1189,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.3JOi2cMcGhT3eze1"
+                }
+            },
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Rend",
-            "sort": 700000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1158,7 +1217,7 @@
                     "value": ""
                 },
                 "description": {
-                    "value": "<p><strong>Requirements</strong> The ravenile's regeneration is currently active</p>\n<hr />\n<p>The ravenile regains 20 HP.</p>"
+                    "value": "<p><strong>Requirements</strong> The ravenile's regeneration is currently active</p>\n<hr />\n<p>The ravenile regains [[/r 20 #Hit Points]] HP.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1188,7 +1247,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Forced Regeneration",
-            "sort": 800000,
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1228,7 +1287,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1268,7 +1327,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1308,7 +1367,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1348,7 +1407,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "lore"
         },
         {
@@ -1388,7 +1447,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "lore"
         }
     ],
