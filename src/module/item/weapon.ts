@@ -26,10 +26,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const potencyRune = this.data.data.potencyRune;
         const traits = this.data.data.traits;
 
+        const isRanged = this.data.data.range.value !== '' && this.data.data.range.value !== 'Melee' && this.data.data.range.value !== 'Reach';
+        console.log(traits)
+        const hasRangedTrait = traits.value.find((trait) => trait.includes('range-increment'))?.length > 0;
+
         traits.value = [
             ...traits.value,
             potencyRune.value ? 'evocation' : [],
             !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
+            isRanged && !hasRangedTrait ? `Range Increment ${this.data.data.range.value} ft` : [],
         ].flat();
 
         traits.value = Array.from(new Set(traits.value));
