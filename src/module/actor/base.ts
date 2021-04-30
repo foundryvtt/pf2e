@@ -218,7 +218,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                         merged.token.vision = true;
                         break;
                     case 'loot':
-                        // Make loot actors interactable and neutral disposition
+                        // Make loot actors linked, interactable and neutral disposition
+                        merged.token.actorLink = true;
                         merged.permission.default = CONST.ENTITY_PERMISSIONS.LIMITED;
                         merged.token.disposition = CONST.TOKEN_DISPOSITIONS.NEUTRAL;
                         break;

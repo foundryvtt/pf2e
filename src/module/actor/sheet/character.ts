@@ -246,7 +246,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
 
                 i.canBeEquipped = !containerData.isInContainer;
-                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+                i.isSellableTreasure = i.showEdit && i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
                 i.hasInvestedTrait = itemData.data.traits.value.includes('invested');
                 i.isInvested = 'invested' in itemData.data && itemData.data.invested.value;
                 if (i.isInvested) {

@@ -1,0 +1,42 @@
+<section class="sheet-sidebar sidebar sidebar-loot">
+    <div class="bio-item trait-size pf-container">
+        <img class="sheet-profile" src="{{actor.img}}" title="{{actor.name}}" height="auto" width="100%" data-edit="img" />
+    </div>
+    <section>{{data.details.description.value}}</section>
+    {{#if user.isGM}}
+        {{#if isLoot}}
+            <section class="loot-distribution">
+                <button class= "split-coins" type="button" name="split-coins" value="1"><i class="fa fa-coins"></i> {{localize "PF2E.loot.SplitCoinsLabel"}}</button>
+                <button class= "loot-npcs" type="button" name="loot-npc"><i class="fas fa-box-open"></i> {{localize "PF2E.loot.LootNPCsLabel"}}</button>
+            </section>
+        {{/if}}
+
+        <!-- GM SETTINGS -->
+        <h3 class="gm-settings">{{localize "PF2E.loot.GMSettings"}}</h3>
+        <section class="loot-gm-settings">
+            <section class="loot-sheet-type">
+                <h3 class="gm-header">
+                    <i class="fas fa-id-card"></i>
+                    {{localize "PF2E.loot.SheetType"}}
+                    <i class="fas fa-info-circle help" onclick="$('.sheet-type-info').toggle();"></i>
+                </h3>
+                <div class="sheet-type-info">
+                    <p>
+                        <strong>{{localize "PF2E.loot.LootLabel"}}</strong>: {{localize "PF2E.loot.LootDescription"}}
+                    </p>
+                    <p>
+                        <strong>{{localize "PF2E.loot.MerchantLabel"}}</strong>: {{localize "PF2E.loot.MerchantDescription"}}
+                    </p>
+                </div>
+                <div class="sheet-types">
+                    <select class="loot-sheet-type" name="data.lootSheetType">
+                        {{#select data.lootSheetType}}
+                            <option value="Loot">{{localize "PF2E.loot.LootLabel"}}</option>
+                            <option value="Merchant">{{localize "PF2E.loot.MerchantLabel"}}</option>
+                        {{/select}}
+                    </select>
+                </div>
+            </section>
+        </section>
+    {{/if}}
+</section>
