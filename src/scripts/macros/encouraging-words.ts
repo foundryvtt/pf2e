@@ -12,7 +12,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return;
     }
 
-    const encouragingWordsMacro = async ({ DC: int, bonus: int, dip: string }) => {
+    const encouragingWordsMacro = async (DC: number, bonus: number, dip: any) => {
         const options = actor.getRollOptions(['all', 'skill-check', 'diplomacy']);
 
         options.push(translations.Title);
@@ -25,7 +25,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: (roll: string) => {
+            callback: (roll: any) => {
                 let healFormula, successLabel;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : '';
@@ -57,27 +57,31 @@ export function encouragingWords(options: ActionDefaultOptions): void {
     };
 
     async function applyChanges($html: JQuery) {
-        const { dip } = actor.data.data.skills;
-        const { name } = actor;
-        const mod = Number($html.find('[name="modifier"]').val()) || 0;
+        if (actor === undefined) {
+            ui.notifications.warn(translations.BadArgs);
+        } else {
+            const { dip } = actor.data.data.skills;
+            const { name } = actor;
+            const mod = Number($html.find('[name="modifier"]').val()) || 0;
 
-        let usedProf = 0;
-        usedProf = dip.rank;
+            let usedProf = 0;
+            usedProf = dip.rank;
 
-        const roll = [
-            () =>
-                ui.notifications.warn(
-                    game.i18n.format(translations.NotTrained, {
-                        name: name,
-                    }),
-                ),
-            () => encouragingWordsMacro({ DC: 15 + mod, bonus: 0, dip }),
-            () => encouragingWordsMacro({ DC: 20 + mod, bonus: 5, dip }),
-            () => encouragingWordsMacro({ DC: 30 + mod, bonus: 15, dip }),
-            () => encouragingWordsMacro({ DC: 40 + mod, bonus: 25, dip }),
-        ][usedProf];
+            const roll = [
+                () =>
+                    ui.notifications.warn(
+                        game.i18n.format(translations.NotTrained, {
+                            name: name,
+                        }),
+                    ),
+                () => encouragingWordsMacro(15 + mod, 0, dip),
+                () => encouragingWordsMacro(20 + mod, 5, dip),
+                () => encouragingWordsMacro(30 + mod, 15, dip),
+                () => encouragingWordsMacro(40 + mod, 25, dip),
+            ][usedProf];
 
-        roll();
+            roll();
+        }
     }
 
     if (actor === undefined) {
