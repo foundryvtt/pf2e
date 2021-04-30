@@ -3,7 +3,10 @@ import { SpellData } from './data-definitions';
 import { SpellcastingEntryPF2e } from './spellcasting-entry';
 
 /**
- * @category Other
+ * This is an outdated class.
+ * All new spell functionality should go in spell.ts, and some
+ * existing functionality is going to be duplicated in spell
+ * until we can sever this class.
  */
 export class SpellFacade {
     data: SpellData;
@@ -88,11 +91,11 @@ export class SpellFacade {
     }
 
     get isFocusSpell() {
-        return this.traditions.includes('focus');
+        return this.data.data.category.value === 'focus';
     }
 
     get isRitual(): boolean {
-        return this.traditions.includes('ritual');
+        return this.data.data.category.value === 'ritual';
     }
 
     get traditions() {

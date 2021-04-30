@@ -265,8 +265,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
         const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
         const isCantrip = spell.data.level.value === 0;
-        const isFocusSpell = spell.data.traditions.value.includes('focus');
-        const isRitual = spell.data.traditions.value.includes('ritual');
+        const isFocusSpell = spell.data.category.value === 'focus';
+        const isRitual = spell.data.category.value === 'ritual';
 
         if (isSpontaneous && signatureSpells.includes(spell._id) && !isCantrip && !isFocusSpell && !isRitual) {
             spell.data.isSignatureSpell = true;

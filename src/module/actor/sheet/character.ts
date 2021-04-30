@@ -996,11 +996,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
 
         if (!signatureSpells.includes(spell.id)) {
-            const isCantrip = spell.data.data.level.value === 0;
-            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
-            const isRitual = spell.data.data.traditions.value.includes('ritual');
-
-            if (isCantrip || isFocusSpell || isRitual) {
+            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
                 return;
             }
 

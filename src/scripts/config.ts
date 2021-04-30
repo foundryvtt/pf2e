@@ -1536,8 +1536,6 @@ export const PF2ECONFIG = {
         save: 'PF2E.SpellTypeSave',
         heal: 'PF2E.SpellTypeHeal',
         utility: 'PF2E.SpellTypeUtility',
-        focus: 'PF2E.SpellTypeFocus',
-        ritual: 'PF2E.SpellTypeRitual',
     },
 
     spellLevels: {
