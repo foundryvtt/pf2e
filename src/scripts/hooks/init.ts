@@ -30,6 +30,7 @@ export function listen(): void {
         console.log('PF2e System | Initializing Pathfinder 2nd Edition System');
 
         CONFIG.PF2E = PF2ECONFIG;
+        CONFIG.debug.ruleElement ??= false;
 
         // Assign document classes.
         CONFIG.Item.entityClass = ItemPF2e;
