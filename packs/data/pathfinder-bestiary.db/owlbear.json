@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -404,6 +405,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -435,7 +439,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "sqceAJWlpdKGnHvx",
@@ -444,6 +448,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "Grab"
                     ]
@@ -730,6 +735,106 @@
             "type": "melee"
         },
         {
+            "_id": "IqoKWBknWTskRMl6",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "M540DnklFMoqCQpx",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
             "_id": "vTXaShzYmcNbRjzk",
             "data": {
                 "actionCategory": {
@@ -739,12 +844,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The owlbear unleashes a loud screech that terrifies its prey. Each creature in an 80-foot emanation must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Bloodcurdling Screech DC\" data-pf2-show-dc=\"gm\">Will</span> save. Regardless of the result, creatures are temporarily immune for 1 minute.<br /> <strong>Critical Success</strong> The creature is unaffected.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.<br /> <strong>Critical Failure</strong> The creature is fleeing for 1 round and @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3.</p>"
+                    "value": "<p>The owlbear unleashes a loud screech that terrifies its prey. Each creature in an 80-foot emanation must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Bloodcurdling Screech DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p><em data-visibility=\"gm\">Regardless of the result, creatures are temporarily immune for 1 minute.</em></p>\n<hr />\n<p><em data-visibility=\"gm\"><strong>Critical Success</strong> The creature is unaffected.</em></p>\n<p><em data-visibility=\"gm\"><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</em></p>\n<p><em data-visibility=\"gm\"><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</em></p>\n<p><em data-visibility=\"gm\"><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round and @Compendium[pf2e.conditionitems.Frightened]{Frightened 3}.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -778,9 +883,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Bloodcurdling Screech",
-            "sort": 300000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -793,12 +898,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The owlbear has a creature grabbed with its talons. <strong>Effect</strong> The owlbear attempts to disembowel the creature with a beak Strike. If the Strike hits, the target must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"22\" data-pf2-label=\"Gnaw DC\" data-pf2-show-dc=\"gm\">Will</span> save.<br /> <strong>Critical Success</strong> The target is unaffected.<br /> <strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1.<br /> <strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Sickened]{Sickened} 1 and @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 as long as it remains @Compendium[pf2e.conditionitems.Sickened]{Sickened}.</p>"
+                    "value": "<p><strong>Requirements</strong> The owlbear has a creature @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} with its talons.</p>\n<p><strong>Effect</strong> The owlbear attempts to disembowel the creature with a beak Strike. If the Strike hits, the target must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"22\" data-pf2-label=\"Gnaw DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<hr />\n<p><em data-visibility=\"gm\"><strong>Critical Success</strong> The target is unaffected.</em></p>\n<p><em data-visibility=\"gm\"><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1}.</em></p>\n<p><em data-visibility=\"gm\"><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Sickened]{Sickened 1} and @Compendium[pf2e.conditionitems.Slowed]{Slowed 1} as long as it remains sickened.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -827,58 +932,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Gnaw",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "Ba3SKPWJihlRS1uP",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
-            "name": "Grab",
-            "sort": 500000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -891,7 +947,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
@@ -930,9 +986,59 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Screeching Advance",
-            "sort": 600000,
+            "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "uKGn7YvvgvlcBGua",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -970,9 +1076,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1010,9 +1116,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1050,9 +1156,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
@@ -1066,7 +1172,9 @@
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1076,20 +1184,24 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Owlbear",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
         "width": 2
     },
