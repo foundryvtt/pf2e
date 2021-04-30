@@ -47,7 +47,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                     ChatMessage.create({
                         user: game.user.id,
                         type: CONST.CHAT_MESSAGE_TYPES.ROLL,
-                        flavor: `<strong>${rollType}$ ${translations.Title}</strong> (${successLabel})`,
+                        flavor: `<strong>${rollType} ${translations.Title}</strong> (${successLabel})`,
                         roll: healRoll,
                         speaker: ChatMessage.getSpeaker(),
                     });
@@ -63,9 +63,10 @@ export function encouragingWords(options: ActionDefaultOptions): void {
             const { dip } = actor.data.data.skills;
             const { name } = actor;
             const mod = Number($html.find('[name="modifier"]').val()) || 0;
+            const requestedProf = Number($html.find('[name="dc-type"]').val()) || 1;
 
             let usedProf = 0;
-            usedProf = dip.rank;
+            usedProf = requestedProf <= dip.rank ? requestedProf : dip.rank;
 
             const roll = [
                 () =>
