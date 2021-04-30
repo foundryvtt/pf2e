@@ -2324,6 +2324,10 @@ export const PF2ECONFIG = {
 };
 
 export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
+    debug: Config['debug'] & {
+        ruleElement: boolean;
+    };
+
     /**
      * Configuration for the default Combat entity class
      */
