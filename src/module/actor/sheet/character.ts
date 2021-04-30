@@ -337,7 +337,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             // Feats
-            else if (item instanceof FeatPF2e) {
+            else if (i.type == 'feat') {
+                const item = this.actor.items.get(itemData._id) as FeatPF2e;
                 const actionType = item.data.data.actionType.value || 'passive';
 
                 tempFeats.push(item.data);
@@ -390,7 +391,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             // Actions
-            else if (item instanceof ActionPF2e) {
+            else if (i.type == 'action') {
+                const item = this.actor.items.get(itemData._id) as ActionPF2e;
                 const actionType = ['free', 'reaction', 'activity'].includes(item.data.data.actionType.value)
                     ? item.data.data.actionType.value
                     : 'action';
