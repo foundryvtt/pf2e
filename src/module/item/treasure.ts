@@ -135,7 +135,7 @@ export function calculateValueOfCurrency(items: ItemDataPF2e[]) {
                 item.data.denomination?.value !== null,
         )
         .map((item) => {
-            const value = (item.data.value.value || 1) * (item.data.quantity.value || 1);
+            const value = (Number(item.data.value.value) || 0) * item.data.quantity.value;
             return toCoins(item.data.denomination.value, value);
         })
         .reduce(combineCoins, noCoins());
