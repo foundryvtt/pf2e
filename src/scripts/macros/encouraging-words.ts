@@ -12,7 +12,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         return;
     }
 
-    const encouragingWordsMacro = async ({ DC: any, bonus: any, dip: any }) => {
+    const encouragingWordsMacro = async ({ DC, bonus, dip }) => {
         const options = actor.getRollOptions(['all', 'skill-check', 'diplomacy']);
 
         options.push(translations.Title);
@@ -25,7 +25,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         dip.roll({
             dc: dc,
             options: options,
-            callback: (roll: any) => {
+            callback: (roll) => {
                 let healFormula, successLabel;
 
                 const bonusString = bonus > 0 ? `+ ${bonus}` : '';
@@ -56,7 +56,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
         });
     };
 
-    async function applyChanges($html: any, actor: any) {
+    async function applyChanges($html) {
         const { dip } = actor.data.data.skills;
         const { name } = actor;
         const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
@@ -110,7 +110,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                 yes: {
                     icon: `<i class="fas fa-hand-holding-dipical"></i>`,
                     label: translations.Title,
-                    callback: applyChanges(actor: actor),
+                    callback: applyChanges,
                 },
                 no: {
                     icon: `<i class="fas fa-times"></i>`,
