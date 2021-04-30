@@ -110,7 +110,7 @@ export function encouragingWords(options: ActionDefaultOptions): void {
                 yes: {
                     icon: `<i class="fas fa-hand-holding-dipical"></i>`,
                     label: translations.Title,
-                    callback: applyChanges({$html:$html, actor: actor}),
+                    callback: applyChanges(actor: actor),
                 },
                 no: {
                     icon: `<i class="fas fa-times"></i>`,
