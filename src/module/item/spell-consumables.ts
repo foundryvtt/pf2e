@@ -3,7 +3,7 @@ import { ConfigPF2e } from '@scripts/config';
 import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
 import { ConsumableData, SpellData, TrickMagicItemCastData } from './data-definitions';
-import { ErrorPF2e } from '@module/utils';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export enum SpellConsumableTypes {
     Scroll,
@@ -83,7 +83,7 @@ export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boole
         actor.itemTypes.spellcastingEntry
             .map((entry) => entry.data)
             .filter((entryData) => ['prepared', 'spontaneous'].includes(entryData.data.prepared.value))
-            .some((entryData) => spellData.traditions.value.includes(entryData.data.tradition.value))
+            .some((entryData) => tupleHasValue(spellData.traditions.value, entryData.data.tradition.value))
     );
 }
 

@@ -56,6 +56,7 @@ import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-re
 import { Migration623NumifyPotencyRunes } from './623-numify-potency-runes';
 import { Migration624RemoveTokenEffectIconFlags } from '@module/migrations/624-removed-token-effect-icon-flags';
 import { Migration625EnsurePresenceOfSaves } from './625-ensure-presence-of-saves';
+import { Migration626UpdateSpellCategory } from './626-update-spell-category';
 
 export class Migrations {
     private static list = [
@@ -116,6 +117,7 @@ export class Migrations {
         Migration623NumifyPotencyRunes,
         Migration624RemoveTokenEffectIconFlags,
         Migration625EnsurePresenceOfSaves,
+        Migration626UpdateSpellCategory,
     ];
 
     static get latestVersion(): number {
