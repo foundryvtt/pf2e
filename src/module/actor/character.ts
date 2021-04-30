@@ -204,8 +204,9 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Saves
-        const worn = this.getFirstWornArmor();
-        for (const [saveName, save] of Object.entries(data.saves)) {
+        const worn = this.wornArmor?.data;
+        for (const saveName of ['fortitude', 'reflex', 'will'] as const) {
+            const save = data.saves[saveName];
             // Base modifiers from ability scores & level/proficiency rank.
             const ability = (save.ability as AbilityString) ?? CONFIG.PF2E.savingThrowDefaultAbilities[saveName];
             const modifiers = [
@@ -405,7 +406,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         // Shield
-        const shield = this.getFirstEquippedShield();
+        const shield = this.heldShield?.data;
         if (shield) {
             data.attributes.shield.value = shield.data.hp.value;
             data.attributes.shield.max = shield.data.maxHp.value;

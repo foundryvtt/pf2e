@@ -256,7 +256,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         // Shield
         {
-            const shield = this.getFirstEquippedShield();
+            const shield = this.heldShield?.data;
             if (shield) {
                 // Use shield item data
                 const isBroken = shield.data.hp.value <= shield.data.brokenThreshold.value;
