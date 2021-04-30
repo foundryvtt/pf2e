@@ -88,9 +88,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -101,8 +101,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "fly 30 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Fly",
+                        "type": "fly",
+                        "value": "30"
+                    }
+                ],
+                "value": "0"
             }
         },
         "currency": {
@@ -404,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "Critical hits (except slashing)",
@@ -425,7 +434,7 @@
                 "selected": [],
                 "value": [
                     "common",
-                    "(can't speak any language)"
+                    "custom"
                 ]
             },
             "rarity": {
@@ -501,6 +510,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Claws"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -593,7 +605,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "claws",
+            "name": "Claws",
             "sort": 100000,
             "type": "melee"
         },
@@ -647,6 +659,9 @@
                     "value": 0
                 },
                 "identification": {
+                    "identified": {
+                        "name": "Jaws"
+                    },
                     "status": "identified"
                 },
                 "identified": {
@@ -735,7 +750,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 200000,
             "type": "melee"
         },
@@ -743,7 +758,7 @@
             "_id": "DGsILrvl3LJIeZIu",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -754,7 +769,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The shredskin is grabbing a creature; <strong>Effect</strong> The shredskin attempts to pin the creature and wrap itself around the creature like a shirt. The shredskin rolls an Athletics check against the creature's Fortitude DC. On a success, the creature becomes restrained and the shredskin can take control of the creature as if using Control Body. At the start of its turn, the shredskin can automatically Constrict the enshrouded creature as a free action. An enshrouded creature can attempt a DC 16 Escape check to break free (DC 18 if the shredskin critically succeeded its Athletics check to Enshroud).</p>"
+                    "value": "<p><strong>Requirements</strong> The shredskin is grabbing a creature;</p>\n<p><strong>Effect</strong> The shredskin attempts to pin the creature and wrap itself around the creature like a shirt. The shredskin rolls an Athletics check against the creature's Fortitude DC.</p>\n<p>On a success, the creature becomes @Compendium[pf2e.conditionitems.Restrained]{Restrained} and the shredskin can take control of the creature as if using Control Body.</p>\n<p>At the start of its turn, the shredskin can automatically Constrict the enshrouded creature as a free action.</p>\n<p>An enshrouded creature can attempt a DC 16 Escape check to break free (DC 18 if the shredskin critically succeeded its Athletics check to Enshroud).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -789,60 +804,10 @@
             "type": "action"
         },
         {
-            "_id": "AA5L1F8729ddAxq5",
-            "data": {
-                "actionCategory": {
-                    "value": ""
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action. <strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is grabbed by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the Escape action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "selected": {},
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.webp",
-            "name": "Grab",
-            "sort": 400000,
-            "type": "action"
-        },
-        {
             "_id": "3g9fOfW6T5VklwH5",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -853,7 +818,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a shredskin successfully Squeezes, it moves through the tight space at full speed. Narrow confines are not difficult terrain for a shredskin.</p>"
+                    "value": "<p>When a shredskin successfully @Compendium[pf2e.actionspf2e.Squeeze]{Squeezes}, it moves through the tight space at full speed. Narrow confines are not difficult terrain for a shredskin.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -883,16 +848,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Compression",
-            "sort": 500000,
+            "sort": 400000,
             "type": "action"
         },
         {
             "_id": "QozBQD2QZP7kMYOG",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "action"
@@ -903,7 +868,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The shredskin is adjacent to a Medium or Small humanoid-shaped corpse; <strong>Effect</strong> The shredskin wraps itself around the corpse and takes control of the host body. While controlling a host, the shredskin uses the host's Speed but its own attacks, and it loses its Grab and Enshroud abilities. Attacks that target the shredskin while it controls a body deal half of the damage to the shredskin and half of the damage to the host body. Attacks that target an area deal damage to both the shredskin and host body normally. The shredskin can release the host body as a free action at the start of its turn. If the host is destroyed, the shredskin automatically releases the body and is flat-footed for 1 round. A Medium corpse typically has 15 hit points, while a Small corpse typically has 10 Hit Points. Creatures can notice that a corpse is controlled by a shredskin by succeeding a Perception check against the shredskin's Deception DC.</p>"
+                    "value": "<p><strong>Requirements</strong> The shredskin is adjacent to a Medium or Small humanoid-shaped corpse;</p>\n<p><strong>Effect</strong> The shredskin wraps itself around the corpse and takes control of the host body. While controlling a host, the shredskin uses the host's Speed but its own attacks, and it loses its Grab and Enshroud abilities.</p>\n<p>Attacks that target the shredskin while it controls a body deal half of the damage to the shredskin and half of the damage to the host body. Attacks that target an area deal damage to both the shredskin and host body normally.</p>\n<p>The shredskin can release the host body as a free action at the start of its turn. If the host is destroyed, the shredskin automatically releases the body and is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} for 1 round. A Medium corpse typically has 15 hit points, while a Small corpse typically has 10 Hit Points.</p>\n<p>Creatures can notice that a corpse is controlled by a shredskin by succeeding a Perception check against the shredskin's Deception DC.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -935,7 +900,107 @@
             "flags": {},
             "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Control Body",
+            "sort": 500000,
+            "type": "action"
+        },
+        {
+            "_id": "nHj4mI5oMJrWP9jm",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
             "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "rr5bpEab2TNVmDUt",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>[[/r 1d4+4 #bludgeoning]] bludgeoning, <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Constrict DC\" data-pf2-dc=\"16\" data-pf2-show-dc=\"gm\">basic Fortitude</span></p>\n<hr />\n<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -975,7 +1040,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 800000,
             "type": "lore"
         },
         {
@@ -1015,7 +1080,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1055,7 +1120,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
-            "sort": 900000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1095,7 +1160,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1100000,
             "type": "lore"
         }
     ],
