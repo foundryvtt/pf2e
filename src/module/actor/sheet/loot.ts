@@ -35,7 +35,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     get template() {
         const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
         const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
-        return this.inEditMode && game.user.isGM ? editableSheetPath : nonEditableSheetPath;
+        return this.inEditMode && this.actor.owner ? editableSheetPath : nonEditableSheetPath;
     }
 
     /** @override */
@@ -139,7 +139,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             // item identification
             i.identified = !isPhysicalItem(i) || PhysicalItemPF2e.isIdentified(i);
             i.showGMInfo = game.user.isGM;
-            i.showEdit = i.showGMInfo || i.identified;
+            i.showEdit = i.showGMInfo || (i.identified && this.actor.owner);
 
             i.img = i.img || CONST.DEFAULT_TOKEN;
             i.containerData = containers.get(i._id);

@@ -9,6 +9,9 @@ import { ErrorPF2e } from '@module/utils';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
+    /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
+    redrawingTokenEffects = false;
+
     get hitPoints() {
         return {
             current: this.data.data.attributes.hp.value,
@@ -257,34 +260,15 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
     redrawTokenEffects() {
-        if (!(game.ready && canvas.scene)) return;
+        if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
+        this.redrawingTokenEffects = true;
         const tokens = this.token ? [this.token] : this.getActiveTokens();
         for (const token of tokens) {
             if (token.scene.id === canvas.scene.id && token.parent) {
                 token.drawEffects();
             }
         }
-    }
-
-    /** @override */
-    protected _createItemActiveEffects(created: ItemDataPF2e, options?: EntityCreateOptions): Promise<ActiveEffectData>;
-    protected _createItemActiveEffects(
-        created: ItemDataPF2e | ItemDataPF2e[],
-        options?: EntityCreateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    protected async _createItemActiveEffects(
-        created: ItemDataPF2e | ItemDataPF2e[],
-        { temporary = false } = {},
-    ): Promise<ActiveEffectData | ActiveEffectData[]> {
-        const data = await super._createItemActiveEffects(created, { temporary });
-        this.redrawTokenEffects();
-        return data;
-    }
-
-    /** @override */
-    protected _deleteItemActiveEffects(deleted: ItemDataPF2e[]): ActiveEffectData[] | void {
-        super._deleteItemActiveEffects(deleted);
-        this.redrawTokenEffects();
+        this.redrawingTokenEffects = false;
     }
 }
 

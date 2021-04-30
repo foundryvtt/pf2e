@@ -552,7 +552,7 @@ export interface RawCharacterData extends CreatureSystemData {
 /** Normal armor class data, but with an additional 'base' value. */
 export type NPCArmorClassData = ArmorClassData & { base?: number };
 /** Normal save data, but with an additional 'base' value. */
-export type NPCSaveData = SaveData & { base?: number };
+export type NPCSaveData = SaveData & { base?: number; saveDetail: string };
 /** Saves with NPCSaveData */
 export interface NPCSaves {
     fortitude: NPCSaveData;

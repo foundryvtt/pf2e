@@ -1,18 +1,24 @@
 // @TODO: Assign class types
 
 declare interface Config<
-    ActorType extends Actor,
-    ItemType extends Item,
-    EffectType extends ActiveEffect<ActorType | ItemType>,
-    MessageType extends ChatMessage<ActorType>,
-    MacroType extends Macro
+    ActorType extends Actor = Actor,
+    ItemType extends Item = Item,
+    EffectType extends ActiveEffect<ActorType | ItemType> = ActiveEffect<ActorType | ItemType>,
+    MessageType extends ChatMessage<ActorType> = ChatMessage<ActorType>,
+    MacroType extends Macro = Macro
 > {
     /**
      * Configure debugging flags to display additional information
      */
     debug: {
+        fog: boolean;
         hooks: boolean;
         sight: boolean;
+        sightRays: boolean;
+        av: boolean;
+        avclient: boolean;
+        mouseInteraction: boolean;
+        time: boolean;
     };
 
     /**
