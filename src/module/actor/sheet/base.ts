@@ -40,7 +40,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ActorSheetDataPF2e, InventoryItem } from './data-types';
+import { InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
