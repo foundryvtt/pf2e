@@ -89,12 +89,11 @@ export class CharacterPF2e extends CreaturePF2e {
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const actorData = this.data;
-
-        const rules: PF2RuleElement[] = actorData.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
+        const rules = this.items.reduce(
+            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
         );
+        const actorData = this.data;
         const { data } = actorData;
 
         // Compute ability modifiers from raw ability scores.
@@ -114,7 +113,7 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         const synthetics = this._prepareCustomModifiers(actorData, rules);
-        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
+        AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -138,7 +137,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
-                const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
+                const bonusSpPerLevel = data.attributes.levelbonussp * this.level;
                 const halfClassHp = Math.floor(classHP / 2);
 
                 data.attributes.sp.max =
