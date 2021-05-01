@@ -231,7 +231,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Weapon Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollWeaponDamage(event: JQuery.ClickEvent, critical = false) {
+    rollWeaponDamage(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item = this.data;

@@ -1,5 +1,6 @@
 import { ActorSheetPF2e } from './base';
 import { HazardPF2e } from '../base';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Actor
@@ -161,9 +162,11 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const item = this.actor.items.get(itemId);
+            if (!item) {
+                throw ErrorPF2e(`Item ${itemId} not found`);
+            }
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {
