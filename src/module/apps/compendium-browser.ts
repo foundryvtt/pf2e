@@ -615,7 +615,8 @@ class CompendiumBrowser extends Application {
             classes: classesObj,
             times: [...times].sort(),
             schools: schoolsObj,
-            traditions: CONFIG.PF2E.magicTraditions,
+            categories: CONFIG.PF2E.spellCategories,
+            traditions: CONFIG.PF2E.spellTraditions,
             spells,
             rarities: CONFIG.PF2E.rarityTraits,
             spellTraits: CONFIG.PF2E.spellOtherTraits,
@@ -727,7 +728,6 @@ class CompendiumBrowser extends Application {
             const filterType = ev.target.name.split(/-(.+)/)[0];
             const filterTarget = ev.target.name.split(/-(.+)/)[1];
             const filterValue = ev.target.checked;
-
             if (Object.keys(this.filters).includes(filterType)) {
                 this.filters[filterType][filterTarget] = filterValue;
                 this.filters[filterType] = this.clearObject(this.filters[filterType]);
@@ -966,6 +966,7 @@ class CompendiumBrowser extends Application {
             skills: {},
             ancestry: {},
             school: {},
+            category: {},
             traditions: {},
             armortype: {},
             group: {},
