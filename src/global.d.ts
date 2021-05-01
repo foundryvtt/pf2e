@@ -108,12 +108,13 @@ declare global {
         get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
         get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
-        get(module: 'pf2e', setting: 'staminaVariant'): number;
+        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
         get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+        get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
 
     interface WorldSettingsStorage {

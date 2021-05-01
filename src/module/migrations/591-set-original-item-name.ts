@@ -1,10 +1,11 @@
-import { isPhysicalItem } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e, ItemDescriptionData } from '@item/data-definitions';
 import { MigrationBase } from './base';
 
 export class Migration591SetOriginalItemName extends MigrationBase {
     static version = 0.591;
-    async updateItem(item: any) {
-        if (isPhysicalItem(item) && !(item.data.identified.value ?? true)) {
+    async updateItem(item: ItemDataPF2e) {
+        const systemData: ItemDescriptionData & { identified?: { value: boolean } } = item.data;
+        if (isPhysicalItem(item) && !(systemData.identified?.value ?? true)) {
             item.data.originalName = item.name;
             item.name = 'Unidentified Item';
         }

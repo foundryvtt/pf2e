@@ -54,6 +54,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     getData() {
         const data: any = super.getData();
         data.user = game.user;
+        data.name = this.item._data.name;
         data.abilities = CONFIG.PF2E.abilities;
         data.saves = CONFIG.PF2E.saves; // Sheet display details
 

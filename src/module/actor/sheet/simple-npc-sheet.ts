@@ -210,6 +210,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
+        sheetData.inventory = this.prepareInventory(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
         sheetData.conditions = sheetData.items.filter((data): data is ConditionData => data.type === 'condition');
         sheetData.effects = sheetData.items.filter((data): data is EffectData => data.type === 'effect');
@@ -246,7 +247,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
-        sheetData.inventory = this.prepareInventory(sheetData);
 
         // Shield
         const shield = this.actor.heldShield;

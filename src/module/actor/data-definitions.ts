@@ -472,6 +472,12 @@ interface CharacterAttributes extends BaseCreatureAttributes {
     resolve: { value: number };
 }
 
+export interface RollToggle {
+    label: string;
+    inputName: string;
+    checked: boolean;
+}
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
@@ -542,10 +548,14 @@ export interface RawCharacterData extends CreatureSystemData {
     skills: Skills;
 
     /** Pathfinder Society Organized Play */
-    pfs?: RawPathfinderSocietyData;
+    pfs: RawPathfinderSocietyData;
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
+
+    toggles: {
+        actions: RollToggle[];
+    };
 }
 
 // NPCs have an additional 'base' field used for computing the modifiers.

@@ -1430,15 +1430,15 @@ export const PF2ECONFIG = {
     },
 
     armorGroups: {
-        leather: 'PF2E.ArmorGroupLeather',
         composite: 'PF2E.ArmorGroupComposite',
         chain: 'PF2E.ArmorGroupChain',
+        cloth: 'PF2E.ArmorGroupCloth',
+        leather: 'PF2E.ArmorGroupLeather',
         plate: 'PF2E.ArmorGroupPlate',
     },
 
     consumableTypes: {
         ammo: 'PF2E.ConsumableTypeAmmo',
-        bomb: 'PF2E.ConsumableTypeBomb',
         potion: 'PF2E.ConsumableTypePotion',
         oil: 'PF2E.ConsumableTypeOil',
         scroll: 'PF2E.ConsumableTypeScroll',

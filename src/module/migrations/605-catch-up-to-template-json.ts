@@ -77,9 +77,8 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
 
         // Add item-identification property
         if (isPhysicalItem(itemData) && !itemData.data.identification) {
-            itemData.data.identification = {
-                status: 'identified',
-            };
+            const withoutIdentifyData: { identification: { status: string } } = itemData.data;
+            withoutIdentifyData.identification.status = 'identified';
         }
 
         // Add hasCounteractCheck property
