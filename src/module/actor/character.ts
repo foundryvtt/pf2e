@@ -53,6 +53,7 @@ import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { FeatPF2e } from '@item/feat';
+import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';
 
 export class CharacterPF2e extends CreaturePF2e {
     get ancestry(): AncestryPF2e | null {
@@ -113,6 +114,7 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         const synthetics = this._prepareCustomModifiers(actorData, rules);
+        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
