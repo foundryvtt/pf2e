@@ -87,10 +87,9 @@ export class NPCPF2e extends CreaturePF2e {
         const traitSet = new Set(traits.traits.value.concat(rarity).concat(customTraits));
         traits.traits.value = Array.from(traitSet).sort();
 
-        const rules = this.items.reduce(
-            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
-            [],
-        );
+        const rules = this.items
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .filter((rule) => !rule.ignored);
 
         // Toggles
         (data as any).toggles = {
