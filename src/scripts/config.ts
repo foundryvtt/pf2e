@@ -1946,15 +1946,15 @@ export const PF2ECONFIG = {
     },
 
     attackEffects: {
-        Grab: 'PF2E.AttackEffectGrab',
-        'Improved Grab': 'PF2E.AttackEffectImprovedGrab',
-        Constrict: 'PF2E.AttackEffectConstrict',
-        'Greater Constrict': 'PF2E.AttackEffectGreaterConstrict',
-        Knockdown: 'PF2E.AttackEffectKnockdown',
-        'Improved Knockdown': 'PF2E.AttackEffectImprovedKnockdown',
-        Push: 'PF2E.AttackEffectPush',
-        'Improved Push': 'PF2E.AttackEffectImprovedPush',
-        Trip: 'PF2E.AttackEffectTrip',
+        grab: 'PF2E.AttackEffectGrab',
+        'improved-grab': 'PF2E.AttackEffectImprovedGrab',
+        constrict: 'PF2E.AttackEffectConstrict',
+        'greater-constrict': 'PF2E.AttackEffectGreaterConstrict',
+        knockdown: 'PF2E.AttackEffectKnockdown',
+        'improved-knockdown': 'PF2E.AttackEffectImprovedKnockdown',
+        push: 'PF2E.AttackEffectPush',
+        'improved-push': 'PF2E.AttackEffectImprovedPush',
+        trip: 'PF2E.AttackEffectTrip',
     },
 
     // Year offsets relative to the current actual year
