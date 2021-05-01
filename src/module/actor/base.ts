@@ -279,6 +279,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
+            if (rule.ignored) continue;
             rule.onCreate(this.data, child, actorUpdates, Object.values(tokens));
         }
         this._updateAllTokens(actorUpdates, tokens);
@@ -290,6 +291,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const tokens = this._getTokenData();
         const actorUpdates = {};
         for (const rule of rules) {
+            if (rule.ignored) continue;
             rule.onDelete(this.data, child, actorUpdates, Object.values(tokens));
         }
         this._updateAllTokens(actorUpdates, tokens);
