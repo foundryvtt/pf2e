@@ -14,7 +14,7 @@ import {
     TraitSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from '@module/system/trait-selector';
-import { ErrorPF2e, tupleHasValue } from '@module/utils';
+import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
     user: User<ActorPF2e>;
@@ -154,11 +154,10 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
             // Melee attack effects can be chosen from the NPC's actions
             const attackEffectOptions: Record<string, string> =
-                this.actor?.itemTypes.action.reduce(
-                    (options, action) =>
-                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
-                    CONFIG.PF2E.attackEffects,
-                ) ?? {};
+                this.actor?.itemTypes.action.reduce((options, action) => {
+                    const key = action.slug ?? sluggify(action.name);
+                    return mergeObject(options, { [key]: action.name }, { inplace: false });
+                }, CONFIG.PF2E.attackEffects) ?? {};
             data.attackEffects = this.prepareOptions(attackEffectOptions, data.data.attackEffects);
             data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits);
         } else if (type === 'condition') {
@@ -352,12 +351,13 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             selectorOptions.allowCustom = false;
         } else if (this.actor && configTypes.includes('attackEffects')) {
             // Melee attack effects can be chosen from the NPC's actions
-            const attackEffectOptions: Record<string, string> =
-                this.actor.itemTypes.action.reduce(
-                    (options: Record<string, string>, action) =>
-                        mergeObject(options, { [action.name.toLowerCase()]: action.name }, { inplace: false }),
-                    CONFIG.PF2E.attackEffects,
-                ) ?? {};
+            const attackEffectOptions: Record<string, string> = this.actor.itemTypes.action.reduce(
+                (options, action) => {
+                    const key = action.slug ?? sluggify(action.name);
+                    return mergeObject(options, { [key]: action.name }, { inplace: false });
+                },
+                CONFIG.PF2E.attackEffects,
+            );
             selectorOptions.customChoices = attackEffectOptions;
         }
 
