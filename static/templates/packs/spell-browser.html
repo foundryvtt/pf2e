@@ -24,6 +24,14 @@
         </div>
         <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="classfilter">
+            <h3>{{localize "PF2E.BrowserFilterSpellCategories"}}</h3>
+            <dl>
+                {{#each categories as |category key|}}
+                    <label><dt><input type="checkbox" name="category-{{lower key}}"></dt><dd>{{localize category}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
             <h3>{{localize "PF2E.BrowserFilterTraditions"}}</h3>
             <dl>
                 {{#each traditions as |tradition key|}}
