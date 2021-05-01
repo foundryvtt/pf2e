@@ -24,7 +24,7 @@ import {
 } from '../modifiers';
 import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { WeaponDamagePF2e } from '@system/damage/weapon';
-import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
+import { CheckPF2e, DamageRollPF2e } from '@system/rolls';
 import { SKILL_DICTIONARY } from './base';
 import {
     AbilityString,
@@ -42,8 +42,8 @@ import {
     ProficiencyData,
     WeaponGroupProficiencyKey,
 } from './data-definitions';
-import { PF2RollNote } from '../notes';
-import { PF2MultipleAttackPenalty, PF2WeaponPotency } from '../rules/rules-data-definitions';
+import { RollNotePF2e } from '../notes';
+import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from '../rules/rules-data-definitions';
 import { toNumber } from '@module/utils';
 import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
@@ -214,7 +214,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 AbilityModifier.fromAbilityScore(ability, data.abilities[ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, save.rank),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes: RollNotePF2e[] = [];
 
             // Add resiliency bonuses for wearing armor with a resiliency rune.
             if (worn) {
@@ -283,7 +283,7 @@ export class CharacterPF2e extends CreaturePF2e {
             modifiers[1].automation.key = activeEffects.length > 0 ? 'data.attributes.perception.rank' : null;
             modifiers[1].automation.enabled = activeEffects.some((effect) => !effect.data.disabled);
 
-            const notes: PF2RollNote[] = [];
+            const notes: RollNotePF2e[] = [];
             if (data.attributes.perception.item) {
                 modifiers.push(
                     new ModifierPF2e(
@@ -330,7 +330,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, data.attributes.classDC.rank ?? 0),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes = [] as RollNotePF2e[];
             ['class', `${data.details.keyability.value}-based`, 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -424,7 +424,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 AbilityModifier.fromAbilityScore(skill.ability, data.abilities[skill.ability as AbilityString].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, skill.rank),
             ];
-            const notes = [] as PF2RollNote[];
+            const notes = [] as RollNotePF2e[];
             if (skill.item) {
                 modifiers.push(new ModifierPF2e('PF2E.ItemBonusLabel', skill.item, MODIFIER_TYPE.ITEM));
             }
@@ -490,7 +490,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     AbilityModifier.fromAbilityScore('int', data.abilities.int.value),
                     ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank),
                 ];
-                const notes = [] as PF2RollNote[];
+                const notes = [] as RollNotePF2e[];
                 [shortform, `int-based`, 'skill-check', 'all'].forEach((key) => {
                     (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => modifiers.push(m));
                     (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => notes.push(n));
@@ -767,7 +767,7 @@ export class CharacterPF2e extends CreaturePF2e {
                     .concat(melee ? 'melee' : 'ranged')
                     .concat(`${ability}-attack`);
                 ensureProficiencyOption(defaultOptions, proficiencyRank);
-                const notes = [] as PF2RollNote[];
+                const notes = [] as RollNotePF2e[];
 
                 if (item.data.group?.value === 'bomb') {
                     const attackBonus = toNumber(item.data?.bonus?.value) ?? 0;
@@ -780,8 +780,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 let weaponPotency: { label: string; bonus: number };
                 const multipleAttackPenalty = ItemPF2e.calculateMap(item);
                 {
-                    const potency: PF2WeaponPotency[] = [];
-                    const multipleAttackPenalties: PF2MultipleAttackPenalty[] = [];
+                    const potency: WeaponPotencyPF2e[] = [];
+                    const multipleAttackPenalties: MultipleAttackPenaltyPF2e[] = [];
                     selectors.forEach((key) => {
                         (statisticsModifiers[key] ?? [])
                             .map((m) => duplicate(m))
@@ -964,7 +964,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         weaponPotency,
                         synthetics.striking,
                     );
-                    PF2DamageRoll.roll(
+                    DamageRollPF2e.roll(
                         damage,
                         { type: 'damage-roll', outcome: 'success', options },
                         args.event,
@@ -985,7 +985,7 @@ export class CharacterPF2e extends CreaturePF2e {
                         weaponPotency,
                         synthetics.striking,
                     );
-                    PF2DamageRoll.roll(
+                    DamageRollPF2e.roll(
                         damage,
                         { type: 'damage-roll', outcome: 'criticalSuccess', options },
                         args.event,
@@ -1004,7 +1004,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 AbilityModifier.fromAbilityScore(ability, data.abilities[ability].value),
                 ProficiencyModifier.fromLevelAndRank(data.details.level.value, rank),
             ];
-            const baseNotes = [] as PF2RollNote[];
+            const baseNotes = [] as RollNotePF2e[];
             [`${ability}-based`, 'all'].forEach((key) => {
                 (statisticsModifiers[key] || []).map((m) => duplicate(m)).forEach((m) => baseModifiers.push(m));
                 (rollNotes[key] ?? []).map((n) => duplicate(n)).forEach((n) => baseNotes.push(n));
@@ -1084,12 +1084,12 @@ export class CharacterPF2e extends CreaturePF2e {
     private prepareInitiative(
         actorData: CharacterData,
         statisticsModifiers: Record<string, ModifierPF2e[]>,
-        rollNotes: Record<string, PF2RollNote[]>,
+        rollNotes: Record<string, RollNotePF2e[]>,
     ) {
         const { data } = actorData;
         const initSkill = data.attributes?.initiative?.ability || 'perception';
         const modifiers: ModifierPF2e[] = [];
-        const notes: PF2RollNote[] = [];
+        const notes: RollNotePF2e[] = [];
 
         ['initiative'].forEach((key) => {
             const skillFullName = SKILL_DICTIONARY[initSkill as SkillAbbreviation] ?? initSkill;

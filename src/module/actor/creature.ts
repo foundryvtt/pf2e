@@ -7,12 +7,12 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
 import { ErrorPF2e } from '@module/utils';
 import { RuleElementPF2e } from '@module/rules/rule-element';
-import { PF2RollNote } from '@module/notes';
+import { RollNotePF2e } from '@module/notes';
 import {
-    PF2MultipleAttackPenalty,
-    PF2RuleElementSynthetics,
-    PF2Striking,
-    PF2WeaponPotency,
+    MultipleAttackPenaltyPF2e,
+    RuleElementSyntheticsPF2e,
+    StrikingPF2e,
+    WeaponPotencyPF2e,
 } from '@module/rules/rules-data-definitions';
 import { ConditionManager } from '@module/conditions';
 
@@ -85,17 +85,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected prepareCustomModifiers(rules: RuleElementPF2e[]): PF2RuleElementSynthetics {
+    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSyntheticsPF2e {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const actorData = this.data;
         const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
         const damageDice: Record<string, DamageDicePF2e[]> = {};
         const strikes: WeaponData[] = [];
-        const rollNotes: Record<string, PF2RollNote[]> = {};
-        const weaponPotency: Record<string, PF2WeaponPotency[]> = {};
-        const striking: Record<string, PF2Striking[]> = {};
-        const multipleAttackPenalties: Record<string, PF2MultipleAttackPenalty[]> = {};
-        const synthetics: PF2RuleElementSynthetics = {
+        const rollNotes: Record<string, RollNotePF2e[]> = {};
+        const weaponPotency: Record<string, WeaponPotencyPF2e[]> = {};
+        const striking: Record<string, StrikingPF2e[]> = {};
+        const multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]> = {};
+        const synthetics: RuleElementSyntheticsPF2e = {
             damageDice,
             statisticsModifiers,
             strikes,

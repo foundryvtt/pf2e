@@ -1,12 +1,12 @@
 import { ModifierPF2e, MODIFIER_TYPE, DamageDicePF2e } from '@module/modifiers'; //, DiceModifierPF2e, DamageDicePF2e
-import { PF2RuleElementSynthetics, PF2Striking, PF2WeaponPotency } from './rules-data-definitions';
+import { RuleElementSyntheticsPF2e, StrikingPF2e, WeaponPotencyPF2e } from './rules-data-definitions';
 
 export class AutomaticBonusProgression {
     /**
      * @param level The name of this collection of statistic modifiers.
      * @param synthetics All relevant modifiers for this statistic.
      */
-    static concatModifiers(level: number, synthetics: PF2RuleElementSynthetics) {
+    static concatModifiers(level: number, synthetics: RuleElementSyntheticsPF2e) {
         if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') return;
 
         const values = this.abpValues(level);
@@ -79,14 +79,14 @@ export class AutomaticBonusProgression {
             const damage = values.damage;
 
             if (damage > 0) {
-                const s: PF2Striking = {
+                const s: StrikingPF2e = {
                     label: game.i18n.localize('PF2E.AutomaticBonusProgression.devastatingAttacks'),
                     bonus: damage,
                 };
                 synthetics.striking['mundane-damage'] = (synthetics.striking['mundane-damage'] || []).concat(s);
             }
             if (attack > 0) {
-                const potency: PF2WeaponPotency = {
+                const potency: WeaponPotencyPF2e = {
                     label: game.i18n.localize('PF2E.AutomaticBonusProgression.attackPotency'),
                     bonus: attack,
                 };

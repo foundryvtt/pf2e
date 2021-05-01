@@ -1,6 +1,6 @@
 import { ModifierPF2e, StatisticModifier } from '../modifiers';
 import { ActorPF2e } from '@actor/base';
-import { PF2RollNote } from '../notes';
+import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
 
@@ -8,7 +8,7 @@ export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Any notes which should be shown for the roll. */
-    notes?: PF2RollNote[];
+    notes?: RollNotePF2e[];
     /** If true, this is a secret roll which should only be seen by the GM. */
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
