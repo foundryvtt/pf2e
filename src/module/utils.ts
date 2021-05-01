@@ -218,7 +218,6 @@ export function ErrorPF2e(message: string) {
  */
 export function toLowerCase(value: null | undefined): undefined;
 export function toLowerCase<T extends string>(value: T): Lowercase<T>;
-
 export function toLowerCase<T extends string>(value: T): Lowercase<T> {
     return value?.toLowerCase() as Lowercase<T>;
 }
