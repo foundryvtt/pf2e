@@ -14,7 +14,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
 
         let associatedWeapon: ItemPF2e | null = null;

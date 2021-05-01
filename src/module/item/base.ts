@@ -12,7 +12,13 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { ItemDataPF2e, ItemTraits, MeleeDetailsData, TrickMagicItemCastData } from './data-definitions';
+import {
+    isItemSystemData,
+    ItemDataPF2e,
+    ItemTraits,
+    MeleeDetailsData,
+    TrickMagicItemCastData,
+} from './data-definitions';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
@@ -124,19 +130,18 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData(htmlOptions: Record<string, boolean> | undefined, data: any): unknown {
-        if (data?.description) {
-            data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
+    protected processChatData(htmlOptions: EnrichHTMLOptions = {}, data: Record<string, any> = {}): unknown {
+        if (isItemSystemData(data)) {
+            const chatData = duplicate(data);
+            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
         }
 
         return data;
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any) {
+    getChatData(this: Owned<ItemPF2e>, htmlOptions: EnrichHTMLOptions = {}, _rollOptions: Record<string, any> = {}) {
         return this.processChatData(htmlOptions, duplicate(this.data.data));
     }
-
-    /* -------------------------------------------- */
 
     static traitChatData(
         itemTraits: ItemTraits,
@@ -169,7 +174,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll a Weapon Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollWeaponAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollWeaponAttack(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== 'weapon' && this.type !== 'melee') throw new Error('Wrong item type!');
 
         // Prepare roll data
@@ -226,7 +231,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Weapon Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollWeaponDamage(event: JQuery.ClickEvent, critical = false) {
+    rollWeaponDamage(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item = this.data;
@@ -360,7 +365,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollNPCAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollNPCAttack(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== 'melee') throw ErrorPF2e('Wrong item type!');
         if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
             throw ErrorPF2e('Attempted to roll an attack without an actor!');

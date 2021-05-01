@@ -4,6 +4,7 @@ import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Actor
@@ -299,9 +300,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             ev.preventDefault();
             ev.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const item = this.actor.items.get(itemId);
+            if (!item) {
+                throw ErrorPF2e(`Item ${itemId} not found`);
+            }
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (ev.target.dataset.action) {
