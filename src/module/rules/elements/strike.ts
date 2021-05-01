@@ -1,13 +1,13 @@
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { WeaponData } from '@item/data-definitions';
 import { RuleElementPF2e } from '../rule-element';
-import { PF2RuleElementSynthetics } from '../rules-data-definitions';
+import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2StrikeRuleElement extends RuleElementPF2e {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: PF2RuleElementSynthetics) {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { strikes }: RuleElementSyntheticsPF2e) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         strikes.push(({
             _id: this.item._id,

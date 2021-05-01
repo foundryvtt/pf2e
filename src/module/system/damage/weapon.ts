@@ -11,8 +11,8 @@ import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@i
 import { DamageCategory, DamageDieSize } from './damage';
 import { WeaponData } from '@item/data-definitions';
 import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-definitions';
-import { PF2RollNote } from '@module/notes';
-import { PF2Striking, PF2WeaponPotency } from '@module/rules/rules-data-definitions';
+import { RollNotePF2e } from '@module/notes';
+import { StrikingPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -42,7 +42,7 @@ export interface DamageTemplate {
         criticalSuccess: DamageFormula;
     };
     name: string;
-    notes: PF2RollNote[];
+    notes: RollNotePF2e[];
     numericModifiers: ModifierPF2e[];
     traits: string[];
 }
@@ -85,7 +85,7 @@ export class WeaponDamagePF2e {
         damageDice,
         proficiencyRank = 0,
         options: string[] = [],
-        rollNotes: Record<string, PF2RollNote[]>,
+        rollNotes: Record<string, RollNotePF2e[]>,
     ): DamageTemplate {
         damageDice = duplicate(damageDice);
 
@@ -194,9 +194,9 @@ export class WeaponDamagePF2e {
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
-        rollNotes: Record<string, PF2RollNote[]>,
-        weaponPotency: PF2WeaponPotency | null,
-        striking: Record<string, PF2Striking[]>,
+        rollNotes: Record<string, RollNotePF2e[]>,
+        weaponPotency: WeaponPotencyPF2e | null,
+        striking: Record<string, StrikingPF2e[]>,
     ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
@@ -305,7 +305,7 @@ export class WeaponDamagePF2e {
         // striking rune
         let strikingDice = 0;
         {
-            const strikingList: PF2Striking[] = [];
+            const strikingList: StrikingPF2e[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
                     .filter((wp) => ModifierPredicate.test(wp.predicate, options))
@@ -429,7 +429,7 @@ export class WeaponDamagePF2e {
         }
 
         // conditions, custom modifiers, and roll notes
-        const notes: PF2RollNote[] = [];
+        const notes: RollNotePF2e[] = [];
         {
             selectors.forEach((key) => {
                 const modifiers = statisticsModifiers[key] || [];

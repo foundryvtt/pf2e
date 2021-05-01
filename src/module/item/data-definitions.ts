@@ -1,6 +1,6 @@
 import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '../rules/rules-data-definitions';
-import { PF2RollNote } from '../notes';
+import { RollNotePF2e } from '../notes';
 import { ConfigPF2e } from '@scripts/config';
 import { LocalizePF2e } from '@module/system/localize';
 
@@ -620,14 +620,14 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
 
 export interface SpellAttackRollModifier {
     breakdown: string;
-    notes: PF2RollNote[];
+    notes: RollNotePF2e[];
     roll: Function;
     value: number;
 }
 
 export interface SpellDifficultyClass {
     breakdown: string;
-    notes: PF2RollNote[];
+    notes: RollNotePF2e[];
     value: number;
 }
 

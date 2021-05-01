@@ -1,6 +1,6 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate } from '../modifiers';
 import { WeaponData } from '@item/data-definitions';
-import { PF2RollNote } from '../notes';
+import { RollNotePF2e } from '../notes';
 
 export interface PF2RuleElementData {
     key: string;
@@ -10,30 +10,30 @@ export interface PF2RuleElementData {
     scope?: string;
 }
 
-export interface PF2WeaponPotency {
+export interface WeaponPotencyPF2e {
     label: string;
     bonus: number;
     predicate?: ModifierPredicate;
 }
 
-export interface PF2Striking {
+export interface StrikingPF2e {
     label: string;
     bonus: number;
     predicate?: ModifierPredicate;
 }
 
-export interface PF2MultipleAttackPenalty {
+export interface MultipleAttackPenaltyPF2e {
     label: string;
     penalty: number;
     predicate?: ModifierPredicate;
 }
 
-export interface PF2RuleElementSynthetics {
+export interface RuleElementSyntheticsPF2e {
     damageDice: Record<string, DamageDicePF2e[]>;
     statisticsModifiers: Record<string, ModifierPF2e[]>;
     strikes: WeaponData[];
-    rollNotes: Record<string, PF2RollNote[]>;
-    weaponPotency: Record<string, PF2WeaponPotency[]>;
-    striking: Record<string, PF2Striking[]>;
-    multipleAttackPenalties: Record<string, PF2MultipleAttackPenalty[]>;
+    rollNotes: Record<string, RollNotePF2e[]>;
+    weaponPotency: Record<string, WeaponPotencyPF2e[]>;
+    striking: Record<string, StrikingPF2e[]>;
+    multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]>;
 }
