@@ -78,8 +78,7 @@ export class NPCPF2e extends CreaturePF2e {
     /** Prepare Character type specific data. */
     prepareDerivedData(): void {
         super.prepareDerivedData();
-        const actorData = this.data;
-        const { data } = actorData;
+        const { data } = this.data;
 
         // Add rarity and custom traits to main trait list
         const traits = this.data.data.traits;
@@ -141,7 +140,7 @@ export class NPCPF2e extends CreaturePF2e {
         }
 
         // Compute 'fake' ability scores from ability modifiers (just in case the scores are required for something)
-        for (const abl of Object.values(actorData.data.abilities)) {
+        for (const abl of Object.values(this.data.data.abilities)) {
             abl.mod = Number(abl.mod ?? 0); // ensure the modifier is never a string
             abl.value = abl.mod * 2 + 10;
         }
@@ -660,7 +659,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
-                        actorData,
+                        this.data,
                         action.traits,
                         statisticsModifiers,
                         damageDice,
@@ -679,7 +678,7 @@ export class NPCPF2e extends CreaturePF2e {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
                     const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
-                        actorData,
+                        this.data,
                         action.traits,
                         statisticsModifiers,
                         damageDice,
@@ -789,7 +788,7 @@ export class NPCPF2e extends CreaturePF2e {
 
         rules.forEach((rule) => {
             try {
-                rule.onAfterPrepareData(actorData, synthetics);
+                rule.onAfterPrepareData(this.data, synthetics);
             } catch (error) {
                 // ensure that a failing rule element does not block actor initialization
                 console.error(`PF2e | Failed to execute onAfterPrepareData on rule element ${rule}.`, error);
