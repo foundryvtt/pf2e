@@ -824,6 +824,9 @@ export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemDat
 export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData> extends BaseItemDataPF2e<D> {
     type: PhysicalItemType;
     data: D;
+
+    // Prepared data
+    isInvested: boolean | null;
 }
 
 export interface ContainerData extends BasePhysicalItemData<BackpackDetailsData & ItemLevelData> {
@@ -844,6 +847,9 @@ export interface ArmorData extends BasePhysicalItemData<ArmorDetailsData & ItemL
 
 export interface KitData extends BaseItemDataPF2e<KitDetailsData> {
     type: 'kit';
+
+    // Prepared data
+    isInvested: boolean | null;
 }
 
 export interface MeleeData extends BasePhysicalItemData<MeleeDetailsData> {
