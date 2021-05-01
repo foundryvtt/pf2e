@@ -1,6 +1,6 @@
 import { CreatureData } from '@actor/data-definitions';
 import { ItemDataPF2e } from '@item/data-definitions';
-import { PF2RuleElementSynthetics } from './rules-data-definitions';
+import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
     start?: number;
@@ -97,7 +97,7 @@ export abstract class RuleElementPF2e {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -105,7 +105,7 @@ export abstract class RuleElementPF2e {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.
