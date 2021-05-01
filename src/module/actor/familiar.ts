@@ -45,7 +45,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             // base senses
             data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
 
-            const { statisticsModifiers } = this._prepareCustomModifiers(this.data, rules);
+            const { statisticsModifiers } = this.prepareCustomModifiers(rules);
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filter_modifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 

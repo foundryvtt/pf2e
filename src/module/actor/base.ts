@@ -1,5 +1,4 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
-import { ConditionManager } from '../conditions';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
@@ -9,21 +8,13 @@ import {
     HazardData,
     AbilityString,
     isCreatureData,
-    CreatureData,
     SkillAbbreviation,
     SkillData,
     SaveData,
     SaveString,
 } from './data-definitions';
-import { RuleElementPF2e, RuleElements } from '../rules/rules';
-import {
-    PF2MultipleAttackPenalty,
-    PF2RuleElementSynthetics,
-    PF2Striking,
-    PF2WeaponPotency,
-} from '../rules/rules-data-definitions';
+import { RuleElements } from '../rules/rules';
 import { PhysicalItemPF2e } from '@item/physical';
-import { PF2RollNote } from '../notes';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ArmorPF2e } from '@item/armor';
@@ -354,71 +345,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             promises.push(scene.updateEmbeddedEntity('Token', local));
         }
         return Promise.all(promises);
-    }
-
-    /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected _prepareCustomModifiers(actorData: CreatureData, rules: RuleElementPF2e[]): PF2RuleElementSynthetics {
-        // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
-        const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
-        const damageDice: Record<string, DamageDicePF2e[]> = {};
-        const strikes: WeaponData[] = [];
-        const rollNotes: Record<string, PF2RollNote[]> = {};
-        const weaponPotency: Record<string, PF2WeaponPotency[]> = {};
-        const striking: Record<string, PF2Striking[]> = {};
-        const multipleAttackPenalties: Record<string, PF2MultipleAttackPenalty[]> = {};
-        const synthetics: PF2RuleElementSynthetics = {
-            damageDice,
-            statisticsModifiers,
-            strikes,
-            rollNotes,
-            weaponPotency,
-            striking,
-            multipleAttackPenalties,
-        };
-        rules.forEach((rule) => {
-            try {
-                rule.onBeforePrepareData(actorData, synthetics);
-            } catch (error) {
-                // ensure that a failing rule element does not block actor initialization
-                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
-            }
-        });
-
-        // Get all of the active conditions (from the item array), and add their modifiers.
-        const conditions = actorData.items.filter(
-            (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
-        );
-
-        for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
-            statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
-        }
-
-        // Character-specific custom modifiers & custom damage dice.
-        if (['character', 'familiar', 'npc'].includes(actorData.type)) {
-            const { data } = actorData;
-
-            // Custom Modifiers (which affect d20 rolls and damage).
-            data.customModifiers = data.customModifiers ?? {};
-            for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
-                statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
-            }
-
-            // Damage Dice (which add dice to damage rolls).
-            data.damageDice = data.damageDice ?? {};
-            for (const [attack, dice] of Object.entries(data.damageDice)) {
-                damageDice[attack] = (damageDice[attack] || []).concat(dice);
-            }
-        }
-
-        return {
-            statisticsModifiers,
-            damageDice,
-            strikes,
-            rollNotes,
-            weaponPotency,
-            striking,
-            multipleAttackPenalties,
-        };
     }
 
     getStrikeDescription(weaponData: WeaponData) {

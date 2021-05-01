@@ -112,7 +112,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ],
         };
 
-        const synthetics = this._prepareCustomModifiers(actorData, rules);
+        const synthetics = this.prepareCustomModifiers(rules);
         AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
