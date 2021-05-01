@@ -1582,7 +1582,27 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.hurried-retreat"
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "hurried-retreat"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "type": "circumstance",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
