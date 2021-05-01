@@ -216,14 +216,9 @@ export function ErrorPF2e(message: string) {
  * Make something lowercase in a type safe way. At the time of writing,
  * the string class does not properly handle toLowerCase().
  */
-export function lowercase(value: null | undefined): undefined;
+export function toLowerCase(value: null | undefined): undefined;
+export function toLowerCase<T extends string>(value: T): Lowercase<T>;
 
-/**
- * Make something lowercase in a type safe way. At the time of writing,
- * the string class does not properly handle toLowerCase().
- */
-export function lowercase<T extends string>(value: T): Lowercase<T>;
-
-export function lowercase<T extends string>(value: T): Lowercase<T> {
+export function toLowerCase<T extends string>(value: T): Lowercase<T> {
     return value?.toLowerCase() as Lowercase<T>;
 }

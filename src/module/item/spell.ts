@@ -1,7 +1,7 @@
 import { ItemPF2e } from './base';
 import { SpellData } from './data-definitions';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { lowercase } from '@module/utils';
+import { toLowerCase } from '@module/utils';
 
 export class SpellPF2e extends ItemPF2e {
     get spellcasting(): SpellcastingEntryPF2e | undefined {
@@ -54,7 +54,7 @@ export class SpellPF2e extends ItemPF2e {
         // Spell saving throw text and DC
         const save = duplicate(this.data.data.save);
         save.dc = isSave ? spellDC : spellAttack;
-        const saveType = lowercase(data.save.value) ?? '';
+        const saveType = toLowerCase(data.save.value) ?? '';
         save.str = saveType !== '' ? game.i18n.localize(CONFIG.PF2E.saves[saveType]) : '';
 
         // Spell attack labels
