@@ -45,7 +45,7 @@ export class TokenEffect implements TemporaryEffect {
  *
  * @category RuleElement
  */
-export abstract class PF2RuleElement {
+export abstract class RuleElementPF2e {
     ruleData: any;
     item: ItemDataPF2e;
 

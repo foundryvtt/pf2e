@@ -1,4 +1,4 @@
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { DamageDicePF2e } from '@module/modifiers';
@@ -6,7 +6,7 @@ import { DamageDicePF2e } from '@module/modifiers';
 /**
  * @category RuleElement
  */
-export class PF2DamageDiceRuleElement extends PF2RuleElement {
+export class PF2DamageDiceRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData, { damageDice }: PF2RuleElementSynthetics) {
         const value = duplicate(this.ruleData);
         delete value.key;

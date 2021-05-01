@@ -1,11 +1,11 @@
 import { ItemDataPF2e } from '@item/data-definitions';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data-definitions';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 
 /**
  * @category RuleElement
  */
-export class PF2SetPropertyRuleElement extends PF2RuleElement {
+export class PF2SetPropertyRuleElement extends RuleElementPF2e {
     onCreate(actorData: CharacterData | NPCData | FamiliarData, _item: ItemDataPF2e, actorUpdates: any) {
         if (
             this.ruleData.property &&
