@@ -117,14 +117,11 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     /**
      * A convenience constructor method to create an Item instance which is owned by an Actor
      */
-    static createOwned<A extends Actor, I extends Item<A>>(
-        this: new (data: I['data'], options?: ItemConstructorOptions<A>) => I,
-        itemData: DeepPartial<I['data']>,
-        actor: A,
-    ): Promise<Owned<I>>;
-
-    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
-    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+    static createOwned<I extends Item>(
+        this: new (data: I['data'], options?: EntityConstructorOptions) => I,
+        itemData: I['data'],
+        actor: Actor
+    ): Owned<I>;
 
     /**
      * Provide a Dialog form to create a new Entity of this type.
@@ -136,11 +133,14 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     static createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Item>;
 }
 
-declare interface Item extends Entity {
+declare interface Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
     data: ItemData;
     _data: ItemData;
 
     readonly sheet: ItemSheet<Item>;
+
+    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
+    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
