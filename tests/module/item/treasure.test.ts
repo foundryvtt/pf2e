@@ -41,6 +41,7 @@ function treasure({
         sort: 1,
         flags: {},
         effects: [],
+        isInvested: null,
         data: ({
             level: 0,
             denomination: { value: denomination as 'cp' | 'sp' | 'gp' | 'pp' },

@@ -47,6 +47,8 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 effectData.disabled = true;
             }
         }
+        this.data.isInvested = this.isInvested;
+
         if (this.data.type === 'kit' || this.data.type === 'melee') return;
 
         if (!this.data.data.identification) {
