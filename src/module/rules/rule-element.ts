@@ -1,5 +1,5 @@
 import { CreatureData } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
 import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
@@ -56,6 +56,16 @@ export abstract class RuleElementPF2e {
     constructor(ruleData: any, item: ItemDataPF2e) {
         this.ruleData = ruleData;
         this.item = item;
+    }
+
+    /**
+     * Globally ignore this rule element.
+     */
+    get ignored(): boolean {
+        if (!isPhysicalItem(this.item)) return false;
+        if (!this.item.data.equipped.value) return true;
+        if (!this.item.data.traits.value.includes('invested')) return false;
+        return !('invested' in this.item.data && this.item.data.invested.value === true);
     }
 
     /**

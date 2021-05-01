@@ -220,6 +220,7 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
         actor.items.forEach((item) => {
             const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
             for (const rule of rules) {
+                if (rule.ignored) continue;
                 rule.onCreateToken(actor.data, item.data, token);
             }
         });

@@ -21,10 +21,9 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.prepareDerivedData();
 
         const data = this.data.data;
-        const rules = this.items.reduce(
-            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
-            [],
-        );
+        const rules = this.items
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .filter((rule) => !rule.ignored);
 
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);

@@ -103,10 +103,9 @@ export class CharacterPF2e extends CreaturePF2e {
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const rules = this.items.reduce(
-            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
-            [],
-        );
+        const rules = this.items
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .filter((rule) => !rule.ignored);
         const { data } = this.data;
 
         // Compute ability modifiers from raw ability scores.
