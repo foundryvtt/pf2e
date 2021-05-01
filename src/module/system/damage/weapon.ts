@@ -76,7 +76,7 @@ function isNonPhysicalDamage(damageType?: string): boolean {
 /**
  * @category PF2
  */
-export class PF2WeaponDamage {
+export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon,
         actor: ActorDataPF2e,
@@ -172,7 +172,7 @@ export class PF2WeaponDamage {
             }
         }
 
-        return PF2WeaponDamage.calculate(
+        return WeaponDamagePF2e.calculate(
             weapon,
             actor,
             traits,
@@ -251,7 +251,7 @@ export class PF2WeaponDamage {
                 );
             }
         }
-        const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
+        const selectors: string[] = WeaponDamagePF2e.getSelectors(weapon, ability, proficiencyRank);
 
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));

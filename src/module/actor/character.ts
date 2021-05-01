@@ -22,8 +22,8 @@ import {
     ProficiencyModifier,
     WISDOM,
 } from '../modifiers';
-import { PF2RuleElement, RuleElements } from '../rules/rules';
-import { PF2WeaponDamage } from '@system/damage/weapon';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
+import { WeaponDamagePF2e } from '@system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '@system/rolls';
 import { SKILL_DICTIONARY } from './base';
 import {
@@ -89,12 +89,11 @@ export class CharacterPF2e extends CreaturePF2e {
     prepareDerivedData(): void {
         super.prepareDerivedData();
 
-        const actorData = this.data;
-
-        const rules: PF2RuleElement[] = actorData.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
+        const rules = this.items.reduce(
+            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
         );
+        const actorData = this.data;
         const { data } = actorData;
 
         // Compute ability modifiers from raw ability scores.
@@ -114,7 +113,7 @@ export class CharacterPF2e extends CreaturePF2e {
         };
 
         const synthetics = this._prepareCustomModifiers(actorData, rules);
-        AutomaticBonusProgression.concatModifiers(actorData.data.details.level.value, synthetics);
+        AutomaticBonusProgression.concatModifiers(this.level, synthetics);
         // Extract as separate variables for easier use in this method.
         const { damageDice, statisticsModifiers, strikes, rollNotes } = synthetics;
 
@@ -138,7 +137,7 @@ export class CharacterPF2e extends CreaturePF2e {
             );
 
             if (game.settings.get('pf2e', 'staminaVariant')) {
-                const bonusSpPerLevel = data.attributes.levelbonussp * data.details.level.value;
+                const bonusSpPerLevel = data.attributes.levelbonussp * this.level;
                 const halfClassHp = Math.floor(classHP / 2);
 
                 data.attributes.sp.max =
@@ -953,7 +952,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 ];
                 action.damage = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(action.options);
-                    const damage = PF2WeaponDamage.calculate(
+                    const damage = WeaponDamagePF2e.calculate(
                         item,
                         actorData,
                         action.traits,
@@ -974,7 +973,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 });
                 action.critical = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(action.options);
-                    const damage = PF2WeaponDamage.calculate(
+                    const damage = WeaponDamagePF2e.calculate(
                         item,
                         actorData,
                         action.traits,

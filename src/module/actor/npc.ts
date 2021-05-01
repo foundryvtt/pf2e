@@ -1,10 +1,10 @@
 import { ActorPF2e, SKILL_DICTIONARY, SKILL_EXPANDED } from './base';
 import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
-import { PF2WeaponDamage } from '../system/damage/weapon';
+import { WeaponDamagePF2e } from '../system/damage/weapon';
 import { CheckPF2e, PF2DamageRoll } from '../system/rolls';
 import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike, ZeroToThree } from './data-definitions';
-import { PF2RuleElement, RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { PF2RollNote } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
@@ -89,7 +89,7 @@ export class NPCPF2e extends CreaturePF2e {
         traits.traits.value = Array.from(traitSet).sort();
 
         const rules = this.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
+            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
         );
 
@@ -658,7 +658,7 @@ export class NPCPF2e extends CreaturePF2e {
                 ];
                 action.damage = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
-                    const damage = PF2WeaponDamage.calculateStrikeNPC(
+                    const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
                         actorData,
                         action.traits,
@@ -677,7 +677,7 @@ export class NPCPF2e extends CreaturePF2e {
                 });
                 action.critical = adaptRoll((args) => {
                     const options = (args.options ?? []).concat(item.data.traits.value); // always add all weapon traits as options
-                    const damage = PF2WeaponDamage.calculateStrikeNPC(
+                    const damage = WeaponDamagePF2e.calculateStrikeNPC(
                         item,
                         actorData,
                         action.traits,
