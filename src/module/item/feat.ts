@@ -9,10 +9,8 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
-    /**
-     * Prepare chat card data for items of the "Feat" type
-     */
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    /** @override */
+    getChatData(this: Owned<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const properties = [
             `Level ${data.level.value || 0}`,

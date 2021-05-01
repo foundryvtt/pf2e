@@ -173,11 +173,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         }
 
         // Update save labels
-        if (sheetData.data.saves !== undefined) {
-            for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
+        if (sheetData.data.saves) {
+            for (const key of ['fortitude', 'reflex', 'will'] as const) {
+                const save = sheetData.data.saves[key];
                 save.icon = this.getProficiencyIcon(save.rank);
                 save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-                save.label = CONFIG.PF2E.saves[s];
+                save.label = CONFIG.PF2E.saves[key];
             }
         }
 

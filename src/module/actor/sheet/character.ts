@@ -274,12 +274,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             } else if (itemData.type === 'spell') {
                 // Spells
-                try {
-                    const item = this.actor.items.get(itemData._id);
-                    i.spellInfo = item.getChatData();
-                } catch (err) {
-                    console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
-                }
+                const item = this.actor.items.get(itemData._id);
+                i.spellInfo = item?.getChatData() ?? {};
                 tempSpellbook.push(itemData);
             } else if (itemData.type === 'spellcastingEntry') {
                 // Spellcasting Entries

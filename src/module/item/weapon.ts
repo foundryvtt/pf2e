@@ -35,7 +35,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         traits.value = Array.from(new Set(traits.value));
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         if (!this.actor) {
             return {};
         }

@@ -1595,13 +1595,13 @@ export const PF2ECONFIG = {
     },
 
     // Proficiency Multipliers
-    proficiencyLevels: Object.freeze([
+    proficiencyLevels: [
         'PF2E.ProficiencyLevel0', // untrained
         'PF2E.ProficiencyLevel1', // trained
         'PF2E.ProficiencyLevel2', // expert
         'PF2E.ProficiencyLevel3', // master
         'PF2E.ProficiencyLevel4', // legendary
-    ]),
+    ] as const,
 
     heroPointLevels: {
         0: 'PF2E.HeroPointLevel0',

@@ -9,7 +9,7 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
         };
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const consumableType = CONFIG.PF2E.consumableTypes[data.consumableType.value];

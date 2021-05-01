@@ -75,7 +75,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         traits.value = Array.from(new Set(traits.value));
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [
