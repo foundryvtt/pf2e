@@ -44,7 +44,7 @@ function coinsToString(coins, degreeOfSuccess) {
         return 'none';
     } else {
         return Object.entries(coins)
-            .map(([key, value]) => `${value} ${CONFIG.PF2E.currencies[key]}`)
+            .map(([key, value]) => `${value} ${game.i18n.localize(CONFIG.PF2E.currencies[key])}`)
             .join(', ');
     }
 }
