@@ -1,10 +1,10 @@
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { CreatureData, SenseData } from '@actor/data-definitions';
 
 /**
  * @category RuleElement
  */
-export class PF2SenseRuleElement extends PF2RuleElement {
+export class PF2SenseRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CreatureData) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const range = super.resolveValue(this.ruleData.range, this.ruleData, this.item, actorData);

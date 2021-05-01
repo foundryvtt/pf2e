@@ -1,7 +1,7 @@
 import { SKILL_EXPANDED } from '@actor/base';
 import { CharacterData, NPCData, SkillAbbreviation } from '@actor/data-definitions';
 import { ModifierPF2e, MODIFIER_TYPE } from '../../modifiers';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
 const KNOWN_TARGETS = {
@@ -11,7 +11,7 @@ const KNOWN_TARGETS = {
 /**
  * @category RuleElement
  */
-export class PF2FixedProficiencyRuleElement extends PF2RuleElement {
+export class PF2FixedProficiencyRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         let value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

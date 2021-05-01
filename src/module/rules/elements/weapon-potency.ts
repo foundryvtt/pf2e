@@ -1,4 +1,4 @@
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { PF2RuleElementSynthetics, PF2WeaponPotency } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { ModifierPredicate } from '@module/modifiers';
@@ -6,7 +6,7 @@ import { ModifierPredicate } from '@module/modifiers';
 /**
  * @category RuleElement
  */
-export class PF2WeaponPotencyRuleElement extends PF2RuleElement {
+export class PF2WeaponPotencyRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData, { weaponPotency }: PF2RuleElementSynthetics) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);

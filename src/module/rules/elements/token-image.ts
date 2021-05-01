@@ -1,11 +1,11 @@
 import { ItemDataPF2e } from '@item/data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 
 /**
  * @category RuleElement
  */
-export class PF2TokenImageRuleElement extends PF2RuleElement {
+export class PF2TokenImageRuleElement extends RuleElementPF2e {
     onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         const value = this.ruleData.value;
 

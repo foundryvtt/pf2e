@@ -15,7 +15,7 @@ import {
     SaveData,
     SaveString,
 } from './data-definitions';
-import { PF2RuleElement, RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import {
     PF2MultipleAttackPenalty,
     PF2RuleElementSynthetics,
@@ -357,7 +357,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
-    protected _prepareCustomModifiers(actorData: CreatureData, rules: PF2RuleElement[]): PF2RuleElementSynthetics {
+    protected _prepareCustomModifiers(actorData: CreatureData, rules: RuleElementPF2e[]): PF2RuleElementSynthetics {
         // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
         const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
         const damageDice: Record<string, DamageDicePF2e[]> = {};

@@ -4,7 +4,7 @@ import { NPCPF2e } from './npc';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
 import { CheckPF2e } from '@system/rolls';
 import { AbilityString, FamiliarData, SkillAbbreviation } from './data-definitions';
-import { PF2RuleElement, RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
 import { ItemDataPF2e } from '@item/data-definitions';
@@ -22,7 +22,7 @@ export class FamiliarPF2e extends CreaturePF2e {
 
         const data = this.data.data;
         const rules = this.items.reduce(
-            (accumulated: PF2RuleElement[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
+            (accumulated: RuleElementPF2e[], current) => accumulated.concat(RuleElements.fromOwnedItem(current.data)),
             [],
         );
 

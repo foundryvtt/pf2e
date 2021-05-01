@@ -1,12 +1,12 @@
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { PF2RuleElementSynthetics } from '../rules-data-definitions';
 
 /**
  * @category RuleElement
  */
-export class PF2MageArmorRuleElement extends PF2RuleElement {
+export class PF2MageArmorRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData, { statisticsModifiers }: PF2RuleElementSynthetics) {
         const label = this.ruleData.label ?? this.item.name;
         const level = (this.item.data as any)?.level?.value ?? this.ruleData.level ?? 1;

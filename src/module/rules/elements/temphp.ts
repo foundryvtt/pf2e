@@ -1,11 +1,11 @@
 import { ItemDataPF2e } from '@item/data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 
 /**
  * @category RuleElement
  */
-export class PF2TempHPRuleElement extends PF2RuleElement {
+export class PF2TempHPRuleElement extends RuleElementPF2e {
     onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any) {
         const updatedActorData = mergeObject(actorData, actorUpdates, { inplace: false });
         const value = this.resolveValue(this.ruleData.value, this.ruleData, this.item, updatedActorData);
