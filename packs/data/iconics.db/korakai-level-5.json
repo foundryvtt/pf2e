@@ -8053,7 +8053,7 @@
             "type": "feat"
         },
         {
-            "_id": "incYJpHC0S1Dfl1o",
+            "_id": "YKjKkYFdQ5gS2Zn1",
             "data": {
                 "actionCategory": {
                     "value": ""
@@ -8067,7 +8067,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You've learned to fight underwater. You are not flat-footed while in water, and you don't take the usual penalties for using a bludgeoning or slashing melee weapon in water.</p>"
+                    "value": "<p>You can keep your balance easily, even in adverse conditions. Whenever you roll a success using the Balance action, you get a critical success instead. You're not flat-footed while attempting to Balance on narrow surfaces and uneven ground. Thanks to your incredible balance, you can attempt an Acrobatics check instead of a Reflex save to Grab an Edge.</p>"
                 },
                 "featType": {
                     "value": "skill"
@@ -8079,12 +8079,23 @@
                 "prerequisites": {
                     "value": [
                         {
-                            "value": "trained in Athletics"
+                            "value": "trained in Acrobatics"
                         }
                     ]
                 },
-                "rules": [],
-                "slug": "underwater-marauder",
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.Note",
+                        "predicate": {
+                            "any": [
+                                "action:balance"
+                            ]
+                        },
+                        "selector": "acrobatics",
+                        "text": "<p class='compact-text'><strong>{item|name}</strong> If you roll a success using the Balance action, you get a critical success instead.</p>"
+                    }
+                ],
+                "slug": "steady-balance",
                 "source": {
                     "value": ""
                 },
@@ -8102,11 +8113,11 @@
             "effects": [],
             "flags": {
                 "core": {
-                    "sourceId": "Compendium.pf2e.feats-srd.iOY6YfGBaOvMNAor"
+                    "sourceId": "Compendium.pf2e.feats-srd.CnqMJR8e9jqJR7MM"
                 }
             },
             "img": "systems/pf2e/icons/features/feats/feats.webp",
-            "name": "Underwater Marauder",
+            "name": "Steady Balance",
             "sort": 6300000,
             "type": "feat"
         }
