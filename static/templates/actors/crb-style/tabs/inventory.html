@@ -3,7 +3,7 @@
         <li class="label">
             {{localize 'PF2E.StackGroupCoins'}}
         </li>
-        {{#each totalCurrency as |value denomination|}}
+        {{#each totalCoinage as |value denomination|}}
         <li class="denomination {{denomination}}">
             <div class="currency-image" title="{{value.label}}"></div>
             <span>{{value.value}}</span>
@@ -20,9 +20,9 @@
     <div class="wealth">
         <div class="wealth-label inventory-header">
             <h3 class="item-name">
-                {{localize 'PF2E.TotalTreasure'}}
-                <span>{{totalTreasureGold}} {{localize 'PF2E.CurrencyAbbreviations.gp'}}</span>
-                <span class="sell-all-treasure" title="{{localize 'PF2E.SellAllTreasureTitle'}}">
+                {{localize "PF2E.TotalCoinage"}}
+                <span>{{totalCoinageGold}} {{localize "PF2E.CurrencyAbbreviations.gp"}}</span>
+                <span class="sell-all-treasure" title="{{localize "PF2E.SellAllTreasureTitle"}}">
                     <button type="button"><i class="fas fa-coins"></i></button>
                 </span>
             </h3>
