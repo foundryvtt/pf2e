@@ -357,7 +357,8 @@ export class CharacterPF2e extends CreaturePF2e {
                 if (data.abilities.str.value < Number(worn.data.strength.value ?? 0)) {
                     armorCheckPenalty = Number(worn.data.check.value ?? 0);
                 }
-                modifiers.push(new ModifierPF2e(worn.name, getArmorBonus(worn.data), MODIFIER_TYPE.ITEM));
+                const armorBonus = worn.isInvested === false ? worn.data.armor.value : getArmorBonus(worn.data);
+                modifiers.push(new ModifierPF2e(worn.name, armorBonus, MODIFIER_TYPE.ITEM));
             }
 
             // proficiency

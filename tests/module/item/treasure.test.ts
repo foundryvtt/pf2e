@@ -41,6 +41,7 @@ function treasure({
         sort: 1,
         flags: {},
         effects: [],
+        isEquipped: false,
         isInvested: null,
         data: ({
             level: 0,
