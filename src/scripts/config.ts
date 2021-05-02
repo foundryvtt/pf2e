@@ -12,6 +12,7 @@ import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
 import { ConsumablePF2e } from '@module/item/consumable';
 import { FeatPF2e } from '@module/item/feat';
+import { KitPF2e } from '@item/kit';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
@@ -19,7 +20,6 @@ import {
     ContainerPF2e,
     ConditionPF2e,
     EquipmentPF2e,
-    KitPF2e,
     LorePF2e,
     MartialPF2e,
     MeleePF2e,

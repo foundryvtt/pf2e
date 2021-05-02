@@ -312,7 +312,7 @@ export interface ArmorDetailsData extends MagicDetailsData {
     };
 }
 
-export interface KitDetailsData extends PhysicalDetailsData {
+export interface KitDetailsData extends ItemDescriptionData {
     items: Record<string, KitEntryData>;
 }
 
@@ -847,9 +847,6 @@ export interface ArmorData extends BasePhysicalItemData<ArmorDetailsData & ItemL
 
 export interface KitData extends BaseItemDataPF2e<KitDetailsData> {
     type: 'kit';
-
-    // Prepared data
-    isInvested: boolean | null;
 }
 
 export interface MeleeData extends BasePhysicalItemData<MeleeDetailsData> {
@@ -917,8 +914,7 @@ export type PhysicalItemData =
     | ArmorData
     | MeleeData
     | ConsumableData
-    | EquipmentData
-    | KitData;
+    | EquipmentData;
 
 export type ItemDataPF2e =
     | PhysicalItemData
@@ -932,7 +928,8 @@ export type ItemDataPF2e =
     | AncestryData
     | BackgroundData
     | ClassData
-    | EffectData;
+    | EffectData
+    | KitData;
 
 export function isItemSystemData(data: Record<string, any>): data is ItemDescriptionData {
     return data['description'] instanceof Object && typeof data['description']['value'] === 'string';

@@ -1,7 +1,7 @@
 import { RemoveCoinsPopup } from './popups/remove-coins-popup';
 import { sellAllTreasure, sellTreasure } from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
-import { addKit } from '@item/kits';
+import { KitPF2e } from '@item/kit';
 import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
@@ -1247,14 +1247,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
             return null;
-        } else if (itemData.type === 'kit') {
-            await addKit(itemData, async (newItems) => {
-                const items = await actor.createEmbeddedEntity('OwnedItem', newItems);
-                if (Array.isArray(items)) {
-                    return items.flatMap((i) => (i === null ? [] : i._id));
-                }
-                return items === null ? [] : [items._id];
-            });
+        } else if (item instanceof KitPF2e) {
+            item.dumpContents(this.actor);
             return itemData;
         } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
             const condition = itemData as ConditionData;
@@ -1264,7 +1258,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
             const token = actor.token
                 ? actor.token
-                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
+                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
             if (token) {
                 await ConditionManager.addConditionToToken(condition, token);

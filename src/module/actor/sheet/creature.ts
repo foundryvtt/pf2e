@@ -5,6 +5,7 @@ import { ItemPF2e } from '@item/base';
 import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 import { PhysicalItemPF2e } from '@item/physical';
+import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
 import { CreaturePF2e } from '@actor/creature';
 import { ConditionPF2e } from '@item/others';
@@ -389,7 +390,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
             if (action.selectedAmmoId) {
                 const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
-                if (ammo instanceof PhysicalItemPF2e) {
+                if (ammo instanceof ConsumablePF2e) {
                     if (ammo.quantity < 1) {
                         ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
                         return;
