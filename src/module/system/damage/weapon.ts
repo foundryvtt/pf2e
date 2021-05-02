@@ -399,7 +399,11 @@ export class WeaponDamagePF2e {
         // check for weapon specialization
         const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
         if (weaponSpecializationDamage > 0) {
-            if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
+            const has = (slug: string, name: string) =>
+                actor.items.some(
+                    (i) => i.type === 'feat' && (i.data.slug?.startsWith(slug) || i.name.startsWith(name)),
+                );
+            if (has('greater-weapon-specialization', 'Greater Weapon Specialization')) {
                 numericModifiers.push(
                     new ModifierPF2e(
                         'PF2E.GreaterWeaponSpecialization',
@@ -407,7 +411,7 @@ export class WeaponDamagePF2e {
                         MODIFIER_TYPE.UNTYPED,
                     ),
                 );
-            } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
+            } else if (has('weapon-specialization', 'Weapon Specialization')) {
                 numericModifiers.push(
                     new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED),
                 );
