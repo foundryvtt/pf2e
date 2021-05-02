@@ -1404,7 +1404,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             summary.slideUp(200, () => summary.remove());
         } else {
             const div = $(
-                `<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`,
+                `<div class="item-summary"><div class="item-description">${TextEditor.enrichHTML(
+                    chatData.description.value,
+                )}</div></div>`,
             );
             const props = $('<div class="item-properties tags"></div>');
             if (chatData.properties) {
