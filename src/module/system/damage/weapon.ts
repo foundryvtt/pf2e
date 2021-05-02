@@ -507,7 +507,7 @@ export class WeaponDamagePF2e {
             if (
                 d.category &&
                 (d.diceNumber > 0 || d.dieSize) &&
-                (!d.damageType || d.damageType === damage.base.damageType)
+                (!d.damageType || (d.damageType === damage.base.damageType && d.category !== damage.base.category))
             ) {
                 d.name += ` ${d.category}`;
             }
