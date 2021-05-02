@@ -54,7 +54,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
-        const traits = WeaponPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         if (this.data.type !== 'weapon') {
             throw new Error('tried to create a weapon chat data for a non-weapon item');

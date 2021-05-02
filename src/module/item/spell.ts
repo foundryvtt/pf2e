@@ -86,7 +86,7 @@ export class SpellPF2e extends ItemPF2e {
             properties.push(`Heightened: +${castedLevel - data.level.value}`);
         }
 
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
         return this.processChatData(htmlOptions, {
             ...data,

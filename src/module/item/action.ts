@@ -25,7 +25,7 @@ export class ActionPF2e extends ItemPF2e {
             CONFIG.PF2E.actionTypes[data.actionType.value],
             associatedWeapon ? associatedWeapon.name : null,
         ].filter((p) => p);
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }
