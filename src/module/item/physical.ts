@@ -49,7 +49,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         }
         this.data.isInvested = this.isInvested;
 
-        if (this.data.type === 'kit' || this.data.type === 'melee') return;
+        if (this.data.type === 'melee') return;
 
         if (!this.data.data.identification) {
             this.data.data.identification = { status: 'identified' };
@@ -209,15 +209,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     async update(diff: { [key: string]: unknown }, options = {}) {
         await PhysicalItemPF2e.updateIdentificationData(this.data, diff);
         return super.update(diff, options);
-    }
-
-    static async createPhysicalItemFromCompendiumId(id: string): Promise<PhysicalItemPF2e | null> {
-        const pack = game.packs.find<Compendium<PhysicalItemPF2e>>((p) => p.collection === 'pf2e.equipment-srd');
-        if (!pack) {
-            throw Error('unable to get pack!');
-        }
-
-        return pack.getEntity(id);
     }
 }
 

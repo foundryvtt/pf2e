@@ -4,7 +4,6 @@ import {
     ContainerData,
     ConditionData,
     EquipmentData,
-    KitData,
     LoreData,
     MartialData,
     MeleeData,
@@ -21,17 +20,6 @@ export class TreasurePF2e extends PhysicalItemPF2e {}
 export interface TreasurePF2e {
     data: TreasureData;
     _data: TreasureData;
-}
-
-export class KitPF2e extends PhysicalItemPF2e {
-    get isEquipped(): false {
-        return false;
-    }
-}
-
-export interface KitPF2e {
-    data: KitData;
-    _data: KitData;
 }
 
 export class MeleePF2e extends PhysicalItemPF2e {
