@@ -5,6 +5,12 @@ import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
+    /** @override */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
+    }
+
     get isShield(): boolean {
         return this.data.data.armorType.value === 'shield';
     }
