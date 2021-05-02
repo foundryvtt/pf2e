@@ -40,6 +40,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         ].flat();
 
         traits.value = Array.from(new Set(traits.value));
+
+        // Update this value now that derived traits are set
+        this.data.isInvested = this.isInvested;
     }
 
     getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
