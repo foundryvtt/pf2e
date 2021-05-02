@@ -1,12 +1,10 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
-import { KitPF2e } from '@item/others';
+import { KitPF2e } from '@item/kit';
 import { KitEntryData, MagicSchoolKey } from '@item/data-definitions';
 
-/**
- * Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits)
- */
-function _sortedObject(obj) {
+/** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
+function _sortedObject(obj: object) {
     return Object.fromEntries([...Object.entries(obj)].sort());
 }
 
@@ -763,16 +761,16 @@ class CompendiumBrowser extends Application {
             const entry = _ev.currentTarget.closest('.spell').dataset;
             const id = entry.entryId;
 
-            this.addPhysicalItesToSelectedTokens(id);
+            this.addPhysicalItemsToSelectedTokens(id);
         });
     }
 
-    private addPhysicalItesToSelectedTokens(id: string) {
-        PhysicalItemPF2e.createPhysicalItemFromCompendiumId(id).then((item) => {
+    private addPhysicalItemsToSelectedTokens(id: string) {
+        this.createPhysicalItemFromCompendiumId(id).then((item) => {
             if (item instanceof KitPF2e) {
                 const kitItems: Record<string, KitEntryData> = item.data.data.items;
                 (Object.values(kitItems) as Array<KitEntryData>).forEach((kitItem) =>
-                    this.addPhysicalItesToSelectedTokens(kitItem.id),
+                    this.addPhysicalItemsToSelectedTokens(kitItem.id),
                 );
             } else {
                 const actorsToUpdate = new Set(canvas.tokens.controlled.map((token) => token.actor));
@@ -795,6 +793,21 @@ class CompendiumBrowser extends Application {
                 }
             }
         });
+    }
+
+    private async createPhysicalItemFromCompendiumId(itemID: string): Promise<PhysicalItemPF2e | KitPF2e | null> {
+        const pack = game.packs.get('pf2e.equipment-srd');
+        if (!pack) {
+            console.error('PF2e System | Compendium not found');
+            return null;
+        }
+        const item = await pack?.getEntity(itemID);
+        if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
+            console.error('PF2e System | Item from compendium not found');
+            return null;
+        }
+
+        return item;
     }
 
     hookCompendiumList() {
@@ -850,7 +863,7 @@ class CompendiumBrowser extends Application {
     }
 
     _getActionImg(action: string) {
-        const img = {
+        const img: Record<string, string> = {
             1: 'systems/pf2e/icons/actions/OneAction.webp',
             2: 'systems/pf2e/icons/actions/TwoActions.webp',
             3: 'systems/pf2e/icons/actions/ThreeActions.webp',
