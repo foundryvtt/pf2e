@@ -168,9 +168,9 @@ export interface TreasureDetailsData extends PhysicalDetailsData, ItemLevelData 
     };
 }
 
-export type WeaponCategoryKey = keyof ConfigPF2e['PF2E']['weaponCategories'];
-export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
-export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+export type WeaponCategory = keyof ConfigPF2e['PF2E']['weaponCategories'];
+export type WeaponGroup = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export interface WeaponDamage {
     value: string;
     dice: number;
@@ -183,12 +183,12 @@ export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: WeaponCategoryKey | null;
+        value: WeaponCategory | null;
     };
     group: {
-        value: WeaponGroupKey | null;
+        value: WeaponGroup | null;
     };
-    baseItem: BaseWeaponKey | null;
+    baseItem: BaseWeaponType | null;
     hands: {
         value: boolean;
     };

@@ -1,5 +1,5 @@
 import { PhysicalItemPF2e } from './physical';
-import { BaseWeaponKey, WeaponCategoryKey, WeaponData, WeaponGroupKey } from './data-definitions';
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data-definitions';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
@@ -12,15 +12,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return super.isStackableWith(item);
     }
 
-    get baseType(): BaseWeaponKey | null {
+    get baseType(): BaseWeaponType | null {
         return this.data.data.baseItem ?? null;
     }
 
-    get group(): WeaponGroupKey | null {
+    get group(): WeaponGroup | null {
         return this.data.data.group.value ?? null;
     }
 
-    get category(): WeaponCategoryKey | null {
+    get category(): WeaponCategory | null {
         return this.data.data.weaponType.value ?? null;
     }
 
