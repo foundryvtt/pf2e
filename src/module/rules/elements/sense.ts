@@ -1,16 +1,17 @@
 import { RuleElementPF2e } from '../rule-element';
-import { CreatureData, SenseData } from '@actor/data-definitions';
+import { CreatureData, SenseAcuity, SenseData } from '@actor/data-definitions';
 
 /**
  * @category RuleElement
  */
 export class PF2SenseRuleElement extends RuleElementPF2e {
-
-    private static isMoreAcute(replacement, existing): boolean {
+    private static isMoreAcute(replacement?: SenseAcuity, existing?: SenseAcuity): boolean {
         if (!replacement && existing) return false;
-        return (replacement && !existing) ||
-            (replacement === 'precise' && ['imprecise', 'vague'].includes(existing)) ||
-            (replacement === 'imprecise' && existing === 'vague');
+        return (
+            (replacement && !existing) ||
+            (replacement === 'precise' && ['imprecise', 'vague'].includes(existing!)) ||
+            (replacement === 'imprecise' && existing === 'vague')
+        );
     }
 
     onBeforePrepareData(actorData: CreatureData) {
