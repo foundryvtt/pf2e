@@ -1,6 +1,6 @@
 import { CharacterPF2e } from '@actor/character';
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
-import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, WeaponGroup } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 
 async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void> {
@@ -50,8 +50,8 @@ function remove(actor: CharacterPF2e, event: JQuery.ClickEvent) {
     const translationKey = key.replace(/^weapon-(?:base|group)-/, '');
     const name =
         translationKey in weaponGroups
-            ? weaponGroups[translationKey as WeaponGroupKey]
-            : baseWeapons[translationKey as BaseWeaponKey];
+            ? weaponGroups[translationKey as WeaponGroup]
+            : baseWeapons[translationKey as BaseWeaponType];
 
     const dialogText = LocalizePF2e.translations.PF2E.RemoveCombatProficiency;
     const message = game.i18n.format(dialogText.Message, { proficiency: name });

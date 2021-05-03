@@ -8,6 +8,7 @@ import {
     MartialData,
     MeleeData,
     TreasureData,
+    Rarity,
 } from './data-definitions';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
@@ -24,6 +25,11 @@ export interface TreasurePF2e {
 
 export class MeleePF2e extends PhysicalItemPF2e {
     /** @override */
+    get rarity(): Rarity {
+        return 'common';
+    }
+
+    /** @override */
     get isEquipped(): true {
         return true;
     }
@@ -31,6 +37,11 @@ export class MeleePF2e extends PhysicalItemPF2e {
     /** @override */
     get isInvested(): true {
         return true;
+    }
+
+    /** @override */
+    get identificationStatus(): 'identified' {
+        return 'identified';
     }
 
     getChatData(this: Owned<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}) {

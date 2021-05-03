@@ -14,6 +14,22 @@ export class FakeItem {
         return this._data.name;
     }
 
+    get level(): number | null {
+        return 'level' in this.data.data! ? this.data.data.level.value : null;
+    }
+
+    get traits(): Set<string> {
+        return new Set(this.data.data!.traits.value);
+    }
+
+    get isMagical(): boolean {
+        return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => this.traits.has(trait));
+    }
+
+    get isAlchemical(): boolean {
+        return this.traits.has('alchemical');
+    }
+
     update(changes: object) {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._data, k, v);

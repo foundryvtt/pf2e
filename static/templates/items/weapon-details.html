@@ -18,6 +18,7 @@
     <label>{{localize "PF2E.WeaponGroupLabel"}}</label>
     <select name="data.group.value" data-dtype="String">
         {{#select data.group.value}}
+            <option value=""></option>
             {{#each weaponGroups as |name type|}}
                 <option value="{{type}}">{{localize name}}</option>
             {{/each}}

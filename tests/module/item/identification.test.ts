@@ -1,28 +1,37 @@
-import { PhysicalItemData, Rarity } from '@item/data-definitions';
-import { identifyItem, isMagical } from '../../../src/module/item/identification';
+import { Rarity } from '@item/data-definitions';
+import { ArmorPF2e } from '@item/armor';
+import { WeaponPF2e } from '@item/weapon';
+import { FakeItem } from 'tests/fakes/fake-item';
+import { identifyItem, isMagical } from '@item/identification';
+import { EquipmentPF2e } from '@item/others';
+import { ConsumablePF2e } from '@item/consumable';
 
-interface TestItemData {
+interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = WeaponPF2e> {
     level: number;
     rarity: Rarity;
     traits?: string[];
     potencyRune?: string;
     strikingRune?: string;
     resilienceRune?: string;
-    type?: string;
+    type?: T['data']['type'];
 }
 
-function createItem({
+function createItem<T extends WeaponPF2e>(data: TestItemData<T>): T;
+function createItem<T extends ArmorPF2e>(data: TestItemData<T>): T;
+function createItem<T extends ConsumablePF2e>(data: TestItemData<T>): T;
+function createItem(data: TestItemData): WeaponPF2e;
+function createItem<T extends WeaponPF2e | ArmorPF2e>({
     level,
     rarity,
     traits,
     potencyRune,
     strikingRune,
     resilienceRune,
-    type,
-}: TestItemData): PhysicalItemData {
-    return ({
+    type = 'weapon',
+}: TestItemData<T>): T {
+    return new FakeItem({
         type,
-        data: {
+        data: ({
             level: {
                 value: level,
             },
@@ -31,6 +40,7 @@ function createItem({
                 rarity: {
                     value: rarity,
                 },
+                custom: '',
             },
             potencyRune: {
                 value: potencyRune,
@@ -41,8 +51,8 @@ function createItem({
             resiliencyRune: {
                 value: resilienceRune,
             },
-        },
-    } as unknown) as PhysicalItemData;
+        } as unknown) as T['data']['data'],
+    } as T['data']) as T;
 }
 
 describe('test identification DCs', () => {
@@ -80,7 +90,7 @@ describe('test identification DCs', () => {
     });
 
     test('identify rare alchemical ingredient', () => {
-        const item = createItem({ level: 2, rarity: 'rare', traits: ['alchemical'] });
+        const item = createItem({ type: 'consumable', level: 2, rarity: 'rare', traits: ['alchemical'] });
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             cra: 21,
@@ -90,11 +100,14 @@ describe('test identification DCs', () => {
     test('identify item without level', () => {
         const item = ({
             data: {
-                traits: {
-                    value: [],
+                data: {
+                    traits: {
+                        value: [],
+                        rarity: { value: 'common' },
+                    },
                 },
             },
-        } as unknown) as PhysicalItemData;
+        } as unknown) as EquipmentPF2e;
         const dcs = identifyItem(item, { notMatchingTraditionModifier: 3 });
         expect(dcs).toEqual({
             dc: 14,
@@ -102,14 +115,13 @@ describe('test identification DCs', () => {
     });
 
     test('potency runes are magical', () => {
-        const item = createItem({
+        const item = (createItem({
             level: 2,
             rarity: 'rare',
             traits: [],
             potencyRune: '1',
-            type: 'weapon',
-        });
-        expect(isMagical(item)).toBe(true);
+        }) as unknown) as WeaponPF2e;
+        expect(isMagical(item.data)).toBe(true);
     });
 
     test('striking runes are magical', () => {
@@ -118,9 +130,8 @@ describe('test identification DCs', () => {
             rarity: 'rare',
             traits: [],
             strikingRune: '2',
-            type: 'weapon',
         });
-        expect(isMagical(item)).toBe(true);
+        expect(isMagical(item.data)).toBe(true);
     });
 
     test('resiliency runes are magical', () => {
@@ -131,6 +142,6 @@ describe('test identification DCs', () => {
             resilienceRune: '3',
             type: 'armor',
         });
-        expect(isMagical(item)).toBe(true);
+        expect(isMagical(item.data)).toBe(true);
     });
 });
