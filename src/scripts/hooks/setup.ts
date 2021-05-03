@@ -12,6 +12,7 @@ import { encouragingWords } from '@scripts/macros/encouraging-words';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { DicePF2e } from '@scripts/dice';
 import {
     AbilityModifier,
@@ -146,6 +147,7 @@ export function listen() {
                 launchTravelSheet,
             },
             effectPanel: new EffectPanel(),
+            effectTracker: new EffectTracker(),
             worldClock: new WorldClock(),
             DicePF2e: DicePF2e,
             StatusEffects: StatusEffects,
