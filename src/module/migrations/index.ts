@@ -61,6 +61,7 @@ import { Migration627LowerCaseSpellSaves } from './627-lowercase-spell-saves';
 import { Migration628UpdateIdentificationData } from './628-update-identification-data';
 import { Migration629SetBaseItems } from './629-set-base-items';
 import { Migration630FixTalismanSpelling } from './630-fix-talisman-spelling';
+import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
 
 export class Migrations {
     private static list = [
@@ -126,6 +127,7 @@ export class Migrations {
         Migration628UpdateIdentificationData,
         Migration629SetBaseItems,
         Migration630FixTalismanSpelling,
+        Migration631FixSenseRuleElementSelector,
     ];
 
     static get latestVersion(): number {
