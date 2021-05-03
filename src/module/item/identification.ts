@@ -153,7 +153,6 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
                     iconName = 'infernal-contracts';
                     break;
                 case 'talisman':
-                case 'talasman': // TODO Typo in consumableType value. Will not modify due to possible side effects
                     iconName = 'talisman';
                     break;
                 case 'elixir':

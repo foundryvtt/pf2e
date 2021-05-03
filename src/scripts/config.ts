@@ -1442,7 +1442,7 @@ export const PF2ECONFIG = {
         potion: 'PF2E.ConsumableTypePotion',
         oil: 'PF2E.ConsumableTypeOil',
         scroll: 'PF2E.ConsumableTypeScroll',
-        talasman: 'PF2E.ConsumableTypeTalisman',
+        talisman: 'PF2E.ConsumableTypeTalisman',
         snare: 'PF2E.ConsumableTypeSnare',
         drug: 'PF2E.ConsumableTypeDrug',
         elixir: 'PF2E.ConsumableTypeElixir',
