@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { SpellData } from './data-definitions';
+import { SpellData } from './data/types';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export class SpellPF2e extends ItemPF2e {

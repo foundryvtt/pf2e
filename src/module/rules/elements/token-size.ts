@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { CharacterData, NPCData } from '@actor/data-definitions';
 import { RuleElementPF2e } from '../rule-element';
 

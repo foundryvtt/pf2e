@@ -7,7 +7,7 @@ import {
     ItemDataPF2e,
     KitData,
     KitEntryData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import { MigrationBase } from './base';
 
 export class Migration620RenameToWebp extends MigrationBase {

@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /** Convert heritage "feats" be of type "heritage" */
 export class Migration610SetHeritageFeatType extends MigrationBase {

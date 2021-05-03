@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { ItemPF2e } from '../item/base';
 
 type ItemMap = Map<string, ItemPF2e>;

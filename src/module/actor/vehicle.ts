@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from './base';
 import { VehicleData } from './data-definitions';
 

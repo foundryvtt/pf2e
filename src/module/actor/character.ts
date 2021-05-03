@@ -5,7 +5,7 @@ import {
     WeaponCategory,
     WeaponDamage,
     WeaponData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import { ItemPF2e } from '@item/base';
 import { getArmorBonus, getResiliencyBonus } from '@item/runes';
 import {

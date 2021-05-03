@@ -1,5 +1,5 @@
 import { CharacterPF2e } from '@actor/character';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data/types';
 import { ItemPF2e } from './base';
 import { FeatPF2e } from './feat';
 

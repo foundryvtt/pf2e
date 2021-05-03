@@ -1,6 +1,6 @@
 import { ActorPF2e, TokenPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { MeleePF2e } from '@item/others';
 import { StatisticModifier } from '@module/modifiers';
 

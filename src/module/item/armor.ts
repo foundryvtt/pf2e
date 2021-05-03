@@ -1,6 +1,6 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { addSign } from '@module/utils';
-import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data-definitions';
+import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data/types';
 import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 

@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ErrorPF2e } from '@module/utils';
 import { ItemPF2e } from './base';
-import { KitData, KitEntryData } from './data-definitions';
+import { KitData, KitEntryData } from './data/types';
 import { ContainerPF2e } from './others';
 import { PhysicalItemPF2e } from './physical';
 

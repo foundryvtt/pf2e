@@ -1,5 +1,5 @@
 import { ActorPF2e } from '@actor/base';
-import { SpellData } from './data-definitions';
+import { SpellData } from './data/types';
 import { SpellcastingEntryPF2e } from './spellcasting-entry';
 
 /**

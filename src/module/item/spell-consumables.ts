@@ -2,7 +2,7 @@ import { AbilityString } from '@actor/data-definitions';
 import { ConfigPF2e } from '@scripts/config';
 import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
-import { ConsumableData, SpellData, TrickMagicItemCastData } from './data-definitions';
+import { ConsumableData, SpellData, TrickMagicItemCastData } from './data/types';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export enum SpellConsumableTypes {

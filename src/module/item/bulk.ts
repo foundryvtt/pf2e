@@ -1,5 +1,5 @@
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data-definitions';
+import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data/types';
 
 interface StackDefinition {
     size: number;

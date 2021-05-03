@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { ActionData } from './data-definitions';
+import { ActionData } from './data/types';
 
 export class ActionPF2e extends ItemPF2e {
     /** @override */

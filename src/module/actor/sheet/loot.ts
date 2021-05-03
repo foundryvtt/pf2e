@@ -3,7 +3,7 @@ import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
 import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
-import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData, KitData } from '@item/data-definitions';
+import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData, KitData } from '@item/data/types';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 import { LootData } from '@actor/data-definitions';

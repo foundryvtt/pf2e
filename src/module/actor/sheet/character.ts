@@ -5,7 +5,7 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem } from '@item/data/types';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';

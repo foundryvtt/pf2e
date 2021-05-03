@@ -1,5 +1,5 @@
 import { AbilityString } from '@actor/data-definitions';
-import { ABCFeatureEntryData, FeatType } from '@item/data-definitions';
+import { ABCFeatureEntryData, FeatType } from '@item/data/types';
 import { ItemSheetPF2e } from './base';
 import { FeatPF2e } from '@item/feat';
 import { AncestryPF2e } from '@item/ancestry';

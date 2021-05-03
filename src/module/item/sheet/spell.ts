@@ -1,5 +1,5 @@
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
-import { SpellData, SpellDetailsData } from '@item/data-definitions';
+import { SpellData, SpellDetailsData } from '@item/data/types';
 import { SpellPF2e } from '@item/spell';
 import { SpellSheetData } from './data-types';
 import { ConfigPF2e } from '@scripts/config';

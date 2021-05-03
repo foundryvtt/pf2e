@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data-definitions';
+import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data/types';
 import { LocalizePF2e } from '@system/localize';
 import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';

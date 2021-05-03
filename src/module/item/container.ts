@@ -1,5 +1,5 @@
 import { Bulk, BulkConfig, BulkItem, calculateBulk, defaultBulkConfig, formatBulk, weightToBulk } from './bulk';
-import { PhysicalItemData, Size } from './data-definitions';
+import { PhysicalItemData, Size } from './data/types';
 import { groupBy } from '../utils';
 
 /**

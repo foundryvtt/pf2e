@@ -1,4 +1,4 @@
-import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data-definitions';
+import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';

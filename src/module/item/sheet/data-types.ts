@@ -1,13 +1,6 @@
 /** Item sheet form types */
 
-import {
-    ABCFeatureEntryData,
-    AncestryData,
-    BackgroundData,
-    ClassData,
-    FeatData,
-    SpellData,
-} from '@item/data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData, SpellData } from '@item/data/types';
 import { ConfigPF2e } from '@scripts/config';
 import { ItemSheetDataPF2e } from './base';
 

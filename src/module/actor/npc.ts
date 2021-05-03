@@ -8,7 +8,7 @@ import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { RollNotePF2e } from '../notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from '@actor/creature';
-import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data-definitions';
+import { ActionData, MeleeData, Rarity, SpellAttackRollModifier, SpellDifficultyClass } from '@item/data/types';
 import { DamageType } from '@module/damage-calculation';
 import { sluggify } from '@module/utils';
 

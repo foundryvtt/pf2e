@@ -1,6 +1,6 @@
 import { EffectPF2e } from '@item/effect';
 import { ActorPF2e } from '@actor/base';
-import { EffectData } from '@item/data-definitions';
+import { EffectData } from '@item/data/types';
 
 export class EffectTracker {
     private trackedEffects: EffectPF2e[] = [];

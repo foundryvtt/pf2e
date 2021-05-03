@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 export class FakeItem {
     _data: Partial<ItemDataPF2e>;

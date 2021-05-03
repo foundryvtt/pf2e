@@ -1,4 +1,4 @@
-import { PhysicalItemData } from '@item/data-definitions';
+import { PhysicalItemData } from '@item/data/types';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ErrorPF2e } from '@module/utils';
 import { ActorPF2e } from '@actor/base';

@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { BaseArmorType, isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { BaseArmorType, isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { sluggify } from '@module/utils';
 
 /** Set the `baseItem` property of base armor and weapons for the benefit of better unidentified names */

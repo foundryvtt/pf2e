@@ -1,5 +1,5 @@
 import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes';
-import { ArmorDetailsData, WeaponData, WeaponDetailsData } from '@item/data-definitions';
+import { ArmorDetailsData, WeaponData, WeaponDetailsData } from '@item/data/types';
 describe('test runes', () => {
     if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') {
         test('should get rune property slots', () => {
