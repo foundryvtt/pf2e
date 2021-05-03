@@ -3,7 +3,7 @@ import { SKILL_DICTIONARY } from '../base';
 import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
-import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
+import { SpellcastingEntryData, SpellData } from '@item/data/types';
 import { ErrorPF2e } from '@module/utils';
 
 /**

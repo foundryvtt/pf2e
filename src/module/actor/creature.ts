@@ -1,7 +1,7 @@
 import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
-import { ConditionData, ItemDataPF2e, WeaponData } from '@item/data-definitions';
+import { ConditionData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';

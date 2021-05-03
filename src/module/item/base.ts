@@ -12,13 +12,7 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import {
-    isItemSystemData,
-    isPhysicalItem,
-    ItemDataPF2e,
-    MeleeDetailsData,
-    TrickMagicItemCastData,
-} from './data-definitions';
+import { isItemSystemData, isPhysicalItem, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data/types';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';

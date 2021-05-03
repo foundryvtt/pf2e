@@ -1,6 +1,6 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemPF2e } from './base';
-import { UnidentifiedData, IdentificationStatus, PhysicalItemData, Rarity } from './data-definitions';
+import { UnidentifiedData, IdentificationStatus, PhysicalItemData, Rarity } from './data/types';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {

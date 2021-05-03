@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { FeatData, FeatType } from './data-definitions';
+import { FeatData, FeatType } from './data/types';
 
 export class FeatPF2e extends ItemPF2e {
     get featType(): { value: FeatType; label: string } {

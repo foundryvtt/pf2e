@@ -7,7 +7,7 @@ import { AbilityString, FamiliarData, SkillAbbreviation } from './data-definitio
 import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { objectHasKey } from '@module/utils';
 
 export class FamiliarPF2e extends CreaturePF2e {

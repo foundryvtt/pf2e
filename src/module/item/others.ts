@@ -9,7 +9,7 @@ import {
     MeleeData,
     TreasureData,
     Rarity,
-} from './data-definitions';
+} from './data/types';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
 export interface ContainerPF2e {

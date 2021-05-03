@@ -9,7 +9,7 @@ import {
 } from '@module/modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
-import { WeaponData } from '@item/data-definitions';
+import { WeaponData } from '@item/data/types';
 import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-definitions';
 import { RollNotePF2e } from '@module/notes';
 import { StrikingPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';

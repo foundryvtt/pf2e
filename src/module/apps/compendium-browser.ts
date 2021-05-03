@@ -1,7 +1,7 @@
 import { Progress } from '../progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/kit';
-import { KitEntryData, MagicSchoolKey } from '@item/data-definitions';
+import { KitEntryData, MagicSchoolKey } from '@item/data/types';
 
 /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
 function _sortedObject(obj: object) {

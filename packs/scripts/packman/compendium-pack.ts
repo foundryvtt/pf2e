@@ -1,7 +1,7 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { sluggify } from '@module/utils';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';
 
 export interface PackMetadata {

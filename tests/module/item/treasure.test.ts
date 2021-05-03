@@ -8,7 +8,7 @@ import {
     TreasureData,
     TreasureDetailsData,
     WeaponData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,

@@ -1,5 +1,5 @@
 import { ActionPF2e } from '@item/action';
-import { FeatData, WeaponData } from '@item/data-definitions';
+import { FeatData, WeaponData } from '@item/data/types';
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 
 export class ActionSheetPF2e extends ItemSheetPF2e<ActionPF2e> {

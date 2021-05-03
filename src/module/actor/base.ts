@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e, ConditionData, WeaponData, isMagicDetailsData } from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData, WeaponData, isMagicDetailsData } from '@item/data/types';
 import {
     ActorDataPF2e,
     HazardData,

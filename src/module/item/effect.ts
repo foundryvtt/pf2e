@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { EffectData } from './data-definitions';
+import { EffectData } from './data/types';
 
 export class EffectPF2e extends ItemPF2e {
     static readonly DURATION_UNITS: Record<string, number> = Object.freeze({

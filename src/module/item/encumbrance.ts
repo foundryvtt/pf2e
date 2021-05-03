@@ -1,5 +1,5 @@
 import { Bulk } from './bulk';
-import { Size } from './data-definitions';
+import { Size } from './data/types';
 
 /**
  * @category Other

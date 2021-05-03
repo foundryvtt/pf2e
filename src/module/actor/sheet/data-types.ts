@@ -8,7 +8,7 @@ import {
     PhysicalItemData,
     TreasureData,
     WeaponData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import { getContainerMap } from '@item/container';
 import { Coins } from '@item/treasure';
 

@@ -1,4 +1,4 @@
-import { Rarity } from '@item/data-definitions';
+import { Rarity } from '@item/data/types';
 import { ArmorPF2e } from '@item/armor';
 import { WeaponPF2e } from '@item/weapon';
 import { FakeItem } from 'tests/fakes/fake-item';

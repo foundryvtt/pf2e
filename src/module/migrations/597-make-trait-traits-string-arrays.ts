@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /** Change `delimiter`-delimited string traits into arrays of strings */
 export class Migration597MakeTraitTraitsArrays extends MigrationBase {
