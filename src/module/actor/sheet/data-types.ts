@@ -10,6 +10,7 @@ import {
     WeaponData,
 } from '@item/data-definitions';
 import { getContainerMap } from '@item/container';
+import { Coins } from '@item/treasure';
 
 type ContainerMap = ReturnType<typeof getContainerMap>;
 type SheetContainerData = ContainerMap extends Map<string, infer X> ? X : never;
@@ -25,6 +26,13 @@ export type InventoryItem<D extends PhysicalItemSubset = PhysicalItemSubset> = D
     showEdit: boolean;
     totalWeight: string;
 };
+
+interface CoinDisplayData {
+    value: number;
+    label: string;
+}
+
+export type CoinageSummary = Record<keyof Coins, CoinDisplayData>;
 
 interface SheetItemList<D extends PhysicalItemSubset> {
     label: string;
@@ -44,4 +52,8 @@ export interface ActorSheetDataPF2e<DataType extends ActorDataPF2e = ActorDataPF
     isTargetFlatFooted: boolean;
     isProficiencyLocked: boolean;
     user: { isGM: boolean };
+    totalCoinage: CoinageSummary;
+    totalCoinageGold: string;
+    totalWealth: Coins;
+    totalWealthGold: string;
 }

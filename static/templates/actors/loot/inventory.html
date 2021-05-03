@@ -1,9 +1,9 @@
 <section class="sheet-body content sheet-content-loot">
     <ol class="currency">
-        {{#each totalTreasure as |value denomination|}}
+        {{#each totalCoinage as |coins denomination|}}
             <li class="denomination {{denomination}}">
                 <div class="currency-image"></div>
-                <span>{{value.value}}</span>
+                <span>{{coins.value}}</span>
             </li>
         {{/each}}
         {{#if owner}}
