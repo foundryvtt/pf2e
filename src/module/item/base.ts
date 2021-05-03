@@ -12,13 +12,7 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import {
-    isItemSystemData,
-    ItemDataPF2e,
-    ItemTraits,
-    MeleeDetailsData,
-    TrickMagicItemCastData,
-} from './data-definitions';
+import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data-definitions';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
@@ -143,16 +137,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         return this.processChatData(htmlOptions, duplicate(this.data.data));
     }
 
-    static traitChatData(
-        itemTraits: ItemTraits,
-        traitList: Record<string, string>,
-    ): { label: string; description: string }[] {
-        let traits: string[] = duplicate(itemTraits.value);
-        const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
-
-        if (customTraits.length > 0) {
-            traits = traits.concat(customTraits);
-        }
+    protected traitChatData(traitList: Record<string, string>): { label: string; description: string }[] {
+        const traits = [...this.traits, ...this.data.data.traits.custom];
 
         const traitChatLabels = traits.map((trait) => {
             const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
@@ -851,7 +837,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
             spellData.properties = props.filter((p) => p !== null);
-            spellData.traits = ItemPF2e.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
+            spellData.traits = this.traitChatData(CONFIG.PF2E.spellTraits) as any;
 
             spellData.item = JSON.stringify(this.data);
 

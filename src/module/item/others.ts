@@ -23,9 +23,19 @@ export interface TreasurePF2e {
 }
 
 export class MeleePF2e extends PhysicalItemPF2e {
+    /** @override */
+    get isEquipped(): true {
+        return true;
+    }
+
+    /** @override */
+    get isInvested(): true {
+        return true;
+    }
+
     getChatData(this: Owned<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         const isAgile = this.traits.has('agile');
         const map2 = isAgile ? '-4' : '-5';

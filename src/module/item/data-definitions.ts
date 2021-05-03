@@ -826,6 +826,7 @@ export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDe
     data: D;
 
     // Prepared data
+    isEquipped: boolean;
     isInvested: boolean | null;
 }
 
@@ -851,6 +852,10 @@ export interface KitData extends BaseItemDataPF2e<KitDetailsData> {
 
 export interface MeleeData extends BasePhysicalItemData<MeleeDetailsData> {
     type: 'melee';
+
+    // Prepared data
+    isEquipped: true;
+    isInvested: true;
 }
 
 export interface ConsumableData

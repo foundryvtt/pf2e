@@ -31,7 +31,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isInvested(): boolean | null {
         if (!this.traits.has('invested')) return null;
-        return 'invested' in this.data.data && this.data.data.invested.value === true;
+        return this.isIdentified && 'invested' in this.data.data && this.data.data.invested.value === true;
     }
 
     get isIdentified(): boolean {
@@ -47,13 +47,15 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 effectData.disabled = true;
             }
         }
-        this.data.isInvested = this.isInvested;
 
         if (this.data.type === 'melee') return;
 
         if (!this.data.data.identification) {
             this.data.data.identification = { status: 'identified' };
         }
+
+        this.data.isEquipped = this.isEquipped;
+        this.data.isInvested = this.isInvested;
 
         if (!this.data.data.identification.identified || this.data.data.identification.identified.name === '') {
             PhysicalItemPF2e.setMystifiedDefaults(this, 'identified');

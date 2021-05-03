@@ -16,7 +16,7 @@ export class FeatPF2e extends ItemPF2e {
             `Level ${data.level.value || 0}`,
             data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
         ].filter((p) => p);
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }

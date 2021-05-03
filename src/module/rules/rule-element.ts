@@ -62,10 +62,9 @@ export abstract class RuleElementPF2e {
      * Globally ignore this rule element.
      */
     get ignored(): boolean {
-        if (!isPhysicalItem(this.item)) return false;
-        if (!this.item.data.equipped.value) return true;
-        if (!this.item.data.traits.value.includes('invested')) return false;
-        return !('invested' in this.item.data && this.item.data.invested.value === true);
+        const { item } = this;
+        if (!isPhysicalItem(item)) return false;
+        return !item.isEquipped || item.isInvested === false;
     }
 
     /**
