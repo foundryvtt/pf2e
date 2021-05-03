@@ -1,5 +1,6 @@
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
@@ -34,6 +35,7 @@ declare global {
             actions: { [key: string]: Function };
             worldClock: WorldClock;
             effectPanel: EffectPanel;
+            effectTracker: EffectTracker;
             rollActionMacro: typeof rollActionMacro;
             rollItemMacro: typeof rollItemMacro;
             gm: {

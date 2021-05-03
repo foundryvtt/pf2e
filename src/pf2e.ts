@@ -197,6 +197,9 @@ function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
+        if (child.type === 'effect') {
+            game.pf2e.effectTracker.unregister(child);
+        }
         game.pf2e.effectPanel.refresh();
     }
 }
