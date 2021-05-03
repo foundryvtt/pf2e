@@ -33,7 +33,7 @@ export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
             const sense = senses.find((sense) => sense.type === type);
             choices[type] = {
                 acuity: sense?.acuity ?? '',
-                disabled: sense?.['source'] ? 'disabled' : '',
+                disabled: sense?.source ? 'disabled' : '',
                 label,
                 selected: sense !== undefined,
                 value: sense?.value ?? '',
