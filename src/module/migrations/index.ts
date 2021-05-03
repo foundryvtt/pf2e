@@ -60,6 +60,7 @@ import { Migration626UpdateSpellCategory } from './626-update-spell-category';
 import { Migration627LowerCaseSpellSaves } from './627-lowercase-spell-saves';
 import { Migration628UpdateIdentificationData } from './628-update-identification-data';
 import { Migration629SetBaseItems } from './629-set-base-items';
+import { Migration630FixTalismanSpelling } from './630-fix-talisman-spelling';
 
 export class Migrations {
     private static list = [
@@ -124,6 +125,7 @@ export class Migrations {
         Migration627LowerCaseSpellSaves,
         Migration628UpdateIdentificationData,
         Migration629SetBaseItems,
+        Migration630FixTalismanSpelling,
     ];
 
     static get latestVersion(): number {
