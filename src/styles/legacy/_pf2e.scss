@@ -124,11 +124,11 @@
           background: none;
           padding: 0;
           margin: 1px 0;
-          color: #444;
+          color: #333;
           border: 1px solid transparent;
 
           &:hover, &:focus {
-            border: 1px solid #111;
+            border: 1px solid black;
             box-shadow: 0 0 10px #00005a;
           }
         }
@@ -2508,24 +2508,90 @@
       padding-bottom: 6px;
     }
 
-    .sheet-content {
-      flex: 1;
-      width: 100%;
-      display: flex;
-      flex-direction: row;
-      flex-wrap: wrap;
-      justify-content: flex-start;
-      height: calc(100% - 35px);
+    article.sheet-content {
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: flex-start;
+        height: calc(100% - 35px);
+        overflow: hidden;
 
-      > * {
-        flex: 1;
-      }
+        > * {
+            flex: 1;
+        }
+        > section.sheet-sidebar, > section.sheet-body {
+            height: calc(100% - 10px);
+            overflow-y: auto;
+        }
 
-      .sheet-sidebar {
-        flex: 0 0 220px;
-        height: inherit;
-        overflow-y: auto;
-      }
+        > section.sheet-sidebar {
+            flex: 0 0 220px;
+            display: flex;
+            flex-direction: column;
+            flex-wrap: nowrap;
+
+            > * {
+                flex: 1;
+            }
+
+            .sidebar-summary {
+                flex: 0 0 28px;
+                line-height: 29px;
+                margin: 0 0 0.5em;
+                text-align: center;
+                border-bottom: 1px solid var(--secondary-background);
+            }
+
+            .item-summary {
+                flex: 0 0 28px;
+                line-height: 28px;
+                text-align: center;
+                font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
+                font-size: 18px;
+                color: #444;
+            }
+
+            .item-tags {
+                flex: 0;
+                list-style: none;
+                margin: 0;
+                padding: 8px 0 6px;
+                border-top: 1px solid var(--secondary-background);
+
+                .tag {
+                    display: block;
+                    float: none;
+                    width: 100%;
+                    text-align: center;
+                }
+            }
+
+            .inventory-details {
+                overflow-y: auto;
+                padding: 0 4px;
+
+                label {
+                    color: #353535;
+                    font-weight: bold;
+                    white-space: nowrap;
+                }
+
+                .form-group input {
+                    text-align: right;
+                }
+            }
+        }
+
+        > section.sheet-body {
+            input {
+                &[type="text"], &[type="number"] {
+                    background: rgba(255, 255, 255, 0.5);
+                    border: 1px solid #aaa;
+                    padding: 3px;
+                }
+            }
+        }
     }
 
     .tab {
@@ -2553,16 +2619,6 @@
         }
     }
 
-    .sheet-body {
-      input {
-        &[type="text"], &[type="number"] {
-          background: rgba(255, 255, 255, 0.5);
-          border: 1px solid #aaa;
-          padding: 3px;
-        }
-      }
-    }
-
     .sheet-header {
       border-bottom: 1px solid var(--secondary-background);
 
@@ -2573,63 +2629,6 @@
       }
     }
 
-    .sheet-sidebar {
-      display: flex;
-      flex-direction: column;
-      flex-wrap: nowrap;
-      overflow-y: hidden;
-
-      > * {
-        flex: 1;
-      }
-
-      .sidebar-summary {
-        flex: 0 0 28px;
-        line-height: 29px;
-        margin: 0 0 0.5em;
-        text-align: center;
-        border-bottom: 1px solid var(--secondary-background);
-      }
-
-      .item-summary {
-        flex: 0 0 28px;
-        line-height: 28px;
-        text-align: center;
-        font-family: "Nodesto", "Signika", "Palatino Linotype", serif;
-        font-size: 18px;
-        color: #444;
-      }
-
-      .item-tags {
-        flex: 0;
-        list-style: none;
-        margin: 0;
-        padding: 8px 0 6px;
-        border-top: 1px solid var(--secondary-background);
-
-        .tag {
-          display: block;
-          float: none;
-          width: 100%;
-          text-align: center;
-        }
-      }
-
-      .inventory-details {
-        overflow-y: auto;
-        padding: 0 4px;
-
-        label {
-          color: #353535;
-          font-weight: bold;
-          white-space: nowrap;
-        }
-
-        .form-group input {
-          text-align: right;
-        }
-      }
-    }
 
     .sheet-tabs {
       border-bottom: 1px solid var(--secondary-background);

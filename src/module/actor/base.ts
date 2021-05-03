@@ -678,7 +678,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
     /* -------------------------------------------- */
     /* Owned Item Management
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
     async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
         if (!entryId || !spellLevel) {
@@ -707,23 +707,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 'data.displayLevels': currentLvlToDisplay,
             });
         }
-    }
-
-    /** @override */
-    async updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
-        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options = {},
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
-        const updateData = Array.isArray(data) ? data : [data];
-        for (const datum of updateData) {
-            const item = this.physicalItems.get(datum._id);
-            if (item) {
-                await PhysicalItemPF2e.updateIdentificationData(item.data, datum);
-            }
-        }
-
-        return super.updateEmbeddedEntity(embeddedName, updateData, options);
     }
 
     isLootableBy(user: User) {

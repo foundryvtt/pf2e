@@ -58,6 +58,8 @@ import { Migration624RemoveTokenEffectIconFlags } from '@module/migrations/624-r
 import { Migration625EnsurePresenceOfSaves } from './625-ensure-presence-of-saves';
 import { Migration626UpdateSpellCategory } from './626-update-spell-category';
 import { Migration627LowerCaseSpellSaves } from './627-lowercase-spell-saves';
+import { Migration628UpdateIdentificationData } from './628-update-identification-data';
+import { Migration629SetBaseItems } from './629-set-base-items';
 
 export class Migrations {
     private static list = [
@@ -120,6 +122,8 @@ export class Migrations {
         Migration625EnsurePresenceOfSaves,
         Migration626UpdateSpellCategory,
         Migration627LowerCaseSpellSaves,
+        Migration628UpdateIdentificationData,
+        Migration629SetBaseItems,
     ];
 
     static get latestVersion(): number {

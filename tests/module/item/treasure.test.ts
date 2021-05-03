@@ -4,7 +4,6 @@ import {
     ArmorData,
     EquipmentData,
     ItemDataPF2e,
-    ItemLevelData,
     PhysicalItemData,
     TreasureData,
     TreasureDetailsData,
@@ -32,17 +31,13 @@ function treasure({
     stackGroup = 'unknown',
     containerId = undefined,
 }): TreasureData {
-    return {
+    return ({
         _id: id,
         name: id,
         type: 'treasure',
         img: 'icons/svg/mystery-man.svg',
-        permission: {},
-        sort: 1,
         flags: {},
         effects: [],
-        isEquipped: false,
-        isInvested: null,
         data: ({
             level: 0,
             denomination: { value: denomination as 'cp' | 'sp' | 'gp' | 'pp' },
@@ -51,8 +46,8 @@ function treasure({
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
             identification: { status: 'identified' },
-        } as unknown) as TreasureDetailsData & ItemLevelData,
-    };
+        } as unknown) as TreasureDetailsData,
+    } as unknown) as TreasureData;
 }
 function coin({
     denomination,

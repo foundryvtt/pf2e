@@ -1,6 +1,6 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { addSign } from '@module/utils';
-import { ArmorCategory, ArmorData } from './data-definitions';
+import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data-definitions';
 import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
@@ -17,6 +17,14 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     get isArmor(): boolean {
         return !this.isShield;
+    }
+
+    get baseType(): BaseArmorType | null {
+        return this.data.data.baseItem ?? null;
+    }
+
+    get group(): ArmorGroup | null {
+        return this.data.data.group.value || null;
     }
 
     get category(): ArmorCategory {
@@ -88,8 +96,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [
-            CONFIG.PF2E.armorTypes[data.armorType.value],
-            CONFIG.PF2E.armorGroups[data.group.value],
+            CONFIG.PF2E.armorTypes[this.category],
+            this.group ? CONFIG.PF2E.armorGroups[this.group] : null,
             `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
             `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
             `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
@@ -102,15 +110,18 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     /** @override */
-    generateUnidentifiedName() {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const formatString = translations.identification.UnidentifiedItem;
-
-        const group = CONFIG.PF2E.armorGroups[this.data.data.group.value] ?? null;
+        const base = this.baseType ? translations.Item.Armor.Base[this.baseType] : null;
+        const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
         const fallback = this.isShield ? 'PF2E.ArmorTypeShield' : 'ITEM.TypeArmor';
 
-        const item = game.i18n.localize(group ?? fallback);
-        return game.i18n.format(formatString, { item });
+        const itemType = game.i18n.localize(base ?? group ?? fallback);
+
+        if (typeOnly) return itemType;
+
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 

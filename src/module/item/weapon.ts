@@ -46,10 +46,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        if (!this.actor) {
-            return {};
-        }
-
         const data = this.data.data;
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
@@ -124,16 +120,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** @override */
-    generateUnidentifiedName() {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const formatString = translations.identification.UnidentifiedItem;
-
         const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const fallback = 'ITEM.TypeWeapon';
+        const itemType = game.i18n.localize(base ?? group ?? fallback);
 
-        const item = game.i18n.localize(base ?? group ?? fallback);
-        return game.i18n.format(formatString, { item });
+        if (typeOnly) return itemType;
+
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 

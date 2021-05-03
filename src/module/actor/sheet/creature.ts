@@ -3,7 +3,6 @@ import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
 import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
-import { PhysicalItemPF2e } from '@item/physical';
 import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
 import { CreaturePF2e } from '@actor/creature';
@@ -74,7 +73,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     );
                 break;
             case 'consumable':
-                if (chatData.hasCharges && PhysicalItemPF2e.isIdentified(item.data))
+                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
                     buttons.append(
                         `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
                             'PF2E.ConsumableUseLabel',
