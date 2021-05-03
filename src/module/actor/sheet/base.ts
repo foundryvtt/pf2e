@@ -21,7 +21,7 @@ import {
     MagicSchoolKey,
     SpellData,
     SpellDetailsData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import { ConditionManager } from '@module/conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';

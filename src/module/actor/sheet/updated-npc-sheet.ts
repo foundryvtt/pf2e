@@ -4,7 +4,7 @@ import { ActorPF2e } from '../base';
 import { ItemPF2e } from '@item/base';
 import { ActorSheetPF2eSimpleNPC } from './simple-npc-sheet';
 import { SheetInventory } from './data-types';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };

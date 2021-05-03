@@ -5,7 +5,7 @@ import {
     ItemDataPF2e,
     IdentificationData,
     UnidentifiedData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 
 type IdentifiedData =
     | UnidentifiedData

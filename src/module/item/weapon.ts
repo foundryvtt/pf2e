@@ -1,5 +1,5 @@
 import { PhysicalItemPF2e } from './physical';
-import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data-definitions';
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data/types';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';

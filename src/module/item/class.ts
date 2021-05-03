@@ -1,6 +1,6 @@
 import { CharacterPF2e } from '../actor/character';
 import { ABCItemPF2e } from './abc';
-import { ClassData, FeatData } from './data-definitions';
+import { ClassData, FeatData } from './data/types';
 
 export class ClassPF2e extends ABCItemPF2e {
     get hpPerLevel(): number {

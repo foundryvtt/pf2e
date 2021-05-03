@@ -1,5 +1,5 @@
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /**
  * This is the base class for a migration.

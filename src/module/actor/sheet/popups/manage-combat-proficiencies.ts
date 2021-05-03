@@ -1,6 +1,6 @@
 import { CharacterPF2e } from '@actor/character';
 import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
-import { BaseWeaponType, WeaponGroup } from '@item/data-definitions';
+import { BaseWeaponType, WeaponGroup } from '@item/data/types';
 import { LocalizePF2e } from '@module/system/localize';
 
 async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void> {

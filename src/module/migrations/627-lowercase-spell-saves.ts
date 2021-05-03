@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { tupleHasValue } from '@module/utils';
 import { MigrationBase } from './base';
 

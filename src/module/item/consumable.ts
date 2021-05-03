@@ -1,5 +1,5 @@
 import { LocalizePF2e } from '@module/system/localize';
-import { ConsumableData, ConsumableType } from './data-definitions';
+import { ConsumableData, ConsumableType } from './data/types';
 import { PhysicalItemPF2e } from './physical';
 
 export class ConsumablePF2e extends PhysicalItemPF2e {

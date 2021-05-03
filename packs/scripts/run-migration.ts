@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '@module/migration-runner-base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';

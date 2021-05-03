@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 export class Migration578MigrateItemImagePaths extends MigrationBase {
     static version = 0.578;

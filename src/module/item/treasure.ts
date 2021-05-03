@@ -1,6 +1,6 @@
 import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
-import { isPhysicalItem, ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from './data-definitions';
+import { isPhysicalItem, ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from './data/types';
 import { PhysicalItemPF2e } from './physical';
 
 // FIXME: point this to the correct type afterwards

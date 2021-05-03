@@ -1,7 +1,7 @@
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
-import { BaseWeaponType, WeaponGroup } from '@item/data-definitions';
+import { BaseWeaponType, WeaponGroup } from '@item/data/types';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';

@@ -1,5 +1,5 @@
 import { CreatureData } from '@actor/data-definitions';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {

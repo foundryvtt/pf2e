@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /** Numify melee bonus.value property */
 export class Migration614NumifyMeleeBonuses extends MigrationBase {

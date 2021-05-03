@@ -1,6 +1,6 @@
 import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
-import { PF2RuleElementData } from '../rules/rules-data-definitions';
-import { RollNotePF2e } from '../notes';
+import { PF2RuleElementData } from '../../rules/rules-data-definitions';
+import { RollNotePF2e } from '../../notes';
 import { ConfigPF2e } from '@scripts/config';
 import { LocalizePF2e } from '@module/system/localize';
 

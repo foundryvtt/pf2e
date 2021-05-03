@@ -34,7 +34,7 @@ import {
     SpellData,
     TreasureData,
     WeaponData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
 import { InventoryItem, SheetInventory } from './data-types';

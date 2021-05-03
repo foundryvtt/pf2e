@@ -1,6 +1,6 @@
 import { ActorPF2e, TokenPF2e } from '@actor/base';
 import { ConditionManager } from '@module/conditions';
-import { ConditionData } from '@item/data-definitions';
+import { ConditionData } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 
