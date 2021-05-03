@@ -130,6 +130,15 @@ function pruneTree(entityData: PackEntry, topLevel: PackEntry): void {
         if (key === '_id') {
             topLevel = entityData;
             delete (entityData as { data?: { rarity?: unknown } }).data?.rarity;
+            if ('type' in entityData && entityData.type === 'npc') {
+                entityData.token.name = entityData.name.replace(/ ?\(\d\d?-\d\d?\)$/g, '');
+            }
+            if ('type' in entityData && entityData.type === 'hazard') {
+                entityData.token.name = entityData.name.replace(/ ?\(\d\d?-\d\d?\)$/g, '');
+            }
+            if ('type' in entityData && entityData.type === 'character') {
+                entityData.token.name = entityData.name.replace(/ ?\(\d\d?-\d\d?\)$/g, '');
+            }
         } else if (['_modifiers', '_sheetTab'].includes(key)) {
             delete entityData[key as EntityKey];
         } else if (entityData[key as EntityKey] instanceof Object) {
