@@ -18,6 +18,7 @@ import { Migration626UpdateSpellCategory } from '@module/migrations/626-update-s
 import { Migration627LowerCaseSpellSaves } from '@module/migrations/627-lowercase-spell-saves';
 import { Migration628UpdateIdentificationData } from '@module/migrations/628-update-identification-data';
 import { Migration629SetBaseItems } from '@module/migrations/629-set-base-items';
+import { Migration630FixTalismanSpelling } from '@module/migrations/630-fix-talisman-spelling';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
@@ -31,6 +32,7 @@ const migrations: MigrationBase[] = [
     new Migration627LowerCaseSpellSaves(),
     new Migration628UpdateIdentificationData(),
     new Migration629SetBaseItems(),
+    new Migration630FixTalismanSpelling(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
