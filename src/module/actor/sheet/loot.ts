@@ -1,12 +1,12 @@
-import { calculateWealth } from '@item/treasure';
 import { ActorSheetPF2e } from './base';
-import { LootPF2e } from '../loot';
+import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
 import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData, KitData } from '@item/data-definitions';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
-import { InventoryItem } from './data-types';
+import { ActorSheetDataPF2e, InventoryItem } from './data-types';
+import { LootData } from '@actor/data-definitions';
 
 /**
  * @category Actor
@@ -40,27 +40,9 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
-
-        // update currency based on items
-        if (sheetData.actor.items !== undefined) {
-            const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = {};
-            for (const denomination of ['cp', 'sp', 'gp', 'pp'] as const) {
-                sheetData.totalTreasure[denomination] = {
-                    value: treasure[denomination],
-                    label: CONFIG.PF2E.currencies[denomination],
-                };
-            }
-        }
-
-        // Precalculate some data to adapt sheet more easily
-        sheetData.isLoot = this.actor.data.data.lootSheetType === 'Loot';
-        sheetData.isMerchant = !sheetData.isLoot;
-
-        this.prepareItems(sheetData);
-
-        return sheetData;
+        const sheetData: ActorSheetDataPF2e<LootData> = super.getData();
+        const isLoot = this.actor.data.data.lootSheetType === 'Loot';
+        return { ...sheetData, isLoot };
     }
 
     /** @override */

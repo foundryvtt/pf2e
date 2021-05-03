@@ -1,10 +1,18 @@
 import { RemoveCoinsPopup } from './popups/remove-coins-popup';
-import { sellAllTreasure, sellTreasure } from '@item/treasure';
+import {
+    calculateTotalWealth,
+    calculateValueOfCurrency,
+    Coins,
+    coinValueInCopper,
+    sellAllTreasure,
+    sellTreasure,
+} from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
 import { KitPF2e } from '@item/kit';
 import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from './data-types';
 import { ItemPF2e } from '@item/base';
 import {
     ConditionData,
@@ -40,7 +48,6 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -117,6 +124,14 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
+        // Calculate financial and total wealth
+        const coins = calculateValueOfCurrency(inventoryItems);
+        const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
+        const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
+
+        const totalWealth = calculateTotalWealth(inventoryItems);
+        const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
+
         const sheetData: ActorSheetDataPF2e<this['actor']['data']> = {
             cssClass: this.actor.owner ? 'editable' : 'locked',
             editable: this.isEditable,
@@ -131,6 +146,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             user: { isGM: game.user.isGM },
             isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
             isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
+            totalCoinage,
+            totalCoinageGold,
+            totalWealth,
+            totalWealthGold,
         };
 
         this.prepareTraits(sheetData.data.traits);
@@ -143,6 +162,20 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     protected findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
+    }
+
+    protected static coinsToSheetData(coins: Coins): CoinageSummary {
+        const denominations = ['cp', 'sp', 'gp', 'pp'] as const;
+        return denominations.reduce(
+            (accumulated, denomination) => ({
+                ...accumulated,
+                [denomination]: {
+                    value: coins[denomination],
+                    label: CONFIG.PF2E.currencies[denomination],
+                },
+            }),
+            {} as CoinageSummary,
+        );
     }
 
     protected prepareTraits(traits: any): void {
