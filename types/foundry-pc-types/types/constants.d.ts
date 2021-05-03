@@ -277,7 +277,13 @@ declare const CONST: {
     /**
      * Invert the User Role mapping to recover role names from a role integer
      */
-    USER_ROLE_NAMES: any;
+    USER_ROLES_NAMES: {
+        0: 'NONE';
+        1: 'PLAYER';
+        2: 'TRUSTED';
+        3: 'ASSISTANT';
+        4: 'GAMEMASTER';
+    };
 
     /**
      * Define the named actions which users or user roles can be permitted to do.
