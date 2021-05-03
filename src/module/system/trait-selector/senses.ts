@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { NPCPF2e } from '@actor/npc';
-import { LabeledValue } from '@actor/data-definitions';
+import { SenseData } from '@actor/data-definitions';
 import { TraitSelectorBase } from './base';
 import { SelectableTagField } from './index';
 
@@ -28,13 +28,15 @@ export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
         }
 
         const choices: any = {};
-        const resistances: LabeledValue[] = getProperty(this.object.data, this.objectProperty);
+        const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
         Object.entries(this.choices).forEach(([type, label]) => {
-            const res = resistances.find((res) => res.type === type);
+            const sense = senses.find((sense) => sense.type === type);
             choices[type] = {
+                acuity: sense?.acuity ?? '',
+                disabled: sense?.['source'] ? 'disabled' : '',
                 label,
-                selected: res !== undefined,
-                value: res?.value ?? '',
+                selected: sense !== undefined,
+                value: sense?.value ?? '',
             };
         });
         data.choices = choices;

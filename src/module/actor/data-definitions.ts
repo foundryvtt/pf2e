@@ -288,6 +288,7 @@ export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
 export interface SenseData extends LabeledString {
     acuity?: 'precise' | 'imprecise' | 'vague';
+    source?: string;
 }
 
 export interface CreatureTraitsData extends BaseTraitsData {
