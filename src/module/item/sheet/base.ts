@@ -17,7 +17,7 @@ import {
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 
 export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
-    user: User<ActorPF2e>;
+    user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
     isPhysicalItem: boolean;
@@ -25,8 +25,6 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
 
 /** @override */
 export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
-    private activeMystifyTab = 'unidentified';
-
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -52,17 +50,11 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     /** @override */
     getData() {
-        const data: any = super.getData();
-        data.user = game.user;
-        data.name = this.item._data.name;
-        data.abilities = CONFIG.PF2E.abilities;
-        data.saves = CONFIG.PF2E.saves; // Sheet display details
+        const data: any = this.getBaseData();
 
         const { type } = this.item;
         mergeObject(data, {
-            type,
             hasSidebar: true,
-            hasMystify: false,
             sidebarTemplate: () => `systems/pf2e/templates/items/${type}-sidebar.html`,
             hasDetails: [
                 'consumable',
@@ -186,6 +178,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
             data.armorTypes = CONFIG.PF2E.armorTypes;
             data.armorGroups = CONFIG.PF2E.armorGroups;
+            data.baseArmors = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, item.data.data.traits);
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
@@ -214,10 +207,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             }
         }
 
-        data.enabledRulesUI = game.settings.get(game.system.id, 'enabledRulesUI') ?? false;
-        data.activeEffects = this.getActiveEffectsData();
-        data.isPhysicalItem = false;
-
         return data;
     }
 
@@ -225,8 +214,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
         return {
             ...super.getData(),
-            user: game.user,
-            enabledRulesUI: game.settings.get(game.system.id, 'enabledRulesUI') ?? false,
+            user: { isGM: game.user.isGM },
+            enabledRulesUI: game.settings.get('pf2e', 'enabledRulesUI'),
             activeEffects: this.getActiveEffectsData(),
             isPhysicalItem: false,
         };
@@ -266,7 +255,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
                 : this.item.effects.entries;
 
-        const ruleUIEnabled = game.settings.get(game.system.id, 'enabledRulesUI');
+        const ruleUIEnabled = game.settings.get('pf2e', 'enabledRulesUI');
 
         return {
             showAEs: ruleUIEnabled,
@@ -412,17 +401,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     /** @override */
     activateListeners(html: JQuery): void {
         super.activateListeners(html);
-
-        // Set up callback on tabs to make sure that when the Mystify tab is picked it
-        // defaults to the unidentified tab.
-        this._tabs[0].callback = () => {
-            if (this._tabs[0].active === 'mystify') {
-                this._tabs[1].activate(this.activeMystifyTab);
-            }
-        };
-        this._tabs[1].callback = () => {
-            this.activeMystifyTab = this._tabs[1].active;
-        };
 
         html.find('li.trait-item input[type="checkbox"]').on('click', (event) => {
             if (event.originalEvent instanceof MouseEvent) {

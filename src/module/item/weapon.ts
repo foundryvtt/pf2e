@@ -1,5 +1,5 @@
 import { PhysicalItemPF2e } from './physical';
-import { BaseWeaponKey, WeaponCategoryKey, WeaponData, WeaponGroupKey } from './data-definitions';
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data-definitions';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
@@ -12,15 +12,15 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         return super.isStackableWith(item);
     }
 
-    get baseType(): BaseWeaponKey | null {
+    get baseType(): BaseWeaponType | null {
         return this.data.data.baseItem ?? null;
     }
 
-    get group(): WeaponGroupKey | null {
+    get group(): WeaponGroup | null {
         return this.data.data.group.value ?? null;
     }
 
-    get category(): WeaponCategoryKey | null {
+    get category(): WeaponCategory | null {
         return this.data.data.weaponType.value ?? null;
     }
 
@@ -46,10 +46,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        if (!this.actor) {
-            return {};
-        }
-
         const data = this.data.data;
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
@@ -124,16 +120,17 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** @override */
-    generateUnidentifiedName() {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const formatString = translations.identification.UnidentifiedItem;
-
         const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const fallback = 'ITEM.TypeWeapon';
+        const itemType = game.i18n.localize(base ?? group ?? fallback);
 
-        const item = game.i18n.localize(base ?? group ?? fallback);
-        return game.i18n.format(formatString, { item });
+        if (typeOnly) return itemType;
+
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 

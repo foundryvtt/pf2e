@@ -103,7 +103,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     }
 
     /** @override */
-    getData(): any {
+    getData(): ActorSheetDataPF2e<this['actor']['data']> {
         // The Actor and its Items
         const actorData = duplicate(this.actor.data);
         const items = duplicate(
@@ -116,12 +116,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             itemData.isEquipped = itemData.data.equipped.value;
             itemData.isIdentified = itemData.data.identification.status === 'identified';
             itemData.isContainer = itemData.type === 'backpack';
-
-            // Reveal the unidentified item's real name to the GM
-            const realName = itemData.data.identification?.identified?.name ?? '';
-            if (!itemData.isIdentified && realName && game.user.isGM) {
-                itemData.name = `${itemData.name} (${realName})`;
-            }
         }
 
         // Calculate financial and total wealth
@@ -237,7 +231,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         // if the spellcaster entry cannot be found (maybe it was deleted?)
         if (spellcastingEntry?.type !== 'spellcastingEntry') {
-            console.debug(`PF2e System | Prepare Spell | Spellcasting entry not found for spell ${spell.name}`);
+            console.debug(`PF2e System | Spellcasting entry not found for spell ${spell.name} (${spell._id})`);
             return;
         }
 
@@ -671,9 +665,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (!(item instanceof PhysicalItemPF2e)) {
                     throw Error(`PF2e | ${item.name} is not a physical item.`);
                 }
-                item.setIdentifiedState('unidentified');
+                item.setIdentificationStatus('unidentified');
             } else {
-                new IdentifyItemPopup(this.actor, { itemId }).render(true);
+                const item = this.actor.items.get(itemId);
+                if (item instanceof PhysicalItemPF2e) {
+                    new IdentifyItemPopup(item).render(true);
+                }
             }
         });
 
@@ -1389,12 +1386,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     private onItemRoll(event: JQuery.ClickEvent) {
         event.preventDefault();
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-        const item = this.actor.getOwnedItem(itemId ?? '');
-        if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
-            // we don't want to show the item card for items that aren't identified
-            return;
-        }
-
+        const item = this.actor.items.get(itemId ?? '');
         item?.roll(event);
     }
 
@@ -1416,10 +1408,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition') return;
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
-
-        if (game.user.isGM || !(item instanceof PhysicalItemPF2e) || item.hasShowableMystifiedState) {
-            this.renderItemSummary(li, item, chatData);
-        }
+        this.renderItemSummary(li, item, chatData);
     }
 
     protected renderItemSummary(li: JQuery, _item: ItemPF2e, chatData: any) {
@@ -1452,16 +1441,21 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     )}</span>`,
                 );
             // append traits (only style the tags if they contain description data)
-            if (chatData.traits && chatData.traits.length) {
-                chatData.traits.forEach((property: any) => {
-                    if (property.description)
+            if (Array.isArray(chatData.traits)) {
+                for (const property of chatData.traits) {
+                    if (property.excluded) continue;
+
+                    const mystifiedClass = property.mystified ? ' gm-mystified-data' : '';
+                    const label: string = game.i18n.localize(property.label);
+                    if (property.description) {
+                        const description: string = game.i18n.localize(property.description);
                         props.append(
-                            `<span class="tag tag_alt" title="${localize(property.description)}">${localize(
-                                property.label,
-                            )}</span>`,
+                            `<span class="tag tag_alt${mystifiedClass}" title="${description}">${label}</span>`,
                         );
-                    else props.append(`<span class="tag">${localize(property.label)}</span>`);
-                });
+                    } else {
+                        props.append(`<span class="tag${mystifiedClass}">${label}</span>`);
+                    }
+                }
             }
 
             div.append(props);

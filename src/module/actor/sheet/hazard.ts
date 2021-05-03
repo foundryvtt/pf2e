@@ -27,7 +27,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
+        const sheetData: any = super.getData();
 
         // Update save labels
         for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {

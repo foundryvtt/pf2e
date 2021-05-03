@@ -2,7 +2,7 @@ import {
     ItemDataPF2e,
     SpellAttackRollModifier,
     SpellDifficultyClass,
-    WeaponCategoryKey,
+    WeaponCategory,
     WeaponDamage,
     WeaponData,
 } from '@item/data-definitions';
@@ -618,8 +618,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Add any homebrew categories
         const homebrewCategoryKeys = Object.keys(CONFIG.PF2E.weaponCategories).filter(
-            (category): category is WeaponCategoryKey =>
-                !['simple', 'martial', 'advanced', 'unarmed'].includes(category),
+            (category): category is WeaponCategory => !['simple', 'martial', 'advanced', 'unarmed'].includes(category),
         );
         for (const key of homebrewCategoryKeys) {
             if (!(key in data.martial)) {
@@ -632,7 +631,7 @@ export class CharacterPF2e extends CreaturePF2e {
         }
 
         const homebrewCategories = homebrewCategoryKeys.reduce(
-            (categories: Partial<Record<WeaponCategoryKey, { name: string; rank: ZeroToFour }>>, category) =>
+            (categories: Partial<Record<WeaponCategory, { name: string; rank: ZeroToFour }>>, category) =>
                 mergeObject(categories, {
                     [category]: {
                         name: CONFIG.PF2E.weaponCategories[category],

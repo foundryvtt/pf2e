@@ -16,6 +16,8 @@ import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-po
 import { Migration625EnsurePresenceOfSaves } from '@module/migrations/625-ensure-presence-of-saves';
 import { Migration626UpdateSpellCategory } from '@module/migrations/626-update-spell-category';
 import { Migration627LowerCaseSpellSaves } from '@module/migrations/627-lowercase-spell-saves';
+import { Migration628UpdateIdentificationData } from '@module/migrations/628-update-identification-data';
+import { Migration629SetBaseItems } from '@module/migrations/629-set-base-items';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
@@ -27,6 +29,8 @@ const migrations: MigrationBase[] = [
     new Migration625EnsurePresenceOfSaves(),
     new Migration626UpdateSpellCategory(),
     new Migration627LowerCaseSpellSaves(),
+    new Migration628UpdateIdentificationData(),
+    new Migration629SetBaseItems(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

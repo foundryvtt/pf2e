@@ -12,14 +12,20 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data-definitions';
+import {
+    isItemSystemData,
+    isPhysicalItem,
+    ItemDataPF2e,
+    MeleeDetailsData,
+    TrickMagicItemCastData,
+} from './data-definitions';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
-import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
+import { MystifiedTraits } from './data/values';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -63,8 +69,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     get traits(): Set<string> {
-        const rarity: string = this.data.data.traits.rarity.value;
-        return new Set([rarity].concat(this.data.data.traits.value));
+        return new Set(this.data.data.traits.value);
     }
 
     get description(): string {
@@ -125,9 +130,13 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Currently renders description text using TextEditor.enrichHTML()
      */
     protected processChatData(htmlOptions: EnrichHTMLOptions = {}, data: Record<string, any> = {}): unknown {
+        if (Array.isArray(data.traits)) {
+            data.traits = data.traits.filter((trait: { excluded: boolean }) => !trait.excluded);
+        }
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+            return chatData;
         }
 
         return data;
@@ -138,14 +147,22 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     protected traitChatData(traitList: Record<string, string>): { label: string; description: string }[] {
-        const traits = [...this.traits, ...this.data.data.traits.custom];
+        const traits: string[] = duplicate(this.data.data.traits.value);
+        const customTraits = this.data.data.traits.custom
+            .trim()
+            .split(/\s*[,;|]\s*/)
+            .filter((trait) => trait);
+        traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
             const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
+            const isMystified = isPhysicalItem(this.data) && MystifiedTraits.includes(trait);
+            const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
             return {
                 label,
-                description:
-                    CONFIG.PF2E.traitsDescriptions[trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']] ?? '',
+                description: traitDescriptions[trait],
+                mystified: isMystified,
+                excluded: isMystified && !game.user.isGM,
             };
         });
 

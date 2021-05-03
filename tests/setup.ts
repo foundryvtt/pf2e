@@ -214,7 +214,7 @@ function mergeObject(
 }
 
 globalThis.mergeObject = mergeObject;
-
+globalThis.duplicate = duplicate;
 (global as any).Actor = FakeActor;
 (global as any).Item = FakeItem;
 (global as any).Token = FakeToken;

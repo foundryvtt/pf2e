@@ -166,16 +166,13 @@ declare abstract class FormApplication<
      */
     protected _activateFilePicker(button: JQuery | HTMLElement): void;
 
-    /**
-     * Extend the logic applied when the application is closed to destroy any remaining MCE instances
-     * This function returns a Promise which resolves once the window closing animation concludes
-     */
-    close(options?: { force?: boolean }): Promise<void>;
+  /**
+   * Submit the contents of a Form Application, processing its content as defined by the Application
+   * @param [options] Options passed to the _onSubmit event handler
+   * @returns Return a self-reference for convenient method chaining
+   */
+    submit(options?: OnSubmitFormOptions): Promise<this>;
 
-    /**
-     * Submit the contents of a Form Application, processing its content as defined by the Application
-     * @param updateData    Additional data updates to submit in addition to those parsed from the form
-     * @returns             Return a self-reference for convenient method chaining
-     */
-    submit({ updateData }: { updateData?: any }): FormApplication;
+    /** @override */
+    close(options?: { force?: boolean }): Promise<void>;
 }

@@ -32,6 +32,20 @@ export interface ItemDescriptionData {
     slug: string | null;
 }
 
+export type IdentificationStatus = 'identified' | 'unidentified' | 'misidentified';
+
+export interface UnidentifiedData {
+    name: string;
+    img: string;
+    description: string;
+}
+
+export interface IdentificationData {
+    status: IdentificationStatus;
+    unidentified: UnidentifiedData;
+    misidentified: {};
+}
+
 export interface PhysicalDetailsData extends ItemDescriptionData {
     quantity: {
         value: number;
@@ -64,41 +78,7 @@ export interface PhysicalDetailsData extends ItemDescriptionData {
     equipped: {
         value: boolean;
     };
-    identification: {
-        status: string;
-        identified?: {
-            name: string;
-            data: {
-                description: {
-                    value: string;
-                };
-            };
-            img: string;
-        };
-
-        unidentified?: {
-            name: string;
-            data: {
-                description: {
-                    value: string;
-                };
-            };
-            img: string;
-        };
-
-        misidentified?: {
-            name: string;
-            data: {
-                description: {
-                    value: string;
-                };
-            };
-            img: string;
-        };
-    };
-    identified: {
-        value: boolean;
-    };
+    identification: IdentificationData;
     originalName: string;
     stackGroup: {
         value: string;
@@ -179,7 +159,7 @@ export interface BackpackDetailsData extends PhysicalDetailsData {
     };
 }
 
-export interface TreasureDetailsData extends PhysicalDetailsData {
+export interface TreasureDetailsData extends PhysicalDetailsData, ItemLevelData {
     denomination: {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
@@ -188,9 +168,9 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
     };
 }
 
-export type WeaponCategoryKey = keyof ConfigPF2e['PF2E']['weaponCategories'];
-export type WeaponGroupKey = keyof ConfigPF2e['PF2E']['weaponGroups'];
-export type BaseWeaponKey = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
+export type WeaponCategory = keyof ConfigPF2e['PF2E']['weaponCategories'];
+export type WeaponGroup = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 export interface WeaponDamage {
     value: string;
     dice: number;
@@ -203,12 +183,12 @@ export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
 
 export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
     weaponType: {
-        value: WeaponCategoryKey | null;
+        value: WeaponCategory | null;
     };
     group: {
-        value: WeaponGroupKey | null;
+        value: WeaponGroup | null;
     };
-    baseItem: BaseWeaponKey | null;
+    baseItem: BaseWeaponType | null;
     hands: {
         value: boolean;
     };
@@ -268,17 +248,20 @@ export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
 
 export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
+export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
 export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
 
-export interface ArmorDetailsData extends MagicDetailsData {
+export interface ArmorDetailsData extends MagicDetailsData, ItemLevelData {
     armor: {
         value: number;
     };
     armorType: {
         value: ArmorCategory;
     };
+    baseItem: BaseArmorType | null;
+
     group: {
-        value: ArmorGroup;
+        value: ArmorGroup | null;
     };
     strength: {
         value: number;
@@ -347,9 +330,11 @@ export interface MeleeDetailsData extends MagicDetailsData {
     };
 }
 
+export type ConsumableType = keyof ConfigPF2e['PF2E']['consumableTypes'];
+
 export interface ConsumableDetailsData extends MagicDetailsData {
     consumableType: {
-        value: keyof ConfigPF2e['PF2E']['consumableTypes'];
+        value: ConsumableType;
     };
     uses: {
         value: number;
@@ -828,13 +813,18 @@ export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDe
     // Prepared data
     isEquipped: boolean;
     isInvested: boolean | null;
+    isIdentified: boolean;
+
+    realName: string;
+    realImg: string;
+    realDescription: string;
 }
 
 export interface ContainerData extends BasePhysicalItemData<BackpackDetailsData & ItemLevelData> {
     type: 'backpack';
 }
 
-export interface TreasureData extends BasePhysicalItemData<TreasureDetailsData & ItemLevelData> {
+export interface TreasureData extends BasePhysicalItemData<TreasureDetailsData> {
     type: 'treasure';
 }
 
@@ -842,7 +832,7 @@ export interface WeaponData extends BasePhysicalItemData<WeaponDetailsData> {
     type: 'weapon';
 }
 
-export interface ArmorData extends BasePhysicalItemData<ArmorDetailsData & ItemLevelData> {
+export interface ArmorData extends BasePhysicalItemData<ArmorDetailsData> {
     type: 'armor';
 }
 

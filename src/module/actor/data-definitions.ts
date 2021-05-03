@@ -1,4 +1,4 @@
-import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data-definitions';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -373,9 +373,9 @@ export interface CategoryProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
-export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponKey}`;
+export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
 type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
-export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
+export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 

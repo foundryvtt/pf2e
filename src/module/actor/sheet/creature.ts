@@ -1,9 +1,8 @@
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
-import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, WeaponGroup } from '@item/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
-import { PhysicalItemPF2e } from '@item/physical';
 import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
 import { CreaturePF2e } from '@actor/creature';
@@ -74,7 +73,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     );
                 break;
             case 'consumable':
-                if (chatData.hasCharges && PhysicalItemPF2e.isIdentified(item.data))
+                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
                     buttons.append(
                         `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
                             'PF2E.ConsumableUseLabel',
@@ -146,11 +145,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                         return CONFIG.PF2E.weaponCategories[key];
                     }
                     if (Array.isArray(groupMatch)) {
-                        const weaponGroup = groupMatch[1] as WeaponGroupKey;
+                        const weaponGroup = groupMatch[1] as WeaponGroup;
                         return CONFIG.PF2E.weaponGroups[weaponGroup];
                     }
                     if (Array.isArray(baseWeaponMatch)) {
-                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponKey;
+                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
                         return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
                     }
                     return key;
