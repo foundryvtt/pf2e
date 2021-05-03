@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /** Fix spelling of the "talisman" `consumableType` */
 export class Migration630FixTalismanSpelling extends MigrationBase {
