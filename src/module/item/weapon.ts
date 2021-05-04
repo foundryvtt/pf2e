@@ -17,21 +17,19 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     get group(): WeaponGroup | null {
-        return this.data.data.group.value ?? null;
+        return this.data.data.group.value || null;
     }
 
     get category(): WeaponCategory | null {
-        return this.data.data.weaponType.value ?? null;
+        return this.data.data.weaponType.value || null;
     }
 
     /** @override */
     prepareData() {
-        super.prepareData();
-
         // Add trait(s) from potency rune
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
+        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'] as const;
         const hasPotencyRune = !!this.data.data.potencyRune.value;
-        const traits = this.data.data.traits;
+        const traits: { value: string[] } = this.data.data.traits;
 
         traits.value = [
             ...traits.value,
@@ -43,6 +41,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
         // Update this value now that derived traits are set
         this.data.isInvested = this.isInvested;
+
+        super.prepareData();
     }
 
     getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
@@ -51,10 +51,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
-
-        if (this.data.type !== 'weapon') {
-            throw new Error('tried to create a weapon chat data for a non-weapon item');
-        }
 
         // calculate attackRoll modifier (for _onItemSummary)
         const isFinesse = this.traits.has('finesse');
@@ -88,12 +84,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
-        const properties = [
-            // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-            // CONFIG.PF2E.weaponTypes[data.weaponType.value],
-            // CONFIG.PF2E.weaponGroups[data.group.value]
-        ].filter((p) => !!p);
-
         const critSpecialization = data.group.value
             ? {
                   label: CONFIG.PF2E.weaponGroups[data.group.value],
@@ -113,7 +103,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             isTwohanded: !!twohandedTrait,
             wieldedTwoHands: !!data.hands.value,
             isFinesse,
-            properties,
             map2,
             map3,
         });

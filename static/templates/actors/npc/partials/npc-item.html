@@ -2,7 +2,12 @@
     <div class="item-header">
         <div class="item-icon rollable" style="background-image: url({{item.img}})"></div>
         <div class="item-name rollable">
-            <h4 class="{{item.data.traits.rarity.value}}"><a>{{item.name}}</a></h4>
+            <h4 class="{{item.data.traits.rarity.value}}">
+                <a>
+                    {{item.name}}
+                    {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.identifiedData.name}})</span>{{/if}}
+                </a>
+            </h4>
         </div>
         <div class="item-quantity">{{item.data.quantity.value}}</div>
         <div class="item-controls controls">

@@ -17,17 +17,11 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     getChatData(this: Owned<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
-        const consumableType = CONFIG.PF2E.consumableTypes[data.consumableType.value];
+        const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
         return this.processChatData(htmlOptions, {
             ...data,
-            consumableType: {
-                ...data.consumableType,
-                str: consumableType,
-            },
-            properties: [
-                consumableType,
-                `${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`,
-            ],
+            traits,
+            properties: [`${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`],
             hasCharges: this.charges.max > 0,
         });
     }
@@ -35,8 +29,10 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     /** @override */
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E.identification;
+        const liquidOrSubstance = () =>
+            this.traits.has('inhaled') ? translations.UnidentifiedType.Substance : translations.UnidentifiedType.Liquid;
         const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'other', 'potion'].includes(this.consumableType)
-            ? translations.UnidentifiedType.Substance
+            ? liquidOrSubstance()
             : game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType]);
 
         if (typeOnly) return itemType;

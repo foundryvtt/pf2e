@@ -3,8 +3,9 @@ import {
     ArmorData,
     ConsumableData,
     EquipmentData,
-    KitData,
+    IdentificationData,
     MeleeData,
+    MystifiedData,
     PhysicalItemData,
     TreasureData,
     WeaponData,
@@ -14,17 +15,20 @@ import { Coins } from '@item/treasure';
 
 type ContainerMap = ReturnType<typeof getContainerMap>;
 type SheetContainerData = ContainerMap extends Map<string, infer X> ? X : never;
-type PhysicalItemSubset = Exclude<PhysicalItemData, MeleeData | KitData>;
+type PhysicalItemSubset = Exclude<PhysicalItemData, MeleeData>;
 export type InventoryItem<D extends PhysicalItemSubset = PhysicalItemSubset> = D & {
     canBeEquipped: boolean;
     containerData: SheetContainerData;
-    isEquipped: boolean;
-    isIdentified: boolean;
     isContainer: boolean;
     isInContainer: boolean;
     isSellableTreasure?: boolean;
     showEdit: boolean;
     totalWeight: string;
+    data: D['data'] & {
+        identification: IdentificationData & {
+            identified: MystifiedData;
+        };
+    };
 };
 
 interface CoinDisplayData {

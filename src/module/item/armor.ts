@@ -74,8 +74,6 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     /** @override */
     prepareData() {
-        super.prepareData();
-
         // Add traits from potency rune
         const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
         const hasPotencyRune = !!this.data.data.potencyRune.value;
@@ -88,8 +86,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
         traits.value = Array.from(new Set(traits.value));
 
-        // Update this value now that derived traits are set
-        this.data.isInvested = this.isInvested;
+        super.prepareData();
     }
 
     getChatData(this: Owned<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {

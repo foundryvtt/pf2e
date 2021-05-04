@@ -3,7 +3,7 @@
         <div class="item-image" style="background-image: url('{{item.img}}')"></div>
         <h4>
             {{item.name}}
-            {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.realName}})</span>{{/if}}
+            {{#if (and user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{data.identification.identified.name}})</span>{{/if}}
             {{#if item.data.attuned.value}}<i class="prepared fas fa-haykal"></i>{{/if}}
             {{#if item.isTwoHanded}}
                 <span title="{{localize 'PF2E.TraitTwoHandedHelp'}}">
