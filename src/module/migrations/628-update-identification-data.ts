@@ -46,7 +46,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
     async updateItem(itemData: MaybeOldData): Promise<void> {
         if (!isPhysicalItem(itemData)) return;
 
-        // items are frequently missing this property for some reason
+        // Items are occasionally lack a `rarity` property due to missing a previous migration
         itemData.data.traits.rarity ??= { value: 'common' };
 
         const systemData = itemData.data;

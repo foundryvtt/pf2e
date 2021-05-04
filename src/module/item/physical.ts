@@ -54,7 +54,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         /** Prevent unhandled exceptions on pre-migrated data */
         this.data.data.traits.rarity ??= { value: 'common' };
         const identificationData = this.data.data.identification;
-        if (!identificationData || identificationData.status === undefined) {
+        const mystifyDataMissing =
+            !identificationData || !identificationData.status || !identificationData.unidentified;
+        const isOldTalisman =
+            this.data.type === 'consumable' && String(this.data.data.consumableType.value) === 'talasman';
+        if (mystifyDataMissing || isOldTalisman) {
             return super.prepareData();
         }
 
