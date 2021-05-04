@@ -1200,9 +1200,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+                const dropID = $(event.target).parents('.item-container').attr('data-item-id');
                 if (typeof dropID !== 'string') {
-                    throw Error('PF2e System | Unexpected error while adding spell to spellcastingEntry');
+                    throw ErrorPF2e('Unexpected error while adding spell to spellcastingEntry');
                 }
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
