@@ -25,7 +25,41 @@
         "prerequisites": {
             "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "piercing ",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Magma spike",
+                "range": "melee",
+                "traits": [
+                    "finesse",
+                    "agile",
+                    "unarmed"
+                ]
+            },
+            {
+                "damageType": "fire",
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Magma spike",
+                "selector": "{item|_id}-damage",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>Instead of the normal critical specialization effect, the target takes [[/r 1d6 #fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} fire damage; you gain a bonus on this persistent damage equal to your item bonus to attack rolls on unarmed attacks.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
