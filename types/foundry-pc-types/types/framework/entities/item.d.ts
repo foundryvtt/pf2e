@@ -120,7 +120,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     static createOwned<I extends Item>(
         this: new (data: I['data'], options?: EntityConstructorOptions) => I,
         itemData: I['data'],
-        actor: Actor
+        actor: Actor,
     ): Owned<I>;
 
     /**
@@ -133,7 +133,8 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     static createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Item>;
 }
 
-declare interface Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
+declare interface Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect>
+    extends Entity {
     data: ItemData;
     _data: ItemData;
 

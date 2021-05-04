@@ -1,11 +1,10 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData } from '../data/types';
+import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponTrait } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
-import { ConfigPF2e } from '@scripts/config';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
-import { PF2RuleElementData } from 'src/module/rules/rules-data-definitions';
+import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
 import {
     BasicSelectorOptions,
@@ -20,7 +19,6 @@ export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
-    isPhysicalItem: boolean;
 }
 
 /** @override */
@@ -72,9 +70,9 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             detailsTemplate: () => `systems/pf2e/templates/items/${type}-details.html`,
         }); // Damage types
 
-        const item = this.item;
-        const itemData = duplicate(item.data);
-        const traits = itemData.data.traits.value.filter((trait) => !!trait);
+        const itemData: ItemDataPF2e = data.item;
+        // Expose the saved traits for editing purposes;
+        data.data.traits.value = this.item._data.data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);
@@ -120,8 +118,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
-            data.weaponTraits = traits.map(
-                (trait) => CONFIG.PF2E.weaponTraits[trait as keyof ConfigPF2e['PF2E']['weaponTraits']] ?? trait,
+            data.weaponTraits = data.data.traits.value.map(
+                (trait: WeaponTrait) => CONFIG.PF2E.weaponTraits[trait] ?? trait,
             );
             data.baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
             data.weaponTypes = CONFIG.PF2E.weaponTypes;
@@ -180,7 +178,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.armorGroups = CONFIG.PF2E.armorGroups;
             data.baseArmors = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, item.data.data.traits);
+            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, data.data.traits);
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
             data.sizes = CONFIG.PF2E.actorSizes;
@@ -217,7 +215,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get('pf2e', 'enabledRulesUI'),
             activeEffects: this.getActiveEffectsData(),
-            isPhysicalItem: false,
         };
     }
 

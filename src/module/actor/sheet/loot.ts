@@ -3,7 +3,7 @@ import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
 import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
-import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData, KitData } from '@item/data/types';
+import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData } from '@item/data/types';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
 import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 import { LootData } from '@actor/data-definitions';
@@ -63,7 +63,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
         const actorData: any = sheetData.actor;
         const inventory: Record<
             InventoryItemType,
-            { label: string; items: (Exclude<PhysicalItemData, KitData> & { totalWeight?: string })[] }
+            { label: string; items: (PhysicalItemData & { totalWeight?: string })[] }
         > = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },

@@ -23,6 +23,9 @@ function createItem({
         _id: id,
         type: 'equipment',
         data: {
+            traits: {
+                value: [],
+            },
             negateBulk: {
                 value: negateBulk,
             },
