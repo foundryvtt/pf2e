@@ -103,17 +103,17 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             return this._data;
         }
 
-        const identificationData = this.data.data.identification[status];
+        const mystifiedData = this.data.data.identification[status];
 
-        const name = identificationData.name || this.generateUnidentifiedName();
-        const img = identificationData.img || getUnidentifiedPlaceholderImage(this.data);
+        const name = mystifiedData.name || this.generateUnidentifiedName();
+        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
 
         const description = (() => {
             const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
             const itemType = this.generateUnidentifiedName({ typeOnly: true });
             const caseCorrect = (noun: string) => (game.i18n.lang.toLowerCase() === 'de' ? noun : noun.toLowerCase());
             const fallbackDescription = game.i18n.format(formatString, { item: caseCorrect(itemType) });
-            return identificationData.data.description.value || fallbackDescription;
+            return mystifiedData.data.description.value || fallbackDescription;
         })();
 
         const traits = this.data.data.traits.value.filter((trait) => !MystifiedTraits.includes(trait));
