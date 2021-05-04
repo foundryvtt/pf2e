@@ -89,6 +89,13 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
         const itemsData: InventoryItem[] = actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalItem(itemData));
         for (const itemData of itemsData) {
+            /** @todo: Make melee items non-physical and then remove this block */
+            const itemType: string = itemData.type;
+            if (itemType === 'melee') {
+                this.actor.deleteEmbeddedEntity('OwnedItem', itemData._id);
+                continue;
+            }
+
             itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.owner);
 
             itemData.img ??= CONST.DEFAULT_TOKEN;
