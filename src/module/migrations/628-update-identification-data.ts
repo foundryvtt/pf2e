@@ -61,16 +61,6 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         mystifyData.unidentified ||= this.defaultData.unidentified;
         mystifyData.misidentified ||= this.defaultData.misidentified;
 
-        // For pre-release refactor of mystified data structure
-        if (mystifyData.unidentified && 'description' in mystifyData.unidentified) {
-            mystifyData.unidentified = this.defaultData.unidentified;
-            if ('game' in globalThis) {
-                itemData['data.identification.unidentified.-=description'] = null;
-            }
-        }
-
-        const identifiedData: IdentifiedData = mystifyData.identified ?? {};
-
         if (mystifyData.status === 'identified') {
             systemData.identification = this.defaultData;
         } else if (mystifyData.status === 'unidentified') {
@@ -78,6 +68,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
                 itemData.name = mystifyData.identified.name;
             }
 
+            const identifiedData = mystifyData.identified;
             if (identifiedData && identifiedData.data && typeof identifiedData.data.description?.value === 'string') {
                 systemData.description.value = identifiedData.data?.description.value;
             }
