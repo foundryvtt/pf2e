@@ -166,11 +166,11 @@ declare abstract class FormApplication<
      */
     protected _activateFilePicker(button: JQuery | HTMLElement): void;
 
-  /**
-   * Submit the contents of a Form Application, processing its content as defined by the Application
-   * @param [options] Options passed to the _onSubmit event handler
-   * @returns Return a self-reference for convenient method chaining
-   */
+    /**
+     * Submit the contents of a Form Application, processing its content as defined by the Application
+     * @param [options] Options passed to the _onSubmit event handler
+     * @returns Return a self-reference for convenient method chaining
+     */
     submit(options?: OnSubmitFormOptions): Promise<this>;
 
     /** @override */

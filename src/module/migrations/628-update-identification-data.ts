@@ -4,25 +4,14 @@ import {
     isPhysicalItem,
     ItemDataPF2e,
     IdentificationData,
-    UnidentifiedData,
+    IdentifiedData,
 } from '@item/data/types';
 
-type IdentifiedData =
-    | UnidentifiedData
-    | {
-          name?: string;
-          img?: string;
-          data?: {
-              description: {
-                  value: string;
-              };
-          };
-      };
 type MaybeOldData = ItemDataPF2e & {
     data: ItemDataPF2e['data'] & {
         identified?: unknown;
         identification: Partial<IdentificationData> & {
-            status: IdentificationStatus;
+            status?: IdentificationStatus;
             identified?: IdentifiedData;
             unidentified?: IdentifiedData;
         };
@@ -34,17 +23,23 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
     static version = 0.628;
 
     private get defaultData(): IdentificationData {
-        return JSON.parse(
-            JSON.stringify({
-                status: 'identified',
-                unidentified: {
-                    name: '',
-                    img: '',
-                    description: '',
+        const data: IdentificationData = {
+            status: 'identified',
+            unidentified: {
+                name: '',
+                img: '',
+                data: {
+                    description: {
+                        value: '',
+                    },
+                    traits: {
+                        value: [],
+                    },
                 },
-                misidentified: {},
-            }),
-        );
+            },
+            misidentified: {},
+        };
+        return JSON.parse(JSON.stringify(data));
     }
 
     async updateItem(itemData: MaybeOldData): Promise<void> {
@@ -61,9 +56,9 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
 
         // Fill any gaps in identification data
         const mystifyData = systemData.identification;
-        mystifyData.status ??= 'identified';
-        mystifyData.unidentified ??= this.defaultData.unidentified;
-        mystifyData.misidentified ??= this.defaultData.misidentified;
+        mystifyData.status ||= 'identified';
+        mystifyData.unidentified ||= this.defaultData.unidentified;
+        mystifyData.misidentified ||= this.defaultData.misidentified;
 
         const identifiedData: IdentifiedData = mystifyData?.identified ?? {};
 
@@ -74,7 +69,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
                 itemData.name = mystifyData.identified.name;
             }
 
-            if ('data' in identifiedData && typeof identifiedData.data?.description.value === 'string') {
+            if (identifiedData && identifiedData.data && typeof identifiedData.data.description?.value === 'string') {
                 systemData.description.value = identifiedData.data?.description.value;
             }
         }

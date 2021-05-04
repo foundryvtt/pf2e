@@ -590,7 +590,10 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
     const unequippedBulk = item.data?.unequippedBulk?.value;
     const stackGroup = item.data?.stackGroup?.value;
     const negateBulk = item.data?.negateBulk?.value;
-    const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
+    const extraDimensionalContainer =
+        ((item.type === 'armor' || item.type === 'backpack' || item.type === 'equipment') &&
+            item.data.traits.value.includes('extradimensional')) ??
+        false;
     const size = item.data?.size?.value ?? 'med';
 
     return new BulkItem({

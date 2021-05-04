@@ -6,6 +6,8 @@ export class MystifiedTraits {
             ...Object.keys(CONFIG.PF2E.magicSchools),
             ...Object.keys(CONFIG.PF2E.spellTraditions),
             ...Object.keys(CONFIG.PF2E.consumableTraits).filter((trait) => trait !== 'consumable'),
+            'extradimensional',
+            'invested',
         ]);
     }
 
