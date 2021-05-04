@@ -106,7 +106,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
-            console.log(itemData.name);
             itemData.isContainer = itemData.type === 'backpack';
             if (!itemData.isIdentified) {
                 const item = this.actor.physicalItems.get(itemData._id);
