@@ -649,8 +649,6 @@ export interface RawNPCData extends CreatureSystemData {
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
-        /** The Archive of Nethys URL for this creature. */
-        nethysUrl: string;
         /** Information about what is needed to recall knowledge about this creature. */
         recallKnowledgeText: string;
         /** Information which shows up on the sidebar of the creature. */
