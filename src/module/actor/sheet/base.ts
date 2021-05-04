@@ -716,26 +716,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             });
         });
 
-        // Item Dragging
-        const handler = (event: DragEvent) => this.onDragItemStart(event as ElementDragEvent);
-        html.find('.item').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', handler, false);
-        });
-
-        // Skill Dragging
-        const skillHandler = (event: DragEvent) => this.onDragSkillStart(event as ElementDragEvent);
-        html.find('.skill').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', skillHandler, false);
-        });
-
-        // Toggle Dragging
-        html.find('[data-toggle-property][data-toggle-label]').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', (event) => this.onDragToggleStart(event as ElementDragEvent), false);
-        });
-
         // change background for dragged over items that are containers
         const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
         containerItems.forEach((elem: HTMLElement) =>
@@ -1007,85 +987,71 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return super._canDragDrop(selector);
     }
 
-    protected onDragItemStart(event: ElementDragEvent): boolean {
-        event.stopImmediatePropagation();
+    /**
+     * Override core method due to bug in which new items are created from prepared data
+     * @override
+     */
+    protected _onDragStart(event: ElementDragEvent): void {
+        const $li = $(event.currentTarget);
 
-        const itemId = event.currentTarget.getAttribute('data-item-id');
-        const containerId = event.currentTarget.getAttribute('data-container-id');
-        const actionIndex = event.currentTarget.getAttribute('data-action-index');
+        const baseDragData = {
+            actorId: this.actor.id,
+            sceneId: canvas.scene?.id ?? null,
+            tokenId: this.actor.token?.id ?? null,
+        };
 
-        const id = itemId ?? containerId ?? '';
-        const item = this.actor.getOwnedItem(id);
-        if (item) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+        // Dragging ...
+        const supplementalData = (() => {
+            const itemId = $li.attr('data-item-id');
+            const actionIndex = $li.attr('data-action-index');
+            const toggleProperty = $li.attr('data-toggle-property');
+            const toggleLabel = $li.attr('data-toggle-label');
+
+            // ... an item?
+            if (itemId) {
+                const item = this.actor.items.get(itemId);
+                if (!item) throw ErrorPF2e('Item not found during drag event');
+                return {
                     type: 'Item',
-                    data: item.data,
-                    actorId: this.actor._id,
-                    tokenId: this.actor.token?.id,
-                    id: itemId,
-                }),
-            );
-
-            return true;
-        } else if (actionIndex && event) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+                    data: item._data,
+                };
+            }
+            // ... an action?
+            if (actionIndex) {
+                return {
                     type: 'Action',
-                    index: actionIndex,
-                    actorId: this.actor._id,
-                }),
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-    private onDragSkillStart(event: ElementDragEvent): boolean {
-        const skill = event.currentTarget.getAttribute('data-skill');
-
-        if (skill) {
-            const skillName = $(event.currentTarget).find('.skill-name').text();
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
-                    type: 'Skill',
-                    skill,
-                    skillName,
-                    actorId: this.actor._id,
-                }),
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-    private onDragToggleStart(event: ElementDragEvent): boolean {
-        const property = event.currentTarget.getAttribute('data-toggle-property');
-        const label = event.currentTarget.getAttribute('data-toggle-label');
-        if (property) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+                    index: Number(actionIndex),
+                };
+            }
+            // ... a toggle?
+            if (toggleProperty) {
+                return {
                     type: 'Toggle',
-                    property,
-                    label,
-                    actorId: this.actor._id,
-                }),
-            );
-            return true;
-        }
-        return false;
+                    property: toggleProperty,
+                    label: toggleLabel,
+                };
+            }
+
+            // ... something else?
+            return null;
+        })();
+
+        return supplementalData
+            ? event.dataTransfer.setData(
+                  'text/plain',
+                  JSON.stringify({
+                      ...baseDragData,
+                      ...supplementalData,
+                  }),
+              )
+            : super._onDragStart(event);
     }
 
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      * @param event
      * @param itemData
+     * @override
      */
     protected async _onSortItem(
         event: ElementDragEvent,
@@ -1182,6 +1148,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return super._onSortItem(event, itemData);
     }
 
+    /** @override */
     protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
             // ignore these. they should get handled in the derived class
@@ -1197,6 +1164,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     /**
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
+     * @override
      */
     protected async _onDropItem(
         event: ElementDragEvent,
@@ -1205,20 +1173,21 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item._data);
+        const itemData = item._data;
 
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
-        if (data.actorId && itemData.isPhysical) {
-            this.moveItemBetweenActors(
+        const sourceItemId = data.data?._id;
+        if (data.actorId && itemData.isPhysical && typeof sourceItemId === 'string') {
+            await this.moveItemBetweenActors(
                 event,
                 data.actorId,
                 data.tokenId ?? '',
                 actor.id,
                 actor.token?.id ?? '',
-                data.id,
+                sourceItemId,
             );
             return itemData;
         }

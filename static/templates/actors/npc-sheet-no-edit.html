@@ -135,16 +135,16 @@
         </div>
 
         {{#if hasEquipment}}
-        <div class="stats-line equipment">
-          <span class="inline-stats">
-            <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
-            {{#each actor.equipment as |item iid|}}
-            <span class="stat-list item" data-item-id="{{item._id}}">
-              <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">{{item.name}}</span>
-            </span>
-            {{/each}}
-          </span>
-        </div>
+            <div class="stats-line equipment item-list">
+                <span class="inline-stats">
+                    <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
+                    {{#each actor.equipment as |item iid|}}
+                        <span class="stat-list item" data-item-id="{{item._id}}">
+                            <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">{{item.name}}</span>
+                        </span>
+                    {{/each}}
+                </span>
+            </div>
         {{/if}}
 
       </div>

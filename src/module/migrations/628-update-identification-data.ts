@@ -17,6 +17,7 @@ type MaybeOldData = ItemDataPF2e & {
         };
     };
     'data.-=identified'?: unknown;
+    'data.identification.unidentified.-=description'?: unknown;
 };
 
 export class Migration628UpdateIdentificationData extends MigrationBase {
@@ -60,7 +61,15 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
         mystifyData.unidentified ||= this.defaultData.unidentified;
         mystifyData.misidentified ||= this.defaultData.misidentified;
 
-        const identifiedData: IdentifiedData = mystifyData?.identified ?? {};
+        // For pre-release refactor of mystified data structure
+        if (mystifyData.unidentified && 'description' in mystifyData.unidentified) {
+            mystifyData.unidentified = this.defaultData.unidentified;
+            if ('game' in globalThis) {
+                itemData['data.identification.unidentified.-=description'] = null;
+            }
+        }
+
+        const identifiedData: IdentifiedData = mystifyData.identified ?? {};
 
         if (mystifyData.status === 'identified') {
             systemData.identification = this.defaultData;
