@@ -15,6 +15,10 @@ declare type HookParamsInit = HookParameters<'init', never>;
 declare type HookParamsSetup = HookParameters<'setup', never>;
 declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
+declare type HookParamsDeleteCombat = HookParameters<
+    'deleteCombat',
+    [Combat<Actor>, { [key: string]: any }, string]
+>;
 declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
 declare type HookParamsGetChatLogEntryContext = HookParameters<
     'getChatLogEntryContext',
@@ -25,6 +29,10 @@ declare type HookParamsPreCreateItem = HookParameters<
     'preCreateItem',
     [PreCreate<ItemData>, EntityCreateOptions, string]
 >;
+declare type HooksParamsPreUpdateCombat = HookParameters<
+    'preUpdateCombat',
+    [Combat<Actor>, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+>;
 declare type HookParamsPreUpdateToken = HookParameters<
     'preUpdateToken',
     [Scene, TokenData, Partial<TokenData>, { diff: boolean; [key: string]: any }, string]
@@ -34,6 +42,10 @@ declare type HookParamsRender<T extends Application, N extends string> = HookPar
     [T, JQuery, ReturnType<T['getData']>]
 >;
 declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
+declare type HookParamsUpdateCombat = HookParameters<
+    'updateCombat',
+    [Combat<Actor>, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+>;
 declare type HookParamsUpdateWorldTime = HookParameters<'updateWorldTime', [number, number]>;
 
 declare class Hooks {
@@ -51,6 +63,7 @@ declare class Hooks {
     static on(...args: HookParamsHotbarDrop): number;
     static on(...args: HookParamsGetChatLogEntryContext): number;
     static on(...args: HookParamsPreCreateItem): number;
+    static on(...args: HooksParamsPreUpdateCombat): number;
     static on(...args: HookParamsPreUpdateToken): number;
     static on(...args: HookParamsRenderChatMessage): number;
     static on(...args: HookParamsRender<ChatLog, 'ChatLog'>): number;
@@ -59,6 +72,7 @@ declare class Hooks {
     static on(...args: HookParamsRender<ActorDirectory, 'ActorDirectory'>): number;
     static on(...args: HookParamsRender<ItemDirectory, 'ItemDirectory'>): number;
     static on(...args: HookParamsRender<Settings, 'Settings'>): number;
+    static on(...args: HookParamsUpdateCombat): number;
     static on(...args: HookParamsUpdateWorldTime): number;
     static on(...args: HookParameters<string, any>): number;
 

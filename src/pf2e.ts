@@ -299,10 +299,6 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
         });
 });
 
-Hooks.on('updateCombat', () => {
-    game.pf2e.effectPanel?.refresh();
-});
-
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
     if (!game.user.isGM) {

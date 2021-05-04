@@ -29,6 +29,7 @@ declare class CombatEncounters<ActorType extends Actor> extends EntityCollection
 declare interface CombatantData<ActorType extends Actor> extends EmbeddedEntityData {
     name: string;
     actor: ActorType;
+    defeated?: boolean;
     tokenId: string;
     initiative: number | null;
     hidden: boolean;
@@ -75,6 +76,10 @@ declare class Combat<ActorType extends Actor> extends Entity {
      * A convenience reference to the Array of combatant data within the Combat entity
      */
     combatants: CombatantData<ActorType>[];
+
+    current: { round?: number; tokenId?: string; turn?: number };
+
+    previous: { round?: number; tokenId?: string; turn?: number };
 
     /**
      * The numeric round of the Combat encounte

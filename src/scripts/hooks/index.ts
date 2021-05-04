@@ -6,6 +6,7 @@ import * as HotbarDrop from './hotbar-drop';
 import * as Ready from './ready';
 import * as RenderSettings from './render-settings';
 import * as Setup from './setup';
+import * as TurnChanges from './turn-changes';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
 import * as RenderChatLog from './render-chat-log';
@@ -25,6 +26,7 @@ export namespace PF2E {
             RenderChatMessage.listen();
             RenderSettings.listen();
             Setup.listen();
+            TurnChanges.listen();
             UpdateScene.listen();
             UpdateWorldTime.listen();
         },
