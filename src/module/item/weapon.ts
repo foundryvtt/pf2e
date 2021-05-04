@@ -26,6 +26,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** @override */
     prepareData() {
+        /** Prevent unhandled exceptions on pre-migrated data */
+        this.data.data.traits.rarity ??= { value: 'common' };
+
         // Add trait(s) from potency rune
         const traditionTraits = ['arcane', 'primal', 'divine', 'occult'] as const;
         const hasPotencyRune = !!this.data.data.potencyRune.value;
