@@ -297,9 +297,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
             html.find('.tab.inventory').addClass('active');
-            html.find('.inventory-section li.item')
-                .attr({ draggable: true })
-                .on('dragstart', (event) => this.onDragItemStart(event.originalEvent as ElementDragEvent));
         }
 
         // Subscribe to roll events

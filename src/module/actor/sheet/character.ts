@@ -1015,7 +1015,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = item._data;
 
         const { slotId, featType } = this.getNearestSlotId(event);
 
