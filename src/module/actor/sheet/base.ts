@@ -14,14 +14,7 @@ import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from './data-types';
 import { ItemPF2e } from '@item/base';
-import {
-    ConditionData,
-    isPhysicalItem,
-    ItemDataPF2e,
-    MagicSchoolKey,
-    SpellData,
-    SpellDetailsData,
-} from '@item/data/types';
+import { ConditionData, ItemDataPF2e, MagicSchoolKey, SpellData, SpellDetailsData } from '@item/data/types';
 import { ConditionManager } from '@module/conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';
@@ -111,11 +104,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         );
         actorData.items = items;
 
-        const inventoryItems = items.filter((itemData): itemData is InventoryItem => isPhysicalItem(itemData));
+        const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
-            itemData.isEquipped = itemData.data.equipped.value;
-            itemData.isIdentified = itemData.data.identification.status === 'identified';
+            console.log(itemData.name);
             itemData.isContainer = itemData.type === 'backpack';
+            if (!itemData.isIdentified) {
+                const item = this.actor.physicalItems.get(itemData._id);
+                if (item) {
+                    itemData.data.identification.identified = item.getMystifiedData('identified');
+                }
+            }
         }
 
         // Calculate financial and total wealth
@@ -1214,7 +1212,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
-        if (data.actorId && isPhysicalItem(itemData)) {
+        if (data.actorId && itemData.isPhysical) {
             this.moveItemBetweenActors(
                 event,
                 data.actorId,
@@ -1303,7 +1301,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
-        if (isPhysicalItem(itemData)) {
+        if (itemData.isPhysical) {
             const container = $(event.target).parents('[data-item-is-container="true"]');
             let containerId = null;
             if (container[0] !== undefined) {
@@ -1443,17 +1441,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             // append traits (only style the tags if they contain description data)
             if (Array.isArray(chatData.traits)) {
                 for (const property of chatData.traits) {
-                    if (property.excluded) continue;
-
-                    const mystifiedClass = property.mystified ? ' gm-mystified-data' : '';
                     const label: string = game.i18n.localize(property.label);
                     if (property.description) {
                         const description: string = game.i18n.localize(property.description);
-                        props.append(
-                            `<span class="tag tag_alt${mystifiedClass}" title="${description}">${label}</span>`,
-                        );
+                        props.append(`<span class="tag tag_alt" title="${description}">${label}</span>`);
                     } else {
-                        props.append(`<span class="tag${mystifiedClass}">${label}</span>`);
+                        props.append(`<span class="tag">${label}</span>`);
                     }
                 }
             }

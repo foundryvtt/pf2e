@@ -12,14 +12,13 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { isItemSystemData, isPhysicalItem, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data/types';
+import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data/types';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
-import { MystifiedTraits } from './data/values';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -68,6 +67,12 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     get description(): string {
         return this.data.data.description.value;
+    }
+
+    /** @override */
+    prepareData(): void {
+        super.prepareData();
+        this.data.isPhysical = false;
     }
 
     /**
@@ -124,9 +129,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Currently renders description text using TextEditor.enrichHTML()
      */
     protected processChatData(htmlOptions: EnrichHTMLOptions = {}, data: Record<string, any> = {}): unknown {
-        if (Array.isArray(data.traits)) {
-            data.traits = data.traits.filter((trait: { excluded: boolean }) => !trait.excluded);
-        }
         if (isItemSystemData(data)) {
             const chatData = duplicate(data);
             chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
@@ -150,13 +152,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         const traitChatLabels = traits.map((trait) => {
             const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
-            const isMystified = isPhysicalItem(this.data) && MystifiedTraits.includes(trait);
             const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
             return {
                 label,
                 description: traitDescriptions[trait],
-                mystified: isMystified,
-                excluded: isMystified && !game.user.isGM,
             };
         });
 

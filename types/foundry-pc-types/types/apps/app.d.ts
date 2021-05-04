@@ -314,11 +314,11 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
     /*  Methods                                     */
     /* -------------------------------------------- */
 
-  /**
-   * Close the application and un-register references to it within UI mappings
-   * This function returns a Promise which resolves once the window closing animation concludes
-   * @return {Promise<void>}    A Promise which resolves once the application is closed
-   */
+    /**
+     * Close the application and un-register references to it within UI mappings
+     * This function returns a Promise which resolves once the window closing animation concludes
+     * @return {Promise<void>}    A Promise which resolves once the application is closed
+     */
     close(options?: { force?: boolean }): Promise<void>;
 
     /**

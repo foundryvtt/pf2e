@@ -64,10 +64,11 @@ export interface MeleePF2e {
 export class EquipmentPF2e extends PhysicalItemPF2e {
     getChatData(this: Owned<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
+        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
-            (p) => p !== null,
+            (p) => p,
         );
-        return this.processChatData(htmlOptions, { ...data, properties });
+        return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }
 

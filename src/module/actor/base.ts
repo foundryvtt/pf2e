@@ -97,6 +97,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
             super(data, options);
+            this.physicalItems ??= new Collection();
         } else {
             try {
                 const ready = { pf2e: { ready: true } };
@@ -106,7 +107,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
-        this.physicalItems = new Collection();
     }
 
     /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
