@@ -140,7 +140,10 @@
                     <label class="stat-title">{{localize "PF2E.ItemsLabel"}}</label>
                     {{#each actor.equipment as |item iid|}}
                         <span class="stat-list item" data-item-id="{{item._id}}">
-                            <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">{{item.name}}</span>
+                            <span class="stat-minortitle item-control item-edit" data-item-id="{{item._id}}" title="{{strip_tags item.data.description.value}}">
+                                {{item.name}}
+                                {{#if (and @root.user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.identification.identified.name}})</span>{{/if}}
+                            </span>
                         </span>
                     {{/each}}
                 </span>
