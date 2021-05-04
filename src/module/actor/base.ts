@@ -601,19 +601,23 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      */
     static async rollSave(ev: JQuery.ClickEvent, item: Owned<ItemPF2e>): Promise<void> {
         if (canvas.tokens.controlled.length > 0) {
+            const save = $(ev.currentTarget).attr('data-save') as SaveString;
+            const dc = Number($(ev.currentTarget).attr('data-dc'));
+            const itemTraits = item.data.data.traits.value;
             for (const t of canvas.tokens.controlled) {
                 const actor = t.actor;
-                const save = $(ev.currentTarget).attr('data-save') as SaveString;
-                const itemTraits = item.data.data.traits.value;
                 if (!actor) return;
-
                 if (actor.data.data.saves[save]?.roll) {
                     const options = actor.getRollOptions(['all', 'saving-throw', save]);
                     options.push('magical', 'spell');
                     if (itemTraits) {
                         options.push(...itemTraits);
                     }
-                    actor.data.data.saves[save].roll({ event: ev, options });
+                    actor.data.data.saves[save].roll({
+                        event: ev,
+                        dc: !Number.isNaN(dc) ? { value: Number(dc) } : undefined,
+                        options,
+                    });
                 } else {
                     actor.rollSave(ev, save);
                 }
