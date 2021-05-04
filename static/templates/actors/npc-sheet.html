@@ -289,6 +289,7 @@
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
                             <h4>
                                 {{item.name}}
+                                {{#if (and @root.user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.identification.identified.name}})</span>{{/if}}
                             </h4>
                         </div>
                         {{#if ../owner}}
