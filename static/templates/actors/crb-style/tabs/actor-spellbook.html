@@ -2,7 +2,7 @@
 
     <ol class="spellcastingEntry-list directory-list item-list">
         {{#each actor.spellcastingEntries as |entry eid|}}
-            <li class="item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}">
+            <li class="item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                 <div class="action-header">
                     {{#if entry.data.prepared.preparedSpells}}
                         <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
