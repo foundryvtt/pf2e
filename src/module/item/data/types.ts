@@ -941,6 +941,11 @@ export interface ActionData extends BaseNonPhysicalItemData<ActionDetailsData> {
 
 export interface SpellData extends BaseNonPhysicalItemData<SpellDetailsData> {
     type: 'spell';
+
+    /** Prepared data */
+    isCantrip: boolean;
+    isFocusSpell: boolean;
+    isRitual: boolean;
 }
 
 export interface SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryDetailsData> {

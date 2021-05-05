@@ -458,12 +458,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const embeddedEntityUpdate = [];
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
-        for (const i of tempSpellbook) {
+        for (const spellData of tempSpellbook) {
             // check if the spell has a valid spellcasting entry assigned to the location value.
-            if (spellcastingEntriesList.includes(i.data.location.value)) {
-                const location = i.data.location.value;
+            if (spellcastingEntriesList.includes(spellData.data.location.value)) {
+                const location = spellData.data.location.value;
                 spellbooks[location] = spellbooks[location] || {};
-                this.prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], spellData);
             } else if (spellcastingEntriesList.length === 1) {
                 // if not BUT their is only one spellcasting entry then assign the spell to this entry.
                 const location = spellcastingEntriesList[0];
@@ -472,12 +472,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 // Update spell to perminantly have the correct ID now
                 // console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
                 // this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
-                embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
+                embeddedEntityUpdate.push({ _id: spellData._id, 'data.location.value': spellcastingEntriesList[0] });
 
-                this.prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], spellData);
             } else {
                 // else throw it in the orphaned list.
-                this.prepareSpell(actorData, spellbooks.unassigned, i);
+                this.prepareSpell(actorData, spellbooks.unassigned, spellData);
             }
         }
 
