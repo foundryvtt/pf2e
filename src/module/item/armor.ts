@@ -97,11 +97,14 @@ export class ArmorPF2e extends PhysicalItemPF2e {
             `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
             `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
             `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
-            ...data.traits.value,
             data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
         ].filter((property) => property);
 
-        return this.processChatData(htmlOptions, { ...data, properties, traits: null });
+        return this.processChatData(htmlOptions, {
+            ...data,
+            properties,
+            traits: this.traitChatData(CONFIG.PF2E.armorTraits),
+        });
     }
 
     /** @override */

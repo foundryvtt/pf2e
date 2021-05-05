@@ -1401,7 +1401,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 )}</div></div>`,
             );
             const props = $('<div class="item-properties tags"></div>');
-            if (chatData.properties) {
+            if (Array.isArray(chatData.properties)) {
                 chatData.properties
                     .filter((property: unknown) => typeof property === 'string')
                     .forEach((property: string) => {
@@ -1417,15 +1417,17 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     )}</span>`,
                 );
             // append traits (only style the tags if they contain description data)
-            if (Array.isArray(chatData.traits)) {
-                for (const property of chatData.traits) {
-                    const label: string = game.i18n.localize(property.label);
-                    if (property.description) {
-                        const description: string = game.i18n.localize(property.description);
-                        props.append(`<span class="tag tag_alt" title="${description}">${label}</span>`);
-                    } else {
-                        props.append(`<span class="tag">${label}</span>`);
-                    }
+            for (const trait of chatData.traits ?? []) {
+                if (trait.excluded) continue;
+                const label: string = game.i18n.localize(trait.label);
+                const mystifiedClass = trait.mystified ? 'mystified' : [];
+                if (trait.description) {
+                    const classes: string = ['tag', mystifiedClass].flat().join(' ');
+                    const description: string = game.i18n.localize(trait.description);
+                    props.append(`<span class="${classes}" title="${description}">${label}</span>`);
+                } else {
+                    const classes: string = ['tag', 'tag_alt', mystifiedClass].flat().join(' ');
+                    props.append(`<span class="${classes}">${label}</span>`);
                 }
             }
 

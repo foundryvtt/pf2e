@@ -1,6 +1,14 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemPF2e } from './base';
-import { MystifiedData, IdentificationStatus, PhysicalItemData, Rarity, isMagicDetailsData } from './data/types';
+import {
+    MystifiedData,
+    IdentificationStatus,
+    PhysicalItemData,
+    Rarity,
+    isMagicDetailsData,
+    TraitChatData,
+} from './data/types';
+import { MystifiedTraits } from './data/values';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
@@ -152,6 +160,28 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
         return game.i18n.format(formatString, { item: itemType });
+    }
+
+    /**
+     * Include mystification-related rendering instructions for views that will display this data.
+     * @override
+     */
+    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+        const traitData = super.traitChatData(dictionary);
+        for (const trait of traitData) {
+            trait.mystified = !this.data.isIdentified && MystifiedTraits.has(trait.value);
+            trait.excluded = trait.mystified && !game.user.isGM;
+            if (trait.excluded) {
+                delete trait.description;
+            } else if (trait.mystified) {
+                const gmNote = LocalizePF2e.translations.PF2E.identification.TraitGMNote;
+                trait.description = trait.description
+                    ? `${gmNote}\n\n${game.i18n.localize(trait.description)}`
+                    : gmNote;
+            }
+        }
+
+        return traitData;
     }
 }
 
