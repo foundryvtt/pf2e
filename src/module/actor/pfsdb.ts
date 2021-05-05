@@ -2,7 +2,14 @@ import { ItemPF2e } from '@item/base';
 import { isPhysicalItem, PhysicalItemData, Size } from '@item/data-definitions';
 import ky from 'ky';
 import { ActorPF2e } from './base';
-import { Language, RawCharacterData, RawPathfinderSocietyData, ValuesList } from './data-definitions';
+import {
+    Abilities,
+    Language,
+    RawCharacterData,
+    RawCharacterDataDetails,
+    RawPathfinderSocietyData,
+    ValuesList,
+} from './data-definitions';
 
 export interface PfsDbEntry {
     _id: string; // Concatenate player and character number
@@ -17,27 +24,7 @@ export interface PfsDbEntry {
             wisdom: number;
             charisma: number;
         };
-        details: {
-            alignment: { value: string };
-            deity: { value: string; image: string };
-            age: { value: string };
-            height: { value: string };
-            weight: { value: string };
-            gender: { value: string };
-            ethnicity: { value: string };
-            nationality: { value: string };
-            biography: { value: string; public?: string };
-            xp: {
-                value: number;
-                min: number;
-                max: number;
-                pct: number;
-            };
-            level: {
-                value: number;
-                min: number;
-            };
-        };
+        details: RawCharacterDataDetails;
         languages: ValuesList<Language>;
     };
 }
@@ -66,7 +53,7 @@ export const ImportFromPfsDb = async (
             .json<PfsDbEntry>();
         console.log(`PFS DB | Retrieved ${JSON.stringify(await response, null, 1)}`);
         console.log(`PFS DB | Converting PFS DB Entry to RawCharacterData`);
-        const newRawCharacterData = ConvertPfsDbEntryToActor(await response, actor);
+        const newRawCharacterData = UpdateActorFromPfsDbEntry(await response, actor);
         return newRawCharacterData;
     } catch (error) {
         console.log(`PFS DB | ${error}`);
@@ -102,78 +89,78 @@ export const DeleteFromPfsDb = async (playerNumber: string, characterNumber: str
     }
 };
 
-const ConvertPfsDbEntryToActor = (pfsDbEntry: PfsDbEntry, existingActor: ActorPF2e): RawCharacterData => {
-    if (existingActor.data.type !== 'character') return;
-    const rawCharacterData = existingActor.data.data;
-    const fortitude = rawCharacterData.saves.fortitude;
-    fortitude.rank = pfsDbEntry.characterData.saves.fortitude;
-    const reflex = rawCharacterData.saves.reflex;
-    reflex.rank = pfsDbEntry.characterData.saves.reflex;
-    const will = rawCharacterData.saves.will;
-    will.rank = pfsDbEntry.characterData.saves.will;
+const UpdateActorFromPfsDbEntry = async (pfsDbEntry: PfsDbEntry, existingActor: ActorPF2e): Promise<void> => {
+    if (existingActor.data.type === 'character') {
+        // *** Update PFS Data *** //
+        console.log(`Old PFS data ${JSON.stringify(existingActor.data.data.pfs)}`);
+        await existingActor.update({ 'data.pfs': pfsDbEntry.pfsData });
+        console.log(`Updated PFS data ${JSON.stringify(existingActor.data.data.pfs)}`);
 
-    const mergedData: RawCharacterData = {
-        ...rawCharacterData,
-        pfs: pfsDbEntry.pfsData,
-        abilities: {
-            str: { ...rawCharacterData.abilities.str, value: pfsDbEntry.characterData.abilities.strength },
-            dex: { ...rawCharacterData.abilities.dex, value: pfsDbEntry.characterData.abilities.dexterity },
-            con: {
-                ...rawCharacterData.abilities.con,
-                value: pfsDbEntry.characterData.abilities.constitution,
-            },
-            int: {
-                ...rawCharacterData.abilities.int,
-                value: pfsDbEntry.characterData.abilities.intelligence,
-            },
-            wis: { ...rawCharacterData.abilities.wis, value: pfsDbEntry.characterData.abilities.wisdom },
-            cha: { ...rawCharacterData.abilities.cha, value: pfsDbEntry.characterData.abilities.charisma },
-        },
-        details: { ...pfsDbEntry.characterData.details },
-        saves: { fortitude, reflex, will },
-        attributes: {
-            ...rawCharacterData.attributes,
-            speed: { ...rawCharacterData.attributes.speed, ...pfsDbEntry.characterData.speed },
-        },
-        traits: {
-            ...rawCharacterData.traits,
-            size: { value: pfsDbEntry.characterData.size },
-            senses: pfsDbEntry.characterData.senses,
-            traits: pfsDbEntry.characterData.traits,
-            languages: pfsDbEntry.characterData.languages,
-        },
-    };
-    return mergedData;
+        // *** Update Ability Scores *** //
+        const oldAbilities = existingActor.data.data.abilities;
+        const newAbilities = pfsDbEntry.characterData.abilities;
+        const updatedActorAbilities: Abilities = {
+            str: { ...oldAbilities.str, value: newAbilities.strength },
+            dex: { ...oldAbilities.dex, value: newAbilities.dexterity },
+            con: { ...oldAbilities.con, value: newAbilities.constitution },
+            int: { ...oldAbilities.int, value: newAbilities.intelligence },
+            wis: { ...oldAbilities.wis, value: newAbilities.wisdom },
+            cha: { ...oldAbilities.cha, value: newAbilities.charisma },
+        };
+        await existingActor.update({ 'data.abilities': updatedActorAbilities });
+
+        // *** Update Details *** //
+        const updatedCharacterDetails = pfsDbEntry.characterData.details;
+        await existingActor.update({ 'data.details': updatedCharacterDetails });
+
+        // *** Update Languages *** //
+        const updatedLanguages = pfsDbEntry.characterData.languages;
+        existingActor.update({ 'data.traits.languages': updatedLanguages });
+
+        // *** Grant items *** //
+        pfsDbEntry.items.forEach((item) => {
+            const match = sourceIdPattern.exec(item.sourceId ?? '');
+            // This assumes SourceIds are still Compendium.pf2e.<pack>.<id>
+            const pack = Array.isArray(match) ? match[2] : undefined;
+            const id = Array.isArray(match) ? match[3] : undefined;
+            const lookupData: ItemLookupData = { pack, id };
+        });
+    }
 };
 
-// interface ItemLookupData {
-//     pack: string | null;
-//     id: string;
-// }
+const sourceIdPattern = /^Compendium\.(pf2e\.[-\w]+)\.(\w+)$/;
 
-// const grantItem = async (owner: ActorPF2e, lookupData: ItemLookupData): Promise<void> => {
-//     const toGrant =
-//         lookupData.pack === null
-//             ? game.items.get(lookupData.id)
-//             : await game.packs.get(lookupData.pack)?.getEntity(lookupData.id);
+interface ItemLookupData {
+    pack: string | null;
+    id: string;
+}
 
-//     const ownerAlreadyHas = (item: ItemPF2e) =>
-//         owner.items.entries.some((ownedItem) => ownedItem.sourceId === item.sourceId);
+const grantItem = async (owner: ActorPF2e, lookupData: ItemLookupData): Promise<void> => {
+    const toGrant =
+        lookupData.pack === null
+            ? game.items.get(lookupData.id)
+            : await game.packs.get(lookupData.pack)?.getEntity(lookupData.id);
 
-//     if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
-//         await owner.createEmbeddedEntity('OwnedItem', toGrant.data);
-//     }
-// };
+    const ownerAlreadyHas = (item: ItemPF2e) =>
+        owner.items.entries.some((ownedItem) => ownedItem.sourceId === item.sourceId);
 
-// const valueIsLookupData = (value: unknown): value is ItemLookupData => {
-//     return value instanceof Object && 'pack' in value && 'id' in value;
-// };
+    if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
+        await owner.createEmbeddedEntity('OwnedItem', toGrant.data);
+    }
+};
+
+const valueIsLookupData = (value: unknown): value is ItemLookupData => {
+    return value instanceof Object && 'pack' in value && 'id' in value;
+};
 
 const ConvertActorToPfsDbEntry = (actor: ActorPF2e): PfsDbEntry => {
     if (actor.data.type !== 'character') return;
     const rawCharacterData = actor.data.data;
+    // _id is the unique key in the db is PFS player number concatenated with character number
     const _id = rawCharacterData.pfs.playerNumber + rawCharacterData.pfs.characterNumber;
+    // Relevant PFS data captured here.
     const pfsData = rawCharacterData.pfs;
+    // Capture Items in a Foundry sense to get Classes, Ancestries, etc.
     const items: PfsDbItem[] = actor.items.map((item) => {
         // This captures item specifics for physical items such as quality, runes, material, etc.
         if (isPhysicalItem(item.data)) {

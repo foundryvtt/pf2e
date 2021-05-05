@@ -480,57 +480,7 @@ export interface RawCharacterData extends CreatureSystemData {
     martial: CombatProficiencies;
 
     /** Various details about the character, such as level, experience, etc. */
-    details: {
-        /** The key ability which class saves (and other class-related things) scale off of. */
-        keyability: { value: AbilityString };
-
-        /** Character alignment (LN, N, NG, etc.) */
-        alignment: { value: string };
-        /** Character class ('barbarian', 'fighter', etc.) */
-        class: { value: string };
-        /** Character ancestry (their race, generally). */
-        ancestry: { value: string };
-        /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
-        heritage: { value: string };
-        /** The diety that the character worships (and an image of the diety symbol). */
-        deity: { value: string; image: string };
-        /** Character background - their occupation, upbringing, etc. */
-        background: { value: string };
-        /** How old the character is (user-provided field). */
-        age: { value: string };
-        /** Character height (user-provided field). */
-        height: { value: string };
-        /** Character weight (user-provided field). */
-        weight: { value: string };
-        /** Character gender/pronouns (user-provided field). */
-        gender: { value: string };
-        /** Character ethnicity (user-provided field). */
-        ethnicity: { value: string };
-        /** Character nationality (i.e, what nation they hail from; user-provided field). */
-        nationality: { value: string };
-        /** User-provided biography for their character; value is HTML. */
-        biography: { value: string; public?: string };
-
-        /** The amount of experience this character has. */
-        xp: {
-            /** The current experience value.  */
-            value: number;
-            /** The minimum amount of experience (almost always '0'). */
-            min: number;
-            /** The maximum amount of experience before level up (usually '1000', but may differ.) */
-            max: number;
-            /** COMPUTED: The percentage completion of the current level (value / max). */
-            pct: number;
-        };
-
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
-        };
-    };
+    details: RawCharacterDataDetails;
 
     attributes: CharacterAttributes;
 
@@ -542,6 +492,58 @@ export interface RawCharacterData extends CreatureSystemData {
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
+}
+
+export interface RawCharacterDataDetails {
+    /** The key ability which class saves (and other class-related things) scale off of. */
+    keyability: { value: AbilityString };
+
+    /** Character alignment (LN, N, NG, etc.) */
+    alignment: { value: string };
+    /** Character class ('barbarian', 'fighter', etc.) */
+    class: { value: string };
+    /** Character ancestry (their race, generally). */
+    ancestry: { value: string };
+    /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
+    heritage: { value: string };
+    /** The diety that the character worships (and an image of the diety symbol). */
+    deity: { value: string; image: string };
+    /** Character background - their occupation, upbringing, etc. */
+    background: { value: string };
+    /** How old the character is (user-provided field). */
+    age: { value: string };
+    /** Character height (user-provided field). */
+    height: { value: string };
+    /** Character weight (user-provided field). */
+    weight: { value: string };
+    /** Character gender/pronouns (user-provided field). */
+    gender: { value: string };
+    /** Character ethnicity (user-provided field). */
+    ethnicity: { value: string };
+    /** Character nationality (i.e, what nation they hail from; user-provided field). */
+    nationality: { value: string };
+    /** User-provided biography for their character; value is HTML. */
+    biography: { value: string; public?: string };
+
+    /** The amount of experience this character has. */
+    xp: {
+        /** The current experience value.  */
+        value: number;
+        /** The minimum amount of experience (almost always '0'). */
+        min: number;
+        /** The maximum amount of experience before level up (usually '1000', but may differ.) */
+        max: number;
+        /** COMPUTED: The percentage completion of the current level (value / max). */
+        pct: number;
+    };
+
+    /** Information about the current character level. */
+    level: {
+        /** The current level of this character. */
+        value: number;
+        /** The minimum level (almost always '1'). */
+        min: number;
+    };
 }
 
 // NPCs have an additional 'base' field used for computing the modifiers.
