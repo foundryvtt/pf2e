@@ -33,8 +33,8 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
 
         if (!isPhysicalItem(itemData)) return;
 
-        const unidentifiedDataData: UnidentifiedWithTraits = itemData.data.identification.unidentified.data;
-        if (unidentifiedDataData.traits) {
+        const unidentifiedDataData: UnidentifiedWithTraits = itemData.data.identification?.unidentified?.data;
+        if (unidentifiedDataData?.traits) {
             if ('game' in globalThis) {
                 itemData['data.identification.unidentified.data.-=traits'] = null;
             } else {
