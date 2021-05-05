@@ -16,13 +16,26 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
     getChatData(this: Owned<ConsumablePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
-        const localize = game.i18n.localize.bind(game.i18n);
+        const translations = LocalizePF2e.translations.PF2E;
         const traits = this.traitChatData(CONFIG.PF2E.consumableTraits);
+        const [consumableType, isUsable] = this.isIdentified
+            ? [game.i18n.localize(this.consumableType), true]
+            : [
+                  this.generateUnidentifiedName({ typeOnly: true }),
+                  !['other', 'scroll', 'talisman', 'tool', 'wand'].includes(this.consumableType),
+              ];
+
         return this.processChatData(htmlOptions, {
             ...data,
             traits,
-            properties: [`${data.charges.value}/${data.charges.max} ${localize('PF2E.ConsumableChargesLabel')}`],
-            hasCharges: this.charges.max > 0,
+            properties:
+                this.isIdentified && this.charges.max > 0
+                    ? [`${data.charges.value}/${data.charges.max} ${translations.ConsumableChargesLabel}`]
+                    : [],
+            usesCharges: this.charges.max > 0,
+            hasCharges: this.charges.max > 0 && this.charges.current > 0,
+            consumableType,
+            isUsable,
         });
     }
 

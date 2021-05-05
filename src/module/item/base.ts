@@ -12,7 +12,7 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TrickMagicItemCastData } from './data/types';
+import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TraitChatData, TrickMagicItemCastData } from './data/types';
 import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
@@ -86,7 +86,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
-            tokenId: token ? `${token.scene._id}.${token.id}` : null,
+            tokenId: token ? `${token.scene._id}.${token.id}` : null, // `;
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
@@ -142,7 +142,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         return this.processChatData(htmlOptions, duplicate(this.data.data));
     }
 
-    protected traitChatData(traitList: Record<string, string>): { label: string; description: string }[] {
+    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
         const traits: string[] = duplicate(this.data.data.traits.value);
         const customTraits = this.data.data.traits.custom
             .trim()
@@ -151,9 +151,11 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
-            const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
+            const label = dictionary[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
             const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
+
             return {
+                value: trait,
                 label,
                 description: traitDescriptions[trait],
             };

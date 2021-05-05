@@ -989,6 +989,24 @@ export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItem
     return physicalItemTypes.includes(itemData.type);
 }
 
+export interface TraitChatData {
+    value: string;
+    label: string;
+    description?: string;
+    mystified?: boolean;
+    excluded?: boolean;
+}
+type ItemChatData = Omit<ItemDataPF2e['data'], 'traits'> & { traits: TraitChatData[] | ItemTraits };
+type PhysicalChatData = Omit<PhysicalItemData['data'], 'traits'> & { traits: TraitChatData[] | ItemTraits };
+
+export function isItemChatData(data: Record<string, unknown>): data is ItemChatData {
+    return isItemSystemData(data);
+}
+
+export function isPhysicalChatData(data: Record<string, unknown>): data is PhysicalChatData {
+    return 'quantity' in data && isItemSystemData(data);
+}
+
 export function isInventoryItem(type: string): boolean {
     switch (type) {
         case 'armor':

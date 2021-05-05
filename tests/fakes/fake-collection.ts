@@ -25,12 +25,16 @@ export class FakeCollection<V> {
         return this;
     }
 
-    has(key: string) {
+    has(key: string): boolean {
         return this.map.has(key);
     }
 
     filter(predicate: (value: V) => boolean): V[] {
         return Array.from(this.map.values()).filter(predicate);
+    }
+
+    clear(): void {
+        this.map.clear();
     }
 }
 
