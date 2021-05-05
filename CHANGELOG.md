@@ -1,5 +1,60 @@
 # Patch Notes:
 
+## Version 1.14.0
+### Bug Fixes
+* (stwlam) Don't add magical trait to non-magical weapons and armor. Closes #1363
+* (stwlam) Prevent unintended sheet updates when pressing enter while editing focus points
+* (stwlam) Fix Item#getChatData mutating the item's original prepared data (which was causing immediate inline rolls to always have the same result, among other issues)
+* (stwlam) Fix NPC attack effect labels
+* (stwlam) Fix spelling of the "talisman" consumable type
+* (Supe) Migrate spell saves for lowercase and empty string
+* (nikolaj-a) Apply automatic bonus progression only to PCs
+* (nikolaj-a) Ensure feat description text on PC sheet is enriched to make Foundry links work
+* (nikolaj-a) Fix individual proficiency rank when calculating damage from weapon specialization. Closes #1367
+* (nikolaj-a) Show damage dice category only when base damage type is the same, but base damage category is different
+* (nikolaj-a) Fix duplicated or missing senses. Closes #1361
+
+### New Features
+* (stwlam & GravenImageRD) Improved item mystification and added a mystify tab in the item sheet for the GMs
+* (stwlam & nikolaj-a) Ignore rule elements from unequipped and uninvested physical items. Closes #1274 and #1355
+* (nikolaj-a) Disable rule elements on expired effects
+
+### Content Changes
+* (SpartanCPA) Split Kobold Dragon Mage into variants based on scale color
+* (SpartanCPA) Agents of Edgewatch Book 1 bestiary brush-up
+* (SpartanCPA) Abomination Vaults Will-o'-Wisp variants
+* (SpartanCPA) Correct medicine skill typo in Priest of Pharasma
+* (Supe) Clean up spell categories in both compendia and as a migration for existing worlds
+* (Shandyan) Fix Disrupting Weapons spell effect to work properly with its own toggle
+* (Shandyan) Corrections to focus spells for classes A to M, including linking to new effects. Lunging stance set as a fighter feat, and the spell effect for black dragon form has the correct level. Closes #1364
+* (Drental) Change some mystery man icons to more specific icons for lore and NPC images
+* (Drental) Fix NPC token sizes
+* (Drental) Add inline saving throws for a number of monster afflictions
+* (Drental) Add Pathfinder Society 1-12 submerged shard. Closes #1369
+* (Drental & Symon S) Fix translations for Earn Income macro
+* (Tikael) Add a macro for Encouraging Words. Closes #388
+* (Tikael) Add die size to ki strike and change brackets to actor level
+* (Tikael) Monk critical specialization
+* (Tikael) Add an active effect to the darkvision feature to upgrade token's bright vision to 500
+* (Tikael) Add spell effect for the _illusory disguise_ spell
+* (Tikael) Add strike and note rule elements to Seedpod and Lavasoul feats
+* (TMun) Update iconic characters. Add new level 5 iconics. Closes #748 and #944
+* (TMun) Update One Shot pregenerated characters
+* (Jaash) Add Pathfinder Society 2-14 bestiary entries
+* (stwlam) Assign base item to all specific magic armors
+
+### Core System Improvements
+* (stwlam) Combine view mode and edit mode for loot sheets
+* (stwlam) Show total coinage instead of treasure on character sheet
+* (stwlam) Attempt to stack similar items during when transferring between actors
+* (stwlam) Only count runes toward a character's armor AC bonus if the armor is invested
+* (stwlam) Prevent assistant GMs from triggering migration runs
+* (Supe) Add Spell Category filter to Compendium Browser
+* (Bluesatin) Compendium Browser performance improvements
+* (nikolaj-a) Add EffectTracker API for tracking and managing effect durations
+* (nikolaj-a) Show degree of success to the GM for saving throws from the spell chat cards
+
+
 ## Version 1.13.2
 ### Bug Fixes
 * (stwlam) Fix filtering NPCs and hazards by trait in compendium browser. Closes #1352
