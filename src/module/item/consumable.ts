@@ -30,9 +30,13 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E.identification;
         const liquidOrSubstance = () =>
-            this.traits.has('inhaled') ? translations.UnidentifiedType.Substance : translations.UnidentifiedType.Liquid;
-        const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'other', 'potion'].includes(this.consumableType)
+            this.traits.has('inhaled') || this.traits.has('contact')
+                ? translations.UnidentifiedType.Substance
+                : translations.UnidentifiedType.Liquid;
+        const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'other', 'poison', 'potion'].includes(this.consumableType)
             ? liquidOrSubstance()
+            : this.consumableType === 'tool'
+            ? translations.UnidentifiedType.Tool
             : game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType]);
 
         if (typeOnly) return itemType;

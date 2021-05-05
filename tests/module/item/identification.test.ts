@@ -3,7 +3,7 @@ import { ArmorPF2e } from '@item/armor';
 import { WeaponPF2e } from '@item/weapon';
 import { FakeItem } from 'tests/fakes/fake-item';
 import { identifyItem, isMagical } from '@item/identification';
-import { EquipmentPF2e } from '@item/others';
+import { EquipmentPF2e } from '@item/equipment';
 import { ConsumablePF2e } from '@item/consumable';
 
 interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = WeaponPF2e> {
