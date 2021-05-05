@@ -111,9 +111,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         );
         actorData.items = items;
 
-        const inventoryItems = items.filter(
-            (itemData): itemData is InventoryItem => itemData.isPhysical && itemData.type !== 'melee',
-        );
+        const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
             itemData.isContainer = itemData.type === 'backpack';
             if (!itemData.isIdentified) {
