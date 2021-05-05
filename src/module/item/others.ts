@@ -1,15 +1,6 @@
 import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
-import {
-    ContainerData,
-    ConditionData,
-    EquipmentData,
-    LoreData,
-    MartialData,
-    MeleeData,
-    TreasureData,
-    Rarity,
-} from './data/types';
+import { ContainerData, ConditionData, LoreData, MartialData, MeleeData, TreasureData, Rarity } from './data/types';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
 export interface ContainerPF2e {
@@ -44,6 +35,7 @@ export class MeleePF2e extends PhysicalItemPF2e {
         return 'identified';
     }
 
+    /** @override */
     getChatData(this: Owned<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
@@ -59,22 +51,6 @@ export class MeleePF2e extends PhysicalItemPF2e {
 export interface MeleePF2e {
     data: MeleeData;
     _data: MeleeData;
-}
-
-export class EquipmentPF2e extends PhysicalItemPF2e {
-    getChatData(this: Owned<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
-        const data = this.data.data;
-        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
-        const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
-            (p) => p,
-        );
-        return this.processChatData(htmlOptions, { ...data, properties, traits });
-    }
-}
-
-export interface EquipmentPF2e {
-    data: EquipmentData;
-    _data: EquipmentData;
 }
 
 export class LorePF2e extends ItemPF2e {
