@@ -20,6 +20,7 @@ import { Migration628UpdateIdentificationData } from '@module/migrations/628-upd
 import { Migration629SetBaseItems } from '@module/migrations/629-set-base-items';
 import { Migration630FixTalismanSpelling } from '@module/migrations/630-fix-talisman-spelling';
 import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
+import { Migration632DeleteOrphanedSpells } from '@module/migrations/632-delete-orphaned-spells';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
@@ -35,6 +36,7 @@ const migrations: MigrationBase[] = [
     new Migration629SetBaseItems(),
     new Migration630FixTalismanSpelling(),
     new Migration631FixSenseRuleElementSelector(),
+    new Migration632DeleteOrphanedSpells(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
