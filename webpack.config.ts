@@ -110,12 +110,13 @@ const config: Configuration = {
         new copyWebpackPlugin({
             patterns: [
                 { from: 'system.json' },
-                { from: 'static/',
-                  transform(content: Buffer, absoluteFrom: string) {
-                      if (path.basename(absoluteFrom) === 'en.json') {
-                          return JSON.stringify(JSON.parse(content.toString()));
-                      }
-                      return content;
+                {
+                    from: 'static/',
+                    transform(content: Buffer, absoluteFrom: string) {
+                        if (path.basename(absoluteFrom) === 'en.json') {
+                            return JSON.stringify(JSON.parse(content.toString()));
+                        }
+                        return content;
                     },
                 },
             ],
@@ -143,4 +144,5 @@ const config: Configuration = {
     },
 };
 
+// eslint-disable-next-line import/no-default-export
 export default config;

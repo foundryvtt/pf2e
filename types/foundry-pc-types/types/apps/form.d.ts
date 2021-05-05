@@ -4,6 +4,7 @@ declare class FormDataExtended extends FormData {
     toObject(): any;
 }
 
+// eslint-disable-next-line @typescript-eslint/no-empty-interface
 declare interface FormApplicationOptions extends ApplicationOptions {}
 
 declare interface FormApplicationData<O extends {} = {}> {
