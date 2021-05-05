@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { SpellcastingEntryData } from './data-definitions';
+import { SpellcastingEntryData } from './data/types';
 
 export class SpellcastingEntryPF2e extends ItemPF2e {
     get ability() {

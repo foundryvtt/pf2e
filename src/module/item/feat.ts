@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { FeatData, FeatType } from './data-definitions';
+import { FeatData, FeatType } from './data/types';
 
 export class FeatPF2e extends ItemPF2e {
     get featType(): { value: FeatType; label: string } {
@@ -9,16 +9,14 @@ export class FeatPF2e extends ItemPF2e {
         };
     }
 
-    /**
-     * Prepare chat card data for items of the "Feat" type
-     */
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    /** @override */
+    getChatData(this: Owned<FeatPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const properties = [
             `Level ${data.level.value || 0}`,
             data.actionType.value ? CONFIG.PF2E.actionTypes[data.actionType.value] : null,
         ].filter((p) => p);
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }

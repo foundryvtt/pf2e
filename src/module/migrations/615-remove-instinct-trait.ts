@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 /** Remove "instinct" trait from feats */
 export class Migration615RemoveInstinctTrait extends MigrationBase {

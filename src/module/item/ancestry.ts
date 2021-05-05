@@ -1,5 +1,5 @@
 import { ABCItemPF2e } from './abc';
-import { AncestryData, Size } from './data-definitions';
+import { AncestryData, Size } from './data/types';
 
 export class AncestryPF2e extends ABCItemPF2e {
     get hitPoints(): number {

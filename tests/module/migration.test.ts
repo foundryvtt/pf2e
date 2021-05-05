@@ -12,7 +12,7 @@ import { FakeChatMessage } from 'tests/fakes/fake-chat-message';
 
 import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
 import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
-import { ArmorData } from '@item/data-definitions';
+import { ArmorData } from '@item/data/types';
 import { FoundryUtils } from 'tests/utils';
 import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
 

@@ -5,7 +5,7 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData, isPhysicalItem } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem } from '@item/data/types';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -38,16 +38,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** @override */
     protected async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
-        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
-        if (equippedShieldId !== undefined) {
-            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
-            if (shieldEntity) {
-                await shieldEntity.update({
-                    'data.hp.value': formData['data.attributes.shield.hp.value'],
-                });
-            }
+        const heldShield = this.actor.heldShield;
+        if (heldShield) {
+            await heldShield.update({
+                'data.hp.value': formData['data.attributes.shield.hp.value'],
+            });
         }
-        const previousLevel = this.actor.data.data.details.level.value;
+        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
 
         const updatedLevel = this.actor.data.data.details.level.value;
@@ -203,7 +200,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             offensive: { label: 'Offensive Actions', actions: [] },
         };
 
-        const readonlyEquipment = [];
+        const readonlyEquipment: unknown[] = [];
 
         const attacks = {
             weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
@@ -232,7 +229,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const i: any = itemData;
             if (isPhysicalItem(itemData)) {
                 i.showEdit = sheetData.user.isGM || i.isIdentified;
-
                 i.img ||= CONST.DEFAULT_TOKEN;
 
                 const containerData = containers.get(i._id)!;
@@ -246,7 +242,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
 
                 i.canBeEquipped = !containerData.isInContainer;
-                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+                i.isSellableTreasure = i.showEdit && i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
                 i.hasInvestedTrait = itemData.data.traits.value.includes('invested');
                 i.isInvested = 'invested' in itemData.data && itemData.data.invested.value;
                 if (i.isInvested) {
@@ -274,12 +270,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 }
             } else if (itemData.type === 'spell') {
                 // Spells
-                try {
-                    const item = this.actor.items.get(itemData._id);
-                    i.spellInfo = item.getChatData();
-                } catch (err) {
-                    console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
-                }
+                const item = this.actor.items.get(itemData._id);
+                i.spellInfo = item?.getChatData() ?? {};
                 tempSpellbook.push(itemData);
             } else if (itemData.type === 'spellcastingEntry') {
                 // Spellcasting Entries
@@ -571,7 +563,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.spellcastingEntries = spellcastingEntries;
 
         // shield
-        const equippedShield = this.getEquippedShield(actorData.items);
+        const equippedShield = this.actor.heldShield?.data;
         if (equippedShield === undefined) {
             actorData.data.attributes.shield = {
                 hp: {
@@ -594,7 +586,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         } else {
             actorData.data.attributes.shield = duplicate(equippedShield.data);
             actorData.data.attributes.shieldBroken =
-                equippedShield?.data?.hp?.value <= equippedShield?.data?.brokenThreshold?.value;
+                equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
 
         // Inventory encumbrance
@@ -633,13 +625,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonusLimitBulk,
             bulk,
             actorData.data?.traits?.size?.value ?? 'med',
-        );
-    }
-
-    getEquippedShield(items: ItemDataPF2e[]): ArmorData | undefined {
-        return items.find(
-            (itemData): itemData is ArmorData =>
-                itemData.type === 'armor' && itemData.data.equipped.value && itemData.data.armorType.value === 'shield',
         );
     }
 
@@ -996,11 +981,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
 
         if (!signatureSpells.includes(spell.id)) {
-            const isCantrip = spell.data.data.level.value === 0;
-            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
-            const isRitual = spell.data.data.traditions.value.includes('ritual');
-
-            if (isCantrip || isFocusSpell || isRitual) {
+            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
                 return;
             }
 
@@ -1034,7 +1015,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = item._data;
 
         const { slotId, featType } = this.getNearestSlotId(event);
 

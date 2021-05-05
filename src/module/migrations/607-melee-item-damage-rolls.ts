@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Convert damageRolls arrays to objects. */

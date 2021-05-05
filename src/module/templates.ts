@@ -1,7 +1,4 @@
-/**
- * @format
- */
-
+/** Handlebars template subcomponents */
 export function loadPF2ETemplates() {
     const templatePaths = [
         // effect panel
@@ -85,9 +82,10 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/melee-details.html',
         'systems/pf2e/templates/items/weapon-details.html',
         'systems/pf2e/templates/items/weapon-sidebar.html',
+
         // Loot partials
-        'systems/pf2e/templates/actors/loot/loot-avatar.html',
         'systems/pf2e/templates/actors/loot/inventory.html',
+        'systems/pf2e/templates/actors/loot/sidebar.html',
 
         // Vehicle partials
         'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html',

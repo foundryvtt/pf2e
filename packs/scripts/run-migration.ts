@@ -2,7 +2,7 @@ import * as fs from 'fs-extra';
 import * as path from 'path';
 import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 import { MigrationRunnerBase } from '@module/migration-runner-base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
@@ -14,6 +14,13 @@ import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp'
 import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
 import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-potency-runes';
 import { Migration625EnsurePresenceOfSaves } from '@module/migrations/625-ensure-presence-of-saves';
+import { Migration626UpdateSpellCategory } from '@module/migrations/626-update-spell-category';
+import { Migration627LowerCaseSpellSaves } from '@module/migrations/627-lowercase-spell-saves';
+import { Migration628UpdateIdentificationData } from '@module/migrations/628-update-identification-data';
+import { Migration629SetBaseItems } from '@module/migrations/629-set-base-items';
+import { Migration630FixTalismanSpelling } from '@module/migrations/630-fix-talisman-spelling';
+import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
+import { Migration632DeleteOrphanedSpells } from '@module/migrations/632-delete-orphaned-spells';
 
 const migrations: MigrationBase[] = [
     new Migration615RemoveInstinctTrait(),
@@ -23,6 +30,13 @@ const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
     new Migration623NumifyPotencyRunes(),
     new Migration625EnsurePresenceOfSaves(),
+    new Migration626UpdateSpellCategory(),
+    new Migration627LowerCaseSpellSaves(),
+    new Migration628UpdateIdentificationData(),
+    new Migration629SetBaseItems(),
+    new Migration630FixTalismanSpelling(),
+    new Migration631FixSenseRuleElementSelector(),
+    new Migration632DeleteOrphanedSpells(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');

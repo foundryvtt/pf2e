@@ -6,9 +6,9 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { isLevelItem, PhysicalItemData } from './data-definitions';
-import { toNumber } from '../utils';
+import { PhysicalItemData } from './data/types';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
+import { PhysicalItemPF2e } from './physical';
 
 const magicTraditions = new Set(['arcane', 'primal', 'divine', 'occult']);
 
@@ -102,25 +102,21 @@ export function isMagical(itemData: PhysicalItemData): boolean {
     );
 }
 
-function isAlchemical(itemData: PhysicalItemData): boolean {
-    return getTraits(itemData).has('alchemical');
-}
-
 interface IdentifyItemOptions extends DCOptions {
     notMatchingTraditionModifier: number;
 }
 
 export function identifyItem(
-    itemData: PhysicalItemData,
+    item: PhysicalItemPF2e,
     { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const level = isLevelItem(itemData) ? toNumber(itemData.data.level?.value) ?? 0 : 0;
+    const level = item.level || 0;
     const dc = calculateDC(level, { proficiencyWithoutLevel });
-    const rarity = getDcRarity(itemData);
+    const rarity = getDcRarity(item.data);
     const baseDc = adjustDCByRarity(dc, rarity);
-    if (isMagical(itemData)) {
-        return identifyMagic(itemData, baseDc, notMatchingTraditionModifier);
-    } else if (isAlchemical(itemData)) {
+    if (item.isMagical) {
+        return identifyMagic(item.data, baseDc, notMatchingTraditionModifier);
+    } else if (item.isAlchemical) {
         return new IdentifyAlchemyDCs(baseDc);
     } else {
         return new GenericIdentifyDCs(baseDc);
@@ -157,7 +153,6 @@ export function getUnidentifiedPlaceholderImage(itemData: PhysicalItemData): str
                     iconName = 'infernal-contracts';
                     break;
                 case 'talisman':
-                case 'talasman': // TODO Typo in consumableType value. Will not modify due to possible side effects
                     iconName = 'talisman';
                     break;
                 case 'elixir':

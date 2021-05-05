@@ -6,8 +6,8 @@ import {
     convertBulkToSize,
     toBulkItems,
     weightToBulk,
-} from '../../../src/module/item/bulk';
-import { BaseItemDataPF2e, ItemDescriptionData, PhysicalItemData } from '@item/data-definitions';
+} from '@item/bulk';
+import { BaseItemDataPF2e, ItemDescriptionData, PhysicalItemData } from '@item/data/types';
 
 type WithTraits = BaseItemDataPF2e<ItemDescriptionData & { traits: { value: string[] } }>;
 

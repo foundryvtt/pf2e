@@ -1,4 +1,4 @@
-import { FeatData } from '@item/data-definitions';
+import { FeatData } from '@item/data/types';
 import { FeatPF2e } from '@item/feat';
 import { FeatSheetData } from './data-types';
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';

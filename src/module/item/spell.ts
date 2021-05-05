@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { SpellData } from './data-definitions';
+import { SpellData } from './data/types';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export class SpellPF2e extends ItemPF2e {
@@ -8,10 +8,24 @@ export class SpellPF2e extends ItemPF2e {
         return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>, rollOptions: { spellLvl?: number } = {}) {
-        if (!this.actor) {
-            return {};
-        }
+    get spellLevel() {
+        return this.data.data.level.value;
+    }
+
+    get isCantrip(): boolean {
+        return this.spellLevel === 0;
+    }
+
+    get isFocusSpell() {
+        return this.data.data.category.value === 'focus';
+    }
+
+    get isRitual(): boolean {
+        return this.data.data.category.value === 'ritual';
+    }
+
+    getChatData(this: Owned<SpellPF2e>, htmlOptions: EnrichHTMLOptions = {}, rollOptions: { spellLvl?: number } = {}) {
+        if (!this.actor) return {};
 
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;
@@ -39,7 +53,7 @@ export class SpellPF2e extends ItemPF2e {
         // Spell saving throw text and DC
         const save = duplicate(this.data.data.save);
         save.dc = isSave ? spellDC : spellAttack;
-        save.str = game.i18n.localize(CONFIG.PF2E.saves[data.save.value.toLowerCase()]);
+        save.str = data.save.value ? game.i18n.localize(CONFIG.PF2E.saves[data.save.value]) : '';
 
         // Spell attack labels
         const damageLabel =
@@ -72,7 +86,7 @@ export class SpellPF2e extends ItemPF2e {
             properties.push(`Heightened: +${castedLevel - data.level.value}`);
         }
 
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.spellTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.spellTraits);
 
         return this.processChatData(htmlOptions, {
             ...data,

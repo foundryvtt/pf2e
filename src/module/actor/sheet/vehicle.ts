@@ -24,7 +24,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
+        const sheetData: any = super.getData();
 
         // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;

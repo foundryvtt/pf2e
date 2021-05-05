@@ -1,6 +1,6 @@
 import { ActorPF2e, TokenPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { MeleePF2e } from '@item/others';
 import { StatisticModifier } from '@module/modifiers';
 
@@ -42,22 +42,11 @@ export const ChatCards = {
 
             // Get the Item
             const itemId = card.attr('data-item-id') ?? '';
-            let item: Owned<ItemPF2e> | null = null;
-            let itemData: ItemDataPF2e | undefined = undefined;
-            const embeddedItem = $(event.target).parents('.item-card').attr('data-embedded-item');
-            if (embeddedItem) {
-                // Pulling data from embedded items should eventually be phased out
-                itemData = JSON.parse(embeddedItem) as ItemDataPF2e | undefined;
-                if (itemData) {
-                    // the call to createOwned is a temporary measure since it triggers extra actor updates
-                    item = actor.items.get(itemData._id) ?? (await ItemPF2e.createOwned(itemData, actor));
-                }
-            } else {
-                item = actor.getOwnedItem(itemId);
-                itemData = item?.data;
-            }
+            const embeddedItemData = $(event.target).parents('.item-card').attr('data-embedded-item') || 'null';
+            const itemData: ItemDataPF2e | null = JSON.parse(embeddedItemData);
+            const item = itemData ? ItemPF2e.createOwned(itemData, actor) : actor.items.get(itemId);
 
-            if (item && itemData) {
+            if (item) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
                     (a: StatisticModifier) => a.item === itemId,
                 );

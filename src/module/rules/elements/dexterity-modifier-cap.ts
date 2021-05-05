@@ -1,10 +1,10 @@
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 
 /**
  * @category RuleElement
  */
-export class PF2DexterityModifierCapRuleElement extends PF2RuleElement {
+export class PF2DexterityModifierCapRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData) {
         const label = super.getDefaultLabel(this.ruleData, this.item);
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

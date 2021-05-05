@@ -1,6 +1,8 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import { sluggify } from '@module/utils';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
+import { ActorDataPF2e } from '@actor/data-definitions';
 
 export interface PackMetadata {
     system: string;
@@ -9,22 +11,23 @@ export interface PackMetadata {
     entity: string;
 }
 
-export interface PackEntityData {
-    _id: string;
-    name: string;
-    type?: string;
-    img?: string;
-    slug?: string;
-    data: Record<string, unknown>;
-    flags: Record<string, unknown>;
-    permission: { default: 0 };
-    items?: { img: string }[];
-    token?: { img: string };
-}
-
 export const PackError = (message: string) => {
     console.error(`Error: ${message}`);
     process.exit(1);
+};
+
+type CompendiumData = CompendiumEntity['data'];
+const isActorData = (entityData: CompendiumData): entityData is ActorDataPF2e => {
+    return (
+        'effects' in entityData &&
+        Array.isArray(entityData.effects) &&
+        'items' in entityData &&
+        Array.isArray(entityData.items)
+    );
+};
+
+const isItemData = (entityData: CompendiumData): entityData is ItemDataPF2e => {
+    return 'effects' in entityData && Array.isArray(entityData.effects) && 'description' in entityData.data;
 };
 
 export class CompendiumPack {
@@ -32,7 +35,7 @@ export class CompendiumPack {
     packDir: string;
     entityClass: string;
     systemId: string;
-    data: PackEntityData[];
+    data: CompendiumData[];
 
     static outDir = path.resolve(process.cwd(), 'static/packs');
     private static namesToIds = new Map<string, Map<string, string>>();
@@ -80,7 +83,7 @@ export class CompendiumPack {
             // Check img paths
             if (typeof entityData.img === 'string') {
                 const imgPaths = [entityData.img ?? ''].concat(
-                    Array.isArray(entityData.items) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
+                    isActorData(entityData) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
                 );
                 const entityName = entityData.name;
                 for (const imgPath of imgPaths) {
@@ -116,7 +119,7 @@ export class CompendiumPack {
         const filePaths = filenames.map((filename) => path.resolve(dirPath, filename));
         const parsedData = filePaths.map((filePath) => {
             const jsonString = fs.readFileSync(filePath, 'utf-8');
-            const entityData: PackEntityData = (() => {
+            const entityData: CompendiumData = (() => {
                 try {
                     return JSON.parse(jsonString);
                 } catch (error) {
@@ -141,7 +144,7 @@ export class CompendiumPack {
         return new CompendiumPack(dbFilename, parsedData);
     }
 
-    private finalize(entityData: PackEntityData) {
+    private finalize(entityData: CompendiumData) {
         // Replace all compendium entities linked by name to links by ID
         const stringified = JSON.stringify(entityData);
         const worldItemLink = CompendiumPack.worldItemLinkPattern.exec(stringified);
@@ -150,8 +153,12 @@ export class CompendiumPack {
         }
 
         entityData.flags.core = { sourceId: this.sourceIdOf(entityData._id) };
-        if (this.entityClass === 'Item') {
+        if (isItemData(entityData)) {
             entityData.data.slug = sluggify(entityData.name);
+
+            if (isPhysicalItem(entityData)) {
+                entityData.data.equipped.value = false;
+            }
         }
 
         return JSON.stringify(entityData).replace(
@@ -195,7 +202,7 @@ export class CompendiumPack {
         return this.data.length;
     }
 
-    private isEntityData(entityData: {}): entityData is PackEntityData {
+    private isEntityData(entityData: {}): entityData is CompendiumData {
         const checks = Object.entries({
             name: (data: { name?: unknown }) => typeof data.name === 'string',
             flags: (data: unknown) => typeof data === 'object' && data !== null && 'flags' in data,
@@ -217,7 +224,7 @@ export class CompendiumPack {
         return true;
     }
 
-    private isPackData(packData: unknown[]): packData is PackEntityData[] {
+    private isPackData(packData: unknown[]): packData is CompendiumData[] {
         return packData.every((entityData: any) => this.isEntityData(entityData));
     }
 }

@@ -1,54 +1,59 @@
 import { PhysicalItemPF2e } from './physical';
-import { BaseWeaponKey, WeaponCategoryKey, WeaponData, WeaponGroupKey } from './data-definitions';
+import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data/types';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
 
 export class WeaponPF2e extends PhysicalItemPF2e {
-    get baseType(): BaseWeaponKey | null {
+    /** @override */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        const equippedButStackable = ['bomb', 'dart'].includes(this.group ?? '');
+        if ((this.isEquipped || item.isEquipped) && !equippedButStackable) return false;
+        return super.isStackableWith(item);
+    }
+
+    get baseType(): BaseWeaponType | null {
         return this.data.data.baseItem ?? null;
     }
 
-    get group(): WeaponGroupKey | null {
-        return this.data.data.group.value ?? null;
+    get group(): WeaponGroup | null {
+        return this.data.data.group.value || null;
     }
 
-    get category(): WeaponCategoryKey | null {
-        return this.data.data.weaponType.value ?? null;
+    get category(): WeaponCategory | null {
+        return this.data.data.weaponType.value || null;
     }
 
     /** @override */
     prepareData() {
-        super.prepareData();
+        /** Prevent unhandled exceptions on pre-migrated data */
+        this.data.data.traits.rarity ??= { value: 'common' };
 
         // Add trait(s) from potency rune
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const potencyRune = this.data.data.potencyRune;
-        const traits = this.data.data.traits;
+        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'] as const;
+        const hasPotencyRune = !!this.data.data.potencyRune.value;
+        const traits: { value: string[] } = this.data.data.traits;
 
         traits.value = [
             ...traits.value,
-            potencyRune.value ? 'evocation' : [],
-            !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
+            hasPotencyRune ? 'evocation' : [],
+            hasPotencyRune && !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
         ].flat();
 
         traits.value = Array.from(new Set(traits.value));
+
+        // Update this value now that derived traits are set
+        this.data.isInvested = this.isInvested;
+
+        super.prepareData();
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
-        if (!this.actor) {
-            return {};
-        }
-
+    getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const actorData = this.actor.data;
         const twohandedRegex = '(\\btwo-hand\\b)-(d\\d+)';
         const twohandedTrait = data.traits.value.find((trait: string) => trait.match(twohandedRegex)) !== undefined;
-        const traits = WeaponPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
-
-        if (this.data.type !== 'weapon') {
-            throw new Error('tried to create a weapon chat data for a non-weapon item');
-        }
+        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         // calculate attackRoll modifier (for _onItemSummary)
         const isFinesse = this.traits.has('finesse');
@@ -82,12 +87,6 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
-        const properties = [
-            // (parseInt(data.range.value) > 0) ? `${data.range.value} feet` : null,
-            // CONFIG.PF2E.weaponTypes[data.weaponType.value],
-            // CONFIG.PF2E.weaponGroups[data.group.value]
-        ].filter((p) => !!p);
-
         const critSpecialization = data.group.value
             ? {
                   label: CONFIG.PF2E.weaponGroups[data.group.value],
@@ -107,23 +106,23 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             isTwohanded: !!twohandedTrait,
             wieldedTwoHands: !!data.hands.value,
             isFinesse,
-            properties,
             map2,
             map3,
         });
     }
 
     /** @override */
-    generateUnidentifiedName() {
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
         const translations = LocalizePF2e.translations.PF2E;
-        const formatString = translations.identification.UnidentifiedItem;
-
         const base = this.baseType ? translations.Weapon.Base[this.baseType] : null;
         const group = this.group ? CONFIG.PF2E.weaponGroups[this.group] : null;
         const fallback = 'ITEM.TypeWeapon';
+        const itemType = game.i18n.localize(base ?? group ?? fallback);
 
-        const item = game.i18n.localize(base ?? group ?? fallback);
-        return game.i18n.format(formatString, { item });
+        if (typeOnly) return itemType;
+
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 

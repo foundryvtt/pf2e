@@ -289,6 +289,7 @@
                             <div class="item-image" style="background-image: url({{item.img}})"></div>
                             <h4>
                                 {{item.name}}
+                                {{#if (and @root.user.isGM (not item.isIdentified))}}<span class="gm-mystified-data">({{item.data.identification.identified.name}})</span>{{/if}}
                             </h4>
                         </div>
                         {{#if ../owner}}
@@ -349,7 +350,7 @@
 
 
                     {{#each actor.spellcastingEntries as |entry eid|}}
-                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                             <!-- <div class="action-header"> -->
                                 {{#if entry.data.prepared.preparedSpells}}
                                 <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}" style="line-height: 24px; background: var(--primary-background); color: white;"><i class="fab fa-stack-overflow"></i></a>
@@ -361,7 +362,7 @@
                                 </div>
                                 {{/if}}
                         </li>
-                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                             <!-- </div> -->
                             <ol class="npc-defense-list" style="display: flex; margin: 4px 0 5px 4px;">
                                 <li class="npc-defense spellcasting-attribute" data-spelldc-attribute="dc" style="flex: 1;">
@@ -400,7 +401,7 @@
                                 </li>
                             </ol>
                         </li>
-                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                        <li class="item action-header item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
 
                             {{#unless entry.data.prepared.preparedSpells}}
 
@@ -443,7 +444,7 @@
 
                                         <!-- Add spell items for each spell level -->
                                         {{#each section.spells as |item i|}}
-                                        <li class="item item-container" data-item-id="{{item._id}}" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                                            <li class="item item-container" data-item-id="{{item._id}}" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                                             <div class="item-name rollable">
                                                 <div class="item-image" style="background-image: url({{item.img}})"></div>
                                                 <h4>{{item.name}}</h4>
@@ -460,7 +461,7 @@
                                         {{/each}}
                                     {{else}}
                                         <!-- Add Spells Row -->
-                                        <li class="item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+                                        <li class="item inventory-header spellbook-header spellbook-empty item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                                             {{#if ../owner}}
                                             <div class="item-controls pf-bluelist pf-add-item-row" style="display: flex; flex: 1; background: var(--secondary-background);">
                                                 <a class="item-control spell-create" title="{{localize "PF2E.CreateSpellTitle"}}" data-type="spell"

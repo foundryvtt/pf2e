@@ -21,6 +21,7 @@ module.exports = {
         'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
         'import/no-default-export': 'error',
         'deprecation/deprecation': 'error',
+        '@typescript-eslint/await-thenable': 'error',
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',

@@ -1,6 +1,6 @@
 import { CreatureData } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
-import { PF2RuleElementSynthetics } from './rules-data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
+import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
     start?: number;
@@ -45,7 +45,7 @@ export class TokenEffect implements TemporaryEffect {
  *
  * @category RuleElement
  */
-export abstract class PF2RuleElement {
+export abstract class RuleElementPF2e {
     ruleData: any;
     item: ItemDataPF2e;
 
@@ -56,6 +56,16 @@ export abstract class PF2RuleElement {
     constructor(ruleData: any, item: ItemDataPF2e) {
         this.ruleData = ruleData;
         this.item = item;
+    }
+
+    /**
+     * Globally ignore this rule element.
+     */
+    get ignored(): boolean {
+        const { item } = this;
+        if (item.type === 'effect' && item.data.expired) return true;
+        if (!isPhysicalItem(item)) return false;
+        return !item.isEquipped || item.isInvested === false;
     }
 
     /**
@@ -97,7 +107,7 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -105,7 +115,7 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.

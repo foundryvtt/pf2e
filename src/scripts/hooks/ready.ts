@@ -16,7 +16,7 @@ export function listen(): void {
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
         const COMPATIBLE_MIGRATION_VERSION = 0.411;
 
-        if (game.user.isGM) {
+        if (game.user.isGM && game.user.role !== CONST.USER_ROLES.ASSISTANT) {
             // Perform the migration
             const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
             if (migrationRunner.needsMigration()) {

@@ -1,13 +1,13 @@
-import { PhysicalItemData } from '@item/data-definitions';
-import { PhysicalItemPF2e } from '@item/physical';
-import { ActorPF2e } from '../../base';
+import { ActorPF2e } from '@actor/base';
+import { PhysicalItemData } from '@item/data/types';
+import { ErrorPF2e } from '@module/utils';
 
 interface PopupData extends FormApplicationData<ActorPF2e> {
-    tokenInfo?: {
+    tokenInfo: Array<{
         id: string;
         name: string;
         checked: boolean;
-    }[];
+    }>;
 }
 
 /**
@@ -32,12 +32,15 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         const itemData: PhysicalItemData[] = [];
         const selectionData = Array.isArray(formData.selection) ? formData.selection : [formData.selection];
         for (let i = 0; i < selectionData.length; i++) {
-            const token = canvas.tokens.placeables.find((token) => token.id === this.form[i]?.id);
-            const currentSource = token instanceof Token ? ActorPF2e.fromToken(token) : undefined;
+            const token = canvas.tokens.placeables.find((token) => token.actor && token.id === this.form[i]?.id);
+            if (!token) {
+                throw ErrorPF2e(`Token ${this.form[i]?.id} not found`);
+            }
+            const currentSource = ActorPF2e.fromToken(token);
             if (selectionData[i] && currentSource) {
-                const currentSourceItemData: PhysicalItemData[] = Array.from(
-                    currentSource.items.values(),
-                ).flatMap((item) => (item instanceof PhysicalItemPF2e ? item._data : []));
+                const currentSourceItemData = currentSource.physicalItems
+                    .filter((item) => item.type !== 'melee')
+                    .map((item) => item._data);
                 itemData.push(...duplicate(currentSourceItemData));
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
                 currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);
@@ -48,17 +51,15 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
         }
     }
 
-    getData() {
-        const sheetData: PopupData = super.getData();
-        sheetData.tokenInfo = [];
-        const selectedTokens = canvas.tokens.controlled.filter((token) => token.actor?._id !== this.object._id);
-        for (let i = 0; i < selectedTokens.length; i++) {
-            sheetData.tokenInfo.push({
-                id: selectedTokens[i].id,
-                name: selectedTokens[i].name,
-                checked: !selectedTokens[i].actor!.hasPlayerOwner,
-            });
-        }
-        return sheetData;
+    getData(): PopupData {
+        const selectedTokens = canvas.tokens.controlled.filter(
+            (token) => token.actor && token.actor.id !== this.object.id,
+        );
+        const tokenInfo = selectedTokens.map((token) => ({
+            id: token.id,
+            name: token.name,
+            checked: token.actor!.hasPlayerOwner,
+        }));
+        return { ...super.getData(), tokenInfo };
     }
 }

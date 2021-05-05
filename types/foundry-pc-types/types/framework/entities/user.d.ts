@@ -89,6 +89,11 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      */
     viewedScene: string;
 
+    /**
+     * Define an immutable property for the User's role
+     */
+    readonly role: keyof typeof CONST.USER_ROLES_NAMES;
+
     /** @override */
     static get config(): UserClassConfig;
 

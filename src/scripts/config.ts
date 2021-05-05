@@ -12,19 +12,12 @@ import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
 import { ConsumablePF2e } from '@module/item/consumable';
 import { FeatPF2e } from '@module/item/feat';
+import { EquipmentPF2e } from '@item/equipment';
+import { KitPF2e } from '@item/kit';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
-import {
-    ContainerPF2e,
-    ConditionPF2e,
-    EquipmentPF2e,
-    KitPF2e,
-    LorePF2e,
-    MartialPF2e,
-    MeleePF2e,
-    TreasurePF2e,
-} from '@module/item/others';
+import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
@@ -537,6 +530,59 @@ const spellTraits = {
     water: 'PF2E.TraitWater',
 };
 
+const consumableTraits = {
+    ...magicSchools,
+    ...spellTraditions,
+    acid: 'PF2E.TraitAcid',
+    air: 'PF2E.TraitAir',
+    alchemical: 'PF2E.TraitAlchemical',
+    auditory: 'PF2E.TraitAuditory',
+    cold: 'PF2E.TraitCold',
+    consumable: 'PF2E.TraitConsumable',
+    contact: 'PF2E.TraitContact',
+    drug: 'PF2E.TraitDrug',
+    electricity: 'PF2E.TraitElectricity',
+    elixir: 'PF2E.TraitElixir',
+    emotion: 'PF2E.TraitEmotion',
+    evil: 'PF2E.TraitEvil',
+    fear: 'PF2E.TraitFear',
+    fire: 'PF2E.TraitFire',
+    force: 'PF2E.TraitForce',
+    fortune: 'PF2E.TraitFortune',
+    good: 'PF2E.TraitGood',
+    healing: 'PF2E.TraitHealing',
+    incapacitation: 'PF2E.TraitIncapacitation',
+    infused: 'PF2E.TraitInfused',
+    ingested: 'PF2E.TraitIngested',
+    inhaled: 'PF2E.TraitInhaled',
+    injury: 'PF2E.TraitInjury',
+    light: 'PF2E.TraitLight',
+    magical: 'PF2E.TraitMagical',
+    mechanical: 'PF2E.TraitMechanical',
+    mental: 'PF2E.TraitMental',
+    misfortune: 'PF2E.TraitMisfortune',
+    morph: 'PF2E.TraitMorph',
+    mutagen: 'PF2E.TraitMutagen',
+    negative: 'PF2E.TraitNegative',
+    olfactory: 'PF2E.TraitOlfactory',
+    oil: 'PF2E.TraitOil',
+    poison: 'PF2E.TraitPoison',
+    polymorph: 'PF2E.TraitPolymorph',
+    positive: 'PF2E.TraitPositive',
+    potion: 'PF2E.TraitPotion',
+    precious: 'PF2E.TraitPrecious',
+    scroll: 'PF2E.TraitScroll',
+    scrying: 'PF2E.TraitScrying',
+    sleep: 'PF2E.TraitSleep',
+    snare: 'PF2E.TraitSnare',
+    splash: 'PF2E.TraitSplash',
+    talisman: 'PF2E.TraitTalisman',
+    trap: 'PF2E.TraitTrap',
+    wand: 'PF2E.TraitWand',
+    virulent: 'PF2E.TraitVirulent',
+    visual: 'PF2E.TraitVisual',
+};
+
 export const PF2ECONFIG = {
     chatDamageButtonShieldToggle: false, // Couldnt call this simple CONFIG.statusEffects, and spend 20 minutes trying to find out why. Apparently thats also used by FoundryVTT and we are still overloading CONFIG.
     // Can be changed by modules or other settings, e.g. 'modules/myModule/icons/effects/'
@@ -903,6 +949,7 @@ export const PF2ECONFIG = {
         worn: 'PF2E.TraitWorn',
         wornamulet: 'PF2E.TraitWornAmulet',
         wornanklets: 'PF2E.TraitWornAnklets',
+        wornarmbands: 'PF2E.TraitWornArmbands',
         wornbackpack: 'PF2E.TraitWornBackpack',
         wornbarding: 'PF2E.TraitWornBarding',
         wornbelt: 'PF2E.TraitWornBelt',
@@ -1235,60 +1282,7 @@ export const PF2ECONFIG = {
         water: 'PF2E.TraitWater',
     },
 
-    consumableTraits: {
-        ...magicSchools,
-        ...spellTraditions,
-        acid: 'PF2E.TraitAcid',
-        air: 'PF2E.TraitAir',
-        alchemical: 'PF2E.TraitAlchemical',
-        auditory: 'PF2E.TraitAuditory',
-        bomb: 'PF2E.TraitBomb',
-        cold: 'PF2E.TraitCold',
-        consumable: 'PF2E.TraitConsumable',
-        contact: 'PF2E.TraitContact',
-        drug: 'PF2E.TraitDrug',
-        electricity: 'PF2E.TraitElectricity',
-        elixir: 'PF2E.TraitElixir',
-        emotion: 'PF2E.TraitEmotion',
-        evil: 'PF2E.TraitEvil',
-        fear: 'PF2E.TraitFear',
-        fire: 'PF2E.TraitFire',
-        force: 'PF2E.TraitForce',
-        fortune: 'PF2E.TraitFortune',
-        good: 'PF2E.TraitGood',
-        healing: 'PF2E.TraitHealing',
-        incapacitation: 'PF2E.TraitIncapacitation',
-        infused: 'PF2E.TraitInfused',
-        ingested: 'PF2E.TraitIngested',
-        inhaled: 'PF2E.TraitInhaled',
-        injury: 'PF2E.TraitInjury',
-        light: 'PF2E.TraitLight',
-        magical: 'PF2E.TraitMagical',
-        mechanical: 'PF2E.TraitMechanical',
-        mental: 'PF2E.TraitMental',
-        misfortune: 'PF2E.TraitMisfortune',
-        morph: 'PF2E.TraitMorph',
-        mutagen: 'PF2E.TraitMutagen',
-        negative: 'PF2E.TraitNegative',
-        olfactory: 'PF2E.TraitOlfactory',
-        oil: 'PF2E.TraitOil',
-        poison: 'PF2E.TraitPoison',
-        polymorph: 'PF2E.TraitPolymorph',
-        positive: 'PF2E.TraitPositive',
-        potion: 'PF2E.TraitPotion',
-        precious: 'PF2E.TraitPrecious',
-        scroll: 'PF2E.TraitScroll',
-        scrying: 'PF2E.TraitScrying',
-        sleep: 'PF2E.TraitSleep',
-        snare: 'PF2E.TraitSnare',
-        splash: 'PF2E.TraitSplash',
-        talisman: 'PF2E.TraitTalisman',
-        trap: 'PF2E.TraitTrap',
-        wand: 'PF2E.TraitWand',
-        virulent: 'PF2E.TraitVirulent',
-        visual: 'PF2E.TraitVisual',
-    },
-
+    consumableTraits,
     spellTraits,
 
     featTraits: {
@@ -1430,19 +1424,19 @@ export const PF2ECONFIG = {
     },
 
     armorGroups: {
-        leather: 'PF2E.ArmorGroupLeather',
         composite: 'PF2E.ArmorGroupComposite',
         chain: 'PF2E.ArmorGroupChain',
+        cloth: 'PF2E.ArmorGroupCloth',
+        leather: 'PF2E.ArmorGroupLeather',
         plate: 'PF2E.ArmorGroupPlate',
     },
 
     consumableTypes: {
         ammo: 'PF2E.ConsumableTypeAmmo',
-        bomb: 'PF2E.ConsumableTypeBomb',
         potion: 'PF2E.ConsumableTypePotion',
         oil: 'PF2E.ConsumableTypeOil',
         scroll: 'PF2E.ConsumableTypeScroll',
-        talasman: 'PF2E.ConsumableTypeTalisman',
+        talisman: 'PF2E.ConsumableTypeTalisman',
         snare: 'PF2E.ConsumableTypeSnare',
         drug: 'PF2E.ConsumableTypeDrug',
         elixir: 'PF2E.ConsumableTypeElixir',
@@ -1536,8 +1530,6 @@ export const PF2ECONFIG = {
         save: 'PF2E.SpellTypeSave',
         heal: 'PF2E.SpellTypeHeal',
         utility: 'PF2E.SpellTypeUtility',
-        focus: 'PF2E.SpellTypeFocus',
-        ritual: 'PF2E.SpellTypeRitual',
     },
 
     spellLevels: {
@@ -1597,13 +1589,13 @@ export const PF2ECONFIG = {
     },
 
     // Proficiency Multipliers
-    proficiencyLevels: Object.freeze([
+    proficiencyLevels: [
         'PF2E.ProficiencyLevel0', // untrained
         'PF2E.ProficiencyLevel1', // trained
         'PF2E.ProficiencyLevel2', // expert
         'PF2E.ProficiencyLevel3', // master
         'PF2E.ProficiencyLevel4', // legendary
-    ]),
+    ] as const,
 
     heroPointLevels: {
         0: 'PF2E.HeroPointLevel0',
@@ -1948,15 +1940,15 @@ export const PF2ECONFIG = {
     },
 
     attackEffects: {
-        Grab: 'PF2E.AttackEffectGrab',
-        'Improved Grab': 'PF2E.AttackEffectImprovedGrab',
-        Constrict: 'PF2E.AttackEffectConstrict',
-        'Greater Constrict': 'PF2E.AttackEffectGreaterConstrict',
-        Knockdown: 'PF2E.AttackEffectKnockdown',
-        'Improved Knockdown': 'PF2E.AttackEffectImprovedKnockdown',
-        Push: 'PF2E.AttackEffectPush',
-        'Improved Push': 'PF2E.AttackEffectImprovedPush',
-        Trip: 'PF2E.AttackEffectTrip',
+        grab: 'PF2E.AttackEffectGrab',
+        'improved-grab': 'PF2E.AttackEffectImprovedGrab',
+        constrict: 'PF2E.AttackEffectConstrict',
+        'greater-constrict': 'PF2E.AttackEffectGreaterConstrict',
+        knockdown: 'PF2E.AttackEffectKnockdown',
+        'improved-knockdown': 'PF2E.AttackEffectImprovedKnockdown',
+        push: 'PF2E.AttackEffectPush',
+        'improved-push': 'PF2E.AttackEffectImprovedPush',
+        trip: 'PF2E.AttackEffectTrip',
     },
 
     // Year offsets relative to the current actual year

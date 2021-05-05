@@ -56,6 +56,13 @@ import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-re
 import { Migration623NumifyPotencyRunes } from './623-numify-potency-runes';
 import { Migration624RemoveTokenEffectIconFlags } from '@module/migrations/624-removed-token-effect-icon-flags';
 import { Migration625EnsurePresenceOfSaves } from './625-ensure-presence-of-saves';
+import { Migration626UpdateSpellCategory } from './626-update-spell-category';
+import { Migration627LowerCaseSpellSaves } from './627-lowercase-spell-saves';
+import { Migration628UpdateIdentificationData } from './628-update-identification-data';
+import { Migration629SetBaseItems } from './629-set-base-items';
+import { Migration630FixTalismanSpelling } from './630-fix-talisman-spelling';
+import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
+import { Migration632DeleteOrphanedSpells } from './632-delete-orphaned-spells';
 
 export class Migrations {
     private static list = [
@@ -116,6 +123,13 @@ export class Migrations {
         Migration623NumifyPotencyRunes,
         Migration624RemoveTokenEffectIconFlags,
         Migration625EnsurePresenceOfSaves,
+        Migration626UpdateSpellCategory,
+        Migration627LowerCaseSpellSaves,
+        Migration628UpdateIdentificationData,
+        Migration629SetBaseItems,
+        Migration630FixTalismanSpelling,
+        Migration631FixSenseRuleElementSelector,
+        Migration632DeleteOrphanedSpells,
     ];
 
     static get latestVersion(): number {
