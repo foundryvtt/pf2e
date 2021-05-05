@@ -15,6 +15,7 @@ module.exports = {
         sourceType: 'module',
         project: './tsconfig.json',
     },
+    ignorePatterns: ['dist/', 'types/foundry-pc-types/types/pixi.d.ts'],
     rules: {
         'prettier/prettier': 'error',
         'no-console': 'off',
