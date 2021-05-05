@@ -1,5 +1,5 @@
 import { ItemPF2e } from '@item/base';
-import { isPhysicalItem, PhysicalItemData, Size } from '@item/data-definitions';
+import { isPhysicalItem, PhysicalItemData } from '@item/data-definitions';
 import ky from 'ky';
 import { ActorPF2e } from './base';
 import {
@@ -45,16 +45,15 @@ export const ImportFromPfsDb = async (
     if (characterNumber === '' || playerNumber === '') {
         throw Error('PFS DB | No PFS identifier');
     }
-    console.log(`PFS DB | Fetching ${playerNumber}-${characterNumber}`);
-    // GET to DB using PFS ID
+    console.log(`PFS DB | Fetching ${playerNumber}${characterNumber}`);
+    // HTTP GET to DB using PFS ID
     try {
         const response = ky
             .get(`${dbUrl}/pathfinder/${playerNumber.toString()}${characterNumber.toString()}`)
             .json<PfsDbEntry>();
-        console.log(`PFS DB | Retrieved ${JSON.stringify(await response, null, 1)}`);
+        console.log(`PFS DB | Retrieved ${JSON.stringify(await response)}`);
         console.log(`PFS DB | Converting PFS DB Entry to RawCharacterData`);
-        const newRawCharacterData = UpdateActorFromPfsDbEntry(await response, actor);
-        return newRawCharacterData;
+        UpdateActorFromPfsDbEntry(await response, actor);
     } catch (error) {
         console.log(`PFS DB | ${error}`);
     }
@@ -65,13 +64,10 @@ export const ExportIntoPfsDb = async (actor: ActorPF2e): Promise<void> => {
         throw Error('PFS DB | No PFS identifier');
     }
     console.log(`PFS DB | Converting RawCharacterData to PFS DB Entry`);
-    // console.log(`Data to be converted: ${JSON.stringify(actor, null, 1)}`);
     const pfsDataEntry = ConvertActorToPfsDbEntry(actor);
     console.log(`PFS DB | Pushing data to DB`);
-    // console.log(`PFS DB | ${JSON.stringify(pfsDataEntry, null, 1)}`);
-    // POST to DB using PFS Id and Data
     const response = ky.post(
-        `${dbUrl}/pathfinder/${pfsDataEntry.pfsData.playerNumber.concat(pfsDataEntry.pfsData.characterNumber)}`,
+        `${dbUrl}/pathfinder/${pfsDataEntry.pfsData.playerNumber}${pfsDataEntry.pfsData.characterNumber}`,
         { json: pfsDataEntry },
     );
     if ((await response).status === 200 || (await (await response).status) === 201) {
@@ -82,7 +78,7 @@ export const DeleteFromPfsDb = async (playerNumber: string, characterNumber: str
     if (characterNumber === '' || playerNumber === '') {
         throw Error('PFS DB | No PFS identifier');
     }
-    console.log(`PFS DB | Deleting ${playerNumber}-${characterNumber} from PFS DB.`);
+    console.log(`PFS DB | Deleting ${playerNumber}${characterNumber} from PFS DB.`);
     const response = ky.delete(`${dbUrl}/pathfinder/${playerNumber}${characterNumber}`);
     if ((await response).status === 200 || (await (await response).status) === 201) {
         console.log(`PFS DB | Data Deleted. ${(await response).status}`);
@@ -125,6 +121,7 @@ const UpdateActorFromPfsDbEntry = async (pfsDbEntry: PfsDbEntry, existingActor: 
             const id = Array.isArray(match) ? match[3] : undefined;
             const lookupData: ItemLookupData = { pack, id };
             await grantItem(existingActor, lookupData);
+            await updatePhysicalItem(existingActor, item);
         });
     }
 };
@@ -135,6 +132,14 @@ interface ItemLookupData {
     pack: string | null;
     id: string;
 }
+
+const updatePhysicalItem = async (actor: ActorPF2e, item: PfsDbItem) => {
+    await actor.items.entries.forEach(async (entry) => {
+        if (entry.sourceId === item.sourceId && item.data) {
+            await actor.updateEmbeddedEntity('OwnedItem', { _id: entry._id, data: item.data });
+        }
+    });
+};
 
 const grantItem = async (owner: ActorPF2e, lookupData: ItemLookupData): Promise<void> => {
     const toGrant =
