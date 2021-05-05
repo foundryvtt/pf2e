@@ -12,19 +12,12 @@ import { BackgroundPF2e } from '@module/item/background';
 import { ClassPF2e } from '@module/item/class';
 import { ConsumablePF2e } from '@module/item/consumable';
 import { FeatPF2e } from '@module/item/feat';
+import { EquipmentPF2e } from '@item/equipment';
 import { KitPF2e } from '@item/kit';
 import { SpellPF2e } from '@module/item/spell';
 import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
-import {
-    ContainerPF2e,
-    ConditionPF2e,
-    EquipmentPF2e,
-    LorePF2e,
-    MartialPF2e,
-    MeleePF2e,
-    TreasurePF2e,
-} from '@module/item/others';
+import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
@@ -956,6 +949,7 @@ export const PF2ECONFIG = {
         worn: 'PF2E.TraitWorn',
         wornamulet: 'PF2E.TraitWornAmulet',
         wornanklets: 'PF2E.TraitWornAnklets',
+        wornarmbands: 'PF2E.TraitWornArmbands',
         wornbackpack: 'PF2E.TraitWornBackpack',
         wornbarding: 'PF2E.TraitWornBarding',
         wornbelt: 'PF2E.TraitWornBelt',
