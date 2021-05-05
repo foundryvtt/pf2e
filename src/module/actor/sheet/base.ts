@@ -48,6 +48,7 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
+import { ConfigPF2e } from '@scripts/config';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -226,16 +227,17 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
      * Insert a spell into the spellbook object when rendering the character sheet
      * @param actorData    The Actor data being prepared
      * @param spellbook    The spellbook data being prepared
-     * @param spell        The spell data being prepared
+     * @param spellData        The spell data being prepared
      */
-    protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spell: SpellSheetData) {
-        const heightenedLevel = spell.data.heightenedLevel?.value;
-        const spellLvl = heightenedLevel ?? (Number(spell.data.level.value) < 11 ? Number(spell.data.level.value) : 10);
-        const spellcastingEntry = this.actor.getOwnedItem(spell.data.location.value)?.data ?? null;
+    protected prepareSpell(actorData: ActorDataPF2e, spellbook: any, spellData: SpellSheetData) {
+        const heightenedLevel = spellData.data.heightenedLevel?.value;
+        const castingLevel =
+            heightenedLevel ?? (Number(spellData.data.level.value) < 11 ? Number(spellData.data.level.value) : 10);
+        const spellcastingEntry = this.actor.getOwnedItem(spellData.data.location.value)?.data ?? null;
 
         // if the spellcaster entry cannot be found (maybe it was deleted?)
         if (spellcastingEntry?.type !== 'spellcastingEntry') {
-            console.debug(`PF2e System | Spellcasting entry not found for spell ${spell.name} (${spell._id})`);
+            console.debug(`PF2e System | Spellcasting entry not found for spell ${spellData.name} (${spellData._id})`);
             return;
         }
 
@@ -245,22 +247,23 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const slots = spellcastingEntry.data.slots;
         const spellsSlotsWhereThisIsPrepared = Object.entries((slots ?? {}) as Record<any, any>)?.filter(
-            (slotArr) => !!Object.values(slotArr[1].prepared as any[]).find((slotSpell) => slotSpell?.id === spell._id),
+            (slotArr) =>
+                !!Object.values(slotArr[1].prepared as any[]).find((slotSpell) => slotSpell?.id === spellData._id),
         );
         const highestSlotPrepared =
             spellsSlotsWhereThisIsPrepared
                 ?.map((slot) => parseInt(slot[0].match(/slot(\d+)/)[1], 10))
-                .reduce((acc, cur) => (cur > acc ? cur : acc), 0) ?? spellLvl;
+                .reduce((acc, cur) => (cur > acc ? cur : acc), 0) ?? castingLevel;
         const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2);
-        const maxSpellLevelToShow = Math.min(10, Math.max(spellLvl, highestSlotPrepared, normalHighestSpellLevel));
+        const maxSpellLevelToShow = Math.min(10, Math.max(castingLevel, highestSlotPrepared, normalHighestSpellLevel));
         // Extend the Spellbook level
-        for (let i = maxSpellLevelToShow; i >= 0; i--) {
-            if (!isNotLevelBasedSpellcasting || i === spellLvl) {
-                const slotKey = `slot${i}` as keyof typeof slots;
-                spellbook[i] = spellbook[i] || {
-                    isCantrip: i === 0,
-                    isFocus: i === 11,
-                    label: CONFIG.PF2E.spellLevels[i],
+        for (let spellLevel = maxSpellLevelToShow; spellLevel >= 0; spellLevel--) {
+            if (!isNotLevelBasedSpellcasting || spellLevel === castingLevel) {
+                const slotKey = `slot${spellLevel}` as keyof typeof slots;
+                spellbook[spellLevel] ??= {
+                    isCantrip: spellData.isCantrip,
+                    isFocus: spellData.isFocusSpell,
+                    label: CONFIG.PF2E.spellLevels[spellLevel as keyof ConfigPF2e['PF2E']['spellLevels']],
                     spells: [],
                     prepared: [],
                     uses: spellcastingEntry ? Number(slots[slotKey].value) || 0 : 0,
@@ -268,8 +271,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     displayPrepared:
                         spellcastingEntry &&
                         spellcastingEntry.data.displayLevels &&
-                        spellcastingEntry.data.displayLevels[i] !== undefined
-                            ? spellcastingEntry.data.displayLevels[i]
+                        spellcastingEntry.data.displayLevels[spellLevel] !== undefined
+                            ? spellcastingEntry.data.displayLevels[spellLevel]
                             : true,
                     unpreparedSpellsLabel:
                         spellcastingEntry &&
@@ -282,31 +285,36 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // Add the spell to the spellbook at the appropriate level
-        spell.data.school.str = CONFIG.PF2E.magicSchools[spell.data.school.value];
+        spellData.data.school.str = CONFIG.PF2E.magicSchools[spellData.data.school.value];
         // Add chat data
         try {
-            const item = this.actor.getOwnedItem(spell._id);
+            const item = this.actor.getOwnedItem(spellData._id);
             if (item instanceof SpellPF2e) {
-                spell.spellInfo = item.getChatData();
+                spellData.spellInfo = item.getChatData();
             }
         } catch (err) {
-            console.debug(`PF2e System | Character Sheet | Could not load chat data for spell ${spell._id}`, spell);
+            console.debug(
+                `PF2e System | Character Sheet | Could not load chat data for spell ${spellData._id}`,
+                spellData,
+            );
         }
 
-        const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
+        const isSpontaneous =
+            spellcastingEntry.data.prepared.value === 'spontaneous' &&
+            spellcastingEntry.data.tradition.value !== 'focus';
         const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
-        const isCantrip = spell.data.level.value === 0;
-        const isFocusSpell = spell.data.category.value === 'focus';
-        const isRitual = spell.data.category.value === 'ritual';
+        const isCantrip = spellData.isCantrip;
+        const isFocusSpell = spellData.isFocusSpell;
+        const isRitual = spellData.isRitual;
 
-        if (isSpontaneous && signatureSpells.includes(spell._id) && !isCantrip && !isFocusSpell && !isRitual) {
-            spell.data.isSignatureSpell = true;
+        if (isSpontaneous && signatureSpells.includes(spellData._id) && !isCantrip && !isFocusSpell && !isRitual) {
+            spellData.data.isSignatureSpell = true;
 
-            for (let i = spell.data.level.value; i <= maxSpellLevelToShow; i++) {
-                spellbook[i].spells.push(spell);
+            for (let spellLevel = spellData.data.level.value; spellLevel <= maxSpellLevelToShow; spellLevel++) {
+                spellbook[spellLevel].spells.push(spellData);
             }
         } else {
-            spellbook[spellLvl].spells.push(spell);
+            spellbook[castingLevel].spells.push(spellData);
         }
     }
 
