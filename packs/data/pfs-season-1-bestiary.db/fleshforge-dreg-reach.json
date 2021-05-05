@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -438,6 +438,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -460,10 +463,11 @@
             "dr": [],
             "dv": [],
             "languages": {
-                "custom": "",
+                "custom": "(can't speak any language)",
                 "selected": [],
                 "value": [
-                    "common (can't speak any language)"
+                    "common",
+                    "custom"
                 ]
             },
             "rarity": {
@@ -648,7 +652,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "grab"
+                    ]
                 },
                 "baseItem": null,
                 "bonus": {
@@ -679,7 +686,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>(agile, reach, grab)</p>"
+                    "value": ""
                 },
                 "equipped": {
                     "value": false
@@ -705,8 +712,8 @@
                                 "value": []
                             }
                         },
-                        "img": "",
-                        "name": ""
+                        "img": "systems/pf2e/icons/unidentified_item_icons/adventuring_gear.webp",
+                        "name": "Unidentified NPC Strike"
                     }
                 },
                 "invested": {
@@ -778,7 +785,8 @@
                     },
                     "selected": [],
                     "value": [
-                        "agile"
+                        "agile",
+                        "reach-10"
                     ]
                 },
                 "usage": {
@@ -797,6 +805,56 @@
             "name": "Tentacle",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "npAsEMDADSk7eFnH",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 300000,
+            "type": "action"
         },
         {
             "_id": "P1i4qs0v1pYKSwhK",
@@ -835,7 +893,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 300000,
+            "sort": 400000,
             "type": "lore"
         },
         {
@@ -875,7 +933,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 400000,
+            "sort": 500000,
             "type": "lore"
         },
         {
@@ -915,7 +973,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 500000,
+            "sort": 600000,
             "type": "lore"
         }
     ],
