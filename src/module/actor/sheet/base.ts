@@ -14,7 +14,14 @@ import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
 import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from './data-types';
 import { ItemPF2e } from '@item/base';
-import { ConditionData, ItemDataPF2e, MagicSchoolKey, SpellData, SpellDetailsData } from '@item/data/types';
+import {
+    ConditionData,
+    isPhysicalItem,
+    ItemDataPF2e,
+    MagicSchoolKey,
+    SpellData,
+    SpellDetailsData,
+} from '@item/data/types';
 import { ConditionManager } from '@module/conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';
@@ -104,7 +111,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         );
         actorData.items = items;
 
-        const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
+        const inventoryItems = items.filter(
+            (itemData): itemData is InventoryItem => itemData.isPhysical && itemData.type !== 'melee',
+        );
         for (const itemData of inventoryItems) {
             itemData.isContainer = itemData.type === 'backpack';
             if (!itemData.isIdentified) {
@@ -1180,7 +1189,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         if (isSameActor) return this._onSortItem(event, itemData);
 
         const sourceItemId = data.data?._id;
-        if (data.actorId && itemData.isPhysical && typeof sourceItemId === 'string') {
+        if (data.actorId && isPhysicalItem(itemData) && typeof sourceItemId === 'string') {
             await this.moveItemBetweenActors(
                 event,
                 data.actorId,
@@ -1269,7 +1278,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
-        if (itemData.isPhysical) {
+        if (isPhysicalItem(itemData)) {
             const container = $(event.target).parents('[data-item-is-container="true"]');
             let containerId = null;
             if (container[0] !== undefined) {
