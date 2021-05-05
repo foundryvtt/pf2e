@@ -1,6 +1,7 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { addSign } from '@module/utils';
 import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data/types';
+import { TRADITION_TRAITS } from './data/values';
 import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
@@ -73,18 +74,15 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     /** @override */
-    prepareData() {
+    prepareData(): void {
         // Add traits from potency rune
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const hasPotencyRune = !!this.data.data.potencyRune.value;
-        const traits = this.data.data.traits;
-        traits.value = [
-            ...traits.value,
-            hasPotencyRune ? ['invested', 'abjuration'] : [],
-            hasPotencyRune && !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
-        ].flat();
-
-        traits.value = Array.from(new Set(traits.value));
+        const baseTraits = this.data.data.traits.value;
+        const fromRunes: ('invested' | 'abjuration')[] = this.data.data.potencyRune.value
+            ? ['invested', 'abjuration']
+            : [];
+        const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
+        const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
+        this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
 
         super.prepareData();
     }

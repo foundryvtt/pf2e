@@ -4,7 +4,6 @@ import {
     ConsumableData,
     EquipmentData,
     IdentificationData,
-    MeleeData,
     MystifiedData,
     PhysicalItemData,
     TreasureData,
@@ -15,8 +14,7 @@ import { Coins } from '@item/treasure';
 
 type ContainerMap = ReturnType<typeof getContainerMap>;
 type SheetContainerData = ContainerMap extends Map<string, infer X> ? X : never;
-type PhysicalItemSubset = Exclude<PhysicalItemData, MeleeData>;
-export type InventoryItem<D extends PhysicalItemSubset = PhysicalItemSubset> = D & {
+export type InventoryItem<D extends PhysicalItemData = PhysicalItemData> = D & {
     canBeEquipped: boolean;
     containerData: SheetContainerData;
     isContainer: boolean;
@@ -38,7 +36,7 @@ interface CoinDisplayData {
 
 export type CoinageSummary = Record<keyof Coins, CoinDisplayData>;
 
-interface SheetItemList<D extends PhysicalItemSubset> {
+interface SheetItemList<D extends PhysicalItemData> {
     label: string;
     type: D['type'];
     items: InventoryItem<D>[];
