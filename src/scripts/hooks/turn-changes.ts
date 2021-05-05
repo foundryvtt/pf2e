@@ -10,7 +10,10 @@ export function listen(): void {
         }
     });
 
-    Hooks.on('updateCombat', (combat: CombatPF2e, diff: any, _options: any, _userID: string) => {
+    Hooks.on('updateCombat', async (combat: CombatPF2e, diff: any, _options: any, _userID: string) => {
+        await game.pf2e.effectTracker.refresh();
+        game.pf2e.effectPanel.refresh();
+
         if (combat.started && ('round' in diff || 'turn' in diff) && combat.current?.tokenId) {
             diff.pf2e ??= {};
             diff.pf2e.startTurn = combat.current.tokenId;
