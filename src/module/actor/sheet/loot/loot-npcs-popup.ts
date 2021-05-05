@@ -38,16 +38,14 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
             }
             const currentSource = ActorPF2e.fromToken(token);
             if (selectionData[i] && currentSource) {
-                const currentSourceItemData = currentSource.physicalItems
-                    .filter((item) => item.type !== 'melee')
-                    .map((item) => item._data);
-                itemData.push(...duplicate(currentSourceItemData));
+                const currentSourceItemData = currentSource.physicalItems.map((item) => item._data);
+                itemData.push(...currentSourceItemData);
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
                 currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);
             }
         }
         if (itemData.length > 0) {
-            this.object.createEmbeddedEntity('OwnedItem', itemData);
+            await this.object.createEmbeddedEntity('OwnedItem', itemData);
         }
     }
 

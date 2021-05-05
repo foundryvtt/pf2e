@@ -33,11 +33,11 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
             this.traits.has('inhaled') || this.traits.has('contact')
                 ? translations.UnidentifiedType.Substance
                 : translations.UnidentifiedType.Liquid;
-        const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'other', 'poison', 'potion'].includes(this.consumableType)
+        const itemType = ['drug', 'elixir', 'mutagen', 'oil', 'poison', 'potion'].includes(this.consumableType)
             ? liquidOrSubstance()
-            : this.consumableType === 'tool'
-            ? translations.UnidentifiedType.Tool
-            : game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType]);
+            : ['scroll', 'snare', 'ammo'].includes(this.consumableType)
+            ? game.i18n.localize(CONFIG.PF2E.consumableTypes[this.consumableType])
+            : translations.UnidentifiedType.Object;
 
         if (typeOnly) return itemType;
 

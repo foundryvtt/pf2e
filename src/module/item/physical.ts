@@ -1,7 +1,6 @@
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemPF2e } from './base';
 import { MystifiedData, IdentificationStatus, PhysicalItemData, Rarity, isMagicDetailsData } from './data/types';
-import { MystifiedTraits } from './data/values';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
@@ -45,6 +44,10 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.isIdentified && 'invested' in this.data.data && this.data.data.invested.value === true;
     }
 
+    get isCursed(): boolean {
+        return this.traits.has('cursed');
+    }
+
     get isInContainer(): boolean {
         return !!this.data.data.containerId.value;
     }
@@ -79,6 +82,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         this.data.isEquipped = this.isEquipped;
         this.data.isInvested = this.isInvested;
         this.data.isIdentified = this.isIdentified;
+        this.data.isMagical = this.isMagical;
+        this.data.isAlchemical = this.isAlchemical;
+        this.data.isCursed = this.isCursed;
 
         // Update properties according to identification status
         const identifyStatus = this.identificationStatus;
@@ -120,17 +126,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             return mystifiedData.data.description.value || fallbackDescription;
         })();
 
-        const traits = this.data.data.traits.value.filter((trait) => !MystifiedTraits.includes(trait));
-
         return {
             name,
             img,
             data: {
                 description: {
                     value: description,
-                },
-                traits: {
-                    value: traits,
                 },
             },
         };

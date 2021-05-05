@@ -286,6 +286,7 @@ export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+
 export type SenseAcuity = 'precise' | 'imprecise' | 'vague';
 export interface SenseData extends LabeledString {
     acuity?: SenseAcuity;
