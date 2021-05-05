@@ -138,7 +138,11 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
         if (this.identificationStatus === status) return;
-        await this.update({ 'data.identification.status': status });
+
+        await this.update({
+            'data.identification.status': status,
+            'data.identification.unidentified': this.getMystifiedData('unidentified'),
+        });
     }
 
     generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
