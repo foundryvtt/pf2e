@@ -6,8 +6,12 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
         return this.data.data.ability.value || 'int';
     }
 
+    get tradition() {
+        return this.data.data.tradition.value;
+    }
+
     get isSpontaneous(): boolean {
-        return this.data.data.prepared.value === 'spontaneous';
+        return this.data.data.prepared.value === 'spontaneous' && this.tradition !== 'focus';
     }
 
     get isInnate(): boolean {
