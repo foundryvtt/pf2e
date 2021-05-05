@@ -77,12 +77,9 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             }
         }
 
-        const critSpecialization = data.group.value
-            ? {
-                  label: CONFIG.PF2E.weaponGroups[data.group.value],
-                  description: CONFIG.PF2E.weaponDescriptions[data.group.value],
-              }
-            : undefined;
+        const properties = [data.group.value ? CONFIG.PF2E.weaponGroups[data.group.value] : null].filter(
+            (property) => property,
+        );
 
         const { map2, map3 } = this.calculateMap();
 
@@ -90,9 +87,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             ...data,
             traits,
             proficiency,
+            properties,
             attackRoll: getAttackBonus(data) + (actorData.data.abilities?.[abl]?.mod ?? 0) + proficiency.value,
-
-            critSpecialization,
             isTwohanded: !!twohandedTrait,
             wieldedTwoHands: !!data.hands.value,
             isFinesse,

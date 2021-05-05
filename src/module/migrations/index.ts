@@ -63,6 +63,7 @@ import { Migration629SetBaseItems } from './629-set-base-items';
 import { Migration630FixTalismanSpelling } from './630-fix-talisman-spelling';
 import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from './632-delete-orphaned-spells';
+import { Migration633DeleteUnidentifiedTraits } from './633-delete-unidentified-traits';
 
 export class Migrations {
     private static list = [
@@ -130,6 +131,7 @@ export class Migrations {
         Migration630FixTalismanSpelling,
         Migration631FixSenseRuleElementSelector,
         Migration632DeleteOrphanedSpells,
+        Migration633DeleteUnidentifiedTraits,
     ];
 
     static get latestVersion(): number {

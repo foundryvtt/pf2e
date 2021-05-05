@@ -7,10 +7,6 @@ import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { MigrationBase } from '@module/migrations/base';
-import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
-import { Migration616MigrateFeatPrerequisites } from '@module/migrations/616-migrate-feat-prerequisites';
-import { Migration619TraditionLowercaseAndRemoveWandScroll } from '@module/migrations/619-remove-wand-and-scroll-tradition';
-import { Migration620RenameToWebp } from '@module/migrations/620-rename-to-webp';
 import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
 import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-potency-runes';
 import { Migration625EnsurePresenceOfSaves } from '@module/migrations/625-ensure-presence-of-saves';
@@ -21,12 +17,9 @@ import { Migration629SetBaseItems } from '@module/migrations/629-set-base-items'
 import { Migration630FixTalismanSpelling } from '@module/migrations/630-fix-talisman-spelling';
 import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from '@module/migrations/632-delete-orphaned-spells';
+import { Migration633DeleteUnidentifiedTraits } from '@module/migrations/633-delete-unidentified-traits';
 
 const migrations: MigrationBase[] = [
-    new Migration615RemoveInstinctTrait(),
-    new Migration616MigrateFeatPrerequisites(),
-    new Migration619TraditionLowercaseAndRemoveWandScroll(),
-    new Migration620RenameToWebp(),
     new Migration621RemoveConfigSpellSchools(),
     new Migration623NumifyPotencyRunes(),
     new Migration625EnsurePresenceOfSaves(),
@@ -37,6 +30,7 @@ const migrations: MigrationBase[] = [
     new Migration630FixTalismanSpelling(),
     new Migration631FixSenseRuleElementSelector(),
     new Migration632DeleteOrphanedSpells(),
+    new Migration633DeleteUnidentifiedTraits(),
 ];
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
