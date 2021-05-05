@@ -1,8 +1,8 @@
 <div class="tab spellbook spellbook-pane" data-group="primary" data-tab="spellbook">
 
-    <ol class="spellcastingEntry-list directory-list">
+    <ol class="spellcastingEntry-list directory-list item-list">
         {{#each actor.spellcastingEntries as |entry eid|}}
-            <li class="item item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+            <li class="item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                 <div class="action-header">
                     {{#if entry.data.prepared.preparedSpells}}
                         <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
@@ -143,7 +143,7 @@
                                     {{/if}}
 
                                     <div class="spell-cast">
-                                        <button class="spell-slots-increment-down" data-item-id="{{entry._id}}"  data-level="{{lvl}}">
+                                        <button type="button" class="spell-slots-increment-down" data-item-id="{{entry._id}}"  data-level="{{lvl}}">
                                             {{localize 'PF2E.CastLabel'}}</button>
                                     </div>
                                 </li>
@@ -166,7 +166,7 @@
         {{else}}
 
                     <!-- Prepared Spells -->
-                    <ol class="inventory-list directory-list">
+                    <ol class="inventory-list directory-list item-list">
 
                         <!-- Add section for each level -->
                         {{#each entry.spellbook as |section lvl|}}

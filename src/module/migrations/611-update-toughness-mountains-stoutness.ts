@@ -1,7 +1,7 @@
 import { MigrationBase } from './base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { FeatPF2e } from '@item/feat';
-import { FeatData } from '@item/data-definitions';
+import { FeatData } from '@item/data/types';
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
     static version = 0.611;

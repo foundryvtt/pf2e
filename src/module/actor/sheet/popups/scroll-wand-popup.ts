@@ -1,5 +1,5 @@
 import { ActorPF2e } from '../../base';
-import { SpellData } from '@item/data-definitions';
+import { SpellData } from '@item/data/types';
 
 /**
  * @category Other

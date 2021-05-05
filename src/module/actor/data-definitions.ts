@@ -1,4 +1,4 @@
-import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -286,8 +286,10 @@ export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+export type SenseAcuity = 'precise' | 'imprecise' | 'vague';
 export interface SenseData extends LabeledString {
-    acuity?: 'precise' | 'imprecise' | 'vague';
+    acuity?: SenseAcuity;
+    source?: string;
 }
 
 export interface CreatureTraitsData extends BaseTraitsData {
@@ -371,9 +373,9 @@ export interface CategoryProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
-export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponKey}`;
+export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
 type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
-export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
+export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
@@ -472,6 +474,12 @@ interface CharacterAttributes extends BaseCreatureAttributes {
     resolve: { value: number };
 }
 
+export interface RollToggle {
+    label: string;
+    inputName: string;
+    checked: boolean;
+}
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
@@ -542,10 +550,14 @@ export interface RawCharacterData extends CreatureSystemData {
     skills: Skills;
 
     /** Pathfinder Society Organized Play */
-    pfs?: RawPathfinderSocietyData;
+    pfs: RawPathfinderSocietyData;
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
+
+    toggles: {
+        actions: RollToggle[];
+    };
 }
 
 // NPCs have an additional 'base' field used for computing the modifiers.
@@ -637,8 +649,6 @@ export interface RawNPCData extends CreatureSystemData {
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
-        /** The Archive of Nethys URL for this creature. */
-        nethysUrl: string;
         /** Information about what is needed to recall knowledge about this creature. */
         recallKnowledgeText: string;
         /** Information which shows up on the sidebar of the creature. */

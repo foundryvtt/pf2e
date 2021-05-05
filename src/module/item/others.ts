@@ -1,15 +1,6 @@
 import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
-import {
-    ContainerData,
-    ConditionData,
-    EquipmentData,
-    KitData,
-    LoreData,
-    MartialData,
-    MeleeData,
-    TreasureData,
-} from './data-definitions';
+import { ContainerData, ConditionData, LoreData, MartialData, MeleeData, TreasureData, Rarity } from './data/types';
 
 export class ContainerPF2e extends PhysicalItemPF2e {}
 export interface ContainerPF2e {
@@ -23,21 +14,31 @@ export interface TreasurePF2e {
     _data: TreasureData;
 }
 
-export class KitPF2e extends PhysicalItemPF2e {
-    get isEquipped(): false {
-        return false;
-    }
-}
-
-export interface KitPF2e {
-    data: KitData;
-    _data: KitData;
-}
-
 export class MeleePF2e extends PhysicalItemPF2e {
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    /** @override */
+    get rarity(): Rarity {
+        return 'common';
+    }
+
+    /** @override */
+    get isEquipped(): true {
+        return true;
+    }
+
+    /** @override */
+    get isInvested(): true {
+        return true;
+    }
+
+    /** @override */
+    get identificationStatus(): 'identified' {
+        return 'identified';
+    }
+
+    /** @override */
+    getChatData(this: Owned<MeleePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.weaponTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
 
         const isAgile = this.traits.has('agile');
         const map2 = isAgile ? '-4' : '-5';
@@ -52,25 +53,10 @@ export interface MeleePF2e {
     _data: MeleeData;
 }
 
-export class EquipmentPF2e extends PhysicalItemPF2e {
-    getChatData(htmlOptions?: Record<string, boolean>) {
-        const data = this.data.data;
-        const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
-            (p) => p !== null,
-        );
-        return this.processChatData(htmlOptions, { ...data, properties });
-    }
-}
-
-export interface EquipmentPF2e {
-    data: EquipmentData;
-    _data: EquipmentData;
-}
-
 export class LorePF2e extends ItemPF2e {
     // todo: this doesn't seem to ever be called...should it be killed?
     // types actually fail if its not any, so it probably doesn't even work
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<LorePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         if (!this.actor) return {};
         const data: any = this.data.data;
         let properties = [];

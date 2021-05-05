@@ -317,8 +317,9 @@ declare class Application<OptionsType extends ApplicationOptions = ApplicationOp
     /**
      * Close the application and un-register references to it within UI mappings
      * This function returns a Promise which resolves once the window closing animation concludes
+     * @return {Promise<void>}    A Promise which resolves once the application is closed
      */
-    close(): Promise<unknown>;
+    close(options?: { force?: boolean }): Promise<void>;
 
     /**
      * Minimize the pop-out window, collapsing it to a small tab

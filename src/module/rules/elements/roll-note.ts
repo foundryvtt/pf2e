@@ -1,19 +1,19 @@
-import { PF2RuleElement } from '../rule-element';
-import { PF2RuleElementSynthetics } from '../rules-data-definitions';
+import { RuleElementPF2e } from '../rule-element';
+import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2RollNote } from '@module/notes';
+import { RollNotePF2e } from '@module/notes';
 import { ModifierPredicate } from '@module/modifiers';
 import { DegreeOfSuccessText } from '@system/check-degree-of-success';
 
 /**
  * @category RuleElement
  */
-export class PF2RollNoteRuleElement extends PF2RuleElement {
-    onBeforePrepareData(actorData: CharacterData | NPCData, { rollNotes }: PF2RuleElementSynthetics) {
+export class PF2RollNoteRuleElement extends RuleElementPF2e {
+    onBeforePrepareData(actorData: CharacterData | NPCData, { rollNotes }: RuleElementSyntheticsPF2e) {
         const selector = super.resolveInjectedProperties(this.ruleData.selector, this.ruleData, this.item, actorData);
         const text = super.resolveInjectedProperties(this.ruleData.text, this.ruleData, this.item, actorData);
         if (selector && text) {
-            const note = new PF2RollNote(selector, text);
+            const note = new RollNotePF2e(selector, text);
             if (this.ruleData.predicate) {
                 note.predicate = new ModifierPredicate(this.ruleData.predicate);
             }

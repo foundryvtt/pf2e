@@ -19,8 +19,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                     ? await pack.updateEntity({ _id: item.id, ...changes }, { enforceTypes: false })
                     : await item.update(changes, { enforceTypes: false });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
+            console.error(error.stack);
         }
     }
 
@@ -51,8 +52,9 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (itemDiff.updated.length > 0) {
                 await actor.updateEmbeddedEntity('OwnedItem', itemDiff.updated);
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
+            console.debug(error.stack);
         }
     }
 
@@ -115,8 +117,9 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (!isObjectEmpty(changes)) {
                 await token.update(changes, { enforceTypes: false });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
+            console.debug(error.stack);
         }
     }
 

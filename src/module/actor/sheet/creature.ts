@@ -1,16 +1,9 @@
-import {
-    Coins,
-    calculateWealth,
-    calculateTotalWealth,
-    calculateValueOfCurrency,
-    coinValueInCopper,
-} from '@item/treasure';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
-import { BaseWeaponKey, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, WeaponGroup } from '@item/data/types';
 import { LocalizePF2e } from '@module/system/localize';
-import { PhysicalItemPF2e } from '@item/physical';
+import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
 import { CreaturePF2e } from '@actor/creature';
 import { ConditionPF2e } from '@item/others';
@@ -80,7 +73,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     );
                 break;
             case 'consumable':
-                if (chatData.hasCharges && PhysicalItemPF2e.isIdentified(item.data))
+                if (item instanceof ConsumablePF2e && item.charges.max > 0 && item.isIdentified)
                     buttons.append(
                         `<span class="tag"><button class="consume" data-action="consume">${game.i18n.localize(
                             'PF2E.ConsumableUseLabel',
@@ -152,11 +145,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                         return CONFIG.PF2E.weaponCategories[key];
                     }
                     if (Array.isArray(groupMatch)) {
-                        const weaponGroup = groupMatch[1] as WeaponGroupKey;
+                        const weaponGroup = groupMatch[1] as WeaponGroup;
                         return CONFIG.PF2E.weaponGroups[weaponGroup];
                     }
                     if (Array.isArray(baseWeaponMatch)) {
-                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponKey;
+                        const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
                         return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
                     }
                     return key;
@@ -173,11 +166,12 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         }
 
         // Update save labels
-        if (sheetData.data.saves !== undefined) {
-            for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
+        if (sheetData.data.saves) {
+            for (const key of ['fortitude', 'reflex', 'will'] as const) {
+                const save = sheetData.data.saves[key];
                 save.icon = this.getProficiencyIcon(save.rank);
                 save.hover = CONFIG.PF2E.proficiencyLevels[save.rank];
-                save.label = CONFIG.PF2E.saves[s];
+                save.label = CONFIG.PF2E.saves[key];
             }
         }
 
@@ -206,18 +200,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
         }
 
-        // update currency based on items
-        if (sheetData.actor.items !== undefined) {
-            const currency = calculateValueOfCurrency(sheetData.actor.items);
-            sheetData.totalCurrency = CreatureSheetPF2e.parseCoinsToActorSheetData(currency);
-
-            const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasureGold = (coinValueInCopper(treasure) / 100).toFixed(2);
-
-            const totalWealth = calculateTotalWealth(sheetData.actor.items);
-            sheetData.totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
-        }
-
         // Update traits
         sheetData.abilities = CONFIG.PF2E.abilities;
         sheetData.skills = CONFIG.PF2E.skills;
@@ -242,18 +224,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             4: '<i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i><i class="fas fa-check-circle"></i>',
         };
         return icons[level];
-    }
-
-    private static parseCoinsToActorSheetData(treasure: Coins) {
-        const coins = {};
-        for (const [denomination, value] of Object.entries(treasure)) {
-            coins[denomination] = {
-                value,
-                label: CONFIG.PF2E.currencies[denomination],
-            };
-        }
-
-        return coins;
     }
 
     /** @override */
@@ -396,7 +366,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
 
             if (action.selectedAmmoId) {
                 const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
-                if (ammo instanceof PhysicalItemPF2e) {
+                if (ammo instanceof ConsumablePF2e) {
                     if (ammo.quantity < 1) {
                         ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
                         return;

@@ -4,7 +4,7 @@ import { ActorPF2e } from '../base';
 import { ItemPF2e } from '@item/base';
 import { ActorSheetPF2eSimpleNPC } from './simple-npc-sheet';
 import { SheetInventory } from './data-types';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };
@@ -361,9 +361,6 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         // Set the inventory tab as active on a loot-sheet rendering.
         if (this.isLootSheet) {
             html.find('.tab.inventory').addClass('active');
-            html.find('.inventory-section li.item')
-                .attr({ draggable: true })
-                .on('dragstart', (event) => this.onDragItemStart(event.originalEvent as ElementDragEvent));
         }
 
         if (!this.options.editable) return;

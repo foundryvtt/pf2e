@@ -1,6 +1,6 @@
 /** Item sheet form types */
 
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from '@item/data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData, SpellData } from '@item/data/types';
 import { ConfigPF2e } from '@scripts/config';
 import { ItemSheetDataPF2e } from './base';
 
@@ -80,4 +80,19 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatData> {
     prerequisites: string;
     rarities: SheetOptions;
     traits: SheetOptions;
+}
+
+export interface SpellSheetData extends ItemSheetDataPF2e<SpellData> {
+    magicSchools: ConfigPF2e['magicSchools'];
+    spellCategories: ConfigPF2e['spellCategories'];
+    spellLevels: ConfigPF2e['spellLevels'];
+    spellTypes: ConfigPF2e['spellTypes'];
+    magicTraditions: SheetOptions;
+    spellComponents: string[];
+    traits: SheetOptions;
+    rarities: SheetOptions;
+    areaSizes: ConfigPF2e['areaSizes'];
+    areaTypes: ConfigPF2e['areaTypes'];
+    spellScalingModes: ConfigPF2e['spellScalingModes'];
+    isRitual: boolean;
 }

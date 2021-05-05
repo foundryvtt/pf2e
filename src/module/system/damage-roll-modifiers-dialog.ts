@@ -3,7 +3,7 @@
  */
 
 import { DegreeOfSuccessString } from '@system/check-degree-of-success';
-import { PF2RollNote } from '@module/notes';
+import { RollNotePF2e } from '@module/notes';
 import { DiceModifierPF2e, ModifierPF2e, RawModifier } from '@module/modifiers';
 import { DamageTemplate } from '@system/damage/weapon';
 
@@ -98,7 +98,7 @@ export class DamageRollModifiersDialog extends Application {
             .join('');
         flavor += `<div style="display: flex; flex-wrap: wrap;">${baseBreakdown}${modifierBreakdown}</div>`;
 
-        const notes = ((damage.notes ?? []) as PF2RollNote[])
+        const notes = ((damage.notes ?? []) as RollNotePF2e[])
             .filter((note) => note.outcome.length === 0 || note.outcome.includes(outcome))
             .map((note) => TextEditor.enrichHTML(note.text))
             .join('<br />');

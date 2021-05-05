@@ -1,5 +1,6 @@
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
@@ -19,7 +20,7 @@ import {
 import { ConditionManager } from './module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
-import { ItemType } from '@item/data-definitions';
+import { ItemType } from '@item/data/types';
 import { RuleElements } from '@module/rules/rules';
 import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
 import { MacroPF2e } from '@module/macro';
@@ -34,6 +35,7 @@ declare global {
             actions: { [key: string]: Function };
             worldClock: WorldClock;
             effectPanel: EffectPanel;
+            effectTracker: EffectTracker;
             rollActionMacro: typeof rollActionMacro;
             rollItemMacro: typeof rollItemMacro;
             gm: {
@@ -108,12 +110,13 @@ declare global {
         get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
         get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
-        get(module: 'pf2e', setting: 'staminaVariant'): number;
+        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
         get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+        get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
 
     interface WorldSettingsStorage {

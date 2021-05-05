@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data-definitions';
+import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data/types';
 import { sluggify } from '@module/utils';
 
 declare global {

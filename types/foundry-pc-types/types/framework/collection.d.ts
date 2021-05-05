@@ -86,10 +86,10 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
     reduce<T>(evaluator: (accumlator: T, value: V) => T, initial: T): T;
 }
 
-interface CollectionConstructor<V extends unknown> {
-    new (): Collection<V>;
-    new <V>(entries?: readonly (readonly [V])[] | null): Collection<V>;
-    readonly prototype: Collection<V>;
+interface CollectionConstructor {
+    new (): Collection<any>;
+    new <V>(entries?: readonly (readonly [string, V])[] | null): Collection<V>;
+    readonly prototype: Collection<any>;
 }
 
-declare const Collection: CollectionConstructor<unknown>;
+declare const Collection: CollectionConstructor;

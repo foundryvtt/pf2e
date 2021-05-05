@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Catch up actors and items to the current template.json spec */
@@ -77,9 +77,8 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
 
         // Add item-identification property
         if (isPhysicalItem(itemData) && !itemData.data.identification) {
-            itemData.data.identification = {
-                status: 'identified',
-            };
+            const withoutIdentifyData: { identification: { status: string } } = itemData.data;
+            withoutIdentifyData.identification.status = 'identified';
         }
 
         // Add hasCounteractCheck property

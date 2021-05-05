@@ -1,5 +1,5 @@
 import { ABCItemPF2e } from './abc';
-import { BackgroundData } from './data-definitions';
+import { BackgroundData } from './data/types';
 
 export class BackgroundPF2e extends ABCItemPF2e {}
 

@@ -1,4 +1,4 @@
-import { ItemDataPF2e, ConditionData } from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData } from '@item/data/types';
 import { ConditionPF2e } from './item/others';
 import { TokenPF2e } from './actor/base';
 import { ModifierPF2e } from './modifiers';

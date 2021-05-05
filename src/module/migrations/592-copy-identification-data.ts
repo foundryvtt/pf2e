@@ -1,4 +1,4 @@
-import { isPhysicalItem } from '@item/data-definitions';
+import { isPhysicalItem } from '@item/data/types';
 import { MigrationBase } from './base';
 
 export class Migration592CopyIdentificationData extends MigrationBase {

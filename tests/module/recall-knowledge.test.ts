@@ -1,4 +1,4 @@
-import { Rarity } from '@item/data-definitions';
+import { Rarity } from '@item/data/types';
 import { NPCData } from '@actor/data-definitions';
 import { identifyCreature } from '@module/recall-knowledge';
 

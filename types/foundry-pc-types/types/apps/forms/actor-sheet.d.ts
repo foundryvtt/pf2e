@@ -64,11 +64,6 @@ declare class ActorSheet<
     protected _onEditImage(event: Event): void;
 
     /**
-     * Default handler for beginning a drag-drop workflow of an Owned Item on an Actor Sheet
-     */
-    protected onDragItemStart(event: ElementDragEvent): boolean;
-
-    /**
      * Allow the Actor sheet to be a displayed as a valid drop-zone
      */
     protected _onDragOver(event: ElementDragEvent): boolean;

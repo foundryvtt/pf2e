@@ -1,5 +1,5 @@
 import { ItemPF2e } from './base';
-import { ActionData } from './data-definitions';
+import { ActionData } from './data/types';
 
 export class ActionPF2e extends ItemPF2e {
     /** @override */
@@ -14,7 +14,7 @@ export class ActionPF2e extends ItemPF2e {
         return data;
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    getChatData(this: Owned<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
 
         let associatedWeapon: ItemPF2e | null = null;
@@ -25,7 +25,7 @@ export class ActionPF2e extends ItemPF2e {
             CONFIG.PF2E.actionTypes[data.actionType.value],
             associatedWeapon ? associatedWeapon.name : null,
         ].filter((p) => p);
-        const traits = ItemPF2e.traitChatData(data.traits, CONFIG.PF2E.featTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.featTraits);
         return this.processChatData(htmlOptions, { ...data, properties, traits });
     }
 }

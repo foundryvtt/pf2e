@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { objectHasKey } from '@module/utils';
 
 export class Migration601SplitEffectCompendia extends MigrationBase {

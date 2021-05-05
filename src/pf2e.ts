@@ -2,7 +2,7 @@ import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
@@ -197,6 +197,9 @@ function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
+        if (child.type === 'effect') {
+            game.pf2e.effectTracker.unregister(child);
+        }
         game.pf2e.effectPanel.refresh();
     }
 }
@@ -220,6 +223,7 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
         actor.items.forEach((item) => {
             const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
             for (const rule of rules) {
+                if (rule.ignored) continue;
                 rule.onCreateToken(actor.data, item.data, token);
             }
         });
@@ -293,10 +297,6 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
             onClick: () => game.pf2e.worldClock!.render(true),
             button: true,
         });
-});
-
-Hooks.on('updateCombat', () => {
-    game.pf2e.effectPanel?.refresh();
 });
 
 Hooks.on('renderChatMessage', (message, html) => {

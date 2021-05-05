@@ -24,6 +24,7 @@ import * as MonkeyPatch from '../🐵🩹';
 import { CombatPF2e } from '@module/combat';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
+import { MystifiedTraits } from '@item/data/values';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -62,6 +63,7 @@ export function listen(): void {
         });
 
         PlayerConfigPF2e.hookOnRenderSettings();
+        MystifiedTraits.compile();
 
         registerSettings();
         loadPF2ETemplates();

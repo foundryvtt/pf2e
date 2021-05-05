@@ -4,10 +4,10 @@ import { NPCPF2e } from './npc';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier } from '../modifiers';
 import { CheckPF2e } from '@system/rolls';
 import { AbilityString, FamiliarData, SkillAbbreviation } from './data-definitions';
-import { RuleElements } from '../rules/rules';
+import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { objectHasKey } from '@module/utils';
 
 export class FamiliarPF2e extends CreaturePF2e {
@@ -21,10 +21,9 @@ export class FamiliarPF2e extends CreaturePF2e {
         super.prepareDerivedData();
 
         const data = this.data.data;
-        const rules = this.data.items.reduce(
-            (accumulated, current) => accumulated.concat(RuleElements.fromOwnedItem(current)),
-            [],
-        );
+        const rules = this.items
+            .reduce((rules: RuleElementPF2e[], item) => rules.concat(RuleElements.fromOwnedItem(item.data)), [])
+            .filter((rule) => !rule.ignored);
 
         const gameActors = game.actors instanceof Actors ? game.actors : new Map();
         const master = gameActors.get(data.master?.id);
@@ -45,7 +44,7 @@ export class FamiliarPF2e extends CreaturePF2e {
             // base senses
             data.traits.senses = [{ type: 'lowLightVision', label: 'PF2E.SensesLowLightVision', value: '' }];
 
-            const { statisticsModifiers } = this._prepareCustomModifiers(this.data, rules);
+            const { statisticsModifiers } = this.prepareCustomModifiers(rules);
             const modifierTypes: string[] = [MODIFIER_TYPE.ABILITY, MODIFIER_TYPE.PROFICIENCY, MODIFIER_TYPE.ITEM];
             const filter_modifier = (modifier: ModifierPF2e) => !modifierTypes.includes(modifier.type);
 

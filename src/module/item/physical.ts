@@ -1,15 +1,18 @@
+import { LocalizePF2e } from '@module/system/localize';
 import { ItemPF2e } from './base';
-import { isPhysicalItem, PhysicalDetailsData, PhysicalItemData } from './data-definitions';
-import { getUnidentifiedPlaceholderImage as getMystifiedPlaceholderImage } from './identification';
+import { MystifiedData, IdentificationStatus, PhysicalItemData, Rarity, isMagicDetailsData } from './data/types';
+import { MystifiedTraits } from './data/values';
+import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
-    static isIdentified(itemData: any): boolean {
-        const identificationStatus = itemData.data?.identification?.status;
-        return identificationStatus !== 'unidentified' && identificationStatus !== 'misidentified';
+    /** @override */
+    get traits(): Set<string> {
+        const traits: string[] = this.data.data.traits.value;
+        return new Set(traits.concat(this.rarity));
     }
 
-    static getIdentificationState(itemData: any): string {
-        return itemData.data?.identification?.status;
+    get rarity(): Rarity {
+        return this.data.data.traits.rarity.value;
     }
 
     get quantity(): number {
@@ -20,8 +23,12 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return this.data.data.equipped.value;
     }
 
-    get isInContainer(): boolean {
-        return !!this.data.data.containerId.value;
+    get identificationStatus(): IdentificationStatus {
+        return this.data.data.identification.status;
+    }
+
+    get isIdentified(): boolean {
+        return this.identificationStatus === 'identified';
     }
 
     get isMagical(): boolean {
@@ -29,17 +36,37 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         return ['magical', 'arcane', 'primal', 'divine', 'occult'].some((trait) => traits.has(trait));
     }
 
-    get isInvested(): boolean | null {
-        if (!this.traits.has('invested')) return null;
-        return 'invested' in this.data.data && this.data.data.invested.value === true;
+    get isAlchemical(): boolean {
+        return this.traits.has('alchemical');
     }
 
-    get isIdentified(): boolean {
-        return PhysicalItemPF2e.isIdentified(this.data);
+    get isInvested(): boolean | null {
+        if (!this.traits.has('invested')) return null;
+        return this.isIdentified && 'invested' in this.data.data && this.data.data.invested.value === true;
+    }
+
+    get isInContainer(): boolean {
+        return !!this.data.data.containerId.value;
     }
 
     /** @override */
     prepareData(): void {
+        /** Prevent unhandled exceptions on pre-migrated data */
+        this.data.data.traits.rarity ??= { value: 'common' };
+        const identificationData = this.data.data.identification;
+        const mystifyDataMissing =
+            !identificationData || !identificationData.status || !identificationData.unidentified;
+        const isOldTalisman =
+            this.data.type === 'consumable' && String(this.data.data.consumableType.value) === 'talasman';
+        if (mystifyDataMissing || isOldTalisman) {
+            return super.prepareData();
+        }
+
+        // Uninvest any unequipped items
+        if (isMagicDetailsData(this.data.data) && this.isInvested === true && !this.isEquipped) {
+            this.data.data.invested.value = false;
+        }
+
         super.prepareData();
         // Disable active effects if the item isn't equipped and (if applicable) invested
         if (!this.isEquipped || this.isInvested === false) {
@@ -47,169 +74,89 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
                 effectData.disabled = true;
             }
         }
-        if (this.data.type === 'kit' || this.data.type === 'melee') return;
 
-        if (!this.data.data.identification) {
-            this.data.data.identification = { status: 'identified' };
-        }
+        this.data.isPhysical = true;
+        this.data.isEquipped = this.isEquipped;
+        this.data.isInvested = this.isInvested;
+        this.data.isIdentified = this.isIdentified;
 
-        if (!this.data.data.identification.identified || this.data.data.identification.identified.name === '') {
-            PhysicalItemPF2e.setMystifiedDefaults(this, 'identified');
-        }
-        if (!this.data.data.identification.unidentified || this.data.data.identification.unidentified.name === '') {
-            PhysicalItemPF2e.setMystifiedDefaults(this, 'unidentified');
-        }
-        if (!this.data.data.identification.misidentified || this.data.data.identification.misidentified.name === '') {
-            PhysicalItemPF2e.setMystifiedDefaults(this, 'misidentified');
+        // Update properties according to identification status
+        const identifyStatus = this.identificationStatus;
+        const mystifiedData = this.getMystifiedData(identifyStatus);
+        if (identifyStatus !== 'identified') {
+            this.data.data.identification[identifyStatus] = mystifiedData;
+            mergeObject(this.data, mystifiedData, { inplace: true, insertKeys: false });
         }
     }
 
-    get hasShowableMystifiedState(): boolean {
-        const itemData = this.data as PhysicalItemData;
-        switch (PhysicalItemPF2e.getIdentificationState(itemData)) {
-            case 'unidentified':
-                return !!itemData.data.identification.unidentified?.data?.description?.value;
-            case 'misidentified':
-                return !!itemData.data.identification.misidentified?.data?.description?.value;
-            default:
-                return true;
-        }
+    /** Can the provided item stack with this item? */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.type !== item.type || this.name != item.name || this.isIdentified != item.isIdentified) return false;
+        const thisData = duplicate(this._data.data);
+        const otherData = duplicate(item._data.data);
+        thisData.quantity.value = otherData.quantity.value;
+        thisData.equipped.value = otherData.equipped.value;
+        thisData.containerId.value = otherData.containerId.value;
+        thisData.identification = otherData.identification;
+        return JSON.stringify(thisData) === JSON.stringify(otherData);
     }
 
-    async setIdentifiedState(state: string): Promise<this> {
-        if (state === PhysicalItemPF2e.getIdentificationState(this.data)) {
-            return this;
+    /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
+    getMystifiedData(status: IdentificationStatus): MystifiedData {
+        if (status === 'identified' || status === 'misidentified') {
+            return this._data;
         }
 
-        const updateData = {
-            _id: this.id,
-            'data.identified.value': state === 'identified',
-            'data.identification.status': state,
+        const mystifiedData = this.data.data.identification[status];
+
+        const name = mystifiedData.name || this.generateUnidentifiedName();
+        const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
+
+        const description = (() => {
+            const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
+            const itemType = this.generateUnidentifiedName({ typeOnly: true });
+            const caseCorrect = (noun: string) => (game.i18n.lang.toLowerCase() === 'de' ? noun : noun.toLowerCase());
+            const fallbackDescription = game.i18n.format(formatString, { item: caseCorrect(itemType) });
+            return mystifiedData.data.description.value || fallbackDescription;
+        })();
+
+        const traits = this.data.data.traits.value.filter((trait) => !MystifiedTraits.includes(trait));
+
+        return {
+            name,
+            img,
+            data: {
+                description: {
+                    value: description,
+                },
+                traits: {
+                    value: traits,
+                },
+            },
         };
-
-        return this.update(updateData);
     }
 
-    static getMystifiedName(itemData: PhysicalItemData, state: string) {
-        if (state === 'identified') return null;
-        switch (itemData.type) {
-            case 'weapon':
-                return game.i18n.format(`PF2E.identification.${state}`, {
-                    itemtype: (itemData.data?.group?.value ?? 'Weapon').capitalize(),
-                });
+    async setIdentificationStatus(status: IdentificationStatus): Promise<void> {
+        if (this.identificationStatus === status) return;
 
-            case 'armor':
-                switch (itemData.data?.armorType?.value) {
-                    case 'shield':
-                        return game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Shield' });
-
-                    case 'unarmored':
-                        return game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Clothes' });
-
-                    default:
-                        return game.i18n.format(`PF2E.identification.${state}`, {
-                            itemtype: `${itemData.data?.armorType?.value.capitalize()} Armor`,
-                        });
-                }
-
-            case 'consumable':
-                return game.i18n.format(`PF2E.identification.${state}`, {
-                    itemtype: itemData.data.consumableType.value.capitalize(),
-                });
-
-            default:
-                return game.i18n.format(`PF2E.identification.${state}`, { itemtype: 'Item' });
-        }
+        await this.update({
+            'data.identification.status': status,
+            'data.identification.unidentified': this.getMystifiedData('unidentified'),
+        });
     }
 
-    static setMystifiedDefaults(item: PhysicalItemPF2e, state: string) {
-        if (state === 'identified') {
-            item.data.data.identification.identified = {
-                name: item.name,
-                img: item.img,
-                data: {
-                    description: {
-                        value: item.data.data.description.value,
-                    },
-                },
-            };
-        } else {
-            const mystifiedName = this.getMystifiedName(item.data, state);
-            const img = getMystifiedPlaceholderImage(item.data);
-            setProperty(item, `data.data.identification.${state}`, {
-                name: mystifiedName,
-                img: img,
-                data: {
-                    description: {
-                        value: `This ${item.data.type} is ${state}.`,
-                    },
-                },
-            });
-        }
-    }
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+        const itemType = game.i18n.localize(`ITEM.Type${this.data.type.capitalize()}`);
+        if (typeOnly) return itemType;
 
-    static async updateIdentificationData(itemData: PhysicalItemData, diff: { [key: string]: any }) {
-        if (!isPhysicalItem(itemData)) return;
-        const update = mergeObject({}, diff); // expands the "flattened" fields in the diff object
-        const oldIdentificationState = getProperty(itemData, 'data.identification.status');
-        const newIdentificationState = getProperty(update, 'data.identification.status');
-        if (newIdentificationState && oldIdentificationState !== newIdentificationState) {
-            // Make sure the old state is preserved
-            diff[`data.identification.${oldIdentificationState}.name`] = itemData.name;
-            diff[`data.identification.${oldIdentificationState}.img`] = itemData.img;
-            diff[`data.identification.${oldIdentificationState}.data.description.value`] =
-                itemData.data.description.value;
-
-            // load data of referenced item - if any
-            const uuid = getProperty(update, `data.identification.${newIdentificationState}.link`);
-            if (uuid) {
-                const baseItem = (await fromUuid(uuid)) as ItemPF2e | null;
-                if (baseItem instanceof PhysicalItemPF2e) {
-                    // ensure we're not messing up another item accidentally
-                    const baseData: Omit<PhysicalItemData, '_id' | 'data'> & {
-                        _id?: string;
-                        data: Partial<PhysicalDetailsData>;
-                    } = duplicate(baseItem.data);
-
-                    // probably more fields should be filtered out
-                    delete baseData._id;
-                    delete baseData.data.identification;
-                    for (const [key, value] of Object.entries(flattenObject(baseData))) {
-                        diff[key] = value;
-                    }
-                }
-            }
-
-            // override specific fields, if there are any
-            let override = getProperty(update, `data.identification.${newIdentificationState}`);
-            if (!override || override.name === '') {
-                override = getProperty(itemData, `data.identification.${newIdentificationState}`);
-            }
-            if (override) {
-                delete override.link;
-                for (const [key, value] of Object.entries(flattenObject(override))) {
-                    diff[key] = value;
-                }
-            }
-        }
-    }
-
-    async update(diff: { [key: string]: unknown }, options = {}) {
-        await PhysicalItemPF2e.updateIdentificationData(this.data, diff);
-        return super.update(diff, options);
-    }
-
-    static async createPhysicalItemFromCompendiumId(id: string): Promise<PhysicalItemPF2e | null> {
-        const pack = game.packs.find<Compendium<PhysicalItemPF2e>>((p) => p.collection === 'pf2e.equipment-srd');
-        if (!pack) {
-            throw Error('unable to get pack!');
-        }
-
-        return pack.getEntity(id);
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 
 export interface PhysicalItemPF2e {
     data: PhysicalItemData;
     _data: PhysicalItemData;
+
+    level?: number;
 }

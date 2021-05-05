@@ -4,12 +4,11 @@ import {
     ArmorData,
     EquipmentData,
     ItemDataPF2e,
-    ItemLevelData,
     PhysicalItemData,
     TreasureData,
     TreasureDetailsData,
     WeaponData,
-} from '@item/data-definitions';
+} from '@item/data/types';
 import {
     addCoins,
     attemptToRemoveCoinsByValue,
@@ -32,13 +31,11 @@ function treasure({
     stackGroup = 'unknown',
     containerId = undefined,
 }): TreasureData {
-    return {
+    return ({
         _id: id,
         name: id,
         type: 'treasure',
         img: 'icons/svg/mystery-man.svg',
-        permission: {},
-        sort: 1,
         flags: {},
         effects: [],
         data: ({
@@ -49,8 +46,8 @@ function treasure({
             stackGroup: { value: stackGroup },
             containerId: { value: containerId },
             identification: { status: 'identified' },
-        } as unknown) as TreasureDetailsData & ItemLevelData,
-    };
+        } as unknown) as TreasureDetailsData,
+    } as unknown) as TreasureData;
 }
 function coin({
     denomination,

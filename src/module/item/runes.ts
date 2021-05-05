@@ -7,7 +7,7 @@ import {
     StrikingRuneType,
     WeaponData,
     WeaponDetailsData,
-} from './data-definitions';
+} from './data/types';
 import { DiceModifierPF2e } from '../modifiers';
 import { ConfigPF2e } from '@scripts/config';
 import { ZeroToFour, ZeroToThree } from '@actor/data-definitions';

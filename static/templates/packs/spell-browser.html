@@ -24,6 +24,14 @@
         </div>
         <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="classfilter">
+            <h3>{{localize "PF2E.BrowserFilterSpellCategories"}}</h3>
+            <dl>
+                {{#each categories as |category key|}}
+                    <label><dt><input type="checkbox" name="category-{{lower key}}"></dt><dd>{{localize category}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
             <h3>{{localize "PF2E.BrowserFilterTraditions"}}</h3>
             <dl>
                 {{#each traditions as |tradition key|}}
@@ -88,14 +96,14 @@
             {{/each}}
           >
             <div class="spell-image">
-                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32"/>
+                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32" loading="lazy"/>
             </div>
             {{#unless spell.data.time.img}}
             <div class="spell-image" style="margin-left: 5px;">
             </div>
             {{else}}
             <div class="spell-image" style="margin-left: 5px;">
-                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.time.value}}" width="32" height="32"/>
+                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.time.value}}" width="32" height="32" loading="lazy"/>
             </div>
             {{/unless}}
             <div class="spell-name">

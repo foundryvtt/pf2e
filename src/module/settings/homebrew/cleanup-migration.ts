@@ -1,5 +1,5 @@
 import { MigrationBase } from '@module/migrations/base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e, BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
 import { ConfigPF2eListName } from './index';
 import { objectHasKey } from '@module/utils';

@@ -1,19 +1,20 @@
 import { RemoveCoinsPopup } from './popups/remove-coins-popup';
-import { sellAllTreasure, sellTreasure } from '@item/treasure';
+import {
+    calculateTotalWealth,
+    calculateValueOfCurrency,
+    Coins,
+    coinValueInCopper,
+    sellAllTreasure,
+    sellTreasure,
+} from '@item/treasure';
 import { AddCoinsPopup } from './popups/add-coins-popup';
-import { addKit } from '@item/kits';
+import { KitPF2e } from '@item/kit';
 import { compendiumBrowser } from '@module/apps/compendium-browser';
 import { MoveLootPopup } from './loot/move-loot-popup';
 import { ActorPF2e, SKILL_DICTIONARY } from '../base';
+import { ActorSheetDataPF2e, CoinageSummary, InventoryItem } from './data-types';
 import { ItemPF2e } from '@item/base';
-import {
-    ConditionData,
-    isPhysicalItem,
-    ItemDataPF2e,
-    MagicSchoolKey,
-    SpellData,
-    SpellDetailsData,
-} from '@item/data-definitions';
+import { ConditionData, ItemDataPF2e, MagicSchoolKey, SpellData, SpellDetailsData } from '@item/data/types';
 import { ConditionManager } from '@module/conditions';
 import { IdentifyItemPopup } from './popups/identify-popup';
 import { PhysicalItemPF2e } from '@item/physical';
@@ -40,7 +41,6 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ActorSheetDataPF2e, InventoryItem } from './data-types';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -96,7 +96,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     }
 
     /** @override */
-    getData(): any {
+    getData(): ActorSheetDataPF2e<this['actor']['data']> {
         // The Actor and its Items
         const actorData = duplicate(this.actor.data);
         const items = duplicate(
@@ -104,18 +104,24 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         );
         actorData.items = items;
 
-        const inventoryItems = items.filter((itemData): itemData is InventoryItem => isPhysicalItem(itemData));
+        const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
-            itemData.isEquipped = itemData.data.equipped.value;
-            itemData.isIdentified = itemData.data.identification.status === 'identified';
             itemData.isContainer = itemData.type === 'backpack';
-
-            // Reveal the unidentified item's real name to the GM
-            const realName = itemData.data.identification?.identified?.name ?? '';
-            if (!itemData.isIdentified && realName && game.user.isGM) {
-                itemData.name = `${itemData.name} (${realName})`;
+            if (!itemData.isIdentified) {
+                const item = this.actor.physicalItems.get(itemData._id);
+                if (item) {
+                    itemData.data.identification.identified = item.getMystifiedData('identified');
+                }
             }
         }
+
+        // Calculate financial and total wealth
+        const coins = calculateValueOfCurrency(inventoryItems);
+        const totalCoinage = ActorSheetPF2e.coinsToSheetData(coins);
+        const totalCoinageGold = (coinValueInCopper(coins) / 100).toFixed(2);
+
+        const totalWealth = calculateTotalWealth(inventoryItems);
+        const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
         const sheetData: ActorSheetDataPF2e<this['actor']['data']> = {
             cssClass: this.actor.owner ? 'editable' : 'locked',
@@ -131,6 +137,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             user: { isGM: game.user.isGM },
             isTargetFlatFooted: this.actor.getFlag(game.system.id, 'rollOptions.all.target:flatFooted'),
             isProficiencyLocked: this.actor.getFlag(game.system.id, 'proficiencyLock'),
+            totalCoinage,
+            totalCoinageGold,
+            totalWealth,
+            totalWealthGold,
         };
 
         this.prepareTraits(sheetData.data.traits);
@@ -143,6 +153,20 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     protected findActiveList() {
         return (this.element as JQuery).find('.tab.active .directory-list');
+    }
+
+    protected static coinsToSheetData(coins: Coins): CoinageSummary {
+        const denominations = ['cp', 'sp', 'gp', 'pp'] as const;
+        return denominations.reduce(
+            (accumulated, denomination) => ({
+                ...accumulated,
+                [denomination]: {
+                    value: coins[denomination],
+                    label: CONFIG.PF2E.currencies[denomination],
+                },
+            }),
+            {} as CoinageSummary,
+        );
     }
 
     protected prepareTraits(traits: any): void {
@@ -204,7 +228,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         // if the spellcaster entry cannot be found (maybe it was deleted?)
         if (spellcastingEntry?.type !== 'spellcastingEntry') {
-            console.debug(`PF2e System | Prepare Spell | Spellcasting entry not found for spell ${spell.name}`);
+            console.debug(`PF2e System | Spellcasting entry not found for spell ${spell.name} (${spell._id})`);
             return;
         }
 
@@ -265,8 +289,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const isSpontaneous = spellcastingEntry.data.prepared.value === 'spontaneous';
         const signatureSpells = spellcastingEntry.data.signatureSpells?.value ?? [];
         const isCantrip = spell.data.level.value === 0;
-        const isFocusSpell = spell.data.traditions.value.includes('focus');
-        const isRitual = spell.data.traditions.value.includes('ritual');
+        const isFocusSpell = spell.data.category.value === 'focus';
+        const isRitual = spell.data.category.value === 'ritual';
 
         if (isSpontaneous && signatureSpells.includes(spell._id) && !isCantrip && !isFocusSpell && !isRitual) {
             spell.data.isSignatureSpell = true;
@@ -638,9 +662,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (!(item instanceof PhysicalItemPF2e)) {
                     throw Error(`PF2e | ${item.name} is not a physical item.`);
                 }
-                item.setIdentifiedState('unidentified');
+                item.setIdentificationStatus('unidentified');
             } else {
-                new IdentifyItemPopup(this.actor, { itemId }).render(true);
+                const item = this.actor.items.get(itemId);
+                if (item instanceof PhysicalItemPF2e) {
+                    new IdentifyItemPopup(item).render(true);
+                }
             }
         });
 
@@ -687,26 +714,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 _id: item.id,
                 'data.prepared.value': !item.data.data.prepared.value,
             });
-        });
-
-        // Item Dragging
-        const handler = (event: DragEvent) => this.onDragItemStart(event as ElementDragEvent);
-        html.find('.item').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', handler, false);
-        });
-
-        // Skill Dragging
-        const skillHandler = (event: DragEvent) => this.onDragSkillStart(event as ElementDragEvent);
-        html.find('.skill').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', skillHandler, false);
-        });
-
-        // Toggle Dragging
-        html.find('[data-toggle-property][data-toggle-label]').each((_i, li) => {
-            li.setAttribute('draggable', 'true');
-            li.addEventListener('dragstart', (event) => this.onDragToggleStart(event as ElementDragEvent), false);
         });
 
         // change background for dragged over items that are containers
@@ -980,85 +987,71 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return super._canDragDrop(selector);
     }
 
-    protected onDragItemStart(event: ElementDragEvent): boolean {
-        event.stopImmediatePropagation();
+    /**
+     * Override core method due to bug in which new items are created from prepared data
+     * @override
+     */
+    protected _onDragStart(event: ElementDragEvent): void {
+        const $li = $(event.currentTarget);
 
-        const itemId = event.currentTarget.getAttribute('data-item-id');
-        const containerId = event.currentTarget.getAttribute('data-container-id');
-        const actionIndex = event.currentTarget.getAttribute('data-action-index');
+        const baseDragData = {
+            actorId: this.actor.id,
+            sceneId: canvas.scene?.id ?? null,
+            tokenId: this.actor.token?.id ?? null,
+        };
 
-        const id = itemId ?? containerId ?? '';
-        const item = this.actor.getOwnedItem(id);
-        if (item) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+        // Dragging ...
+        const supplementalData = (() => {
+            const itemId = $li.attr('data-item-id');
+            const actionIndex = $li.attr('data-action-index');
+            const toggleProperty = $li.attr('data-toggle-property');
+            const toggleLabel = $li.attr('data-toggle-label');
+
+            // ... an item?
+            if (itemId) {
+                const item = this.actor.items.get(itemId);
+                if (!item) throw ErrorPF2e('Item not found during drag event');
+                return {
                     type: 'Item',
-                    data: item.data,
-                    actorId: this.actor._id,
-                    tokenId: this.actor.token?.id,
-                    id: itemId,
-                }),
-            );
-
-            return true;
-        } else if (actionIndex && event) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+                    data: item._data,
+                };
+            }
+            // ... an action?
+            if (actionIndex) {
+                return {
                     type: 'Action',
-                    index: actionIndex,
-                    actorId: this.actor._id,
-                }),
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-    private onDragSkillStart(event: ElementDragEvent): boolean {
-        const skill = event.currentTarget.getAttribute('data-skill');
-
-        if (skill) {
-            const skillName = $(event.currentTarget).find('.skill-name').text();
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
-                    type: 'Skill',
-                    skill,
-                    skillName,
-                    actorId: this.actor._id,
-                }),
-            );
-
-            return true;
-        }
-        return false;
-    }
-
-    private onDragToggleStart(event: ElementDragEvent): boolean {
-        const property = event.currentTarget.getAttribute('data-toggle-property');
-        const label = event.currentTarget.getAttribute('data-toggle-label');
-        if (property) {
-            event.dataTransfer!.setData(
-                'text/plain',
-                JSON.stringify({
+                    index: Number(actionIndex),
+                };
+            }
+            // ... a toggle?
+            if (toggleProperty) {
+                return {
                     type: 'Toggle',
-                    property,
-                    label,
-                    actorId: this.actor._id,
-                }),
-            );
-            return true;
-        }
-        return false;
+                    property: toggleProperty,
+                    label: toggleLabel,
+                };
+            }
+
+            // ... something else?
+            return null;
+        })();
+
+        return supplementalData
+            ? event.dataTransfer.setData(
+                  'text/plain',
+                  JSON.stringify({
+                      ...baseDragData,
+                      ...supplementalData,
+                  }),
+              )
+            : super._onDragStart(event);
     }
 
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      * @param event
      * @param itemData
+     * @override
      */
     protected async _onSortItem(
         event: ElementDragEvent,
@@ -1155,6 +1148,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         return super._onSortItem(event, itemData);
     }
 
+    /** @override */
     protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (itemData.type === 'ancestry' || itemData.type === 'background' || itemData.type === 'class') {
             // ignore these. they should get handled in the derived class
@@ -1170,6 +1164,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     /**
      * Extend the base _onDrop method to handle dragging spells onto spell slots.
+     * @override
      */
     protected async _onDropItem(
         event: ElementDragEvent,
@@ -1178,20 +1173,21 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item._data);
+        const itemData = item._data;
 
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) return this._onSortItem(event, itemData);
 
-        if (data.actorId && isPhysicalItem(itemData)) {
-            this.moveItemBetweenActors(
+        const sourceItemId = data.data?._id;
+        if (data.actorId && itemData.isPhysical && typeof sourceItemId === 'string') {
+            await this.moveItemBetweenActors(
                 event,
                 data.actorId,
                 data.tokenId ?? '',
                 actor.id,
                 actor.token?.id ?? '',
-                data.id,
+                sourceItemId,
             );
             return itemData;
         }
@@ -1204,9 +1200,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
+                const dropID = $(event.target).parents('.item-container').attr('data-item-id');
                 if (typeof dropID !== 'string') {
-                    throw Error('PF2e System | Unexpected error while adding spell to spellcastingEntry');
+                    throw ErrorPF2e('Unexpected error while adding spell to spellcastingEntry');
                 }
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
@@ -1247,14 +1243,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
             return null;
-        } else if (itemData.type === 'kit') {
-            await addKit(itemData, async (newItems) => {
-                const items = await actor.createEmbeddedEntity('OwnedItem', newItems);
-                if (Array.isArray(items)) {
-                    return items.flatMap((i) => (i === null ? [] : i._id));
-                }
-                return items === null ? [] : [items._id];
-            });
+        } else if (item instanceof KitPF2e) {
+            item.dumpContents(this.actor);
             return itemData;
         } else if (itemData.type === 'condition' && itemData.flags.pf2e?.condition) {
             const condition = itemData as ConditionData;
@@ -1264,7 +1254,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
             const token = actor.token
                 ? actor.token
-                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor.id === actor.id);
+                : canvas.tokens.controlled.find((canvasToken) => canvasToken.actor?.id === actor.id);
 
             if (token) {
                 await ConditionManager.addConditionToToken(condition, token);
@@ -1279,7 +1269,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }
         }
 
-        if (isPhysicalItem(itemData)) {
+        if (itemData.isPhysical) {
             const container = $(event.target).parents('[data-item-is-container="true"]');
             let containerId = null;
             if (container[0] !== undefined) {
@@ -1362,12 +1352,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     private onItemRoll(event: JQuery.ClickEvent) {
         event.preventDefault();
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-        const item = this.actor.getOwnedItem(itemId ?? '');
-        if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
-            // we don't want to show the item card for items that aren't identified
-            return;
-        }
-
+        const item = this.actor.items.get(itemId ?? '');
         item?.roll(event);
     }
 
@@ -1389,10 +1374,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition') return;
 
         const chatData = item.getChatData({ secrets: this.actor.owner });
-
-        if (game.user.isGM || !(item instanceof PhysicalItemPF2e) || item.hasShowableMystifiedState) {
-            this.renderItemSummary(li, item, chatData);
-        }
+        this.renderItemSummary(li, item, chatData);
     }
 
     protected renderItemSummary(li: JQuery, _item: ItemPF2e, chatData: any) {
@@ -1404,7 +1386,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             summary.slideUp(200, () => summary.remove());
         } else {
             const div = $(
-                `<div class="item-summary"><div class="item-description">${chatData.description.value}</div></div>`,
+                `<div class="item-summary"><div class="item-description">${TextEditor.enrichHTML(
+                    chatData.description.value,
+                )}</div></div>`,
             );
             const props = $('<div class="item-properties tags"></div>');
             if (chatData.properties) {
@@ -1423,16 +1407,16 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     )}</span>`,
                 );
             // append traits (only style the tags if they contain description data)
-            if (chatData.traits && chatData.traits.length) {
-                chatData.traits.forEach((property: any) => {
-                    if (property.description)
-                        props.append(
-                            `<span class="tag tag_alt" title="${localize(property.description)}">${localize(
-                                property.label,
-                            )}</span>`,
-                        );
-                    else props.append(`<span class="tag">${localize(property.label)}</span>`);
-                });
+            if (Array.isArray(chatData.traits)) {
+                for (const property of chatData.traits) {
+                    const label: string = game.i18n.localize(property.label);
+                    if (property.description) {
+                        const description: string = game.i18n.localize(property.description);
+                        props.append(`<span class="tag tag_alt" title="${description}">${label}</span>`);
+                    } else {
+                        props.append(`<span class="tag">${label}</span>`);
+                    }
+                }
             }
 
             div.append(props);
