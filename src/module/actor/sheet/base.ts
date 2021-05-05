@@ -883,15 +883,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         // Update the field value and save the form
         if (statType === 'item') {
-            let itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            if (itemId === undefined) {
-                // Then item is spellcastingEntry, this could be refactored
-                // but data-contained-id and proviciency/proficient need to be refactored everywhere to give
-                // Lore Skills, Martial Skills and Spellcasting Entries the same structure.
-
-                itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const item = this.actor.items.get(itemId);
+            if (item instanceof SpellcastingEntryPF2e) {
                 if (category === 'focus') {
-                    const item = this.actor.getOwnedItem(itemId);
                     const focusPoolSize = getProperty(item?.data ?? {}, 'data.focus.pool') || 1;
                     newLevel = Math.clamped(newLevel, 0, focusPoolSize);
                     this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.focus.points': newLevel });
