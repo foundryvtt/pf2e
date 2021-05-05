@@ -118,12 +118,13 @@ const UpdateActorFromPfsDbEntry = async (pfsDbEntry: PfsDbEntry, existingActor: 
         existingActor.update({ 'data.traits.languages': updatedLanguages });
 
         // *** Grant items *** //
-        pfsDbEntry.items.forEach((item) => {
+        pfsDbEntry.items.forEach(async (item) => {
             const match = sourceIdPattern.exec(item.sourceId ?? '');
             // This assumes SourceIds are still Compendium.pf2e.<pack>.<id>
             const pack = Array.isArray(match) ? match[2] : undefined;
             const id = Array.isArray(match) ? match[3] : undefined;
             const lookupData: ItemLookupData = { pack, id };
+            await grantItem(existingActor, lookupData);
         });
     }
 };
@@ -147,10 +148,6 @@ const grantItem = async (owner: ActorPF2e, lookupData: ItemLookupData): Promise<
     if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
         await owner.createEmbeddedEntity('OwnedItem', toGrant.data);
     }
-};
-
-const valueIsLookupData = (value: unknown): value is ItemLookupData => {
-    return value instanceof Object && 'pack' in value && 'id' in value;
 };
 
 const ConvertActorToPfsDbEntry = (actor: ActorPF2e): PfsDbEntry => {
