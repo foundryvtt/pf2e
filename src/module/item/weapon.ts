@@ -1,5 +1,6 @@
 import { PhysicalItemPF2e } from './physical';
 import { BaseWeaponType, WeaponCategory, WeaponData, WeaponGroup } from './data/types';
+import { TRADITION_TRAITS } from './data/values';
 import { ProficiencyModifier } from '@module/modifiers';
 import { getAttackBonus } from './runes';
 import { LocalizePF2e } from '@module/system/localize';
@@ -25,25 +26,14 @@ export class WeaponPF2e extends PhysicalItemPF2e {
     }
 
     /** @override */
-    prepareData() {
-        /** Prevent unhandled exceptions on pre-migrated data */
+    prepareData(): void {
         this.data.data.traits.rarity ??= { value: 'common' };
 
-        // Add trait(s) from potency rune
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'] as const;
-        const hasPotencyRune = !!this.data.data.potencyRune.value;
-        const traits: { value: string[] } = this.data.data.traits;
-
-        traits.value = [
-            ...traits.value,
-            hasPotencyRune ? 'evocation' : [],
-            hasPotencyRune && !traditionTraits.some((trait) => traits.value.includes(trait)) ? 'magical' : [],
-        ].flat();
-
-        traits.value = Array.from(new Set(traits.value));
-
-        // Update this value now that derived traits are set
-        this.data.isInvested = this.isInvested;
+        const baseTraits = this.data.data.traits.value;
+        const fromRunes: 'evocation'[] = this.data.data.potencyRune.value ? ['evocation'] : [];
+        const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
+        const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
+        this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
 
         super.prepareData();
     }

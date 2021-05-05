@@ -14,7 +14,7 @@ export interface TreasurePF2e {
     _data: TreasureData;
 }
 
-export class MeleePF2e extends PhysicalItemPF2e {
+export class MeleePF2e extends ItemPF2e {
     /** @override */
     get rarity(): Rarity {
         return 'common';
@@ -23,16 +23,6 @@ export class MeleePF2e extends PhysicalItemPF2e {
     /** @override */
     get isEquipped(): true {
         return true;
-    }
-
-    /** @override */
-    get isInvested(): true {
-        return true;
-    }
-
-    /** @override */
-    get identificationStatus(): 'identified' {
-        return 'identified';
     }
 
     /** @override */

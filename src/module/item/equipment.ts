@@ -25,7 +25,7 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
 
         const itemType = objectHasKey(translations.UnidentifiedType, slotType)
             ? translations.UnidentifiedType[slotType]
-            : game.i18n.localize('ITEM.TypeEquipment');
+            : translations.UnidentifiedType.Object;
 
         if (typeOnly) return itemType;
 
