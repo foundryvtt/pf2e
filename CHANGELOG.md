@@ -1,5 +1,21 @@
 # Patch Notes:
 
+## Version 1.14.2
+### Bug Fixes
+* (stwlam) Fix styling of items on hazard sheets
+* (stwlam) Fix display of spontaneous spell slots
+* (stwlam) Fix item identification DCs
+* (stwlam) Restore invested toggle on character sheet
+* (Drental) Add Path to Perfection generic features to serve as reminders on level up. Closes #1392
+* (nikolaj-a) Fix players being unable to end their own combat turn
+* (nikolaj-a) Update actor sheet if that actor has an effect that expires. Closes #1393
+
+### Core System Improvements
+* (In3luki) Show traits in chat data of containers and treasure items
+* (Supe) Default action image to empty by default instead of single action, to prevent 1 minute activities look like they take one action
+* (Drental) Make immediate effects have unlimited duration, so their rule elements are not always disabled, until we come up with a real solution
+
+
 ## Version 1.14.1
 ### Workarounds for homebrew builds
 * (stwlam) Don't attempt slot-heightening in "spontaneous focus" spellcasting entries
