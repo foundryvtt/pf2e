@@ -1,19 +1,16 @@
 <form class="{{cssClass}} updatedNPCSheet" autocomplete="off">
     <div class="container">
-
     <header class="title-bar">
-      <h1 class='name'>{{actor.name}}</h1>
+      <h1 class="name">{{actor.name}}</h1>
         <h1 class="editHazardButton">
             <label>{{localize "PF2E.EditHazardLabel"}}</label>
             <input class="isHazardEditable" name="flags.pf2e.editHazard.value" type="checkbox" data-dtype="Boolean" {{checked flags.pf2e.editHazard.value}}/>
         </h1>
-      <h1 class='level'>Hazard {{data.details.level}}</h1>
+      <h1 class="level">Hazard {{data.details.level}}</h1>
     </header>
 
     <div class="top-section">
-
       <div class="top-quick-container">
-
         <span class="hp-current pf-large" title="{{localize 'PF2E.MaxHitPointsShortLabel'}}: {{data.attributes.hp.max}}">
           <label>{{localize "PF2E.CurrentHitPointsShortLabel"}}:</label>
           <input name="data.attributes.hp.value" type="number" value="{{data.attributes.hp.value}}" data-dtype="Number" placeholder="0">
@@ -160,10 +157,10 @@
     </div>
     {{/if}}
 
-    <ol class="actions-list inventory-list directory-list">
+    <ol class="actions-list inventory-list directory-list item-list">
       {{#each actor.actions as |section sid|}}
         {{#each section.actions as |action aid|}}
-          <li class="item action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+          <li class="item list-row action-item" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
             <div class="item-name rollable">
                 <div class="item-image" style="background-image: url({{action.img}})"></div>
                 <h4>{{action.name}}</h4>
@@ -190,7 +187,7 @@
       {{/each}}
 
       {{#each actor.attacks as |section sid|}}
-        <li class="item inventory-header sub-category spellbook-header attack-header">
+        <li class="list-row inventory-header sub-category spellbook-header attack-header">
             <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
             {{#if ../owner}}
             <div class="item-controls">
@@ -199,12 +196,10 @@
             {{/if}}
         </li>
         {{#each section.items as |item iid|}}
-        <li class="item" data-item-id="{{item._id}}">
+        <li class="item list-row" data-item-id="{{item._id}}">
             <div class="melee-name rollable">
                 <div class="item-image" style="background-image: url({{item.img}})"></div>
-                <h4>
-                    {{item.name}}
-                </h4>
+                <h4>{{item.name}}</h4>
                 <div class="melee-buttons">
                     {{#if item.traits}}
                         {{#each item.traits as |trait tid|}}
@@ -267,7 +262,7 @@
       <div>{{{enrichHTML data.details.routine}}}</div>
     </div>
 
-    <hr>
+    <hr />
     {{/if}}
 
     {{#if hasResetDetails}}
