@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data/types';
+import { SpellcastingEntryData, SpellData } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Delete owned spells with no corresponding spellcastiong entry */
@@ -8,20 +8,14 @@ export class Migration632DeleteOrphanedSpells extends MigrationBase {
 
     requiresFlush = true;
 
-    async updateItem(itemData: ItemDataPF2e, actorData?: ActorDataPF2e) {
-        if (!actorData || itemData.type !== 'spell') return;
-
-        const ownedItems = actorData.items;
-        const entry = ownedItems.find(
-            (otherItemData) =>
-                otherItemData.type === 'spellcastingEntry' && otherItemData._id === itemData.data.location.value,
+    async updateActor(actorData: ActorDataPF2e) {
+        const spells = actorData.items.filter((itemData): itemData is SpellData => itemData.type === 'spell');
+        const entries = actorData.items.filter(
+            (itemData): itemData is SpellcastingEntryData => itemData.type === 'spellcastingEntry',
         );
-
-        if (!entry) {
-            const spellData = ownedItems.find((otherItemData) => otherItemData._id === itemData._id);
-            if (spellData?.type === 'spell') {
-                ownedItems.splice(ownedItems.indexOf(spellData), 1);
-            }
-        }
+        const orphans = spells.filter(
+            (spellData) => !entries.some((entryData) => entryData._id === spellData.data.location.value),
+        );
+        actorData.items = actorData.items.filter((itemData) => !orphans.some((orphan) => orphan._id === itemData._id));
     }
 }

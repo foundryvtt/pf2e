@@ -29,7 +29,27 @@
                 }
             ]
         },
-        "rules": [],
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Use Wolf Drag",
+                "property": "flags.pf2e.rollOptions.damage-roll.wolf-drag"
+            },
+            {
+                "critical": true,
+                "diceNumber": 1,
+                "key": "PF2E.RuleElement.DamageDice",
+                "override": {
+                    "dieSize": "d12"
+                },
+                "predicate": {
+                    "all": [
+                        "wolf-drag"
+                    ]
+                },
+                "selector": "damage"
+            }
+        ],
         "source": {
             "value": ""
         },

@@ -7,7 +7,7 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
     /** @override */
     getChatData(this: Owned<EquipmentPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
-        const traits = this.traitChatData(CONFIG.PF2E.weaponTraits);
+        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
         const properties = [data.equipped.value ? game.i18n.localize('PF2E.EquipmentEquippedLabel') : null].filter(
             (p) => p,
         );
@@ -25,7 +25,7 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
 
         const itemType = objectHasKey(translations.UnidentifiedType, slotType)
             ? translations.UnidentifiedType[slotType]
-            : game.i18n.localize('ITEM.TypeEquipment');
+            : translations.UnidentifiedType.Object;
 
         if (typeOnly) return itemType;
 

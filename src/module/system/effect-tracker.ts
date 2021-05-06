@@ -1,6 +1,7 @@
 import { EffectPF2e } from '@item/effect';
 import { ActorPF2e } from '@actor/base';
 import { EffectData } from '@item/data/types';
+import { CreaturePF2e } from '@actor/creature';
 
 export class EffectTracker {
     private trackedEffects: EffectPF2e[] = [];
@@ -81,17 +82,20 @@ export class EffectTracker {
 
         // only update each actor once, and only the ones with effect expiry changes
         const updatedActors = expired.reduce((actors, effect) => {
-            if (effect.actor && !actors.includes(effect.actor)) {
+            if (effect.actor && !actors.some((actor) => actor.id === effect.actor?.id)) {
                 actors.push(effect.actor);
             }
             return actors;
         }, [] as ActorPF2e[]);
         for await (const actor of updatedActors) {
-            await actor.update({}, { diff: false });
+            actor.prepareData();
+            if (actor instanceof CreaturePF2e) {
+                actor.redrawTokenEffects();
+            }
         }
     }
 
-    async removeExpired() {
+    async removeExpired(actor?: ActorPF2e) {
         const expired: EffectPF2e[] = [];
         for (let index = 0; index < this.trackedEffects.length; index++) {
             const effect = this.trackedEffects[index];
@@ -103,7 +107,9 @@ export class EffectTracker {
             }
         }
         for await (const effect of expired) {
-            await effect.delete();
+            if (!effect.actor || !actor || effect.actor._id === actor._id) {
+                await effect.delete();
+            }
         }
     }
 }

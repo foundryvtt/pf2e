@@ -62,5 +62,8 @@ export function listen(): void {
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();
+
+        // Final pass to ensure effects on actors properly consider the initiative of any active combat
+        game.pf2e.effectTracker.refresh();
     });
 }

@@ -143,48 +143,48 @@
     <!-- Items List -->
     <ol class="actions-list inventory-list directory-list">
 
-        <li class="item action-header">
+        <li class="list-row action-header">
           <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.StealthLabel'}}</h3>
         </li>
 
-        <li class="item hazard-editor">
+        <li class="list-row hazard-editor">
           {{editor content=data.attributes.stealth.details target="data.attributes.stealth.details" button=true owner=owner editable=editable}}
         </li>
 
-        <li class="item action-header">
+        <li class="list-row action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardDescriptionLabel'}}</h3>
         </li>
 
-        <li class="item hazard-editor">
+        <li class="list-row hazard-editor">
           {{editor content=data.details.description target="data.details.description" button=true owner=owner editable=editable}}
         </li>
 
-        <li class="item action-header">
+        <li class="list-row action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardDisableLabel'}}</h3>
         </li>
 
-        <li class="item hazard-editor">
+        <li class="list-row hazard-editor">
           {{editor content=data.details.disable target="data.details.disable" button=true owner=owner editable=editable}}
         </li>
 
-        <li class="item action-header">
+        <li class="list-row action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardRoutineLabel'}}</h3>
         </li>
 
-        <li class="item hazard-editor">
+        <li class="list-row hazard-editor">
           {{editor content=data.details.routine target="data.details.routine" button=true owner=owner editable=editable}}
         </li>
 
-        <li class="item action-header">
+        <li class="list-row action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">{{localize 'PF2E.HazardResetLabel'}}</h3>
         </li>
 
-        <li class="item hazard-editor">
+        <li class="list-row hazard-editor">
           {{editor content=data.details.reset target="data.details.reset" button=true owner=owner editable=editable}}
         </li>
 
         <!-- Action Header -->
-        <li class="item action-header">
+        <li class="list-row action-header">
             <h3 class="item-name pf-heading pf-actions" style="display: block; padding-left: 44px">Actions</h3>
             {{#if owner}}
             <div class="item-controls">
@@ -196,7 +196,7 @@
         <!-- List Actions -->
         {{#each actor.actions as |section sid|}}
             {{#each section.actions as |action aid|}}
-            <li class="item" data-item-id="{{action._id}}">
+            <li class="list-row item" data-item-id="{{action._id}}">
                 <div class="item-name rollable">
                     <div class="item-image" style="background-image: url({{action.img}})"></div>
                     <h4>
@@ -218,7 +218,7 @@
 
         <!-- List Attacks -->
         {{#each actor.attacks as |section sid|}}
-            <li class="item inventory-header sub-category spellbook-header">
+            <li class="list-row inventory-header sub-category spellbook-header">
                 <h3 class="item-name pf-sub-category pf-actions">{{section.label}}</h3>
                 {{#if ../owner}}
                 <div class="item-controls">
@@ -227,7 +227,7 @@
                 {{/if}}
             </li>
             {{#each section.items as |item iid|}}
-            <li class="item" data-item-id="{{item._id}}">
+            <li class="list-row item" data-item-id="{{item._id}}">
                 <div class="melee-name rollable">
                     <div class="item-image" style="background-image: url({{item.img}})"></div>
                     <h4>

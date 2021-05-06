@@ -17,6 +17,7 @@ import { LocalizePF2e } from '@system/localize';
 import { PhysicalItemSheetPF2e } from '@item/sheet/physical';
 import { ActorSheetPF2eDataEntryNPC } from '@actor/sheet/data-entry-npc-sheet';
 import { FeatSheetPF2e } from '@item/sheet/feat';
+import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
 
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
@@ -102,7 +103,7 @@ export function registerSheets() {
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
 
-    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'spellcastingEntry'];
+    const itemTypes = ['condition', 'effect', 'lore', 'martial', 'melee', 'spellcastingEntry'];
     for (const itemType of itemTypes) {
         Items.registerSheet('pf2e', ItemSheetPF2e, {
             types: [itemType],
@@ -111,8 +112,7 @@ export function registerSheets() {
         });
     }
 
-    const physicalItemTypes = ['armor', 'backpack', 'consumable', 'equipment', 'melee', 'treasure', 'weapon'];
-    for (const itemType of physicalItemTypes) {
+    for (const itemType of PHYSICAL_ITEM_TYPES) {
         Items.registerSheet('pf2e', PhysicalItemSheetPF2e, {
             types: [itemType],
             label: game.i18n.format(sheetLabel, { type: localizeType(itemType) }),

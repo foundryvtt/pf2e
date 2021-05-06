@@ -33,9 +33,6 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
                     description: {
                         value: '',
                     },
-                    traits: {
-                        value: [],
-                    },
                 },
             },
             misidentified: {},
