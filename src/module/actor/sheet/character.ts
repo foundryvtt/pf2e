@@ -234,6 +234,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const containerData = containers.get(i._id)!;
                 i.containerData = containerData;
                 i.isInContainer = containerData.isInContainer;
+                i.hasInvestedTrait = itemData.isInvested !== null;
 
                 // Read-Only Equipment
                 if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
