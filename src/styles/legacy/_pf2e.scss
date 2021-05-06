@@ -166,7 +166,7 @@
             .sheet-tabs {
                 height: 30px;
 
-                > .item {
+                > .list-row {
                     line-height: 24px;
                     padding-top: 3px;
                     font-size: 12px;
@@ -334,7 +334,7 @@
             border-top: 1px solid var(--secondary-background);
             border-bottom: 1px solid var(--primary-background);
 
-            .sheet-tabs > .item {
+            .sheet-tabs > .list-row {
                 border-radius: 5px 5px 0 0;
 
                 &.active {
@@ -1103,7 +1103,7 @@
             border: 1px solid;
         }
 
-        .item .skill-input > input {
+        .list-row .skill-input > input {
             width: 22px;
             height: 22px;
             margin: 1px;
@@ -1402,7 +1402,7 @@
             .class-list {
                 overflow-y: hidden;
 
-                .item {
+                .list-row {
                     height: 44px;
                     background: rgba(0, 0, 0, 0.03);
                     padding: 2px;
@@ -1512,7 +1512,7 @@
             }
         }
 
-        .actions-list .lores-list .item, .lores-list .item {
+        .actions-list .lores-list .item, .lores-list .list-row {
             grid-area: auto;
             display: grid;
             grid: "value name rank item armor" 36px / 32px auto 46px 46px 20px;
@@ -1541,7 +1541,7 @@
         }
 
         .skills {
-            .skill > *, .item > * {
+            .skill > *, .list-row > * {
                 flex: 1;
             }
         }
@@ -1746,7 +1746,7 @@
             margin: 0;
             padding: 0;
 
-            .item {
+            .list-row {
                 display: flex;
                 flex-direction: row;
                 flex-wrap: wrap;
@@ -1787,7 +1787,7 @@
             flex: 0 0 44px;
         }
 
-        .inventory-header .item .item-controls a, .action-header .item-controls a {
+        .inventory-header .list-row .item-controls a, .action-header .item-controls a {
             display: block;
             float: left;
             width: 44px;
@@ -1834,7 +1834,7 @@
             overflow-y: auto;
         }
 
-        .inventory-list .item {
+        .inventory-list .list-row {
             display: flex;
             flex-direction: row;
             flex-wrap: nowrap;
@@ -1858,7 +1858,7 @@
                 &:first-child {
                     padding-left: 4px;
                     &.long {
-                        min-width: 245px;
+                        min-width: 230px;
                     }
                 }
             }
@@ -1939,7 +1939,7 @@
 }
 
 .pf2e.actor {
-    .inventory-list .item {
+    .inventory-list .list-row {
         .item-quantity {
             flex: 0 0 64px;
             display: flex;
@@ -1976,7 +1976,7 @@
         }
     }
 
-    .item.action-header .item-controls a {
+    .list-row.action-header .item-controls a {
         display: block;
         float: left;
         width: 22px;
@@ -1986,7 +1986,7 @@
     }
 
     .inventory-list {
-        .item {
+        .list-row {
             .item-controls a.item-toggle-equip {
                 color: #aaa;
 
@@ -2009,9 +2009,6 @@
             margin: 0;
             padding: 2px 0;
             text-align: center;
-
-/* font-weight: bold;
- */
         }
     }
 
@@ -2032,17 +2029,11 @@
     .inventory-list .inventory-header {
         font-weight: 700;
         line-height: 20px;
-
-        /* background: rgba(0, 0, 0, 0.05);
-         */
         background: var(--primary-background);
 
         &.sub-category {
             font-weight: 700;
             line-height: 20px;
-
-            /* background: rgba(0, 0, 0, 0.05);
-             */
             background: var(--secondary-background);
         }
 
@@ -2064,8 +2055,6 @@
             }
 
             &.spell-create, &.spell-browse {
-                /* width: 100%;
-                 */
                 color: white;
             }
         }
@@ -2077,9 +2066,6 @@
 
     &.character-sheet .inventory-list {
         height: calc(100% - 42px);
-
-/* height: 100%;
- */
     }
 
     .container-capacity {
@@ -2203,7 +2189,7 @@
             }
         }
 
-        .inventory-list .item {
+        .inventory-list .list-row {
             .spell-school-header, .spell-action-header {
                 color: white;
                 flex: 1;
@@ -2253,7 +2239,7 @@
             height: calc(100% - 96px);
         }
 
-        .item {
+        .list-row {
             .item-name, .melee-name {
                 flex: 2;
                 border-right: 1px solid var(--secondary-background);
@@ -2261,7 +2247,7 @@
         }
     }
 
-    .item {
+    .list-row {
         .spell-school, .spell-action {
             flex: 1;
             font-size: 12px;
@@ -2391,7 +2377,7 @@
 /* ----------------------------------------- */
 
 .pf2e {
-    &.item form {
+    &.list-row form {
         display: flex;
         flex-direction: column;
         flex-wrap: nowrap;
@@ -2961,7 +2947,7 @@ button > i.far {
         }
     }
 
-    &.updatedNPCSheet form .inventory-list .item {
+    &.updatedNPCSheet form .inventory-list .list-row {
         .item-name h4 {
             flex: 2;
             line-height: 1.4em;
@@ -2990,7 +2976,7 @@ button > i.far {
         }
     }
 
-    &.actor .inventory-list .item .spell-buttons {
+    &.actor .inventory-list .list-row .spell-buttons {
         flex: none;
         display: inline-flex;
         justify-content: flex-end;
@@ -3058,7 +3044,7 @@ button > i.far {
             margin-block-start: 0;
         }
 
-        .item hr {
+        .list-row hr {
             border-width: 1px;
             border-top-color: #111;
             margin-block-start: 0.5em;
@@ -3178,17 +3164,17 @@ button > i.far {
             border-top: 1px solid var(--secondary-background);
         }
 
-        .item .item-name.rollable .item-image {
+        .list-row .item-name.rollable .item-image {
             min-height: 24px;
         }
     }
 
-    .item .melee-name.rollable .item-image {
+    .list-row .melee-name.rollable .item-image {
         min-height: 24px;
     }
 
     &.updatedNPCSheet {
-        .item {
+        .list-row {
             .item-controls {
                 display: flex;
                 align-items: center;
@@ -3214,7 +3200,7 @@ button > i.far {
     margin-left: 10px;
 }
 
-li.item.hover-container {
+li.list-row.hover-container {
     background-color: #aaa !important;
 }
 
