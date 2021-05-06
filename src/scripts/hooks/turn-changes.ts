@@ -36,7 +36,10 @@ export function listen(): void {
         }
     });
 
-    Hooks.on('deleteCombat', (combat: CombatPF2e, _options: any, _userID: string) => {
+    Hooks.on('deleteCombat', async (combat: CombatPF2e, _options: any, _userID: string) => {
+        await game.pf2e.effectTracker.refresh();
+        game.pf2e.effectPanel.refresh();
+
         if (combat.started && combat.current?.tokenId) {
             const end = canvas.tokens.placeables.find((p) => p.id === combat.current.tokenId);
             if (end) {
