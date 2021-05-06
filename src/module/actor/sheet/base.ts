@@ -49,6 +49,8 @@ import {
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
 import { ConfigPF2e } from '@scripts/config';
+import { NPCPF2e } from '@actor/npc';
+import { CharacterPF2e } from '@actor/character';
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
@@ -1564,27 +1566,25 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                 }
 
                                 // Define new spellcasting entry
+                                const actor = this.actor;
+                                if (!(actor instanceof CharacterPF2e || actor instanceof NPCPF2e)) return;
+                                const actorAbilities = actor.data.data.abilities;
+
+                                const candidateAbilities = ['int', 'wis', 'cha'] as const;
+                                const bestAbility = (() => {
+                                    if (spellcastingType === 'innate') return 'cha';
+
+                                    return candidateAbilities.reduce((abilityA, abilityB) =>
+                                        actorAbilities[abilityA].value > actorAbilities[abilityB].value
+                                            ? abilityA
+                                            : abilityB,
+                                    );
+                                })();
                                 const spellcastingEntity = {
-                                    ability: {
-                                        type: 'String',
-                                        label: 'Spellcasting Ability',
-                                        value: '',
-                                    },
-                                    spelldc: {
-                                        type: 'String',
-                                        label: 'Class DC',
-                                        item: 0,
-                                    },
-                                    tradition: {
-                                        type: 'String',
-                                        label: 'Magic Tradition',
-                                        value: magicTradition,
-                                    },
-                                    prepared: {
-                                        type: 'String',
-                                        label: 'Spellcasting Type',
-                                        value: spellcastingType,
-                                    },
+                                    ability: { value: bestAbility },
+                                    spelldc: { value: 0, dc: 0, mod: 0 },
+                                    tradition: { value: magicTradition },
+                                    prepared: { value: spellcastingType },
                                     showUnpreparedSpells: { value: true },
                                 };
 
