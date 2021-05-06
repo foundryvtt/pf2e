@@ -244,7 +244,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // This is needed only if we want to prepare the data model only for the levels that a spell is already prepared in setup spellbook levels for all of those to catch case where sheet only has spells of lower level prepared in higher level slot
-        const tradition = spellcastingEntry.data.tradition?.value;
+        const tradition = spellcastingEntry.data.tradition.value;
         const isNotLevelBasedSpellcasting = tradition === 'ritual' || tradition === 'focus';
 
         const slots = spellcastingEntry.data.slots;
@@ -263,8 +263,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             if (!isNotLevelBasedSpellcasting || spellLevel === castingLevel) {
                 const slotKey = `slot${spellLevel}` as keyof typeof slots;
                 spellbook[spellLevel] ??= {
-                    isCantrip: spellData.isCantrip,
-                    isFocus: spellData.isFocusSpell,
+                    isCantrip: spellLevel === 0,
+                    isFocus: spellLevel === 11,
                     label: CONFIG.PF2E.spellLevels[spellLevel as keyof ConfigPF2e['PF2E']['spellLevels']],
                     spells: [],
                     prepared: [],
