@@ -40,8 +40,6 @@ export interface LabeledNumber extends LabeledValue {
 export interface AbilityData {
     /** The raw value of this ability score; computed from the mod for npcs automatically. */
     value: number;
-    /** The minimum value this ability score can have. */
-    min: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
