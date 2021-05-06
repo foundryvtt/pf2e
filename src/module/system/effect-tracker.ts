@@ -89,6 +89,7 @@ export class EffectTracker {
         }, [] as ActorPF2e[]);
         for await (const actor of updatedActors) {
             actor.prepareData();
+            actor.sheet.render(false);
             if (actor instanceof CreaturePF2e) {
                 actor.redrawTokenEffects();
             }
