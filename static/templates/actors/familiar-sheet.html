@@ -94,7 +94,7 @@
           <span>{{numberFormat data.attributes.ac.value decimals=0 sign=false}}</span>
         </div>
         {{#each data.saves}}
-        <div title="{{this.breakdown}}" data-saving-throw="{{@key}}">
+        <div class="saving-throw" title="{{this.breakdown}}" data-saving-throw="{{@key}}">
           <b>{{localize this.name}}</b>
           <span>{{numberFormat this.value decimals=0 sign=true}}</span>
         </div>
@@ -124,7 +124,7 @@
         <ol class="item-list">
           {{#each items as |item idx|}}
             {{#if (eq item.type 'condition')}}
-            <li class="item expandable" data-item-id="{{item._id}}">
+            <li class="item list-row expandable" data-item-id="{{item._id}}">
               <div class="item-name">
                 <div class="item-image" style="background-image: url({{item.img}})">
                   <i class="fas fa-comment-alt"></i>
@@ -144,11 +144,11 @@
       </div>
 
       <div class="effects">
-        <h2>{{localize 'PF2E.EffectsLabel'}}</h2>
+        <h2>{{localize "PF2E.EffectsLabel"}}</h2>
         <ol class="item-list">
           {{#each items as |item idx|}}
             {{#if (eq item.type 'effect')}}
-            <li class="item expandable" data-item-id="{{item._id}}">
+            <li class="item list-row expandable" data-item-id="{{item._id}}">
               <div class="item-name">
                 <div class="item-image" style="background-image: url({{item.img}})">
                   <i class="fas fa-comment-alt"></i>
