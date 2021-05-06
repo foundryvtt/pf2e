@@ -22,22 +22,22 @@
         <section class="sheet-body">
             <h4 class="sheet-tabs tabs" data-tab-container="primary">
                 {{#if detailsActive}}
-                    <a class="item" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
-                    <a class="item active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                    <a class="list-row" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+                    <a class="list-row active" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                 {{else}}
-                    <a class="item active" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
+                    <a class="list-row active" data-tab="description">{{localize "PF2E.ItemDescription"}}</a>
                     {{#if hasDetails}}
-                        <a class="item" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
+                        <a class="list-row" data-tab="details">{{localize "PF2E.ItemDetails"}}</a>
                     {{/if}}
                 {{/if}}
                 {{#if (and item.isPhysical user.isGM)}}
-                    <a class="item" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
+                    <a class="list-row" data-tab="mystification">{{localize "PF2E.ItemMystification"}}</a>
                 {{/if}}
                 {{#if enabledRulesUI}}
-                    <a class="item" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
+                    <a class="list-row" data-tab="rules">{{localize "PF2E.ItemRules"}}</a>
                 {{/if}}
                 {{#if activeEffects.showAEs}}
-                    <a class="item" data-tab="active-effects">{{localize "PF2E.ActiveEffects.Label"}}</a>
+                    <a class="list-row" data-tab="active-effects">{{localize "PF2E.ActiveEffects.Label"}}</a>
                 {{/if}}
             </h4>
 
