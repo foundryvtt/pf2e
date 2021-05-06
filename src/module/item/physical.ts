@@ -12,6 +12,10 @@ import { MystifiedTraits } from './data/values';
 import { getUnidentifiedPlaceholderImage } from './identification';
 
 export abstract class PhysicalItemPF2e extends ItemPF2e {
+    get level(): number {
+        return this.data.data.level.value;
+    }
+
     /** @override */
     get traits(): Set<string> {
         const traits: string[] = this.data.data.traits.value;
@@ -188,6 +192,4 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 export interface PhysicalItemPF2e {
     data: PhysicalItemData;
     _data: PhysicalItemData;
-
-    level?: number;
 }

@@ -110,8 +110,7 @@ export function identifyItem(
     item: PhysicalItemPF2e,
     { proficiencyWithoutLevel = false, notMatchingTraditionModifier }: IdentifyItemOptions,
 ): GenericIdentifyDCs | IdentifyMagicDCs | IdentifyAlchemyDCs {
-    const level = item.level || 0;
-    const dc = calculateDC(level, { proficiencyWithoutLevel });
+    const dc = calculateDC(item.level, { proficiencyWithoutLevel });
     const rarity = getDcRarity(item.data);
     const baseDc = adjustDCByRarity(dc, rarity);
     if (item.isMagical) {

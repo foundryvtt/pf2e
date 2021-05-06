@@ -990,7 +990,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             };
         } else {
             return {
-                imageUrl: 'systems/pf2e/icons/actions/OneAction.webp',
+                imageUrl: 'systems/pf2e/icons/actions/Empty.webp',
                 actionGlyph: '',
             };
         }
