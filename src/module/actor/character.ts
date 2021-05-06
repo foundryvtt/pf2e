@@ -599,7 +599,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const keys = Object.keys(combatProficiencies) as CombatProficiencyKey[];
             return keys
                 .filter((key) => key.startsWith(prefix) && key.replace(prefix, '') in translationMap)
-                .map((key) => ({ key, data: combatProficiencies[key]! }))
+                .map((key) => ({ key, data: combatProficiencies[key] }))
                 .reduce((accumulated: ProficienciesBrief, proficiency) => {
                     if (!Number.isInteger(proficiency.data.rank)) {
                         return accumulated;
@@ -618,12 +618,10 @@ export class CharacterPF2e extends CreaturePF2e {
         const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, data.martial, 'weapon-group-');
 
         // Add any homebrew categories
-        const homebrewCategoryKeys = Object.keys(CONFIG.PF2E.weaponCategories).filter(
-            (category): category is WeaponCategory => !['simple', 'martial', 'advanced', 'unarmed'].includes(category),
-        );
-        for (const key of homebrewCategoryKeys) {
-            if (!(key in data.martial)) {
-                data.martial[key] = {
+        const homebrewCategoryTags = game.settings.get('pf2e', 'homebrew.weaponCategories');
+        for (const tag of homebrewCategoryTags) {
+            if (!(tag.id in data.martial)) {
+                data.martial[tag.id] = {
                     rank: 0,
                     value: 0,
                     breakdown: '',
@@ -631,12 +629,12 @@ export class CharacterPF2e extends CreaturePF2e {
             }
         }
 
-        const homebrewCategories = homebrewCategoryKeys.reduce(
+        const homebrewCategories = homebrewCategoryTags.reduce(
             (categories: Partial<Record<WeaponCategory, { name: string; rank: ZeroToFour }>>, category) =>
                 mergeObject(categories, {
-                    [category]: {
-                        name: CONFIG.PF2E.weaponCategories[category],
-                        rank: data.martial[category]?.rank ?? 0,
+                    [category.id]: {
+                        name: category.value,
+                        rank: data.martial[category.id]?.rank ?? 0,
                     },
                 }),
             {},

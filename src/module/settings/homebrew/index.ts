@@ -6,13 +6,19 @@ import { MigrationRunner } from '@module/migration-runner';
 import '@yaireo/tagify/src/tagify.scss';
 import { CharacterPF2e } from '@actor/character';
 import { MigrationBase } from '@module/migrations/base';
+import { ConfigPF2e } from '@scripts/config';
+import { BaseWeaponType } from '@item/data/types';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
 
 export interface HomebrewTag<T extends ConfigPF2eListName = ConfigPF2eListName> {
-    id: string;
-    value: T;
+    id: T extends 'baseWeapons'
+        ? BaseWeaponType
+        : T extends Exclude<ConfigPF2eListName, 'baseWeapons'>
+        ? keyof ConfigPF2e['PF2E'][T]
+        : never;
+    value: string;
 }
 
 export class HomebrewElements extends SettingsMenuPF2e {
@@ -123,7 +129,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
     protected async _updateObject(_event: Event, data: Record<ConfigPF2eListName, HomebrewTag[]>): Promise<void> {
         const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= randomID(16);
+                tag.id ??= randomID(16) as HomebrewTag<typeof key>['id'];
             }
 
             return this.processDeletions(key, data[key]);

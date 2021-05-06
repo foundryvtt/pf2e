@@ -115,6 +115,7 @@ declare global {
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
+        get(module: 'pf2e', setting: 'homebrew.weaponCategories'): HomebrewTag<'weaponCategories'>[];
         get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
         get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
