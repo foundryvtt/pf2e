@@ -820,6 +820,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
      * @param item        Instance of the item being transferred.
      * @param quantity    Number of items to move.
      * @param containerId Id of the container that will contain the item.
+     * @return The target item, if the transfer is successful, or otherwise `null`.
      */
     async transferItemToActor(
         targetActor: ActorPF2e,
@@ -879,7 +880,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const stackItem = this.findStackableItem(targetActor, newItemData);
         if (stackItem && stackItem.data.type !== 'backpack') {
             const stackQuantity = stackItem.quantity + quantity;
-            return stackItem.update({ 'data.quantity.value': stackQuantity });
+            await stackItem.update({ 'data.quantity.value': stackQuantity });
+            return stackItem;
         }
 
         // Otherwise create a new item
