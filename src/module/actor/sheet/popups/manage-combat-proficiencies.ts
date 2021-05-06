@@ -50,7 +50,7 @@ function remove(actor: CharacterPF2e, event: JQuery.ClickEvent) {
     const translationKey = key.replace(/^weapon-(?:base|group)-/, '');
     const name =
         translationKey in weaponGroups
-            ? weaponGroups[translationKey as WeaponGroup]
+            ? game.i18n.localize(weaponGroups[translationKey as WeaponGroup])
             : baseWeapons[translationKey as BaseWeaponType];
 
     const dialogText = LocalizePF2e.translations.PF2E.RemoveCombatProficiency;

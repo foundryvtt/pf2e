@@ -223,6 +223,7 @@ const traitsDescriptions = {
     healing: 'PF2E.TraitDescriptionHealing',
     incorporeal: 'PF2E.TraitDescriptionIncorporeal',
     infused: 'PF2E.TraitDescriptionInfused',
+    invested: 'PF2E.TraitDescriptionInvested',
     leshy: 'PF2E.TraitDescriptionLeshy',
     light: 'PF2E.TraitDescriptionLight',
     linguistic: 'PF2E.TraitDescriptionLinguistic',

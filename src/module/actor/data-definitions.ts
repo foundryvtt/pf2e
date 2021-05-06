@@ -40,8 +40,6 @@ export interface LabeledNumber extends LabeledValue {
 export interface AbilityData {
     /** The raw value of this ability score; computed from the mod for npcs automatically. */
     value: number;
-    /** The minimum value this ability score can have. */
-    min: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
@@ -286,6 +284,7 @@ export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
 export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+
 export type SenseAcuity = 'precise' | 'imprecise' | 'vague';
 export interface SenseData extends LabeledString {
     acuity?: SenseAcuity;

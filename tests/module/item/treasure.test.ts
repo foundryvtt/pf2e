@@ -130,7 +130,6 @@ describe('should calculate wealth based on inventory', () => {
     });
 
     test('adjusts value', () => {
-        // eslint-disable-next-line prettier/prettier
         const items = [
             treasure({ denomination: 'pp', value: 10, quantity: 2 }),
             treasure({ denomination: 'gp', value: 9, quantity: 3 }),

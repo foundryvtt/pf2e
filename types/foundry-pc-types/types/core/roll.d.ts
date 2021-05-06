@@ -256,20 +256,6 @@ declare class Roll {
     /* -------------------------------------------- */
 
     /**
-     * Alter the Roll formula by adding or multiplying the number of dice included in each roll term
-     *
-     * @param multiply  A multiplier for the number of dice in each Die term
-     * @param add       A number of dice to add to each Die term
-     *
-     * @example
-     * let r = new Roll("4d8 + 4 + 2d4");
-     * r.alter(1, 2);
-     * r.formula;
-     * > 9d8 + 4 + 5d4
-     */
-    alter(multiply: number, add: number, options?: { multiplyNumeric: boolean }): Roll;
-
-    /**
      * Validate that a provided roll formula can represent a valid
      * @param formula A candidate formula to validate
      * @return Is the provided input a valid dice formula?

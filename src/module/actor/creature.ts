@@ -337,7 +337,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
     redrawTokenEffects() {
         if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
         this.redrawingTokenEffects = true;
-        const tokens = this.token ? [this.token] : this.getActiveTokens();
+        const tokens = (() => {
+            const token = this.token;
+            if (token?.parent) {
+                return [token];
+            } else if (token) {
+                const t = canvas.tokens.placeables.find((t) => t.id === token.id);
+                return t ? [t] : [];
+            } else {
+                return this.getActiveTokens();
+            }
+        })();
         for (const token of tokens) {
             if (token.scene.id === canvas.scene.id && token.parent) {
                 token.drawEffects();

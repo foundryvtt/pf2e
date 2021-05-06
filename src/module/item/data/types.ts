@@ -1,14 +1,27 @@
-import { AbilityString, ValuesList, ZeroToFour } from '@actor/data-definitions';
-import { PF2RuleElementData } from '../../rules/rules-data-definitions';
-import { RollNotePF2e } from '../../notes';
+import { AbilityString, CreatureTrait, ValuesList, ZeroToFour } from '@actor/data-definitions';
+import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
+import { RollNotePF2e } from '@module/notes';
 import { ConfigPF2e } from '@scripts/config';
+import { PHYSICAL_ITEM_TYPES } from './values';
 import { LocalizePF2e } from '@module/system/localize';
+import { DamageType } from '@module/damage-calculation';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
 export type ProficiencyRank = 'untrained' | 'trained' | 'expert' | 'master' | 'legendary';
 
+export type ArmorTrait = keyof ConfigPF2e['PF2E']['armorTraits'];
+export type ConsumableTrait = keyof ConfigPF2e['PF2E']['consumableTraits'];
+export type EquipmentTrait = keyof ConfigPF2e['PF2E']['equipmentTraits'];
+export type FeatTrait = keyof ConfigPF2e['PF2E']['featTraits'];
+export type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
+export type WeaponTrait = keyof ConfigPF2e['PF2E']['weaponTraits'];
+
+export type PhysicalItemTrait = ArmorTrait | ConsumableTrait | EquipmentTrait | WeaponTrait;
+type ItemTrait = CreatureTrait | FeatTrait | PhysicalItemTrait | SpellTrait;
+
 export interface ItemTraits extends ValuesList {
+    value: ItemTrait[];
     rarity: { value: Rarity };
 }
 
@@ -41,9 +54,6 @@ export interface MystifiedData {
         description: {
             value: string;
         };
-        traits: {
-            value: string[];
-        };
     };
 }
 
@@ -55,7 +65,12 @@ export interface IdentificationData {
     misidentified: {};
 }
 
+export interface PhysicalItemTraits extends ItemTraits {
+    value: PhysicalItemTrait[];
+}
+
 export interface PhysicalDetailsData extends ItemDescriptionData {
+    traits: PhysicalItemTraits;
     quantity: {
         value: number;
     };
@@ -180,7 +195,6 @@ export interface TreasureDetailsData extends PhysicalDetailsData, ItemLevelData 
 export type WeaponCategory = keyof ConfigPF2e['PF2E']['weaponCategories'];
 export type WeaponGroup = keyof ConfigPF2e['PF2E']['weaponGroups'];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
-export type WeaponTrait = keyof ConfigPF2e['PF2E']['weaponTraits'];
 interface WeaponTraits extends ItemTraits {
     value: WeaponTrait[];
 }
@@ -189,7 +203,7 @@ export interface WeaponDamage {
     value: string;
     dice: number;
     die: string;
-    damageType: string;
+    damageType: DamageType;
     modifier: number;
 }
 
@@ -265,8 +279,12 @@ export type ArmorCategory = keyof ConfigPF2e['PF2E']['armorTypes'];
 export type ArmorGroup = keyof ConfigPF2e['PF2E']['armorGroups'];
 export type BaseArmorType = keyof typeof LocalizePF2e.translations.PF2E.Item.Armor.Base;
 export type ResilientRuneType = '' | 'resilient' | 'greaterResilient' | 'majorResilient';
+export interface ArmorTraits extends ItemTraits {
+    value: ArmorTrait[];
+}
 
 export interface ArmorDetailsData extends MagicDetailsData, ItemLevelData {
+    traits: ArmorTraits;
     armor: {
         value: number;
     };
@@ -329,7 +347,7 @@ export interface MeleeDamageRoll {
     damageType: string;
 }
 
-export interface MeleeDetailsData extends MagicDetailsData {
+export interface MeleeDetailsData extends ItemDescriptionData {
     attack: {
         value: string;
     };
@@ -341,13 +359,18 @@ export interface MeleeDetailsData extends MagicDetailsData {
         value: string[];
     };
     weaponType: {
-        value: string;
+        value: 'melee' | 'ranged';
     };
 }
 
 export type ConsumableType = keyof ConfigPF2e['PF2E']['consumableTypes'];
+export interface ConsumableTraits extends ItemTraits {
+    value: ConsumableTrait[];
+}
 
 export interface ConsumableDetailsData extends MagicDetailsData, ItemLevelData, ActivatedEffectData {
+    traits: ConsumableTraits;
+
     consumableType: {
         value: ConsumableType;
     };
@@ -381,7 +404,13 @@ export interface ConsumableDetailsData extends MagicDetailsData, ItemLevelData, 
     };
 }
 
-export interface EquipmentDetailsData extends MagicDetailsData, ActivatedEffectData {}
+export interface EquipmentTraits extends ItemTraits {
+    value: EquipmentTrait[];
+}
+
+export interface EquipmentDetailsData extends MagicDetailsData, ActivatedEffectData {
+    traits: EquipmentTraits;
+}
 
 export interface ABCFeatureEntryData {
     pack?: string;
@@ -391,7 +420,12 @@ export interface ABCFeatureEntryData {
     level: number;
 }
 
+export interface CreatureTraits extends ItemTraits {
+    value: CreatureTrait[];
+}
+
 export interface AncestryDetailsData extends ItemDescriptionData {
+    traits: CreatureTraits;
     additionalLanguages: {
         count: number; // plus int
         value: string[];
@@ -530,7 +564,6 @@ export interface TrickMagicItemCastData {
 }
 
 export type MagicSchoolKey = keyof ConfigPF2e['PF2E']['magicSchools'];
-type SpellTrait = keyof ConfigPF2e['PF2E']['spellTraits'];
 interface SpellTraits extends ItemTraits {
     value: SpellTrait[];
 }
@@ -801,7 +834,7 @@ export interface EffectDetailsData extends ItemDescriptionData {
     };
 }
 
-export type PhysicalItemType = 'armor' | 'backpack' | 'consumable' | 'equipment' | 'melee' | 'treasure' | 'weapon';
+export type PhysicalItemType = typeof PHYSICAL_ITEM_TYPES[number];
 export type ItemType =
     | 'action'
     | 'ancestry'
@@ -813,12 +846,13 @@ export type ItemType =
     | 'kit'
     | 'lore'
     | 'martial'
+    | 'melee'
     | 'spell'
     | 'spellcastingEntry'
     | PhysicalItemType;
-export type InventoryItemType = Exclude<PhysicalItemType, 'melee'>;
+export type InventoryItemType = PhysicalItemType;
 
-export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
+interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
     type: ItemType;
     data: D;
 
@@ -826,7 +860,7 @@ export interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemDat
     isPhysical: boolean;
 }
 
-export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData> extends BaseItemDataPF2e<D> {
+interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDetailsData> extends BaseItemDataPF2e<D> {
     type: PhysicalItemType;
     data: D;
 
@@ -835,6 +869,14 @@ export interface BasePhysicalItemData<D extends PhysicalDetailsData = PhysicalDe
     isEquipped: boolean;
     isInvested: boolean | null;
     isIdentified: boolean;
+    isMagical: boolean;
+    isAlchemical: boolean;
+    isCursed: boolean;
+}
+
+interface BaseNonPhysicalItemData<D extends ItemDescriptionData> extends BaseItemDataPF2e<D> {
+    /** Prepared data */
+    isPhysical: false;
 }
 
 export interface ContainerData extends BasePhysicalItemData<ContainerDetailsData> {
@@ -853,14 +895,6 @@ export interface ArmorData extends BasePhysicalItemData<ArmorDetailsData> {
     type: 'armor';
 }
 
-export interface MeleeData extends BasePhysicalItemData<MeleeDetailsData> {
-    type: 'melee';
-
-    /** Prepared data */
-    isEquipped: true;
-    isInvested: true;
-}
-
 export interface ConsumableData extends BasePhysicalItemData<ConsumableDetailsData> {
     type: 'consumable';
 }
@@ -869,105 +903,72 @@ export interface EquipmentData extends BasePhysicalItemData<EquipmentDetailsData
     type: 'equipment';
 }
 
-export interface KitData extends BaseItemDataPF2e<KitDetailsData> {
+export interface MeleeData extends BaseNonPhysicalItemData<MeleeDetailsData> {
+    type: 'melee';
+}
+
+export interface KitData extends BaseNonPhysicalItemData<KitDetailsData> {
     type: 'kit';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface AncestryData extends BaseItemDataPF2e<AncestryDetailsData> {
+export interface AncestryData extends BaseNonPhysicalItemData<AncestryDetailsData> {
     type: 'ancestry';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface BackgroundData extends BaseItemDataPF2e<BackgroundDetailsData> {
+export interface BackgroundData extends BaseNonPhysicalItemData<BackgroundDetailsData> {
     type: 'background';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface ClassData extends BaseItemDataPF2e<ClassDetailsData> {
+export interface ClassData extends BaseNonPhysicalItemData<ClassDetailsData> {
     type: 'class';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface FeatData extends BaseItemDataPF2e<FeatDetailsData> {
+export interface FeatData extends BaseNonPhysicalItemData<FeatDetailsData> {
     type: 'feat';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface LoreData extends BaseItemDataPF2e<LoreDetailsData> {
+export interface LoreData extends BaseNonPhysicalItemData<LoreDetailsData> {
     type: 'lore';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface MartialData extends BaseItemDataPF2e<MartialDetailsData> {
+export interface MartialData extends BaseNonPhysicalItemData<MartialDetailsData> {
     type: 'martial';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface ActionData extends BaseItemDataPF2e<ActionDetailsData> {
+export interface ActionData extends BaseNonPhysicalItemData<ActionDetailsData> {
     type: 'action';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface SpellData extends BaseItemDataPF2e<SpellDetailsData> {
+export interface SpellData extends BaseNonPhysicalItemData<SpellDetailsData> {
     type: 'spell';
 
     /** Prepared data */
-    isPhysical: false;
+    isCantrip: boolean;
+    isFocusSpell: boolean;
+    isRitual: boolean;
 }
 
-export interface SpellcastingEntryData extends BaseItemDataPF2e<SpellcastingEntryDetailsData> {
+export interface SpellcastingEntryData extends BaseNonPhysicalItemData<SpellcastingEntryDetailsData> {
     type: 'spellcastingEntry';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface ConditionData extends BaseItemDataPF2e<ConditionDetailsData> {
+export interface ConditionData extends BaseNonPhysicalItemData<ConditionDetailsData> {
     type: 'condition';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
-export interface EffectData extends BaseItemDataPF2e<EffectDetailsData> {
+export interface EffectData extends BaseNonPhysicalItemData<EffectDetailsData> {
     type: 'effect';
-
-    /** Prepared data */
-    isPhysical: false;
 }
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
-export type PhysicalItemData =
-    | ContainerData
-    | TreasureData
-    | WeaponData
-    | ArmorData
-    | MeleeData
-    | ConsumableData
-    | EquipmentData;
+export type PhysicalItemData = ContainerData | TreasureData | WeaponData | ArmorData | ConsumableData | EquipmentData;
 
 export type ItemDataPF2e =
     | PhysicalItemData
     | FeatData
     | LoreData
     | MartialData
+    | MeleeData
     | ActionData
     | SpellData
     | SpellcastingEntryData
@@ -984,7 +985,26 @@ export function isItemSystemData(data: Record<string, any>): data is ItemDescrip
 
 /** Checks if the given item data is a physical item with a quantity and other physical fields. */
 export function isPhysicalItem(itemData: ItemDataPF2e): itemData is PhysicalItemData {
-    return 'quantity' in itemData.data;
+    const physicalItemTypes: readonly string[] = PHYSICAL_ITEM_TYPES;
+    return physicalItemTypes.includes(itemData.type);
+}
+
+export interface TraitChatData {
+    value: string;
+    label: string;
+    description?: string;
+    mystified?: boolean;
+    excluded?: boolean;
+}
+type ItemChatData = Omit<ItemDataPF2e['data'], 'traits'> & { traits: TraitChatData[] | ItemTraits };
+type PhysicalChatData = Omit<PhysicalItemData['data'], 'traits'> & { traits: TraitChatData[] | ItemTraits };
+
+export function isItemChatData(data: Record<string, unknown>): data is ItemChatData {
+    return isItemSystemData(data);
+}
+
+export function isPhysicalChatData(data: Record<string, unknown>): data is PhysicalChatData {
+    return 'quantity' in data && isItemSystemData(data);
 }
 
 export function isInventoryItem(type: string): boolean {

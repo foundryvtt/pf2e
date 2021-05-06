@@ -1,3 +1,7 @@
+import { ConfigPF2e } from '@scripts/config';
+
+declare const CONFIG: ConfigPF2e;
+
 export class MystifiedTraits {
     private static mystifiedTraits: Set<string> = new Set();
 
@@ -12,7 +16,10 @@ export class MystifiedTraits {
     }
 
     /** Exclude any mystified traits from the provided trait list */
-    static includes(trait: string): boolean {
+    static has(trait: string): boolean {
         return this.mystifiedTraits.has(trait);
     }
 }
+
+export const PHYSICAL_ITEM_TYPES = ['armor', 'backpack', 'consumable', 'equipment', 'treasure', 'weapon'] as const;
+export const TRADITION_TRAITS = ['arcane', 'primal', 'divine', 'occult'] as const;

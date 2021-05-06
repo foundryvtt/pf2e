@@ -24,6 +24,17 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.category.value === 'ritual';
     }
 
+    prepareData() {
+        super.prepareData();
+
+        // Avoid filling up the console with error notifications from pre-migrated data
+        if (!this.data.data.category) return;
+
+        this.data.isCantrip = this.isCantrip;
+        this.data.isFocusSpell = this.isFocusSpell;
+        this.data.isRitual = this.isRitual;
+    }
+
     getChatData(this: Owned<SpellPF2e>, htmlOptions: EnrichHTMLOptions = {}, rollOptions: { spellLvl?: number } = {}) {
         if (!this.actor) return {};
 
