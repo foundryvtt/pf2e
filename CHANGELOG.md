@@ -1,5 +1,28 @@
 # Patch Notes:
 
+## Version 1.14.1
+### Workarounds for homebrew builds
+* (stwlam) Don't attempt slot-heightening in "spontaneous focus" spellcasting entries
+
+### Bug Fixes
+* (stwlam) Fix item transfers between actors
+* (stwlam) Restore setting of abilities and saves in item sheet
+* (stwlam) Restore drag & drop of character features/feats
+* (stwlam) Fix handling of spellcasting entry proficiency rank button on character sheet. Closes #1380
+* (stwlam) Fix identify item popup to show applicable skills
+* (stwlam) Localize the Remove Combat Proficiency confirmation message. Closes #1372
+* (nikolaj-a) Fix mid-round effect expiry. Closes #1378
+* (nikolaj-a) Ensure effects consider initiative when checking expiry on world loading
+
+### Content Changes
+* (Shandyan) Tweaks to Wolf Drag, Overwhelming Blow, and Major Bones Curse
+
+### Core System Improvements
+* (stwlam) Hide certain traits on an item while it's not identified
+* (stwlam) Set a default ability score for new spellcasting entries
+* (stwlam) Hide NPC inventory controls from non-owners
+
+
 ## Version 1.14.0
 ### Bug Fixes
 * (stwlam) Don't add magical trait to non-magical weapons and armor. Closes #1363
