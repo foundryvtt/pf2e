@@ -2,13 +2,31 @@ import { PhysicalItemPF2e } from './physical';
 import { ItemPF2e } from './base';
 import { ContainerData, ConditionData, LoreData, MartialData, MeleeData, TreasureData, Rarity } from './data/types';
 
-export class ContainerPF2e extends PhysicalItemPF2e {}
+export class ContainerPF2e extends PhysicalItemPF2e {
+    /** @override */
+    getChatData(this: Owned<ContainerPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+        const data = this.data.data;
+        const traits = this.traitChatData(CONFIG.PF2E.equipmentTraits);
+
+        return this.processChatData(htmlOptions, { ...data, traits });
+    }
+}
+
 export interface ContainerPF2e {
     data: ContainerData;
     _data: ContainerData;
 }
 
-export class TreasurePF2e extends PhysicalItemPF2e {}
+export class TreasurePF2e extends PhysicalItemPF2e {
+    /** @override */
+    getChatData(this: Owned<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
+        const data = this.data.data;
+        const traits = this.traitChatData({});
+
+        return this.processChatData(htmlOptions, { ...data, traits });
+    }
+}
+
 export interface TreasurePF2e {
     data: TreasureData;
     _data: TreasureData;

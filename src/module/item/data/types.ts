@@ -69,7 +69,7 @@ export interface PhysicalItemTraits extends ItemTraits {
     value: PhysicalItemTrait[];
 }
 
-export interface PhysicalDetailsData extends ItemDescriptionData {
+export interface PhysicalDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: PhysicalItemTraits;
     quantity: {
         value: number;
@@ -169,7 +169,7 @@ export interface MagicDetailsData extends PhysicalDetailsData {
     };
 }
 
-export interface ContainerDetailsData extends MagicDetailsData, ItemLevelData {
+export interface ContainerDetailsData extends MagicDetailsData {
     capacity: {
         type: string;
         value: number;
@@ -183,7 +183,7 @@ export interface ContainerDetailsData extends MagicDetailsData, ItemLevelData {
     };
 }
 
-export interface TreasureDetailsData extends PhysicalDetailsData, ItemLevelData {
+export interface TreasureDetailsData extends PhysicalDetailsData {
     denomination: {
         value: 'pp' | 'gp' | 'sp' | 'cp';
     };
@@ -209,7 +209,7 @@ export interface WeaponDamage {
 
 export type StrikingRuneType = 'striking' | 'greaterStriking' | 'majorStriking';
 
-export interface WeaponDetailsData extends MagicDetailsData, ItemLevelData {
+export interface WeaponDetailsData extends MagicDetailsData {
     traits: WeaponTraits;
     weaponType: {
         value: WeaponCategory | null;
@@ -283,7 +283,7 @@ export interface ArmorTraits extends ItemTraits {
     value: ArmorTrait[];
 }
 
-export interface ArmorDetailsData extends MagicDetailsData, ItemLevelData {
+export interface ArmorDetailsData extends MagicDetailsData {
     traits: ArmorTraits;
     armor: {
         value: number;
@@ -368,7 +368,7 @@ export interface ConsumableTraits extends ItemTraits {
     value: ConsumableTrait[];
 }
 
-export interface ConsumableDetailsData extends MagicDetailsData, ItemLevelData, ActivatedEffectData {
+export interface ConsumableDetailsData extends MagicDetailsData, ActivatedEffectData {
     traits: ConsumableTraits;
 
     consumableType: {
