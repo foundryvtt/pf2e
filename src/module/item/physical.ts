@@ -5,7 +5,7 @@ import {
     IdentificationStatus,
     PhysicalItemData,
     Rarity,
-    isMagicDetailsData,
+    isMagicItemData,
     TraitChatData,
 } from './data/types';
 import { MystifiedTraits } from './data/values';
@@ -53,7 +53,13 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     get isInvested(): boolean | null {
         if (!this.traits.has('invested')) return null;
-        return this.isIdentified && 'invested' in this.data.data && this.data.data.invested.value === true;
+        return (
+            this.actor?.type === 'character' &&
+            this.isEquipped &&
+            this.isIdentified &&
+            isMagicItemData(this.data) &&
+            this.data.data.invested.value === true
+        );
     }
 
     get isCursed(): boolean {
@@ -66,8 +72,6 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** @override */
     prepareData(): void {
-        /** Prevent unhandled exceptions on pre-migrated data */
-        this.data.data.traits.rarity ??= { value: 'common' };
         const identificationData = this.data.data.identification;
         const mystifyDataMissing =
             !identificationData || !identificationData.status || !identificationData.unidentified;
@@ -77,26 +81,14 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             return super.prepareData();
         }
 
-        // Uninvest any unequipped items
-        if (isMagicDetailsData(this.data.data) && this.isInvested === true && !this.isEquipped) {
-            this.data.data.invested.value = false;
-        }
-
         super.prepareData();
+
         // Disable active effects if the item isn't equipped and (if applicable) invested
         if (!this.isEquipped || this.isInvested === false) {
             for (const effectData of this.data.effects) {
                 effectData.disabled = true;
             }
         }
-
-        this.data.isPhysical = true;
-        this.data.isEquipped = this.isEquipped;
-        this.data.isInvested = this.isInvested;
-        this.data.isIdentified = this.isIdentified;
-        this.data.isMagical = this.isMagical;
-        this.data.isAlchemical = this.isAlchemical;
-        this.data.isCursed = this.isCursed;
 
         // Update properties according to identification status
         const identifyStatus = this.identificationStatus;
@@ -105,6 +97,19 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
             this.data.data.identification[identifyStatus] = mystifiedData;
             mergeObject(this.data, mystifiedData, { inplace: true, insertKeys: false });
         }
+
+        this.setPredicates();
+    }
+
+    /** Set predicates from getters for later access when only the data is available */
+    protected setPredicates() {
+        this.data.isPhysical = true;
+        this.data.isEquipped = this.isEquipped;
+        this.data.isInvested = this.isInvested;
+        this.data.isIdentified = this.isIdentified;
+        this.data.isMagical = this.isMagical;
+        this.data.isAlchemical = this.isAlchemical;
+        this.data.isCursed = this.isCursed;
     }
 
     /** Can the provided item stack with this item? */
@@ -116,6 +121,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
         thisData.equipped.value = otherData.equipped.value;
         thisData.containerId.value = otherData.containerId.value;
         thisData.identification = otherData.identification;
+
         return JSON.stringify(thisData) === JSON.stringify(otherData);
     }
 
