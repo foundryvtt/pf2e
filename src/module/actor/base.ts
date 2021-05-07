@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e, ConditionData, WeaponData, isMagicDetailsData } from '@item/data/types';
+import { ItemDataPF2e, ConditionData, WeaponData, isMagicItemData } from '@item/data/types';
 import {
     ActorDataPF2e,
     HazardData,
@@ -872,7 +872,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const newItemData = duplicate(item._data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if (isMagicDetailsData(newItemData.data)) {
+        if (isMagicItemData(newItemData)) {
             newItemData.data.invested.value = false;
         }
 
