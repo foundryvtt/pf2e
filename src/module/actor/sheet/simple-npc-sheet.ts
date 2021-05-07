@@ -35,7 +35,7 @@ import {
     TreasureData,
     WeaponData,
 } from '@item/data/types';
-import { ErrorPF2e, objectHasKey } from '@module/utils';
+import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
 import { InventoryItem, SheetInventory } from './data-types';
 
@@ -605,17 +605,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Assign spells to spell entries
         for (const spell of spellsList) {
-            const spellType = spell.data.time.value;
-
-            // Assign icon based on type of action
-            if (spellType === 'reaction') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else if (spellType === 'free') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else {
-                const actionsCost = parseInt(spellType, 10);
-                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-            }
+            // Assign icon based on cast time
+            spell.glyph = getActionGlyph(spell.data.time.value);
 
             // Assign components
             spell.data.components.somatic = spell.data.components.value.includes('somatic');
@@ -695,27 +686,18 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                         (spellData): spellData is SheetSpellData => !!spellData._id,
                     );
                     for (const spell of preparedSpells) {
-                        const actionType = spell.data.time.value;
-                        if (actionType) {
-                            // Assign icon based on spell type
-                            if (actionType === 'reaction') {
-                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
-                            } else if (actionType === 'free') {
-                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
-                            } else {
-                                const actionsCost = parseInt(actionType, 10);
-                                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-                            }
-                            // Assign components
-                            spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                            spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                            spell.data.components.material = spell.data.components.value.includes('material');
+                        // Assign icon based on cast time
+                        spell.glyph = getActionGlyph(spell.data.time.value);
 
-                            spell.traits = spell.data.traits.value.map((trait) => ({
-                                label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                                description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                            }));
-                        }
+                        // Assign components
+                        spell.data.components.somatic = spell.data.components.value.includes('somatic');
+                        spell.data.components.verbal = spell.data.components.value.includes('verbal');
+                        spell.data.components.material = spell.data.components.value.includes('material');
+
+                        spell.traits = spell.data.traits.value.map((trait) => ({
+                            label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
+                            description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
+                        }));
                     }
                 }
             }
