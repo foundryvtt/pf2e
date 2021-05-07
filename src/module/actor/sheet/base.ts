@@ -599,14 +599,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': !active });
         });
 
-        // Toggle invest
-        html.find('.item-toggle-invest').on('click', (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.parents('.item').attr('data-item-id') ?? '';
-            const active = f.hasClass('active');
-            this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.invested.value': !active });
-        });
-
         // Trait Selector
         html.find('.trait-selector').on('click', (event) => this.onTraitSelector(event));
 
