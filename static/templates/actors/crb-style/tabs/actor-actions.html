@@ -78,8 +78,8 @@
                         {{#each actor.actions as |section sid|}}
                             <li class="action-header">
                                 <h3 class="pf-heading pf-actions">{{section.label}}</h3>
-                                {{#if ../owner}}
-                                <div class="item-controls" style="display: flex">
+                                {{#if @root.owner}}
+                                <div class="item-controls">
                                     <a class="item-control item-create" title="{{localize 'PF2E.CreateActionTitle'}}" data-type="action" data-action-type="{{sid}}"><i class="fas fa-plus"></i></a>
                                     <a class="item-control action-browse" title="{{localize 'PF2E.OpenActionBrowserTitle'}}" data-type="feat"><i class="fas fa-search"></i></a>
                                 </div>
@@ -92,11 +92,9 @@
                                     <div class="item-image" style="background-image: url({{action.img}})">
                                         <i class="fas fa-comment-alt"></i>
                                     </div>
-                                    <h4>
-                                        {{action.name}}
-                                    </h4>
+                                    <h4>{{action.name}}</h4>
                                 </div>
-                                {{#if ../../owner}}
+                                {{#if @root.owner}}
                                 <div class="item-controls">
                                     <a class="item-control item-edit" title="{{localize 'PF2E.EditItemTitle'}}"><i class="fas fa-edit"></i></a>
                                     {{#unless action.feat}}
