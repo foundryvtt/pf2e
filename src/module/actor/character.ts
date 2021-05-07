@@ -39,6 +39,7 @@ import {
     PerceptionData,
     ProficiencyData,
     WeaponGroupProficiencyKey,
+    WeaponTraitProficiencyKey,
 } from './data-definitions';
 import { RollNotePF2e } from '../notes';
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from '../rules/rules-data-definitions';
@@ -616,6 +617,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const weaponMap = LocalizePF2e.translations.PF2E.Weapon.Base;
         const weaponProficiencies = getProficiencies(weaponMap, data.martial, 'weapon-base-');
         const groupProficiencies = getProficiencies(CONFIG.PF2E.weaponGroups, data.martial, 'weapon-group-');
+        const traitProficiencies = getProficiencies(CONFIG.PF2E.weaponProficiencyTraits, data.martial, 'weapon-trait-');
 
         // Add any homebrew categories
         const homebrewCategoryTags = game.settings.get('pf2e', 'homebrew.weaponCategories');
@@ -660,6 +662,7 @@ export class CharacterPF2e extends CreaturePF2e {
             ...homebrewCategories,
             ...weaponProficiencies,
             ...groupProficiencies,
+            ...traitProficiencies,
         };
 
         // Always add a basic unarmed strike.
@@ -720,13 +723,19 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                 }
 
+                const proficiencyTraits = item.data.traits.value
+                    .map((trait) => trait.replace(/-d[0-9]{1,2}$/, ''))
+                    .filter((trait) => trait in CONFIG.PF2E.weaponProficiencyTraits);
+
                 const baseWeapon = item.data.baseItem ?? item.data.slug;
                 const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank;
                 const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank;
+                const traitRank = proficiencies[`weapon-trait-${proficiencyTraits}`]?.rank;
                 const proficiencyRank = Math.max(
                     proficiencies[item.data.weaponType.value ?? '']?.rank ?? 0,
                     baseWeaponRank ?? 0,
                     groupRank ?? 0,
+                    traitRank ?? 0,
                 );
                 modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
@@ -1171,7 +1180,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     /** Add a proficiency in a weapon group or base weapon */
-    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
+    async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey | WeaponTraitProficiencyKey) {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
         const newProficiency: ProficiencyData = { rank: 0, value: 0, breakdown: '', custom: true };

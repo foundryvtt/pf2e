@@ -1,15 +1,20 @@
 import { CharacterPF2e } from '@actor/character';
-import { BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
-import { BaseWeaponType, WeaponGroup } from '@item/data/types';
+import {
+    BaseWeaponProficiencyKey,
+    WeaponGroupProficiencyKey,
+    WeaponTraitProficiencyKey,
+} from '@actor/data-definitions';
 import { LocalizePF2e } from '@module/system/localize';
 
 async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void> {
     const translations = LocalizePF2e.translations.PF2E;
     const weaponGroups = CONFIG.PF2E.weaponGroups;
     const baseWeapons = translations.Weapon.Base;
+    const weaponTraits = CONFIG.PF2E.weaponProficiencyTraits;
     const template = await renderTemplate('systems/pf2e/templates/actors/add-combat-proficiency-dialog.html', {
         message: translations.AddCombatProficiency.Message,
         weaponGroups,
+        weaponTraits,
         baseWeapons,
     });
 
@@ -26,6 +31,8 @@ async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void
                         const proficiencyKey =
                             selection in weaponGroups
                                 ? (`weapon-group-${selection}` as WeaponGroupProficiencyKey)
+                                : selection in weaponTraits
+                                ? (`weapon-trait-${selection}` as WeaponTraitProficiencyKey)
                                 : (`weapon-base-${selection}` as BaseWeaponProficiencyKey);
                         await actor.addCombatProficiency(proficiencyKey);
                         const $tab = $(event.currentTarget).closest('.tab.skills');
@@ -44,14 +51,17 @@ async function add(actor: CharacterPF2e, event: JQuery.ClickEvent): Promise<void
 }
 
 function remove(actor: CharacterPF2e, event: JQuery.ClickEvent) {
-    const weaponGroups = CONFIG.PF2E.weaponGroups;
-    const baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
+    const weaponGroups: Record<string, string> = CONFIG.PF2E.weaponGroups;
+    const weaponProficiencyTraits: Record<string, string> = CONFIG.PF2E.weaponProficiencyTraits;
+    const baseWeapons: Record<string, string> = LocalizePF2e.translations.PF2E.Weapon.Base;
     const key = $(event.currentTarget).closest('li.skill.custom').data('skill');
-    const translationKey = key.replace(/^weapon-(?:base|group)-/, '');
+    const translationKey = key.replace(/^weapon-(?:base|group|trait)-/, '');
     const name =
         translationKey in weaponGroups
-            ? game.i18n.localize(weaponGroups[translationKey as WeaponGroup])
-            : baseWeapons[translationKey as BaseWeaponType];
+            ? weaponGroups[translationKey]
+            : translationKey in weaponProficiencyTraits
+            ? weaponProficiencyTraits[translationKey]
+            : baseWeapons[translationKey];
 
     const dialogText = LocalizePF2e.translations.PF2E.RemoveCombatProficiency;
     const message = game.i18n.format(dialogText.Message, { proficiency: name });

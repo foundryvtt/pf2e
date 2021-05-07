@@ -194,6 +194,7 @@ export interface TreasureDetailsData extends PhysicalDetailsData {
 
 export type WeaponCategory = keyof ConfigPF2e['PF2E']['weaponCategories'];
 export type WeaponGroup = keyof ConfigPF2e['PF2E']['weaponGroups'];
+export type WeaponProficiencyTrait = keyof ConfigPF2e['PF2E']['weaponProficiencyTraits'];
 export type BaseWeaponType = keyof typeof LocalizePF2e.translations.PF2E.Weapon.Base;
 interface WeaponTraits extends ItemTraits {
     value: WeaponTrait[];

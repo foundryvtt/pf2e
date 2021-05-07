@@ -1209,6 +1209,11 @@ export const PF2ECONFIG = {
         'modular-b-P-or-s': 'PF2E.TraitModular',
     },
 
+    weaponProficiencyTraits: {
+        monk: 'PF2E.TraitMonk',
+        'two-hand': 'PF2E.TraitTwoHand',
+    },
+
     armorTraits: {
         ...magicSchools,
         ...spellTraditions,

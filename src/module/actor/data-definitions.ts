@@ -1,4 +1,12 @@
-import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
+import {
+    BaseWeaponType,
+    ConsumableData,
+    ItemDataPF2e,
+    Rarity,
+    Size,
+    WeaponGroup,
+    WeaponProficiencyTrait,
+} from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -376,7 +384,13 @@ export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
 type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
 export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
 type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
-export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
+export type WeaponTraitProficiencyKey = `weapon-trait-${WeaponProficiencyTrait}`;
+type WeaponTraitProficiencies = Record<WeaponTraitProficiencyKey, ProficiencyData>;
+
+export type CombatProficiencies = CategoryProficiencies &
+    BaseWeaponProficiencies &
+    WeaponGroupProfiencies &
+    WeaponTraitProficiencies;
 
 export type CombatProficiencyKey = keyof CombatProficiencies;
 

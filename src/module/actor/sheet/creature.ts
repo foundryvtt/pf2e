@@ -1,7 +1,7 @@
 import { ProficiencyModifier } from '@module/modifiers';
 import { ActorSheetPF2e } from './base';
 import { ItemPF2e } from '@item/base';
-import { BaseWeaponType, WeaponGroup } from '@item/data/types';
+import { BaseWeaponType, WeaponGroup, WeaponProficiencyTrait } from '@item/data/types';
 import { LocalizePF2e } from '@module/system/localize';
 import { ConsumablePF2e } from '@item/consumable';
 import { SkillData, ZeroToFour } from '@actor/data-definitions';
@@ -136,6 +136,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             for (const [key, proficiency] of proficiencies) {
                 const groupMatch = /weapon-group-([-a-z0-9]+)$/.exec(key);
                 const baseWeaponMatch = /weapon-base-([-a-z0-9]+)$/.exec(key);
+                const weaponTraitMatch = /weapon-trait-([-a-z0-9]+)$/.exec(key);
                 const label = ((): string => {
                     if (objectHasKey(CONFIG.PF2E.martialSkills, key)) {
                         return CONFIG.PF2E.martialSkills[key];
@@ -150,6 +151,10 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                     if (Array.isArray(baseWeaponMatch)) {
                         const baseWeapon = baseWeaponMatch[1] as BaseWeaponType;
                         return LocalizePF2e.translations.PF2E.Weapon.Base[baseWeapon];
+                    }
+                    if (Array.isArray(weaponTraitMatch)) {
+                        const weaponTrait = weaponTraitMatch[1] as WeaponProficiencyTrait;
+                        return CONFIG.PF2E.weaponProficiencyTraits[weaponTrait];
                     }
                     return key;
                 })();
