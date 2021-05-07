@@ -36,16 +36,12 @@ export class SpellPF2e extends ItemPF2e {
     }
 
     getChatData(this: Owned<SpellPF2e>, htmlOptions: EnrichHTMLOptions = {}, rollOptions: { spellLvl?: number } = {}) {
-        if (!this.actor) return { type: undefined };
-
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;
 
         const spellcastingEntryData = this.spellcasting?.data;
-        if (!spellcastingEntryData) return { type: undefined };
-
-        let spellDC = spellcastingEntryData.data.dc?.value ?? spellcastingEntryData.data.spelldc.dc;
-        let spellAttack = spellcastingEntryData.data.attack?.value ?? spellcastingEntryData.data.spelldc.value;
+        let spellDC = spellcastingEntryData?.data.dc?.value ?? spellcastingEntryData?.data.spelldc.dc;
+        let spellAttack = spellcastingEntryData?.data.attack?.value ?? spellcastingEntryData?.data.spelldc.value;
 
         // Adjust spell dcs and attacks for elite/weak
         /** @todo: handle elsewhere */
