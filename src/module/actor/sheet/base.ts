@@ -29,7 +29,6 @@ import { ActorDataPF2e, SkillAbbreviation, AbilityString, SaveString } from '@ac
 import { ScrollWandPopup } from './popups/scroll-wand-popup';
 import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-consumables';
 import { SpellPF2e } from '@item/spell';
-import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ConditionPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
@@ -396,70 +395,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     }
 
     /**
-     * Prepare Spell SLot
-     * Saves the prepared spell slot data to the actor
-     * @param spellLevel The level of the spell slot
-     * @param spellSlot The number of the spell slot
-     * @param spell The item details for the spell
-     */
-    private async allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellData, entryId: string) {
-        if (spell.data.level.value > spellLevel) {
-            console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
-            return;
-        }
-        if (CONFIG.debug.hooks === true)
-            console.debug(
-                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
-            );
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        const entry = this.actor.getOwnedItem(entryId);
-        if (entry) {
-            const updates: any = {
-                _id: entryId,
-                [key]: {
-                    id: spell._id,
-                },
-            };
-            const slot = getProperty(entry, `data.data.slots.slot${spellLevel}.prepared`);
-            if (slot[spellSlot] !== undefined) {
-                if (slot[spellSlot].prepared !== undefined) {
-                    updates[key]['-=prepared'] = null;
-                }
-                if (slot[spellSlot].name !== undefined) {
-                    updates[key]['-=name'] = null;
-                }
-                if (slot[spellSlot].expended !== undefined) {
-                    updates[key]['-=expended'] = null;
-                }
-            }
-            this.actor.updateEmbeddedEntity('OwnedItem', updates);
-        }
-    }
-
-    /**
-     * Remove Spell Slot
-     * Removes the spell from the saved spell slot data for the actor
-     * @param spellLevel The level of the spell slot
-     * @param spellSlot The number of the spell slot
-     */
-    private async removePreparedSpellSlot(spellLevel: number, spellSlot: number, entryId: string) {
-        if (CONFIG.debug.hooks === true)
-            console.debug(
-                `PF2e System | Updating spellcasting entry ${entryId} to remove spellslot ${spellSlot} for spell level ${spellLevel}`,
-            );
-        const key = `data.slots.slot${spellLevel}.prepared.${spellSlot}`;
-        const updates = {
-            _id: entryId,
-            [key]: {
-                name: 'Empty Slot (drag spell here)',
-                id: null,
-                prepared: false,
-            },
-        };
-        this.actor.updateEmbeddedEntity('OwnedItem', updates);
-    }
-
-    /**
      * Sets the expended state of a  Spell Slot
      * Marks the slot as expended which is reflected in the UI
      * @param spellLevel The level of the spell slot
@@ -576,7 +511,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const spellLvl = Number($(event.currentTarget).parents('.item').attr('data-spell-lvl') ?? 0);
             const slotId = Number($(event.currentTarget).parents('.item').attr('data-slot-id') ?? 0);
             const entryId = $(event.currentTarget).parents('.item').attr('data-entry-id') ?? '';
-            this.removePreparedSpellSlot(spellLvl, slotId, entryId);
+            this.actor.unprepareSpell(entryId, spellLvl, slotId);
         });
 
         // Set Expended Status of Spell Slot
@@ -714,10 +649,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         // Toggle Spell prepared value
         html.find('.item-prepare').on('click', (event) => {
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            const item = this.actor.getOwnedItem(itemId ?? '');
-            if (!(item instanceof SpellPF2e)) {
-                throw new Error('Tried to update prepared on item that does not have prepared');
+            const itemId = $(event.currentTarget).closest('.item').attr('data-item-id') ?? '';
+            const item = this.actor.spells.get(itemId);
+            if (!item) {
+                throw ErrorPF2e('Spell not found');
             }
             this.actor.updateEmbeddedEntity('OwnedItem', {
                 _id: item.id,
@@ -742,11 +677,11 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             event.preventDefault();
             const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
             const focusPool = Math.clamped(Number(event.target.value), 0, 3);
-            const item = this.actor.getOwnedItem(itemId);
-            let focusPoints = getProperty(item.data, 'data.focus.points') || 0;
-            focusPoints = Math.clamped(focusPoints, 0, focusPool);
-            await this.actor.updateEmbeddedEntity('OwnedItem', {
-                _id: itemId,
+            const castingAbility = this.actor.items.get(itemId);
+            if (!(castingAbility instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Spellcasting entry not found');
+
+            const focusPoints = Math.clamped(castingAbility.data.data.focus.points, 0, focusPool);
+            castingAbility.update({
                 'data.focus.points': focusPoints,
                 'data.focus.pool': focusPool,
             });
@@ -1068,48 +1003,48 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // or moving it from one spellcastingEntry to another
         if (itemData.type === 'spell') {
             if (dropSlotType === 'spellLevel') {
+                // Spell dropped on a level "chapter" of slots
                 const { itemId, level } = $(event.target).closest('.item').data();
 
-                if (typeof itemId === 'string' && typeof level === 'number') {
-                    if (this.moveSpell(itemData as SpellData, itemId, level)) {
-                        return this.actor.updateOwnedItem(itemData);
-                    }
+                if (typeof itemId === 'string' && Number.isInteger(level)) {
+                    await this.actor.moveSpell(itemData._id, itemId, level);
+                    return itemData;
                 }
             } else if (dropSlotType === 'spell') {
+                // Spell dropped on another spell
                 const sourceId = itemData._id;
                 const dropId = $(event.target).parents('.item').attr('data-item-id') ?? '';
-                const target = this.actor.getOwnedItem(dropId);
-                if (target instanceof SpellPF2e && sourceId !== dropId) {
-                    const source: any = this.actor.getOwnedItem(sourceId);
+                const target = this.actor.spells.get(dropId);
+                if (target && sourceId !== dropId) {
+                    const source = this.actor.spells.get(sourceId);
+                    if (!source) throw ErrorPF2e('Spell not found');
                     const sourceLevel = source.data.data.heightenedLevel?.value ?? source.data.data.level.value;
                     const sourceLocation = source.data.data.location.value;
                     const targetLevel = target.data.data.heightenedLevel?.value ?? target.data.data.level.value;
                     const targetLocation = target.data.data.location.value;
 
                     if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
-                        const siblings: any[] = (this.actor as any).items.entries.filter(
-                            (i: ItemPF2e) =>
-                                i.data.type === 'spell' &&
-                                i.data.data.level.value === sourceLevel &&
-                                i.data.data.location.value === sourceLocation,
+                        const siblings = this.actor.spells.filter(
+                            (otherSpell) =>
+                                otherSpell.level === sourceLevel && otherSpell.castingAbility.id === sourceLocation,
                         );
                         const sortBefore = source.data.sort >= target.data.sort;
                         source.sortRelative({ target, siblings, sortBefore });
                     } else {
-                        if (this.moveSpell(itemData, targetLocation, targetLevel)) {
-                            return this.actor.updateOwnedItem(itemData);
-                        }
+                        await this.actor.moveSpell(itemData._id, targetLocation, targetLevel);
+                        return itemData;
                     }
                 }
             } else if (dropSlotType === 'spellSlot') {
+                // Spell dropped on empty slot
                 if (CONFIG.debug.hooks === true)
                     console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
-                const dropID = Number($(event.target).parents('.item').attr('data-item-id'));
+                const dropId = Number($(event.target).parents('.item').attr('data-item-id'));
                 const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
                 const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
 
-                if (Number.isInteger(dropID) && Number.isInteger(spellLvl) && entryId) {
-                    this.allocatePreparedSpellSlot(spellLvl, dropID, itemData, entryId);
+                if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
+                    this.actor.prepareSpell(entryId, spellLvl, dropId, itemData._id);
                 }
                 return itemData;
             } else if (dropContainerType === 'spellcastingEntry') {
@@ -1118,11 +1053,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (CONFIG.debug.hooks === true)
                     console.debug('PF2e System | ***** spell from same actor dropped on a spellcasting entry *****');
 
-                const dropID = $(event.target).parents('.item-container').attr('data-container-id');
-
-                if (dropID) {
-                    itemData.data.location = { value: dropID };
-                    return this.actor.updateEmbeddedEntity('OwnedItem', itemData);
+                const dropId = $(event.target).parents('.item-container').attr('data-container-id');
+                if (dropId) {
+                    this.actor.moveSpell(itemData._id, dropId);
+                    return itemData;
                 }
             }
         } else if (itemData.type === 'spellcastingEntry') {
@@ -1130,8 +1064,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             if (dropContainerType === 'spellcastingEntry') {
                 const sourceId = itemData._id;
                 const dropId = $(event.target).parents('.item-container').attr('data-container-id') ?? '';
-                const source = this.actor.getOwnedItem(sourceId);
-                const target = this.actor.getOwnedItem(dropId);
+                const source = this.actor.items.get(sourceId);
+                const target = this.actor.items.get(dropId);
 
                 if (source && target && source.id !== target.id) {
                     const siblings = this.actor.itemTypes.spellcastingEntry;
@@ -1175,6 +1109,8 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         data: DropCanvasData,
     ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         event.preventDefault();
+        const $html = $(event.target);
+        const $item = $html.closest('li.item');
 
         const item = await ItemPF2e.fromDropData(data);
         const itemData = item._data;
@@ -1197,35 +1133,24 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
 
         // get the item type of the drop target
-        const dropSlotType = $(event.target).closest('.item').attr('data-item-type');
-        const dropContainerType = $(event.target).parents('.item-container').attr('data-container-type');
+        const dropSlotType = $html.closest('.item').attr('data-item-type');
+        const dropContainerType = $html.parents('.item-container').attr('data-container-type');
 
         // otherwise they are dragging a new spell onto their sheet.
         // we still need to put it in the correct spellcastingEntry
         if (itemData.type === 'spell') {
             if (dropSlotType === 'spellSlot' || dropContainerType === 'spellcastingEntry') {
-                const dropID = $(event.target).parents('.item-container').attr('data-item-id');
-                if (typeof dropID !== 'string') {
-                    throw ErrorPF2e('Unexpected error while adding spell to spellcastingEntry');
-                }
-                itemData.data.location = { value: dropID };
-                this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
-                return this.actor.createEmbeddedEntity('OwnedItem', itemData);
+                const dropId = $html.parents('.item-container').attr('data-item-id') ?? '';
+                return this.actor.learnSpell(itemData, dropId);
             } else if (dropSlotType === 'spellLevel') {
-                const { itemId, level } = $(event.target).closest('.item').data();
-
-                if (typeof itemId === 'string' && typeof level === 'number') {
-                    this.moveSpell(itemData, itemId, level);
-                    return this.actor.createEmbeddedEntity('OwnedItem', itemData);
-                }
+                const $li = $html.closest('.item');
+                const itemId = $li.attr('data-item-id') ?? '';
+                const level = Number($li.attr('data-level'));
+                return this.actor.learnSpell(itemData, itemId, level);
             } else if (dropSlotType === 'spell') {
-                const { containerId } = $(event.target).closest('.item-container').data();
-                const { spellLvl } = $(event.target).closest('.item').data();
-
-                if (typeof containerId === 'string' && typeof spellLvl === 'number') {
-                    this.moveSpell(itemData, containerId, spellLvl);
-                    return this.actor.createEmbeddedEntity('OwnedItem', itemData);
-                }
+                const containerId = $html.closest('.item-container').attr('container-id') ?? '';
+                const level = Number($item.attr('data-spell-lvl'));
+                return this.actor.learnSpell(itemData, containerId, level);
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
                     this.actor,
@@ -1241,9 +1166,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 );
                 popup.render(true);
                 return itemData;
-            } else {
-                return null;
             }
+
+            return null;
         } else if (itemData.type === 'spellcastingEntry') {
             // spellcastingEntry can only be created. drag & drop between actors not allowed
             return null;
@@ -1269,12 +1194,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     ? translations.ErrorMessage.ActorMustHaveToken
                     : translations.ErrorMessage.NoUpdatePermission;
                 ui.notifications.error(message);
-                return null;
             }
+
+            return null;
         }
 
         if (isPhysicalItem(itemData)) {
-            const container = $(event.target).parents('[data-item-is-container="true"]');
+            const container = $html.closest('[data-item-is-container="true"]');
             let containerId = null;
             if (container[0] !== undefined) {
                 containerId = container[0].dataset.itemId?.trim();
@@ -1323,31 +1249,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         } else {
             sourceActor.transferItemToActor(targetActor, item, 1, containerId);
         }
-    }
-
-    private moveSpell(spellData: SpellData, targetLocation: string, targetLevel: number): boolean {
-        const spell = new SpellFacade(spellData);
-
-        if (spell.spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
-            return false;
-        }
-
-        const spellcastingEntry = this.actor.getOwnedItem(targetLocation);
-        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            throw ErrorPF2e(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
-        }
-
-        spellData.data.location = { value: targetLocation };
-
-        if (!spell.isCantrip && !spell.isFocusSpell && !spell.isRitual) {
-            if (spellcastingEntry.isSpontaneous || spellcastingEntry.isInnate) {
-                spellData.data.heightenedLevel = {
-                    value: Math.max(spell.spellLevel, targetLevel),
-                };
-            }
-        }
-
-        return true;
     }
 
     /**
@@ -1469,7 +1370,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             mergeObject(data, { 'data.weaponType.value': data.actionType });
         } else if (data.type === 'spell') {
             // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
-            this.actor._setShowUnpreparedSpells(data.location, data.level);
+            this.actor.setShowUnpreparedSpells(data.location, data.level);
 
             const newLabel = game.i18n.localize('PF2E.NewLabel');
             const spellLevel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);

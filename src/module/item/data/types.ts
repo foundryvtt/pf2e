@@ -637,7 +637,7 @@ export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     location: {
         value: string;
     };
-    heightenedLevel: {
+    heightenedLevel?: {
         value: number;
     };
     hasCounteractCheck: {
@@ -666,10 +666,25 @@ export interface SpellDifficultyClass {
     value: number;
 }
 
-interface SpellSlotData {
+export interface SpellSlotData {
     prepared: { id: string }[];
     value: number;
     max: number;
+}
+
+export interface SpellSlots {
+    slot0: SpellSlotData;
+    slot1: SpellSlotData;
+    slot2: SpellSlotData;
+    slot3: SpellSlotData;
+    slot4: SpellSlotData;
+    slot5: SpellSlotData;
+    slot6: SpellSlotData;
+    slot7: SpellSlotData;
+    slot8: SpellSlotData;
+    slot9: SpellSlotData;
+    slot10: SpellSlotData;
+    slot11: SpellSlotData;
 }
 
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
@@ -701,20 +716,7 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
         value: number;
     };
     displayLevels: Record<number, boolean>;
-    slots: {
-        slot0: SpellSlotData;
-        slot1: SpellSlotData;
-        slot2: SpellSlotData;
-        slot3: SpellSlotData;
-        slot4: SpellSlotData;
-        slot5: SpellSlotData;
-        slot6: SpellSlotData;
-        slot7: SpellSlotData;
-        slot8: SpellSlotData;
-        slot9: SpellSlotData;
-        slot10: SpellSlotData;
-        slot11: SpellSlotData;
-    };
+    slots: SpellSlots;
     signatureSpells: {
         value: string[];
     };

@@ -1,22 +1,37 @@
 import { ItemPF2e } from './base';
 import { SpellData } from './data/types';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { ErrorPF2e } from '@module/utils';
 
 export class SpellPF2e extends ItemPF2e {
-    get spellcasting(): SpellcastingEntryPF2e | undefined {
+    get castingAbility(): SpellcastingEntryPF2e {
+        if (!this.actor) throw ErrorPF2e('Only owned spells be can associated with casting abilities');
+
         const spellcastingId = this.data.data.location.value;
-        return this.actor?.itemTypes.spellcastingEntry.find((entry) => entry.id === spellcastingId);
+        const castingAbility = this.actor.items.find((entry) => entry.id === spellcastingId);
+        if (!(castingAbility instanceof SpellcastingEntryPF2e)) {
+            // This is an orphaned spell and effectively dead data on the actor.
+            // No offense intended to actual orphans: please don't delete yourselves!
+            this.delete();
+            throw ErrorPF2e('Spell ${this.name} (${this.id}) is orphaned: deleting');
+        }
+
+        return castingAbility;
     }
 
-    get spellLevel() {
+    get level(): number {
         return this.data.data.level.value;
     }
 
-    get isCantrip(): boolean {
-        return this.spellLevel === 0;
+    get heightenedLevel(): number {
+        return this.data.data.heightenedLevel?.value ?? this.level;
     }
 
-    get isFocusSpell() {
+    get isCantrip(): boolean {
+        return this.level === 0;
+    }
+
+    get isFocusSpell(): boolean {
         return this.data.data.category.value === 'focus';
     }
 
@@ -24,7 +39,7 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.data.category.value === 'ritual';
     }
 
-    prepareData() {
+    prepareData(): void {
         super.prepareData();
 
         // Avoid filling up the console with error notifications from pre-migrated data
@@ -39,7 +54,7 @@ export class SpellPF2e extends ItemPF2e {
         const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
         const data = this.data.data;
 
-        const spellcastingEntryData = this.spellcasting?.data;
+        const spellcastingEntryData = this.castingAbility?.data;
         let spellDC = spellcastingEntryData?.data.dc?.value ?? spellcastingEntryData?.data.spelldc.dc;
         let spellAttack = spellcastingEntryData?.data.attack?.value ?? spellcastingEntryData?.data.spelldc.value;
 

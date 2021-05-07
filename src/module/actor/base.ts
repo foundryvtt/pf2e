@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e, ConditionData, WeaponData, isMagicItemData } from '@item/data/types';
+import { ItemDataPF2e, ConditionData, WeaponData, isMagicItemData, SpellData } from '@item/data/types';
 import {
     ActorDataPF2e,
     HazardData,
@@ -22,6 +22,8 @@ import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { ConditionPF2e } from '@item/others';
 import { TokenEffect } from '@module/rules/rule-element';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
+import { SpellPF2e } from '@item/spell';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -91,13 +93,18 @@ interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
  * @category Actor
  */
 export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
+    /** The contents of the actor's inventory */
     physicalItems!: Collection<Owned<PhysicalItemPF2e>>;
+
+    /** The actor's known spells */
+    spells!: Collection<Owned<SpellPF2e>>;
 
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
             super(data, options);
             this.physicalItems ??= new Collection();
+            this.spells ??= new Collection();
         } else {
             try {
                 const ready = { pf2e: { ready: true } };
@@ -242,8 +249,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /** @override */
     prepareEmbeddedEntities(): void {
         super.prepareEmbeddedEntities();
+
+        /** Create secondary convenience collections */
         const physicalItems: Owned<PhysicalItemPF2e>[] = this.items.filter((item) => item instanceof PhysicalItemPF2e);
         this.physicalItems = new Collection(physicalItems.map((item) => [item.id, item]));
+
+        const spells: Owned<SpellPF2e>[] = this.items.filter((item) => item instanceof SpellPF2e);
+        this.spells = new Collection(spells.map((spell) => [spell.id, spell]));
     }
 
     /** @override */
@@ -684,7 +696,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     /* Owned Item Management
     /* -------------------------------------------- */
 
-    async _setShowUnpreparedSpells(entryId: string, spellLevel: number) {
+    async setShowUnpreparedSpells(entryId: string, spellLevel: number) {
         if (!entryId || !spellLevel) {
             // TODO: Consider throwing an error on null inputs in the future.
             return;
@@ -1193,6 +1205,93 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 }
             }
         }
+    }
+
+    /** Add a new spell to a spellcasting ability */
+    async learnSpell(
+        spellData: SpellData,
+        castingAbilityId: string,
+        level = spellData.data.level.value,
+    ): Promise<SpellData | null> {
+        const castingAbility = this.items.get(castingAbilityId);
+        if (!(castingAbility instanceof SpellcastingEntryPF2e)) {
+            throw ErrorPF2e('Failed to add spell to actor: spellcastingEntry not found');
+        }
+
+        if (castingAbility.isSpontaneous || castingAbility.isInnate) {
+            spellData.data.heightenedLevel = { value: level };
+        } else {
+            this.setShowUnpreparedSpells(castingAbilityId, level);
+        }
+
+        spellData.data.location.value = castingAbilityId;
+
+        return this.createEmbeddedEntity('OwnedItem', spellData);
+    }
+
+    /** Move a spell within a casting ability or from one casting ability to another */
+    async moveSpell(spellId: string, castingAbilityId: string, targetLevel?: number): Promise<boolean> {
+        const spell = this.spells.get(spellId);
+        if (!spell) throw ErrorPF2e('Spell not found');
+
+        targetLevel ??= spell.level;
+        const targetCastAbility = this.items.get(castingAbilityId);
+        const notMoveable = spell.isCantrip || spell.isFocusSpell || spell.isRitual;
+        const noMoveNeeded = spell.castingAbility === targetCastAbility && spell.heightenedLevel === targetLevel;
+        const targetLevelInvalid = targetLevel < spell.level;
+        if (notMoveable || noMoveNeeded || targetLevelInvalid) return false;
+
+        if (!(targetCastAbility instanceof SpellcastingEntryPF2e)) {
+            throw ErrorPF2e(`SpellcastingEntry ${castingAbilityId} not found in actor ${this.id}`);
+        }
+        const updateSpontaneous =
+            targetCastAbility.isSpontaneous || targetCastAbility.isInnate
+                ? { 'data.heightenedLevel.value': targetLevel }
+                : {};
+
+        return !!(await spell.update({
+            _id: spell.id,
+            'data.location.value': castingAbilityId,
+            ...updateSpontaneous,
+        }));
+    }
+
+    /** Prepare a spell slot, saving the preparation data to the actor */
+    async prepareSpell(
+        castingAbilityId: string,
+        castingLevel: number,
+        spellSlot: number,
+        spellId: string,
+    ): Promise<boolean> {
+        const spell = this.spells.get(spellId);
+        if (!spell) throw ErrorPF2e('Spell not found');
+        if (!spell.actor) throw ErrorPF2e('Only owned spells can be prepared');
+
+        const castingAbility = spell.castingAbility;
+        if (!(castingAbility instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Casting entry not found.');
+
+        if (spell.level > castingLevel) {
+            console.warn(`Attempted to add level ${spell.level} spell to level ${castingLevel} spell slot.`);
+            return false;
+        }
+        if (CONFIG.debug.hooks === true)
+            console.debug(
+                `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${castingAbilityId}`,
+            );
+        const key = `data.slots.slot${castingLevel}.prepared.${spellSlot}`;
+        return !!(await castingAbility.update({ [`-=${key}`]: null, [`${key}.id`]: spell._id }));
+    }
+
+    /** Remove a spell from a prepared slot, opening it for repreparation. */
+    async unprepareSpell(castingAbilityId: string, castingLevel: number, spellSlot: number): Promise<boolean> {
+        const castingAbility = this.items.get(castingAbilityId);
+        if (!(castingAbility instanceof SpellcastingEntryPF2e)) throw ErrorPF2e('Casting entry not found.');
+        if (CONFIG.debug.hooks === true)
+            console.debug(
+                `PF2e System | Updating spellcasting entry ${castingAbilityId} to remove spellslot ${spellSlot} for spell level ${castingLevel}`,
+            );
+        const key = `data.slots.slot${castingLevel}.prepared.${spellSlot}`;
+        return !!(await castingAbility.update({ [`-=${key}`]: null }));
     }
 }
 
