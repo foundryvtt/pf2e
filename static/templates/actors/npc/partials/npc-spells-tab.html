@@ -104,18 +104,7 @@
                                                     {{/if}}
                                                 </div>
                                             </div>
-                                            <div class="spell-body">
-                                                <div class="spell-detail sub-section expandable">
-                                                    <div class="spell-description">
-                                                        {{{ enrichHTML spell.data.description.value }}}
-                                                    </div>
-                                                    <div class="traits-list">
-                                                        {{#each spell.traits as |trait traitIndex|}}
-                                                            <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                        {{/each}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                         </li>
                                     {{/each}}
                                 </ul>
@@ -164,18 +153,7 @@
                                                         {{/if}}
                                                     </div>
                                                 </div>
-                                                <div class="spell-body">
-                                                    <div class="spell-detail sub-section expandable">
-                                                        <div class="spell-description">
-                                                            {{{ enrichHTML spell.data.description.value }}}
-                                                        </div>
-                                                        <div class="traits-list">
-                                                            {{#each spell.traits as |trait traitIndex|}}
-                                                                <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                            {{/each}}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                             </li>
                                         {{else}}
                                             <li class="item spell" data-item-id="{{i}}" data-spell-lvl="{{lvl}}" data-item-type="spellSlot" data-entry-id="{{entry._id}}">
@@ -218,18 +196,7 @@
                                                             {{/if}}
                                                         </div>
                                                     </div>
-                                                    <div class="spell-body">
-                                                        <div class="spell-detail sub-section expandable">
-                                                            <div class="spell-description">
-                                                                {{{ enrichHTML spell.data.description.value }}}
-                                                            </div>
-                                                            <div class="traits-list">
-                                                                {{#each spell.traits as |trait traitIndex|}}
-                                                                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                                {{/each}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                                 </li>
                                                 {{/each}}
                                             </ul>

@@ -1,0 +1,12 @@
+<div class="spell-body">
+    <div class="spell-detail sub-section expandable">
+        <div class="spell-description">
+            {{{ enrichHTML spell.data.description.value }}}
+        </div>
+        <div class="traits-list">
+            {{#each spell.traits as |trait traitIndex|}}
+                <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>
