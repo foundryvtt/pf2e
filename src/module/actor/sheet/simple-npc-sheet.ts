@@ -35,7 +35,7 @@ import {
     TreasureData,
     WeaponData,
 } from '@item/data/types';
-import { ErrorPF2e, objectHasKey } from '@module/utils';
+import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
 import { InventoryItem, SheetInventory } from './data-types';
 
@@ -605,17 +605,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Assign spells to spell entries
         for (const spell of spellsList) {
-            const spellType = spell.data.time.value;
-
-            // Assign icon based on type of action
-            if (spellType === 'reaction') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else if (spellType === 'free') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else {
-                const actionsCost = parseInt(spellType, 10);
-                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-            }
+            spell.glyph = getActionGlyph(spell.data.time.value);
 
             // Assign components
             spell.data.components.somatic = spell.data.components.value.includes('somatic');
