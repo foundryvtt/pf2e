@@ -962,6 +962,7 @@ export interface EffectData extends BaseNonPhysicalItemData<EffectDetailsData> {
 
 /** Actual physical items which you carry (as opposed to feats, lore, proficiencies, statuses, etc). */
 export type PhysicalItemData = ContainerData | TreasureData | WeaponData | ArmorData | ConsumableData | EquipmentData;
+export type MagicItemData = Exclude<PhysicalItemData, TreasureData>;
 
 export type ItemDataPF2e =
     | PhysicalItemData
@@ -1022,15 +1023,8 @@ export function isInventoryItem(type: string): boolean {
     return false;
 }
 
-export function isMagicDetailsData(
-    itemDataData: ItemDescriptionData & Partial<MagicDetailsData>,
-): itemDataData is Required<MagicDetailsData> {
-    return (
-        typeof itemDataData.invested == 'object' &&
-        itemDataData.invested !== null &&
-        'value' in itemDataData.invested &&
-        typeof (itemDataData.invested as { value: unknown }).value == 'boolean'
-    );
+export function isMagicItemData(itemData: ItemDataPF2e): itemData is MagicItemData {
+    return itemData.isPhysical && itemData.type !== 'treasure';
 }
 
 export function isLevelItem(
