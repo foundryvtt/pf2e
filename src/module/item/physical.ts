@@ -72,44 +72,36 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /** @override */
     prepareData(): void {
-        const identificationData = this.data.data.identification;
-        const mystifyDataMissing =
-            !identificationData || !identificationData.status || !identificationData.unidentified;
-        const isOldTalisman =
-            this.data.type === 'consumable' && String(this.data.data.consumableType.value) === 'talasman';
-        if (mystifyDataMissing || isOldTalisman) {
-            return super.prepareData();
-        }
-
         super.prepareData();
+        const { data } = this;
 
         // Disable active effects if the item isn't equipped and (if applicable) invested
         if (!this.isEquipped || this.isInvested === false) {
-            for (const effectData of this.data.effects) {
+            for (const effectData of data.effects) {
                 effectData.disabled = true;
             }
         }
 
         // Update properties according to identification status
-        const identifyStatus = this.identificationStatus;
-        const mystifiedData = this.getMystifiedData(identifyStatus);
-        if (identifyStatus !== 'identified') {
-            this.data.data.identification[identifyStatus] = mystifiedData;
-            mergeObject(this.data, mystifiedData, { inplace: true, insertKeys: false });
-        }
+        const mystifiedData = this.getMystifiedData(this.identificationStatus);
+        mergeObject(data, mystifiedData, { insertKeys: false, insertValues: false });
+
+        // Fill gaps in unidentified data with defaults
+        data.data.identification.unidentified = this.getMystifiedData('unidentified');
 
         this.setPredicates();
     }
 
     /** Set predicates from getters for later access when only the data is available */
-    protected setPredicates() {
-        this.data.isPhysical = true;
-        this.data.isEquipped = this.isEquipped;
-        this.data.isInvested = this.isInvested;
-        this.data.isIdentified = this.isIdentified;
-        this.data.isMagical = this.isMagical;
-        this.data.isAlchemical = this.isAlchemical;
-        this.data.isCursed = this.isCursed;
+    protected setPredicates(): void {
+        const { data } = this;
+        data.isPhysical = true;
+        data.isEquipped = this.isEquipped;
+        data.isInvested = this.isInvested;
+        data.isIdentified = this.isIdentified;
+        data.isMagical = this.isMagical;
+        data.isAlchemical = this.isAlchemical;
+        data.isCursed = this.isCursed;
     }
 
     /** Can the provided item stack with this item? */
@@ -127,22 +119,21 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus): MystifiedData {
-        if (status === 'identified' || status === 'misidentified') {
-            return this._data;
-        }
-
-        const mystifiedData = this.data.data.identification[status];
+        const mystifiedData: MystifiedData =
+            status === 'identified' || status === 'misidentified' ? this._data : this.data.data.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
 
-        const description = (() => {
-            const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
-            const itemType = this.generateUnidentifiedName({ typeOnly: true });
-            const caseCorrect = (noun: string) => (game.i18n.lang.toLowerCase() === 'de' ? noun : noun.toLowerCase());
-            const fallbackDescription = game.i18n.format(formatString, { item: caseCorrect(itemType) });
-            return mystifiedData.data.description.value || fallbackDescription;
-        })();
+        const description =
+            mystifiedData.data.description.value ||
+            (() => {
+                const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedDescription;
+                const itemType = this.generateUnidentifiedName({ typeOnly: true });
+                const caseCorrect = (noun: string) =>
+                    game.i18n.lang.toLowerCase() === 'de' ? noun : noun.toLowerCase();
+                return game.i18n.format(formatString, { item: caseCorrect(itemType) });
+            })();
 
         return {
             name,
