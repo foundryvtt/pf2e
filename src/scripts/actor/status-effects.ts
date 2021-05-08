@@ -461,10 +461,11 @@ export class StatusEffects {
             speaker: { alias: game.i18n.format('PF2E.StatusEffects', { name: token.name }) },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
-            whisper: ChatMessage.getWhisperRecipients('GM'),
         };
-        if (!(whisper || game.settings.get('pf2e', 'metagame.secretCondition')) || token.actor.hasPlayerOwner) {
-            delete (chatData as { whisper?: unknown }).whisper;
+        const isNPCEvent = !token.actor.hasPlayerOwner;
+        const hideNPCEvent = isNPCEvent && game.settings.get('pf2e', 'metagame.secretCondition');
+        if (hideNPCEvent || whisper) {
+            chatData.whisper = ChatMessage.getWhisperRecipients('GM');
         }
         ChatMessage.create(chatData);
     }

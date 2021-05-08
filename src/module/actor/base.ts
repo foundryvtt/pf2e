@@ -584,15 +584,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 hitpoints,
             });
             actor.modifyTokenAttribute(attribute, value * -1, true, true, shield).then(() => {
-                const data = {
+                const data: any = {
                     user: game.user._id,
                     speaker: { alias: token.name },
                     content: message,
                     type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-                    whisper: ChatMessage.getWhisperRecipients('GM'),
                 };
-                if (!game.settings.get('pf2e', 'metagame.secretDamage') || token.actor.hasPlayerOwner) {
-                    delete (data as { whisper?: unknown }).whisper;
+                if (game.settings.get('pf2e', 'metagame.secretDamage') && !token?.actor?.hasPlayerOwner) {
+                    data.whisper = ChatMessage.getWhisperRecipients('GM');
                 }
                 ChatMessage.create(data);
             });
