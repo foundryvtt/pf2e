@@ -234,13 +234,32 @@ export function registerSettings() {
     });
     WorldClockSettings.registerSettings();
 
-    // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
+    // this section starts questionable rule settings, all of them should have a 'RAI.' at the start of their name
     game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
         name: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name',
         hint: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint',
         scope: 'world',
         config: true,
         default: true,
+        type: Boolean,
+    });
+
+    // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
+    game.settings.register('pf2e', 'metagame.secretDamage', {
+        name: 'PF2E.SETTINGS.Metagame.SecretDamage.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretDamage.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
+    game.settings.register('pf2e', 'metagame.secretCondition', {
+        name: 'PF2E.SETTINGS.Metagame.SecretCondition.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretCondition.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
         type: Boolean,
     });
 }
