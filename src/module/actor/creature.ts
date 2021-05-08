@@ -1,14 +1,33 @@
 import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
-import { ItemDataPF2e } from '@item/data-definitions';
-import { MinimalModifier, ModifierPF2e } from '@module/modifiers';
+import { ConditionData, isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
+import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
 import { ErrorPF2e } from '@module/utils';
+import { RuleElementPF2e } from '@module/rules/rule-element';
+import { RollNotePF2e } from '@module/notes';
+import {
+    MultipleAttackPenaltyPF2e,
+    RuleElementSyntheticsPF2e,
+    StrikingPF2e,
+    WeaponPotencyPF2e,
+} from '@module/rules/rules-data-definitions';
+import { ConditionManager } from '@module/conditions';
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
+    /** Used as a lock to prevent multiple asynchronous redraw requests from triggering an error */
+    redrawingTokenEffects = false;
+
+    get hitPoints() {
+        return {
+            current: this.data.data.attributes.hp.value,
+            max: this.data.data.attributes.hp.max,
+        };
+    }
+
     get attributes(): this['data']['data']['attributes'] {
         return this.data.data.attributes;
     }
@@ -65,63 +84,111 @@ export abstract class CreaturePF2e extends ActorPF2e {
         hitPoints.modifiers = [];
     }
 
+    /** Compute custom stat modifiers provided by users or given by conditions. */
+    protected prepareCustomModifiers(rules: RuleElementPF2e[]): RuleElementSyntheticsPF2e {
+        // Collect all sources of modifiers for statistics and damage in these two maps, which map ability -> modifiers.
+        const actorData = this.data;
+        const statisticsModifiers: Record<string, ModifierPF2e[]> = {};
+        const damageDice: Record<string, DamageDicePF2e[]> = {};
+        const strikes: WeaponData[] = [];
+        const rollNotes: Record<string, RollNotePF2e[]> = {};
+        const weaponPotency: Record<string, WeaponPotencyPF2e[]> = {};
+        const striking: Record<string, StrikingPF2e[]> = {};
+        const multipleAttackPenalties: Record<string, MultipleAttackPenaltyPF2e[]> = {};
+        const synthetics: RuleElementSyntheticsPF2e = {
+            damageDice,
+            statisticsModifiers,
+            strikes,
+            rollNotes,
+            weaponPotency,
+            striking,
+            multipleAttackPenalties,
+        };
+        rules.forEach((rule) => {
+            try {
+                rule.onBeforePrepareData(actorData, synthetics);
+            } catch (error) {
+                // ensure that a failing rule element does not block actor initialization
+                console.error(`PF2e | Failed to execute onBeforePrepareData on rule element ${rule}.`, error);
+            }
+        });
+
+        // Get all of the active conditions (from the item array), and add their modifiers.
+        const conditions = actorData.items.filter(
+            (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
+        );
+
+        for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
+            statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);
+        }
+
+        // Character-specific custom modifiers & custom damage dice.
+        if (['character', 'familiar', 'npc'].includes(actorData.type)) {
+            const { data } = actorData;
+
+            // Custom Modifiers (which affect d20 rolls and damage).
+            data.customModifiers = data.customModifiers ?? {};
+            for (const [statistic, modifiers] of Object.entries(data.customModifiers)) {
+                statisticsModifiers[statistic] = (statisticsModifiers[statistic] || []).concat(modifiers);
+            }
+
+            // Damage Dice (which add dice to damage rolls).
+            data.damageDice = data.damageDice ?? {};
+            for (const [attack, dice] of Object.entries(data.damageDice)) {
+                damageDice[attack] = (damageDice[attack] || []).concat(dice);
+            }
+        }
+
+        return {
+            statisticsModifiers,
+            damageDice,
+            strikes,
+            rollNotes,
+            weaponPotency,
+            striking,
+            multipleAttackPenalties,
+        };
+    }
+
     /** @override */
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedEntity(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
     async updateEmbeddedEntity(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
+        const equippingUpdates = updateData.filter(
+            (update) => 'data.equipped.value' in update && typeof update['data.equipped.value'] === 'boolean',
+        );
+        const wornArmor = this.wornArmor;
 
-        // Allow no more than one article of armor to be equipped at a time
-        const alreadyEquipped = this.itemTypes.armor.find((armor) => armor.isArmor && armor.isEquipped);
-        const armorEquipping = ((): ArmorPF2e | undefined => {
-            const equippingUpdates = updateData.filter(
-                (datum) => 'data.equipped.value' in datum && datum['data.equipped.value'],
-            );
-            return equippingUpdates
-                .map((datum) => this.items.get(datum._id))
-                .find(
-                    (item): item is Owned<ArmorPF2e> =>
-                        item instanceof ArmorPF2e && item.isArmor && item.id !== alreadyEquipped?.id,
-                );
-        })();
-        const modifiedUpdate =
-            armorEquipping && alreadyEquipped
-                ? updateData.concat({ _id: alreadyEquipped.id, 'data.equipped.value': false })
-                : updateData;
+        for (const update of equippingUpdates) {
+            if (!('data.equipped.value' in update)) continue;
 
-        return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+            const item = this.physicalItems.get(update._id)!;
+            // Allow no more than one article of armor to be equipped at a time
+            if (wornArmor && item instanceof ArmorPF2e && item.isArmor && item.id !== wornArmor.id) {
+                updateData.push({ _id: wornArmor.id, 'data.equipped.value': false, 'data.invested.value': false });
+            }
+
+            // Uninvested items as they're unequipped
+            if (update['data.equipped.value'] === false && isMagicItemData(item.data)) {
+                update['data.invested.value'] = false;
+            }
+        }
+
+        return super.updateEmbeddedEntity(embeddedName, updateData, options);
+    }
+
+    protected _onModifyEmbeddedEntity(
+        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context: EntityRenderOptions = {},
+    ): void {
+        super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+        this.redrawTokenEffects();
     }
 
     /** @override */
@@ -266,9 +333,67 @@ export abstract class CreaturePF2e extends ActorPF2e {
             await this.update({ 'data.attributes.dexCap': updated });
         }
     }
+
+    /** Redraw token effect icons after adding/removing partial ActiveEffects to Actor#temporaryEffects */
+    redrawTokenEffects() {
+        if (!(game.ready && canvas.scene) || this.redrawingTokenEffects) return;
+        this.redrawingTokenEffects = true;
+        const tokens = (() => {
+            const token = this.token;
+            if (token?.parent) {
+                return [token];
+            } else if (token) {
+                const t = canvas.tokens.placeables.find((t) => t.id === token.id);
+                return t ? [t] : [];
+            } else {
+                return this.getActiveTokens();
+            }
+        })();
+        for (const token of tokens) {
+            if (token.scene.id === canvas.scene.id && token.parent) {
+                token.drawEffects();
+            }
+        }
+        this.redrawingTokenEffects = false;
+    }
 }
 
 export interface CreaturePF2e {
     data: CreatureData;
     _data: CreatureData;
+
+    /**
+     * See implementation in class
+     * @override
+     */
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData>;
+    updateEmbeddedEntity(
+        embeddedName: 'ActiveEffect',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: 'OwnedItem',
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData,
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ItemDataPF2e>;
+    updateEmbeddedEntity(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
+        options?: EntityUpdateOptions,
+    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
 }

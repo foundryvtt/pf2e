@@ -46,7 +46,7 @@ declare interface EntityDeleteOptions {
 }
 
 declare interface EntityRenderOptions extends RenderOptions {
-    data: {
+    data?: {
         permission?: boolean;
     };
 }
@@ -193,13 +193,13 @@ declare class Entity {
      * let actor = game.entities.actors[0];
      * actor.sheet; // ActorSheet
      */
-    get sheet(): BaseEntitySheet<this>;
+    readonly sheet: BaseEntitySheet<Entity>;
 
     /**
      * Obtain a reference to the BaseEntitySheet implementation which should be used to render the Entity instance
      * configuration sheet.
      */
-    protected get _sheetClass(): BaseEntitySheet<this>;
+    protected get _sheetClass(): typeof BaseEntitySheet;
 
     /**
      * Return a reference to the Folder which this Entity belongs to, if any.
@@ -230,7 +230,7 @@ declare class Entity {
      * entity.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * entity.permission; // 2
      */
-    get permission(): number;
+    get permission(): 0 | 1 | 2 | 3;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Entity
@@ -541,14 +541,15 @@ declare class Entity {
 
     /**
      * A generic helper since we take the same actions for every type of Embedded Entity update
+     * Unlike the specific _onCreate, _onUpdate, and _onDelete methods this only runs once per updated batch
      */
-    protected _onModifyEmbeddedEntity({
-        embeddedName,
-        renderContext,
-    }: {
-        embeddedName: string;
-        renderContext: object;
-    }): void;
+    protected _onModifyEmbeddedEntity(
+        embeddedName: string,
+        changes: EmbeddedEntityUpdateData,
+        options: EntityUpdateOptions,
+        userId: string,
+        context?: EntityRenderOptions,
+    ): void;
 
     /* -------------------------------------------- */
     /*  Data Flags                                  */

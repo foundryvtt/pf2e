@@ -140,7 +140,7 @@
             },
             "creatureType": "Plant",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Leaf leshys are diminutive protectors of forests clad in pine cone armor and hats of fruit, flowers, or leaves. They enjoy mock battles but act cautiously in real ones.<br /><br />",
@@ -155,7 +155,6 @@
                 "min": 1,
                 "value": 0
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=279",
             "recallKnowledgeText": "Recall Knowledge : DC 14",
             "sidebarText": "",
             "source": {
@@ -452,7 +451,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "yk6RbHM68DpfUf1s",
@@ -575,7 +574,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Primal Innate Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
@@ -589,6 +588,9 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -639,14 +641,11 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "div"
+                    "value": "divination"
                 },
                 "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=294"
-                },
-                "spellCategory": {
-                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -681,7 +680,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/spells/speak-with-plants.jpg",
+            "img": "systems/pf2e/icons/spells/speak-with-plants.webp",
             "name": "Speak with Plants",
             "sort": 200000,
             "type": "spell"
@@ -720,10 +719,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -776,7 +782,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "longspear",
             "sort": 300000,
             "type": "equipment"
@@ -832,12 +838,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -922,7 +922,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Longspear",
             "sort": 400000,
             "type": "melee"
@@ -980,12 +980,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1070,7 +1064,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Seedpod",
             "sort": 500000,
             "type": "melee"
@@ -1121,7 +1115,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Verdant Burst",
             "sort": 600000,
             "type": "action"
@@ -1175,7 +1169,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Change Shape",
             "sort": 700000,
             "type": "action"
@@ -1195,7 +1189,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When a leaf leshy hits with its seedpod Strike, the target must attempt a DC 16 Fortitude save.<br /> <strong>Critical Success</strong> The target is unaffected and temporarily immune for 24 hours.<br /> <strong>Success</strong> The target is unaffected.<br /> <strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.<br /> <strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute.</p>"
+                    "value": "<p>When a leaf leshy hits with its seedpod Strike, the target must attempt a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"16\" data-pf2-label=\"Deafening Blow DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save.<br /> <strong>Critical Success</strong> The target is unaffected and temporarily immune for 24 hours.<br /> <strong>Success</strong> The target is unaffected.<br /> <strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 round.<br /> <strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Deafened]{Deafened} for 1 minute.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1224,7 +1218,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Deafening Blow",
             "sort": 800000,
             "type": "action"
@@ -1275,7 +1269,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Glide",
             "sort": 900000,
             "type": "action"
@@ -1315,7 +1309,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1000000,
             "type": "lore"
@@ -1355,7 +1349,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 1100000,
             "type": "lore"
@@ -1395,7 +1389,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1200000,
             "type": "lore"
@@ -1421,7 +1415,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

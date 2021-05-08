@@ -33,7 +33,16 @@ declare class Game<
     view: string;
 
     /** The object of world data passed from the server */
-    data: any;
+    data: {
+        actors: ActorType['data'][];
+        items: ItemType['data'][];
+        macros: MacroType['data'][];
+        messages: ChatMessageData[];
+        packs: CompendiumMetadata[];
+        tables: RollTableData[];
+        users: UserData[];
+        version: string;
+    };
 
     /** Localization support */
     i18n: Localization;
@@ -96,7 +105,7 @@ declare class Game<
     combats: CombatEncounters<ActorType>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium>;
+    packs: Collection<Compendium<ActorType | ItemType | JournalEntry | MacroType | Playlist | RollTable | Scene>>;
 
     constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 

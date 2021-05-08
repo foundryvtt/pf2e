@@ -24,10 +24,18 @@
         </div>
         <button class="clear-filters">{{localize "PF2E.BrowserClearFilters"}}</button>
         <div class="filtercontainer" id="classfilter">
+            <h3>{{localize "PF2E.BrowserFilterSpellCategories"}}</h3>
+            <dl>
+                {{#each categories as |category key|}}
+                    <label><dt><input type="checkbox" name="category-{{lower key}}"></dt><dd>{{localize category}}</dd></label>
+                {{/each}}
+            </dl>
+        </div>
+        <div class="filtercontainer" id="classfilter">
             <h3>{{localize "PF2E.BrowserFilterTraditions"}}</h3>
             <dl>
                 {{#each traditions as |tradition key|}}
-                <label><dt><input type="checkbox" name="traditions-{{lower key}}"></dt><dd>{{tradition}}</dd></label>
+                    <label><dt><input type="checkbox" name="traditions-{{lower key}}"></dt><dd>{{localize tradition}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -35,24 +43,23 @@
             <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
             <dl>
               <label><dt><input type="checkbox" name="level-0"></dt><dd>{{localize "PF2E.SpellCantripLabel"}}</dd></label>
-              <label><dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.LevelLabel"}} 1</dd></label>
-              <label><dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.LevelLabel"}} 2</dd></label>
-              <label><dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.LevelLabel"}} 3</dd></label>
-              <label><dt><input type="checkbox" name="level-4"></dt><dd>{{localize "PF2E.LevelLabel"}} 4</dd></label>
-              <label><dt><input type="checkbox" name="level-5"></dt><dd>{{localize "PF2E.LevelLabel"}} 5</dd></label>
-              <label><dt><input type="checkbox" name="level-6"></dt><dd>{{localize "PF2E.LevelLabel"}} 6</dd></label>
-              <label><dt><input type="checkbox" name="level-7"></dt><dd>{{localize "PF2E.LevelLabel"}} 7</dd></label>
-              <label><dt><input type="checkbox" name="level-8"></dt><dd>{{localize "PF2E.LevelLabel"}} 8</dd></label>
-              <label><dt><input type="checkbox" name="level-9"></dt><dd>{{localize "PF2E.LevelLabel"}} 9</dd></label>
-              <label><dt><input type="checkbox" name="level-10"></dt><dd>{{localize "PF2E.LevelLabel"}} 10</dd></label>
-                <!-- <dt><input type="checkbox" name="level-11"></dt><dd>{{localize "PF2E.SpellFocusLabel"}}</dd> -->
+              <label><dt><input type="checkbox" name="level-1"></dt><dd>{{localize "PF2E.SpellLevel1"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-2"></dt><dd>{{localize "PF2E.SpellLevel2"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-3"></dt><dd>{{localize "PF2E.SpellLevel3"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-4"></dt><dd>{{localize "PF2E.SpellLevel4"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-5"></dt><dd>{{localize "PF2E.SpellLevel5"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-6"></dt><dd>{{localize "PF2E.SpellLevel6"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-7"></dt><dd>{{localize "PF2E.SpellLevel7"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-8"></dt><dd>{{localize "PF2E.SpellLevel8"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-9"></dt><dd>{{localize "PF2E.SpellLevel9"}}</dd></label>
+              <label><dt><input type="checkbox" name="level-10"></dt><dd>{{localize "PF2E.SpellLevel10"}}</dd></label>
             </dl>
         </div>
         <div class="filtercontainer" id="classfilter">
             <h3>{{localize "PF2E.BrowserFilterClass"}}</h3>
             <dl style="display:none;">
                 {{#each classes as |class key|}}
-                <label><dt><input type="checkbox" name="classes-{{lower key}}"></dt><dd>{{class}}</dd></label>
+                    <label><dt><input type="checkbox" name="classes-{{lower key}}"></dt><dd>{{localize class}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -60,7 +67,7 @@
             <h3>{{localize "PF2E.BrowserFilterSchools"}}</h3>
             <dl style="display:none;">
                 {{#each schools as |school key|}}
-                <label><dt><input type="checkbox" name="school-{{lower key}}"></dt><dd>{{school}}</dd></label>
+                <label><dt><input type="checkbox" name="school-{{lower key}}"></dt><dd>{{localize school}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -89,14 +96,14 @@
             {{/each}}
           >
             <div class="spell-image">
-                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32"/>
+                <img class="" src="{{spell.img}}" title="{{spell.name}}" width="32" height="32" loading="lazy"/>
             </div>
             {{#unless spell.data.time.img}}
             <div class="spell-image" style="margin-left: 5px;">
             </div>
             {{else}}
             <div class="spell-image" style="margin-left: 5px;">
-                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.time.value}}" width="32" height="32"/>
+                <img class="" src="{{spell.data.time.img}}" title="{{spell.data.time.value}}" width="32" height="32" loading="lazy"/>
             </div>
             {{/unless}}
             <div class="spell-name">

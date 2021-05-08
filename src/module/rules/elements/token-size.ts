@@ -1,6 +1,6 @@
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { CharacterData, NPCData } from '@actor/data-definitions';
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 
 const SIZES = {
     tiny: 0.6,
@@ -14,7 +14,7 @@ const SIZES = {
 /**
  * @category RuleElement
  */
-export class PF2TokenSizeRuleElement extends PF2RuleElement {
+export class PF2TokenSizeRuleElement extends RuleElementPF2e {
     onCreate(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         const value =
             SIZES[this.ruleData.value] ?? this.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);

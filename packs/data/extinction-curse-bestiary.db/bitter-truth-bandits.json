@@ -141,7 +141,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -155,7 +155,6 @@
                 "min": 1,
                 "value": 6
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -503,10 +502,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -521,7 +527,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -626,7 +632,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.png",
+            "img": "systems/pf2e/icons/equipment/weapons/composite-shortbow.webp",
             "name": "Composite Shortbow",
             "sort": 100000,
             "type": "weapon"
@@ -689,10 +695,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -707,7 +720,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -814,7 +827,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/hatchet.png",
+            "img": "systems/pf2e/icons/equipment/weapons/hatchet.webp",
             "name": "Hatchet",
             "sort": 200000,
             "type": "weapon"
@@ -868,10 +881,17 @@
                     "value": null
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -887,7 +907,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -982,7 +1002,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/armor/padded-armor.jpg",
+            "img": "systems/pf2e/icons/equipment/armor/padded-armor.webp",
             "name": "Padded Armor",
             "sort": 300000,
             "type": "armor"
@@ -1050,10 +1070,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1130,7 +1157,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/arrows.jpg",
+            "img": "systems/pf2e/icons/equipment/weapons/arrows.webp",
             "name": "Arrows",
             "sort": 400000,
             "type": "consumable"
@@ -1186,12 +1213,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1341,12 +1362,6 @@
                 "hp": {
                     "value": 0
                 },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
-                },
                 "invested": {
                     "value": false
                 },
@@ -1488,12 +1503,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1704,7 +1713,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A target damaged by the bandit's @Compendium[pf2e.equipment-srd.Shortbow]{Shortbow} @Compendium[pf2e.actionspf2e.Strike]{Strike} must succeed at a DC 22 Fortitude save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 until the end of the bandit's next turn.</p>"
+                    "value": "<p>A target damaged by the bandit's @Compendium[pf2e.equipment-srd.Shortbow]{Shortbow} @Compendium[pf2e.actionspf2e.Strike]{Strike} must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"22\" data-pf2-label=\"Muscle Striker DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or be @Compendium[pf2e.conditionitems.Slowed]{Slowed} 1 until the end of the bandit's next turn.</p>"
                 },
                 "requirements": {
                     "value": ""

@@ -1,3 +1,5 @@
+import { ActorPF2e } from '@actor/base';
+
 /** In Foundry this is actually a subclass of Map, but it incompatibly extends it at several points. */
 export class FakeCollection<V> {
     private map: Map<string, V>;
@@ -23,17 +25,29 @@ export class FakeCollection<V> {
         return this;
     }
 
-    has(key: string) {
+    has(key: string): boolean {
         return this.map.has(key);
     }
 
     filter(predicate: (value: V) => boolean): V[] {
         return Array.from(this.map.values()).filter(predicate);
     }
+
+    clear(): void {
+        this.map.clear();
+    }
 }
 
 export class FakeEntityCollection<V extends { data: object }> extends FakeCollection<V> {
     get entities(): V[] {
         return this.entries;
+    }
+}
+
+export class FakeActors extends FakeEntityCollection<ActorPF2e> {
+    tokens: Record<string, Token> = {};
+
+    constructor(entries: [string, ActorPF2e][] = []) {
+        super(entries);
     }
 }

@@ -4,6 +4,7 @@ import { updateMinionActors } from '@scripts/actor/update-minions';
 import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
+import { HomebrewElements } from '@module/settings/homebrew';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -15,7 +16,7 @@ export function listen(): void {
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
         const COMPATIBLE_MIGRATION_VERSION = 0.411;
 
-        if (game.user.isGM) {
+        if (game.user.isGM && game.user.role !== CONST.USER_ROLES.ASSISTANT) {
             // Perform the migration
             const migrationRunner = new MigrationRunner(Migrations.constructForWorld(currentVersion));
             if (migrationRunner.needsMigration()) {
@@ -58,5 +59,11 @@ export function listen(): void {
             const index = game.system.entityTypes.Actor.indexOf('animalCompanion');
             game.system.entityTypes.Actor.splice(index, 1);
         }
+
+        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
+        HomebrewElements.refreshTags();
+
+        // Final pass to ensure effects on actors properly consider the initiative of any active combat
+        game.pf2e.effectTracker.refresh();
     });
 }

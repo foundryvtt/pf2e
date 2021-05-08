@@ -133,7 +133,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "<p>Creatures that once held particular items dear can be bound to them after death, their souls inhabiting the item from within. These might be the faithful haunting symbols of their faith, warriors clinging to their old weapons, or the greedy inhabiting their precious wealth. These spirits&rsquo; physical bodies have long since degraded, but they keep their corrupted relics pristine. The spirits manifest on the unsuspecting or curious, determined to destroy anyone who would dare show any interest in their one precious possession.</p>\n<p>Though rare, there are several kinds of corrupted relics. The bound spirit can manifest in different ways, from animating an ancient weapon to possessing anyone who dons the item. Destroying the relic often ends up being the simplest, most direct way to banish the haunt itself. Destroying or dispelling the spirit without destroying the relic, however, can sometimes leave priceless treasure behind.</p>\n<p>The amulet shown here has the air and death aspects. Its minor gifts, deadly spark and death gaze, power some of the spirit&rsquo;s abilities. Someone who claims the relic might gain different gifts from those aspects.</p>",
@@ -148,7 +148,6 @@
                 "min": 1,
                 "value": 4
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -310,7 +309,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "1D9pvEMsaT8zBn9j",
@@ -344,10 +343,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -403,7 +409,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Amulet",
             "sort": 100000,
             "type": "equipment"
@@ -454,12 +460,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -513,7 +513,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Spectral Hand",
             "sort": 200000,
             "type": "melee"
@@ -564,12 +564,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -625,7 +619,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Deadly Spark",
             "sort": 300000,
             "type": "melee"
@@ -725,7 +719,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.sebk9XseMCRkDqRg"
                 }
             },
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Lifesense (Imprecise) 60 Feet",
             "sort": 500000,
             "type": "action"
@@ -773,7 +767,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Amulet Relic",
             "sort": 600000,
             "type": "action"
@@ -817,7 +811,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Sudden Manifestation",
             "sort": 700000,
             "type": "action"
@@ -885,7 +879,7 @@
                     "value": "2"
                 },
                 "description": {
-                    "value": "<p>The spirit targets a creature it can see within 30 feet, dealing to it [[/r 4d6 #negative]] negative damage (DC 20 basic Fortitude save).</p>\n<p>A creature with negative healing instead regains [[/r 4d6 #HP]] HP and is then temporarily immune for 10 minutes.</p>"
+                    "value": "<p>The spirit targets a creature it can see within 30 feet, dealing to it [[/r 4d6 #negative]] negative damage (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"20\" data-pf2-traits=\"concentrate,divine,necromancy,negative,damaging-effect\" data-pf2-label=\"Death Gaze DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save).</p>\n<p>A creature with negative healing instead regains [[/r 4d6 #HP]] HP and is then temporarily immune for 10 minutes.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -916,7 +910,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Death Gaze",
             "sort": 900000,
             "type": "action"
@@ -963,7 +957,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Manifest",
             "sort": 1000000,
             "type": "action"
@@ -998,7 +992,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 1100000,
             "type": "lore"
@@ -1033,7 +1027,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1200000,
             "type": "lore"
@@ -1068,7 +1062,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1300000,
             "type": "lore"
@@ -1094,7 +1088,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

@@ -1,6 +1,253 @@
 # Patch Notes:
 
-## Version 1.12.1
+## Version 1.14.2
+### Bug Fixes
+* (stwlam) Fix styling of items on hazard sheets
+* (stwlam) Fix display of spontaneous spell slots
+* (stwlam) Fix item identification DCs
+* (stwlam) Restore invested toggle on character sheet
+* (Drental) Add Path to Perfection generic features to serve as reminders on level up. Closes #1392
+* (nikolaj-a) Fix players being unable to end their own combat turn
+* (nikolaj-a) Update actor sheet if that actor has an effect that expires. Closes #1393
+
+### Core System Improvements
+* (In3luki) Show traits in chat data of containers and treasure items
+* (Supe) Default action image to empty by default instead of single action, to prevent 1 minute activities look like they take one action
+* (Drental) Make immediate effects have unlimited duration, so their rule elements are not always disabled, until we come up with a real solution
+
+
+## Version 1.14.1
+### Workarounds for homebrew builds
+* (stwlam) Don't attempt slot-heightening in "spontaneous focus" spellcasting entries
+
+### Bug Fixes
+* (stwlam) Fix item transfers between actors
+* (stwlam) Restore setting of abilities and saves in item sheet
+* (stwlam) Restore drag & drop of character features/feats
+* (stwlam) Fix handling of spellcasting entry proficiency rank button on character sheet. Closes #1380
+* (stwlam) Fix identify item popup to show applicable skills
+* (stwlam) Localize the Remove Combat Proficiency confirmation message. Closes #1372
+* (nikolaj-a) Fix mid-round effect expiry. Closes #1378
+* (nikolaj-a) Ensure effects consider initiative when checking expiry on world loading
+
+### Content Changes
+* (Shandyan) Tweaks to Wolf Drag, Overwhelming Blow, and Major Bones Curse
+
+### Core System Improvements
+* (stwlam) Hide certain traits on an item while it's not identified
+* (stwlam) Set a default ability score for new spellcasting entries
+* (stwlam) Hide NPC inventory controls from non-owners
+
+
+## Version 1.14.0
+### Bug Fixes
+* (stwlam) Don't add magical trait to non-magical weapons and armor. Closes #1363
+* (stwlam) Prevent unintended sheet updates when pressing enter while editing focus points
+* (stwlam) Fix Item#getChatData mutating the item's original prepared data (which was causing immediate inline rolls to always have the same result, among other issues)
+* (stwlam) Fix NPC attack effect labels
+* (stwlam) Fix spelling of the "talisman" consumable type
+* (Supe) Migrate spell saves for lowercase and empty string
+* (nikolaj-a) Apply automatic bonus progression only to PCs
+* (nikolaj-a) Ensure feat description text on PC sheet is enriched to make Foundry links work
+* (nikolaj-a) Fix individual proficiency rank when calculating damage from weapon specialization. Closes #1367
+* (nikolaj-a) Show damage dice category only when base damage type is the same, but base damage category is different
+* (nikolaj-a) Fix duplicated or missing senses. Closes #1361
+
+### New Features
+* (stwlam & GravenImageRD) Improved item mystification and added a mystify tab in the item sheet for the GMs
+* (stwlam & nikolaj-a) Ignore rule elements from unequipped and uninvested physical items. Closes #1274 and #1355
+* (nikolaj-a) Disable rule elements on expired effects
+
+### Content Changes
+* (SpartanCPA) Split Kobold Dragon Mage into variants based on scale color
+* (SpartanCPA) Agents of Edgewatch Book 1 bestiary brush-up
+* (SpartanCPA) Abomination Vaults Will-o'-Wisp variants
+* (SpartanCPA) Correct medicine skill typo in Priest of Pharasma
+* (Supe) Clean up spell categories in both compendia and as a migration for existing worlds
+* (Shandyan) Fix Disrupting Weapons spell effect to work properly with its own toggle
+* (Shandyan) Corrections to focus spells for classes A to M, including linking to new effects. Lunging stance set as a fighter feat, and the spell effect for black dragon form has the correct level. Closes #1364
+* (Drental) Change some mystery man icons to more specific icons for lore and NPC images
+* (Drental) Fix NPC token sizes
+* (Drental) Add inline saving throws for a number of monster afflictions
+* (Drental) Add Pathfinder Society 1-12 submerged shard. Closes #1369
+* (Drental & Symon S) Fix translations for Earn Income macro
+* (Tikael) Add a macro for Encouraging Words. Closes #388
+* (Tikael) Add die size to ki strike and change brackets to actor level
+* (Tikael) Monk critical specialization
+* (Tikael) Add an active effect to the darkvision feature to upgrade token's bright vision to 500
+* (Tikael) Add spell effect for the _illusory disguise_ spell
+* (Tikael) Add strike and note rule elements to Seedpod and Lavasoul feats
+* (TMun) Update iconic characters. Add new level 5 iconics. Closes #748 and #944
+* (TMun) Update One Shot pregenerated characters
+* (Jaash) Add Pathfinder Society 2-14 bestiary entries
+* (stwlam) Assign base item to all specific magic armors
+
+### Core System Improvements
+* (stwlam) Combine view mode and edit mode for loot sheets
+* (stwlam) Show total coinage instead of treasure on character sheet
+* (stwlam) Attempt to stack similar items during when transferring between actors
+* (stwlam) Only count runes toward a character's armor AC bonus if the armor is invested
+* (stwlam) Prevent assistant GMs from triggering migration runs
+* (Supe) Add Spell Category filter to Compendium Browser
+* (Bluesatin) Compendium Browser performance improvements
+* (nikolaj-a) Add EffectTracker API for tracking and managing effect durations
+* (nikolaj-a) Show degree of success to the GM for saving throws from the spell chat cards
+
+
+## Version 1.13.2
+### Bug Fixes
+* (stwlam) Fix filtering NPCs and hazards by trait in compendium browser. Closes #1352
+* (stwlam) Fix path of "dark-tire" image in Work in Progress theme
+* (stwlam) Prevent multiple asynchronous token-icon redraw requests from throwing an error
+* (stwlam) Fix containers in containers not showing their contents
+* (stwlam) Fix localization and trait wrapping of strikes on simple NPC sheet. Closes #1358
+* (stwlam) Skip orphaned tokens in `migrateSceneToken`
+* (stwlam) Avoid uncaught exception when a buyer has insufficient funds for a merchant actor
+* (stwlam) Fix bug causing coin values to floor at 1
+* (stwlam) Fix display of loot sheet inventory for non-owners
+* (stwlam) Add `acid` to consumable traits
+* (Supe) Localize save in item description
+* (Supe) Localize spell attack rolls from focus spells
+
+### Content Changes
+* (stwlam) Reapply 1.13.0 migrations to PFS Season 2 Bestiary
+* (Tikael) Add Zhang Yong to Paizo blog bestiary
+* (SpartanCPA) Brush-up of Bestiary 1 monsters appearing in the Slithering
+* (SpartanCPA) Agents of Edgewatch Book 3, Chapter 3 bestiary brush-up
+* (pearcebasmanm) Audit Aasimar Redeemer from Bestiary 1
+* (GravenImageRD) Audit of Bloodsiphon from Abomination Vaults Book 1
+* (GravenImageRD) Add effect for Battle Medicine
+* (Shandyan) Spell effects for _dutiful challenge_ and _ki form_
+
+### Core System Improvements
+* (stwlam) Send notification messages instead of throwing JS errors in Steel Your Resolve and Raise a Shield macros
+* (stwlam) Add "Claw" and "Jaws" as base weapons
+* (stwlam) Add identify-item toggles to loot and NPC sheets, change invested icon from asterisk to diamond
+* (nikolaj-a) Reduce console warnings from flat modifier rule element
+
+
+## Version 1.13.1
+### Bug Fixes
+* (Supe) Initialize an empty striking rune in strike rule element
+* (Supe) Fix deity default image
+* (Avery) Fix automatic bonus progression attack potency for levels 2 through 9
+* (stwlam) Fix image filename extensions in work-in-progress stylesheet
+* (stwlam) Add non-null checks to migration for replacing image filename extensions
+* (stwlam) Fix trick magic item
+
+### Content Changes
+* (SpartanCPA) Correct duration of Profane Gift
+
+
+## Version 1.13.0
+### Bug Fixes
+* (stwlam) Remove free-text item modifier from spellcasting entries on CRB sheet. Closes #1259
+* (stwlam) Prevent CRB h3 styling from leaking to biography text. Closes #1322
+* (stwlam) Prevent error in effect panel when an icon is repeatedly right-clicked
+* (stwlam) Normalize stack group for taws, prevent failed stack-group lookups from breaking actor sheets
+* (stwlam) Fix display of traits in action sheet sidebar. Closes #1143
+* (stwlam) Prevent errors from being thrown when sense or strike rule elements are applied to NPCs
+* (stwlam) Fix display of effects on simple NPC sheet
+* (stwlam) Numify potency runes on weapons and armor
+* (stwlam) Avoid calculating asset/financial wealth from unidentified items. Closes #1345
+* (stwlam) Fix display of double-digit ability scores on simple NPC sheet
+* (Supe) Fix last scroll bug by using existing embedded item
+* (Supe) Prevent magic traditions from expanding with all the spell traits when opening the item sheet
+* (Supe) Fix area printout in chat card, allow spell details to edit new area object
+* (Supe) Fix applying class features that don't come from a compendium
+* (Chup) Ensure inline actions and saving throws do not break lines unnecessarily, and clicking works more smoothly
+* (Ustin & In3luki) Fix editing speed on NPC sheet
+
+### New Features
+* (stwlam) Add settings to manage homebrew traits and other elements
+* (stwlam) Update combat proficiency management to pull from the weapon-group and base-weapon lists
+* (stwlam) Allow players to loot dead NPCs
+* (Avery) Support for Automatic Bonus Progression variant rule
+
+### Content Changes
+* (TMun) Add motionsense
+* (TMun) Abomination Vaults Bestiary Book 3
+* (TMun) Correct typo in skill feats for fighter. Closes #1324
+* (TMun) Add one shot bestiary
+* (TMun) Fix feats mislabeled as ancestry instead of general. Closes #1338
+* (TMun) Correct spelling in en.json from algollthu to alghollthu. Closes #1341
+* (TMun) Correct data entry for Terotricus in Bestiary 1. Closes #1320
+* (Tikael) Add macro for Steel Your Resolve action
+* (Tikael) Add roll notes for fighter and barbarian critical specialization
+* (Tikael) Add Rogue Debilitation roll notes
+* (Tikael) Add new Backgrounds from Ruby Phoenix Player's Guide
+* (VestOfHolding) Update all CRB classes and their feats to be in line with CRB 2nd Printing. Closes #1311 and #1337
+* (VestOfHolding) Update all CRB spells to be in line with CRB 2nd Printing
+* (VestOfHolding) Update skill actions to be in line with CRB 2nd printing
+* (stwlam) Fix feat type of Suli-Jann. Closes #1299
+* (stwlam) Reduce size of some static files to get smaller sheet assets and avatar images
+* (Shandyan) Correcting cognitive mutagens and warrior's training ring to only apply to the correct type of attacks, rather than also affecting spell attacks
+* (Shandyan) Monk automation - Effects. Formatting of monk feats & spells
+* (Shandyan) Champion Oaths
+* (Shandyan) Fixing blade of justice, and splitting champion oaths
+* (Shandyan) Correct predicates for consumable effects, and add duration to minor elixir of life
+* (Shandyan) Automation for Oracle curses, feats, and spells
+* (Drental) Update of the Mountain Stance/_mage armor_ macro
+* (Drental) Inline saving throws for:
+    * Bestiary 1, 2, and 3
+    * Hazards
+    * NPC Gallery
+    * Abomination Vaults NPCs
+    * Adventure bestiaries (The Fall of Plaguestone, Little Trouble in Big Absalom, Menace Under Otari, Troubles in Otari)
+    * Age of Ashes bestiary
+    * Agents of Edgewatch bestiary
+    * Extinction Curse bestiary
+    * Pathfinder Society bestiaries
+    * April's Fool and Paizo blog monsters
+* (Drental) Remove skill tag from Acclimatization feat
+* (kageru) Make noble's rapier deal piercing damage
+* (Jaash) Fix The Slithering hazards stealth DCs. Closes #1300
+* (Jaash) Fix Agents of Edgewatch Mother Venom. Closes #1317
+* (Jaash) Add missing hazards for PFS 1-11. Closes #1291
+* (Jaash & SpartanCPA) Add Pathfinder Society S02-13 bestiary entries
+* (SpartanCPA) The Slithering bestiary brush-up
+* (SpartanCPA) Agents of Edgewatch Book 2 bestiary brush-up
+* (SpartanCPA) Agents of Edgewatch Book 3, Chapter 1 + 2 bestiary brush-up
+* (SpartanCPA) Format the table of Draconic Exemplar
+* (SpartanCPA) Correct Tail Whip and Shed Tail Lizardfolk Feats
+* (SpartanCPA) Add the pregens from The Slithering
+* (SpartanCPA) Add `alchemical` as a hazard trait
+* (SpartanCPA) Add spell effect to _longstrider_
+* (SpartanCPA) Add inline damage rolls to the poison in the _spider sting_ spell
+* (SpartanCPA) Correct the range increment of the Sling. Closes #1336
+* (SpartanCPA) Correct Agile Feet spell effect. Closes #1339
+* (SpartanCPA) Rename the Agents of Edgewatch Cobbleswarm as a variant compared to Bestiary 3
+* (SpartanCPA) Correct spellType of Deceiver's Cloak. Closes #1348
+* (SpartanCPA) Update Succubus in Bestiary 1
+* (Ustin) Added Ammut to Extinction Curse bestiary
+* (Overdox) Equipment Icons
+* (Overdox) Added icons for the following spells: _call the blood_, _ectoplasmic expulsion_, _ephemeral tracking_, and _lift natures caul_
+* (Overdox) Added missing spells _split the tongue_ and _ordained purpose_ from Belly of the Black Whale
+* (Overdox) Replace icons with images that better represent the item
+* (Supe) Migrate tradition capitalization and wand/scroll entries
+
+### Core System Improvements
+* (stwlam) Disable active effects if the item isn't equipped and (if applicable) invested
+* (stwlam) Update migration runner to operate on world compendia
+* (stwlam) Subclass the `Macro` class to require observer permission to view contents of `MacroDirectory`
+* (stwlam) Fix PF2E player settings flag structure and move the Effect Panel setting from a toolbar button to a user setting
+* (stwlam) Allow ancestry items to have any creature trait
+* (stwlam) Exit out of edit mode upon closing a loot sheet
+* (stwlam) Add actor-based `removeOrReduceCondition` method, use from effect panel, character sheet, and simple NPC sheet
+* (stwlam) Convert all icons and images bundled with the system to webp format
+* (stwlam) Add `tokenIcon` property to effect data
+* (stwlam) Make Powerful Fist feat lookup localization friendly
+* (In3luki) Update character sheet, hazard sheet, item sheet, NPC sheet, and vehicle sheet to use new trait selector
+* (In3luki) Use tags UI for feat prerequisites
+* (Trollderim) Add automatic subtraction of focus points on a cast click. Closes #1313
+* (Supe) Cleanup spell traits, remove wand spellcasting entries
+* (Supe) Add spell traits to spell attack roll options
+* (Supe) Move spell category to the top, group "cast" fields together near the top
+* (Supe) Sort class features in editor
+* (nikolaj-a) Support a `data-pf2-show-dc` attribute for inline checks
+
+
+    ## Version 1.12.1
 ### Bug Fixes
 * (stwlam) Fix price on physical item sheet sidebars. Closes #1301
 * (stwlam) Fix rolling of melee items from hazard actors

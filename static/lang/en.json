@@ -95,6 +95,26 @@
             },
             "Demoralize": "Demoralize",
             "Disarm": "Disarm",
+            "EncouragingWords": {
+                "Title": "Encouraging Words",
+                "ContentMain": "Select a target DC. Remember that you can't attempt a heal above your proficiency. Attempting to do so will downgrade the DC and amount healed to the highest you're capable of.",
+                "ContentLabel1": "Diplomacy DC:",
+                "ContentLabel2": "DC Modifier:",
+                "ContentOption1": "Trained DC 15",
+                "ContentOption2": "Expert DC 20, +5 Stamina",
+                "ContentOption3": "Master DC 30, +15 Stamina",
+                "ContentOption4": "Legendary DC 40, +25 Stamina",
+                "BadArgs": "This action must be performed with exactly one character or NPC.",
+                "NotTrained": "{name} is not trained in Diplomacy and doesn't know how to use Encouraging Words.",
+                "StaminaNotEnabled": "The Stamina variant is not enabled.",
+                "CritSuccess": "Critical Success",
+                "Success": "Success",
+                "Failure": "Failure",
+                "CritFailure": "Critical Failure",
+                "Recovery": "Stamina Recovery",
+                "Damage": "Damage",
+                "Cancel": "Cancel"
+            },
             "Feint": "Feint",
             "ForceOpen": "Force Open",
             "GatherInformation": "Gather Information",
@@ -119,7 +139,7 @@
             },
             "Shove": "Shove",
             "Squeeze": "Squeeze",
-                "SteelYourResolve": {
+            "SteelYourResolve": {
                 "Title": "Steel Your Resolve",
                 "Content": "Spend a resolve point and regain stamina?",
                 "BadArgs": "This action must be performed with exactly one character or NPC.",
@@ -225,6 +245,7 @@
         },
         "AncestryFeatLevels": "Ancestry Feat Levels",
         "AreaSize10": "10 Foot",
+        "AreaSize100": "100 Foot",
         "AreaSize120": "120 Foot",
         "AreaSize15": "15 Foot",
         "AreaSize20": "20 Foot",
@@ -239,7 +260,8 @@
         "AreaTypeLine": "Line",
         "ArmorArmorLabel": "AC Bonus",
         "ArmorArmorSummary": "Armor Summary",
-        "ArmorArmorTypeLabel": "Armor Type",
+        "ArmorArmorTypeLabel": "Category",
+        "ArmorBaseLabel": "Base",
         "ArmorCheckLabel": "Check Penalty",
         "ArmorCheckPenalty": "Armor Check Penalty",
         "ArmorClassBase": "Base Armor Class 10",
@@ -250,6 +272,7 @@
         "ArmorGreaterResilientRune": "Resilient (Greater)",
         "ArmorGreaterStrikingRune": "Striking (Greater)",
         "ArmorGroupChain": "Chain",
+        "ArmorGroupCloth": "Cloth",
         "ArmorGroupComposite": "Composite",
         "ArmorGroupLabel": "Group",
         "ArmorGroupLeather": "Leather",
@@ -322,6 +345,13 @@
             "Friendly": "Friendly",
             "Helpful": "Helpful"
         },
+        "AutomaticBonusProgression":{
+            "attackPotency": "Attack Potency",
+            "defensePotency": "Defense Potency",
+            "devastatingAttacks": "Devastating Attacks",
+            "perceptionPotency": "Perception Potency",
+            "savePotency": "Save Potency"
+        },
         "Background": "Background",
         "BackgroundSkillFeats": "Skill Feats",
         "BackgroundTitle": "Your character's background",
@@ -368,6 +398,7 @@
         "BrowserFilterSizes": "Sizes",
         "BrowserFilterSkills": "Skills",
         "BrowserFilterSource": "Source",
+        "BrowserFilterSpellCategories": "Categories",
         "BrowserFilterTraditions": "Traditions",
         "BrowserFilterTraits": "Traits",
         "BrowserFilterWeaponFilters": "Weapon Filters",
@@ -414,6 +445,7 @@
                 "bestiaries/campaign": "Campaign",
                 "bestiaries/rulebook": "Rulebook",
                 "bestiaries/pfs": "Pathfinder Society",
+                "bestiaries/other":  "Other",
                 "character-building": "Character Building",
                 "character-building/feats": "Feats",
                 "effects": "Effects",
@@ -494,7 +526,6 @@
         "ConsumableHeading": "Consumable",
         "ConsumableNoChargesLabel": "No Charges",
         "ConsumableTypeAmmo": "Ammunition",
-        "ConsumableTypeBomb": "Bomb",
         "ConsumableTypeDrug": "Drug",
         "ConsumableTypeElixir": "Elixir",
         "ConsumableTypeLabel": "Consumable Type",
@@ -546,6 +577,7 @@
         "CurrentStaminaPointsShortLabel": "Current SP",
         "CurrentStaminaTitle": "The amount of stamina points you have",
         "DCLabel": "DC",
+        "DCWithValue": "DC {dc} {text}",
         "DamageDieD10": "d10",
         "DamageDieD12": "d12",
         "DamageDieD4": "d4",
@@ -590,6 +622,8 @@
         "DefencesLabel": "Defences",
         "Deity": "Deity",
         "DeityTitle": "Your deity",
+        "DeleteConditionQuestion": "Are you sure you want to delete {condition}?",
+        "DeleteConditionTitle": "Delete Condition",
         "DeleteItemQuestion": "Are you sure you want to delete:",
         "DeleteItemTitle": "Delete Item",
         "DeleteShortLabel": "Del",
@@ -627,7 +661,7 @@
                 "ZeroRoundsExpireTurnEnd": "0 rounds remaining, expires end of initiative {initiative}",
                 "ZeroRoundsExpireTurnStart": "0 rounds remaining, expires start of initiative {initiative}"
             },
-            "Sustained": "Sustained",
+            "Sustained": "Sustained?",
             "UnlimitedDuration": "Unlimited duration"
         },
         "EffectSummary": "Effect Summary",
@@ -686,6 +720,7 @@
         "FeatTypeSkill": "Skill Feat",
         "FeaturesAncestryHeader": "Ancestry Features",
         "FeaturesClassHeader": "Class Features",
+        "FeatVariantRule": "Variant Rule",
         "Feet": "feet",
         "FlatBonusHP": "Flat Bonus HP",
         "FlatBonusHPTitle": "Adds a static number to your HP",
@@ -762,6 +797,28 @@
             "ABC": {
                 "InvalidDrop": "{badType} cannot be dropped here (must be {goodType})"
             },
+            "Armor": {
+                "Base": {
+                    "explorers-clothing": "Explorer's Clothing",
+                    "padded-armor": "Padded Armor",
+                    "leather-armor": "Leather Armor",
+                    "studded-leather-armor": "Studded Leather Armor",
+                    "chain-shirt": "Chain Shirt",
+                    "hide-armor": "Hide Armor",
+                    "scale-mail": "Scale Mail",
+                    "chain-mail": "Chain Mail",
+                    "breastplate": "Breastplate",
+                    "splint-mail": "Splint Mail",
+                    "half-plate": "Half Plate",
+                    "full-plate": "Full Plate",
+                    "hellknight-plate": "Hellknight Plate"
+                }
+            },
+            "Effect": {
+                "ShowTokenIcon": "Show token icon?"
+            },
+            "NameLabel": "Name",
+            "IconLabel": "Icon",
             "Plural": "Items"
         },
         "ItemBonus0": "0",
@@ -773,6 +830,8 @@
         "ItemBonusShortLabel": "Item",
         "ItemDescription": "Description",
         "ItemDetails": "Details",
+        "ItemMystified": "Mystified",
+        "ItemMystification": "Mystification",
         "ItemNamePlaceholder": "Name",
         "ItemNotSupportedOnActor": "Item not supported on actor",
         "ItemRules": "Rules",
@@ -793,7 +852,7 @@
         "LanguageAbyssal": "Abyssal",
         "LanguageAdlet": "Adlet",
         "LanguageAklo": "Aklo",
-        "LanguageAlghollthu": "Algollthu",
+        "LanguageAlghollthu": "Alghollthu",
         "LanguageAmurrun": "Amurrun",
         "LanguageAnadi": "Anadi",
         "LanguageAndroffan": "Androffan",
@@ -866,6 +925,7 @@
         "Languages": "Languages",
         "LanguagesAdditional": "Additional Languages",
         "LevelLabel": "Level",
+        "LevelN": "Level {level}",
         "Level1": "Level 1",
         "Level2": "Level 2",
         "Level3": "Level 3",
@@ -940,6 +1000,7 @@
             "proficiency": "Proficiency",
             "circumstance": "Circumstance",
             "item": "Item",
+            "potency": "Potency",
             "status": "Status",
             "untyped": "Untyped"
         },
@@ -962,19 +1023,17 @@
             "Ancestry": "New Ancestry",
             "Armor": "New Armor",
             "Background": "New Background",
-            "Backpack": "New Backpack",
+            "Backpack": "New Container",
             "Condition": "New Condition",
             "Consumable": "New Consumable",
             "Equipment": "New Equipment",
             "Feat": "New Feat",
             "Kit": "New Kit",
             "Lore": "New Lore",
-            "Martial": "New Martial",
             "Melee": "New Attack",
             "Spell": "New Spell",
             "SpellcastingEntry": "New Spellcasting Entry",
             "Skill": "New Skill",
-            "Status": "New Status",
             "Treasure": "New Treasure",
             "Weapon": "New Weapon"
         },
@@ -1155,6 +1214,12 @@
         },
         "SETTINGS": {
             "Settings": "Settings",
+            "Automation": {
+                "LootableNPCs": {
+                    "Name": "NPCs are lootable",
+                    "Hint": "Upon their demise, NPCs become lootable by players."
+                }
+            },
             "critFumbleCards": {
                 "hint": "Automatically draw a critical hit or fumble card on appropriate rolls.",
                 "name": "Critical Hit and Fumble Cards"
@@ -1180,7 +1245,7 @@
             },
             "Player": {
                 "QuickRolls": {
-                    "DialogHint": "Show this window only if I shift-click to roll."
+                    "DialogHint": "Always show this window before attempting checks."
                 }
             },
             "User": {
@@ -1204,6 +1269,10 @@
             "DefaultTokenSettingsBar": {
                 "Name": "Default Token Bar display",
                 "Hint": "The setting for the default token's bar display"
+            },
+            "effectAutoExpire": {
+                "name": "Effect Auto-Expire",
+                "hint": "Effects automatically disable attached rule elements when the duration expires."
             },
             "IgnoreCoinBulk": {
                 "Name": "Coins are weightless",
@@ -1250,15 +1319,23 @@
                 },
                 "CreatureTraits": {
                     "Name": "Creature Traits",
-                    "Hint": "Traits that can be applied to any creature as well as most item types (e.g., Dragon, Gnome)"
+                    "Hint": "Traits that can be applied to any creature and some item types (e.g., Dragon, Gnome)"
+                },
+                "FeatTraits": {
+                    "Name": "Feat Traits",
+                    "Hint": "Traits that can be applied to feats (e.g., Lineage, Monk)"
                 },
                 "Languages": {
                     "Name": "Languages",
                     "Hint": "Languages for characters to know or learn (e.g., Draconic, Gnomish)"
                 },
-                "SpellSchools": {
-                    "Name": "Magical Schools",
-                    "Hint": "The magical schools to which all spells and most magic items belong (e.g., Conjuration, Evocation)"
+                "MagicSchools": {
+                    "Name": "Magic Schools",
+                    "Hint": "The magical schools to which all spells belong (e.g., Conjuration, Evocation)"
+                },
+                "SpellTraits": {
+                    "Name": "Spell Traits",
+                    "Hint": " Traits that can be applied to any spell (e.g., Cursebound, Healing)"
                 },
                 "WeaponCategories": {
                     "Name": "Weapon Categories",
@@ -1324,6 +1401,16 @@
                     "Hint": "When enabled, characters with the Natural Medicine feat or Chirurgeon research field can roll against higher DCs."
                 }
             },
+            "Metagame": {
+                "SecretDamage": {
+                    "Name": "Hide damage taken message",
+                    "Hint": "When enabled, only the GM will see the damage/healing taken messages that are generated by the damage chat cards for tokens not owned by a player."
+                },
+                "SecretCondition": {
+                    "Name": "Hide condition update message",
+                    "Hint": "When enabled, only the GM will see the condition update and reminder messages that are generated for tokens not owned by a player."
+                }
+            },
             "Variant": {
                 "Name": "Variant Rules",
                 "Label": "Variant Rules Settings",
@@ -1346,6 +1433,16 @@
                     "Title": "Free Archetype",
                     "Name": "Free Archetype Variant Rules",
                     "Hint": "Grant additional feat slots for the free archetype variant from Gamemastery Guide pg 194"
+                },
+                "AutomaticBonus": {
+                    "Title": "Automatic Bonus Progression",
+                    "Name": "Automatic Bonus Variant Rules",
+                    "Hint": "Reload Required: Support for Automatic Bonus Progression variant rules, except skills/apex ability.",
+                    "Choices": {
+                        "noABP": "Use default rules",
+                        "ABPRulesAsWritten": "Use variant rules as written",
+                        "ABPFundamentalPotency": "Treat bonus progression as fundamental runes"
+                    }
                 },
                 "Proficiency": {
                     "Title": "Proficiency without Level",
@@ -1419,7 +1516,7 @@
         "SettingsColorRed": "Darkred",
         "SettingsColorFoundry-UI": "Work in Progress",
         "SettingsQuickRollsLabel": "Show Roll Dialogs",
-        "SettingsQuickRollsNotes": "If disabled, dialogs to modify D20 rolls ad-hoc will appear only when the SHIFT key is also held down.",
+        "SettingsQuickRollsNotes": "If disabled, dialogs to modify D20 rolls ad hoc will appear only a roll button is shift-clicked.",
         "SettingsDataUriHighlightLabel": "Highlight images that use data: URI",
         "SettingsDataUriHighlightNotes": "Images that use a data: URI are embedded in the character sheet. This has a negative performance impact on the character. If enabled, such images will be highlighted with a red border to make it easy to find and remove them.<br>This setting is only active for the current session.",
         "SheetLabel": "{type} Sheet",
@@ -1478,6 +1575,7 @@
         "SkillThi": "Thievery",
         "SkillThievery": "Thievery",
         "SkillsLabel": "Skills",
+        "SkillPotencyHeader": "Skill Potencies",
         "SkillFeatLevels": "Skill Feat Levels",
         "SkillIncreaseLevels": "Skill Increase Levels",
         "SpecialLabel": "Special",
@@ -1502,7 +1600,8 @@
             "arcane": "Arcane Spell Attack",
             "divine": "Divine Spell Attack",
             "occult": "Occult Spell Attack",
-            "primal": "Primal Spell Attack"
+            "primal": "Primal Spell Attack",
+            "focus": "Focus Spell Attack"
         },
         "SpellAttackLabel": "Spell Attack",
         "SpellBasicSaveOption": "Basic",
@@ -1516,6 +1615,7 @@
         "SpellComponentShortS": "S",
         "SpellComponentShortV": "V",
         "SpellComponentsLabel": "Components",
+        "SpellSlotEmpty": "Empty Slot (drag spell here)",
         "SpellPrimaryCheckLabel": "Primary Check",
         "SpellSecondaryChecksLabel": "Secondary Checks",
         "SpellSecondaryCasters": "Secondary Casters",
@@ -1560,15 +1660,7 @@
         "SpellScalingModeLeveltenth": "Heightened (10th)",
         "SpellScalingModeLevelthird": "Heightened (3rd)",
         "SpellScalingModeNone": "None",
-        "SpellSchoolAbj": "Abjuration",
-        "SpellSchoolCon": "Conjuration",
-        "SpellSchoolDiv": "Divination",
-        "SpellSchoolEnc": "Enchantment",
-        "SpellSchoolEvo": "Evocation",
-        "SpellSchoolIll": "Illusion",
         "SpellSchoolLabel": "Spell School",
-        "SpellSchoolNec": "Necromancy",
-        "SpellSchoolTrs": "Transmutation",
         "SpellSummary": "Spell Summary",
         "SpellTargetLabel": "Target",
         "SpellTimeLabel": "Cast Time",
@@ -1600,7 +1692,7 @@
         "StackGroupRations": "Rations",
         "StackGroupSacks": "Sacks",
         "StackGroupSlingBullets": "Sling Bullets",
-        "StackGroupTaws": "Taws",
+        "StackGroupWoodenTaws": "Wooden Taws",
         "StaminaPointsHeader": "Stamina Points",
         "StatusBonusShortLabel": "Status",
         "StatusBonusTitle": "Status Bonus",
@@ -1659,6 +1751,7 @@
         "ToggleWithName": "Toggle: {property}",
         "ToolHeading": "Tool Summary",
         "TotalTreasure": "Total Treasure",
+        "TotalCoinage": "Total Coinage",
         "TotalWealth": "Total Wealth",
         "TrainedSkillsLabel": "Trained Skills",
         "Traits": "Traits",
@@ -1863,6 +1956,7 @@
         "TraitDescriptionIngested": "This poison is delivered when drunk or eaten.",
         "TraitDescriptionInhaled": "This poison is delivered when breathed in.",
         "TraitDescriptionInjury": "This poison is delivered by damaging the recipient.",
+        "TraitDescriptionInvested": "A character can wear only 10 magical items that have the invested trait. None of the magical effects of the item apply if the character hasn’t invested it, nor can it be activated, though the character still gains any normal benefits from wearing the physical item (like a hat keeping rain off their head).",
         "TraitDescriptionInvestigator": "This indicates abilities from the investigator class.",
         "TraitDescriptionJoustingD6": "The weapon is suited for mounted combat with a harness or similar means. When mounted, if you moved at least 10 feet on the action before your attack, add a circumstance bonus to damage for that attack equal to the number of damage dice for the weapon. In addition, while mounted, you can wield the weapon in one hand, changing the damage die to the listed value.",
         "TraitDescriptionKobold": "A creature with this trait is a member of the kobold ancestry.",
@@ -2281,6 +2375,7 @@
         "TraitHeldTwoHands": "Held in 2 hands",
         "TraitWorn": "Worn",
         "TraitWornAmulet": "Worn Amulet",
+        "TraitWornArmbands": "Worn Armbands",
         "TraitWornBackpack": "Worn Backpack",
         "TraitWornNecklace": "Worn Necklace",
         "TraitWornHeadwear": "Worn Headwear",
@@ -2352,8 +2447,9 @@
             }
         },
         "TrickMagicItemPopup": {
-            "Label": "Select a skill to use for trick magic item",
-            "Title": "Trick Magic Item"
+            "Label": "Select a skill to use with Trick Magic Item.",
+            "Title": "Trick Magic Item",
+            "InvalidActor": "Only a character or NPC can use Trick Magic Item."
         },
         "UI": {
             "applyDamage": {
@@ -2412,6 +2508,7 @@
                 "bolts": "Bolts",
                 "buugeng": "Buugeng",
                 "clan-dagger": "Clan Dagger",
+                "claw": "Claw",
                 "claw-blade": "Claw Blade",
                 "club": "Club",
                 "combat-grapnel": "Combat Grapnel",
@@ -2453,6 +2550,7 @@
                 "heavy-crossbow": "Heavy Crossbow",
                 "horsechopper": "Horsechopper",
                 "javelin": "Javelin",
+                "jaws": "Jaws",
                 "juggling-club": "Juggling Club",
                 "kama": "Kama",
                 "katana": "Katana",
@@ -2943,42 +3041,43 @@
         },
         "identification": {
             "Identify": "Identify Item",
-            "Mystify": "Mystify Item",
             "IsIdentified": "Identified?",
-            "UnidentifiedItem": "Unidentified Item",
             "IdentifyMagicDCs": "Identify Magic DCs",
             "IdentifyAlchemyDCs": "Identify Alchemy DCs",
             "IdentifyGenericDCs": "Identify Generic DCs",
-            "ItemType": {
-                "armor": "Unidentified Armor",
-                "ArmorType": {
-                    "heavy": "Unidentified Heavy Armor",
-                    "light": "Unidentified Light Armor",
-                    "medium": "Unidentified Medium",
-                    "shield": "Unidentified Shield"
-                },
-                "backpack": "Unidentified Container",
-                "consumable": "Unidentified Consumable",
-                "equipment": "Unidentified Equipment",
-                "kit": "Unidentified Kit",
-                "treasure": "Unidentified Treasure",
-                "weapon": "Unidentified Weapon",
-                "WeaponType": {
-                    "axe": "Unidentified Axe",
-                    "bomb": "Unidentified Bomb",
-                    "bow": "Unidentified Bow",
-                    "club": "Unidentified Club",
-                    "dart": "Unidentified Dart",
-                    "flail": "Unidentified Flail",
-                    "hammer": "Unidentified Hammer",
-                    "knife": "Unidentified Knife",
-                    "pick": "Unidentified Pick",
-                    "polearm": "Unidentified Polearm",
-                    "shield": "Unidentified Shield",
-                    "sling": "Unidentified Sling",
-                    "spear": "Unidentified Spear",
-                    "sword": "Unidentified Sword"
-                }
+            "MisidentifiedItem": "Misidentified {item}",
+            "Misidentify": "Misidentify Item",
+            "Mystify": "Mystify Item",
+            "TraitGMNote": "Note: this trait is hidden from players.",
+            "UnidentifiedDescription": "The nature of this {item} is unclear.",
+            "UnidentifiedHint": "Change the basic display details of this item when unidentified.",
+            "UnidentifiedItem": "Unidentified {item}",
+            "UnidentifiedType": {
+                "Amulet": "Amulet",
+                "Anklets": "Anklets",
+                "Armbands": "Armbands",
+                "Backpack": "Backpack",
+                "Belt": "Belt",
+                "Circlet": "Circlet",
+                "Cloak": "Cloak",
+                "Collar": "Collar",
+                "Book": "Book",
+                "Bracers": "Bracers",
+                "Epaulets": "Epaulets",
+                "Eyepiece": "Eyepiece",
+                "Garment": "Garment",
+                "Gloves": "Gloves",
+                "Headwear": "Headwear",
+                "Horseshoes": "Horseshoes",
+                "Liquid": "Liquid",
+                "Mask": "Mask",
+                "Necklace": "Necklace",
+                "Object": "Object",
+                "Ring": "Ring",
+                "Saddle": "Saddle",
+                "Shoes": "Shoes",
+                "Substance": "Substance",
+                "Tool": "Tool"
             }
         },
         "loot": {
@@ -2999,16 +3098,22 @@
             "TakeSubtitle": "Take item",
             "DepositSubtitle": "Deposit item",
             "TransferSubtitle": "Transfer item",
+            "LootSubtitle": "Loot item",
+            "PlantSubtitle": "Plant Item",
+            "BuySubtitle": "Buy item",
             "SellSubtitle": "Sell item",
             "GiveSubtitle": "Give item",
             "TakeMessage": "{taker} takes {quantity} × {item} from {container}.",
             "DepositMessage": "{depositor} deposits {quantity} × {item} in {container}.",
             "TransferMessage": "{transferrer} moves {quantity} × {item} from {fromContainer} to {toContainer}.",
+            "LootMessage": "{looter} loots {quantity} × {item} off {corpse}.",
+            "PlantMessage": "{planter} plants {quantity} × {item} on {corpse}.",
             "SellMessage": "{seller} sells {quantity} × {item} to {buyer}.",
             "GiveMessage": "{giver} gives {quantity} × {item} to {recipient}.",
             "InsufficientFundsMessage": "{buyer} reaches for their coins but comes up short!",
             "GMSupervisionError": "A GM must be online in order to interact with {loot}.",
             "Quantity": "Quantity",
+            "SheetType": "Sheet Type",
             "SplitCoinsLabel": "Distribute Coins",
             "SplitCoinsPopupHeader": "Choose actors to receive a share"
         },
@@ -3043,6 +3148,7 @@
             "EditTraits": "Edit Traits",
             "AddTrait": "Add Trait",
             "AddSkill": "Add Skill",
+            "Dead": "Dead",
             "EditLanguages": "Edit Languages",
             "EditSenses": "Edit Senses",
             "EditSkills": "Edit Skills",

@@ -1,16 +1,9 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
 import { PhysicalItemPF2e } from '@item/physical';
-import { ActorPF2e } from '@actor/base';
-import { ErrorPF2e } from '@module/utils';
+import { tupleHasValue } from '@module/utils';
 
-interface IdentifyPopupOptions extends FormApplicationOptions {
-    itemId: string;
-}
-
-/**
- * @category Other
- */
-export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupOptions> {
+export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
+    /** @override */
     static get defaultOptions(): FormApplicationOptions {
         return {
             ...super.defaultOptions,
@@ -22,18 +15,16 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         };
     }
 
-    protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
-        const item = this.getItem();
-
-        item.setIsIdentified(true);
+    get item() {
+        return this.object;
     }
 
+    /** @override */
     getData() {
-        const item = this.getItem();
-
+        const item = this.object;
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
         const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
-        const dcs = identifyItem(item.data, {
+        const dcs = identifyItem(item, {
             proficiencyWithoutLevel,
             notMatchingTraditionModifier,
         });
@@ -45,15 +36,19 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e, IdentifyPopupO
         };
     }
 
-    getItem(): PhysicalItemPF2e {
-        const { itemId } = this.options;
-        const item = this.object.getOwnedItem(itemId);
-        if (!item) {
-            throw ErrorPF2e(`Could not load item with id: ${itemId} for identification`);
-        } else if (!(item instanceof PhysicalItemPF2e)) {
-            throw ErrorPF2e(`${item.name} is not a physical item.`);
-        }
+    /** @override */
+    activateListeners($form: JQuery<HTMLFormElement>) {
+        $form.find<HTMLButtonElement>('button.update-identification').on('click', (event) => {
+            const $button = $(event.delegateTarget);
+            this.submit({ updateData: { status: $button.val() } });
+        });
+    }
 
-        return item;
+    protected async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+        const status = formData['status'];
+        const newStatuses = ['identified', 'misidentified'] as const;
+        if (typeof status === 'string' && tupleHasValue(newStatuses, status)) {
+            await this.item.setIdentificationStatus(status);
+        }
     }
 }

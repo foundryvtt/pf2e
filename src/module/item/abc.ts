@@ -1,5 +1,5 @@
 import { CharacterPF2e } from '@actor/character';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data-definitions';
+import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data/types';
 import { ItemPF2e } from './base';
 import { FeatPF2e } from './feat';
 
@@ -13,7 +13,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                 ? featData
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         } else {
-            const feat = game.items.get(entry.id)?._data;
+            const feat = game.items.get(entry.id);
             if (feat === undefined || !(feat instanceof FeatPF2e)) {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }

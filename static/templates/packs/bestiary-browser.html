@@ -18,7 +18,7 @@
             <h3>{{localize "PF2E.BrowserFilterSizes"}}</h3>
             <dl style="display:none;">
                 {{#each actorSize as |size key|}}
-                <label><dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{size}}</dd></label>
+                <label><dt><input type="checkbox" name="actorsize-{{lower key}}"></dt><dd>{{localize size}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -26,7 +26,7 @@
             <h3>{{localize "PF2E.BrowserFilterAlignments"}}</h3>
             <dl style="display:none;">
                 {{#each alignment as |type key|}}
-                <label><dt><input type="checkbox" name="alignment-{{lower key}}"></dt><dd>{{type}}</dd></label>
+                <label><dt><input type="checkbox" name="alignment-{{lower key}}"></dt><dd>{{localize type}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -34,7 +34,7 @@
             <h3>{{localize "PF2E.BrowserFilterTraits"}}</h3>
             <dl style="display:none;">
                 {{#each traits as |trait key|}}
-                <label><dt><input type="checkbox" name="traits-{{lower trait}}"></dt><dd>{{trait}}</dd></label>
+                    <label><dt><input type="checkbox" name="traits-{{key}}"></dt><dd>{{localize trait}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -42,7 +42,7 @@
             <h3>{{localize "PF2E.BrowserFilterSource"}}</h3>
             <dl style="display:none;">
                 {{#each source as |type key|}}
-                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{type}}</dd></label>
+                <label><dt><input type="checkbox" name="source-{{lower type}}"></dt><dd>{{localize type}}</dd></label>
                 {{/each}}
             </dl>
         </div>
@@ -57,8 +57,8 @@
         <div class="filtercontainer rangecontainer" id="levelfilter">
           <h3>{{localize "PF2E.BrowserFilterLevels"}}</h3>
           <div style="display:none;">
-              <input type="number" name="lowerBound-level" value="-1" min="-1" max="25"> 
-              - 
+              <input type="number" name="lowerBound-level" value="-1" min="-1" max="25">
+              -
               <input type="number" name="upperBound-level" value="25" min="-1" max="25">
           </div>
         </div>
@@ -73,7 +73,7 @@
             {{/each}}
           >
             <div class="spell-image">
-                <img class="" src="{{actor.img}}" title="{{actor.name}}" width="32" height="32"/>
+                <img class="" src="{{actor.img}}" title="{{actor.name}}" width="32" height="32" loading="lazy"/>
             </div>
             <div class="spell-name">
                 <span class="actor-edit" ><a>{{actor.name}}</a></span>

@@ -1,6 +1,6 @@
 import { CreatureData } from '@actor/data-definitions';
-import { ItemDataPF2e } from '@item/data-definitions';
-import { PF2RuleElementSynthetics } from './rules-data-definitions';
+import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
+import { RuleElementSyntheticsPF2e } from './rules-data-definitions';
 
 export interface Bracket {
     start?: number;
@@ -15,13 +15,37 @@ export interface BracketedValue {
 
 export type RuleValue = string | number | BracketedValue;
 
+export class TokenEffect implements TemporaryEffect {
+    public data: { disabled: boolean; icon: string; tint: string } = {
+        disabled: false,
+        icon: '',
+        tint: '',
+    };
+
+    public readonly isTemporary = true;
+
+    public readonly flags: { [scope: string]: any } = {};
+
+    constructor(icon: string, overlay = false, tint?: string | null | undefined) {
+        this.data.icon = icon;
+        if (tint) {
+            this.data.tint = tint;
+        }
+        this.flags.core = { overlay };
+    }
+
+    getFlag(scope: string, flag: string): string | undefined {
+        return this.flags[scope]?.[flag];
+    }
+}
+
 /**
  * Rule Elements allow you to modify actorData and tokenData values when present on items. They can be configured
  * in the item's Rules tab which has to be enabled using the "Advanced Rule Element UI" system setting.
  *
  * @category RuleElement
  */
-export abstract class PF2RuleElement {
+export abstract class RuleElementPF2e {
     ruleData: any;
     item: ItemDataPF2e;
 
@@ -32,6 +56,18 @@ export abstract class PF2RuleElement {
     constructor(ruleData: any, item: ItemDataPF2e) {
         this.ruleData = ruleData;
         this.item = item;
+    }
+
+    /**
+     * Globally ignore this rule element.
+     */
+    get ignored(): boolean {
+        const { item } = this;
+        if (game.settings.get('pf2e', 'effectAutoExpire') && item.type === 'effect' && item.data.expired) {
+            return true;
+        }
+        if (!isPhysicalItem(item)) return false;
+        return !item.isEquipped || item.isInvested === false;
     }
 
     /**
@@ -73,7 +109,7 @@ export abstract class PF2RuleElement {
      * @param synthetics object holding various values that are used to set values on the actorData object, e.g.
      * damage modifiers or bonuses
      */
-    onBeforePrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onBeforePrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run after all actor preparation callbacks have been run so you should see all final values here.
@@ -81,7 +117,7 @@ export abstract class PF2RuleElement {
      * @param actorData see onBeforePrepareData
      * @param synthetics see onBeforePrepareData
      */
-    onAfterPrepareData(_actorData: CreatureData, _synthetics: PF2RuleElementSynthetics) {}
+    onAfterPrepareData(_actorData: CreatureData, _synthetics: RuleElementSyntheticsPF2e) {}
 
     /**
      * Run before a new token is created of the actor that holds the item.
@@ -100,7 +136,7 @@ export abstract class PF2RuleElement {
      * @param item
      * @return human readable label of the rule
      */
-    getDefaultLabel(ruleData, item: ItemDataPF2e): string {
+    getDefaultLabel(ruleData: any, item: ItemDataPF2e): string {
         return game.i18n.localize(ruleData.label ?? item?.name);
     }
 

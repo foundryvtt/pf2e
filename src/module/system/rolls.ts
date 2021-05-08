@@ -3,7 +3,7 @@ import { DamageRollModifiersDialog } from './damage-roll-modifiers-dialog';
 import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
-import { PF2RollNote } from '@module/notes';
+import { RollNotePF2e } from '@module/notes';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -51,7 +51,7 @@ export class CheckPF2e {
         }
 
         if (context) {
-            const visible = (note: PF2RollNote) => ModifierPredicate.test(note.predicate, context.options ?? []);
+            const visible = (note: RollNotePF2e) => ModifierPredicate.test(note.predicate, context.options ?? []);
             context.notes = (context.notes ?? []).filter(visible);
         }
 
@@ -171,7 +171,7 @@ export class CheckPF2e {
 /**
  * @category PF2
  */
-export class PF2DamageRoll {
+export class DamageRollPF2e {
     /**
      * @param damage
      * @param context

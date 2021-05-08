@@ -44,7 +44,7 @@ function coinsToString(coins, degreeOfSuccess) {
         return 'none';
     } else {
         return Object.entries(coins)
-            .map(([key, value]) => `${value} ${CONFIG.PF2E.currencies[key]}`)
+            .map(([key, value]) => `${value} ${game.i18n.localize(CONFIG.PF2E.currencies[key])}`)
             .join(', ');
     }
 }
@@ -63,7 +63,7 @@ function chatTemplate(skillName, earnIncomeResult) {
     return `
     <div class="pf2e chat-card">
         <header class="card-header flexrow">
-            <img src="systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg" title="Income" width="36" height="36">
+            <img src="systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp" title="Income" width="36" height="36">
             <h3>Earn Income Level ${level}</h3>
         </header>
         <div class="card-content">

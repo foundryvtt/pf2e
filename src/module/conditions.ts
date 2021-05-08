@@ -1,4 +1,4 @@
-import { ItemDataPF2e, ConditionData } from '@item/data-definitions';
+import { ItemDataPF2e, ConditionData } from '@item/data/types';
 import { ConditionPF2e } from './item/others';
 import { TokenPF2e } from './actor/base';
 import { ModifierPF2e } from './modifiers';
@@ -16,7 +16,6 @@ export class ConditionManager {
     static _customStatusNames = new Map<string, ConditionData>();
 
     static __conditionsCache: Map<string, ConditionData> = undefined;
-    static __statusNameCache: Map<string, ConditionData> = undefined;
 
     /**
      * Gets a collection of conditions.
@@ -292,50 +291,6 @@ export class ConditionManager {
         }
     }
 
-    static async __processTokenEffects(token: TokenPF2e, appliedConditions: Map<string, ConditionData>) {
-        const effectUpdates = duplicate(token.data);
-
-        effectUpdates.effects = [];
-
-        const statuses: Array<string> = token.data.effects.filter(
-            (item) =>
-                Array.from<string>(ConditionManager.statusNames)
-                    .map(
-                        (status) =>
-                            `${CONFIG.PF2E.statusEffects.effectsIconFolder + status}.${
-                                CONFIG.PF2E.statusEffects.effectsIconFileType
-                            }`,
-                    )
-                    .indexOf(item) < 0,
-        );
-
-        for (const condition of appliedConditions.values()) {
-            const url = condition.data.hud.img.useStatusName
-                ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
-                : condition.data.hud.img.value;
-
-            effectUpdates.effects.push(url);
-        }
-
-        // Dedup the effect list to make sure a status icon only displays once.
-        const newSet = [...new Set(effectUpdates.effects)].concat(statuses);
-
-        // See if any effects were added or removed
-        // and only update the token if they have been.
-        const added = newSet.filter((item) => token.data.effects.indexOf(item) < 0);
-        const removed = token.data.effects.filter((item) => newSet.indexOf(item) < 0);
-
-        if (added.length > 0 || removed.length > 0) {
-            effectUpdates.effects = newSet;
-
-            await token.update(effectUpdates);
-        }
-
-        if (token.hasActiveHUD) {
-            StatusEffects._updateHUD(canvas.tokens.hud.element, token);
-        }
-    }
-
     static async processConditions(token: TokenPF2e) {
         const conditions = token.actor.data.items.filter(
             (c) => c.flags.pf2e?.condition && c.type === 'condition',
@@ -414,7 +369,9 @@ export class ConditionManager {
         }
 
         // Update token effects from applied conditions.
-        await ConditionManager.__processTokenEffects(token, appliedConditions);
+        if (token.hasActiveHUD) {
+            await StatusEffects._updateHUD(canvas.tokens.hud.element, token);
+        }
     }
 
     /**
@@ -565,33 +522,6 @@ export class ConditionManager {
         }
 
         ConditionManager.processConditions(token);
-    }
-
-    static async renderEffects(token: TokenPF2e): Promise<void> {
-        if (token.actor === null) return;
-
-        const conditions = token.actor.data.items.filter(
-            (appliedCondtion: ConditionData) =>
-                appliedCondtion.flags.pf2e?.condition && appliedCondtion.type === 'condition',
-        ) as Array<ConditionData>;
-
-        const updates = duplicate(token.data);
-        let updated = false;
-
-        for await (const condition of conditions) {
-            const url = condition.data.hud.img.useStatusName
-                ? `${CONFIG.PF2E.statusEffects.effectsIconFolder}${condition.data.hud.statusName}.${CONFIG.PF2E.statusEffects.effectsIconFileType}`
-                : condition.data.hud.img.value;
-
-            if (!token.data.effects.includes(url)) {
-                updates.effects.push(url);
-                updated = true;
-            }
-        }
-
-        if (updated) {
-            await token.update(updates);
-        }
     }
 
     static getFlattenedConditions(items: ConditionData[]): any[] {

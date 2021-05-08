@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "30 feet"
+                "value": "30"
             }
         },
         "currency": {
@@ -119,6 +119,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -135,7 +136,7 @@
             },
             "creatureType": "Animal",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Triceratopses are muscular quadrupeds with powerful but short legs, thick necks, and heads crowned by a wide, bony frill. Though they bear a large horn on their snout and one on each brow, these dinosaurs are herbivores and use these bony protrusions only to defend themselves from attackers or in dramatic clashes against other triceratopses for grazing territory or mates. Short-tempered and obstinate, triceratopses are unlikely to back down from a fight unless they are hopelessly outmatched, and the creatures are known to fight to the death for no apparent reason beyond stubbornness. Triceratopses often serve as mounts for lizardfolk, orcs, and giants, who ride comfortably behind the dinosaurs' protective bone frills. A triceratops is 30 feet long and weighs as much as 10 tons.<br /><br /> Triceratopses are surely the most well-known of the dinosaurs known as ceratopids, but many others exist. For example, the smaller styracosauruses have only one horn but several horn-like protrusions on their frills.<br /><br />",
@@ -150,11 +151,10 @@
                 "min": 1,
                 "value": 8
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=121",
             "recallKnowledgeText": "Recall Knowledge : DC 24",
             "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 99"
+                "value": ""
             }
         },
         "martial": {
@@ -404,6 +404,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -436,7 +439,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "tJF3MvlHvCalGkXk",
@@ -445,8 +448,10 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "Knockdown"
+                        "Knockdown",
+                        "Vicious Gore"
                     ]
                 },
                 "baseItem": null,
@@ -491,12 +496,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -581,7 +580,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Horns",
             "sort": 100000,
             "type": "melee"
@@ -637,12 +636,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -727,10 +720,110 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Foot",
             "sort": 200000,
             "type": "melee"
+        },
+        {
+            "_id": "9dhNquuh2uBurLft",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 300000,
+            "type": "action"
+        },
+        {
+            "_id": "GkFwtCILr5PvesJA",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 400000,
+            "type": "action"
         },
         {
             "_id": "D2tbPVYsNe8XmlsW",
@@ -747,7 +840,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The rider is targeted with an attack. <strong>Requirements</strong> A creature must be mounted on the triceratops. <strong>Effect</strong> The triceratops intercepts the attack with its bony frill. The rider gains a +2 circumstance bonus to its AC against the triggering attack.</p>"
+                    "value": "<p><strong>Trigger</strong> The rider is targeted with an attack.</p>\n<p><strong>Requirements</strong> A creature must be mounted on the triceratops.</p>\n<p><strong>Effect</strong> The triceratops intercepts the attack with its bony frill. The rider gains a +2 circumstance bonus to its AC against the triggering attack.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -776,58 +869,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Frill Defense",
-            "sort": 300000,
-            "type": "action"
-        },
-        {
-            "_id": "Z23X1087gaDflbKh",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry. <strong>Effect</strong> The monster knocks the target prone.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Knockdown",
-            "sort": 400000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -840,7 +884,7 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
@@ -874,57 +918,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Lumbering Charge",
-            "sort": 500000,
-            "type": "action"
-        },
-        {
-            "_id": "9zKbFndAo2jl79fu",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 3
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>Large or smaller, foot, DC 26<br />The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Trample",
             "sort": 600000,
             "type": "action"
         },
@@ -943,7 +938,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A triceratops deals [[/r 2d6 # extra persistent bleed damage]] extra persistent bleed damage to prone targets it hits with its horns.</p>"
+                    "value": "<p>A triceratops deals [[/r 2d6 #persistent bleed]] extra @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Bleed Damage} to @Compendium[pf2e.conditionitems.Prone]{Prone} targets it hits with its horns.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -972,9 +967,109 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Vicious Gore",
             "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "bcl3zcX6TOOupNt9",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Knockdown in its damage entry.</p>\n<p><strong>Effect</strong> The monster knocks the target @Compendium[pf2e.conditionitems.Prone]{Prone}.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "knockdown",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.BCLvAx4Pz4MLa2pu"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Knockdown",
+            "sort": 800000,
+            "type": "action"
+        },
+        {
+            "_id": "OKzqL9XBxnlVikDo",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "3"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Large or smaller, foot, <span data-pf2-saving-throw=\"reflex\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trample DC\" data-pf2-dc=\"20\" data-pf2-show-dc=\"gm\">basic Reflex</span></p>\n<hr />\n<p>The monster Strides up to double its Speed and can move through the spaces of creatures of the listed size, Trampling each creature whose space it enters. The monster can attempt to Trample the same creature only once in a single use of Trample. The monster deals the damage of the listed Strike, but trampled creatures can attempt a basic Reflex save at the listed DC (no damage on a critical success, half damage on a success, double damage on a critical failure).</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "trample",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.UNah0bxXxkcZjxO3"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
+            "name": "Trample",
+            "sort": 900000,
             "type": "action"
         },
         {
@@ -1012,9 +1107,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         }
     ],
@@ -1028,7 +1123,9 @@
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -1038,20 +1135,24 @@
         "disposition": -1,
         "flags": {},
         "height": 3,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Triceratops",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
         "width": 3
     },

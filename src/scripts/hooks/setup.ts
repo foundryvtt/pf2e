@@ -3,15 +3,16 @@ import { registerSheets } from '../register-sheets';
 import { ActorPF2e } from '@actor/base';
 import { Rollable } from '@actor/data-definitions';
 import { PF2CheckDC } from '@system/check-degree-of-success';
-import { HomebrewElements } from '@module/settings/homebrew';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { raiseAShield } from '@scripts/macros/raise-a-shield';
 import { steelYourResolve } from '@scripts/macros/steel-your-resolve';
+import { encouragingWords } from '@scripts/macros/encouraging-words';
 import { earnIncome } from '@scripts/macros/earn-income';
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { DicePF2e } from '@scripts/dice';
 import {
     AbilityModifier,
@@ -36,10 +37,38 @@ function resolveActors(): ActorPF2e[] {
     return actors;
 }
 
+function registerGlobalDCInjection() {
+    const selectorShowDC = '[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])';
+    const observer = new MutationObserver((mutations) => {
+        for (const mutation of mutations) {
+            mutation.addedNodes.forEach((node) => {
+                if (!(node instanceof HTMLElement)) return;
+                node.querySelectorAll(selectorShowDC).forEach((element) => {
+                    if (!(element instanceof HTMLElement)) return;
+                    const dc = element.dataset.pf2Dc!.trim()!;
+                    const role = element.dataset.pf2ShowDc!.trim();
+                    if (['all', 'owner'].includes(role) || (role === 'gm' && game.user.isGM)) {
+                        element.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                            dc,
+                            text: element.innerHTML,
+                        });
+                    }
+                });
+            });
+        }
+    });
+    observer.observe(window.document.body, { childList: true, subtree: true });
+}
+
 function registerPF2ActionClickListener() {
     $<HTMLBodyElement>('body').on('click', (event) => {
-        const target = event.target;
-        if (target?.matches('[data-pf2-action]:not([data-pf2-action=""])')) {
+        let target = event.target;
+        if (
+            target?.matches(
+                '[data-pf2-action]:not([data-pf2-action=""]), [data-pf2-action]:not([data-pf2-action=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-action]:not([data-pf2-action=""])')!;
             const { pf2Action, pf2Glyph, pf2Variant } = target.dataset ?? {};
             const action = game.pf2e.actions[pf2Action ?? ''];
             if (pf2Action && action) {
@@ -51,7 +80,12 @@ function registerPF2ActionClickListener() {
             } else {
                 console.warn(`PF2e System | Skip executing unknown action '${pf2Action}'`);
             }
-        } else if (target?.matches('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')) {
+        } else if (
+            target?.matches(
+                '[data-pf2-saving-throw]:not([data-pf2-saving-throw=""]), [data-pf2-saving-throw]:not([data-pf2-saving-throw=""]) *',
+            )
+        ) {
+            target = target.closest('[data-pf2-saving-throw]:not([data-pf2-saving-throw=""])')!;
             const actors = resolveActors();
             if (actors.length) {
                 const { pf2SavingThrow, pf2Dc, pf2Traits, pf2Label } = target.dataset ?? {};
@@ -92,6 +126,9 @@ export function listen() {
         // Register actor and item sheets
         registerSheets();
 
+        // register global DC injection
+        registerGlobalDCInjection();
+
         // register click listener for elements with a data-pf2-action attribute
         registerPF2ActionClickListener();
 
@@ -101,6 +138,7 @@ export function listen() {
                 earnIncome,
                 raiseAShield,
                 steelYourResolve,
+                encouragingWords,
             },
             rollItemMacro,
             rollActionMacro,
@@ -109,6 +147,7 @@ export function listen() {
                 launchTravelSheet,
             },
             effectPanel: new EffectPanel(),
+            effectTracker: new EffectTracker(),
             worldClock: new WorldClock(),
             DicePF2e: DicePF2e,
             StatusEffects: StatusEffects,
@@ -122,8 +161,5 @@ export function listen() {
             Check: CheckPF2e,
             RuleElements,
         };
-
-        // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
-        HomebrewElements.updateConfig();
     });
 }

@@ -12,20 +12,13 @@ import {
 } from '@module/modifiers';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import {
-    ItemDataPF2e,
-    ItemTraits,
-    MeleeDetailsData,
-    SpellcastingEntryData,
-    TrickMagicItemCastData,
-} from './data-definitions';
-import { calculateTrickMagicItemCheckDC, canCastConsumable } from './spell-consumables';
+import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TraitChatData, TrickMagicItemCastData } from './data/types';
+import { canCastConsumable } from './spell-consumables';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
-import { ConfigPF2e } from '@scripts/config';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { ErrorPF2e } from '@module/utils';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -59,7 +52,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** The sluggified name of the item **/
-    get slug(): string {
+    get slug(): string | null {
         return this.data.data.slug;
     }
 
@@ -69,15 +62,17 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     get traits(): Set<string> {
-        const rarity: string = this.data.data.traits.rarity.value;
-        return new Set([rarity].concat(this.data.data.traits.value));
+        return new Set(this.data.data.traits.value);
+    }
+
+    get description(): string {
+        return this.data.data.description.value;
     }
 
     /** @override */
     prepareData(): void {
-        // Remove any empty-string traits that somehow got snuck their way in
-        this._data.data.traits.value = this._data.data.traits.value.filter((trait) => !!trait);
         super.prepareData();
+        this.data.isPhysical = false;
     }
 
     /**
@@ -91,7 +86,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
-            tokenId: token ? `${token.scene._id}.${token.id}` : null,
+            tokenId: token ? `${token.scene._id}.${token.id}` : null, // `;
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
@@ -133,37 +128,43 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Internal method that transforms data into something that can be used for chat.
      * Currently renders description text using TextEditor.enrichHTML()
      */
-    protected processChatData(htmlOptions: Record<string, boolean> | undefined, data: any): unknown {
-        if (data?.description) {
-            data.description.value = TextEditor.enrichHTML(data.description.value, htmlOptions);
+    protected processChatData<T>(htmlOptions: EnrichHTMLOptions = {}, data: T): T {
+        if (isItemSystemData(data)) {
+            const chatData = duplicate(data);
+            chatData.description.value = TextEditor.enrichHTML(chatData.description.value, htmlOptions);
+            return chatData;
         }
 
         return data;
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>, _rollOptions?: any) {
-        return this.processChatData(htmlOptions, duplicate(this.data.data));
+    getChatData(
+        this: Owned<ItemPF2e>,
+        htmlOptions: EnrichHTMLOptions = {},
+        _rollOptions: Record<string, any> = {},
+    ): unknown {
+        return this.processChatData(htmlOptions, {
+            ...duplicate(this.data.data),
+            traits: this.traitChatData({}),
+        });
     }
 
-    /* -------------------------------------------- */
-
-    static traitChatData(
-        itemTraits: ItemTraits,
-        traitList: Record<string, string>,
-    ): { label: string; description: string }[] {
-        let traits: string[] = duplicate(itemTraits.value);
-        const customTraits = itemTraits.custom ? itemTraits.custom.trim().split(/\s*[,;|]\s*/) : [];
-
-        if (customTraits.length > 0) {
-            traits = traits.concat(customTraits);
-        }
+    protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
+        const traits: string[] = duplicate(this.data.data.traits.value);
+        const customTraits = this.data.data.traits.custom
+            .trim()
+            .split(/\s*[,;|]\s*/)
+            .filter((trait) => trait);
+        traits.push(...customTraits);
 
         const traitChatLabels = traits.map((trait) => {
-            const label = traitList[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
+            const label = dictionary[trait] || trait.charAt(0).toUpperCase() + trait.slice(1);
+            const traitDescriptions: Record<string, string> = CONFIG.PF2E.traitsDescriptions;
+
             return {
+                value: trait,
                 label,
-                description:
-                    CONFIG.PF2E.traitsDescriptions[trait as keyof ConfigPF2e['PF2E']['traitsDescriptions']] ?? '',
+                description: traitDescriptions[trait],
             };
         });
 
@@ -178,7 +179,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll a Weapon Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollWeaponAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollWeaponAttack(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== 'weapon' && this.type !== 'melee') throw new Error('Wrong item type!');
 
         // Prepare roll data
@@ -235,7 +236,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Weapon Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollWeaponDamage(event: JQuery.ClickEvent, critical = false) {
+    rollWeaponDamage(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         const localize: Function = game.i18n.localize.bind(game.i18n);
 
         const item = this.data;
@@ -369,7 +370,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll a NPC Attack
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollNPCAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollNPCAttack(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         if (this.type !== 'melee') throw ErrorPF2e('Wrong item type!');
         if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
             throw ErrorPF2e('Attempted to roll an attack without an actor!');
@@ -530,11 +531,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const trickMagicItemData = item.data.trickMagicItemData;
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data);
-        const spellcastingEntry =
-            (this.actor.data.items.find((item) => item._id === itemData.location.value) as SpellcastingEntryData) ??
-            (this.actor.getOwnedItem(itemData.location.value)?.data as SpellcastingEntryData);
-        let useTrickData = false;
-        if (spellcastingEntry?.type !== 'spellcastingEntry') useTrickData = true;
+        const spellcastingEntry = this.actor.itemTypes.spellcastingEntry.find(
+            (entry) => entry.id === itemData.location.value,
+        )?.data;
+        const useTrickData = !spellcastingEntry;
 
         if (useTrickData && !trickMagicItemData)
             throw new Error('Spell points to location that is not a spellcasting type');
@@ -542,8 +542,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // calculate multiple attack penalty
         const map = this.calculateMap();
 
-        if (spellcastingEntry.data?.attack?.roll) {
-            const options = this.actor.getRollOptions(['all', 'attack-roll', 'spell-attack-roll']);
+        if (spellcastingEntry && spellcastingEntry.data.attack?.roll) {
+            const options = this.actor
+                .getRollOptions(['all', 'attack-roll', 'spell-attack-roll'])
+                .concat(...this.traits);
             const modifiers: ModifierPF2e[] = [];
             if (multiAttackPenalty > 1) {
                 modifiers.push(new ModifierPF2e(map.label, map[`map${multiAttackPenalty}`], 'untyped'));
@@ -613,7 +615,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const itemData = item.data;
         const rollData = duplicate(this.actor.data.data) as any;
         const isHeal = itemData.spellType.value === 'heal';
-        const dtype = CONFIG.PF2E.damageTypes[itemData.damageType.value];
+        const damageType = game.i18n.localize(CONFIG.PF2E.damageTypes[itemData.damageType.value]);
 
         const spellLvl = ItemPF2e.findSpellLevel(event);
         const spell = new SpellFacade(item, { castingActor: this.actor, castLevel: spellLvl });
@@ -622,7 +624,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // Append damage type to title
         const damageLabel = game.i18n.localize(isHeal ? 'PF2E.SpellTypeHeal' : 'PF2E.DamageLabel');
         let title = `${this.name} - ${damageLabel}`;
-        if (dtype && !isHeal) title += ` (${dtype})`;
+        if (damageType && !isHeal) title += ` (${damageType})`;
 
         // Add item to roll data
         if (!spell.spellcastingEntry?.data && spell.data.data.trickMagicItemData) {
@@ -726,7 +728,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /**
      * Use a consumable item
      */
-    async rollConsumable(this: Owned<ItemPF2e>, _ev: JQuery.ClickEvent) {
+    async rollConsumable(this: Owned<ItemPF2e>, _event: JQuery.ClickEvent): Promise<void> {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
         if (!this.actor) throw Error('Tried to roll a consumable that has no actor');
@@ -739,15 +741,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             this.actor instanceof ActorPF2e
         ) {
             if (canCastConsumable(this.actor, item)) {
-                this._castEmbeddedSpell();
+                this.castEmbeddedSpell();
             } else if (this.actor.itemTypes.feat.some((feat) => feat.slug === 'trick-magic-item')) {
-                const DC = calculateTrickMagicItemCheckDC(item);
-                const trickMagicItemCallback = async (trickMagicItemPromise: TrickMagicItemCastData): Promise<void> => {
-                    const trickMagicItemData = await trickMagicItemPromise;
-                    if (trickMagicItemData) this._castEmbeddedSpell(trickMagicItemData);
-                };
-                const popup = new TrickMagicItemPopup(this.actor, DC, trickMagicItemCallback);
-                popup.render(true);
+                new TrickMagicItemPopup(this);
             } else {
                 const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
                 ChatMessage.create({
@@ -810,19 +806,17 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         }
     }
 
-    protected async _castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData) {
+    async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData): Promise<void> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
         const spellData = duplicate(this.data.data.spell.data.data);
-        let spellcastingEntries: SpellcastingEntryData[] | TrickMagicItemCastData[] = actor.data.items.filter(
-            (i) => i.type === 'spellcastingEntry',
-        ) as SpellcastingEntryData[];
         // Filter to only spellcasting entries that are eligible to cast this consumable
-        spellcastingEntries = spellcastingEntries
+        const realEntries = actor.itemTypes.spellcastingEntry
+            .map((entry) => entry.data)
             .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
-            .filter((i) => spellData.traditions.value.includes(i.data.tradition.value));
-        if (spellcastingEntries.length === 0 && trickMagicItemData) spellcastingEntries = [trickMagicItemData];
+            .filter((i) => tupleHasValue(spellData.traditions.value, i.data.tradition.value));
+        const spellcastingEntries = trickMagicItemData ? [trickMagicItemData] : realEntries;
         if (spellcastingEntries.length > 0) {
             const localize: Localization['localize'] = game.i18n.localize.bind(game.i18n);
             let maxBonus = 0;
@@ -854,7 +848,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                           CONFIG.PF2E.areaTypes[spellData.area.areaType]
                       }`
                     : null,
-                spellData.areasize?.value ? `${localize('PF2E.SpellAreaLabel')}: ${spellData.areasize.value}` : null,
                 spellData.time.value ? `${localize('PF2E.SpellTimeLabel')}: ${spellData.time.value}` : null,
                 spellData.duration.value ? `${localize('PF2E.SpellDurationLabel')}: ${spellData.duration.value}` : null,
             ];
@@ -863,7 +856,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 props.push(`Heightened: +${parseInt(spellData.spellLvl, 10) - spellData.level.value}`);
             }
             spellData.properties = props.filter((p) => p !== null);
-            spellData.traits = ItemPF2e.traitChatData(spellData.traits, CONFIG.PF2E.spellTraits) as any;
+            spellData.traits = this.traitChatData(CONFIG.PF2E.spellTraits) as any;
 
             spellData.item = JSON.stringify(this.data);
 
@@ -902,7 +895,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             chatData.content = await renderTemplate(template, templateData);
 
             // Create the chat message
-            return ChatMessage.create(chatData, { displaySheet: false });
+            await ChatMessage.create(chatData, { displaySheet: false });
         }
     }
 
@@ -943,7 +936,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const original = game.system.entityTypes.Item;
         game.system.entityTypes.Item = original.filter(
             (itemType: string) =>
-                !(['condition', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
+                !(['condition', 'martial', 'spellcastingEntry'].includes(itemType) && BUILD_MODE === 'production'),
         );
         const newItem = super.createDialog(data, options);
         game.system.entityTypes.Item = original;
@@ -954,4 +947,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 export interface ItemPF2e {
     data: ItemDataPF2e;
     _data: ItemDataPF2e;
+
+    getFlag(scope: string, key: string): any;
+    getFlag(scope: 'core', key: 'sourceId'): string | undefined;
 }

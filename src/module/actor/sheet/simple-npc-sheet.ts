@@ -23,19 +23,21 @@ import {
     ActionData,
     ActionDetailsData,
     ArmorData,
+    ConditionData,
     ConsumableData,
+    EffectData,
     EquipmentData,
     ItemDataPF2e,
     MeleeData,
-    PhysicalItemData,
     SpellcastingEntryData,
     SpellcastingEntryDetailsData,
     SpellData,
     TreasureData,
     WeaponData,
-} from '@item/data-definitions';
-import { ErrorPF2e, objectHasKey } from '@module/utils';
+} from '@item/data/types';
+import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
 import { ConfigPF2e } from '@scripts/config';
+import { InventoryItem, SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {
     localizedName?: string;
@@ -63,19 +65,6 @@ interface Attack {
 
 type Attacks = Attack[];
 
-interface SheetItemList<D extends PhysicalItemData> {
-    label: string;
-    type: D['type'];
-    items: D[];
-}
-interface Inventory {
-    weapon: SheetItemList<WeaponData>;
-    armor: SheetItemList<ArmorData>;
-    equipment: SheetItemList<EquipmentData>;
-    consumable: SheetItemList<ConsumableData>;
-    treasure: SheetItemList<TreasureData>;
-}
-
 interface NPCSystemSheetData extends RawNPCData {
     attributes: NPCAttributes & {
         shieldBroken?: boolean;
@@ -100,6 +89,8 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     attacks: Attacks;
     data: NPCSystemSheetData;
     items: ItemDataPF2e[] & SheetEnrichedItemData[];
+    effects: EffectData[];
+    conditions: ConditionData[];
     spellcastingEntries: SpellcastingSheetData[];
     orphanedSpells: boolean;
     orphanedSpellbook: any;
@@ -127,7 +118,7 @@ interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
     eliteState: 'active' | 'inactive';
     weakState: 'active' | 'inactive';
     notAdjusted: boolean;
-    inventory: Inventory;
+    inventory: SheetInventory;
     hasShield?: boolean;
 }
 
@@ -136,8 +127,9 @@ interface SheetEnrichedItemData {
     imageUrl: string;
     traits: {
         label: string;
-        description: string;
+        description?: string;
     }[];
+    chatData?: unknown;
     data: {
         components: {
             somatic: boolean;
@@ -168,7 +160,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Mix default options with new ones
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc']),
+            classes: options.classes.concat('npc'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true, // Not sure what it does in an NPC, copied from old code
@@ -182,7 +174,28 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Returns the path to the HTML template to use to render this sheet.
      */
     get template() {
+        if (this.isLootSheet) {
+            return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
+        }
         return 'systems/pf2e/templates/actors/npc/npc-sheet.html';
+    }
+
+    /**
+     * Use the token name as the title if showing a lootable NPC sheet
+     * @override
+     */
+    get title() {
+        if (this.isLootSheet) {
+            const actorName = this.token?.name ?? this.actor.name;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`; // `;
+        }
+        return super.title;
+    }
+
+    /** @override */
+    get isLootSheet(): boolean {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        return npcsAreLootable && !this.actor.owner && this.actor.isLootableBy(game.user);
     }
 
     /**
@@ -198,11 +211,15 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         this.prepareSpeeds(sheetData.data);
         this.prepareSaves(sheetData.data);
         this.prepareActions(sheetData);
+        sheetData.inventory = this.prepareInventory(sheetData);
         sheetData.attacks = this.prepareAttacks(sheetData.data);
+        sheetData.conditions = sheetData.items.filter((data): data is ConditionData => data.type === 'condition');
+        sheetData.effects = sheetData.items.filter((data): data is EffectData => data.type === 'effect');
         sheetData.spellcastingEntries = this.prepareSpellcasting(sheetData);
     }
 
-    getData() {
+    /** @override */
+    getData(): NPCSheetData {
         const sheetData: NPCSheetData = super.getData();
 
         // recall knowledge DCs
@@ -215,7 +232,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.identificationSkills = Array.from(sheetData.identifyCreatureData.skills)
             .sort()
             .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym as SkillAbbreviation]);
-        sheetData.identificationSkillList = sheetData.identificationSkills.join(', ');
 
         sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
         sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
@@ -232,7 +248,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.traits = this.prepareOptions(CONFIG.PF2E.monsterTraits, sheetData.data.traits.traits);
         sheetData.immunities = this.prepareOptions(CONFIG.PF2E.immunityTypes, sheetData.data.traits.di);
         sheetData.languages = this.prepareOptions(CONFIG.PF2E.languages, sheetData.data.traits.languages);
-        sheetData.inventory = this.prepareInventory(sheetData);
 
         // Shield
         const shield = this.actor.heldShield;
@@ -264,6 +279,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             sheetData.weakState = 'inactive';
         }
 
+        // Data for lootable token-actor sheets
+        if (this.isLootSheet) {
+            sheetData.actor.name = this.token?.name ?? this.actor.name;
+        }
+
         // Return data for rendering
         return sheetData;
     }
@@ -275,6 +295,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     activateListeners(html: JQuery<HTMLElement>) {
         super.activateListeners(html);
 
+        // Set the inventory tab as active on a loot-sheet rendering.
+        if (this.isLootSheet) {
+            html.find('.tab.inventory').addClass('active');
+        }
+
         // Subscribe to roll events
         const rollables = ['a.rollable', '.rollable a', '.item-icon.rollable'].join(', ');
         html.find(rollables).on('click', (event) => this.onClickRollable(event));
@@ -285,9 +310,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
         html.find('.action')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.npc-item')
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
 
@@ -315,6 +337,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('.modifier')
             .on('focusin', (event) => this.baseInputOnFocus(event))
             .on('focusout', (event) => this.baseInputOnFocusOut(event));
+
+        html.find('.effects-list > .effect > .item-image').on('contextmenu', (event) => this.onClickDeleteItem(event));
     }
 
     // TRAITS MANAGEMENT
@@ -582,29 +606,16 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Assign spells to spell entries
         for (const spell of spellsList) {
-            const spellType = spell.data.time.value;
+            // Merge in spell chat data
+            spell.chatData = this.actor.items.get(spell._id)?.getChatData();
 
-            // Assign icon based on type of action
-            if (spellType === 'reaction') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else if (spellType === 'free') {
-                spell.glyph = ActorPF2e.getActionGraphics(spellType).actionGlyph;
-            } else {
-                const actionsCost = parseInt(spellType, 10);
-                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-            }
+            // Assign icon based on cast time
+            spell.glyph = getActionGlyph(spell.data.time.value);
 
             // Assign components
             spell.data.components.somatic = spell.data.components.value.includes('somatic');
             spell.data.components.verbal = spell.data.components.value.includes('verbal');
             spell.data.components.material = spell.data.components.value.includes('material');
-
-            spell.traits = spell.data.traits.value.map((trait) => {
-                return {
-                    label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                    description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                };
-            });
 
             let location = spell.data.location.value;
             let spellbook: any;
@@ -672,27 +683,16 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                         (spellData): spellData is SheetSpellData => !!spellData._id,
                     );
                     for (const spell of preparedSpells) {
-                        const actionType = spell.data.time.value;
-                        if (actionType) {
-                            // Assign icon based on spell type
-                            if (actionType === 'reaction') {
-                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
-                            } else if (actionType === 'free') {
-                                spell.glyph = ActorPF2e.getActionGraphics(actionType).actionGlyph;
-                            } else {
-                                const actionsCost = parseInt(actionType, 10);
-                                spell.glyph = ActorPF2e.getActionGraphics('action', actionsCost).actionGlyph;
-                            }
-                            // Assign components
-                            spell.data.components.somatic = spell.data.components.value.includes('somatic');
-                            spell.data.components.verbal = spell.data.components.value.includes('verbal');
-                            spell.data.components.material = spell.data.components.value.includes('material');
+                        // Merge in spell chat data
+                        spell.chatData = this.actor.items.get(spell._id)?.getChatData();
 
-                            spell.traits = spell.data.traits.value.map((trait) => ({
-                                label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                                description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                            }));
-                        }
+                        // Assign icon based on cast time
+                        spell.glyph = getActionGlyph(spell.data.time.value);
+
+                        // Assign components
+                        spell.data.components.somatic = spell.data.components.value.includes('somatic');
+                        spell.data.components.verbal = spell.data.components.value.includes('verbal');
+                        spell.data.components.material = spell.data.components.value.includes('material');
                     }
                 }
             }
@@ -706,33 +706,41 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
      * Prepares the equipment list of the actor.
      * @param sheetData Data of the sheet.
      */
-    private prepareInventory(sheetData: NPCSheetData): Inventory {
+    prepareInventory(sheetData: { items: ItemDataPF2e[] }): SheetInventory {
         const itemsData = sheetData.items;
         return {
             weapon: {
                 label: game.i18n.localize('PF2E.InventoryWeaponsHeader'),
                 type: 'weapon',
-                items: itemsData.filter((itemData): itemData is WeaponData => itemData.type === 'weapon'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<WeaponData> => itemData.type === 'weapon',
+                ),
             },
             armor: {
                 label: game.i18n.localize('PF2E.InventoryArmorHeader'),
                 type: 'armor',
-                items: itemsData.filter((itemData): itemData is ArmorData => itemData.type === 'armor'),
+                items: itemsData.filter((itemData): itemData is InventoryItem<ArmorData> => itemData.type === 'armor'),
             },
             equipment: {
                 label: game.i18n.localize('PF2E.InventoryEquipmentHeader'),
                 type: 'equipment',
-                items: itemsData.filter((itemData): itemData is EquipmentData => itemData.type === 'equipment'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<EquipmentData> => itemData.type === 'equipment',
+                ),
             },
             consumable: {
                 label: game.i18n.localize('PF2E.InventoryConsumablesHeader'),
                 type: 'consumable',
-                items: itemsData.filter((itemData): itemData is ConsumableData => itemData.type === 'consumable'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<ConsumableData> => itemData.type === 'consumable',
+                ),
             },
             treasure: {
                 label: game.i18n.localize('PF2E.InventoryTreasureHeader'),
                 type: 'treasure',
-                items: itemsData.filter((itemData): itemData is TreasureData => itemData.type === 'treasure'),
+                items: itemsData.filter(
+                    (itemData): itemData is InventoryItem<TreasureData> => itemData.type === 'treasure',
+                ),
             },
         };
     }

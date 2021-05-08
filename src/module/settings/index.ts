@@ -1,4 +1,4 @@
-import { compendiumBrowser } from '../packs/compendium-browser';
+import { compendiumBrowser } from '../apps/compendium-browser';
 import { VariantRulesSettings } from './variant-rules';
 import { Migrations } from '../migrations';
 import { WorldClockSettings } from './world-clock';
@@ -58,6 +58,15 @@ export function registerSettings() {
             [CONST.TOKEN_DISPLAY_MODES.OWNER]: 'TOKEN.DISPLAY_OWNER',
             [CONST.TOKEN_DISPLAY_MODES.ALWAYS]: 'TOKEN.DISPLAY_ALWAYS',
         },
+    });
+
+    game.settings.register('pf2e', 'automation.lootableNPCs', {
+        name: 'PF2E.SETTINGS.Automation.LootableNPCs.Name',
+        hint: 'PF2E.SETTINGS.Automation.LootableNPCs.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
     });
 
     game.settings.register('pf2e', 'ignoreCoinBulk', {
@@ -140,6 +149,22 @@ export function registerSettings() {
         config: true,
         default: false,
         type: Boolean,
+    });
+
+    game.settings.register('pf2e', 'effectAutoExpire', {
+        name: 'PF2E.SETTINGS.effectAutoExpire.name',
+        hint: 'PF2E.SETTINGS.effectAutoExpire.hint',
+        scope: 'world',
+        config: true,
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            game.actors.forEach((actor) => {
+                actor.prepareData();
+                actor.sheet.render(false);
+                actor.getActiveTokens().forEach((token) => token.drawEffects());
+            });
+        },
     });
 
     game.settings.register('pf2e', 'critFumbleButtons', {
@@ -225,13 +250,32 @@ export function registerSettings() {
     });
     WorldClockSettings.registerSettings();
 
-    // this section starts questionable rule settings, all of them should have a 'rai.' at the start of their name
+    // this section starts questionable rule settings, all of them should have a 'RAI.' at the start of their name
     game.settings.register('pf2e', 'RAI.TreatWoundsAltSkills', {
         name: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Name',
         hint: 'PF2E.SETTINGS.RAI.TreatWoundsAltSkills.Hint',
         scope: 'world',
         config: true,
         default: true,
+        type: Boolean,
+    });
+
+    // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
+    game.settings.register('pf2e', 'metagame.secretDamage', {
+        name: 'PF2E.SETTINGS.Metagame.SecretDamage.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretDamage.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+    });
+
+    game.settings.register('pf2e', 'metagame.secretCondition', {
+        name: 'PF2E.SETTINGS.Metagame.SecretCondition.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretCondition.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
         type: Boolean,
     });
 }

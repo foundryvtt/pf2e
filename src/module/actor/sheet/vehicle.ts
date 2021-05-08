@@ -24,7 +24,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
+        const sheetData: any = super.getData();
 
         // update properties
         sheetData.actorSizes = CONFIG.PF2E.actorSizes;
@@ -108,11 +108,8 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
             i.containerData = containers.get(i._id);
             i.isContainer = i.containerData.isContainer;
             i.isNotInContainer = i.containerData.isNotInContainer;
-            i.canBeEquipped = i.isNotInContainer;
-            i.isEquipped = i.data?.equipped?.value ?? false;
+            i.canBeEquipped = false;
             i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-            i.hasInvestedTrait = i.data?.traits?.value?.includes('invested') ?? false;
-            i.isInvested = i.data?.invested?.value ?? false;
 
             // Inventory
             if (Object.keys(inventory).includes(i.type)) {

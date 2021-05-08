@@ -1,0 +1,65 @@
+{
+    "_id": "W2tWq0gdAcnoz2MO",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Monster Hunter]{Monster Hunter}.</p>\n<p>You gain a <span style=\"color: var(--body);\">+1 circumstance bonus to your next attack roll against that prey.</span></p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.ToggleProperty",
+                "label": "Target is the subject of Monster Hunter",
+                "property": "flags.pf2e.rollOptions.attack-roll.monster-hunter"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Monster Hunter",
+                "predicate": {
+                    "all": [
+                        "monster-hunter"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "type": "circumstance",
+                "value": 1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/monstrosity-form.webp",
+    "name": "Effect: Monster Hunter",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

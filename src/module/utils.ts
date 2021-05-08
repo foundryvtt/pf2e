@@ -208,6 +208,49 @@ export function sluggify(entityName: string) {
         .replace(/[-\s]+/g, '-');
 }
 
+const actionImgMap: Record<string, string> = {
+    1: 'systems/pf2e/icons/actions/OneAction.webp',
+    2: 'systems/pf2e/icons/actions/TwoActions.webp',
+    3: 'systems/pf2e/icons/actions/ThreeActions.webp',
+    '1 or 2': 'systems/pf2e/icons/actions/OneTwoActions.webp',
+    '1 to 3': 'systems/pf2e/icons/actions/OneThreeActions.webp',
+    '2 or 3': 'systems/pf2e/icons/actions/TwoThreeActions.webp',
+    free: 'systems/pf2e/icons/actions/FreeAction.webp',
+    reaction: 'systems/pf2e/icons/actions/Reaction.webp',
+    passive: 'systems/pf2e/icons/actions/Passive.webp',
+};
+
+export function getActionIcon(actionType: string, fallback: string): string;
+export function getActionIcon(actionType: string, fallback: string | null): string | null;
+export function getActionIcon(actionType: string): string;
+export function getActionIcon(
+    actionType: string,
+    fallback: string | null = 'systems/pf2e/icons/default-icons/mystery-man.svg',
+): string | null {
+    const sanitized = actionType.toLowerCase().trim();
+    return actionImgMap[sanitized] ?? fallback;
+}
+
+const actionGlyphMap: Record<string, string> = {
+    1: 'A',
+    2: 'D',
+    3: 'T',
+    '1 or 2': 'A/D',
+    '1 to 3': 'A/T',
+    '2 or 3': 'D/T',
+    free: 'F',
+    reaction: 'R',
+};
+
+/**
+ * Returns a character that can be used with the Pathfinder action font
+ * to display an icon.
+ */
+export function getActionGlyph(actionType: string) {
+    const sanitized = actionType.toLowerCase().trim();
+    return actionGlyphMap[sanitized] ?? '';
+}
+
 export function ErrorPF2e(message: string) {
     return Error(`PF2e System | ${message}`);
 }

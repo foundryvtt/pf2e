@@ -14,32 +14,26 @@
                 "abilities": {
                     "str": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     },
                     "dex": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     },
                     "con": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     },
                     "int": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     },
                     "wis": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     },
                     "cha": {
                         "value": 10,
-                        "min": 3,
                         "mod": 0
                     }
                 },
@@ -146,7 +140,7 @@
                     },
                     "deity": {
                         "value": "",
-                        "image": "systems/pf2e/assets/sheet/deity.png"
+                        "image": "systems/pf2e/assets/sheet/deity.webp"
                     },
                     "level": {
                         "value": 1,
@@ -464,7 +458,6 @@
                     "value": ""
                 },
                 "flavourText": "",
-                "nethysUrl": "",
                 "recallKnowledgeText": "",
                 "sidebarText": "",
                 "creatureType": ""
@@ -476,7 +469,6 @@
                 "value": ""
             },
             "flavourText": "",
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "creatureType": "",
@@ -779,9 +771,6 @@
                 "equipped": {
                     "value": false
                 },
-                "identified": {
-                    "value": true
-                },
                 "stackGroup": {
                     "value": ""
                 },
@@ -807,7 +796,21 @@
                     "value": "med"
                 },
                 "identification": {
-                    "status": "identified"
+                    "status": "identified",
+                    "unidentified": {
+                        "name": "",
+                        "img": "",
+                        "data": {
+                            "description": {
+                                "value": ""
+                            },
+                            "traits": {
+                                "value": []
+                            }
+                        }
+
+                    },
+                    "misidentified": {}
                 }
             },
             "itemLevel": {
@@ -916,13 +919,13 @@
                 "magicItem"
             ],
             "weaponType": {
-                "value": ""
+                "value": "simple"
             },
             "group": {
-                "value": ""
+                "value": null
             },
             "hands": {
-                "value": ""
+                "value": false
             },
             "bonus": {
                 "value": 0
@@ -952,7 +955,7 @@
                 "value": ""
             },
             "potencyRune": {
-                "value": ""
+                "value": 0
             },
             "strikingRune": {
                 "value": ""
@@ -994,10 +997,10 @@
                 "value": 0
             },
             "armorType": {
-                "value": ""
+                "value": "light"
             },
             "group": {
-                "value": ""
+                "value": null
             },
             "strength": {
                 "value": 0
@@ -1012,7 +1015,7 @@
                 "value": 0
             },
             "potencyRune": {
-                "value": ""
+                "value": 0
             },
             "resiliencyRune": {
                 "value": ""
@@ -1039,6 +1042,9 @@
                 "physicalItem",
                 "magicItem"
             ],
+            "weaponType": {
+                "value": "melee"
+            },
             "attack": {
                 "value": ""
             },
@@ -1261,7 +1267,7 @@
             "spellType": {
                 "value": ""
             },
-            "spellCategory": {
+            "category": {
                 "value": ""
             },
             "traditions": {
@@ -1303,6 +1309,7 @@
                 "formula": ""
             },
             "save": {
+                "value": "",
                 "basic": ""
             },
             "sustained": {
@@ -1334,7 +1341,6 @@
             "spelldc": {
                 "value": 0,
                 "dc": 0,
-                "item": 0,
                 "mod": 0
             },
             "tradition": {
@@ -1466,7 +1472,10 @@
                 "value": 0,
                 "initiative": null
             },
-            "target": null
+            "target": null,
+            "tokenIcon": {
+                "show": false
+            }
         }
     }
 }

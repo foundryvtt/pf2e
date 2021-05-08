@@ -5,6 +5,7 @@ declare type ArrayElement<ArrayType extends readonly unknown[]> = ArrayType exte
 declare interface ElementDragEvent extends DragEvent {
     target: HTMLElement;
     currentTarget: HTMLElement;
+    readonly dataTransfer: DataTransfer;
 }
 declare type DeepPartial<T> = {
     [P in keyof T]?: T[P] extends object ? DeepPartial<T[P]> : T[P];
@@ -135,7 +136,7 @@ declare function isObjectEmpty(obj: object): boolean;
  * @param other
  * @return
  */
-declare function diffObject(original: object, other: object): object;
+declare function diffObject(original: object, other: object): Record<string, unknown>;
 
 /**
  * A helper function which tests whether an object has a property or nested property given a string key.

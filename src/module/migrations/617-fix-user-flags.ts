@@ -8,9 +8,10 @@ export class Migration617FixUserFlags extends MigrationBase {
         if (settings) {
             const uiTheme = settings.color ?? 'blue';
             const showRollDialogs = !settings.quickD20roll;
+            userData.flags.pf2e ??= {};
             userData.flags.pf2e.settings = {
                 uiTheme,
-                showEffectPanel: userData.flags.showEffectPanel ?? true,
+                showEffectPanel: userData.flags.pf2e?.showEffectPanel ?? true,
                 showRollDialogs,
             };
             delete userData.flags.PF2e;

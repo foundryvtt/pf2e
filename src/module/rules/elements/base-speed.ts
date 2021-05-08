@@ -1,10 +1,10 @@
-import { PF2RuleElement } from '../rule-element';
+import { RuleElementPF2e } from '../rule-element';
 import { CharacterData, FamiliarData, NPCData } from '@actor/data-definitions';
 
 /**
  * @category RuleElement
  */
-export class PF2BaseSpeedRuleElement extends PF2RuleElement {
+export class PF2BaseSpeedRuleElement extends RuleElementPF2e {
     onBeforePrepareData(actorData: CharacterData | NPCData | FamiliarData) {
         const value = super.resolveValue(this.ruleData.value, this.ruleData, this.item, actorData);
         const label = super.getDefaultLabel(this.ruleData, this.item);

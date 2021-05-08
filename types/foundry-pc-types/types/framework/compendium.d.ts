@@ -112,7 +112,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     searchString: string | null;
     protected _searchTime: number;
 
-    constructor(metadata: CompendiumMetadata<EntityType>, options: object);
+    constructor(metadata: CompendiumMetadata<EntityType>, options?: ApplicationOptions);
 
     static CONFIG_SETTING: 'compendiumConfiguration';
 

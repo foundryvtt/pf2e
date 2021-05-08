@@ -1,85 +1,82 @@
 import { ActorPF2e, SKILL_DICTIONARY } from '@actor/base';
-import { TrickMagicItemCastData } from '@item/data-definitions';
-import { calculateTrickMagicItemCastData, TrickMagicItemDifficultyData } from '@item/spell-consumables';
-import { SkillAbbreviation } from '@actor/data-definitions';
-import { StatisticModifier } from '@module/modifiers';
+import { ItemPF2e } from '@item/base';
+import {
+    calculateTrickMagicItemCastData,
+    calculateTrickMagicItemCheckDC,
+    TrickMagicItemDifficultyData,
+} from '@item/spell-consumables';
+import { LocalizePF2e } from '@module/system/localize';
+import { ErrorPF2e } from '@module/utils';
 
-/**
- * @category Other
- */
-export class TrickMagicItemPopup extends FormApplication<ActorPF2e> {
-    result: TrickMagicItemCastData | false = false;
-    skilloptions: TrickMagicItemDifficultyData;
-    castCallback: (trickMagicItemCastData: TrickMagicItemCastData) => void;
+type TrickMagicItemSkill = TrickMagicItemPopup['SKILLS'][number];
 
-    constructor(
-        object: ActorPF2e,
-        skilloptions: TrickMagicItemDifficultyData,
-        callback: (trickMagicItemCastData: TrickMagicItemCastData) => void,
-        options?: FormApplicationOptions,
-    ) {
-        super(object, options);
-        this.skilloptions = skilloptions;
-        this.castCallback = callback;
-        let setter = (value: TrickMagicItemCastData | false) => {
-            this.result = value;
-        };
-        // Build a promise to pass out the result with
-        const promise = new Promise<TrickMagicItemCastData | false>((resolve) => {
-            setter = (value) => {
-                if (value) {
-                    resolve(value);
-                }
-            };
-        });
-        // Assign the getter and setters for the result property to return and resolve
-        // the promise accordingly so the calling function can know when the popup has closed
-        Object.defineProperty(this, 'result', {
-            set: setter,
-            get: () => promise,
-        });
-    }
+export class TrickMagicItemPopup {
+    /** The wand or scroll being "tricked" */
+    readonly item: Owned<ItemPF2e>;
 
-    static get defaultOptions() {
-        const options = super.defaultOptions;
+    /** The actor doing the tricking */
+    readonly actor: ActorPF2e;
 
-        options.classes = [];
-        options.title = game.i18n.localize('PF2E.TrickMagicItemPopup.Title');
-        options.template = 'systems/pf2e/templates/popups/trick-magic-item-popup.html';
-        options.width = 'auto';
-        options.submitOnClose = true;
+    /** The skill DC of the action's check */
+    readonly checkDC: TrickMagicItemDifficultyData;
 
-        return options;
-    }
+    /** Trick Magic Item skills */
+    private readonly SKILLS = ['arc', 'nat', 'occ', 'rel'] as const;
 
-    getData() {
-        const sheetData: FormApplicationData<ActorPF2e> & {
-            skills?: { id: string; localized: string }[];
-        } = super.getData();
-        sheetData.skills = Object.getOwnPropertyNames(this.skilloptions).map((s) => {
-            return { id: s, localized: game.i18n.localize(`PF2E.Skill${s}`) };
-        });
-        return sheetData;
-    }
+    private translations = LocalizePF2e.translations.PF2E.TrickMagicItemPopup;
 
-    async _updateObject(event: any) {
-        if (event.submitter?.name) {
-            const skill = event.submitter.name;
-            const lowerSkill = skill.toLowerCase() as SkillAbbreviation;
-            const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[lowerSkill]);
-            const stat = getProperty(this.object, `data.data.skills.${lowerSkill}`) as StatisticModifier;
-            stat.roll({
-                actor: this.object,
-                event: event,
-                options: options,
-                notes: stat.notes,
-                type: 'skill-check',
-                dc: { value: this.skilloptions[skill] },
-            });
-            this.result = calculateTrickMagicItemCastData(this.object, lowerSkill);
-            this.castCallback(this.result);
-        } else {
-            this.result = false;
+    constructor(item: Owned<ItemPF2e>) {
+        this.item = item;
+        this.actor = item.actor;
+        if (item.data.type !== 'consumable') {
+            throw ErrorPF2e('Unexpected item used for Trick Magic Item');
         }
+
+        this.checkDC = calculateTrickMagicItemCheckDC(item.data);
+
+        if (!(this.actor.data.type === 'character' || this.actor.data.type === 'npc')) {
+            ui.notifications.warn(this.translations.InvalidActor);
+            return;
+        }
+
+        this.initialize();
+    }
+
+    private async initialize() {
+        const skills = this.SKILLS.filter((skill) => skill in this.checkDC).map((value) => ({
+            value,
+            label: game.i18n.localize(`PF2E.Skill${value.capitalize()}`),
+        }));
+        const buttons = skills.reduce((accumulated: Record<string, DialogButton>, skill) => {
+            const button: DialogButton = {
+                icon: '<i class="fas fa-dice-d20"></i>',
+                label: skill.label,
+                callback: () => this.handleTrickItem(skill.value),
+            };
+            return { ...accumulated, [skill.value]: button };
+        }, {});
+        new Dialog(
+            {
+                title: this.translations.Title,
+                content: `<p>${this.translations.Label}</p>`,
+                buttons,
+            },
+            { classes: ['dialog', 'trick-magic-item'], width: 'auto' },
+        ).render(true);
+    }
+
+    handleTrickItem(skill: TrickMagicItemSkill) {
+        const options = ['all', 'skill-check', 'action:trick-magic-item'].concat(SKILL_DICTIONARY[skill]);
+        const stat = this.actor.data.data.skills[skill];
+        stat.roll({
+            actor: this.actor,
+            options: options,
+            notes: stat.notes,
+            type: 'skill-check',
+            dc: { value: this.checkDC[skill] },
+        });
+
+        const result = calculateTrickMagicItemCastData(this.actor, skill);
+        this.item.castEmbeddedSpell(result);
     }
 }

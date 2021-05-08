@@ -1,10 +1,11 @@
 import { MigrationBase } from '@module/migrations/base';
-import { ItemDataPF2e, WeaponCategoryKey } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e, BaseWeaponProficiencyKey, WeaponGroupProficiencyKey } from '@actor/data-definitions';
 import { ConfigPF2eListName } from './index';
+import { objectHasKey } from '@module/utils';
 
-export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]) {
-    return class extends MigrationBase {
+export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[]): MigrationBase {
+    const Migration = class extends MigrationBase {
         async updateActor(actorData: ActorDataPF2e) {
             if (!(actorData.type === 'character' || actorData.type === 'npc')) {
                 return;
@@ -23,11 +24,11 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                 }
                 case 'weaponCategories': {
                     if (actorData.type === 'character') {
-                        const proficiencyKeys = deletions.map(
-                            (deletion) => `weapon-category-${deletion}`,
-                        ) as WeaponCategoryKey[];
-                        for (const key of proficiencyKeys) {
-                            delete actorData.data.martial[key];
+                        for (const key of deletions) {
+                            if (objectHasKey(actorData.data.martial, key)) {
+                                delete actorData.data.martial[key];
+                                ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                            }
                         }
                     }
                     break;
@@ -39,6 +40,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as WeaponGroupProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
+                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -50,6 +52,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as BaseWeaponProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
+                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -59,10 +62,31 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
 
         async updateItem(itemData: ItemDataPF2e) {
             switch (listKey) {
-                // Creature traits can be on almost any item
+                // Creature traits can be on many item
                 case 'creatureTraits': {
                     const traits = itemData.data.traits;
                     traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    break;
+                }
+                case 'featTraits': {
+                    if (itemData.type === 'feat') {
+                        const traits = itemData.data.traits;
+                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    }
+                    break;
+                }
+                case 'magicSchools': {
+                    if (itemData.type === 'spell') {
+                        const school = itemData.data.school;
+                        school.value = deletions.includes(school.value ?? '') ? 'evocation' : school.value;
+                    }
+                    break;
+                }
+                case 'spellTraits': {
+                    if (itemData.type === 'spell') {
+                        const traits = itemData.data.traits;
+                        traits.value = traits.value.filter((trait) => !deletions.includes(trait));
+                    }
                     break;
                 }
                 case 'weaponCategories': {
@@ -89,4 +113,6 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
             }
         }
     };
+
+    return new Migration();
 }

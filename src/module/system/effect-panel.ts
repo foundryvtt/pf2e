@@ -1,6 +1,8 @@
-import { ActorPF2e } from '../actor/base';
+import { ActorPF2e } from '@actor/base';
 import { ConditionManager } from '../conditions';
-import { ConditionData, ConditionDetailsData, EffectData } from '@item/data-definitions';
+import { ConditionData, EffectData } from '@item/data/types';
+import { ConditionPF2e } from '@item/others';
+import { EffectPF2e } from '@item/effect';
 
 interface EffectPanelData {
     conditions?: ConditionData[];
@@ -10,13 +12,6 @@ interface EffectPanelData {
 
 export class EffectPanel extends Application {
     actor?: any;
-
-    private static readonly UNITS = Object.freeze({
-        rounds: 6,
-        minutes: 60,
-        hours: 3600,
-        days: 86400,
-    });
 
     private timeout: number | undefined = undefined;
 
@@ -47,46 +42,22 @@ export class EffectPanel extends Application {
         data.effects = [];
         data.actor = EffectPanel.actor;
         if (data.actor) {
-            for (const item of data.actor.data.items) {
-                if (item.type === 'condition' && item.flags[game.system.id]?.condition) {
-                    data.conditions.push(item);
-                } else if (item.type === 'effect') {
-                    const effect = duplicate(item);
-                    const duration = EffectPanel.getEffectDuration(effect);
-                    if (duration < 0) {
+            for (const item of data.actor.items) {
+                if (item instanceof ConditionPF2e && item.fromSystem) {
+                    data.conditions.push(item.data);
+                } else if (item instanceof EffectPF2e) {
+                    const duration = item.totalDuration;
+                    const effect = duplicate(item.data);
+                    if (duration === Infinity) {
                         effect.data.expired = false;
                         effect.data.remaining = game.i18n.localize('PF2E.EffectPanel.UnlimitedDuration');
                     } else {
-                        const start = effect.data.start?.value ?? 0;
-                        const remaining = start + duration - game.time.worldTime;
-                        effect.data.expired = remaining <= 0;
-                        let initiative = 0;
-                        if (
-                            remaining === 0 &&
-                            game.combat?.data?.active &&
-                            game.combat?.turns?.length > game.combat?.turn
-                        ) {
-                            initiative = game.combat.turns[game.combat.turn].initiative;
-                            if (initiative === effect.data.start.initiative) {
-                                if (effect.data.duration.expiry === 'turn-start') {
-                                    effect.data.expired = true;
-                                } else if (effect.data.duration.expiry === 'turn-end') {
-                                    effect.data.expired = false;
-                                } else {
-                                    // unknown value - default to expired
-                                    effect.data.expired = true;
-                                    console.warn(
-                                        `Unknown value ${effect.data.duration.expiry} for duration expiry field in effect "${effect?.name}".`,
-                                    );
-                                }
-                            } else {
-                                effect.data.expired = initiative < (effect.data.start.initiative ?? 0);
-                            }
-                        }
+                        const duration = item.remainingDuration;
+                        effect.data.expired = duration.expired;
                         effect.data.remaining = effect.data.expired
                             ? game.i18n.localize('PF2E.EffectPanel.Expired')
                             : EffectPanel.getRemainingDurationLabel(
-                                  remaining,
+                                  duration.remaining,
                                   effect.data.start.initiative ?? 0,
                                   effect.data.duration.expiry,
                               );
@@ -110,23 +81,12 @@ export class EffectPanel extends Application {
         // handle right-click on condition and effect icons
         $(html).on('contextmenu', '[data-item-id]:not([data-item-id=""])', async (event) => {
             const actor = EffectPanel.actor;
-            if (actor?.hasPerm(game.user, CONST.ENTITY_PERMISSIONS.OWNER)) {
-                const item = actor.items.get(event.currentTarget.dataset.itemId);
-                if (item.type === 'condition' && item.getFlag(game.system.id, 'condition')) {
-                    const data = item.data.data as ConditionDetailsData;
-                    const value = data.value.isValued ? Math.max(data.value.value - 1, 0) : undefined;
-                    actor.getActiveTokens().forEach((token) => {
-                        if (data.value.isValued) {
-                            ConditionManager.updateConditionValue(item._id, token, value);
-                        } else {
-                            ConditionManager.removeConditionFromToken(item._id, token);
-                        }
-                    });
-                } else {
-                    actor.deleteEmbeddedEntity('OwnedItem', event.currentTarget.dataset.itemId);
-                }
-            } else {
-                console.debug('Cannot delete condition or effect on actor you do not own.');
+            if (!actor) return;
+            const effect = actor.items.get(event.currentTarget.dataset.itemId ?? '');
+            if (effect instanceof ConditionPF2e) {
+                await actor.removeOrReduceCondition(effect);
+            } else if (effect instanceof EffectPF2e) {
+                await effect.delete();
             }
         });
     }
@@ -144,15 +104,6 @@ export class EffectPanel extends Application {
             breakdown = `${game.i18n.format('PF2E.EffectPanel.AppliedBy', { 'condition-list': list })}`;
         }
         return breakdown;
-    }
-
-    private static getEffectDuration(effect: any): number {
-        const { duration } = effect.data;
-        if (duration.unit === 'unlimited') {
-            return -1;
-        } else {
-            return duration.value * (this.UNITS[duration.unit] ?? 0);
-        }
     }
 
     private static getRemainingDurationLabel(

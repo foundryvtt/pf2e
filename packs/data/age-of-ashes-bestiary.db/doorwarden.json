@@ -136,7 +136,7 @@
             },
             "creatureType": "Construct",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Doorwardens are constructs originally invented by elves. Upon first glance, these guardians resemble ornate doors made entirely of steel or even mithral, but when trespassers try to force their way past, the doorwarden transforms into a skilled and sturdy soldier bearing its &quot;door&quot; like a towering shield.<br /><br /> Perceptive travelers can sometimes spot a door warden before its magic becomes obvious. The door often bears a round disk or similar embossment that resembles a shield boss designed for bashing, and the bar that can be lowered to block entry resembles an arm clasping a longsword by the hilt. The original doorwardens crafted by the elves included a motif of elven armor and a metal mask in the style of Alseta's own, though other cultures embellish their own doorwardens with their own themes and sometimes even their own ancestral weapons, such as axes for dwarven doorwardens.<br /><br /> Doorwardens sometimes know about the chambers they guard, and they have been known to speak to trespassers, especially elves. But a doorwarden cannot be persuaded to stand aside; it is bound to the portal where it has been placed and will defend it until destroyed.<br /><br />",
@@ -151,7 +151,6 @@
                 "min": 1,
                 "value": 5
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=433",
             "recallKnowledgeText": "Recall Knowledge : DC 22",
             "sidebarText": "<h3 class=\"title\">The First Doorwardens</h3>Elves crafted the original doorwardens in honor of their goddess of portals, Alseta. Such doorwardens  are similar to the one presented here, but they speak Elven instead of Common, wield specially crafted elven curve blades rather than longswords, and may have great knowledge of elven culture and religion.",
             "source": {
@@ -624,6 +623,9 @@
                     "areaType": "",
                     "value": null
                 },
+                "category": {
+                    "value": "spell"
+                },
                 "components": {
                     "value": "somatic, verbal"
                 },
@@ -673,14 +675,11 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "div"
+                    "value": "divination"
                 },
                 "slug": null,
                 "source": {
                     "value": "https://2e.aonprd.com/Spells.aspx?ID=271"
-                },
-                "spellCategory": {
-                    "value": ""
                 },
                 "spellType": {
                     "value": "utility"
@@ -717,7 +716,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/spells/see-invisibility.jpg",
+            "img": "systems/pf2e/icons/spells/see-invisibility.webp",
             "name": "See Invisibility",
             "sort": 200000,
             "type": "spell"
@@ -731,7 +730,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "longsword",
                 "bonus": {
                     "value": 0
                 },
@@ -780,10 +779,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -798,7 +804,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -886,7 +892,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.LJdbVTOZog39EEbi"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/weapons/longsword.png",
+            "img": "systems/pf2e/icons/equipment/weapons/longsword.webp",
             "name": "Longsword",
             "sort": 300000,
             "type": "weapon"
@@ -940,10 +946,17 @@
                     "value": 20
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -959,7 +972,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1026,7 +1039,7 @@
                     "sourceId": "Compendium.pf2e.equipment-srd.Yr9yCuJiAlFh3QEB"
                 }
             },
-            "img": "systems/pf2e/icons/equipment/shields/steel-shield.jpg",
+            "img": "systems/pf2e/icons/equipment/shields/steel-shield.webp",
             "name": "Steel Shield w/ Shield Boss",
             "sort": 400000,
             "type": "armor"
@@ -1082,12 +1095,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1230,12 +1237,6 @@
                 "hp": {
                     "value": 0
                 },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
-                },
                 "invested": {
                     "value": false
                 },
@@ -1373,12 +1374,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false

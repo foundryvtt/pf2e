@@ -1,0 +1,93 @@
+{
+    "_id": "lIl0yYdS9zojOZhe",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Life-Giving Form]{Life-Giving Form}</p>\n<p>You transcend your physical form, becoming a beacon of healing energy. Your body exudes bright light like a torch. You gain resistance 5 to precision damage and weakness 5 to negative damage, and your unarmed Strikes deal an extra [[/r 1d4 #positive]] positive damage.</p>\n<p>You can touch a living creature with an @Compendium[pf2e.actionspf2e.Interact]{Interact} action to restore [[/r 6d8]] Hit Points to it, and when a creature touches you with an Interact action you can allow it to gain the same healing; either way, the creature becomes temporarily immune to life-giving form's healing for 1 minute. This is a positive healing effect. You can't heal yourself with life-giving form. A creature harmed by positive damage (such as an undead) that touches you or damages you with an unarmed attack or non-reach melee weapon instead takes [[/r 3d4 #positive]] positive damage, and it doesn't become temporarily immune.</p>\n<p>You can @Compendium[pf2e.actionspf2e.Dismiss]{Dismiss} this spell.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> Increase the Hit Points restored with an Interact action by [[/r 1d8]], the positive damage by 1, and the resistance and weakness by 1.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "minutes",
+            "value": 1
+        },
+        "level": {
+            "value": 6
+        },
+        "rules": [
+            {
+                "damageType": "positive",
+                "diceNumber": 1,
+                "dieSize": "d4",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Life-Giving Form",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ]
+                },
+                "selector": "damage"
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Heightened damage",
+                "predicate": {
+                    "all": [
+                        "unarmed"
+                    ]
+                },
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 7,
+                            "start": 7,
+                            "value": 1
+                        },
+                        {
+                            "end": 8,
+                            "start": 8,
+                            "value": 2
+                        },
+                        {
+                            "end": 9,
+                            "start": 9,
+                            "value": 3
+                        },
+                        {
+                            "end": 10,
+                            "start": 10,
+                            "value": 4
+                        }
+                    ],
+                    "field": "item|data.level.value"
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/life-giving-form.webp",
+    "name": "Spell Effect: Life-Giving Form",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

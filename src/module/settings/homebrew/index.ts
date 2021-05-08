@@ -4,22 +4,35 @@ import { prepareCleanup } from './cleanup-migration';
 import { LocalizePF2e } from '@module/system/localize';
 import { MigrationRunner } from '@module/migration-runner';
 import '@yaireo/tagify/src/tagify.scss';
+import { CharacterPF2e } from '@actor/character';
+import { MigrationBase } from '@module/migrations/base';
+import { ConfigPF2e } from '@scripts/config';
+import { BaseWeaponType } from '@item/data/types';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
 
 export interface HomebrewTag<T extends ConfigPF2eListName = ConfigPF2eListName> {
-    id: string;
-    value: T;
+    id: T extends 'baseWeapons'
+        ? BaseWeaponType
+        : T extends Exclude<ConfigPF2eListName, 'baseWeapons'>
+        ? keyof ConfigPF2e['PF2E'][T]
+        : never;
+    value: string;
 }
 
 export class HomebrewElements extends SettingsMenuPF2e {
     static readonly namespace = 'homebrew';
 
+    /** Whether this is the first time the homebrew tags will have been injected into CONFIG and actor derived data */
+    private static initialRefresh = true;
+
     static readonly SETTINGS = [
         'creatureTraits',
+        'featTraits',
         'languages',
-        'spellSchools',
+        'magicSchools',
+        'spellTraits',
         'weaponCategories',
         'weaponGroups',
         'baseWeapons',
@@ -114,22 +127,23 @@ export class HomebrewElements extends SettingsMenuPF2e {
 
     /** @override */
     protected async _updateObject(_event: Event, data: Record<ConfigPF2eListName, HomebrewTag[]>): Promise<void> {
-        for await (const key of HomebrewElements.SETTINGS) {
+        const cleanupTasks = HomebrewElements.SETTINGS.map((key) => {
             for (const tag of data[key]) {
-                tag.id ??= randomID(16);
+                tag.id ??= randomID(16) as HomebrewTag<typeof key>['id'];
             }
 
-            await this.processDeletions(key, data[key]);
-        }
+            return this.processDeletions(key, data[key]);
+        }).filter((task): task is MigrationBase => !!task);
 
+        await new MigrationRunner().runMigrations(cleanupTasks);
         await super._updateObject(_event, data);
 
         // Process updates
-        HomebrewElements.updateConfig();
+        HomebrewElements.refreshTags();
     }
 
     /** Prepare and run a migration for each set of tag deletions from a tag map */
-    private async processDeletions(listKey: ConfigPF2eListName, newTagList: HomebrewTag[]) {
+    private processDeletions(listKey: ConfigPF2eListName, newTagList: HomebrewTag[]): MigrationBase | null {
         const oldTagList = game.settings.get('pf2e', `homebrew.${listKey}` as const); // `;
         const newIDList = newTagList.map((tag) => tag.id);
         const deletions: string[] = oldTagList.flatMap((oldTag) => (newIDList.includes(oldTag.id) ? [] : oldTag.id));
@@ -141,14 +155,11 @@ export class HomebrewElements extends SettingsMenuPF2e {
             delete coreElements[id];
         }
 
-        if (game.user.isGM && deletions.length > 0) {
-            const CleanupTask = prepareCleanup(listKey, deletions);
-            await new MigrationRunner().runMigrations([new CleanupTask()]);
-        }
+        return game.user.isGM && deletions.length > 0 ? prepareCleanup(listKey, deletions) : null;
     }
 
     /** Assign the homebrew elements to their respective `CONFIG.PF2E` objects */
-    static updateConfig() {
+    static refreshTags() {
         for (const key of HomebrewElements.SETTINGS) {
             // The base-weapons map only exists in the localization file
             const coreElements: Record<string, string> =
@@ -157,6 +168,17 @@ export class HomebrewElements extends SettingsMenuPF2e {
             const elements = game.settings.get('pf2e', settingsKey);
             for (const element of elements) {
                 coreElements[element.id] = element.value;
+            }
+        }
+
+        // Refresh any open character sheet to show the new settings
+        if (this.initialRefresh) {
+            this.initialRefresh = false;
+        } else {
+            const characters = game.actors.entities?.filter((actor) => actor instanceof CharacterPF2e) ?? [];
+            for (const character of characters) {
+                character.prepareData();
+                character.sheet.render(false);
             }
         }
     }

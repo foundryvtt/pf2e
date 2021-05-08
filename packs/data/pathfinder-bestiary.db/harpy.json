@@ -140,7 +140,7 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Harpies are filthy amalgamations of human and bird, resembling feral humans with wings, talons, and mouths full of sharp teeth. They use captivating songs to lure creatures in, then murder them while they stand transfixed. They enjoy causing confusion and fear in their prey before they strike, believing it creates a savory flavor in the flesh. Harpies can eat most creatures but strongly prefer sapient prey-humans and elves are their favorite. Although harpies will eat goblins if sufficiently hungry, they dislike their flavor and avoid eating them if possible. This doesn't comfort goblins, of course, who have a particularly strong fear of harpies. Because their aeries often reek with the gore of their kills and careless spatters of guano, harpies carry a distinctly vile scent that canny travelers associate with danger. Harpies who roost close to civilization make better efforts to keep clean, though these efforts have mixed results.<br /><br /> Harpies live in family groups or larger clans. They are lightweight despite their size, standing 5 feet tall and weighing only around 90 pounds. While most use relatively simple weapons, some harpies take pride in learning and mastering the use of more complex tools of war such as swords and slings. Those who master the use of the bow, in particular, are often regarded as heroes among their kind and terrors among their victims.<br /><br />",
@@ -155,7 +155,6 @@
                 "min": 1,
                 "value": 5
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=258",
             "recallKnowledgeText": "Recall Knowledge : DC 20",
             "sidebarText": "<h3 class=\"title\">Harpy Exiles</h3>Most harpies are cruel and sadistic, but now and then a harpy manages to escape from its family and becomes exposed to the wider world. Eyes opened, these harpy exiles are almost always more mild-mannered, cleanly, and open to non-combat interactions.",
             "source": {
@@ -442,7 +441,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "urZRCrc4DUjU0cfy",
@@ -478,10 +477,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -534,7 +540,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "club",
             "sort": 100000,
             "type": "equipment"
@@ -590,12 +596,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -678,7 +678,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
             "sort": 200000,
             "type": "melee"
@@ -734,12 +734,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -825,7 +819,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Talon",
             "sort": 300000,
             "type": "melee"
@@ -881,12 +875,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -971,7 +959,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Club",
             "sort": 400000,
             "type": "melee"
@@ -991,7 +979,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The harpy cries out an eerie, compelling melody. Each non-harpy creature within a 300-foot aura must attempt a DC 21 Will save to avoid becoming captivated by the harpy's song. The effect lasts for 1 round, but if the harpy uses this ability again on subsequent rounds, it extends the duration by 1 round for all affected creatures. Once a creature succeeds at any save against Captivating Song, that creature is temporarily immune to Captivating Songs for 24 hours.<br /> <strong>Success</strong> The creature is unaffected.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, and it must spend each of its actions to move closer to the harpy as expediently as possible, while avoiding obvious dangers. If a captivated creature is adjacent to the harpy, it stays still and doesn't act. If attacked by the harpy, the creature is freed from captivation at the end of the harpy's turn.<br /> <strong>Critical Failure</strong> As failure, but if attacked by the harpy, the creature can attempt a new save at the start of its next turn, rather than being freed at the end of the harpy's turn.</p>"
+                    "value": "<p>The harpy cries out an eerie, compelling melody. Each non-harpy creature within a 300-foot aura must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"21\" data-pf2-traits=\"auditory,concentrate,enchantment,incapacitation,mental,primal\" data-pf2-label=\"Captivating Song DC\" data-pf2-show-dc=\"gm\">Will</span> save to avoid becoming captivated by the harpy's song. The effect lasts for 1 round, but if the harpy uses this ability again on subsequent rounds, it extends the duration by 1 round for all affected creatures. Once a creature succeeds at any save against Captivating Song, that creature is temporarily immune to Captivating Songs for 24 hours.<br /> <strong>Success</strong> The creature is unaffected.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}, and it must spend each of its actions to move closer to the harpy as expediently as possible, while avoiding obvious dangers. If a captivated creature is adjacent to the harpy, it stays still and doesn't act. If attacked by the harpy, the creature is freed from captivation at the end of the harpy's turn.<br /> <strong>Critical Failure</strong> As failure, but if attacked by the harpy, the creature can attempt a new save at the start of its next turn, rather than being freed at the end of the harpy's turn.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1027,7 +1015,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Captivating Song",
             "sort": 500000,
             "type": "action"
@@ -1067,7 +1055,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
             "sort": 600000,
             "type": "lore"
@@ -1107,7 +1095,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 700000,
             "type": "lore"
@@ -1147,7 +1135,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 800000,
             "type": "lore"
@@ -1205,7 +1193,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
             "sort": 900000,
             "type": "lore"
@@ -1231,7 +1219,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

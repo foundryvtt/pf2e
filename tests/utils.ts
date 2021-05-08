@@ -11,5 +11,5 @@ export const FoundryUtils = {
 
     duplicate: (data: object) => {
         return JSON.parse(JSON.stringify(data));
-    }
-}
+    },
+};

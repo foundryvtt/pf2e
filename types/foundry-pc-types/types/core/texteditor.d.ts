@@ -1,3 +1,11 @@
+declare interface EnrichHTMLOptions {
+    secrets?: boolean;
+    entities?: boolean;
+    links?: boolean;
+    rolls?: boolean;
+    rollData?: boolean;
+}
+
 /**
  * A collection of helper functions and utility methods related to the rich text editor
  */
@@ -20,10 +28,7 @@ declare class TextEditor {
      * @param rollData  The data object providing context for inline rolls
      * @return          The enriched HTML content
      */
-    static enrichHTML(
-        content: string,
-        { secrets, entities, links, rolls, rollData }?: { [x: string]: boolean },
-    ): string;
+    static enrichHTML(content: string, { secrets, entities, links, rolls, rollData }?: EnrichHTMLOptions): string;
 
     /**
      * Preview an HTML fragment by constructing a substring of a given length from its inner text.

@@ -1,6 +1,6 @@
 import { MigrationBase } from './base';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { Rarity } from '@item/data-definitions';
+import { Rarity } from '@item/data/types';
 
 export class Migration612NormalizeRarities extends MigrationBase {
     static version = 0.612;

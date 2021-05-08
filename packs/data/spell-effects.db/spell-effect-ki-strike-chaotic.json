@@ -7,8 +7,8 @@
         "duration": {
             "expiry": "turn-start",
             "sustained": false,
-            "unit": "rounds",
-            "value": 0
+            "unit": "unlimited",
+            "value": -1
         },
         "level": {
             "value": 2
@@ -23,32 +23,32 @@
             },
             {
                 "damageType": "chaotic",
+                "dieSize": "d6",
                 "key": "PF2E.RuleElement.DamageDice",
                 "label": "Ki Strike",
                 "selector": "damage",
                 "value": {
                     "brackets": [
                         {
-                            "end": 4,
+                            "end": 8,
                             "value": {
                                 "diceNumber": 1
                             }
                         },
                         {
-                            "end": 8,
-                            "start": 5,
+                            "end": 16,
+                            "start": 9,
                             "value": {
                                 "diceNumber": 2
                             }
                         },
                         {
-                            "start": 9,
+                            "start": 17,
                             "value": {
                                 "diceNumber": 3
                             }
                         }
-                    ],
-                    "field": "item|data.level.value"
+                    ]
                 }
             }
         ],
@@ -60,6 +60,9 @@
             "value": 0
         },
         "target": null,
+        "tokenIcon": {
+            "show": false
+        },
         "traits": {
             "custom": "",
             "rarity": {
@@ -70,7 +73,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/spells/ki-strike.jpg",
+    "img": "systems/pf2e/icons/spells/ki-strike.webp",
     "name": "Spell Effect: Ki Strike (Chaotic)",
     "permission": {
         "default": 0

@@ -2,12 +2,13 @@ import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
 import '@system/measure';
 import './styles/pf2e.scss';
+import { CreaturePF2e } from '@actor/creature';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
@@ -196,6 +197,9 @@ function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
+        if (child.type === 'effect') {
+            game.pf2e.effectTracker.unregister(child);
+        }
         game.pf2e.effectPanel.refresh();
     }
 }
@@ -219,6 +223,7 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
         actor.items.forEach((item) => {
             const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
             for (const rule of rules) {
+                if (rule.ignored) continue;
                 rule.onCreateToken(actor.data, item.data, token);
             }
         });
@@ -260,6 +265,9 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
             options.pf2e.items.removed.forEach((item: ItemDataPF2e) => {
                 deleteOwnedItem(actor, item, options, userID);
             });
+            if (actor instanceof CreaturePF2e) {
+                actor.redrawTokenEffects();
+            }
         }
     }
 
@@ -291,10 +299,6 @@ Hooks.on('getSceneControlButtons', (controls: any[]) => {
         });
 });
 
-Hooks.on('updateCombat', () => {
-    game.pf2e.effectPanel?.refresh();
-});
-
 Hooks.on('renderChatMessage', (message, html) => {
     // remove elements the user does not have permission to see
     if (!game.user.isGM) {
@@ -305,4 +309,21 @@ Hooks.on('renderChatMessage', (message, html) => {
     if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
         html.find('[data-visibility="owner"]').remove();
     }
+
+    // show DC for inline checks if user has sufficient permission
+    html.find('[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])').each((_idx, elem) => {
+        const dc = elem.dataset.pf2Dc!.trim()!;
+        const role = elem.dataset.pf2ShowDc!.trim();
+        if (
+            role === 'all' ||
+            (role === 'gm' && game.user.isGM) ||
+            (role === 'owner' && ((actor && actor.owner) || game.user.isGM || message.isAuthor))
+        ) {
+            elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                dc,
+                text: elem.innerHTML,
+            });
+            elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
+        }
+    });
 });

@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -108,8 +108,14 @@
                 "value": 0
             },
             "speed": {
-                "otherSpeeds": [],
-                "value": "25 feet, swim 15 feet"
+                "otherSpeeds": [
+                    {
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "15"
+                    }
+                ],
+                "value": "25"
             }
         },
         "currency": {
@@ -144,7 +150,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -158,7 +164,6 @@
                 "min": 1,
                 "value": 9
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -445,6 +450,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -484,7 +492,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "7W3fIxY4Ca7Jau2w",
+            "_id": "6MjBVMenRJhFNQiw",
             "data": {
                 "MAP": {
                     "value": ""
@@ -492,7 +500,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "javelin",
                 "bonus": {
                     "value": 0
                 },
@@ -520,7 +528,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.<br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>This thin spear is well balanced for throwing but is not designed for melee use.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -541,10 +549,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -559,7 +574,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -582,26 +597,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -629,7 +624,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "javelin",
                 "source": {
                     "value": ""
                 },
@@ -662,14 +657,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/javelin.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.JNt7GmLCCVz5BiEI"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/javelin.webp",
             "name": "Javelin",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "LQnWRonVp38hTlwh",
+            "_id": "rnQzo6H4yYb7RyAO",
             "data": {
                 "MAP": {
                     "value": ""
@@ -677,7 +676,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "scimitar",
                 "bonus": {
                     "value": 0
                 },
@@ -705,7 +704,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This one‑handed curved blade is sharp on one side.</p>"
+                    "value": "<p>This one-handed curved blade is sharp on one side.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -726,16 +725,23 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 4
                 },
                 "maxHp": {
                     "value": 0
@@ -744,7 +750,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": "1"
+                    "value": 1
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -753,7 +759,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "1 gp"
+                    "value": "100 gp"
                 },
                 "property1": {
                     "critDamage": "",
@@ -767,26 +773,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -814,7 +800,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "scimitar",
                 "source": {
                     "value": ""
                 },
@@ -848,14 +834,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/scimitar.png",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.grmaV4GdoGD7sKbn"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/scimitar.webp",
             "name": "+1 Striking Scimitar",
             "sort": 200000,
             "type": "weapon"
         },
         {
-            "_id": "HPNDWnNaBFXcYO1g",
+            "_id": "10AgsfzzM00h8cy6",
             "data": {
                 "armor": {
                     "value": 2
@@ -863,7 +853,7 @@
                 "armorType": {
                     "value": "light"
                 },
-                "baseItem": null,
+                "baseItem": "studded-leather-armor",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -871,7 +861,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": "-1"
+                    "value": -1
                 },
                 "collapsed": {
                     "value": false
@@ -885,7 +875,7 @@
                     "value": "<p>This leather armor is reinforced with metal studs and sometimes small metal plates, providing most of the flexibility of leather armor with more robust protection.</p>"
                 },
                 "dex": {
-                    "value": "3"
+                    "value": 3
                 },
                 "equipped": {
                     "value": true
@@ -903,16 +893,23 @@
                     "value": null
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": 0
+                    "value": 5
                 },
                 "maxHp": {
                     "value": null
@@ -922,7 +919,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": "1"
+                    "value": 1
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -931,37 +928,7 @@
                     "value": ""
                 },
                 "price": {
-                    "value": "3 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
+                    "value": "160 gp"
                 },
                 "propertyRune1": {
                     "value": ""
@@ -986,18 +953,18 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": "12"
+                    "value": 12
                 },
                 "traits": {
                     "custom": "",
@@ -1007,21 +974,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "+1 Studded Leather Armor",
             "sort": 300000,
             "type": "armor"
         },
         {
-            "_id": "IaKI7hMW1b1HNKi8",
+            "_id": "fvr1IlwjlQYM3Nr9",
             "data": {
                 "armor": {
                     "value": 2
@@ -1037,7 +1008,7 @@
                     "value": ""
                 },
                 "check": {
-                    "value": ""
+                    "value": null
                 },
                 "collapsed": {
                     "value": false
@@ -1048,10 +1019,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table style=\"height: 32px;\" border=\"1\">\n<tbody>\n<tr style=\"height: 15px;\">\n<td style=\"height: 15px; width: 115px;\">Hardness</td>\n<td style=\"height: 15px; width: 115px;\">HP</td>\n<td style=\"height: 15px; width: 116px;\">BT</td>\n</tr>\n<tr style=\"height: 17px;\">\n<td style=\"height: 17px; width: 115px;\">3</td>\n<td style=\"height: 17px; width: 115px;\">12</td>\n<td style=\"height: 17px; width: 116px;\">6</td>\n</tr>\n</tbody>\n</table>"
+                    "value": "<p>Though they come in a variety of shapes and sizes, the protection offered by wooden shields comes from the stoutness of their materials. While wooden shields are less expensive than steel shields, they break more easily.</p>\n<table class=\"pf2-table\">\n<thead>\n<tr>\n<th>Hardness</th>\n<th>HP</th>\n<th>BT</th>\n</tr>\n</thead>\n<tbody><tr><td>3</td>\n<td>12</td>\n<td>6</td>\n</tr>\n</tbody>\n</table>"
                 },
                 "dex": {
-                    "value": ""
+                    "value": null
                 },
                 "equipped": {
                     "value": true
@@ -1069,10 +1040,17 @@
                     "value": 12
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1088,7 +1066,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -1098,36 +1076,6 @@
                 },
                 "price": {
                     "value": "1 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -1152,18 +1100,18 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "wooden-shield",
                 "source": {
                     "value": ""
                 },
                 "speed": {
-                    "value": ""
+                    "value": null
                 },
                 "stackGroup": {
                     "value": ""
                 },
                 "strength": {
-                    "value": ""
+                    "value": null
                 },
                 "traits": {
                     "custom": "",
@@ -1180,14 +1128,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/shields/wooden-shield.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ezVp13Uw8cWW08Da"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/shields/wooden-shield.webp",
             "name": "Wooden Shield",
             "sort": 400000,
             "type": "armor"
         },
         {
-            "_id": "a6EhDz1J5JRVySKi",
+            "_id": "3hoeSfakad2dxcKN",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1230,7 +1182,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for the listed duration. The duration is 1 hour.</p>"
+                    "value": "<p><strong>Activate</strong><strong></strong><span class=\"pf2-icon\">1</span> Interact</p>\n<p>After you drink this elixir, your sight becomes sharper in darkness. You gain darkvision for 1 hour.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Darkvision Elixir (Moderate)]{Effect: Darkvision Elixir (Moderate)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1249,10 +1201,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1287,7 +1246,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "darkvision-elixir-moderate",
                 "source": {
                     "value": ""
                 },
@@ -1332,14 +1291,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Y8115p3cmQJBqk5d"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/darkvision-elixir.webp",
             "name": "Darkvision Elixir (Moderate)",
             "sort": 500000,
             "type": "consumable"
         },
         {
-            "_id": "ufapfqxfaH1krDMN",
+            "_id": "P1jTShgDbmoON3Bp",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1375,16 +1338,23 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": "0"
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1408,7 +1378,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "gold-pieces",
                 "source": {
                     "value": ""
                 },
@@ -1422,9 +1392,6 @@
                     },
                     "value": []
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "value": {
                     "value": 1
                 },
@@ -1433,8 +1400,12 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.B6B7tBWJSqOBz5zz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/treasure/currency/gold-pieces.webp",
             "name": "Gold Pieces",
             "sort": 600000,
             "type": "treasure"
@@ -1487,12 +1458,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1580,7 +1545,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "scimitar",
+            "name": "Scimitar",
             "sort": 700000,
             "type": "melee"
         },
@@ -1632,12 +1597,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1721,7 +1680,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 800000,
             "type": "melee"
         },
@@ -1773,12 +1732,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1864,7 +1817,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "tail",
+            "name": "Tail",
             "sort": 900000,
             "type": "melee"
         },
@@ -1916,12 +1869,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -2007,7 +1954,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "javelin",
+            "name": "Javelin",
             "sort": 1000000,
             "type": "melee"
         },
@@ -2055,62 +2002,13 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Deep Breath",
             "sort": 1100000,
             "type": "action"
         },
         {
-            "_id": "WQrlba7GFBpistU8",
-            "data": {
-                "actionCategory": {
-                    "value": "defensive"
-                },
-                "actionType": {
-                    "value": "reaction"
-                },
-                "actions": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
-            "name": "Shield Block",
-            "sort": 1200000,
-            "type": "action"
-        },
-        {
-            "_id": "EOI2K6e2gk3qG5Qa",
+            "_id": "nA0QdxrRaEjv6RhP",
             "data": {
                 "actionCategory": {
                     "value": "defensive"
@@ -2130,7 +2028,7 @@
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "attack-of-opportunity",
                 "source": {
                     "value": ""
                 },
@@ -2144,17 +2042,68 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Attack of Opportunity",
+            "sort": 1200000,
+            "type": "action"
+        },
+        {
+            "_id": "yVT8Le2gpdDtMHay",
+            "data": {
+                "actionCategory": {
+                    "value": "defensive"
+                },
+                "actionType": {
+                    "value": "reaction"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Trigger</strong> The monster has its shield raised and takes damage from a physical attack.</p>\n<p><strong>Effect</strong> The monster snaps its shield into place to deflect a blow. The shield prevents the monster from taking an amount of damage up to the shield's Hardness. The monster and the shield each take any remaining damage, possibly breaking or destroying the shield.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "shield-block",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
-            "name": "Attack of Opportunity",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.m4HQ2o5aPxjXf2kY"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
+            "name": "Shield Block",
             "sort": 1300000,
             "type": "action"
         },
@@ -2173,7 +2122,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>With a sharp whistle or wave of their hand, the mercenary distracts an opponent so one of the mercenary's allies can land a clean blow. The mercenary chooses a target and an ally, both of whom must be within 30 feet of the mercenary. The target is flat-footed against the first Strike the mercenary's ally makes on its next turn; if the ally doesn't Strike that target, the effect is lost. Depending on how the mercenary distracts their foe, this action gains either the auditory or visual trait.</p>"
+                    "value": "<p>With a sharp whistle or wave of their hand, the mercenary distracts an opponent so one of the mercenary's allies can land a clean blow.</p>\n<p>The mercenary chooses a target and an ally, both of whom must be within 30 feet of the mercenary. The target is @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} against the first Strike the mercenary's ally makes on its next turn; if the ally doesn't Strike that target, the effect is lost.</p>\n<p>Depending on how the mercenary distracts their foe, this action gains either the auditory or visual trait.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2189,8 +2138,9 @@
                         "value": "common"
                     },
                     "value": [
-                        "auditory or visual",
-                        "concentrate"
+                        "auditory",
+                        "concentrate",
+                        "visual"
                     ]
                 },
                 "trigger": {
@@ -2205,7 +2155,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Coordinated Distraction",
             "sort": 1400000,
             "type": "action"
@@ -2230,7 +2180,46 @@
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                        "predicate": {
+                            "all": [
+                                "agile"
+                            ],
+                            "any": [
+                                "target:human",
+                                "human-hunter"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "attack",
+                        "value": -2
+                    },
+                    {
+                        "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                        "predicate": {
+                            "any": [
+                                "target:human",
+                                "human-hunter"
+                            ],
+                            "not": [
+                                "agile"
+                            ]
+                        },
+                        "roll-options": [
+                            "all"
+                        ],
+                        "selector": "attack",
+                        "value": -3
+                    },
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.human-hunter"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2254,7 +2243,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Human Hunter",
             "sort": 1500000,
             "type": "action"
@@ -2274,12 +2263,27 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The Shikwashim mercenary makes a melee Strike. If it hits, it deals an extra die of damage. This counts as two attacks for the mercenary's multiple attack penalty.</p>"
+                    "value": "<p>The Shikwashim mercenary makes a melee Strike. If it hits, it deals an extra die of damage.</p>\n<p>This counts as two attacks for the mercenary's multiple attack penalty.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.ToggleProperty",
+                        "property": "flags.pf2e.rollOptions.all.powerful-swipe"
+                    },
+                    {
+                        "diceNumber": 1,
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "powerful-swipe"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -2303,7 +2307,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Powerful Swipe",
             "sort": 1600000,
             "type": "action"
@@ -2323,7 +2327,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a Swim speed are flat-footed to a Shikwashim mercenary.</p>"
+                    "value": "<p>Non-lizardfolk creatures in difficult terrain and non-lizardfolk creatures that are in water and lack a Swim speed are @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} to a Shikwashim mercenary.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2352,7 +2356,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Terrain Advantage",
             "sort": 1700000,
             "type": "action"

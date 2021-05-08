@@ -62,23 +62,22 @@
         <input type="text" name="data.price.value" value="{{data.price.value}}" data-dtype="String"/>
     </div>
 
-    {{#if user.isGM}}
-        <div class="form-group">
-            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
-            <input type="checkbox" name="identified" {{checked isIdentified}} />
-        </div>
-    {{/if}}
-
     <ol class="item-tags">
         {{#if data.armor.value}}<li class="tag">{{data.armor.value}} {{localize "PF2E.ArmorArmorLabel"}}</li>{{/if}}
         <li class="tag">{{localize (lookup armorTypes data.armorType.value)}}</li>
-        <li class="tag">{{localize (lookup armorGroups data.group.value)}}</li>
+        {{#if data.group.value}}<li class="tag">{{localize (lookup armorGroups data.group.value)}}</li>{{/if}}
         {{#if data.strength.value}}<li class="tag">{{data.strength.value}} {{localize "PF2E.ArmorStrengthRequiredLabel"}}</li>{{/if}}
         {{#if data.dex.value}}<li class="tag">{{data.dex.value}} {{localize "PF2E.ArmorDexLabel"}}</li>{{/if}}
         {{#if data.check.value}}<li class="tag">{{data.check.value}} {{localize "PF2E.ArmorCheckLabel"}}</li>{{/if}}
         {{#if data.speed.value}}<li class="tag">{{data.speed.value}} {{localize "PF2E.ArmorSpeedLabel"}}</li>{{/if}}
-        {{#if data.equipped.value}}
-            <li class="tag">{{localize "PF2E.ArmorEquippedLabel"}}</li>
-        {{/if}}
     </ol>
+    {{#if traits}}
+        <ol class="item-tags">
+            {{#each traits as |trait|}}
+                {{#if trait.selected}}
+                    <li class="tag">{{localize trait.label}}</li>
+                {{/if}}
+            {{/each}}
+        </ol>
+    {{/if}}
 </div>

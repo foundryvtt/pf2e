@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';
 
 /** Unbreak actor sheets that have kit items in their inventories */

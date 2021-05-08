@@ -1,13 +1,11 @@
-import { ActorPF2e, UserPF2e } from './actor/base';
+import { ActorPF2e, TokenPF2e, UserPF2e } from './actor/base';
+import { ChatMessagePF2e } from './chat-message';
 import { ItemPF2e } from './item/base';
+import { MacroPF2e } from './macro';
 import { MigrationRunnerBase } from './migration-runner-base';
 import { MigrationBase } from './migrations/base';
 
 export class MigrationRunner extends MigrationRunnerBase {
-    constructor(migrations: MigrationBase[] = []) {
-        super(migrations);
-    }
-
     needsMigration(): boolean {
         return super.needsMigration(game.settings.get('pf2e', 'worldSchemaVersion'));
     }
@@ -21,8 +19,9 @@ export class MigrationRunner extends MigrationRunnerBase {
                     ? await pack.updateEntity({ _id: item.id, ...changes }, { enforceTypes: false })
                     : await item.update(changes, { enforceTypes: false });
             }
-        } catch (err) {
-            console.error(err);
+        } catch (error) {
+            console.error(error);
+            console.error(error.stack);
         }
     }
 
@@ -53,15 +52,70 @@ export class MigrationRunner extends MigrationRunnerBase {
             if (itemDiff.updated.length > 0) {
                 await actor.updateEmbeddedEntity('OwnedItem', itemDiff.updated);
             }
+        } catch (error) {
+            console.error(error);
+            console.debug(error.stack);
+        }
+    }
+
+    private async migrateChatMessage(migrations: MigrationBase[], message: ChatMessagePF2e) {
+        try {
+            const updatedMacro = await this.getUpdatedMessage(message._data, migrations);
+            const changes = diffObject(message._data, updatedMacro);
+            if (!isObjectEmpty(changes)) {
+                await message.update(changes, { enforceTypes: false });
+            }
         } catch (err) {
             console.error(err);
         }
     }
 
-    private async migrateUser(migrations: MigrationBase[], user: UserPF2e): Promise<void> {
-        const baseUser = duplicate(user._data);
-        const updatedUser = await this.getUpdatedUser(baseUser, migrations);
+    private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e, pack?: Compendium<MacroPF2e>) {
         try {
+            const updatedMacro = await this.getUpdatedMacro(macro._data, migrations);
+            const changes = diffObject(macro._data, updatedMacro);
+            if (!isObjectEmpty(changes)) {
+                pack
+                    ? await pack.updateEntity({ _id: macro.id, ...changes }, { enforceTypes: false })
+                    : await macro.update(changes, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    private async migrateWorldTable(migrations: MigrationBase[], table: RollTable, pack?: Compendium<RollTable>) {
+        try {
+            const updatedMacro = await this.getUpdatedTable(table._data, migrations);
+            const changes = diffObject(table._data, updatedMacro);
+            if (!isObjectEmpty(changes)) {
+                pack
+                    ? await pack.updateEntity({ _id: table.id, ...changes }, { enforceTypes: false })
+                    : await table.update(changes, { enforceTypes: false });
+            }
+        } catch (err) {
+            console.error(err);
+        }
+    }
+
+    private async migrateSceneToken(migrations: MigrationBase[], token: TokenPF2e): Promise<void> {
+        try {
+            const updatedToken = await this.getUpdatedToken(token.data, migrations);
+            const changes = diffObject(token.data, updatedToken);
+
+            if (!isObjectEmpty(changes)) {
+                await token.update(changes, { enforceTypes: false });
+            }
+        } catch (error) {
+            console.error(error);
+            console.debug(error.stack);
+        }
+    }
+
+    private async migrateUser(migrations: MigrationBase[], user: UserPF2e): Promise<void> {
+        try {
+            const baseUser = duplicate(user._data);
+            const updatedUser = await this.getUpdatedUser(baseUser, migrations);
             const changes = diffObject(user._data, updatedUser);
             if (!isObjectEmpty(changes)) {
                 await user.update(changes, { enforceTypes: false });
@@ -71,37 +125,8 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], scene: Scene, tokenData: TokenData) {
-        try {
-            if (tokenData.actorLink || !game.actors.has(tokenData.actorId)) {
-                // if the token is linked or has no actor, we don't need to do anything
-                return;
-            }
-
-            // build up the actor data
-            const baseActor = game.actors.get(tokenData.actorId);
-            if (!baseActor) return;
-            const actorData = mergeObject(baseActor._data, tokenData.actorData, { inplace: false });
-
-            const updatedActor = await this.getUpdatedActor(actorData, migrations);
-            const changes = diffObject(actorData, updatedActor);
-            if (!isObjectEmpty(changes)) {
-                const actorDataChanges = Object.fromEntries(
-                    Object.entries(changes).map(([k, v]) => [`actorData.${k}`, v]),
-                );
-                await scene.updateEmbeddedEntity(
-                    'Token',
-                    { _id: tokenData._id, ...actorDataChanges },
-                    { enforceTypes: false },
-                );
-            }
-        } catch (err) {
-            console.error(err);
-        }
-    }
-
     async runMigrations(migrations: MigrationBase[]): Promise<void> {
-        let promises: Promise<void>[] = [];
+        const promises: Promise<void>[] = [];
 
         // Migrate World Actors
         for (const actor of game.actors) {
@@ -111,6 +136,21 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate World Items
         for (const item of game.items) {
             promises.push(this.migrateWorldItem(migrations, item));
+        }
+
+        // Migrate World Macros
+        for (const macro of game.macros) {
+            promises.push(this.migrateWorldMacro(migrations, macro));
+        }
+
+        // Migrate World RollTables
+        for (const table of game.tables) {
+            promises.push(this.migrateWorldTable(migrations, table));
+        }
+
+        // Migrate Chat Messages
+        for (const message of game.messages) {
+            promises.push(this.migrateChatMessage(migrations, message));
         }
 
         // Run migrations of world compendia
@@ -128,8 +168,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // the we should wait for the promises to complete before updating the tokens
         // because the unlinked tokens might not need to be updated anymore since they
         // base their data on global actors
-        await Promise.all(promises);
-        promises = [];
+        await Promise.allSettled(promises);
 
         // Relock unlocked world compendia
         for await (const pack of packsToRelock) {
@@ -137,20 +176,23 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         // Migrate Scene Actors
-        for (const scene of game.scenes.entities) {
-            for (const token of scene.data.tokens) {
-                promises.push(this.migrateSceneToken(migrations, scene, token));
+        for await (const scene of game.scenes.entities) {
+            for await (const tokenData of scene.data.tokens) {
+                const token = new Token<ActorPF2e>(tokenData, scene);
+                if (token.actor) {
+                    await this.migrateSceneToken(migrations, token);
+
+                    if (token.actor.isToken) {
+                        await this.migrateWorldActor(migrations, token.actor);
+                    }
+                }
             }
         }
-
-        await Promise.all(promises);
     }
 
     /** Migrate actors and items in world compendia */
     private async runPackMigrations(migrations: MigrationBase[], promises: Promise<void>[]): Promise<Compendium[]> {
-        const worldPacks: Compendium<ActorPF2e | ItemPF2e>[] = game.packs.filter(
-            (pack) => pack.collection.startsWith('world.') && ['Actor', 'Item'].includes(pack.entity),
-        );
+        const worldPacks: Compendium[] = game.packs.filter((pack) => pack.metadata.package === 'world');
         // Packs need to be unlocked in order for their content to be updated
         const packsToRelock = worldPacks.filter((pack) => pack.locked);
         for await (const pack of packsToRelock) {
@@ -170,6 +212,22 @@ export class MigrationRunner extends MigrationRunnerBase {
         for await (const pack of itemPacks) {
             for (const item of await pack.getContent()) {
                 promises.push(this.migrateWorldItem(migrations, item, pack));
+            }
+        }
+
+        // Migrate Compendium Macros
+        const macroPacks = worldPacks.filter((pack): pack is Compendium<Macro> => pack.entity === 'Macro');
+        for await (const pack of macroPacks) {
+            for (const macro of await pack.getContent()) {
+                promises.push(this.migrateWorldMacro(migrations, macro, pack));
+            }
+        }
+
+        // Migrate Compendium RollTables
+        const tablePacks = worldPacks.filter((pack): pack is Compendium<RollTable> => pack.entity === 'RollTable');
+        for await (const pack of tablePacks) {
+            for (const table of await pack.getContent()) {
+                promises.push(this.migrateWorldTable(migrations, table, pack));
             }
         }
 

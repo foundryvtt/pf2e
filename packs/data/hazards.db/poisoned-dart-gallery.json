@@ -29,7 +29,6 @@
             "routine": "(1 action) The trap launches one dart against every creature in the gallery as 1 action. Because it launches darts continuously, the trap can also use the Continuous Barrage free action (see below) to launch darts at each creature during that creature's turn."
         },
         "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -64,9 +63,9 @@
                 "custom": "",
                 "selected": {},
                 "value": [
+                    "precision",
                     "critical-hits",
-                    "object-immunities",
-                    "precision"
+                    "object-immunities"
                 ]
             },
             "dr": [],
@@ -80,7 +79,8 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -104,7 +104,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature enters the hallway or ends its turn in the hallway.<br /><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature enters the hallway or ends its turn in the hallway.</p>\n<p><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature, then rolls initiative.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -135,7 +135,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Dart Volley",
             "sort": 100000,
             "type": "action"
@@ -147,7 +147,10 @@
                     "value": ""
                 },
                 "attackEffects": {
-                    "value": []
+                    "custom": "",
+                    "value": [
+                        "Flesset Poison"
+                    ]
                 },
                 "baseItem": null,
                 "bonus": {
@@ -187,12 +190,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -295,7 +292,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature within the active gallery finishes an action.<br /><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature within the active gallery finishes an action.</p>\n<p><strong>Effect</strong> The trap makes a poisoned dart Strike against the triggering creature.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -324,7 +321,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/FreeAction.png",
+            "img": "systems/pf2e/icons/actions/FreeAction.webp",
             "name": "Continuous Barrage",
             "sort": 300000,
             "type": "action"
@@ -344,7 +341,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 22 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 1d6 poison damage and clumsy 1 (1 round); <strong>Stage 2</strong> 2d6 poison damage and clumsy 2 (1 round); <strong>Stage 3</strong> 3d6 poison damage and clumsy 3 (1 round)</p>"
+                    "value": "<p><strong>Saving Throw</strong> <span data-pf2-saving-throw=\"fortitude\" data-pf2-traits=\"poison\" data-pf2-label=\"Flesset Poison DC\" data-pf2-dc=\"22\" data-pf2-show-dc=\"gm\">Fortitude</span>;</p>\n<p><em data-visibility=\"gm\"><strong>Maximum Duration</strong> 6 rounds;</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 1</strong> [[/r 1d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 1} (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 2</strong> [[/r 2d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} (1 round);</em></p>\n<p><em data-visibility=\"gm\"><strong>Stage 3</strong> [[/r 3d6 #poison]] poison damage and @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 3} (1 round)</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -375,7 +372,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Flesset Poison",
             "sort": 400000,
             "type": "action"
