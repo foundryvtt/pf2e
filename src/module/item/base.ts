@@ -143,7 +143,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         htmlOptions: EnrichHTMLOptions = {},
         _rollOptions: Record<string, any> = {},
     ): unknown {
-        return this.processChatData(htmlOptions, duplicate(this.data.data));
+        return this.processChatData(htmlOptions, {
+            ...duplicate(this.data.data),
+            traits: this.traitChatData({}),
+        });
     }
 
     protected traitChatData(dictionary: Record<string, string>): TraitChatData[] {
