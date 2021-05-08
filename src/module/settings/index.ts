@@ -253,4 +253,13 @@ export function registerSettings() {
         default: false,
         type: Boolean,
     });
+
+    game.settings.register('pf2e', 'Meta.SecretCondition', {
+        name: 'PF2E.SETTINGS.Meta.SecretCondition.Name',
+        hint: 'PF2E.SETTINGS.Meta.SecretCondition.Hint',
+        scope: 'world',
+        config: true,
+        default: false,
+        type: Boolean,
+    });
 }
