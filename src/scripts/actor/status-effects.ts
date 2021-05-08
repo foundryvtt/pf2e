@@ -462,7 +462,11 @@ export class StatusEffects {
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
-        if (whisper) chatData.whisper = ChatMessage.getWhisperRecipients('GM');
+        const isNPCEvent = !token.actor.hasPlayerOwner;
+        const hideNPCEvent = isNPCEvent && game.settings.get('pf2e', 'metagame.secretCondition');
+        if (hideNPCEvent || whisper) {
+            chatData.whisper = ChatMessage.getWhisperRecipients('GM');
+        }
         ChatMessage.create(chatData);
     }
 
