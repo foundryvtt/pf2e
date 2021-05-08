@@ -144,7 +144,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         _rollOptions: Record<string, any> = {},
     ): unknown {
         return this.processChatData(htmlOptions, {
-            ...this.data.data,
+            ...duplicate(this.data.data),
             traits: this.traitChatData({}),
         });
     }
