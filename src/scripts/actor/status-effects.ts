@@ -463,7 +463,7 @@ export class StatusEffects {
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
             whisper: ChatMessage.getWhisperRecipients('GM'),
         };
-        if (!(whisper || game.settings.get('pf2e', 'Meta.SecretCondition'))) {
+        if (!(whisper || game.settings.get('pf2e', 'metagame.secretCondition'))) {
             delete (chatData as { whisper?: unknown }).whisper;
         }
         ChatMessage.create(chatData);

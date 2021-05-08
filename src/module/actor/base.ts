@@ -591,7 +591,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                     type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
                     whisper: ChatMessage.getWhisperRecipients('GM'),
                 };
-                if (!game.settings.get('pf2e', 'Meta.SecretDamage')) {
+                if (!game.settings.get('pf2e', 'metagame.secretDamage')) {
                     delete (data as { whisper?: unknown }).whisper;
                 }
                 ChatMessage.create(data);

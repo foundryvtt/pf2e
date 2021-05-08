@@ -245,18 +245,19 @@ export function registerSettings() {
     });
 
     // this section starts Metaknowledge settings, all of them should have a 'Meta.' at the start of their name
-    game.settings.register('pf2e', 'Meta.SecretDamage', {
+    game.settings.register('pf2e', 'metagame.secretDamage', {
         name: 'PF2E.SETTINGS.Meta.SecretDamage.Name',
-        hint: 'PF2E.SETTINGS.Meta.SecretDamage.Hint',
+        name: 'PF2E.SETTINGS.Metagame.SecretDamage.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretDamage.Hint',
         scope: 'world',
         config: true,
         default: false,
         type: Boolean,
     });
 
-    game.settings.register('pf2e', 'Meta.SecretCondition', {
-        name: 'PF2E.SETTINGS.Meta.SecretCondition.Name',
-        hint: 'PF2E.SETTINGS.Meta.SecretCondition.Hint',
+    game.settings.register('pf2e', 'metagame.secretCondition', {
+        name: 'PF2E.SETTINGS.Metagame.SecretCondition.Name',
+        hint: 'PF2E.SETTINGS.Metagame.SecretCondition.Hint',
         scope: 'world',
         config: true,
         default: false,
