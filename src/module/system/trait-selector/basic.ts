@@ -4,7 +4,7 @@ import { ValuesList } from '@module/data';
 import { TraitSelectorBase } from './base';
 import { BasicSelectorOptions, SelectableTagField } from './index';
 
-export class TraitSelectorBasic extends TraitSelectorBase {
+export class TagSelectorBasic extends TraitSelectorBase {
     allowCustom: boolean;
     searchString = '';
     private filterTimeout: number | null = null;
@@ -34,7 +34,7 @@ export class TraitSelectorBasic extends TraitSelectorBase {
 
     /** @override */
     getData() {
-        const property: ValuesList = getProperty(this.object.data, this.objectProperty);
+        const property: ValuesList = getProperty(this.object._data, this.objectProperty);
         const chosen: string[] = (property.value ?? []).map((prop) => prop.toString());
 
         const custom = this.allowCustom ? property.custom : null;
@@ -114,6 +114,6 @@ export class TraitSelectorBasic extends TraitSelectorBase {
     }
 }
 
-export interface TraitSelectorBasic {
+export interface TagSelectorBasic {
     options: BasicSelectorOptions;
 }

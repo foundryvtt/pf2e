@@ -10,7 +10,7 @@ import {
     BasicSelectorOptions,
     SelectableTagField,
     SELECTABLE_TAG_FIELDS,
-    TraitSelectorBasic,
+    TagSelectorBasic,
     TAG_SELECTOR_TYPES,
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
@@ -112,12 +112,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
 
-            data.weaponTraits = data.data.traits.value.map(
-                (trait: WeaponTrait) => CONFIG.PF2E.weaponTraits[trait] ?? trait,
-            );
-            data.baseWeapons = LocalizePF2e.translations.PF2E.Weapon.Base;
-            data.weaponTypes = CONFIG.PF2E.weaponTypes;
-            data.weaponGroups = CONFIG.PF2E.weaponGroups;
+            data.traits = this.prepareOptions(CONFIG.PF2E.weaponTraits, data.data.traits, { selectedOnly: true });
+            data.baseTraits = this.prepareOptions(CONFIG.PF2E.weaponTraits, this.item._data.data.traits, {
+                selectedOnly: true,
+            });
+
+            data.categories = CONFIG.PF2E.weaponCategories;
+            data.groups = CONFIG.PF2E.weaponGroups;
+            data.baseTypes = LocalizePF2e.translations.PF2E.Weapon.Base;
+
             data.itemBonuses = CONFIG.PF2E.itemBonuses;
             data.damageDie = CONFIG.PF2E.damageDie;
             data.damageDice = CONFIG.PF2E.damageDice;
@@ -129,8 +132,6 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
             data.sizes = CONFIG.PF2E.actorSizes;
             data.isBomb = type === 'weapon' && data.data?.group?.value === 'bomb';
-
-            this.prepareTraits(data.data.traits, CONFIG.PF2E.weaponTraits);
         } else if (type === 'melee') {
             // Melee Data
             data.hasSidebar = false;
@@ -168,11 +169,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             data.armorPotencyRunes = CONFIG.PF2E.armorPotencyRunes;
             data.armorResiliencyRunes = CONFIG.PF2E.armorResiliencyRunes;
             data.armorPropertyRunes = CONFIG.PF2E.armorPropertyRunes;
-            data.armorTypes = CONFIG.PF2E.armorTypes;
-            data.armorGroups = CONFIG.PF2E.armorGroups;
-            data.baseArmors = LocalizePF2e.translations.PF2E.Item.Armor.Base;
+            data.categories = CONFIG.PF2E.armorTypes;
+            data.groups = CONFIG.PF2E.armorGroups;
+            data.baseTypes = LocalizePF2e.translations.PF2E.Item.Armor.Base;
             data.bulkTypes = CONFIG.PF2E.bulkTypes;
-            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, data.data.traits);
+            data.traits = this.prepareOptions(CONFIG.PF2E.armorTraits, data.data.traits, { selectedOnly: true });
+            data.baseTraits = this.prepareOptions(CONFIG.PF2E.armorTraits, this.item._data.data.traits, {
+                selectedOnly: true,
+            });
             data.preciousMaterials = CONFIG.PF2E.preciousMaterials;
             data.preciousMaterialGrades = CONFIG.PF2E.preciousMaterialGrades;
             data.sizes = CONFIG.PF2E.actorSizes;
@@ -293,16 +297,23 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     }
 
     /** Prepare form options on the item sheet */
-    protected prepareOptions(options: Record<string, string>, selections: SheetSelections): SheetOptions {
-        const sheetOptions = Object.entries(options).reduce((sheetOptions, [stringKey, label]) => {
+    protected prepareOptions(
+        options: Record<string, string>,
+        selections: SheetSelections,
+        { selectedOnly = false }: { selectedOnly?: boolean } = { selectedOnly: false },
+    ): SheetOptions {
+        const sheetOptions = Object.entries(options).reduce((compiledOptions: SheetOptions, [stringKey, label]) => {
             const key = typeof selections.value[0] === 'number' ? Number(stringKey) : stringKey;
-            sheetOptions[key] = {
-                label,
-                value: stringKey,
-                selected: selections.value.includes(key),
-            };
-            return sheetOptions;
-        }, {} as SheetOptions);
+            const isSelected = selections.value.includes(key);
+            if (isSelected || !selectedOnly) {
+                compiledOptions[key] = {
+                    label,
+                    value: stringKey,
+                    selected: isSelected,
+                };
+            }
+            return compiledOptions;
+        }, {});
 
         if (selections.custom) {
             sheetOptions.custom = {
@@ -347,7 +358,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             selectorOptions.customChoices = attackEffectOptions;
         }
 
-        new TraitSelectorBasic(this.item, selectorOptions).render(true);
+        new TagSelectorBasic(this.item, selectorOptions).render(true);
     }
 
     /**

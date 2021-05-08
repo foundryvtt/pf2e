@@ -1,4 +1,4 @@
-export { TraitSelectorBasic } from './basic';
+export { TagSelectorBasic } from './basic';
 export { TraitSelectorResistances } from './resistances';
 export { TraitSelectorSenses } from './senses';
 export { TraitSelectorSpeeds } from './speeds';

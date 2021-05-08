@@ -21,7 +21,7 @@ import {
 } from '@item/treasure/helpers';
 import { ConditionManager } from '@module/conditions';
 import {
-    TraitSelectorBasic,
+    TagSelectorBasic,
     TraitSelectorResistances,
     TraitSelectorSenses,
     TraitSelectorSpeeds,
@@ -1671,7 +1671,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         options: FormApplicationOptions | BasicSelectorOptions = {},
     ): void {
         if (selectorType === 'basic' && 'objectProperty' in options) {
-            new TraitSelectorBasic(this.object, options).render(true);
+            new TagSelectorBasic(this.object, options).render(true);
         } else if (selectorType === 'basic') {
             throw ErrorPF2e('Insufficient options provided to render basic tag selector');
         } else {
