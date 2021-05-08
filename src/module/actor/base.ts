@@ -592,7 +592,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                     whisper: ChatMessage.getWhisperRecipients('GM'),
                 };
                 if (!game.settings.get('pf2e', 'Meta.SecretDamage')) {
-                    delete data.whisper;
+                    delete (data as { whisper?: unknown }).whisper;
                 }
                 ChatMessage.create(data);
             });
