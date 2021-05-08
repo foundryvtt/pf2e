@@ -244,9 +244,8 @@ export function registerSettings() {
         type: Boolean,
     });
 
-    // this section starts Metaknowledge settings, all of them should have a 'Meta.' at the start of their name
+    // this section starts Metaknowledge settings, all of them should have a 'metagame.' at the start of their name
     game.settings.register('pf2e', 'metagame.secretDamage', {
-        name: 'PF2E.SETTINGS.Meta.SecretDamage.Name',
         name: 'PF2E.SETTINGS.Metagame.SecretDamage.Name',
         hint: 'PF2E.SETTINGS.Metagame.SecretDamage.Hint',
         scope: 'world',
