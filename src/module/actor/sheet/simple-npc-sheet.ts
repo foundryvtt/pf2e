@@ -127,8 +127,9 @@ interface SheetEnrichedItemData {
     imageUrl: string;
     traits: {
         label: string;
-        description: string;
+        description?: string;
     }[];
+    chatData?: unknown;
     data: {
         components: {
             somatic: boolean;
@@ -605,6 +606,9 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Assign spells to spell entries
         for (const spell of spellsList) {
+            // Merge in spell chat data
+            spell.chatData = this.actor.items.get(spell._id)?.getChatData();
+
             // Assign icon based on cast time
             spell.glyph = getActionGlyph(spell.data.time.value);
 
@@ -612,13 +616,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             spell.data.components.somatic = spell.data.components.value.includes('somatic');
             spell.data.components.verbal = spell.data.components.value.includes('verbal');
             spell.data.components.material = spell.data.components.value.includes('material');
-
-            spell.traits = spell.data.traits.value.map((trait) => {
-                return {
-                    label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                    description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                };
-            });
 
             let location = spell.data.location.value;
             let spellbook: any;
@@ -686,6 +683,9 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                         (spellData): spellData is SheetSpellData => !!spellData._id,
                     );
                     for (const spell of preparedSpells) {
+                        // Merge in spell chat data
+                        spell.chatData = this.actor.items.get(spell._id)?.getChatData();
+
                         // Assign icon based on cast time
                         spell.glyph = getActionGlyph(spell.data.time.value);
 
@@ -693,11 +693,6 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                         spell.data.components.somatic = spell.data.components.value.includes('somatic');
                         spell.data.components.verbal = spell.data.components.value.includes('verbal');
                         spell.data.components.material = spell.data.components.value.includes('material');
-
-                        spell.traits = spell.data.traits.value.map((trait) => ({
-                            label: game.i18n.localize(CONFIG.PF2E.spellTraits[trait]),
-                            description: game.i18n.localize(CONFIG.PF2E.traitsDescriptions[trait]),
-                        }));
                     }
                 }
             }
