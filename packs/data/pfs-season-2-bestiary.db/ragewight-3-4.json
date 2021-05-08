@@ -96,6 +96,7 @@
                 "value": "25"
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -614,12 +615,37 @@
                     "value": "1"
                 },
                 "description": {
-                    "value": "<p>The ragewight goes into a frenzy, gaining 8 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a –1 penalty to AC. This lasts for 1 minute.</p>"
+                    "value": "<p>The ragewight goes into a frenzy, gaining 8 temporary Hit Points. Its Strikes deal 2 additional damage, and it takes a –1 penalty to AC. This lasts for 1 minute.</p>\n<p>@Compendium[pf2e.bestiary-effects.Effect: Ragewight Rage]{Effect: Ragewight Rage}</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "ragewight-rage"
+                            ]
+                        },
+                        "roll-options": [
+                            "all",
+                            "ac"
+                        ],
+                        "selector": "ac",
+                        "value": -1
+                    },
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "predicate": {
+                            "all": [
+                                "ragewight-rage"
+                            ]
+                        },
+                        "selector": "damage",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -826,7 +852,7 @@
             "speed": 5
         },
         "lockRotation": false,
-        "name": "Ragewight",
+        "name": "Ragewight (3-4)",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
