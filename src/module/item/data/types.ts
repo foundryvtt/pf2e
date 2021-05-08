@@ -103,7 +103,6 @@ export interface PhysicalDetailsData extends ItemDescriptionData, ItemLevelData 
         value: boolean;
     };
     identification: IdentificationData;
-    originalName: string;
     stackGroup: {
         value: string;
     };
