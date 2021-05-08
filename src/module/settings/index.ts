@@ -151,6 +151,22 @@ export function registerSettings() {
         type: Boolean,
     });
 
+    game.settings.register('pf2e', 'effectAutoExpire', {
+        name: 'PF2E.SETTINGS.effectAutoExpire.name',
+        hint: 'PF2E.SETTINGS.effectAutoExpire.hint',
+        scope: 'world',
+        config: true,
+        default: true,
+        type: Boolean,
+        onChange: () => {
+            game.actors.forEach((actor) => {
+                actor.prepareData();
+                actor.sheet.render(false);
+                actor.getActiveTokens().forEach((token) => token.drawEffects());
+            });
+        },
+    });
+
     game.settings.register('pf2e', 'critFumbleButtons', {
         name: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.name'),
         hint: game.i18n.localize('PF2E.SETTINGS.critFumbleCardButtons.hint'),
