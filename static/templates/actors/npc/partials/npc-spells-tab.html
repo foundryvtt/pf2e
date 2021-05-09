@@ -1,23 +1,36 @@
 <div class="tab spells" data-group="primary" data-tab="spells">
-    <ol class="entries-list">
+    <ol class="entries-list item-list">
         {{#each spellcastingEntries as |entry eid|}}
-            <li class="spellcasting-entry item item-container" data-container-type="spellcastingEntry" data-container-id="{{entry._id}}">
+            <li class="spellcasting-entry item item-container" data-container-type="spellcastingEntry" data-item-id="{{entry._id}}" data-container-id="{{entry._id}}">
                 <div class="header">
                     {{#if entry.data.prepared}}
-                        <a class="skill-name prepared-toggle" style="padding-right: 10px;" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
+                        <a class="skill-name prepared-toggle" title="{{localize "PF2E.ToggleSpellVisibilityTitle"}}"><i class="fas {{#if entry.data.showUnpreparedSpells.value}}fa-book-open{{else}}fa-book{{/if}}"></i></a>
                     {{/if}}
                     <div class="values">
+                        <div class="name">
+                            <h4>{{entry.name}}</h4>
+                        </div>
                         <div class="spellDC inline-field">
                             <label title="{{entry.data.dc.breakdown}}">{{ localize 'PF2E.NPC.Spells.DCLabel' }}</label>
                             <input type="number" class="dc-input modifier" data-display-value="{{entry.data.dc.value}}" data-base-property="data.items.{{eid}}.data.spelldc.dc" value="{{entry.data.dc.value}}" data-dtype="Number" placeholder="0"/>
                         </div>
                         <div class="spellAttack inline-field">
-                            <label class="rollable" title="{{entry.data.attack.breakdown}}"><a>{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</a></label>
+                            <label class="rollable" title="{{entry.data.attack.breakdown}}">{{ localize 'PF2E.NPC.Spells.AttackLabel' }}</label>
                             <input type="number" class="attack-input modifier" data-display-value="{{entry.data.attack.value}}" data-base-property="data.items.{{eid}}.data.spelldc.value" value="{{ numberFormat entry.data.attack.value decimals=0 }}" data-dtype="Number" placeholder="0"/>
                         </div>
-                    </div>
-                    <div class="name">
-                        <h4>{{ entry.name }}</h4>
+                        <div class="ability-score inline-field">
+                            <label title="{{entry.data.ability.label}}">{{localize "PF2E.AbilityTitle"}}</label>
+                            <select data-base-property="data.items.{{eid}}.data.ability.value" data-dtype="String">
+                                {{#select entry.data.ability.value}}
+                                    <option value="str">{{localize "PF2E.AbilityId.str"}}</option>
+                                    <option value="dex">{{localize "PF2E.AbilityId.dex"}}</option>
+                                    <option value="con">{{localize "PF2E.AbilityId.con"}}</option>
+                                    <option value="int">{{localize "PF2E.AbilityId.int"}}</option>
+                                    <option value="wis">{{localize "PF2E.AbilityId.wis"}}</option>
+                                    <option value="cha">{{localize "PF2E.AbilityId.cha"}}</option>
+                                {{/select}}
+                            </select>
+                        </div>
                     </div>
                     {{#if ../options.editable}}
                         <div class="item-controls">
@@ -29,18 +42,18 @@
                     <div class="sub-header">
                         <div class="focus-point-container">
                             {{#if entry.data.tradition.focus}}
-                            <label class="focus-label">{{ localize 'PF2E.Focus.label' }}</label>
-                            <input type="number" class="focus-points" name="data.items.{{entry._id}}.data.focus.points" value="{{ numberFormat entry.data.focus.points decimals=0 }}" data-dtype="Number" placeholder="0"/>
+                                <label class="focus-label">{{ localize 'PF2E.Focus.label' }}</label>
+                                <input type="number" class="focus-points" data-base-property="data.items.{{eid}}.data.focus.points" name="data.items.{{entry._id}}.data.focus.points" value="{{numberFormat entry.data.focus.points decimals=0}}" data-dtype="Number" placeholder="0"/>
                             <span class="flex0">/</span>
-                            <input type="number" class="focus-pool" name="data.items.{{entry._id}}.data.focus.pool" value="{{ numberFormat entry.data.focus.pool decimals=0 }}" data-dtype="Number" placeholder="0"/>
+                            <input type="number" class="focus-pool" data-base-property="data.items.{{eid}}.data.focus.pool" name="data.items.{{entry._id}}.data.focus.pool" value="{{numberFormat entry.data.focus.pool decimals=0}}" data-dtype="Number" placeholder="0"/>
                             {{/if}}
                         </div>
                         <div class="range">{{ localize 'PF2E.SpellRangeLabel' }}</div>
                         <div class="components">{{ localize 'PF2E.SpellComponentsLabel' }}</div>
                         <div class="entry-controls controls">
                             {{#if ../options.editable }}
-                            <a class="item-add add spell-create" title="{{ localize 'PF2E.NPC.Add' }}" data-type="spell" data-level="{{entryId}}" data-location="{{entry._id}}"><i class="fas fa-plus"></i></a>
-                            <a class="item-control spell-browse" title="{{localize 'PF2E.OpenSpellBrowserTitle'}}" data-type="spell" data-level="{{entryId}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
+                            <a class="item-add add spell-create" title="{{ localize 'PF2E.NPC.Add' }}" data-type="spell" data-level="{{eid}}" data-location="{{entry._id}}"><i class="fas fa-plus"></i></a>
+                            <a class="item-control spell-browse" title="{{localize 'PF2E.OpenSpellBrowserTitle'}}" data-type="spell" data-level="{{eid}}" data-location="{{entry._id}}"><i class="fas fa-search"></i></a>
                             {{/if}}
                         </div>
                     </div>
@@ -51,7 +64,7 @@
                             <div class="section spellbook-header" data-item-id="{{entry._id}}" data-item-type="spellLevel" data-level="{{lvl}}">
                                 {{#if section.spells.length}}
                                 <div class="section-header">
-                                    <h4>{{ section.label }}</h4>
+                                    <h4>{{localize section.label}}</h4>
                                     {{#if section.isCantrip}}
                                         <span class="spell-slots">&infin;</span>
                                         <span class="flex0"> / </span>
@@ -91,18 +104,7 @@
                                                     {{/if}}
                                                 </div>
                                             </div>
-                                            <div class="spell-body">
-                                                <div class="spell-detail sub-section expandable">
-                                                    <div class="spell-description">
-                                                        {{{ enrichHTML spell.data.description.value }}}
-                                                    </div>
-                                                    <div class="traits-list">
-                                                        {{#each spell.traits as |trait traitIndex|}}
-                                                            <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                        {{/each}}
-                                                    </div>
-                                                </div>
-                                            </div>
+                                            {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                         </li>
                                     {{/each}}
                                 </ul>
@@ -119,7 +121,7 @@
                                             <i class="fas {{#if section.displayPrepared}}fa-book-open{{else}}fa-book{{/if}}"></i>
                                         </a>
                                     {{/if}}
-                                    <h4>{{ section.label }}</h4>
+                                    <h4>{{localize section.label}}</h4>
                                     <input class="spell-max-input" type="number" name="data.items.{{entry._id}}.data.slots.slot{{lvl}}.max" value="{{section.slots}}" placeholder="0" data-dtype="Number"/>
                                 </div>
                                 <ul class="spells-list">
@@ -151,18 +153,7 @@
                                                         {{/if}}
                                                     </div>
                                                 </div>
-                                                <div class="spell-body">
-                                                    <div class="spell-detail sub-section expandable">
-                                                        <div class="spell-description">
-                                                            {{{ enrichHTML spell.data.description.value }}}
-                                                        </div>
-                                                        <div class="traits-list">
-                                                            {{#each spell.traits as |trait traitIndex|}}
-                                                                <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                            {{/each}}
-                                                        </div>
-                                                    </div>
-                                                </div>
+                                                {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                             </li>
                                         {{else}}
                                             <li class="item spell" data-item-id="{{i}}" data-spell-lvl="{{lvl}}" data-item-type="spellSlot" data-entry-id="{{entry._id}}">
@@ -205,18 +196,7 @@
                                                             {{/if}}
                                                         </div>
                                                     </div>
-                                                    <div class="spell-body">
-                                                        <div class="spell-detail sub-section expandable">
-                                                            <div class="spell-description">
-                                                                {{{ enrichHTML spell.data.description.value }}}
-                                                            </div>
-                                                            <div class="traits-list">
-                                                                {{#each spell.traits as |trait traitIndex|}}
-                                                                    <div class="tag" title="{{trait.description}}">{{ trait.label }}</div>
-                                                                {{/each}}
-                                                            </div>
-                                                        </div>
-                                                    </div>
+                                                    {{> "systems/pf2e/templates/actors/npc/partials/npc-spell-body.html" spell=spell}}
                                                 </li>
                                                 {{/each}}
                                             </ul>

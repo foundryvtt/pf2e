@@ -1,0 +1,82 @@
+{
+    "_id": "X2BGmuKdGVj4YYyp",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike}, and selecting lawful (if you are lawful).</p>\n<p>Or, granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike} if you have @Compendium[pf2e.feats-srd.Sacred Ki]{Sacred Ki} and selecting lawful.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ki Strike",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "lawful",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Ki Strike",
+                "selector": "damage",
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ki-strike.webp",
+    "name": "Spell Effect: Ki Strike (Lawful)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

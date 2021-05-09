@@ -1,34 +1,30 @@
 import { identifyItem, IdentifyAlchemyDCs, IdentifyMagicDCs } from '@item/identification';
 import { PhysicalItemPF2e } from '@item/physical';
-import { ActorPF2e } from '../../base';
+import { tupleHasValue } from '@module/utils';
 
-/**
- * @category Other
- */
-export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
+export class IdentifyItemPopup extends FormApplication<PhysicalItemPF2e> {
+    /** @override */
     static get defaultOptions(): FormApplicationOptions {
-        const options = super.defaultOptions;
-        options.id = 'identify-item';
-        options.classes = [];
-        options.title = game.i18n.localize('PF2E.identification.Identify');
-        options.template = 'systems/pf2e/templates/actors/identify-item.html';
-        options.width = 'auto';
-        options.classes = ['identify-popup'];
-        return options;
+        return {
+            ...super.defaultOptions,
+            id: 'identify-item',
+            title: game.i18n.localize('PF2E.identification.Identify'),
+            template: 'systems/pf2e/templates/actors/identify-item.html',
+            width: 'auto',
+            classes: ['identify-popup'],
+        };
     }
 
-    protected async _updateObject(_event: Event, _formData: FormData): Promise<void> {
-        const item = this.getItem();
-
-        item.setIsIdentified(true);
+    get item() {
+        return this.object;
     }
 
+    /** @override */
     getData() {
-        const item = this.getItem();
-
+        const item = this.object;
         const notMatchingTraditionModifier = game.settings.get('pf2e', 'identifyMagicNotMatchingTraditionModifier');
         const proficiencyWithoutLevel = game.settings.get('pf2e', 'proficiencyVariant') === 'ProficiencyWithoutLevel';
-        const dcs = identifyItem(item.data, {
+        const dcs = identifyItem(item, {
             proficiencyWithoutLevel,
             notMatchingTraditionModifier,
         });
@@ -40,15 +36,19 @@ export class IdentifyItemPopup extends FormApplication<ActorPF2e> {
         };
     }
 
-    getItem(): any {
-        const { itemId } = this.options;
-        const item = this.object.getOwnedItem(itemId);
-        if (!item) {
-            throw Error(`PF2e | Could not load item with id: ${itemId} for identification`);
-        } else if (!(item instanceof PhysicalItemPF2e)) {
-            throw Error(`PF2e | ${item?.name} is not a physical item.`);
-        }
+    /** @override */
+    activateListeners($form: JQuery<HTMLFormElement>) {
+        $form.find<HTMLButtonElement>('button.update-identification').on('click', (event) => {
+            const $button = $(event.delegateTarget);
+            this.submit({ updateData: { status: $button.val() } });
+        });
+    }
 
-        return item;
+    protected async _updateObject(_event: Event, formData: Record<string, unknown>): Promise<void> {
+        const status = formData['status'];
+        const newStatuses = ['identified', 'misidentified'] as const;
+        if (typeof status === 'string' && tupleHasValue(newStatuses, status)) {
+            await this.item.setIdentificationStatus(status);
+        }
     }
 }

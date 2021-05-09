@@ -21,15 +21,14 @@
         },
         "creatureType": "",
         "details": {
-            "description": "Five scroll symbols shoot electricity bolts\r\naround the room.",
-            "disable": "Thievery DC 25 (expert) or dispel magic (3rd level; counteract DC 24); Thievery DC 29 (master) to disable the entire trap from the hidden control panel beneath the central slab.",
+            "description": "Five scroll symbols shoot electricity bolts around the room.",
+            "disable": "<p>Thievery DC 25 (expert) or @Compendium[pf2e.spells-srd.Dispel Magic]{Dispel Magic} (3rd level; counteract DC 24);</p>\n<p>Thievery DC 29 (master) to disable the entire trap from the hidden control panel beneath the central slab.</p>",
             "isComplex": true,
             "level": 9,
-            "reset": "The trap deactivates 1 round after it has no target\r\ncreatures and resets after 1 minute.",
-            "routine": "(5 actions) Each disabled symbol reduces the\r\ntrap's number of actions by 1. For each of its actions, a different symbol shoots an electricity bolt at a random creature in the room. The trap doesn't take multiple attack penalties."
+            "reset": "The trap deactivates 1 round after it has no target ncreatures and resets after 1 minute.",
+            "routine": "<p>(5 actions) Each disabled symbol reduces the trap's number of actions by 1.</p>\n<p>For each of its actions, a different symbol shoots an electricity bolt at a random creature in the room. The trap doesn't take multiple attack penalties.</p>"
         },
         "flavourText": "",
-        "nethysUrl": "",
         "recallKnowledgeText": "",
         "saves": {
             "fortitude": {
@@ -87,7 +86,9 @@
             "traits": {
                 "custom": "",
                 "value": [
-                    "mechanical"
+                    "magical",
+                    "mechanical",
+                    "trap"
                 ]
             }
         }
@@ -321,10 +322,6 @@
                     "value": ""
                 },
                 "damageRolls": {
-                    "2cqbaeqgq0d80s6mfotqj": {
-                        "damage": "1d6 #persistent",
-                        "damageType": "electricity"
-                    },
                     "kz4wjza1vdnr4bny3gibi": {
                         "damage": "1d6+2",
                         "damageType": "electricity"
@@ -333,7 +330,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 1d6 #persistent electricity]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Electricity Damage}</p>"
                 },
                 "equipped": {
                     "value": false
@@ -346,12 +343,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -421,7 +412,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "range 40 feet"
+                        "range-increment-40"
                     ]
                 },
                 "usage": {

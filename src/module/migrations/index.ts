@@ -45,6 +45,25 @@ import { Migration611UpdateToughnessMountainsStoutness } from './611-update-toug
 import { Migration612NormalizeRarities } from './612-normalize-rarities';
 import { Migration613RemoveAmmoCharges } from '@module/migrations/613-remove-ammo-charges';
 import { Migration614NumifyMeleeBonuses } from './614-numify-melee-bonuses';
+import { Migration615RemoveInstinctTrait } from '@module/migrations/615-remove-instinct-trait';
+import { Migration616MigrateFeatPrerequisites } from './616-migrate-feat-prerequisites';
+import { Migration617FixUserFlags } from './617-fix-user-flags';
+import { Migration618MigrateItemImagePaths } from '@module/migrations/618-migrate-item-img-paths';
+import { Migration619TraditionLowercaseAndRemoveWandScroll } from './619-remove-wand-and-scroll-tradition';
+import { Migration620RenameToWebp } from './620-rename-to-webp';
+import { Migration621RemoveConfigSpellSchools } from './621-remove-config-spellSchools';
+import { Migration622RemoveOldTokenEffectIcons } from '@module/migrations/622-remove-old-token-effect-icons';
+import { Migration623NumifyPotencyRunes } from './623-numify-potency-runes';
+import { Migration624RemoveTokenEffectIconFlags } from '@module/migrations/624-removed-token-effect-icon-flags';
+import { Migration625EnsurePresenceOfSaves } from './625-ensure-presence-of-saves';
+import { Migration626UpdateSpellCategory } from './626-update-spell-category';
+import { Migration627LowerCaseSpellSaves } from './627-lowercase-spell-saves';
+import { Migration628UpdateIdentificationData } from './628-update-identification-data';
+import { Migration629SetBaseItems } from './629-set-base-items';
+import { Migration630FixTalismanSpelling } from './630-fix-talisman-spelling';
+import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
+import { Migration632DeleteOrphanedSpells } from './632-delete-orphaned-spells';
+import { Migration633DeleteUnidentifiedTraits } from './633-delete-unidentified-traits';
 
 export class Migrations {
     private static list = [
@@ -94,6 +113,25 @@ export class Migrations {
         Migration612NormalizeRarities,
         Migration613RemoveAmmoCharges,
         Migration614NumifyMeleeBonuses,
+        Migration615RemoveInstinctTrait,
+        Migration616MigrateFeatPrerequisites,
+        Migration617FixUserFlags,
+        Migration618MigrateItemImagePaths,
+        Migration619TraditionLowercaseAndRemoveWandScroll,
+        Migration620RenameToWebp,
+        Migration621RemoveConfigSpellSchools,
+        Migration622RemoveOldTokenEffectIcons,
+        Migration623NumifyPotencyRunes,
+        Migration624RemoveTokenEffectIconFlags,
+        Migration625EnsurePresenceOfSaves,
+        Migration626UpdateSpellCategory,
+        Migration627LowerCaseSpellSaves,
+        Migration628UpdateIdentificationData,
+        Migration629SetBaseItems,
+        Migration630FixTalismanSpelling,
+        Migration631FixSenseRuleElementSelector,
+        Migration632DeleteOrphanedSpells,
+        Migration633DeleteUnidentifiedTraits,
     ];
 
     static get latestVersion(): number {

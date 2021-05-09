@@ -26,11 +26,18 @@
 
             .values {
                 display: flex;
-                flex: 0;
+                flex: 1;
                 flex-direction: row;
                 flex-wrap: nowrap;
-                justify-content: flex-start;
                 align-items: baseline;
+
+                .name {
+                    width: max-content;
+                    h4 {
+                        margin: 0 4px;
+                    }
+                    padding-right: 6px;
+                }
 
                 .inline-field {
                     flex: 0;
@@ -64,14 +71,13 @@
                         width: 32px;
                     }
                 }
-            }
 
-            .name {
-                flex: 1;
-                text-align: center;
-                h4 {
-                    padding: 0px;
-                    margin: 0px;
+                .ability-score {
+                    select {
+                        margin-left: 4px;
+                        max-width: 55px;
+                        padding: 2px !important;
+                    }
                 }
             }
         }
@@ -257,6 +263,14 @@
 
                         &:hover .spell-header .controls {
                             visibility: visible;
+                        }
+                    }
+
+                    .spell-body .spell-detail {
+                        padding-top: 8px;
+
+                        .tag {
+                            font-size: 8px;
                         }
                     }
                 }

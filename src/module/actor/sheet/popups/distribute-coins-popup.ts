@@ -39,9 +39,9 @@ export class DistributeCoinsPopup extends FormApplication<ActorPF2e> {
             return maybeActor instanceof CharacterPF2e ? maybeActor : [];
         });
         const playerCount = selectedActors.length;
-        if (thisActor.data.items !== undefined) {
+        if (thisActor instanceof ActorPF2e) {
             const coinShare = { pp: 0, gp: 0, sp: 0, cp: 0 };
-            const thisActorCurrency = calculateValueOfCurrency(thisActor.data.items);
+            const thisActorCurrency = calculateValueOfCurrency(thisActor.items.map((item) => item.data));
             if (formData.breakCoins) {
                 const thisActorCopperValue =
                     thisActorCurrency.cp +

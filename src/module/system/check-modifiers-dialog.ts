@@ -1,6 +1,6 @@
 import { ModifierPF2e, StatisticModifier } from '../modifiers';
 import { ActorPF2e } from '@actor/base';
-import { PF2RollNote } from '../notes';
+import { RollNotePF2e } from '../notes';
 import { getDegreeOfSuccess, DegreeOfSuccessText, PF2CheckDC } from './check-degree-of-success';
 import { LocalizePF2e } from './localize';
 
@@ -8,7 +8,7 @@ export interface CheckModifiersContext {
     /** Any options which should be used in the roll. */
     options?: string[];
     /** Any notes which should be shown for the roll. */
-    notes?: PF2RollNote[];
+    notes?: RollNotePF2e[];
     /** If true, this is a secret roll which should only be seen by the GM. */
     secret?: boolean;
     /** The roll mode (i.e., 'roll', 'blindroll', etc) to use when rendering this roll. */
@@ -186,7 +186,7 @@ export class CheckModifiersDialog extends Application {
             check: this.check,
             rollModes: CONFIG.Dice.rollModes,
             rollMode: this.context.rollMode,
-            quickRolls: game.user.data.flags.PF2e?.settings?.quickD20roll,
+            showRollDialogs: game.user.getFlag('pf2e', 'settings.showRollDialogs'),
             fortune,
             none,
             misfortune,
@@ -223,9 +223,9 @@ export class CheckModifiersDialog extends Application {
             theme: 'crb-hover',
             minWidth: 165,
         });
-        html.find('.settings-list input.quick-rolls-submit').on('change', async (event) => {
-            const $checkbox = $(event.target);
-            await game.user.update({ flags: { PF2e: { settings: { quickD20roll: $checkbox.prop('checked') } } } });
+        html.find<HTMLInputElement>('.settings-list input.quick-rolls-submit').on('change', async (event) => {
+            const $checkbox = $(event.delegateTarget);
+            await game.user.setFlag('pf2e', 'settings.showRollDialogs', $checkbox[0].checked);
             $tooltip.tooltipster('close');
         });
     }

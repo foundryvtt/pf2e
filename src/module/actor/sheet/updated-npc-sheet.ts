@@ -2,14 +2,26 @@ import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../base';
 import { ItemPF2e } from '@item/base';
+import { ActorSheetPF2eSimpleNPC } from './simple-npc-sheet';
+import { SheetInventory } from './data-types';
+import { ItemDataPF2e } from '@item/data/types';
+
+interface LootSheetData {
+    actor: { name: string; items: ItemDataPF2e[] };
+    options: { classes: string[] };
+    inventory: SheetInventory;
+}
 
 /**
  * @category Other
  */
 export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
     get template() {
-        const path = 'systems/pf2e/templates/actors/';
+        if (this.isLootSheet) {
+            return 'systems/pf2e/templates/actors/npc/loot-sheet.html';
+        }
 
+        const path = 'systems/pf2e/templates/actors/';
         if (this.actor.getFlag('pf2e', 'editNPC.value')) return `${path}npc-sheet.html`;
         return `${path}npc-sheet-no-edit.html`;
     }
@@ -17,7 +29,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet', 'updatedNPCSheet']),
+            classes: options.classes.concat('updatedNPCSheet'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -25,13 +37,23 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         return options;
     }
 
-    /* -------------------------------------------- */
+    /** @override */
+    get title() {
+        if (this.isLootSheet) {
+            const actorName = this.token?.name ?? this.actor.name;
+            return `${actorName} [${game.i18n.localize('PF2E.NPC.Dead')}]`;
+        }
+        return super.title;
+    }
 
-    /**
-     * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
-     */
+    /** @override */
     getData() {
         const sheetData = super.getData();
+        /** Use the simple NPC loot-sheet variant if in loot mode */
+        if (this.isLootSheet) {
+            return this.getLootData(sheetData);
+        }
+
         sheetData.flags = sheetData.actor.flags;
         if (sheetData.flags.pf2e_updatednpcsheet === undefined) sheetData.flags.pf2e_updatednpcsheet = {};
         if (sheetData.flags.pf2e_updatednpcsheet.editNPC === undefined)
@@ -186,6 +208,22 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         return sheetData;
     }
 
+    private getLootData(data: LootSheetData) {
+        data.actor.name = this.token?.name ?? this.actor.name;
+        data.options.classes = data.options.classes
+            .filter((cls) => !['npc-sheet', 'updatedNPCSheet'].includes(cls))
+            .concat('npc');
+        data.inventory = ActorSheetPF2eSimpleNPC.prototype.prepareInventory({ items: data.actor.items });
+
+        return data;
+    }
+
+    /** @override */
+    get isLootSheet(): boolean {
+        const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
+        return npcsAreLootable && !this.actor.owner && this.actor.isLootableBy(game.user);
+    }
+
     /**
      * Increases the NPC via the Elite/Weak adjustment rules
      */
@@ -319,6 +357,12 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      */
     activateListeners(html: JQuery) {
         super.activateListeners(html);
+
+        // Set the inventory tab as active on a loot-sheet rendering.
+        if (this.isLootSheet) {
+            html.find('.tab.inventory').addClass('active');
+        }
+
         if (!this.options.editable) return;
 
         html.find('.npc-detail-text textarea').on('focusout', async (event) => {

@@ -5,12 +5,12 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { PhysicalItemPF2e } from '@item/physical';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, ArmorData } from '@item/data-definitions';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem } from '@item/data/types';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { ZeroToThree } from '@actor/data-definitions';
+import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
 
 /**
  * @category Other
@@ -38,16 +38,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     /** @override */
     protected async _updateObject(event: Event, formData: any): Promise<void> {
         // update shield hp
-        const equippedShieldId = this.getEquippedShield(this.actor.data.items)?._id;
-        if (equippedShieldId !== undefined) {
-            const shieldEntity = this.actor.getOwnedItem(equippedShieldId);
-            if (shieldEntity) {
-                await shieldEntity.update({
-                    'data.hp.value': formData['data.attributes.shield.hp.value'],
-                });
-            }
+        const heldShield = this.actor.heldShield;
+        if (heldShield) {
+            await heldShield.update({
+                'data.hp.value': formData['data.attributes.shield.hp.value'],
+            });
         }
-        const previousLevel = this.actor.data.data.details.level.value;
+        const previousLevel = this.actor.level;
         await super._updateObject(event, formData);
 
         const updatedLevel = this.actor.data.data.details.level.value;
@@ -67,14 +64,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const { hp } = sheetData.data.attributes;
         if (hp.temp === 0) delete hp.temp;
 
-        const ancestryItem = this.actor.items.find((x) => x.type === 'ancestry');
-        sheetData.ancestryItemId = ancestryItem ? ancestryItem.id : '';
-
-        const backgroundItem = this.actor.items.find((x) => x.type === 'background');
-        sheetData.backgroundItemId = backgroundItem ? backgroundItem.id : '';
-
-        const classItem = this.actor.items.find((x) => x.type === 'class');
-        sheetData.classItemId = classItem ? classItem.id : '';
+        sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
+        sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
+        sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
 
         // Update hero points label
         sheetData.data.attributes.heroPoints.icon = this.getHeroPointsIcon(sheetData.data.attributes.heroPoints.rank);
@@ -208,7 +200,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             offensive: { label: 'Offensive Actions', actions: [] },
         };
 
-        const readonlyEquipment = [];
+        const readonlyEquipment: unknown[] = [];
 
         const attacks = {
             weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
@@ -216,7 +208,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         // Skills
         const lores = [];
-        const martialSkills = [];
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -234,18 +225,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         let investedCount = 0; // Tracking invested items
 
-        for (const i of actorData.items) {
-            const item = this.actor.items.get(i._id);
-            if (item instanceof PhysicalItemPF2e) {
-                // item identification
-                i.identified = item.isIdentified;
-                i.showGMInfo = game.user.isGM;
-                i.showEdit = i.showGMInfo || i.identified;
+        for (const itemData of sheetData.items) {
+            const i: any = itemData;
+            if (isPhysicalItem(itemData)) {
+                i.showEdit = sheetData.user.isGM || i.isIdentified;
+                i.img ||= CONST.DEFAULT_TOKEN;
 
-                i.img = i.img || CONST.DEFAULT_TOKEN;
-                i.containerData = containers.get(i._id);
-                i.isContainer = i.containerData.isContainer;
-                i.isNotInContainer = i.containerData.isNotInContainer;
+                const containerData = containers.get(i._id)!;
+                i.containerData = containerData;
+                i.isInContainer = containerData.isInContainer;
+                i.isInvestable = itemData.isEquipped && itemData.isIdentified && itemData.isInvested !== null;
 
                 // Read-Only Equipment
                 if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
@@ -253,12 +242,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.hasEquipment = true;
                 }
 
-                i.canBeEquipped = i.isNotInContainer;
-                i.isEquipped = item.isEquipped;
-                i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-                i.hasInvestedTrait = item.traits.has('invested');
-                i.isInvested = i.data?.invested?.value ?? false;
-                if (i.isInvested) {
+                i.canBeEquipped = !containerData.isInContainer;
+                i.isSellableTreasure = i.showEdit && i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
+                if (itemData.isInvested) {
                     investedCount += 1;
                 }
 
@@ -281,15 +267,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     }
                     inventory[i.type].items.push(i);
                 }
-            } else if (item instanceof SpellPF2e) {
+            } else if (itemData.type === 'spell') {
                 // Spells
-                try {
-                    i.spellInfo = item.getSpellInfo();
-                } catch (err) {
-                    console.log(`PF2e System | Character Sheet | Could not load item ${i.name}`);
-                }
-                tempSpellbook.push(i);
-            } else if (i.type === 'spellcastingEntry') {
+                const item = this.actor.items.get(itemData._id);
+                i.spellInfo = item?.getChatData() ?? {};
+                tempSpellbook.push(itemData);
+            } else if (itemData.type === 'spellcastingEntry') {
                 // Spellcasting Entries
                 // collect list of entries to use later to match spells against.
                 spellcastingEntriesList.push(i._id);
@@ -300,9 +283,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     actorData.data.details.level.value,
                     spellRank,
                 ).modifier;
-                const spellAbl = i.data.ability.value || 'int';
-                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency + i.data.item.value;
-                if (i.data.spelldc.value !== spellAttack) {
+                const spellAbl = itemData.data.ability.value || 'int';
+                const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
+                if (itemData.data.spelldc.value !== spellAttack) {
                     const updatedItem = {
                         _id: i._id,
                         data: {
@@ -316,13 +299,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     this.actor.updateEmbeddedEntity('OwnedItem', updatedItem);
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency}) + item bonus(${i.data.item.value})`;
+                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
                 i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
-                i.data.spelldc.hover = CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value];
-                i.data.tradition.title = CONFIG.PF2E.magicTraditions[i.data.tradition.value];
-                i.data.prepared.title = CONFIG.PF2E.preparationType[i.data.prepared.value];
+                i.data.spelldc.hover = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value]);
+                i.data.tradition.title = game.i18n.localize(CONFIG.PF2E.magicTraditions[i.data.tradition.value]);
+                i.data.prepared.title = game.i18n.localize(CONFIG.PF2E.preparationType[i.data.prepared.value]);
                 // Check if prepared spellcasting type and set Boolean
                 if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
                 else i.data.prepared.preparedSpells = false;
@@ -390,22 +373,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
                 lores.push(i);
-            }
-
-            // Martial Skills
-            else if (i.type === 'martial') {
-                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
-                i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
-
-                const rank = i.data.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank)
-                    .modifier;
-                /* const itemBonus = Number((i.data.item || {}).value || 0);
-        i.data.itemBonus = itemBonus; */
-                i.data.value = proficiency; // + itemBonus;
-                i.data.breakdown = `proficiency(${proficiency})`;
-
-                martialSkills.push(i);
             }
 
             // Actions
@@ -492,12 +459,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const embeddedEntityUpdate = [];
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
-        for (const i of tempSpellbook) {
+        for (const spellData of tempSpellbook) {
             // check if the spell has a valid spellcasting entry assigned to the location value.
-            if (spellcastingEntriesList.includes(i.data.location.value)) {
-                const location = i.data.location.value;
+            if (spellcastingEntriesList.includes(spellData.data.location.value)) {
+                const location = spellData.data.location.value;
                 spellbooks[location] = spellbooks[location] || {};
-                this.prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], spellData);
             } else if (spellcastingEntriesList.length === 1) {
                 // if not BUT their is only one spellcasting entry then assign the spell to this entry.
                 const location = spellcastingEntriesList[0];
@@ -506,12 +473,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 // Update spell to perminantly have the correct ID now
                 // console.log(`PF2e System | Prepare Actor Data | Updating location for ${i.name}`);
                 // this.actor.updateEmbeddedEntity("OwnedItem", { "_id": i._id, "data.location.value": spellcastingEntriesList[0]});
-                embeddedEntityUpdate.push({ _id: i._id, 'data.location.value': spellcastingEntriesList[0] });
+                embeddedEntityUpdate.push({ _id: spellData._id, 'data.location.value': spellcastingEntriesList[0] });
 
-                this.prepareSpell(actorData, spellbooks[location], i);
+                this.prepareSpell(actorData, spellbooks[location], spellData);
             } else {
                 // else throw it in the orphaned list.
-                this.prepareSpell(actorData, spellbooks.unassigned, i);
+                this.prepareSpell(actorData, spellbooks.unassigned, spellData);
             }
         }
 
@@ -583,7 +550,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.readonlyActions = readonlyActions;
         actorData.readonlyEquipment = readonlyEquipment;
         actorData.lores = lores;
-        actorData.martialSkills = martialSkills;
 
         for (const entry of spellcastingEntries) {
             // TODO: this if statement's codepath does not appear to ever be used. Consider removing after verifying more thoroughly
@@ -596,7 +562,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         actorData.spellcastingEntries = spellcastingEntries;
 
         // shield
-        const equippedShield = this.getEquippedShield(actorData.items);
+        const equippedShield = this.actor.heldShield?.data;
         if (equippedShield === undefined) {
             actorData.data.attributes.shield = {
                 hp: {
@@ -619,12 +585,16 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         } else {
             actorData.data.attributes.shield = duplicate(equippedShield.data);
             actorData.data.attributes.shieldBroken =
-                equippedShield?.data?.hp?.value <= equippedShield?.data?.brokenThreshold?.value;
+                equippedShield.data.hp.value <= equippedShield.data.brokenThreshold.value;
         }
 
         // Inventory encumbrance
         // FIXME: this is hard coded for now
-        const featSlugs = new Set(actorData.items.filter((item) => item.type === 'feat').map((item) => item.data.slug));
+        const featSlugs = new Set(
+            actorData.items
+                .filter((item: ItemDataPF2e) => item.type === 'feat')
+                .map((item: ItemDataPF2e) => item.data.slug),
+        );
 
         let bonusEncumbranceBulk = actorData.data.attributes.bonusEncumbranceBulk ?? 0;
         let bonusLimitBulk = actorData.data.attributes.bonusLimitBulk ?? 0;
@@ -657,13 +627,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         );
     }
 
-    getEquippedShield(items: ItemDataPF2e[]): ArmorData | undefined {
-        return items.find(
-            (itemData): itemData is ArmorData =>
-                itemData.type === 'armor' && itemData.data.equipped.value && itemData.data.armorType.value === 'shield',
-        );
-    }
-
     /* -------------------------------------------- */
     /*  Event Listeners and Handlers
     /* -------------------------------------------- */
@@ -674,6 +637,18 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      */
     activateListeners(html: JQuery) {
         super.activateListeners(html);
+
+        // ACTIONS
+        html.find('[name="ammo-used"]').on('change', (event) => {
+            event.stopPropagation();
+
+            const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
+            const action = this.actor.data.data.actions[Number(actionIndex)];
+            const weapon = this.actor.getOwnedItem(action.item);
+            const ammo = this.actor.getOwnedItem($(event.currentTarget).val() as string);
+
+            if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
+        });
 
         {
             // ensure correct tab name is displayed after actor update
@@ -731,7 +706,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 .addClass('active');
         });
 
-        html.find('.crb-trait-selector').on('click', (event) => this.onCrbTraitSelector(event));
+        html.find('.crb-trait-selector').on('click', (event) => this.onTraitSelector(event));
 
         html.find('.actions-list').on('click', '[data-roll-option]:not([data-roll-option=""])', (event) => {
             this.actor.toggleRollOption(event.currentTarget.dataset.rollName, event.currentTarget.dataset.rollOption);
@@ -742,6 +717,26 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
         html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
+
+        // Toggle invested state
+        html.find('.item-toggle-invest').on('click', (event) => {
+            const f = $(event.currentTarget);
+            const itemId = f.parents('.item').attr('data-item-id') ?? '';
+            this.actor.toggleInvested(itemId);
+        });
+
+        {
+            // Add and remove combat proficiencies
+            const $tab = html.find('.tab.skills');
+            const $header = $tab.find('ol.inventory-header.combat-proficiencies');
+            $header.find('a.add').on('click', (event) => {
+                ManageCombatProficiencies.add(this.actor, event);
+            });
+            const $list = $tab.find('ol.combat-list');
+            $list.find('li.skill.custom a.delete').on('click', (event) => {
+                ManageCombatProficiencies.remove(this.actor, event);
+            });
+        }
 
         html.find('.hover').tooltipster({
             animation: 'fade',
@@ -767,20 +762,26 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const actor = this.actor;
             const item = actor.getOwnedItem(itemId);
 
-            if (item == null) {
-                return;
-            }
-            if (item.data.type !== 'spellcastingEntry') {
+            if (item == null || item.data.type !== 'spellcastingEntry') {
                 return;
             }
             const data = duplicate(item.data);
 
-            if (data.data.slots == null) {
-                return;
-            }
-            data.data.slots['slot' + itemLevel].value -= 1;
-            if (data.data.slots['slot' + itemLevel].value < 0) {
-                data.data.slots['slot' + itemLevel].value = 0;
+            if (data.data.tradition.value === 'focus') {
+                if (data.data.focus.points > 0) {
+                    data.data.focus.points -= 1;
+                } else {
+                    ui.notifications.warn(game.i18n.localize('PF2E.Focus.NotEnoughFocusPointsError'));
+                }
+            } else {
+                if (item.data.data.slots === null) {
+                    return;
+                }
+
+                data.data.slots['slot' + itemLevel].value -= 1;
+                if (data.data.slots['slot' + itemLevel].value < 0) {
+                    data.data.slots['slot' + itemLevel].value = 0;
+                }
             }
 
             item.update(data);
@@ -986,11 +987,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const signatureSpells = spellcastingEntry.data.data.signatureSpells?.value ?? [];
 
         if (!signatureSpells.includes(spell.id)) {
-            const isCantrip = spell.data.data.level.value === 0;
-            const isFocusSpell = spell.data.data.traditions.value.includes('focus');
-            const isRitual = spell.data.data.traditions.value.includes('ritual');
-
-            if (isCantrip || isFocusSpell || isRitual) {
+            if (spell.isCantrip || spell.isFocusSpell || spell.isRitual) {
                 return;
             }
 
@@ -1024,7 +1021,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = duplicate(item.data);
+        const itemData = item._data;
 
         const { slotId, featType } = this.getNearestSlotId(event);
 

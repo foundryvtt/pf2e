@@ -1,7 +1,4 @@
-/**
- * @format
- */
-
+/** Handlebars template subcomponents */
 export function loadPF2ETemplates() {
     const templatePaths = [
         // effect panel
@@ -31,7 +28,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/crb-style/tabs/actor-biography.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-effects.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-feats.html',
-        'systems/pf2e/templates/actors/crb-style/tabs/actor-inventory.html',
+        'systems/pf2e/templates/actors/crb-style/tabs/inventory.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-pfs.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-skills.html',
         'systems/pf2e/templates/actors/crb-style/tabs/actor-spellbook.html',
@@ -50,6 +47,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-action.html',
         'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
         'systems/pf2e/templates/actors/npc/partials/npc-item.html',
+        'systems/pf2e/templates/actors/npc/partials/npc-spell-body.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',
@@ -79,14 +77,16 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/items/kit-sidebar.html',
         'systems/pf2e/templates/items/lore-details.html',
         'systems/pf2e/templates/items/lore-sidebar.html',
+        'systems/pf2e/templates/items/mystify-panel.html',
         'systems/pf2e/templates/items/spell-details.html',
         'systems/pf2e/templates/items/spell-sidebar.html',
         'systems/pf2e/templates/items/melee-details.html',
         'systems/pf2e/templates/items/weapon-details.html',
         'systems/pf2e/templates/items/weapon-sidebar.html',
+
         // Loot partials
-        'systems/pf2e/templates/actors/loot/loot-avatar.html',
-        'systems/pf2e/templates/actors/loot/loot-inventory.html',
+        'systems/pf2e/templates/actors/loot/inventory.html',
+        'systems/pf2e/templates/actors/loot/sidebar.html',
 
         // Vehicle partials
         'systems/pf2e/templates/actors/vehicle/vehicle-sheet.html',

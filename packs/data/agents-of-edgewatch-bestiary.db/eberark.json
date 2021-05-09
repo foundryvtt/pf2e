@@ -95,9 +95,9 @@
             },
             "shield": {
                 "ac": 2,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -109,7 +109,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "40 feet"
+                "value": "40"
             }
         },
         "currency": {
@@ -144,7 +144,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -158,7 +158,6 @@
                 "min": 1,
                 "value": 10
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -451,6 +450,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -539,12 +541,6 @@
                 "hp": {
                     "value": 0
                 },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
-                },
                 "invested": {
                     "value": false
                 },
@@ -630,7 +626,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "jaws",
+            "name": "Jaws",
             "sort": 100000,
             "type": "melee"
         },
@@ -666,6 +662,10 @@
                     "jqe7k986smjq95fe2xgm": {
                         "damage": "2d6+11",
                         "damageType": "slashing"
+                    },
+                    "ahuabuve0uljykw0z34a": {
+                        "damage": "1d4",
+                        "damageType": "fire"
                     }
                 },
                 "description": {
@@ -684,12 +684,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -778,7 +772,7 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "claw",
+            "name": "Claw",
             "sort": 200000,
             "type": "melee"
         },
@@ -790,7 +784,9 @@
                 },
                 "attackEffects": {
                     "custom": "",
-                    "value": []
+                    "value": [
+                        "Incendiary Spit"
+                    ]
                 },
                 "baseItem": null,
                 "bonus": {
@@ -808,12 +804,7 @@
                 "containerId": {
                     "value": ""
                 },
-                "damageRolls": {
-                    "finnw3a5qbvtfpc8m5o5": {
-                        "damage": "incendiary",
-                        "damageType": "spit"
-                    }
-                },
+                "damageRolls": {},
                 "description": {
                     "chat": "",
                     "unidentified": "",
@@ -830,12 +821,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -922,9 +907,109 @@
             "effects": [],
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
-            "name": "spit",
+            "name": "Spit",
             "sort": 300000,
             "type": "melee"
+        },
+        {
+            "_id": "fRnsLPos2xrH1GzQ",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "low-light-vision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Low-Light Vision",
+            "sort": 400000,
+            "type": "action"
+        },
+        {
+            "_id": "2pMaO2Z0N8Vx4Yy8",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>Scent involves sensing creatures or objects by smell, and is usually a vague sense. The range is listed in the ability, and it functions only if the creature or object being detected emits an aroma (for instance, incorporeal creatures usually do not exude an aroma).</p>\n<p>If a creature emits a heavy aroma or is upwind, the GM can double or even triple the range of scent abilities used to detect that creature, and the GM can reduce the range if a creature is downwind.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "scent",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.rqfnQ5VHT5hxm25r"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Scent (Imprecise) 30 feet",
+            "sort": 500000,
+            "type": "action"
         },
         {
             "_id": "vvMB5rLp5hejSAmy",
@@ -941,7 +1026,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The eberark utters crude insults and growls threateningly. Each creature within 30 feet must attempt a DC 27 Will save. The creature is then temporarily immune for 10 minutes.</p>\n<p><strong>Critical Success</strong> The creature is unaffected.</p>\n<p><strong>Success</strong> The creature is frightened 1.</p>\n<p><strong>Failure</strong> The creature is frightened 2 and paralyzed for 1 round.</p>\n<p><strong>Critical Failure</strong> The creature is frightened 4 and paralyzed for 1d4 rounds.</p>"
+                    "value": "<p>The eberark utters crude insults and growls threateningly. Each creature within 30 feet must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"27\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Arrogant Taunts DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p><em data-visibility=\"gm\">The creature is then temporarily immune for 10 minutes.</em></p>\n<hr />\n<p><em data-visibility=\"gm\"><strong>Critical Success</strong> The creature is unaffected.</em></p>\n<p><em data-visibility=\"gm\"><strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</em></p>\n<p><em data-visibility=\"gm\"><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2} and @Compendium[pf2e.conditionitems.Paralyzed]{Paralyzed} for 1 round.</em></p>\n<p><em data-visibility=\"gm\"><strong>Critical Failure</strong> The creature is @Compendium[pf2e.conditionitems.Frightened]{Frightened 4} and paralyzed for [[/br 1d4 #rounds]] rounds.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -975,9 +1060,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Arrogant Taunts",
-            "sort": 400000,
+            "sort": 600000,
             "type": "action"
         },
         {
@@ -995,7 +1080,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature hit by the eberark's spit becomes coated in a slippery, flammable oil. The creature must succeed at a DC 27 Reflex save or become clumsy 2 for as long as they are coated in incendiary spit. Creatures affected by incendiary spit that take fire damage catch fire, taking 3d6 persistent fire damage. Once this persistent fire damage ends, the spit has burned away.</p>"
+                    "value": "<p>A creature hit by the eberark's spit becomes coated in a slippery, flammable oil.</p>\n<p>The creature must succeed at a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"27\" data-pf2-label=\"Incendiary Spit DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or become @Compendium[pf2e.conditionitems.Clumsy]{Clumsy 2} for as long as they are coated in incendiary spit.</p>\n<p>Creatures affected by incendiary spit that take fire damage catch fire, taking [[/r 3d6 #persistent fire]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}. Once this persistent fire damage ends, the spit has burned away.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1024,9 +1109,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Passive.png",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Incendiary Spit",
-            "sort": 500000,
+            "sort": 700000,
             "type": "action"
         },
         {
@@ -1044,7 +1129,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The eberark Strides twice, leaving a trail of magical fire behind it as it moves. Squares the eberark moves through catch fire, creating a 5-foot-tall wall of flame that burns for 1 round. The wall of flame conceals creatures and objects on the other side of it. Any creature that enters or starts its turn in the wall of flame takes 6d6 fire damage (DC 27 basic Reflex save).</p>"
+                    "value": "<p>The eberark Strides twice, leaving a trail of magical fire behind it as it moves. Squares the eberark moves through catch fire, creating a 5-foot-tall wall of flame that burns for 1 round. The wall of flame conceals creatures and objects on the other side of it.</p>\n<p>Any creature that enters or starts its turn in the wall of flame takes [[/r 6d6 #fire]] fire damage (<span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"27\" data-pf2-traits=\"damaging-effect,fire\" data-pf2-label=\"Trail of Flame DC\" data-pf2-show-dc=\"gm\">basic Reflex</span> save).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1075,9 +1160,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Trail of Flame",
-            "sort": 600000,
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -1117,7 +1202,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 700000,
+            "sort": 900000,
             "type": "lore"
         },
         {
@@ -1157,7 +1242,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 1000000,
             "type": "lore"
         },
         {
@@ -1197,7 +1282,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 900000,
+            "sort": 1100000,
             "type": "lore"
         },
         {
@@ -1237,7 +1322,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 1000000,
+            "sort": 1200000,
             "type": "lore"
         },
         {
@@ -1277,7 +1362,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Survival",
-            "sort": 1100000,
+            "sort": 1300000,
             "type": "lore"
         }
     ],
@@ -1300,7 +1385,7 @@
         "displayName": 20,
         "disposition": -1,
         "flags": {},
-        "height": 1,
+        "height": 3,
         "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
@@ -1316,7 +1401,7 @@
         "sightAngle": 360,
         "tint": null,
         "vision": false,
-        "width": 1
+        "width": 3
     },
     "type": "npc"
 }

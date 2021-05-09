@@ -88,9 +88,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -102,7 +102,7 @@
             },
             "speed": {
                 "otherSpeeds": [],
-                "value": "25 feet"
+                "value": "25"
             }
         },
         "currency": {
@@ -136,7 +136,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavourText": "",
@@ -150,7 +150,6 @@
                 "min": 1,
                 "value": 7
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -404,6 +403,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -450,7 +452,7 @@
     "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
-            "_id": "J2Xe60folFS8Q0UK",
+            "_id": "MMp0FTsPTAJACLuI",
             "data": {
                 "MAP": {
                     "value": ""
@@ -458,7 +460,7 @@
                 "ability": {
                     "value": "str"
                 },
-                "baseItem": null,
+                "baseItem": "rapier",
                 "bonus": {
                     "value": 0
                 },
@@ -486,10 +488,10 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon. <br style=\"font-style: normal; font-variant: normal; font-weight: normal; letter-spacing: normal; line-height: normal; orphans: 2; text-align: -webkit-auto; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-size-adjust: auto; -webkit-text-stroke-width: 0px;\"></p>"
+                    "value": "<p>The rapier is a long and thin piercing blade with a basket hilt. It is prized among many as a dueling weapon.</p>"
                 },
                 "equipped": {
-                    "value": false
+                    "value": true
                 },
                 "equippedBulk": {
                     "value": ""
@@ -507,16 +509,23 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -525,7 +534,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": "1"
+                    "value": 1
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -548,26 +557,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -595,7 +584,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "rapier",
                 "source": {
                     "value": ""
                 },
@@ -630,14 +619,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/weapons/rapier.jpg",
-            "name": "Rapier (+1 striking)",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.tH5GirEy7YB3ZgCk"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/rapier.webp",
+            "name": "+1 Striking Rapier",
             "sort": 100000,
             "type": "weapon"
         },
         {
-            "_id": "cOyNudVKsrVh8hiH",
+            "_id": "02Ox1MnaWuc3vSG3",
             "data": {
                 "MAP": {
                     "value": ""
@@ -645,7 +638,7 @@
                 "ability": {
                     "value": "dex"
                 },
-                "baseItem": null,
+                "baseItem": "alchemical-bomb",
                 "bonus": {
                     "value": 1
                 },
@@ -673,7 +666,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>This flask filled with corrosive acid deals 1 acid damage, the listed persistent acid damage, and the listed acid splash damage. Many types grant an item bonus to attack rolls.</span></p>\n<p><span>You gain a +1 item bonus to attack rolls. The bomb deals 2d6 persistent acid damage and 2 acid splash damage. </span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Strike</span></p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>This flask filled with corrosive acid deals 1 acid damage, 2d6 persistent acid damage, and 2 acid splash damage. You gain a +1 item bonus to attack rolls.</p>"
                 },
                 "equipped": {
                     "value": false
@@ -694,10 +687,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -712,7 +712,7 @@
                     "value": "0"
                 },
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -735,26 +735,6 @@
                     "die": "",
                     "strikeConditionType": "",
                     "strikeConditionValue": null,
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
                     "value": ""
                 },
                 "propertyRune1": {
@@ -782,7 +762,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "acid-flask-moderate",
                 "source": {
                     "value": ""
                 },
@@ -819,14 +799,198 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.jpg",
-            "name": "Acid Flask (Moderate)  [infused]",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Acid Flask (Moderate)"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/acid-flask.webp",
+            "name": "Acid Flask (Moderate) [Infused]",
             "sort": 200000,
             "type": "weapon"
         },
         {
-            "_id": "j6VXEp9hAwfDlIKw",
+            "_id": "ZDFqzGpahIApZsNv",
+            "data": {
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "dex"
+                },
+                "baseItem": "alchemical-bomb",
+                "bonus": {
+                    "value": 1
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "damage": {
+                    "damageType": "fire",
+                    "dice": 2,
+                    "die": "d8",
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Strike</p>\n<p>Alchemist's fire is a combination of volatile liquids that ignite when exposed to air. Alchemist's fire deals 2d8 fire damage, 2 persistent fire damage, and 2 fire splash damage. You gain a +1 item bonus to attack rolls.</p>"
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "bomb"
+                },
+                "hands": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 3
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "potencyRune": {
+                    "value": 0
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "10 gp"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
+                },
+                "quantity": {
+                    "value": 2
+                },
+                "range": {
+                    "value": "20"
+                },
+                "reload": {
+                    "value": ""
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "alchemists-fire-moderate",
+                "source": {
+                    "value": ""
+                },
+                "splashDamage": {
+                    "value": 2
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "alchemical",
+                        "bomb",
+                        "consumable",
+                        "fire",
+                        "splash"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "weaponType": {
+                    "value": "martial"
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Alchemist's Fire (Moderate)"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-bombs/alchemists-fire.webp",
+            "name": "Alchemist's Fire (Moderate) [Infused]",
+            "sort": 300000,
+            "type": "weapon"
+        },
+        {
+            "_id": "HcIPj8QvFstHOne3",
             "data": {
                 "armor": {
                     "value": 2
@@ -834,7 +998,7 @@
                 "armorType": {
                     "value": "light"
                 },
-                "baseItem": null,
+                "baseItem": "studded-leather-armor",
                 "brokenThreshold": {
                     "value": null
                 },
@@ -874,10 +1038,17 @@
                     "value": null
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -893,7 +1064,7 @@
                 },
                 "potency": {},
                 "potencyRune": {
-                    "value": ""
+                    "value": 0
                 },
                 "preciousMaterial": {
                     "value": ""
@@ -903,36 +1074,6 @@
                 },
                 "price": {
                     "value": "3 gp"
-                },
-                "property1": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property2": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
-                },
-                "property3": {
-                    "critDamage": "",
-                    "critDamageType": "",
-                    "critDice": 0,
-                    "critDie": "",
-                    "damageType": "",
-                    "dice": 0,
-                    "die": "",
-                    "value": ""
                 },
                 "propertyRune1": {
                     "value": ""
@@ -957,7 +1098,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "studded-leather-armor",
                 "source": {
                     "value": ""
                 },
@@ -978,116 +1119,25 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": "wornarmor"
                 },
                 "weight": {
                     "value": "2"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.ewQZ0VeL38v3qFnN"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/armor/studded-leather-armor.webp",
             "name": "Studded Leather Armor",
-            "sort": 300000,
+            "sort": 400000,
             "type": "armor"
         },
         {
-            "_id": "6krRFpwH6L1hm3xi",
-            "data": {
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": ""
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": 0
-                },
-                "quantity": {
-                    "value": 1
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weight": {
-                    "value": 0
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/equipment.svg",
-            "name": "bronze Aspis Consortium badge",
-            "sort": 400000,
-            "type": "equipment"
-        },
-        {
-            "_id": "3vvwy1xaL62VRhCx",
+            "_id": "Y0nAR6zdZxPynUeV",
             "data": {
                 "baseItem": null,
                 "brokenThreshold": {
@@ -1120,16 +1170,23 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
                 },
                 "level": {
-                    "value": null
+                    "value": 0
                 },
                 "maxHp": {
                     "value": 0
@@ -1145,6 +1202,113 @@
                 },
                 "price": {
                     "value": "3 gp"
+                },
+                "quantity": {
+                    "value": 1
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "alchemists-tools",
+                "source": {
+                    "value": ""
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": []
+                },
+                "usage": {
+                    "value": "held-in-two-hands"
+                },
+                "weight": {
+                    "value": "1"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.4ftXXUCBHcf4b0MH"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.webp",
+            "name": "Expanded Alchemist's Tools",
+            "sort": 500000,
+            "type": "equipment"
+        },
+        {
+            "_id": "QnwXqlOiDGH5rjrr",
+            "data": {
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "value": ""
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
+                },
+                "invested": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "0"
                 },
                 "quantity": {
                     "value": 1
@@ -1171,21 +1335,21 @@
                     "value": []
                 },
                 "usage": {
-                    "value": "held-in-one-hand"
+                    "value": ""
                 },
                 "weight": {
-                    "value": "1"
+                    "value": "-"
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/equipment/adventuring-gear/alchemists-tools.jpg",
-            "name": "Expanded Alchemist's Tools",
-            "sort": 500000,
+            "img": "systems/pf2e/icons/default-icons/equipment.svg",
+            "name": "Bronze Aspis Consortium Badge",
+            "sort": 600000,
             "type": "equipment"
         },
         {
-            "_id": "5iHWQ7ETPejN397h",
+            "_id": "FEXeiBkW6e70J5hk",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1228,7 +1392,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>This tincture lets you pinpoint your foes. For the next 5 minutes, your alchemical bomb Strikes reduce the circumstance bonus to AC your targets gain from cover. Reduce your targets' circumstance bonus by 1.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>This tincture lets you pinpoint your foes. For the next 5 minutes, your alchemical bomb Strikes reduce the circumstance bonus to AC your targets gain from cover by 1.</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1247,10 +1411,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1285,7 +1456,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "bombers-eye-elixir-lesser",
                 "source": {
                     "value": ""
                 },
@@ -1306,7 +1477,14 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -1323,14 +1501,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.T4ouD4mVFHA3EHs6"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/bombers-eye-elixir.webp",
             "name": "Bomber's Eye Elixir (Lesser)",
-            "sort": 600000,
+            "sort": 700000,
             "type": "consumable"
         },
         {
-            "_id": "hS3rMS4BY9ScHtlj",
+            "_id": "Ez0PMETFbOqRWal4",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1373,7 +1555,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a status bonus to your Speed for the listed duration. The bonus is +10 feet, and the duration is 10 minutes.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Enzymatic compounds in this elixir strengthen and excite the muscles in your legs. You gain a +10 foot status bonus to your Speed for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Cheetah's Elixir (Moderate)]{Effect: Cheetah's Elixir (Moderate)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1392,10 +1574,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1430,152 +1619,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spell": {
-                    "data": null,
-                    "heightenedLevel": null
-                },
-                "stackGroup": {
-                    "value": ""
-                },
-                "target": {
-                    "type": "",
-                    "units": "",
-                    "value": null
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "uses": {
-                    "autoDestroy": true,
-                    "autoUse": true,
-                    "max": 0,
-                    "per": null,
-                    "value": 0
-                },
-                "weight": {
-                    "value": "L"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cheetahs-elixir.jpg",
-            "name": "Cheetah's Elixir (Moderate)",
-            "sort": 700000,
-            "type": "consumable"
-        },
-        {
-            "_id": "fw07TmbqM0QLnwf8",
-            "data": {
-                "activation": {
-                    "condition": "",
-                    "cost": 0,
-                    "type": ""
-                },
-                "autoDestroy": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "autoUse": {
-                    "_deprecated": true,
-                    "value": true
-                },
-                "baseItem": null,
-                "brokenThreshold": {
-                    "value": 0
-                },
-                "bulkCapacity": {
-                    "value": ""
-                },
-                "charges": {
-                    "_deprecated": true,
-                    "max": 1,
-                    "value": 1
-                },
-                "collapsed": {
-                    "value": false
-                },
-                "consumableType": {
-                    "value": "potion"
-                },
-                "consume": {
-                    "_deprecated": true,
-                    "value": ""
-                },
-                "containerId": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p><span>This venom erodes its target's defenses, aiding the spider in securing prey.<br /></span></p>\n<p><span><strong>Saving Throw</strong> DC 21 Fortitude; <strong>Maximum Duration</strong> 6 rounds; <strong>Stage 1</strong> 1d10 poison damage and flat-footed (1 round); <strong>Stage 2</strong> 1d12 poison damage, clumsy 1, and flat-footed (1 round); <strong>Stage 3</strong> 2d6 poison damage, clumsy 2, and flat-footed (1 round)<br /></span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">D</span> Interact</span></p>"
-                },
-                "duration": {
-                    "units": "",
-                    "value": null
-                },
-                "equipped": {
-                    "value": false
-                },
-                "equippedBulk": {
-                    "value": ""
-                },
-                "hardness": {
-                    "value": 0
-                },
-                "hp": {
-                    "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
-                },
-                "invested": {
-                    "value": false
-                },
-                "level": {
-                    "value": 5
-                },
-                "maxHp": {
-                    "value": 0
-                },
-                "negateBulk": {
-                    "value": "0"
-                },
-                "preciousMaterial": {
-                    "value": ""
-                },
-                "preciousMaterialGrade": {
-                    "value": ""
-                },
-                "price": {
-                    "value": " 25 gp"
-                },
-                "quantity": {
-                    "value": 2
-                },
-                "range": {
-                    "long": null,
-                    "units": "",
-                    "value": null
-                },
-                "rules": [],
-                "size": {
-                    "value": "med"
-                },
-                "slug": null,
+                "slug": "cheetahs-elixir-moderate",
                 "source": {
                     "value": ""
                 },
@@ -1599,7 +1643,11 @@
                     "usage": {
                         "value": "held-in-one-hand"
                     },
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -1616,14 +1664,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/hunting-spider-venom.jpg",
-            "name": "Hunting Spider Venom",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.AqLxu3ir4UGzdOaz"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/cheetahs-elixir.webp",
+            "name": "Cheetah's Elixir (Moderate)",
             "sort": 800000,
             "type": "consumable"
         },
         {
-            "_id": "An6deu1jWXtCyV15",
+            "_id": "aAAVNtfllJP94haB",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1666,7 +1718,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><span>An antidote protects you against toxins. Upon drinking an antidote, you gain an item bonus to Fortitude saving throws against poisons for 6 hours.</span></p>\n<p><span>You gain a +2 item bonus.</span></p>\n<p><span><strong>Activate</strong> <span style=\"font-family: 'Pathfinder2eActions'; font-size: 1.8em; display: inline;\">A</span> Interact</span></p>"
+                    "value": "<p>This venom erodes its target's defenses, aiding the spider in securing prey.</p>\n<hr />\n<p><strong>Activate</strong> <span class=\"pf2-icon\">D</span> Interact (Injury)</p>\n<p><strong>Saving Throw</strong> DC 21 Fortitude</p>\n<p><strong>Maximum Duration</strong> 6 rounds</p>\n<p><strong>Stage 1</strong> [[/r 1d10#poison]] poison damage and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round)</p>\n<p><strong>Stage 2</strong> [[/r 1d12#poison]] poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, and flat-footed (1 round)</p>\n<p><strong>Stage 3</strong> [[/r 2d6#poison]] poison damage, clumsy 2, and flat-footed (1 round)</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1685,10 +1737,181 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
-                "identified": {
+                "invested": {
                     "value": false
+                },
+                "level": {
+                    "value": 5
+                },
+                "maxHp": {
+                    "value": 0
+                },
+                "negateBulk": {
+                    "value": "0"
+                },
+                "preciousMaterial": {
+                    "value": ""
+                },
+                "preciousMaterialGrade": {
+                    "value": ""
+                },
+                "price": {
+                    "value": "25 gp"
+                },
+                "quantity": {
+                    "value": 2
+                },
+                "range": {
+                    "long": null,
+                    "units": "",
+                    "value": null
+                },
+                "rules": [],
+                "size": {
+                    "value": "med"
+                },
+                "slug": "hunting-spider-venom",
+                "source": {
+                    "value": ""
+                },
+                "spell": {
+                    "data": null,
+                    "heightenedLevel": null
+                },
+                "stackGroup": {
+                    "value": ""
+                },
+                "target": {
+                    "type": "",
+                    "units": "",
+                    "value": null
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "usage": {
+                        "value": "held-in-one-hand"
+                    },
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "injury",
+                        "poison"
+                    ]
+                },
+                "usage": {
+                    "value": "held-in-one-hand"
+                },
+                "uses": {
+                    "autoDestroy": true,
+                    "autoUse": true,
+                    "max": 0,
+                    "per": null,
+                    "value": 0
+                },
+                "weight": {
+                    "value": "L"
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.5RGNjhDxZ0yMhTds"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-poisons/hunting-spider-venom.webp",
+            "name": "Hunting Spider Venom",
+            "sort": 900000,
+            "type": "consumable"
+        },
+        {
+            "_id": "Wq6PV402UIUwyrSy",
+            "data": {
+                "activation": {
+                    "condition": "",
+                    "cost": 0,
+                    "type": ""
+                },
+                "autoDestroy": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "autoUse": {
+                    "_deprecated": true,
+                    "value": true
+                },
+                "baseItem": null,
+                "brokenThreshold": {
+                    "value": 0
+                },
+                "bulkCapacity": {
+                    "value": ""
+                },
+                "charges": {
+                    "_deprecated": true,
+                    "max": 1,
+                    "value": 1
+                },
+                "collapsed": {
+                    "value": false
+                },
+                "consumableType": {
+                    "value": "potion"
+                },
+                "consume": {
+                    "_deprecated": true,
+                    "value": ""
+                },
+                "containerId": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>An antidote protects you against toxins. Upon drinking an antidote, you gain a +2 item bonus to Fortitude saving throws against poisons for 6 hours.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Antidote (Lesser)]{Effect: Antidote (Lesser)}</p>"
+                },
+                "duration": {
+                    "units": "",
+                    "value": null
+                },
+                "equipped": {
+                    "value": false
+                },
+                "equippedBulk": {
+                    "value": ""
+                },
+                "hardness": {
+                    "value": 0
+                },
+                "hp": {
+                    "value": 0
+                },
+                "identification": {
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1723,7 +1946,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "antidote-lesser",
                 "source": {
                     "value": ""
                 },
@@ -1747,7 +1970,11 @@
                     "usage": {
                         "value": "held-in-one-hand"
                     },
-                    "value": []
+                    "value": [
+                        "alchemical",
+                        "consumable",
+                        "elixir"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
@@ -1764,14 +1991,18 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.jpg",
-            "name": "Antidote (Lesser)  [infused]",
-            "sort": 900000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Antidote (Lesser)"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/antidote.webp",
+            "name": "Antidote (Lesser) [Infused]",
+            "sort": 1000000,
             "type": "consumable"
         },
         {
-            "_id": "QAhEPjk2w5BOjaGX",
+            "_id": "iLbw8UKNEbzkN5Vb",
             "data": {
                 "activation": {
                     "condition": "",
@@ -1814,7 +2045,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Elixirs of life accelerate the body's natural healing processes and immune system. Upon drinking this elixir, you regain the listed number of Hit Points and gain an item bonus to saving throws against diseases and poisons for 10 minutes. The elixir restores 3d6+6 Hit Points and the bonus is +1.</p>"
+                    "value": "<p><strong>Activate</strong> <span class=\"pf2-icon\">A</span> Interact</p>\n<p>Elixirs of life accelerate a living creatures natural healing processes and immune system. Upon drinking this elixir, you regain [[/r 3d6+6 #Hit Points]] Hit Points and gain +1 item bonus to saving throws against diseases and poisons for 10 minutes.</p>\n<p>@Compendium[pf2e.consumable-effects.Effect: Elixir of Life (Lesser)]{Effect: Elixir of Life (Lesser)}</p>"
                 },
                 "duration": {
                     "units": "",
@@ -1833,10 +2064,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1871,7 +2109,7 @@
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "elixir-of-life-lesser",
                 "source": {
                     "value": ""
                 },
@@ -1917,10 +2155,14 @@
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.jpg",
-            "name": "Elixir of Life (Lesser)  [infused]",
-            "sort": 1000000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.Elixir of Life (Lesser)"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/alchemical-items/alchemical-elixirs/elixir-of-life.webp",
+            "name": "Elixir of Life (Lesser) [Infused]",
+            "sort": 1100000,
             "type": "consumable"
         },
         {
@@ -1977,12 +2219,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -2071,7 +2307,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Rapier",
-            "sort": 1100000,
+            "sort": 1200000,
             "type": "melee"
         },
         {
@@ -2104,23 +2340,15 @@
                     "die": "5"
                 },
                 "damageRolls": {
-                    "0": {
-                        "damage": "5",
-                        "damageType": "acid"
-                    },
                     "1": {
-                        "damage": "2d6+2",
-                        "damageType": "acid"
-                    },
-                    "2": {
-                        "damage": "4",
+                        "damage": "5",
                         "damageType": "acid"
                     }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>[[/r 2d6+2 #persistent acid]] @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Acid Damage}</p>\n<p>4 Acid Splash Damage</p>"
                 },
                 "equipped": {
                     "value": false
@@ -2133,12 +2361,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -2226,7 +2448,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Acid Flask",
-            "sort": 1200000,
+            "sort": 1300000,
             "type": "melee"
         },
         {
@@ -2262,20 +2484,12 @@
                     "0": {
                         "damage": "2d8+2",
                         "damageType": "fire"
-                    },
-                    "1": {
-                        "damage": "4",
-                        "damageType": "fire"
-                    },
-                    "2": {
-                        "damage": "4",
-                        "damageType": "fire"
                     }
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>4 @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Fire Damage}</p>\n<p>4 Fire Splash Damage</p>"
                 },
                 "equipped": {
                     "value": false
@@ -2288,12 +2502,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -2381,7 +2589,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/melee.svg",
             "name": "Alchemist's Fire",
-            "sort": 1300000,
+            "sort": 1400000,
             "type": "melee"
         },
         {
@@ -2399,7 +2607,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>An Aspis technician carries the following infused items: 2 lesser antidotes, 2 moderate acid flasks,2 moderate alchemist's fires, and 2 lesser elixirs of life.<br />\nThese items last for 24 hours or until the next time the technician makes their daily preparations.</p>"
+                    "value": "<p>An Aspis technician carries the following infused items: 2 @Compendium[pf2e.equipment-srd.Antidote (Lesser)]{Lesser Antidotes}, 2 @Compendium[pf2e.equipment-srd.Acid Flask (Moderate)]{Moderate Acid Flasks}, 2 @Compendium[pf2e.equipment-srd.Alchemist's Fire (Moderate)]{Moderate Alchemist's Fires}, and 2 @Compendium[pf2e.equipment-srd.Elixir of Life (Lesser)]{Lesser Elixirs of Life}.</p>\n<p>These items last for 24 hours or until the next time the technician makes their daily preparations.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2428,16 +2636,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Infused Items",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
-            "_id": "LIVnG8BfLWekcoDH",
+            "_id": "rTGFCvWa4ax6CLyK",
             "data": {
                 "actionCategory": {
-                    "value": "offensive"
+                    "value": "interaction"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2448,13 +2656,13 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Saving Throw</strong> DC 21 Fortitude; <br /><strong>Maximum Duration</strong> 6 rounds; <br /><strong>Stage 1</strong> [[/r 1d10 # poison]] poison damage and @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} (1 round); <br /><strong>Stage 2</strong> [[/r 1d12 # poison]] poison damage, @Compendium[pf2e.conditionitems.Clumsy]{Clumsy} 1, and flat-footed (1 round); <br /><strong>Stage 3</strong> [[/r 2d6 # poison]] poison damage, clumsy 2, and flat-footed (1 round)</p>"
+                    "value": "<p>The monster can see in dim light as though it were bright light, so it ignores the @Compendium[pf2e.conditionitems.Concealed]{Concealed} condition due to dim light.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
                 "rules": [],
-                "slug": null,
+                "slug": "low-light-vision",
                 "source": {
                     "value": ""
                 },
@@ -2463,25 +2671,24 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": [
-                        "poison"
-                    ]
+                    "value": []
                 },
                 "trigger": {
                     "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.fFu2sZz4KB01fVRc"
+                }
+            },
             "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Hunting Spider Venom",
-            "sort": 1500000,
+            "name": "Low-Light Vision",
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2494,12 +2701,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Requirements</strong> The Aspis technician is wielding a piercing or slashing weapon and has a free hand; <br />\n<strong>Effect</strong> The Aspis technician applies a poison to the weapon.</p>"
+                    "value": "<p><strong>Requirements</strong> The Aspis technician is wielding a piercing or slashing weapon and has a free hand;</p>\n<p><strong>Effect</strong> The Aspis technician applies a poison to the weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2530,9 +2737,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Poison Weapon",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2579,16 +2786,16 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Quick Bomber",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
-            "_id": "hXagqvI4Vho6WMRo",
+            "_id": "KNWEjYrKBK40HjfK",
             "data": {
                 "actionCategory": {
-                    "value": ""
+                    "value": "offensive"
                 },
                 "actionType": {
                     "value": "passive"
@@ -2599,13 +2806,31 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The Aspis technician deals an extra [[/r 2d6 # precision]] precision damage to flat-footed creatures.</p>"
+                    "value": "<p>The Aspis technician deals an extra [[/r 2d6 #precision]] precision damage to @Compendium[pf2e.conditionitems.Flat-Footed]{Flat-Footed} creatures.</p>\n<hr />\n<p>When the monster Strikes a creature that has the flat-footed condition with an agile or finesse melee weapon, an agile or finesse unarmed attack, or a ranged weapon attack, it also deals the listed precision damage. For a ranged attack with a thrown weapon, that weapon must also be an agile or finesse weapon.</p>"
                 },
                 "requirements": {
                     "value": ""
                 },
-                "rules": [],
-                "slug": null,
+                "rules": [
+                    {
+                        "category": "precision",
+                        "diceNumber": 2,
+                        "dieSize": "d6",
+                        "key": "PF2E.RuleElement.DamageDice",
+                        "predicate": {
+                            "all": [
+                                "target:flatFooted"
+                            ],
+                            "any": [
+                                "finesse",
+                                "agile",
+                                "ranged"
+                            ]
+                        },
+                        "selector": "damage"
+                    }
+                ],
+                "slug": "sneak-attack",
                 "source": {
                     "value": ""
                 },
@@ -2619,18 +2844,19 @@
                 "trigger": {
                     "value": ""
                 },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
                 "weapon": {
                     "value": ""
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/default-icons/action.svg",
-            "name": "Sneak Attack ",
-            "sort": 1800000,
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.AWvNPE4U0kEJSL1T"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
+            "name": "Sneak Attack",
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2670,7 +2896,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Acrobatics",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2710,7 +2936,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Arcana",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2750,7 +2976,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Aspis Consortium Lore",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2790,7 +3016,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2830,7 +3056,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2870,7 +3096,7 @@
             "flags": {},
             "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],

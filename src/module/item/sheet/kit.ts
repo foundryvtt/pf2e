@@ -1,4 +1,4 @@
-import { KitPF2e } from '@item/others';
+import { KitPF2e } from '@item/kit';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ItemSheetPF2e } from './base';
 
@@ -47,7 +47,7 @@ export class KitSheetPF2e extends ItemSheetPF2e<KitPF2e> {
             ? (await game.packs.get(dragItem.pack)?.getEntity(dragItem.id)) ?? undefined
             : game.items.get(dragItem.id) ?? undefined;
 
-        if (!(item instanceof PhysicalItemPF2e)) {
+        if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             return;
         }
 

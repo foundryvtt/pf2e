@@ -30,7 +30,6 @@ interface ApplicationOptions {
      * have their vertical scroll positions preserved during a re-render.
      */
     scrollY?: string[];
-    [key: string]: any;
 }
 
 interface ApplicationHeaderButton {
@@ -75,11 +74,11 @@ declare let _maxZ: number;
 /**
  * The standard application window that is rendered for a large variety of UI elements in Foundry VTT
  */
-declare class Application {
+declare class Application<OptionsType extends ApplicationOptions = ApplicationOptions> {
     /**
      * The options provided to this application upon initialization
      */
-    options: ApplicationOptions;
+    options: OptionsType;
 
     /**
      * The application ID is a unique incrementing integer which is used to identify every application window
@@ -121,16 +120,22 @@ declare class Application {
      * Track the render state of the Application
      * @see {Application.RENDER_STATES}
      */
-    protected _state: any;
+    protected _state: keyof typeof Application['RENDER_STATES'];
 
     /**
      * Track the most recent scroll positions for any vertically scrolling containers
      */
     protected _scrollPositions: any | null;
 
-    protected static RENDER_STATES: any;
-
-    constructor(options?: ApplicationOptions);
+    static readonly RENDER_STATES: {
+        CLOSING: -2;
+        CLOSED: -1;
+        NONE: 0;
+        RENDERING: 1;
+        RENDERED: 2;
+        ERROR: 3;
+    };
+    constructor(options?: OptionsType);
 
     /**
      * Create drag-and-drop workflow handlers for this Application
@@ -312,8 +317,9 @@ declare class Application {
     /**
      * Close the application and un-register references to it within UI mappings
      * This function returns a Promise which resolves once the window closing animation concludes
+     * @return {Promise<void>}    A Promise which resolves once the application is closed
      */
-    close(): Promise<unknown>;
+    close(options?: { force?: boolean }): Promise<void>;
 
     /**
      * Minimize the pop-out window, collapsing it to a small tab

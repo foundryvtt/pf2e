@@ -1,5 +1,6 @@
 import { ActorSheetPF2e } from './base';
 import { HazardPF2e } from '../base';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Actor
@@ -8,7 +9,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'hazard']),
+            classes: options.classes.concat('hazard'),
             width: 650,
             height: 680,
         });
@@ -26,7 +27,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
+        const sheetData: any = super.getData();
 
         // Update save labels
         for (const [s, save] of Object.entries(sheetData.data.saves as Record<any, any>)) {
@@ -151,14 +152,21 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
+
         // NPC Weapon Rolling
         html.find('button').on('click', (event) => {
             event.preventDefault();
             event.stopPropagation();
 
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const item = this.actor.items.get(itemId);
+            if (!item) {
+                throw ErrorPF2e(`Item ${itemId} not found`);
+            }
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (event.target.dataset.action) {

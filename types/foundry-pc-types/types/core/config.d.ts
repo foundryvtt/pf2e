@@ -1,16 +1,24 @@
 // @TODO: Assign class types
 
 declare interface Config<
-    ActorType extends Actor,
-    ItemType extends Item,
-    EffectType extends ActiveEffect<ActorType | ItemType>
+    ActorType extends Actor = Actor,
+    ItemType extends Item = Item,
+    EffectType extends ActiveEffect<ActorType | ItemType> = ActiveEffect<ActorType | ItemType>,
+    MessageType extends ChatMessage<ActorType> = ChatMessage<ActorType>,
+    MacroType extends Macro = Macro
 > {
     /**
      * Configure debugging flags to display additional information
      */
     debug: {
+        fog: boolean;
         hooks: boolean;
         sight: boolean;
+        sightRays: boolean;
+        av: boolean;
+        avclient: boolean;
+        mouseInteraction: boolean;
+        time: boolean;
     };
 
     /**
@@ -49,6 +57,14 @@ declare interface Config<
         unexploredColor: number;
     };
 
+    ChatMessage: {
+        batchSize: number;
+        collection: typeof Messages;
+        entityClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): MessageType };
+        sidebarIcon: string;
+        template: string;
+    };
+
     /**
      * Configuration for the default Item entity class
      */
@@ -80,6 +96,16 @@ declare interface Config<
             Anchor: string;
             [key: string]: string;
         };
+        sidebarIcon: string;
+    };
+
+    /**
+     * Configuration for the Macro entity
+     */
+    Macro: {
+        entityClass: { new (data: MacroType['data'], options?: EntityConstructorOptions): MacroType };
+        collection: typeof Macros;
+        sheetClass: typeof MacroConfig;
         sidebarIcon: string;
     };
 

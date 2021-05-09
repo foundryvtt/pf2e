@@ -127,7 +127,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "<p>Rokurokubi come into being when mortals are cursed for some misdeed, though often the one who bears the curse is not the one who committed the offense, but instead their child or spouse. The curse slowly transforms the individual into a rokurokubi as they sleep. At first, their neck extends, or even detaches altogether, to let their head roam freely and engage in simple mischief like scaring neighbors or animals. The sleeper may awaken the next morning from a hazy dream of drinking the oil from nearby lanterns, only to find them indeed empty.</p>\n<p>Over time, the bizarre acts progress to increasingly mischievous or even violent crimes. There&rsquo;s only a brief period during which the nascent rokurokubi might still be saved by dispelling the curse, but before long, they are fully consumed, never to sleep again.</p>\n<p>Most rokurokubi despair at their state, seeking to drown their sorrows in drink or simply stay out of sight. A nefarious few rokurokubi embrace their fate and seek to enhance their power by completely giving in to the curse. This grants them the ability to cast potent occult spells but inevitably twists them even more toward evil.</p>",
@@ -142,7 +142,6 @@
                 "min": 1,
                 "value": 2
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -289,7 +288,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "oWdMjEIfQss7DdS1",
@@ -337,12 +336,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -395,7 +388,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
             "sort": 100000,
             "type": "melee"
@@ -446,12 +439,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -504,7 +491,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -598,7 +585,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Drink Oil",
             "sort": 400000,
             "type": "action"
@@ -648,7 +635,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.hFtNbo1LKYCoDy2O"
                 }
             },
-            "img": "systems/pf2e/icons/actions/Reaction.png",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Attack of Opportunity (Jaws Only)",
             "sort": 500000,
             "type": "action"
@@ -692,7 +679,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Extend Neck",
             "sort": 600000,
             "type": "action"
@@ -736,7 +723,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Threatening Lunge",
             "sort": 700000,
             "type": "action"
@@ -771,7 +758,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 800000,
             "type": "lore"
@@ -806,7 +793,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 900000,
             "type": "lore"
@@ -841,7 +828,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Diplomacy",
             "sort": 1000000,
             "type": "lore"
@@ -864,13 +851,14 @@
                 "rules": [
                     {
                         "key": "PF2E.RuleElement.FlatModifier",
-                        "label": "When Tracking",
+                        "label": "To Demoralize with Threatening Lunge",
                         "predicate": {
                             "all": [
-                                "action:track"
+                                "action:demoralize",
+                                "threatening-lunge"
                             ]
                         },
-                        "selector": "survival",
+                        "selector": "intimidation",
                         "value": 2
                     }
                 ],
@@ -888,13 +876,13 @@
                 "variants": {
                     "0": {
                         "label": "+10 to Demoralize with Threatening Lunge",
-                        "options": "action:demoralize"
+                        "options": "action:demoralize,threatening-lunge"
                     }
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
             "sort": 1100000,
             "type": "lore"
@@ -929,7 +917,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Society",
             "sort": 1200000,
             "type": "lore"
@@ -964,7 +952,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1300000,
             "type": "lore"
@@ -990,7 +978,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

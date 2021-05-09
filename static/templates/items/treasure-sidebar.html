@@ -65,16 +65,9 @@
       <select name="data.size.value" data-dtype="String">
         {{#select data.size.value}}
         {{#each sizes as |name value|}}
-            <option value="{{value}}">{{name}}</option>
+            <option value="{{value}}">{{localize name}}</option>
         {{/each}}
         {{/select}}
       </select>
     </div>
-
-    {{#if user.isGM}}
-        <div class="form-group">
-            <label>{{localize "PF2E.identification.IsIdentified"}}</label>
-            <input type="checkbox" name="identified" {{checked isIdentified}} />
-        </div>
-    {{/if}}
 </div>

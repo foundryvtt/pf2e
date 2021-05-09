@@ -9,7 +9,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes?.concat(['actor', 'familiar']),
+            classes: options.classes?.concat('familiar'),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'attributes' }],

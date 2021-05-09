@@ -103,11 +103,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Climb",
-                        "value": "20 feet"
+                        "label": "Climb",
+                        "type": "climb",
+                        "value": "20"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -124,6 +125,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "N"
@@ -140,7 +142,7 @@
             },
             "creatureType": "Ooze",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Most often found below ground, these oozes scour caves for objects to dissolve with their corrosive secretions. This caustic acid is particularly dangerous to creatures that attack a pudding, as it can quickly damage and destroy gear.<br /><br />",
@@ -155,11 +157,10 @@
                 "min": 1,
                 "value": 7
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=323",
             "recallKnowledgeText": "Recall Knowledge : DC 23",
             "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 255"
+                "value": ""
             }
         },
         "martial": {
@@ -409,6 +410,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -450,7 +454,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "n2BHwPEdFYp07VvG",
@@ -459,8 +463,9 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
-                        "corrosive touch",
+                        "Corrosive Touch",
                         "Grab"
                     ]
                 },
@@ -510,12 +515,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -600,7 +599,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Pseudopod",
             "sort": 100000,
             "type": "melee"
@@ -649,8 +648,8 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Motion Sense",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
+            "name": "Motion Sense 60 feet",
             "sort": 200000,
             "type": "action"
         },
@@ -669,7 +668,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>A creature that hits the pudding with a metal or wooden weapon must succeed at a DC 22 Reflex save or the weapon takes [[/r 2d6 # acid damage]] acid damage (after dealing damage to the black pudding as normal). Thrown weapons and ammunition take this damage automatically with no save.</p>"
+                    "value": "<p>A creature that hits the pudding with a metal or wooden weapon must succeed at a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"22\" data-pf2-label=\"Corrosive Mass DC\" data-pf2-show-dc=\"gm\">Reflex</span> save or the weapon takes [[/r 2d6 #acid]] acid damage (after dealing damage to the black pudding as normal). Thrown weapons and ammunition take this damage automatically with no save.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -698,7 +697,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corrosive Mass",
             "sort": 300000,
             "type": "action"
@@ -718,7 +717,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>When the black pudding is hit by an attack that would deal slashing or piercing damage and has 10 or more HP, it splits into two identical puddings, each with half the original's HP. One pudding is in the same space as the original, and the other appears in an adjacent unoccupied space. If no adjacent space is unoccupied, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or sturdy to push).</p>"
+                    "value": "<p>When the black pudding is hit by an attack that would deal slashing or piercing damage and has 10 or more HP, it splits into two identical puddings, each with half the original's HP.</p>\n<p>One pudding is in the same space as the original, and the other appears in an adjacent unoccupied space. If no adjacent space is unoccupied, it automatically pushes creatures and objects out of the way to fill a space (the GM decides if an object or creature is too big or sturdy to push).</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -747,58 +746,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Split",
             "sort": 400000,
-            "type": "action"
-        },
-        {
-            "_id": "dkTz1pXUU7eHTjBb",
-            "data": {
-                "actionCategory": {
-                    "value": "offensive"
-                },
-                "actionType": {
-                    "value": "action"
-                },
-                "actions": {
-                    "value": 1
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>1d8+7 bludgeoning plus 1d6 acid, DC 26<br />The monster deals the listed amount of damage to any number of creatures grabbed or restrained by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
-                },
-                "requirements": {
-                    "value": ""
-                },
-                "rules": [],
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": []
-                },
-                "trigger": {
-                    "value": ""
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                },
-                "weapon": {
-                    "value": ""
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Constrict",
-            "sort": 500000,
             "type": "action"
         },
         {
@@ -845,9 +795,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Corrosive Touch",
-            "sort": 600000,
+            "sort": 500000,
             "type": "action"
         },
         {
@@ -894,9 +844,109 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Suction",
+            "sort": 600000,
+            "type": "action"
+        },
+        {
+            "_id": "r2pIAOf6GgO5F8sy",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>The monster deals the listed amount of damage to any number of creatures @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} or @Compendium[pf2e.conditionitems.Restrained]{Restrained} by it. Each of those creatures can attempt a basic Fortitude save with the listed DC.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "constrict",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.g26YiEIfSHCpLocV"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Constrict",
             "sort": 700000,
+            "type": "action"
+        },
+        {
+            "_id": "iarJltZyQf4z8F3Q",
+            "data": {
+                "actionCategory": {
+                    "value": "offensive"
+                },
+                "actionType": {
+                    "value": "action"
+                },
+                "actions": {
+                    "value": "1"
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p><strong>Requirements</strong> The monster's last action was a success with a Strike that lists Grab in its damage entry, or it has a creature grabbed using this action.</p>\n<p><strong>Effect</strong> The monster automatically Grabs the target until the end of the monster's next turn. The creature is @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by whichever body part the monster attacked with, and that body part can't be used to Strike creatures until the grab is ended. Using Grab extends the duration of the monster's Grab until the end of its next turn for all creatures grabbed by it. A grabbed creature can use the @Compendium[pf2e.actionspf2e.Escape]{Escape} action to get out of the grab, and the Grab ends for a grabbed creatures if the monster moves away from it.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "grab",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
+                }
+            },
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
+            "name": "Grab",
+            "sort": 800000,
             "type": "action"
         },
         {
@@ -934,9 +984,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 800000,
+            "sort": 900000,
             "type": "lore"
         }
     ],
@@ -960,7 +1010,7 @@
         "disposition": -1,
         "flags": {},
         "height": 3,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

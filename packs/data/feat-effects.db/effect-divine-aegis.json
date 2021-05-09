@@ -1,0 +1,72 @@
+{
+    "_id": "K1IgNCf3Hh2EJwQ9",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.feats-srd.Divine Aegis]{Divine Aegis}</p>\n<p>Until the beginning of your next turn, you gain a +1 circumstance bonus to saving throws against non-divine magical effects, but you also take a -1 circumstance penalty to saves against divine effects.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Divine Aegis (vs. non-divine magical effects)",
+                "predicate": {
+                    "any": [
+                        "magical",
+                        "arcane",
+                        "occult",
+                        "primal"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": 1
+            },
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Divine Aegis (vs. divine effect)",
+                "predicate": {
+                    "all": [
+                        "divine"
+                    ]
+                },
+                "selector": "saving-throw",
+                "type": "circumstance",
+                "value": -1
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": true
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/divine-inspiration.webp",
+    "name": "Effect: Divine Aegis",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

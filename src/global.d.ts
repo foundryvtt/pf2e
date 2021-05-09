@@ -1,5 +1,6 @@
 import { WorldClock } from '@system/world-clock';
 import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
@@ -19,8 +20,10 @@ import {
 import { ConditionManager } from './module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { DicePF2e } from '@scripts/dice';
-import { ItemType } from '@item/data-definitions';
+import { ItemType } from '@item/data/types';
 import { RuleElements } from '@module/rules/rules';
+import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
+import { MacroPF2e } from '@module/macro';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -30,8 +33,9 @@ declare global {
     interface Game {
         pf2e: {
             actions: { [key: string]: Function };
-            worldClock?: WorldClock;
-            effectPanel?: EffectPanel;
+            worldClock: WorldClock;
+            effectPanel: EffectPanel;
+            effectTracker: EffectTracker;
             rollActionMacro: typeof rollActionMacro;
             rollItemMacro: typeof rollItemMacro;
             gm: {
@@ -56,6 +60,13 @@ declare global {
         itemTypes: ItemTypeMap;
     }
 
+    const CONFIG: ConfigPF2e;
+    const canvas: Canvas<ActorPF2e>;
+    namespace globalThis {
+        // eslint-disable-next-line no-var
+        var game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
+    }
+
     interface Window {
         DicePF2e: typeof DicePF2e;
         PF2eStatusEffects: typeof StatusEffects;
@@ -68,9 +79,6 @@ declare global {
         PF2CheckModifier: typeof CheckModifier;
         PF2Check: typeof CheckPF2e;
     }
-    const game: Game<ActorPF2e, ItemPF2e, CombatPF2e>;
-    const CONFIG: ConfigPF2e;
-    const canvas: Canvas<ActorPF2e>;
 
     interface ChatMessage extends Entity {
         getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
@@ -78,11 +86,23 @@ declare global {
     }
 
     interface User extends Entity {
+        getFlag(
+            scope: 'pf2e',
+            key: 'settings',
+        ): {
+            uiTheme: 'blue' | 'red' | 'original' | 'ui';
+            showEffectPanel: boolean;
+            showRollDialogs: boolean;
+        };
+        getFlag(scope: 'pf2e', key: 'settings.uiTheme'): 'blue' | 'red' | 'original' | 'ui';
+        getFlag(scope: 'pf2e', key: 'settings.showEffectPanel'): boolean;
+        getFlag(scope: 'pf2e', key: 'settings.showRollDialogs'): boolean;
         getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
     }
 
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
+        get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
         get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;
@@ -90,12 +110,14 @@ declare global {
         get(module: 'pf2e', setting: 'ignoreCoinBulk'): boolean;
         get(module: 'pf2e', setting: 'ignoreContainerOverflow'): boolean;
         get(module: 'pf2e', setting: 'pfsSheetTab'): boolean;
-        get(module: 'pf2e', setting: 'staminaVariant'): number;
-        get(module: 'pf2e', setting: 'statusEffectKeepFoundry'): boolean;
+        get(module: 'pf2e', setting: 'staminaVariant'): 0 | 1;
         get(module: 'pf2e', setting: 'statusEffectType'): StatusEffectIconType;
         get(module: 'pf2e', setting: 'worldSchemaVersion'): number;
         get(module: 'pf2e', setting: 'drawCritFumble'): boolean;
         get(module: 'pf2e', setting: 'critFumbleButtons'): boolean;
+        get(module: 'pf2e', setting: 'homebrew.weaponCategories'): HomebrewTag<'weaponCategories'>[];
+        get(module: 'pf2e', setting: HomebrewSettingsKey): HomebrewTag[];
+        get(module: 'pf2e', setting: 'identifyMagicNotMatchingTraditionModifier'): 0 | 2 | 5 | 10;
     }
 
     interface WorldSettingsStorage {

@@ -1,12 +1,18 @@
+import { FoundryUtils } from 'tests/utils';
+
 export class FakeScene {
-    data: Partial<SceneData>;
-    constructor(data?: Partial<SceneData>) {
-        this.data = data ?? {};
+    data: Partial<SceneData> & { _id: string; name: string };
+    constructor(data: Partial<SceneData>) {
+        this.data = { _id: FoundryUtils.randomID(), name: '', ...data };
         this.data.tokens = [];
     }
 
-    get name() {
-        return this.data.name;
+    get id(): string {
+        return this.data._id;
+    }
+
+    get name(): string {
+        return this.data.name ?? '';
     }
 
     addToken(token: Partial<TokenData>) {

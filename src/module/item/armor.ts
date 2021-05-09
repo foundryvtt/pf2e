@@ -1,21 +1,15 @@
+import { LocalizePF2e } from '@module/system/localize';
 import { addSign } from '@module/utils';
-import { ArmorCategory, ArmorData } from './data-definitions';
+import { ArmorCategory, ArmorData, ArmorGroup, BaseArmorType } from './data/types';
+import { TRADITION_TRAITS } from './data/values';
 import { PhysicalItemPF2e } from './physical';
 import { getArmorBonus } from './runes';
 
 export class ArmorPF2e extends PhysicalItemPF2e {
-    get traits(): Set<string> {
-        const traits = super.traits;
-        const traditionTraits = ['arcane', 'primal', 'divine', 'occult'];
-        const fundamentalRunes = [this.data.data.potencyRune, this.data.data.resiliencyRune];
-        if (fundamentalRunes.some((rune) => rune.value)) {
-            traits.add('invested').add('abjuration');
-            if (!traditionTraits.some((trait) => traits.has(trait))) {
-                traits.add('magical');
-            }
-        }
-
-        return traits;
+    /** @override */
+    isStackableWith(item: PhysicalItemPF2e): boolean {
+        if (this.isEquipped || item.isEquipped) return false;
+        return super.isStackableWith(item);
     }
 
     get isShield(): boolean {
@@ -24,6 +18,14 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     get isArmor(): boolean {
         return !this.isShield;
+    }
+
+    get baseType(): BaseArmorType | null {
+        return this.data.data.baseItem ?? null;
+    }
+
+    get group(): ArmorGroup | null {
+        return this.data.data.group.value || null;
     }
 
     get category(): ArmorCategory {
@@ -47,7 +49,7 @@ export class ArmorPF2e extends PhysicalItemPF2e {
     }
 
     get acBonus(): number {
-        const potencyRune = Number(this.data.data.potencyRune?.value) || 0;
+        const potencyRune = this.data.data.potencyRune.value;
         const baseArmor = Number(this.data.data.armor.value) || 0;
         return this.isShield && this.isBroken ? 0 : baseArmor + potencyRune;
     }
@@ -71,21 +73,56 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         return this.hitPoints.current <= this.brokenThreshold;
     }
 
-    getChatData(htmlOptions?: Record<string, boolean>) {
+    /** @override */
+    prepareData(): void {
+        super.prepareData();
+
+        // Add traits from potency rune
+        const baseTraits = this.data.data.traits.value;
+        const fromRunes: ('invested' | 'abjuration')[] = this.data.data.potencyRune.value
+            ? ['invested', 'abjuration']
+            : [];
+        const hasTraditionTraits = TRADITION_TRAITS.some((trait) => baseTraits.includes(trait));
+        const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
+        this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
+
+        // Call again now the traits are reconstructed
+        this.setPredicates();
+    }
+
+    getChatData(this: Owned<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const localize = game.i18n.localize.bind(game.i18n);
         const properties = [
-            CONFIG.PF2E.armorTypes[data.armorType.value],
-            CONFIG.PF2E.armorGroups[data.group.value],
+            CONFIG.PF2E.armorTypes[this.category],
+            this.group ? CONFIG.PF2E.armorGroups[this.group] : null,
             `${addSign(getArmorBonus(data))} ${localize('PF2E.ArmorArmorLabel')}`,
             `${data.dex.value || 0} ${localize('PF2E.ArmorDexLabel')}`,
             `${data.check.value || 0} ${localize('PF2E.ArmorCheckLabel')}`,
             `${data.speed.value || 0} ${localize('PF2E.ArmorSpeedLabel')}`,
-            ...data.traits.value,
             data.equipped.value ? localize('PF2E.ArmorEquippedLabel') : null,
         ].filter((property) => property);
 
-        return this.processChatData(htmlOptions, { ...data, properties, traits: null });
+        return this.processChatData(htmlOptions, {
+            ...data,
+            properties,
+            traits: this.traitChatData(CONFIG.PF2E.armorTraits),
+        });
+    }
+
+    /** @override */
+    generateUnidentifiedName({ typeOnly = false }: { typeOnly?: boolean } = { typeOnly: false }): string {
+        const translations = LocalizePF2e.translations.PF2E;
+        const base = this.baseType ? translations.Item.Armor.Base[this.baseType] : null;
+        const group = this.group ? CONFIG.PF2E.armorGroups[this.group] : null;
+        const fallback = this.isShield ? 'PF2E.ArmorTypeShield' : 'ITEM.TypeArmor';
+
+        const itemType = game.i18n.localize(base ?? group ?? fallback);
+
+        if (typeOnly) return itemType;
+
+        const formatString = LocalizePF2e.translations.PF2E.identification.UnidentifiedItem;
+        return game.i18n.format(formatString, { item: itemType });
     }
 }
 

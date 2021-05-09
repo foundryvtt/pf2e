@@ -1,5 +1,6 @@
 import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
+import { isPhysicalItem, ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from './data/types';
 import { PhysicalItemPF2e } from './physical';
 
 // FIXME: point this to the correct type afterwards
@@ -70,13 +71,14 @@ function calculateValueOfTreasure(items: ItemPlaceholder[]) {
  * Converts the price of an item to the Coin structure
  * @param item
  */
-export function extractPriceFromItem(item: ItemPlaceholder, quantityOverride?: number): Coins {
+export function extractPriceFromItem(item: PhysicalItemData, quantityOverride?: number): Coins {
     // This requires preprocessing, as large gold values contain , for their value
-    const priceTag = item.data?.price?.value?.toString()?.trim()?.replace(/,/g, '') ?? '';
+    const priceTag = item.data.price?.value?.toString()?.trim()?.replace(/,/g, '') ?? '';
     const regex = /^(\d+)(?:\s*)(pp|gp|sp|cp)$/;
-    if (regex.test(priceTag)) {
-        const [, value, denomination] = priceTag.match(regex);
-        const quantity = quantityOverride ?? parseInt(item.data?.quantity?.value ?? '0', 10);
+    const match = regex.exec(priceTag);
+    if (match) {
+        const [value, denomination] = match.slice(1, 3);
+        const quantity = quantityOverride ?? item.data.quantity.value;
         return toCoins(denomination, parseInt(value, 10) * quantity);
     } else {
         return toCoins('gp', 0);
@@ -88,11 +90,15 @@ export function extractPriceFromItem(item: ItemPlaceholder, quantityOverride?: n
  * @param items
  * @param category
  */
-function calculateWealthForCategory(items: ItemPlaceholder[], category: string): Coins {
+function calculateWealthForCategory(items: ItemDataPF2e[], category: ItemType): Coins {
+    const toCalculate = items.filter(
+        (itemData): itemData is PhysicalItemData =>
+            isPhysicalItem(itemData) && (game.user.isGM || itemData.data.identification.status === 'identified'),
+    );
     if (category === 'treasure') {
-        return calculateValueOfTreasure(items);
+        return calculateValueOfTreasure(toCalculate);
     } else {
-        return items
+        return toCalculate
             .filter((item) => item.type === category)
             .map((item) => {
                 return extractPriceFromItem(item);
@@ -105,8 +111,8 @@ function calculateWealthForCategory(items: ItemPlaceholder[], category: string):
  * Sums up all wealth of a character, not just the treasure, but all other equipment
  * @param items
  */
-export function calculateTotalWealth(items: ItemPlaceholder[]): Coins {
-    const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack'];
+export function calculateTotalWealth(items: PhysicalItemData[]): Coins {
+    const itemTypes = ['weapon', 'armor', 'equipment', 'consumable', 'treasure', 'backpack'] as const;
 
     return itemTypes
         .map((itemType) => {
@@ -119,16 +125,17 @@ export function calculateTotalWealth(items: ItemPlaceholder[]): Coins {
  *
  * @param items
  */
-export function calculateValueOfCurrency(items: ItemPlaceholder[]) {
+export function calculateValueOfCurrency(items: ItemDataPF2e[]) {
     return items
         .filter(
-            (item) =>
-                item.data?.stackGroup?.value === 'coins' &&
-                item?.data?.denomination?.value !== undefined &&
-                item?.data?.denomination?.value !== null,
+            (item): item is TreasureData =>
+                item.type === 'treasure' &&
+                item.data.stackGroup?.value === 'coins' &&
+                item.data.denomination?.value !== undefined &&
+                item.data.denomination?.value !== null,
         )
         .map((item) => {
-            const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
+            const value = (Number(item.data.value.value) || 0) * item.data.quantity.value;
             return toCoins(item.data.denomination.value, value);
         })
         .reduce(combineCoins, noCoins());
@@ -137,10 +144,10 @@ export function calculateValueOfCurrency(items: ItemPlaceholder[]) {
 /**
  * Sums up all treasures in an actor's inventory
  * @param items
- * @return {*}
  */
-export function calculateWealth(items: ItemPlaceholder[]): Coins {
-    return calculateWealthForCategory(items, 'treasure');
+export function calculateWealth(items: ItemDataPF2e[]): Coins {
+    const treasureData = items.filter((itemData): itemData is TreasureData => itemData.type === 'treasure');
+    return calculateWealthForCategory(treasureData, 'treasure');
 }
 
 export const coinCompendiumIds = {
@@ -150,7 +157,7 @@ export const coinCompendiumIds = {
     cp: 'lzJ8AVhRcbFul5fh',
 };
 
-function isTopLevelCoin(item: ItemPlaceholder, currencies: Set<string>): boolean {
+function isTopLevelCoin(item: ItemPlaceholder, currencies: typeof CURRENCIES): boolean {
     return (
         item?.type === 'treasure' &&
         item?.data?.value?.value === 1 &&
@@ -200,6 +207,8 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
     }
 }
 
+const CURRENCIES = new Set(['pp', 'gp', 'sp', 'cp'] as const);
+
 export async function addCoins(
     actor: ActorPF2e,
     {
@@ -213,11 +222,10 @@ export async function addCoins(
     }: { coins?: Coins; combineStacks?: boolean } = {},
 ): Promise<void> {
     const items: ItemPlaceholder[] = actor.data.items;
-    const currencies = new Set(Object.keys(coins));
-    const topLevelCoins = items.filter((item) => combineStacks && isTopLevelCoin(item, currencies));
+    const topLevelCoins = items.filter((item) => combineStacks && isTopLevelCoin(item, CURRENCIES));
     const coinsByDenomination = groupBy(topLevelCoins, (item) => item?.data?.denomination?.value);
 
-    for await (const denomination of currencies) {
+    for await (const denomination of CURRENCIES) {
         const quantity = coins[denomination];
         if (quantity > 0) {
             if (coinsByDenomination.has(denomination)) {
@@ -242,10 +250,9 @@ export async function removeCoins(
     }: { coins?: Coins; combineStacks?: boolean } = {},
 ): Promise<void> {
     const items: ItemPlaceholder[] = actor.data.items;
-    const currencies = new Set(Object.keys(coins));
-    const topLevelCoins = items.filter((item) => isTopLevelCoin(item, currencies));
+    const topLevelCoins = items.filter((item) => isTopLevelCoin(item, CURRENCIES));
     const coinsByDenomination = groupBy(topLevelCoins, (item) => item?.data?.denomination?.value);
-    for await (const denomination of currencies) {
+    for await (const denomination of CURRENCIES) {
         const quantity = coins[denomination];
         if (quantity > 0) {
             if (coinsByDenomination.has(denomination)) {
@@ -311,13 +318,13 @@ export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Pro
  * Attempts to remove coins from an actor by total value regardless of cointype
  * @param actor
  * @param coinsToRemove
- * @return {Promise}<boolean> Resolves after the treasure is either removed (true) or determined to be insufficient and no change made (false)
+ * @return Resolves after the treasure is either removed (true) or determined to be insufficient and no change made (false)
  */
 export async function attemptToRemoveCoinsByValue({
     actor,
     coinsToRemove,
 }: {
-    actor: ActorPlaceholder;
+    actor: ActorPF2e;
     coinsToRemove: Coins;
 }): Promise<boolean> {
     const items = actor.data.items || [];

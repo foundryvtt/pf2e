@@ -3,7 +3,7 @@
         font-family: $sans-serif;
     }
     .window-content {
-        background: url('../assets/sheet-bg.jpg');
+        background: url('../assets/sheet/background.webp');
         background-repeat: repeat-x, no-repeat;
         background-size: cover;
         background-attachment: local;
@@ -65,6 +65,10 @@
                 display: flex;
                 align-items: center;
                 flex-basis: calc(100% / 3);
+                cursor: pointer;
+                &:hover {
+                    color: var(--primary);
+                }
 
                 span {
                     margin-left: 0.25em;
@@ -72,10 +76,16 @@
             }
         }
     }
+    .saving-throw {
+        cursor: pointer;
+        &:hover {
+            color: var(--primary);
+        }
+    }
 
     .conditions,
     .effects {
-        .item {
+        .list-row {
             margin: 0.25em 0;
         }
         .item-list {
@@ -100,11 +110,11 @@
             }
         }
 
-        .item.expandable .item-summary {
+        .list-row.expandable .item-summary {
             display: none;
         }
 
-        .item.expanded .item-summary {
+        .list-row.expanded .item-summary {
             display: block;
         }
 

@@ -1,0 +1,85 @@
+{
+    "_id": "4CUZSDn4BiqWpvZg",
+    "data": {
+        "description": {
+            "value": "<p>Granted by @Compendium[pf2e.spells-srd.Ki Strike]{Ki Strike} if you have @Compendium[pf2e.feats-srd.Elemental Fist]{Elemental Fist} and selecting air.</p>"
+        },
+        "duration": {
+            "expiry": "turn-start",
+            "sustained": false,
+            "unit": "unlimited",
+            "value": -1
+        },
+        "level": {
+            "value": 1
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.FlatModifier",
+                "label": "Ki Strike",
+                "selector": "attack",
+                "type": "status",
+                "value": 1
+            },
+            {
+                "damageType": "electricity",
+                "dieSize": "d6",
+                "key": "PF2E.RuleElement.DamageDice",
+                "label": "Ki Strike",
+                "selector": "damage",
+                "traits": [
+                    "air"
+                ],
+                "value": {
+                    "brackets": [
+                        {
+                            "end": 8,
+                            "value": {
+                                "diceNumber": 1
+                            }
+                        },
+                        {
+                            "end": 16,
+                            "start": 9,
+                            "value": {
+                                "diceNumber": 2
+                            }
+                        },
+                        {
+                            "start": 17,
+                            "value": {
+                                "diceNumber": 3
+                            }
+                        }
+                    ]
+                }
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "start": {
+            "initiative": null,
+            "value": 0
+        },
+        "target": null,
+        "tokenIcon": {
+            "show": false
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": []
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/spells/ki-strike.webp",
+    "name": "Spell Effect: Ki Strike (Air)",
+    "permission": {
+        "default": 0
+    },
+    "type": "effect"
+}

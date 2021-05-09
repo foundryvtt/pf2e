@@ -1,4 +1,4 @@
-<form autocomplete="off" onsubmit="event.preventDefault();">
+<form>
   {{#if isMagic}}
   <h1>{{localize "PF2E.identification.IdentifyMagicDCs"}}</h1>
   <table>
@@ -41,6 +41,13 @@
     </table>
     {{/if}}
   {{/if}}
-  <button type="submit" name="submit" value="1"><i class="far fa-save"></i>{{localize "PF2E.identification.Identify"}}
+  <button type="button" class="update-identification" value="identified">
+      <i class="far fa-save"></i>{{localize "PF2E.identification.Identify"}}
   </button>
+  <!--
+  <button type="submit" class="misidentify" name="data.identification.status" value="misidentified">
+      <i class="far fa-save"></i>{{localize "PF2E.identification.Misidentify"}}
+  </button>
+  -->
+  <input type="hidden" name="status" />
 </form>

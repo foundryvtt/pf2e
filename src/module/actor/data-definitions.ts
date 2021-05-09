@@ -1,4 +1,4 @@
-import { BaseWeaponKey, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroupKey } from '@item/data-definitions';
+import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
@@ -40,8 +40,6 @@ export interface LabeledNumber extends LabeledValue {
 export interface AbilityData {
     /** The raw value of this ability score; computed from the mod for npcs automatically. */
     value: number;
-    /** The minimum value this ability score can have. */
-    min: number;
     /** The modifier for this ability; computed from the value for characters automatically. */
     mod: number;
 }
@@ -54,6 +52,8 @@ export interface ProficiencyData {
     value: number;
     /** A breakdown describing the how the martial proficiency value is computed. */
     breakdown: string;
+    /** Is this proficiency a custom addition (not among a default set or added via system automation)? */
+    custom?: boolean;
 }
 
 /** Basic skill and save data (not including custom modifiers). */
@@ -283,9 +283,17 @@ export interface Abilities {
 export type AbilityString = keyof Abilities;
 export type Language = keyof ConfigPF2e['PF2E']['languages'];
 export type Attitude = keyof ConfigPF2e['PF2E']['attitude'];
+export type CreatureTrait = keyof ConfigPF2e['PF2E']['creatureTraits'];
+
+export type SenseAcuity = 'precise' | 'imprecise' | 'vague';
+export interface SenseData extends LabeledString {
+    acuity?: SenseAcuity;
+    source?: string;
+}
+
 export interface CreatureTraitsData extends BaseTraitsData {
     /** A list of special senses this character has. */
-    senses: LabeledString[];
+    senses: SenseData[];
     /** Languages which this actor knows and can speak. */
     languages: ValuesList<Language>;
     /** Attitude, describes the attitude of a npc towards the PCs, e.g. hostile, friendly */
@@ -295,6 +303,7 @@ export interface CreatureTraitsData extends BaseTraitsData {
 
 export interface ActorSystemData {
     traits: BaseTraitsData;
+    tokenEffects: TemporaryEffect[];
 }
 
 /** Miscallenous but mechanically relevant creature attributes.  */
@@ -363,14 +372,10 @@ export interface CategoryProficiencies {
     advanced: ProficiencyData;
     unarmed: ProficiencyData;
 }
-type BaseWeaponProficiencyKeys = `weapon-base-${BaseWeaponKey}`;
-type BaseWeaponProficiencies = {
-    [K in BaseWeaponProficiencyKeys]?: ProficiencyData;
-};
-type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroupKey}`;
-type WeaponGroupProfiencies = {
-    [K in WeaponGroupProficiencyKey]?: ProficiencyData;
-};
+export type BaseWeaponProficiencyKey = `weapon-base-${BaseWeaponType}`;
+type BaseWeaponProficiencies = Record<BaseWeaponProficiencyKey, ProficiencyData>;
+export type WeaponGroupProficiencyKey = `weapon-group-${WeaponGroup}`;
+type WeaponGroupProfiencies = Record<WeaponGroupProficiencyKey, ProficiencyData>;
 export type CombatProficiencies = CategoryProficiencies & BaseWeaponProficiencies & WeaponGroupProfiencies;
 
 export type CombatProficiencyKey = keyof CombatProficiencies;
@@ -468,6 +473,12 @@ interface CharacterAttributes extends BaseCreatureAttributes {
     resolve: { value: number };
 }
 
+export interface RollToggle {
+    label: string;
+    inputName: string;
+    checked: boolean;
+}
+
 /** The raw information contained within the actor data object for characters. */
 export interface RawCharacterData extends CreatureSystemData {
     /** The six primary ability scores. */
@@ -488,10 +499,14 @@ export interface RawCharacterData extends CreatureSystemData {
     skills: Skills;
 
     /** Pathfinder Society Organized Play */
-    pfs?: RawPathfinderSocietyData;
+    pfs: RawPathfinderSocietyData;
 
     /** Special strikes which the character can take. */
     actions: CharacterStrike[];
+
+    toggles: {
+        actions: RollToggle[];
+    };
 }
 
 export interface RawCharacterDataDetails {
@@ -550,7 +565,7 @@ export interface RawCharacterDataDetails {
 /** Normal armor class data, but with an additional 'base' value. */
 export type NPCArmorClassData = ArmorClassData & { base?: number };
 /** Normal save data, but with an additional 'base' value. */
-export type NPCSaveData = SaveData & { base?: number };
+export type NPCSaveData = SaveData & { base?: number; saveDetail: string };
 /** Saves with NPCSaveData */
 export interface NPCSaves {
     fortitude: NPCSaveData;
@@ -629,12 +644,12 @@ export interface RawNPCData extends CreatureSystemData {
         alignment: { value: AlignmentString };
         /** The race of this creature. */
         ancestry: { value: string };
+        /** The deity this creature worships */
+        deity: { value: string; image: string };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
         source: { value: string };
-        /** The Archive of Nethys URL for this creature. */
-        nethysUrl: string;
         /** Information about what is needed to recall knowledge about this creature. */
         recallKnowledgeText: string;
         /** Information which shows up on the sidebar of the creature. */
@@ -671,7 +686,7 @@ interface HazardAttributes {
 }
 
 /** The raw information contained within the actor data object for hazards. */
-export interface RawHazardData {
+export interface RawHazardData extends ActorSystemData {
     attributes: HazardAttributes;
     /** Traits, languages, and other information. */
     traits: BaseTraitsData;

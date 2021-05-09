@@ -44,6 +44,27 @@
             },
             {
                 "key": "PF2E.RuleElement.TokenEffectIcon"
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "predicate": {
+                    "any": [
+                        "action:high-jump",
+                        "action:long-jump",
+                        "action:leap"
+                    ]
+                },
+                "selector": "athletics",
+                "text": "<p class='compact-text'><strong>Crane Stance</strong> Reduce the DC for High Jump and Long Jump by 5, and when you Leap, you can move an additional 5 feet horizontally or 2 feet vertically.</p>"
+            },
+            {
+                "key": "PF2E.RuleElement.SetProperty",
+                "on": {
+                    "added": true,
+                    "removed": false
+                },
+                "property": "flags.pf2e.rollOptions.all.crane-stance",
+                "retain": true
             }
         ],
         "source": {
@@ -53,6 +74,7 @@
             "initiative": null,
             "value": 0
         },
+        "target": null,
         "traits": {
             "custom": "",
             "rarity": {
@@ -63,7 +85,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/crane-stance.jpg",
+    "img": "systems/pf2e/icons/features/feats/crane-stance.webp",
     "name": "Stance: Crane Stance",
     "permission": {
         "default": 0

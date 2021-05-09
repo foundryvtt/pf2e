@@ -2,13 +2,13 @@ import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
 import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { ItemDataPF2e } from '@item/data-definitions';
-import { ItemPF2e } from './module/item/base';
+import { ItemDataPF2e } from '@item/data/types';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
 import '@system/measure';
 import './styles/pf2e.scss';
+import { CreaturePF2e } from '@actor/creature';
 
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
@@ -18,10 +18,6 @@ PF2E.Hooks.listen();
 /* -------------------------------------------- */
 /*  Foundry VTT Setup                           */
 /* -------------------------------------------- */
-
-// Activate global listeners
-Hooks.on('renderChatLog', (_log, html) => ItemPF2e.chatListeners(html));
-Hooks.on('renderChatPopout', (_log, html) => ItemPF2e.chatListeners(html));
 
 // Chat hooks - refactor out.
 /**
@@ -189,7 +185,7 @@ function createOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onCreateOwnedItem(child, options, userID);
         }
 
-        game.pf2e.effectPanel?.refresh();
+        game.pf2e.effectPanel.refresh();
     }
 }
 
@@ -201,7 +197,10 @@ function deleteOwnedItem(parent: ActorPF2e | null, child: ItemDataPF2e, options:
             parent.onDeleteOwnedItem(child, options, userID);
         }
 
-        game.pf2e.effectPanel?.refresh();
+        if (child.type === 'effect') {
+            game.pf2e.effectTracker.unregister(child);
+        }
+        game.pf2e.effectPanel.refresh();
     }
 }
 
@@ -209,13 +208,13 @@ Hooks.on('deleteOwnedItem', deleteOwnedItem);
 
 Hooks.on('updateOwnedItem', (parent) => {
     if (parent instanceof ActorPF2e) {
-        game.pf2e.effectPanel?.refresh();
+        game.pf2e.effectPanel.refresh();
     }
 });
 
 // effect panel
 Hooks.on('updateUser', () => {
-    game.pf2e.effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
@@ -224,6 +223,7 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
         actor.items.forEach((item) => {
             const rules = RuleElements.fromRuleElementData(item.data.data.rules ?? [], item.data);
             for (const rule of rules) {
+                if (rule.ignored) continue;
                 rule.onCreateToken(actor.data, item.data, token);
             }
         });
@@ -265,6 +265,9 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
             options.pf2e.items.removed.forEach((item: ItemDataPF2e) => {
                 deleteOwnedItem(actor, item, options, userID);
             });
+            if (actor instanceof CreaturePF2e) {
+                actor.redrawTokenEffects();
+            }
         }
     }
 
@@ -275,46 +278,25 @@ Hooks.on('updateToken', (_scene, token: TokenData, data, options, userID) => {
         }
     }
 
-    game.pf2e.effectPanel?.refresh();
+    game.pf2e.effectPanel.refresh();
 });
 
 Hooks.on('controlToken', () => {
-    game.pf2e?.effectPanel?.refresh();
+    game.pf2e?.effectPanel.refresh();
 });
 
 // world clock application
 Hooks.on('getSceneControlButtons', (controls: any[]) => {
     controls
         .find((c) => c.name === 'token')
-        .tools.push(
-            {
-                name: 'effectpanel',
-                title: 'CONTROLS.EffectPanel',
-                icon: 'fas fa-star',
-                onClick: (toggled: boolean) => {
-                    if (toggled) {
-                        game.pf2e.effectPanel?.render(true);
-                    } else {
-                        game.pf2e.effectPanel?.close();
-                    }
-                    game.user.setFlag(game.system.id, 'showEffectPanel', toggled);
-                },
-                active: !!(game.user.getFlag(game.system.id, 'showEffectPanel') ?? true),
-                toggle: true,
-            },
-            {
-                name: 'worldclock',
-                title: 'CONTROLS.WorldClock',
-                icon: 'fas fa-clock',
-                visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
-                onClick: () => game.pf2e.worldClock!.render(true),
-                button: true,
-            },
-        );
-});
-
-Hooks.on('updateCombat', () => {
-    game.pf2e.effectPanel?.refresh();
+        .tools.push({
+            name: 'worldclock',
+            title: 'CONTROLS.WorldClock',
+            icon: 'fas fa-clock',
+            visible: game.user.isGM || game.settings.get('pf2e', 'worldClock.playersCanView'),
+            onClick: () => game.pf2e.worldClock!.render(true),
+            button: true,
+        });
 });
 
 Hooks.on('renderChatMessage', (message, html) => {
@@ -327,4 +309,21 @@ Hooks.on('renderChatMessage', (message, html) => {
     if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
         html.find('[data-visibility="owner"]').remove();
     }
+
+    // show DC for inline checks if user has sufficient permission
+    html.find('[data-pf2-dc]:not([data-pf2-dc=""])[data-pf2-show-dc]:not([data-pf2-show-dc=""])').each((_idx, elem) => {
+        const dc = elem.dataset.pf2Dc!.trim()!;
+        const role = elem.dataset.pf2ShowDc!.trim();
+        if (
+            role === 'all' ||
+            (role === 'gm' && game.user.isGM) ||
+            (role === 'owner' && ((actor && actor.owner) || game.user.isGM || message.isAuthor))
+        ) {
+            elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
+                dc,
+                text: elem.innerHTML,
+            });
+            elem.removeAttribute('data-pf2-show-dc'); // short-circuit the global DC interpolation
+        }
+    });
 });

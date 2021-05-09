@@ -135,7 +135,7 @@
             },
             "creatureType": "Undead",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Not all would-be dragonslayers who die a valiant death rest peacefully amid the annals of legend. Sometimes, a draconic necromancer is so impressed by its fallen foe that the dragon ritually raises the dead warrior to serve the dragon in undeath. These undead guardians are infused with a fraction of the power of the dragon who slew them, channeling the same energy as their draconic masters' breath.<br />Dragonscarred dead are similar to skeletal champions or graveknights in that they are not merely reanimated servants who mindlessly follow orders, but are instead powerful wardens who maintain the same agency they bore in life. While a dragonscarred dead is often magically compelled to follow its reanimator's commands, some of these undead dragonslayers manage to escape their masters and pursue their own vile agendas-which may involve rallying allies to challenge their draconic creator once more and finish the dire mission they started in life.</br>",
@@ -150,7 +150,6 @@
                 "min": 1,
                 "value": 13
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=472",
             "recallKnowledgeText": "Recall Knowledge - Undead : DC 33",
             "sidebarText": "<h3 class=\"title\">Other Types</h3>For dragonscarred dead created by non-fire dragons, replace fire in traits, immunities, and breath-seared sword damage with the type appropriate for the creator dragon's breath weapon. The dragonscarred dead's regeneration is deactivated as follows: acid (deactivated by electricity), cold (fire), electricity (acid), poison (fire or cold).",
             "source": {
@@ -494,10 +493,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -614,12 +620,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -881,7 +881,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a DC 30 Will save.<br /><br /> <strong>Critical Success</strong> The creature is unaffected.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned}.<br /> <strong>Critical Failure</strong> The creature is stunned for 1d4 rounds and is fatigued.</p>"
+                    "value": "<p>The dragonscarred dead focuses its boundless frustration in a gaze targeting one creature it can see within 30 feet. That creature must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"30\" data-pf2-traits=\"arcane,enchantment,mental,visual\" data-pf2-label=\"Glare of Rage DC\" data-pf2-show-dc=\"gm\">Will</span> save.<br /><br /> <strong>Critical Success</strong> The creature is unaffected.<br /> <strong>Success</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned} 1.<br /> <strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Stunned]{Stunned}.<br /> <strong>Critical Failure</strong> The creature is stunned for 1d4 rounds and is fatigued.</p>"
                 },
                 "requirements": {
                     "value": ""

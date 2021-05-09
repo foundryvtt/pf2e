@@ -3,7 +3,8 @@ import { SKILL_DICTIONARY } from '../base';
 import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
-import { SpellcastingEntryData, SpellData } from '@item/data-definitions';
+import { SpellcastingEntryData, SpellData } from '@item/data/types';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Actor
@@ -12,7 +13,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     static get defaultOptions() {
         const options = super.defaultOptions;
         mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'npc-sheet']),
+            classes: options.classes.concat('npc-sheet'),
             width: 650,
             height: 680,
             showUnpreparedSpells: true,
@@ -51,7 +52,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         sheetData.identificationSkills = Array.from(identifyCreatureData.skills)
             .sort()
             .map((skillAcronym) => CONFIG.PF2E.skills[skillAcronym]);
-        sheetData.identificationSkillList = sheetData.identificationSkills.join(', ');
 
         sheetData.specificLoreDC = identifyCreatureData.specificLoreDC.dc;
         sheetData.specificLoreAdjustment = CONFIG.PF2E.dcAdjustments[identifyCreatureData.specificLoreDC.start];
@@ -290,14 +290,21 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     activateListeners(html: JQuery) {
         super.activateListeners(html);
 
-        // NPC Weapon Rolling
+        // Melee Attack summaries
+        html.find('.item .melee-name h4').on('click', (event) => {
+            this.onItemSummary(event);
+        });
+
+        // Melee Weapon Rolling
         html.find('button:not(.recall-knowledge-breakdown)').on('click', (ev) => {
             ev.preventDefault();
             ev.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const item = this.actor.items.get(itemId);
+            if (!item) {
+                throw ErrorPF2e(`Item ${itemId} not found`);
+            }
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (ev.target.dataset.action) {

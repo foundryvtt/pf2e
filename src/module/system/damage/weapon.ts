@@ -6,13 +6,13 @@ import {
     StatisticModifier,
     PROFICIENCY_RANK_OPTION,
     DiceModifierPF2e,
-} from '../../modifiers';
+} from '@module/modifiers';
 import { getPropertyRuneModifiers, getStrikingDice, hasGhostTouchRune } from '@item/runes';
 import { DamageCategory, DamageDieSize } from './damage';
-import { WeaponData } from '@item/data-definitions';
+import { WeaponData } from '@item/data/types';
 import { AbilityString, ActorDataPF2e, CharacterStrikeTrait } from '@actor/data-definitions';
-import { PF2RollNote } from '../../notes';
-import { PF2Striking, PF2WeaponPotency } from '../../rules/rules-data-definitions';
+import { RollNotePF2e } from '@module/notes';
+import { StrikingPF2e, WeaponPotencyPF2e } from '@module/rules/rules-data-definitions';
 
 export interface DamagePartials {
     [damageType: string]: {
@@ -42,7 +42,7 @@ export interface DamageTemplate {
         criticalSuccess: DamageFormula;
     };
     name: string;
-    notes: PF2RollNote[];
+    notes: RollNotePF2e[];
     numericModifiers: ModifierPF2e[];
     traits: string[];
 }
@@ -76,7 +76,7 @@ function isNonPhysicalDamage(damageType?: string): boolean {
 /**
  * @category PF2
  */
-export class PF2WeaponDamage {
+export class WeaponDamagePF2e {
     static calculateStrikeNPC(
         weapon,
         actor: ActorDataPF2e,
@@ -85,7 +85,7 @@ export class PF2WeaponDamage {
         damageDice,
         proficiencyRank = 0,
         options: string[] = [],
-        rollNotes: Record<string, PF2RollNote[]>,
+        rollNotes: Record<string, RollNotePF2e[]>,
     ): DamageTemplate {
         damageDice = duplicate(damageDice);
 
@@ -172,7 +172,7 @@ export class PF2WeaponDamage {
             }
         }
 
-        return PF2WeaponDamage.calculate(
+        return WeaponDamagePF2e.calculate(
             weapon,
             actor,
             traits,
@@ -194,9 +194,9 @@ export class PF2WeaponDamage {
         damageDice: Record<string, DamageDicePF2e[]>,
         proficiencyRank = -1,
         options: string[] = [],
-        rollNotes: Record<string, PF2RollNote[]>,
-        weaponPotency: PF2WeaponPotency | null,
-        striking: Record<string, PF2Striking[]>,
+        rollNotes: Record<string, RollNotePF2e[]>,
+        weaponPotency: WeaponPotencyPF2e | null,
+        striking: Record<string, StrikingPF2e[]>,
     ): DamageTemplate {
         let effectDice = weapon.data.damage.dice ?? 1;
         const diceModifiers: DiceModifierPF2e[] = [];
@@ -213,7 +213,7 @@ export class PF2WeaponDamage {
         }
 
         // determine ability modifier
-        let ability: AbilityString;
+        let ability: AbilityString | null = null;
         {
             let modifier = 0;
             const melee =
@@ -251,7 +251,7 @@ export class PF2WeaponDamage {
                 );
             }
         }
-        const selectors: string[] = PF2WeaponDamage.getSelectors(weapon, ability, proficiencyRank);
+        const selectors: string[] = WeaponDamagePF2e.getSelectors(weapon, ability, proficiencyRank);
 
         // two-hand trait
         const twoHandTrait = traits.find((t) => t.name.toLowerCase().startsWith('two-hand-'));
@@ -305,7 +305,7 @@ export class PF2WeaponDamage {
         // striking rune
         let strikingDice = 0;
         {
-            const strikingList: PF2Striking[] = [];
+            const strikingList: StrikingPF2e[] = [];
             selectors.forEach((key) => {
                 (striking[key] ?? [])
                     .filter((wp) => ModifierPredicate.test(wp.predicate, options))
@@ -313,7 +313,7 @@ export class PF2WeaponDamage {
             });
 
             // find best striking source
-            const strikingRune = getStrikingDice(weapon.data);
+            const strikingRune = weapon.type === 'weapon' ? getStrikingDice(weapon.data) : null;
             if (strikingRune) {
                 strikingList.push({ label: 'PF2E.StrikingRuneLabel', bonus: strikingRune });
             }
@@ -399,7 +399,11 @@ export class PF2WeaponDamage {
         // check for weapon specialization
         const weaponSpecializationDamage = proficiencyRank > 1 ? proficiencyRank : 0;
         if (weaponSpecializationDamage > 0) {
-            if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Greater Weapon Specialization'))) {
+            const has = (slug: string, name: string) =>
+                actor.items.some(
+                    (i) => i.type === 'feat' && (i.data.slug?.startsWith(slug) || i.name.startsWith(name)),
+                );
+            if (has('greater-weapon-specialization', 'Greater Weapon Specialization')) {
                 numericModifiers.push(
                     new ModifierPF2e(
                         'PF2E.GreaterWeaponSpecialization',
@@ -407,7 +411,7 @@ export class PF2WeaponDamage {
                         MODIFIER_TYPE.UNTYPED,
                     ),
                 );
-            } else if (actor.items.some((i) => i.type === 'feat' && i.name.startsWith('Weapon Specialization'))) {
+            } else if (has('weapon-specialization', 'Weapon Specialization')) {
                 numericModifiers.push(
                     new ModifierPF2e('PF2E.WeaponSpecialization', weaponSpecializationDamage, MODIFIER_TYPE.UNTYPED),
                 );
@@ -415,7 +419,7 @@ export class PF2WeaponDamage {
         }
 
         // add splash damage
-        const splashDamage = parseInt(weapon.data?.splashDamage?.value, 10) ?? 0;
+        const splashDamage = Number(weapon.data.splashDamage?.value) || 0;
         if (splashDamage > 0) {
             numericModifiers.push(
                 new ModifierPF2e('PF2E.WeaponSplashDamageLabel', splashDamage, MODIFIER_TYPE.UNTYPED),
@@ -423,13 +427,13 @@ export class PF2WeaponDamage {
         }
 
         // add bonus damage
-        const bonusDamage = parseInt(weapon.data?.bonusDamage?.value, 10) ?? 0;
+        const bonusDamage = Number(weapon.data.bonusDamage?.value) || 0;
         if (bonusDamage > 0) {
             numericModifiers.push(new ModifierPF2e('PF2E.WeaponBonusDamageLabel', bonusDamage, MODIFIER_TYPE.UNTYPED));
         }
 
         // conditions, custom modifiers, and roll notes
-        const notes = [];
+        const notes: RollNotePF2e[] = [];
         {
             selectors.forEach((key) => {
                 const modifiers = statisticsModifiers[key] || [];
@@ -503,7 +507,7 @@ export class PF2WeaponDamage {
             if (
                 d.category &&
                 (d.diceNumber > 0 || d.dieSize) &&
-                (!d.damageType || d.damageType === damage.base.damageType)
+                (!d.damageType || (d.damageType === damage.base.damageType && d.category !== damage.base.category))
             ) {
                 d.name += ` ${d.category}`;
             }
@@ -777,9 +781,9 @@ export class PF2WeaponDamage {
         }
     }
 
-    private static getSelectors(weapon: WeaponData, ability: AbilityString, proficiencyRank: number): string[] {
-        const selectors = [];
-        if (weapon.data?.group?.value) {
+    private static getSelectors(weapon: WeaponData, ability: AbilityString | null, proficiencyRank: number): string[] {
+        const selectors: string[] = [];
+        if (weapon.data.group?.value) {
             selectors.push(`${weapon.data.group.value.toLowerCase()}-weapon-group-damage`);
         }
         if (ability) {

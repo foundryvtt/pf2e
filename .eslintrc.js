@@ -13,12 +13,16 @@ module.exports = {
     parserOptions: {
         ecmaVersion: 2018,
         sourceType: 'module',
+        project: './tsconfig.json',
     },
+    ignorePatterns: ['dist/', 'types/foundry-pc-types/types/pixi.d.ts'],
     rules: {
         'prettier/prettier': 'error',
         'no-console': 'off',
         'no-plusplus': ['error', { allowForLoopAfterthoughts: true }],
         'import/no-default-export': 'error',
+        'deprecation/deprecation': 'error',
+        '@typescript-eslint/await-thenable': 'error',
         '@typescript-eslint/ban-ts-comment': 'off',
         '@typescript-eslint/ban-types': 'off',
         '@typescript-eslint/explicit-module-boundary-types': 'off',
@@ -26,7 +30,7 @@ module.exports = {
         '@typescript-eslint/no-empty-function': 'off',
         '@typescript-eslint/no-explicit-any': 'off',
         '@typescript-eslint/no-non-null-assertion': 'off',
-        '@typescript-eslint/no-unused-vars': ['error', { args: 'none' }],
+        '@typescript-eslint/no-unused-vars': 'off', // Handled by tsconfig
     },
     settings: {
         'import/resolver': {
@@ -41,7 +45,7 @@ module.exports = {
         },
         'import/parsers': { '@typescript-eslint/parser': ['.ts'] },
     },
-    plugins: ['jest', 'prettier', '@typescript-eslint', 'import'],
+    plugins: ['jest', 'prettier', 'deprecation', '@typescript-eslint', 'import'],
     overrides: [
         {
             files: 'tests/**/*',

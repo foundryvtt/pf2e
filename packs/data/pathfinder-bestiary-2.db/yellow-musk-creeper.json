@@ -135,7 +135,7 @@
             },
             "creatureType": "Plant",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Made up of thick, green vines with numerous yellow flowers, the yellow musk creeper grows at places where the ground is enriched with spilled blood and corpses, like battlefields and graveyards. An ideal environment for the yellow musk creeper isn't inhabited, but draws occasional humanoid visitors the plant can transform into thralls. The yellow musk creeper enraptures creatures with its bright yellow pollen to bring them close. It then physically alters their brains with its tendrils, implanting a seed in each to turn the creatures into mindless thralls. The yellow musk creeper might try to take over a sleeping creature, but it lacks the faculties to sneak up on anyone, and is likely to wake victims before it can drag itself close enough.<br /><br /> The plant's pollen can spread far on the wind but quickly becomes too diffuse to cause harm. Wilderness scouts learn to sniff out the distinctive musky scent of the pollen, which stays potent even in harmless quantities. A sprouting creeper is also easy to detect, since it grows from the rotting, messy corpse of a thrall creature.<br /><br />",
@@ -150,7 +150,6 @@
                 "min": 1,
                 "value": 2
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=867",
             "recallKnowledgeText": "Recall Knowledge - Plant : DC 16",
             "sidebarText": "<h3 class=\"title\"><img alt=\"Sidebar - Additional Lore\" title=\"Sidebar - Additional Lore\" style=\"height:20px; padding:2px 10px 0px 2px\" src=\"Images\\Icons\\Sidebar_2_AdditionalLore.png\"> Massive Musk Creepers</h3>Ancient or specially cultivated musk creepers can grow to great size. Their pollen often changes color as they grow, and pollen of different colors can alter the creeper&apos;s thralls in different ways. Some creepers even become intelligent after they&apos;re awakened by primal magic. These few exert far more control over their thralls.",
             "source": {
@@ -447,7 +446,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "vAqYhN2FTor4CPFU",
@@ -500,12 +499,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -590,7 +583,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tendril",
             "sort": 100000,
             "type": "melee"
@@ -660,7 +653,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The creeper bores dozens of tendrils into the brain of a Small, Medium, or Large humanoid creature that's @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, willing, or @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by Spray Pollen, and within reach of the creeper's tendrils.</p>\n<p>The creature must succeed at a DC 18 Fortitude save or become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} on a critical failure).</p>\n<p>Subsequent failed saves against Bore into Brain increase the stupefied value. If the creature reaches stupefied 5, it is turned into a yellow musk thrall. Boring into a creature's brain doesn't end fascination caused by Spray Pollen.</p>"
+                    "value": "<p>The creeper bores dozens of tendrils into the brain of a Small, Medium, or Large humanoid creature that's @Compendium[pf2e.conditionitems.Unconscious]{Unconscious}, willing, or @Compendium[pf2e.conditionitems.Fascinated]{Fascinated} by Spray Pollen, and within reach of the creeper's tendrils.</p>\n<p>The creature must succeed at a <span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"18\" data-pf2-traits=\"manipulate,mental,humanoid\" data-pf2-label=\"Bore into Brain DC\" data-pf2-show-dc=\"gm\">Fortitude</span> save or become @Compendium[pf2e.conditionitems.Stupefied]{Stupefied 1} (@Compendium[pf2e.conditionitems.Stupefied]{Stupefied 2} on a critical failure).</p>\n<p>Subsequent failed saves against Bore into Brain increase the stupefied value. If the creature reaches stupefied 5, it is turned into a yellow musk thrall. Boring into a creature's brain doesn't end fascination caused by Spray Pollen.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -693,7 +686,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/ThreeActions.png",
+            "img": "systems/pf2e/icons/actions/ThreeActions.webp",
             "name": "Bore into Brain",
             "sort": 300000,
             "type": "action"
@@ -713,7 +706,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The yellow musk creeper blasts yellow pollen in either a 30-foot line or a 15-foot cone. Each creature in the emanation must attempt a DC 20 Will save.</p>\n<p>Once a creature succeeds at any save against Spray Pollen, it becomes temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}. For as long as it is fascinated, it must spend each of its actions to move closer to the yellow musk creeper as expediently as possible, while avoiding obvious dangers. If the creature is adjacent to the yellow musk creeper, it stays still and doesn't act. If anyone takes a hostile action against the creature or its allies, the effect ends. Otherwise, the creature can attempt a new save at the end of each of its turns. On a success, the effects end.</p>\n<p><strong>Critical Failure</strong> As failure, but the condition doesn't end automatically if anyone takes a hostile action against the creature or its allies.</p>"
+                    "value": "<p>The yellow musk creeper blasts yellow pollen in either a 30-foot line or a 15-foot cone. Each creature in the emanation must attempt a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"20\" data-pf2-traits=\"incapacitation,mental,poison\" data-pf2-label=\"Spray Pollen DC\" data-pf2-show-dc=\"gm\">Will</span> save.</p>\n<p>Once a creature succeeds at any save against Spray Pollen, it becomes temporarily immune for 24 hours.</p>\n<hr />\n<p><strong>Success</strong> The creature is unaffected.</p>\n<p><strong>Failure</strong> The creature is @Compendium[pf2e.conditionitems.Fascinated]{Fascinated}. For as long as it is fascinated, it must spend each of its actions to move closer to the yellow musk creeper as expediently as possible, while avoiding obvious dangers. If the creature is adjacent to the yellow musk creeper, it stays still and doesn't act. If anyone takes a hostile action against the creature or its allies, the effect ends. Otherwise, the creature can attempt a new save at the end of each of its turns. On a success, the effects end.</p>\n<p><strong>Critical Failure</strong> As failure, but the condition doesn't end automatically if anyone takes a hostile action against the creature or its allies.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -746,7 +739,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/TwoActions.png",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Spray Pollen",
             "sort": 400000,
             "type": "action"
@@ -786,7 +779,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 500000,
             "type": "lore"
@@ -812,7 +805,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

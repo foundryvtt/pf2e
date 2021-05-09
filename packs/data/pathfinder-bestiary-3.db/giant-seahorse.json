@@ -133,7 +133,7 @@
             },
             "creatureType": "",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "<p>Giant seahorses are bear-sized, docile versions of their tiny, more common cousins. Merfolk and other underwater cultures often use them as pack animals, while some coastal cultures ride them as mounts. Earning a seahorse&rsquo;s trust can be rather difficult given their skittish nature, but giant seahorses can express incredible loyalty and affection once they bond with someone, even going so far as to risk their own well-beings to defend someone who has earned their trust. They don&rsquo;t take to combat naturally, though, and in dangerous situations, they&rsquo;re more likely to try and grab their rider with their strong, prehensile tails before swimming to safety, rather than staying in a fight. Like smaller seahorses, giant seahorses have bony armor plates on the outside of their bodies, covered by skin, which makes them fairly durable despite their reluctance to battle.</p>\n<p>Though not the strongest swimmers, seahorses rely primarily on natural camouflage to survive. Chromatophores in seahorses&rsquo; skin allow them to camouflage themselves. This ability is fairly rudimentary, and the size of a giant seahorse makes this tactic far less effective for them than for their smaller kin. Their colors change slowly at most times, though when in a dangerous situation, the process occurs much more rapidly for the seahorse.</p>\n<p>Unlike regular seahorses, giant seahorses also rely on herd tactics for defense as well as their surprising physical strength. A herd of charging seahorses is just as terrifying and dangerous underwater as a herd of stampeding horses on land. Humanoids in underwater cultures learn at a young age to quickly get out of the way of a herd of stampeding seahorses.</p>\n<p>Baby giant seahorses are too big to easily float and lack sufficient strength to swim on their own for several weeks after birth. They instead link tails with an adult and allow themselves to be ferried around. An adult seahorse can carry upwards of 20 seahorse babies hanging from them at once, though these babies might occasionally get left behind or swept away by a strong current. Caring for these helpless, wayward children is seen as a supreme act of kindness by many merfolk, who&rsquo;ll let these babies wrap their tails around staves and other implements and rear them into adulthood.</p>",
@@ -148,7 +148,6 @@
                 "min": 1,
                 "value": 3
             },
-            "nethysUrl": "",
             "recallKnowledgeText": "",
             "sidebarText": "",
             "source": {
@@ -291,7 +290,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "8GbsrAKrtoDroA9Y",
@@ -339,12 +338,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
                 },
                 "invested": {
                     "value": false
@@ -394,7 +387,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Snout",
             "sort": 100000,
             "type": "melee"
@@ -448,12 +441,6 @@
                 "hp": {
                     "value": 0
                 },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": true
-                },
                 "invested": {
                     "value": false
                 },
@@ -504,7 +491,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tail",
             "sort": 200000,
             "type": "melee"
@@ -598,7 +585,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Camouflage",
             "sort": 400000,
             "type": "action"
@@ -642,7 +629,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Anchor",
             "sort": 500000,
             "type": "action"
@@ -692,7 +679,7 @@
                     "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.Tkd8sH4pwFIPzqTr"
                 }
             },
-            "img": "systems/pf2e/icons/actions/OneAction.png",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Grab",
             "sort": 600000,
             "type": "action"
@@ -727,7 +714,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
             "sort": 700000,
             "type": "lore"
@@ -747,7 +734,19 @@
                 "proficient": {
                     "value": 0
                 },
-                "rules": [],
+                "rules": [
+                    {
+                        "key": "PF2E.RuleElement.FlatModifier",
+                        "label": "In Underwater Vegetation",
+                        "predicate": {
+                            "all": [
+                                "underwater-vegetation"
+                            ]
+                        },
+                        "selector": "stealth",
+                        "value": 2
+                    }
+                ],
                 "slug": null,
                 "source": {
                     "value": ""
@@ -758,12 +757,18 @@
                         "value": "common"
                     },
                     "value": []
+                },
+                "variants": {
+                    "0": {
+                        "label": "+12 in underwater vegetation",
+                        "options": "underwater-vegetation"
+                    }
                 }
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "Stealth (+12 in underwater vegetation)",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
+            "name": "Stealth",
             "sort": 800000,
             "type": "lore"
         }
@@ -790,7 +795,7 @@
         "disposition": -1,
         "flags": {},
         "height": 2,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

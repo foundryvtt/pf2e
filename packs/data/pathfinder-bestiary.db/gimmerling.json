@@ -135,7 +135,7 @@
             },
             "creatureType": "Fey",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "Gimmerlings are small, shapeshifting fey who stage ambushes to sate their endless hunger and childish greed. These cruelly curious fey obsess over finding and making unusual traps and sadistic weapons, and their favorite amusement is se eing these traps sprung or the weapons wielded. When on the Material Plane, they are frequently found in urban areas, particularly slums or other parts of town where they can either go unnoticed or be easily forgotten-and have plenty of victims to choose from.<br /><br /> A typical gimmerling disguises itself as an endangered child, doing so in hopes of drawing creatures close enough to rob. The gimmerling puts itself in apparent danger using a trap, construct, or bribed ally, or even a coerced monster like a redcap.<br /><br /> Because gimmerlings sometimes trade obscure smithing or trapping techniques in exchange for gifts that sate their curiosity, their greed, or their hunger, they have at times been worshipped as minor gods of the forge. Some disciplined gimmerlings work as honored artisans, elite guards, or spies for the demigods known as the Eldest who dwell in the depths of the First World.<br /><br />",
@@ -150,7 +150,6 @@
                 "min": 1,
                 "value": 12
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=228",
             "recallKnowledgeText": "Recall Knowledge : DC 32",
             "sidebarText": "<h3 class=\"title\">Gimmerling Locations</h3>Gimmerlings are more common in the First World than on the Material Plane and favor hunting grounds on the verges of dangerous places where they might encounter protective creatures to mislead with their disguises.<h3 class=\"title\">Gimmerling Treasure</h3>Gimmerlings collect weapons, traps, mechanical novelties, and dangerous magic items. A gimmerling is likely found with tools (like artisan's tools, repair kits, and thieves' tools) and items it can use to appear more vulnerable, such as locks, manacles, and snare kits(which it feigns being trapped by).",
             "source": {
@@ -445,7 +444,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "icons/svg/mystery-man.svg",
+    "img": "systems/pf2e/icons/default-icons/npc.svg",
     "items": [
         {
             "_id": "acsYHwUZBiVFciHt",
@@ -481,10 +480,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -537,7 +543,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "+1 striking hand crossbow ",
             "sort": 100000,
             "type": "equipment"
@@ -595,12 +601,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -686,7 +686,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Claw",
             "sort": 200000,
             "type": "melee"
@@ -746,12 +746,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -836,7 +830,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Jaws",
             "sort": 300000,
             "type": "melee"
@@ -896,12 +890,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -987,7 +975,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Hand Crossbow",
             "sort": 400000,
             "type": "melee"
@@ -1036,7 +1024,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Hungersense",
             "sort": 500000,
             "type": "action"
@@ -1089,7 +1077,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Treacherous Aura",
             "sort": 600000,
             "type": "action"
@@ -1109,7 +1097,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura. <strong>Effect</strong> The triggering creature must attempt a DC 32 Reflex save. <br /><strong>Critical success</strong> The target is unaffected. <br /><strong>Success</strong> The target is flat-footed until the start of its next turn. <br /><strong>Failure</strong> The target takes [[/r 2d10 # bludgeoning damage]] bludgeoning damage and is flat-footed until the start of its next turn. <br /><strong>Critical failure</strong> As failure, and the target is knocked prone.</p>"
+                    "value": "<p><strong>Trigger</strong> A creature critically fails a melee attack to hit the gimmerling or moves into a space within the gimmerling's treacherous aura. <strong>Effect</strong> The triggering creature must attempt a <span data-pf2-saving-throw=\"reflex\" data-pf2-dc=\"32\" data-pf2-traits=\"damaging-effect\" data-pf2-label=\"Trip Up DC\" data-pf2-show-dc=\"gm\">Reflex</span> save. <br /><strong>Critical success</strong> The target is unaffected. <br /><strong>Success</strong> The target is flat-footed until the start of its next turn. <br /><strong>Failure</strong> The target takes [[/r 2d10 # bludgeoning damage]] bludgeoning damage and is flat-footed until the start of its next turn. <br /><strong>Critical failure</strong> As failure, and the target is knocked prone.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -1138,7 +1126,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Trip Up",
             "sort": 700000,
             "type": "action"
@@ -1192,7 +1180,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Change Shape",
             "sort": 800000,
             "type": "action"
@@ -1241,7 +1229,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Disarm",
             "sort": 900000,
             "type": "action"
@@ -1311,7 +1299,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Sneak Attack",
             "sort": 1000000,
             "type": "action"
@@ -1360,7 +1348,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Trickster's Step",
             "sort": 1100000,
             "type": "action"
@@ -1400,7 +1388,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Crafting",
             "sort": 1200000,
             "type": "lore"
@@ -1440,7 +1428,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Deception",
             "sort": 1300000,
             "type": "lore"
@@ -1480,7 +1468,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
             "sort": 1400000,
             "type": "lore"
@@ -1520,7 +1508,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Stealth",
             "sort": 1500000,
             "type": "lore"
@@ -1560,7 +1548,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Thievery",
             "sort": 1600000,
             "type": "lore"
@@ -1586,7 +1574,7 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "icons/svg/mystery-man.svg",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {

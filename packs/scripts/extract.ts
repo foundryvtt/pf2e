@@ -5,7 +5,7 @@ import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
 import { ActorDataPF2e } from '@actor/data-definitions';
-import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data-definitions';
+import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data/types';
 import { sluggify } from '@module/utils';
 
 declare global {
@@ -360,7 +360,7 @@ function sortDataItems(entityData: PackEntry): any[] {
                         items = sortSpells(itemGroup);
                         break;
                     case 'action':
-                        items = sortActions(itemGroup);
+                        items = sortActions(entityData.name, itemGroup);
                         break;
                     case 'lore':
                         items = Array.from(itemGroup).sort((a, b) => a.name.localeCompare(b.name));
@@ -424,7 +424,13 @@ function sortAttacks(entityName: string, attacks: Set<ItemData>): ItemData[] {
     });
 }
 
-function sortActions(actions: Set<ItemData>): ItemData[] {
+function sortActions(entityName: string, actions: Set<ItemData>): ItemData[] {
+    actions.forEach((action) => {
+        const actionData = action as ActionData;
+        if (!actionData.data.actionCategory?.value && args.logWarnings) {
+            console.log(`Warning in ${entityName}: Action item '${actionData.name}' has no actionCategory defined!`);
+        }
+    });
     return Array.from(actions).sort((a, b) => {
         const actionA = a as ActionData;
         const actionB = b as ActionData;

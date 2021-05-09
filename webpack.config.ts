@@ -105,10 +105,21 @@ const config: Configuration = {
     plugins: [
         new ForkTsCheckerWebpackPlugin(),
         new DefinePlugin({
-            BUILD_MODE: JSON.stringify(buildMode)
+            BUILD_MODE: JSON.stringify(buildMode),
         }),
         new copyWebpackPlugin({
-            patterns: [{ from: 'static/' }, { from: 'system.json' }],
+            patterns: [
+                { from: 'system.json' },
+                {
+                    from: 'static/',
+                    transform(content: Buffer, absoluteFrom: string) {
+                        if (path.basename(absoluteFrom) === 'en.json') {
+                            return JSON.stringify(JSON.parse(content.toString()));
+                        }
+                        return content;
+                    },
+                },
+            ],
         }),
         new MiniCssExtractPlugin({
             filename: 'styles/pf2e.css',
@@ -133,4 +144,5 @@ const config: Configuration = {
     },
 };
 
+// eslint-disable-next-line import/no-default-export
 export default config;

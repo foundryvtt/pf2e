@@ -1,0 +1,88 @@
+{
+    "_id": "QWPFf6NOObxaZJwW",
+    "data": {
+        "actionCategory": {
+            "value": ""
+        },
+        "actionType": {
+            "value": "passive"
+        },
+        "actions": {
+            "value": ""
+        },
+        "description": {
+            "chat": "",
+            "unidentified": "",
+            "value": "<p>You've learned every possible edge to use against your foes.</p>\n<p>When you use @Compendium[pf2e.actionspf2e.Hunt Prey]{Hunt Prey} you can gain a different hunter's edge benefit instead of the one you selected at 1st level.</p>\n<p>This feat grants @Compendium[pf2e.classfeatures.Hunter's Edge: Flurry]{Hunter's Edge: Flurry}.</p>"
+        },
+        "featType": {
+            "value": "class"
+        },
+        "level": {
+            "value": 18
+        },
+        "location": "",
+        "prerequisites": {
+            "value": [
+                {
+                    "value": "hunter's edge"
+                },
+                {
+                    "value": "masterful hunter"
+                }
+            ]
+        },
+        "rules": [
+            {
+                "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                "predicate": {
+                    "all": [
+                        "agile",
+                        "hunted-prey"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -2
+            },
+            {
+                "key": "PF2E.RuleElement.MultipleAttackPenalty",
+                "predicate": {
+                    "all": [
+                        "hunted-prey"
+                    ],
+                    "not": [
+                        "agile"
+                    ]
+                },
+                "roll-options": [
+                    "all"
+                ],
+                "selector": "attack",
+                "value": -3
+            }
+        ],
+        "source": {
+            "value": ""
+        },
+        "traits": {
+            "custom": "",
+            "rarity": {
+                "value": "common"
+            },
+            "value": [
+                "ranger"
+            ]
+        }
+    },
+    "effects": [],
+    "flags": {},
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
+    "name": "Manifold Edge (Flurry)",
+    "permission": {
+        "default": 0
+    },
+    "type": "feat"
+}

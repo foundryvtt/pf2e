@@ -1,12 +1,12 @@
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data-definitions';
+import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data/types';
 
 interface StackDefinition {
     size: number;
     lightBulk: number;
 }
 
-export type StackDefinitions = Record<string, StackDefinition>;
+type StackDefinitions = Record<string, StackDefinition>;
 
 /**
  * hard coded for now but could be made configurable later on.
@@ -15,7 +15,7 @@ export type StackDefinitions = Record<string, StackDefinition>;
  * included because coins don't add light bulk below 1000, just 1
  * bulk per 1000 coins
  */
-export const stacks: StackDefinitions = {
+const stackDefinitions: StackDefinitions = {
     bolts: {
         size: 10,
         lightBulk: 1,
@@ -29,6 +29,10 @@ export const stacks: StackDefinitions = {
         lightBulk: 1,
     },
     blowgunDarts: {
+        size: 10,
+        lightBulk: 1,
+    },
+    woodenTaws: {
         size: 10,
         lightBulk: 1,
     },
@@ -337,7 +341,6 @@ export const defaultBulkConfig: BulkConfig = {
  * Calculates the bulk for stacks of ammunition, coins and rations;
  * Returns the remainders as overflow for further calculation
  * @param itemStacks and object containing the stack name as key and quantity as value
- * @param stackDefinitions
  * @param bulkConfig
  * @param actorSize
  * @param itemSize
@@ -345,13 +348,11 @@ export const defaultBulkConfig: BulkConfig = {
  */
 function calculateStackBulk({
     itemStacks,
-    stackDefinitions,
     bulkConfig = defaultBulkConfig,
     actorSize,
     itemSize,
 }: {
     itemStacks: Record<string, number>;
-    stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
     actorSize: Size;
     itemSize: Size;
@@ -360,7 +361,8 @@ function calculateStackBulk({
         .filter(([stackType]) => !(bulkConfig.ignoreCoinBulk && stackType === 'coins'))
         .map(([stackType, quantity]) => {
             if (!(stackType in stackDefinitions)) {
-                throw new Error(`No stack definition found for stack ${stackType}`);
+                console.warn(`No stack definition found for stack ${stackType}`);
+                stackType = 'arrows';
             }
             const { size, lightBulk } = stackDefinitions[stackType];
             const bulkRelevantQuantity = Math.floor(quantity / size);
@@ -378,12 +380,10 @@ function calculateStackBulk({
 
 function calculateItemBulk({
     item,
-    stackDefinitions,
     bulkConfig,
     actorSize,
 }: {
     item: BulkItem;
-    stackDefinitions: StackDefinitions;
     bulkConfig: BulkConfig;
     actorSize: Size;
 }): BulkAndOverflow {
@@ -394,7 +394,6 @@ function calculateItemBulk({
     }
     return calculateStackBulk({
         itemStacks: { [stackName]: item.quantity },
-        stackDefinitions,
         bulkConfig,
         itemSize: item.size,
         actorSize,
@@ -454,20 +453,17 @@ function calculateChildOverflow(
  */
 function calculateCombinedBulk({
     item,
-    stackDefinitions,
     nestedExtraDimensionalContainer = false,
     bulkConfig = defaultBulkConfig,
     actorSize,
 }: {
     item: BulkItem;
-    stackDefinitions: StackDefinitions;
     nestedExtraDimensionalContainer: boolean;
     bulkConfig: BulkConfig;
     actorSize: Size;
 }): BulkAndOverflow {
     const [mainBulk, mainOverflow] = calculateItemBulk({
         item,
-        stackDefinitions,
         bulkConfig,
         actorSize,
     });
@@ -475,7 +471,6 @@ function calculateCombinedBulk({
         .map((child) =>
             calculateCombinedBulk({
                 item: child,
-                stackDefinitions,
                 nestedExtraDimensionalContainer: item.extraDimensionalContainer,
                 bulkConfig,
                 actorSize,
@@ -491,7 +486,6 @@ function calculateCombinedBulk({
     );
     const [overflowBulk, remainingOverflow] = calculateStackBulk({
         itemStacks: combinedOverflow,
-        stackDefinitions,
         bulkConfig,
         actorSize,
         itemSize: item.size,
@@ -507,7 +501,6 @@ function calculateCombinedBulk({
  * contains only the allowed amount.
  * @param items a list of items; items can also be containers and contain items themselves
  * armor or weapons that are placed in a sheathe should be combined in a single container as well
- * @param stackDefinitions a list of stack groups and bulk values per group
  * @param nestedExtraDimensionalContainer true if you have a bag of holding inside a bag of holding
  * only the first bag of holding reduces bulk, the nested one stops working as per RAW
  * @param bulkConfig
@@ -516,13 +509,11 @@ function calculateCombinedBulk({
  */
 export function calculateBulk({
     items = [],
-    stackDefinitions = stacks,
     nestedExtraDimensionalContainer = false,
     actorSize = 'med',
     bulkConfig = defaultBulkConfig,
 }: {
     items?: BulkItem[];
-    stackDefinitions?: StackDefinitions;
     nestedExtraDimensionalContainer?: boolean;
     actorSize?: Size;
     bulkConfig?: BulkConfig;
@@ -532,7 +523,6 @@ export function calculateBulk({
     });
     return calculateCombinedBulk({
         item: inventory,
-        stackDefinitions,
         nestedExtraDimensionalContainer,
         bulkConfig,
         actorSize,
@@ -599,8 +589,9 @@ export function toBulkItem(item: PhysicalItemData, nestedItems: BulkItem[] = [])
     const equippedBulk = item.data?.equippedBulk?.value;
     const unequippedBulk = item.data?.unequippedBulk?.value;
     const stackGroup = item.data?.stackGroup?.value;
-    const negateBulk = item.data?.negateBulk?.value;
-    const extraDimensionalContainer = item.data?.traits?.value?.includes('extradimensional') ?? false;
+    const negateBulk = item.data.negateBulk?.value;
+    const traits: string[] = item.data.traits.value;
+    const extraDimensionalContainer = traits.includes('extradimensional');
     const size = item.data?.size?.value ?? 'med';
 
     return new BulkItem({

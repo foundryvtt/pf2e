@@ -90,9 +90,9 @@
             },
             "shield": {
                 "ac": 0,
-                "brokenThreshold": "0",
+                "brokenThreshold": 0,
                 "hardness": 0,
-                "max": "0",
+                "max": 0,
                 "min": 0,
                 "value": 0
             },
@@ -105,11 +105,12 @@
             "speed": {
                 "otherSpeeds": [
                     {
-                        "type": "Swim",
-                        "value": "25 feet"
+                        "label": "Swim",
+                        "type": "swim",
+                        "value": "25"
                     }
                 ],
-                "value": "20 feet"
+                "value": "20"
             }
         },
         "currency": {
@@ -126,6 +127,7 @@
                 "value": 0
             }
         },
+        "customModifiers": {},
         "details": {
             "alignment": {
                 "value": "CE"
@@ -142,7 +144,7 @@
             },
             "creatureType": "Humanoid",
             "deity": {
-                "image": "systems/pf2e/assets/sheet/deity.png",
+                "image": "systems/pf2e/assets/sheet/deity.webp",
                 "value": ""
             },
             "flavorText": "The boggard swampseer has been gifted with magic through its worship of the demon lord Gogunta, and uses its power to rule a boggard village, keeping the rest of the village in line and planning raids on nearby communities.<br /><br />",
@@ -157,30 +159,47 @@
                 "min": 1,
                 "value": 3
             },
-            "nethysUrl": "https://2e.aonprd.com/Monsters.aspx?ID=56",
             "recallKnowledgeText": "Recall Knowledge : DC 18",
             "sidebarText": "",
             "source": {
-                "value": "Bestiary pg. 45"
+                "value": ""
             }
         },
         "items": {
             "0": {
                 "data": {
+                    "ability": {
+                        "value": "wis"
+                    },
                     "slots": {
                         "slot0": {
-                            "max": "4"
+                            "max": 4
                         },
                         "slot1": {
-                            "max": "3"
+                            "max": 3
                         },
                         "slot2": {
-                            "max": "2"
+                            "max": 2
                         }
                     },
                     "spelldc": {
                         "dc": 21,
                         "value": 11
+                    }
+                }
+            },
+            "UzYnGzFLBmDoK9wK": {
+                "data": {
+                    "slots": {
+                        "slot0": {
+                            "max": 4
+                        },
+                        "slot1": {
+                            "max": 3
+                        },
+                        "slot2": {
+                            "max": 2
+                        }
                     }
                 }
             }
@@ -435,6 +454,9 @@
         },
         "statusEffects": [],
         "traits": {
+            "attitude": {
+                "value": "hostile"
+            },
             "ci": [],
             "di": {
                 "custom": "",
@@ -478,7 +500,7 @@
             "_id": "UzYnGzFLBmDoK9wK",
             "data": {
                 "ability": {
-                    "value": ""
+                    "value": "wis"
                 },
                 "description": {
                     "chat": "",
@@ -512,16 +534,16 @@
                         "max": 4,
                         "prepared": {
                             "0": {
-                                "id": "HZGcj8gsmmuu1DMz"
+                                "id": "aWrba0Cx0aUFKGTH"
                             },
                             "1": {
-                                "id": "Koh9fE5D65iQ7B3B"
+                                "id": "lYobzoyMSJP9qovl"
                             },
                             "2": {
-                                "id": "Z8NPGCUgPV8E7Gt1"
+                                "id": "tuWDYuJ54BBGdIin"
                             },
                             "3": {
-                                "id": "UGtXJ6pAUiMqYngf"
+                                "id": "2y2eHbFTTwLXC2mJ"
                             }
                         },
                         "value": 0
@@ -530,13 +552,13 @@
                         "max": 3,
                         "prepared": {
                             "0": {
-                                "id": "AVXXuC8FjbQMpdhd"
+                                "id": "bCv4OoUPE8MWGjix"
                             },
                             "1": {
-                                "id": "h6o7EmG63xOO21X2"
+                                "id": "APMeo9pDrDlvl4nj"
                             },
                             "2": {
-                                "id": "RlBGFWOcQc7dN1CL"
+                                "id": "qL1mHFEEvual7zpd"
                             }
                         },
                         "value": 0
@@ -555,10 +577,10 @@
                         "max": 2,
                         "prepared": {
                             "0": {
-                                "id": "rMm1JlDIgKCh5fFK"
+                                "id": "JuuUD8umGcFW9F84"
                             },
                             "1": {
-                                "id": "RmVe5khwG2JLfHpP"
+                                "id": "fwmpOvSHxsaBy51O"
                             }
                         },
                         "value": 0
@@ -625,20 +647,26 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Primal Prepared Spells",
             "sort": 100000,
             "type": "spellcastingEntry"
         },
         {
-            "_id": "rMm1JlDIgKCh5fFK",
+            "_id": "JuuUD8umGcFW9F84",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -656,7 +684,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You conjure an arrow of acid that continues corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
+                    "value": "<p>You conjure an arrow of acid that keeps corroding the target after it hits. Make a spell attack against the target. On a hit, you deal 3d8 acid damage plus 1d6 persistent acid damage. On a critical hit, double the initial damage, but not the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage}.</p>\n<hr />\n<p><strong>Heightened (+2)</strong> The initial damage increases by 2d8, and the persistent acid damage increases by 1d6.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -676,6 +704,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -685,17 +716,20 @@
                     "value": ""
                 },
                 "scaling": {
-                    "formula": "",
-                    "mode": "none"
+                    "formula": "2d8",
+                    "mode": "level2"
                 },
                 "school": {
-                    "value": "evo"
+                    "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "acid-arrow",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=2"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -705,7 +739,7 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
                     "value": "2"
@@ -726,20 +760,21 @@
                         "attack",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/acid-arrow.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.f8hRqLJaxBVhF1u0"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/acid-arrow.webp",
             "name": "Acid Arrow",
             "sort": 200000,
             "type": "spell"
         },
         {
-            "_id": "RmVe5khwG2JLfHpP",
+            "_id": "fwmpOvSHxsaBy51O",
             "data": {
                 "ability": {
                     "value": ""
@@ -747,6 +782,12 @@
                 "area": {
                     "areaType": "burst",
                     "value": 20
+                },
+                "areasize": {
+                    "value": "20-foot burst"
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "material, somatic, verbal"
@@ -764,7 +805,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed} to creatures within it. You can Dismiss the cloud.</p>"
+                    "value": "<p>You call forth a cloud of mist. All creatures within the mist become @Compendium[pf2e.conditionitems.Concealed]{Concealed}, and all creatures outside the mist become Concealed to creatures within it. You can Dismiss the cloud.</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -784,6 +825,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -797,13 +841,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "con"
+                    "value": "conjuration"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "obscuring-mist",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=210"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -833,20 +880,21 @@
                         "conjuration",
                         "water"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/obscuring-mist.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.9XHmC2JgTUIQ1CCm"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/obscuring-mist.webp",
             "name": "Obscuring Mist",
             "sort": 300000,
             "type": "spell"
         },
         {
-            "_id": "AVXXuC8FjbQMpdhd",
+            "_id": "bCv4OoUPE8MWGjix",
             "data": {
                 "ability": {
                     "value": ""
@@ -854,6 +902,12 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -866,12 +920,12 @@
                     "value": ""
                 },
                 "damageType": {
-                    "value": "mental"
+                    "value": ""
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr /><strong>Critical Success</strong> The target is unaffected.\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 2.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened} 3 and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr /><strong>Heightened</strong> You can target up to five creatures."
+                    "value": "<p>You plant fear in the target; it must attempt a Will save.</p>\n<hr />\n<p><strong>Critical Success</strong> The target is unaffected.</p>\n<p><strong>Success</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 1}.</p>\n<p><strong>Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 2}.</p>\n<p><strong>Critical Failure</strong> The target is @Compendium[pf2e.conditionitems.Frightened]{Frightened 3} and @Compendium[pf2e.conditionitems.Fleeing]{Fleeing} for 1 round.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> You can target up to five creatures.</p>"
                 },
                 "duration": {
                     "value": "varies"
@@ -891,6 +945,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -904,13 +961,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "enc"
+                    "value": "enchantment"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "fear",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=110"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -944,20 +1004,21 @@
                         "fear",
                         "mental"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/fear.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.4koZzrnMXhhosn0D"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/fear.webp",
             "name": "Fear",
             "sort": 400000,
             "type": "spell"
         },
         {
-            "_id": "h6o7EmG63xOO21X2",
+            "_id": "APMeo9pDrDlvl4nj",
             "data": {
                 "ability": {
                     "value": ""
@@ -965,6 +1026,12 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic"
@@ -982,7 +1049,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>Your legs surge with strength, ready to leap high and far. You jump 30 feet in any direction without touching the ground. You must land on a space of solid ground within 30 feet of you, or else you fall after using your next action.</p>\n<hr />\n<p><strong>Heightened</strong> The range becomes touch, the target changes to one touched creature, and the duration becomes 1 minute, allowing the target to jump as described whenever it takes the Leap action.</p>"
+                    "value": "<p>Your legs surge with strength, ready to leap high and far. You jump 30 feet in any direction without touching the ground. You must land on a space of solid ground within 30 feet of you, or else you fall after using your next action.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The range becomes touch, the target changes to one touched creature, and the duration becomes 1 minute, allowing the target to jump as described whenever it takes the Leap action.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1002,6 +1069,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": ""
                 },
@@ -1015,13 +1085,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "trs"
+                    "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "jump",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=167"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -1051,20 +1124,21 @@
                         "move",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/jump.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.Q7QQ91vQtyi1Ux36"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/jump.webp",
             "name": "Jump",
             "sort": 500000,
             "type": "spell"
         },
         {
-            "_id": "RlBGFWOcQc7dN1CL",
+            "_id": "qL1mHFEEvual7zpd",
             "data": {
                 "ability": {
                     "value": ""
@@ -1072,6 +1146,12 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1089,7 +1169,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The target grows vines and leaves, brimming with primal energy. The target becomes a<em>+1 striking weapon</em>while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>"
+                    "value": "<p>The target grows vines and leaves, brimming with primal energy. The target becomes a <em>+1 striking weapon</em> while in your hands, gaining a +1 item bonus to attack rolls and increasing the number of weapon damage dice to two. Additionally, as long as you are on your home plane, attacks you make with the target against aberrations, extraplanar creatures, and undead increase the number of weapon damage dice to three.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Shillelagh]{Spell Effect: Shillelagh}</p>"
                 },
                 "duration": {
                     "value": "1 minute"
@@ -1109,6 +1189,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "touch"
                 },
@@ -1122,13 +1205,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "trs"
+                    "value": "transmutation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "shillelagh",
                 "source": {
-                    "value": "https://2e.aonprd.com/Spells.aspx?ID=282"
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -1157,27 +1243,34 @@
                         "plant",
                         "transmutation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/shillelagh.jpg",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.s3abwDbTV43pGFFW"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/shillelagh.webp",
             "name": "Shillelagh",
             "sort": 600000,
             "type": "spell"
         },
         {
-            "_id": "HZGcj8gsmmuu1DMz",
+            "_id": "aWrba0Cx0aUFKGTH",
             "data": {
                 "ability": {
                     "value": ""
                 },
                 "area": {
                     "areaType": "",
-                    "value": null
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1195,7 +1288,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You splash a glob of acid that splatters creatures and objects alike. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr style=\"color: #0f0f0f; font-family: 'Century Gothic', CenturyGothic, AppleGothic, sans-serif; font-size: 15px; background-color: #ededed;\">\n<p><strong>Heightened</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.<br /><strong>Heightened</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 3, and the splash damage increases to 2.<br /><strong>Heightened</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 4, and the splash damage increases to 3.<br /><strong>Heightened</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 5, and the splash damage increases to 4.</p>"
+                    "value": "<p>You splash a glob of acid that splatters your target and nearby creatures. Make a spell attack. If you hit, you deal 1d6 acid damage plus 1 splash acid damage. On a critical success, the target also takes 1 persistent acid damage.</p>\n<hr />\n<p><strong>Heightened (3rd)</strong> The initial damage increases to 1d6 + your spellcasting ability modifier, and the @Compendium[pf2e.conditionitems.Persistent Damage]{Persistent Damage} increases to 2.<br /><strong>Heightened (5th)</strong> The initial damage increases to 2d6 + your spellcasting ability modifier, the Persistent Damage increases to 3, and the splash damage increases to 2.<br /><strong>Heightened (7th)</strong> The initial damage increases to 3d6 + your spellcasting ability modifier, the Persistent Damage increases to 4, and the splash damage increases to 3.<br /><strong>Heightened (9th)</strong> The initial damage increases to 4d6 + your spellcasting ability modifier, the Persistent Damage increases to 5, and the splash damage increases to 4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1215,6 +1308,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "30 feet"
                 },
@@ -1228,13 +1324,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "evo"
+                    "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
                 },
-                "spellCategory": {
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "acid-splash",
+                "source": {
                     "value": ""
                 },
                 "spellType": {
@@ -1244,10 +1343,10 @@
                     "value": false
                 },
                 "target": {
-                    "value": "1 creature or object"
+                    "value": "1 creature"
                 },
                 "time": {
-                    "value": "2 Actions"
+                    "value": "2"
                 },
                 "traditions": {
                     "custom": "",
@@ -1267,20 +1366,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/acid-splash.jpg",
-            "name": "Acid Splash - Cantrips ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gISYsBFby1TiXfBt"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/acid-splash.webp",
+            "name": "Acid Splash",
             "sort": 700000,
             "type": "spell"
         },
         {
-            "_id": "Koh9fE5D65iQ7B3B",
+            "_id": "lYobzoyMSJP9qovl",
             "data": {
                 "ability": {
                     "value": ""
@@ -1288,6 +1388,12 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1325,6 +1431,9 @@
                 "prepared": {
                     "value": ""
                 },
+                "primarycheck": {
+                    "value": ""
+                },
                 "range": {
                     "value": "120 feet"
                 },
@@ -1338,13 +1447,16 @@
                     "mode": "none"
                 },
                 "school": {
-                    "value": "evo"
+                    "value": "evocation"
                 },
-                "slug": null,
-                "source": {
+                "secondarycasters": {
                     "value": ""
                 },
-                "spellCategory": {
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "dancing-lights",
+                "source": {
                     "value": ""
                 },
                 "spellType": {
@@ -1377,20 +1489,21 @@
                         "cantrip",
                         "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/dancing-lights.jpg",
-            "name": "Dancing Lights - Cantrips ",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.kl2q6JvBZwed4B6v"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/dancing-lights.webp",
+            "name": "Dancing Lights",
             "sort": 800000,
             "type": "spell"
         },
         {
-            "_id": "Z8NPGCUgPV8E7Gt1",
+            "_id": "tuWDYuJ54BBGdIin",
             "data": {
                 "ability": {
                     "value": ""
@@ -1398,6 +1511,12 @@
                 "area": {
                     "areaType": "",
                     "value": null
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
                 },
                 "components": {
                     "value": "somatic, verbal"
@@ -1415,7 +1534,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.<br /><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened</strong> The damage increases by 1d4.</p>"
+                    "value": "<p>You blast an icy ray. Make a spell attack roll. The ray deals cold damage equal to 1d4 + your spellcasting ability modifier.</p>\n<hr />\n<p><strong>Critical Success</strong> The target takes double damage and takes a -10-foot status penalty to its Speeds for 1 round.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Ray of Frost]{Spell Effect: Ray of Frost}</p>\n<p><strong>Success</strong> The target takes normal damage.</p>\n<hr />\n<p><strong>Heightened (+1)</strong> The damage increases by 1d4.</p>"
                 },
                 "duration": {
                     "value": ""
@@ -1433,6 +1552,9 @@
                     "value": ""
                 },
                 "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
                     "value": ""
                 },
                 "range": {
@@ -1448,123 +1570,16 @@
                     "mode": "level1"
                 },
                 "school": {
-                    "value": "evo"
+                    "value": "evocation"
                 },
-                "slug": null,
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "ray-of-frost",
                 "source": {
-                    "value": ""
-                },
-                "spellCategory": {
-                    "value": ""
-                },
-                "spellType": {
-                    "value": "attack"
-                },
-                "sustained": {
-                    "value": false
-                },
-                "target": {
-                    "value": "1 creature"
-                },
-                "time": {
-                    "value": "2 Actions"
-                },
-                "traditions": {
-                    "custom": "",
-                    "value": [
-                        "arcane",
-                        "primal"
-                    ]
-                },
-                "traits": {
-                    "custom": "",
-                    "rarity": {
-                        "value": "common"
-                    },
-                    "value": [
-                        "attack",
-                        "cold",
-                        "cantrip",
-                        "evocation"
-                    ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
-                }
-            },
-            "effects": [],
-            "flags": {},
-            "img": "systems/pf2e/icons/spells/ray-of-frost.jpg",
-            "name": "Ray of Frost - Cantrips ",
-            "sort": 900000,
-            "type": "spell"
-        },
-        {
-            "_id": "UGtXJ6pAUiMqYngf",
-            "data": {
-                "ability": {
-                    "value": ""
-                },
-                "area": {
-                    "areaType": "",
-                    "value": null
-                },
-                "components": {
-                    "value": "somatic, verbal"
-                },
-                "cost": {
-                    "value": ""
-                },
-                "damage": {
-                    "applyMod": false,
-                    "value": ""
-                },
-                "damageType": {
-                    "value": ""
-                },
-                "description": {
-                    "chat": "",
-                    "unidentified": "",
-                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.<br /><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.<br /><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened</strong> The effects last for 2 rounds.<br /><strong>Heightened</strong> The effects last for 1 minute.</p>"
-                },
-                "duration": {
-                    "value": ""
-                },
-                "hasCounteractCheck": {
-                    "value": false
-                },
-                "level": {
-                    "value": 0
-                },
-                "location": {
-                    "value": "UzYnGzFLBmDoK9wK"
-                },
-                "materials": {
-                    "value": ""
-                },
-                "prepared": {
-                    "value": ""
-                },
-                "range": {
-                    "value": "30 feet"
-                },
-                "rules": [],
-                "save": {
-                    "basic": "",
-                    "value": ""
-                },
-                "scaling": {
-                    "formula": "",
-                    "mode": "none"
-                },
-                "school": {
-                    "value": "con"
-                },
-                "slug": null,
-                "source": {
-                    "value": ""
-                },
-                "spellCategory": {
                     "value": ""
                 },
                 "spellType": {
@@ -1592,31 +1607,163 @@
                         "value": "common"
                     },
                     "value": [
-                        "plant",
+                        "attack",
+                        "cold",
                         "cantrip",
-                        "conjuration"
+                        "evocation"
                     ]
-                },
-                "usage": {
-                    "value": "held-in-one-hand"
                 }
             },
             "effects": [],
             "flags": {
-                "dynamiceffects": {
-                    "alwaysActive": false,
-                    "equipActive": false
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.gYjPm7YwGtEa1oxh"
                 }
             },
-            "img": "systems/pf2e/icons/spells/tanglefoot.jpg",
-            "name": "Tanglefoot - Cantrips ",
+            "img": "systems/pf2e/icons/spells/ray-of-frost.webp",
+            "name": "Ray of Frost",
+            "sort": 900000,
+            "type": "spell"
+        },
+        {
+            "_id": "2y2eHbFTTwLXC2mJ",
+            "data": {
+                "ability": {
+                    "value": ""
+                },
+                "area": {
+                    "areaType": "",
+                    "value": ""
+                },
+                "areasize": {
+                    "value": ""
+                },
+                "category": {
+                    "value": "spell"
+                },
+                "components": {
+                    "value": "somatic, verbal"
+                },
+                "cost": {
+                    "value": ""
+                },
+                "damage": {
+                    "applyMod": false,
+                    "value": ""
+                },
+                "damageType": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A vine covered in sticky sap appears from thin air, flicking from your hand and lashing itself to the target. Attempt a spell attack against the target.</p>\n<hr />\n<p><strong>Critical Success</strong> The target gains the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition and takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty and the @Compendium[pf2e.conditionitems.Immobilized]{Immobilized} condition.</p>\n<p><strong>Success</strong> The target takes a -10-foot circumstance penalty to its Speeds for 1 round. It can attempt to Escape against your spell DC to remove the penalty.</p>\n<p>@Compendium[pf2e.spell-effects.Spell Effect: Tanglefoot]{Spell Effect: Tanglefoot}</p>\n<p><strong>Failure</strong> The target is unaffected.</p>\n<hr />\n<p><strong>Heightened (2nd)</strong> The effects last for 2 rounds.</p>\n<p><strong>Heightened (4th)</strong> The effects last for 1 minute.</p>"
+                },
+                "duration": {
+                    "value": ""
+                },
+                "hasCounteractCheck": {
+                    "value": false
+                },
+                "level": {
+                    "value": 0
+                },
+                "location": {
+                    "value": "UzYnGzFLBmDoK9wK"
+                },
+                "materials": {
+                    "value": ""
+                },
+                "prepared": {
+                    "value": ""
+                },
+                "primarycheck": {
+                    "value": ""
+                },
+                "range": {
+                    "value": "30 feet"
+                },
+                "rules": [],
+                "save": {
+                    "basic": "",
+                    "value": ""
+                },
+                "scaling": {
+                    "formula": "",
+                    "mode": "none"
+                },
+                "school": {
+                    "value": "conjuration"
+                },
+                "secondarycasters": {
+                    "value": ""
+                },
+                "secondarycheck": {
+                    "value": ""
+                },
+                "slug": "tanglefoot",
+                "source": {
+                    "value": ""
+                },
+                "spellType": {
+                    "value": "attack"
+                },
+                "sustained": {
+                    "value": false
+                },
+                "target": {
+                    "value": "1 creature"
+                },
+                "time": {
+                    "value": "2"
+                },
+                "traditions": {
+                    "custom": "",
+                    "value": [
+                        "arcane",
+                        "primal"
+                    ]
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": [
+                        "attack",
+                        "cantrip",
+                        "conjuration",
+                        "plant"
+                    ]
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.spells-srd.uZK2BYzPnxUBnDjr"
+                }
+            },
+            "img": "systems/pf2e/icons/spells/tanglefoot.webp",
+            "name": "Tanglefoot",
             "sort": 1000000,
             "type": "spell"
         },
         {
-            "_id": "yCZz3uTxq6XBHWZh",
+            "_id": "PSij8Gll2LV7EGRl",
             "data": {
-                "baseItem": null,
+                "MAP": {
+                    "value": ""
+                },
+                "ability": {
+                    "value": "str"
+                },
+                "baseItem": "staff",
+                "bonus": {
+                    "value": 0
+                },
+                "bonusDamage": {
+                    "value": 0
+                },
                 "brokenThreshold": {
                     "value": 0
                 },
@@ -1629,15 +1776,27 @@
                 "containerId": {
                     "value": ""
                 },
+                "damage": {
+                    "damageType": "bludgeoning",
+                    "dice": 1,
+                    "die": "d4",
+                    "value": ""
+                },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": ""
+                    "value": "<p>This long piece of wood can aid in walking and deliver a mighty blow.</p>"
                 },
                 "equipped": {
                     "value": false
                 },
                 "equippedBulk": {
+                    "value": ""
+                },
+                "group": {
+                    "value": "club"
+                },
+                "hands": {
                     "value": ""
                 },
                 "hardness": {
@@ -1647,10 +1806,17 @@
                     "value": 0
                 },
                 "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
+                    "misidentified": {},
+                    "status": "identified",
+                    "unidentified": {
+                        "data": {
+                            "description": {
+                                "value": ""
+                            }
+                        },
+                        "img": "",
+                        "name": ""
+                    }
                 },
                 "invested": {
                     "value": false
@@ -1664,6 +1830,9 @@
                 "negateBulk": {
                     "value": "0"
                 },
+                "potencyRune": {
+                    "value": 0
+                },
                 "preciousMaterial": {
                     "value": ""
                 },
@@ -1671,20 +1840,58 @@
                     "value": ""
                 },
                 "price": {
-                    "value": 0
+                    "value": "0"
+                },
+                "property1": {
+                    "critDamage": "",
+                    "critDamageType": "",
+                    "critDice": null,
+                    "critDie": "",
+                    "criticalConditionType": "",
+                    "criticalConditionValue": null,
+                    "damageType": "",
+                    "dice": null,
+                    "die": "",
+                    "strikeConditionType": "",
+                    "strikeConditionValue": null,
+                    "value": ""
+                },
+                "propertyRune1": {
+                    "value": ""
+                },
+                "propertyRune2": {
+                    "value": ""
+                },
+                "propertyRune3": {
+                    "value": ""
+                },
+                "propertyRune4": {
+                    "value": ""
                 },
                 "quantity": {
                     "value": 1
+                },
+                "range": {
+                    "value": "melee"
+                },
+                "reload": {
+                    "value": ""
                 },
                 "rules": [],
                 "size": {
                     "value": "med"
                 },
-                "slug": null,
+                "slug": "staff",
                 "source": {
                     "value": ""
                 },
+                "splashDamage": {
+                    "value": 0
+                },
                 "stackGroup": {
+                    "value": ""
+                },
+                "strikingRune": {
                     "value": ""
                 },
                 "traits": {
@@ -1692,21 +1899,30 @@
                     "rarity": {
                         "value": "common"
                     },
-                    "value": []
+                    "value": [
+                        "two-hand-d8"
+                    ]
                 },
                 "usage": {
                     "value": "held-in-one-hand"
                 },
+                "weaponType": {
+                    "value": "simple"
+                },
                 "weight": {
-                    "value": 0
+                    "value": "1"
                 }
             },
             "effects": [],
-            "flags": {},
-            "img": "icons/svg/mystery-man.svg",
-            "name": "staff",
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.equipment-srd.FVjTuBCIefAgloUU"
+                }
+            },
+            "img": "systems/pf2e/icons/equipment/weapons/staff.webp",
+            "name": "Staff",
             "sort": 1100000,
-            "type": "equipment"
+            "type": "weapon"
         },
         {
             "_id": "bg3DA0xcxyfSwJZm",
@@ -1715,6 +1931,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": []
                 },
                 "baseItem": null,
@@ -1759,12 +1976,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1834,7 +2045,7 @@
                         "value": "common"
                     },
                     "value": [
-                        "two-hand d8"
+                        "two-hand-d8"
                     ]
                 },
                 "usage": {
@@ -1849,7 +2060,7 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Staff",
             "sort": 1200000,
             "type": "melee"
@@ -1861,6 +2072,7 @@
                     "value": ""
                 },
                 "attackEffects": {
+                    "custom": "",
                     "value": [
                         "Tongue Grab"
                     ]
@@ -1899,12 +2111,6 @@
                 },
                 "hp": {
                     "value": 0
-                },
-                "identification": {
-                    "status": "identified"
-                },
-                "identified": {
-                    "value": false
                 },
                 "invested": {
                     "value": false
@@ -1989,10 +2195,60 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Tongue",
             "sort": 1300000,
             "type": "melee"
+        },
+        {
+            "_id": "mJ4kL0oQk4xWhXtX",
+            "data": {
+                "actionCategory": {
+                    "value": "interaction"
+                },
+                "actionType": {
+                    "value": "passive"
+                },
+                "actions": {
+                    "value": ""
+                },
+                "description": {
+                    "chat": "",
+                    "unidentified": "",
+                    "value": "<p>A monster with darkvision can see perfectly well in areas of darkness and dim light, though such vision is in black and white only. Some forms of magical darkness, such as a 4th-level @Compendium[pf2e.spells-srd.Darkness]{Darkness} spell, block normal darkvision. A monster with @Compendium[pf2e.bestiary-ability-glossary-srd.Greater Darkvision]{Greater Darkvision}, however, can see through even these forms of magical darkness.</p>"
+                },
+                "requirements": {
+                    "value": ""
+                },
+                "rules": [],
+                "slug": "darkvision",
+                "source": {
+                    "value": ""
+                },
+                "traits": {
+                    "custom": "",
+                    "rarity": {
+                        "value": "common"
+                    },
+                    "value": []
+                },
+                "trigger": {
+                    "value": ""
+                },
+                "weapon": {
+                    "value": ""
+                }
+            },
+            "effects": [],
+            "flags": {
+                "core": {
+                    "sourceId": "Compendium.pf2e.bestiary-ability-glossary-srd.qCCLZhnp2HhP3Ex6"
+                }
+            },
+            "img": "systems/pf2e/icons/default-icons/action.svg",
+            "name": "Darkvision",
+            "sort": 1400000,
+            "type": "action"
         },
         {
             "_id": "9SboqcQona3PXQIx",
@@ -2004,12 +2260,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 2
+                    "value": "2"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The swampseer utters a powerful croak that deals [[/r 4d6 # sonic damage]] sonic damage to any non-boggard within a 15-foot emanation (DC 19 basic Fortitude save); any creature with the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition takes additional sonic damage equal to twice the value of their frightened condition. The boggard can't use Destructive Croak again for 1d4 rounds</p>"
+                    "value": "<p>The swampseer utters a powerful croak that deals [[/r 4d6 #sonic]] sonic damage to any non-boggard within a 15-foot emanation (<span data-pf2-saving-throw=\"fortitude\" data-pf2-dc=\"19\" data-pf2-traits=\"sonic,damaging-effect\" data-pf2-label=\"Destructive Croak DC\" data-pf2-show-dc=\"gm\">basic Fortitude</span> save); any creature with the @Compendium[pf2e.conditionitems.Frightened]{Frightened} condition takes additional sonic damage equal to twice the value of their frightened condition.</p>\n<p><em data-visibility=\"gm\">The boggard can't use Destructive Croak again for [[/br 1d4 #rounds]] rounds</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2040,9 +2296,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/TwoActions.webp",
             "name": "Destructive Croak",
-            "sort": 1400000,
+            "sort": 1500000,
             "type": "action"
         },
         {
@@ -2060,7 +2316,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p><strong>Trigger</strong> The boggard swampseer or one of its allies within 60 feet attempts a saving throw against an auditory or sonic effect. <strong>Effect</strong> The swampseer releases a croak that drowns out other sound. It rolls a Performance check. It and boggard allies in the area can use the higher result of the swampseer's Performance check or their saves to resolve the effects against the auditory or sonic effect.</p>"
+                    "value": "<p><strong>Trigger</strong> The boggard swampseer or one of its allies within 60 feet attempts a saving throw against an auditory or sonic effect.</p>\n<p><strong>Effect</strong> The swampseer releases a croak that drowns out other sound. It rolls a Performance check. It and boggard allies in the area can use the higher result of the swampseer's Performance check or their saves to resolve the effects against the auditory or sonic effect.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2093,9 +2349,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Reaction.webp",
             "name": "Drowning Drone",
-            "sort": 1500000,
+            "sort": 1600000,
             "type": "action"
         },
         {
@@ -2142,9 +2398,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/mystery-man.svg",
             "name": "Swamp Stride",
-            "sort": 1600000,
+            "sort": 1700000,
             "type": "action"
         },
         {
@@ -2157,12 +2413,12 @@
                     "value": "action"
                 },
                 "actions": {
-                    "value": 1
+                    "value": "1"
                 },
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>The boggard swampseer unleashes a terrifying croak. Any non-boggard within 30 feet becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened} 1 unless they succeed at a DC 19 Will save; those who critically succeed are temporarily immune for 1 minute.</p>"
+                    "value": "<p>The boggard swampseer unleashes a terrifying croak. Any non-boggard within 30 feet becomes @Compendium[pf2e.conditionitems.Frightened]{Frightened 1} unless they succeed at a <span data-pf2-saving-throw=\"will\" data-pf2-dc=\"19\" data-pf2-traits=\"auditory,emotion,fear,mental\" data-pf2-label=\"Terrifying Croak DC\" data-pf2-show-dc=\"gm\">Will</span> save<em data-visibility=\"gm\">; those who critically succeed are temporarily immune for 1 minute</em>.</p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2196,9 +2452,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/OneAction.webp",
             "name": "Terrifying Croak",
-            "sort": 1700000,
+            "sort": 1800000,
             "type": "action"
         },
         {
@@ -2216,7 +2472,7 @@
                 "description": {
                     "chat": "",
                     "unidentified": "",
-                    "value": "<p>If the boggard swampseer hits a creature with its tongue, that creature becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the boggard. Unlike with a normal grab, the creature isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the boggard's tongue. A creature can sever the tongue by hitting AC 15 and dealing at least [[/r 4 # slashing damage]] slashing damage. Though this doesn't deal any damage to the boggard, it prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</p>"
+                    "value": "<p>If the boggard swampseer hits a creature with its tongue, that creature becomes @Compendium[pf2e.conditionitems.Grabbed]{Grabbed} by the boggard. Unlike with a normal grab, the creature isn't @Compendium[pf2e.conditionitems.Immobilized]{Immobilized}, but it can't move beyond the reach of the boggard's tongue.</p>\n<p><em data-visibility=\"gm\"> A creature can sever the tongue by hitting AC 15 and dealing at least 4 slashing damage. Though this doesn't deal any damage to the boggard, it prevents it from using its tongue Strike until it regrows its tongue, which takes a week.</em></p>"
                 },
                 "requirements": {
                     "value": ""
@@ -2245,9 +2501,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/actions/Passive.webp",
             "name": "Tongue Grab",
-            "sort": 1800000,
+            "sort": 1900000,
             "type": "action"
         },
         {
@@ -2285,9 +2541,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Athletics",
-            "sort": 1900000,
+            "sort": 2000000,
             "type": "lore"
         },
         {
@@ -2325,9 +2581,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Intimidation",
-            "sort": 2000000,
+            "sort": 2100000,
             "type": "lore"
         },
         {
@@ -2365,9 +2621,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Medicine",
-            "sort": 2100000,
+            "sort": 2200000,
             "type": "lore"
         },
         {
@@ -2405,9 +2661,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Nature",
-            "sort": 2200000,
+            "sort": 2300000,
             "type": "lore"
         },
         {
@@ -2445,9 +2701,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Performance",
-            "sort": 2300000,
+            "sort": 2400000,
             "type": "lore"
         },
         {
@@ -2485,9 +2741,9 @@
             },
             "effects": [],
             "flags": {},
-            "img": "icons/svg/mystery-man.svg",
+            "img": "systems/pf2e/icons/default-icons/lore.svg",
             "name": "Religion",
-            "sort": 2400000,
+            "sort": 2500000,
             "type": "lore"
         }
     ],
@@ -2501,7 +2757,9 @@
         "bar1": {
             "attribute": "attributes.hp"
         },
-        "bar2": {},
+        "bar2": {
+            "attribute": ""
+        },
         "brightLight": 0,
         "brightSight": 0,
         "dimLight": 0,
@@ -2511,20 +2769,24 @@
         "disposition": -1,
         "flags": {},
         "height": 1,
-        "img": "systems/pf2e/icons/bestiary-1/boggard_swampseer.webp",
+        "img": "systems/pf2e/icons/default-icons/npc.svg",
         "lightAlpha": 1,
         "lightAngle": 360,
         "lightAnimation": {
             "intensity": 5,
-            "speed": 5
+            "speed": 5,
+            "type": ""
         },
+        "lightColor": "",
         "lockRotation": false,
+        "mirrorX": false,
+        "mirrorY": false,
         "name": "Boggard Swampseer",
         "randomImg": false,
         "rotation": 0,
         "scale": 1,
         "sightAngle": 360,
-        "tint": null,
+        "tint": "",
         "vision": false,
         "width": 1
     },

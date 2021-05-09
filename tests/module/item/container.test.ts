@@ -1,6 +1,6 @@
 import { getContainerMap, isCycle } from '../../../src/module/item/container';
 import { indexBulkItemsById, toBulkItems } from '../../../src/module/item/bulk';
-import { PhysicalItemData } from '@item/data-definitions';
+import { PhysicalItemData } from '@item/data/types';
 
 function createItem({
     id,
@@ -19,10 +19,13 @@ function createItem({
     containerId?: string;
     equipped?: boolean;
 }): PhysicalItemData {
-    return {
+    return ({
         _id: id,
         type: 'equipment',
         data: {
+            traits: {
+                value: [],
+            },
             negateBulk: {
                 value: negateBulk,
             },
@@ -45,7 +48,7 @@ function createItem({
                 value: 1,
             },
         },
-    } as unknown as PhysicalItemData;
+    } as unknown) as PhysicalItemData;
 }
 
 describe('should create container data', () => {

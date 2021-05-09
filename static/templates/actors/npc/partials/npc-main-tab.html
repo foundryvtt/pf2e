@@ -91,7 +91,7 @@
                 {{/if}}
         </div>
         <div class="section-body">
-            <ol class="attacks-list">
+            <ol class="attacks-list item-list">
                 {{#each attacks as |attack index|}}
                     {{> 'systems/pf2e/templates/actors/npc/partials/npc-attack.html' action=attack.attack traits=attack.traits actionId=index isEditable=../options.editable }}
                 {{/each}}
@@ -104,12 +104,12 @@
             <h4>{{ localize 'PF2E.ActionActionsLabel'}}</h4>
             {{# if options.editable }}
                 <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{ localize 'PF2E.NPC.AddAction' }}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
+                    <a class="action-add item-create" title="{{localize 'PF2E.NPC.AddAction'}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
                 </div>
             {{/if}}
         </div>
         <div class="section-body">
-            <ol class="actions-list">
+            <ol class="actions-list item-list">
                 {{#each actions as |section sectionId|}}
                     {{#unless (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}
@@ -131,7 +131,7 @@
             {{/if}}
         </div>
         <div class="section-body">
-            <ol class="actions-list">
+            <ol class="actions-list item-list">
                 {{#each actions as |section sectionId|}}
                     {{#if (eq sectionId 'passive')}}
                         {{#each section.actions as |action actionId|}}

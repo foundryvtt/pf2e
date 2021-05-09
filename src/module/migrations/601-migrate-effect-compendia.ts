@@ -1,5 +1,6 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e } from '@item/data/types';
+import { objectHasKey } from '@module/utils';
 
 export class Migration601SplitEffectCompendia extends MigrationBase {
     static version = 0.601;
@@ -190,16 +191,22 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         if (typeof item.data.description.value === 'string') {
             item.data.description.value = item.data.description.value.replace(
                 /(@Compendium\[pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})(\]{.*?})/g,
-                function (_full, first, _replace, dot, itemId, rest): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId + rest;
+                (_full, first, _replace, dot, itemId, rest): string => {
+                    const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)
+                        ? Migration601SplitEffectCompendia.effectLocations[itemId]
+                        : '??';
+                    return first + packName + dot + itemId + rest;
                 },
             );
         }
         if (typeof item.flags.core?.sourceId === 'string') {
             item.flags.core.sourceId = (item.flags.core.sourceId as string).replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
-                function (_full, first, _replace, dot, itemId): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                (_full, first, _replace, dot, itemId): string => {
+                    const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)
+                        ? Migration601SplitEffectCompendia.effectLocations[itemId]
+                        : '??';
+                    return first + packName + dot + itemId;
                 },
             );
         }
@@ -209,8 +216,11 @@ export class Migration601SplitEffectCompendia extends MigrationBase {
         game.macros.forEach((macro) => {
             macro.data.command = macro.data.command.replace(
                 /(Compendium\.pf2e\.)(spell-effects)(\.)([a-zA-Z0-9]{16})/g,
-                function (_full, first, _replace, dot, itemId): string {
-                    return first + Migration601SplitEffectCompendia.effectLocations[itemId] + dot + itemId;
+                (_full, first, _replace, dot, itemId): string => {
+                    const packName = objectHasKey(Migration601SplitEffectCompendia.effectLocations, itemId)
+                        ? Migration601SplitEffectCompendia.effectLocations[itemId]
+                        : '??';
+                    return first + packName + dot + itemId;
                 },
             );
         });

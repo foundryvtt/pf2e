@@ -19,14 +19,40 @@
             "value": "ancestry"
         },
         "level": {
-            "value": "1"
+            "value": 1
         },
+        "location": "",
         "prerequisites": {
-            "value": [
-                ""
-            ]
+            "value": []
         },
-        "rules": [],
+        "rules": [
+            {
+                "category": "unarmed",
+                "damage": {
+                    "base": {
+                        "damageType": "bludgeoning ",
+                        "dice": 1,
+                        "die": "d4"
+                    }
+                },
+                "key": "PF2E.RuleElement.Strike",
+                "label": "Seedpod",
+                "range": "ranged",
+                "traits": [
+                    "ranged",
+                    "manipulate",
+                    "unarmed"
+                ]
+            },
+            {
+                "key": "PF2E.RuleElement.Note",
+                "outcome": [
+                    "criticalSuccess"
+                ],
+                "selector": "{item|_id}-damage",
+                "text": "<p class='compact-text'>A seedpod bursts, issuing forth a tangle of vegetation that imposes a -10-foot circumstance penalty on the target's Speed for 1 round.</p>"
+            }
+        ],
         "source": {
             "value": ""
         },
@@ -42,7 +68,7 @@
     },
     "effects": [],
     "flags": {},
-    "img": "systems/pf2e/icons/features/feats/feats.jpg",
+    "img": "systems/pf2e/icons/features/feats/feats.webp",
     "name": "Seedpod",
     "permission": {
         "default": 0

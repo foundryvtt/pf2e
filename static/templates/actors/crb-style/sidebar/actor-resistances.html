@@ -8,8 +8,8 @@
         {{v}}
     </li>
     {{/each}}
-    <li class="tag edit-btn" for="data.traits.dr">
-        <a class="crb-trait-selector" data-options="resistanceTypes" data-has-values="true">
+    <li class="tag edit-btn">
+        <a class="crb-trait-selector" data-trait-selector="resistances">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -39,8 +39,8 @@
         {{v}}
     </li>
     {{/each}}
-    <li class="tag edit-btn" for="data.traits.dv">
-        <a class="crb-trait-selector" data-options="weaknessTypes" data-has-values="true">
+    <li class="tag edit-btn">
+        <a class="crb-trait-selector" data-trait-selector="weaknesses">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"
@@ -67,11 +67,11 @@
 <ol class="immunities tags">
     {{#each data.traits.di.selected as |v k|}}
     <li class="tag {{k}}">
-        {{v}}
+        {{localize v}}
     </li>
     {{/each}}
-    <li class="tag edit-btn" for="data.traits.di">
-        <a class="crb-trait-selector" data-options="immunityTypes">
+    <li class="tag edit-btn">
+        <a class="crb-trait-selector" data-trait-selector="basic" data-config-types="immunityTypes" data-property="data.traits.di">
             <svg
                 xmlns="http://www.w3.org/2000/svg"
                 width="24"

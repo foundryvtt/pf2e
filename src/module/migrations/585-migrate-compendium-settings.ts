@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { compendiumBrowser } from '../packs/compendium-browser';
+import { compendiumBrowser } from '../apps/compendium-browser';
 
 export class Migration585MigrateCompendiumSettings extends MigrationBase {
     static version = 0.585;

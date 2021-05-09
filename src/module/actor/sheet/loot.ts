@@ -1,28 +1,27 @@
-import { calculateWealth } from '@item/treasure';
 import { ActorSheetPF2e } from './base';
-import { LootPF2e } from '../loot';
+import { LootPF2e } from '@actor/loot';
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
 import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
-import { PhysicalItemPF2e } from '@item/physical';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data-definitions';
+import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData } from '@item/data/types';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
+import { ActorSheetDataPF2e, InventoryItem } from './data-types';
+import { LootData } from '@actor/data-definitions';
 
 /**
  * @category Actor
  */
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     /** @override */
-    constructor(actor: LootPF2e, options: FormApplicationOptions = {}) {
-        options.editable = true;
-        super(actor, options);
+    constructor(actor: LootPF2e, options: Partial<BaseEntitySheetOptions> = {}) {
+        super(actor, { ...options, editable: true });
     }
 
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
-            classes: options.classes.concat(['pf2e', 'actor', 'loot']),
+            classes: options.classes.concat('loot'),
             width: 650,
             height: 680,
             tabs: [{ navSelector: '.sheet-navigation', contentSelector: '.sheet-content', initial: 'inventory' }],
@@ -31,53 +30,41 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     /** @override */
     get template() {
-        const editableSheetPath = 'systems/pf2e/templates/actors/loot-sheet.html';
-        const nonEditableSheetPath = 'systems/pf2e/templates/actors/loot-sheet-no-edit.html';
+        return 'systems/pf2e/templates/actors/loot/sheet.html';
+    }
 
-        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
-
-        if (isEditable && game.user.isGM) return editableSheetPath;
-
-        return nonEditableSheetPath;
+    /** @override */
+    get isLootSheet(): boolean {
+        return !this.actor.owner && this.actor.isLootableBy(game.user);
     }
 
     /** @override */
     getData() {
-        const sheetData = super.getData();
+        const sheetData: ActorSheetDataPF2e<LootData> = super.getData();
+        const isLoot = this.actor.data.data.lootSheetType === 'Loot';
+        return { ...sheetData, isLoot };
+    }
 
-        // update currency based on items
-        if (sheetData.actor.items !== undefined) {
-            const treasure = calculateWealth(sheetData.actor.items);
-            sheetData.totalTreasure = {};
-            for (const [denomination, value] of Object.entries(treasure)) {
-                sheetData.totalTreasure[denomination] = {
-                    value,
-                    label: CONFIG.PF2E.currencies[denomination],
-                };
-            }
+    /** @override */
+    activateListeners(html: JQuery<HTMLElement>) {
+        super.activateListeners(html);
+
+        if (this.options.editable) {
+            html.find('.split-coins')
+                .removeAttr('disabled')
+                .on('click', (event) => this.distributeCoins(event));
+            html.find('.loot-npcs')
+                .removeAttr('disabled')
+                .on('click', (event) => this.lootNPCs(event));
         }
-
-        // Process default values
-        const isEditable = this.actor.getFlag('pf2e', 'editLoot.value');
-        if (isEditable === undefined) {
-            this.actor.setFlag('pf2e', 'editLoot', { value: false });
-        }
-
-        // Precalculate some data to adapt sheet more easily
-        sheetData.isLoot = this.actor.data.data.lootSheetType === 'Loot';
-        sheetData.isShop = !sheetData.isLoot;
-
-        this.prepareItems(sheetData);
-
-        // TEMP: Name edit is only available for the GM
-        sheetData.isGM = game.user.isGM;
-
-        return sheetData;
     }
 
     prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
-        const inventory = {
+        const inventory: Record<
+            InventoryItemType,
+            { label: string; items: (PhysicalItemData & { totalWeight?: string })[] }
+        > = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
             equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
@@ -100,38 +87,37 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             bulkConfig,
         });
 
-        for (const i of actorData.items) {
-            // item identification
-            i.identified = !isPhysicalItem(i) || PhysicalItemPF2e.isIdentified(i);
-            i.showGMInfo = game.user.isGM;
-            i.showEdit = i.showGMInfo || i.identified;
-
-            i.img = i.img || CONST.DEFAULT_TOKEN;
-            i.containerData = containers.get(i._id);
-            i.isContainer = i.containerData.isContainer;
-            i.isNotInContainer = i.containerData.isNotInContainer;
-            i.canBeEquipped = i.isNotInContainer;
-            i.isEquipped = i.data?.equipped?.value ?? false;
-            i.isSellableTreasure = i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-            i.hasInvestedTrait = i.data?.traits?.value?.includes('invested') ?? false;
-            i.isInvested = i.data?.invested?.value ?? false;
-
-            // Inventory
-            if (Object.keys(inventory).includes(i.type)) {
-                i.data.quantity.value = i.data.quantity.value || 0;
-                i.data.weight.value = i.data.weight.value || 0;
-                const bulkItem = bulkItemsById.get(i._id);
-                const [approximatedBulk] = calculateBulk({
-                    items: bulkItem === undefined ? [] : [bulkItem],
-                    bulkConfig,
-                });
-                i.totalWeight = formatBulk(approximatedBulk);
-                i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
-                i.isTwoHanded =
-                    i.type === 'weapon' && !!(i.data.traits.value || []).find((x) => x.startsWith('two-hand'));
-                i.wieldedTwoHanded = i.type === 'weapon' && (i.data.hands || {}).value;
-                inventory[i.type].items.push(i);
+        const itemsData: InventoryItem[] = actorData.items.filter((itemData: ItemDataPF2e) => isPhysicalItem(itemData));
+        for (const itemData of itemsData) {
+            /** @todo: Make melee items non-physical and then remove this block */
+            const itemType: string = itemData.type;
+            if (itemType === 'melee') {
+                this.actor.deleteEmbeddedEntity('OwnedItem', itemData._id);
+                continue;
             }
+
+            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.owner);
+
+            itemData.img ??= CONST.DEFAULT_TOKEN;
+            const containerData = containers.get(itemData._id);
+            if (!containerData) continue;
+
+            itemData.containerData = containerData;
+            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.owner);
+            itemData.isInContainer = containerData.isInContainer;
+            itemData.isSellableTreasure =
+                itemData.showEdit && itemData.type === 'treasure' && itemData.data.stackGroup.value !== 'coins';
+            itemData.canBeEquipped = false;
+            // Inventory
+            itemData.data.quantity.value = itemData.data.quantity.value || 0;
+            itemData.data.weight.value = itemData.data.weight.value || 0;
+            const bulkItem = bulkItemsById.get(itemData._id);
+            const [approximatedBulk] = calculateBulk({
+                items: bulkItem === undefined ? [] : [bulkItem],
+                bulkConfig,
+            });
+            itemData.totalWeight = formatBulk(approximatedBulk);
+            inventory[itemData.type].items.push(itemData);
         }
 
         actorData.inventory = inventory;
@@ -139,30 +125,18 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     // Events
 
-    private _distributeCoins(event: JQuery.ClickEvent) {
+    private distributeCoins(event: JQuery.ClickEvent) {
         event.preventDefault();
         new DistributeCoinsPopup(this.actor, {}).render(true);
     }
 
-    private _lootNPCs(event: JQuery.ClickEvent) {
+    private lootNPCs(event: JQuery.ClickEvent) {
         event.preventDefault();
-        if (canvas?.tokens?.controlled?.filter((token) => token.actor._id !== this.actor._id).length > 0) {
-            new LootNPCsPopup(this.actor, {}).render(true);
+        if (canvas.tokens.controlled.some((token) => token.actor?.id !== this.actor.id)) {
+            new LootNPCsPopup(this.actor).render(true);
         } else {
             ui.notifications.warn('No tokens selected.');
         }
-    }
-
-    /** @override
-     * Anyone can loot from a loot sheet
-     */
-    protected _canDragStart(_selector: string): boolean {
-        return true;
-    }
-
-    /** @override */
-    protected _canDragDrop(_selector: string): boolean {
-        return true;
     }
 
     /** @override */
@@ -176,23 +150,5 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             return null;
         }
         return super._onDropItem(event, data);
-    }
-
-    activateListeners(html: JQuery<HTMLElement>) {
-        super.activateListeners(html);
-
-        const shouldListenToEvents = this.options.editable;
-
-        if (shouldListenToEvents) {
-            html.find('.split-coins')
-                .removeAttr('disabled')
-                .on('click', (ev) => this._distributeCoins(ev));
-            html.find('.loot-npcs')
-                .removeAttr('disabled')
-                .on('click', (ev) => this._lootNPCs(ev));
-            html.find('.isLootEditable').on('change', (ev: JQuery.ChangeEvent<HTMLInputElement>) => {
-                this.actor.setFlag('pf2e', 'editLoot', { value: ev.target.checked });
-            });
-        }
     }
 }

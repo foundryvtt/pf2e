@@ -1,7 +1,9 @@
 import { AbilityString } from '@actor/data-definitions';
+import { ConfigPF2e } from '@scripts/config';
 import { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
-import { ConsumableData, SpellcastingEntryData, SpellData, TrickMagicItemCastData } from './data-definitions';
+import { ConsumableData, SpellData, TrickMagicItemCastData } from './data/types';
+import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 export enum SpellConsumableTypes {
     Scroll,
@@ -56,41 +58,47 @@ export async function createConsumableFromSpell(
 ): Promise<ConsumableData> {
     heightenedLevel = heightenedLevel ?? spellData.data.level.value;
     const pack = game.packs.find((p) => p.collection === 'pf2e.equipment-srd');
-    const spellConsumable = (await pack?.getEntry(getIdForSpellConsumable(type, heightenedLevel))) as ConsumableData;
-    spellConsumable.data.traits.value.push(...duplicate(spellData.data.traditions.value));
-    spellConsumable.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
-    spellConsumable.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${spellConsumable.data.description.value}`;
-    spellConsumable.data.spell = {
+    const itemID = getIdForSpellConsumable(type, heightenedLevel);
+    const consumable = await pack?.getEntity(itemID);
+    if (!(consumable && 'type' in consumable._data && consumable._data.type === 'consumable')) {
+        throw ErrorPF2e('Failed to retrieve consumable item');
+    }
+
+    const consumableData = consumable._data;
+    consumableData.data.traits.value.push(...spellData.data.traditions.value);
+    consumableData.name = getNameForSpellConsumable(type, spellData.name, heightenedLevel);
+    const description = consumableData.data.description.value;
+    consumableData.data.description.value = `@Compendium[pf2e.spells-srd.${spellData._id}]{${spellData.name}}\n<hr/>${description}`;
+    consumableData.data.spell = {
         data: duplicate(spellData),
         heightenedLevel: heightenedLevel,
     };
-    return spellConsumable;
+    return consumableData;
 }
 
 export function canCastConsumable(actor: ActorPF2e, item: ConsumableData): boolean {
-    const spellData = item.data.spell?.data?.data ?? null;
-    const spellcastingEntries = actor.data.items.filter(
-        (i) => i.type === 'spellcastingEntry',
-    ) as SpellcastingEntryData[];
+    const spellData = item.data.spell?.data?.data;
     return (
-        spellcastingEntries
-            .filter((i) => ['prepared', 'spontaneous'].includes(i.data.prepared.value))
-            .filter((i) => spellData?.traditions?.value.includes(i.data.tradition.value)).length > 0
+        !!spellData &&
+        actor.itemTypes.spellcastingEntry
+            .map((entry) => entry.data)
+            .filter((entryData) => ['prepared', 'spontaneous'].includes(entryData.data.prepared.value))
+            .some((entryData) => tupleHasValue(spellData.traditions.value, entryData.data.tradition.value))
     );
 }
 
 export interface TrickMagicItemDifficultyData {
-    Arc?: number;
-    Rel?: number;
-    Occ?: number;
-    Nat?: number;
+    arc?: number;
+    rel?: number;
+    occ?: number;
+    nat?: number;
 }
 
 const TraditionSkills = {
-    arcane: 'Arc',
-    divine: 'Rel',
-    occult: 'Occ',
-    primal: 'Nat',
+    arcane: 'arc',
+    divine: 'rel',
+    occult: 'occ',
+    primal: 'nat',
 };
 
 export function calculateTrickMagicItemCheckDC(
@@ -98,10 +106,13 @@ export function calculateTrickMagicItemCheckDC(
     options: DCOptions = { proficiencyWithoutLevel: false },
 ): TrickMagicItemDifficultyData {
     const level = Number(itemData.data.level.value);
-    const DC = calculateDC(level, options);
+    const saveDC = calculateDC(level, options);
+
+    type RealTraditionKey = keyof ConfigPF2e['PF2E']['spellTraditions'];
     const skills: [string, number][] = itemData.data.traits.value
-        .filter((t) => ['arcane', 'primal', 'divine', 'occult'].includes(t))
-        .map((s) => [TraditionSkills[s], DC]);
+        .filter((trait): trait is RealTraditionKey => trait in CONFIG.PF2E.spellTraditions)
+        .map((tradition) => [TraditionSkills[tradition], saveDC]);
+
     return Object.fromEntries(skills);
 }
 

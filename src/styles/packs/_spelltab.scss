@@ -45,7 +45,7 @@
         }
     }
 
-    .rangecontainer {        
+    .rangecontainer {
         div {
             text-align: center;
         }
@@ -83,7 +83,9 @@
         min-width: 335px;
         margin: 0;
         height: 100%;
-        overflow: auto;
+        // 'overflow: auto' causes excessive layout/redraw times
+        // Use a fixed setting instead, to avoid stuttering
+        overflow: visible scroll;
     }
 
     #tagfilter input {
@@ -142,7 +144,7 @@
         display: inline-block;
         min-width: 15px;
     }
-    
+
     .take-item {
         margin-left: 0.5em;
         max-width: 1em;
