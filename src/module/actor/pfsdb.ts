@@ -1,5 +1,6 @@
 import { ItemPF2e } from '@item/base';
 import { isPhysicalItem, PhysicalItemData } from '@item/data/types';
+import { FeatPF2e } from '@item/feat';
 import ky from 'ky';
 import { ActorPF2e } from './base';
 import {
@@ -125,7 +126,7 @@ const UpdateActorFromPfsDbEntry = async (pfsDbEntry: PfsDbEntry, existingActor: 
             const id = Array.isArray(match) ? match[2] : undefined;
             console.log(`Id: ${id}`)
             const lookupData: ItemLookupData = { pack, id };
-            grantItem(existingActor, lookupData);
+            await grantItem(existingActor, lookupData);
             await updatePhysicalItem(existingActor, item);
         });
     }
@@ -140,12 +141,11 @@ interface ItemLookupData {
 
 const updatePhysicalItem = async (actor: ActorPF2e, item: PfsDbItem) => {
     await actor.items.entries.forEach(async (entry) => {
-        console.log()
         if (entry.sourceId === item.sourceId && item.data) {
             // const originalItem = actor.getOwnedItem(entry.id);
-            const updatedItemData = JSON.parse(item.data) as PhysicalItemData;
+            const updatedItemData: PhysicalItemData = JSON.parse(item.data) as PhysicalItemData;
             console.log(`type of updateItemData: ${typeof updatedItemData}`)
-            await actor.updateOwnedItem({ _id: entry._id, ...updatedItemData });
+            await entry.update(updatedItemData);
         }
     });
 };
@@ -172,7 +172,12 @@ const ConvertActorToPfsDbEntry = (actor: ActorPF2e): PfsDbEntry => {
     // Relevant PFS data captured here.
     const pfsData = rawCharacterData.pfs;
     // Capture Items in a Foundry sense to get Classes, Ancestries, etc.
-    const items: PfsDbItem[] = actor.items.map((item) => {
+    const items: PfsDbItem[] = actor.items.entries.map((item) => {
+        if (item.type === 'feat') {
+            // Check if the feat has a parent source (i.e. class features coming from a class Item)
+            const feat = item as Owned<FeatPF2e>
+            if (feat.data.data.location) { return; }
+        }
         // This captures item specifics for physical items such as quality, runes, material, etc.
         if (isPhysicalItem(item.data)) {
             return { sourceId: item.sourceId, data: JSON.stringify(item.data) }; 
@@ -181,7 +186,6 @@ const ConvertActorToPfsDbEntry = (actor: ActorPF2e): PfsDbEntry => {
         }
     });
     const details = rawCharacterData.details
-    console.log(JSON.stringify(items))
     return {
         _id,
         pfsData,
