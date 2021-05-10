@@ -1,7 +1,7 @@
 import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
-import { ConditionData, ItemDataPF2e, WeaponData } from '@item/data/types';
+import { ConditionData, isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
@@ -157,26 +157,27 @@ export abstract class CreaturePF2e extends ActorPF2e {
         options = {},
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
         const updateData = Array.isArray(data) ? data : [data];
+        const equippingUpdates = updateData.filter(
+            (update) => 'data.equipped.value' in update && typeof update['data.equipped.value'] === 'boolean',
+        );
+        const wornArmor = this.wornArmor;
 
-        // Allow no more than one article of armor to be equipped at a time
-        const alreadyEquipped = this.itemTypes.armor.find((armor) => armor.isArmor && armor.isEquipped);
-        const armorEquipping = ((): ArmorPF2e | undefined => {
-            const equippingUpdates = updateData.filter(
-                (datum) => 'data.equipped.value' in datum && datum['data.equipped.value'],
-            );
-            return equippingUpdates
-                .map((datum) => this.items.get(datum._id))
-                .find(
-                    (item): item is Owned<ArmorPF2e> =>
-                        item instanceof ArmorPF2e && item.isArmor && item.id !== alreadyEquipped?.id,
-                );
-        })();
-        const modifiedUpdate =
-            armorEquipping && alreadyEquipped
-                ? updateData.concat({ _id: alreadyEquipped.id, 'data.equipped.value': false })
-                : updateData;
+        for (const update of equippingUpdates) {
+            if (!('data.equipped.value' in update)) continue;
 
-        return super.updateEmbeddedEntity(embeddedName, modifiedUpdate, options);
+            const item = this.physicalItems.get(update._id)!;
+            // Allow no more than one article of armor to be equipped at a time
+            if (wornArmor && item instanceof ArmorPF2e && item.isArmor && item.id !== wornArmor.id) {
+                updateData.push({ _id: wornArmor.id, 'data.equipped.value': false, 'data.invested.value': false });
+            }
+
+            // Uninvested items as they're unequipped
+            if (update['data.equipped.value'] === false && isMagicItemData(item.data)) {
+                update['data.invested.value'] = false;
+            }
+        }
+
+        return super.updateEmbeddedEntity(embeddedName, updateData, options);
     }
 
     protected _onModifyEmbeddedEntity(

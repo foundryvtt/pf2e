@@ -599,14 +599,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.equipped.value': !active });
         });
 
-        // Toggle invest
-        html.find('.item-toggle-invest').on('click', (event) => {
-            const f = $(event.currentTarget);
-            const itemId = f.parents('.item').attr('data-item-id') ?? '';
-            const active = f.hasClass('active');
-            this.actor.updateEmbeddedEntity('OwnedItem', { _id: itemId, 'data.invested.value': !active });
-        });
-
         // Trait Selector
         html.find('.trait-selector').on('click', (event) => this.onTraitSelector(event));
 
@@ -1079,7 +1071,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
-                    if (this._moveSpell(itemData as SpellData, itemId, level)) {
+                    if (this.moveSpell(itemData as SpellData, itemId, level)) {
                         return this.actor.updateOwnedItem(itemData);
                     }
                 }
@@ -1104,7 +1096,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                         const sortBefore = source.data.sort >= target.data.sort;
                         source.sortRelative({ target, siblings, sortBefore });
                     } else {
-                        if (this._moveSpell(itemData, targetLocation, targetLevel)) {
+                        if (this.moveSpell(itemData, targetLocation, targetLevel)) {
                             return this.actor.updateOwnedItem(itemData);
                         }
                     }
@@ -1223,7 +1215,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
-                    this._moveSpell(itemData, itemId, level);
+                    this.moveSpell(itemData, itemId, level);
                     return this.actor.createEmbeddedEntity('OwnedItem', itemData);
                 }
             } else if (dropSlotType === 'spell') {
@@ -1231,7 +1223,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 const { spellLvl } = $(event.target).closest('.item').data();
 
                 if (typeof containerId === 'string' && typeof spellLvl === 'number') {
-                    this._moveSpell(itemData, containerId, spellLvl);
+                    this.moveSpell(itemData, containerId, spellLvl);
                     return this.actor.createEmbeddedEntity('OwnedItem', itemData);
                 }
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
@@ -1333,7 +1325,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         }
     }
 
-    async _moveSpell(spellData: SpellData, targetLocation: string, targetLevel: number) {
+    private moveSpell(spellData: SpellData, targetLocation: string, targetLevel: number): boolean {
         const spell = new SpellFacade(spellData);
 
         if (spell.spellcastingEntryId === targetLocation && spell.heightenedLevel === targetLevel) {
@@ -1342,7 +1334,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const spellcastingEntry = this.actor.getOwnedItem(targetLocation);
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            throw new Error(`PF2e System | SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
+            throw ErrorPF2e(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
         }
 
         spellData.data.location = { value: targetLocation };

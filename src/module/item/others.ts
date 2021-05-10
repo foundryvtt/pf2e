@@ -19,6 +19,11 @@ export interface ContainerPF2e {
 
 export class TreasurePF2e extends PhysicalItemPF2e {
     /** @override */
+    get isInvested(): null {
+        return null;
+    }
+
+    /** @override */
     getChatData(this: Owned<TreasurePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
         const traits = this.traitChatData({});

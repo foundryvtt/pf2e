@@ -97,7 +97,6 @@ export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Pro
     });
 
     heal.on('click', (event) => {
-        event.stopPropagation();
         applyDamage(html, -1, event.shiftKey);
     });
 }

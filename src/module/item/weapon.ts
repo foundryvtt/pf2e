@@ -27,7 +27,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
     /** @override */
     prepareData(): void {
-        this.data.data.traits.rarity ??= { value: 'common' };
+        super.prepareData();
 
         const baseTraits = this.data.data.traits.value;
         const fromRunes: 'evocation'[] = this.data.data.potencyRune.value ? ['evocation'] : [];
@@ -35,7 +35,8 @@ export class WeaponPF2e extends PhysicalItemPF2e {
         const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
 
-        super.prepareData();
+        // Call again now the traits are reconstructed
+        this.setPredicates();
     }
 
     getChatData(this: Owned<WeaponPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
