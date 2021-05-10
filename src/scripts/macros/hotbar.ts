@@ -11,7 +11,7 @@ import { SkillAbbreviation } from '@actor/data-definitions';
  */
 export async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
     const command = `game.pf2e.rollItemMacro("${item._id}");`;
-    let macro = game.macros.entities.find((m) => m.name === item.name && m.data.command === command);
+    let macro = game.macros.contents.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
             {
@@ -47,7 +47,7 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
     const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, '${action.name}')`;
-    let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
+    let macro = game.macros.contents.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
         macro = await Macro.create(
             {
@@ -122,7 +122,7 @@ if (a) {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
     const macroName = game.i18n.format('PF2E.SkillCheckWithName', { skillName });
-    let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
+    let macro = game.macros.contents.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
             {
@@ -147,7 +147,7 @@ if (a) {
     ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActorError'));
 }`;
     const macroName = game.i18n.format('PF2E.ToggleWithName', { property: label });
-    let macro = game.macros.entities.find((m) => m.name === macroName && m.data.command === command);
+    let macro = game.macros.contents.find((m) => m.name === macroName && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
             {
@@ -181,7 +181,7 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
   }
 })();
 `;
-    let macro = game.macros.entities.find((m) => m.name === effect.data.name && m.data.command === command);
+    let macro = game.macros.contents.find((m) => m.name === effect.data.name && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
             {

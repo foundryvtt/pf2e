@@ -175,7 +175,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         if (this.initialRefresh) {
             this.initialRefresh = false;
         } else {
-            const characters = game.actors.entities?.filter((actor) => actor instanceof CharacterPF2e) ?? [];
+            const characters = game.actors.contents.filter((actor) => actor instanceof CharacterPF2e) ?? [];
             for (const character of characters) {
                 character.prepareData();
                 character.sheet.render(false);

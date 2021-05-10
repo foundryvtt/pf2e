@@ -3,7 +3,7 @@ import { AnimalCompanionData, FamiliarData } from '@actor/data-definitions';
 
 /* Update minion-type actors to trigger another prepare data cycle to update their stats of the master actor is updated. */
 export function updateMinionActors(master: ActorPF2e | undefined = undefined) {
-    game.actors.entities
+    game.actors.contents
         .filter((actor): actor is ActorPF2e & { data: FamiliarData | AnimalCompanionData } =>
             ['familiar', 'animalCompanion'].includes(actor.data.type),
         )
