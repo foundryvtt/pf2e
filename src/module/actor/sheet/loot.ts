@@ -92,7 +92,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
             /** @todo: Make melee items non-physical and then remove this block */
             const itemType: string = itemData.type;
             if (itemType === 'melee') {
-                this.actor.deleteEmbeddedEntity('OwnedItem', itemData._id);
+                this.actor.deleteEmbeddedDocuments('Item', itemData._id);
                 continue;
             }
 

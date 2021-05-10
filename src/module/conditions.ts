@@ -154,7 +154,7 @@ export class ConditionManager {
      * Takes a list of valued conditions with the same base and selects the highest value.
      *
      * @param {ConditionData[]} conditions           A filtered list of conditions with the same base name.
-     * @param {Map<string, ConditionData>} updates   A running list of updates to make to 'OwnedItem'.
+     * @param {Map<string, ConditionData>} updates   A running list of updates to make to embedded items.
      */
     static __processValuedCondition(conditions: ConditionData[], updates: Map<string, ConditionData>): ConditionData {
         let appliedCondition: ConditionData;
@@ -207,7 +207,7 @@ export class ConditionManager {
      * Takes a list of toggle conditions with the same base and selects the first.
      *
      * @param {ConditionData[]} conditions           A filtered list of conditions with the same base name.
-     * @param {Map<string, ConditionData>} updates   A running list of updates to make to 'OwnedItem'.
+     * @param {Map<string, ConditionData>} updates   A running list of updates to make to embedded items.
      */
     static __processToggleCondition(conditions: ConditionData[], updates: Map<string, ConditionData>): ConditionData {
         let appliedCondition: ConditionData;
@@ -242,7 +242,7 @@ export class ConditionManager {
      * Clears any overrides from a condition.
      *
      * @param {ConditionData} condition              The condition to check, and remove, any overrides.
-     * @param {Map<string, ConditionData>} updates   A running list of updates to make to 'OwnedItem'.
+     * @param {Map<string, ConditionData>} updates   A running list of updates to make to embedded items.
      */
     static __clearOverrides(condition: ConditionData, updates: Map<string, ConditionData>) {
         if (condition.data.references.overrides.length) {
@@ -365,7 +365,7 @@ export class ConditionManager {
 
         // Make sure to update any items that need updating.
         if (updates.size) {
-            await token.actor.updateEmbeddedEntity('OwnedItem', Array.from(updates.values()));
+            await token.actor.updateEmbeddedDocuments('Item', Array.from(updates.values()));
         }
 
         // Update token effects from applied conditions.
@@ -421,7 +421,7 @@ export class ConditionManager {
     }
 
     static async _addConditionEntity(condition: ConditionData, token: TokenPF2e) {
-        let item = await token.actor.createEmbeddedEntity('OwnedItem', condition);
+        let item = await token.actor.createEmbeddedDocuments('Item', condition);
 
         // Ghetto race condition style fix for unlinked items NOT CREATED THE SAME FUCKING WAY!
         if (!token.data.actorLink) {
@@ -466,7 +466,7 @@ export class ConditionManager {
         }
 
         if (needsItemUpdate) {
-            await token.actor.updateEmbeddedEntity('OwnedItem', itemUpdate as { _id: string });
+            await token.actor.updateEmbeddedDocuments('Item', itemUpdate as { _id: string });
         }
 
         return item;
@@ -500,7 +500,7 @@ export class ConditionManager {
             }
         }
 
-        await token.actor.deleteEmbeddedEntity('OwnedItem', list);
+        await token.actor.deleteEmbeddedDocuments('Item', list);
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
@@ -515,7 +515,7 @@ export class ConditionManager {
                 const update = duplicate(condition);
                 update.data.value.value = value;
 
-                await token.actor.updateEmbeddedEntity('OwnedItem', update);
+                await token.actor.updateEmbeddedDocuments('Item', update);
 
                 console.log(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }

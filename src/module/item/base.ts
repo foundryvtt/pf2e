@@ -786,7 +786,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Optionally destroy the item
         if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-            this.actor.deleteEmbeddedEntity('OwnedItem', this.data._id);
+            this.actor.deleteEmbeddedDocuments('Item', this.data._id);
         }
         // Deduct one from quantity if this item doesn't have charges
         else if (chg.max < 1) {
@@ -795,11 +795,11 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 'data.quantity.value': Math.max(qty.value - 1, 0),
                 'data.charges.value': chg.max,
             };
-            this.actor.updateEmbeddedEntity('OwnedItem', options);
+            this.actor.updateEmbeddedDocuments('Item', options);
         }
         // Deduct one charge
         else {
-            this.actor.updateEmbeddedEntity('OwnedItem', {
+            this.actor.updateEmbeddedDocuments('Item', {
                 _id: this.data._id,
                 'data.charges.value': Math.max(chg.value - 1, 0),
             });

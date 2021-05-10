@@ -41,7 +41,7 @@ export class ClassPF2e extends ABCItemPF2e {
         }
 
         await Promise.all([
-            actor.createEmbeddedEntity('OwnedItem', classFeaturesToCreate),
+            actor.createEmbeddedDocuments('Item', classFeaturesToCreate),
             this.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level),
         ]);
     }

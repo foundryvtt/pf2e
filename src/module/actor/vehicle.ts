@@ -3,17 +3,17 @@ import { ActorPF2e } from './base';
 import { VehicleData } from './data-definitions';
 
 export class VehiclePF2e extends ActorPF2e {
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
+    async createEmbeddedDocuments<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I,
         options?: EntityCreateOptions,
     ): Promise<I | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
+    async createEmbeddedDocuments<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I[],
         options?: EntityCreateOptions,
     ): Promise<I | I[] | null>;
-    async createEmbeddedEntity<I extends ItemDataPF2e>(
+    async createEmbeddedDocuments<I extends ItemDataPF2e>(
         embeddedName: string,
         data: I | I[],
         options: EntityCreateOptions = {},
@@ -30,7 +30,7 @@ export class VehiclePF2e extends ActorPF2e {
             }
         }
 
-        return super.createEmbeddedEntity(embeddedName, createData, options);
+        return super.createEmbeddedDocuments(embeddedName, createData, options);
     }
 }
 
