@@ -25,7 +25,7 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
     /**
      * An array of all the Entities in the EntityCollection.
      */
-    get entities(): this['entries'];
+    get contents(): this['entries'];
 
     /**
      * Render any Applications associated with this EntityCollection

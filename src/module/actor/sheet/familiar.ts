@@ -27,7 +27,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         const owners = Object.entries(familiar.data.permission)
             .filter(([_id, permission]) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
             .flatMap(([userID]) => game.users.get(userID) ?? []);
-        const masters = game.actors.entities
+        const masters = game.actors.contents
             .filter((actor) => ['character', 'npc'].includes(actor.data.type))
             .filter((actor) => actor.hasPerm(game.user, 'OWNER'))
             .filter((actor) => owners.some((owner) => actor.hasPerm(owner, 'OWNER')));
