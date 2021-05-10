@@ -97,7 +97,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
     /** @override */
     get isEditable(): boolean {
-        return this.actor.can(game.user, 'update');
+        return this.actor.canUserModify(game.user, 'update');
     }
 
     /** Can non-owning users loot items from this sheet? */
@@ -1265,7 +1265,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 return itemData;
             } else {
                 const translations = LocalizePF2e.translations.PF2E;
-                const message = actor.can(game.user, 'update')
+                const message = actor.canUserModify(game.user, 'update')
                     ? translations.ErrorMessage.ActorMustHaveToken
                     : translations.ErrorMessage.NoUpdatePermission;
                 ui.notifications.error(message);
