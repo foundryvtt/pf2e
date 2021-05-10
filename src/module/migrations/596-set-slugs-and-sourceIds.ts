@@ -39,7 +39,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
 
             // Make all item updates wait for this content retrieval to resolve
             const promisedItems = (async () => {
-                const newContent = await pack.getContent();
+                const newContent = await pack.getDocuments();
                 const itemMap = new Map(newContent.map((item) => [item.id, item]));
                 return itemMap;
             })();
