@@ -13,6 +13,9 @@ import { CreaturePF2e } from '@actor/creature';
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
 
+// Keep on while migrating to Foundry version 0.8
+CONFIG.debug.hooks = true;
+
 PF2E.Hooks.listen();
 
 /* -------------------------------------------- */

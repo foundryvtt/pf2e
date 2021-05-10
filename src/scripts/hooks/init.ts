@@ -12,11 +12,9 @@ import {
     ProficiencyModifier,
 } from '@module/modifiers';
 import { registerSettings } from '@module/settings';
-import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { CheckPF2e } from '@module/system/rolls';
 import { loadPF2ETemplates } from '@module/templates';
 import { PlayerConfigPF2e } from '@module/user/player-config';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
@@ -47,8 +45,9 @@ export function listen(): void {
         CONFIG.Combat.initiative.decimals = 1;
 
         // Assign the PF2e Sidebar subclasses
-        CONFIG.ui.combat = CombatTrackerPF2e;
-        CONFIG.ui.compendium = CompendiumDirectoryPF2e;
+        /** @todo: Restore these after researching new parent structures */
+        // CONFIG.ui.combat = CombatTrackerPF2e;
+        // CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';

@@ -4,7 +4,6 @@ import * as CloseWorldClockSettings from './close-world-clock-settings';
 import * as Init from './init';
 import * as HotbarDrop from './hotbar-drop';
 import * as Ready from './ready';
-import * as RenderSettings from './render-settings';
 import * as Setup from './setup';
 import * as TurnChanges from './turn-changes';
 import * as UpdateScene from './update-scene';
@@ -24,7 +23,6 @@ export namespace PF2E {
             Ready.listen();
             RenderChatLog.listen();
             RenderChatMessage.listen();
-            RenderSettings.listen();
             Setup.listen();
             TurnChanges.listen();
             UpdateScene.listen();
