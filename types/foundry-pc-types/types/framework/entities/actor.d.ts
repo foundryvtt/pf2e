@@ -17,6 +17,10 @@ declare interface ActorClassConfig<A extends Actor> extends EntityClassConfig<A>
     };
 }
 
+declare interface ActorConstructorOptions<T extends Token> extends EntityConstructorOptions {
+    token?: T;
+}
+
 /**
  * The Collection of Actor entities.
  *
@@ -115,6 +119,8 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
      * Construct the Array of Item instances for the Actor
      */
     items: Collection<Owned<ItemType>>;
+
+    options: ActorConstructorOptions<Token>;
 
     /**
      * A set that tracks which keys in the data model were modified by active effects
