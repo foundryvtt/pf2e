@@ -15,7 +15,7 @@ export class KitPF2e extends ItemPF2e {
     /** Inflate this kit and add its items to the provided actor */
     async dumpContents(actor: ActorPF2e, kitEntries?: KitEntryData[], containerId = ''): Promise<void> {
         kitEntries ??= this.entries;
-        const equipmentPack = await game.packs.get(SYSTEM_EQUIPMENT_PACK_ID)?.getContent();
+        const equipmentPack = await game.packs.get(SYSTEM_EQUIPMENT_PACK_ID)?.getDocuments();
         if (!equipmentPack) {
             throw ErrorPF2e('Failed to acquire system equipment compendium');
         }

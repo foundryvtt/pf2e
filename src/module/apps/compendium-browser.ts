@@ -48,7 +48,7 @@ class PackLoader {
                 progress.advance(`Loading ${pack.metadata.label}`);
                 if (pack.metadata.entity === entityType) {
                     /* eslint-disable-next-line no-await-in-loop */
-                    const content = await pack.getContent();
+                    const content = await pack.getDocuments();
                     data = { pack, content };
                     this.loadedPacks[entityType][packId] = data;
                 } else {
