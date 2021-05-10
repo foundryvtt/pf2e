@@ -18,7 +18,6 @@ import { PlayerConfigPF2e } from '@module/user/player-config';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
-import * as MonkeyPatch from '../🐵🩹';
 import { CombatPF2e } from '@module/combat';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
@@ -151,7 +150,5 @@ export function listen(): void {
                 return CheckPF2e;
             },
         });
-
-        MonkeyPatch.patchCompendiumImports();
     });
 }
