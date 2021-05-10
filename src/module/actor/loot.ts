@@ -18,11 +18,11 @@ export class LootPF2e extends ActorPF2e {
     /** Anyone with Limited permission can update a loot actor
      * @override
      */
-    static can(user: User, action: UserAction, target: LootPF2e): boolean {
+    static canUserModify(user: User, action: UserAction, target: LootPF2e): boolean {
         if (action === 'update') {
             return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
-        return super.can(user, action, target);
+        return super.canUserModify(user, action, target);
     }
 
     /**
