@@ -355,11 +355,11 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         if (!this.options.editable) return;
 
         // NPC SKill Rolling
-        html.find('.item .npc-skill-name').on('click', (event) => {
-            event.preventDefault();
-            const shortform = $(event.currentTarget).parents('.item').attr('data-skill');
+        html.find('.rollable[data-skill]').on('click', (event) => {
+            const $target = $(event.delegateTarget);
+            const shortform = $target.attr('data-skill');
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
-            const extraOptions = $(event.currentTarget).parents('.item').attr('data-options');
+            const extraOptions = $target.attr('data-options');
             if (extraOptions) {
                 const split = extraOptions
                     .split(',')

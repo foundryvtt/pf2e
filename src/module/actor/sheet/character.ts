@@ -234,7 +234,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const containerData = containers.get(i._id)!;
                 i.containerData = containerData;
                 i.isInContainer = containerData.isInContainer;
-                i.hasInvestedTrait = itemData.isInvested !== null;
+                i.isInvestable = itemData.isEquipped && itemData.isIdentified && itemData.isInvested !== null;
 
                 // Read-Only Equipment
                 if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
@@ -717,6 +717,13 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         html.find('.add-modifier').on('click', '.add-modifier-submit', (event) => this.onAddCustomModifier(event));
         html.find('.modifier-list').on('click', '.remove-modifier', (event) => this.onRemoveCustomModifier(event));
         html.find('.modifier-list').on('click', '.toggle-automation', (event) => this.onToggleAutomation(event));
+
+        // Toggle invested state
+        html.find('.item-toggle-invest').on('click', (event) => {
+            const f = $(event.currentTarget);
+            const itemId = f.parents('.item').attr('data-item-id') ?? '';
+            this.actor.toggleInvested(itemId);
+        });
 
         {
             // Add and remove combat proficiencies

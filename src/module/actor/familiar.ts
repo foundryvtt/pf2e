@@ -160,17 +160,17 @@ export class FamiliarPF2e extends CreaturePF2e {
                     .filter((m) => m.enabled)
                     .map((m) => `${game.i18n.localize(m.name)} ${m.modifier < 0 ? '' : '+'}${m.modifier}`)
                     .join(', ');
-                stat.roll = (event: JQuery.TriggeredEvent, options = [], callback?: (roll: Roll) => void) => {
+                stat.roll = adaptRoll((args) => {
                     const label = game.i18n.format('PF2E.SavingThrowWithName', {
                         saveName: game.i18n.localize(CONFIG.PF2E.saves[save.name]),
                     });
                     CheckPF2e.roll(
                         new CheckModifier(label, stat),
-                        { actor: this, type: 'saving-throw', options },
-                        event,
-                        callback,
+                        { actor: this, type: 'saving-throw', dc: args.dc, options: args.options },
+                        args.event,
+                        args.callback,
                     );
-                };
+                });
                 data.saves[saveName] = stat;
             }
 

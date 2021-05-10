@@ -1,5 +1,45 @@
 # Patch Notes:
 
+## Version 1.15.0
+### Bug Fixes
+* (stwlam) Fix invested toggle for real, uninvest on unequip
+* (stwlam) Restore width of effect icons on the NPC sheet sidebar
+* (stwlam) Make skill from the NPC legacy sheet roll more reliably when clicked
+* (stwlam) Restore draggability of effects from the PC sheet
+* (Supe) Fix effect description viewing in the character sheet by setting default chat data traits
+* (nikolaj-a) Fix skill name translation in creature identification popup
+
+### Content Changes
+* (Shandyan) Ranger automation:
+    * Added automation for following ranger feats: crossbow ace, deadly aim, favored terrain, hazard finder, legendary monster hunter, manifold edge, masterful companion, monster hunter, monster warden, scout's warning, shared prey, superior sight, triple threat, and warden's boon
+    * Added automation for following ranger focus spells: _animal feature_, _gravity weapon_, and _magic hide_
+    * Animal companion feat has been split into ranger and druid-specific versions. Manifold edge and superior sight have also been split into specific feats to allow for automation
+* (GravenImageRD) Delete the misnamed Staff of _Ture_ Providence. Closes #1391
+* (GravenImageRD) Fix Bracelets of Dashing to be the correct Bracelet of Dashing. Closes #1374
+* (SpartanCPA) Pathfinder Society Season 1-01 bestiary brush-up
+* (SpartanCPA) Aeons in Bestiary 1 brush-up
+* (SpartanCPA) Add Murfeli and small brush-ups on Extinction Curse book 5 monsters
+* (SpartanCPA) Ensure all actors in Bestiary 1 & 2 have action category defined
+* (Jaash & SpartanCPA) Add Pathfinder Society 2-15 bestiary entries
+* (TMun) Add Pathfinder Society 2-16 through 2-18 bestiary entries
+* (TMun) Update Beginner Box iconics to use new proficiencies
+* (TMun) Add agile trait to Taloned Tengu Talon attack rule element. Closes #1399
+* (TMun) Fix traits on Aberrant Whispers. Closes #1394
+* (TMun) Replace light armor proficiency with medium armor proficiency on alchemist. Closes #1323
+* (TMun) Add weapon mastery level 11 text and flag for sorcerer
+* (stwlam) Add Hex trait to _evil eye_ spell
+
+### Core
+* (stwlam) Try using a Google font for rendering invested diamond to ensure a more uniform look across different platforms
+* (stwlam) Add ability to set identification status back to item sheet
+* (stwlam) Scale down the World Clock application window. Closes #1403
+* (Supe) Add traits, properties, and save type to new NPC sheet spell summary
+* (Drental) Add settings for hiding chat messages for damage applied and condition reminders
+* (Zarincos) Allow event propagation for heal button
+* (nikolaj-a) Add setting for toggling effect auto-expiry
+* (nikolaj-a) Add degree of success to NPC and familiar saving throws
+
+
 ## Version 1.14.2
 ### Bug Fixes
 * (stwlam) Fix styling of items on hazard sheets

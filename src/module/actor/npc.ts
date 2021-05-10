@@ -318,7 +318,7 @@ export class NPCPF2e extends CreaturePF2e {
                 });
                 CheckPF2e.roll(
                     new CheckModifier(label, stat),
-                    { actor: this, type: 'saving-throw', options: args.options, notes },
+                    { actor: this, type: 'saving-throw', options: args.options, dc: args.dc, notes },
                     args.event,
                     args.callback,
                 );
