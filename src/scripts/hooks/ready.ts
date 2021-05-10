@@ -5,12 +5,19 @@ import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
+import { WorldClock } from '@module/system/world-clock';
+import { EffectPanel } from '@module/system/effect-panel';
+import { EffectTracker } from '@module/system/effect-tracker';
+import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
 
 export function listen(): void {
     Hooks.once('ready', () => {
         /** Once the entire VTT framework is initialized, check to see if we should perform a data migration */
         console.log('PF2e System | Readying Pathfinder 2nd Edition System');
         console.debug(`PF2e System | Build mode: ${BUILD_MODE}`);
+
+        // Save the current world schema version if hasn't before.
+        setWorldSchemaVersion();
 
         // Determine whether a system migration is required and feasible
         const currentVersion = game.settings.get('pf2e', 'worldSchemaVersion');
@@ -29,6 +36,11 @@ export function listen(): void {
                 migrationRunner.runMigration();
             }
         }
+
+        // Start system sub-applications
+        game.pf2e.effectPanel = new EffectPanel();
+        game.pf2e.effectTracker = new EffectTracker();
+        game.pf2e.worldClock = new WorldClock();
 
         ActionsPF2e.exposeActions(game.pf2e.actions);
 

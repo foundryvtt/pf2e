@@ -42,7 +42,7 @@ declare global {
                 calculateXP: typeof calculateXP;
                 launchTravelSheet: typeof launchTravelSheet;
             };
-            DicePF2e: typeof DicePF2e;
+            Dice: typeof DicePF2e;
             StatusEffects: typeof StatusEffects;
             ConditionManager: typeof ConditionManager;
             ModifierType: typeof MODIFIER_TYPE;
