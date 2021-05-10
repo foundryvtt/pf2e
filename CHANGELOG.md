@@ -19,7 +19,7 @@
 * (SpartanCPA) Pathfinder Society Season 1-01 bestiary brush-up
 * (SpartanCPA) Aeons in Bestiary 1 brush-up
 * (SpartanCPA) Add Murfeli and small brush-ups on Extinction Curse book 5 monsters
-* (SpartanCPA) Ensure all actors in Bestiary 1 & 2 have action category defined
+* (SpartanCPA) Ensure all actors in Bestiary 1, 2 & 3 have action category defined
 * (Jaash & SpartanCPA) Add Pathfinder Society 2-15 bestiary entries
 * (TMun) Add Pathfinder Society 2-16 through 2-18 bestiary entries
 * (TMun) Update Beginner Box iconics to use new proficiencies
