@@ -282,7 +282,7 @@ export function sellAllTreasure(actor: ActorPlaceholder): Promise<void[]> {
         .reduce(combineCoins, noCoins());
 
     return Promise.all([
-        actor.deleteEmbeddedDocuemnts('Item', treasureIds),
+        actor.deleteEmbeddedDocuments('Item', treasureIds),
         addCoins(actor, {
             coins,
             combineStacks: true,
