@@ -80,7 +80,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'counteract-check',
 ]);
 
-interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
+interface ActorConstructorOptionsPF2e extends ActorConstructorOptions<Token> {
     pf2e?: {
         ready?: boolean;
     };

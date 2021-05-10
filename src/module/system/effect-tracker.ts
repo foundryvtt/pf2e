@@ -81,12 +81,21 @@ export class EffectTracker {
         }
 
         // only update each actor once, and only the ones with effect expiry changes
-        const updatedActors = expired.reduce((actors, effect) => {
-            if (effect.actor && !actors.some((actor) => actor.id === effect.actor?.id)) {
-                actors.push(effect.actor);
-            }
-            return actors;
-        }, [] as ActorPF2e[]);
+        const updatedActors = expired
+            .filter((effect) => !!effect.actor)
+            .map((effect) => effect.actor!)
+            .reduce((actors, actor) => {
+                if (actor.isToken) {
+                    if (!actors.some((a) => a.isToken && a.options.token?.id === actor.token?.id)) {
+                        actors.push(actor);
+                    }
+                } else {
+                    if (!actors.some((a) => !a.isToken && a.id === actor.id)) {
+                        actors.push(actor);
+                    }
+                }
+                return actors;
+            }, [] as ActorPF2e[]);
         for await (const actor of updatedActors) {
             actor.prepareData();
             actor.sheet.render(false);
