@@ -709,7 +709,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
             const currentLvlToDisplay: Record<number, boolean> = {};
             currentLvlToDisplay[spellLevel] = true;
-            await this.updateEmbeddedEntity('OwnedItem', {
+            await this.updateEmbeddedDocuments('Item', {
                 _id: entryId,
                 'data.showUnpreparedSpells.value': true,
                 'data.displayLevels': currentLvlToDisplay,
@@ -867,10 +867,10 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const removeFromSource = newQuantity < 1;
 
         if (removeFromSource) {
-            await this.deleteEmbeddedEntity('OwnedItem', item._id);
+            await this.deleteEmbeddedDocuments('Item', item._id);
         } else {
             const update = { _id: item._id, 'data.quantity.value': newQuantity };
-            await this.updateEmbeddedEntity('OwnedItem', update);
+            await this.updateEmbeddedDocuments('Item', update);
         }
 
         const newItemData = duplicate(item._data);
@@ -889,7 +889,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         // Otherwise create a new item
-        const result = await targetActor.createEmbeddedEntity('OwnedItem', newItemData);
+        const result = await targetActor.createEmbeddedDocuments('Item', newItemData);
         if (result === null) {
             return null;
         }
@@ -1181,7 +1181,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const tokens = this.token ? [this.token] : this.getActiveTokens();
         if (tokens.length === 0) {
             const idList = conditionList.map((condition) => condition.id);
-            await this.deleteEmbeddedEntity('OwnedItem', idList);
+            await this.deleteEmbeddedDocuments('Item', idList);
             return;
         }
 
@@ -1208,33 +1208,33 @@ export interface ActorPF2e {
      * See implementation in class
      * @override
      */
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData>;
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
+    updateEmbeddedDocuments(
+        embeddedName: 'Item',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
+    updateEmbeddedDocuments(
+        embeddedName: 'Item',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+    updateEmbeddedDocuments(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedDocuments'],
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedEntities'],
+    updateEmbeddedDocuments(
+        embeddedName: keyof typeof ActorPF2e['config']['embeddedDocuments'],
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;

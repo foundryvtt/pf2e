@@ -81,11 +81,11 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const skillId: string = skillSelector.val() as string;
         const skillName = this.findSkillName(skillId);
         const itemName = skillName.replace(/-/g, ' ').titleCase();
-
-        await this.npc.createOwnedItem({
+        const data: any = {
             name: itemName,
             type: 'lore',
-        });
+        };
+        await this.npc.createEmbeddedDocuments('Item', data);
 
         this.render(true);
     }
@@ -124,7 +124,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             },
         };
 
-        await this.npc.createOwnedItem(data);
+        await this.npc.createEmbeddedDocuments('Item', data);
 
         this.render(true);
     }

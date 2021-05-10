@@ -44,13 +44,13 @@ export class MigrationRunner extends MigrationRunnerBase {
             // we pull out the items here so that the embedded document operations get called
             const itemDiff = this.diffItems(baseItems, updatedItems);
             if (itemDiff.deleted.length > 0) {
-                await actor.deleteEmbeddedEntity('OwnedItem', itemDiff.deleted);
+                await actor.deleteEmbeddedDocuments('Item', itemDiff.deleted);
             }
             if (itemDiff.inserted.length > 0) {
-                await actor.createEmbeddedEntity('OwnedItem', itemDiff.inserted);
+                await actor.createEmbeddedDocuments('Item', itemDiff.inserted);
             }
             if (itemDiff.updated.length > 0) {
-                await actor.updateEmbeddedEntity('OwnedItem', itemDiff.updated);
+                await actor.updateEmbeddedDocuments('Item', itemDiff.updated);
             }
         } catch (error) {
             console.error(error);

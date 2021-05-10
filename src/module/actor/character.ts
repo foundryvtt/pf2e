@@ -1183,31 +1183,31 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     /** @override */
-    protected _onCreateEmbeddedEntity(
+    protected _onCreateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         child: ActiveEffectData,
         options: EntityCreateOptions,
         userId: string,
     ): void;
-    protected _onCreateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
+    protected _onCreateEmbeddedDocuments(
+        embeddedName: 'Item',
         child: ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
-    protected _onCreateEmbeddedEntity(
-        embeddedName: 'ActiveEffect' | 'OwnedItem',
+    protected _onCreateEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
         child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void;
-    protected _onCreateEmbeddedEntity(
-        embeddedName: 'ActiveEffect' | 'OwnedItem',
+    protected _onCreateEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
         child: ActiveEffectData | ItemDataPF2e,
         options: EntityCreateOptions,
         userId: string,
     ): void {
-        super._onCreateEmbeddedEntity(embeddedName, child, options, userId);
+        super._onCreateEmbeddedDocuments(embeddedName, child, options, userId);
 
         if (game.user.id === userId) {
             const item = this.items.get(child._id);

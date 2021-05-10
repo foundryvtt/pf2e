@@ -78,7 +78,7 @@ export class FakeActor {
         return undefined;
     }
 
-    updateEmbeddedEntity(type: string, data: any | any[]) {
+    updateEmbeddedDocuments(type: string, data: any | any[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
@@ -88,7 +88,7 @@ export class FakeActor {
 
         for (const itemChanges of data) {
             let obj: unknown;
-            if (type == 'OwnedItem') {
+            if (type == 'Item') {
                 obj = this._data.items.find((x) => x._id === itemChanges._id);
             }
 
@@ -101,10 +101,10 @@ export class FakeActor {
     }
 
     createOwnedItem(data: any | any[]) {
-        return this.createEmbeddedEntity('OwnedItem', data);
+        return this.createEmbeddedDocuments('Item', data);
     }
 
-    createEmbeddedEntity(type: string, data: any | any[]) {
+    createEmbeddedDocuments(type: string, data: any | any[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
@@ -112,7 +112,7 @@ export class FakeActor {
             this._data.items = [];
         }
 
-        if (type == 'OwnedItem') {
+        if (type == 'Item') {
             for (const obj of data) {
                 obj._id = `item${this._itemGuid}`;
                 this._itemGuid += 1;
@@ -121,11 +121,11 @@ export class FakeActor {
         }
     }
 
-    deleteEmbeddedEntity(type: string, data: string | string[]) {
+    deleteEmbeddedDocuments(type: string, data: string | string[]) {
         // make sure data is an array, since it expects multiple
         data = data instanceof Array ? data : [data];
 
-        if (type == 'OwnedItem') {
+        if (type == 'Item') {
             for (const id of data) {
                 this._data.items = this._data.items?.filter((x: any) => x._id !== id);
             }

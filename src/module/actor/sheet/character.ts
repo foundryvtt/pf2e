@@ -296,7 +296,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                             },
                         },
                     };
-                    this.actor.updateEmbeddedEntity('OwnedItem', updatedItem);
+                    this.actor.updateEmbeddedDocuments('Item', updatedItem);
                 }
                 i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
                 i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
@@ -488,7 +488,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
                 embeddedEntityUpdate,
             );
-            this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
+            this.actor.updateEmbeddedDocuments('Item', embeddedEntityUpdate);
         }
 
         // put the feats in their feat slots
@@ -896,12 +896,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             effect.data.changes.some((change) => change.key === $checkbox.data('automation-key')),
         );
         const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
-        this.actor.updateEmbeddedEntity('ActiveEffect', effectUpdates);
+        this.actor.updateEmbeddedDocuments('ActiveEffect', effectUpdates);
     }
 
     protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (['ancestry', 'background', 'class'].includes(itemData.type)) {
-            return await this.actor.createEmbeddedEntity('OwnedItem', itemData);
+            return await this.actor.createEmbeddedDocuments('Item', itemData);
         }
 
         return super._onDropItemCreate(itemData);
@@ -1029,9 +1029,9 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (slotId !== undefined && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
-                    this.actor.createEmbeddedEntity('OwnedItem', itemData),
-                    this.actor.updateEmbeddedEntity(
-                        'OwnedItem',
+                    this.actor.createEmbeddedDocuments('Item', itemData),
+                    this.actor.updateEmbeddedDocuments(
+                        'Item',
                         this.actor.items
                             .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
                             .map((x) => ({ _id: x._id, 'data.location': '' })),
@@ -1057,7 +1057,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const { slotId, featType } = this.getNearestSlotId(event);
 
             if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                this.actor.updateEmbeddedEntity('OwnedItem', [
+                this.actor.updateEmbeddedDocuments('Item', [
                     {
                         _id: itemData._id,
                         'data.location': slotId,
@@ -1070,7 +1070,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             } else {
                 // if they're dragging it away from a slot
                 if (itemData.data.location) {
-                    return this.actor.updateEmbeddedEntity('OwnedItem', {
+                    return this.actor.updateEmbeddedDocuments('Item', {
                         _id: itemData._id,
                         'data.location': '',
                     });

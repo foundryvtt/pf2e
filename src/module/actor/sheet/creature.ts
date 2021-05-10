@@ -94,7 +94,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 case 'toggleHands':
                     if (item.data.type === 'weapon') {
                         item.data.data.hands.value = !item.data.data.hands.value;
-                        this.actor.updateEmbeddedEntity('OwnedItem', item.data);
+                        this.actor.updateEmbeddedDocuments('Item', item.data);
                         this._render();
                     }
 

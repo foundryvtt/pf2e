@@ -5,17 +5,17 @@ type CombatantDataPF2e = CombatantData<ActorPF2e>;
 
 export class CombatPF2e extends Combat<ActorPF2e> {
     /** Exclude orphaned and loot-actor tokens from combat */
-    async createEmbeddedEntity(
+    async createEmbeddedDocuments(
         embeddedName: 'Combatant',
         data: CombatantDataPF2e,
         options?: EntityCreateOptions,
     ): Promise<CombatantDataPF2e | null>;
-    async createEmbeddedEntity(
+    async createEmbeddedDocuments(
         embeddedName: 'Combatant',
         data: CombatantDataPF2e[],
         options?: EntityCreateOptions,
     ): Promise<CombatantDataPF2e[] | CombatantDataPF2e | null>;
-    async createEmbeddedEntity(
+    async createEmbeddedDocuments(
         embeddedName: 'Combatant',
         data: CombatantDataPF2e | CombatantDataPF2e[],
         options: EntityCreateOptions = {},
@@ -35,7 +35,7 @@ export class CombatPF2e extends Combat<ActorPF2e> {
             }
             return true;
         });
-        return super.createEmbeddedEntity(embeddedName, createData, options);
+        return super.createEmbeddedDocuments(embeddedName, createData, options);
     }
 
     /** Use a Pathfinder 2e roll formula */

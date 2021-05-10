@@ -253,7 +253,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
                 embeddedEntityUpdate,
             );
-            this.actor.updateEmbeddedEntity('OwnedItem', embeddedEntityUpdate);
+            this.actor.updateEmbeddedDocuments('Item', embeddedEntityUpdate);
             ui.notifications.info(
                 'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
             );
@@ -372,7 +372,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         html.find<HTMLInputElement>('.skill-input').on('change', async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
-            await this.actor.updateEmbeddedEntity('OwnedItem', {
+            await this.actor.updateEmbeddedDocuments('Item', {
                 _id: itemId,
                 'data.mod.value': Number(event.target.value),
             });
@@ -386,12 +386,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
 
             if (['dc', 'value'].includes(spelldcType)) {
-                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                await this.actor.updateEmbeddedDocuments('Item', {
                     _id: itemId,
                     [`data.spelldc.${spelldcType}`]: Number(event.target.value),
                 });
             } else if (spelldcType === 'ability') {
-                await this.actor.updateEmbeddedEntity('OwnedItem', {
+                await this.actor.updateEmbeddedDocuments('Item', {
                     _id: itemId,
                     ['data.ability.value']: event.target.value,
                 });
