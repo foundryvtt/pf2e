@@ -176,7 +176,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
 
         // Migrate Scene Actors
-        for await (const scene of game.scenes.entities) {
+        for await (const scene of game.scenes.contents) {
             for await (const tokenData of scene.data.tokens) {
                 const token = new Token<ActorPF2e>(tokenData, scene);
                 if (token.actor) {

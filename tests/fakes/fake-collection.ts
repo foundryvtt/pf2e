@@ -39,7 +39,7 @@ export class FakeCollection<V> {
 }
 
 export class FakeEntityCollection<V extends { data: object }> extends FakeCollection<V> {
-    get entities(): V[] {
+    get contents(): V[] {
         return this.entries;
     }
 }
