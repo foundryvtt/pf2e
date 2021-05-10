@@ -202,7 +202,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate Compendium Actors
         const actorPacks = worldPacks.filter((pack): pack is Compendium<ActorPF2e> => pack.entity === 'Actor');
         for await (const pack of actorPacks) {
-            for (const actor of await pack.getContent()) {
+            for (const actor of await pack.getDocuments()) {
                 promises.push(this.migrateWorldActor(migrations, actor, pack));
             }
         }
@@ -210,7 +210,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate Compendium Items
         const itemPacks = worldPacks.filter((pack): pack is Compendium<ItemPF2e> => pack.entity === 'Item');
         for await (const pack of itemPacks) {
-            for (const item of await pack.getContent()) {
+            for (const item of await pack.getDocuments()) {
                 promises.push(this.migrateWorldItem(migrations, item, pack));
             }
         }
@@ -218,7 +218,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate Compendium Macros
         const macroPacks = worldPacks.filter((pack): pack is Compendium<Macro> => pack.entity === 'Macro');
         for await (const pack of macroPacks) {
-            for (const macro of await pack.getContent()) {
+            for (const macro of await pack.getDocuments()) {
                 promises.push(this.migrateWorldMacro(migrations, macro, pack));
             }
         }
@@ -226,7 +226,7 @@ export class MigrationRunner extends MigrationRunnerBase {
         // Migrate Compendium RollTables
         const tablePacks = worldPacks.filter((pack): pack is Compendium<RollTable> => pack.entity === 'RollTable');
         for await (const pack of tablePacks) {
-            for (const table of await pack.getContent()) {
+            for (const table of await pack.getDocuments()) {
                 promises.push(this.migrateWorldTable(migrations, table, pack));
             }
         }

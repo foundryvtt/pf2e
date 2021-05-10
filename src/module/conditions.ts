@@ -62,7 +62,7 @@ export class ConditionManager {
     }
 
     static async init() {
-        const content = (await game.packs.get('pf2e.conditionitems').getContent()) as ConditionPF2e[];
+        const content = (await game.packs.get('pf2e.conditionitems').getDocuments()) as ConditionPF2e[];
 
         for (const condition of content) {
             ConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);

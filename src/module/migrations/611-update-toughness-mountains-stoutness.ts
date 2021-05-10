@@ -12,7 +12,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
 
     constructor() {
         super();
-        this.featsPromise = game.packs.get('pf2e.feats-srd')!.getContent();
+        this.featsPromise = game.packs.get('pf2e.feats-srd')!.getDocuments();
     }
 
     async updateActor(actorData: ActorDataPF2e) {
