@@ -47,7 +47,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                     (rule) => rule.selector === 'ac' && rule.key === 'PF2E.RuleElement.FlatModifier',
                 );
                 rule!.value = shield.data.data.armor.value;
-                await actor.createEmbeddedDocuments('Item', effect.data);
+                await actor.createEmbeddedDocuments('Item', [effect.data]);
                 return true;
             }
         } else if (shield?.isBroken) {

@@ -1210,13 +1210,13 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 }
                 itemData.data.location = { value: dropID };
                 this.actor._setShowUnpreparedSpells(dropID, itemData.data.level?.value);
-                return this.actor.createEmbeddedDocuments('Item', itemData);
+                return this.actor.createEmbeddedDocuments('Item', [itemData]);
             } else if (dropSlotType === 'spellLevel') {
                 const { itemId, level } = $(event.target).closest('.item').data();
 
                 if (typeof itemId === 'string' && typeof level === 'number') {
                     this.moveSpell(itemData, itemId, level);
-                    return this.actor.createEmbeddedDocuments('Item', itemData);
+                    return this.actor.createEmbeddedDocuments('Item', [itemData]);
                 }
             } else if (dropSlotType === 'spell') {
                 const { containerId } = $(event.target).closest('.item-container').data();
@@ -1224,7 +1224,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
                 if (typeof containerId === 'string' && typeof spellLvl === 'number') {
                     this.moveSpell(itemData, containerId, spellLvl);
-                    return this.actor.createEmbeddedDocuments('Item', itemData);
+                    return this.actor.createEmbeddedDocuments('Item', [itemData]);
                 }
             } else if (dropContainerType === 'actorInventory' && itemData.data.level.value > 0) {
                 const popup = new ScrollWandPopup(
@@ -1586,7 +1586,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     data: spellcastingEntity,
                                 };
 
-                                this.actor.createEmbeddedDocuments('Item', (data as unknown) as ItemDataPF2e);
+                                this.actor.createEmbeddedDocuments('Item', ([data] as unknown) as ItemDataPF2e[]);
                             },
                         },
                     },

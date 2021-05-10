@@ -104,6 +104,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 return new CONFIG.PF2E.Actor.entityClasses[data.type](data, { ...ready, ...options });
             } catch (_error) {
                 super(data, options); // eslint-disable-line constructor-super
+                console.debug(_error);
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
@@ -889,7 +890,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         // Otherwise create a new item
-        const result = await targetActor.createEmbeddedDocuments('Item', newItemData);
+        const result = await Item.create(newItemData, { parent: targetActor });
         if (result === null) {
             return null;
         }
