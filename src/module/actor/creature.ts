@@ -151,7 +151,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** @override */
-    async updateEmbeddedEntity(
+    async updateEmbeddedDocuments(
         embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
@@ -180,7 +180,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
         return super.updateEmbeddedDocuments(embeddedName, updateData, options);
     }
 
-    protected _onModifyEmbeddedEntity(
+    protected _onModifyEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         changes: EmbeddedEntityUpdateData,
         options: EntityUpdateOptions,

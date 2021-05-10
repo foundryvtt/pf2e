@@ -41,11 +41,11 @@ export class LootNPCsPopup extends FormApplication<ActorPF2e> {
                 const currentSourceItemData = currentSource.physicalItems.map((item) => item._data);
                 itemData.push(...currentSourceItemData);
                 const idsToDelete = currentSourceItemData.map((item) => item._id);
-                currentSource.deleteEmbeddedEntity('OwnedItem', idsToDelete);
+                currentSource.deleteEmbeddedDocuments('Item', idsToDelete);
             }
         }
         if (itemData.length > 0) {
-            await this.object.createEmbeddedEntity('OwnedItem', itemData);
+            await this.object.createEmbeddedDocuments('Item', itemData);
         }
     }
 

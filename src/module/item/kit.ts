@@ -47,7 +47,7 @@ export class KitPF2e extends ItemPF2e {
 
                 // Get items in this container and inflate any items that might be contained inside
                 if (inflatedItem instanceof ContainerPF2e && kitEntry.items) {
-                    const containerData = await actor.createEmbeddedEntity('OwnedItem', inflatedItem._data);
+                    const containerData = await actor.createEmbeddedDocuments('Item', inflatedItem._data);
                     if (containerData) {
                         await this.dumpContents(actor, Object.values(kitEntry.items), containerData._id);
                     }
@@ -63,7 +63,7 @@ export class KitPF2e extends ItemPF2e {
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
             .map((item) => item._data);
         if (createData.length > 0) {
-            await actor.createEmbeddedEntity('OwnedItem', createData);
+            await actor.createEmbeddedDocuments('Item', createData);
         }
     }
 }

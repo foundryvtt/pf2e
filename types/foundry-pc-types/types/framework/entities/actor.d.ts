@@ -13,7 +13,7 @@ declare interface ActorClassConfig<A extends Actor> extends EntityClassConfig<A>
     collection: Actors<A>;
     embeddedDocuments: {
         ActiveEffect: 'effects';
-        OwnedItem: 'items';
+        Item: 'items';
     };
 }
 

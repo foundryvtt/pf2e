@@ -29,7 +29,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
         const existingFeatureIds = actor.itemTypes.feat
             .filter((feat) => existingABCIds.includes(feat.data.data.location))
             .map((feat) => feat.id);
-        await actor.deleteEmbeddedEntity('OwnedItem', existingABCIds.concat(existingFeatureIds));
+        await actor.deleteEmbeddedDocuments('Item', existingABCIds.concat(existingFeatureIds));
     }
 
     async addFeatures(actor: CharacterPF2e): Promise<void> {
@@ -48,7 +48,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                     ),
                 Promise.resolve([] as FeatData[]),
             );
-        await actor.createEmbeddedEntity('OwnedItem', featuresData);
+        await actor.createEmbeddedDocuments('Item', featuresData);
     }
 }
 

@@ -645,7 +645,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
                 updateData,
             );
-            this.actor.updateEmbeddedEntity('OwnedItem', updateData);
+            this.actor.updateEmbeddedDocuments('Item', updateData);
             ui.notifications.info(
                 'PF2e actor data migration for orphaned spells applied. Please close actor and open again for changes to take affect.',
             );
@@ -1013,7 +1013,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 : $input.is('select')
                 ? String($input.val())
                 : Number($input.val());
-        await this.actor.updateEmbeddedEntity('OwnedItem', {
+        await this.actor.updateEmbeddedDocuments('Item', {
             _id: itemId,
             [key]: value,
         });
