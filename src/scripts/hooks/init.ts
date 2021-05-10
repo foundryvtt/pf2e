@@ -34,12 +34,12 @@ export function listen(): void {
         CONFIG.debug.ruleElement ??= false;
 
         // Assign document classes.
-        CONFIG.Item.entityClass = ItemPF2e;
-        CONFIG.ActiveEffect.entityClass = ActiveEffectPF2e;
-        CONFIG.Actor.entityClass = ActorPF2e;
-        CONFIG.ChatMessage.entityClass = ChatMessagePF2e;
-        CONFIG.Combat.entityClass = CombatPF2e;
-        CONFIG.Macro.entityClass = MacroPF2e;
+        CONFIG.Item.documentClass = ItemPF2e;
+        CONFIG.ActiveEffect.documentClass = ActiveEffectPF2e;
+        CONFIG.Actor.documentClass = ActorPF2e;
+        CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
+        CONFIG.Combat.documentClass = CombatPF2e;
+        CONFIG.Macro.documentClass = MacroPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;

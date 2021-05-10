@@ -25,7 +25,7 @@ declare interface Config<
      * Configuration for the default Actor entity class
      */
     Actor: {
-        entityClass: { new (data: ActorType['data'], options?: EntityConstructorOptions): ActorType };
+        documentClass: { new (data: ActorType['data'], options?: EntityConstructorOptions): ActorType };
         collection: Actors<ActorType>;
         sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
     };
@@ -34,7 +34,7 @@ declare interface Config<
      * Configuration for the ActiveEffect embedded Entity
      */
     ActiveEffect: {
-        entityClass: { new (data: EffectType['data'], parent: ActorType | ItemType): EffectType };
+        documentClass: { new (data: EffectType['data'], parent: ActorType | ItemType): EffectType };
         sheetClass: typeof ActiveEffectConfig;
     };
 
@@ -60,7 +60,7 @@ declare interface Config<
     ChatMessage: {
         batchSize: number;
         collection: typeof Messages;
-        entityClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): MessageType };
+        documentClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): MessageType };
         sidebarIcon: string;
         template: string;
     };
@@ -69,7 +69,7 @@ declare interface Config<
      * Configuration for the default Item entity class
      */
     Item: {
-        entityClass: { new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType };
+        documentClass: { new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType };
         collection: Items<ItemType>;
         sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
     };
@@ -78,7 +78,7 @@ declare interface Config<
      * Configuration for the default Combat entity class
      */
     Combat: {
-        entityClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
+        documentClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
         collection: typeof CombatEncounters;
         initiative: {
             decimals: number;
@@ -90,7 +90,7 @@ declare interface Config<
      * Configuration for the JournalEntry entity
      */
     JournalEntry: {
-        entityClass: typeof JournalEntry;
+        documentClass: typeof JournalEntry;
         sheetClass: typeof JournalSheet;
         noteIcons: {
             Anchor: string;
@@ -103,7 +103,7 @@ declare interface Config<
      * Configuration for the Macro entity
      */
     Macro: {
-        entityClass: { new (data: MacroType['data'], options?: EntityConstructorOptions): MacroType };
+        documentClass: { new (data: MacroType['data'], options?: EntityConstructorOptions): MacroType };
         collection: typeof Macros;
         sheetClass: typeof MacroConfig;
         sidebarIcon: string;
@@ -113,7 +113,7 @@ declare interface Config<
      * Configuration for the default Scene entity class
      */
     Scene: {
-        entityClass: typeof Scene;
+        documentClass: typeof Scene;
         collection: Scenes;
         sheetClass: any;
         notesClass: any;
@@ -124,7 +124,7 @@ declare interface Config<
      * Configuration for the default Playlist entity class
      */
     Playlist: {
-        entityClass: typeof Playlist;
+        documentClass: typeof Playlist;
         sheetClass: typeof PlaylistConfig;
         sidebarIcon: string;
     };
@@ -133,7 +133,7 @@ declare interface Config<
      * Configuration for RollTable random draws
      */
     RollTable: {
-        entityClass: typeof RollTable;
+        documentClass: typeof RollTable;
         sheetClass: typeof RollTableConfig;
         sidebarIcon: string;
         resultIcon: string;
