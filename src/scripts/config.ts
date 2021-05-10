@@ -2326,7 +2326,7 @@ export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e
      * Configuration for the default Combat entity class
      */
     Combat: {
-        entityClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
+        documentClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
         collection: typeof CombatEncounters;
         initiative: {
             decimals: number;
