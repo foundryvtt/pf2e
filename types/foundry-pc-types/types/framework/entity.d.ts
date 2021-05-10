@@ -666,7 +666,7 @@ declare class Entity {
      * Test whether a given User has permission to perform some action on this Entity
      * @alias Entity.can
      */
-    static can(user: User, action: UserAction, target: Entity): boolean;
+    static canUserModify(user: User, action: UserAction, target: Entity): boolean;
 
     /**
      * Activate the Socket event listeners used to receive responses from events which modify database documents
@@ -674,5 +674,5 @@ declare class Entity {
      */
     static activateSocketListeners(socket: any): unknown;
 
-    can(user: User, action: string): boolean;
+    canUserModify(user: User, action: string): boolean;
 }

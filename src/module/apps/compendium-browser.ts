@@ -780,7 +780,7 @@ class CompendiumBrowser extends Application {
                         continue;
                     }
 
-                    const userHasPermissions = actor!.can(game.user, 'update') ?? false;
+                    const userHasPermissions = actor!.canUserModify(game.user, 'update') ?? false;
                     const actorType = actor!.data?.type ?? 'undefined';
                     const actorMayContainEquipment =
                         actorType === 'character' || actorType === 'loot' || actorType === 'npc';

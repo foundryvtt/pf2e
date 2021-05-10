@@ -31,12 +31,12 @@ export class NPCPF2e extends CreaturePF2e {
      *  Users with limited permission can loot a dead NPC
      * @override
      */
-    static can(user: User, action: UserAction, target: NPCPF2e): boolean {
+    static canUserModify(user: User, action: UserAction, target: NPCPF2e): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (action === 'update' && target.hitPoints.current === 0 && npcsAreLootable) {
             return target.permission >= CONST.ENTITY_PERMISSIONS.LIMITED;
         }
-        return super.can(user, action, target);
+        return super.canUserModify(user, action, target);
     }
 
     /**

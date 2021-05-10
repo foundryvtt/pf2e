@@ -285,7 +285,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     onCreateOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
-        if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
+        if (!(isCreatureData(this.data) && this.canUserModify(game.user, 'update'))) return;
         const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
@@ -296,7 +296,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     onDeleteOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
-        if (!(isCreatureData(this.data) && this.can(game.user, 'update'))) return;
+        if (!(isCreatureData(this.data) && this.canUserModify(game.user, 'update'))) return;
         const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
         const tokens = this._getTokenData();
         const actorUpdates = {};
@@ -718,7 +718,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     isLootableBy(user: User) {
-        return this.can(user, 'update');
+        return this.canUserModify(user, 'update');
     }
 
     /**
@@ -850,11 +850,11 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             return null;
         }
 
-        if (!this.can(game.user, 'update')) {
+        if (!this.canUserModify(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemSource'));
             return null;
         }
-        if (!targetActor.can(game.user, 'update')) {
+        if (!targetActor.canUserModify(game.user, 'update')) {
             ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.CantMoveItemDestination'));
             return null;
         }
