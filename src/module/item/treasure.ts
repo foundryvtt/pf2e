@@ -200,7 +200,7 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
         }
     }
     if (entitiesToDelete.length > 0) {
-        await actor.deleteEmbeddedEntity('OwnedItem', entitiesToDelete);
+        await actor.deleteEmbeddedDocuments('Item', entitiesToDelete);
     }
     if (quantityToRemove > 0) {
         console.warn('Attempted to remove more coinage than exists');
@@ -282,7 +282,7 @@ export function sellAllTreasure(actor: ActorPlaceholder): Promise<void[]> {
         .reduce(combineCoins, noCoins());
 
     return Promise.all([
-        actor.deleteEmbeddedEntity('OwnedItem', treasureIds),
+        actor.deleteEmbeddedDocuemnts('Item', treasureIds),
         addCoins(actor, {
             coins,
             combineStacks: true,
@@ -306,7 +306,7 @@ export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Pro
     ) {
         const quantity = (item.data.data?.value?.value ?? 1) * (item.data.data?.quantity?.value ?? 1);
         const coins = toCoins(item.data.data.denomination.value, quantity);
-        await actor.deleteEmbeddedEntity('OwnedItem', itemId);
+        await actor.deleteEmbeddedDocuments('Item', itemId);
         await addCoins(actor, {
             coins,
             combineStacks: true,

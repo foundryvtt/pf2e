@@ -508,7 +508,9 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
                 const refresh = () => this.render();
                 if (actor instanceof ActorPF2e) {
-                    actor.updateEmbeddedEntity('ActiveEffect', { _id: effect.id, disabled: isDisabled }).then(refresh);
+                    actor
+                        .updateEmbeddedDocuments('ActiveEffect', { _id: effect.id, disabled: isDisabled })
+                        .then(refresh);
                 } else {
                     effect.update({ disabled: isDisabled }).then(refresh);
                 }
@@ -529,7 +531,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 if (actor instanceof ActorPF2e) {
-                    actor.deleteEmbeddedEntity('ActiveEffect', effect.id);
+                    actor.deleteEmbeddedDocuments('ActiveEffect', effect.id);
                 } else {
                     effect.delete();
                 }

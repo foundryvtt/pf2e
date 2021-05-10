@@ -342,7 +342,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                     }
                 }
 
-                triggerItem.actor?.createOwnedItem(newAction, { displaySheet: false });
+                triggerItem.actor?.createEmbeddedDocuments('Item', newAction, { displaySheet: false });
             }
         }
     }
