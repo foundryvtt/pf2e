@@ -75,6 +75,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
     /** @override */
     prepareData(): void {
+        super.prepareData();
+
         // Add traits from potency rune
         const baseTraits = this.data.data.traits.value;
         const fromRunes: ('invested' | 'abjuration')[] = this.data.data.potencyRune.value
@@ -84,7 +86,8 @@ export class ArmorPF2e extends PhysicalItemPF2e {
         const magicTraits: 'magical'[] = fromRunes.length > 0 && !hasTraditionTraits ? ['magical'] : [];
         this.data.data.traits.value = Array.from(new Set([...baseTraits, ...fromRunes, ...magicTraits]));
 
-        super.prepareData();
+        // Call again now the traits are reconstructed
+        this.setPredicates();
     }
 
     getChatData(this: Owned<ArmorPF2e>, htmlOptions: EnrichHTMLOptions = {}) {

@@ -2,7 +2,7 @@ import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, R
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e, ConditionData, WeaponData, isMagicDetailsData } from '@item/data/types';
+import { ItemDataPF2e, ConditionData, WeaponData, isMagicItemData } from '@item/data/types';
 import {
     ActorDataPF2e,
     HazardData,
@@ -80,7 +80,7 @@ const SUPPORTED_ROLL_OPTIONS = Object.freeze([
     'counteract-check',
 ]);
 
-interface ActorConstructorOptionsPF2e extends EntityConstructorOptions {
+interface ActorConstructorOptionsPF2e extends ActorConstructorOptions<Token> {
     pf2e?: {
         ready?: boolean;
     };
@@ -584,12 +584,16 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 hitpoints,
             });
             actor.modifyTokenAttribute(attribute, value * -1, true, true, shield).then(() => {
-                ChatMessage.create({
+                const data: any = {
                     user: game.user._id,
                     speaker: { alias: token.name },
                     content: message,
                     type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
-                });
+                };
+                if (game.settings.get('pf2e', 'metagame.secretDamage') && !token?.actor?.hasPlayerOwner) {
+                    data.whisper = ChatMessage.getWhisperRecipients('GM');
+                }
+                ChatMessage.create(data);
             });
         }
         return true;
@@ -872,7 +876,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const newItemData = duplicate(item._data);
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
-        if (isMagicDetailsData(newItemData.data)) {
+        if (isMagicItemData(newItemData)) {
             newItemData.data.invested.value = false;
         }
 

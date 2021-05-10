@@ -42,7 +42,7 @@ import {
 } from './data-definitions';
 import { RollNotePF2e } from '../notes';
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from '../rules/rules-data-definitions';
-import { toNumber } from '@module/utils';
+import { ErrorPF2e, toNumber } from '@module/utils';
 import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
@@ -1158,6 +1158,16 @@ export class CharacterPF2e extends CreaturePF2e {
             this.data.data.details.class.value = classItem.name;
             this.data.data.attributes.classhp = classItem.hpPerLevel;
         }
+    }
+
+    /** Toggle the invested state of an owned magical item */
+    async toggleInvested(itemId: string): Promise<boolean> {
+        const item = this.physicalItems.get(itemId);
+        if (!item?.traits.has('invested')) {
+            throw ErrorPF2e('Unexpected error toggling item investment');
+        }
+
+        return !!(await item.update({ 'data.invested.value': !item.isInvested }));
     }
 
     /** Add a proficiency in a weapon group or base weapon */

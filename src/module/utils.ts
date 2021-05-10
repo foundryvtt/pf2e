@@ -231,6 +231,26 @@ export function getActionIcon(
     return actionImgMap[sanitized] ?? fallback;
 }
 
+const actionGlyphMap: Record<string, string> = {
+    1: 'A',
+    2: 'D',
+    3: 'T',
+    '1 or 2': 'A/D',
+    '1 to 3': 'A/T',
+    '2 or 3': 'D/T',
+    free: 'F',
+    reaction: 'R',
+};
+
+/**
+ * Returns a character that can be used with the Pathfinder action font
+ * to display an icon.
+ */
+export function getActionGlyph(actionType: string) {
+    const sanitized = actionType.toLowerCase().trim();
+    return actionGlyphMap[sanitized] ?? '';
+}
+
 export function ErrorPF2e(message: string) {
     return Error(`PF2e System | ${message}`);
 }

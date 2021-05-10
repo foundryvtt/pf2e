@@ -1,0 +1,22 @@
+<div class="spell-body">
+    <div class="spell-detail sub-section expandable">
+        <div class="traits-list tags">
+            {{#each spell.chatData.traits as |trait traitIndex|}}
+                <div class="tag" title="{{localize trait.description}}">{{ localize trait.label }}</div>
+            {{/each}}
+        </div>
+        {{#if spell.chatData.isSave}}
+            <div>
+                {{ localize 'PF2E.SaveDCLabel'}} {{spell.chatData.save.dc}} {{chatData.save.basic}} {{chatData.save.str}}
+            </div>
+        {{/if}}
+        <div class="spell-description">
+            {{{ enrichHTML spell.chatData.description.value }}}
+        </div>
+        <div class="traits-list tags">
+            {{#each spell.chatData.properties as |property propertyIndex|}}
+                <div class="tag tag_secondary">{{ localize property }}</div>
+            {{/each}}
+        </div>
+    </div>
+</div>

@@ -73,7 +73,7 @@ export class WorldClock extends Application {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             id: 'world-clock',
-            width: 550,
+            width: 400,
             template: 'systems/pf2e/templates/system/world-clock.html',
             title: 'PF2E.WorldClock.Title',
         });
