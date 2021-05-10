@@ -313,26 +313,6 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     getEmbeddedDocument(collection: string, id: string, { strict }?: { strict?: boolean }): never;
 
     /**
-     * Create a new item owned by this Actor.
-     * @param itemData              Data for the newly owned item
-     * @param options               Item creation options
-     * @param options.renderSheet   Render the Item sheet for the newly created item data
-     * @return                      A Promise containing the data of the newly created owned Item instance
-     */
-    createEmbeddedDocuments(
-        itemData: DeepPartial<ItemType['data']>,
-        options?: EntityCreateOptions,
-    ): Promise<ItemType['data'] | null>;
-    createEmbeddedDocuments(
-        itemData: DeepPartial<ItemType['data']>,
-        options?: EntityCreateOptions,
-    ): Promise<ItemType['data'] | null | ItemType['data'][]>;
-    createEmbeddedDocuments(
-        itemData: DeepPartial<ItemType['data']>[],
-        options?: EntityCreateOptions,
-    ): Promise<ItemType['data'] | null | ItemType['data'][]>;
-
-    /**
      * When Owned Items are created process each item and extract Active Effects to transfer to the Actor.
      * @param created     Created owned Item data objects
      * @param [temporary] Is this a temporary item creation?

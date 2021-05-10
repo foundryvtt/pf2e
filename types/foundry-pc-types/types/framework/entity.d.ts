@@ -23,7 +23,7 @@ declare interface EntityCreateOptions {
 declare interface EntityClassConfig<E extends Entity> {
     baseEntity: { new (...args: any[]): E };
     collection: EntityCollection<E>;
-    embeddedEntities: Record<string, string>;
+    embeddedDocuments: Record<string, string>;
     label: string;
     permissions: { [userId: string]: keyof typeof CONST.USER_PERMISSIONS };
 }
@@ -381,7 +381,7 @@ declare class Entity {
      * @return              Retrieved data for the requested child, or null
      */
     getEmbeddedEntity(
-        collection: keyof typeof Entity['config']['embeddedEntities'],
+        collection: keyof typeof Entity['config']['embeddedDocuments'],
         id: string,
         { strict }?: { strict?: boolean },
     ): BaseEntityData;
@@ -412,12 +412,12 @@ declare class Entity {
      * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns an Array of EmbeddedEntities, saved to the Actor
      * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
      */
-    createEmbeddedEntity<E extends BaseEntityData | EmbeddedEntityData>(
+    createEmbeddedDocuments<E extends BaseEntityData | EmbeddedEntityData>(
         embeddedName: string,
         data: Partial<E>[] | E[],
         options?: EntityCreateOptions,
     ): Promise<E | E[] | null>;
-    createEmbeddedEntity<E extends BaseEntityData | EmbeddedEntityData>(
+    createEmbeddedDocuments<E extends BaseEntityData | EmbeddedEntityData>(
         embeddedName: string,
         data: Partial<E> | E,
         options?: EntityCreateOptions,
@@ -450,12 +450,12 @@ declare class Entity {
      * }
      * const updated = await actor.createEmbeddedEntity("OwnedItem", updates); // Updates multiple EmbeddedEntity objects
      */
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: string,
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<EmbeddedEntityData | BaseEntityData | TokenData>;
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: string,
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
@@ -484,12 +484,12 @@ declare class Entity {
      * const deletions = weapons.map(i => i._id);
      * const deleted = await actor.deleteEmbeddedEntity("OwnedItem", deletions); // Deletes multiple EmbeddedEntity objects
      */
-    deleteEmbeddedEntity(
+    deleteEmbeddedDocuments(
         embeddedName: string,
         dataId: string,
         options?: EntityDeleteOptions,
     ): Promise<EmbeddedEntityData | BaseEntityData>;
-    deleteEmbeddedEntity(
+    deleteEmbeddedDocuments(
         embeddedName: string,
         dataId: string | string[],
         options?: EntityDeleteOptions,
@@ -503,7 +503,7 @@ declare class Entity {
      * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
      * @private
      */
-    protected _onCreateEmbeddedEntity(
+    protected _onCreateEmbeddedDocuments(
         embeddedName: string,
         child: BaseEntityData | EmbeddedEntityData,
         options: EntityCreateOptions,
@@ -517,7 +517,7 @@ declare class Entity {
      * Any steps defined here should run on a per-EmbeddedEntity basis.
      * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
      */
-    protected _onUpdateEmbeddedEntity(
+    protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
         child: BaseEntityData | EmbeddedEntityData,
         updateData: EntityUpdateData<BaseEntityData> | EmbeddedEntityUpdateData,
@@ -532,7 +532,7 @@ declare class Entity {
      * Any steps defined here should run on a per-EmbeddedEntity basis.
      * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
      */
-    protected _onDeleteEmbeddedEntity(
+    protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
         child: BaseEntityData | EmbeddedEntityData,
         options: EntityDeleteOptions,
@@ -543,7 +543,7 @@ declare class Entity {
      * A generic helper since we take the same actions for every type of Embedded Entity update
      * Unlike the specific _onCreate, _onUpdate, and _onDelete methods this only runs once per updated batch
      */
-    protected _onModifyEmbeddedEntity(
+    protected _onModifyEmbeddedDocuments(
         embeddedName: string,
         changes: EmbeddedEntityUpdateData,
         options: EntityUpdateOptions,
