@@ -152,7 +152,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** @override */
     async updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
         data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options = {},
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
@@ -177,17 +177,17 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
 
-        return super.updateEmbeddedEntity(embeddedName, updateData, options);
+        return super.updateEmbeddedDocuments(embeddedName, updateData, options);
     }
 
     protected _onModifyEmbeddedEntity(
-        embeddedName: 'ActiveEffect' | 'OwnedItem',
+        embeddedName: 'ActiveEffect' | 'Item',
         changes: EmbeddedEntityUpdateData,
         options: EntityUpdateOptions,
         userId: string,
         context: EntityRenderOptions = {},
     ): void {
-        super._onModifyEmbeddedEntity(embeddedName, changes, options, userId, context);
+        super._onModifyEmbeddedDocuments(embeddedName, changes, options, userId, context);
         this.redrawTokenEffects();
     }
 
@@ -366,33 +366,33 @@ export interface CreaturePF2e {
      * See implementation in class
      * @override
      */
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData>;
-    updateEmbeddedEntity(
+    updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
+    updateEmbeddedDocuments(
+        embeddedName: 'Item',
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: 'OwnedItem',
+    updateEmbeddedDocuments(
+        embeddedName: 'Item',
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+    updateEmbeddedDocuments(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
         updateData: EmbeddedEntityUpdateData,
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedEntity(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedEntities'],
+    updateEmbeddedDocuments(
+        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
         updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
         options?: EntityUpdateOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
