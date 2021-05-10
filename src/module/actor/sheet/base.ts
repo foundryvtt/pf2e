@@ -49,14 +49,9 @@ import {
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
 import { ConfigPF2e } from '@scripts/config';
-<<<<<<< HEAD
-import { CreaturePF2e } from '@actor/creature';
-import { PF2CheckDC } from '@system/check-degree-of-success';
 import { DeleteFromPfsDb, ExportIntoPfsDb, ImportFromPfsDb } from '@actor/pfsdb';
-=======
 import { NPCPF2e } from '@actor/npc';
 import { CharacterPF2e } from '@actor/character';
->>>>>>> 5ea8558b21dbcaec260e3dd5f68881d60c44eb5d
 
 interface SpellSheetData extends SpellData {
     spellInfo?: unknown;
