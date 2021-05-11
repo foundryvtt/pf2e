@@ -388,7 +388,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
             const drId = Number($(ev.currentTarget).attr('data-dmgRoll'));
             // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const item = this.actor.items.get(itemId);
             const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
 
             // which function gets called depends on the type of button stored in the dataset attribute action
@@ -407,7 +407,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
             const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
             // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.getOwnedItem(itemId);
+            const item = this.actor.items.get(itemId);
             if (item === null || item.data.type !== 'melee') {
                 console.log('PF2e System | clicked an attackEffect, but item was not a melee');
                 return;

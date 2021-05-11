@@ -64,7 +64,7 @@ export class WeaponPF2e extends PhysicalItemPF2e {
             proficiency.value = (actorData.data as any).martial?.[prof]?.value || 0;
         } else {
             try {
-                const martialSkill = this.actor?.getOwnedItem(prof);
+                const martialSkill = this.actor?.items?.get(prof);
                 if (martialSkill?.data.type === 'martial') {
                     proficiency.type = 'skill';
                     const rank = martialSkill.data.data.proficient?.value || 0;

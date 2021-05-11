@@ -341,7 +341,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
         html.find('.spellcasting.rollable').on('click', (event) => {
             event.preventDefault();
             const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
-            const item = this.actor.getOwnedItem(itemId);
+            const item = this.actor.items.get(itemId);
             if (item) {
                 item.rollSpellcastingEntryCheck(event);
             }
@@ -364,7 +364,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const action = this.actor.data.data.actions[Number(actionIndex)];
 
             if (action.selectedAmmoId) {
-                const ammo = this.actor.getOwnedItem(action.selectedAmmoId);
+                const ammo = this.actor.items.get(action.selectedAmmoId);
                 if (ammo instanceof ConsumablePF2e) {
                     if (ammo.quantity < 1) {
                         ui.notifications.error(game.i18n.localize('PF2E.ErrorMessage.NotEnoughAmmo'));
