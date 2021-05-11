@@ -181,7 +181,7 @@ async function addFromCompendium(actor: ActorPlaceholder, compendiumId: string, 
 
 async function increaseItemQuantity(actor: ActorPlaceholder, item: ItemPlaceholder, quantity: number) {
     const currentQuantity = item?.data?.quantity?.value || 0;
-    const ownedItem = actor.getOwnedItem(item._id);
+    const ownedItem = actor.items.get(item._id);
     if (ownedItem.data.type === 'treasure') {
         await ownedItem.update({ 'data.quantity.value': currentQuantity + quantity });
     }
@@ -192,7 +192,7 @@ async function decreaseItemQuantity(actor: ActorPlaceholder, item: ItemPlacehold
     for (let x = 0; x < item.length && quantityToRemove > 0; x++) {
         const currentQuantity = item[x]?.data?.quantity?.value || 0;
         if (currentQuantity > quantityToRemove) {
-            actor.getOwnedItem(item[x]._id).update({ 'data.quantity.value': currentQuantity - quantityToRemove });
+            actor.items.get(item[x]._id).update({ 'data.quantity.value': currentQuantity - quantityToRemove });
             quantityToRemove = 0;
         } else {
             entitiesToDelete.push(item[x]._id);
@@ -297,7 +297,7 @@ export function sellAllTreasure(actor: ActorPlaceholder): Promise<void[]> {
  * @return {Promise} Resolves after the treasure is removed and coins updated
  */
 export async function sellTreasure(actor: ActorPlaceholder, itemId: string): Promise<void> {
-    const item = actor.getOwnedItem(itemId);
+    const item = actor.items.get(itemId);
     if (
         item?.type === 'treasure' &&
         item.data.data?.denomination?.value !== undefined &&

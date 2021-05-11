@@ -972,7 +972,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         event.preventDefault();
 
         const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
-        const item = this.actor.getOwnedItem(itemId);
+        const item = this.actor.items.get(itemId);
 
         if (item) {
             if (item instanceof PhysicalItemPF2e && !item.isIdentified) {
@@ -1024,7 +1024,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const itemId = target.data().itemId;
         const itemLevel: string = target.data().level ?? '';
         const actor = this.actor;
-        const item = actor.getOwnedItem(itemId);
+        const item = actor.items.get(itemId);
 
         if (item == null || itemLevel === '') {
             return;

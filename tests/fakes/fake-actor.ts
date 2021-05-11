@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { FoundryUtils } from 'tests/utils';
-import { FakeItem } from './fake-item';
+import { FakeCollection } from './fake-collection';
 
 export class FakeActorItem {
     actor: FakeActor;
@@ -46,7 +46,12 @@ export class FakeActor {
     }
 
     get items() {
-        return this._data.items?.map((x) => new FakeItem(x.data as any) as any);
+        const collection = new FakeCollection();
+        this._data.items?.forEach((x) => {
+            const item = new FakeActorItem(this, x._id);
+            collection.set(item.id, item);
+        });
+        return collection;
     }
 
     static fromToken(token: Token): ActorPF2e | null {
@@ -68,14 +73,6 @@ export class FakeActor {
         for (const [k, v] of Object.entries(changes)) {
             global.setProperty(this._data, k, v);
         }
-    }
-
-    getOwnedItem(itemId: string) {
-        const item = this._data.items?.find((x) => x._id == itemId);
-        if (item !== undefined) {
-            return new FakeActorItem(this, item._id ?? '');
-        }
-        return undefined;
     }
 
     updateEmbeddedDocuments(type: string, data: any | any[]) {

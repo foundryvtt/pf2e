@@ -694,7 +694,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             return;
         }
 
-        const spellcastingEntry = this.getOwnedItem(entryId);
+        const spellcastingEntry = this.items.get(entryId);
         if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') {
             return;
         }
