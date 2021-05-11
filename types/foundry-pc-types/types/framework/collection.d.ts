@@ -16,6 +16,11 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
     readonly entries: V[];
 
     /**
+     * Return an Array of all the entry values in the Collection
+     */
+    readonly contents: V[];
+
+    /**
      * Find an entry in the Map using an functional condition.
      * @see {Array#find}
      *

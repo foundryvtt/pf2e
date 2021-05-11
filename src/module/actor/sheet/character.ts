@@ -892,7 +892,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     private onToggleAutomation(event: JQuery.ClickEvent) {
         const $checkbox = $(event.target);
         const toggleOff = !$checkbox.hasClass('disabled');
-        const effects = this.actor.effects.entries.filter((effect) =>
+        const effects = this.actor.effects.contents.filter((effect) =>
             effect.data.changes.some((change) => change.key === $checkbox.data('automation-key')),
         );
         const effectUpdates = effects.map((effect) => ({ _id: effect.id, disabled: toggleOff }));
@@ -901,7 +901,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
         if (['ancestry', 'background', 'class'].includes(itemData.type)) {
-            return await this.actor.createEmbeddedDocuments('Item', itemData);
+            const item = await this.actor.createEmbeddedDocuments('Item', [itemData]);
+            if (item) return item[0];
         }
 
         return super._onDropItemCreate(itemData);
@@ -1029,7 +1030,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             if (slotId !== undefined && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
-                    this.actor.createEmbeddedDocuments('Item', itemData),
+                    this.actor.createEmbeddedDocuments('Item', [itemData]),
                     this.actor.updateEmbeddedDocuments(
                         'Item',
                         this.actor.items

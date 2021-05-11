@@ -7,19 +7,19 @@ export class CombatPF2e extends Combat<ActorPF2e> {
     /** Exclude orphaned and loot-actor tokens from combat */
     async createEmbeddedDocuments(
         embeddedName: 'Combatant',
-        data: CombatantDataPF2e,
+        data: CombatantDataPF2e[],
         options?: EntityCreateOptions,
-    ): Promise<CombatantDataPF2e | null>;
+    ): Promise<CombatantDataPF2e[]>;
     async createEmbeddedDocuments(
         embeddedName: 'Combatant',
         data: CombatantDataPF2e[],
         options?: EntityCreateOptions,
-    ): Promise<CombatantDataPF2e[] | CombatantDataPF2e | null>;
+    ): Promise<CombatantDataPF2e[]>;
     async createEmbeddedDocuments(
         embeddedName: 'Combatant',
-        data: CombatantDataPF2e | CombatantDataPF2e[],
-        options: EntityCreateOptions = {},
-    ): Promise<CombatantDataPF2e | CombatantDataPF2e[] | null> {
+        data: CombatantDataPF2e[],
+        options?: EntityCreateOptions,
+    ): Promise<CombatantDataPF2e[]> {
         const createData = (Array.isArray(data) ? data : [data]).filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
             if (token === undefined) {

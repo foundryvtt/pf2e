@@ -47,7 +47,7 @@ export class KitPF2e extends ItemPF2e {
 
                 // Get items in this container and inflate any items that might be contained inside
                 if (inflatedItem instanceof ContainerPF2e && kitEntry.items) {
-                    const containerData = await actor.createEmbeddedDocuments('Item', inflatedItem._data);
+                    const containerData = await Item.create(inflatedItem._data, { parent: actor });
                     if (containerData) {
                         await this.dumpContents(actor, Object.values(kitEntry.items), containerData._id);
                     }
