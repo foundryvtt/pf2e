@@ -10,6 +10,7 @@ declare interface BaseEntityData {
 
 declare interface EntityConstructorOptions {
     compendium?: Compendium | null;
+    parent?: Entity;
     [key: string]: unknown;
 }
 
@@ -413,12 +414,7 @@ declare class Entity {
         embeddedName: string,
         data: Partial<E>[] | E[],
         options?: EntityCreateOptions,
-    ): Promise<E | E[] | null>;
-    createEmbeddedDocuments<E extends BaseEntityData | EmbeddedEntityData>(
-        embeddedName: string,
-        data: Partial<E> | E,
-        options?: EntityCreateOptions,
-    ): Promise<E | null>;
+    ): Promise<E[]>;
 
     /**
      * Update one or multiple existing entities using provided input data.

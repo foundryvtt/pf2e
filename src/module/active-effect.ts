@@ -53,7 +53,7 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
 
         if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
             toGrant.data.flags.pf2e = { grantedBy: this.data.origin };
-            await owner.createEmbeddedDocuments('Item', toGrant.data);
+            await owner.createEmbeddedDocuments('Item', [toGrant.data]);
         }
     }
 

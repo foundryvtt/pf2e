@@ -1,7 +1,7 @@
 import { ActorPF2e } from './base';
 import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
-import { ConditionData, isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
+import { isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
@@ -114,9 +114,9 @@ export abstract class CreaturePF2e extends ActorPF2e {
         });
 
         // Get all of the active conditions (from the item array), and add their modifiers.
-        const conditions = actorData.items.filter(
-            (i): i is ConditionData => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active,
-        );
+        const conditions = this.itemTypes.condition
+            .filter((c) => c.data.flags.pf2e?.condition && c.data.data.active)
+            .map((c) => c.data);
 
         for (const [key, value] of ConditionManager.getModifiersFromConditions(conditions.values())) {
             statisticsModifiers[key] = (statisticsModifiers[key] || []).concat(value);

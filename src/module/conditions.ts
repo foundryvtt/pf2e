@@ -421,7 +421,7 @@ export class ConditionManager {
     }
 
     static async _addConditionEntity(condition: ConditionData, token: TokenPF2e) {
-        let item = await token.actor.createEmbeddedDocuments('Item', condition);
+        let item = (Item.create(condition, { parent: token.actor }) as unknown) as ConditionData;
 
         // Ghetto race condition style fix for unlinked items NOT CREATED THE SAME FUCKING WAY!
         if (!token.data.actorLink) {

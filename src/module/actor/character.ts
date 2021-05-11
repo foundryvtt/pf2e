@@ -268,7 +268,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 WISDOM.withScore(data.abilities.wis.value),
                 ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank),
             ];
-            const activeEffects = this.effects.entries.filter((effect) =>
+            const activeEffects = this.effects.contents.filter((effect) =>
                 effect.data.changes.some((change) => change.key.startsWith('data.attributes.perception.rank')),
             );
             modifiers[1].automation.key = activeEffects.length > 0 ? 'data.attributes.perception.rank' : null;
