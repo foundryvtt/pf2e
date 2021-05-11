@@ -1013,7 +1013,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         data: DropCanvasData,
     ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         const actor = this.actor;
-        const isSameActor = data.actorId === actor._id || (actor.isToken && data.tokenId === actor.token?.id);
+        const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
             return super._onDropItem(event, data);
         }
@@ -1034,7 +1034,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         'Item',
                         this.actor.items
                             .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
-                            .map((x) => ({ _id: x._id, 'data.location': '' })),
+                            .map((x) => ({ _id: x.id, 'data.location': '' })),
                     ),
                 ]);
                 return items.flatMap((item) => item);
@@ -1064,7 +1064,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                     },
                     ...this.actor.items
                         .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
-                        .map((x) => ({ _id: x._id, 'data.location': '' })),
+                        .map((x) => ({ _id: x.id, 'data.location': '' })),
                 ]);
                 return itemData;
             } else {

@@ -99,7 +99,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
 
         if (skillItem) {
             skillContainer.remove();
-            await this.npc.deleteOwnedItem(skillItem._id);
+            await this.npc.deleteOwnedItem(skillItem.id);
 
             this.render(true);
         } else {

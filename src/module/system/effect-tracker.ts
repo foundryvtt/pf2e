@@ -117,7 +117,7 @@ export class EffectTracker {
             }
         }
         for await (const effect of expired) {
-            if (!effect.actor || !actor || effect.actor._id === actor._id) {
+            if (!effect.actor || !actor || effect.actor.id === actor.id) {
                 await effect.delete();
             }
         }

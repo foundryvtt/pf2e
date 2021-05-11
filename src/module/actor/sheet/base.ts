@@ -1334,7 +1334,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         const spellcastingEntry = this.actor.items.get(targetLocation);
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
-            throw ErrorPF2e(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor._id}`);
+            throw ErrorPF2e(`SpellcastingEntry ${targetLocation} not found in actor ${this.actor.id}`);
         }
 
         spellData.data.location = { value: targetLocation };

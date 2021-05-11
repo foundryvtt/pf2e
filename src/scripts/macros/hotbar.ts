@@ -10,7 +10,7 @@ import { SkillAbbreviation } from '@actor/data-definitions';
  * @param slot     The hotbar slot to use
  */
 export async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
-    const command = `game.pf2e.rollItemMacro("${item._id}");`;
+    const command = `game.pf2e.rollItemMacro("${item.id}");`;
     let macro = game.macros.contents.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
@@ -81,9 +81,9 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     templateData,
                 );
                 const chatData: any = {
-                    user: game.user._id,
+                    user: game.user.id,
                     speaker: {
-                        actor: actor._id,
+                        actor: actor.id,
                         token: actor.token,
                         alias: actor.name,
                     },
@@ -98,7 +98,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
 
                 const rollMode = game.settings.get('core', 'rollMode');
                 if (['gmroll', 'blindroll'].includes(rollMode))
-                    chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u._id);
+                    chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
                 if (rollMode === 'blindroll') chatData.blind = true;
 
                 ChatMessage.create(chatData, {});

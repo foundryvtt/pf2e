@@ -457,7 +457,7 @@ export class StatusEffects {
         `;
 
         const chatData: any = {
-            user: game.user._id,
+            user: game.user.id,
             speaker: { alias: game.i18n.format('PF2E.StatusEffects', { name: token.name }) },
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
