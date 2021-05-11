@@ -894,7 +894,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         if (result === null) {
             return null;
         }
-        const movedItem = targetActor.physicalItems.get(result._id);
+        const movedItem = targetActor.physicalItems.get(result.id);
         if (!movedItem) return null;
         await targetActor.stashOrUnstash(movedItem, containerId);
 
