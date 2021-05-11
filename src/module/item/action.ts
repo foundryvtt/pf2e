@@ -18,7 +18,7 @@ export class ActionPF2e extends ItemPF2e {
         const data = this.data.data;
 
         let associatedWeapon: ItemPF2e | null = null;
-        if (data.weapon.value && this.actor) associatedWeapon = this.actor.getOwnedItem(data.weapon.value);
+        if (data.weapon.value && this.actor) associatedWeapon = this.actor.items.get(data.weapon.value);
 
         // Feat properties
         const properties = [

@@ -644,8 +644,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const action = this.actor.data.data.actions[Number(actionIndex)];
-            const weapon = this.actor.getOwnedItem(action.item);
-            const ammo = this.actor.getOwnedItem($(event.currentTarget).val() as string);
+            const weapon = this.actor.items.get(action.item);
+            const ammo = this.actor.items.get($(event.currentTarget).val() as string);
 
             if (weapon) weapon.update({ data: { selectedAmmoId: ammo?.id ?? null } });
         });
@@ -760,7 +760,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemId = target.data().itemId;
             const itemLevel = target.data().level;
             const actor = this.actor;
-            const item = actor.getOwnedItem(itemId);
+            const item = actor.items.get(itemId);
 
             if (item == null || item.data.type !== 'spellcastingEntry') {
                 return;
@@ -793,7 +793,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             const itemId = target.data().itemId;
             const itemLevel = target.data().level;
             const actor = this.actor;
-            const item = actor.getOwnedItem(itemId);
+            const item = actor.items.get(itemId);
 
             if (item == null) {
                 return;
@@ -977,8 +977,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             return;
         }
 
-        const spellcastingEntry = this.actor.getOwnedItem(containerId);
-        const spell = this.actor.getOwnedItem(itemId);
+        const spellcastingEntry = this.actor.items.get(containerId);
+        const spell = this.actor.items.get(itemId);
 
         if (!(spellcastingEntry instanceof SpellcastingEntryPF2e) || !(spell instanceof SpellPF2e)) {
             return;

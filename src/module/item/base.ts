@@ -671,7 +671,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         if (item.type !== 'spell') throw new Error('Wrong item type!');
 
         const itemData = item.data;
-        const spellcastingEntry = this.actor?.getOwnedItem(itemData.location.value);
+        const spellcastingEntry = this.actor?.items?.get(itemData.location.value);
         if (!spellcastingEntry || spellcastingEntry.data.type !== 'spellcastingEntry')
             throw new Error('Spell points to location that is not a spellcasting type');
 

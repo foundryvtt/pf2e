@@ -115,7 +115,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
 
         html.find('.item-list').on('click', '[data-item-id]:not([data-item-id=""]) .item-delete', (event) => {
             const itemID = $(event.currentTarget).closest('[data-item-id]').attr('data-item-id') ?? '';
-            const item = this.actor.getOwnedItem(itemID);
+            const item = this.actor.items.get(itemID);
             if (!item) return;
 
             new Dialog({
