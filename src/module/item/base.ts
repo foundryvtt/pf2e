@@ -86,7 +86,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
-            tokenId: token ? `${token.scene._id}.${token.id}` : null, // `;
+            tokenId: token ? `${token.scene.id}.${token.id}` : null, // `;
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
@@ -110,7 +110,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         // Toggle default roll mode
         const rollMode = game.settings.get('core', 'rollMode');
         if (['gmroll', 'blindroll'].includes(rollMode))
-            chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u._id);
+            chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
         if (rollMode === 'blindroll') chatData.blind = true;
 
         // Render the template
@@ -747,7 +747,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             } else {
                 const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
                 ChatMessage.create({
-                    user: game.user._id,
+                    user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     whisper: ChatMessage.getWhisperRecipients(this.actor.name),
                     content,
@@ -763,7 +763,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 });
             } else {
                 ChatMessage.create({
-                    user: game.user._id,
+                    user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
                     content,
                 });
@@ -864,16 +864,16 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             const { token } = actor;
             const templateData = {
                 actor: actor,
-                tokenId: token ? `${token.scene._id}.${token.id}` : null,
+                tokenId: token ? `${token.scene.id}.${token.id}` : null,
                 item: this,
                 data: spellData,
             };
 
             // Basic chat message data
             const chatData: any = {
-                user: game.user._id,
+                user: game.user.id,
                 speaker: {
-                    actor: actor._id,
+                    actor: actor.id,
                     token: actor.token,
                     alias: actor.name,
                 },
@@ -888,7 +888,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             // Toggle default roll mode
             const rollMode = game.settings.get('core', 'rollMode');
             if (['gmroll', 'blindroll'].includes(rollMode))
-                chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u._id);
+                chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
             if (rollMode === 'blindroll') chatData.blind = true;
 
             // Render the template

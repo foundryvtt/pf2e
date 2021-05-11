@@ -177,9 +177,6 @@ declare class Entity {
      */
     get id(): string;
 
-    /** @alias Entity.id */
-    get _id(): string;
-
     /**
      * A convenience accessor for the name attribute of the Entity data object
      */
