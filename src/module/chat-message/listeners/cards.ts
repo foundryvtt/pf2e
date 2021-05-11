@@ -12,12 +12,12 @@ export const ChatCards = {
             // Extract card data
             const button = $(event.currentTarget);
             const messageId = button.parents('.message').attr('data-message-id') ?? '';
-            const senderId = game.messages.get(messageId)?.user?._id ?? '';
+            const senderId = game.messages.get(messageId)?.user?.id ?? '';
             const card = button.parents('.chat-card');
             const action = button.attr('data-action');
 
             // Confirm roll permission
-            if (!game.user.isGM && game.user._id !== senderId && action !== 'save') return;
+            if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
             let actor: ActorPF2e | null;
@@ -25,7 +25,7 @@ export const ChatCards = {
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
                 let token: TokenPF2e | undefined;
-                if (sceneId === canvas.scene?._id) token = canvas.tokens.get(tokenId);
+                if (sceneId === canvas.scene?.id) token = canvas.tokens.get(tokenId);
                 else {
                     const scene = game.scenes.get(sceneId);
                     if (!scene) return;

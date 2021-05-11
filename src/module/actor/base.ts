@@ -270,7 +270,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 return;
             }
 
-            const combatant = game.combat.turns.find((c) => c.actor.id === this._id);
+            const combatant = game.combat.turns.find((c) => c.actor.id === this.id);
             if (combatant === undefined) {
                 ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
                 return;
@@ -585,7 +585,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             });
             actor.modifyTokenAttribute(attribute, value * -1, true, true, shield).then(() => {
                 const data: any = {
-                    user: game.user._id,
+                    user: game.user.id,
                     speaker: { alias: token.name },
                     content: message,
                     type: CONST.CHAT_MESSAGE_TYPES.EMOTE,
@@ -671,7 +671,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
       </div>
       `;
             ChatMessage.create({
-                user: game.user._id,
+                user: game.user.id,
                 speaker: { alias: t.name },
                 content: message,
                 whisper: ChatMessage.getWhisperRecipients('GM'),
@@ -767,7 +767,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                     shield.data.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
-                    updateShieldData._id = shield._id;
+                    updateShieldData._id = shield.id;
                     updateShieldData.data.hp.value = shieldHitPoints;
                 } else if (this.data.data.attributes.shield.max) {
                     // NPC with no shield but pre-existing shield data
@@ -867,9 +867,9 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const removeFromSource = newQuantity < 1;
 
         if (removeFromSource) {
-            await this.deleteEmbeddedDocuments('Item', item._id);
+            await this.deleteEmbeddedDocuments('Item', item.id);
         } else {
-            const update = { _id: item._id, 'data.quantity.value': newQuantity };
+            const update = { _id: item.id, 'data.quantity.value': newQuantity };
             await this.updateEmbeddedDocuments('Item', update);
         }
 
