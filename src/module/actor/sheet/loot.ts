@@ -35,7 +35,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     /** @override */
     get isLootSheet(): boolean {
-        return !this.actor.owner && this.actor.isLootableBy(game.user);
+        return !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /** @override */
@@ -96,14 +96,14 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
                 continue;
             }
 
-            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.owner);
+            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.isOwner);
 
             itemData.img ??= CONST.DEFAULT_TOKEN;
             const containerData = containers.get(itemData._id);
             if (!containerData) continue;
 
             itemData.containerData = containerData;
-            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.owner);
+            itemData.showEdit = game.user.isGM || (itemData.isIdentified && this.actor.isOwner);
             itemData.isInContainer = containerData.isInContainer;
             itemData.isSellableTreasure =
                 itemData.showEdit && itemData.type === 'treasure' && itemData.data.stackGroup.value !== 'coins';
