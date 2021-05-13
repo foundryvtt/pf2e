@@ -678,7 +678,7 @@ class CompendiumBrowser extends Application {
                     event.dataTransfer!.setData(
                         'text/plain',
                         JSON.stringify({
-                            type: pack.entity,
+                            type: pack.documentName,
                             pack: pack.collection,
                             id: li.dataset.entryId,
                         }),

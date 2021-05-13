@@ -128,7 +128,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
     /**
      * The Entity type which is allowed to be stored in this collection
      */
-    get entity(): EntityType extends Actor
+    get documentName(): EntityType extends Actor
         ? 'Actor'
         : EntityType extends Item
         ? 'Item'
