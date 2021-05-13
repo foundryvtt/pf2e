@@ -194,7 +194,8 @@ export interface PathfinderSocietyReputation {
 }
 
 /** Data related to actor hitpoints. */
-export type HitPointsData = StatisticModifier & RawHitPointsData;
+// expose _modifiers field to allow initialization in data preparation
+export type HitPointsData = StatisticModifier & RawHitPointsData & { _modifiers: ModifierPF2e[] };
 
 /** The full data for charatcer initiative. */
 export type InitiativeData = CheckModifier & RawInitiativeData & Rollable;

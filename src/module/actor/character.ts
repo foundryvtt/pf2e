@@ -133,7 +133,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const ancestryHP = data.attributes.ancestryhp ?? 0;
             const classHP = data.attributes.classhp ?? 0;
             const hitPoints = data.attributes.hp;
-            const modifiers = hitPoints.modifiers.concat(
+            const modifiers = hitPoints._modifiers.concat(
                 new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
             );
 
