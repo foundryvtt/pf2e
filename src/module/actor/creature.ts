@@ -79,9 +79,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     prepareBaseData(): void {
         super.prepareBaseData();
-        const attributes = this.data.data.attributes;
-        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
-        hitPoints.modifiers = [];
+        this.data.data.attributes.hp._modifiers = [];
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
