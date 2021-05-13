@@ -317,7 +317,7 @@ export class StatisticModifier {
     /** The name of this collection of modifiers for a statistic. */
     name: string;
     /** The list of modifiers which affect the statistic. */
-    protected _modifiers: ModifierPF2e[];
+    modifiers: ModifierPF2e[];
     /** The total modifier for the statistic, after applying stacking rules. */
     totalModifier!: number;
     /** Allow decorating this object with any needed extra fields. <-- ಠ_ಠ */
@@ -329,43 +329,38 @@ export class StatisticModifier {
      */
     constructor(name: string, modifiers?: ModifierPF2e[]) {
         this.name = name;
-        this._modifiers = modifiers ?? [];
+        this.modifiers = modifiers ?? [];
         {
             // de-duplication
             const seen: ModifierPF2e[] = [];
-            this._modifiers.filter((m) => {
+            this.modifiers.filter((m) => {
                 const found = seen.find((o) => o.name === m.name) !== undefined;
                 if (!found) seen.push(m);
                 return found;
             });
-            this._modifiers = seen;
+            this.modifiers = seen;
         }
         this.applyStackingRules();
-    }
-
-    /** Get the list of all modifiers in this collection (as a read-only list). */
-    get modifiers(): readonly ModifierPF2e[] {
-        return Object.freeze([...this._modifiers]);
     }
 
     /** Add a modifier to this collection. */
     push(modifier: ModifierPF2e) {
         // de-duplication
-        if (this._modifiers.find((o) => o.name === modifier.name) === undefined) {
-            this._modifiers.push(modifier);
+        if (this.modifiers.find((o) => o.name === modifier.name) === undefined) {
+            this.modifiers.push(modifier);
             this.applyStackingRules();
         }
     }
 
     /** Delete a modifier from this collection by name. */
     delete(modifierName: string) {
-        this._modifiers = this._modifiers.filter((m) => m.name !== modifierName);
+        this.modifiers = this.modifiers.filter((m) => m.name !== modifierName);
         this.applyStackingRules();
     }
 
     /** Apply stacking rules to the list of current modifiers, to obtain a total modifier. */
     applyStackingRules() {
-        this.totalModifier = applyStackingRules(this._modifiers);
+        this.totalModifier = applyStackingRules(this.modifiers);
     }
 }
 
