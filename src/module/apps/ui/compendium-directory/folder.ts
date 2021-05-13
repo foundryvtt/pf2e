@@ -46,7 +46,7 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
     push(summaryData: EnfolderedSummaryData) {
         const packID = `pf2e.${summaryData.metadata.name}`;
         const compendium = game.packs.get(packID);
-        if (compendium?.entity === this.type) {
+        if (compendium?.documentName === this.type) {
             return super.push(summaryData);
         }
         return this.length;
