@@ -120,7 +120,9 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /* Retrieve subtitution data for an unidentified or misidentified item, generating defaults as necessary */
     getMystifiedData(status: IdentificationStatus): MystifiedData {
         const mystifiedData: MystifiedData =
-            status === 'identified' || status === 'misidentified' ? this._data : this.data.data.identification[status];
+            status === 'identified' || status === 'misidentified'
+                ? this.data._source
+                : this.data.data.identification[status];
 
         const name = mystifiedData.name || this.generateUnidentifiedName();
         const img = mystifiedData.img || getUnidentifiedPlaceholderImage(this.data);
