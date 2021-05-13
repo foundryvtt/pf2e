@@ -36,7 +36,7 @@ export class ItemTransfer implements ItemTransferData {
             const source = this.getSource();
             const target = this.getTarget();
             const loot = [source, target].find(
-                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.owner,
+                (actor) => actor instanceof ActorPF2e && actor.isLootableBy(game.user) && !actor.isOwner,
             );
 
             if (!(loot instanceof ActorPF2e)) throw ErrorPF2e('Unexpected missing actor');

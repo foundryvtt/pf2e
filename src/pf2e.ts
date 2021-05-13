@@ -71,7 +71,9 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         if (canReroll && actorId) {
             const actor = game.actors.get(actorId);
             return (
-                actor.owner && actor.data.data.attributes.heroPoints?.rank >= 1 && (message.isAuthor || game.user.isGM)
+                actor.isOwner &&
+                actor.data.data.attributes.heroPoints?.rank >= 1 &&
+                (message.isAuthor || game.user.isGM)
             );
         }
         return false;
@@ -82,7 +84,7 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         const canRerollMessage = message.getFlag('pf2e', 'canReroll');
         if (canRerollMessage && actorId) {
             const actor = game.actors.get(actorId);
-            return actor.owner && (message.isAuthor || game.user.isGM);
+            return actor.isOwner && (message.isAuthor || game.user.isGM);
         }
         return false;
     };
@@ -309,7 +311,7 @@ Hooks.on('renderChatMessage', (message, html) => {
     }
 
     const actor = message.data.speaker?.actor ? game.actors.get(message.data.speaker.actor) : undefined;
-    if (!((actor && actor.owner) || game.user.isGM || message.isAuthor)) {
+    if (!((actor && actor.isOwner) || game.user.isGM || message.isAuthor)) {
         html.find('[data-visibility="owner"]').remove();
     }
 
@@ -320,7 +322,7 @@ Hooks.on('renderChatMessage', (message, html) => {
         if (
             role === 'all' ||
             (role === 'gm' && game.user.isGM) ||
-            (role === 'owner' && ((actor && actor.owner) || game.user.isGM || message.isAuthor))
+            (role === 'owner' && ((actor && actor.isOwner) || game.user.isGM || message.isAuthor))
         ) {
             elem.innerHTML = game.i18n.format('PF2E.DCWithValue', {
                 dc,

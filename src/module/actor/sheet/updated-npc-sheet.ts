@@ -221,7 +221,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
     /** @override */
     get isLootSheet(): boolean {
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
-        return npcsAreLootable && !this.actor.owner && this.actor.isLootableBy(game.user);
+        return npcsAreLootable && !this.actor.isOwner && this.actor.isLootableBy(game.user);
     }
 
     /**

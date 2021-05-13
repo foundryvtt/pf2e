@@ -394,7 +394,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
     /** @override */
     protected _canDragDrop(_selector: string) {
-        return this.item.owner;
+        return this.item.isOwner;
     }
 
     /** @override */

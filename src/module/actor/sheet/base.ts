@@ -134,12 +134,12 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const totalWealthGold = (coinValueInCopper(totalWealth) / 100).toFixed(2);
 
         const sheetData: ActorSheetDataPF2e<this['actor']['data']> = {
-            cssClass: this.actor.owner ? 'editable' : 'locked',
+            cssClass: this.actor.isOwner ? 'editable' : 'locked',
             editable: this.isEditable,
             entity: actorData,
             limited: this.actor.limited,
             options: this.options,
-            owner: this.actor.owner,
+            owner: this.actor.isOwner,
             title: this.title,
             actor: actorData,
             data: actorData.data,
@@ -1377,7 +1377,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         if (item.data.type === 'spellcastingEntry' || item.data.type === 'condition') return;
 
-        const chatData = item.getChatData({ secrets: this.actor.owner });
+        const chatData = item.getChatData({ secrets: this.actor.isOwner });
         this.renderItemSummary(li, item, chatData);
     }
 
