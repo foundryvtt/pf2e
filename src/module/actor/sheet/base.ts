@@ -108,11 +108,9 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     /** @override */
     getData(): ActorSheetDataPF2e<this['actor']['data']> {
         // The Actor and its Items
-        const actorData = duplicate(this.actor.data);
-        const items = duplicate(
-            this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0)),
-        );
-        actorData.items = items;
+        const actorData: ActorDataPF2e = (this.actor.data as any).toObject(false); // TODO: Remove any type when correct type definitions are in
+        const items = this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0));
+        actorData.items = duplicate(items);
 
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {

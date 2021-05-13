@@ -111,8 +111,11 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Is the character's key ability score overridden by an Active Effect?
-        sheetData.data.details.keyability.aeOverride = this.actor.data.effects.some((effect) => {
-            return !effect.disabled && effect.changes.some((change) => change.key === 'data.details.keyability.value');
+        sheetData.data.details.keyability.aeOverride = this.actor.effects.contents.some((effect) => {
+            return (
+                !effect.data.disabled &&
+                effect.data.changes.some((change) => change.key === 'data.details.keyability.value')
+            );
         });
 
         sheetData.data.effects = {};
