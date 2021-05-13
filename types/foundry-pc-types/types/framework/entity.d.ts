@@ -2,6 +2,7 @@ declare function fromUuid(uuid: string): Promise<CompendiumEntity | null>;
 
 declare interface BaseEntityData {
     _id: string;
+    _source: any; // TODO: Fix type definition
     name: string;
     flags: Record<string, any>;
     permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
