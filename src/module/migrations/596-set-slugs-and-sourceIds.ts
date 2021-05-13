@@ -20,7 +20,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         super();
         this.itemPacks = new Map(
             game.packs
-                .filter<Compendium<ItemPF2e>>((pack) => pack.entity === 'Item')
+                .filter<Compendium<ItemPF2e>>((pack) => pack.documentName === 'Item')
                 .map((pack) => [pack.collection, pack]),
         );
     }
