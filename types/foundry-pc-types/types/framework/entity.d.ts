@@ -236,7 +236,7 @@ declare class Entity {
      */
     set owner(isOwner: boolean);
 
-    get owner(): boolean;
+    get isOwner(): boolean;
 
     /**
      * A boolean indicator for whether or not the current game User has at least limited visibility for this Entity.

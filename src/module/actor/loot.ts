@@ -41,7 +41,7 @@ export class LootPF2e extends ActorPF2e {
         containerId?: string,
     ): Promise<Owned<PhysicalItemPF2e> | null> {
         // If we don't have permissions send directly to super to prevent removing the coins twice or reject as needed
-        if (!(this.owner && targetActor.owner)) {
+        if (!(this.isOwner && targetActor.isOwner)) {
             return super.transferItemToActor(targetActor, item, quantity, containerId);
         }
         if (this.isMerchant && item instanceof PhysicalItemPF2e) {
