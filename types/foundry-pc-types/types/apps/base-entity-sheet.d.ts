@@ -7,7 +7,8 @@ declare interface BaseEntitySheetOptions extends FormApplicationOptions {
 declare interface BaseEntitySheetData<D extends BaseEntityData> {
     cssClass: string;
     editable: boolean;
-    entity: D;
+    entity?: D; // TODO: Remove
+    document?: Entity; // TODO: Fix type and make non-optional
     limited: boolean;
     options: FormApplicationOptions;
     owner: boolean;

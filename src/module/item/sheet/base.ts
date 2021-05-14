@@ -206,14 +206,24 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
                 }
             }
         }
-
         return data;
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
+        const document = (this as any).document; // TODO: Fix any type
+        const documentData: ItemDataPF2e = document.data.toObject(false);
+        const isEditable = this.isEditable;
         return {
-            ...super.getData(),
+            cssClass: isEditable ? 'editable' : 'locked',
+            editable: isEditable,
+            document: document,
+            item: documentData,
+            data: documentData.data,
+            limited: this.item.limited,
+            options: this.options,
+            owner: this.item.isOwner,
+            title: this.title,
             user: { isGM: game.user.isGM },
             enabledRulesUI: game.settings.get('pf2e', 'enabledRulesUI'),
             activeEffects: this.getActiveEffectsData(),
@@ -251,8 +261,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
         const effects =
             actor instanceof ActorPF2e
-                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
-                : this.item.effects.entries;
+                ? actor.effects.contents.filter((effect) => effect.data.origin === origin)
+                : this.item.effects.contents;
 
         const ruleUIEnabled = game.settings.get('pf2e', 'enabledRulesUI');
 
@@ -489,8 +499,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         const getEffects = (): ActiveEffect[] => {
             return actor instanceof ActorPF2e
-                ? actor.effects.entries.filter((effect) => effect.data.origin === origin)
-                : this.item.effects.entries;
+                ? actor.effects.contents.filter((effect) => effect.data.origin === origin)
+                : this.item.effects.contents;
         };
         const getEffectId = (target: HTMLElement): string | undefined => {
             return $(target).closest('tr').data('effect-id');
