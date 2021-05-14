@@ -77,6 +77,16 @@ declare function mergeObject<T, U = T>(
 ): T & U;
 
 /**
+ * Quickly clone a simple piece of data, returning a copy which can be mutated safely.
+ * This method DOES support recursive data structures containing inner objects or arrays.
+ * This method DOES NOT support advanced object types like Set, Map, or other specialized classes.
+ * @param {*} original      Some sort of data
+ * @return {*}              The clone of that data
+ */
+
+declare function deepClone<T>(original: T): T;
+
+/**
  * A temporary shim to invert an object, flipping keys and values
  * @param obj    Some object where the values are unique
  * @return       An inverted object where the values of the original object are the keys of the new object
