@@ -23,11 +23,6 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
     protected _initialize(data: E['data']): void;
 
     /**
-     * An array of all the Entities in the EntityCollection.
-     */
-    get contents(): this['entries'];
-
-    /**
      * Render any Applications associated with this EntityCollection
      * @return A reference to the rendered EntityCollection
      */
