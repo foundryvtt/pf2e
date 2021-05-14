@@ -4,7 +4,7 @@ import { Migrations } from '@module/migrations';
 // Save the current world schema version if hasn't before.
 export async function setWorldSchemaVersion(): Promise<void> {
     const storedSettings = game.settings.storage.get('world');
-    const storedSchemaVersion = storedSettings.get('pf2e.worldSchemaVersion');
+    const storedSchemaVersion = storedSettings.getItem('pf2e.worldSchemaVersion');
     if (game.user.isGM && storedSchemaVersion === undefined) {
         // If there is no stored schema version, the world is either new or wasn't receiving migrations since
         // schema version 0.595
