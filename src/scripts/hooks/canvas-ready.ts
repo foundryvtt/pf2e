@@ -12,7 +12,7 @@ export function listen() {
     });
     Hooks.on('canvasReady', () => {
         // Effect Panel singleton application
-        if (game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) {
+        if ((game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) && game?.pf2e) {
             game.pf2e.effectPanel.render(true);
         }
     });
