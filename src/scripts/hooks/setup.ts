@@ -23,6 +23,9 @@ import { CheckPF2e } from '@system/rolls';
 import { RuleElements } from '@module/rules/rules';
 import { ConditionManager } from '@module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
+import { WorldClock } from '@module/system/world-clock';
+import { EffectPanel } from '@module/system/effect-panel';
+import { EffectTracker } from '@module/system/effect-tracker';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];
@@ -155,5 +158,10 @@ export function listen() {
         game.pf2e.CheckModifier = CheckModifier;
         game.pf2e.Check = CheckPF2e;
         game.pf2e.RuleElements = RuleElements;
+
+        // Start system sub-applications
+        game.pf2e.effectPanel = new EffectPanel();
+        game.pf2e.effectTracker = new EffectTracker();
+        game.pf2e.worldClock = new WorldClock();
     });
 }
