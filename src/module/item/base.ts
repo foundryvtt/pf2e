@@ -38,8 +38,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             try {
                 const ready = { pf2e: { ready: true } };
                 return new CONFIG.PF2E.Item.entityClasses[data.type](data, { ...ready, ...options });
-            } catch (_error) {
+            } catch (error) {
                 super(data, options); // eslint-disable-line constructor-super
+                console.debug(error);
                 console.warn(`Unrecognized Item type (${data.type}): falling back to PF2EItem`);
             }
         }
