@@ -54,7 +54,7 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     get isInvested(): boolean | null {
         if (!this.traits.has('invested')) return null;
         return (
-            this.actor?.type === 'character' &&
+            this.actor?.data?.type === 'character' &&
             this.isEquipped &&
             this.isIdentified &&
             isMagicItemData(this.data) &&
