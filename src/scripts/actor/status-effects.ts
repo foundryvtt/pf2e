@@ -3,6 +3,7 @@ import { ConditionManager } from '@module/conditions';
 import { ConditionData } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
+import { ConditionPF2e } from '@item/others';
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -145,9 +146,15 @@ export class StatusEffects {
         const statusIcons = html.find('img.effect-control');
 
         const affectingConditions =
-            (token.actor?.data.items.filter(
-                (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
-            ) as ConditionData[]) ?? [];
+            token.actor?.itemTypes.condition
+                .filter(
+                    (i) =>
+                        i.data.flags.pf2e?.condition &&
+                        i.data.type === 'condition' &&
+                        i.data.data.active &&
+                        i.data.data.sources.hud,
+                )
+                .map((c) => c.data) ?? [];
 
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
@@ -199,8 +206,12 @@ export class StatusEffects {
 
     static async _updateHUD(html, token) {
         const statusIcons = html.find('img.effect-control, img.pf2e-effect-control');
-        const appliedConditions = token.actor.data.items.filter(
-            (i) => i.flags.pf2e?.condition && i.type === 'condition' && i.data.active && i.data.sources.hud,
+        const appliedConditions = token.actor.itemTypes.condition.filter(
+            (i: ConditionPF2e) =>
+                i.data.flags.pf2e?.condition &&
+                i.data.type === 'condition' &&
+                i.data.data.active &&
+                i.data.data.sources.hud,
         );
 
         for (const i of statusIcons) {
@@ -211,7 +222,7 @@ export class StatusEffects {
             if (conditionName && status) {
                 // Icon is a condition
 
-                const condition: ConditionData = appliedConditions.find((e) => e.name === conditionName);
+                const condition: ConditionData = appliedConditions.find((e) => e.name === conditionName)?.data;
                 const conditionBase = ConditionManager.getConditionByStatusName(status);
 
                 if (conditionBase?.data.value.isValued) {
@@ -281,7 +292,7 @@ export class StatusEffects {
         this: TokenPF2e & { statusEffectChanged: boolean },
         event: JQuery.ClickEvent | JQuery.ContextMenuEvent,
     ): Promise<void> {
-        event.preventDefault();
+        event.stopImmediatePropagation();
 
         if (event.shiftKey) {
             StatusEffects._onToggleOverlay(event, this);
@@ -295,14 +306,14 @@ export class StatusEffects {
             return;
         }
 
-        const condition = this.actor.data.items.find(
-            (i): i is ConditionData =>
-                i.flags.pf2e?.condition &&
-                i.type === 'condition' &&
-                i.name === status &&
-                i.data.sources.hud &&
-                i.data.references.parent === undefined,
-        );
+        const condition = this.actor.itemTypes.condition.find(
+            (i) =>
+                i.data.flags.pf2e?.condition &&
+                i.data.type === 'condition' &&
+                i.data.name === status &&
+                i.data.data.sources.hud &&
+                i.data.data.references.parent === undefined,
+        )?.data;
 
         if (event.type === 'contextmenu') {
             // Right click, remove
@@ -314,12 +325,12 @@ export class StatusEffects {
 
                 this.statusEffectChanged = true;
 
-                this.actor.data.items
+                this.actor.itemTypes.condition
                     .filter(
-                        (i): i is ConditionData =>
-                            i.flags.pf2e?.condition && i.type === 'condition' && i.data.base === status,
+                        (i) =>
+                            i.data.flags.pf2e?.condition && i.data.type === 'condition' && i.data.data.base === status,
                     )
-                    .forEach((i) => conditionIds.push(i._id));
+                    .forEach((i) => conditionIds.push(i.id));
 
                 await ConditionManager.removeConditionFromToken(conditionIds, this);
             } else if (condition) {
@@ -347,7 +358,7 @@ export class StatusEffects {
     }
 
     static async _toggleStatus(event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
-        event.preventDefault();
+        event.stopImmediatePropagation();
         const token = this as any;
         if (event.shiftKey) {
             StatusEffects._onToggleOverlay(event, token);
@@ -358,14 +369,14 @@ export class StatusEffects {
         const status = f.attr('data-condition');
         const src = f.attr('src');
 
-        const condition: ConditionData = token.actor.data.items.find(
-            (i: ConditionData) =>
-                i.flags.pf2e?.condition &&
-                i.type === 'condition' &&
-                i.name === status &&
-                i.data.sources.hud &&
-                i.data.references.parent === undefined,
-        ) as ConditionData;
+        const condition: ConditionData = token.actor.itemTypes.condition.find(
+            (i: ConditionPF2e) =>
+                i.data.flags.pf2e?.condition &&
+                i.data.type === 'condition' &&
+                i.data.name === status &&
+                i.data.data.sources.hud &&
+                i.data.data.references.parent === undefined,
+        )?.data;
 
         const conditionIds: string[] = [];
         if (event.type === 'contextmenu') {
@@ -373,12 +384,12 @@ export class StatusEffects {
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                token.actor.data.items
+                token.actor.itemTypes.condition
                     .filter(
-                        (i: ConditionData) =>
-                            i.flags.pf2e?.condition && i.type === 'condition' && i.data.base === status,
+                        (i: ConditionPF2e) =>
+                            i.data.flags.pf2e?.condition && i.data.type === 'condition' && i.data.data.base === status,
                     )
-                    .forEach((i: ConditionData) => conditionIds.push(i._id));
+                    .forEach((i: ConditionPF2e) => conditionIds.push(i.id));
             } else if (condition) {
                 conditionIds.push(condition._id);
             }
@@ -420,22 +431,22 @@ export class StatusEffects {
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
 
-        for (const condition of token.actor.data.items.filter(
-            (i: ConditionData) => i.flags.pf2e?.condition && i.data.active && i.type === 'condition',
+        for (const condition of token.actor.itemTypes.condition.filter(
+            (i: ConditionPF2e) => i.data.flags.pf2e?.condition && i.data.data.active && i.data.type === 'condition',
         )) {
             type ConditionKey = keyof typeof StatusEffects.conditions;
-            const conditionInfo = StatusEffects.conditions[condition.data.hud.statusName as ConditionKey];
+            const conditionInfo = StatusEffects.conditions[condition.data.data.hud.statusName as ConditionKey];
             const summary = 'summary' in conditionInfo ? conditionInfo.summary : '';
             statusEffectList += `
-                <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.hud.statusName}.${
+                <li><img src="${`${CONFIG.PF2E.statusEffects.effectsIconFolder + condition.data.data.hud.statusName}.${
                     CONFIG.PF2E.statusEffects.effectsIconFileType
                 }`}" title="${summary}">
                     <span class="statuseffect-li">
                         <span class="statuseffect-li-text">${condition.name} ${
-                condition.data.value.isValued ? condition.data.value.value : ''
+                condition.data.data.value.isValued ? condition.data.data.value.value : ''
             }</span>
                         <div class="statuseffect-rules"><h2>${condition.name}</h2>${
-                condition.data.description.value
+                condition.data.data.description.value
             }</div>
                     </span>
                 </li>`;
@@ -488,11 +499,12 @@ export class StatusEffects {
         const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
         const promises: Promise<TokenData | TokenData[]>[] = [];
-        for (const scene of game.scenes.values()) {
+        for (const scene of game.scenes) {
             const tokenUpdates: any[] = [];
 
-            for (const tokenData of scene.data.tokens) {
-                const update = duplicate(tokenData);
+            for (const token of scene.data.tokens) {
+                const tokenData: TokenData = (token as any).data; // TODO: Fix any type
+                const update: TokenData = (tokenData as any).toObject(false); // TODO: Fix any type
                 for (const url of tokenData.effects) {
                     if (url.includes(lastIconType.effectsIconFolder)) {
                         const statusName = this._getStatusFromImg(url);

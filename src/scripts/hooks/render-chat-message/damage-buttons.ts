@@ -3,10 +3,12 @@ import { LocalizePF2e } from '@module/system/localize';
 
 /** Add apply damage buttons after a chat message is rendered */
 export async function listen(message: ChatMessage<ActorPF2e>, html: JQuery): Promise<void> {
+    console.log(message);
     const damageRoll = message.getFlag('pf2e', 'damageRoll');
     const fromRollTable = message.getFlag('core', 'RollTable') !== undefined;
     const isRoll = damageRoll || message.isRoll;
-    const isD20 = message.roll && message.roll.dice[0]?.faces === 20;
+    let isD20 = false;
+    if (isRoll) isD20 = message.roll && message.roll.dice[0]?.faces === 20;
     if (!isRoll || isD20 || fromRollTable) return;
 
     const $buttons = $(await renderTemplate('systems/pf2e/templates/chat/damage/buttons.html'));

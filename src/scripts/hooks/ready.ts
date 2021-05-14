@@ -5,9 +5,6 @@ import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
-import { WorldClock } from '@module/system/world-clock';
-import { EffectPanel } from '@module/system/effect-panel';
-import { EffectTracker } from '@module/system/effect-tracker';
 import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
 
 export function listen(): void {
@@ -35,16 +32,6 @@ export function listen(): void {
                 }
                 migrationRunner.runMigration();
             }
-        }
-
-        // Start system sub-applications
-        game.pf2e.effectPanel = new EffectPanel();
-        game.pf2e.effectTracker = new EffectTracker();
-        game.pf2e.worldClock = new WorldClock();
-
-        // Check once after initialization
-        if (game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) {
-            game.pf2e.effectPanel.render(true);
         }
 
         ActionsPF2e.exposeActions(game.pf2e.actions);

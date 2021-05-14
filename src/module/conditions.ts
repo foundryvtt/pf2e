@@ -1,4 +1,4 @@
-import { ItemDataPF2e, ConditionData } from '@item/data/types';
+import { ConditionData } from '@item/data/types';
 import { ConditionPF2e } from './item/others';
 import { TokenPF2e } from './actor/base';
 import { ModifierPF2e } from './modifiers';
@@ -292,9 +292,9 @@ export class ConditionManager {
     }
 
     static async processConditions(token: TokenPF2e) {
-        const conditions = token.actor.data.items.filter(
-            (c) => c.flags.pf2e?.condition && c.type === 'condition',
-        ) as ConditionData[];
+        const conditions = token.actor.items
+            .filter((c) => c.data.flags.pf2e?.condition && c.data.type === 'condition')
+            .map((c) => c.data) as ConditionData[];
 
         // Any updates to items go here.
         const updates = new Map<string, ConditionData>();
@@ -421,20 +421,17 @@ export class ConditionManager {
     }
 
     static async _addConditionEntity(condition: ConditionData, token: TokenPF2e) {
-        let item = (Item.create(condition, { parent: token.actor }) as unknown) as ConditionData;
-
-        // Ghetto race condition style fix for unlinked items NOT CREATED THE SAME FUCKING WAY!
-        if (!token.data.actorLink) {
-            for (const itemData of token.actor.data.items.reverse()) {
-                if (itemData.name === condition.name && itemData.type === 'condition') {
-                    item = itemData;
-                    break;
-                }
-            }
-        }
+        const item = ((await Item.create(condition, { parent: token.actor })) as unknown) as ConditionPF2e;
 
         let needsItemUpdate = false;
-        const itemUpdate = duplicate(item);
+        const itemUpdate: any = {
+            _id: item.id,
+            data: {
+                references: {
+                    children: [],
+                },
+            },
+        };
 
         // Needs synchronicity.
         for (const linkedConditionName of condition.data.alsoApplies.linked) {
@@ -443,12 +440,12 @@ export class ConditionManager {
                 c.data.value.value = linkedConditionName.value;
             }
 
-            c.data.references.parent = { id: item._id, type: 'condition' };
+            c.data.references.parent = { id: item.id, type: 'condition' };
             c.data.sources.hud = condition.data.sources.hud;
 
             const linkedItem = await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
 
-            itemUpdate.data.references.children.push({ id: linkedItem._id, type: 'condition' });
+            itemUpdate.data.references.children.push({ id: linkedItem.id, type: 'condition' });
             needsItemUpdate = true;
         }
 
@@ -465,8 +462,8 @@ export class ConditionManager {
             await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
         }
 
-        if (needsItemUpdate) {
-            await token.actor.updateEmbeddedDocuments('Item', itemUpdate as { _id: string });
+        if (needsItemUpdate && token.actor !== null) {
+            await token.actor.updateEmbeddedDocuments('Item', [itemUpdate]);
         }
 
         return item;
@@ -488,15 +485,14 @@ export class ConditionManager {
     static async _deleteConditionEntity(ids: string[], token: TokenPF2e) {
         const list: string[] = [];
         const stack = new Array<string>(...ids);
-
         while (stack.length) {
             const id = stack.pop();
-            const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
+            const condition = token.actor.itemTypes.condition.find((i) => i.id === id);
 
             if (condition) {
                 list.push(id);
 
-                condition.data.references.children.forEach((child) => stack.push(child.id));
+                condition.data.data.references.children.forEach((child) => stack.push(child.id));
             }
         }
 
@@ -504,7 +500,7 @@ export class ConditionManager {
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
-        const condition = token.actor.data.items.find((i: ItemDataPF2e) => i._id === id) as ConditionData;
+        const condition = token.actor.itemTypes.condition.find((c) => c.id === id);
 
         if (condition) {
             if (value === 0) {
