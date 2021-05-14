@@ -42,6 +42,11 @@ export function listen(): void {
         game.pf2e.effectTracker = new EffectTracker();
         game.pf2e.worldClock = new WorldClock();
 
+        // Check once after initialization
+        if (game.user.getFlag('pf2e', 'settings.showEffectPanel') ?? true) {
+            game.pf2e.effectPanel.render(true);
+        }
+
         ActionsPF2e.exposeActions(game.pf2e.actions);
 
         PlayerConfigPF2e.init();
