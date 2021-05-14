@@ -1,4 +1,4 @@
-declare class Messages<ActorType extends Actor> extends EntityCollection<ChatMessage<ActorType>> {
+declare class Messages<ActorType extends Actor> extends DocumentCollection<ChatMessage<ActorType>> {
     /** @override */
     get entity(): 'ChatMessage';
 

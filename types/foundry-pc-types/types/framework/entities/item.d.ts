@@ -3,7 +3,7 @@
  * The items collection is accessible within the game as game.items
  */
 
-declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
+declare class Items<ItemType extends Item> extends DocumentCollection<ItemType> {
     /* -------------------------------------------- */
     /*  Collection Properties                       */
     /* -------------------------------------------- */

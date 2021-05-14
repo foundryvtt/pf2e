@@ -1,4 +1,4 @@
-declare class RollTables extends EntityCollection<RollTable> {
+declare class RollTables extends DocumentCollection<RollTable> {
     /** @override */
     get entity(): 'RollTable';
 }

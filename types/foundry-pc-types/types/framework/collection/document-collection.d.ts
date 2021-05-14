@@ -2,7 +2,7 @@
  * An iterable container of Entity objects within the Foundry Virtual Tabletop framework.
  * Each Entity type has its own subclass of EntityCollection, which defines the abstract interface.
  */
-declare abstract class EntityCollection<E extends Entity = Entity> extends Collection<E> {
+declare abstract class DocumentCollection<E extends Entity = Entity> extends Collection<E> {
     /**
      * The source data is, itself, a mapping of IDs to data objects
      */
@@ -52,7 +52,7 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
     /**
      * Return a reference to the singleton instance of this EntityCollection, or null if it has not yet been created.
      */
-    static get instance(): EntityCollection<Entity> | null;
+    static get instance(): DocumentCollection<Entity> | null;
 
     /* -------------------------------------------- */
 
