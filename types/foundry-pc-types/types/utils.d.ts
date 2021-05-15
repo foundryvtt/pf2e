@@ -180,8 +180,6 @@ declare function getProperty(object: object, key: string): any;
  */
 declare function setProperty(object: object, key: string, value: any): boolean;
 
-declare function validateForm(formElement: HTMLElement): object;
-
 /**
  * Encode a url-like string by replacing any characters which need encoding
  * @param path     A fully-qualified URL or url component (like a relative path)
