@@ -180,11 +180,6 @@ declare function getProperty(object: object, key: string): any;
  */
 declare function setProperty(object: object, key: string, value: any): boolean;
 
-declare function toDegrees(angle: number): number;
-declare function normalizeDegrees(degrees: number): number;
-declare function toRadians(degree: number): number;
-declare function normalizeRadians(rad: number): number;
-
 declare function validateForm(formElement: HTMLElement): object;
 
 /**
