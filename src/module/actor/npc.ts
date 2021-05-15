@@ -156,9 +156,11 @@ export class NPCPF2e extends CreaturePF2e {
                     modifiers.push(m);
                 });
 
-            const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
-                overwrite: false,
-            });
+            // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
+            const hpData = duplicate(data.attributes.hp);
+            delete (hpData as any).modifiers;
+
+            const stat = mergeObject(new StatisticModifier('hp', modifiers), hpData, { overwrite: false });
 
             stat.base = base;
             stat.max = stat.max + stat.totalModifier;
