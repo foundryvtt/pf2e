@@ -140,7 +140,7 @@ declare class Roll {
      * console.log(r.result); // 5 + 4 + 2
      * console.log(r.total);  // 11
      */
-    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Rolled<Roll>;
+    evaluate({ minimize, maximize, async }?: { minimize?: boolean; maximize?: boolean; async?: boolean }): Rolled<Roll>;
 
     /**
      * Get an Array of any Die objects which were rolled as part of the evaluation of this roll
@@ -284,6 +284,21 @@ declare class Roll {
     static getActorData(): any;
 
     static simulate(formula: string, n: number): number[];
+
+    /**
+     * Replace referenced data attributes in the roll formula with values from the provided data. Data references in the formula use the @attr syntax and would reference the corresponding attr key.
+     * @param formula The original formula within which to replace
+     * @param data The data object which provides replacements
+     * @param missing The value that should be assigned to any unmatched keys. If null, the unmatched key is left as-is.
+     * @param warn Display a warning notification when encountering an un-matched key.
+     */
+    static replaceFormulaData(formula: string, data: any, missing?: string, warn?: boolean): string;
+
+    /**
+     * A sandbox-safe evaluation function to execute user-input code with access to scoped Math methods.
+     * @param expression The input string expression
+     */
+    static safeEval(expression: string): number;
 
     /* -------------------------------------------- */
     /*  Saving and Loading

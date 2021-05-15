@@ -133,7 +133,7 @@ export class CharacterPF2e extends CreaturePF2e {
             const ancestryHP = data.attributes.ancestryhp ?? 0;
             const classHP = data.attributes.classhp ?? 0;
             const hitPoints = data.attributes.hp;
-            const modifiers = hitPoints._modifiers.concat(
+            const modifiers = hitPoints.modifiers.concat(
                 new ModifierPF2e('PF2E.AncestryHP', ancestryHP, MODIFIER_TYPE.UNTYPED),
             );
 
@@ -175,9 +175,11 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(m);
                 });
 
-            const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
-                overwrite: false,
-            });
+            // Delete data.attributes.hp.modifiers field that breaks mergeObject and is no longer needed at this point
+            const hpData = duplicate(hitPoints);
+            delete (hpData as any).modifiers;
+
+            const stat = mergeObject(new StatisticModifier('hp', modifiers), hpData, { overwrite: false });
 
             // PFS Level Bump - hit points
             if (data.pfs?.levelBump) {
