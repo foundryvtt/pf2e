@@ -250,8 +250,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                     // Evaluate dynamic changes
                     if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
-                        const parsedModifier = new Roll(parsedValue.modifier, this.data).evaluate({ async: false })
-                            .total;
+                        const parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.data));
                         if (parsedModifier !== null) {
                             parsedValue.modifier = parsedModifier;
                         } else {
