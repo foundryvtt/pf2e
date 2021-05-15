@@ -250,7 +250,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                     // Evaluate dynamic changes
                     if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
-                        const parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.data));
+                        let parsedModifier: number | null = null;
+                        try {
+                            parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.data));
+                        } catch (_error) {
+                            ui.notifications.error(
+                                `Failed to parse ActiveEffect formula value ${parsedValue.modifier}`,
+                            );
+                        }
                         if (parsedModifier !== null) {
                             parsedValue.modifier = parsedModifier;
                         } else {
