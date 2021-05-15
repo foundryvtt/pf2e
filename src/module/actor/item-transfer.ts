@@ -46,7 +46,7 @@ export class ItemTransfer implements ItemTransferData {
             );
             return Promise.reject();
         }
-        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster.name}`);
+        console.debug(`PF2e System | Requesting item transfer from GM ${gamemaster?.name ?? '<None available>'}`);
 
         game.socket.emit('system.pf2e', { request: 'itemTransfer', data: this });
     }
@@ -97,7 +97,7 @@ export class ItemTransfer implements ItemTransferData {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
             return token?.actor ?? null;
         }
-        return game.actors.find((actor) => actor.id === actorId);
+        return game.actors.find((actor) => actor.id === actorId) ?? null;
     }
 
     private getSource(): ActorPF2e | null {
