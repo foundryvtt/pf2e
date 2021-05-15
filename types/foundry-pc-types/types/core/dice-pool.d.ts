@@ -93,6 +93,12 @@ declare class DicePool {
      */
     static fromFormula(formula: string): DicePool;
 
+    /**
+     * Create a PoolTerm by providing an array of existing Roll objects
+     * @param rolls   Array.<Roll> An array of Roll objects from which to create the pool
+     */
+    static fromRolls(rolls: Roll[] | Rolled<Roll>[]): DicePool | RolledDicePool;
+
     /* -------------------------------------------- */
     /*  Serialization and Storage                   */
     /* -------------------------------------------- */

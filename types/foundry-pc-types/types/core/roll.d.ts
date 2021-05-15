@@ -140,7 +140,7 @@ declare class Roll {
      * console.log(r.result); // 5 + 4 + 2
      * console.log(r.total);  // 11
      */
-    evaluate({ minimize, maximize }?: { minimize?: boolean; maximize?: boolean }): Rolled<Roll>;
+    evaluate({ minimize, maximize, async }?: { minimize?: boolean; maximize?: boolean; async?: boolean }): Rolled<Roll>;
 
     /**
      * Get an Array of any Die objects which were rolled as part of the evaluation of this roll
