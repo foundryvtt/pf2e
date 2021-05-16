@@ -4,6 +4,7 @@ import { ConditionData } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 import { ConditionPF2e } from '@item/others';
+import { ItemPF2e } from '@item/base';
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -580,10 +581,15 @@ export class StatusEffects {
                 continue;
             }
 
-            const effect = token.actor.data.items.find(
-                (i: ConditionData) =>
-                    i.data.source.value === source && i.type === 'condition' && i.data.hud.statusName === statusName,
-            ) as ConditionData;
+            const effect = token.actor.items
+                .filter((i: ItemPF2e) => i instanceof ConditionPF2e)
+                .map((c: ConditionPF2e) => c.data)
+                .find(
+                    (c: ConditionData) =>
+                        c.type === 'condition' &&
+                        c.data.source.value === source &&
+                        c.data.hud.statusName === statusName,
+                ) as ConditionData;
 
             if (typeof value === 'string' && condition.data.value.isValued) {
                 if (effect) {
