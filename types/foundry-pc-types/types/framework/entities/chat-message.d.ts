@@ -119,6 +119,12 @@ declare class ChatMessage<ActorType extends Actor = Actor> extends Entity {
      */
     render(force?: boolean, options?: EntityRenderOptions): Promise<JQuery<HTMLLIElement>>;
 
+    /**
+     * Render the HTML for the ChatMessage which should be added to the log
+     * @return {Promise<jQuery>}
+     */
+    getHTML(): Promise<JQuery<HTMLLIElement>>;
+
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers
     /* -------------------------------------------- */

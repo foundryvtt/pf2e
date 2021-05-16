@@ -3,9 +3,8 @@ import { ChatCards } from './listeners/cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
     /** @override */
-    async render(force?: boolean, options?: EntityRenderOptions): Promise<JQuery<HTMLLIElement>> {
-        const $html = await super.render(force, options);
-
+    async getHTML(): Promise<JQuery<HTMLLIElement>> {
+        const $html = await super.getHTML();
         ChatCards.listen($html);
 
         return $html;
