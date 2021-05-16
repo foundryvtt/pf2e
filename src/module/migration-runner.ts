@@ -27,7 +27,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e, pack?: Compendium<ActorPF2e>) {
         try {
-            const baseActor = duplicate(actor._data);
+            const baseActor = duplicate(actor.data._source);
             const updatedActor = await this.getUpdatedActor(baseActor, migrations);
 
             const baseItems = baseActor.items;
