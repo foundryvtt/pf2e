@@ -87,7 +87,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         const contextualData = nearestItem.dataset || {};
         const templateData = {
             actor: this.actor,
-            tokenId: token ? `${token.scene.id}.${token.id}` : null, // `;
+            tokenId: token ? `${(token as any).parent.id}.${token._id}` : null, // TODO: Fix any type;
             item: this.data,
             data: this.getChatData(undefined, contextualData),
         };
