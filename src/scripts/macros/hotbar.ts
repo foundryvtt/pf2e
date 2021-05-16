@@ -1,5 +1,6 @@
 import { SKILL_DICTIONARY } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { ItemDataPF2e } from '@item/data/types';
 import { EffectPF2e } from '@item/effect';
 import { SkillAbbreviation } from '@actor/data-definitions';
 
@@ -9,8 +10,8 @@ import { SkillAbbreviation } from '@actor/data-definitions';
  * @param item     The item data
  * @param slot     The hotbar slot to use
  */
-export async function createItemMacro(item: ItemPF2e, slot: number): Promise<void> {
-    const command = `game.pf2e.rollItemMacro("${item.id}");`;
+export async function createItemMacro(item: ItemDataPF2e, slot: number): Promise<void> {
+    const command = `game.pf2e.rollItemMacro("${item._id}");`;
     let macro = game.macros.contents.find((m) => m.name === item.name && m.data.command === command);
     if (!macro) {
         macro = (await Macro.create(
@@ -172,11 +173,11 @@ const ITEM_UUID = '${prefix}.${effect.id}'; // ${effect.data.name}
   effect.flags.core = effect.flags.core ?? {};
   effect.flags.core.sourceId = ITEM_UUID;
   for await (const token of canvas.tokens.controlled) {
-    let existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
+    const existing = token.actor.items.find(i => i.type === 'effect' && i.data.flags.core?.sourceId === ITEM_UUID);
     if (existing) {
-      token.actor.deleteOwnedItem(existing._id);
+      existing.delete();
     } else {
-      token.actor.createOwnedItem(effect);
+      Item.create(effect, { parent: token.actor });
     }
   }
 })();
