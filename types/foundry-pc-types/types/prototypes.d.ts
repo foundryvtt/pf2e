@@ -23,8 +23,21 @@ declare interface String {
 /* -------------------------------------------- */
 
 declare interface Math {
-    clamped(x: number, min: number, max: number): number;
+    /**
+     * Bound a number between some minimum and maximum value, inclusively.
+     * @param num    The current value
+     * @param min    The minimum allowed value
+     * @param max    The maximum allowed value
+     * @return       The clamped number
+     */
+    clamped(num: number, min: number, max: number): number;
+
     decimals(number: number, places: number): number;
+
+    toDegrees(angle: number): number;
+    normalizeDegrees(degrees: number): number;
+    toRadians(degree: number): number;
+    normalizeRadians(rad: number): number;
 }
 
 /* -------------------------------------------- */
