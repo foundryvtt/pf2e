@@ -292,6 +292,7 @@ export class StatusEffects {
         this: TokenPF2e & { statusEffectChanged: boolean },
         event: JQuery.ClickEvent | JQuery.ContextMenuEvent,
     ): Promise<void> {
+        event.preventDefault();
         event.stopImmediatePropagation();
 
         if (event.shiftKey) {
@@ -358,6 +359,7 @@ export class StatusEffects {
     }
 
     static async _toggleStatus(event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
+        event.preventDefault();
         event.stopImmediatePropagation();
         const token = this as any;
         if (event.shiftKey) {
