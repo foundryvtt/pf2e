@@ -60,10 +60,6 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     getData() {
         const sheetData = super.getData();
 
-        // Temporary HP
-        const { hp } = sheetData.data.attributes;
-        if (hp.temp === 0) delete hp.temp;
-
         sheetData.ancestryItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'ancestry')?._id ?? '';
         sheetData.backgroundItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'background')?._id ?? '';
         sheetData.classItemId = sheetData.items.find((x: ItemDataPF2e) => x.type === 'class')?._id ?? '';
