@@ -3,7 +3,6 @@ import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './da
 import { ArmorPF2e } from '@item/armor';
 import { isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
-import { ActiveEffectPF2e } from '@module/active-effect';
 import { ItemPF2e } from '@item/base';
 import { ErrorPF2e } from '@module/utils';
 import { RuleElementPF2e } from '@module/rules/rule-element';
@@ -15,6 +14,12 @@ import {
     WeaponPotencyPF2e,
 } from '@module/rules/rules-data-definitions';
 import { ConditionManager } from '@module/conditions';
+import { ActiveEffectPF2e } from '@module/active-effect';
+
+type ProcessedActiveEffectChange = ActiveEffectChange & {
+    effect: ActiveEffectPF2e;
+    priority: number;
+};
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -79,7 +84,10 @@ export abstract class CreaturePF2e extends ActorPF2e {
      */
     prepareBaseData(): void {
         super.prepareBaseData();
-        this.data.data.attributes.hp._modifiers = [];
+        const attributes = this.data.data.attributes;
+        const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
+        hitPoints.modifiers = [];
+        this.prepareActiveEffects(this.effects);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
@@ -190,9 +198,39 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** @override */
-    protected _prepareActiveEffects(effectsData: ActiveEffectData[]): Collection<ActiveEffectPF2e> {
+    applyActiveEffects() {
+        const overrides: any = {};
+
+        // Organize non-disabled effects by their application priority
+        const changes: ProcessedActiveEffectChange[] = this.effects.reduce(
+            (changes: ProcessedActiveEffectChange[], e) => {
+                if (e.data.disabled) return changes;
+                return changes.concat(
+                    e.data.changes.map((c) => {
+                        const copy: ProcessedActiveEffectChange = (c as any).toObject(false); // TODO: Fix any type
+                        copy.effect = e;
+                        copy.priority = copy.priority ?? copy.mode * 10;
+                        return copy;
+                    }),
+                );
+            },
+            [],
+        );
+        changes.sort((a, b) => a.priority - b.priority);
+
+        // Apply all changes
+        for (const change of changes) {
+            const result = change.effect.apply(this, change);
+            if (result !== null) overrides[change.key] = result;
+        }
+        // Expand the set of final overrides
+        this.overrides = expandObject(overrides);
+    }
+
+    protected prepareActiveEffects(effectsData: Collection<ActiveEffectPF2e>) {
         // Prepare changes with non-primitive values
-        for (const effectData of effectsData) {
+        for (const effect of effectsData) {
+            const effectData = effect.data;
             for (const change of effectData.changes) {
                 if (typeof change.value === 'string' && change.value.startsWith('{')) {
                     type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
@@ -212,7 +250,14 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
                     // Evaluate dynamic changes
                     if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
-                        const parsedModifier = new Roll(parsedValue.modifier, this.data).evaluate().total;
+                        let parsedModifier: number | null = null;
+                        try {
+                            parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.data));
+                        } catch (_error) {
+                            ui.notifications.error(
+                                `Failed to parse ActiveEffect formula value ${parsedValue.modifier}`,
+                            );
+                        }
                         if (parsedModifier !== null) {
                             parsedValue.modifier = parsedModifier;
                         } else {
@@ -232,8 +277,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
                 }
             }
         }
-
-        return super._prepareActiveEffects(effectsData);
+        this.applyActiveEffects();
     }
 
     /**

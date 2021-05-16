@@ -258,10 +258,13 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         };
 
         const actor = this.item.actor;
-        const origin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // `;
+        const oldOrigin = `Actor.${actor?.id}.OwnedItem.${this.item.id}`; // Foundry 0.7
+        const newOrigin = `Actor.${actor?.id}.Item.${this.item.id}`; // Foundry 0.8
         const effects =
             actor instanceof ActorPF2e
-                ? actor.effects.contents.filter((effect) => effect.data.origin === origin)
+                ? actor.effects.contents.filter(
+                      (effect) => effect.data.origin === newOrigin || effect.data.origin === oldOrigin,
+                  )
                 : this.item.effects.contents;
 
         const ruleUIEnabled = game.settings.get('pf2e', 'enabledRulesUI');
