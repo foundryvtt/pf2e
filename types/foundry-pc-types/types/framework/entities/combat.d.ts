@@ -1,7 +1,7 @@
 /**
  * The Collection of Combat entities
  */
-declare class CombatEncounters<ActorType extends Actor> extends DocumentCollection<Combat<ActorType>> {
+declare class CombatEncounters<ActorType extends Actor> extends EntityCollection<Combat<ActorType>> {
     /**
      * The currently active Combat instance
      */

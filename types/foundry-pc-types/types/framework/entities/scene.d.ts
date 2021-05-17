@@ -16,7 +16,7 @@ declare interface SceneClassConfig extends EntityClassConfig<Scene> {
 /**
  * The collection of Scene entities
  */
-declare class Scenes extends DocumentCollection<Scene> {
+declare class Scenes extends EntityCollection<Scene> {
     /** @override */
     get entity(): 'Scene';
 }
