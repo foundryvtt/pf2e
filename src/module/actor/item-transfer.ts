@@ -178,7 +178,10 @@ export class ItemTransfer implements ItemTransferData {
             const isWhat = (actor: ActorPF2e) => ({
                 isCharacter: actor.testUserPermission(requester, 'OWNER') && actor.data.type === 'character',
                 isMerchant: isMerchant(actor),
-                isNPC: actor.data.type === 'npc' && actor.isLootableBy(requester) && !actor.testUserPermission(requester, 'OWNER'),
+                isNPC:
+                    actor.data.type === 'npc' &&
+                    actor.isLootableBy(requester) &&
+                    !actor.testUserPermission(requester, 'OWNER'),
                 isLoot:
                     actor.data.type === 'loot' &&
                     actor.isLootableBy(requester) &&
