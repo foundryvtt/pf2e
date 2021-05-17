@@ -13,7 +13,6 @@ import {
     SaveData,
     SaveString,
 } from './data-definitions';
-import { RuleElements } from '../rules/rules';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
@@ -284,80 +283,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 roll,
             );
         }
-    }
-
-    onCreateOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
-        if (!(isCreatureData(this.data) && this.canUserModify(game.user, 'update'))) return;
-        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-        const tokens = this._getTokenData();
-        const actorUpdates = {};
-        for (const rule of rules) {
-            rule.onCreate(this.data, child, actorUpdates, Object.values(tokens));
-        }
-        this._updateAllTokens(actorUpdates, tokens);
-    }
-
-    onDeleteOwnedItem(child: ItemDataPF2e, _options: EntityCreateOptions, _userId: string) {
-        if (!(isCreatureData(this.data) && this.canUserModify(game.user, 'update'))) return;
-        const rules = RuleElements.fromRuleElementData(child.data?.rules ?? [], child);
-        const tokens = this._getTokenData();
-        const actorUpdates = {};
-        for (const rule of rules) {
-            rule.onDelete(this.data, child, actorUpdates, Object.values(tokens));
-        }
-        this._updateAllTokens(actorUpdates, tokens);
-    }
-
-    /**
-     * Builds an object with ID to token data mappings, for all tokens associated with this actor. The data has been
-     * duplicated so it can easily be changed and used for updating the token instances.
-     */
-    protected _getTokenData(): Record<string, any> {
-        const tokens: Record<string, any> = {};
-        if (this.isToken) {
-            const id = this?.token?.data?._id;
-            if (id) {
-                tokens[id] = duplicate(canvas.tokens.get(id)?.data);
-            }
-        } else {
-            for (const scene of game.scenes.values()) {
-                scene
-                    .getEmbeddedCollection('Token')
-                    .filter((token) => token.actorLink && token.actorId === this.id)
-                    .map((token) => duplicate(token))
-                    .forEach((token) => {
-                        tokens[token._id] = token;
-                    });
-            }
-        }
-        return tokens;
-    }
-
-    async _updateAllTokens(actorUpdates: any, tokens: Record<string, any>): Promise<any[]> {
-        const promises: Promise<any>[] = [];
-        if (actorUpdates && !isObjectEmpty(actorUpdates)) {
-            promises.push(this.update(actorUpdates));
-        }
-        for (const scene of game.scenes.values()) {
-            const local = scene
-                .getEmbeddedCollection('Token')
-                .filter(
-                    (token) =>
-                        (this.isToken && token?._id === this.token?.data?._id) ||
-                        (token.actorLink && token.actorId === this.id),
-                )
-                .map((token) => tokens[token._id])
-                .filter((token) => !!token)
-                .map((token) => {
-                    if (!token.actorLink) {
-                        token.actorData = token.actorData ?? {};
-                        mergeObject(token.actorData, actorUpdates);
-                    }
-                    return token;
-                });
-            promises.push(scene.updateEmbeddedEntity('Token', local));
-        }
-        return Promise.all(promises);
     }
 
     getStrikeDescription(weaponData: WeaponData) {

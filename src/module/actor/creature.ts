@@ -1,9 +1,10 @@
 import { ActorPF2e } from './base';
-import { CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
+import { ActorDataPF2e, CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
 import { isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ItemPF2e } from '@item/base';
+import { updateMinionActors } from '@scripts/actor/update-minions';
 import { ErrorPF2e } from '@module/utils';
 import { RuleElementPF2e } from '@module/rules/rule-element';
 import { RollNotePF2e } from '@module/notes';
@@ -88,6 +89,16 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
         this.prepareActiveEffects(this.effects);
+    }
+
+    /** @override */
+    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, user: User): void {
+        if (user.id === game.userId) {
+            // ensure minion-type actors with the updated actor as master should also be updated
+            updateMinionActors(this);
+        }
+
+        super._onUpdate(changed, options, user);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */
