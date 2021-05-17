@@ -6,7 +6,7 @@ export class Migration602UpdateDiehardFeat extends MigrationBase {
     static version = 0.602;
     requiresFlush = true;
 
-    private diehardPromise: Promise<Entity | null>;
+    private diehardPromise: Promise<CompendiumEntity | null>;
 
     constructor() {
         super();
