@@ -5,6 +5,7 @@ import { ItemPF2e } from '@item/base';
 import { ActorSheetPF2eSimpleNPC } from './simple-npc-sheet';
 import { SheetInventory } from './data-types';
 import { ItemDataPF2e } from '@item/data/types';
+import { MeleePF2e } from '@item/others';
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };
@@ -408,7 +409,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
             // item = this.actor.items.find(i => { return i.id === itemId });
             const item = this.actor.items.get(itemId);
-            if (item === null || item.data.type !== 'melee') {
+            if (!(item instanceof MeleePF2e)) {
                 console.log('PF2e System | clicked an attackEffect, but item was not a melee');
                 return;
             }

@@ -2,7 +2,7 @@
  * The Collection of Macro entities
  * @extends {Collection}
  */
-declare class Macros<MacroType extends Macro> extends EntityCollection<MacroType> {
+declare class Macros<MacroType extends Macro> extends DocumentCollection<MacroType> {
     /** @override */
     get entity(): 'Macro';
 

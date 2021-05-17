@@ -1,4 +1,4 @@
-declare class Folders extends EntityCollection<Folder> {
+declare class Folders extends DocumentCollection<Folder> {
     /** @override */
     get entity(): 'Folder';
 }

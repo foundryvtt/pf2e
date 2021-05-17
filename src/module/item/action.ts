@@ -16,9 +16,7 @@ export class ActionPF2e extends ItemPF2e {
 
     getChatData(this: Owned<ActionPF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         const data = this.data.data;
-
-        let associatedWeapon: ItemPF2e | null = null;
-        if (data.weapon.value && this.actor) associatedWeapon = this.actor.items.get(data.weapon.value);
+        const associatedWeapon = this.actor?.items.get(data.weapon.value) ?? null;
 
         // Feat properties
         const properties = [

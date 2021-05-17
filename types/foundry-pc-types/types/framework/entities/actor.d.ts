@@ -30,7 +30,7 @@ declare interface ActorConstructorOptions<T extends Token> extends EntityConstru
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors<ActorType extends Actor> extends EntityCollection<ActorType> {
+declare class Actors<ActorType extends Actor> extends DocumentCollection<ActorType> {
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.

@@ -1,4 +1,4 @@
-declare class Journal extends EntityCollection<JournalEntry> {
+declare class Journal extends DocumentCollection<JournalEntry> {
     /** @override */
     get entity(): 'JournalEntry';
 }
