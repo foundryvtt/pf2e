@@ -13,7 +13,11 @@ import { objectHasKey } from '@module/utils';
 export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
     get master(): CharacterPF2e | NPCPF2e | null {
-        return game.actors.get(this.data.data.master.id ?? '') ?? null;
+        const actor = game.actors.get(this.data.data.master.id ?? '');
+        if (actor instanceof CharacterPF2e || actor instanceof NPCPF2e) {
+            return actor;
+        }
+        return null;
     }
 
     /** Prepare Character type specific data. */

@@ -49,7 +49,7 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
                 : await game.packs.get(lookupData.pack)?.getEntity(lookupData.id);
 
         const ownerAlreadyHas = (item: ItemPF2e) =>
-            owner.items.entries.some((ownedItem) => ownedItem.sourceId === item.sourceId);
+            owner.items.some((ownedItem) => ownedItem.sourceId === item.sourceId);
 
         if (toGrant instanceof ItemPF2e && !ownerAlreadyHas(toGrant)) {
             toGrant.data.flags.pf2e = { grantedBy: this.data.origin };

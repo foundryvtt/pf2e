@@ -22,6 +22,7 @@ import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { ConditionPF2e } from '@item/others';
 import { TokenEffect } from '@module/rules/rule-element';
+import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -696,7 +697,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         const spellcastingEntry = this.items.get(entryId);
-        if (spellcastingEntry === null || spellcastingEntry.data.type !== 'spellcastingEntry') {
+        if (!(spellcastingEntry instanceof SpellcastingEntryPF2e)) {
             return;
         }
 

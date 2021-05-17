@@ -31,7 +31,7 @@ import { createConsumableFromSpell, SpellConsumableTypes } from '@item/spell-con
 import { SpellPF2e } from '@item/spell';
 import { SpellFacade } from '@item/spell-facade';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { ConditionPF2e } from '@item/others';
+import { ConditionPF2e, ContainerPF2e } from '@item/others';
 import { LocalizePF2e } from '@system/localize';
 import {
     SelectableTagField,
@@ -1301,7 +1301,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         const targetActor = targetTokenId ? game.actors.tokens[targetTokenId] : game.actors.get(targetActorId);
         const item = sourceActor?.items?.get(itemId);
 
-        if (sourceActor === null || targetActor === null) {
+        if (!sourceActor || !targetActor) {
             return Promise.reject(new Error('PF2e System | Unexpected missing actor(s)'));
         }
         if (!(item instanceof PhysicalItemPF2e)) {
@@ -1436,7 +1436,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     private toggleContainer(event: JQuery.ClickEvent) {
         const itemId = $(event.currentTarget).parents('.item').data('item-id');
         const item = this.actor.items.get(itemId);
-        if (item === null || item.data.type !== 'backpack') {
+        if (!(item instanceof ContainerPF2e)) {
             return;
         }
 
