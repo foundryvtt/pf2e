@@ -176,13 +176,16 @@ export class ItemTransfer implements ItemTransferData {
             const isMerchant = (actor: ActorPF2e) =>
                 actor.data.type === 'loot' && actor.data.data.lootSheetType === 'Merchant';
             const isWhat = (actor: ActorPF2e) => ({
-                isCharacter: actor.hasPerm(requester, 'OWNER') && actor.data.type === 'character',
+                isCharacter: actor.testUserPermission(requester, 'OWNER') && actor.data.type === 'character',
                 isMerchant: isMerchant(actor),
-                isNPC: actor.data.type === 'npc' && actor.isLootableBy(requester) && !actor.hasPerm(requester, 'OWNER'),
+                isNPC:
+                    actor.data.type === 'npc' &&
+                    actor.isLootableBy(requester) &&
+                    !actor.testUserPermission(requester, 'OWNER'),
                 isLoot:
                     actor.data.type === 'loot' &&
                     actor.isLootableBy(requester) &&
-                    !actor.hasPerm(requester, 'OWNER') &&
+                    !actor.testUserPermission(requester, 'OWNER') &&
                     !isMerchant(actor),
             });
             const source = isWhat(sourceActor);

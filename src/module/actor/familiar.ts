@@ -96,7 +96,10 @@ export class FamiliarPF2e extends CreaturePF2e {
                         modifiers.push(m);
                     });
 
-                const stat = mergeObject(new StatisticModifier('hp', modifiers), data.attributes.hp, {
+                const hpData = duplicate(data.attributes.hp);
+                delete (hpData as any).modifiers;
+
+                const stat = mergeObject(new StatisticModifier('hp', modifiers), hpData, {
                     overwrite: false,
                 });
                 stat.max = stat.totalModifier;
