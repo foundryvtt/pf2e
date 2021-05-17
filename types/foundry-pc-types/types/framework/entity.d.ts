@@ -24,7 +24,7 @@ declare interface EntityCreateOptions {
 
 declare interface EntityClassConfig<E extends Entity> {
     baseEntity: { new (...args: any[]): E };
-    collection: DocumentCollection<E>;
+    collection: EntityCollection<E>;
     embeddedDocuments: Record<string, string>;
     label: string;
     permissions: { [userId: string]: keyof typeof CONST.USER_PERMISSIONS };

@@ -221,4 +221,4 @@ globalThis.duplicate = duplicate;
 (global as any).FormApplication = class {};
 (global as any).Roll = class {};
 
-Math.clamped = (value, min, max) => Math.min(Math.max(value, min), max);
+Math.clamped = (value: number, min: number, max: number) => Math.min(Math.max(value, min), max);
