@@ -108,7 +108,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
      * OwnedItems have permission that the player has for the parent Actor.
      * @return  Whether or not the user has the permission for this item
      */
-    hasPerm(...args: any[]): boolean;
+    testUserPermission(...args: any[]): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

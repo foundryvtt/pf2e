@@ -839,7 +839,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
         // Loot transfers can be performed by non-owners when a GM is online */
         const gmMustTransfer = (source: ActorPF2e, target: ActorPF2e): boolean => {
-            const bothAreOwned = source.hasPerm(game.user, 'owner') && target.hasPerm(game.user, 'owner');
+            const bothAreOwned = source.testUserPermission(game.user, 'owner') && target.testUserPermission(game.user, 'owner');
             const sourceIsOwnedOrLoot = source.isLootableBy(game.user);
             const targetIsOwnedOrLoot = target.isLootableBy(game.user);
             return !bothAreOwned && sourceIsOwnedOrLoot && targetIsOwnedOrLoot;
