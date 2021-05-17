@@ -146,7 +146,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
-        if (this.actor.id === data.actorId && !this.actor.hasPerm(game.user, 'OWNER')) {
+        if (this.actor.id === data.actorId && !this.actor.testUserPermission(game.user, 'OWNER')) {
             return null;
         }
         return super._onDropItem(event, data);
