@@ -263,22 +263,13 @@ declare class Entity {
     render(force?: boolean, context?: EntityRenderOptions): unknown;
 
     /**
-     * Test whether a provided User a specific permission level (or greater) over the Entity instance
-     * @param user          The user to test for permission
-     * @param permission    The permission level or level name to test
-     * @param exact         Tests for an exact permission level match, by default this method tests for
-     *                      an equal or greater permission level.
-     * @return              Whether or not the user has the permission for this Entity.
-     *
-     * @example <caption>Test whether a specific user has a certain permission</caption>
-     * // These two are equivalent
-     * entity.hasPerm(game.user, "OWNER");
-     * entity.owner;
-     * // These two are also equivalent
-     * entity.hasPerm(game.user, "LIMITED", true);
-     * entity.limited;
+     * Test whether a certain User has a requested permission level (or greater) over the Document
+     * @param user           The User being tested
+     * @param permission      The permission level from ENTITY_PERMISSIONS to test
+     * @param options         Require the exact permission level requested?
+     * @return                Does the user have this permission level over the Document?
      */
-    hasPerm(user: User, permission: string | number, exact?: boolean): boolean;
+    testUserPermission(user: User, permission: string | number, options?: { exact?: boolean }): boolean;
 
     /* -------------------------------------------- */
     /*  Entity Management Methods                   */

@@ -27,10 +27,10 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         const owners = Object.entries(familiar.data.permission)
             .filter(([_id, permission]) => permission === CONST.ENTITY_PERMISSIONS.OWNER)
             .flatMap(([userID]) => game.users.get(userID) ?? []);
-        const masters = game.actors.contents
+        const masters = game.actors
             .filter((actor) => ['character', 'npc'].includes(actor.data.type))
-            .filter((actor) => actor.hasPerm(game.user, 'OWNER'))
-            .filter((actor) => owners.some((owner) => actor.hasPerm(owner, 'OWNER')));
+            .filter((actor) => actor.testUserPermission(game.user, 'OWNER'))
+            .filter((actor) => owners.some((owner) => actor.testUserPermission(owner, 'OWNER')));
 
         // list of abilities that can be selected as spellcasting ability
         const abilities = CONFIG.PF2E.abilities;
