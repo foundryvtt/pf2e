@@ -23,7 +23,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
 
     protected async deleteExistingFeatures(actor: CharacterPF2e): Promise<void> {
         // Ancestries, backgrounds, and classes are singletons, so we need to remove the others
-        const existingABCIds = actor.items.entries.flatMap((item) =>
+        const existingABCIds = actor.items.contents.flatMap((item) =>
             item.type === this.type && item.id !== this.id ? item.id : [],
         );
         const existingFeatureIds = actor.itemTypes.feat

@@ -20,7 +20,7 @@ export const ChatCards = {
             if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
-            let actor: ActorPF2e | null;
+            let actor: ActorPF2e | null | undefined;
             const tokenKey = card.attr('data-token-id');
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');

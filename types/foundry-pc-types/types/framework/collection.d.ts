@@ -1,19 +1,17 @@
-declare type CollectionValue<T extends unknown> = T extends Collection<infer T> ? T : never;
+declare type CollectionValue<T> = T extends Collection<infer U> ? U : T;
 
 /**
  * A reusable storage concept which blends the functionality of an Array with the efficient key-based lookup of a Map.
  * This concept is reused throughout Foundry VTT where a collection of uniquely identified elements is required.
  */
-declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> {
+declare interface Collection<V>
+    extends Omit<Map<string, V>, 'delete' | 'forEach' | 'set' | SymbolConstructor['iterator']> {
+    set(key: string, value: V): this;
+    delete(key: string): boolean;
     /**
      * When iterating over a Collection, we should iterate over its values instead of over its entries
      */
     [Symbol.iterator](): IterableIterator<V>;
-
-    /**
-     * Return an Array of all the entry values in the Collection
-     */
-    readonly entries: V[];
 
     /**
      * Return an Array of all the entry values in the Collection
@@ -31,7 +29,7 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
      * let c = new Collection([["a", "A"], ["b", "B"], ["c", "C"]]);
      * let a = c.find(entry => entry === "A");
      */
-    find<T extends V = V>(condition: (value: V) => boolean): T | null;
+    find<T extends V = V>(condition: (value: V) => boolean): T | undefined;
 
     /**
      * Filter the Collection, returning an Array of entries which match a functional condition.
@@ -43,7 +41,19 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
      * let c = new Collection([["a", "AA"], ["b", "AB"], ["c", "CC"]]);
      * let hasA = c.filters(entry => entry.slice(0) === "A");
      */
+    filter<T extends V = V>(condition: (value: V) => value is T): T[];
     filter<T extends V = V>(condition: (value: V) => boolean): T[];
+
+    /**
+     * Apply a function to each element of the collection
+     * @see Array#forEach
+     * @param fn The function to apply
+     *
+     * @example
+     * let c = new Collection([["a", {active: false}], ["b", {active: false}], ["c", {active: false}]]);
+     * c.forEach(e => e.active = true);
+     */
+    forEach(fn: (value: V) => void): void;
 
     /**
      * Get an element from the Collection by its key.
@@ -57,7 +67,7 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
      * c.get("d"); // null
      * c.get("d", {strict: true}); // throws Error
      */
-    get<T extends V = V>(key: string, { strict }?: { strict?: boolean }): T | null;
+    get<T extends V = V>(key: string, { strict }?: { strict?: boolean }): T | undefined;
 
     /**
      * Get an entry from the Collection by name.
@@ -66,7 +76,7 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
      * @param strict Throw an Error if the requested id does not exist, otherwise return null. Default false.
      * @return The retrieved Entity, if one was found, otherwise null;
      */
-    getName(name: string, { strict }?: { strict?: boolean }): V | null;
+    getName(name: string, { strict }?: { strict?: boolean }): V | undefined;
 
     /**
      * Transform each element of the Collection into a new form, returning an Array of transformed values
@@ -89,6 +99,14 @@ declare interface Collection<V> extends Omit<Map<string, V>, 'entries' | 'get'> 
      * }, ""); // "ABC"
      */
     reduce<T>(evaluator: (accumlator: T, value: V) => T, initial: T): T;
+
+    /**
+     * Test whether a condition is met by some entry in the Collection
+     * @see {Array#some}
+     * @param condition A test condition to apply to each entry
+     * @return Was the test condition passed by at least one entry?
+     */
+    some(condition: (value: V) => boolean): boolean;
 }
 
 interface CollectionConstructor {

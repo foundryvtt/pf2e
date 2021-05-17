@@ -17,7 +17,7 @@ declare interface UserActivityData {
  * The collection of User entities which is accessible through ``game.users``.
  * The array of User entities within this collection is accessible through ``game.users.entities``.
  */
-declare class Users<ActorType extends Actor = Actor> extends EntityCollection<User<ActorType>> {
+declare class Users<ActorType extends Actor = Actor> extends DocumentCollection<User<ActorType>> {
     /** @override */
     get entity(): 'User';
 

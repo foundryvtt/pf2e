@@ -72,7 +72,7 @@ import './types/core/video';
 import './types/framework/collection';
 import './types/framework/compendium';
 import './types/framework/entity';
-import './types/framework/entity-collection';
+import './types/framework/document-collection';
 
 import './types/framework/entities/actor';
 import './types/framework/entities/chat-message';
