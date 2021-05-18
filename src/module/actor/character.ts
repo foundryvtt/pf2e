@@ -1,5 +1,4 @@
 import {
-    ItemDataPF2e,
     SpellAttackRollModifier,
     SpellDifficultyClass,
     WeaponCategory,
@@ -1182,41 +1181,6 @@ export class CharacterPF2e extends CreaturePF2e {
 
     async removeCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         await this.update({ [`data.martial.-=${key}`]: null });
-    }
-
-    /** @override */
-    protected _onCreateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect',
-        child: ActiveEffectData,
-        options: EntityCreateOptions,
-        userId: string,
-    ): void;
-    protected _onCreateEmbeddedDocuments(
-        embeddedName: 'Item',
-        child: ItemDataPF2e,
-        options: EntityCreateOptions,
-        userId: string,
-    ): void;
-    protected _onCreateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
-        child: ActiveEffectData | ItemDataPF2e,
-        options: EntityCreateOptions,
-        userId: string,
-    ): void;
-    protected _onCreateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
-        child: ActiveEffectData | ItemDataPF2e,
-        options: EntityCreateOptions,
-        userId: string,
-    ): void {
-        super._onCreateEmbeddedDocuments(embeddedName, child, options, userId);
-
-        if (game.user.id === userId) {
-            const item = this.items.get(child._id);
-            if (item instanceof AncestryPF2e || item instanceof BackgroundPF2e || item instanceof ClassPF2e) {
-                item.addFeatures(this);
-            }
-        }
     }
 }
 

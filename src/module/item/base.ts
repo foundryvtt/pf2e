@@ -20,9 +20,10 @@ import {
     MeleeDetailsData,
     TraitChatData,
     TrickMagicItemCastData,
+    isABCItem,
 } from './data/types';
 import { canCastConsumable } from './spell-consumables';
-import { isCreatureData } from '@actor/data-definitions';
+import { isCharacter, isCreatureData } from '@actor/data-definitions';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
@@ -129,9 +130,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** @override */
-    protected _onCreate(itemData: ItemDataPF2e, options: EntityCreateOptions, user: User): void {
+    protected _onCreate(itemData: ItemDataPF2e, options: EntityCreateOptions, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
+                // Rule Elements
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
                 const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
                 const tokens = (this.actor as any).getActiveTokens(); // TODO: Fix any type
@@ -141,20 +143,28 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 }
                 this.actor.update(actorUpdates);
 
+                // ABCs
+                if (isCharacter(this.actor) && game.user.id === userId) {
+                    if (isABCItem(this)) {
+                        this.addFeatures(this.actor);
+                    }
+                }
+
+                // Effect Panel
                 game.pf2e.effectPanel.refresh();
             }
         }
 
-        super._onCreate(itemData, options, user);
+        super._onCreate(itemData, options, userId);
     }
 
     /** @override */
-    protected _onUpdate(changed: DeepPartial<ItemDataPF2e>, options: EntityUpdateOptions, user: User): void {
+    protected _onUpdate(changed: DeepPartial<ItemDataPF2e>, options: EntityUpdateOptions, userId: string): void {
         if (this.isOwned && this.actor) {
             game.pf2e.effectPanel.refresh();
         }
 
-        super._onUpdate(changed, options, user);
+        super._onUpdate(changed, options, userId);
     }
 
     /** @override */

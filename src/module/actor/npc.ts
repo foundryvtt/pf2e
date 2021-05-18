@@ -894,19 +894,10 @@ export class NPCPF2e extends CreaturePF2e {
     }
 
     /** @override */
-    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, user: User): void {
-        super._onUpdate(changed, options, user);
+    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, userId: string): void {
+        super._onUpdate(changed, options, userId);
 
         const attitude = (changed as DeepPartial<NPCData>)?.data?.traits?.attitude?.value;
-
-        // user should be User but currently is a userId string
-        // See: https://gitlab.com/foundrynet/foundryvtt/-/issues/5129
-        let userId = '';
-        if (typeof user === 'string') {
-            userId = (user as unknown) as string;
-        } else {
-            userId = user.id;
-        }
 
         if (attitude && userId === game.userId) {
             this.updateTokenAttitude(attitude);
