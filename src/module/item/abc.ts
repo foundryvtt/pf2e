@@ -17,7 +17,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
             if (feat === undefined || !(feat instanceof FeatPF2e)) {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }
-            return feat._data;
+            return feat.data;
         }
     }
 
@@ -42,7 +42,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                 (promise, getItemData) =>
                     promise.then((retrieved) =>
                         getItemData().then((featureData) => {
-                            featureData.data.location = this.id;
+                            (featureData as any).update({ ['data.location']: this.id }); //TODO: Fix any type;
                             return retrieved.concat([featureData]);
                         }),
                     ),
