@@ -14,14 +14,14 @@ declare global {
                 sort: number;
             }
 
-            class ItemData<TActiveEffect extends ActiveEffect = ActiveEffect> extends foundry.abstract.DocumentData {
-                effects: foundry.abstract.EmbeddedCollection<TActiveEffect>;
+            class ItemData<
+                TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect
+            > extends abstract.DocumentData {
+                effects: abstract.EmbeddedCollection<TActiveEffect>;
             }
-            interface ItemData<TActiveEffect extends ActiveEffect>
-                extends foundry.abstract.DocumentData,
-                    Omit<ItemSource, '_id' | 'effects'> {
+            interface ItemData extends Omit<ItemSource, '_id' | 'effects'> {
                 _source: ItemSource;
-                document: Item | null;
+                document: documents.BaseItem | null;
             }
         }
     }
