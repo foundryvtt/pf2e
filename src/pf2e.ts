@@ -1,15 +1,11 @@
 import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
-import { updateMinionActors } from './scripts/actor/update-minions';
 import { PF2E } from './scripts/hooks';
-import { EffectData, ItemDataPF2e } from '@item/data/types';
-import { ItemPF2e } from '@item/base';
 import { ActorPF2e } from './module/actor/base';
 import { NPCPF2e } from './module/actor/npc';
 
 import '@system/measure';
 import './styles/pf2e.scss';
-
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
 
@@ -147,88 +143,6 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
     );
 });
 
-Hooks.on('preCreateItem', (_item: ItemPF2e, itemData: Partial<ItemDataPF2e>) => {
-    itemData.img = (() => {
-        if (itemData.img !== undefined) {
-            return itemData.img;
-        }
-        return CONFIG.PF2E.Item.entityClasses[itemData.type].defaultImg;
-    })();
-});
-
-Hooks.on('updateActor', (actor, _data, _options, userID) => {
-    if (userID === game.userId) {
-        // ensure minion-type actors with the updated actor as master should also be updated
-        updateMinionActors(actor);
-    }
-});
-
-function preCreateOwnedItem(
-    _parent: ActorPF2e,
-    child: DeepPartial<ItemDataPF2e>,
-    _options: EntityCreateOptions,
-    userID: string,
-) {
-    if (userID === game.userId) {
-        if (child.type === 'effect') {
-            const data = child.data!;
-            data.start = data.start ?? { value: 0, initiative: null };
-            data.start!.value = game.time.worldTime;
-
-            if (game.combat && game.combat.turns?.length > game.combat.turn) {
-                data.start!.initiative = game.combat.turns[game.combat.turn].initiative;
-            }
-        }
-    }
-}
-
-Hooks.on('preCreateOwnedItem', preCreateOwnedItem);
-
-function createItem(
-    item: ItemPF2e,
-    _itemCreateData: Partial<ItemDataPF2e>,
-    options: EntityCreateOptions,
-    userID: string,
-) {
-    if (item.isOwned && item.actor) {
-        if (userID === game.userId) {
-            item.actor.onCreateOwnedItem(item.data, options, userID);
-        }
-
-        game.pf2e.effectPanel.refresh();
-    }
-}
-
-Hooks.on('createItem', createItem);
-
-function deleteItem(item: ItemPF2e, options: EntityCreateOptions, userID: string) {
-    if (item.isOwned && item.actor) {
-        if (userID === game.userId) {
-            item.actor.onDeleteOwnedItem(item.data, options, userID);
-        }
-
-        if (item.type === 'effect') {
-            game.pf2e.effectTracker.unregister(item.data as EffectData);
-        }
-        game.pf2e.effectPanel.refresh();
-    }
-}
-
-Hooks.on('deleteItem', deleteItem);
-
-Hooks.on('updateItem', updateItem);
-
-function updateItem(
-    item: ItemPF2e,
-    _itemUpdateData: Partial<ItemDataPF2e>,
-    _options: EntityCreateOptions,
-    _userID: string,
-) {
-    if (item.isOwned && item.actor) {
-        game.pf2e.effectPanel.refresh();
-    }
-}
-
 // effect panel
 Hooks.on('updateUser', () => {
     game.pf2e.effectPanel.refresh();
@@ -247,34 +161,11 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
     }
 });
 
-Hooks.on('preUpdateToken', (_scene, token, data, options, userID) => {
-    if (!token.actorLink && data.actorData?.items) {
-        // Preparation for synthetic actors to fake some of the other hooks in the 'updateToken' hook where this data is
-        // not otherwise available
-        options.pf2e = {
-            items: {
-                added:
-                    data.actorData?.items?.filter((i) => !token.actorData?.items?.map((x) => x._id)?.includes(i._id)) ??
-                    [],
-                removed:
-                    token.actorData?.items?.filter((i) => !data.actorData?.items?.map((x) => x._id)?.includes(i._id)) ??
-                    [],
-            },
-        };
-        const actor = canvas.tokens.get(token._id)?.actor;
-        if (actor) {
-            options.pf2e.items.added.forEach((item: ItemDataPF2e) => {
-                preCreateOwnedItem(actor, item, options, userID);
-            });
-        }
-    }
-});
-
-Hooks.on('updateToken', (_scene, token: TokenData, data, _options, userID) => {
-    if ('disposition' in data && game.userId === userID) {
-        const actor = canvas.tokens.get(token._id)?.actor;
+Hooks.on('updateToken', (tokenDocument: any, updateData: any, _options: EntityUpdateOptions, userID: string) => {
+    if ('disposition' in updateData && game.userId === userID) {
+        const actor = tokenDocument.getActor();
         if (actor instanceof NPCPF2e) {
-            (actor as NPCPF2e).updateNPCAttitudeFromDisposition(data.disposition);
+            (actor as NPCPF2e).updateNPCAttitudeFromDisposition(updateData.disposition);
         }
     }
 

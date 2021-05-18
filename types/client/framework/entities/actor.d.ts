@@ -285,7 +285,11 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     /* -------------------------------------------- */
 
     /** @override */
-    protected _onUpdate(data: object, options: object, userId: string, context: object): void;
+    protected _onUpdate<A extends Actor>(
+        changed: DeepPartial<A['data']>,
+        options: EntityUpdateOptions,
+        user: User,
+    ): void;
 
     /* -------------------------------------------- */
     /* Owned Item Management

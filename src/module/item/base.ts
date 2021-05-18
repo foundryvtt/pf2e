@@ -10,10 +10,19 @@ import {
     StatisticModifier,
     ProficiencyModifier,
 } from '@module/modifiers';
+import { RuleElements } from '../rules/rules';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../actor/base';
-import { isItemSystemData, ItemDataPF2e, MeleeDetailsData, TraitChatData, TrickMagicItemCastData } from './data/types';
+import {
+    isItemSystemData,
+    ItemDataPF2e,
+    EffectData,
+    MeleeDetailsData,
+    TraitChatData,
+    TrickMagicItemCastData,
+} from './data/types';
 import { canCastConsumable } from './spell-consumables';
+import { isCreatureData } from '@actor/data-definitions';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
@@ -74,6 +83,102 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     prepareData(): void {
         super.prepareData();
         this.data.isPhysical = false;
+    }
+
+    /** @override */
+    protected async _preCreate(
+        createData: DeepPartial<ItemDataPF2e>,
+        options: EntityCreateOptions,
+        user: User,
+    ): Promise<void> {
+        await super._preCreate(createData, options, user);
+
+        const itemData = this.data;
+        const updateData: any = {};
+
+        if (this.isOwned && user.id === game.userId) {
+            if (itemData.type === 'effect') {
+                const data = itemData.data;
+                if (data.start === undefined) {
+                    updateData.data = {
+                        start: {
+                            value: 0,
+                            initiative: null,
+                        },
+                    };
+                } else {
+                    updateData.data = {
+                        start: data.start,
+                    };
+                }
+                updateData.data.start.value = game.time.worldTime;
+                if (game.combat && game.combat.turns?.length > game.combat.turn) {
+                    updateData.data.start.initiative = game.combat.turns[game.combat.turn].initiative;
+                }
+            }
+        }
+
+        if (createData.img === undefined) {
+            updateData.img = CONFIG.PF2E.Item.entityClasses[itemData.type].defaultImg;
+        }
+
+        // Changing the createData does not change the resulting item; the data has to be updated.
+        if (!isObjectEmpty(updateData)) {
+            (itemData as any).update(updateData); // TODO: Fix type
+        }
+    }
+
+    /** @override */
+    protected _onCreate(itemData: ItemDataPF2e, options: EntityCreateOptions, user: User): void {
+        if (this.isOwned) {
+            if (this.actor) {
+                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+                const tokens = (this.actor as any).getActiveTokens(); // TODO: Fix any type
+                const actorUpdates = {};
+                for (const rule of rules) {
+                    rule.onCreate(this.actor.data, this.data, actorUpdates, Object.values(tokens));
+                }
+                this.actor.update(actorUpdates);
+
+                game.pf2e.effectPanel.refresh();
+            }
+        }
+
+        super._onCreate(itemData, options, user);
+    }
+
+    /** @override */
+    protected _onUpdate(changed: DeepPartial<ItemDataPF2e>, options: EntityUpdateOptions, user: User): void {
+        if (this.isOwned && this.actor) {
+            game.pf2e.effectPanel.refresh();
+        }
+
+        super._onUpdate(changed, options, user);
+    }
+
+    /** @override */
+    protected _onDelete(options: EntityDeleteOptions, user: User): void {
+        if (this.isOwned) {
+            if (this.actor) {
+                if (this.type === 'effect') {
+                    game.pf2e.effectTracker.unregister(this.data as EffectData);
+                }
+
+                if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
+                const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
+                const tokens = (this.actor as any).getActiveTokens(); // TODO: Fix any type
+                const actorUpdates = {};
+                for (const rule of rules) {
+                    rule.onDelete(this.actor.data, this.data, actorUpdates, Object.values(tokens));
+                }
+                this.actor.update(actorUpdates);
+
+                game.pf2e.effectPanel.refresh();
+            }
+        }
+
+        super._onDelete(options, user);
     }
 
     /**
