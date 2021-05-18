@@ -92,13 +92,13 @@ export abstract class CreaturePF2e extends ActorPF2e {
     }
 
     /** @override */
-    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, user: User): void {
-        if (user.id === game.userId) {
+    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, userId: string): void {
+        if (userId === game.userId) {
             // ensure minion-type actors with the updated actor as master should also be updated
             updateMinionActors(this);
         }
 
-        super._onUpdate(changed, options, user);
+        super._onUpdate(changed, options, userId);
     }
 
     /** Compute custom stat modifiers provided by users or given by conditions. */

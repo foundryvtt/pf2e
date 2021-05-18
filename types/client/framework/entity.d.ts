@@ -360,7 +360,7 @@ declare class Entity {
     /**
      * Perform follow-up operations after a Document of this type is created. Post-creation operations occur for all clients after the creation is broadcast.
      */
-    protected _onCreate<E extends Entity>(data: E['data'], options: EntityCreateOptions, user: User): void;
+    protected _onCreate<E extends Entity>(data: E['data'], options: EntityCreateOptions, userId: string): void;
 
     /**
      * Entity-specific actions that should occur when the Entity is updated
@@ -368,7 +368,7 @@ declare class Entity {
     protected _onUpdate<E extends Entity>(
         changed: DeepPartial<E['data']>,
         options: EntityUpdateOptions,
-        user: User,
+        userId: string,
     ): void;
 
     /**
