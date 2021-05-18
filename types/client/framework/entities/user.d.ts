@@ -220,7 +220,7 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
     protected _onUpdate<U extends User>(
         changed: DeepPartial<U['data']>,
         options: EntityUpdateOptions,
-        user: User,
+        userId: string,
     ): void;
 }
 
