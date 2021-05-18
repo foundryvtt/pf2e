@@ -346,19 +346,35 @@ declare class Entity {
     delete(options?: EntityDeleteOptions): Promise<this>;
 
     /**
-     * Entity-specific actions that should occur when the Entity is first created
+     * Perform preliminary operations before a Document of this type is created. Pre-creation operations only occur for the client which requested the operation.
+     * @param data The initial data used to create the document
+     * @param options Additional options which modify the creation request
+     * @param user The User requesting the document creation
      */
-    protected _onCreate(data: object, options: object, userId: string, context: object): void;
+    protected _preCreate<E extends Entity>(
+        data: DeepPartial<E['data']>,
+        options: EntityCreateOptions,
+        user: User,
+    ): Promise<void>;
+
+    /**
+     * Perform follow-up operations after a Document of this type is created. Post-creation operations occur for all clients after the creation is broadcast.
+     */
+    protected _onCreate<E extends Entity>(data: E['data'], options: EntityCreateOptions, user: User): void;
 
     /**
      * Entity-specific actions that should occur when the Entity is updated
      */
-    protected _onUpdate(data: object, options: object, userId: string, context: object): void;
+    protected _onUpdate<E extends Entity>(
+        changed: DeepPartial<E['data']>,
+        options: EntityUpdateOptions,
+        user: User,
+    ): void;
 
     /**
      * Entity-specific actions that should occur when the Entity is deleted
      */
-    protected _onDelete(id: string, options: object, userId: string, context: any): void;
+    protected _onDelete(options: EntityDeleteOptions, user: User): void;
 
     /* -------------------------------------------- */
     /*  Embedded Entity Management                  */

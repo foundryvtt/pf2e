@@ -3,7 +3,15 @@ import { ItemPF2e } from '@item/base';
 import { CheckModifier, ModifierPF2e, MODIFIER_TYPE, StatisticModifier, ensureProficiencyOption } from '../modifiers';
 import { WeaponDamagePF2e } from '../system/damage/weapon';
 import { CheckPF2e, DamageRollPF2e } from '../system/rolls';
-import { AbilityString, Attitude, CharacterStrikeTrait, NPCData, NPCStrike, ZeroToThree } from './data-definitions';
+import {
+    AbilityString,
+    ActorDataPF2e,
+    Attitude,
+    CharacterStrikeTrait,
+    NPCData,
+    NPCStrike,
+    ZeroToThree,
+} from './data-definitions';
 import { RuleElementPF2e, RuleElements } from '../rules/rules';
 import { RollNotePF2e } from '../notes';
 import { adaptRoll } from '@system/rolls';
@@ -797,21 +805,14 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    private updateTokenAttitude(attitude: string) {
+    private async updateTokenAttitude(attitude: string) {
         const disposition = NPCPF2e.mapNPCAttitudeToTokenDisposition(attitude);
-        const tokens = this._getTokenData();
-
-        for (const key of Object.keys(tokens)) {
-            const token = tokens[key];
-            token.disposition = disposition;
+        const tokens = (this as any).getActiveTokens(true, true); // TODO: Fix any type
+        const promises: Promise<any>[] = [];
+        for (const token of tokens) {
+            promises.push(token.update({ disposition }));
         }
-
-        const dispositionActorUpdate = {
-            'token.disposition': disposition,
-            attitude,
-        };
-
-        this._updateAllTokens(dispositionActorUpdate, tokens);
+        await Promise.allSettled(promises);
     }
 
     private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
@@ -892,12 +893,22 @@ export class NPCPF2e extends CreaturePF2e {
         return 0;
     }
 
-    protected _onUpdate(data: any, options: object, userId: string, context: object) {
-        super._onUpdate(data, options, userId, context);
+    /** @override */
+    protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, user: User): void {
+        super._onUpdate(changed, options, user);
 
-        const attitude = data?.data?.traits?.attitude?.value;
+        const attitude = (changed as DeepPartial<NPCData>)?.data?.traits?.attitude?.value;
 
-        if (attitude && game.userId === userId) {
+        // user should be User but currently is a userId string
+        // See: https://gitlab.com/foundrynet/foundryvtt/-/issues/5129
+        let userId = '';
+        if (typeof user === 'string') {
+            userId = (user as unknown) as string;
+        } else {
+            userId = user.id;
+        }
+
+        if (attitude && userId === game.userId) {
             this.updateTokenAttitude(attitude);
         }
     }

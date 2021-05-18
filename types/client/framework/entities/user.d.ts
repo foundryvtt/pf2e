@@ -216,7 +216,12 @@ declare class User<ActorType extends Actor = Actor> extends Entity {
      * Render the players UI if activity status or other player features have changed
      * Update the canvas if the player's impersonated character has changed
      */
-    protected _onUpdate(data: object, options: object, userId: string, context: object): void;
+    /** @override */
+    protected _onUpdate<U extends User>(
+        changed: DeepPartial<U['data']>,
+        options: EntityUpdateOptions,
+        user: User,
+    ): void;
 }
 
 declare interface User<ActorType extends Actor = Actor> extends Entity {
