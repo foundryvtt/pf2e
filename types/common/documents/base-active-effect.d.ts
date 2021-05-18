@@ -24,6 +24,11 @@ declare module foundry {
             /** @override */
             testUserPermission(user: BaseUser, permission: UserPermission, { exact }?: { exact?: boolean }): boolean;
         }
+
+        interface BaseActiveEffect {
+            data: data.ActiveEffectData;
+        }
+
         interface ActiveEffectMetadata extends abstract.DocumentMetadata {
             name: 'ActiveEffect';
             collection: 'effects';

@@ -50,7 +50,7 @@ declare module foundry {
              * Every document must define an object which represents its data schema.
              * This must be a subclass of the DocumentData interface.
              */
-            static get schema(): typeof DocumentData;
+            static get schema(): new (...args: any[]) => DocumentData;
 
             /** Default metadata which applies to each instance of this Document type. */
             static get metadata(): DocumentMetadata;

@@ -3,7 +3,7 @@ export {};
 declare global {
     module foundry {
         module data {
-            interface ActorSource extends foundry.abstract.DocumentSource {
+            interface ActorSource extends abstract.DocumentSource {
                 data: object;
                 type: string;
                 img: string;
@@ -15,18 +15,15 @@ declare global {
             }
 
             class ActorData<
-                TActiveEffect extends ActiveEffect = ActiveEffect,
-                TItem extends Item = Item
-            > extends foundry.abstract.DocumentData {
-                // @ts-ignore
-                effects: foundry.abstract.EmbeddedCollection<TActiveEffect>;
-                // @ts-ignore
-                items: foundry.abstract.EmbeddedCollection<TItem>;
+                TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect,
+                TItem extends documents.BaseItem = documents.BaseItem
+            > extends abstract.DocumentData {
+                effects: abstract.EmbeddedCollection<TActiveEffect>;
+                items: abstract.EmbeddedCollection<TItem>;
             }
-            interface ActorData<TActiveEffect extends ActiveEffect, TItem extends Item>
-                extends foundry.abstract.DocumentData,
-                    Omit<ActorSource, '_id' | 'effects' | 'items'> {
+            interface ActorData extends Omit<ActorSource, '_id' | 'effects' | 'items'> {
                 _source: ActorSource;
+                document: documents.BaseActor | null;
             }
         }
     }
