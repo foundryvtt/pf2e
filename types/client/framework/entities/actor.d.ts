@@ -288,7 +288,7 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     protected _onUpdate<A extends Actor>(
         changed: DeepPartial<A['data']>,
         options: EntityUpdateOptions,
-        user: User,
+        userId: string,
     ): void;
 
     /* -------------------------------------------- */
