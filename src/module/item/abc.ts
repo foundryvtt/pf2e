@@ -7,17 +7,17 @@ import { FeatPF2e } from './feat';
 export abstract class ABCItemPF2e extends ItemPF2e {
     protected async getFeature(entry: ABCFeatureEntryData): Promise<FeatData> {
         if (entry.pack) {
-            const pack = game.packs.get<Compendium<FeatPF2e>>(entry.pack);
-            const featData = await pack?.getEntry(entry.id);
-            return featData && featData.type === 'feat'
-                ? featData
+            const pack = game.packs.get(entry.pack);
+            const feat = await pack?.getEntity(entry.id);
+            return feat instanceof FeatPF2e
+                ? feat.toObject()
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
         } else {
             const feat = game.items.get(entry.id);
             if (feat === undefined || !(feat instanceof FeatPF2e)) {
                 throw Error('Invalid item type referenced in ABCFeatureEntryData');
             }
-            return feat.data;
+            return feat.toObject();
         }
     }
 

@@ -676,4 +676,6 @@ declare class Entity {
     static activateSocketListeners(socket: any): unknown;
 
     canUserModify(user: User, action: string): boolean;
+
+    toObject(source?: boolean): this['data'];
 }
