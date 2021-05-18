@@ -1,0 +1,47 @@
+.sheet-body {
+    flex: auto;
+    .tab {
+        &:not(.notes) {
+            overflow: hidden scroll;
+        }
+
+        &.notes {
+            > .flexcol {
+                height: 100%;
+
+                > .flexrow {
+                    flex: 0;
+
+                    .identification-skills {
+                        ul {
+                            display: inline;
+                            list-style-type: none;
+                            padding: 0;
+
+                            li {
+                                display: inline;
+                                &:not(:last-of-type):after {
+                                    content: ',';
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+.expandable {
+    display: none;
+}
+
+.expanded {
+    display: block;
+}
+
+
+@import 'main';
+@import 'inventory';
+@import 'spells';
+@import 'notes';

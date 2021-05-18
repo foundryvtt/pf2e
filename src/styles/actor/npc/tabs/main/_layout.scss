@@ -1,0 +1,141 @@
+#top-sections {
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: flex-start;
+
+    #skills {
+        flex: 3;
+        align-self: stretch;
+    }
+
+    #senses {
+        flex: 2;
+
+        #perception {
+            width: 100%;
+            label {
+                flex-basis: 5em;
+            }
+            input {
+                flex: 0 0 24px;
+            }
+            span.plus::before {
+                left: -22px;
+            }
+            span.plus.lt10::before {
+                left: -15px;
+            }
+        }
+    }
+
+    #ability-scores {
+        flex: 2;
+        flex-direction: column;
+
+        .ability-scores-list {
+            display: grid;
+            grid-template-columns: repeat(3, minmax(0, 1fr));
+            label {
+                padding-left: 8px;
+            }
+            input {
+                flex: 0 0 24px;
+            }
+            span.plus::before {
+                left: -21px;
+            }
+            span.plus.lt10::before {
+                left: -15px;
+            }
+        }
+    }
+}
+
+.section-container {
+    display: flex;
+    flex-direction: column;
+    padding: 4px 6px 0 6px;
+
+    .section-header {
+        display: flex;
+        flex: 0;
+        width: 100%;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: baseline;
+        border: 1px solid $primary-accent;
+        border-radius: 3px 3px 0px 0px;
+        background: $primary-accent;
+        text-align: left;
+        color: $light-text;
+        font-size: 0.8rem;
+        padding: 4px 8px;
+
+        h4 {
+            flex: auto;
+            margin-bottom: 0px;
+            text-transform: uppercase;
+        }
+    }
+
+    .section-body {
+        display: flex;
+        flex: auto;
+        flex-wrap: wrap;
+        width: 100%;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+        padding: 4px;
+        border: 1px solid $primary-accent;
+        border-radius: 0px 0px 3px 3px;
+    }
+}
+
+.section-body,
+.save-container {
+    input.modifier {
+        display: inline;
+        text-align: right;
+
+        &.positive-modifier {
+            color: $positive-modifier;
+        }
+
+        &.negative-modifier {
+            color: $negative-modifer;
+        }
+    }
+    span.plus {
+        display: none;
+        height: 0;
+        &::before {
+            content: '+';
+            font-weight: normal;
+            position: relative;
+        }
+    }
+    input.modifier.not-negative:not(:focus) {
+        + span.plus {
+            display: inline;
+        }
+    }
+}
+
+.controls {
+    font-size: 0.8rem;
+    .chat {
+        margin-right: 6px;
+    }
+}
+
+.disabled {
+    color: $color-disabled !important;
+    border-color: $color-disabled !important;
+}
+
+.disabled:hover {
+    color: $color !important;
+    border-color: $faded-color !important;
+}

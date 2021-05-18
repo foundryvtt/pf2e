@@ -1,0 +1,50 @@
+$faded-color: #7a7971;
+$color: #323232;
+$color-disabled: #b6b6b6;
+$value-color: #000000;
+$armor-color: #2a8fbd;
+$health-color: #a40802;
+$attack-button-color: #171f69;
+$damage-button-color: #5e0000;
+$primary-accent: #5e0000;
+$secondary-accent: #171f69;
+$light-text: #f5efe0;
+$common: #323232;
+$uncommon: #98513d;
+$rare: #002664;
+$unique: #54166e;
+$positive-modifier: #009988;
+$negative-modifer: #cc3311;
+
+.npc-sheet {
+    display: flex;
+    color: $color;
+    font-family: 'Signika', sans-serif;
+
+    @import 'forms';
+    @import 'data-entry';
+    @import 'header';
+    @import 'sidebar';
+    @import 'tabs';
+    @import 'body';
+
+    &.dead {
+        .profile {
+            background-size: cover;
+            background-color: #dbd9cd;
+            box-sizing: border-box;
+            border: 1px solid black;
+            border-radius: 2px;
+            > img {
+                border: none;
+                width: 100%;
+                opacity: 0.33;
+            }
+        }
+        h2.name {
+            margin-top: 3px;
+            text-align: center;
+            border-bottom: none;
+        }
+    }
+}

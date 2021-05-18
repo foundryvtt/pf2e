@@ -1,0 +1,78 @@
+.shield-section {
+    .shield-label {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        align-items: center;
+        color: $armor-color;
+    }
+
+    .shield-value {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        align-items: flex-end;
+        text-align: right;
+        font-weight: bold;
+        color: $value-color;
+
+        #shield-current {
+            flex: 0px;
+            font-weight: bold;
+            color: $value-color;
+            text-align: right;
+            width: 50px;
+        }
+
+        #shield-max {
+            flex: 0px;
+            align-self: center;
+            font-weight: bold;
+            color: $value-color;
+            text-align: left;
+        }
+    }
+
+    .shield-details {
+        display: flex;
+        flex: auto;
+        flex-direction: row;
+        justify-content: flex-start;
+        align-items: baseline;
+
+        .label {
+            flex: 0;
+            font-weight: bold;
+        }
+
+        .value {
+            flex: auto;
+            font-weight: normal;
+            margin-left: 6px !important;
+        }
+    }
+
+    &.broken {
+        color: rgba(black, 0.4);
+
+        .shield-label {
+            color: rgba(black, 0.4);
+
+            h4 {
+                text-decoration: line-through;
+            }
+        }
+
+        .shield-value {
+            color: rgba(black, 0.4);
+
+            #shield-current {
+                color: rgba(black, 0.4);
+            }
+
+            #shield-max {
+                color: rgba(black, 0.4);
+            }
+        }
+    }
+}

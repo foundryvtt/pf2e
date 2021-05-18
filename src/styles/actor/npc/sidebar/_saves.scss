@@ -1,0 +1,29 @@
+#saves {
+    margin-top: 12px;
+    display: flex;
+    flex-direction: row;
+    width: 100%;
+    flex: 1 0 auto;
+    font-size: 1.1rem;
+}
+
+.save-container {
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    label {
+        font-weight: 600;
+    }
+    input.modifier {
+        text-align: center;
+    }
+    span.plus {
+        &::before {
+            left: -15px;
+            top: -24px;
+        }
+        &.lt10::before {
+            left: -10px;
+        }
+    }
+}
