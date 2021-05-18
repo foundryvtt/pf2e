@@ -812,7 +812,7 @@ export class NPCPF2e extends CreaturePF2e {
         for (const token of tokens) {
             promises.push(token.update({ disposition }));
         }
-        await Promise.all(promises);
+        await Promise.allSettled(promises);
     }
 
     private static mapNPCAttitudeToTokenDisposition(attitude: string): number {
@@ -900,7 +900,13 @@ export class NPCPF2e extends CreaturePF2e {
         const attitude = (changed as DeepPartial<NPCData>)?.data?.traits?.attitude?.value;
 
         // user should be User but currently is a userId string
-        const userId = (user as unknown) as string;
+        // See: https://gitlab.com/foundrynet/foundryvtt/-/issues/5129
+        let userId = '';
+        if (typeof user === 'string') {
+            userId = (user as unknown) as string;
+        } else {
+            userId = user.id;
+        }
 
         if (attitude && userId === game.userId) {
             this.updateTokenAttitude(attitude);
