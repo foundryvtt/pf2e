@@ -15,7 +15,7 @@ module.exports = {
         sourceType: 'module',
         project: './tsconfig.json',
     },
-    ignorePatterns: ['dist/', 'types/client/pixi.d.ts'],
+    ignorePatterns: ['dist/', 'types/client/pixi.d.ts', 'types/client/collections/world-collection'],
     rules: {
         'prettier/prettier': 'error',
         'no-console': 'off',

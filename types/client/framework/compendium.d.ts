@@ -25,12 +25,6 @@ declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEnti
     system: string;
 }
 
-declare type CompendiumIndex = {
-    _id: string;
-    name: string;
-    image: string;
-}[];
-
 declare type CompendiumEntity = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
 
 /**
