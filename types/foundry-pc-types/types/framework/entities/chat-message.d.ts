@@ -1,4 +1,4 @@
-declare class Messages<ActorType extends Actor> extends DocumentCollection<ChatMessage<ActorType>> {
+declare class Messages<ActorType extends Actor> extends EntityCollection<ChatMessage<ActorType>> {
     /** @override */
     get entity(): 'ChatMessage';
 
@@ -23,8 +23,6 @@ declare class Messages<ActorType extends Actor> extends DocumentCollection<ChatM
      */
     flush(): Promise<any>;
 }
-
-declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONST.CHAT_MESSAGE_TYPES];
 
 declare interface ChatMessageData extends BaseEntityData {
     type: ChatMessageType;

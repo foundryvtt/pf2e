@@ -508,10 +508,10 @@ export class ConditionManager {
                 await ConditionManager._deleteConditionEntity([id], token);
             } else {
                 // Apply new value.
-                const update = duplicate(condition);
+                const update = condition.data._source;
                 update.data.value.value = value;
 
-                await token.actor.updateEmbeddedDocuments('Item', update);
+                await token.actor.updateEmbeddedDocuments('Item', [update]);
 
                 console.log(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }
