@@ -30,9 +30,7 @@ export class ClassPF2e extends ABCItemPF2e {
         const classFeaturesToCreate: FeatData[] = [];
         for await (const feature of featuresToAdd) {
             const featureData = await this.getFeature(feature);
-            if (featureData === undefined) {
-                continue;
-            }
+            if (!featureData) continue;
             classFeaturesToCreate.push(featureData);
         }
 
