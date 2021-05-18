@@ -1,0 +1,40 @@
+.health-section {
+    .side-bar-label {
+        color: $health-color;
+        align-items: center;
+    }
+
+    .health-value {
+        display: flex;
+        flex-direction: row;
+        color: $value-color;
+        flex: 0;
+        margin-left: auto;
+
+        input {
+            color: $value-color;
+            &:first-child {
+                width: 36px;
+                text-align: right;
+                padding-right: 3px;
+            }
+            &:last-child {
+                font-weight: bold;
+                text-align: center;
+                &.lt10 {
+                    width: 8px;
+                }
+                &.lt100 {
+                    width: 24px;
+                }
+                &.lt1000 {
+                    width: 36px;
+                }
+            }
+        }
+        span {
+            display: flex;
+            text-align: center;
+        }
+    }
+}
