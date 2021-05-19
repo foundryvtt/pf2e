@@ -1021,12 +1021,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = item._data;
+        const itemData = item.toObject();
 
-        const { slotId, featType } = this.getNearestSlotId(event);
+        const { slotId, featType }: { slotId?: string; featType?: string } = this.getNearestSlotId(event);
 
         if (itemData.type === 'feat') {
-            if (slotId !== undefined && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
+            if (slotId && featType && this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
                 itemData.data.location = slotId;
                 const items = await Promise.all([
                     this.actor.createEmbeddedDocuments('Item', [itemData]),
