@@ -42,7 +42,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                 (promise, getItemData) =>
                     promise.then((retrieved) =>
                         getItemData().then((featureData) => {
-                            (featureData as any).update({ ['data.location']: this.id }); //TODO: Fix any type;
+                            featureData.data.location = this.id;
                             return retrieved.concat([featureData]);
                         }),
                     ),
