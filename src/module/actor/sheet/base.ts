@@ -1494,7 +1494,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
         }
 
-        this.actor.createEmbeddedDocuments('Item', data);
+        this.actor.createEmbeddedDocuments('Item', [data]);
     }
 
     /**

@@ -81,11 +81,11 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const skillId: string = skillSelector.val() as string;
         const skillName = this.findSkillName(skillId);
         const itemName = skillName.replace(/-/g, ' ').titleCase();
-        const data: any = {
+        const data = {
             name: itemName,
             type: 'lore',
         };
-        await this.npc.createEmbeddedDocuments('Item', data);
+        await this.npc.createEmbeddedDocuments('Item', [data]);
 
         this.render(true);
     }
@@ -113,7 +113,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const loreNameField = $(event.currentTarget).parents('#lore-skill-creator').find('input');
         const loreName = loreNameField.val() as string;
 
-        const data: any = {
+        const data = {
             name: loreName,
             type: 'lore',
             label: loreName,
@@ -124,7 +124,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
             },
         };
 
-        await this.npc.createEmbeddedDocuments('Item', data);
+        await this.npc.createEmbeddedDocuments('Item', [data]);
 
         this.render(true);
     }
