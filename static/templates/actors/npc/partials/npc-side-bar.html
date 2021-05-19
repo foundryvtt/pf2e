@@ -179,33 +179,7 @@
     </div>
 </div>
 
-<div id="speed" class="side-bar-section">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label">
-            <!-- <i class="fas fa-shoe-prints"></i> -->
-            <h4>{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
-        </div>
-        {{#if options.editable }}
-        <div class="speed-controls controls">
-            <a class="trait-edit edit" data-trait-selector="speed-types" data-attribute="data.attributes.speed.otherSpeeds" data-options="speedTypes" data-has-values="true" title="{{ localize 'PF2E.NPC.EditSpeed' }}"><i class="fas fa-edit"></i></a>
-        </div>
-        {{/if}}
-    </div>
-    <div id="speed-section" class="side-bar-section-content">
-        <div id="walk-speed">
-            <input type="text" name="data.attributes.speed.value" value="{{ data.attributes.speed.value }}" data-dtype="String" placeholder="0"/>
-        </div>
-        <div id="other-speeds">
-            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
-            {{#if speed.value }}
-                <div class="speed" data-speed="{{localize speed.type}}">
-                    {{localize speed.label}} {{speed.value}}
-                </div>
-            {{/if}}
-            {{/each}}
-        </div>
-    </div>
-</div>
+
 <div class="side-bar-section effects">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
