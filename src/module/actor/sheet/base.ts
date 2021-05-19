@@ -1015,7 +1015,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                 if (!item) throw ErrorPF2e('Item not found during drag event');
                 return {
                     type: 'Item',
-                    data: item._data,
+                    data: item.toObject(),
                 };
             }
             // ... an action?
@@ -1175,7 +1175,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         event.preventDefault();
 
         const item = await ItemPF2e.fromDropData(data);
-        const itemData = item._data;
+        const itemData = item.toObject();
 
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
