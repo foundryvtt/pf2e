@@ -1,0 +1,10 @@
+export { ItemPF2e } from './base';
+export { ConditionPF2e } from './others';
+export { FeatPF2e } from './feat';
+export { SpellPF2e } from './spell';
+export { SpellcastingEntryPF2e } from './spellcasting-entry';
+export { PhysicalItemPF2e } from './physical';
+export { ArmorPF2e } from './armor';
+export { WeaponPF2e } from './weapon';
+export { ConsumablePF2e } from './consumable';
+export { EquipmentPF2e } from './equipment';

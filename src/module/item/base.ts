@@ -20,10 +20,9 @@ import {
     MeleeDetailsData,
     TraitChatData,
     TrickMagicItemCastData,
-    isABCItem,
 } from './data/types';
 import { canCastConsumable } from './spell-consumables';
-import { isCharacter, isCreatureData } from '@actor/data-definitions';
+import { isCreatureData } from '@actor/data-definitions';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
@@ -142,13 +141,6 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                     rule.onCreate(this.actor.data, this.data, actorUpdates, Object.values(tokens));
                 }
                 this.actor.update(actorUpdates);
-
-                // ABCs
-                if (isCharacter(this.actor) && game.user.id === userId) {
-                    if (isABCItem(this)) {
-                        this.addFeatures(this.actor);
-                    }
-                }
 
                 // Effect Panel
                 game.pf2e.effectPanel.refresh();

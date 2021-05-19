@@ -1,7 +1,8 @@
 import { DamageDicePF2e, ModifierPF2e, ModifierPredicate, ProficiencyModifier, RawPredicate } from '../modifiers';
 import { isCycle } from '@item/container';
 import { DicePF2e } from '@scripts/dice';
-import { ItemPF2e } from '@item/base';
+import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from '@item/index';
+import type { ConditionPF2e, ArmorPF2e } from '@item/index';
 import { ItemDataPF2e, ConditionData, WeaponData, isMagicItemData } from '@item/data/types';
 import {
     ActorDataPF2e,
@@ -13,15 +14,11 @@ import {
     SaveData,
     SaveString,
 } from './data-definitions';
-import { PhysicalItemPF2e } from '@item/physical';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
-import { ArmorPF2e } from '@item/armor';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
-import { ConditionPF2e } from '@item/others';
 import { TokenEffect } from '@module/rules/rule-element';
-import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -800,7 +797,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             await this.updateEmbeddedDocuments('Item', update);
         }
 
-        const newItemData = duplicate(item._data);
+        const newItemData = item.toObject();
         newItemData.data.quantity.value = quantity;
         newItemData.data.equipped.value = false;
         if (isMagicItemData(newItemData)) {

@@ -5,10 +5,6 @@ import { ConfigPF2e } from '@scripts/config';
 import { PHYSICAL_ITEM_TYPES } from './values';
 import { LocalizePF2e } from '@module/system/localize';
 import { DamageType } from '@module/damage-calculation';
-import { ItemPF2e } from '@item/base';
-import { AncestryPF2e } from '@item/ancestry';
-import { BackgroundPF2e } from '@item/background';
-import { ClassPF2e } from '@item/class';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
@@ -1041,8 +1037,4 @@ export function assertPhysicalItem(item: ItemDataPF2e, error: string): asserts i
     if (!isPhysicalItem(item)) {
         throw Error(error);
     }
-}
-
-export function isABCItem(item: ItemPF2e): item is AncestryPF2e & BackgroundPF2e & ClassPF2e {
-    return ['ancestry', 'background', 'class'].includes(item.type);
 }

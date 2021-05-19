@@ -1,7 +1,13 @@
+import type {
+    ABCFeatureEntryData,
+    AncestryData,
+    BackgroundData,
+    ClassData,
+    FeatData,
+    ItemDataPF2e,
+} from './data/types';
+import { ItemPF2e, FeatPF2e } from './index';
 import { CharacterPF2e } from '@actor/character';
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData } from './data/types';
-import { ItemPF2e } from './base';
-import { FeatPF2e } from './feat';
 
 /** Abstract base class representing a Pathfinder (A)ncestry, (B)ackground, or (C)lass */
 export abstract class ABCItemPF2e extends ItemPF2e {
@@ -49,6 +55,14 @@ export abstract class ABCItemPF2e extends ItemPF2e {
                 Promise.resolve([] as FeatData[]),
             );
         await actor.createEmbeddedDocuments('Item', featuresData);
+    }
+
+    /** @override */
+    protected _onCreate(itemData: ItemDataPF2e, options: EntityCreateOptions, userId: string): void {
+        super._onCreate(itemData, options, userId);
+        if (this.actor instanceof CharacterPF2e && game.user.id === userId) {
+            this.addFeatures(this.actor);
+        }
     }
 }
 

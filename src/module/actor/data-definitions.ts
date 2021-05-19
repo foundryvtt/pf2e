@@ -3,8 +3,6 @@ import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIE
 import { RollParameters } from '@system/rolls';
 import { ConfigPF2e } from '@scripts/config';
 import { DamageType } from '@module/damage-calculation';
-import { ActorPF2e } from './base';
-import { CharacterPF2e } from './character';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
 export type ZeroToFour = ZeroToThree | 4; // +1!
@@ -781,8 +779,4 @@ export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 
 export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
     return ['character', 'npc', 'animalCompanion', 'familiar'].includes(actorData.type);
-}
-
-export function isCharacter(actor: ActorPF2e): actor is CharacterPF2e {
-    return actor.type === 'character';
 }
