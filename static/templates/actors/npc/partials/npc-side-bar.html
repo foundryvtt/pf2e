@@ -15,6 +15,7 @@
         <input class="armor-details" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"/>
     </div>
 </div>
+
 {{#if hasShield}}
 <div class="side-bar-section shield-section{{#if data.attributes.shieldBroken}} broken" title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}">
     <div class="side-bar-section-header">
@@ -40,6 +41,7 @@
     </div>
 </div>
 {{/if}}
+
 <div class="side-bar-section health-section">
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
@@ -61,6 +63,66 @@
         <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
     </div>
 </div>
+
+<!-- SENSES -->
+<div id="senses" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
+        </div>
+    </div>
+    <div class="side-bar-section-content">
+        <div id="perception" class="labelled-field" data-attribute="perception">
+            <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
+            <input
+                class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}"
+                type="number"
+                name="data.attributes.perception.value"
+                value="{{ data.attributes.perception.value }}"
+                data-base-property="data.attributes.perception.base"
+                data-display-value="{{ data.attributes.perception.value }}"
+                data-dtype="Number"
+                placeholder="0"
+            />
+            <span class="plus{{#if (lt data.attributes.perception.value 10)}} lt10{{/if}}"></span>
+        </div>
+        {{# if options.editable }}
+        <input
+            name="data.traits.senses.value"
+            type="text"
+            value="{{ data.traits.senses.value }}"
+            title="{{ data.traits.senses.value }}"
+            data-dtype="String"
+            placeholder="Special Senses"
+        />
+        {{else}}
+        <span>{{ data.traits.senses.value }}</span>
+        {{/if}}
+    </div>
+</div>
+
+<div id="saves" class="side-bar-section">
+    <div class="side-bar-section-header">
+        <div class="side-bar-label">
+            <h4>{{ localize 'PF2E.NPC.SavesLabel' }}</h4>
+        </div>
+    </div>
+    <div class="save-container">
+        {{#each data.saves as |save saveId|}}
+            <div class="save-item" data-save="{{saveId}}">
+                <label class="attribute-label rollable" title="{{ save.breakdown }}"><a>{{ localize save.labelShort }}</a></label>
+                <input class="modifier{{#if (gte save.value 0)}} not-negative{{/if}}{{#if (gt save.totalModifier save.base)}} positive-modifier{{/if}}{{#if (lt save.totalModifier save.base)}} negative-modifier{{/if}}" type="number" name="data.saves.{{saveId}}.value" value="{{save.value}}" data-display-value="{{save.value}}" data-base-property="data.saves.{{saveId}}.base" data-dtype="Number" placeholder="0"/>
+                <span class="plus{{#if (lt save.value 10)}} lt10{{/if}}"></span>
+            </div>
+        {{/each}}
+    </div>
+    <div id="save-details" class="side-bar-section">
+        <div class="side-bar-section-content">
+            <input type="text" name="data.attributes.allSaves.value" value="{{ data.attributes.allSaves.value }}" title="{{ data.attributes.allSaves.value }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"/>
+        </div>
+    </div>
+</div>
+
 <div id="weaknesses" class="side-bar-section">
     <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
         <div class="side-bar-label">
@@ -116,20 +178,7 @@
         {{/each}}
     </div>
 </div>
-<div id="saves">
-    {{#each data.saves as |save saveId|}}
-    <div class="save-container" data-save="{{saveId}}">
-        <label class="attribute-label rollable" title="{{ save.breakdown }}"><a>{{ localize save.labelShort }}</a></label>
-        <input class="modifier{{#if (gte save.value 0)}} not-negative{{/if}}{{#if (gt save.totalModifier save.base)}} positive-modifier{{/if}}{{#if (lt save.totalModifier save.base)}} negative-modifier{{/if}}" type="number" name="data.saves.{{saveId}}.value" value="{{save.value}}" data-display-value="{{save.value}}" data-base-property="data.saves.{{saveId}}.base" data-dtype="Number" placeholder="0"/>
-        <span class="plus{{#if (lt save.value 10)}} lt10{{/if}}"></span>
-    </div>
-    {{/each}}
-</div>
-<div id="save-details" class="side-bar-section">
-    <div class="side-bar-section-content">
-        <input type="text" name="data.attributes.allSaves.value" value="{{ data.attributes.allSaves.value }}" title="{{ data.attributes.allSaves.value }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"/>
-    </div>
-</div>
+
 <div id="speed" class="side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">

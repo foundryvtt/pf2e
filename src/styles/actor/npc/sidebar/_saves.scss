@@ -1,29 +1,36 @@
 #saves {
-    margin-top: 12px;
     display: flex;
-    flex-direction: row;
-    width: 100%;
-    flex: 1 0 auto;
-    font-size: 1.1rem;
+    flex-direction: column;
+    align-items: initial;
 }
 
 .save-container {
     display: flex;
-    flex-direction: column;
     text-align: center;
+    justify-content: space-around;
+    font-size: 1.2em;
+
+    .save-item {
+        display: flex;
+        flex-direction: column;
+    }
+
     label {
         font-weight: 600;
     }
     input.modifier {
         text-align: center;
+        width: 3ch;
     }
+
     span.plus {
         &::before {
             left: -15px;
-            top: -24px;
+            top: -21px;
         }
         &.lt10::before {
             left: -10px;
+            top: -21px;
         }
     }
 }
