@@ -3,6 +3,7 @@
     flex-direction: row;
     justify-content: flex-start;
     align-items: flex-start;
+    gap: 0.5em;
 
     #skills {
         flex: 3;
@@ -55,41 +56,30 @@
 .section-container {
     display: flex;
     flex-direction: column;
-    padding: 4px 6px 0 6px;
+    gap: 0.5em;
 
     .section-header {
         display: flex;
-        flex: 0;
-        width: 100%;
-        flex-direction: row;
         justify-content: space-between;
-        align-items: baseline;
-        border: 1px solid $primary-accent;
-        border-radius: 3px 3px 0px 0px;
-        background: $primary-accent;
-        text-align: left;
+        align-items: center;
+        border-bottom: 1px solid var(--primary);
         color: $light-text;
-        font-size: 0.8rem;
-        padding: 4px 8px;
+        font-size: 1em;
 
         h4 {
-            flex: auto;
             margin-bottom: 0px;
-            text-transform: uppercase;
+            text-transform: capitalize;
+            font-weight: 400;
+            margin-bottom: 0;
+            padding: 0.1em 0.5em;
+            border-radius: 3px 3px 0px 0px;
+            background-color: var(--primary);
         }
     }
 
     .section-body {
         display: flex;
-        flex: auto;
         flex-wrap: wrap;
-        width: 100%;
-        flex-direction: row;
-        justify-content: flex-start;
-        align-items: baseline;
-        padding: 4px;
-        border: 1px solid $primary-accent;
-        border-radius: 0px 0px 3px 3px;
     }
 }
 
@@ -125,6 +115,7 @@
 
 .controls {
     font-size: 0.8rem;
+    color: var(--primary);
     .chat {
         margin-right: 6px;
     }
