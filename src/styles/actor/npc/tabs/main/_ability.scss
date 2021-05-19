@@ -1,0 +1,20 @@
+#ability-scores {
+    grid-area: ability-scores;
+    .ability-scores-list {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        label {
+            padding-left: 8px;
+        }
+        input {
+            width: 3ch;
+        }
+        span.plus::before {
+            left: -21px;
+            top: -8px;
+        }
+        span.plus.lt10::before {
+            left: -15px;
+        }
+    }
+}
