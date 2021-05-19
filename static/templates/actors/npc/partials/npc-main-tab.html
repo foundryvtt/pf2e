@@ -1,20 +1,5 @@
 <div class="tab main" data-group="primary" data-tab="main">
-    <!-- TOGGLES -->
-    <div id="toggles" class="section-container">
-        <div class="section-header">
-            <h4>{{ localize 'PF2E.TogglesLabel' }}</h4>
-        </div>
-        <div class="section-body actions-options">
-            {{#each actor.data.toggles.actions as |toggle idx|}}
-                <div class="actions-option">
-                    <label data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
-                        <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}}>
-                        <span>{{localize toggle.label}}</span>
-                    </label>
-                </div>
-            {{/each}}
-        </div>
-    </div>
+
     <div id="top-sections">
         <div id="ability-scores" class="section-container">
             <div class="section-header">
@@ -79,47 +64,7 @@
             </div>
         </div>
     </div>
-    <!-- ATTACKS -->
-    <div id="attacks" class="section-container">
-        <div class="section-header">
-            <h4>{{ localize 'PF2E.NPC.Attacks'}}</h4>
-                {{# if options.editable }}
-                <div class="attacks-controls controls">
-                    <a class="attack-add item-create" data-type="melee" data-action-type="melee"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackMelee'}}</a>
-                    <a class="attack-add item-create" data-type="melee" data-action-type="ranged"><i class="fas fa-plus"></i> {{localize 'PF2E.NPCAttackRanged'}}</a>
-                </div>
-                {{/if}}
-        </div>
-        <div class="section-body">
-            <ol class="attacks-list item-list">
-                {{#each attacks as |attack index|}}
-                    {{> 'systems/pf2e/templates/actors/npc/partials/npc-attack.html' action=attack.attack traits=attack.traits actionId=index isEditable=../options.editable }}
-                {{/each}}
-            </ol>
-        </div>
-    </div>
-    <!-- ACTIONS -->
-    <div id="actions" class="section-container">
-        <div class="section-header">
-            <h4>{{ localize 'PF2E.ActionActionsLabel'}}</h4>
-            {{# if options.editable }}
-                <div class="actions-controls controls">
-                    <a class="action-add item-create" title="{{localize 'PF2E.NPC.AddAction'}}" data-type="action" data-action-type="action"><i class="fas fa-plus"></i></a>
-                </div>
-            {{/if}}
-        </div>
-        <div class="section-body">
-            <ol class="actions-list item-list">
-                {{#each actions as |section sectionId|}}
-                    {{#unless (eq sectionId 'passive')}}
-                        {{#each section.actions as |action actionId|}}
-                            {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action isEditable=../../options.editable }}
-                        {{/each}}
-                    {{/unless}}
-                {{/each}}
-            </ol>
-        </div>
-    </div>
+
     <!-- PASSIVES -->
     <div id="passives" class="section-container">
         <div class="section-header">
