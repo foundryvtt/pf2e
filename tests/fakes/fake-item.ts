@@ -35,4 +35,8 @@ export class FakeItem {
             global.setProperty(this._data, k, v);
         }
     }
+
+    toObject(source = true) {
+        return source ? duplicate(this._data) : duplicate(this.data);
+    }
 }

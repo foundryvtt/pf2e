@@ -74,7 +74,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
 
         const itemData: ItemDataPF2e = data.item;
         // Expose the saved traits for editing purposes;
-        data.data.traits.value = this.item._data.data.traits.value.filter((trait) => !!trait);
+        data.data.traits.value = this.item.toObject().data.traits.value.filter((trait) => !!trait);
 
         const dt = duplicate(CONFIG.PF2E.damageTypes);
         if (itemData.type === 'spell') mergeObject(dt, CONFIG.PF2E.healingTypes);

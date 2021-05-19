@@ -7,6 +7,7 @@ declare interface BaseEntityData {
     flags: Record<string, any>;
     permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
     img: string;
+    update(data?: EntityUpdateData<this>, options?: EntityUpdateOptions): EntityUpdateData<this>;
 }
 
 declare interface EntityConstructorOptions {

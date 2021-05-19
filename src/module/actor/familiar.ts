@@ -320,5 +320,4 @@ export class FamiliarPF2e extends CreaturePF2e {
 
 export interface FamiliarPF2e {
     data: FamiliarData;
-    _data: FamiliarData;
 }

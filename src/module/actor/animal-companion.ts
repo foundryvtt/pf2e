@@ -39,5 +39,4 @@ export class AnimalCompanionPF2e extends CreaturePF2e {
 
 export interface AnimalCompanionPF2e {
     data: AnimalCompanionData;
-    _data: AnimalCompanionData;
 }

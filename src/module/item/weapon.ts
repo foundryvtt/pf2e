@@ -115,5 +115,4 @@ export class WeaponPF2e extends PhysicalItemPF2e {
 
 export interface WeaponPF2e {
     data: WeaponData;
-    _data: WeaponData;
 }

@@ -36,5 +36,4 @@ export class EquipmentPF2e extends PhysicalItemPF2e {
 
 export interface EquipmentPF2e {
     data: EquipmentData;
-    _data: EquipmentData;
 }

@@ -61,5 +61,4 @@ export class ConsumablePF2e extends PhysicalItemPF2e {
 
 export interface ConsumablePF2e {
     data: ConsumableData;
-    _data: ConsumableData;
 }

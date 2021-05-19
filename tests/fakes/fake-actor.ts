@@ -65,7 +65,7 @@ export class FakeActor {
     static createTokenActor(baseActor: ActorPF2e, token: Token): ActorPF2e {
         const actor = game.actors.tokens[token.id];
         if (actor) return actor;
-        const actorData = mergeObject(baseActor._data, token.data.actorData, { inplace: false });
+        const actorData = mergeObject(baseActor._data, token.data.actorData, { inplace: false }) as ActorDataPF2e;
         return (new this(actorData, { token }) as unknown) as ActorPF2e;
     }
 
@@ -127,5 +127,9 @@ export class FakeActor {
                 this._data.items = this._data.items?.filter((x: any) => x._id !== id);
             }
         }
+    }
+
+    toObject(source = true) {
+        return source ? duplicate(this._data) : duplicate(this.data);
     }
 }

@@ -21,5 +21,4 @@ export class SpellcastingEntryPF2e extends ItemPF2e {
 
 export interface SpellcastingEntryPF2e {
     data: SpellcastingEntryData;
-    _data: SpellcastingEntryData;
 }

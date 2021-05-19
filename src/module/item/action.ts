@@ -30,5 +30,4 @@ export class ActionPF2e extends ItemPF2e {
 
 export interface ActionPF2e {
     data: ActionData;
-    _data: ActionData;
 }
