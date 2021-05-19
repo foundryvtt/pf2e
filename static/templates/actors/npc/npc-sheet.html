@@ -8,11 +8,29 @@
         {{> 'systems/pf2e/templates/actors/npc/partials/npc-header.html' }}
 
         <nav class="sheet-tabs tabs" data-group="primary">
-            <a class="item" data-tab="main">{{ localize 'PF2E.NPC.MainTab'}}</a>
-            <a class="item" data-tab="actions">{{ localize 'PF2E.NPC.ActionsTab'}}</a>
-            <a class="item" data-tab="inventory">{{ localize 'PF2E.NPC.InventoryTab'}}</a>
-            <a class="item" data-tab="spells">{{ localize 'PF2E.NPC.SpellsTab'}}</a>
-            <a class="item" data-tab="notes">{{ localize 'PF2E.NPC.NotesTab'}}</a>
+
+            <span class="navigation-title">Main</span>
+
+            <a class="item" data-tab="main" data-tab-title="{{ localize 'PF2E.NPC.MainTab'}}">
+                <i class="fas fa-address-card"></i>
+            </a>
+            <a class="item" data-tab="actions" data-tab-title="{{ localize 'PF2E.NPC.ActionsTab'}}">
+                <span
+                    class="activity-icon"
+                    style="font-size: 23px; color: var(--tertiary); margin: 0; padding: 0 0 1px 0"
+                >
+                    A
+                </span>
+            </a>
+            <a class="item" data-tab="inventory" data-tab-title="{{ localize 'PF2E.NPC.InventoryTab'}}">
+                <i class="fas fa-box-open"></i>
+            </a>
+            <a class="item" data-tab="spells" data-tab-title="{{ localize 'PF2E.NPC.SpellsTab'}}">
+                <i class="fas fa-magic"></i>
+            </a>
+            <a class="item" data-tab="notes" data-tab-title="{{ localize 'PF2E.NPC.NotesTab'}}">
+                <i class="fas fa-book-reader"></i>
+            </a>
         </nav>
         <section class="sheet-body">
             {{> 'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html' }} {{>
