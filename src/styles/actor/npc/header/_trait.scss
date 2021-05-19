@@ -1,36 +1,23 @@
 .traits-list-container {
     display: flex;
-    flex-direction: row;
     flex-wrap: wrap;
-    align-items: baseline;
-    margin: 0px;
-    padding: 4px;
+    padding: 0.5em 0;
+    gap: 0.5em;
 
     .traits-list-item {
-        flex: auto 0 0;
-        margin-left: 4px;
-        margin-right: 4px;
-
         text-transform: uppercase;
         font-weight: bold;
-    }
-
-    .traits-list-item:first-child {
-        margin-left: 0px;
-        margin-right: 4px;
-    }
-
-    .traits-list-item:last-child {
-        margin-left: 4px;
-        margin-right: 0px;
+        width: min-content;
     }
 }
 
 .trait {
-    flex: auto 0 0;
-    padding: 4px;
+    font-family: 'Roboto Condensed', $sans-serif;
+    padding: 0.25em 0.5em;
     background: #5d0000;
-    border: 2px solid #d8c384;
+    border: 2px solid var(--tertiary);
     color: $light-text;
     text-transform: uppercase;
+    flex: initial;
+    text-align: center;
 }

@@ -1,40 +1,37 @@
 #name {
-    justify-content: space-between;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     font-family: 'Roboto Condensed', $sans-serif;
 
     .name-value {
-        margin-left: 8px;
-        margin-right: 8px;
-        height: 32px;
-        font-size: 1.5rem;
+        font-size: 2rem;
         text-transform: uppercase;
-
+        height: min-content;
         font-weight: bold;
         letter-spacing: -1px;
+        border: none;
     }
 
     .level-container {
-        margin-left: 4px;
         display: flex;
-        flex: 0 0 auto;
-        flex-direction: row;
-        align-items: flex-end;
+        align-items: center;
+        width: 100%;
+
+        .level-label,
+        input {
+            font-size: 1.2rem;
+            font-weight: 700;
+            height: min-content;
+        }
 
         .level-label {
-            flex: 1 0 auto;
-            font-size: 1.5rem;
             text-transform: uppercase;
-            font-weight: bold;
-            margin-right: 4px;
         }
 
         input {
-            flex: 0 0 32px;
             text-align: center;
-            font-size: 1.5rem;
-            font-weight: bold;
-            height: 32px;
-            width: 32px;
+            width: 3ch;
         }
     }
 }
