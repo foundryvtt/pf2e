@@ -16,16 +16,41 @@ $unique: #54166e;
 $positive-modifier: #009988;
 $negative-modifer: #cc3311;
 
+.pf2e.sheet.npc {
+    .window-content {
+        padding: 0;
+        justify-content: center;
+        background: url('../assets/sheet/scroll-bg.webp'), url(../assets/sheet/red-bg.webp);
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+}
+
 .npc-sheet {
     display: grid;
     grid-template:
+        'img body'
         'sidebar body'
-        / 25% 1fr;
+        / 30% 1fr;
+    gap: 1em;
     color: $color;
-    font-family: 'Signika', sans-serif;
+    font-family: 'Gelasio', 'Signika', Georgia, serif;
+    padding: 0 2.5em;
+    margin: auto;
+    max-width: 70vw;
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Roboto Condensed', $sans-serif;
+        font-weight: 700;
+    }
 
     @import 'forms';
     @import 'data-entry';
+    @import 'profile-img';
     @import 'sidebar';
     @import 'body';
     @import 'header';
