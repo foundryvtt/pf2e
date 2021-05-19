@@ -109,8 +109,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
     getData(): ActorSheetDataPF2e<this['actor']['data']> {
         // The Actor and its Items
         const actorData: ActorDataPF2e = this.actor.toObject(false);
-        const items = this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0));
-        actorData.items = duplicate(items);
+        const items = deepClone(
+            this.actor.items.map((item) => item.data).sort((a, b) => (a.sort || 0) - (b.sort || 0)),
+        );
+        actorData.items = items;
 
         const inventoryItems = items.filter((itemData): itemData is InventoryItem => itemData.isPhysical);
         for (const itemData of inventoryItems) {
