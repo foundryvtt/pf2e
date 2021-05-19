@@ -30,35 +30,35 @@
             {{/if}}
         </div>
     </div>
-    <div class="flexrow">
-        <div class="flexrow">
-            {{!-- TRAITS HERE --}}
-            <select
-                class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}"
-                name="data.traits.rarity.value"
-                data-dtype="String"
-            >
-                {{#select data.traits.rarity.value}} {{#each rarity as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-                {{/each}} {{/select}}
-            </select>
-            <select
-                class="alignment-select traits-list-item alignment"
-                name="data.details.alignment.value"
-                data-dtype="String"
-            >
-                {{#select data.details.alignment.value}} {{#each alignment as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-                {{/each}} {{/select}}
-            </select>
-            <select class="size-select traits-list-item size" name="data.traits.size.value" data-dtype="String">
-                {{#select data.traits.size.value}} {{#each actorSizes as |label key|}}
-                <option value="{{key}}">{{localize label}}</option>
-                {{/each}} {{/select}}
-            </select>
-        </div>
+
+    <div class="traits-list-container">
+        {{!-- TRAITS HERE --}}
+        <select
+            class="rarity-select traits-list-item rarity {{#if data.traits.rarity.value }} {{data.traits.rarity.value }} {{else}} common {{/if}}"
+            name="data.traits.rarity.value"
+            data-dtype="String"
+        >
+            {{#select data.traits.rarity.value}} {{#each rarity as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}} {{/select}}
+        </select>
+        <select
+            class="alignment-select traits-list-item alignment"
+            name="data.details.alignment.value"
+            data-dtype="String"
+        >
+            {{#select data.details.alignment.value}} {{#each alignment as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}} {{/select}}
+        </select>
+        <select class="size-select traits-list-item size" name="data.traits.size.value" data-dtype="String">
+            {{#select data.traits.size.value}} {{#each actorSizes as |label key|}}
+            <option value="{{key}}">{{localize label}}</option>
+            {{/each}} {{/select}}
+        </select>
     </div>
-    <div class="flexrow">
+
+    <div class="traits-list-container">
         {{#each traits as |trait key|}}
         <div class="traits-list-item trait {{key}}">{{localize trait}}</div>
         {{/each}} {{# if options.editable }}
