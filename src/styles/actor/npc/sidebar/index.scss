@@ -1,6 +1,11 @@
 .side-bar {
     grid-area: sidebar;
     overflow: hidden scroll;
+    padding-right: 0.5em;
+
+    & > * + * {
+        margin-top: 0.5em;
+    }
 
     @import 'layout';
     @import 'armor';

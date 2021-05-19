@@ -1,20 +1,16 @@
 .health-section {
-    .side-bar-label {
-        color: $health-color;
-        align-items: center;
-    }
-
     .health-value {
         display: flex;
-        flex-direction: row;
-        color: $value-color;
-        flex: 0;
         margin-left: auto;
+        font-size: 1rem;
 
         input {
-            color: $value-color;
+            height: min-content;
+            line-height: 1;
+            @include p-reset;
+
             &:first-child {
-                width: 36px;
+                width: 5ch;
                 text-align: right;
                 padding-right: 3px;
             }
@@ -22,19 +18,20 @@
                 font-weight: bold;
                 text-align: center;
                 &.lt10 {
-                    width: 8px;
+                    width: 2ch;
                 }
                 &.lt100 {
-                    width: 24px;
+                    width: 3ch;
                 }
                 &.lt1000 {
-                    width: 36px;
+                    width: 4ch;
                 }
             }
         }
         span {
             display: flex;
-            text-align: center;
+            text-align: right;
+            align-items: center;
         }
     }
 }

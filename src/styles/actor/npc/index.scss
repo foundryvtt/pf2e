@@ -33,12 +33,12 @@ $negative-modifer: #cc3311;
         'img body'
         'sidebar body'
         / 30% 1fr;
-        grid-template-rows: min-content 1fr;
+    grid-template-rows: min-content 1fr;
     gap: 1em;
     align-items: stretch;
-    color: $color;
-    font-family: 'Gelasio', 'Signika', Georgia, serif;
-    padding:  1em 2.5em 0;
+    color: var(--body);
+    font-family: $sans-serif;
+    padding: 1em 2.5em 0;
     margin: auto;
     max-width: 50vw;
 
@@ -47,7 +47,19 @@ $negative-modifer: #cc3311;
     h3,
     h4 {
         font-family: 'Roboto Condensed', $sans-serif;
-        font-weight: 700;
+    }
+
+    .tag {
+        background-color: var(--alt);
+        text-transform: capitalize;
+        font-weight: 400 !important;
+        box-shadow: none !important;
+        border-radius: 2px !important;
+        border: none !important;
+        color: white !important;
+        white-space: normal !important;
+        line-height: 1 !important;
+        padding: 0.25em 0.5em !important;
     }
 
     @import 'forms';

@@ -1,10 +1,7 @@
-
-
 <div class="side-bar-section armor-section">
     <div class="side-bar-section-header" title="{{data.attributes.ac.breakdown}}">
         <div class="side-bar-label armor-label">
-            <i class="fas fa-shield-alt"></i>
-            <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
+            <h4> {{ localize 'PF2E.ArmorClassLabel' }}</h4>
         </div>
         <span class="armor-value">{{data.attributes.ac.value}}</span>
     </div>
@@ -46,13 +43,12 @@
 <div class="side-bar-section health-section">
     <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
         <div class="side-bar-label">
-            <i class="fas fa-heart"></i>
             <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
-            <div class="health-value">
-                <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
-                <span>/</span>
-                <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
-            </div>
+        </div>
+        <div class="health-value">
+            <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+            <span>/</span>
+            <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
     <div class="side-bar-section-content">
@@ -68,7 +64,7 @@
 <div id="weaknesses" class="side-bar-section">
     <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
         <div class="side-bar-label">
-            <i class="fas fa-heart-broken"></i>
+            <!-- <i class="fas fa-heart-broken"></i> -->
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
         </div>
         {{#if options.editable }}
@@ -79,14 +75,14 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dv as |weakness key|}}
-        <div class="tag weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
+        <div class="weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
         {{/each}}
     </div>
 </div>
 <div id="resistances" class="side-bar-section">
     <div class="side-bar-section-header {{#unless data.traits.dr }} disabled {{/unless}}">
         <div class="side-bar-label">
-            <i class="fas fa-shield-virus"></i>
+            <!-- <i class="fas fa-shield-virus"></i> -->
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
         </div>
         {{#if options.editable }}
@@ -97,14 +93,14 @@
     </div>
     <div class="side-bar-section-content">
         {{#each data.traits.dr as |resistance key|}}
-        <div class="tag resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
+        <div class="resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
 </div>
 <div id="immunities" class="side-bar-section">
     <div class="side-bar-section-header{{#unless immunities}} disabled{{/unless}}">
         <div class="side-bar-label">
-            <i class="fas fa-ankh"></i>
+            <!-- <i class="fas fa-ankh"></i> -->
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
         </div>
         {{#if options.editable }}
@@ -116,7 +112,7 @@
 
     <div class="side-bar-section-content">
         {{#each immunities as |immunity key|}}
-            <div class="tag immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
+            <div class="immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
         {{/each}}
     </div>
 </div>
@@ -137,7 +133,7 @@
 <div id="speed" class="side-bar-section">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
-            <i class="fas fa-shoe-prints"></i>
+            <!-- <i class="fas fa-shoe-prints"></i> -->
             <h4>{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
         </div>
         {{#if options.editable }}
@@ -153,7 +149,7 @@
         <div id="other-speeds">
             {{#each data.attributes.speed.otherSpeeds as |speed speedId|}}
             {{#if speed.value }}
-                <div class="tag speed" data-speed="{{localize speed.type}}">
+                <div class="speed" data-speed="{{localize speed.type}}">
                     {{localize speed.label}} {{speed.value}}
                 </div>
             {{/if}}
@@ -164,7 +160,7 @@
 <div class="side-bar-section effects">
     <div class="side-bar-section-header">
         <div class="side-bar-label">
-            <i class="fas fa-adjust"></i>
+            <!-- <i class="fas fa-adjust"></i> -->
             <h4>{{localize "PF2E.EffectsLabel"}}</h4>
         </div>
     </div>
