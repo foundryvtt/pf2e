@@ -15,9 +15,7 @@
             <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
-    <div class="content">
 
-    </div>
     <div class="content">
         <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
     </div>
@@ -28,16 +26,18 @@
 
     <div class="header" title="{{data.attributes.ac.breakdown}}">
         <div class="label armor-label">
-            <h4> {{ localize 'PF2E.ArmorClassLabel' }}</h4>
+            <h4> {{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
         </div>
         <span class="armor-value">{{data.attributes.ac.value}}</span>
-    </div>
-    <div class="content">
+
         <div id="armor-base" class="labelled-field">
-            <label>{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</label>
+            <div class="label">
+                <h4>{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</h4>
+            </div>
             <input class="armor-value" type="number" name="data.attributes.ac.base" style="font-weight: normal;" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
+
     <div class="content">
         <input class="armor-details" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"/>
     </div>
@@ -77,8 +77,7 @@
         <div class="label">
             <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
         </div>
-    </div>
-    <div class="content">
+
         <div id="perception" class="labelled-field" data-attribute="perception">
             <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
             <input
@@ -93,6 +92,9 @@
             />
             <span class="plus{{#if (lt data.attributes.perception.value 10)}} lt10{{/if}}"></span>
         </div>
+    </div>
+    <div class="content">
+
         {{# if options.editable }}
         <input
             name="data.traits.senses.value"
