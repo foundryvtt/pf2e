@@ -62,7 +62,6 @@ export class LootPF2e extends ActorPF2e {
 
 export interface LootPF2e extends ActorPF2e {
     data: LootData;
-    _data: LootData;
 
     readonly sheet: LootSheetPF2e;
 

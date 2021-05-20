@@ -29,7 +29,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
     resilienceRune,
     type = 'weapon',
 }: TestItemData<T>): T {
-    return new FakeItem({
+    return (new FakeItem({
         type,
         data: ({
             level: {
@@ -52,7 +52,7 @@ function createItem<T extends WeaponPF2e | ArmorPF2e>({
                 value: resilienceRune,
             },
         } as unknown) as T['data']['data'],
-    } as T['data']) as T;
+    } as T['data']) as unknown) as T;
 }
 
 describe('test identification DCs', () => {

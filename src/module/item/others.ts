@@ -14,7 +14,6 @@ export class ContainerPF2e extends PhysicalItemPF2e {
 
 export interface ContainerPF2e {
     data: ContainerData;
-    _data: ContainerData;
 }
 
 export class TreasurePF2e extends PhysicalItemPF2e {
@@ -34,7 +33,6 @@ export class TreasurePF2e extends PhysicalItemPF2e {
 
 export interface TreasurePF2e {
     data: TreasureData;
-    _data: TreasureData;
 }
 
 export class MeleePF2e extends ItemPF2e {
@@ -63,7 +61,6 @@ export class MeleePF2e extends ItemPF2e {
 
 export interface MeleePF2e {
     data: MeleeData;
-    _data: MeleeData;
 }
 
 export class LorePF2e extends ItemPF2e {
@@ -84,13 +81,11 @@ export class LorePF2e extends ItemPF2e {
 
 export interface LorePF2e {
     data: LoreData;
-    _data: LoreData;
 }
 
 export class MartialPF2e extends ItemPF2e {}
 export interface MartialPF2e {
     data: MartialData;
-    _data: MartialData;
 }
 
 export class ConditionPF2e extends ItemPF2e {
@@ -102,7 +97,6 @@ export class ConditionPF2e extends ItemPF2e {
 
 export interface ConditionPF2e {
     data: ConditionData;
-    _data: ConditionData;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;

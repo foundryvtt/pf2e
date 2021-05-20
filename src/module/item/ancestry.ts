@@ -17,5 +17,4 @@ export class AncestryPF2e extends ABCItemPF2e {
 
 export interface AncestryPF2e {
     data: AncestryData;
-    _data: AncestryData;
 }

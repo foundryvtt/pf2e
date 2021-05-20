@@ -12,8 +12,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldItem(migrations: MigrationBase[], item: ItemPF2e, pack?: Compendium<ItemPF2e>) {
         try {
-            const updatedItem = await this.getUpdatedItem(item._data, migrations);
-            const changes = diffObject(item._data, updatedItem);
+            const updatedItem = await this.getUpdatedItem(item.toObject(), migrations);
+            const changes = diffObject(item.toObject(), updatedItem);
             if (!isObjectEmpty(changes)) {
                 pack
                     ? await pack.updateEntity({ _id: item.id, ...changes }, { enforceTypes: false })
@@ -27,7 +27,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldActor(migrations: MigrationBase[], actor: ActorPF2e, pack?: Compendium<ActorPF2e>) {
         try {
-            const baseActor = duplicate(actor._data);
+            const baseActor = actor.toObject();
             const updatedActor = await this.getUpdatedActor(baseActor, migrations);
 
             const baseItems = baseActor.items;
@@ -60,8 +60,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateChatMessage(migrations: MigrationBase[], message: ChatMessagePF2e) {
         try {
-            const updatedMacro = await this.getUpdatedMessage(message._data, migrations);
-            const changes = diffObject(message._data, updatedMacro);
+            const updatedMacro = await this.getUpdatedMessage(message.toObject(), migrations);
+            const changes = diffObject(message.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
                 await message.update(changes, { enforceTypes: false });
             }
@@ -72,8 +72,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e, pack?: Compendium<MacroPF2e>) {
         try {
-            const updatedMacro = await this.getUpdatedMacro(macro._data, migrations);
-            const changes = diffObject(macro._data, updatedMacro);
+            const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
+            const changes = diffObject(macro.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
                 pack
                     ? await pack.updateEntity({ _id: macro.id, ...changes }, { enforceTypes: false })
@@ -86,8 +86,8 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldTable(migrations: MigrationBase[], table: RollTable, pack?: Compendium<RollTable>) {
         try {
-            const updatedMacro = await this.getUpdatedTable(table._data, migrations);
-            const changes = diffObject(table._data, updatedMacro);
+            const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
+            const changes = diffObject(table.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
                 pack
                     ? await pack.updateEntity({ _id: table.id, ...changes }, { enforceTypes: false })
@@ -114,9 +114,9 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateUser(migrations: MigrationBase[], user: UserPF2e): Promise<void> {
         try {
-            const baseUser = duplicate(user._data);
+            const baseUser = user.toObject();
             const updatedUser = await this.getUpdatedUser(baseUser, migrations);
-            const changes = diffObject(user._data, updatedUser);
+            const changes = diffObject(user.toObject(), updatedUser);
             if (!isObjectEmpty(changes)) {
                 await user.update(changes, { enforceTypes: false });
             }

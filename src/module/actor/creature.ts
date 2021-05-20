@@ -413,7 +413,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
 export interface CreaturePF2e {
     data: CreatureData;
-    _data: CreatureData;
 
     /**
      * See implementation in class

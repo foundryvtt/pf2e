@@ -56,5 +56,4 @@ export class EffectPF2e extends ItemPF2e {
 
 export interface EffectPF2e {
     data: EffectData;
-    _data: EffectData;
 }
