@@ -39,7 +39,7 @@ export abstract class ABCItemPF2e extends ItemPF2e {
     }
 
     async addFeatures(actor: CharacterPF2e): Promise<void> {
-        this.deleteExistingFeatures(actor);
+        await this.deleteExistingFeatures(actor);
 
         const entriesData = Object.values(this.data.data.items);
         const featuresData = await entriesData
