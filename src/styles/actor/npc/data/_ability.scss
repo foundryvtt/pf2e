@@ -1,19 +1,49 @@
 #npc__ability {
-    .ability-scores-list {
+    .grid {
         display: grid;
-        grid-template-columns: repeat(3, min-content);
+        grid-template-columns: repeat(3, 1fr);
         column-gap: 0.75em;
         row-gap: 0.25em;
 
+        &__item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        label {
+            font-weight: 700;
+        }
+
         input {
+            text-align: right;
             width: 3ch;
+            position: relative;
+            border: none;
         }
+
+        .input-wrapper {
+            display: flex;
+            align-items: stretch;
+            flex-direction: row-reverse;
+            position: relative;
+            color: #333;
+        }
+
+        .not-negative + span.plus::before {
+            display: grid;
+            place-content: center;
+            position: absolute;
+            height: 100%;
+            content: '+';
+        }
+
         span.plus::before {
-            left: -21px;
-            top: -8px;
+            right: 2ch;
         }
+
         span.plus.lt10::before {
-            left: -15px;
+            right: 1ch;
         }
     }
 }

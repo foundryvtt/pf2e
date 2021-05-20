@@ -1,15 +1,14 @@
 <!-- ABILITY SCORES -->
-<section id="npc__ability" class="section-container">
-
+<section id="npc__ability">
     <div class="header">
         <h4 class="header__title">{{ localize 'PF2E.AbilityScoresHeader' }}</h4>
     </div>
 
-    <div class="body">
-        <div class="ability-scores-list">
-            {{#each data.abilities as |ability id|}}
-            <div class="labelled-field" data-attribute="{{id}}">
-                <label class="rollable"><a>{{ ability.localizedCode }}</a></label>
+    <div class="body grid">
+        {{#each data.abilities as |ability id|}}
+        <div class="grid__item npc__input" data-attribute="{{id}}">
+            <label class="rollable"><a>{{ ability.localizedCode }}</a></label>
+            <div class="input-wrapper">
                 <input
                     class="modifier{{#if (gte ability.mod 0)}} not-negative{{/if}}"
                     type="number"
@@ -20,8 +19,7 @@
                 />
                 <span class="plus{{#if (lt ability.mod 10)}} lt10{{/if}}"></span>
             </div>
-            {{/each}}
         </div>
+        {{/each}}
     </div>
-
 </section>
