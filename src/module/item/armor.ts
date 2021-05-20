@@ -128,5 +128,4 @@ export class ArmorPF2e extends PhysicalItemPF2e {
 
 export interface ArmorPF2e {
     data: ArmorData;
-    _data: ArmorData;
 }

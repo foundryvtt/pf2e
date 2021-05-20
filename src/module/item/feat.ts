@@ -23,5 +23,4 @@ export class FeatPF2e extends ItemPF2e {
 
 export interface FeatPF2e {
     data: FeatData;
-    _data: FeatData;
 }

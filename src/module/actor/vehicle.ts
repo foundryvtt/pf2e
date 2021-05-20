@@ -36,5 +36,4 @@ export class VehiclePF2e extends ActorPF2e {
 
 export interface VehiclePF2e {
     data: VehicleData;
-    _data: VehicleData;
 }

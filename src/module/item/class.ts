@@ -47,5 +47,4 @@ export class ClassPF2e extends ABCItemPF2e {
 
 export interface ClassPF2e {
     data: ClassData;
-    _data: ClassData;
 }

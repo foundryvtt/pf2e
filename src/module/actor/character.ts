@@ -1186,5 +1186,4 @@ export class CharacterPF2e extends CreaturePF2e {
 
 export interface CharacterPF2e {
     data: CharacterData;
-    _data: CharacterData;
 }

@@ -1126,7 +1126,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
 export interface ActorPF2e {
     data: ActorDataPF2e;
-    _data: ActorDataPF2e;
 
     /**
      * See implementation in class
@@ -1167,7 +1166,6 @@ export interface ActorPF2e {
 export class HazardPF2e extends ActorPF2e {}
 export interface HazardPF2e {
     data: HazardData;
-    _data: HazardData;
 }
 
 export type TokenPF2e = Token<ActorPF2e>;

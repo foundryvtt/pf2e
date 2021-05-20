@@ -929,8 +929,8 @@ export class NPCPF2e extends CreaturePF2e {
 
         const toAdd = adjustment === 'normal' ? [] : [adjustment];
         const toRemove = adjustment === 'weak' ? ['elite'] : adjustment === 'elite' ? ['weak'] : ['elite', 'weak'];
-        const newTraits = this._data.data.traits.traits.value
-            .filter((trait) => !toRemove.includes(trait))
+        const newTraits = this.toObject()
+            .data.traits.traits.value.filter((trait) => !toRemove.includes(trait))
             .concat(toAdd);
 
         await this.update({
@@ -946,5 +946,4 @@ export class NPCPF2e extends CreaturePF2e {
 
 export interface NPCPF2e {
     data: NPCData;
-    _data: NPCData;
 }

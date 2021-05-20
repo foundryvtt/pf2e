@@ -68,5 +68,4 @@ export abstract class ABCItemPF2e extends ItemPF2e {
 
 export interface ABCItemPF2e {
     data: AncestryData | BackgroundData | ClassData;
-    _data: AncestryData | BackgroundData | ClassData;
 }

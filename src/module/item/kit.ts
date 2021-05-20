@@ -42,12 +42,14 @@ export class KitPF2e extends ItemPF2e {
                     throw ErrorPF2e(`${kitEntry.pack ?? 'World item'} ${kitEntry.name}} (${kitEntry.id}) not found`);
                 }
 
-                inflatedItem._data.data.quantity.value = kitEntry.quantity;
-                inflatedItem._data.data.containerId.value = containerId;
+                inflatedItem.data.update({
+                    'data.quantity.value': kitEntry.quantity,
+                    'data.containerId.value': containerId,
+                });
 
                 // Get items in this container and inflate any items that might be contained inside
                 if (inflatedItem instanceof ContainerPF2e && kitEntry.items) {
-                    const containerData = await Item.create(inflatedItem._data, { parent: actor });
+                    const containerData = await Item.create(inflatedItem.toObject(), { parent: actor });
                     if (containerData) {
                         await this.dumpContents(actor, Object.values(kitEntry.items), containerData.id);
                     }
@@ -61,7 +63,7 @@ export class KitPF2e extends ItemPF2e {
         const createData = (await Promise.all(promises))
             .flat()
             .filter((item): item is PhysicalItemPF2e => item instanceof PhysicalItemPF2e)
-            .map((item) => item._data);
+            .map((item) => item.toObject());
         if (createData.length > 0) {
             await actor.createEmbeddedDocuments('Item', createData);
         }
@@ -70,5 +72,4 @@ export class KitPF2e extends ItemPF2e {
 
 export interface KitPF2e {
     data: KitData;
-    _data: KitData;
 }
