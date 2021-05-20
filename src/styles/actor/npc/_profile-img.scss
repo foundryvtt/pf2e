@@ -1,18 +1,48 @@
 .profile {
-    display: flex;
     grid-area: img;
-    background: url('../assets/sheet/background.webp') no-repeat;
-    background-size: cover;
-    cursor: pointer;
+    display: grid;
+    grid-template:
+        'profile-img profile-img'
+        'checkbox label';
+    grid-template-columns: min-content 1fr;
+    align-items: center;
 
     .profile-img {
+        display: none;
+        grid-area: profile-img;
         height: auto;
-        max-height: 8rem;
         width: 100%;
-        object-fit: contain;
         border: none;
         border-radius: 0;
+        background: url('../assets/sheet/background.webp') no-repeat;
+        background-size: cover;
+        cursor: pointer;
         box-shadow: 0 0 0 1px #918c88, 0 0 0 2px #e1d8cf, 0 0 0 3px #a98f39, 0 0 8px rgba(0, 0, 0, 0.5),
             0 0 8px rgba(0, 0, 0, 0.25);
+    }
+
+    label,
+    #img-toggle {
+        cursor: pointer;
+    }
+
+    label {
+        font-size: 0.8em;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        grid-area: label;
+    }
+
+    #img-toggle {
+        grid-area: checkbox;
+        width: min-content;
+        margin: 0.25em;
+        margin-left: 0;
+        height: min-content;
+
+        &:checked ~ .profile-img {
+            display: initial;
+        }
     }
 }
