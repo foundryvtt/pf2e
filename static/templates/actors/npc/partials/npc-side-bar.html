@@ -1,4 +1,27 @@
 <div class="side-bar-section armor-section">
+    <div class="side-bar-section health-section">
+        <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
+            <div class="side-bar-label">
+                <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+            </div>
+            <div class="health-value">
+                <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+                <span>/</span>
+                <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+            </div>
+        </div>
+        <div class="side-bar-section-content">
+            <div id="hp-temp" class="labelled-field">
+                <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
+                <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+            </div>
+        </div>
+        <div class="side-bar-section-content">
+            <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
+        </div>
+    </div>
+
+
     <div class="side-bar-section-header" title="{{data.attributes.ac.breakdown}}">
         <div class="side-bar-label armor-label">
             <h4> {{ localize 'PF2E.ArmorClassLabel' }}</h4>
@@ -42,27 +65,7 @@
 </div>
 {{/if}}
 
-<div class="side-bar-section health-section">
-    <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
-        <div class="side-bar-label">
-            <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
-        </div>
-        <div class="health-value">
-            <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
-            <span>/</span>
-            <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
-        </div>
-    </div>
-    <div class="side-bar-section-content">
-        <div id="hp-temp" class="labelled-field">
-            <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
-            <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
-        </div>
-    </div>
-    <div class="side-bar-section-content">
-        <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
-    </div>
-</div>
+
 
 <!-- SENSES -->
 <div id="senses" class="side-bar-section">
