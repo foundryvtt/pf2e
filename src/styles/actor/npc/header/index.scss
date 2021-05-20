@@ -1,6 +1,8 @@
-.npc-sheet-header {
-    display: flex;
-    flex-direction: column;
+#npc__header {
+    grid-area: header;
+    display: grid;
+    grid-template: 'npc-header img';
+    column-gap: 1em;
 
     .flexrow {
         align-items: center
@@ -8,8 +10,6 @@
 
     @import 'name';
     @import 'adjustment';
-    @import 'alignment';
-    @import 'rarity';
-    @import 'size';
-    @import 'trait';
+    @import 'traits';
+    @import 'profile-img';
 }
