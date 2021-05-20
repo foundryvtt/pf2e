@@ -1,48 +1,49 @@
-<div class="side-bar-section armor-section">
-    <div class="side-bar-section health-section">
-        <div class="side-bar-section-header" title="{{data.attributes.hp.breakdown}}">
-            <div class="side-bar-label">
-                <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
-            </div>
-            <div class="health-value">
-                <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
-                <span>/</span>
-                <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
-            </div>
+<section id="health">
+    <div class="header" title="{{data.attributes.hp.breakdown}}">
+        <div class="label">
+            <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
         </div>
-        <div class="side-bar-section-content">
-            <div id="hp-temp" class="labelled-field">
-                <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
-                <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
-            </div>
-        </div>
-        <div class="side-bar-section-content">
-            <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
+        <div class="health-value">
+            <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+            <span>/</span>
+            <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
+    <div class="content">
+        <div id="hp-temp" class="labelled-field">
+            <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
+            <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
+        </div>
+    </div>
+    <div class="content">
+        <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
+    </div>
+</section>
 
 
-    <div class="side-bar-section-header" title="{{data.attributes.ac.breakdown}}">
-        <div class="side-bar-label armor-label">
+<section id="armor" >
+
+    <div class="header" title="{{data.attributes.ac.breakdown}}">
+        <div class="label armor-label">
             <h4> {{ localize 'PF2E.ArmorClassLabel' }}</h4>
         </div>
         <span class="armor-value">{{data.attributes.ac.value}}</span>
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         <div id="armor-base" class="labelled-field">
             <label>{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</label>
             <input class="armor-value" type="number" name="data.attributes.ac.base" style="font-weight: normal;" value="{{ data.attributes.ac.base }}" data-dtype="Number" placeholder="0"/>
         </div>
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         <input class="armor-details" type="text" name="data.attributes.ac.details" value="{{ data.attributes.ac.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"/>
     </div>
-</div>
+</section>
 
 {{#if hasShield}}
-<div class="side-bar-section shield-section{{#if data.attributes.shieldBroken}} broken" title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label shield-label">
+<section id="shield" class="section shield-section{{#if data.attributes.shieldBroken}} broken" title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}">
+    <div class="header">
+        <div class="label shield-label">
             <i class="fas fa-user-shield{{#if data.attributes.shieldBroken}} broken{{/if}}"></i>
             <h4> {{ localize 'PF2E.ShieldLabel' }}</h4>
             <div class="shield-value">
@@ -52,7 +53,7 @@
             </div>
         </div>
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         <div class="shield-details">
             <label class="label" title="{{ localize 'PF2E.ShieldACBonusTitle' }}">{{ localize 'PF2E.ArmorClassShortLabel' }}</label>
             <label class="value">{{ data.attributes.shield.ac }}</label>
@@ -62,19 +63,19 @@
             <label class="value">{{ data.attributes.shield.brokenThreshold }}</label>
         </div>
     </div>
-</div>
+</section>
 {{/if}}
 
 
 
 <!-- SENSES -->
-<div id="senses" class="side-bar-section">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label">
+<section id="senses" >
+    <div class="header">
+        <div class="label">
             <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
         </div>
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         <div id="perception" class="labelled-field" data-attribute="perception">
             <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
             <input
@@ -102,11 +103,11 @@
         <span>{{ data.traits.senses.value }}</span>
         {{/if}}
     </div>
-</div>
+</section>
 
-<div id="saves" class="side-bar-section">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label">
+<section id="saves" >
+    <div class="header">
+        <div class="label">
             <h4>{{ localize 'PF2E.NPC.SavesLabel' }}</h4>
         </div>
     </div>
@@ -119,16 +120,16 @@
             </div>
         {{/each}}
     </div>
-    <div id="save-details" class="side-bar-section">
-        <div class="side-bar-section-content">
+    <div id="save-details" >
+        <div class="content">
             <input type="text" name="data.attributes.allSaves.value" value="{{ data.attributes.allSaves.value }}" title="{{ data.attributes.allSaves.value }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"/>
         </div>
     </div>
-</div>
+</section>
 
-<div id="weaknesses" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.dv }} disabled {{/unless}}">
-        <div class="side-bar-label">
+<section id="weaknesses" >
+    <div class="header {{#unless data.traits.dv }} disabled {{/unless}}">
+        <div class="label">
             <!-- <i class="fas fa-heart-broken"></i> -->
             <h4>{{ localize 'PF2E.WeaknessesLabel' }}</h4>
         </div>
@@ -138,15 +139,16 @@
         </div>
         {{/if}}
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         {{#each data.traits.dv as |weakness key|}}
         <div class="weakness" data-weakness="{{weakness.type}}">{{ weakness.label }} {{ weakness.value }}</div>
         {{/each}}
     </div>
-</div>
-<div id="resistances" class="side-bar-section">
-    <div class="side-bar-section-header {{#unless data.traits.dr }} disabled {{/unless}}">
-        <div class="side-bar-label">
+</section>
+
+<section id="resistances" >
+    <div class="header {{#unless data.traits.dr }} disabled {{/unless}}">
+        <div class="label">
             <!-- <i class="fas fa-shield-virus"></i> -->
             <h4>{{ localize 'PF2E.ResistancesLabel' }}</h4>
         </div>
@@ -156,15 +158,16 @@
         </div>
         {{/if}}
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         {{#each data.traits.dr as |resistance key|}}
         <div class="resistance" data-weakness="{{resistance.type}}">{{ resistance.label }} {{ resistance.value }}{{#if resistance.exceptions}} ({{resistance.exceptions}}){{/if}}</div>
         {{/each}}
     </div>
-</div>
-<div id="immunities" class="side-bar-section">
-    <div class="side-bar-section-header{{#unless immunities}} disabled{{/unless}}">
-        <div class="side-bar-label">
+</section>
+
+<section id="immunities" >
+    <div class="header{{#unless immunities}} disabled{{/unless}}">
+        <div class="label">
             <!-- <i class="fas fa-ankh"></i> -->
             <h4>{{ localize 'PF2E.ImmunitiesLabel' }}</h4>
         </div>
@@ -175,22 +178,22 @@
         {{/if}}
     </div>
 
-    <div class="side-bar-section-content">
+    <div class="content">
         {{#each immunities as |immunity key|}}
             <div class="immunity" data-weakness="{{localize key}}">{{localize immunity}}</div>
         {{/each}}
     </div>
-</div>
+</section>
 
 
-<div class="side-bar-section effects">
-    <div class="side-bar-section-header">
-        <div class="side-bar-label">
+<section id="effects" class="section effects">
+    <div class="header">
+        <div class="label">
             <!-- <i class="fas fa-adjust"></i> -->
             <h4>{{localize "PF2E.EffectsLabel"}}</h4>
         </div>
     </div>
-    <div class="side-bar-section-content">
+    <div class="content">
         <div class="effects-list inventory-list">
             {{#each conditions as |condition index|}}
                 <div class="item item-name effect expandable" title="{{condition.name}}" data-item-id="{{condition._id}}" data-action-index="{{index}}">
@@ -205,4 +208,4 @@
             {{/each}}
         </div>
     </div>
-</div>
+</section>
