@@ -1,0 +1,25 @@
+<!-- PASSIVES -->
+<section id="npc__passives">
+    <div class="header">
+        <h4 class="header__title">{{ localize 'PF2E.NPC.PassivesLabel' }}</h4>
+        {{# if options.editable }}
+        <div class="actions-controls controls">
+            <a
+                class="action-add item-create"
+                title="{{ localize 'PF2E.NPC.AddPassive' }}"
+                data-type="action"
+                data-action-type="passive"
+            >
+                <i class="fas fa-plus"></i>
+            </a>
+        </div>
+        {{/if}}
+    </div>
+    <div class="body">
+        <ol class="item-list">
+            {{#each actions as |section sectionId|}} {{#if (eq sectionId 'passive')}} {{#each section.actions as |action
+            actionId|}} {{> 'systems/pf2e/templates/actors/npc/partials/npc-action.html' action=action
+            isEditable=../../options.editable }} {{/each}} {{/if}} {{/each}}
+        </ol>
+    </div>
+</section>

@@ -41,7 +41,6 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-header.html',
         'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html',
         'systems/pf2e/templates/actors/npc/partials/npc-main-tab.html',
-        'systems/pf2e/templates/actors/npc/partials/npc-actions-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-inventory-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-spells-tab.html',
         'systems/pf2e/templates/actors/npc/partials/npc-notes-tab.html',
@@ -49,6 +48,14 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/npc-attack.html',
         'systems/pf2e/templates/actors/npc/partials/npc-item.html',
         'systems/pf2e/templates/actors/npc/partials/npc-spell-body.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-ability-scores.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-actions.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-attacks.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-languages.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-recall-knowledge.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-skills.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-speeds.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-toggles.html',
 
         // Item Sheet Partials
         'systems/pf2e/templates/items/ae-tab.html',

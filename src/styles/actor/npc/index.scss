@@ -67,12 +67,25 @@ $negative-modifer: #cc3311;
         color: black !important;
     }
 
+    p {
+        @include p-reset;
+        font-size: 0.875rem;
+        font-family: 'Gelasio', Georgia, serif;
+        color: black;
+        line-height: 1.4;
+        margin: auto;
+        max-width: 64ch;
+
+        & + p {
+            margin-top: 0.5em;
+        }
+    }
+
     @import 'forms';
     @import 'data-entry';
     @import 'sidebar';
-    @import 'body';
-    @import 'header';
     @import 'nav';
+    @import 'header';
     @import 'tabs';
     @import 'dead';
 }
