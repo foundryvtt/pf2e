@@ -1,29 +1,32 @@
-.sheet-body {
+.npc-body {
+    grid-area: body;
+    display: flex;
     flex: auto;
+    flex-direction: column;
+    height: 100%;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+.sheet-body {
+    @import 'main';
+    @import 'inventory';
+    @import 'spells';
+    @import 'notes';
+    @import '../data';
+
+    flex: auto;
+
     .tab {
-        padding: 0.5em 0 2em;
+        padding-right: 0.5em;
+        margin-bottom: 1em;
 
         &:not(.notes) {
             overflow: hidden scroll;
         }
 
-        > * + * {
-            margin-top: 0.75em;
+        &:not(.active) {
+            display: none;
         }
     }
 }
-
-.expandable {
-    display: none;
-}
-
-.expanded {
-    display: block;
-}
-
-@import 'layout';
-@import 'main';
-@import 'actions';
-@import 'inventory';
-@import 'spells';
-@import 'notes';

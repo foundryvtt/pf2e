@@ -1,0 +1,41 @@
+<!-- SPEED -->
+<section id="npc__speed">
+
+    <div class="header">
+        <h4 class="header__title">{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
+
+        {{#if options.editable }}
+        <div class="speed-controls controls">
+            <a
+                class="trait-edit edit"
+                data-trait-selector="speed-types"
+                data-attribute="data.attributes.speed.otherSpeeds"
+                data-options="speedTypes"
+                data-has-values="true"
+                title="{{ localize 'PF2E.NPC.EditSpeed' }}"
+            >
+                <i class="fas fa-edit"></i>
+            </a>
+        </div>
+        {{/if}}
+    </div>
+
+    <div class="body">
+        <div id="walk-speed">
+            <input
+                type="text"
+                name="data.attributes.speed.value"
+                value="{{ data.attributes.speed.value }}"
+                data-dtype="String"
+                placeholder="0"
+            />
+        </div>
+
+        <div id="other-speeds">
+            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}} {{#if speed.value }}
+            <div class="speed tag" data-speed="{{localize speed.type}}">{{localize speed.label}} {{speed.value}}</div>
+            {{/if}} {{/each}}
+        </div>
+    </div>
+
+</section>
