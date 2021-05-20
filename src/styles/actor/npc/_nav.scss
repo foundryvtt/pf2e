@@ -1,0 +1,52 @@
+nav.sheet-tabs {
+    --dark: black;
+    --light: rgba(255, 255, 255, 0.1);
+    --radius: 3px;
+    display: flex;
+    flex: initial;
+    align-items: center;
+    background: url('../assets/binding_dark.png');
+    background-color: var(--body);
+    border: none;
+    border-radius: var(--radius);
+    color: white;
+    margin: 1em 0;
+    line-height: 1;
+    height: 2em;
+    box-shadow: inset 0 0 0 1px var(--dark), inset 0 0 0 2px var(--light), 0 0 4px rgba(0, 0, 0, 0.5);
+
+    .item {
+        display: grid;
+        align-items: center;
+        grid-template-columns: 1fr min-content;
+        height: 100%;
+        font-family: $serif;
+        border-right: 1px solid var(--dark);
+        border-left: 1px solid var(--light);
+        position: relative;
+
+        &.active {
+            background-color: #333;
+            text-shadow: none;
+            color: var(--tertiary);
+        }
+
+        &.not-empty:before {
+            position: absolute;
+            content: '\25E5';
+            color: var(--tertiary);
+            top: 0;
+            right: -1px;
+        }
+
+        &:first-of-type {
+            border-radius: var(--radius) 0 0 var(--radius);
+            border-left: none;
+        }
+
+        &:last-of-type {
+            border-radius: 0 var(--radius) var(--radius) 0;
+            border-right: none;
+        }
+    }
+}
