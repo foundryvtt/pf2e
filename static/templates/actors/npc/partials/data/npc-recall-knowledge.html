@@ -4,22 +4,25 @@
         <h4 class="header__title">{{localize "PF2E.RecallKnowledge.Label"}}</h4>
     </div>
     <div class="body">
-        {{#if identificationSkills }}
-        <div class="tag identification-skills" title="{{identifySkillProgression}}">
-            <ul>
-                {{#each identificationSkills as |skill|}}
-                <li>{{localize skill}}</li>
-                {{/each}}
-            </ul>
-            {{identifySkillDC}} ({{localize identifySkillAdjustment}})
-        </div>
-        {{/if}}
-        <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
-            {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize
-            unspecificLoreAdjustment}})
-        </div>
-        <div id="specific-lore" class="tag" title="{{specificLoreProgression}}">
-            {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize specificLoreAdjustment}})
+        <div class="tag-list">
+            {{#if identificationSkills }}
+            <div class="tag identification-skills" title="{{identifySkillProgression}}">
+                <ul>
+                    {{#each identificationSkills as |skill|}}
+                    <li>{{localize skill}}</li>
+                    {{/each}}
+                </ul>
+                {{identifySkillDC}} ({{localize identifySkillAdjustment}})
+            </div>
+            {{/if}}
+            <div id="unspecified-lore" class="tag" title="{{unspecificLoreProgression}}">
+                {{localize "PF2E.RecallKnowledge.UnspecificLore"}} {{unspecificLoreDC}} ({{localize
+                unspecificLoreAdjustment}})
+            </div>
+            <div id="specific-lore" class="tag" title="{{specificLoreProgression}}">
+                {{localize "PF2E.RecallKnowledge.SpecificLore"}} {{specificLoreDC}} ({{localize
+                specificLoreAdjustment}})
+            </div>
         </div>
     </div>
 </section>
