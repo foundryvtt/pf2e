@@ -1,13 +1,10 @@
 <form class="npc-sheet" autocomplete="off">
-    <div class="profile">
-        <label for="img-toggle">Show Image</label>
-        <input type="checkbox" id="img-toggle" checked>
-        <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
-    </div>
 
     <aside class="sidebar">{{> 'systems/pf2e/templates/actors/npc/partials/npc-side-bar.html' }}</aside>
+
+    {{> 'systems/pf2e/templates/actors/npc/partials/npc-header.html' }}
+
     <main class="npc-body">
-        {{> 'systems/pf2e/templates/actors/npc/partials/npc-header.html' }}
 
         <nav class="sheet-tabs tabs" data-group="primary">
 
