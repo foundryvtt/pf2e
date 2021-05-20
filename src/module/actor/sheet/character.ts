@@ -214,10 +214,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             ignoreContainerOverflow: game.settings.get('pf2e', 'ignoreContainerOverflow'),
         };
 
-        const bulkItems = itemsFromActorData(actorData);
+        const bulkItems = itemsFromActorData({ items: sheetData.items });
         const bulkItemsById = indexBulkItemsById(bulkItems);
         const containers = getContainerMap({
-            items: actorData.items,
+            items: sheetData.items,
             bulkItemsById,
             bulkConfig,
         });
