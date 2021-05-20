@@ -54,6 +54,7 @@ export function loadPF2ETemplates() {
         'systems/pf2e/templates/actors/npc/partials/data/npc-languages.html',
         'systems/pf2e/templates/actors/npc/partials/data/npc-recall-knowledge.html',
         'systems/pf2e/templates/actors/npc/partials/data/npc-skills.html',
+        'systems/pf2e/templates/actors/npc/partials/data/npc-passives.html',
         'systems/pf2e/templates/actors/npc/partials/data/npc-speeds.html',
         'systems/pf2e/templates/actors/npc/partials/data/npc-toggles.html',
 
