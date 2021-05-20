@@ -1,14 +1,17 @@
 <section id="health">
     <div class="header" title="{{data.attributes.hp.breakdown}}">
-        <div class="label">
-            <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+        <div class="input-group">
+            <div class="label">
+                <h4> {{ localize 'PF2E.HitPointsShortLabel' }}</h4>
+            </div>
+
+            <div class="health-value">
+                <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
+                <span>/</span>
+                <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
+            </div>
         </div>
-        <div class="health-value">
-            <input type="number" name="data.attributes.hp.value" value="{{ data.attributes.hp.value }}" data-dtype="Number" placeholder="0"/>
-            <span>/</span>
-            <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
-        </div>
-        <div id="hp-temp" class="labelled-field">
+        <div id="hp-temp" class="input-group">
             <div class="label">
                 <h4>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</h4>
             </div>
@@ -30,7 +33,7 @@
         </div>
         <span class="armor-value">{{data.attributes.ac.value}}</span>
 
-        <div id="armor-base" class="labelled-field">
+        <div id="armor-base" class="input-group">
             <div class="label">
                 <h4>{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</h4>
             </div>
@@ -78,7 +81,7 @@
             <h4>{{ localize 'PF2E.NPC.SensesLabel' }}</h4>
         </div>
 
-        <div id="perception" class="labelled-field" data-attribute="perception">
+        <div id="perception" class="input-group" data-attribute="perception">
             <label class="attribute-label rollable"><a>{{ localize "PF2E.PerceptionLabel" }}</a></label>
             <input
                 class="modifier{{#if (gte data.attributes.perception.value 0)}} not-negative{{/if}}{{#if (gt data.attributes.perception.totalModifier data.attributes.perception.base)}} positive-modifier{{/if}}{{#if (lt data.attributes.perception.totalModifier data.attributes.perception.base)}} negative-modifier{{/if}}"
