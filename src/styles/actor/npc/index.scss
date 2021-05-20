@@ -72,7 +72,17 @@ $negative-modifer: #cc3311;
 
     input {
         color: black;
-        border: none;
+
+        &[type='text'],
+        &[type='number'] {
+            border: none !important;
+
+            &:hover {
+                border: none !important;
+                outline: 1px solid var(--primary);
+                box-shadow: none !important;
+            }
+        }
     }
 
     p {
