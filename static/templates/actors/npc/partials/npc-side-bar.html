@@ -8,12 +8,15 @@
             <span>/</span>
             <input class="{{#if (lt data.attributes.hp.max 10)}}lt10{{else if (lt data.attributes.hp.max 100)}}lt100{{else}}lt1000{{/if}}" type="number" name="data.attributes.hp.max" value="{{ data.attributes.hp.max }}" data-dtype="Number" placeholder="0"/>
         </div>
-    </div>
-    <div class="content">
         <div id="hp-temp" class="labelled-field">
-            <label>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</label>
+            <div class="label">
+                <h4>{{ localize 'PF2E.RuleElement.TempHPShortLabel' }}</h4>
+            </div>
             <input id="hp-temp-value" type="number" name="data.attributes.hp.temp" value="{{ data.attributes.hp.temp }}" data-dtype="Number" placeholder="0"/>
         </div>
+    </div>
+    <div class="content">
+
     </div>
     <div class="content">
         <input id="hp-details" type="text" name="data.attributes.hp.details" value="{{ data.attributes.hp.details }}" title="{{ data.attributes.hp.details }}" data-dtype="String" placeholder="{{ localize 'PF2E.NPC.HPExtraInfoLabelPlaceholder' }}"/>
