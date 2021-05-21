@@ -66,9 +66,13 @@ $negative-modifer: #cc3311;
         color: black;
         white-space: nowrap;
         line-height: 1;
-        padding: 0.3em 0.5em;
+        padding: 0.35em 0.5em;
         background-color: rgba(255, 255, 255, 0.2);
         box-shadow: inset 0 0 0 1px rgba(0, 0, 0, 0.25);
+
+        &.wrap {
+            white-space: initial;
+        }
     }
 
     input {
@@ -104,6 +108,7 @@ $negative-modifer: #cc3311;
         color: var(--primary);
     }
 
+    @import 'scrollbar';
     @import 'forms';
     @import 'data-entry';
     @import 'sidebar';
@@ -111,4 +116,5 @@ $negative-modifer: #cc3311;
     @import 'header';
     @import 'tabs';
     @import 'dead';
+    @import 'data';
 }

@@ -1,8 +1,18 @@
 <!-- SPEED -->
 <section id="npc__speed">
-
     <div class="header">
-        <h4 class="header__title">{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
+        <div class="input-group">
+            <h4 class="header__title">{{ localize 'PF2E.NPC.SpeedLabel' }}</h4>
+
+            <input
+                type="text"
+                name="data.attributes.speed.value"
+                value="{{ data.attributes.speed.value }}"
+                data-dtype="String"
+                placeholder="0"
+            />
+            <span>ft.</span>
+        </div>
 
         {{#if options.editable }}
         <div class="speed-controls controls">
@@ -20,22 +30,9 @@
         {{/if}}
     </div>
 
-    <div class="body">
-        <div id="walk-speed">
-            <input
-                type="text"
-                name="data.attributes.speed.value"
-                value="{{ data.attributes.speed.value }}"
-                data-dtype="String"
-                placeholder="0"
-            />
-        </div>
-
-        <div id="other-speeds" class="tag-list">
-            {{#each data.attributes.speed.otherSpeeds as |speed speedId|}} {{#if speed.value }}
-            <div class="speed tag" data-speed="{{localize speed.type}}">{{localize speed.label}} {{speed.value}}</div>
-            {{/if}} {{/each}}
-        </div>
+    <div class="body tag-list">
+        {{#each data.attributes.speed.otherSpeeds as |speed speedId|}} {{#if speed.value }}
+        <div class="speed tag" data-speed="{{localize speed.type}}">{{localize speed.label}} {{speed.value}}</div>
+        {{/if}} {{/each}}
     </div>
-
 </section>

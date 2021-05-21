@@ -1,0 +1,34 @@
+.sidebar {
+    grid-area: sidebar;
+    overflow: hidden scroll;
+    padding: 1px 0.25em 0.5em 1px;
+    float: none !important;
+    width: initial !important;
+
+    & > * + * {
+        margin-top: 0.5em;
+    }
+
+    .header {
+        &__title {
+            padding: 0 0.5em !important;
+        }
+
+        input {
+            margin: 0;
+            width: 4ch;
+            text-align: right;
+        }
+
+        span,
+        a {
+            color: var(--body);
+        }
+
+        .input-group {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-between;
+        }
+    }
+}
