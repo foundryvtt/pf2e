@@ -1,6 +1,6 @@
 declare interface ActorData<D extends ItemData = ItemData> extends BaseEntityData {
     type: string;
-    img: string;
+    img: ImagePath;
     data: {};
     token: TokenData;
     items: D[];
@@ -186,7 +186,7 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     /**
      * A convenient reference to the file path of the Actor's profile image
      */
-    get img(): string;
+    get img(): ImagePath;
 
     /**
      * A boolean flag for whether this Actor is a player-owned character.

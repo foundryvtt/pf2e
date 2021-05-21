@@ -12,8 +12,8 @@ declare module foundry {
          */
         interface UserSource {
             _id: string;
-            avatar: ImageField;
-            img: ImageField;
+            avatar: ImagePath;
+            img: ImagePath;
             character: string | null;
             color: string;
             hotbar: Record<number, string>;

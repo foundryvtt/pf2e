@@ -4,7 +4,7 @@ declare interface BaseEntitySheetOptions extends FormApplicationOptions {
     viewPermission: number;
 }
 
-declare interface BaseEntitySheetData<D extends BaseEntityData> {
+declare interface BaseEntitySheetData<D extends BaseEntityData | foundry.abstract.DocumentData> {
     cssClass: string;
     editable: boolean;
     entity?: D; // TODO: Remove

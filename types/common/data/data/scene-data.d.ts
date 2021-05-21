@@ -11,9 +11,9 @@ declare module foundry {
             navName: string;
 
             // Canvas Dimensions
-            img: VideoField;
-            foreground: VideoField;
-            thumb: ImageField;
+            img: VideoPath;
+            foreground: VideoPath;
+            thumb: ImagePath;
             width: number;
             height: number;
             padding: number;

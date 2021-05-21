@@ -369,8 +369,8 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     /**
      * Get the action image to use for a particular action type.
      */
-    protected getActionImg(action: string) {
-        const img: Record<string, string> = {
+    protected getActionImg(action: string): ImagePath {
+        const img: Record<string, ImagePath> = {
             0: 'systems/pf2e/icons/default-icons/mystery-man.svg',
             1: 'systems/pf2e/icons/actions/OneAction.webp',
             2: 'systems/pf2e/icons/actions/TwoActions.webp',

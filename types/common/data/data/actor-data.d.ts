@@ -24,7 +24,7 @@ declare module foundry {
             _id: string;
             name: string;
             type: string;
-            img: string;
+            img: ImagePath;
             data: object;
             token: TokenSource;
             items: ItemSource[];

@@ -20,7 +20,7 @@ declare module foundry {
         interface TableResultSource {
             type: TableResultType;
             text: string;
-            img: ImageField;
+            img: ImagePath;
             collection: string;
             resultId: string;
             weight: number;

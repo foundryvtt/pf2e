@@ -39,10 +39,8 @@ declare const CONST: {
      */
     COMPENDIUM_ENTITY_TYPES: ['Actor', 'Item', 'Scene', 'JournalEntry', 'Macro', 'RollTable', 'Playlist'];
 
-    /**
-     * The default artwork used for Token images if none is provided
-     */
-    DEFAULT_TOKEN: string;
+    /** The default artwork used for Token images if none is provided */
+    DEFAULT_TOKEN: ImagePath;
 
     /**
      * The default artwork used for Note placeables if none is provided

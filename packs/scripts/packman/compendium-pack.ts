@@ -82,7 +82,7 @@ export class CompendiumPack {
 
             // Check img paths
             if (typeof entityData.img === 'string') {
-                const imgPaths = [entityData.img ?? ''].concat(
+                const imgPaths: string[] = [entityData.img ?? ''].concat(
                     isActorData(entityData) ? entityData.items.map((itemData) => itemData.img ?? '') : [],
                 );
                 const entityName = entityData.name;

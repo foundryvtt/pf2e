@@ -82,7 +82,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     /**
      * A convenience reference to the image path (data.img) used to represent this Item
      */
-    get img(): string;
+    get img(): ImagePath;
 
     /**
      * A convenience reference to the item type (data.type) of this Item

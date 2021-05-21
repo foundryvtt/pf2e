@@ -1,4 +1,4 @@
-import { ActorPF2e, TokenPF2e } from '@actor/base';
+import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { ItemDataPF2e } from '@item/data/types';
 import { MeleePF2e } from '@item/others';
@@ -20,22 +20,16 @@ export const ChatCards = {
             if (!game.user.isGM && game.user.id !== senderId && action !== 'save') return;
 
             // Get the Actor from a synthetic Token
-            let actor: ActorPF2e | null | undefined;
+            let actor: ActorPF2e | null = null;
             const tokenKey = card.attr('data-token-id');
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
-                let token: TokenPF2e | undefined;
-                if (sceneId === canvas.scene?.id) token = canvas.tokens.get(tokenId);
-                else {
-                    const scene = game.scenes.get(sceneId);
-                    if (!scene) return;
-                    const tokenData = scene.data.tokens.find((t) => t._id === tokenId);
-                    if (tokenData) token = new Token(tokenData, scene);
-                }
+                const scene = game.scenes.get(sceneId);
+                const token = scene?.data.tokens.get(tokenId);
                 if (!token) return;
-                actor = ActorPF2e.fromToken(token);
+                actor = token.actor as ActorPF2e | null;
             } else {
-                actor = game.actors.get(card.attr('data-actor-id') ?? '');
+                actor = game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
             }
 
             if (!actor) return;

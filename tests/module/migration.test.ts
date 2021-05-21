@@ -7,7 +7,7 @@ import { FakeItem } from 'tests/fakes/fake-item';
 import { FakeMacro } from 'tests/fakes/fake-macro';
 import { FakeRollTable } from 'tests/fakes/fake-roll-table';
 import { FakeUser } from 'tests/fakes/fake-user';
-import { FakeScene } from 'tests/fakes/fake-scene';
+import { FakeScene } from 'tests/fakes/scene';
 import { FakeChatMessage } from 'tests/fakes/fake-chat-message';
 
 import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';

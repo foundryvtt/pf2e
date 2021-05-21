@@ -1,9 +1,11 @@
+// @ts-nocheck
+
 import { FoundryUtils } from 'tests/utils';
 
 export class FakeScene {
-    data: Partial<SceneData> & { _id: string; name: string };
-    constructor(data: Partial<SceneData>) {
-        this.data = { _id: FoundryUtils.randomID(), name: '', ...data };
+    data: Partial<foundry.data.SceneData> & { _id: string; name: string };
+    constructor(data: Partial<foundry.data.SceneSource>) {
+        this.data = { _id: FoundryUtils.randomID(), name: '', ...data } as any;
         this.data.tokens = [];
     }
 
@@ -16,9 +18,7 @@ export class FakeScene {
     }
 
     addToken(token: Partial<TokenData>) {
-        if (this.data.tokens === undefined) {
-            this.data.tokens = [];
-        }
+        this.data.tokens ??= [];
 
         this.data.tokens.push({
             _id: '',
@@ -36,7 +36,7 @@ export class FakeScene {
             lightColor: '',
             name: 'test',
             displayName: 1,
-            img: '',
+            img: 'icons/svg/mystery-man.svg',
             scale: 1,
             elevation: 0,
             lockRotation: false,
