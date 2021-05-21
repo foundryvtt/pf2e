@@ -56,7 +56,6 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
         // The correct solution is to subclass ActorSheetPF2e, but that is a more involved fix.
         const actorData = this.actor.toObject(false);
         const baseData = super.getData() as any;
-        baseData.entity = actorData;
         baseData.actor = actorData;
         baseData.data = actorData.data;
 
