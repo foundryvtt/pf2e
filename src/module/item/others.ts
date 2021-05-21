@@ -69,7 +69,7 @@ export class LorePF2e extends ItemPF2e {
     getChatData(this: Owned<LorePF2e>, htmlOptions: EnrichHTMLOptions = {}) {
         if (!this.actor) return {};
         const data: any = this.data.data;
-        let properties = [];
+        let properties: string[] = [];
         if (this.actor.data.type !== 'npc') {
             const abl = this.actor.data.data.abilities[data.ability.value].label;
             const prof = data.proficient.value || 0;

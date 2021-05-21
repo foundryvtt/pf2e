@@ -140,13 +140,13 @@ function toContainer({
     });
 }
 
-function detectCycle(itemId: string, containerId: string, idIndexedItems: Map<string, PhysicalItemData>): boolean {
+function detectCycle(itemId: string, containerId = '', idIndexedItems: Map<string, PhysicalItemData>): boolean {
     if (idIndexedItems.has(containerId)) {
         const currentItem = idIndexedItems.get(containerId);
-        if (itemId === currentItem._id) {
+        if (itemId === currentItem?._id) {
             return true;
         }
-        return detectCycle(itemId, currentItem?.data?.containerId?.value, idIndexedItems);
+        return detectCycle(itemId, currentItem?.data.containerId.value, idIndexedItems);
     }
     return false;
 }
@@ -206,7 +206,7 @@ export function getContainerMap({
         idIndexedContainerData.set(
             item._id,
             toContainer({
-                item: allIds.get(item._id)[0],
+                item: allIds.get(item._id)![0],
                 heldItems,
                 heldBulkItems: bulkItemsById.get(item._id)?.holdsItems ?? [],
                 isInContainer,

@@ -69,7 +69,7 @@ export class TraitSelectorWeaknesses extends TraitSelectorBase<ActorPF2e> {
     }
 
     protected getUpdateData(formData: FormData) {
-        const choices = [];
+        const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<any, any>)) {
             if (v.length > 1 && v[0]) {
                 if (!Number.isNaN(Number(v[1])) && v[1] !== '') {

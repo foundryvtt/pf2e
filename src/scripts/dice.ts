@@ -201,7 +201,7 @@ export class DicePF2e {
         partsCritOnly = [],
         parts,
         data,
-        template,
+        template = '',
         title,
         speaker,
         flavor,
@@ -294,7 +294,7 @@ export class DicePF2e {
         };
 
         // Render modal dialog
-        let roll;
+        let roll: Roll;
         return new Promise((resolve) => {
             renderTemplate(template, dialogData).then((content) => {
                 new Dialog(

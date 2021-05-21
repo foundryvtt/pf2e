@@ -92,7 +92,7 @@ function JSONstringifyOrder(obj: object): string {
 }
 
 async function getAllFiles(): Promise<string[]> {
-    const allEntries = [];
+    const allEntries: string[] = [];
     const packs = fs.readdirSync(packsDataPath);
     for (const pack of packs) {
         console.log(`Collecting data for '${pack}'`);

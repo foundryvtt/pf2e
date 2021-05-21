@@ -482,7 +482,7 @@ export class WeaponDamagePF2e {
 
         // custom dice
         {
-            const stats = [];
+            const stats: string[] = [];
             stats.push(`${weapon.name.slugify()}-damage`); // convert white spaces to dash and lower-case all letters
             stats.concat([`${weapon._id}-damage`, 'damage']).forEach((key) => {
                 (damageDice[key] || [])
@@ -708,7 +708,7 @@ export class WeaponDamagePF2e {
         let minValue = 0;
         for (const [type, cats] of Object.entries(pool)) {
             for (const [category, info] of Object.entries(cats.categories)) {
-                const p = [];
+                const p: string[] = [];
                 // Add all of the dice components; each individual dice adds one to the minimum value.
                 for (const [dieSize, count] of Object.entries(info.dice ?? {})) {
                     minValue += count;

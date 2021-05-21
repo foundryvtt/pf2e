@@ -38,6 +38,7 @@ import {
     PerceptionData,
     ProficiencyData,
     WeaponGroupProficiencyKey,
+    DexterityModifierCapData,
 } from './data-definitions';
 import { RollNotePF2e } from '../notes';
 import { MultipleAttackPenaltyPF2e, WeaponPotencyPF2e } from '../rules/rules-data-definitions';
@@ -381,12 +382,12 @@ export class CharacterPF2e extends CreaturePF2e {
             });
             stat.value = 10 + stat.totalModifier;
             stat.check = armorCheckPenalty;
-            stat.dexCap = dexCap.reduce((result, current) => {
+            stat.dexCap = dexCap.reduce((result: DexterityModifierCapData | undefined, current) => {
                 if (result) {
                     return result.value > current.value ? current : result;
                 }
                 return current;
-            }, null);
+            }, undefined);
             stat.breakdown = [game.i18n.localize('PF2E.ArmorClassBase')]
                 .concat(
                     stat.modifiers

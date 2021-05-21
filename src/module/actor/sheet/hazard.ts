@@ -87,7 +87,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 i.data.isAgile = isAgile;
 
                 // get formated traits for read-only npc sheet
-                const traits = [];
+                const traits: { label: string; description: string }[] = [];
                 if ((i.data.traits.value || []).length !== 0) {
                     for (let j = 0; j < i.data.traits.value.length; j++) {
                         const traitsObject = {
@@ -113,7 +113,7 @@ export class HazardSheetPF2e extends ActorSheetPF2e<HazardPF2e> {
                 ).imageUrl;
 
                 // get formated traits for read-only npc sheet
-                const traits = [];
+                const traits: { label: string; description: string }[] = [];
                 if ((i.data.traits.value || []).length !== 0) {
                     for (let j = 0; j < i.data.traits.value.length; j++) {
                         const traitsObject = {
