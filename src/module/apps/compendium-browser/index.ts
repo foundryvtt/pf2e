@@ -1,4 +1,4 @@
-import { Progress } from '../progress';
+import { Progress } from './progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/kit';
 import { KitEntryData, MagicSchoolKey } from '@item/data/types';
@@ -30,7 +30,7 @@ class PackLoader {
         };
     }
 
-    async *loadPacks(entityType, packs) {
+    async *loadPacks(entityType: string, packs: string[]) {
         if (!this.loadedPacks[entityType]) {
             this.loadedPacks[entityType] = {};
         }
@@ -72,12 +72,12 @@ interface PackInfo {
     name: string;
 }
 type TabData<T> = {
-    action: T;
-    bestiary: T;
-    equipment: T;
-    feat: T;
-    hazard: T;
-    spell: T;
+    action: T | null;
+    bestiary: T | null;
+    equipment: T | null;
+    feat: T | null;
+    hazard: T | null;
+    spell: T | null;
 };
 
 /**
@@ -88,7 +88,7 @@ class CompendiumBrowser extends Application {
     filters: Record<string, Record<string, boolean>>;
     ranges: any;
     settings: TabData<{ [key: string]: PackInfo }>;
-    navigationTab: any;
+    navigationTab!: Tabs;
     data: TabData<object>;
 
     constructor(options = {}) {
@@ -111,7 +111,7 @@ class CompendiumBrowser extends Application {
             feat: {},
             spell: {},
         };
-        let types;
+        let types: string[];
         for (const pack of game.packs.values()) {
             if (pack.metadata.entity === 'Item') {
                 types = ['action', 'equipment', 'feat', 'spell'];
@@ -149,20 +149,20 @@ class CompendiumBrowser extends Application {
     hookTab() {
         this.navigationTab = this._tabs[0];
         const _tabCallback = this.navigationTab.callback;
-        this.navigationTab.callback = (event, tabs, active, ...args) => {
-            _tabCallback(event, tabs, active, ...args);
+        this.navigationTab.callback = (event: any, tabs: Tabs, active: string, ...args: any[]) => {
+            _tabCallback?.(event, tabs, active, ...args);
             this.loadTab(active);
         };
     }
 
-    async openTab(tab) {
+    async openTab(tab: string) {
         await this._render(true);
         this.navigationTab.activate(tab, { triggerCallback: true });
     }
 
-    async loadTab(tab) {
+    async loadTab(tab: string) {
         if (this.data[tab]) return;
-        let data;
+        let data: Promise<object>;
 
         switch (tab) {
             case 'settings':
@@ -195,7 +195,7 @@ class CompendiumBrowser extends Application {
         }
     }
 
-    _loadedPacks(tab) {
+    _loadedPacks(tab: string) {
         return (Object.entries(this.settings[tab] ?? []) as [string, PackInfo][]).flatMap(([collection, info]) => {
             return info.load ? [collection] : [];
         });
@@ -459,7 +459,7 @@ class CompendiumBrowser extends Application {
                     {
                         const skillList = Object.keys(CONFIG.PF2E.skillList);
                         const prereqs = feat.data.prerequisites.value;
-                        let prerequisitesArr = [];
+                        let prerequisitesArr: string[] = [];
 
                         prerequisitesArr = prereqs.map((y: { value: string }) => y.value.toLowerCase());
 
@@ -658,7 +658,7 @@ class CompendiumBrowser extends Application {
             const id = entry.entryId;
             const compendium = entry.entryCompendium;
             const pack = game.packs.get(compendium);
-            pack.getEntity(id).then((spell) => {
+            pack?.getEntity(id).then((spell) => {
                 spell!.sheet.render(true);
             });
         });
