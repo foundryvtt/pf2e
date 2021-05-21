@@ -21,12 +21,6 @@ declare class Scenes extends EntityCollection<Scene> {
     get entity(): 'Scene';
 }
 
-declare interface SceneData extends BaseEntityData {
-    tokens: TokenData[];
-    folder?: string | null;
-    sort: number;
-}
-
 /**
  * The Scene Entity.
  * Scenes represent the locations and settings which Actors will explore within the World.
@@ -96,8 +90,7 @@ declare class Scene extends Entity {
 }
 
 declare interface Scene {
-    data: SceneData;
-    _data: SceneData;
+    data: foundry.data.SceneData<foundry.documents.BaseScene, TokenDocument>;
 
     updateEmbeddedEntity(
         embeddedName: 'Token',

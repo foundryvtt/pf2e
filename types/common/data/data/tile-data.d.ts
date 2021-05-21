@@ -19,7 +19,7 @@ declare module foundry {
          */
         interface TileSource {
             _id: string;
-            img: ImageField;
+            img: ImagePath;
             width: number;
             height: number;
             x: number;

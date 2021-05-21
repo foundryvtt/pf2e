@@ -15,14 +15,14 @@ export class Migration620RenameToWebp extends MigrationBase {
 
     private regexp = /(\/?systems\/pf2e\/[^"]+)\.(?:jpg|png)\b/;
 
-    private renameToWebP(imgPath: string): string;
+    private renameToWebP<T extends string>(imgPath: T): T;
     private renameToWebP(imgPath: undefined): undefined;
-    private renameToWebP(imgPath: string | undefined): string | undefined;
-    private renameToWebP(imgPath: string | undefined): string | undefined {
+    private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined;
+    private renameToWebP<T extends string>(imgPath: T | undefined): T | undefined {
         if (typeof imgPath === 'string' && this.regexp.test(imgPath)) {
-            return imgPath.replace(this.regexp, '$1.webp');
+            return imgPath.replace(this.regexp, '$1.webp') as T;
         }
-        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg');
+        return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg') as T;
     }
 
     private isABCK(itemData: ItemDataPF2e): itemData is AncestryData | BackgroundData | ClassData | KitData {
@@ -97,7 +97,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateToken(tokenData: TokenData): Promise<void> {
+    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         tokenData.img = this.renameToWebP(tokenData.img);
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }

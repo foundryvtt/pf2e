@@ -14,9 +14,9 @@ export class Migration624RemoveTokenEffectIconFlags extends MigrationBase {
         }
     }
 
-    async updateToken(tokenData: TokenData): Promise<void> {
+    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         // remove deprecated rule element token effects
-        if (tokenData.actorData?.flags?.pf2e?.token?.effects) {
+        if (tokenData.actorData.flags?.pf2e?.token?.effects) {
             delete tokenData.actorData.flags.pf2e.token.effects;
             if ('game' in globalThis) {
                 tokenData.actorData.flags.pf2e.token['-=effects'] = null;

@@ -55,7 +55,7 @@ declare interface ActiveEffectData extends EmbeddedEntityData {
     duration: ActiveEffectDuration;
     changes: ActiveEffectChange[];
     disabled: boolean;
-    icon: string;
+    icon: ImagePath;
     tint: string;
     origin: string;
     transfer: boolean;

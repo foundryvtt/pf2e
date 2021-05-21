@@ -20,7 +20,7 @@ declare module foundry {
             _id: string;
             name: string;
             content: string;
-            img: ImageField;
+            img: ImagePath;
             folder: string | null;
             sort: number;
             permission: Record<string, DocumentPermission>;

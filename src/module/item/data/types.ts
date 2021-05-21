@@ -334,7 +334,7 @@ export interface KitDetailsData extends ItemDescriptionData {
 export interface KitEntryData {
     pack?: string;
     id: string;
-    img: string;
+    img: ImagePath;
     quantity: number;
     name: string;
     isContainer: boolean;
@@ -414,7 +414,7 @@ export interface EquipmentDetailsData extends MagicDetailsData, ActivatedEffectD
 export interface ABCFeatureEntryData {
     pack?: string;
     id: string;
-    img: string;
+    img: ImagePath;
     name: string;
     level: number;
 }
@@ -759,7 +759,7 @@ export interface StatusDetailsData extends ItemDescriptionData {
         statusName: string;
         img: {
             useStatusName: boolean;
-            value: string;
+            value: ImagePath;
         };
         selectable: boolean;
     };

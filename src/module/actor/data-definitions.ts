@@ -505,7 +505,7 @@ export interface RawCharacterData extends CreatureSystemData {
         /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
         heritage: { value: string };
         /** The diety that the character worships (and an image of the diety symbol). */
-        deity: { value: string; image: string };
+        deity: { value: string; image: ImagePath };
         /** Character background - their occupation, upbringing, etc. */
         background: { value: string };
         /** How old the character is (user-provided field). */
@@ -644,7 +644,7 @@ export interface RawNPCData extends CreatureSystemData {
         /** The race of this creature. */
         ancestry: { value: string };
         /** The deity this creature worships */
-        deity: { value: string; image: string };
+        deity: { value: string; image: ImagePath };
         /** The creature level for this actor, and the minimum level (irrelevant for NPCs). */
         level: { value: number; min: number };
         /** Which sourcebook this creature comes from. */
