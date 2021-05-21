@@ -12,25 +12,44 @@
         .save-item {
             display: flex;
             flex-direction: column;
+            align-items: center;
+        }
+
+        .input-wrapper {
+            display: flex;
+            align-items: stretch;
+            flex-direction: row-reverse;
+            position: relative;
+            color: #333;
+        }
+
+        .not-negative + span.plus::before {
+            display: grid;
+            place-content: center;
+            position: absolute;
+            text-align: left;
+            height: 100%;
+            content: '+';
+        }
+
+        span.plus::before {
+            right: 2ch;
+        }
+
+        span.plus.lt10::before {
+            right: 1ch;
         }
 
         label {
-            font-weight: 600;
-        }
-        input.modifier {
-            text-align: center;
-            width: 3ch;
+            font-family: $serif;
+            font-weight: 700;
+            line-height: 1;
+            margin-top: 0.25em;
         }
 
-        span.plus {
-            &::before {
-                left: -6px;
-                top: -21px;
-            }
-            &.lt10::before {
-                left: -10px;
-                top: -21px;
-            }
+        input.modifier {
+            text-align: right;
+            width: 3ch;
         }
     }
 }
