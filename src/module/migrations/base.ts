@@ -62,7 +62,7 @@ export abstract class MigrationBase {
      * Update the token to the latest schema version.
      * @param tokenData Token data to update. This should be a `TokenData` from the previous version.
      */
-    async updateToken(_tokenData: TokenData): Promise<void> {}
+    async updateToken(_tokenData: foundry.data.TokenSource): Promise<void> {}
 
     /**
      * Update the user to the latest schema version.

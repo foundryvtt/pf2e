@@ -21,21 +21,13 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return options;
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Get the correct HTML template path to use for rendering this particular sheet
-     */
+    /** Get the correct HTML template path to use for rendering this particular sheet */
     get template(): string {
         const path = 'systems/pf2e/templates/actors/';
         return `${path}npc-sheet.html`;
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Add some extra data when rendering the sheet to reduce the amount of logic required within the template.
-     */
+    /** Add some extra data when rendering the sheet to reduce the amount of logic required within the template. */
     getData() {
         const sheetData = super.getData();
 
@@ -65,13 +57,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         return sheetData;
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Organize and classify Items for NPC sheets
-     * @private
-     */
-    prepareItems(sheetData: any) {
+    /** Organize and classify Items for NPC sheets */
+    protected prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
         // Actions
         const attacks = {

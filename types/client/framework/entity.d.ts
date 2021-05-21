@@ -6,7 +6,7 @@ declare interface BaseEntityData {
     name: string;
     flags: Record<string, any>;
     permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
-    img: string;
+    img: ImagePath;
     update(data?: EntityUpdateData<this>, options?: EntityUpdateOptions): EntityUpdateData<this>;
 }
 
@@ -31,7 +31,9 @@ declare interface EntityClassConfig<E extends Entity> {
     permissions: { [userId: string]: keyof typeof CONST.USER_PERMISSIONS };
 }
 
-declare type EntityUpdateData<D extends BaseEntityData> = Partial<D> | { [key: string]: unknown };
+declare type EntityUpdateData<D extends BaseEntityData | foundry.abstract.DocumentSource> =
+    | Partial<D>
+    | { [key: string]: unknown };
 declare type EmbeddedEntityUpdateData =
     | (Partial<BaseEntityData> & { _id: string })
     | { _id: string; [key: string]: unknown };
@@ -74,8 +76,7 @@ declare interface EntityRenderOptions extends RenderOptions {
  */
 declare class Entity {
     /** The Entity references the raw source data for the object provided through game.data */
-    data: BaseEntityData;
-    _data: BaseEntityData;
+    data: BaseEntityData | foundry.abstract.DocumentData;
 
     /**
      * The original source data for the Entity provided upon initialization.

@@ -12,7 +12,7 @@ declare interface RollTableClassConfig extends EntityClassConfig<RollTable> {
 
 declare interface RollTableResult extends EmbeddedEntityData {
     drawn: boolean;
-    img: string;
+    img: ImagePath;
     range: [number, number];
     resultId: string;
     text: string;

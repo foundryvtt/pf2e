@@ -128,8 +128,8 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedToken(tokenData: TokenData, migrations: MigrationBase[]): Promise<TokenData> {
-        const current = duplicate(tokenData);
+    async getUpdatedToken(token: TokenDocument, migrations: MigrationBase[]): Promise<foundry.data.TokenSource> {
+        const current = token.toObject();
         for (const migration of migrations) {
             try {
                 await migration.updateToken(current);

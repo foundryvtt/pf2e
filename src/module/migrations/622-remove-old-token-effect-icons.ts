@@ -18,13 +18,13 @@ export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
         }
     }
 
-    async updateToken(tokenData: TokenData): Promise<void> {
+    async updateToken(tokenData: foundry.data.TokenSource): Promise<void> {
         // remove deprecated condition token effects
         tokenData.effects = tokenData.effects.filter((fx) => !fx.startsWith('systems/pf2e/icons/conditions/'));
 
         // remove deprecated rule element token effects
         const effects =
-            tokenData.actorData?.flags?.pf2e?.token?.effects ??
+            tokenData.actorData.flags?.pf2e?.token?.effects ??
             game.actors.get(tokenData.actorId)?.data?.flags?.pf2e?.token?.effects ??
             {};
         for (const img of Object.keys(effects)) {

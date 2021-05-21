@@ -53,7 +53,7 @@ declare module foundry {
             navOrder: number;
             navName: string;
 
-            img: VideoField;
+            img: VideoPath;
             actorId: string;
             actorLink: boolean;
             actorData: DeepPartial<ActorSource>;

@@ -32,7 +32,7 @@ declare module foundry {
             width: number;
             borderColor: ColorField;
             fillColor: ColorField;
-            texture: ImageField;
+            texture: ImagePath;
             flags: Record<string, unknown>;
         }
 

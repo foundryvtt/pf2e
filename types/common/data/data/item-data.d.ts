@@ -21,7 +21,7 @@ declare module foundry {
             _id: string;
             name: string;
             type: string;
-            img: foundry.data.ImageField;
+            img: ImagePath;
             data: object;
             effects: foundry.data.ActiveEffectSource[];
             folder: string | null;

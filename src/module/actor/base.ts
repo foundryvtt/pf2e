@@ -143,10 +143,10 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
     }
 
     /** The default sheet, token, etc. image of a newly created world actor */
-    static get defaultImg(): string {
+    static get defaultImg(): ImagePath {
         const match = Object.entries(CONFIG.PF2E.Actor.entityClasses).find(([_key, cls]) => cls.name === this.name);
         const filename = match ? `${match[0]}.svg` : 'mystery-man.svg';
-        return `systems/pf2e/icons/default-icons/${filename}`;
+        return `systems/pf2e/icons/default-icons/${filename}` as ImagePath;
     }
 
     get defaultImg(): string {
@@ -897,13 +897,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         };
     }
 
-    static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: string; actionGlyph: string } {
+    static getActionGraphics(actionType: string, actionCount?: number): { imageUrl: ImagePath; actionGlyph: string } {
         let actionImg: number | string = 0;
         if (actionType === 'action') actionImg = actionCount ?? 1;
         else if (actionType === 'reaction') actionImg = 'reaction';
         else if (actionType === 'free') actionImg = 'free';
         else if (actionType === 'passive') actionImg = 'passive';
-        const graphics = {
+        const graphics: Record<string, { imageUrl: ImagePath; actionGlyph: string }> = {
             1: { imageUrl: 'systems/pf2e/icons/actions/OneAction.webp', actionGlyph: 'A' },
             2: { imageUrl: 'systems/pf2e/icons/actions/TwoActions.webp', actionGlyph: 'D' },
             3: { imageUrl: 'systems/pf2e/icons/actions/ThreeActions.webp', actionGlyph: 'T' },

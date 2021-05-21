@@ -1,4 +1,4 @@
-import { ActorPF2e, TokenPF2e, UserPF2e } from './actor/base';
+import { ActorPF2e, UserPF2e } from './actor/base';
 import { ChatMessagePF2e } from './chat-message';
 import { ItemPF2e } from './item/base';
 import { MacroPF2e } from './macro';
@@ -98,13 +98,13 @@ export class MigrationRunner extends MigrationRunnerBase {
         }
     }
 
-    private async migrateSceneToken(migrations: MigrationBase[], token: TokenPF2e): Promise<void> {
+    private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocument): Promise<void> {
         try {
-            const updatedToken = await this.getUpdatedToken(token.data, migrations);
+            const updatedToken = await this.getUpdatedToken(token, migrations);
             const changes = diffObject(token.data, updatedToken);
 
             if (!isObjectEmpty(changes)) {
-                await token.update(changes, { enforceTypes: false });
+                await token.update(changes);
             }
         } catch (error) {
             console.error(error);
@@ -177,13 +177,13 @@ export class MigrationRunner extends MigrationRunnerBase {
 
         // Migrate Scene Actors
         for await (const scene of game.scenes.contents) {
-            for await (const tokenData of scene.data.tokens) {
-                const token = new Token<ActorPF2e>(tokenData, scene);
-                if (token.actor) {
+            for await (const token of scene.data.tokens) {
+                const actor = token.actor as ActorPF2e | null;
+                if (actor) {
                     await this.migrateSceneToken(migrations, token);
 
-                    if (token.actor.isToken) {
-                        await this.migrateWorldActor(migrations, token.actor);
+                    if (actor.isToken) {
+                        await this.migrateWorldActor(migrations, actor);
                     }
                 }
             }

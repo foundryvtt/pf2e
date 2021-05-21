@@ -49,7 +49,7 @@ interface LightData {
 interface TokenData<D extends ActorData = ActorData> extends PlaceableObjectData, LightData {
     name: string;
     displayName: number;
-    img: string;
+    img: VideoPath;
     scale: number;
     elevation: number;
     lockRotation: boolean;
