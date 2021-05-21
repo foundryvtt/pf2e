@@ -2,10 +2,13 @@
     grid-area: header;
     display: grid;
     grid-template: 'npc-header img';
+    grid-template-columns: 1fr;
     column-gap: 1em;
 
-    .flexrow {
-        align-items: center
+    section {
+        grid-area: npc-header;
+        display: flex;
+        flex-direction: column;
     }
 
     @import 'name';
