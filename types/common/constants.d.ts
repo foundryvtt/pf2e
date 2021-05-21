@@ -145,14 +145,10 @@ declare const CONST: {
      */
     FOLDER_ENTITY_TYPES: ['Actor', 'Item', 'Scene', 'JournalEntry', 'RollTable'];
 
-    /**
-     * Define the allowed Entity types which may be dynamically linked in chat
-     */
+    /** Define the allowed Entity types which may be dynamically linked in chat */
     ENTITY_LINK_TYPES: ['Actor', 'Item', 'Scene', 'JournalEntry', 'Macro', 'RollTable'];
 
-    /**
-     * The allowed Grid types which are supported by the software
-     */
+    /** The allowed Grid types which are supported by the software */
     GRID_TYPES: {
         GRIDLESS: 0;
         SQUARE: 1;
@@ -162,15 +158,33 @@ declare const CONST: {
         HEXEVENQ: 5;
     };
 
+    /** Enumerate the source types which can be used for an AmbientLight placeable object */
+    SOURCE_TYPES: {
+        LOCAL: 'l';
+        GLOBAL: 'g';
+        UNIVERSAL: 'u';
+    };
+
     /**
      * The minimum allowed grid size which is supported by the software
      */
     GRID_MIN_SIZE: 50;
 
-    /**
-     * An Array of valid MacroAction scope values
-     */
+    /** An Array of valid MacroAction scope values */
     MACRO_SCOPES: ['global', 'actors', 'actor'];
+
+    /** An enumeration of valid Macro types */
+    MACRO_TYPES: {
+        SCRIPT: 'script';
+        CHAT: 'chat';
+    };
+
+    MEASURED_TEMPLATE_TYPES: {
+        CIRCLE: 'circle';
+        CONE: 'cone';
+        RECTANGLE: 'rect';
+        RAY: 'ray';
+    };
 
     /**
      * The allowed playback modes for an audio Playlist
@@ -290,95 +304,107 @@ declare const CONST: {
      * Each key of this Object denotes an action for which permission may be granted (true) or withheld (false)
      */
     USER_PERMISSIONS: {
+        ACTOR_CREATE: {
+            label: 'PERMISSION.ActorCreate';
+            hint: 'PERMISSION.ActorCreateHint';
+            disableGM: false;
+            defaultRole: typeof CONST.USER_ROLES.ASSISTANT;
+        };
         BROADCAST_AUDIO: {
             label: 'PERMISSION.BroadcastAudio';
             hint: 'PERMISSION.BroadcastAudioHint';
             disableGM: true;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         BROADCAST_VIDEO: {
             label: 'PERMISSION.BroadcastVideo';
             hint: 'PERMISSION.BroadcastVideoHint';
             disableGM: true;
-            defaultRole: number;
-        };
-        ACTOR_CREATE: {
-            label: 'PERMISSION.ActorCreate';
-            hint: 'PERMISSION.ActorCreateHint';
-            disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         DRAWING_CREATE: {
             label: 'PERMISSION.DrawingCreate';
             hint: 'PERMISSION.DrawingCreateHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         ITEM_CREATE: {
             label: 'PERMISSION.ItemCreate';
             hint: 'PERMISSION.ItemCreateHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.ASSISTANT;
         };
         FILES_BROWSE: {
             label: 'PERMISSION.FilesBrowse';
             hint: 'PERMISSION.FilesBrowseHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         FILES_UPLOAD: {
             label: 'PERMISSION.FilesUpload';
             hint: 'PERMISSION.FilesUploadHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.ASSISTANT;
+        };
+        JOURNAL_CREATE: {
+            label: 'PERMISSION.JournalCreate';
+            hint: 'PERMISSION.JournalCreateHint';
+            disableGM: false;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         MACRO_SCRIPT: {
             label: 'PERMISSION.MacroScript';
             hint: 'PERMISSION.MacroScriptHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
         };
         MESSAGE_WHISPER: {
             label: 'PERMISSION.MessageWhisper';
             hint: 'PERMISSION.MessageWhisperHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
         };
         SETTINGS_MODIFY: {
             label: 'PERMISSION.SettingsModify';
             hint: 'PERMISSION.SettingsModifyHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.ASSISTANT;
         };
         SHOW_CURSOR: {
             label: 'PERMISSION.ShowCursor';
             hint: 'PERMISSION.ShowCursorHint';
             disableGM: true;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
+        };
+        SHOW_RULER: {
+            label: 'PERMISSION.ShowRuler';
+            hint: 'PERMISSION.ShowRulerHint';
+            disableGM: true;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
         };
         TEMPLATE_CREATE: {
             label: 'PERMISSION.TemplateCreate';
             hint: 'PERMISSION.TemplateCreateHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
         };
         TOKEN_CREATE: {
             label: 'PERMISSION.TokenCreate';
             hint: 'PERMISSION.TokenCreateHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.ASSISTANT;
         };
         TOKEN_CONFIGURE: {
             label: 'PERMISSION.TokenConfigure';
             hint: 'PERMISSION.TokenConfigureHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.TRUSTED;
         };
         WALL_DOORS: {
             label: 'PERMISSION.WallDoors';
             hint: 'PERMISSION.WallDoorsHint';
             disableGM: false;
-            defaultRole: number;
+            defaultRole: typeof CONST.USER_ROLES.PLAYER;
         };
     };
 
@@ -440,18 +466,12 @@ declare const CONST: {
         LIMITED: 2;
     };
 
-    /**
-     * The supported file extensions for image-type files
-     */
+    /** The supported file extensions for image-type files */
     IMAGE_FILE_EXTENSIONS: ['jpg', 'jpeg', 'png', 'svg', 'webp'];
 
-    /**
-     * The supported file extensions for video-type files
-     */
-    VIDEO_FILE_EXTENSIONS: ['mp4', 'ogg', 'webm'];
+    /** The supported file extensions for video-type files */
+    VIDEO_FILE_EXTENSIONS: ['mp4', 'ogg', 'webm', 'm4v'];
 
-    /**
-     * The supported file extensions for audio-type files
-     */
-    AUDIO_FILE_EXTENSIONS: ['flac', 'mp3', 'ogg', 'wav', 'webm'];
+    /** The supported file extensions for audio-type files */
+    AUDIO_FILE_EXTENSIONS: ['flac', 'm4a', 'mp3', 'ogg', 'opus', 'wav', 'webm'];
 };

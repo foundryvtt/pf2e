@@ -1,22 +1,19 @@
-// @ts-nocheck
-
 declare module foundry {
     module data {
-        interface SceneSource extends foundry.abstract.DocumentSource {
-            tokens: TokenSource[];
-            folder?: string | null;
-            sort: number;
-        }
+        interface SceneSource {
+            _id: string;
+            name: string;
 
-        class SceneData<TTokenDocument extends TokenDocument> extends foundry.abstract.DocumentData {
+            // Navigation
             active: boolean;
             navigation: boolean;
             navOrder: number;
             navName: string;
 
             // Canvas Dimensions
-            foreground: foundry.data.VideoField;
-            thumb: foundry.data.ImageField;
+            img: VideoField;
+            foreground: VideoField;
+            thumb: ImageField;
             width: number;
             height: number;
             padding: number;
@@ -26,14 +23,14 @@ declare module foundry {
                 scale: number;
             };
 
-            backgroundColor: foundry.data.ColorField;
+            backgroundColor: ColorField;
 
             // Grid Configuration
-            gridType: foundry.data.GridType;
+            gridType: GridType;
             grid: number;
             shiftX: number;
             shiftY: number;
-            gridColor: foundry.data.ColorField;
+            gridColor: ColorField;
             gridAlpha: number;
             gridDistance: number;
             gridUnits: string;
@@ -47,27 +44,70 @@ declare module foundry {
             darkness: number;
 
             // Embedded Collections
-            drawings: foundry.abstract.EmbeddedCollection<DrawingDocument>;
-            tokens: foundry.abstract.EmbeddedCollection<TTokenDocument>;
-            lights: foundry.abstract.EmbeddedCollection<AmbientLightDocument>;
-            notes: foundry.abstract.EmbeddedCollection<NoteDocument>;
-            sounds: foundry.abstract.EmbeddedCollection<AmbientSoundDocument>;
-            templates: foundry.abstract.EmbeddedCollection<MeasuredTemplateDocument>;
-            tiles: foundry.abstract.EmbeddedCollection<TileDocument>;
+            drawings: DrawingSource[];
+            tokens: TokenSource[];
+            lights: AmbientLightSource[];
+            notes: NoteSource[];
+            sounds: AmbientSoundSource[];
+            templates: MeasuredTemplateSource[];
+            tiles: TileSource[];
+            walls: WallSource[];
 
             // Linked Documents
-            playlist: Playlist | null;
-            // playlistSound: PlaylistSound | null;
-            journal: JournalEntry | null;
+            playlist: PlaylistSource | null;
+            playlistSound: PlaylistSoundSource | null;
+            journal: JournalEntrySource | null;
             weather: string;
 
+            // Permissions
             folder: string | null;
             sort: number;
+            permission: Record<string, DocumentPermission>;
+            flags: Record<string, unknown>;
         }
 
-        interface SceneData<TTokenDocument extends TokenDocument>
-            extends foundry.abstract.DocumentData,
-                Omit<SceneSource, '_id' | 'tokens'> {
+        class SceneData<
+            TDocument extends documents.BaseScene = documents.BaseScene,
+            TToken extends documents.BaseToken = documents.BaseToken
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+
+            folder: documents.BaseFolder | null;
+
+            // Embedded Collections
+            drawings: abstract.EmbeddedCollection<documents.BaseDrawing>;
+            tokens: abstract.EmbeddedCollection<TToken>;
+            lights: abstract.EmbeddedCollection<documents.BaseAmbientLight>;
+            notes: abstract.EmbeddedCollection<documents.BaseNote>;
+            sounds: abstract.EmbeddedCollection<documents.BaseAmbientSound>;
+            templates: abstract.EmbeddedCollection<documents.BaseMeasuredTemplate>;
+            tiles: abstract.EmbeddedCollection<documents.BaseTile>;
+            walls: abstract.EmbeddedCollection<documents.BaseWall>;
+
+            // Linked Documents
+            playlist: documents.BasePlaylist | null;
+            playlistSound: documents.BasePlaylistSound | null;
+            journal: documents.BaseJournalEntry | null;
+        }
+
+        interface SceneData
+            extends Omit<
+                SceneSource,
+                | '_id'
+                | 'folder'
+                | 'drawings'
+                | 'tokens'
+                | 'lights'
+                | 'notes'
+                | 'sounds'
+                | 'templates'
+                | 'tiles'
+                | 'walls'
+                | 'playlist'
+                | 'playlistSound'
+                | 'journal'
+            > {
             _source: SceneSource;
         }
     }

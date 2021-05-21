@@ -20,7 +20,7 @@ declare function ClientDocumentMixin<TDocument extends foundry.abstract.Document
     Base: DocumentConstructor<TDocument>,
 ): ClientDocumentMixin<TDocument> & DocumentConstructor<TDocument>;
 
-declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = {
+declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
     /**
      * A collection of Application instances which should be re-rendered whenever this document is updated.
      * The keys of this object are the application ids and the values are Application instances. Each
@@ -30,10 +30,10 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
     apps: Record<string, Application>;
 
     /** A cached reference to the FormApplication instance used to configure this Document. */
-    readonly _sheet: FormApplication | null;
+    get _sheet(): FormApplication | null;
 
     /** @override */
-    _initialize(): void;
+    protected _initialize(): void;
 
     /* -------------------------------------------- */
     /*  Properties                                  */
@@ -42,10 +42,10 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
     /**
      * Return a reference to the parent Collection instance which contains this Document.
      */
-    readonly collection: Collection<TDocument>;
+    get collection(): Collection<TDocument>;
 
     /** A reference to the Compendium Collection which contains this Document, if any, otherwise undefined. */
-    readonly compendium: TDocument extends CompendiumDocument ? CompendiumCollection<TDocument> : undefined;
+    get compendium(): CompendiumCollection | undefined;
 
     /**
      * Return a reference to the Folder to which this Document belongs, if any.
@@ -56,22 +56,22 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * console.log(actor.data.folder); // folder.id;
      * console.log(actor.folder); // folder;
      */
-    readonly folder: Folder | null;
+    get folder(): Folder | null;
 
     /**
      * A boolean indicator for whether or not the current game User has ownership rights for this Document.
      * Different Document types may have more specialized rules for what constitutes ownership.
      */
-    readonly isOwner: boolean;
+    get isOwner(): boolean;
 
     /** Test whether this Document is owned by any non-Gamemaster User. */
-    readonly hasPlayerOwner: boolean;
+    get hasPlayerOwner(): boolean;
 
     /** A boolean indicator for whether the current game User has exactly LIMITED visibility (and no greater). */
-    readonly limited: boolean;
+    get limited(): boolean;
 
     /** Return a string which creates a dynamic link to this Document instance. */
-    readonly link: string;
+    get link(): string;
 
     /**
      * Return the permission level that the current game User has over this Document.
@@ -82,26 +82,26 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * actor.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * actor.permission; // 2
      */
-    readonly permission: DocumentPermission;
+    get permission(): DocumentPermission;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
-    readonly sheet: object | null;
+    get sheet(): NonNullable<this['_sheet']>;
 
     /** A Universally Unique Identifier (uuid) for this Document instance. */
-    readonly uuid: string;
+    get uuid(): string;
 
     /**
      * A boolean indicator for whether or not the current game User has at least limited visibility for this Document.
      * Different Document types may have more specialized rules for what determines visibility.
      */
-    readonly visible: boolean;
+    get visible(): boolean;
 
     /* -------------------------------------------- */
     /*  Methods                                     */
     /* -------------------------------------------- */
 
     /** Obtain the FormApplication class constructor which should be used to configure this Document. */
-    readonly _getSheetClass: { new (...args: any[]): Function } | null;
+    protected get _getSheetClass(): { new (...args: any[]): Function } | null;
 
     /**
      * Prepare data for the Document.
@@ -155,13 +155,21 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
     /* -------------------------------------------- */
 
     /** @override */
-    _onCreate(data: foundry.abstract.DocumentSource, options: DocumentModificationContext, userId: string): void;
+    protected _onCreate(
+        data: foundry.abstract.DocumentSource,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void;
 
     /** @override */
-    _onUpdate(data: foundry.abstract.DocumentSource, options: DocumentModificationContext, userId: string): void;
+    protected _onUpdate(
+        data: foundry.abstract.DocumentSource,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void;
 
     /** @override */
-    _onDelete(options: DocumentModificationContext, userId: string): void;
+    protected _onDelete(options: DocumentModificationContext, userId: string): void;
 
     /**
      * Preliminary actions taken before a set of embedded Documents in this parent Document are created.
@@ -170,7 +178,7 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    _preCreateEmbeddedDocuments(
+    protected _preCreateEmbeddedDocuments(
         embeddedName: string,
         result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
@@ -185,7 +193,7 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * @param options      Options which modified the creation operation
      * @param userId       The ID of the User who triggered the operation
      */
-    _onCreateEmbeddedDocuments(
+    protected _onCreateEmbeddedDocuments(
         embeddedName: string,
         documents: TDocument[],
         result: TDocument['data']['_source'],
@@ -200,7 +208,7 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * @param options      Options which modified the update operation
      * @param userId       The ID of the User who triggered the operation
      */
-    _preUpdateEmbeddedDocuments(
+    protected _preUpdateEmbeddedDocuments(
         embeddedName: string,
         result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
@@ -209,13 +217,13 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
 
     /**
      * Follow-up actions taken after a set of embedded Documents in this parent Document are updated.
-     * @param embeddedName   The name of the embedded Document type
-     * @param documents  An Array of updated Documents
+     * @param embeddedName The name of the embedded Document type
+     * @param documents    An Array of updated Documents
      * @param result       An Array of incremental data objects
-     * @param options        Options which modified the update operation
-     * @param userId         The ID of the User who triggered the operation
+     * @param options      Options which modified the update operation
+     * @param userId       The ID of the User who triggered the operation
      */
-    _onUpdateEmbeddedDocuments(
+    protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
         documents: TDocument[],
         result: foundry.abstract.DocumentSource[],
@@ -230,7 +238,7 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    _preDeleteEmbeddedDocuments(
+    protected _preDeleteEmbeddedDocuments(
         embeddedName: string,
         result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
@@ -245,7 +253,7 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * @param options      Options which modified the deletion operation
      * @param userId       The ID of the User who triggered the operation
      */
-    _onDeleteEmbeddedDocuments(
+    protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
         documents: TDocument[],
         result: foundry.abstract.DocumentSource[],
@@ -277,9 +285,8 @@ declare type ClientDocumentMixin<TDocument extends foundry.abstract.Document> = 
      * Transform the Document data to be stored in a Compendium pack.
      * Remove any features of the data which are world-specific.
      * This function is asynchronous in case any complex operations are required prior to exporting.
-     * @param [pack]   A specific pack being exported to
+     * @param [pack] A specific pack being exported to
      * @return A data object of cleaned data suitable for compendium import
-     * @memberof ClientDocumentMixin#
      */
-    toCompendium(pack: CompendiumCollection<TDocument>): RawObject<TDocument['data']>;
-} & TDocument;
+    toCompendium(pack: CompendiumCollection): TDocument['data']['_source'];
+}

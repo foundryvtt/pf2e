@@ -2,7 +2,7 @@ declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONS
 
 declare module foundry {
     module data {
-        interface ChatMessageSource extends foundry.abstract.DocumentSource {
+        interface ChatMessageSource {
             type: ChatMessageType;
             blind?: boolean;
             content: string;
@@ -19,9 +19,14 @@ declare module foundry {
             whisper?: string[] | User[];
         }
 
-        class ChatMessageData extends foundry.abstract.DocumentData {}
-        interface ChatMessageData extends foundry.abstract.DocumentData, Omit<ChatMessageSource, '_id'> {
-            _source: ChatMessageSource;
+        class ChatMessageData<
+            TDocument extends documents.BaseChatMessage = documents.BaseChatMessage
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+        }
+        interface ChatMessageData extends Omit<ChatMessageSource, '_id'> {
+            readonly _source: ChatMessageSource;
         }
     }
 }

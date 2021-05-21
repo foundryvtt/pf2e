@@ -28,23 +28,19 @@ declare global {
             /** The schema of a Document */
             type DocumentSchema = Record<string, DocumentField>;
 
-            interface DocumentSource {
-                _id: string;
-                name: string;
-                flags: Record<string, any>;
-                permission: Record<string, DocumentPermission>;
-            }
+            type DocumentSource = object;
 
             /**
              * An abstract pattern for a data object which is contained within every type of Document.
              * @param [data={}]  Initial data used to construct the data object
              * @param [document] The document to which this data object belongs
              */
-            abstract class DocumentData implements DocumentSource {
-                constructor(data?: DocumentSource, document?: foundry.abstract.Document | null);
+            abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document>
+                implements DocumentSource {
+                constructor(data?: DocumentSource, document?: TDocument | null);
 
                 /** An immutable reverse-reference to the Document to which this data belongs, possibly null. */
-                readonly document: foundry.abstract.Document | null;
+                readonly document: TDocument | null;
 
                 /** The source data object. The contents of this object can be updated, but the object itself may not be replaced. */
                 readonly _source: DocumentSource;
@@ -139,19 +135,15 @@ declare global {
                  * @returns The extracted primitive object
                  */
                 toObject(): this['_source'];
-                toObject(source?: true): this['_source'];
-                toObject(source?: false): RawObject<this>;
-                toObject(source?: boolean): RawObject<this> | this['_source'];
+                toObject(source: true): this['_source'];
+                toObject<T extends DocumentData<Document>>(this: T, source: false): RawObject<T>;
+                toObject<T extends DocumentData<Document | null>>(this: T, source: boolean): never;
             }
 
             /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-            interface DocumentData extends Omit<foundry.abstract.DocumentSource, '_id'> {}
+            interface DocumentData extends Omit<abstract.DocumentSource, '_id'> {}
         }
     }
-
-    type UpgradedOmit<T, K extends keyof any> = {
-        [P in keyof T as Exclude<P, K>]: T[P];
-    };
 
     type RawObject<T extends foundry.abstract.DocumentData> = {
         [P in keyof T]: P extends ExcludedKeys<T>
@@ -165,4 +157,5 @@ declare global {
 type FunctionKeys<T> = {
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
-type ExcludedKeys<T> = FunctionKeys<T> | '_source';
+
+type ExcludedKeys<T> = FunctionKeys<T> | '_source' | 'document';
