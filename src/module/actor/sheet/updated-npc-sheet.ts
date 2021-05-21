@@ -126,7 +126,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         sheetData.hasSpells = sheetData.actor.spellcastingEntries.length ? sheetData.actor.spellcastingEntries : false;
         // sheetData.spellAttackBonus = sheetData.data.attributes.spelldc.value;
 
-        const equipment = [];
+        const equipment: any[] = [];
         const reorgActions = {
             interaction: {
                 label: 'Interaction Actions',
@@ -271,7 +271,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      * Roll NPC Damage using DamageRoll
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamageRoll(event, damageRoll, item) {
+    rollNPCDamageRoll(event, damageRoll, item: any) {
         // Get data
         const itemData = item.data.data;
         const rollData = duplicate(item.actor.data.data);
@@ -312,7 +312,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         const mAbilities = CONFIG.PF2E.monsterAbilities();
         actionList.each((_index, element) => {
             // 'this' = element found
-            if ($(element).attr('data-item-name').trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
+            if ($(element).attr('data-item-name')?.trim().toLowerCase() === attackEffectName.trim().toLowerCase()) {
                 $(element).find('h4').trigger('click');
                 toggledAnything = true;
             }
@@ -328,13 +328,13 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                         actionCategory: { value: 'offensive' },
                         source: { value: '' },
                         description: { value: newAbilityInfo.description },
-                        traits: { value: [] },
+                        traits: { value: [] as string[] },
                         actions: { value: newAbilityInfo.actionCost },
                     },
                 };
 
                 const traitRegEx = /(?:Traits.aspx.+?">)(?:<\w+>)*(.+?)(?:<\/\w+>)*(?:<\/a>)/g;
-                const matchTraits = [...newAbilityInfo.description.matchAll(traitRegEx)];
+                const matchTraits: any[][] = [...newAbilityInfo.description.matchAll(traitRegEx)];
 
                 for (let i = 0; i < matchTraits.length; i++) {
                     if (matchTraits[i] && matchTraits[i].length >= 2 && matchTraits[i][1]) {
@@ -386,10 +386,9 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             ev.preventDefault();
             ev.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
             const drId = Number($(ev.currentTarget).attr('data-dmgRoll'));
-            // item = this.actor.items.find(i => { return i.id === itemId });
-            const item = this.actor.items.get(itemId);
+            const item = this.actor.items.get(itemId, { strict: true });
             const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
 
             // which function gets called depends on the type of button stored in the dataset attribute action
@@ -405,9 +404,8 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             ev.preventDefault();
             ev.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id');
+            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
             const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
-            // item = this.actor.items.find(i => { return i.id === itemId });
             const item = this.actor.items.get(itemId);
             if (!(item instanceof MeleePF2e)) {
                 console.log('PF2e System | clicked an attackEffect, but item was not a melee');

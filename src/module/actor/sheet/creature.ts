@@ -362,6 +362,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             const actionIndex = $(event.currentTarget).parents('.item').attr('data-action-index');
             const variantIndex = $(event.currentTarget).attr('data-variant-index');
             const action = this.actor.data.data.actions[Number(actionIndex)];
+            if (!action) return;
 
             if (action.selectedAmmoId) {
                 const ammo = this.actor.items.get(action.selectedAmmoId);
@@ -375,7 +376,7 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             }
 
             const rollContext = createAttackRollContext(event, ['all', 'attack-roll']);
-            action.variants[Number(variantIndex)].roll(rollContext);
+            action.variants[Number(variantIndex)]?.roll(rollContext);
         });
     }
 }

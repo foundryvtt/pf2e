@@ -4,7 +4,7 @@ import { NPCPF2e } from '../npc';
 import { identifyCreature } from '../../recall-knowledge';
 import { RecallKnowledgePopup } from './popups/recall-knowledge-popup';
 import { SpellcastingEntryData, SpellData } from '@item/data/types';
-import { ErrorPF2e } from '@module/utils';
+import { objectHasKey } from '@module/utils';
 
 /**
  * @category Actor
@@ -98,7 +98,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const spellcastingEntries: SpellcastingEntryData[] = [];
 
         // Skills
-        const lores = [];
+        const lores: { label: string; description: string }[] = [];
 
         // Iterate through items, allocating to containers
         for (const i of actorData.items) {
@@ -147,7 +147,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 i.data.isAgile = isAgile;
 
                 // get formated traits for read-only npc sheet
-                const traits = [];
+                const traits: { label: string; description: string }[] = [];
                 if ((i.data.traits.value || []).length !== 0) {
                     for (let j = 0; j < i.data.traits.value.length; j++) {
                         const traitsObject = {
@@ -170,7 +170,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
                 i.img = NPCPF2e.getActionGraphics(actionType, parseInt((i.data.actions || {}).value, 10) || 1).imageUrl;
 
                 // get formated traits for read-only npc sheet
-                const traits = [];
+                const traits: { label: string; description: string }[] = [];
                 if ((i.data.traits.value || []).length !== 0) {
                     for (let j = 0; j < i.data.traits.value.length; j++) {
                         const traitsObject = {
@@ -301,10 +301,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             ev.stopPropagation();
 
             const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const item = this.actor.items.get(itemId);
-            if (!item) {
-                throw ErrorPF2e(`Item ${itemId} not found`);
-            }
+            const item = this.actor.items.get(itemId, { strict: true });
 
             // which function gets called depends on the type of button stored in the dataset attribute action
             switch (ev.target.dataset.action) {
@@ -357,7 +354,8 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         // NPC SKill Rolling
         html.find('.rollable[data-skill]').on('click', (event) => {
             const $target = $(event.delegateTarget);
-            const shortform = $target.attr('data-skill');
+            const shortform = $target.attr('data-skill') ?? '';
+            if (!objectHasKey(SKILL_DICTIONARY, shortform)) return;
             const opts = this.actor.getRollOptions(['all', 'skill-check', SKILL_DICTIONARY[shortform] ?? shortform]);
             const extraOptions = $target.attr('data-options');
             if (extraOptions) {
