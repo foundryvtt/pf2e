@@ -62,9 +62,9 @@ export class FamiliarPF2e extends CreaturePF2e {
             for (let idx = 0; idx < data.attributes.speed.otherSpeeds.length; idx++) {
                 const speed = data.attributes.speed.otherSpeeds[idx];
                 const base = Number(speed.value ?? 0);
-                const modifiers = [];
+                const modifiers: ModifierPF2e[] = [];
                 [`${speed.type}-speed`, 'speed'].forEach((key) => {
-                    (statisticsModifiers[key as string] || [])
+                    (statisticsModifiers[key] || [])
                         .filter(filter_modifier)
                         .map((m) => duplicate(m))
                         .forEach((m) => modifiers.push(m));
@@ -121,7 +121,7 @@ export class FamiliarPF2e extends CreaturePF2e {
                     (modifier) => !['status', 'circumstance'].includes(modifier.type),
                 );
                 const base = 10 + new StatisticModifier('base', source).totalModifier;
-                const modifiers = [];
+                const modifiers: ModifierPF2e[] = [];
                 ['ac', 'dex-based', 'all'].forEach((key) =>
                     (statisticsModifiers[key] || [])
                         .filter(filter_modifier)

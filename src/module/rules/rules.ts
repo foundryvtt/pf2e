@@ -65,7 +65,7 @@ export class RuleElements {
     }
 
     static fromRuleElementData(ruleData: PF2RuleElementData[], item: ItemDataPF2e): RuleElementPF2e[] {
-        const rules = [];
+        const rules: RuleElementPF2e[] = [];
         for (const data of ruleData) {
             const rule = this.custom[data.key] ?? this.builtin[data.key];
             if (rule) {

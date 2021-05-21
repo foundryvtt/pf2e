@@ -3,6 +3,7 @@ import { getContainerMap } from '@item/container';
 import { ActorSheetPF2e } from './base';
 import { calculateWealth } from '@item/treasure';
 import { VehiclePF2e } from '@actor/vehicle';
+import { ItemDataPF2e } from '@item/data/types';
 
 /**
  * @category Actor
@@ -66,7 +67,7 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
     protected prepareItems(sheetData: any) {
         const actorData = sheetData.actor;
         // Inventory
-        const inventory = {
+        const inventory: Record<string, { label: string; items: ItemDataPF2e[] }> = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
             equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [] },
@@ -76,13 +77,13 @@ export class VehicleSheetPF2e extends ActorSheetPF2e<VehiclePF2e> {
         };
 
         // Actions
-        const actions = {
+        const actions: Record<string, { label: string; actions: any }> = {
             action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
         };
         // Read-Only Actions
-        const readonlyActions = {
+        const readonlyActions: Record<string, { label: string; actions: any }> = {
             interaction: { label: 'Interaction Actions', actions: [] },
             defensive: { label: 'Defensive Actions', actions: [] },
             offensive: { label: 'Offensive Actions', actions: [] },

@@ -11,7 +11,7 @@ export class PF2MageArmorRuleElement extends RuleElementPF2e {
         const label = this.ruleData.label ?? this.item.name;
         const level = (this.item.data as any)?.level?.value ?? this.ruleData.level ?? 1;
         if (label) {
-            let ac;
+            let ac: number;
             let save = 0;
             if (level >= 10) {
                 // heightened 10th

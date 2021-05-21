@@ -85,8 +85,8 @@ function toModifier(
     rune: WeaponPropertyRuneType,
     { damageType = undefined, dieSize = 'd6', diceNumber = 1 }: RuneDiceModifier,
 ): DiceModifierPF2e {
-    const traits = [];
-    if (damageType !== undefined) {
+    const traits: string[] = [];
+    if (damageType) {
         traits.push(damageType);
     }
     return new DiceModifierPF2e({
@@ -118,7 +118,7 @@ runeDamageModifiers.set('greaterShock', { damageType: 'electricity' });
 runeDamageModifiers.set('greaterThundering', { damageType: 'sonic' });
 
 export function getPropertyRuneModifiers(itemData: WeaponData | ArmorData): DiceModifierPF2e[] {
-    const diceModifiers = [];
+    const diceModifiers: DiceModifierPF2e[] = [];
     for (const rune of getPropertyRunes(itemData, getPropertySlots(itemData))) {
         const modifierConfig = runeDamageModifiers.get(rune);
         if (modifierConfig) {
