@@ -375,7 +375,7 @@ declare class Entity {
     /**
      * Entity-specific actions that should occur when the Entity is deleted
      */
-    protected _onDelete(options: EntityDeleteOptions, user: User): void;
+    protected _onDelete(options: EntityDeleteOptions, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Embedded Entity Management                  */

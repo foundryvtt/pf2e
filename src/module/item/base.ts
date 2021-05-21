@@ -162,7 +162,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** @override */
-    protected _onDelete(options: EntityDeleteOptions, user: User): void {
+    protected _onDelete(options: EntityDeleteOptions, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
                 if (this.type === 'effect') {
@@ -182,7 +182,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
             }
         }
 
-        super._onDelete(options, user);
+        super._onDelete(options, userId);
     }
 
     /**
