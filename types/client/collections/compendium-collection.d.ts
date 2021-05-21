@@ -1,4 +1,6 @@
 declare type CompendiumDocumentString = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
+declare type CompendiumUUID = `${'Compendium' | CompendiumDocumentString}.${string}.${string}`;
+// declare function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
 
 // declare interface CompendiumMetadata<T extends foundry.abstract.Document = foundry.abstract.Document> {
 //     absPath: string;
@@ -16,7 +18,7 @@ declare type CompendiumDocumentString = typeof CONST.COMPENDIUM_ENTITY_TYPES[num
 //         ? 'RollTable'
 //         : T extends Scene
 //         ? 'Scene'
-//         : CompendiumEntityString;
+//         : CompendiumDocumentString;
 //     label: string;
 //     module: string;
 //     name: string;
@@ -31,7 +33,14 @@ declare type CompendiumIndex = {
     image: string;
 }[];
 
-declare type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
+declare type CompendiumDocument =
+    | foundry.documents.BaseActor
+    | foundry.documents.BaseItem
+    | foundry.documents.BaseJournalEntry
+    | foundry.documents.BaseMacro
+    | foundry.documents.BasePlaylist
+    | foundry.documents.BaseRollTable
+    | foundry.documents.BaseScene;
 
 /**
  * A singleton Collection of Compendium-level Document objects within the Foundry Virtual Tabletop.
@@ -42,9 +51,8 @@ declare type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist
  * @param metadata The compendium metadata, an object provided by game.data
  */
 declare class CompendiumCollection<
-    TDocument extends foundry.abstract.Document = foundry.abstract.Document
-    // @ts-ignore
-> extends DocumentCollection<CompendiumDocument> {
+    TDocument extends CompendiumDocument = CompendiumDocument
+> extends DocumentCollection<TDocument> {
     /**
      * The compendium metadata which defines the compendium content and location
      */
@@ -98,7 +106,7 @@ declare class CompendiumCollection<
         ? 'Macro'
         : TDocument extends RollTable
         ? 'RollTable'
-        : CompendiumEntityString;
+        : CompendiumDocumentString;
 
     /**
      * A reference to the Entity class object contained within this Compendium pack
@@ -107,7 +115,7 @@ declare class CompendiumCollection<
         new (...args: any[]): CompendiumDocument | CompendiumDocument[];
         create(
             data: Partial<TDocument['data']> | Partial<TDocument['data']>[],
-            options?: foundry.abstract.DocumentModificationContext,
+            options?: DocumentModificationContext,
         ): Promise<CompendiumDocument | CompendiumDocument[]>;
     };
 

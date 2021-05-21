@@ -44,11 +44,26 @@ declare module foundry {
          * @property [flags={}]          An object of optional key/value flags
          */
         interface TokenSource extends foundry.abstract.DocumentSource, LightData {
+            _id: string;
+            name: string;
+
+            // Navigation
+            active: boolean;
+            navigation: boolean;
+            navOrder: number;
+            navName: string;
+
+            img: VideoField;
+            actorId: string;
+            actorLink: boolean;
+            actorData: DeepPartial<ActorSource>;
             scale: number;
-            mirrorX?: boolean;
-            mirrorY?: boolean;
-            x?: number;
-            y?: number;
+            mirrorX: boolean;
+            mirrorY: boolean;
+            height: number;
+            width: number;
+            x: number;
+            y: number;
             elevation: number;
             lockRotation: boolean;
             effects: string[];
@@ -58,21 +73,21 @@ declare module foundry {
             brightSight: number;
             sightAngle: number;
             hidden: boolean;
-            actorId: string;
-            actorLink: boolean;
-            actorData: DeepPartial<ActorSource>;
-            img: string;
             disposition: number;
             displayBars: number;
             bar1: Record<string, string>;
             bar2: Record<string, string>;
-            height: number;
-            width: number;
+            flags: Record<string, unknown>;
         }
 
-        class TokenData extends foundry.abstract.DocumentData {}
-        interface TokenData extends foundry.abstract.DocumentData, Omit<TokenSource, '_id'> {
-            _source: TokenSource;
+        class TokenData<
+            TDocument extends documents.BaseToken = documents.BaseToken
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+        }
+        interface TokenData extends Omit<TokenSource, '_id'> {
+            readonly _source: TokenSource;
         }
     }
 }

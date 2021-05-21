@@ -8,25 +8,15 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
 
     /** An Array of application references which will be automatically updated when the collection content changes */
     apps: Application[];
-
-    /* -------------------------------------------- */
     /*  Collection Properties                       */
-    /* -------------------------------------------- */
-
     /** The Collection class name */
     get name(): string;
 
     /** A reference to the named Document class which is contained within this DocumentCollection. */
     abstract get documentName(): string;
-
-    /* -------------------------------------------- */
     /*  Collection Methods                          */
-    /* -------------------------------------------- */
-
     /** @override */
     set(id: string, document: TDocument): this;
-
-    /* -------------------------------------------- */
 
     /** Render any Applications associated with this DocumentCollection. */
     render(force: boolean, options?: RenderOptions): void;
@@ -39,11 +29,9 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     _preCreateDocuments(
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
-
-    /* -------------------------------------------- */
 
     /**
      * Follow-up actions taken after a set of Documents in this Collection are created.
@@ -55,11 +43,9 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     _onCreateDocuments(
         documents: TDocument[],
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
-
-    /* -------------------------------------------- */
 
     /**
      * Preliminary actions taken before a set of Documents in this Collection are updated.
@@ -69,11 +55,9 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     _preUpdateDocuments(
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
-
-    /* -------------------------------------------- */
 
     /**
      * Follow-up actions taken after a set of Documents in this Collection are updated.
@@ -85,11 +69,9 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     _onUpdateDocuments(
         documents: TDocument[],
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
-
-    /* -------------------------------------------- */
 
     /**
      * Preliminary actions taken before a set of Documents in this Collection are deleted.
@@ -99,7 +81,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
      */
     _preDeleteDocuments(
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
@@ -113,7 +95,7 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
     _onDeleteDocuments(
         documents: TDocument[],
         result: TDocument['data']['_source'][],
-        options: foundry.abstract.DocumentModificationContext,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 }

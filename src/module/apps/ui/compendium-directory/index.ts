@@ -18,7 +18,7 @@ interface PackSummaryPF2e extends PackSummary {
     folders?: PackFolderPF2e[];
     packs: PackSummaryDataPF2e[];
 }
-type PackSummaryByEntityPF2e = Record<CompendiumEntityString, PackSummaryPF2e>;
+type PackSummaryByEntityPF2e = Record<CompendiumDocumentString, PackSummaryPF2e>;
 
 interface PackDirectoryDataPF2e extends CompendiumDirectoryData {
     packs: PackSummaryByEntityPF2e;

@@ -2,8 +2,6 @@ declare module foundry {
     module documents {
         /**
          * The ActiveEffect document model.
-         * @memberof documents
-         *
          * @param data Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
@@ -26,7 +24,7 @@ declare module foundry {
         }
 
         interface BaseActiveEffect {
-            data: data.ActiveEffectData;
+            data: data.ActiveEffectData<this>;
         }
 
         interface ActiveEffectMetadata extends abstract.DocumentMetadata {

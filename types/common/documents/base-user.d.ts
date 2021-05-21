@@ -55,6 +55,10 @@ declare module foundry {
             hasRole(role: UserRole | UserRoleName, { exact }?: { exact: boolean }): boolean;
         }
 
+        interface BaseUser {
+            readonly data: data.UserData<this>;
+        }
+
         interface UserMetadata extends abstract.DocumentMetadata {
             name: 'User';
             collection: 'users';

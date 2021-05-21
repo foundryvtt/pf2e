@@ -1,5 +1,3 @@
-declare function fromUuid(uuid: string): Promise<CompendiumDocument | null>;
-
 declare module foundry {
     module abstract {
         type DocumentConstructorData<T extends DocumentData> = T | ReturnType<T['toObject']>;
@@ -14,23 +12,14 @@ declare module foundry {
         abstract class Document {
             constructor(data: DocumentConstructorData<DocumentData>, context?: DocumentConstructorContext);
 
-            /**
-             * An immutable reverse-reference to the parent Document to which this embedded Document belongs.
-             * @name abstract.Document#parent
-             */
+            /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
             readonly parent: Document | null;
 
-            /**
-             * An immutable reference to a containing Compendium collection to which this Document belongs.
-             * @name abstract.Document#pack
-             */
+            /** An immutable reference to a containing Compendium collection to which this Document belongs. */
             readonly pack: string | null;
 
-            /**
-             * The base data object for this Document which persists both the original source and any derived data.
-             * @name abstract.Document#data
-             */
-            readonly data: DocumentData;
+            /** The base data object for this Document which persists both the original source and any derived data. */
+            readonly data: DocumentData<this>;
 
             /**
              * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
@@ -73,13 +62,6 @@ declare module foundry {
 
             /** The canonical name of this Document type, for example "Actor". */
             get documentName(): string;
-
-            /**
-             * Obtain a reference to the Array of source data within the data object for a certain Embedded Document name
-             * @param embeddedName  The name of the Embedded Document type
-             * @return              The Array of source data where Embedded Entities of this type are stored
-             */
-            getEmbeddedCollection(embeddedName: string): EmbeddedCollection<Document>;
 
             /** The canonical name of this Document type, for example "Actor". */
             static get documentName(): string;
@@ -287,50 +269,43 @@ declare module foundry {
              * const data = [{_id: "12ekjf43kj2312ds", name: "New Name 1"}, {_id: "kj549dk48k34jk34", name: "New Name 2"}]};
              * const updated = await Document.update(data); // Returns an Array of Entities, updated in the database
              */
-            update(
-                data: DocumentUpdateData | Partial<DocumentSource>,
-                options?: DocumentModificationContext,
-            ): Promise<this>;
+            update(data: DocumentUpdateData<this>, options?: DocumentModificationContext): Promise<this>;
 
             /**
              * Delete the current Document.
              * @see {Document.delete}
 
-             * @param  context  Options which customize the deletion workflow
-             * @return  The deleted Document
+             * @param context Options which customize the deletion workflow
+             * @return The deleted Document
              */
             delete(context?: DocumentModificationContext): Promise<this>;
 
-            /**
-             * Document-specific actions that should occur when the Document is first created
-             */
-            protected _onCreate(data: object, options: object, userId: string, context: object): void;
-
-            /**
-             * Document-specific actions that should occur when the Document is updated
-             */
-            protected _onUpdate(data: object, options: object, userId: string, context: object): void;
-
-            /**
-             * Document-specific actions that should occur when the Document is deleted
-             */
-            protected _onDelete(id: string, options: object, userId: string, context: any): void;
-
             /* -------------------------------------------- */
-            /*  Embedded Document Management                  */
+            /*  Embedded Operations                         */
             /* -------------------------------------------- */
 
             /**
-             * Get an Embedded Document by its ID from a named collection in the parent
-             * @param collection    The named collection of embedded entities
-             * @param id            The ID of the child to retrieve
-             * @return              Retrieved data for the requested child, or null
+             * Obtain a reference to the Array of source data within the data object for a certain embedded Document name
+             * @param embeddedName The name of the embedded Document type
+             * @return The Collection instance of embedded Documents of the requested type
              */
+            getEmbeddedCollection(embeddedName: string): abstract.EmbeddedCollection<Document>;
+
+            /**
+             * Get an embedded document by it's id from a named collection in the parent document.
+             * @param embeddedName The name of the embedded Document type
+             * @param id The id of the child document to retrieve
+             * @param [options] Additional options which modify how embedded documents are retrieved
+             * @param [options.strict=false] Throw an Error if the requested id does not exist. See Collection#get
+             * @return The retrieved embedded Document instance, or undefined
+             */
+            getEmbeddedDocument(embeddedName: string, id: string, { strict }: { strict: true }): Document;
+            getEmbeddedDocument(embeddedName: string, id: string, { strict }: { strict: false }): Document | undefined;
             getEmbeddedDocument(
-                collection: keyof typeof Document['metadata']['embedded'],
+                embeddedName: string,
                 id: string,
                 { strict }?: { strict?: boolean },
-            ): DocumentData;
+            ): Document | undefined;
 
             /**
              * Create multiple embedded Document instances within this parent Document using provided input data.
@@ -377,49 +352,6 @@ declare module foundry {
                 context?: DocumentModificationContext,
             ): Promise<Document[]>;
 
-            /**
-             * Handle Embedded Document creation within this Document with specific callback steps.
-             * This function is triggered once per EmbeddedEntity which is updated.
-             * It therefore may run multiple times per creation workflow.
-             * Any steps defined here should run on a per-EmbeddedEntity basis.
-             * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
-             */
-            protected _onCreateEmbeddedDocuments(
-                embeddedName: string,
-                documents: Document[],
-                options: DocumentModificationContext,
-                userId: string,
-            ): void;
-
-            /**
-             * Handle Embedded Document updates within this Document with specific callback steps.
-             * This function is triggered once per EmbeddedEntity which is updated.
-             * It therefore may run multiple times per creation workflow.
-             * Any steps defined here should run on a per-EmbeddedEntity basis.
-             * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
-             */
-            protected _onUpdateEmbeddedDocuments(
-                embeddedName: string,
-                documents: Document[],
-                updateData: EmbeddedDocumentUpdateData[],
-                options: DocumentModificationContext,
-                userId: string,
-            ): void;
-
-            /**
-             * Handle Embedded Document deletion within this Document with specific callback steps.
-             * This function is triggered once per EmbeddedEntity which is updated.
-             * It therefore may run multiple times per creation workflow.
-             * Any steps defined here should run on a per-EmbeddedEntity basis.
-             * Steps that should run once for the whole batch should go in _onModifyEmbeddedEntity()
-             */
-            protected _onDeleteEmbeddedDocuments(
-                embeddedName: string,
-                documents: Document[],
-                options: DocumentModificationContext,
-                userId: string,
-            ): void;
-
             /* -------------------------------------------- */
             /*  Flag Operations                             */
             /* -------------------------------------------- */
@@ -458,9 +390,119 @@ declare module foundry {
              * Remove a flag assigned to the Document
              * @param scope The flag scope which namespaces the key
              * @param key   The flag key
-             * @return      A Promise resolving to the updated Document
+             * @return A Promise resolving to the updated Document
              */
             unsetFlag(scope: string, key: string): Promise<this>;
+
+            /* -------------------------------------------- */
+            /*  Event Handlers                              */
+            /* -------------------------------------------- */
+
+            /**
+             * Perform preliminary operations before a Document of this type is created.
+             * Pre-creation operations only occur for the client which requested the operation.
+             * @param data    The initial data object provided to the document creation request
+             * @param options Additional options which modify the creation request
+             * @param user    The User requesting the document creation
+             */
+            protected _preCreate(
+                data: Partial<this['data']['_source']>,
+                options: DocumentModificationContext,
+                user: documents.BaseUser,
+            ): Promise<void>;
+
+            /**
+             * Perform preliminary operations before a Document of this type is updated.
+             * Pre-update operations only occur for the client which requested the operation.
+             * @param changed The differential data that is changed relative to the documents prior values
+             * @param options Additional options which modify the update request
+             * @param user    The User requesting the document update
+             */
+            protected _preUpdate(
+                data: DocumentUpdateData<this>,
+                options: DocumentModificationContext,
+                user: documents.BaseUser,
+            ): Promise<void>;
+
+            /**
+             * Perform preliminary operations before a Document of this type is deleted.
+             * Pre-delete operations only occur for the client which requested the operation.
+             * @param options Additional options which modify the deletion request
+             * @param user    The User requesting the document deletion
+             */
+            _preDelete(options: DocumentModificationContext, user: documents.BaseUser): Promise<void>;
+
+            /**
+             * Perform follow-up operations after a Document of this type is created.
+             * Post-creation operations occur for all clients after the creation is broadcast.
+             * @param data    The initial data object provided to the document creation request
+             * @param options Additional options which modify the creation request
+             */
+            protected _onCreate(
+                data: this['data']['_source'],
+                options: DocumentModificationContext,
+                userId: string,
+            ): void;
+
+            /**
+             * Perform follow-up operations after a Document of this type is updated.
+             * Post-update operations occur for all clients after the update is broadcast.
+             * @param changed The differential data that was changed relative to the documents prior values
+             * @param options Additional options which modify the update request
+             * @param userId  The ID of the User requesting the document update
+             */
+            protected _onUpdate(
+                data: DocumentUpdateData<this>,
+                options: DocumentModificationContext,
+                userId: string,
+            ): void;
+
+            /**
+             * Perform follow-up operations after a Document of this type is deleted.
+             * Post-deletion operations occur for all clients after the deletion is broadcast.
+             * @param options Additional options which modify the deletion request
+             * @param userId The ID of the User requesting the document deletion
+             */
+            protected _onDelete(options: DocumentModificationContext, userId: string): void;
+
+            /**
+             * Perform follow-up operations when a set of Documents of this type are created.
+             * This is where side effects of creation should be implemented.
+             * Post-creation side effects are performed only for the client which requested the operation.
+             * @param documents The Document instances which were created
+             * @param context   The context for the modification operation
+             */
+            static _onCreateDocuments<T extends Document>(
+                this: (...args: any[]) => T,
+                documents: T[],
+                context: DocumentModificationContext,
+            ): Promise<void>;
+
+            /**
+             * Perform follow-up operations when a set of Documents of this type are updated.
+             * This is where side effects of updates should be implemented.
+             * Post-update side effects are performed only for the client which requested the operation.
+             * @param documents The Document instances which were updated
+             * @param context   The context for the modification operation
+             */
+            protected static _onUpdateDocuments<T extends Document>(
+                this: (...args: any[]) => T,
+                documents: T[],
+                context: DocumentModificationContext,
+            ): Promise<void>;
+
+            /**
+             * Perform follow-up operations when a set of Documents of this type are deleted.
+             * This is where side effects of deletion should be implemented.
+             * Post-deletion side effects are performed only for the client which requested the operation.
+             * @param documents The Document instances which were deleted
+             * @param context   The context for the modification operation
+             */
+            protected static _onDeleteDocuments<T extends Document>(
+                this: (...args: any[]) => T,
+                documents: T[],
+                context: DocumentModificationContext,
+            ): Promise<void>;
 
             /* ---------------------------------------- */
             /*  Serialization and Storage               */
@@ -473,7 +515,16 @@ declare module foundry {
              * @param [source=true] Draw values from the underlying data source rather than transformed values
              * @returns The extracted primitive object
              */
-            toObject(source?: boolean): RawObject<this['data']>;
+            toObject(): this['data']['_source'];
+            toObject<T extends boolean>(
+                source: T,
+            ): T extends true
+                ? this['data']['_source']
+                : T extends false
+                ? RawObject<this['data']>
+                : T extends boolean
+                ? this['data']['_source'] | RawObject<this['data']>
+                : never;
 
             /**
              * Serializing an Document should simply serialize its inner data, not the entire instance
@@ -481,49 +532,55 @@ declare module foundry {
             toJSON(): RawObject<this['data']>;
         }
 
-        /**
-         * @typedef DocumentModificationContext
-         * @property [parent]       A parent Document within which these Documents should be embedded
-         * @property [pack]         A Compendium pack identifier within which the Documents should be modified
-         * @property [noHook=false] Block the dispatch of preCreate hooks for this operation
-         * @property [index=false]  Return an index of the Document collection, used only during a get operation.
-         * @property [temporary=false] Create a temporary document which is not saved to the database. Only used during creation.
-         * @property [render=true] Automatically re-render existing applications associated with the document.
-         * @property [renderSheet=false] Automatically create and render the Document sheet when the Document is first created.
-         * @property [diff=true] Difference each update object against current Document data to reduce the size of the transferred data. Only used during update.
-         * @property [recursive=true] Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
-         * @property [isUndo] Is the operation undoing a previous operation, only used by embedded Documents within a Scene
-         * @property [deleteAll] Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
-         */
-        interface DocumentModificationContext {
-            parent?: Document;
-            pack?: string;
-            noHook?: boolean;
-            index?: boolean;
-            temporary?: boolean;
-            render?: boolean;
-            renderSheet?: boolean;
-            diff?: boolean;
-            recursive?: boolean;
-            isUndo?: boolean;
-            deleteAll?: boolean;
-        }
+        type MetadataPermission =
+            | keyof typeof CONST.USER_ROLES
+            | keyof typeof CONST.USER_PERMISSIONS
+            | ((...args: any[]) => boolean);
 
         interface DocumentMetadata {
             collection: string;
-            embedded: Record<string, new (...args: any[]) => Document>;
+            embedded: Record<string, new (...args: any[]) => foundry.abstract.Document>;
             hasSystemData: boolean;
             isEmbedded?: boolean;
             isPrimary?: boolean;
             name: string;
             pack: null;
-            permissions: Record<UserAction, MetadataPermission>;
-            types: string[];
+            permissions: {
+                create: MetadataPermission;
+                update: MetadataPermission;
+                delete: MetadataPermission;
+            };
+            types: string[] | Record<string, number>;
         }
     }
 }
 
-declare type DocumentModificationContext = foundry.abstract.DocumentModificationContext;
+/**
+ * @property [parent]            A parent Document within which these Documents should be embedded
+ * @property [pack]              A Compendium pack identifier within which the Documents should be modified
+ * @property [noHook=false]      Block the dispatch of preCreate hooks for this operation
+ * @property [index=false]       Return an index of the Document collection, used only during a get operation.
+ * @property [temporary=false]   Create a temporary document which is not saved to the database. Only used during creation.
+ * @property [render=true]       Automatically re-render existing applications associated with the document.
+ * @property [renderSheet=false] Automatically create and render the Document sheet when the Document is first created.
+ * @property [diff=true]         Difference each update object against current Document data to reduce the size of the transferred data. Only used during update.
+ * @property [recursive=true]    Merge objects recursively. If false, inner objects will be replaced explicitly. Use with caution!
+ * @property [isUndo]            Is the operation undoing a previous operation, only used by embedded Documents within a Scene
+ * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
+ */
+declare interface DocumentModificationContext {
+    parent?: Document;
+    pack?: string;
+    noHook?: boolean;
+    index?: boolean;
+    temporary?: boolean;
+    render?: boolean;
+    renderSheet?: boolean;
+    diff?: boolean;
+    recursive?: boolean;
+    isUndo?: boolean;
+    deleteAll?: boolean;
+}
 
 declare type DocumentPermission = typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS];
 
@@ -535,7 +592,9 @@ declare type Embedded<T extends foundry.abstract.Document> = T & {
 //     ? Omit<Partial<D>, 'type'> & { type: D['type'] }
 //     : Partial<D>;
 
-declare type DocumentUpdateData = Record<string, unknown>;
+declare type DocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> =
+    | { [K in keyof T['data']['_source']]?: unknown }
+    | Record<string, unknown>;
 declare type EmbeddedDocumentUpdateData =
     | (Partial<foundry.abstract.DocumentData> & { _id: string })
     | { _id: string; [key: string]: unknown };
@@ -545,10 +604,3 @@ interface DocumentRenderOptions extends RenderOptions {
         permission?: boolean;
     };
 }
-
-declare type DataWithType = foundry.data.ActorData | foundry.data.ItemData | foundry.data.MacroData;
-
-type MetadataPermission =
-    | keyof typeof CONST.USER_ROLES
-    | keyof typeof CONST.USER_PERMISSIONS
-    | ((user: User) => boolean);

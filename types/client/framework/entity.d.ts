@@ -676,7 +676,18 @@ declare class Entity {
      */
     static activateSocketListeners(socket: any): unknown;
 
+    /** Properties and methods added to ease conversion to documents */
+    readonly pack: string | null;
+    readonly documentName: string;
+    get isEmbedded(): boolean;
+    protected _initialize(): void;
     canUserModify(user: User, action: string): boolean;
-
     toObject(source?: boolean): this['data'];
+    getUserLevel(user: User): DocumentPermission | null;
+    protected _preUpdate(
+        data: EntityUpdateData<this['data']>,
+        options: DocumentModificationContext,
+        user: foundry.documents.BaseUser,
+    ): Promise<void>;
+    _preDelete(options: DocumentModificationContext, user: foundry.documents.BaseUser): Promise<void>;
 }

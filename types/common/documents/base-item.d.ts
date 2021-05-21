@@ -19,7 +19,8 @@ declare module foundry {
             get effects(): this['data']['effects'];
 
             /** @override */
-            canUserModify(user: BaseUser, action: UserAction, data: DocumentUpdateData): boolean;
+            canUserModify(user: BaseUser, action: UserAction, data: DocumentUpdateData<this>): boolean;
+
             /** @override */
             testUserPermission(
                 user: BaseUser,
@@ -48,7 +49,7 @@ declare module foundry {
         }
 
         interface BaseItem {
-            data: data.ItemData;
+            readonly data: data.ItemData<this>;
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {
