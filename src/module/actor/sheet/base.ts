@@ -254,7 +254,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         );
         const highestSlotPrepared =
             spellsSlotsWhereThisIsPrepared
-                ?.map((slot) => parseInt(slot[0].match(/slot(\d+)/)[1], 10))
+                ?.map((slot) => Number(slot[0].match(/slot(\d+)/)?.[1]))
                 .reduce((acc, cur) => (cur > acc ? cur : acc), 0) ?? castingLevel;
         const normalHighestSpellLevel = Math.ceil(actorData.data.details.level.value / 2);
         const maxSpellLevelToShow = Math.min(10, Math.max(castingLevel, highestSlotPrepared, normalHighestSpellLevel));
@@ -490,7 +490,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
         // Pad field width
         html.find('[data-wpad]').each((_i, e) => {
             const text = e.tagName === 'INPUT' ? (e as HTMLInputElement).value : e.innerText;
-            const w = (text.length * parseInt(e.getAttribute('data-wpad'), 10)) / 2;
+            const w = (text.length * Number(e?.getAttribute('data-wpad'))) / 2;
             e.setAttribute('style', `flex: 0 0 ${w}px`);
         });
 
@@ -648,7 +648,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         // Sell treasure item
         html.find('.item-sell-treasure').on('click', (event) => {
-            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id');
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
             sellTreasure(this.actor, itemId);
         });
 
@@ -669,7 +669,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             if (identified) {
                 const item = this.actor.items.get(itemId);
                 if (!(item instanceof PhysicalItemPF2e)) {
-                    throw Error(`PF2e | ${item.name} is not a physical item.`);
+                    throw ErrorPF2e(`${itemId} is not a physical item.`);
                 }
                 item.setIdentificationStatus('unidentified');
             } else {
@@ -743,7 +743,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             const itemId = $(event.currentTarget).parents('.item-container').attr('data-container-id') ?? '';
             const focusPool = Math.clamped(Number(event.target.value), 0, 3);
             const item = this.actor.items.get(itemId);
-            let focusPoints = getProperty(item.data, 'data.focus.points') || 0;
+            let focusPoints = getProperty(item?.data ?? {}, 'data.focus.points') || 0;
             focusPoints = Math.clamped(focusPoints, 0, focusPool);
             await this.actor.updateEmbeddedDocuments('Item', {
                 _id: itemId,
@@ -1275,7 +1275,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
 
         if (isPhysicalItem(itemData)) {
             const container = $(event.target).parents('[data-item-is-container="true"]');
-            let containerId = null;
+            let containerId: string | undefined = undefined;
             if (container[0] !== undefined) {
                 containerId = container[0].dataset.itemId?.trim();
             }
@@ -1622,7 +1622,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                         callback: async () => {
                             console.debug('PF2e System | Deleting Spell Container: ', item.name);
                             // Delete all child objects
-                            const itemsToDelete = [];
+                            const itemsToDelete: string[] = [];
                             for (const item of this.actor.itemTypes.spell) {
                                 if (item.data.data.location.value === itemId) {
                                     itemsToDelete.push(item.id);

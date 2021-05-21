@@ -24,20 +24,14 @@ PF2E.Hooks.listen();
  */
 Hooks.on('getChatLogEntryContext', (_html, options) => {
     const canApplyDamage: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
-        return !!(
-            canvas.tokens.controlled.length &&
-            message.isRoll &&
-            message.data &&
-            message.data.flavor &&
-            message.data.flavor.includes('Damage')
-        );
+        return !!(canvas.tokens.controlled.length && message.isRoll && message.data.flavor?.includes('Damage'));
     };
     const canApplyHealing: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
         return !!(
             canvas.tokens.controlled.length &&
@@ -48,41 +42,37 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         );
     };
     const canApplyInitiative: ContextOptionCondition = (li) => {
-        const { messageId } = li.data();
-        const message = game.messages.get(messageId);
+        const messageId = li.attr('data-message-id') ?? '';
+        const message = game.messages.get(messageId, { strict: true });
 
         // Rolling PC iniative from a regular skill is difficult because of bonuses that can apply to initiative specifically (e.g. Harmlessly Cute)
         // Avoid potential confusion and misunderstanding by just allowing NPCs to roll
-        const validActor = canvas.tokens.controlled?.[0]?.actor?.data?.type === 'npc' ?? false;
+        const validActor = canvas.tokens.controlled[0]?.actor?.data.type === 'npc';
         const validRollType =
-            (message?.data?.flavor?.includes('Skill Check') || message?.data?.flavor?.includes('Perception Check')) ??
-            false;
+            message.data.flavor?.includes('Skill Check') || message.data.flavor?.includes('Perception Check') || false;
         return validActor && message.isRoll && validRollType;
     };
 
     const canHeroPointReroll: ContextOptionCondition = (li): boolean => {
-        const message = game.messages.get(li.data('messageId'));
-        const actorId = message.data.speaker.actor;
-        const canReroll = message.getFlag('pf2e', 'canReroll');
-        if (canReroll && actorId) {
-            const actor = game.actors.get(actorId);
-            return (
-                actor.isOwner &&
-                actor.data.data.attributes.heroPoints?.rank >= 1 &&
-                (message.isAuthor || game.user.isGM)
-            );
-        }
-        return false;
+        const message = game.messages.get(li.data('messageId'), { strict: true });
+
+        const actorId = message.data.speaker.actor ?? '';
+        const actor = game.actors.get(actorId);
+        const canReroll = !!message.getFlag('pf2e', 'canReroll');
+        return (
+            canReroll &&
+            !!actor &&
+            actor.isOwner &&
+            actor.data.data.attributes.heroPoints?.rank >= 1 &&
+            (message.isAuthor || game.user.isGM)
+        );
     };
     const canReroll: ContextOptionCondition = (li): boolean => {
-        const message = game.messages.get(li.data('messageId'));
-        const actorId = message.data.speaker.actor;
-        const canRerollMessage = message.getFlag('pf2e', 'canReroll');
-        if (canRerollMessage && actorId) {
-            const actor = game.actors.get(actorId);
-            return actor.isOwner && (message.isAuthor || game.user.isGM);
-        }
-        return false;
+        const message = game.messages.get(li.data('messageId'), { strict: true });
+        const actorId = message.data.speaker.actor ?? '';
+        const isOwner = !!game.actors.get(actorId)?.isOwner;
+        const canRerollMessage = !!message.getFlag('pf2e', 'canReroll');
+        return canRerollMessage && isOwner && (message.isAuthor || game.user.isGM);
     };
 
     options.push(
@@ -120,25 +110,34 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
             name: 'PF2E.RerollMenu.HeroPoint',
             icon: '<i class="fas fa-hospital-symbol"></i>',
             condition: canHeroPointReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { heroPoint: true }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    heroPoint: true,
+                }),
         },
         {
             name: 'PF2E.RerollMenu.KeepNew',
             icon: '<i class="fas fa-dice"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'))),
+            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true })),
         },
         {
             name: 'PF2E.RerollMenu.KeepWorst',
             icon: '<i class="fas fa-dice-one"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'worst' }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'worst',
+                }),
         },
         {
             name: 'PF2E.RerollMenu.KeepBest',
             icon: '<i class="fas fa-dice-six"></i>',
             condition: canReroll,
-            callback: (li) => CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId')), { keep: 'best' }),
+            callback: (li) =>
+                CheckPF2e.rerollFromMessage(game.messages.get(li.data('messageId'), { strict: true }), {
+                    keep: 'best',
+                }),
         },
     );
 });
@@ -165,7 +164,7 @@ Hooks.on('updateToken', (tokenDocument: any, updateData: any, _options: EntityUp
     if ('disposition' in updateData && game.userId === userID) {
         const actor = tokenDocument.getActor();
         if (actor instanceof NPCPF2e) {
-            (actor as NPCPF2e).updateNPCAttitudeFromDisposition(updateData.disposition);
+            actor.updateNPCAttitudeFromDisposition(updateData.disposition);
         }
     }
 

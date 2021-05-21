@@ -5,7 +5,7 @@ import { getContainerMap } from '@item/container';
 import { ProficiencyModifier } from '@module/modifiers';
 import { ConditionManager } from '@module/conditions';
 import { CharacterPF2e } from '../character';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem } from '@item/data/types';
+import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem, LoreData, WeaponData } from '@item/data/types';
 import { ItemPF2e } from '@item/base';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
@@ -136,7 +136,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     protected prepareItems(sheetData: any) {
         const actorData: any = sheetData.actor;
         // Inventory
-        const inventory = {
+        const inventory: Record<string, { label: string; items: ItemDataPF2e[]; investedItemCount?: number }> = {
             weapon: { label: game.i18n.localize('PF2E.InventoryWeaponsHeader'), items: [] },
             armor: { label: game.i18n.localize('PF2E.InventoryArmorHeader'), items: [] },
             equipment: { label: game.i18n.localize('PF2E.InventoryEquipmentHeader'), items: [], investedItemCount: 0 },
@@ -153,7 +153,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         spellbooks.unassigned = {};
 
         // Spellcasting Entries
-        const spellcastingEntries = [];
+        const spellcastingEntries: any[] = [];
 
         let backgroundItemId = undefined;
 
@@ -164,7 +164,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             bonusFeats: FeatData[];
         }
         const tempFeats: FeatData[] = [];
-        const featSlots: { [key: string]: FeatSlot } = {
+        const featSlots: Record<string, FeatSlot> = {
             ancestryfeature: { label: 'PF2E.FeaturesAncestryHeader', feats: [], bonusFeats: [] },
             classfeature: { label: 'PF2E.FeaturesClassHeader', feats: [], bonusFeats: [] },
             ancestry: { label: 'PF2E.FeatAncestryHeader', feats: [], bonusFeats: [] },
@@ -186,14 +186,14 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         const deityBoonsCurses: FeatData[] = [];
 
         // Actions
-        const actions = {
+        const actions: Record<string, { label: string; actions: any[] }> = {
             action: { label: game.i18n.localize('PF2E.ActionsActionsHeader'), actions: [] },
             reaction: { label: game.i18n.localize('PF2E.ActionsReactionsHeader'), actions: [] },
             free: { label: game.i18n.localize('PF2E.ActionsFreeActionsHeader'), actions: [] },
         };
 
         // Read-Only Actions
-        const readonlyActions = {
+        const readonlyActions: Record<string, { label: string; actions: any[] }> = {
             interaction: { label: 'Interaction Actions', actions: [] },
             defensive: { label: 'Defensive Actions', actions: [] },
             offensive: { label: 'Offensive Actions', actions: [] },
@@ -201,12 +201,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         const readonlyEquipment: unknown[] = [];
 
-        const attacks = {
+        const attacks: { weapon: { label: string; items: WeaponData[]; type: 'weapon' } } = {
             weapon: { label: 'Compendium Weapon', items: [], type: 'weapon' },
         };
 
         // Skills
-        const lores = [];
+        const lores: LoreData[] = [];
 
         // Iterate through items, allocating to containers
         const bulkConfig = {
@@ -456,7 +456,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
         inventory.equipment.investedItemCount = investedCount; // Tracking invested items
 
-        const embeddedEntityUpdate = [];
+        const embeddedEntityUpdate: EmbeddedEntityUpdateData[] = [];
         // Iterate through all spells in the temp spellbook and check that they are assigned to a valid spellcasting entry. If not place in unassigned.
         for (const spellData of tempSpellbook) {
             // check if the spell has a valid spellcasting entry assigned to the location value.
@@ -850,7 +850,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
 
     private onAddCustomModifier(event: JQuery.ClickEvent) {
         const parent = $(event.currentTarget).parents('.add-modifier');
-        const stat = $(event.currentTarget).attr('data-stat');
+        const stat = $(event.currentTarget).attr('data-stat') ?? '';
         const modifier = Number(parent.find('.add-modifier-value input[type=number]').val()) || 1;
         const name = `${parent.find('.add-modifier-name').val()}`;
         const type = `${parent.find('.add-modifier-type').val()}`;
@@ -872,8 +872,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
     }
 
     private onRemoveCustomModifier(event: JQuery.ClickEvent) {
-        const stat = $(event.currentTarget).attr('data-stat');
-        const name = $(event.currentTarget).attr('data-name');
+        const stat = $(event.currentTarget).attr('data-stat') ?? '';
+        const name = $(event.currentTarget).attr('data-name') ?? '';
         const errors: string[] = [];
         if (!stat || !stat.trim()) {
             errors.push('Statistic is required.');
