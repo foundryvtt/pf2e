@@ -123,8 +123,10 @@
         {{#each data.saves as |save saveId|}}
             <div class="save-item" data-save="{{saveId}}">
                 <label class="attribute-label rollable" title="{{ save.breakdown }}"><a>{{ localize save.labelShort }}</a></label>
-                <input class="modifier{{#if (gte save.value 0)}} not-negative{{/if}}{{#if (gt save.totalModifier save.base)}} positive-modifier{{/if}}{{#if (lt save.totalModifier save.base)}} negative-modifier{{/if}}" type="number" name="data.saves.{{saveId}}.value" value="{{save.value}}" data-display-value="{{save.value}}" data-base-property="data.saves.{{saveId}}.base" data-dtype="Number" placeholder="0"/>
-                <span class="plus{{#if (lt save.value 10)}} lt10{{/if}}"></span>
+                <div class="input-wrapper">
+                    <input class="modifier{{#if (gte save.value 0)}} not-negative{{/if}}{{#if (gt save.totalModifier save.base)}} positive-modifier{{/if}}{{#if (lt save.totalModifier save.base)}} negative-modifier{{/if}}" type="number" name="data.saves.{{saveId}}.value" value="{{save.value}}" data-display-value="{{save.value}}" data-base-property="data.saves.{{saveId}}.base" data-dtype="Number" placeholder="0"/>
+                    <span class="plus{{#if (lt save.value 10)}} lt10{{/if}}"></span>
+                </div>
             </div>
         {{/each}}
     </div>
