@@ -27,7 +27,7 @@ export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
             data.hasExceptions = true;
         }
 
-        const choices: any = {};
+        const choices: Record<string, Record<string, unknown>> = {};
         const senses: SenseData[] = getProperty(this.object.data, this.objectProperty);
         Object.entries(this.choices).forEach(([type, label]) => {
             const sense = senses.find((sense) => sense.type === type);
@@ -71,7 +71,7 @@ export class TraitSelectorSenses extends TraitSelectorBase<ActorPF2e> {
     }
 
     protected getUpdateData(formData: FormData) {
-        const choices = [];
+        const choices: Record<string, unknown>[] = [];
         for (const [k, v] of Object.entries(formData as Record<any, any>)) {
             if (v.length > 1 && v[0]) {
                 if (!Number.isNaN(Number(v[1]))) {

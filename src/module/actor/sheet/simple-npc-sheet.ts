@@ -602,7 +602,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         }
 
         // Contains all updates to perform over items after processing
-        const updateData = [];
+        const updateData: EmbeddedEntityUpdateData[] = [];
 
         // Assign spells to spell entries
         for (const spell of spellsList) {

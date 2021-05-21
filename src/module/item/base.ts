@@ -57,7 +57,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
     /** The default sheet, token, etc. image of a newly created world item */
     static get defaultImg() {
-        const [typeName] = Object.entries(CONFIG.PF2E.Item.entityClasses).find(([_key, cls]) => cls.name === this.name);
+        const typeName = Object.entries(CONFIG.PF2E.Item.entityClasses).find(
+            ([_key, cls]) => cls.name === this.name,
+        )?.[0];
         return `systems/pf2e/icons/default-icons/${typeName}.svg`;
     }
 
@@ -712,7 +714,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollSpellDamage(event: JQuery.ClickEvent) {
+    rollSpellDamage(this: Owned<ItemPF2e>, event: JQuery.ClickEvent) {
         let item = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
@@ -771,8 +773,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Counteract check
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollCounteract(event: JQuery.ClickEvent) {
-        let item: ItemDataPF2e = this.data;
+    rollCounteract(this: Owned<ItemPF2e>, event: JQuery.ClickEvent) {
+        let item = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }

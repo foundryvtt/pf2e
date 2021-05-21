@@ -6,7 +6,7 @@ export class Migration616MigrateFeatPrerequisites extends MigrationBase {
 
     async updateItem(itemData: ItemDataPF2e) {
         if (itemData.type === 'feat') {
-            const update = [];
+            const update: { value: string }[] = [];
             const prerequisites: any = itemData.data.prerequisites;
             if (prerequisites.value) {
                 if (typeof prerequisites.value === 'string') {
