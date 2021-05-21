@@ -24,13 +24,15 @@ declare module foundry {
          * @property [door=0]  The type of door which this wall contains, if any
          * @property [ds=0]    The state of the door this wall contains, if any
          */
-        class WallData extends abstract.DocumentData {
+        class WallData<
+            TDocument extends documents.BaseWall = documents.BaseWall
+        > extends abstract.DocumentData<TDocument> {
             /** The data schema for a WallData object */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface WallData extends abstract.DocumentData, Omit<WallSource, '_id'> {
-            _source: WallSource;
+        interface WallData extends Omit<WallSource, '_id'> {
+            readonly _source: WallSource;
         }
     }
 }

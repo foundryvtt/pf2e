@@ -4,7 +4,7 @@ declare interface CompendiumDirectoryOptions extends SidebarTabOptions {
     title: string;
 }
 
-declare type PackSummaryByEntity = Record<CompendiumEntityString, PackSummary>;
+declare type PackSummaryByEntity = Record<CompendiumDocumentString, PackSummary>;
 
 declare interface CompendiumDirectoryData {
     user: User;
@@ -21,7 +21,7 @@ declare interface PackSummaryData {
 }
 
 declare interface PackSummary {
-    label: CompendiumEntityString;
+    label: CompendiumDocumentString;
     packs: PackSummaryData[];
 }
 

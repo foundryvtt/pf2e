@@ -1,6 +1,6 @@
 declare module foundry {
     module data {
-        interface MacroSource extends foundry.abstract.DocumentSource {
+        interface MacroSource extends abstract.DocumentSource {
             type: 'chat' | 'script';
             img: string;
             actorIds: string[];
@@ -10,8 +10,17 @@ declare module foundry {
             folder?: string | null;
             sort: number;
         }
-        class MacroData extends foundry.abstract.DocumentData {}
-        interface MacroData extends foundry.abstract.DocumentData, Omit<MacroSource, '_id'> {
+
+        class MacroData<
+            TDocument extends documents.BaseMacro = documents.BaseMacro
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+
+            folder: documents.BaseFolder | null;
+        }
+
+        interface MacroData extends Omit<MacroSource, '_id' | 'folder'> {
             _source: MacroSource;
         }
     }

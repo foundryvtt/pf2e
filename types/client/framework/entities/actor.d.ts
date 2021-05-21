@@ -304,13 +304,6 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
      */
     importItemFromCollection(collection: string, entryId: string): ItemType;
 
-    /**
-     * Get an owned item by it's ID, initialized as an Item entity class
-     * @param itemId The ID of the owned item
-     * @return       An Item class instance for that owned item or null if the itemId does not exist
-     */
-    getOwnedItem(itemId: string): Owned<ItemType> | null;
-
     // Signature overload
     getEmbeddedDocument(collection: 'Item', id: string, { strict }?: { strict?: boolean }): ItemType['data'];
     getEmbeddedDocument(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
@@ -436,11 +429,15 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
         options?: EntityDeleteOptions,
     ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
 
-    /**
-     * When Owned Items are created process each item and extract Active Effects to transfer to the Actor.
-     * @param deleted   The array of deleted owned Item data
-     */
-    protected _deleteItemActiveEffects(deleted: ItemType['data'][]): ActiveEffectData[] | void;
+    migrateSystemData({
+        insertKeys,
+        insertValues,
+        enforceTypes,
+    }?: {
+        insertKeys?: boolean;
+        insertValues?: boolean;
+        enforceTypes?: boolean;
+    }): this['data']['data'];
 }
 
 declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = ActiveEffect> {

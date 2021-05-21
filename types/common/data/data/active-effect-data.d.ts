@@ -3,8 +3,6 @@ declare module foundry {
         /**
          * @property _id         The EmbeddedEntity id of the Active Effect
          * @property label       The label which describes this effect
-         * @property duration    The duration of the effect
-         * @property changes     The changes applied by this effect
          * @property [disabled]  Is this effect currently disabled?
          * @property [icon]      An image icon path for this effect
          * @property [tint]      A hex color string to tint the effect icon
@@ -12,19 +10,34 @@ declare module foundry {
          * @property [transfer]  Should this effect transfer automatically to an Actor when its Item becomes owned?
          * @property flags       Additional key/value flags
          */
-        interface ActiveEffectSource extends abstract.DocumentSource {
+        interface ActiveEffectSource {
+            _id: string;
             label: string;
-            duration: ActiveEffectDuration;
-            changes: ActiveEffectChange[];
+            duration: EffectDurationSource;
+            changes: EffectChangeSource[];
             disabled: boolean;
             icon: ImageField;
             tint: string;
             origin: string;
             transfer: boolean;
+            flags: Record<string, unknown>;
         }
-        class ActiveEffectData extends abstract.DocumentData {}
-        interface ActiveEffectData extends Omit<ActiveEffectSource, '_id'> {
-            _source: ActiveEffectSource;
+
+        class ActiveEffectData<
+            TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+
+            /** @property duration The duration of the effect */
+            duration: EffectDurationData;
+
+            /** @property changes The changes applied by this effect */
+            changes: EffectChangeData[];
+        }
+
+        interface ActiveEffectData extends Omit<ActiveEffectSource, '_id' | 'duration' | 'changes'> {
+            readonly _source: ActiveEffectSource;
         }
     }
 }

@@ -44,14 +44,18 @@ declare module foundry {
                 data: Partial<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
-            ): void;
+            ): Promise<void>;
 
             /** @override */
-            _preUpdate(changed: DocumentUpdateData, options: DocumentModificationContext, user: BaseUser): void;
+            _preUpdate(
+                changed: DocumentUpdateData<this>,
+                options: DocumentModificationContext,
+                user: BaseUser,
+            ): Promise<void>;
         }
 
         interface BaseActor {
-            data: data.ActorData;
+            readonly data: data.ActorData<this>;
         }
 
         interface ActorMetadata extends abstract.DocumentMetadata {

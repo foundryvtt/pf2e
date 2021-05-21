@@ -1,4 +1,4 @@
-declare type CompendiumEntityString = 'Actor' | 'Item' | 'JournalEntry' | 'Macro' | 'RollTable' | 'Playlist' | 'Scene';
+declare function fromUuid(uuid: string): CompendiumEntity | null;
 
 declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEntity> {
     absPath: string;
@@ -16,7 +16,7 @@ declare interface CompendiumMetadata<T extends CompendiumEntity = CompendiumEnti
         ? 'RollTable'
         : T extends Scene
         ? 'Scene'
-        : CompendiumEntityString;
+        : CompendiumDocumentString;
     label: string;
     module: string;
     name: string;
@@ -132,7 +132,7 @@ declare class Compendium<EntityType extends CompendiumEntity = CompendiumEntity>
         ? 'Macro'
         : EntityType extends RollTable
         ? 'RollTable'
-        : CompendiumEntityString;
+        : CompendiumDocumentString;
 
     /**
      * A reference to the Entity class object contained within this Compendium pack

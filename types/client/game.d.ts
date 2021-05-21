@@ -209,7 +209,7 @@ declare class Game<
             minimumCoreVersion: string;
             name: string;
             packs: {
-                entity: CompendiumEntityString;
+                entity: CompendiumDocumentString;
                 label: string;
                 module: string;
                 name: string;

@@ -1,14 +1,23 @@
 declare module foundry {
     module data {
-        interface PlaylistSource extends foundry.abstract.DocumentSource {
+        interface PlaylistSource {
             mode: number;
             playing: boolean;
             sort: number;
             folder?: string | null;
-            sounds: string[];
+            sounds: PlaylistSoundSource[];
         }
-        class PlaylistData extends foundry.abstract.DocumentData {}
-        interface PlaylistData extends foundry.abstract.DocumentData, Omit<PlaylistSource, '_id'> {
+
+        class PlaylistData<
+            TDocument extends documents.BasePlaylist = documents.BasePlaylist
+        > extends abstract.DocumentData<TDocument> {
+            /** @override */
+            static defineSchema(): abstract.DocumentSchema;
+
+            sounds: abstract.EmbeddedCollection<documents.BasePlaylistSound>;
+        }
+
+        interface PlaylistData extends Omit<PlaylistSoundSource, '_id' | 'sounds'> {
             _source: PlaylistSource;
         }
     }
