@@ -160,16 +160,18 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
     }
 });
 
-Hooks.on('updateToken', (tokenDocument: any, updateData: any, _options: EntityUpdateOptions, userID: string) => {
-    if ('disposition' in updateData && game.userId === userID) {
-        const actor = tokenDocument.getActor();
-        if (actor instanceof NPCPF2e) {
-            actor.updateNPCAttitudeFromDisposition(updateData.disposition);
+Hooks.on(
+    'updateToken',
+    (tokenDocument: any, updateData: Partial<TokenData>, _options: EntityUpdateOptions, userID: string) => {
+        if (updateData.disposition && game.userId === userID) {
+            const actor = tokenDocument.getActor();
+            if (actor instanceof NPCPF2e) {
+                actor.updateNPCAttitudeFromDisposition(updateData.disposition);
+            }
         }
-    }
-
-    game.pf2e.effectPanel.refresh();
-});
+        game.pf2e.effectPanel.refresh();
+    },
+);
 
 Hooks.on('controlToken', () => {
     game.pf2e?.effectPanel.refresh();

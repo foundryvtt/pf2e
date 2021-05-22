@@ -126,7 +126,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Changing the createData does not change the resulting item; the data has to be updated.
         if (!isObjectEmpty(updateData)) {
-            (itemData as any).update(updateData); // TODO: Fix type
+            itemData.update(updateData);
         }
     }
 
@@ -137,10 +137,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 // Rule Elements
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
                 const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = (this.actor as any).getActiveTokens(); // TODO: Fix any type
+                const tokens = this.actor.getActiveTokens(true); // TODO: Ensure that this affects all tokens of this actor in all scenes
                 const actorUpdates = {};
                 for (const rule of rules) {
-                    rule.onCreate(this.actor.data, this.data, actorUpdates, Object.values(tokens));
+                    rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
                 }
                 this.actor.update(actorUpdates);
 
@@ -171,10 +171,10 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
                 const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = (this.actor as any).getActiveTokens(); // TODO: Fix any type
+                const tokens = this.actor.getActiveTokens(true); // TODO: Ensure that this affects all tokens of this actor in all scenes
                 const actorUpdates = {};
                 for (const rule of rules) {
-                    rule.onDelete(this.actor.data, this.data, actorUpdates, Object.values(tokens));
+                    rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
                 }
                 this.actor.update(actorUpdates);
 
