@@ -133,7 +133,7 @@ export class FamiliarSheetPF2e extends ActorSheet<FamiliarPF2e> {
                         icon: '<i class="fas fa-trash"></i>',
                         label: 'Remove',
                         callback: () => {
-                            this.actor.deleteOwnedItem(itemID);
+                            item.delete();
                         },
                     },
                     cancel: {
