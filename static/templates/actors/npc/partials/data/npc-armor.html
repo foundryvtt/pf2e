@@ -13,10 +13,13 @@
         </div>
     </div>
 
-    <div class="body armor">
+    <div class="body armor {{#if hasShield}}hasShield{{/if}}">
         <div class="input-group armor__ac">
             <span class="armor__value">{{data.attributes.ac.value}}</span>
-            <h4 class="armor__label">{{ localize 'PF2E.ArmorClassLabel' }}</h4>
+            <h4 class="armor__label">
+                {{#if hasShield}}{{ localize 'PF2E.ArmorClassShortLabel' }} {{else}} {{ localize 'PF2E.ArmorClassLabel'
+                }}{{/if}}
+            </h4>
         </div>
 
         <div class="input-group armor__base">
@@ -31,5 +34,55 @@
             />
             <h4 class="armor__label">{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</h4>
         </div>
+
+        {{#if hasShield}}
+        <div
+            class="input-group shield {{#if data.attributes.shieldBroken}} broken"
+            title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}"
+        >
+            <div class="input-row">
+                <input
+                    class="shield__current"
+                    type="number"
+                    name="data.attributes.shield.value"
+                    value="{{ data.attributes.shield.value }}"
+                    title="{{localize 'PF2E.ShieldCurrentTitle' }}"
+                    data-dtype="Number"
+                    placeholder="0"
+                />
+                <span>/</span>
+                <label class="shield__max" title="{{localize 'PF2E.ShieldMaxTitle' }}">
+                    {{ data.attributes.shield.max }}
+                </label>
+            </div>
+            <h4 class="armor__label">{{ localize 'PF2E.ShieldLabel' }}</h4>
+        </div>
+
+        <div
+            class="shield__details shield {{#if data.attributes.shieldBroken}} broken"
+            title="{{localize 'PF2E.ShieldBTLabel'}}{{/if}}"
+        >
+            <div class="label-group">
+                <label class="shield__details__label" title="{{ localize 'PF2E.ShieldACBonusTitle' }}">
+                    {{ localize 'PF2E.ArmorClassShortLabel' }}
+                </label>
+                <label class="shield__details__value">{{ data.attributes.shield.ac }}</label>
+            </div>
+
+            <div class="label-group">
+                <label class="shield__details__label" title="{{ localize 'PF2E.ShieldHardnessTitle' }}">
+                    {{ localize 'PF2E.ShieldHardnessShortLabel' }}
+                </label>
+                <label class="shield__details__value">{{ data.attributes.shield.hardness }}</label>
+            </div>
+
+            <div class="label-group">
+                <label class="shield__details__label" title="{{ localize 'PF2E.ShieldBTTitle' }}">
+                    {{ localize 'PF2E.ShieldBTShortLabel' }}
+                </label>
+                <label class="shield__details__value">{{ data.attributes.shield.brokenThreshold }}</label>
+            </div>
+        </div>
+        {{/if}}
     </div>
 </section>

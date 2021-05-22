@@ -24,7 +24,7 @@
         border-radius: 20px;
     }
 
-    input[type='checkbox'] + .checkbox__image {
+    input[type='checkbox'] ~ .checkbox__image {
         color: var(--alt);
         border: 2px solid;
         position: relative;
@@ -39,15 +39,15 @@
             height: 6px;
             background: currentColor;
             top: 2px;
-            left: 12px;
+            left: 2px;
         }
     }
 
-    input[type='checkbox']:checked + .checkbox__image {
+    input[type='checkbox']:checked ~ .checkbox__image {
         color: var(--primary);
 
         &:before {
-            left: 2px;
+            left: 12px;
         }
     }
 
