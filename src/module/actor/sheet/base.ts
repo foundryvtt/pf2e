@@ -935,7 +935,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             }).render(true);
         } else if (item instanceof ItemPF2e) {
             const deleteItem = async (): Promise<void> => {
-                await this.actor.deleteOwnedItem(itemId);
+                await item.delete();
                 if (item.type === 'lore') {
                     // normalize skill name to lower-case and dash-separated words
                     const skill = item.name.toLowerCase().replace(/\s+/g, '-');
@@ -1628,11 +1628,10 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                                     itemsToDelete.push(item.id);
                                 }
                             }
-
-                            await this.actor.deleteOwnedItem(itemsToDelete);
-
                             // Delete item container
-                            await this.actor.deleteOwnedItem(item.id);
+                            itemsToDelete.push(item.id);
+                            await this.actor.deleteEmbeddedDocuments('Item', itemsToDelete);
+
                             li.slideUp(200, () => this.render(false));
                         },
                     },

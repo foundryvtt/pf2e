@@ -35,7 +35,7 @@ export async function raiseAShield(options: ActionDefaultOptions): Promise<void>
                 (effect) => effect.getFlag('core', 'sourceId') === ITEM_UUID,
             );
             if (existingEffect) {
-                await actor.deleteOwnedItem(existingEffect.id);
+                await existingEffect.delete();
                 return false;
             } else {
                 const effect = await fromUuid(ITEM_UUID);
