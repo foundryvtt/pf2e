@@ -28,11 +28,13 @@ $negative-modifer: #cc3311;
 }
 
 .npc-sheet {
+    --sidebar-width: 180px;
+
     display: grid;
     grid-template:
         'sidebar header'
         'sidebar body'
-        / 30% 1fr;
+        / var(--sidebar-width) 1fr;
     grid-template-rows: min-content 1fr;
     column-gap: 0.5em;
     align-items: stretch;
@@ -41,6 +43,7 @@ $negative-modifer: #cc3311;
     padding: 1em 2.5em 0;
     margin: auto;
     max-width: 50vw;
+    position: relative;
 
     h1,
     h2,
@@ -111,6 +114,7 @@ $negative-modifer: #cc3311;
     @import 'scrollbar';
     @import 'forms';
     @import 'data-entry';
+    @import 'logo';
     @import 'sidebar';
     @import 'nav';
     @import 'header';

@@ -1,0 +1,26 @@
+.checkbox {
+    position: relative;
+    display: flex;
+    gap: 0.5em;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    input[type='checkbox'] {
+        position: absolute;
+        opacity: 0;
+    }
+
+    &__image {
+        height: 18px;
+        width: 18px;
+        background: url('../assets/unchecked.png') no-repeat;
+        background-size: contain;
+        box-shadow: 0 0 2px black;
+    }
+
+    input[type='checkbox']:checked ~ .checkbox__image {
+        background: url('../assets/checked.png') no-repeat;
+    }
+}
