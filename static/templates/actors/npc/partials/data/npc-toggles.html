@@ -6,10 +6,14 @@
     <div class="body actions-options">
         {{#each actor.data.toggles.actions as |toggle idx|}}
         <div class="actions-option">
-            <label class="checkbox" data-toggle-property="{{toggle.inputName}}" data-toggle-label="{{localize toggle.label}}">
+            <label
+                class="toggle"
+                data-toggle-property="{{toggle.inputName}}"
+                data-toggle-label="{{localize toggle.label}}"
+            >
                 <input type="checkbox" name="{{toggle.inputName}}" {{checked toggle.checked}} />
-                <span class="checkbox__image"></span>
-                <span class="checkbox__label">{{localize toggle.label}}</span>
+                <span class="toggle__status"></span>
+                <span class="toggle__label">{{localize toggle.label}}</span>
             </label>
         </div>
         {{/each}}
