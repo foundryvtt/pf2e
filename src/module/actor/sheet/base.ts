@@ -725,15 +725,6 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
             });
         });
 
-        // change background for dragged over items that are containers
-        const containerItems = Array.from(html[0].querySelectorAll('[data-item-is-container="true"]'));
-        containerItems.forEach((elem: HTMLElement) =>
-            elem.addEventListener('dragenter', () => elem.classList.add('hover-container'), false),
-        );
-        containerItems.forEach((elem: HTMLElement) =>
-            elem.addEventListener('dragleave', () => elem.classList.remove('hover-container'), false),
-        );
-
         // Item Rolling
         html.find('[data-item-id].item .item-image').on('click', (event) => this.onItemRoll(event));
 
