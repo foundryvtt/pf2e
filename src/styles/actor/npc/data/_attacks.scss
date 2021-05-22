@@ -3,13 +3,20 @@
         flex-direction: column;
         column-gap: 0.5em;
 
+        li {
+            padding: 0 0.25em;
+            border-radius: 0.25em;
+        }
+
+        li:nth-child(even) {
+            background: linear-gradient(to left, rgba(0, 0, 0, 0.1), rgba(0, 0, 0, 0.05));
+        }
+
         > * + * {
             margin-top: 0.25em;
         }
 
         .item {
-            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
-
             &__header {
                 display: flex;
                 align-items: center;
@@ -22,8 +29,7 @@
             }
 
             &__body {
-                margin: 0.25em 0;
-
+                margin: 0;
                 > * + * {
                     margin-top: 0.25em;
                 }
