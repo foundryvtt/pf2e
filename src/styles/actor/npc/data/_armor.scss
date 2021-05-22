@@ -1,7 +1,29 @@
 #npc__armor {
-    span {
-        text-align: right;
-        font-weight: bold;
-        width: 4ch;
+    .armor {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+
+        .input-group {
+            flex-direction: column;
+            align-items: center;
+        }
+
+        &__label,
+        input {
+            margin: 0;
+            text-align: center;
+        }
+
+        &__label {
+            font-family: $serif;
+        }
+
+        &__value {
+            font-size: 1.2em;
+        }
+
+        &__ac {
+            font-weight: bold;
+        }
     }
 }

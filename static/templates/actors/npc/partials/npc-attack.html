@@ -1,7 +1,14 @@
 <li class="item attack" data-action-id="{{actionId}}" data-item-name="{{action.name}}" data-item-id="{{action.sourceId}}">
     <div class="item__header">
             <h4 class="item__title">{{action.name}} <span class="activity-icon">{{action.glyph}}</span></h4>
-        <div class="attack-controls controls expandable">
+
+            <div class="tag-list">
+                {{#each traits as |trait traitIndex|}}
+                    <div class="tag" title="{{localize trait.description}}">{{localize trait.label}}</div>
+                {{/each}}
+            </div>
+
+            <div class="attack-controls controls expandable">
             <a class="item-chat chat" title="{{localize "PF2E.NPC.SendToChat"}}"><i class="fas fa-comment-alt"></i></a>
             {{#if isEditable}}
                 <a class="item-edit edit" title="{{localize "PF2E.NPC.Edit"}}"><i class="fas fa-edit"></i></a>
@@ -10,26 +17,25 @@
         </div>
     </div>
     <div class="item__body">
-        <div class="attacks tag-list">
-            <div class="tag-list">
+        <div class="attacks damage tag-list">
+
                 {{#each action.variants as |variant vi|}}
                     <button type="button" class="tag attack" {{#if (eq vi 0) }}title="{{action.breakdown}}"{{/if}} data-action="npcAttack" data-variant-index="{{vi}}">{{variant.label}}</button>
                 {{/each}}
-            </div>
-        </div>
-        <div class="damage tag-list">
                 <button type="button" class="tag damage" data-action="damage">{{#each action.damageBreakdown}}{{this}}{{#unless @last}} + {{/unless}}{{/each}}</button>
                 <button type="button" class="tag critical" data-action="critical">{{localize "PF2E.CriticalDamageLabel"}}</button>
+
         </div>
+
         <div class="attack-detail sub-section">
             <div class="attack-description">
                 {{{enrichHTML action.description}}}
             </div>
-            <div class="tag-list">
+            <!-- <div class="tag-list">
                 {{#each traits as |trait traitIndex|}}
                     <div class="tag" title="{{localize trait.description}}">{{localize trait.label}}</div>
                 {{/each}}
-            </div>
+            </div> -->
         </div>
     </div>
 </li>

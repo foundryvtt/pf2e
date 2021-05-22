@@ -1,6 +1,16 @@
 <section id="npc__saves">
     <div class="header">
-        <h4 class="header__title">{{ localize 'PF2E.NPC.SavesLabel' }}</h4>
+        <div class="input-group">
+            <h4 class="header__title">{{ localize 'PF2E.NPC.SavesLabel' }}</h4>
+            <input
+                type="text"
+                name="data.attributes.allSaves.value"
+                value="{{ data.attributes.allSaves.value }}"
+                title="{{ data.attributes.allSaves.value }}"
+                data-dtype="String"
+                placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"
+            />
+        </div>
     </div>
 
     <div class="body">
@@ -26,14 +36,5 @@
             </div>
             {{/each}}
         </div>
-
-        <input
-            type="text"
-            name="data.attributes.allSaves.value"
-            value="{{ data.attributes.allSaves.value }}"
-            title="{{ data.attributes.allSaves.value }}"
-            data-dtype="String"
-            placeholder="{{ localize 'PF2E.NPC.SavesExtraInfoLabelPlaceholder' }}"
-        />
     </div>
 </section>

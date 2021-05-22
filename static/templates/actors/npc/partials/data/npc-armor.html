@@ -2,14 +2,26 @@
     <div class="header" title="{{data.attributes.ac.breakdown}}">
         <div class="input-group">
             <h4 class="header__title">{{ localize 'PF2E.ArmorClassShortLabel' }}</h4>
-            <span>{{data.attributes.ac.value}}</span>
+            <input
+                class="body__input armor-details"
+                type="text"
+                name="data.attributes.ac.details"
+                value="{{ data.attributes.ac.details }}"
+                data-dtype="String"
+                placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"
+            />
+        </div>
+    </div>
+
+    <div class="body armor">
+        <div class="input-group armor__ac">
+            <span class="armor__value">{{data.attributes.ac.value}}</span>
+            <h4 class="armor__label">{{ localize 'PF2E.ArmorClassLabel' }}</h4>
         </div>
 
-        <div class="input-group">
-            <h4 class="header__title">{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</h4>
-
+        <div class="input-group armor__base">
             <input
-                class="header__input"
+                class="armor__value"
                 type="number"
                 name="data.attributes.ac.base"
                 style="font-weight: normal"
@@ -17,17 +29,7 @@
                 data-dtype="Number"
                 placeholder="0"
             />
+            <h4 class="armor__label">{{ localize 'PF2E.NPC.ArmorBaseLabel' }}</h4>
         </div>
-    </div>
-
-    <div class="body">
-        <input
-            class="body__input armor-details"
-            type="text"
-            name="data.attributes.ac.details"
-            value="{{ data.attributes.ac.details }}"
-            data-dtype="String"
-            placeholder="{{ localize 'PF2E.NPC.ArmorExtraInfoLabelPlaceholder' }}"
-        />
     </div>
 </section>
