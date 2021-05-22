@@ -1078,7 +1078,7 @@ export abstract class ActorSheetPF2e<ActorType extends ActorPF2e> extends ActorS
                     const targetLocation = target.data.data.location.value;
 
                     if (sourceLevel === targetLevel && sourceLocation === targetLocation) {
-                        const siblings: any[] = (this.actor as any).items.entries.filter(
+                        const siblings: any[] = this.actor.items.filter(
                             (i: ItemPF2e) =>
                                 i.data.type === 'spell' &&
                                 i.data.data.level.value === sourceLevel &&
