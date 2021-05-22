@@ -2,7 +2,6 @@ declare module foundry {
     module documents {
         /**
          * The Token document model.
-         *
          * @param data Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
@@ -18,6 +17,10 @@ declare module foundry {
 
             /** Is a user able to update an existing Token? */
             protected static _canUpdate(user: BaseUser, doc: BaseToken, data: data.TokenData): boolean;
+        }
+
+        interface BaseToken extends abstract.Document {
+            readonly data: data.TokenData<BaseToken>;
         }
 
         interface TokenMetadata extends abstract.DocumentMetadata {

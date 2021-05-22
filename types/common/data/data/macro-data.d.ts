@@ -16,11 +16,9 @@ declare module foundry {
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
-
-            folder: documents.BaseFolder | null;
         }
 
-        interface MacroData extends Omit<MacroSource, '_id' | 'folder'> {
+        interface MacroData extends Omit<MacroSource, '_id'> {
             _source: MacroSource;
         }
     }

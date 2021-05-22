@@ -6,7 +6,6 @@ import { MigrationRunner } from '@module/migration-runner';
 import '@yaireo/tagify/src/tagify.scss';
 import { CharacterPF2e } from '@actor/character';
 import { MigrationBase } from '@module/migrations/base';
-import { ConfigPF2e } from '@scripts/config';
 import { BaseWeaponType } from '@item/data/types';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];

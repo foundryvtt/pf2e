@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         interface BaseWall {
-            readonly data: data.WallData<this>;
+            readonly data: data.WallData<BaseWall>;
         }
 
         interface WallMetadata extends abstract.DocumentMetadata {

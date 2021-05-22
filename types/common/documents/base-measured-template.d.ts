@@ -17,7 +17,7 @@ declare module foundry {
         }
 
         interface BaseMeasuredTemplate {
-            readonly data: data.MeasuredTemplateData<this>;
+            readonly data: data.MeasuredTemplateData<BaseMeasuredTemplate>;
         }
 
         interface MeasuredTemplateMetadata extends abstract.DocumentMetadata {

@@ -2,7 +2,7 @@
  * The Collection of Item entities
  * The items collection is accessible within the game as game.items
  */
-declare class Items<ItemType extends Item> extends WorldCollection<ItemType> {
+declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
     get documentName(): 'Item';
 
     /* -------------------------------------------- */

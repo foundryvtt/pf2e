@@ -9,7 +9,6 @@ import {
     WeaponDetailsData,
 } from './data/types';
 import { DiceModifierPF2e } from '../modifiers';
-import { ConfigPF2e } from '@scripts/config';
 import { ZeroToFour, ZeroToThree } from '@actor/data-definitions';
 
 type WeaponPropertyRuneType = keyof ConfigPF2e['PF2E']['weaponPropertyRunes'];

@@ -23,7 +23,7 @@ declare module foundry {
         }
 
         interface BaseMacro {
-            readonly data: data.MacroData<this>;
+            readonly data: data.MacroData<BaseMacro>;
         }
 
         interface MacroMetadata extends abstract.DocumentMetadata {

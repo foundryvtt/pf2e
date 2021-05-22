@@ -10,7 +10,7 @@ declare module foundry {
         }
 
         interface BaseTile {
-            readonly data: data.TileData<this>;
+            readonly data: data.TileData<BaseTile>;
         }
 
         interface TileMetadata extends abstract.DocumentMetadata {

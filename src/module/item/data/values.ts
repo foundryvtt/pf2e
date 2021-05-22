@@ -1,5 +1,3 @@
-import { ConfigPF2e } from '@scripts/config';
-
 declare const CONFIG: ConfigPF2e;
 
 export class MystifiedTraits {

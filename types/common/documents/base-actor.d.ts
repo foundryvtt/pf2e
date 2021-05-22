@@ -15,10 +15,10 @@ declare module foundry {
             /**
              * A reference to the Collection of embedded ActiveEffect instances in the Actor document, indexed by _id.
              */
-            get effects(): this['data']['effects'];
+            get effects(): abstract.EmbeddedCollection<BaseActiveEffect>;
 
             /** A reference to the Collection of embedded Item instances in the Actor document, indexed by _id. */
-            get items(): this['data']['items'];
+            get items(): abstract.EmbeddedCollection<BaseItem>;
 
             /**
              * Migrate the system data object to conform to data model defined by the current system version.
@@ -54,8 +54,8 @@ declare module foundry {
             ): Promise<void>;
         }
 
-        interface BaseActor {
-            readonly data: data.ActorData<this>;
+        interface BaseActor extends abstract.Document {
+            readonly data: data.ActorData<BaseActor>;
         }
 
         interface ActorMetadata extends abstract.DocumentMetadata {
@@ -68,8 +68,10 @@ declare module foundry {
             };
             isPrimary: true;
             hasSystemData: true;
-            permissions: Omit<abstract.DocumentMetadata['permissions'], 'create'> & {
+            permissions: {
                 create: 'ACTOR_CREATE';
+                update: 'ASSISTANT';
+                delete: 'ASSISTANT';
             };
             types: string[];
         }

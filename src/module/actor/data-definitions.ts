@@ -1,7 +1,6 @@
 import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
-import { ConfigPF2e } from '@scripts/config';
 import { DamageType } from '@module/damage-calculation';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;

@@ -7,14 +7,14 @@
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors<ActorType extends Actor> extends WorldCollection<ActorType> {
+declare class Actors<TActor extends Actor> extends EntityCollection<TActor> {
     get documentName(): 'Actor';
 
     /**
      * A mapping of synthetic Token Actors which are currently active within the viewed Scene.
      * Each Actor is referenced by the Token.id.
      */
-    tokens: { [tokenID: string]: ActorType };
+    tokens: { [tokenID: string]: TActor };
 
     /* -------------------------------------------- */
     /*  Sheet Registration Methods                  */
@@ -26,7 +26,7 @@ declare class Actors<ActorType extends Actor> extends WorldCollection<ActorType>
      */
     static registerSheet<A extends Actor>(
         scope: string,
-        sheetClass: { new (actor: A, options?: DocumentSheetOptions): A['_sheet'] },
+        sheetClass: new (...args: any[]) => ActorSheet<A>,
         options?: RegisterSheetOptions,
     ): void;
     /** Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use

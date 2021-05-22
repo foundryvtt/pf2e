@@ -17,7 +17,7 @@ declare module foundry {
         }
 
         interface BaseRollTable {
-            data: data.RollTableData<this>;
+            readonly data: data.RollTableData<BaseRollTable>;
         }
 
         interface RollTableMetadata extends abstract.DocumentMetadata {

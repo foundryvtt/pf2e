@@ -36,7 +36,6 @@ import {
     WeaponData,
 } from '@item/data/types';
 import { ErrorPF2e, getActionGlyph, objectHasKey } from '@module/utils';
-import { ConfigPF2e } from '@scripts/config';
 import { InventoryItem, SheetInventory } from './data-types';
 
 interface NPCSheetLabeledValue extends LabeledString {

@@ -362,8 +362,9 @@ export class ConditionManager {
         }
 
         // Update token effects from applied conditions.
-        if (token.hasActiveHUD) {
-            await StatusEffects._updateHUD(canvas.tokens.hud?.element, token);
+        const hudElement = canvas.tokens.hud?.element;
+        if (token.hasActiveHUD && hudElement) {
+            await StatusEffects._updateHUD(hudElement, token);
         }
     }
 

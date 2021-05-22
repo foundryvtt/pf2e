@@ -49,7 +49,6 @@ import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
 import { CreaturePF2e } from './creature';
 import { LocalizePF2e } from '@module/system/localize';
-import { ConfigPF2e } from '@scripts/config';
 import { FeatPF2e } from '@item/feat';
 import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';
 

@@ -73,8 +73,6 @@ declare module foundry {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            folder: documents.BaseFolder | null;
-
             // Embedded Collections
             drawings: abstract.EmbeddedCollection<documents.BaseDrawing>;
             tokens: abstract.EmbeddedCollection<TToken>;
@@ -95,7 +93,6 @@ declare module foundry {
             extends Omit<
                 SceneSource,
                 | '_id'
-                | 'folder'
                 | 'drawings'
                 | 'tokens'
                 | 'lights'

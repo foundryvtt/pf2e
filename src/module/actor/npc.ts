@@ -939,7 +939,7 @@ export class NPCPF2e extends CreaturePF2e {
         });
     }
 
-    updateNPCAttitudeFromDisposition(disposition: number) {
+    updateAttitudeFromDisposition(disposition: number) {
         this.data.data.traits.attitude.value = NPCPF2e.mapTokenDispositionToNPCAttitude(disposition);
     }
 }

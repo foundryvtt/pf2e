@@ -30,10 +30,10 @@ declare module foundry {
             static defineSchema(): abstract.DocumentSchema;
 
             /** @property duration The duration of the effect */
-            duration: EffectDurationData;
+            duration: EffectDurationData<TDocument>;
 
             /** @property changes The changes applied by this effect */
-            changes: EffectChangeData[];
+            changes: EffectChangeData<TDocument>[];
         }
 
         interface ActiveEffectData extends Omit<ActiveEffectSource, '_id' | 'duration' | 'changes'> {

@@ -35,7 +35,7 @@ declare global {
              * @param [data={}]  Initial data used to construct the data object
              * @param [document] The document to which this data object belongs
              */
-            abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document>
+            abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document | null>
                 implements DocumentSource {
                 constructor(data?: DocumentSource, document?: TDocument | null);
 
@@ -136,7 +136,7 @@ declare global {
                  */
                 toObject(): this['_source'];
                 toObject(source: true): this['_source'];
-                toObject<T extends DocumentData<Document>>(this: T, source: false): RawObject<T>;
+                toObject<T extends DocumentData<Document | null>>(this: T, source: false): RawObject<T>;
                 toObject<T extends DocumentData<Document | null>>(this: T, source: boolean): never;
             }
 
@@ -146,10 +146,14 @@ declare global {
     }
 
     type RawObject<T extends foundry.abstract.DocumentData> = {
-        [P in keyof T]: P extends ExcludedKeys<T>
+        [P in keyof T['_source']]: P extends FunctionKeys<T>
             ? never
+            : T[P] extends foundry.abstract.DocumentData
+            ? RawObject<T[P]>
             : T[P] extends foundry.abstract.EmbeddedCollection<infer V>
             ? RawObject<V['data']>[]
+            : T[P] extends Readonly<string>
+            ? string
             : T[P];
     };
 }
@@ -157,5 +161,3 @@ declare global {
 type FunctionKeys<T> = {
     [K in keyof T]: T[K] extends Function ? K : never;
 }[keyof T];
-
-type ExcludedKeys<T> = FunctionKeys<T> | '_source' | 'document';

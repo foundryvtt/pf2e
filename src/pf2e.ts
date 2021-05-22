@@ -2,10 +2,10 @@ import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
 import { PF2E } from './scripts/hooks';
 import { ActorPF2e } from './module/actor/base';
-import { NPCPF2e } from './module/actor/npc';
 
 import '@system/measure';
 import './styles/pf2e.scss';
+import { NPCPF2e } from '@actor/npc';
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
 
@@ -162,13 +162,17 @@ Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
 
 Hooks.on(
     'updateToken',
-    (tokenDocument: any, updateData: Partial<TokenData>, _options: EntityUpdateOptions, userID: string) => {
-        if (updateData.disposition && game.userId === userID) {
-            const actor = tokenDocument.getActor();
-            if (actor instanceof NPCPF2e) {
-                actor.updateNPCAttitudeFromDisposition(updateData.disposition);
-            }
+    (
+        tokenDoc: TokenDocument,
+        updateData: DocumentUpdateData<TokenDocument>,
+        _options: DocumentModificationContext,
+        userID: string,
+    ) => {
+        const actor = tokenDoc.actor;
+        if (actor instanceof NPCPF2e && typeof updateData.disposition === 'number' && game.userId === userID) {
+            actor.updateAttitudeFromDisposition(updateData.disposition);
         }
+
         game.pf2e.effectPanel.refresh();
     },
 );

@@ -15,7 +15,7 @@ declare module foundry {
         }
 
         interface BaseFolder {
-            readonly data: data.FolderData<this>;
+            readonly data: data.FolderData<BaseFolder>;
         }
 
         interface FolderMetadata extends abstract.DocumentMetadata {

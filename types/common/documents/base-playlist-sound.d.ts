@@ -17,7 +17,7 @@ declare module foundry {
         }
 
         interface BasePlaylistSound {
-            data: data.PlaylistSoundData<this>;
+            readonly data: data.PlaylistSoundData<BasePlaylistSound>;
         }
 
         interface PlaylistSoundMetadata extends abstract.DocumentMetadata {

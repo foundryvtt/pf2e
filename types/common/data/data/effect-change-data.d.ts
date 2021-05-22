@@ -14,7 +14,7 @@ declare module foundry {
             priority: number;
         }
 
-        class EffectchangeData<
+        class EffectChangeData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect
         > extends abstract.DocumentData<TDocument> {
             /** @override */
