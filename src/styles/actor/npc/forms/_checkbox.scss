@@ -1,57 +1,56 @@
-.checkbox {
+.toggle {
     position: relative;
     display: flex;
     align-items: center;
     gap: 0.5em;
-
-    &:hover {
-        cursor: pointer;
-    }
+    cursor: pointer;
 
     input[type='checkbox'] {
         position: absolute;
         opacity: 0;
     }
 
-    &__label {
-        line-height: 1;
-    }
-
-    input[type='checkbox'] ~ .checkbox__image,
-    input[type='checkbox'] ~ .checkbox__image:before {
-        display: block;
-        box-sizing: border-box;
-        border-radius: 20px;
-    }
-
-    input[type='checkbox'] ~ .checkbox__image {
-        color: var(--alt);
-        border: 2px solid;
+    &__status {
+        height: 15px;
+        width: 39px;
+        border-radius: 13px;
+        font-size: 0.8em;
+        background-color: var(--alt);
         position: relative;
-        transform: scale(1);
-        width: 24px;
-        height: 14px;
-
-        &:before {
-            content: '';
-            position: absolute;
-            width: 6px;
-            height: 6px;
-            background: currentColor;
-            top: 2px;
-            left: 2px;
-        }
     }
 
-    input[type='checkbox']:checked ~ .checkbox__image {
-        color: var(--primary);
-
-        &:before {
-            left: 12px;
-        }
+    &__status:before {
+        --size: 11px;
+        position: absolute;
+        display: grid;
+        place-content: center;
+        content: '';
+        border-radius: 13px;
+        background-color: white;
+        height: var(--size);
+        width: var(--size);
+        top: 2px;
+        left: 2px;
     }
 
-    input[type='checkbox']:checked ~ .checkbox__label {
-        color: var(--primary);
+    &__status:after {
+        position: absolute;
+        content: 'OFF';
+        right: 5px;
+        top: 1px;
+    }
+
+    input[type='checkbox']:checked ~ .toggle__status {
+        background-color: var(--secondary);
+
+        &:before {
+            left: 26px;
+        }
+
+        &:after {
+            content: 'ON';
+            right: 18px;
+            color: white;
+        }
     }
 }
