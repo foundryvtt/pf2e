@@ -15,7 +15,7 @@ declare type HookParamsInit = HookParameters<'init', never>;
 declare type HookParamsSetup = HookParameters<'setup', never>;
 declare type HookParamsReady = HookParameters<'ready', never>;
 declare type HookParamsCanvasReady = HookParameters<'canvasReady', [Canvas]>;
-declare type HookParamsDeleteCombat = HookParameters<'deleteCombat', [Combat<Actor>, { [key: string]: any }, string]>;
+declare type HookParamsDeleteCombat = HookParameters<'deleteCombat', [Combat, { [key: string]: any }, string]>;
 declare type HookParamsDropCanvasData = HookParameters<'dropCanvasData', [Canvas, DropCanvasData]>;
 declare type HookParamsGetChatLogEntryContext = HookParameters<
     'getChatLogEntryContext',
@@ -28,7 +28,7 @@ declare type HookParamsPreCreateItem = HookParameters<
 >;
 declare type HooksParamsPreUpdateCombat = HookParameters<
     'preUpdateCombat',
-    [Combat<Actor>, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+    [Combat, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
 >;
 declare type HookParamsPreUpdateToken = HookParameters<
     'preUpdateToken',
@@ -41,7 +41,7 @@ declare type HookParamsRender<T extends Application, N extends string> = HookPar
 declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
 declare type HookParamsUpdateCombat = HookParameters<
     'updateCombat',
-    [Combat<Actor>, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
+    [Combat, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]
 >;
 declare type HookParamsUpdateWorldTime = HookParameters<'updateWorldTime', [number, number]>;
 

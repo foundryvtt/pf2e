@@ -49,7 +49,7 @@ declare module foundry {
         }
 
         interface BaseItem {
-            readonly data: data.ItemData<this>;
+            readonly data: data.ItemData<BaseItem>;
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

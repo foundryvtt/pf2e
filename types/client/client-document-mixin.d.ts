@@ -11,6 +11,8 @@ declare type DocumentConstructor<T extends foundry.abstract.Document = foundry.a
     createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Document>;
 };
 
+type ClientDocument<T extends foundry.abstract.Document = foundry.abstract.Document> = ClientDocumentMixin<T> & T;
+
 /**
  * The client-side document mixin which is used to extend the common BaseDocument.
  * This mixin provides the client-side interface for database operations and common document behaviors.
@@ -195,8 +197,8 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
      */
     protected _onCreateEmbeddedDocuments(
         embeddedName: string,
-        documents: TDocument[],
-        result: TDocument['data']['_source'],
+        documents: ClientDocument[],
+        result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
         userId: string,
     ): void;
@@ -225,7 +227,7 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
      */
     protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
-        documents: TDocument[],
+        documents: ClientDocument[],
         result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
         userId: string,
@@ -255,7 +257,7 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
      */
     protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
-        documents: TDocument[],
+        documents: ClientDocument[],
         result: foundry.abstract.DocumentSource[],
         options: DocumentModificationContext,
         userId: string,

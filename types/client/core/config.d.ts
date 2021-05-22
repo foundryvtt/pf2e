@@ -2,6 +2,7 @@
 
 declare interface Config<
     ActorType extends Actor = Actor,
+    TCombat extends Combat = Combat,
     ItemType extends Item = Item,
     EffectType extends ActiveEffect<ActorType | ItemType> = ActiveEffect<ActorType | ItemType>,
     MessageType extends ChatMessage<ActorType> = ChatMessage<ActorType>,
@@ -74,15 +75,15 @@ declare interface Config<
         sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
     };
 
-    /**
-     * Configuration for the default Combat entity class
-     */
+    /** Configuration for the Combat document */
     Combat: {
-        documentClass: { new (data: CombatData<ActorType>, options?: EntityConstructorOptions): Combat<ActorType> };
+        documentClass: new (data: TCombat['data'], context?: DocumentModificationContext) => TCombat;
         collection: typeof CombatEncounters;
+        defeatedStatusId: string;
+        sidebarIcon: string;
         initiative: {
+            formula: ((combatant: Combatant) => string) | null;
             decimals: number;
-            formula: ((combatant: CombatantData<ActorType>) => string) | null;
         };
     };
 

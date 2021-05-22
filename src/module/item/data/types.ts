@@ -1,7 +1,6 @@
 import { AbilityString, CreatureTrait, ValuesList, ZeroToFour } from '@actor/data-definitions';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import { RollNotePF2e } from '@module/notes';
-import { ConfigPF2e } from '@scripts/config';
 import { PHYSICAL_ITEM_TYPES } from './values';
 import { LocalizePF2e } from '@module/system/localize';
 import { DamageType } from '@module/damage-calculation';

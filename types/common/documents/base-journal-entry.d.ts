@@ -10,7 +10,7 @@ declare module foundry {
         }
 
         interface BaseJournalEntry {
-            readonly data: data.JournalEntryData<this>;
+            readonly data: data.JournalEntryData<BaseJournalEntry>;
         }
     }
 

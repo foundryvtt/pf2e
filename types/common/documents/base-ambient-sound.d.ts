@@ -10,7 +10,7 @@ declare module foundry {
         }
 
         interface BaseAmbientSound {
-            readonly data: data.AmbientSoundData<this>;
+            readonly data: data.AmbientSoundData<BaseAmbientSound>;
         }
 
         interface AmbientSoundMetadata extends abstract.DocumentMetadata {

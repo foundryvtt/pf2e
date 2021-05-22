@@ -1,29 +1,33 @@
-import { WorldClock } from '@system/world-clock';
-import { EffectPanel } from '@system/effect-panel';
-import { EffectTracker } from '@system/effect-tracker';
-import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
-import { calculateXP } from '@scripts/macros/xp';
-import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ConfigPF2e, StatusEffectIconType } from '@scripts/config';
-import { CombatPF2e } from './module/combat';
+import { ItemType } from '@item/data/types';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { MacroPF2e } from '@module/macro';
+import { RuleElements } from '@module/rules/rules';
+import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
+import { StatusEffects } from '@scripts/actor/status-effects';
+import { PF2ECONFIG, StatusEffectIconType } from '@scripts/config';
+import { DicePF2e } from '@scripts/dice';
+import { rollActionMacro, rollItemMacro } from '@scripts/macros/hotbar';
+import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
+import { calculateXP } from '@scripts/macros/xp';
+import { EffectPanel } from '@system/effect-panel';
+import { EffectTracker } from '@system/effect-tracker';
 import { CheckPF2e } from '@system/rolls';
+import { WorldClock } from '@system/world-clock';
+import { CombatPF2e } from './module/combat';
+import { ConditionManager } from './module/conditions';
 import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from './module/modifiers';
-import { ConditionManager } from './module/conditions';
-import { StatusEffects } from '@scripts/actor/status-effects';
-import { DicePF2e } from '@scripts/dice';
-import { ItemType } from '@item/data/types';
-import { RuleElements } from '@module/rules/rules';
-import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
-import { MacroPF2e } from '@module/macro';
 
 type ItemTypeMap = {
     [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
@@ -58,6 +62,21 @@ declare global {
 
     interface Actor {
         itemTypes: ItemTypeMap;
+    }
+
+    interface ConfigPF2e extends Config<ActorPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
+        debug: Config['debug'] & {
+            ruleElement: boolean;
+        };
+
+        PF2E: typeof PF2ECONFIG;
+        time: {
+            roundTime: number;
+        };
+        ui: Config<ActorPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e>['ui'] & {
+            combat: typeof CombatTrackerPF2e;
+            compendium: typeof CompendiumDirectoryPF2e;
+        };
     }
 
     const CONFIG: ConfigPF2e;

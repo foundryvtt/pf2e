@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         interface BaseNote {
-            readonly data: data.NoteData<this>;
+            readonly data: data.NoteData<BaseNote>;
         }
 
         interface NoteMetadata extends abstract.DocumentMetadata {

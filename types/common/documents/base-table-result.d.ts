@@ -25,7 +25,7 @@ declare module foundry {
         }
 
         interface BaseTableResult {
-            readonly data: data.TableResultData<this>;
+            readonly data: data.TableResultData<BaseTableResult>;
         }
 
         interface TableResultMetadata extends abstract.DocumentMetadata {

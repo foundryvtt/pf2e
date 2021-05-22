@@ -8,18 +8,47 @@ declare abstract class DocumentCollection<TDocument extends foundry.abstract.Doc
 
     /** An Array of application references which will be automatically updated when the collection content changes */
     apps: Application[];
+
+    /* -------------------------------------------- */
     /*  Collection Properties                       */
+    /* -------------------------------------------- */
+
     /** The Collection class name */
     get name(): string;
 
+    /** A reference to the Document class definition which is contained within this DocumentCollection. */
+    get documentClass(): new (...args: any[]) => TDocument;
+
     /** A reference to the named Document class which is contained within this DocumentCollection. */
-    abstract get documentName(): string;
+    abstract get documentName(): string | null;
+
+    /* -------------------------------------------- */
     /*  Collection Methods                          */
+    /* -------------------------------------------- */
+
     /** @override */
     set(id: string, document: TDocument): this;
 
     /** Render any Applications associated with this DocumentCollection. */
     render(force: boolean, options?: RenderOptions): void;
+
+    /* -------------------------------------------- */
+    /*  Database Operations                         */
+    /* -------------------------------------------- */
+
+    /**
+     * Update all objects in this DocumentCollection with a provided transformation.
+     * Conditionally filter to only apply to Entities which match a certain condition.
+     * @param transformation An object of data or function to apply to all matched objects
+     * @param condition      A function which tests whether to target each object
+     * @param [options]      Additional options passed to Entity.update
+     * @return An array of updated data once the operation is complete
+     */
+    updateAll(
+        transformation: DocumentUpdateData<TDocument> | ((document: TDocument) => DocumentUpdateData<TDocument>),
+        condition?: ((document: TDocument) => boolean) | null,
+        options?: DocumentModificationContext,
+    ): Promise<TDocument[]>;
 
     /**
      * Preliminary actions taken before a set of Documents in this Collection are created.

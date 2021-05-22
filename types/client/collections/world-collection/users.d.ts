@@ -6,7 +6,7 @@
  * @see {@link User} The User entity
  * @see {@link UserDirectory} The UserDirectory sidebar directory
  */
-declare class Users<UserType extends User> extends WorldCollection<UserType> {
+declare class Users<UserType extends User> extends EntityCollection<UserType> {
     get documentName(): 'User';
 
     /** The User entity of the currently connected user */
@@ -17,7 +17,7 @@ declare class Users<UserType extends User> extends WorldCollection<UserType> {
      * @param data
      * @override
      */
-    protected _initialize(data: foundry.data.UserSource[]): void;
+    // protected _initialize(data: foundry.data.UserSource[]): void;
 
     /** @override */
     static documentName: 'User';

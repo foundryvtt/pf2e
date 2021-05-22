@@ -1,4 +1,4 @@
-declare class Messages<T extends ChatMessage = ChatMessage> extends WorldCollection<T> {
+declare class Messages<T extends ChatMessage> extends EntityCollection<T> {
     /** @override */
     get documentName(): 'ChatMessage';
 

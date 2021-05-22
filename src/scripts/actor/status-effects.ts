@@ -4,16 +4,13 @@ import { ConditionData } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 import { ConditionPF2e } from '@item/others';
-import { ItemPF2e } from '@item/base';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
  * @category PF2
  */
 export class StatusEffects {
-    statusEffectChanged: any;
-    static statusEffectChanged: boolean;
-
     static init() {
         if (CONFIG.PF2E.statusEffects.overruledByModule) return;
 
@@ -82,16 +79,16 @@ export class StatusEffects {
         if (game.user.isGM && game.settings.get('pf2e', 'statusEffectShowCombatMessage')) {
             let lastTokenId = '';
             Hooks.on('updateCombat', (combat) => {
-                const combatant = combat?.combatant;
-                const tokenId = combatant?.tokenId;
+                const combatant = combat.combatant;
+                const token = combatant?.token as TokenPF2e;
                 if (
-                    tokenId !== lastTokenId &&
+                    token &&
+                    token.id !== lastTokenId &&
                     combat?.started &&
-                    combatant?.initiative != null &&
-                    !combatant?.defeated
+                    typeof combatant?.initiative === 'number' &&
+                    !combatant.data.defeated
                 ) {
-                    const token = canvas.tokens.get(tokenId);
-                    lastTokenId = tokenId;
+                    lastTokenId = token.id;
                     this._createChatMessage(token, combatant.hidden);
                 }
                 if (!combat?.started && lastTokenId !== '') lastTokenId = '';
@@ -99,7 +96,7 @@ export class StatusEffects {
         }
     }
 
-    static setPF2eStatusEffectControls(html, token) {
+    static setPF2eStatusEffectControls(html: JQuery, token: TokenPF2e) {
         // Status Effects Controls
         const effects = html.find('.status-effects');
         effects
@@ -137,14 +134,14 @@ export class StatusEffects {
         CONFIG.statusEffects = effects;
     }
 
-    static async _hookOnRenderTokenHUD(app, html, tokenData) {
+    static async _hookOnRenderTokenHUD(_app: TokenHUD, html: JQuery, tokenData: foundry.data.TokenData) {
         const token = canvas.tokens.get(tokenData._id);
 
         if (!token) {
-            throw Error(`PF2E | StatusEffects | Could not find token with id: ${tokenData._id}`);
+            throw ErrorPF2e(`StatusEffects | Could not find token with id: ${tokenData._id}`);
         }
 
-        const statusIcons = html.find('img.effect-control');
+        const $statusIcons = html.find('img.effect-control');
 
         const affectingConditions =
             token.actor?.itemTypes.condition
@@ -160,96 +157,88 @@ export class StatusEffects {
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
 
-        // Foundry 0.5.7 bug? Setting tokenHUD.token temporarily until onTokenHUDClear passes token again in its 2nd parameter
-        app.token = token;
-
-        for (let i of statusIcons) {
-            i = $(i);
-            const src = i.attr('src');
+        for (const icon of $statusIcons) {
+            const $icon = $(icon);
+            const src = $icon.attr('src') ?? '';
 
             if (src.includes(CONFIG.PF2E.statusEffects.effectsIconFolder)) {
                 const statusName = this._getStatusFromImg(src);
                 const condition = ConditionManager.getConditionByStatusName(statusName);
-                if (condition === undefined) {
-                    continue;
-                }
+                if (!condition) continue;
 
-                i.attr('data-effect', statusName);
-                i.attr('data-condition', condition.name);
+                $icon.attr('data-effect', statusName);
+                $icon.attr('data-condition', condition.name);
 
                 const effect = affectingConditions.find((e) => e.data.hud.statusName === statusName);
 
                 if (condition.data.value.isValued) {
-                    i.removeClass('effect-control').addClass('pf2e-effect-control');
+                    $icon.removeClass('effect-control').addClass('pf2e-effect-control');
                     // retrieve actor and the current effect value
 
-                    i.wrap("<div class='pf2e-effect-img-container'></div>");
-                    const v = $("<div class='pf2e-effect-value' style='display:none'>0</div>");
-                    i.parent().append(v);
+                    $icon.wrap("<div class='pf2e-effect-img-container'></div>");
+                    const $value = $("<div class='pf2e-effect-value' style='display:none'>0</div>");
+                    $icon.parent().append($value);
 
                     if (effect !== undefined) {
-                        i.attr('data-value', effect.data.value.value);
+                        $icon.attr('data-value', effect.data.value.value);
 
                         if (effect.data.value.value > 0) {
-                            $(v).removeAttr('style').text(effect.data.value.value);
+                            $($value).removeAttr('style').text(effect.data.value.value);
                         }
                     }
                 }
 
-                if (i.hasClass('active') && effect === undefined) {
-                    i.removeClass('active');
-                } else if (!i.hasClass('active') && effect !== undefined) {
-                    i.addClass('active');
+                if ($icon.hasClass('active') && effect === undefined) {
+                    $icon.removeClass('active');
+                } else if (!$icon.hasClass('active') && effect !== undefined) {
+                    $icon.addClass('active');
                 }
             }
         }
     }
 
-    static async _updateHUD(html, token) {
-        const statusIcons = html.find('img.effect-control, img.pf2e-effect-control');
-        const appliedConditions = token.actor.itemTypes.condition.filter(
-            (i: ConditionPF2e) =>
-                i.data.flags.pf2e?.condition &&
-                i.data.type === 'condition' &&
-                i.data.data.active &&
-                i.data.data.sources.hud,
-        );
+    static async _updateHUD(html: JQuery, token: TokenPF2e) {
+        const $statusIcons = html.find('img.effect-control, img.pf2e-effect-control');
+        const appliedConditions =
+            token.actor?.itemTypes.condition.filter(
+                (condition) => condition.fromSystem && condition.data.data.active && condition.data.data.sources.hud,
+            ) ?? [];
 
-        for (const i of statusIcons) {
-            const $i = $(i);
-            const status = $i.attr('data-effect');
-            const conditionName = $i.attr('data-condition');
+        for (const icon of $statusIcons) {
+            const $icon = $(icon);
+            const status = $icon.attr('data-effect');
+            const conditionName = $icon.attr('data-condition');
 
             if (conditionName && status) {
                 // Icon is a condition
 
-                const condition: ConditionData = appliedConditions.find((e) => e.name === conditionName)?.data;
+                const condition = appliedConditions.find((e) => e.name === conditionName)?.data;
                 const conditionBase = ConditionManager.getConditionByStatusName(status);
 
                 if (conditionBase?.data.value.isValued) {
                     // Valued condition
 
-                    const v = $i.siblings('div.pf2e-effect-value').first();
+                    const $value = $icon.siblings('div.pf2e-effect-value').first();
 
-                    if ($i.hasClass('active')) {
+                    if ($icon.hasClass('active')) {
                         // icon is active.
                         if (
                             condition === undefined ||
                             (condition !== undefined && !condition.data.active) ||
                             (condition !== undefined && condition.data.value.value < 1)
                         ) {
-                            $i.removeClass('active');
-                            v.attr('style', 'display:none').text('0');
+                            $icon.removeClass('active');
+                            $value.attr('style', 'display:none').text('0');
                         } else if (condition !== undefined && condition.data.value.value > 0) {
                             // Update the value
 
-                            v.text(condition.data.value.value);
+                            $value.text(condition.data.value.value);
                         }
                     } else if (condition !== undefined && condition.data.active && condition.data.value.value > 0) {
-                        $i.addClass('active');
-                        v.removeAttr('style').text(condition.data.value.value);
+                        $icon.addClass('active');
+                        $value.removeAttr('style').text(condition.data.value.value);
                     }
-                } else if ($i.hasClass('active')) {
+                } else if ($icon.hasClass('active')) {
                     // Toggle condition
 
                     // icon is active.
@@ -257,10 +246,10 @@ export class StatusEffects {
                         // Remove active if no effect was found
                         // Or effect was found, but not active.
 
-                        $i.removeClass('active');
+                        $icon.removeClass('active');
                     }
                 } else if (condition !== undefined && condition.data.active) {
-                    $i.addClass('active');
+                    $icon.addClass('active');
                 }
             }
         }
@@ -289,10 +278,7 @@ export class StatusEffects {
      *
      * @param event    The window click event
      */
-    static async _setStatusValue(
-        this: TokenPF2e & { statusEffectChanged: boolean },
-        event: JQuery.ClickEvent | JQuery.ContextMenuEvent,
-    ): Promise<void> {
+    static async _setStatusValue(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
         event.preventDefault();
         event.stopImmediatePropagation();
 
@@ -417,26 +403,29 @@ export class StatusEffects {
     /**
      * Recreating TokenHUD._onToggleOverlay. Handle assigning a status effect icon as the overlay effect
      */
-    static _onToggleOverlay(event, token) {
+    static _onToggleOverlay(event: JQuery.TriggeredEvent, token: TokenPF2e) {
         event.preventDefault();
-        const f = $(event.currentTarget);
-        token.toggleOverlay(f.attr('src'));
-        f.siblings().removeClass('overlay');
-        f.toggleClass('overlay');
+        const $target = $(event.currentTarget);
+        const iconPath = $(event.currentTarget).attr('src') ?? '';
+        token.toggleEffect(iconPath, { overlay: true });
+        $target.siblings().removeClass('overlay');
+        $target.toggleClass('overlay');
     }
 
     /**
      * Creates a ChatMessage with the Actors current status effects.
      */
-    static _createChatMessage(token, whisper = false) {
+    static _createChatMessage(token: TokenPF2e, whisper = false) {
         let statusEffectList = '';
 
         // Get the active applied conditions.
         // Iterate the list to create the chat and bubble chat dialog.
 
-        for (const condition of token.actor.itemTypes.condition.filter(
-            (i: ConditionPF2e) => i.data.flags.pf2e?.condition && i.data.data.active && i.data.type === 'condition',
-        )) {
+        const conditions =
+            token.actor?.itemTypes.condition.filter(
+                (condition) => condition.fromSystem && condition.data.data.active,
+            ) ?? [];
+        for (const condition of conditions) {
             type ConditionKey = keyof typeof StatusEffects.conditions;
             const conditionInfo = StatusEffects.conditions[condition.data.data.hud.statusName as ConditionKey];
             const summary = 'summary' in conditionInfo ? conditionInfo.summary : '';
@@ -476,7 +465,7 @@ export class StatusEffects {
             content: message,
             type: CONST.CHAT_MESSAGE_TYPES.OTHER,
         };
-        const isNPCEvent = !token.actor.hasPlayerOwner;
+        const isNPCEvent = !token.actor?.hasPlayerOwner;
         const hideNPCEvent = isNPCEvent && game.settings.get('pf2e', 'metagame.secretCondition');
         if (hideNPCEvent || whisper) {
             chatData.whisper = ChatMessage.getWhisperRecipients('GM');
@@ -506,8 +495,8 @@ export class StatusEffects {
             const tokenUpdates: any[] = [];
 
             for (const token of scene.data.tokens) {
-                const tokenData: TokenData = (token as any).data; // TODO: Fix any type
-                const update: TokenData = (tokenData as any).toObject(false); // TODO: Fix any type
+                const tokenData = token.data;
+                const update = tokenData.toObject(false);
                 for (const url of tokenData.effects) {
                     if (url.includes(lastIconType.effectsIconFolder)) {
                         const statusName = this._getStatusFromImg(url);
@@ -534,30 +523,9 @@ export class StatusEffects {
     }
 
     /**
-     * Helper to change condition summary info from YOU to I
-     */
-    static _changeYouToI(content) {
-        content = content.replace(/you're/g, "I'm");
-        content = content.replace(/You're/g, "I'm");
-        content = content.replace(/Your/g, 'My');
-        content = content.replace(/your/g, 'my');
-        content = content.replace(/You are/g, 'I am');
-        content = content.replace(/you are/g, 'I am');
-        content = content.replace(/You can't/g, "I can't");
-        content = content.replace(/you can't/g, "I can't");
-        content = content.replace(/You can/g, 'I can');
-        content = content.replace(/you can/g, 'I can');
-        content = content.replace(/You have/g, 'I have');
-        content = content.replace(/you have/g, 'I have');
-        content = content.replace(/You/g, 'I');
-        content = content.replace(/you/g, 'me');
-        return content;
-    }
-
-    /**
      * Helper to get status effect name from image url
      */
-    static _getStatusFromImg(url) {
+    static _getStatusFromImg(url: string) {
         return url.substring(
             url.lastIndexOf('/') + 1,
             url.length - CONFIG.PF2E.statusEffects.effectsIconFileType.length - 1,
@@ -568,7 +536,7 @@ export class StatusEffects {
      * Add status effects to a token
      * Legacy function
      */
-    static async setStatus(token, effects: any[] = []) {
+    static async setStatus(token: TokenPF2e, effects: any[] = []) {
         for (const status of Object.values(effects)) {
             const statusName = status.name;
             const value = status.value;
@@ -581,15 +549,12 @@ export class StatusEffects {
                 continue;
             }
 
-            const effect = token.actor.items
-                .filter((i: ItemPF2e) => i instanceof ConditionPF2e)
-                .map((c: ConditionPF2e) => c.data)
+            const effect = token.actor?.itemTypes.condition
+                .map((condition) => condition.data)
                 .find(
-                    (c: ConditionData) =>
-                        c.type === 'condition' &&
-                        c.data.source.value === source &&
-                        c.data.hud.statusName === statusName,
-                ) as ConditionData;
+                    (conditionData) =>
+                        conditionData.data.source.value === source && conditionData.data.hud.statusName === statusName,
+                );
 
             if (typeof value === 'string' && condition.data.value.isValued) {
                 if (effect) {
