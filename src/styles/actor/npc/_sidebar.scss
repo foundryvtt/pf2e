@@ -1,9 +1,22 @@
 .sidebar {
+    --logo-height: 2rem;
     grid-area: sidebar;
     overflow: hidden scroll;
     padding: 1px 0.5em 0.5em 1px;
     float: none !important;
     width: initial !important;
+    margin-top: var(--logo-height);
+
+    &::after {
+        content: '';
+        position: absolute;
+        width: var(--sidebar-width);
+        height: calc(var(--logo-height) + 1.2em);
+        background: url('../assets/pathfinder_logo.webp') no-repeat;
+        background-size: contain;
+        top: calc(1% - 6px);
+        left: 1%;
+    }
 
     & > * + * {
         margin-top: 0.5em;

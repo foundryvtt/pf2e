@@ -1,4 +1,7 @@
 <header id="npc__header">
+    <div class="profile-img">
+        <img src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
+    </div>
     <section>
         <div id="npc__name">
             <input
@@ -43,11 +46,7 @@
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}} {{/select}}
             </select>
-            <select
-                class="trait__item alignment"
-                name="data.details.alignment.value"
-                data-dtype="String"
-            >
+            <select class="trait__item alignment" name="data.details.alignment.value" data-dtype="String">
                 {{#select data.details.alignment.value}} {{#each alignment as |label key|}}
                 <option value="{{key}}">{{localize label}}</option>
                 {{/each}} {{/select}}
@@ -77,6 +76,4 @@
             {{/if}}
         </div>
     </section>
-
-    <img class="profile-img" src="{{actor.img}}" data-edit="img" title="{{actor.name}}" />
 </header>
