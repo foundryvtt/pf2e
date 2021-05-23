@@ -1,6 +1,5 @@
 import { ValuesList } from '@actor/data-definitions';
 import { ItemDataPF2e, SpellDetailsData } from '@item/data/types';
-import { ConfigPF2e } from '@scripts/config';
 import { MigrationBase } from './base';
 
 /**

@@ -1,6 +1,4 @@
-export const WallDocumentConstructor: DocumentConstructor<
-    ClientDocumentMixin<foundry.documents.BaseWall> & foundry.documents.BaseWall
->;
-export const TokenDocumentConstructor: DocumentConstructor<
-    ClientDocumentMixin<foundry.documents.BaseToken> & foundry.documents.BaseToken
->;
+export const CombatantConstructor: DocumentConstructor<ClientDocument<foundry.documents.BaseCombatant>>;
+export const CombatConstructor: DocumentConstructor<ClientDocument<foundry.documents.BaseCombat>>;
+export const TokenDocumentConstructor: DocumentConstructor<ClientDocument<foundry.documents.BaseToken>>;
+export const WallDocumentConstructor: DocumentConstructor<ClientDocument<foundry.documents.BaseWall>>;

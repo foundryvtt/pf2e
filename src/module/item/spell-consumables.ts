@@ -1,6 +1,5 @@
 import { ConsumablePF2e } from './index';
 import { AbilityString } from '@actor/data-definitions';
-import { ConfigPF2e } from '@scripts/config';
 import type { ActorPF2e } from '../actor/base';
 import { calculateDC, DCOptions } from '../dc';
 import { ConsumableData, SpellData, TrickMagicItemCastData } from './data/types';

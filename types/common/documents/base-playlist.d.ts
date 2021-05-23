@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         interface BasePlaylist {
-            readonly data: data.PlaylistData<this>;
+            readonly data: data.PlaylistData<BasePlaylist>;
         }
 
         interface PlaylistMetadata extends abstract.DocumentMetadata {

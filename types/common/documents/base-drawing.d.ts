@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         interface BaseDrawing {
-            readonly data: data.DrawingData<this>;
+            readonly data: data.DrawingData<BaseDrawing>;
         }
 
         interface DrawingMetadata extends abstract.DocumentMetadata {

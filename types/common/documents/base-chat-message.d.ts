@@ -36,7 +36,7 @@ declare module foundry {
         }
 
         interface BaseChatMessage {
-            readonly data: data.ChatMessageData<this>;
+            readonly data: data.ChatMessageData<BaseChatMessage>;
         }
 
         interface ChatMessageMetadata extends abstract.DocumentMetadata {

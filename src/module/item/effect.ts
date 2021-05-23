@@ -37,12 +37,11 @@ export class EffectPF2e extends ItemPF2e {
             result.expired = result.remaining <= 0;
             if (
                 result.remaining === 0 &&
-                game.combats && // game.combat will throw an exception unless game.combats has been initialized
-                game.combat &&
-                game.combat.data.active &&
+                game.combat?.active &&
+                game.combat.combatant &&
                 game.combat.turns.length > game.combat.turn
             ) {
-                const initiative = game.combat.turns[game.combat.turn].initiative;
+                const initiative = game.combat.combatant.initiative ?? 0;
                 if (initiative === this.data.data.start.initiative) {
                     result.expired = this.data.data.duration.expiry !== 'turn-end';
                 } else {

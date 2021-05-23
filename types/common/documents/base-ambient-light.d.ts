@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         interface BaseAmbientLight {
-            readonly data: data.AmbientLightData<this>;
+            readonly data: data.AmbientLightData<BaseAmbientLight>;
         }
 
         interface AmbientLightMetadata extends abstract.DocumentMetadata {

@@ -273,7 +273,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 ui.notifications.error(`No combatant found for ${this.name} in the Combat Tracker.`);
                 return;
             }
-            game.combat.setInitiative(combatant._id, roll.total);
+            game.combat.setInitiative(combatant.id, roll.total);
         } else {
             console.log(
                 'PF2e System | _applyInitiativeRollToCombatTracker | invalid roll object or roll.value mising: ',
@@ -563,14 +563,14 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const skillRolled = roll.find('.flavor-text').text();
         const valueRolled = parseFloat(roll.find('.dice-total').text());
         const promises: Promise<void>[] = [];
-        for (const t of canvas.tokens.controlled) {
+        for (const token of canvas.tokens.controlled) {
             if (!game.combat) {
                 ui.notifications.error('No active encounters in the Combat Tracker.');
                 return;
             }
 
-            const combatant = game.combat.getCombatantByToken(t.id);
-            if (combatant === undefined) {
+            const combatant = game.combat.getCombatantByToken(token.id);
+            if (!combatant) {
                 ui.notifications.error("You haven't added this token to the Combat Tracker.");
                 return;
             }
@@ -596,13 +596,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
       `;
             ChatMessage.create({
                 user: game.user.id,
-                speaker: { alias: t.name },
+                speaker: { alias: token.name },
                 content: message,
                 whisper: ChatMessage.getWhisperRecipients('GM'),
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,
             });
 
-            promises.push(game.combat.setInitiative(combatant._id, value));
+            promises.push(game.combat.setInitiative(combatant.id, value));
         }
 
         await Promise.all(promises);
@@ -1168,5 +1168,5 @@ export interface HazardPF2e {
     data: HazardData;
 }
 
-export type TokenPF2e = Token<ActorPF2e>;
+export type TokenPF2e = Token<ActorPF2e> & { statusEffectChanged?: boolean };
 export type UserPF2e = User<ActorPF2e>;

@@ -32,11 +32,9 @@ declare module foundry {
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
-
-            folder: documents.BaseFolder | null;
         }
 
-        interface JournalEntryData extends Omit<JournalEntrySource, '_id' | 'folder'> {
+        interface JournalEntryData extends Omit<JournalEntrySource, '_id'> {
             _source: JournalEntrySource;
         }
     }

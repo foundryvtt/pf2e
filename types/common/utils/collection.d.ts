@@ -5,17 +5,15 @@ declare module foundry {
          * This concept is reused throughout Foundry VTT where a collection of uniquely identified elements is required.
          */
         interface Collection<V>
-            extends Omit<Map<string, V>, 'delete' | 'forEach' | 'set' | SymbolConstructor['iterator']> {
+            extends Omit<Map<string, V>, 'forEach' | 'delete' | 'set' | SymbolConstructor['iterator']> {
             set(key: string, value: V): this;
+
             delete(key: string): boolean;
-            /**
-             * When iterating over a Collection, we should iterate over its values instead of over its entries
-             */
+
+            /** When iterating over a Collection, we should iterate over its values instead of over its entries */
             [Symbol.iterator](): IterableIterator<V>;
 
-            /**
-             * Return an Array of all the entry values in the Collection
-             */
+            /** Return an Array of all the entry values in the Collection */
             readonly contents: V[];
 
             /**

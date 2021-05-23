@@ -48,7 +48,6 @@ import {
     TraitSelectorSpeeds,
     TraitSelectorWeaknesses,
 } from '@module/system/trait-selector';
-import { ConfigPF2e } from '@scripts/config';
 import { NPCPF2e } from '@actor/npc';
 import { CharacterPF2e } from '@actor/character';
 

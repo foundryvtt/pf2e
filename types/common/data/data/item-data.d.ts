@@ -37,13 +37,11 @@ declare module foundry {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            folder: documents.BaseFolder | null;
-
             /** A collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;
         }
 
-        interface ItemData extends Omit<ItemSource, '_id' | 'folder' | 'effects'> {
+        interface ItemData extends Omit<ItemSource, '_id' | 'effects'> {
             readonly _source: ItemSource;
         }
     }

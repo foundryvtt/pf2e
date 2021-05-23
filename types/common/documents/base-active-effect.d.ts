@@ -24,7 +24,7 @@ declare module foundry {
         }
 
         interface BaseActiveEffect {
-            data: data.ActiveEffectData<this>;
+            readonly data: data.ActiveEffectData<BaseActiveEffect>;
         }
 
         interface ActiveEffectMetadata extends abstract.DocumentMetadata {

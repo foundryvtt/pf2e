@@ -19,7 +19,7 @@ declare module foundry {
             readonly pack: string | null;
 
             /** The base data object for this Document which persists both the original source and any derived data. */
-            readonly data: DocumentData<this>;
+            readonly data: DocumentData<Document>;
 
             /**
              * A collection of Application instances which should be re-rendered whenever this Document experiences an update to
@@ -516,15 +516,9 @@ declare module foundry {
              * @returns The extracted primitive object
              */
             toObject(): this['data']['_source'];
-            toObject<T extends boolean>(
-                source: T,
-            ): T extends true
-                ? this['data']['_source']
-                : T extends false
-                ? RawObject<this['data']>
-                : T extends boolean
-                ? this['data']['_source'] | RawObject<this['data']>
-                : never;
+            toObject(source: true): this['data']['_source'];
+            toObject(source: undefined): this['data']['_source'];
+            toObject(source: false): RawObject<this['data']>;
 
             /**
              * Serializing an Document should simply serialize its inner data, not the entire instance
@@ -582,7 +576,11 @@ declare interface DocumentModificationContext {
     deleteAll?: boolean;
 }
 
-declare type DocumentPermission = typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS];
+declare type DocumentPermission =
+    | typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]
+    | 'create'
+    | 'update'
+    | 'delete';
 
 declare type Embedded<T extends foundry.abstract.Document> = T & {
     readonly parent: NonNullable<T['parent']>;

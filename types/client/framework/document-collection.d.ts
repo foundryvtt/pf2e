@@ -47,7 +47,7 @@ declare abstract class EntityCollection<E extends Entity = Entity> extends Colle
     /**
      * Return a reference to the base Entity name which is contained within this EntityCollection.
      */
-    abstract get entity(): string;
+    get documentName(): string;
 
     /**
      * Return a reference to the singleton instance of this EntityCollection, or null if it has not yet been created.

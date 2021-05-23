@@ -13,38 +13,13 @@ declare interface UserActivityData {
     targets: any[];
 }
 
-/**
- * The collection of User entities which is accessible through ``game.users``.
- * The array of User entities within this collection is accessible through ``game.users.entities``.
- */
-declare class Users<ActorType extends Actor = Actor> extends EntityCollection<User<ActorType>> {
-    /** @override */
-    get entity(): 'User';
-
-    /**
-     * Get the users with player roles
-     */
-    get players(): User<ActorType>[];
-
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers               */
-    /* -------------------------------------------- */
-
-    /**
-     * Handle receipt of activity data from another User connected to the Game session
-     * @param userId        The User id who generated the activity data
-     * @param activityData  The object of activity data
-     */
-    static _handleUserActivity(userId: string, activityData?: object): void;
-}
-
 declare interface UserData extends BaseEntityData {
     type: string;
     color: string;
 }
 
 declare interface UserClassConfig extends EntityClassConfig<User> {
-    collection: Users;
+    collection: Users<User>;
 }
 
 declare type UserPermission = keyof typeof CONST.USER_PERMISSIONS;

@@ -5,7 +5,7 @@ declare global {
         TActor extends foundry.documents.BaseActor = foundry.documents.BaseActor
     > extends TokenDocumentConstructor {
         /** @override */
-        constructor(data: foundry.data.TokenData<TokenDocument>, context: DocumentModificationContext);
+        constructor(data: Partial<foundry.data.TokenData>, context: DocumentModificationContext);
 
         /**
          * A cached reference to the Actor document that this Token modifies.
@@ -149,7 +149,7 @@ declare global {
     }
 
     interface TokenDocument {
-        data: foundry.data.TokenData<this>;
+        readonly data: foundry.data.TokenData<TokenDocument>;
         readonly parent: foundry.documents.BaseScene | null;
         // readonly _sheet: TokenConfig<this> | null;
     }

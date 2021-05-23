@@ -23,7 +23,7 @@ declare const ui: {
 declare class Game<
     ActorType extends Actor = Actor,
     ItemType extends Item = Item,
-    CombatType extends Combat<ActorType> = Combat<ActorType>,
+    CombatType extends Combat = Combat,
     MacroType extends Macro = Macro
 > {
     /**
@@ -94,15 +94,15 @@ declare class Game<
     /*  Entities
     /* -------------------------------------------- */
 
-    users: Users<ActorType>;
-    messages: Messages<ActorType>;
+    users: Users<User<ActorType>>;
+    messages: Messages<ChatMessage<ActorType>>;
     scenes: Scenes;
     actors: Actors<ActorType>;
     items: Items<ItemType>;
     journal: Journal;
     macros: Macros<MacroType>;
     playlists: Playlists;
-    combats: CombatEncounters<ActorType>;
+    combats: CombatEncounters<Combat>;
     tables: RollTables;
     folders: Folders;
     packs: Collection<Compendium<ActorType | ItemType | JournalEntry | MacroType | Playlist | RollTable | Scene>>;
@@ -242,10 +242,8 @@ declare class Game<
         };
     };
 
-    /**
-     * A convenience accessor for the currently active Combat encounter
-     */
-    get combat(): CombatType;
+    /** A convenience accessor for the currently active Combat encounter */
+    get combat(): CombatType | null;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused

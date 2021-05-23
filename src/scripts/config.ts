@@ -1,10 +1,9 @@
-import { ActorPF2e, HazardPF2e } from '@module/actor/base';
+import { HazardPF2e } from '@module/actor/base';
 import { VehiclePF2e } from '@module/actor/vehicle';
 import { CharacterPF2e } from '@module/actor/character';
 import { LootPF2e } from '@module/actor/loot';
 import { NPCPF2e } from '@module/actor/npc';
 import { FamiliarPF2e } from '@module/actor/familiar';
-import { ItemPF2e } from '@module/item/base';
 import { ActionPF2e } from '@item/action';
 import { AncestryPF2e } from '@module/item/ancestry';
 import { ArmorPF2e } from '@module/item/armor';
@@ -19,12 +18,7 @@ import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
-import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { AnimalCompanionPF2e } from '@actor/animal-companion';
-import { ActiveEffectPF2e } from '@module/active-effect';
-import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
 import { AbilityString } from '@actor/data-definitions';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
@@ -2316,30 +2310,3 @@ export const PF2ECONFIG = {
         },
     },
 };
-
-export interface ConfigPF2e extends Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
-    debug: Config['debug'] & {
-        ruleElement: boolean;
-    };
-
-    /**
-     * Configuration for the default Combat entity class
-     */
-    Combat: {
-        documentClass: { new (data: CombatData<ActorPF2e>, options?: EntityConstructorOptions): Combat<ActorPF2e> };
-        collection: typeof CombatEncounters;
-        initiative: {
-            decimals: number;
-            formula: ((combatant: CombatantData<Actor>) => string) | null;
-        };
-    };
-
-    PF2E: typeof PF2ECONFIG;
-    time: {
-        roundTime: number;
-    };
-    ui: Config<ActorPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e>['ui'] & {
-        combat: typeof CombatTrackerPF2e;
-        compendium: typeof CompendiumDirectoryPF2e;
-    };
-}

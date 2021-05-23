@@ -43,8 +43,6 @@ declare module foundry {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            folder: documents.BaseFolder | null;
-
             /** A Collection of Item embedded Documents */
             items: abstract.EmbeddedCollection<TItem>;
 
@@ -52,7 +50,7 @@ declare module foundry {
             effects: abstract.EmbeddedCollection<TActiveEffect>;
         }
 
-        interface ActorData extends Omit<ActorSource, '_id' | 'folder' | 'effects' | 'items'> {
+        interface ActorData extends Omit<ActorSource, '_id' | 'effects' | 'items'> {
             readonly _source: ActorSource;
         }
     }

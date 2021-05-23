@@ -1,29 +1,3 @@
-declare class Messages<ActorType extends Actor> extends EntityCollection<ChatMessage<ActorType>> {
-    /** @override */
-    get entity(): 'ChatMessage';
-
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers
-    /* -------------------------------------------- */
-
-    /**
-     * If requested, dispatch a Chat Bubble UI for the newly created message
-     * @param response  The created ChatMessage response
-     */
-    protected _sayBubble(response: object): void;
-
-    /**
-     * Handle export of the chat log to a text file
-     */
-    protected export(): void;
-
-    /**
-     * Allow for bulk deletion of all chat messages, confirm first with a yes/no dialog.
-     * @see {@link Dialog.confirm}
-     */
-    flush(): Promise<any>;
-}
-
 declare interface ChatMessageData extends BaseEntityData {
     type: ChatMessageType;
     blind?: boolean;
@@ -42,7 +16,7 @@ declare interface ChatMessageData extends BaseEntityData {
 }
 
 declare interface ChatMessageClassConfig extends EntityClassConfig<ChatMessage<Actor>> {
-    collection: Messages<Actor>;
+    collection: Messages<ChatMessage>;
 }
 
 declare interface MessageCreateOptions extends EntityCreateOptions {

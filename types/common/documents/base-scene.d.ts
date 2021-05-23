@@ -73,7 +73,7 @@ declare module foundry {
         }
 
         interface BaseScene {
-            data: data.SceneData<this>;
+            readonly data: data.SceneData<BaseScene>;
         }
 
         interface SceneMetadata extends abstract.DocumentMetadata {
