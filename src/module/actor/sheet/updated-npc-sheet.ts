@@ -1,11 +1,11 @@
 import { NPCSheetPF2e } from './npc';
 import { DicePF2e } from '@scripts/dice';
 import { ActorPF2e } from '../base';
-import { ItemPF2e } from '@item/base';
 import { ActorSheetPF2eSimpleNPC } from './simple-npc-sheet';
 import { SheetInventory } from './data-types';
-import { ItemDataPF2e } from '@item/data/types';
+import { ActionData, ItemDataPF2e } from '@item/data/types';
 import { MeleePF2e } from '@item/others';
+import { ActionPF2e } from '@item/action';
 
 interface LootSheetData {
     actor: { name: string; items: ItemDataPF2e[] };
@@ -271,7 +271,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      * Roll NPC Damage using DamageRoll
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamageRoll(event, damageRoll, item: any) {
+    rollNPCDamageRoll(event: any, damageRoll: any, item: any) {
         // Get data
         const itemData = item.data.data;
         const rollData = duplicate(item.actor.data.data);
@@ -306,7 +306,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
      * Toggle expansion of an attackEffect ability if it exists.
      *
      */
-    expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent, triggerItem: ItemPF2e) {
+    expandAttackEffect(attackEffectName: string, event: JQuery.TriggeredEvent) {
         const actionList = $(event.currentTarget).parents('form').find('.item.action-item');
         let toggledAnything = false;
         const mAbilities = CONFIG.PF2E.monsterAbilities();
@@ -320,30 +320,30 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         if (!toggledAnything) {
             const newAbilityInfo = mAbilities[attackEffectName];
             if (newAbilityInfo) {
-                const newAction = {
+                const newAction = ({
                     name: attackEffectName,
-                    type: 'action' as const,
+                    type: 'action',
                     data: {
                         actionType: { value: newAbilityInfo.actionType },
                         actionCategory: { value: 'offensive' },
                         source: { value: '' },
                         description: { value: newAbilityInfo.description },
-                        traits: { value: [] as string[] },
+                        traits: { value: [] },
                         actions: { value: newAbilityInfo.actionCost },
                     },
-                };
+                } as unknown) as PreCreate<ActionData>;
 
                 const traitRegEx = /(?:Traits.aspx.+?">)(?:<\w+>)*(.+?)(?:<\/\w+>)*(?:<\/a>)/g;
                 const matchTraits: any[][] = [...newAbilityInfo.description.matchAll(traitRegEx)];
 
                 for (let i = 0; i < matchTraits.length; i++) {
                     if (matchTraits[i] && matchTraits[i].length >= 2 && matchTraits[i][1]) {
-                        if (!newAction.data.traits.value.includes(matchTraits[i][1]))
-                            newAction.data.traits.value.push(matchTraits[i][1]);
+                        if (!newAction.data?.traits.value?.includes(matchTraits[i][1]))
+                            newAction.data?.traits.value?.push(matchTraits[i][1]);
                     }
                 }
 
-                triggerItem.actor?.createEmbeddedDocuments('Item', [newAction], { displaySheet: false });
+                ActionPF2e.create(newAction, { parent: this.actor, displaySheet: false });
             }
         }
     }
@@ -382,30 +382,30 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
 
         // NPC Weapon Rolling
 
-        html.find('button.npc-damageroll').on('click', (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        html.find('button.npc-damageroll').on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const drId = Number($(ev.currentTarget).attr('data-dmgRoll'));
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const drId = Number($(event.currentTarget).attr('data-dmgRoll'));
             const item = this.actor.items.get(itemId, { strict: true });
             const damageRoll = item.data.flags.pf2e_updatednpcsheet.damageRolls[drId];
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
+            switch (event.target.dataset.action) {
                 case 'npcDamageRoll':
-                    this.rollNPCDamageRoll(ev, damageRoll, item);
+                    this.rollNPCDamageRoll(event, damageRoll, item);
                     break;
                 default:
             }
         });
 
-        html.find('button.npc-attackEffect').on('click', (ev) => {
-            ev.preventDefault();
-            ev.stopPropagation();
+        html.find('button.npc-attackEffect').on('click', (event) => {
+            event.preventDefault();
+            event.stopPropagation();
 
-            const itemId = $(ev.currentTarget).parents('.item').attr('data-item-id') ?? '';
-            const aId = Number($(ev.currentTarget).attr('data-attackEffect'));
+            const itemId = $(event.currentTarget).parents('.item').attr('data-item-id') ?? '';
+            const aId = Number($(event.currentTarget).attr('data-attackEffect'));
             const item = this.actor.items.get(itemId);
             if (!(item instanceof MeleePF2e)) {
                 console.log('PF2e System | clicked an attackEffect, but item was not a melee');
@@ -413,30 +413,30 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
             }
 
             const attackEffect = item.data.data.attackEffects.value[aId];
-            console.log('PF2e System | clicked an attackEffect:', attackEffect, ev);
+            console.log('PF2e System | clicked an attackEffect:', attackEffect, event);
 
             // which function gets called depends on the type of button stored in the dataset attribute action
-            switch (ev.target.dataset.action) {
+            switch (event.target.dataset.action) {
                 case 'npcAttackEffect':
-                    this.expandAttackEffect(attackEffect, ev, item);
+                    this.expandAttackEffect(attackEffect, event);
                     break;
                 default:
             }
         });
 
-        html.find('a.npc-elite-adjustment').on('click', (e) => {
-            e.preventDefault();
+        html.find('a.npc-elite-adjustment').on('click', (event) => {
+            event.preventDefault();
             console.log(`PF2e System | Adding Elite adjustment to NPC`);
-            const eliteButton = $(e.currentTarget);
+            const eliteButton = $(event.currentTarget);
             const weakButton = eliteButton.siblings('.npc-weak-adjustment');
             eliteButton.toggleClass('active');
             weakButton.toggleClass('hidden');
             this.npcAdjustment(eliteButton.hasClass('active'));
         });
-        html.find('a.npc-weak-adjustment').on('click', (e) => {
-            e.preventDefault();
+        html.find('a.npc-weak-adjustment').on('click', (event) => {
+            event.preventDefault();
             console.log(`PF2e System | Adding Weak adjustment to NPC`);
-            const weakButton = $(e.currentTarget);
+            const weakButton = $(event.currentTarget);
             const eliteButton = weakButton.siblings('.npc-elite-adjustment');
             weakButton.toggleClass('active');
             eliteButton.toggleClass('hidden');

@@ -235,7 +235,8 @@ export class WeaponDamagePF2e {
 
             // check for Rogue's Racket: Thief
             if (
-                actor.items.some((i) => i.type === 'feat' && i.data.slug === 'thief-racket') && // character has Thief Racket class feature
+                // character has Thief Racket class feature
+                actor.items.some((item) => item.type === 'feat' && item.slug === 'thief-racket') &&
                 !traits.some((t) => t.name === 'unarmed') && // NOT unarmed attack
                 traits.some((t) => t.name === 'finesse') &&
                 melee && // finesse melee weapon
@@ -401,7 +402,7 @@ export class WeaponDamagePF2e {
         if (weaponSpecializationDamage > 0) {
             const has = (slug: string, name: string) =>
                 actor.items.some(
-                    (i) => i.type === 'feat' && (i.data.slug?.startsWith(slug) || i.name.startsWith(name)),
+                    (item) => item.type === 'feat' && (item.slug?.startsWith(slug) || item.name.startsWith(name)),
                 );
             if (has('greater-weapon-specialization', 'Greater Weapon Specialization')) {
                 numericModifiers.push(

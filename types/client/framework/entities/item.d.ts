@@ -1,7 +1,7 @@
 declare interface ItemData extends BaseEntityData {
     type: string;
     data: {};
-    effects: ActiveEffectData[];
+    effects: foundry.abstract.EmbeddedCollection<ActiveEffect>;
     folder?: string | null;
     sort: number;
 }
@@ -19,11 +19,9 @@ declare interface ItemConstructorOptions<A extends Actor> extends EntityConstruc
     actor?: A;
 }
 
-type _Actor = Actor<Item<_Actor>, ActiveEffect>;
-type _ActiveEffect = ActiveEffect<_Actor | Item>;
-declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
+declare class Item extends Entity {
     /** The item's collection of ActiveEffects */
-    effects: Collection<EffectType>;
+    effects: this['data']['effects'];
 
     /** @override */
     static get config(): ItemClassConfig<Item>;
@@ -38,7 +36,7 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     /**
      * A convenience reference to the Actor entity which owns this item, if any
      */
-    get actor(): ActorType | null;
+    get actor(): this['parent'];
 
     /**
      * A convenience reference to the image path (data.img) used to represent this Item
@@ -94,15 +92,15 @@ declare class Item<ActorType extends Actor = _Actor, EffectType extends ActiveEf
     static createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Item>;
 }
 
-declare interface Item<ActorType extends Actor = _Actor, EffectType extends ActiveEffect = _ActiveEffect>
-    extends Entity {
-    data: ItemData;
-    _data: ItemData;
+declare interface Item extends Entity {
+    readonly data: ItemData;
+    readonly parent: Actor | null;
 
-    readonly sheet: ItemSheet<Item>;
-
-    getEmbeddedEntity(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
-    getEmbeddedEntity(collection: string, id: string, { strict }?: { strict?: boolean }): never;
+    getEmbeddedDocument(
+        collection: 'ActiveEffect',
+        id: string,
+        { strict }?: { strict?: boolean },
+    ): ActiveEffect | undefined;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
@@ -110,13 +108,18 @@ declare interface Item<ActorType extends Actor = _Actor, EffectType extends Acti
 
 declare namespace Item {
     function create<I extends Item>(
-        this: new (data: I['data'], options?: EntityConstructorOptions) => I,
+        this: new (...args: any[]) => I,
         data: PreCreate<I['data']>,
         options?: EntityCreateOptions,
-    ): Promise<I>;
+    ): Promise<I | undefined>;
     function create<I extends Item>(
-        this: new (data: I['data'], options?: EntityConstructorOptions) => I,
-        data: PreCreate<I['data']> | PreCreate<I['data']>[],
+        this: new (...args: any[]) => I,
+        data: PreCreate<I['data']>[],
         options?: EntityCreateOptions,
-    ): Promise<I[] | I>;
+    ): Promise<I[]>;
+    function create<I extends Item>(
+        this: new (...args: any[]) => I,
+        data: PreCreate<I['data']>[] | PreCreate<I['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<I[] | I | undefined>;
 }

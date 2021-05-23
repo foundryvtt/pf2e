@@ -1,4 +1,4 @@
-import { ItemPF2e } from './base';
+import { ItemPF2e } from './index';
 import { FeatData, FeatType } from './data/types';
 
 export class FeatPF2e extends ItemPF2e {

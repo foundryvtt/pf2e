@@ -5,22 +5,17 @@ import { getContainerMap } from '@item/container';
 import { DistributeCoinsPopup } from './popups/distribute-coins-popup';
 import { ItemDataPF2e, InventoryItemType, isPhysicalItem, PhysicalItemData } from '@item/data/types';
 import { LootNPCsPopup } from './loot/loot-npcs-popup';
-import { ActorSheetDataPF2e, InventoryItem } from './data-types';
-import { LootData } from '@actor/data-definitions';
+import { InventoryItem } from './data-types';
 
 /**
  * @category Actor
  */
 export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     /** @override */
-    constructor(actor: LootPF2e, options: Partial<BaseEntitySheetOptions> = {}) {
-        super(actor, { ...options, editable: true });
-    }
-
-    /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
         return mergeObject(options, {
+            editable: true,
             classes: options.classes.concat('loot'),
             width: 650,
             height: 680,
@@ -40,7 +35,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
 
     /** @override */
     getData() {
-        const sheetData: ActorSheetDataPF2e<LootData> = super.getData();
+        const sheetData = super.getData();
         const isLoot = this.actor.data.data.lootSheetType === 'Loot';
         return { ...sheetData, isLoot };
     }
@@ -140,10 +135,7 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     /** @override */
-    protected async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasData,
-    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
+    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
         // Prevent a Foundry permissions error from being thrown when a player drops an item from an unowned
         // loot sheet to the same sheet
         if (this.actor.id === data.actorId && !this.actor.testUserPermission(game.user, 'OWNER')) {

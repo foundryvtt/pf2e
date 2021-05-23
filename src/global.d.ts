@@ -6,7 +6,7 @@ import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
 import { RuleElements } from '@module/rules/rules';
-import { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
+import type { HomebrewSettingsKey, HomebrewTag } from '@module/settings/homebrew';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { PF2ECONFIG, StatusEffectIconType } from '@scripts/config';
@@ -66,7 +66,7 @@ declare global {
     }
 
     interface ConfigPF2e
-        extends Config<ActorPF2e, CombatantPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
+        extends Config<ActiveEffectPF2e, ActorPF2e, ChatMessagePF2e, CombatantPF2e, CombatPF2e, ItemPF2e, MacroPF2e> {
         debug: Config['debug'] & {
             ruleElement: boolean;
         };
@@ -76,12 +76,12 @@ declare global {
             roundTime: number;
         };
         ui: Config<
+            ActiveEffectPF2e,
             ActorPF2e,
+            ChatMessagePF2e,
             CombatantPF2e,
             CombatPF2e,
             ItemPF2e,
-            ActiveEffectPF2e,
-            ChatMessagePF2e,
             MacroPF2e
         >['ui'] & {
             combat: typeof CombatTrackerPF2e;

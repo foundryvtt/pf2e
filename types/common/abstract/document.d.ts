@@ -1,7 +1,5 @@
 declare module foundry {
     module abstract {
-        type DocumentConstructorData<T extends DocumentData> = T | ReturnType<T['toObject']>;
-
         interface DocumentConstructorContext<T extends Document | null = Document | null> {
             parent?: T;
             compendium?: CompendiumCollection | null;
@@ -10,7 +8,7 @@ declare module foundry {
 
         /** The abstract base interface for all Document types. */
         abstract class Document {
-            constructor(data: DocumentConstructorData<DocumentData>, context?: DocumentConstructorContext);
+            constructor(data: Partial<DocumentSource>, context?: DocumentConstructorContext);
 
             /** An immutable reverse-reference to the parent Document to which this embedded Document belongs. */
             readonly parent: Document | null;
@@ -243,11 +241,21 @@ declare module foundry {
              * const data = [{name: "Special Sword", type: "weapon"}];
              * const created = await Item.create(data, {pack: "mymodule.mypack"});
              */
-            static create(
-                // @ts-ignore
-                data: PreCreate<DocumentSource>,
+            static create<T extends Document>(
+                this: new (...args: any[]) => T,
+                data: Partial<T['data']['_source']>,
                 context?: DocumentModificationContext,
-            ): Promise<Document>;
+            ): Promise<T>;
+            static create<T extends Document>(
+                this: new (...args: any[]) => T,
+                data: Partial<T['data']['_source']>[],
+                context?: DocumentModificationContext,
+            ): Promise<T[]>;
+            static create<T extends Document>(
+                this: new (...args: any[]) => T,
+                data: Partial<T['data']['_source']> | Partial<T['data']['_source']>[],
+                context?: DocumentModificationContext,
+            ): Promise<T | T[]>;
 
             /**
              * Update one or multiple existing entities using provided input data.
@@ -563,7 +571,7 @@ declare module foundry {
  * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
  */
 declare interface DocumentModificationContext {
-    parent?: Document;
+    parent?: foundry.abstract.Document;
     pack?: string;
     noHook?: boolean;
     index?: boolean;

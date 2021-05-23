@@ -3,7 +3,6 @@ import { LootData } from './data-definitions';
 import { PhysicalItemPF2e } from '@item/physical';
 import { ItemPF2e } from '@item/base';
 import { addCoins, attemptToRemoveCoinsByValue, extractPriceFromItem } from '@item/treasure';
-import { LootSheetPF2e } from './sheet/loot';
 import { ErrorPF2e } from '@module/utils';
 
 export class LootPF2e extends ActorPF2e {
@@ -61,9 +60,7 @@ export class LootPF2e extends ActorPF2e {
 }
 
 export interface LootPF2e extends ActorPF2e {
-    data: LootData;
-
-    readonly sheet: LootSheetPF2e;
+    readonly data: LootData;
 
     getFlag(scope: string, key: string): unknown;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;

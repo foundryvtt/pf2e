@@ -26,7 +26,6 @@ import { isCreatureData } from '@actor/data-definitions';
 import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
-import { ActiveEffectPF2e } from '@module/active-effect';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
@@ -35,10 +34,7 @@ interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     };
 }
 
-/**
- * @category PF2
- */
-export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
+export class ItemPF2e extends Item {
     constructor(data: ItemDataPF2e, options: ItemConstructorOptionsPF2e = {}) {
         if (options.pf2e?.ready) {
             delete options.pf2e.ready;
@@ -90,7 +86,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     /** @override */
     protected async _preCreate(
         createData: DeepPartial<ItemDataPF2e>,
-        options: EntityCreateOptions,
+        options: DocumentModificationContext,
         user: User,
     ): Promise<void> {
         await super._preCreate(createData, options, user);
@@ -131,7 +127,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** @override */
-    protected _onCreate(itemData: ItemDataPF2e, options: EntityCreateOptions, userId: string): void {
+    protected _onCreate(itemData: ItemDataPF2e, options: DocumentModificationContext, userId: string): void {
         if (this.isOwned) {
             if (this.actor) {
                 // Rule Elements
@@ -153,7 +149,11 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
     }
 
     /** @override */
-    protected _onUpdate(changed: DeepPartial<ItemDataPF2e>, options: EntityUpdateOptions, userId: string): void {
+    protected _onUpdate(
+        changed: DeepPartial<ItemDataPF2e>,
+        options: DocumentModificationContext,
+        userId: string,
+    ): void {
         if (this.isOwned && this.actor) {
             game.pf2e.effectPanel.refresh();
         }
@@ -529,9 +529,9 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll NPC Damage
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
-    rollNPCDamage(event: JQuery.ClickEvent, critical = false) {
+    rollNPCDamage(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, critical = false) {
         if (this.data.type !== 'melee') throw ErrorPF2e('Wrong item type!');
-        if (this.actor?.data.type !== 'npc' && this.actor?.data.type !== 'hazard') {
+        if (this.actor.data.type !== 'npc' && this.actor.data.type !== 'hazard') {
             throw ErrorPF2e('Attempted to roll an attack without an actor!');
         }
 
@@ -592,7 +592,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellcastingEntryCheck(event: JQuery.ClickEvent) {
+    rollSpellcastingEntryCheck(this: Owned<ItemPF2e>, event: JQuery.ClickEvent) {
         // Prepare roll data
         const itemData: ItemDataPF2e = this.data;
         if (itemData.type !== 'spellcastingEntry') throw new Error('Wrong item type!');
@@ -629,7 +629,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
      * Roll Spell Damage
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
-    rollSpellAttack(event: JQuery.ClickEvent, multiAttackPenalty = 1) {
+    rollSpellAttack(this: Owned<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
         let item: ItemDataPF2e = this.data;
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
@@ -833,11 +833,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
         );
     }
 
-    /* -------------------------------------------- */
-
-    /**
-     * Use a consumable item
-     */
+    /** Use a consumable item */
     async rollConsumable(this: Owned<ItemPF2e>, _event: JQuery.ClickEvent): Promise<void> {
         const item: ItemDataPF2e = this.data;
         if (item.type !== 'consumable') throw Error('Tried to roll consumable on a non-consumable');
@@ -896,27 +892,24 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
         // Optionally destroy the item
         if (chg.value <= 1 && qty.value <= 1 && itemData.autoDestroy.value) {
-            this.actor.deleteEmbeddedDocuments('Item', this.data._id);
+            this.delete();
         }
         // Deduct one from quantity if this item doesn't have charges
         else if (chg.max < 1) {
-            const options = {
-                _id: this.data._id,
+            this.update({
                 'data.quantity.value': Math.max(qty.value - 1, 0),
                 'data.charges.value': chg.max,
-            };
-            this.actor.updateEmbeddedDocuments('Item', options);
+            });
         }
         // Deduct one charge
         else {
-            this.actor.updateEmbeddedDocuments('Item', {
-                _id: this.data._id,
+            this.update({
                 'data.charges.value': Math.max(chg.value - 1, 0),
             });
         }
     }
 
-    async castEmbeddedSpell(trickMagicItemData?: TrickMagicItemCastData): Promise<void> {
+    async castEmbeddedSpell(this: Owned<ItemPF2e>, trickMagicItemData?: TrickMagicItemCastData): Promise<void> {
         if (this.data.type !== 'consumable' || !this.actor) return;
         if (!(this.data.data.spell?.data && this.data.data.spell?.heightenedLevel)) return;
         const actor = this.actor;
@@ -1055,7 +1048,8 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 }
 
 export interface ItemPF2e {
-    data: ItemDataPF2e;
+    readonly data: ItemDataPF2e;
+    readonly parent: ActorPF2e | null;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;

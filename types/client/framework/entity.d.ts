@@ -8,6 +8,7 @@ declare interface BaseEntityData {
     permission: Record<string, typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]>;
     img: ImagePath;
     update(data?: EntityUpdateData<this>, options?: EntityUpdateOptions): EntityUpdateData<this>;
+    toObject(source?: boolean): this;
 }
 
 declare interface EntityConstructorOptions {
@@ -278,39 +279,40 @@ declare class Entity {
     /* -------------------------------------------- */
 
     /**
-     * Create one or multiple new entities using provided input data.
-     * Data may be provided as a single object to create one Entity, or as an Array of Objects.
-     * Entities may be temporary (unsaved to the database) by passing the temporary option as true.
-     * @static
+     * Create a new Document using provided input data, saving it to the database.
+     * @see {@link Document.createDocuments}
+     * @param [data={}] Initial data used to create this Document
+     * @param [context={}] Additional context which customizes the creation workflow
+     * @return The created Document instance(s)
      *
-     * @param data                        A Data object or array of Data
-     * @param options                         Additional options which customize the creation workflow
-     * @param [options.temporary]         Create a temporary entity which is not saved to the world database. Default is false.
-     * @param [options.renderSheet]     Display the sheet for the created entity once it is created. Default is false.
-     * @param [options.noHook]                Block the dispatch of preCreate hooks for this operation.
+     * @example <caption>Create a World-level Item</caption>
+     * const data = [{name: "Special Sword", type: "weapon"}];
+     * const created = await Item.create(data);
      *
-     * @return  The created Entity or array of Entities
+     * @example <caption>Create an Actor-owned Item</caption>
+     * const data = [{name: "Special Sword", type: "weapon"}];
+     * const actor = game.actors.getName("My Hero");
+     * const created = await Item.create(data, {parent: actor});
      *
-     * @example
-     * const data = {name: "New Entity", type: "character", img: "path/to/profile.jpg"};
-     * const created = await Entity.create(data); // Returns one Entity, saved to the database
-     * const temp = await Entity.create(data, {temporary: true}); // Not saved to the database
-     *
-     * @example
-     * const data = [{name: "Tim", type: "npc"], [{name: "Tom", type: "npc"}];
-     * const created = await Entity.create(data); // Returns an Array of Entities, saved to the database
-     * const created = await Entity.create(data, {temporary: true}); // Not saved to the database
+     * @example <caption>Create an Item in a Compendium pack</caption>
+     * const data = [{name: "Special Sword", type: "weapon"}];
+     * const created = await Item.create(data, {pack: "mymodule.mypack"});
      */
     static create<E extends Entity>(
         this: new (data: E['data'], options?: EntityConstructorOptions) => E,
         data: Partial<E['data']>,
-        options?: EntityCreateOptions,
-    ): Promise<E>;
+        context?: EntityCreateOptions,
+    ): Promise<E> | undefined;
+    static create<E extends Entity>(
+        this: new (data: E['data'], options?: EntityConstructorOptions) => E,
+        data: Partial<E['data']>[],
+        context?: EntityCreateOptions,
+    ): Promise<E[]>;
     static create<E extends Entity>(
         this: new (data: E['data'], options?: EntityConstructorOptions) => E,
         data: Partial<E['data']>[] | Partial<E['data']>,
         options?: EntityCreateOptions,
-    ): Promise<E[] | E>;
+    ): Promise<E[] | E | undefined>;
 
     /**
      * Update one or multiple existing entities using provided input data.
@@ -335,7 +337,7 @@ declare class Entity {
     update(data: EntityUpdateData<this['data']>, options?: EntityUpdateOptions): Promise<this>;
     update(
         data: EntityUpdateData<this['data']>[] | EntityUpdateData<this['data']>,
-        options?: EntityUpdateOptions,
+        options?: DocumentModificationContext,
     ): Promise<this[] | this>;
 
     /**
@@ -355,28 +357,28 @@ declare class Entity {
      */
     protected _preCreate<E extends Entity>(
         data: DeepPartial<E['data']>,
-        options: EntityCreateOptions,
+        options: DocumentModificationContext,
         user: User,
     ): Promise<void>;
 
     /**
      * Perform follow-up operations after a Document of this type is created. Post-creation operations occur for all clients after the creation is broadcast.
      */
-    protected _onCreate<E extends Entity>(data: E['data'], options: EntityCreateOptions, userId: string): void;
+    protected _onCreate<E extends Entity>(data: E['data'], options: DocumentModificationContext, userId: string): void;
 
     /**
      * Entity-specific actions that should occur when the Entity is updated
      */
     protected _onUpdate<E extends Entity>(
         changed: DeepPartial<E['data']>,
-        options: EntityUpdateOptions,
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
     /**
      * Entity-specific actions that should occur when the Entity is deleted
      */
-    protected _onDelete(options: EntityDeleteOptions, userId: string): void;
+    protected _onDelete(options: DocumentModificationContext, userId: string): void;
 
     /* -------------------------------------------- */
     /*  Embedded Entity Management                  */
@@ -395,36 +397,18 @@ declare class Entity {
     ): BaseEntityData;
 
     /**
-     * Create one or multiple EmbeddedEntities within this parent Entity.
-     * Data may be provided as a single Object to create one EmbeddedEntity or as an Array of Objects to create many.
-     * Entities may be temporary (unsaved to the database) by passing the temporary option as true.
-     *
-     * @param embeddedName           The name of the Embedded Entity class to create
-     * @param data                   A Data object or an Array of Data objects to create
-     * @param options                Additional creation options which modify the request
-     * @param [options.temporary]    Create a temporary entity which is not saved to the world database. Default is false.
-     * @param [options.renderSheet]  Display the sheet for each created Embedded Entities once created.
-     * @param [options.noHook]       Block the dispatch of preUpdate hooks for this operation.
-     *
-     * @return  A Promise which resolves to the created embedded Data once the creation request is successful
-     *
-     * @example
-     * const actor = game.actors.get("dfv934kj23lk6h9k");
-     * const data = {name: "Magic Sword", type: "weapon", img: "path/to/icon.png"};
-     * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns one EmbeddedEntity, saved to the Actor
-     * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
-     *
-     * @example
-     * const actor = game.actors.get("dfv934kj23lk6h9k");
-     * const data = [{name: "Mace of Crushing", type: "weapon"}, {name: "Shield of Defense", type: "armor"}];
-     * const created = await actor.createEmbeddedEntity("OwnedItem", data); // Returns an Array of EmbeddedEntities, saved to the Actor
-     * const temp = await actor.createEmbeddedEntity("OwnedItem", data, {temporary: true}); // Not saved to the Actor
+     * Create multiple embedded Document instances within this parent Document using provided input data.
+     * @see {@link Document.createDocuments}
+     * @param embeddedName The name of the embedded Document type
+     * @param data         An array of data objects used to create multiple documents
+     * @param [context={}] Additional context which customizes the creation workflow
+     * @return An array of created Document instances
      */
-    createEmbeddedDocuments<E extends BaseEntityData | EmbeddedEntityData>(
+    createEmbeddedDocuments(
         embeddedName: string,
-        data: Partial<E>[] | E[],
-        options?: EntityCreateOptions,
-    ): Promise<E[]>;
+        data: DeepPartial<BaseEntityData>[] | DeepPartial<foundry.abstract.DocumentSource>[],
+        context?: DocumentModificationContext,
+    ): Promise<Entity[]>;
 
     /**
      * Update one or multiple existing entities using provided input data.
@@ -455,14 +439,9 @@ declare class Entity {
      */
     updateEmbeddedDocuments(
         embeddedName: string,
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<EmbeddedEntityData | BaseEntityData | TokenData>;
-    updateEmbeddedDocuments(
-        embeddedName: string,
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<EmbeddedEntityData | EmbeddedEntityData[] | BaseEntityData | BaseEntityData[] | TokenData | TokenData[]>;
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<Entity[] | foundry.abstract.Document[]>;
 
     /**
      * Delete one or multiple existing EmbeddedEntity objects using provided input data.
@@ -489,14 +468,9 @@ declare class Entity {
      */
     deleteEmbeddedDocuments(
         embeddedName: string,
-        dataId: string,
-        options?: EntityDeleteOptions,
-    ): Promise<EmbeddedEntityData | BaseEntityData>;
-    deleteEmbeddedDocuments(
-        embeddedName: string,
         dataId: string | string[],
         options?: EntityDeleteOptions,
-    ): Promise<EmbeddedEntityData | EmbeddedEntityData[] | BaseEntityData | BaseEntityData[]>;
+    ): Promise<Entity[] | ClientDocument[]>;
 
     /**
      * Handle Embedded Entity creation within this Entity with specific callback steps.
@@ -508,8 +482,9 @@ declare class Entity {
      */
     protected _onCreateEmbeddedDocuments(
         embeddedName: string,
-        child: BaseEntityData | EmbeddedEntityData,
-        options: EntityCreateOptions,
+        documents: Entity[] | ClientDocument[],
+        results: BaseEntityData[] | foundry.abstract.DocumentSource[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
@@ -522,9 +497,9 @@ declare class Entity {
      */
     protected _onUpdateEmbeddedDocuments(
         embeddedName: string,
-        child: BaseEntityData | EmbeddedEntityData,
-        updateData: EntityUpdateData<BaseEntityData> | EmbeddedEntityUpdateData,
-        options: EntityUpdateOptions,
+        documents: Entity[] | ClientDocument[],
+        results: EmbeddedEntityUpdateData[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
@@ -537,21 +512,10 @@ declare class Entity {
      */
     protected _onDeleteEmbeddedDocuments(
         embeddedName: string,
-        child: BaseEntityData | EmbeddedEntityData,
-        options: EntityDeleteOptions,
+        documents: Entity[] | ClientDocument[],
+        results: string[],
+        options: DocumentModificationContext,
         userId: string,
-    ): void;
-
-    /**
-     * A generic helper since we take the same actions for every type of Embedded Entity update
-     * Unlike the specific _onCreate, _onUpdate, and _onDelete methods this only runs once per updated batch
-     */
-    protected _onModifyEmbeddedDocuments(
-        embeddedName: string,
-        changes: EmbeddedEntityUpdateData,
-        options: EntityUpdateOptions,
-        userId: string,
-        context?: EntityRenderOptions,
     ): void;
 
     /* -------------------------------------------- */

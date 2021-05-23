@@ -1,13 +1,13 @@
 // @TODO: Assign class types
 
 declare interface Config<
-    ActorType extends Actor = Actor,
+    TActiveEffect extends ActiveEffect = ActiveEffect,
+    TActor extends Actor = Actor,
+    TChatMessage extends ChatMessage<TActor> = ChatMessage<TActor>,
     TCombatant extends Combatant = Combatant,
     TCombat extends Combat = Combat,
-    ItemType extends Item = Item,
-    EffectType extends ActiveEffect<ActorType | ItemType> = ActiveEffect<ActorType | ItemType>,
-    MessageType extends ChatMessage<ActorType> = ChatMessage<ActorType>,
-    MacroType extends Macro = Macro
+    TItem extends Item = Item,
+    TMacro extends Macro = Macro
 > {
     /**
      * Configure debugging flags to display additional information
@@ -27,8 +27,8 @@ declare interface Config<
      * Configuration for the default Actor entity class
      */
     Actor: {
-        documentClass: { new (data: ActorType['data'], options?: EntityConstructorOptions): ActorType };
-        collection: Actors<ActorType>;
+        documentClass: { new (data: TActor['data'], options?: EntityConstructorOptions): TActor };
+        collection: Actors<TActor>;
         sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
     };
 
@@ -36,7 +36,9 @@ declare interface Config<
      * Configuration for the ActiveEffect embedded Entity
      */
     ActiveEffect: {
-        documentClass: { new (data: EffectType['data'], parent: ActorType | ItemType): EffectType };
+        documentClass: {
+            new (data: Partial<TActiveEffect['data']['_source']>, context?: DocumentModificationContext): TActiveEffect;
+        };
         sheetClass: typeof ActiveEffectConfig;
     };
 
@@ -62,7 +64,7 @@ declare interface Config<
     ChatMessage: {
         batchSize: number;
         collection: typeof Messages;
-        documentClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): MessageType };
+        documentClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): TChatMessage };
         sidebarIcon: string;
         template: string;
     };
@@ -71,8 +73,8 @@ declare interface Config<
      * Configuration for the default Item entity class
      */
     Item: {
-        documentClass: { new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType };
-        collection: Items<ItemType>;
+        documentClass: { new (data: TItem['data'], options?: ItemConstructorOptions<TActor>): TItem };
+        collection: Items<TItem>;
         sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
     };
 
@@ -84,7 +86,10 @@ declare interface Config<
 
     /** Configuration for the Combat document */
     Combat: {
-        documentClass: new (data: TCombat['data'], context?: DocumentModificationContext) => TCombat;
+        documentClass: new (
+            data: Partial<TCombat['data']['_source']>,
+            context?: DocumentModificationContext,
+        ) => TCombat;
         collection: typeof CombatEncounters;
         defeatedStatusId: string;
         sidebarIcon: string;
@@ -111,7 +116,7 @@ declare interface Config<
      * Configuration for the Macro entity
      */
     Macro: {
-        documentClass: { new (data: MacroType['data'], options?: EntityConstructorOptions): MacroType };
+        documentClass: { new (data: TMacro['data'], options?: EntityConstructorOptions): TMacro };
         collection: typeof Macros;
         sheetClass: typeof MacroConfig;
         sidebarIcon: string;

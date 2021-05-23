@@ -2,8 +2,9 @@ import { AbilityString, CreatureTrait, ValuesList, ZeroToFour } from '@actor/dat
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import { RollNotePF2e } from '@module/notes';
 import { PHYSICAL_ITEM_TYPES } from './values';
-import { LocalizePF2e } from '@module/system/localize';
+import type { LocalizePF2e } from '@module/system/localize';
 import { DamageType } from '@module/damage-calculation';
+import type { ActiveEffectPF2e } from '@module/active-effect';
 
 export type Size = 'tiny' | 'sm' | 'med' | 'lg' | 'huge' | 'grg';
 export type Rarity = 'common' | 'uncommon' | 'rare' | 'unique';
@@ -567,7 +568,7 @@ interface SpellTraits extends ItemTraits {
 }
 
 export type SaveType = keyof ConfigPF2e['PF2E']['saves'];
-export type MagicTraditionKey = keyof ConfigPF2e['PF2E']['magicTraditions'];
+export type MagicTradition = keyof ConfigPF2e['PF2E']['magicTraditions'];
 
 export interface SpellDetailsData extends ItemDescriptionData, ItemLevelData {
     traits: SpellTraits;
@@ -670,6 +671,8 @@ interface SpellSlotData {
     max: number;
 }
 
+export type PreparationType = 'prepared' | 'spontaneous' | 'innate';
+
 export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     ability: {
         value: AbilityString | '';
@@ -683,14 +686,14 @@ export interface SpellcastingEntryDetailsData extends ItemDescriptionData {
     attack?: SpellAttackRollModifier;
     dc?: SpellDifficultyClass;
     tradition: {
-        value: MagicTraditionKey;
+        value: MagicTradition;
     };
     focus: {
         points: number;
         pool: number;
     };
     prepared: {
-        value: string;
+        value: PreparationType;
     };
     showUnpreparedSpells: {
         value: boolean;
@@ -853,6 +856,7 @@ export type InventoryItemType = PhysicalItemType;
 interface BaseItemDataPF2e<D extends ItemDescriptionData> extends ItemData {
     type: ItemType;
     data: D;
+    effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
 
     /** Prepared data */
     isPhysical: boolean;

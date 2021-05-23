@@ -81,11 +81,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
         const skillId: string = skillSelector.val() as string;
         const skillName = this.findSkillName(skillId);
         const itemName = skillName.replace(/-/g, ' ').titleCase();
-        const data = {
-            name: itemName,
-            type: 'lore',
-        };
-        await this.npc.createEmbeddedDocuments('Item', [data]);
+        await this.npc.createEmbeddedDocuments('Item', [{ name: itemName, type: 'lore' }]);
 
         this.render(true);
     }

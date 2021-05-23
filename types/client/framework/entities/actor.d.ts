@@ -1,10 +1,11 @@
-declare interface ActorData<D extends ItemData = ItemData> extends BaseEntityData {
+declare interface ActorData<TItem extends Item = Item, TActiveEffect extends ActiveEffect = ActiveEffect>
+    extends BaseEntityData {
     type: string;
     img: ImagePath;
     data: {};
     token: TokenData;
-    items: D[];
-    effects: ActiveEffectData[];
+    items: Collection<Owned<TItem>>;
+    effects: foundry.abstract.EmbeddedCollection<TActiveEffect>;
     folder?: string | null;
     sort: number;
 }
@@ -22,7 +23,7 @@ declare interface ActorConstructorOptions<T extends Token> extends EntityConstru
 }
 
 type Owned<I extends Item> = I & {
-    actor: NonNullable<I['actor']>;
+    parent: NonNullable<I['parent']>;
 };
 
 /** A structural subset of an ActiveEffect instance */
@@ -64,7 +65,7 @@ interface TemporaryEffect {
  * @example <caption>Retrieve an existing Actor</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = _ActiveEffect> extends Entity {
+declare class Actor extends Entity {
     /**
      * A reference to a placed Token which creates a synthetic Actor
      */
@@ -73,7 +74,7 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     /**
      * Construct the Array of Item instances for the Actor
      */
-    items: Collection<Owned<ItemType>>;
+    readonly items: Collection<Item>;
 
     options: ActorConstructorOptions<Token>;
 
@@ -83,7 +84,7 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     overrides: Record<string, any>;
 
     /** The actor's collection of ActiveEffects */
-    effects: Collection<EffectType>;
+    readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffect>;
 
     /**
      * Cache an Array of allowed Token images if using a wildcard path
@@ -91,6 +92,9 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     protected _tokenImages: string[] | null;
 
     get temporaryEffects(): TemporaryEffect[];
+
+    /** A convenience reference to the type (data.type) of this Actor */
+    get type(): string;
 
     /** @override */
     static get config(): ActorClassConfig<Actor>;
@@ -109,20 +113,6 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
 
     /** @override */
     prepareEmbeddedEntities(): void;
-
-    /**
-     * Prepare a Collection of OwnedItem instances which belong to this Actor.
-     * @param items The raw array of item objects
-     * @return The prepared owned items collection
-     */
-    protected _prepareOwnedItems(items: this['data']['items']): Collection<Owned<ItemType>>;
-
-    /**
-     * Prepare a Collection of ActiveEffect instances which belong to this Actor.
-     * @param effects The raw array of active effect objects
-     * @return The prepared active effects collection
-     */
-    protected _prepareActiveEffects(effects: EffectType['data'][]): Collection<EffectType>;
 
     /**
      * Apply any transformations to the Actor data which are caused by ActiveEffects.
@@ -180,34 +170,19 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     /** @override */
     updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffect[]>;
     updateEmbeddedDocuments(
         embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemType['data']>;
+        updateData: EmbeddedDocumentUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<Item[]>;
     updateEmbeddedDocuments(
-        embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemType['data'] | ItemType['data'][]>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof Actor['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemType['data']>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof Actor['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
+        embeddedName: 'ActiveEffect' | 'Item',
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffect[] | Item[]>;
 
     /**
      * Retrieve an Array of active tokens which represent this Actor in the current canvas Scene.
@@ -250,139 +225,73 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     /* Owned Item Management
     /* -------------------------------------------- */
 
-    /**
-     * Import a new owned Item from a compendium collection
-     * The imported Item is then added to the Actor as an owned item.
-     *
-     * @param collection    The name of the pack from which to import
-     * @param entryId       The ID of the compendium entry to import
-     */
-    importItemFromCollection(collection: string, entryId: string): ItemType;
-
-    // Signature overload
-    getEmbeddedDocument(collection: 'Item', id: string, { strict }?: { strict?: boolean }): ItemType['data'];
-    getEmbeddedDocument(collection: 'ActiveEffect', id: string, { strict }?: { strict?: boolean }): EffectType['data'];
-    getEmbeddedDocument(collection: string, id: string, { strict }?: { strict?: boolean }): never;
-
-    /**
-     * When Owned Items are created process each item and extract Active Effects to transfer to the Actor.
-     * @param created     Created owned Item data objects
-     * @param [temporary] Is this a temporary item creation?
-     * @return An array of effects to transfer to the Actor
-     */
-    protected _createItemActiveEffects(
-        created: ItemType['data'],
-        { temporary }?: EntityCreateOptions,
-    ): Promise<ActiveEffectData>;
-    protected _createItemActiveEffects(
-        created: ItemType['data'] | ItemType['data'][],
-        { temporary }?: EntityCreateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-
-    /**
-     * Update an owned item using provided new data
-     * @param itemData  Data for the item to update
-     * @param options   Item update options
-     * @return          A Promise resolving to the updated Item object
-     */
-    updateOwnedItem(
-        itemData: EntityUpdateData<ItemType['data']>,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemType['data']>;
-
-    /**
-     * Delete an owned item by its id. This redirects its arguments to the deleteEmbeddedEntity method.
-     * @param itemId    The ID of the item to delete
-     * @param options   Item deletion options
-     * @return          A Promise resolving to the deleted Owned Item data
-     */
-    deleteOwnedItem(itemId: string[], options?: object): Promise<ItemType[] | ItemType>;
-    deleteOwnedItem(itemId: string, options?: object): Promise<ItemType>;
-
     /** @override */
     protected _onCreateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        child: ActiveEffectData,
-        options: EntityCreateOptions,
+        documents: ActiveEffect[],
+        result: foundry.data.ActiveEffectSource[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
     protected _onCreateEmbeddedDocuments(
         embeddedName: 'Item',
-        child: ItemType['data'],
-        options: EntityCreateOptions,
+        documents: Item[],
+        result: ItemData[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
     protected _onCreateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
-        child: ActiveEffectData | ItemType['data'],
-        options: EntityCreateOptions,
+        embeddedName: 'Item',
+        documents: ActiveEffect[] | Item[],
+        result: foundry.data.ActiveEffectSource[] | ItemData[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
     /** @override */
     protected _onDeleteEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        child: ActiveEffectData,
-        options: EntityDeleteOptions,
+        documents: ActiveEffect[],
+        result: string[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
     protected _onDeleteEmbeddedDocuments(
         embeddedName: 'Item',
-        child: ItemType['data'],
-        options: EntityDeleteOptions,
+        documents: Item[],
+        result: string[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
     protected _onDeleteEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
-        child: ActiveEffectData | ItemType['data'],
-        options: EntityDeleteOptions,
+        documents: ActiveEffect[] | Item[],
+        result: string[],
+        options: DocumentModificationContext,
         userId: string,
     ): void;
 
     /** @override */
     protected _onUpdateEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
-        child: ActiveEffectData | ItemType['data'],
-        updateData: EmbeddedEntityUpdateData,
-        options: EntityUpdateOptions,
+        documents: ActiveEffect[] | Item[],
+        result: EmbeddedEntityUpdateData[],
+        options: DocumentModificationContext,
         userId: string,
-    ): void;
-
-    /** @override */
-    protected _onModifyEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
-        changes: EmbeddedEntityUpdateData,
-        options: EntityUpdateOptions,
-        userId: string,
-        context?: EntityRenderOptions,
     ): void;
 
     /** @override */
     deleteEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        dataId: string,
+        dataId: string[],
         options?: EntityDeleteOptions,
-    ): Promise<ActiveEffectData>;
-    deleteEmbeddedDocuments(
-        embeddedName: 'ActiveEffect',
-        dataId: string | string[],
-        options?: EntityDeleteOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
-    deleteEmbeddedDocuments(
-        embeddedName: 'Item',
-        dataId: string,
-        options?: EntityDeleteOptions,
-    ): Promise<ItemType['data']>;
-    deleteEmbeddedDocuments(
-        embeddedName: 'Item',
-        dataId: string | string[],
-        options?: EntityDeleteOptions,
-    ): Promise<ItemType['data'] | ItemType['data'][]>;
+    ): Promise<ActiveEffect[]>;
+    deleteEmbeddedDocuments(embeddedName: 'Item', dataId: string[], options?: EntityDeleteOptions): Promise<Item[]>;
     deleteEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
         dataId: string | string[],
         options?: EntityDeleteOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemType['data'] | ItemType['data'][]>;
+    ): Promise<ActiveEffect[] | Item[]>;
 
     migrateSystemData({
         insertKeys,
@@ -395,11 +304,33 @@ declare class Actor<ItemType extends Item = Item, EffectType extends ActiveEffec
     }): this['data']['data'];
 }
 
-declare interface Actor<ItemType extends Item = Item, EffectType extends ActiveEffect = ActiveEffect> {
-    data: ActorData<ItemType['data']>;
-    _data: ActorData<ItemType['data']>;
+declare interface Actor {
+    data: ActorData;
 
-    readonly sheet: ActorSheet<Actor, ItemType['data']>;
+    readonly sheet: ActorSheet<Actor, Item>;
+
+    getEmbeddedDocument(collection: 'Item', id: string, { strict }?: { strict?: boolean }): Item | undefined;
+    getEmbeddedDocument(
+        collection: 'ActiveEffect',
+        id: string,
+        { strict }?: { strict?: boolean },
+    ): ActiveEffect | undefined;
+
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect',
+        data: DeepPartial<foundry.data.ActiveEffectSource>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffect[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'Item',
+        data: DeepPartial<ItemData>[],
+        context?: DocumentModificationContext,
+    ): Promise<Item[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: DeepPartial<foundry.data.ActiveEffectSource>[] | DeepPartial<ItemData>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffect[] | Item[]>;
 
     getFlag(scope: string, key: string): any;
     getFlag(scope: 'core', key: 'sourceId'): string | undefined;
@@ -409,13 +340,18 @@ declare type PreCreate<D extends ActorData | ItemData> = Omit<Partial<D>, 'type'
 
 declare namespace Actor {
     function create<A extends Actor>(
-        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+        this: new (...args: any[]) => A,
         data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
-    ): Promise<A>;
+    ): Promise<A | undefined>;
     function create<A extends Actor>(
-        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
-        data: PreCreate<A['data']> | PreCreate<A['data']>[],
+        this: new (...args: any[]) => A,
+        data: PreCreate<A['data']>[],
         options?: EntityCreateOptions,
-    ): Promise<A[] | A>;
+    ): Promise<A[]>;
+    function create<A extends Actor>(
+        this: new (...args: any[]) => A,
+        data: PreCreate<A['data']>[] | PreCreate<A['data']>,
+        options?: EntityCreateOptions,
+    ): Promise<A[] | A | undefined>;
 }

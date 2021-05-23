@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ActorPF2e, UserPF2e } from './actor/base';
 import { ChatMessagePF2e } from './chat-message';
 import { ItemPF2e } from './item/base';

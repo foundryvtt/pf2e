@@ -11,7 +11,6 @@ import {
     CreatureTraitsData,
     LabeledString,
     NPCAttributes,
-    NPCData,
     NPCSkillData,
     NPCStrike,
     RawNPCData,
@@ -83,7 +82,7 @@ interface NPCSystemSheetData extends RawNPCData {
 }
 
 /** Additional fields added in sheet data preparation */
-interface NPCSheetData extends Omit<ActorSheetData<NPCData>, 'data'> {
+interface NPCSheetData extends Omit<ActorSheetData<NPCPF2e>, 'data'> {
     actions: ActionActions;
     attacks: Attacks;
     data: NPCSystemSheetData;
@@ -1012,10 +1011,12 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
                 : $input.is('select')
                 ? String($input.val())
                 : Number($input.val());
-        await this.actor.updateEmbeddedDocuments('Item', {
-            _id: itemId,
-            [key]: value,
-        });
+        await this.actor.updateEmbeddedDocuments('Item', [
+            {
+                _id: itemId,
+                [key]: value,
+            },
+        ]);
     }
 
     private async onSpellSlotIncrementReset(event: JQuery.ClickEvent) {

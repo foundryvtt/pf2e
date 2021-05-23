@@ -1,7 +1,10 @@
-declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetData<D> {
-    actor: D;
-    data: D['data'];
-    items: D['items'];
+declare interface ActorSheetData<TActor extends Actor> extends BaseEntitySheetData<TActor> {
+    actor: any;
+    data: any;
+    items: any[];
+    // actor: D;
+    // data: D['data'];
+    // items: D['items'];
 }
 
 /**
@@ -16,12 +19,9 @@ declare interface ActorSheetData<D extends ActorData> extends BaseEntitySheetDat
  * @param options          Additional options which modify the rendering of the Actor's sheet.
  * @param options.editable Is the Actor editable? Default is true.
  */
-declare class ActorSheet<
-    ActorType extends Actor,
-    ItemDataType extends CollectionValue<ActorType['items']>['data'] = CollectionValue<ActorType['items']>['data']
-> extends BaseEntitySheet<ActorType> {
+declare class ActorSheet<TActor extends Actor, TItem extends Item> extends BaseEntitySheet<TActor> {
     /** @override */
-    constructor(actor: ActorType, options?: Partial<BaseEntitySheetOptions>);
+    constructor(actor: TActor, options?: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
@@ -29,7 +29,7 @@ declare class ActorSheet<
     /**
      * If this Actor Sheet represents a synthetic Token actor, reference the active Token
      */
-    token: Token<ActorType> | null;
+    token: Token<TActor> | null;
 
     /** @override */
     get id(): `actor-${string}` | `actor-${string}-${string}`;
@@ -40,13 +40,13 @@ declare class ActorSheet<
     /**
      * A convenience reference to the Actor entity
      */
-    get actor(): ActorType;
+    get actor(): TActor;
 
     /**
      * Prepare data for rendering the Actor sheet
      * The prepared data object contains both the actor data as well as additional sheet options
      */
-    getData(): ActorSheetData<ActorType['data']>;
+    getData(): ActorSheetData<TActor>;
 
     /**
      * Handle requests to configure the prototype Token for the Actor
@@ -71,7 +71,15 @@ declare class ActorSheet<
     /**
      * Handle dropped data on the Actor sheet
      */
-    protected _onDrop(event: ElementDragEvent): Promise<boolean | any>;
+    protected _onDrop(event: ElementDragEvent): Promise<unknown>;
+
+    /**
+     * Handle dropping of an item reference or item data onto an Actor Sheet
+     * @param event The concluding DragEvent which contains drop data
+     * @param data  The data transfer extracted from the event
+     * @return A data object which describes the result of the drop
+     */
+    protected _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown>;
 
     /**
      * Handle the final creation of dropped Item data on the Actor.
@@ -79,7 +87,7 @@ declare class ActorSheet<
      * @param itemData     The item data requested for creation
      * @private
      */
-    protected _onDropItemCreate(itemData: ItemDataType): Promise<ItemDataType | null>;
+    protected _onDropItemCreate(itemData: TItem['data']): Promise<TItem[]>;
 
     /* -------------------------------------------- */
     /*  Owned Item Sorting
@@ -88,8 +96,5 @@ declare class ActorSheet<
     /**
      * Handle a drop event for an existing Owned Item to sort that item
      */
-    protected _onSortItem(
-        event: ElementDragEvent,
-        itemData: ItemDataType,
-    ): Promise<(ItemDataType | null)[] | ItemDataType | null>;
+    protected _onSortItem(event: ElementDragEvent, itemData: TItem['data']): Promise<TItem[]>;
 }

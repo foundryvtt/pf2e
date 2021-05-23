@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ActorDataPF2e } from '@actor/data-definitions';
 import {
     ABCFeatureEntryData,

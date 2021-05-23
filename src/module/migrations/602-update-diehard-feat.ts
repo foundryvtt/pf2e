@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MigrationBase } from './base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { FeatPF2e } from '@item/feat';
