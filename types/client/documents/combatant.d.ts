@@ -11,7 +11,7 @@ declare global {
      */
     class Combatant<TActor extends Actor = Actor> extends CombatantConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.CombatantData>, context: DocumentModificationContext);
+        constructor(data: Partial<foundry.data.CombatantData>, context?: DocumentModificationContext);
 
         /** A cached reference to the Token which this Combatant represents, if any */
         protected _token: Token | null;
