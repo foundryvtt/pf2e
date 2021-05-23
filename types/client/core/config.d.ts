@@ -2,6 +2,7 @@
 
 declare interface Config<
     ActorType extends Actor = Actor,
+    TCombatant extends Combatant = Combatant,
     TCombat extends Combat = Combat,
     ItemType extends Item = Item,
     EffectType extends ActiveEffect<ActorType | ItemType> = ActiveEffect<ActorType | ItemType>,
@@ -73,6 +74,12 @@ declare interface Config<
         documentClass: { new (data: ItemType['data'], options?: ItemConstructorOptions<ActorType>): ItemType };
         collection: Items<ItemType>;
         sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
+    };
+
+    /** Configuration for the Combatant document */
+    Combatant: {
+        documentClass: new (data: TCombatant['data'], context?: DocumentModificationContext) => TCombatant;
+        sheetClass: typeof CombatantConfig;
     };
 
     /** Configuration for the Combat document */
