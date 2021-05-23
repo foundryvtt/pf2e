@@ -201,7 +201,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 merged.token.width ??= merged.token.height;
 
                 switch (merged.type) {
-                    case 'animalCompanion':
                     case 'character':
                     case 'familiar':
                         // Default characters and their minions to having tokens with vision and an actor link

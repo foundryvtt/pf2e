@@ -47,7 +47,7 @@ import { adaptRoll } from '@system/rolls';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
-import { CreaturePF2e } from './creature';
+import { CreaturePF2e } from './index';
 import { LocalizePF2e } from '@module/system/localize';
 import { FeatPF2e } from '@item/feat';
 import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';

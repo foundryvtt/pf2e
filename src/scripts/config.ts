@@ -18,7 +18,6 @@ import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
 import { WeaponPF2e } from '@module/item/weapon';
 import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
 import { EffectPF2e } from '@module/item/effect';
-import { AnimalCompanionPF2e } from '@actor/animal-companion';
 import { AbilityString } from '@actor/data-definitions';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
@@ -2281,7 +2280,6 @@ export const PF2ECONFIG = {
             hazard: HazardPF2e,
             loot: LootPF2e,
             familiar: FamiliarPF2e,
-            animalCompanion: AnimalCompanionPF2e,
             vehicle: VehiclePF2e,
         },
     },
