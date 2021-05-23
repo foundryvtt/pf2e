@@ -305,6 +305,22 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return flavor;
     }
 
+    /**
+     * Get all tokens linked to this actor in all scenes
+     * @returns An array of TokenDocuments
+     */
+    getAllTokens(): TokenDocument[] {
+        const tokens: TokenDocument[] = [];
+        for (const scene of game.scenes) {
+            for (const token of (scene as any).tokens as TokenDocument[]) {
+                if (token.isLinked && token.actor!.id === this.id) {
+                    tokens.push(token);
+                }
+            }
+        }
+        return tokens;
+    }
+
     /* -------------------------------------------- */
     /*  Rolls                                       */
     /* -------------------------------------------- */
