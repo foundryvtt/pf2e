@@ -5,7 +5,7 @@ declare global {
         TActor extends foundry.documents.BaseActor = foundry.documents.BaseActor
     > extends TokenDocumentConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.TokenData>, context: DocumentModificationContext);
+        constructor(data: Partial<foundry.data.TokenSource>, context: DocumentModificationContext);
 
         /**
          * A cached reference to the Actor document that this Token modifies.

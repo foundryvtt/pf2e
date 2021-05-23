@@ -1,11 +1,10 @@
-import { FeatData } from '@item/data/types';
 import { FeatPF2e } from '@item/feat';
 import { FeatSheetData } from './data-types';
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
 
 export class FeatSheetPF2e extends ItemSheetPF2e<FeatPF2e> {
     getData(): FeatSheetData {
-        const data: ItemSheetDataPF2e<FeatData> = super.getData();
+        const data: ItemSheetDataPF2e<FeatPF2e> = super.getData();
         return {
             ...data,
             featTypes: CONFIG.PF2E.featTypes,

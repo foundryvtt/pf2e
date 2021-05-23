@@ -19,6 +19,7 @@ import { ActiveEffectPF2e } from '@module/active-effect';
 import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { TokenEffect } from '@module/rules/rule-element';
+import { ActorSheetPF2e } from './sheet/base';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -87,7 +88,7 @@ interface ActorConstructorOptionsPF2e extends ActorConstructorOptions<Token> {
  * Extend the base Actor class to implement additional logic specialized for PF2e.
  * @category Actor
  */
-export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
+export class ActorPF2e extends Actor {
     physicalItems!: Collection<Owned<PhysicalItemPF2e>>;
 
     constructor(data: ActorDataPF2e, options: ActorConstructorOptionsPF2e = {}) {
@@ -105,11 +106,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                 console.warn(`Unrecognized Actor type (${data.type}): falling back to ActorPF2e`);
             }
         }
-    }
-
-    /** Parallel to Item#type, which is omitted in Foundry versions < 0.8 */
-    get type() {
-        return this.data.type;
     }
 
     get traits(): Set<string> {
@@ -158,25 +154,31 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         return null;
     }
 
-    /** As of Foundry 0.7.9: All subclasses of ActorPF2e need to use this factory method rather than having their own
+    /** As of Foundry 0.8: All subclasses of ActorPF2e need to use this factory method rather than having their own
      *  overrides, since Foundry itself will call `ActorPF2e.create` when a new actor is created from the sidebar.
      * @override
      */
-    static create<A extends ActorPF2e>(
-        this: new (data: A['data'], options?: EntityConstructorOptions) => A,
+    static async create<A extends ActorPF2e>(
+        this: new (...args: any[]) => A,
         data: PreCreate<A['data']>,
         options?: EntityCreateOptions,
-    ): Promise<A>;
-    static create<A extends ActorPF2e>(
+    ): Promise<A | undefined>;
+    static async create<A extends ActorPF2e>(
+        this: new (...args: any[]) => A,
+        data: PreCreate<A['data']>[],
+        options?: EntityCreateOptions,
+    ): Promise<A[]>;
+    static async create<A extends ActorPF2e>(
         this: new (data: A['data'], options?: EntityConstructorOptions) => A,
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options?: EntityCreateOptions,
-    ): Promise<A[] | A>;
+    ): Promise<A[] | A | undefined>;
     static async create<A extends ActorPF2e>(
+        this: new (...args: any[]) => A,
         data: PreCreate<A['data']>[] | PreCreate<A['data']>,
         options: EntityCreateOptions = {},
-    ): Promise<A[] | A> {
-        const createData: PreCreate<ActorDataPF2e>[] = Array.isArray(data) ? data : [data];
+    ): Promise<A[] | A | undefined> {
+        const createData = Array.isArray(data) ? data : [data];
         for (const datum of createData) {
             // Set the default image according to the actor's type
             datum.img ??= CONFIG.PF2E.Actor.entityClasses[datum.type].defaultImg;
@@ -227,7 +229,7 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             }
         }
 
-        return super.create(data, options) as Promise<A[] | A>;
+        return super.create(data, options) as Promise<A[] | A | undefined>;
     }
 
     /** @override */
@@ -648,11 +650,13 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
             const currentLvlToDisplay: Record<number, boolean> = {};
             currentLvlToDisplay[spellLevel] = true;
-            await this.updateEmbeddedDocuments('Item', {
-                _id: entryId,
-                'data.showUnpreparedSpells.value': true,
-                'data.displayLevels': currentLvlToDisplay,
-            });
+            await this.updateEmbeddedDocuments('Item', [
+                {
+                    _id: entryId,
+                    'data.showUnpreparedSpells.value': true,
+                    'data.displayLevels': currentLvlToDisplay,
+                },
+            ]);
         }
     }
 
@@ -681,16 +685,15 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
         if (['attributes.shield', 'attributes.hp'].includes(attribute)) {
             const updateActorData: any = {};
+            const shield = selectedShield ?? this.heldShield;
             const updateShieldData = {
-                _id: '',
                 data: {
                     hp: {
-                        value: 0,
+                        value: -1,
                     },
                 },
             };
             if (attribute === 'attributes.shield') {
-                const shield = selectedShield ?? this.heldShield;
                 if (shield?.isBroken === false) {
                     let shieldHitPoints = shield.hitPoints.current;
                     if (isDelta && value < 0) {
@@ -706,7 +709,6 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
                     shield.data.data.hp.value = shieldHitPoints; // ensure the shield item has the correct state in prepareData() on the first pass after Actor#update
                     updateActorData['data.attributes.shield.value'] = shieldHitPoints;
                     // actor update is necessary to properly refresh the token HUD resource bar
-                    updateShieldData._id = shield.id;
                     updateShieldData.data.hp.value = shieldHitPoints;
                 } else if (this.data.data.attributes.shield.max) {
                     // NPC with no shield but pre-existing shield data
@@ -747,9 +749,9 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
             }
 
             return this.update(updateActorData).then(() => {
-                if (updateShieldData._id !== '') {
+                if (shield && updateShieldData.data.hp.value >= 0) {
                     // this will trigger a second prepareData() call, but is necessary for persisting the shield state
-                    this.updateOwnedItem(updateShieldData);
+                    shield.update({ updateShieldData });
                 }
                 return this;
             });
@@ -806,10 +808,9 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         const removeFromSource = newQuantity < 1;
 
         if (removeFromSource) {
-            await this.deleteEmbeddedDocuments('Item', item.id);
+            await item.delete();
         } else {
-            const update = { _id: item.id, 'data.quantity.value': newQuantity };
-            await this.updateEmbeddedDocuments('Item', update);
+            await item.update({ 'data.quantity.value': newQuantity });
         }
 
         const newItemData = item.toObject();
@@ -828,8 +829,8 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
         }
 
         // Otherwise create a new item
-        const result = await Item.create(newItemData, { parent: targetActor });
-        if (result === null) {
+        const result = await ItemPF2e.create(newItemData, { parent: targetActor });
+        if (!result) {
             return null;
         }
         const movedItem = targetActor.physicalItems.get(result.id);
@@ -1141,6 +1142,25 @@ export class ActorPF2e extends Actor<ItemPF2e, ActiveEffectPF2e> {
 
 export interface ActorPF2e {
     data: ActorDataPF2e;
+    readonly sheet: ActorSheetPF2e<this>;
+    readonly items: Collection<Owned<ItemPF2e>>;
+    readonly effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
+
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect',
+        data: DeepPartial<foundry.data.ActiveEffectSource>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'Item',
+        data: DeepPartial<ItemDataPF2e>[],
+        context?: DocumentModificationContext,
+    ): Promise<ItemPF2e[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: DeepPartial<foundry.data.ActiveEffectSource>[] | DeepPartial<ItemDataPF2e>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
     /**
      * See implementation in class
@@ -1148,34 +1168,19 @@ export interface ActorPF2e {
      */
     updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[]>;
     updateEmbeddedDocuments(
         embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e>;
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ItemPF2e[]>;
     updateEmbeddedDocuments(
-        embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof ActorPF2e['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
+        embeddedName: 'ActiveEffect' | 'Item',
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }
 
 export class HazardPF2e extends ActorPF2e {}

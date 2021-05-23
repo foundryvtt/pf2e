@@ -1,12 +1,13 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { MinimalModifier, ModifierPF2e } from './modifiers';
 
 interface ItemLookupData {
     pack: string | null;
     id: string;
 }
 
-export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
+export class ActiveEffectPF2e extends ActiveEffect {
     get isEnabled(): boolean {
         return !this.data.disabled;
     }
@@ -19,7 +20,8 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
         this.update({ disabled: false });
     }
 
-    prepareData(): void {
+    prepareBaseData(): void {
+        super.prepareBaseData();
         for (const change of this.data.changes) {
             // Prepare custom change modes
             if (change.mode === CONST.ACTIVE_EFFECT_MODES.CUSTOM) {
@@ -33,6 +35,52 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
                         }
                         break;
                     }
+                }
+            }
+
+            // Prepare changes with non-primitive values
+            if (typeof change.value === 'string' && change.value.startsWith('{')) {
+                type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
+                const parsedValue = ((): UnprocessedModifier => {
+                    try {
+                        return JSON.parse(change.value);
+                    } catch {
+                        const parenthetical = `(item ${this.data.origin} on actor ${this.uuid})`;
+                        ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                        this.data.disabled = true;
+                        return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
+                    }
+                })();
+                // Assign localized name to the effect from its originating item
+                if (!(this.parent instanceof ActorPF2e)) return;
+
+                const items: Collection<ItemPF2e> = this.parent.items;
+                const originItem = items.find((item) => item.uuid === this.data.origin);
+                parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : this.data.label;
+
+                // Evaluate dynamic changes
+                if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
+                    let parsedModifier: number | null = null;
+                    try {
+                        parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.parent.data));
+                    } catch (_error) {
+                        ui.notifications.error(`Failed to parse ActiveEffect formula value ${parsedValue.modifier}`);
+                    }
+                    if (parsedModifier !== null) {
+                        parsedValue.modifier = parsedModifier;
+                    } else {
+                        const parenthetical = `(item ${this.data.origin} on actor ${this.uuid})`;
+                        ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                        this.data.disabled = true;
+                        parsedValue.modifier = 0;
+                    }
+                }
+                if (typeof parsedValue.modifier === 'number') {
+                    change.value = (new ModifierPF2e(
+                        parsedValue.name,
+                        parsedValue.modifier,
+                        parsedValue.type,
+                    ) as unknown) as string; // 🤫 Don't tell Atro!
                 }
             }
         }
@@ -66,6 +114,8 @@ export class ActiveEffectPF2e extends ActiveEffect<ActorPF2e | ItemPF2e> {
 }
 
 export interface ActiveEffectPF2e {
+    readonly data: foundry.data.ActiveEffectData<ActiveEffectPF2e>;
+
     getFlag(scope: string, key: string): unknown;
     getFlag(scope: 'core', key: 'overlay'): string | undefined;
     getFlag(scope: 'core', key: 'statusId'): string | undefined;

@@ -48,9 +48,9 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
     const action = (actor as any).data.data.actions[actionIndex];
     const macroName = `${game.i18n.localize('PF2E.WeaponStrikeLabel')}: ${action.name}`;
     const command = `game.pf2e.rollActionMacro('${actorId}', ${actionIndex}, '${action.name}')`;
-    let macro = game.macros.contents.find((m) => m.name === macroName && m.data.command === command);
-    if (!macro) {
-        macro = await Macro.create(
+    const macro =
+        game.macros.find((m) => m.name === macroName && m.data.command === command) ??
+        (await Macro.create(
             {
                 command,
                 name: macroName,
@@ -59,9 +59,8 @@ export async function createActionMacro(actionIndex: string, actorId: string, sl
                 flags: { 'pf2e.actionMacro': true },
             },
             { displaySheet: false },
-        );
-    }
-    game.user.assignHotbarMacro(macro, slot);
+        ));
+    game.user.assignHotbarMacro(macro ?? null, slot);
 }
 
 export async function rollActionMacro(actorId: string, actionIndex: number, actionName: string) {

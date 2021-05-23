@@ -1,15 +1,25 @@
-import { CreatureSheetPF2e } from './creature';
-import { calculateBulk, itemsFromActorData, formatBulk, indexBulkItemsById } from '@item/bulk';
-import { calculateEncumbrance } from '@item/encumbrance';
-import { getContainerMap } from '@item/container';
-import { ProficiencyModifier } from '@module/modifiers';
-import { ConditionManager } from '@module/conditions';
-import { CharacterPF2e } from '../character';
-import { SpellData, ItemDataPF2e, FeatData, ClassData, isPhysicalItem, LoreData, WeaponData } from '@item/data/types';
+import { ZeroToThree } from '@actor/data-definitions';
 import { ItemPF2e } from '@item/base';
+import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
+import { getContainerMap } from '@item/container';
+import {
+    ClassData,
+    FeatData,
+    isPhysicalItem,
+    ItemDataPF2e,
+    LoreData,
+    MagicTradition,
+    PreparationType,
+    SpellData,
+    WeaponData,
+} from '@item/data/types';
+import { calculateEncumbrance } from '@item/encumbrance';
 import { SpellPF2e } from '@item/spell';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
-import { ZeroToThree } from '@actor/data-definitions';
+import { ConditionManager } from '@module/conditions';
+import { ProficiencyModifier } from '@module/modifiers';
+import { CharacterPF2e } from '../character';
+import { CreatureSheetPF2e } from './creature';
 import { ManageCombatProficiencies } from './popups/manage-combat-proficiencies';
 
 /**
@@ -225,59 +235,70 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         let investedCount = 0; // Tracking invested items
 
         for (const itemData of sheetData.items) {
-            const i: any = itemData;
-            if (isPhysicalItem(itemData)) {
-                i.showEdit = sheetData.user.isGM || i.isIdentified;
-                i.img ||= CONST.DEFAULT_TOKEN;
+            const physicalData = itemData;
+            if (isPhysicalItem(physicalData)) {
+                itemData.showEdit = sheetData.user.isGM || physicalData.isIdentified;
+                itemData.img ||= CONST.DEFAULT_TOKEN;
 
-                const containerData = containers.get(i._id)!;
-                i.containerData = containerData;
-                i.isInContainer = containerData.isInContainer;
-                i.isInvestable = itemData.isEquipped && itemData.isIdentified && itemData.isInvested !== null;
+                const containerData = containers.get(itemData._id)!;
+                itemData.containerData = containerData;
+                itemData.isInContainer = containerData.isInContainer;
+                itemData.isInvestable =
+                    physicalData.isEquipped && physicalData.isIdentified && physicalData.isInvested !== null;
 
                 // Read-Only Equipment
-                if (i.type === 'armor' || i.type === 'equipment' || i.type === 'consumable' || i.type === 'backpack') {
-                    readonlyEquipment.push(i);
+                if (
+                    physicalData.type === 'armor' ||
+                    physicalData.type === 'equipment' ||
+                    physicalData.type === 'consumable' ||
+                    physicalData.type === 'backpack'
+                ) {
+                    readonlyEquipment.push(itemData);
                     actorData.hasEquipment = true;
                 }
 
-                i.canBeEquipped = !containerData.isInContainer;
-                i.isSellableTreasure = i.showEdit && i.type === 'treasure' && i.data?.stackGroup?.value !== 'coins';
-                if (itemData.isInvested) {
+                itemData.canBeEquipped = !containerData.isInContainer;
+                itemData.isSellableTreasure =
+                    itemData.showEdit &&
+                    physicalData.type === 'treasure' &&
+                    physicalData.data.stackGroup.value !== 'coins';
+                if (physicalData.isInvested) {
                     investedCount += 1;
                 }
 
                 // Inventory
-                if (Object.keys(inventory).includes(i.type)) {
-                    i.data.quantity.value = i.data.quantity.value || 0;
-                    i.data.weight.value = i.data.weight.value || 0;
-                    const bulkItem = bulkItemsById.get(i._id);
+                if (Object.keys(inventory).includes(itemData.type)) {
+                    itemData.data.quantity.value = physicalData.data.quantity.value || 0;
+                    itemData.data.weight.value = physicalData.data.weight.value || 0;
+                    const bulkItem = bulkItemsById.get(physicalData._id);
                     const [approximatedBulk] = calculateBulk({
                         items: bulkItem === undefined ? [] : [bulkItem],
                         bulkConfig: bulkConfig,
                         actorSize: this.actor.data.data.traits.size.value,
                     });
-                    i.totalWeight = formatBulk(approximatedBulk);
-                    i.hasCharges = i.type === 'consumable' && i.data.charges.max > 0;
-                    if (i.type === 'weapon') {
-                        i.isTwoHanded = i.data.traits.value.some((trait: string) => trait.startsWith('two-hand'));
-                        i.wieldedTwoHanded = i.data.hands.value;
-                        attacks.weapon.items.push(i);
+                    itemData.totalWeight = formatBulk(approximatedBulk);
+                    itemData.hasCharges = physicalData.type === 'consumable' && physicalData.data.charges.max > 0;
+                    if (physicalData.type === 'weapon') {
+                        itemData.isTwoHanded = physicalData.data.traits.value.some((trait: string) =>
+                            trait.startsWith('two-hand'),
+                        );
+                        itemData.wieldedTwoHanded = physicalData.data.hands.value;
+                        attacks.weapon.items.push(itemData);
                     }
-                    inventory[i.type].items.push(i);
+                    inventory[itemData.type].items.push(itemData);
                 }
             } else if (itemData.type === 'spell') {
                 // Spells
                 const item = this.actor.items.get(itemData._id);
-                i.spellInfo = item?.getChatData() ?? {};
+                itemData.spellInfo = item?.getChatData() ?? {};
                 tempSpellbook.push(itemData);
             } else if (itemData.type === 'spellcastingEntry') {
                 // Spellcasting Entries
                 // collect list of entries to use later to match spells against.
-                spellcastingEntriesList.push(i._id);
+                spellcastingEntriesList.push(itemData._id);
 
                 // TODO: remove below when trick magic item has been converted to use the custom modifiers version
-                const spellRank = i.data.proficiency?.value || 0;
+                const spellRank = itemData.data.proficiency?.value || 0;
                 const spellProficiency = ProficiencyModifier.fromLevelAndRank(
                     actorData.data.details.level.value,
                     spellRank,
@@ -286,7 +307,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 const spellAttack = actorData.data.abilities[spellAbl].mod + spellProficiency;
                 if (itemData.data.spelldc.value !== spellAttack) {
                     const updatedItem = {
-                        _id: i._id,
+                        _id: itemData._id,
                         data: {
                             spelldc: {
                                 value: spellAttack,
@@ -295,131 +316,137 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                             },
                         },
                     };
-                    this.actor.updateEmbeddedDocuments('Item', updatedItem);
+                    this.actor.updateEmbeddedDocuments('Item', [updatedItem]);
                 }
-                i.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
-                i.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
+                itemData.data.spelldc.mod = actorData.data.abilities[spellAbl].mod;
+                itemData.data.spelldc.breakdown = `10 + ${spellAbl} modifier(${actorData.data.abilities[spellAbl].mod}) + proficiency(${spellProficiency})`;
                 // TODO: remove above when trick magic item has been converted to use the custom modifiers version
 
-                i.data.spelldc.icon = this.getProficiencyIcon(i.data.proficiency.value);
-                i.data.spelldc.hover = game.i18n.localize(CONFIG.PF2E.proficiencyLevels[i.data.proficiency.value]);
-                i.data.tradition.title = game.i18n.localize(CONFIG.PF2E.magicTraditions[i.data.tradition.value]);
-                i.data.prepared.title = game.i18n.localize(CONFIG.PF2E.preparationType[i.data.prepared.value]);
+                itemData.data.spelldc.icon = this.getProficiencyIcon(itemData.data.proficiency.value);
+                itemData.data.spelldc.hover = game.i18n.localize(
+                    CONFIG.PF2E.proficiencyLevels[itemData.data.proficiency.value],
+                );
+                itemData.data.tradition.title = game.i18n.localize(
+                    CONFIG.PF2E.magicTraditions[itemData.data.tradition.value as MagicTradition],
+                );
+                itemData.data.prepared.title = game.i18n.localize(
+                    CONFIG.PF2E.preparationType[itemData.data.prepared.value as PreparationType],
+                );
                 // Check if prepared spellcasting type and set Boolean
-                if ((i.data.prepared || {}).value === 'prepared') i.data.prepared.preparedSpells = true;
-                else i.data.prepared.preparedSpells = false;
+                if ((itemData.data.prepared || {}).value === 'prepared') itemData.data.prepared.preparedSpells = true;
+                else itemData.data.prepared.preparedSpells = false;
                 // Check if Ritual spellcasting tradition and set Boolean
-                if ((i.data.tradition || {}).value === 'ritual') i.data.tradition.ritual = true;
-                else i.data.tradition.ritual = false;
-                if ((i.data.tradition || {}).value === 'focus') {
-                    i.data.tradition.focus = true;
-                    if (i.data.focus === undefined) i.data.focus = { points: 1, pool: 1 };
-                    i.data.focus.icon = this.getFocusIcon(i.data.focus);
-                } else i.data.tradition.focus = false;
+                if ((itemData.data.tradition || {}).value === 'ritual') itemData.data.tradition.ritual = true;
+                else itemData.data.tradition.ritual = false;
+                if ((itemData.data.tradition || {}).value === 'focus') {
+                    itemData.data.tradition.focus = true;
+                    if (itemData.data.focus === undefined) itemData.data.focus = { points: 1, pool: 1 };
+                    itemData.data.focus.icon = this.getFocusIcon(itemData.data.focus);
+                } else itemData.data.tradition.focus = false;
 
-                spellcastingEntries.push(i);
+                spellcastingEntries.push(itemData);
             }
 
             // Feats
-            else if (i.type === 'feat') {
-                const actionType = i.data.actionType.value || 'passive';
+            else if (itemData.type === 'feat') {
+                const actionType = itemData.data.actionType.value || 'passive';
 
-                tempFeats.push(i);
+                tempFeats.push(itemData);
 
                 if (Object.keys(actions).includes(actionType)) {
-                    i.feat = true;
-                    i.img = CharacterPF2e.getActionGraphics(
+                    itemData.feat = true;
+                    itemData.img = CharacterPF2e.getActionGraphics(
                         actionType,
-                        parseInt((i.data.actions || {}).value, 10) || 1,
+                        parseInt((itemData.data.actions || {}).value, 10) || 1,
                     ).imageUrl;
-                    actions[actionType].actions.push(i);
+                    actions[actionType].actions.push(itemData);
 
                     // Read-Only Actions
-                    if (i.data.actionCategory && i.data.actionCategory.value) {
-                        switch (i.data.actionCategory.value) {
+                    if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
+                        switch (itemData.data.actionCategory.value) {
                             case 'interaction':
-                                readonlyActions.interaction.actions.push(i);
+                                readonlyActions.interaction.actions.push(itemData);
                                 actorData.hasInteractionActions = true;
                                 break;
                             case 'defensive':
-                                readonlyActions.defensive.actions.push(i);
+                                readonlyActions.defensive.actions.push(itemData);
                                 actorData.hasDefensiveActions = true;
                                 break;
                             // Should be offensive but throw anything else in there too
                             default:
-                                readonlyActions.offensive.actions.push(i);
+                                readonlyActions.offensive.actions.push(itemData);
                                 actorData.hasOffensiveActions = true;
                         }
                     } else {
-                        readonlyActions.offensive.actions.push(i);
+                        readonlyActions.offensive.actions.push(itemData);
                         actorData.hasOffensiveActions = true;
                     }
                 }
             }
 
             // Lore Skills
-            else if (i.type === 'lore') {
-                i.data.icon = this.getProficiencyIcon((i.data.proficient || {}).value);
-                i.data.hover = CONFIG.PF2E.proficiencyLevels[(i.data.proficient || {}).value];
+            else if (itemData.type === 'lore') {
+                itemData.data.icon = this.getProficiencyIcon((itemData.data.proficient || {}).value);
+                itemData.data.hover = CONFIG.PF2E.proficiencyLevels[(itemData.data.proficient || {}).value];
 
-                const rank = i.data.proficient?.value || 0;
+                const rank = itemData.data.proficient?.value || 0;
                 const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank)
                     .modifier;
                 const modifier = actorData.data.abilities.int.mod;
-                const itemBonus = Number((i.data.item || {}).value || 0);
-                i.data.itemBonus = itemBonus;
-                i.data.value = modifier + proficiency + itemBonus;
-                i.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
+                const itemBonus = Number((itemData.data.item || {}).value || 0);
+                itemData.data.itemBonus = itemBonus;
+                itemData.data.value = modifier + proficiency + itemBonus;
+                itemData.data.breakdown = `int modifier(${modifier}) + proficiency(${proficiency}) + item bonus(${itemBonus})`;
 
-                lores.push(i);
+                lores.push(itemData);
             }
 
             // Actions
-            else if (i.type === 'action') {
-                const actionType = ['free', 'reaction', 'passive'].includes(i.data.actionType.value)
-                    ? i.data.actionType.value
+            else if (itemData.type === 'action') {
+                const actionType = ['free', 'reaction', 'passive'].includes(itemData.data.actionType.value)
+                    ? itemData.data.actionType.value
                     : 'action';
-                i.img = CharacterPF2e.getActionGraphics(
+                itemData.img = CharacterPF2e.getActionGraphics(
                     actionType,
-                    parseInt((i.data.actions || {}).value, 10) || 1,
+                    parseInt((itemData.data.actions || {}).value, 10) || 1,
                 ).imageUrl;
-                if (actionType === 'passive') actions.free.actions.push(i);
-                else actions[actionType].actions.push(i);
+                if (actionType === 'passive') actions.free.actions.push(itemData);
+                else actions[actionType].actions.push(itemData);
 
                 // Read-Only Actions
-                if (i.data.actionCategory && i.data.actionCategory.value) {
-                    switch (i.data.actionCategory.value) {
+                if (itemData.data.actionCategory && itemData.data.actionCategory.value) {
+                    switch (itemData.data.actionCategory.value) {
                         case 'interaction':
-                            readonlyActions.interaction.actions.push(i);
+                            readonlyActions.interaction.actions.push(itemData);
                             actorData.hasInteractionActions = true;
                             break;
                         case 'defensive':
-                            readonlyActions.defensive.actions.push(i);
+                            readonlyActions.defensive.actions.push(itemData);
                             actorData.hasDefensiveActions = true;
                             break;
                         case 'offensive':
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(itemData);
                             actorData.hasOffensiveActions = true;
                             break;
                         // Should be offensive but throw anything else in there too
                         default:
-                            readonlyActions.offensive.actions.push(i);
+                            readonlyActions.offensive.actions.push(itemData);
                             actorData.hasOffensiveActions = true;
                     }
                 } else {
-                    readonlyActions.offensive.actions.push(i);
+                    readonlyActions.offensive.actions.push(itemData);
                     actorData.hasOffensiveActions = true;
                 }
             }
 
             // background
-            else if (i.type === 'background') {
-                backgroundItemId = i._id;
+            else if (itemData.type === 'background') {
+                backgroundItemId = itemData._id;
             }
 
             // class
-            else if (i.type === 'class') {
-                const classItem = i as ClassData;
+            else if (itemData.type === 'class') {
+                const classItem = itemData as ClassData;
                 const mapFeatLevels = (featLevels: number[], prefix: string) => {
                     if (!featLevels) {
                         return [];
@@ -482,7 +509,7 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         }
 
         // Update all embedded entities that have an incorrect location.
-        if (embeddedEntityUpdate.length) {
+        if (embeddedEntityUpdate.length > 0) {
             console.log(
                 'PF2e System | Prepare Actor Data | Updating location for the following embedded entities: ',
                 embeddedEntityUpdate,
@@ -898,10 +925,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         this.actor.updateEmbeddedDocuments('ActiveEffect', effectUpdates);
     }
 
-    protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemDataPF2e | null> {
+    protected async _onDropItemCreate(itemData: ItemDataPF2e): Promise<ItemPF2e[]> {
         if (['ancestry', 'background', 'class'].includes(itemData.type)) {
-            const item = await this.actor.createEmbeddedDocuments('Item', [itemData]);
-            if (item) return item[0];
+            const items = await this.actor.createEmbeddedDocuments('Item', [itemData]);
+            if (items.length > 0) return items;
         }
 
         return super._onDropItemCreate(itemData);
@@ -992,26 +1019,15 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
             }
 
             const updatedSignatureSpells = signatureSpells.concat([spell.id]);
-
-            this.actor.updateOwnedItem({
-                _id: spellcastingEntry.id,
-                'data.signatureSpells.value': updatedSignatureSpells,
-            });
+            spellcastingEntry.update({ 'data.signatureSpells.value': updatedSignatureSpells });
         } else {
             const updatedSignatureSpells = signatureSpells.filter((id) => id !== spell.id);
-
-            this.actor.updateOwnedItem({
-                _id: spellcastingEntry.id,
-                'data.signatureSpells.value': updatedSignatureSpells,
-            });
+            spellcastingEntry.update({ 'data.signatureSpells.value': updatedSignatureSpells });
         }
     }
 
     /** @override */
-    protected async _onDropItem(
-        event: ElementDragEvent,
-        data: DropCanvasData,
-    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
+    protected async _onDropItem(event: ElementDragEvent, data: DropCanvasData): Promise<unknown> {
         const actor = this.actor;
         const isSameActor = data.actorId === actor.id || (actor.isToken && data.tokenId === actor.token?.id);
         if (isSameActor) {
@@ -1049,15 +1065,12 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
      * @param event
      * @param itemData
      */
-    protected async _onSortItem(
-        event: ElementDragEvent,
-        itemData: ItemDataPF2e,
-    ): Promise<(ItemDataPF2e | null)[] | ItemDataPF2e | null> {
+    protected async _onSortItem(event: ElementDragEvent, itemData: ItemDataPF2e): Promise<ItemPF2e[]> {
         if (itemData.type === 'feat') {
             const { slotId, featType } = this.getNearestSlotId(event);
 
             if (this.isFeatValidInFeatSlot(slotId, featType, itemData)) {
-                this.actor.updateEmbeddedDocuments('Item', [
+                return this.actor.updateEmbeddedDocuments('Item', [
                     {
                         _id: itemData._id,
                         'data.location': slotId,
@@ -1066,17 +1079,19 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                         .filter((x) => x.data.type === 'feat' && x.data.data.location === slotId)
                         .map((x) => ({ _id: x.id, 'data.location': '' })),
                 ]);
-                return itemData;
             } else {
                 // if they're dragging it away from a slot
                 if (itemData.data.location) {
-                    return this.actor.updateEmbeddedDocuments('Item', {
-                        _id: itemData._id,
-                        'data.location': '',
-                    });
+                    return this.actor.updateEmbeddedDocuments('Item', [
+                        {
+                            _id: itemData._id,
+                            'data.location': '',
+                        },
+                    ]);
                 }
             }
         }
+
         return super._onSortItem(event, itemData);
     }
 

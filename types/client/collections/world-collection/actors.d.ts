@@ -24,9 +24,9 @@ declare class Actors<TActor extends Actor> extends EntityCollection<TActor> {
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<A extends Actor>(
+    static registerSheet<A extends Actor, I extends Item>(
         scope: string,
-        sheetClass: new (...args: any[]) => ActorSheet<A>,
+        sheetClass: new (...args: any[]) => ActorSheet<A, I>,
         options?: RegisterSheetOptions,
     ): void;
     /** Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use

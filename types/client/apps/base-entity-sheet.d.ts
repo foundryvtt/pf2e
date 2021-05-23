@@ -4,11 +4,10 @@ declare interface BaseEntitySheetOptions extends FormApplicationOptions {
     viewPermission: number;
 }
 
-declare interface BaseEntitySheetData<D extends BaseEntityData | foundry.abstract.DocumentData> {
+declare interface BaseEntitySheetData<TDocument extends Entity | foundry.abstract.Document> {
     cssClass: string;
     editable: boolean;
-    entity?: D; // TODO: Remove
-    document?: Entity; // TODO: Fix type and make non-optional
+    document: TDocument;
     limited: boolean;
     options: FormApplicationOptions;
     owner: boolean;
@@ -18,9 +17,9 @@ declare interface BaseEntitySheetData<D extends BaseEntityData | foundry.abstrac
 /**
  * A simple implementation of the FormApplication pattern which is specialized in editing Entity instances
  */
-declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication<EntityType, BaseEntitySheetOptions> {
+declare class BaseEntitySheet<TDocument extends Entity> extends FormApplication<TDocument, BaseEntitySheetOptions> {
     /** @override */
-    constructor(object: EntityType, options: Partial<BaseEntitySheetOptions>);
+    constructor(object: TDocument, options: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
@@ -28,13 +27,13 @@ declare class BaseEntitySheet<EntityType extends Entity> extends FormApplication
     /**
      * A convenience accessor for the object property of the inherited FormApplication instance
      */
-    get entity(): EntityType;
+    get entity(): TDocument;
 
     /**
      * Default data preparation logic for the entity sheet
      * @override
      */
-    getData(options?: FormApplicationOptions): BaseEntitySheetData<EntityType['data']>;
+    getData(options?: FormApplicationOptions): BaseEntitySheetData<TDocument>;
 
     /** @override */
     protected _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;

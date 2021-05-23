@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { MigrationBase } from './base';
 import { SpellcastingEntryData, SpellData } from '@item/data/types';
 import { ActorDataPF2e } from '@actor/data-definitions';

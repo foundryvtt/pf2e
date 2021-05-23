@@ -1,11 +1,11 @@
 import { ItemSheetDataPF2e, ItemSheetPF2e } from './base';
-import { SpellData, SpellDetailsData } from '@item/data/types';
+import { SpellDetailsData } from '@item/data/types';
 import { SpellPF2e } from '@item/spell';
 import { SpellSheetData } from './data-types';
 
 export class SpellSheetPF2e extends ItemSheetPF2e<SpellPF2e> {
     getData(): SpellSheetData {
-        const data: ItemSheetDataPF2e<SpellData> = super.getData();
+        const data: ItemSheetDataPF2e<SpellPF2e> = super.getData();
         return {
             ...data,
             spellCategories: CONFIG.PF2E.spellCategories,

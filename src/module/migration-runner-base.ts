@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemDataPF2e } from '@item/data/types';
 import { MigrationBase } from './migrations/base';

@@ -1,6 +1,6 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, MartialData, WeaponTrait } from '@item/data/types';
+import { ItemDataPF2e, LoreDetailsData, WeaponTrait } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
 import { ItemPF2e } from '@item/base';
@@ -14,15 +14,16 @@ import {
     TAG_SELECTOR_TYPES,
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
+import { ActiveEffectPF2e } from '@module/active-effect';
 
-export interface ItemSheetDataPF2e<D extends ItemDataPF2e> extends ItemSheetData<D> {
+export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     user: { isGM: boolean };
     enabledRulesUI: boolean;
     activeEffects: AESheetData;
 }
 
 /** @override */
-export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType> {
+export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     /** @override */
     static get defaultOptions() {
         const options = super.defaultOptions;
@@ -98,17 +99,6 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             data.consumableTraits = CONFIG.PF2E.consumableTraits;
             data.sizes = CONFIG.PF2E.actorSizes;
         } else if (type === 'weapon') {
-            // get a list of all custom martial skills
-            const martialSkills: MartialData[] = [];
-
-            if (this.actor) {
-                for (const i of this.actor.data.items) {
-                    if (i.type === 'martial') martialSkills.push(i);
-                }
-            }
-
-            data.martialSkills = martialSkills; // Weapon Data
-
             const materials: Partial<typeof CONFIG.PF2E.preciousMaterials> = duplicate(CONFIG.PF2E.preciousMaterials);
             delete materials.dragonhide;
             const slots = getPropertySlots(data);
@@ -210,9 +200,9 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     }
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
-    protected getBaseData(): ItemSheetDataPF2e<ItemType['data']> {
-        const document = (this as any).document; // TODO: Fix any type
-        const documentData: ItemDataPF2e = document.data.toObject(false);
+    protected getBaseData(): ItemSheetDataPF2e<TItem> {
+        const document = this.item;
+        const documentData: ItemDataPF2e = document.data;
         const isEditable = this.isEditable;
         return {
             cssClass: isEditable ? 'editable' : 'locked',
@@ -231,7 +221,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
     }
 
     protected getActiveEffectsData(): AESheetData {
-        const durationString = (duration: ActiveEffectDuration): string => {
+        const durationString = (duration: foundry.data.EffectDurationData): string => {
             const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
             type DurationEntry = [string, number | string | null];
             const durationEntries: DurationEntry[] = Object.entries(duration).filter((entry: DurationEntry) =>
@@ -475,24 +465,18 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
         }
 
         // Active Effect controls
-        html.find('.tab.effects table th a[data-action="create"]').on('click', () => {
-            const ae = ActiveEffect.create(
+        html.find('.tab.effects table th a[data-action="create"]').on('click', async () => {
+            const newEffect = await ActiveEffectPF2e.create(
                 {
                     label: 'New Effect',
                     icon: this.item.img,
                     origin: this.item.uuid,
                     disabled: false,
-                    duration: {
-                        rounds: undefined,
-                        seconds: undefined,
-                    },
                 },
-                this.item,
+                { parent: (this.item as unknown) as foundry.documents.BaseItem },
             );
-            ae.create().then((effectData) => {
-                this.render();
-                this.item.effects.get(effectData._id)!.sheet.render(true);
-            });
+            this.render();
+            this.item.effects.get(newEffect.id)!.sheet.render(true);
         });
 
         const $aeControls = html.find('.tab.effects table tbody td.controls');
@@ -519,14 +503,7 @@ export class ItemSheetPF2e<ItemType extends ItemPF2e> extends ItemSheet<ItemType
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
                 const isDisabled = !$(event.target as HTMLInputElement).is(':checked');
-                const refresh = () => this.render();
-                if (actor instanceof ActorPF2e) {
-                    actor
-                        .updateEmbeddedDocuments('ActiveEffect', { _id: effect.id, disabled: isDisabled })
-                        .then(refresh);
-                } else {
-                    effect.update({ disabled: isDisabled }).then(refresh);
-                }
+                effect.update({ disabled: isDisabled }).then(() => this.render());
             }
         });
 

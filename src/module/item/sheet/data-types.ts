@@ -1,6 +1,11 @@
 /** Item sheet form types */
 
-import { ABCFeatureEntryData, AncestryData, BackgroundData, ClassData, FeatData, SpellData } from '@item/data/types';
+import { AncestryPF2e } from '@item/ancestry';
+import { BackgroundPF2e } from '@item/background';
+import { ClassPF2e } from '@item/class';
+import { ABCFeatureEntryData } from '@item/data/types';
+import { FeatPF2e } from '@item/feat';
+import { SpellPF2e } from '@item/spell';
 import { ItemSheetDataPF2e } from './base';
 
 export interface SheetOption {
@@ -30,7 +35,7 @@ export interface AESheetData {
     effects: ActiveEffectSummary[];
 }
 
-export interface ABCSheetData<D extends AncestryData | BackgroundData | ClassData> extends ItemSheetData<D> {
+export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e> extends ItemSheetData<TItem> {
     activeEffects: AESheetData;
     hasSidebar: boolean;
     sidebarTemplate: () => string;
@@ -38,7 +43,7 @@ export interface ABCSheetData<D extends AncestryData | BackgroundData | ClassDat
     detailsTemplate: () => string;
 }
 
-export interface AncestrySheetData extends ABCSheetData<AncestryData> {
+export interface AncestrySheetData extends ABCSheetData<AncestryPF2e> {
     selectedBoosts: Record<string, Record<string, string>>;
     selectedFlaws: Record<string, Record<string, string>>;
     rarities: SheetOptions;
@@ -48,13 +53,13 @@ export interface AncestrySheetData extends ABCSheetData<AncestryData> {
     additionalLanguages: SheetOptions;
 }
 
-export interface BackgroundSheetData extends ABCSheetData<BackgroundData> {
+export interface BackgroundSheetData extends ABCSheetData<BackgroundPF2e> {
     rarities: SheetOptions;
     trainedSkills: SheetOptions;
     selectedBoosts: Record<string, Record<string, string>>;
 }
 
-export interface ClassSheetData extends ABCSheetData<ClassData> {
+export interface ClassSheetData extends ABCSheetData<ClassPF2e> {
     rarities: SheetOptions;
     items: { key: string; item: ABCFeatureEntryData }[];
     skills: typeof CONFIG.PF2E.skills;
@@ -70,7 +75,7 @@ export interface ClassSheetData extends ABCSheetData<ClassData> {
     abilityBoostLevels: SheetOptions;
 }
 
-export interface FeatSheetData extends ItemSheetDataPF2e<FeatData> {
+export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
     featTypes: ConfigPF2e['PF2E']['featTypes'];
     featActionTypes: ConfigPF2e['PF2E']['featActionTypes'];
     actionsNumber: ConfigPF2e['PF2E']['actionsNumber'];
@@ -81,7 +86,7 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatData> {
     traits: SheetOptions;
 }
 
-export interface SpellSheetData extends ItemSheetDataPF2e<SpellData> {
+export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
     magicSchools: ConfigPF2e['magicSchools'];
     spellCategories: ConfigPF2e['spellCategories'];
     spellLevels: ConfigPF2e['spellLevels'];

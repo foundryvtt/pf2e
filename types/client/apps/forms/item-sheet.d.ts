@@ -1,6 +1,6 @@
-declare interface ItemSheetData<D extends ItemData> extends BaseEntitySheetData<D> {
-    item: D;
-    data: D['data'];
+declare interface ItemSheetData<TItem extends Item> extends BaseEntitySheetData<TItem> {
+    item: TItem['data'];
+    data: TItem['data']['data'];
 }
 
 /**
@@ -14,9 +14,9 @@ declare interface ItemSheetData<D extends ItemData> extends BaseEntitySheetData<
  * @param item      The Item instance being displayed within the sheet.
  * @param [options] Additional options which modify the rendering of the item.
  */
-declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<ItemType> {
+declare class ItemSheet<TItem extends Item = Item> extends BaseEntitySheet<TItem> {
     /** @override */
-    constructor(item: ItemType, options?: Partial<BaseEntitySheetOptions>);
+    constructor(item: TItem, options?: Partial<BaseEntitySheetOptions>);
 
     /** @override */
     static get defaultOptions(): BaseEntitySheetOptions;
@@ -27,15 +27,15 @@ declare class ItemSheet<ItemType extends Item = Item> extends BaseEntitySheet<It
     /**
      * A convenience reference to the Item entity
      */
-    get item(): ItemType;
+    get item(): TItem;
 
     /**
      * The Actor instance which owns this item. This may be null if the item is unowned.
      */
-    get actor(): ItemType['actor'] | null;
+    get actor(): TItem['actor'] | null;
 
     /** @override */
-    getData(): ItemSheetData<ItemType['data']>;
+    getData(): ItemSheetData<TItem>;
 
     /**
      * Activate listeners which provide interactivity for item sheet events

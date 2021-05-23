@@ -357,10 +357,12 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
 
         html.find<HTMLInputElement>('.skill-input').on('change', async (event) => {
             const itemId = event.target.attributes['data-item-id'].value;
-            await this.actor.updateEmbeddedDocuments('Item', {
-                _id: itemId,
-                'data.mod.value': Number(event.target.value),
-            });
+            await this.actor.updateEmbeddedDocuments('Item', [
+                {
+                    _id: itemId,
+                    'data.mod.value': Number(event.target.value),
+                },
+            ]);
         });
 
         html.find<HTMLInputElement>('.spelldc-input').on('change', async (event) => {
@@ -371,15 +373,19 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             const spelldcType = $(event.currentTarget).parents('.npc-defense').attr('data-spelldc-attribute') ?? '';
 
             if (['dc', 'value'].includes(spelldcType)) {
-                await this.actor.updateEmbeddedDocuments('Item', {
-                    _id: itemId,
-                    [`data.spelldc.${spelldcType}`]: Number(event.target.value),
-                });
+                await this.actor.updateEmbeddedDocuments('Item', [
+                    {
+                        _id: itemId,
+                        [`data.spelldc.${spelldcType}`]: Number(event.target.value),
+                    },
+                ]);
             } else if (spelldcType === 'ability') {
-                await this.actor.updateEmbeddedDocuments('Item', {
-                    _id: itemId,
-                    ['data.ability.value']: event.target.value,
-                });
+                await this.actor.updateEmbeddedDocuments('Item', [
+                    {
+                        _id: itemId,
+                        ['data.ability.value']: event.target.value,
+                    },
+                ]);
             }
         });
 

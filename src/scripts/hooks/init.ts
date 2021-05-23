@@ -1,28 +1,29 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
+import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { ChatMessagePF2e } from '@module/chat-message';
+import { CombatPF2e } from '@module/combat';
+import { CombatantPF2e } from '@module/combatant';
 import { ConditionManager } from '@module/conditions';
 import { registerHandlebarsHelpers } from '@module/handlebars';
+import { MacroPF2e } from '@module/macro';
 import {
     AbilityModifier,
     CheckModifier,
     ModifierPF2e,
     MODIFIER_TYPE,
-    StatisticModifier,
     ProficiencyModifier,
+    StatisticModifier,
 } from '@module/modifiers';
 import { registerSettings } from '@module/settings';
+import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { CheckPF2e } from '@module/system/rolls';
 import { loadPF2ETemplates } from '@module/templates';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
-import { CombatantPF2e } from '@module/combatant';
-import { CombatPF2e } from '@module/combat';
-import { ChatMessagePF2e } from '@module/chat-message';
-import { MacroPF2e } from '@module/macro';
-import { MystifiedTraits } from '@item/data/values';
 
 export function listen(): void {
     Hooks.once('init', () => {
@@ -46,8 +47,8 @@ export function listen(): void {
         CONFIG.Combat.initiative.decimals = 1;
 
         // Assign the PF2e Sidebar subclasses
-        /** @todo: Restore these after researching new parent structures */
-        // CONFIG.ui.combat = CombatTrackerPF2e;
+        CONFIG.ui.combat = CombatTrackerPF2e;
+        /** @todo: Restore this after fixing folder metadata */
         // CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options

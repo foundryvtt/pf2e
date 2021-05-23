@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ActorPF2e } from '@actor/base';
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { FoundryUtils } from 'tests/utils';
