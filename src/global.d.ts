@@ -18,6 +18,7 @@ import { EffectPanel } from '@system/effect-panel';
 import { EffectTracker } from '@system/effect-tracker';
 import { CheckPF2e } from '@system/rolls';
 import { WorldClock } from '@system/world-clock';
+import { CombatantPF2e } from '@module/combatant';
 import { CombatPF2e } from './module/combat';
 import { ConditionManager } from './module/conditions';
 import {
@@ -64,7 +65,8 @@ declare global {
         itemTypes: ItemTypeMap;
     }
 
-    interface ConfigPF2e extends Config<ActorPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
+    interface ConfigPF2e
+        extends Config<ActorPF2e, CombatantPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e> {
         debug: Config['debug'] & {
             ruleElement: boolean;
         };
@@ -73,7 +75,15 @@ declare global {
         time: {
             roundTime: number;
         };
-        ui: Config<ActorPF2e, CombatPF2e, ItemPF2e, ActiveEffectPF2e, ChatMessagePF2e, MacroPF2e>['ui'] & {
+        ui: Config<
+            ActorPF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            ItemPF2e,
+            ActiveEffectPF2e,
+            ChatMessagePF2e,
+            MacroPF2e
+        >['ui'] & {
             combat: typeof CombatTrackerPF2e;
             compendium: typeof CompendiumDirectoryPF2e;
         };

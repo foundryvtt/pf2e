@@ -18,7 +18,8 @@ import { PlayerConfigPF2e } from '@module/user/player-config';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
 import { DicePF2e } from '../dice';
-import { CombatPF2e, initiativeFormula } from '@module/combat';
+import { CombatantPF2e } from '@module/combatant';
+import { CombatPF2e } from '@module/combat';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { MacroPF2e } from '@module/macro';
 import { MystifiedTraits } from '@item/data/values';
@@ -36,12 +37,12 @@ export function listen(): void {
         CONFIG.Actor.documentClass = ActorPF2e;
         CONFIG.ChatMessage.documentClass = ChatMessagePF2e;
         CONFIG.Combat.documentClass = CombatPF2e;
+        CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;
         // Allowing a decimal on the Combat Tracker so the GM can set the order if players roll the same initiative.
-        CONFIG.Combat.initiative.formula = initiativeFormula;
         CONFIG.Combat.initiative.decimals = 1;
 
         // Assign the PF2e Sidebar subclasses
