@@ -93,7 +93,6 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
             switch (event.target.dataset.action) {
                 case 'toggleHands':
                     if (item.data.type === 'weapon') {
-                        item.data.data.hands.value = !item.data.data.hands.value;
                         item.update({ 'data.hands.value': !item.data.data.hands.value });
                         this._render();
                     }
