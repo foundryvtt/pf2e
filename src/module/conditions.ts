@@ -23,7 +23,7 @@ export class ConditionManager {
      * @return A list of status names.
      */
     public static get conditions(): Map<string, ConditionData> {
-        if (!ConditionManager.__conditionsCache) {
+        if (ConditionManager.__conditionsCache.size === 0) {
             ConditionManager.__conditionsCache = new Map<string, ConditionData>();
 
             ConditionManager._compediumConditions.forEach((condition, name) =>
