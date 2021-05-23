@@ -13,9 +13,12 @@ export class PF2TokenImageRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Token Image requires a non-empty value field');
         }
 
+        const tokenUpdates: Promise<any>[] = [];
         tokens.forEach((token) => {
-            token.img = value;
+            tokenUpdates.push(token.update({ img: value }));
         });
+        Promise.allSettled(tokenUpdates);
+
         mergeObject(actorUpdates, {
             'token.img': value,
             'flags.pf2e.token.imgsource': item._id,
@@ -29,9 +32,13 @@ export class PF2TokenImageRuleElement extends RuleElementPF2e {
 
     onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.imgsource') === item._id) {
+            const img = getProperty(actorData, 'flags.pf2e.token.img');
+            const tokenUpdates: Promise<any>[] = [];
             tokens.forEach((token) => {
-                token.img = getProperty(actorData, 'flags.pf2e.token.img');
+                tokenUpdates.push(token.update({ img }));
             });
+            Promise.allSettled(tokenUpdates);
+
             mergeObject(actorUpdates, {
                 'token.img': getProperty(actorData, 'flags.pf2e.token.img'),
                 'flags.pf2e.token': {},

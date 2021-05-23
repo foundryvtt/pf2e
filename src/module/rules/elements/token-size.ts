@@ -23,10 +23,12 @@ export class PF2TokenSizeRuleElement extends RuleElementPF2e {
             console.warn('PF2E | Token Image requires a non-empty value field');
         }
 
+        const tokenUpdates: Promise<any>[] = [];
         tokens.forEach((token) => {
-            token.height = value;
-            token.width = value;
+            tokenUpdates.push(token.update({ height: value, width: value }));
         });
+        Promise.allSettled(tokenUpdates);
+
         mergeObject(actorUpdates, {
             'token.height': value,
             'token.width': value,
@@ -44,10 +46,15 @@ export class PF2TokenSizeRuleElement extends RuleElementPF2e {
 
     onDelete(actorData: CharacterData | NPCData, item: ItemDataPF2e, actorUpdates: any, tokens: any[]) {
         if (getProperty(actorData, 'flags.pf2e.token.sizesource') === item._id) {
+            const width = getProperty(actorData, 'flags.pf2e.token.size.height');
+            const height = getProperty(actorData, 'flags.pf2e.token.size.width');
+
+            const tokenUpdates: Promise<any>[] = [];
             tokens.forEach((token) => {
-                token.height = getProperty(actorData, 'flags.pf2e.token.size.height');
-                token.width = getProperty(actorData, 'flags.pf2e.token.size.width');
+                tokenUpdates.push(token.update({ height, width }));
             });
+            Promise.allSettled(tokenUpdates);
+
             mergeObject(actorUpdates, {
                 'token.height': getProperty(actorData, 'flags.pf2e.token.size.height'),
                 'token.width': getProperty(actorData, 'flags.pf2e.token.size.width'),

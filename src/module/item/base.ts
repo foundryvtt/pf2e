@@ -137,7 +137,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
                 // Rule Elements
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
                 const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getActiveTokens(true); // TODO: Ensure that this affects all tokens of this actor in all scenes
+                const tokens = this.actor.getAllTokens();
                 const actorUpdates = {};
                 for (const rule of rules) {
                     rule.onCreate(this.actor.data, this.data, actorUpdates, tokens);
@@ -171,7 +171,7 @@ export class ItemPF2e extends Item<ActorPF2e, ActiveEffectPF2e> {
 
                 if (!(isCreatureData(this.actor.data) && this.canUserModify(game.user, 'update'))) return;
                 const rules = RuleElements.fromRuleElementData(this.data.data?.rules ?? [], this.data);
-                const tokens = this.actor.getActiveTokens(true); // TODO: Ensure that this affects all tokens of this actor in all scenes
+                const tokens = this.actor.getAllTokens();
                 const actorUpdates = {};
                 for (const rule of rules) {
                     rule.onDelete(this.actor.data, this.data, actorUpdates, tokens);
