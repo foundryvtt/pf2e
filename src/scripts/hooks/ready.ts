@@ -1,6 +1,6 @@
 import { activateSocketListener } from '@scripts/socket';
 import { PlayerConfigPF2e } from '@module/user/player-config';
-import { updateMinionActors } from '@scripts/actor/update-minions';
+import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { MigrationRunner } from '@module/migration-runner';
 import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
@@ -41,7 +41,7 @@ export function listen(): void {
         PlayerConfigPF2e.activateColorScheme();
 
         // update minion-type actors to trigger another prepare data cycle with the master actor already prepared and ready
-        updateMinionActors();
+        prepareMinions();
         activateSocketListener();
 
         // Add value field to TextEditor#_onDragEntityLink data. This is mainly used for conditions.
@@ -58,12 +58,6 @@ export function listen(): void {
                 }
             }
         });
-
-        // Until it's ready, only show the Animal Companion actor type in dev mode
-        if (BUILD_MODE === 'production') {
-            const index = game.system.entityTypes.Actor.indexOf('animalCompanion');
-            game.system.entityTypes.Actor.splice(index, 1);
-        }
 
         // Assign the homebrew elements to their respective `CONFIG.PF2E` objects
         HomebrewElements.refreshTags();

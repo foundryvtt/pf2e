@@ -325,43 +325,6 @@ export interface CreatureSystemData extends ActorSystemData {
     damageDice: Record<string, DamageDicePF2e[]>;
 }
 
-interface AnimalCompanionAttributes extends BaseCreatureAttributes {
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
-}
-
-export interface RawAnimalCompanionData extends CreatureSystemData {
-    /** The six primary ability scores. */
-    abilities: Abilities;
-
-    master: {
-        id: string;
-        name: string;
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
-        };
-    };
-
-    details: {
-        /** Information about the current character level. */
-        level: {
-            /** The current level of this character. */
-            value: number;
-            /** The minimum level (almost always '1'). */
-            min: number;
-        };
-    };
-
-    attributes: AnimalCompanionAttributes;
-
-    // Fall-through clause which allows arbitrary data access; we can remove this once typing is more prevalent.
-    [key: string]: any;
-}
-
 export interface CategoryProficiencies {
     unarmored: ProficiencyData;
     light: ProficiencyData;
@@ -736,7 +699,7 @@ interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
 }
 
 interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {
-    type: 'character' | 'npc' | 'animalCompanion' | 'familiar';
+    type: 'character' | 'npc' | 'familiar';
 }
 
 /** Wrapper type for character-specific data. */
@@ -768,14 +731,10 @@ export interface VehicleData extends BaseActorDataPF2e<RawVehicleData> {
     type: 'vehicle';
 }
 
-export interface AnimalCompanionData extends BaseCreatureData<RawAnimalCompanionData> {
-    type: 'animalCompanion';
-}
-
-export type CreatureAttributes = CharacterAttributes | NPCAttributes | AnimalCompanionAttributes | FamiliarAttributes;
-export type CreatureData = CharacterData | NPCData | AnimalCompanionData | FamiliarData;
+export type CreatureAttributes = CharacterAttributes | NPCAttributes | FamiliarAttributes;
+export type CreatureData = CharacterData | NPCData | FamiliarData;
 export type ActorDataPF2e = CreatureData | HazardData | LootData | VehicleData;
 
 export function isCreatureData(actorData: ActorDataPF2e): actorData is CreatureData {
-    return ['character', 'npc', 'animalCompanion', 'familiar'].includes(actorData.type);
+    return ['character', 'npc', 'familiar'].includes(actorData.type);
 }

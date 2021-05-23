@@ -4,7 +4,7 @@ import { ArmorPF2e } from '@item/armor';
 import { isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
 import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
 import { ItemPF2e } from '@item/base';
-import { updateMinionActors } from '@scripts/actor/update-minions';
+import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { ErrorPF2e } from '@module/utils';
 import { RuleElementPF2e } from '@module/rules/rule-element';
 import { RollNotePF2e } from '@module/notes';
@@ -94,8 +94,8 @@ export abstract class CreaturePF2e extends ActorPF2e {
     /** @override */
     protected _onUpdate(changed: DeepPartial<ActorDataPF2e>, options: EntityUpdateOptions, userId: string): void {
         if (userId === game.userId) {
-            // ensure minion-type actors with the updated actor as master should also be updated
-            updateMinionActors(this);
+            // ensure minion-type actors with are prepared with their master-derived data
+            prepareMinions(this);
         }
 
         super._onUpdate(changed, options, userId);

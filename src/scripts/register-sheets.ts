@@ -6,7 +6,6 @@ import { LootSheetPF2e } from '@actor/sheet/loot';
 import { FamiliarSheetPF2e } from '@actor/sheet/familiar';
 import { VehicleSheetPF2e } from '@actor/sheet/vehicle';
 import { ActorSheetPF2eSimpleNPC } from '@actor/sheet/simple-npc-sheet';
-import { AnimalCompanionSheetPF2e } from '@actor/sheet/animal-companion';
 import { ItemSheetPF2e } from '@item/sheet/base';
 import { KitSheetPF2e } from '@item/sheet/kit';
 import { AncestrySheetPF2e } from '@item/sheet/ancestry';
@@ -22,7 +21,6 @@ import { PHYSICAL_ITEM_TYPES } from '@item/data/values';
 export function registerSheets() {
     const translations = LocalizePF2e.translations.PF2E;
     const sheetLabel = translations.SheetLabel;
-    const sheetLabelNew = translations.SheetLabelNew;
     const sheetLabelOld = translations.SheetLabelOld;
     const sheetLabelDataEntry = translations.SheetLabelDataEntry;
 
@@ -90,15 +88,6 @@ export function registerSheets() {
         label: game.i18n.format(sheetLabel, { type: localizeType('vehicle') }),
         makeDefault: true,
     });
-
-    if (BUILD_MODE === 'development') {
-        // Register AnimalCompanion Sheet
-        Actors.registerSheet('pf2e', AnimalCompanionSheetPF2e, {
-            types: ['animalCompanion'],
-            label: game.i18n.format(sheetLabelNew, { type: localizeType('animalCompanion') }),
-            makeDefault: true,
-        });
-    }
 
     // ITEMS
     Items.unregisterSheet('core', ItemSheet);
