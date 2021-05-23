@@ -6,6 +6,7 @@ import { Migrations } from '@module/migrations';
 import { ActionsPF2e } from '@system/actions/actions';
 import { HomebrewElements } from '@module/settings/homebrew';
 import { setWorldSchemaVersion } from '@module/migrations/set-world-schema-version';
+import { WorldClock } from '@module/system/world-clock';
 
 export function listen(): void {
     Hooks.once('ready', () => {
@@ -69,5 +70,8 @@ export function listen(): void {
 
         // Final pass to ensure effects on actors properly consider the initiative of any active combat
         game.pf2e.effectTracker.refresh();
+
+        // Start system sub-applications
+        game.pf2e.worldClock = new WorldClock();
     });
 }
