@@ -313,6 +313,9 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
 
+        // Expand Hidden Descriptions
+        html.find('[data-item-panel="toggle"]').on('click', (event) => this.onClickExpandPanel(event));
+
         // Don't subscribe to edit buttons it the sheet is NOT editable
         if (!this.options.editable) return;
 
@@ -951,6 +954,21 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const skillsEditor = new NPCSkillsEditor(this.actor, options);
 
         skillsEditor.render(true);
+    }
+
+    private onClickExpandPanel(event: JQuery.ClickEvent): void {
+        const $details = $(event.currentTarget).closest('li.item').find('[data-item-panel="content"]');
+
+        const panelState = $details.attr('data-visibility');
+        if (panelState == 'visible') {
+            $details.slideUp(200, () => {
+                $details.attr('data-visibility', 'hidden');
+            });
+        } else {
+            $details.slideDown(200, () => {
+                $details.attr('data-visibility', 'visible');
+            });
+        }
     }
 
     private onClickExpandable(event: JQuery.ClickEvent): void {
