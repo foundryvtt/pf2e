@@ -50,7 +50,7 @@ export abstract class MigrationBase {
      * Update the chat message to the latest schema version.
      * @param messageData Message data to update. This should be a `ChatMessageData` from the previous version.
      */
-    async updateMessage(_macroData: ChatMessageData): Promise<void> {}
+    async updateMessage(_messageData: foundry.data.ChatMessageSource): Promise<void> {}
 
     /**
      * Update the rollable table to the latest schema version.

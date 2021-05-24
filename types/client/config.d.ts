@@ -68,7 +68,12 @@ declare global {
         ChatMessage: {
             batchSize: number;
             collection: typeof Messages;
-            documentClass: { new (data: ChatMessageData, options?: EntityConstructorOptions): TChatMessage };
+            documentClass: {
+                new (
+                    data: Partial<TChatMessage['data']['_source']>,
+                    context?: DocumentConstructorContext,
+                ): TChatMessage;
+            };
             sidebarIcon: string;
             template: string;
         };
@@ -219,7 +224,7 @@ declare global {
          * A mapping of core audio effects used which can be replaced by systems or mods
          */
         sounds: {
-            dice: string;
+            dice: AudioPath;
             lock: string;
             notification: string;
             combat: string;

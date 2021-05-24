@@ -4,6 +4,7 @@ import { ItemDataPF2e } from '@item/data/types';
 import { EffectPF2e } from '@item/effect';
 import { SkillAbbreviation } from '@actor/data-definitions';
 import { MacroPF2e } from '@module/macro';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /**
  * Create a Macro from an Item drop.
@@ -80,7 +81,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     'systems/pf2e/templates/chat/strike-card.html',
                     templateData,
                 );
-                const chatData: Partial<ChatMessageData> = {
+                const chatData: Partial<foundry.data.ChatMessageSource> = {
                     user: game.user.id,
                     speaker: {
                         actor: actor.id,
@@ -101,7 +102,7 @@ export async function rollActionMacro(actorId: string, actionIndex: number, acti
                     chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
                 if (rollMode === 'blindroll') chatData.blind = true;
 
-                ChatMessage.create(chatData, {});
+                ChatMessagePF2e.create(chatData);
             }
         } else {
             ui.notifications.error(game.i18n.localize('PF2E.MacroActionNoActionError'));

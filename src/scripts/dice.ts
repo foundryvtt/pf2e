@@ -57,7 +57,7 @@ export class DicePF2e {
         data: any;
         template?: string;
         title: string;
-        speaker: object;
+        speaker: foundry.data.ChatSpeakerSource;
         flavor?: any;
         onClose?: any;
         dialogOptions?: object;
@@ -67,7 +67,7 @@ export class DicePF2e {
         // Inner roll function
         rollMode = rollMode || game.settings.get('core', 'rollMode');
         const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.showRollDialogs');
-        const _roll = (rollParts, adv: number, form?) => {
+        const _roll = (rollParts: any, adv: number, form?: any) => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
                 rollParts[0] = ['2d20kh'];
@@ -135,7 +135,7 @@ export class DicePF2e {
                 rollModes: CONFIG.Dice.rollModes,
             };
             const content = await renderTemplate(template, dialogData);
-            let roll;
+            let roll: Roll;
             return new Promise((resolve) => {
                 new Dialog(
                     {
@@ -183,18 +183,18 @@ export class DicePF2e {
      * Holding SHIFT, ALT, or CTRL when the attack is rolled will "fast-forward".
      * This chooses the default options of a normal attack with no bonus, Critical, or no bonus respectively
      *
-     * @param {Event} event           The triggering event which initiated the roll
-     * @param {Array} partsCritOnly   The dice roll component parts only added on a crit
-     * @param {Array} parts           The dice roll component parts
-     * @param {Actor} actor           The Actor making the damage roll
-     * @param {Object} data           Actor or item data against which to parse the roll
-     * @param {String} template       The HTML template used to render the roll dialog
-     * @param {String} title          The dice roll UI window title
-     * @param {Object} speaker        The ChatMessage speaker to pass when creating the chat
-     * @param {Function} flavor       A callable function for determining the chat message flavor given parts and data
-     * @param {Boolean} critical      Allow critical hits to be chosen
-     * @param {Function} onClose      Callback for actions to take when the dialog form is closed
-     * @param {Object} dialogOptions  Modal dialog options
+     * @param event         The triggering event which initiated the roll
+     * @param partsCritOnly The dice roll component parts only added on a crit
+     * @param parts         The dice roll component parts
+     * @param actor         The Actor making the damage roll
+     * @param data          Actor or item data against which to parse the roll
+     * @param template      The HTML template used to render the roll dialog
+     * @param title         The dice roll UI window title
+     * @param speaker       The ChatMessage speaker to pass when creating the chat
+     * @param flavor        A callable function for determining the chat message flavor given parts and data
+     * @param critical      Allow critical hits to be chosen
+     * @param onClose       Callback for actions to take when the dialog form is closed
+     * @param dialogOptions Modal dialog options
      */
     static damageRoll({
         event,
@@ -216,7 +216,7 @@ export class DicePF2e {
         data: any;
         template?: string;
         title: string;
-        speaker: object;
+        speaker: foundry.data.ChatSpeakerSource;
         flavor?: any;
         critical?: boolean;
         onClose?: any;

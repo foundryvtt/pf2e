@@ -4,6 +4,8 @@ export const CombatantConstructor: ClientDocumentConstructor<ClientDocument<foun
 
 export const CombatConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseCombat>>;
 
+export const ChatMessageConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseChatMessage>>;
+
 export const JournalEntryConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseJournalEntry>>;
 
 export const MacroConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseMacro>>;

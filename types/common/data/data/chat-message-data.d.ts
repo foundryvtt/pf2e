@@ -4,6 +4,7 @@ declare module foundry {
     module data {
         interface ChatMessageSource {
             _id: string;
+            type: ChatMessageType;
             user: string;
             timestamp: string;
             flavor?: string;

@@ -22,8 +22,9 @@ declare const ui: {
  */
 declare class Game<
     TActor extends Actor = Actor,
+    TChatMessage extends ChatMessage = ChatMessage,
+    TCombat extends Combat = Combat,
     TItem extends Item = Item,
-    CombatType extends Combat = Combat,
     TMacro extends Macro = Macro
 > {
     /**
@@ -36,8 +37,8 @@ declare class Game<
     data: {
         actors: TActor['data'][];
         items: TItem['data'][];
-        macros: TMacro['data'][];
-        messages: ChatMessageData[];
+        macros: foundry.data.MacroSource[];
+        messages: foundry.data.ChatMessageSource[];
         packs: CompendiumMetadata[];
         tables: foundry.data.RollTableSource[];
         users: foundry.data.UserSource[];
@@ -243,7 +244,7 @@ declare class Game<
     };
 
     /** A convenience accessor for the currently active Combat encounter */
-    get combat(): CombatType | null;
+    get combat(): TCombat | null;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused

@@ -774,10 +774,8 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const bonus = this.actor.data.data.abilities[abilityId].mod;
         const parts = ['@bonus'];
         const title = game.i18n.localize(`PF2E.AbilityCheck.${abilityId}`);
-        const data = {
-            bonus,
-        };
-        const speaker = ChatMessage.getSpeaker(this);
+        const data = { bonus };
+        const speaker = ChatMessage.getSpeaker({ token: this.token, actor: this.actor });
 
         DicePF2e.d20Roll({
             event,

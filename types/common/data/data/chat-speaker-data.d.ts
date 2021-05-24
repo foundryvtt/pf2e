@@ -15,9 +15,9 @@ declare module foundry {
          * @property [alias] An overridden alias name used instead of the Actor or Token name
          */
         interface ChatSpeakerSource {
-            scene?: string;
-            actor?: string;
-            token?: string;
+            scene?: string | null;
+            actor?: string | null;
+            token?: string | null;
             alias: string;
         }
 
