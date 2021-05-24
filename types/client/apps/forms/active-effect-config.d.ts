@@ -44,6 +44,6 @@ declare class ActiveEffectConfig extends FormApplication<ActiveEffect> {
     /** @override */
     protected _updateObject(
         event: Event,
-        formData: Record<string, unknown> & { changes?: ActiveEffectData['changes'] },
+        formData: Record<string, unknown> & { changes?: foundry.data.EffectChangeSource },
     ): ReturnType<ActiveEffect['update']>;
 }

@@ -1,6 +1,7 @@
 import { ActorPF2e } from '../actor/base';
 import { groupBy, isBlank } from '../utils';
 import { isPhysicalItem, ItemDataPF2e, ItemType, PhysicalItemData, TreasureData } from './data/types';
+import { TreasurePF2e } from './others';
 import { PhysicalItemPF2e } from './physical';
 
 // FIXME: point this to the correct type afterwards
@@ -221,9 +222,11 @@ export async function addCoins(
         combineStacks = false,
     }: { coins?: Coins; combineStacks?: boolean } = {},
 ): Promise<void> {
-    const items: ItemPlaceholder[] = actor.data.items;
-    const topLevelCoins = items.filter((item) => combineStacks && isTopLevelCoin(item, CURRENCIES));
-    const coinsByDenomination = groupBy(topLevelCoins, (item) => item?.data?.denomination?.value);
+    const topLevelCoins = actor.items.filter((item) => combineStacks && isTopLevelCoin(item.data, CURRENCIES));
+    const coinsByDenomination = groupBy(
+        topLevelCoins,
+        (item) => item instanceof TreasurePF2e && item.data.data.denomination.value,
+    );
 
     for await (const denomination of CURRENCIES) {
         const quantity = coins[denomination];
@@ -327,7 +330,7 @@ export async function attemptToRemoveCoinsByValue({
     actor: ActorPF2e;
     coinsToRemove: Coins;
 }): Promise<boolean> {
-    const items = actor.data.items || [];
+    const items = actor.items.map((item) => item.data);
     const actorCoins = calculateValueOfCurrency(items);
     //  Convert actorCoins and coinsToRemove to copper to facilitate comparison
     const actorCoinsCopper = actorCoins.cp + actorCoins.sp * 10 + actorCoins.gp * 100 + actorCoins.pp * 1000;

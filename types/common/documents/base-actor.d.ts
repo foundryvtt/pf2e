@@ -5,7 +5,10 @@ declare module foundry {
          * @param    data Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
-        class BaseActor extends abstract.Document {
+        class BaseActor<
+            TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
+            TItem extends BaseItem = BaseItem
+        > extends abstract.Document {
             /** @override */
             static get schema(): new (...args: any[]) => data.ActorData;
 
@@ -15,10 +18,10 @@ declare module foundry {
             /**
              * A reference to the Collection of embedded ActiveEffect instances in the Actor document, indexed by _id.
              */
-            get effects(): abstract.EmbeddedCollection<BaseActiveEffect>;
+            get effects(): abstract.EmbeddedCollection<TActiveEffect>;
 
             /** A reference to the Collection of embedded Item instances in the Actor document, indexed by _id. */
-            get items(): abstract.EmbeddedCollection<BaseItem>;
+            get items(): abstract.EmbeddedCollection<TItem>;
 
             /**
              * Migrate the system data object to conform to data model defined by the current system version.
@@ -54,8 +57,12 @@ declare module foundry {
             ): Promise<void>;
         }
 
-        interface BaseActor extends abstract.Document {
-            readonly data: data.ActorData<BaseActor>;
+        interface BaseActor<
+            TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
+            TItem extends BaseItem = BaseItem
+        > extends abstract.Document {
+            readonly data: data.ActorData<BaseActor<TActiveEffect, TItem>>;
+            readonly parent: BaseToken | null;
         }
 
         interface ActorMetadata extends abstract.DocumentMetadata {

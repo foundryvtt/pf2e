@@ -1,3 +1,5 @@
+// @ts-nocheck
+
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemDataPF2e, SpellcastingEntryData } from '@item/data/types';
 import { tupleHasValue } from '@module/utils';

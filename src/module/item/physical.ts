@@ -73,16 +73,16 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     /** @override */
     prepareData(): void {
         super.prepareData();
-        const { data } = this;
 
         // Disable active effects if the item isn't equipped and (if applicable) invested
         if (!this.isEquipped || this.isInvested === false) {
-            for (const effectData of data.effects) {
-                effectData.disabled = true;
+            for (const activeEffect of this.effects) {
+                activeEffect.data.disabled = true;
             }
         }
 
         // Update properties according to identification status
+        const { data } = this;
         const mystifiedData = this.getMystifiedData(this.identificationStatus);
         mergeObject(data, mystifiedData, { insertKeys: false, insertValues: false });
 

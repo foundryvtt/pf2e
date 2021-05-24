@@ -10,7 +10,7 @@ declare interface RollTableClassConfig extends EntityClassConfig<RollTable> {
     };
 }
 
-declare interface RollTableResult extends EmbeddedEntityData {
+declare interface RollTableResult extends BaseEntityData {
     drawn: boolean;
     img: ImagePath;
     range: [number, number];
@@ -31,7 +31,6 @@ declare interface RollTableData extends Omit<BaseEntityData, 'type'> {
 
 declare class RollTable extends Entity {
     data: RollTableData;
-    _data: RollTableData;
 
     /** @override */
     static get config(): RollTableClassConfig;

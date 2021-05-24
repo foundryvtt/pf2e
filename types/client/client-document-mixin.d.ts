@@ -1,5 +1,5 @@
-declare type DocumentConstructor<T extends foundry.abstract.Document = foundry.abstract.Document> = {
-    new (data: T['data'], context?: DocumentModificationContext): T;
+declare type ClientDocumentConstructor<T extends foundry.abstract.Document = foundry.abstract.Document> = {
+    new (data: Partial<T['data']['_source']>, context?: DocumentModificationContext): T;
 
     /**
      * Present a Dialog form to create a new Document of this type.
@@ -9,7 +9,7 @@ declare type DocumentConstructor<T extends foundry.abstract.Document = foundry.a
      * @return A Promise which resolves to the created Document
      */
     createDialog(data?: { folder?: string }, options?: FormApplicationOptions): Promise<Document>;
-};
+} & typeof ClientDocumentMixin;
 
 type ClientDocument<T extends foundry.abstract.Document = foundry.abstract.Document> = ClientDocumentMixin<T> & T;
 
@@ -19,8 +19,8 @@ type ClientDocument<T extends foundry.abstract.Document = foundry.abstract.Docum
  * @mixin
  */
 declare function ClientDocumentMixin<TDocument extends foundry.abstract.Document>(
-    Base: DocumentConstructor<TDocument>,
-): ClientDocumentMixin<TDocument> & DocumentConstructor<TDocument>;
+    Base: ClientDocumentConstructor<TDocument>,
+): ClientDocumentMixin<TDocument> & ClientDocumentConstructor<TDocument>;
 
 declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
     /**
@@ -32,7 +32,7 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
     apps: Record<string, Application>;
 
     /** A cached reference to the FormApplication instance used to configure this Document. */
-    get _sheet(): FormApplication | null;
+    _sheet: FormApplication | null;
 
     /** @override */
     protected _initialize(): void;
@@ -291,4 +291,12 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
      * @return A data object of cleaned data suitable for compendium import
      */
     toCompendium(pack: CompendiumCollection): TDocument['data']['_source'];
+}
+
+declare namespace ClientDocumentMixin {
+    function create<T extends ClientDocument>(
+        this: new (...args: any[]) => T,
+        data: Partial<T['data']['_source']>,
+        context?: DocumentModificationContext,
+    ): Promise<T>;
 }

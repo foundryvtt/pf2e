@@ -1,7 +1,9 @@
-import { BaseWeaponType, ConsumableData, ItemDataPF2e, Rarity, Size, WeaponGroup } from '@item/data/types';
+import { BaseWeaponType, ConsumableData, Rarity, Size, WeaponGroup } from '@item/data/types';
 import { StatisticModifier, CheckModifier, ModifierPF2e, DamageDicePF2e, MODIFIER_TYPE } from '../modifiers';
 import { RollParameters } from '@system/rolls';
 import { DamageType } from '@module/damage-calculation';
+import type { ActiveEffectPF2e } from '@module/active-effect';
+import type { ItemPF2e } from '@item/index';
 
 export type ZeroToThree = 0 | 1 | 2 | 3;
 export type ZeroToFour = ZeroToThree | 4; // +1!
@@ -693,9 +695,9 @@ export interface RawVehicleData extends ActorSystemData {
 }
 
 /** Shared type for all actor data; provides some basic information like name, the item array, token access, and so on. */
-interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData {
+interface BaseActorDataPF2e<T extends ActorSystemData> extends ActorData<ItemPF2e> {
     data: T;
-    items: ItemDataPF2e[];
+    effects: foundry.abstract.EmbeddedCollection<ActiveEffectPF2e>;
 }
 
 interface BaseCreatureData<T extends CreatureSystemData> extends BaseActorDataPF2e<T> {

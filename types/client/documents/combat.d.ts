@@ -3,7 +3,7 @@ import { CombatConstructor } from './constructors';
 declare global {
     class Combat extends CombatConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.CombatData>, context?: DocumentModificationContext);
+        constructor(data: Partial<foundry.data.CombatSource>, context?: DocumentModificationContext);
 
         /** Track the sorted turn order of this combat encounter */
         turns: Combatant[];

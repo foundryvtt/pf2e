@@ -1,8 +1,8 @@
 import { ActorPF2e } from './base';
 import { ActorDataPF2e, CreatureAttributes, CreatureData, DexterityModifierCapData } from './data-definitions';
 import { ArmorPF2e } from '@item/armor';
-import { isMagicItemData, ItemDataPF2e, WeaponData } from '@item/data/types';
-import { DamageDicePF2e, MinimalModifier, ModifierPF2e } from '@module/modifiers';
+import { isMagicItemData, WeaponData } from '@item/data/types';
+import { DamageDicePF2e, ModifierPF2e } from '@module/modifiers';
 import { ItemPF2e } from '@item/base';
 import { prepareMinions } from '@scripts/actor/prepare-minions';
 import { ErrorPF2e } from '@module/utils';
@@ -16,11 +16,6 @@ import {
 } from '@module/rules/rules-data-definitions';
 import { ConditionManager } from '@module/conditions';
 import { ActiveEffectPF2e } from '@module/active-effect';
-
-type ProcessedActiveEffectChange = ActiveEffectChange & {
-    effect: ActiveEffectPF2e;
-    priority: number;
-};
 
 /** An "actor" in a Pathfinder sense rather than a Foundry one: all should contain attributes and abilities */
 export abstract class CreaturePF2e extends ActorPF2e {
@@ -88,7 +83,6 @@ export abstract class CreaturePF2e extends ActorPF2e {
         const attributes = this.data.data.attributes;
         const hitPoints: { modifiers: Readonly<ModifierPF2e[]> } = attributes.hp;
         hitPoints.modifiers = [];
-        this.prepareActiveEffects(this.effects);
     }
 
     /** @override */
@@ -169,12 +163,11 @@ export abstract class CreaturePF2e extends ActorPF2e {
 
     /** @override */
     async updateEmbeddedDocuments(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
-        data: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options = {},
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]> {
-        const updateData = Array.isArray(data) ? data : [data];
-        const equippingUpdates = updateData.filter(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: EmbeddedEntityUpdateData[],
+        options: DocumentModificationContext = {},
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
+        const equippingUpdates = data.filter(
             (update) => 'data.equipped.value' in update && typeof update['data.equipped.value'] === 'boolean',
         );
         const wornArmor = this.wornArmor;
@@ -185,7 +178,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             const item = this.physicalItems.get(update._id)!;
             // Allow no more than one article of armor to be equipped at a time
             if (wornArmor && item instanceof ArmorPF2e && item.isArmor && item.id !== wornArmor.id) {
-                updateData.push({ _id: wornArmor.id, 'data.equipped.value': false, 'data.invested.value': false });
+                data.push({ _id: wornArmor.id, 'data.equipped.value': false, 'data.invested.value': false });
             }
 
             // Uninvested items as they're unequipped
@@ -194,101 +187,7 @@ export abstract class CreaturePF2e extends ActorPF2e {
             }
         }
 
-        return super.updateEmbeddedDocuments(embeddedName, updateData, options);
-    }
-
-    protected _onModifyEmbeddedDocuments(
-        embeddedName: 'ActiveEffect' | 'Item',
-        changes: EmbeddedEntityUpdateData,
-        options: EntityUpdateOptions,
-        userId: string,
-        context: EntityRenderOptions = {},
-    ): void {
-        super._onModifyEmbeddedDocuments(embeddedName, changes, options, userId, context);
-        this.redrawTokenEffects();
-    }
-
-    /** @override */
-    applyActiveEffects() {
-        const overrides: any = {};
-
-        // Organize non-disabled effects by their application priority
-        const changes: ProcessedActiveEffectChange[] = this.effects.reduce(
-            (changes: ProcessedActiveEffectChange[], e) => {
-                if (e.data.disabled) return changes;
-                return changes.concat(
-                    e.data.changes.map((c) => {
-                        const copy: ProcessedActiveEffectChange = (c as any).toObject(false); // TODO: Fix any type
-                        copy.effect = e;
-                        copy.priority = copy.priority ?? copy.mode * 10;
-                        return copy;
-                    }),
-                );
-            },
-            [],
-        );
-        changes.sort((a, b) => a.priority - b.priority);
-
-        // Apply all changes
-        for (const change of changes) {
-            const result = change.effect.apply(this, change);
-            if (result !== null) overrides[change.key] = result;
-        }
-        // Expand the set of final overrides
-        this.overrides = expandObject(overrides);
-    }
-
-    protected prepareActiveEffects(effectsData: Collection<ActiveEffectPF2e>) {
-        // Prepare changes with non-primitive values
-        for (const effect of effectsData) {
-            const effectData = effect.data;
-            for (const change of effectData.changes) {
-                if (typeof change.value === 'string' && change.value.startsWith('{')) {
-                    type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
-                    const parsedValue = ((): UnprocessedModifier => {
-                        try {
-                            return JSON.parse(change.value);
-                        } catch {
-                            const parenthetical = `(item ${effectData.origin} on actor ${this.uuid})`;
-                            ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
-                            effectData.disabled = true;
-                            return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
-                        }
-                    })();
-                    // Assign localized name to the effect from its originating item
-                    const originItem = this.items.find((item) => item.uuid === effectData.origin);
-                    parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : effectData.label;
-
-                    // Evaluate dynamic changes
-                    if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
-                        let parsedModifier: number | null = null;
-                        try {
-                            parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.data));
-                        } catch (_error) {
-                            ui.notifications.error(
-                                `Failed to parse ActiveEffect formula value ${parsedValue.modifier}`,
-                            );
-                        }
-                        if (parsedModifier !== null) {
-                            parsedValue.modifier = parsedModifier;
-                        } else {
-                            const parenthetical = `(item ${effectData.origin} on actor ${this.uuid})`;
-                            ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
-                            effectData.disabled = true;
-                            parsedValue.modifier = 0;
-                        }
-                    }
-                    if (typeof parsedValue.modifier === 'number') {
-                        change.value = (new ModifierPF2e(
-                            parsedValue.name,
-                            parsedValue.modifier,
-                            parsedValue.type,
-                        ) as unknown) as string; // 🤫 Don't tell Atro!
-                    }
-                }
-            }
-        }
-        this.applyActiveEffects();
+        return super.updateEmbeddedDocuments(embeddedName, data, options);
     }
 
     /**
@@ -420,32 +319,17 @@ export interface CreaturePF2e {
      */
     updateEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData>;
-    updateEmbeddedDocuments(
-        embeddedName: 'ActiveEffect',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[]>;
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[]>;
     updateEmbeddedDocuments(
         embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e>;
+        updateData: EmbeddedDocumentUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ItemPF2e[]>;
     updateEmbeddedDocuments(
-        embeddedName: 'Item',
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ItemDataPF2e | ItemDataPF2e[]>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData,
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ItemDataPF2e>;
-    updateEmbeddedDocuments(
-        embeddedName: keyof typeof CreaturePF2e['config']['embeddedDocuments'],
-        updateData: EmbeddedEntityUpdateData | EmbeddedEntityUpdateData[],
-        options?: EntityUpdateOptions,
-    ): Promise<ActiveEffectData | ActiveEffectData[] | ItemDataPF2e | ItemDataPF2e[]>;
+        embeddedName: 'ActiveEffect' | 'Item',
+        updateData: EmbeddedEntityUpdateData[],
+        options?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }

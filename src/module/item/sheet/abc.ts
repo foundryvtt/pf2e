@@ -13,8 +13,8 @@ import { ABCSheetData } from './data-types';
  * @category Other
  */
 export abstract class ABCSheetPF2e<
-    ItemType extends AncestryPF2e | BackgroundPF2e | ClassPF2e
-> extends ItemSheetPF2e<ItemType> {
+    TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e
+> extends ItemSheetPF2e<TItem> {
     /** @override */
     static get defaultOptions() {
         return {
@@ -25,7 +25,7 @@ export abstract class ABCSheetPF2e<
     }
 
     /** @override */
-    getData(): ABCSheetData<ItemType['data']> {
+    getData(): ABCSheetData<TItem> {
         const itemType = this.item.type;
 
         return {

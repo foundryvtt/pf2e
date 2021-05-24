@@ -4,8 +4,9 @@ import * as process from 'process';
 import Datastore from 'nedb-promises';
 import yargs from 'yargs';
 import { JSDOM } from 'jsdom';
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data/types';
+import type { ActionData, ItemDataPF2e, MeleeData, SpellData } from '@item/data/types';
+import type { ActorPF2e } from '@actor/base';
+import type { ItemPF2e } from '@item/base';
 import { sluggify } from '@module/utils';
 
 declare global {
@@ -99,13 +100,8 @@ const linkPatterns = {
     components: /@Compendium\[pf2e\.(?<packName>[^.]+)\.(?<entityName>[^\]]+)\]\{?/,
 };
 
-type CompendiumEntityPF2e =
-    | (Actor & { data: ActorDataPF2e })
-    | (Item & { data: ItemDataPF2e })
-    | JournalEntry
-    | Macro
-    | RollTable;
-type PackEntry = CompendiumEntityPF2e['data'];
+type CompendiumEntityPF2e = ActorPF2e | ItemPF2e | JournalEntry | Macro | RollTable;
+type PackEntry = CompendiumEntityPF2e['data']['_source'];
 
 function assertEntityIdSame(newEntity: PackEntry, jsonPath: string): void {
     if (fs.existsSync(jsonPath)) {
@@ -159,7 +155,10 @@ function sanitizeEntity(entityData: PackEntry, { isEmbedded } = { isEmbedded: fa
         }
 
         entityData.flags = 'type' in entityData && entityData.type === 'condition' ? { pf2e: { condition: true } } : {};
-        if ('effects' in entityData && !entityData.effects.some((effect) => effect.origin?.startsWith('Actor.'))) {
+        if (
+            'effects' in entityData &&
+            !entityData.effects.some((effect: foundry.data.ActiveEffectSource) => effect.origin?.startsWith('Actor.'))
+        ) {
             for (const effect of entityData.effects) {
                 effect.origin = '';
             }

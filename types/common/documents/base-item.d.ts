@@ -8,7 +8,7 @@ declare module foundry {
          * @param data Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
-        class BaseItem extends abstract.Document {
+        class BaseItem<TActiveEffect extends BaseActiveEffect = BaseActiveEffect> extends abstract.Document {
             /** @override */
             static get schema(): new (...args: any[]) => data.ItemData;
 
@@ -16,7 +16,7 @@ declare module foundry {
             static get metadata(): ItemMetadata;
 
             /** A reference to the Collection of ActiveEffect instances in the Item document, indexed by _id. */
-            get effects(): this['data']['effects'];
+            get effects(): abstract.EmbeddedCollection<TActiveEffect>;
 
             /** @override */
             canUserModify(user: BaseUser, action: UserAction, data: DocumentUpdateData<this>): boolean;
@@ -48,8 +48,8 @@ declare module foundry {
             }): this['data']['data'];
         }
 
-        interface BaseItem {
-            readonly data: data.ItemData<BaseItem>;
+        interface BaseItem<TActiveEffect extends BaseActiveEffect = BaseActiveEffect> {
+            readonly data: data.ItemData<BaseItem<TActiveEffect>, TActiveEffect>;
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

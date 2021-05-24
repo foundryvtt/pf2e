@@ -9,6 +9,8 @@ import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e } from './creature';
 import { ItemDataPF2e } from '@item/data/types';
 import { objectHasKey } from '@module/utils';
+import { ActiveEffectPF2e } from '@module/active-effect';
+import { ItemPF2e } from '@item/base';
 
 export class FamiliarPF2e extends CreaturePF2e {
     /** The familiar's master, if selected */
@@ -291,33 +293,40 @@ export class FamiliarPF2e extends CreaturePF2e {
         }
     }
 
-    async createEmbeddedDocuments<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I,
-        options?: EntityCreateOptions,
-    ): Promise<I | null>;
-    async createEmbeddedDocuments<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I[],
-        options?: EntityCreateOptions,
-    ): Promise<I | I[] | null>;
-    async createEmbeddedDocuments<I extends ItemDataPF2e>(
-        embeddedName: string,
-        data: I | I[],
-        options: EntityCreateOptions = {},
-    ): Promise<I | I[] | null> {
+    async createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: Partial<foundry.data.ActiveEffectSource>[] | Partial<ItemDataPF2e>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]> {
         const createData = Array.isArray(data) ? data : [data];
-        for (const datum of createData) {
-            if (!['condition', 'effect'].includes(datum.type)) {
+        for (const datum of data) {
+            if (!('type' in datum)) continue;
+            if (!['condition', 'effect'].includes(datum.type ?? '')) {
                 ui.notifications.error(game.i18n.localize('PF2E.FamiliarItemTypeError'));
-                return null;
+                return [];
             }
         }
 
-        return super.createEmbeddedDocuments(embeddedName, createData, options);
+        return super.createEmbeddedDocuments(embeddedName, createData, context);
     }
 }
 
 export interface FamiliarPF2e {
     data: FamiliarData;
+
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect',
+        data: Partial<foundry.data.ActiveEffectSource>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'Item',
+        data: Partial<ItemDataPF2e>[],
+        context?: DocumentModificationContext,
+    ): Promise<ItemPF2e[]>;
+    createEmbeddedDocuments(
+        embeddedName: 'ActiveEffect' | 'Item',
+        data: Partial<foundry.data.ActiveEffectSource>[] | Partial<ItemDataPF2e>[],
+        context?: DocumentModificationContext,
+    ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 }

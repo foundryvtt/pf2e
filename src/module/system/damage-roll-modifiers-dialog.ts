@@ -35,12 +35,7 @@ export class DamageRollModifiersDialog extends Application {
     context: object;
     callback: any;
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    constructor(damage, context, callback) {
+    constructor(damage: any, context: any, callback: any) {
         super({
             title: damage.name,
             template: 'systems/pf2e/templates/chat/check-modifiers-dialog.html', // change this later
@@ -53,12 +48,7 @@ export class DamageRollModifiersDialog extends Application {
         this.callback = callback;
     }
 
-    /**
-     * @param {object} damage
-     * @param {object} context
-     * @param {function} callback
-     */
-    static roll(damage: DamageTemplate, context, callback) {
+    static roll(damage: DamageTemplate, context: any, callback: any) {
         const ctx = context ?? {};
         const outcome = (ctx.outcome ?? 'success') as DegreeOfSuccessString;
 

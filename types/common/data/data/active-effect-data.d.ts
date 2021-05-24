@@ -18,7 +18,7 @@ declare module foundry {
             disabled: boolean;
             icon: ImagePath;
             tint: string;
-            origin: string;
+            origin: string | undefined;
             transfer: boolean;
             flags: Record<string, unknown>;
         }
@@ -42,41 +42,9 @@ declare module foundry {
     }
 }
 
-/**
- * @property [startTime]   The game time in seconds when the effect started
- * @property [seconds]     The duration of the effect, in seconds
- * @property [combat]      The _id of the Combat entity where the effect began
- * @property [rounds]      The number of combat rounds the effect lasts
- * @property [turns]       The number of combat turns that the effect lasts
- * @property [startRound]  The round of combat in which the effect started
- * @property [startTurn]   The turn of combat in which the effect started
- */
-declare interface ActiveEffectDuration {
-    startTime?: number;
-    seconds?: number;
-    combat?: string;
-    rounds?: number;
-    turns?: number;
-    startRound?: number;
-    startTurn?: number;
-}
-
 declare interface ActiveEffectDurationSummary {
     type: 'seconds' | 'turns' | 'none';
     duration: number;
     remaining: number;
     label: string;
-}
-
-/**
- * @property key       The key
- * @property value     The value of the change
- * @property mode      The mode of the change application
- * @property priority  The priority with which this change is applied
- */
-declare interface ActiveEffectChange {
-    key: string;
-    value: string | number;
-    mode: number;
-    priority: number;
 }
