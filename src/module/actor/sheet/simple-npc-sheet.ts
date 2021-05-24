@@ -325,9 +325,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
 
         // Handle spellcastingEntry attack and DC updates
         html.find('.spellcasting-entry')
-            .find<HTMLInputElement | HTMLSelectElement>(
-                '.attack-input, .dc-input, .focus-points, .focus-pool, .ability-score select',
-            )
+            .find<HTMLInputElement | HTMLSelectElement>('[data-spellcasting-input]')
             .on('change', (event) => this.onChangeSpellcastingEntry(event));
 
         // Spontaneous Spell slot reset handler:
@@ -1002,12 +1000,11 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         const $input: JQuery<HTMLInputElement | HTMLSelectElement> = $(event.currentTarget);
         const itemId = $input.closest('.spellcasting-entry').attr('data-container-id') ?? '';
         const key = $input.attr('data-base-property')?.replace(/data\.items\.\d+\./, '') ?? '';
-        const value =
-            $input.hasClass('focus-points') || $input.hasClass('focus-pool')
-                ? Math.min(Number($input.val()), 3)
-                : $input.is('select')
-                ? String($input.val())
-                : Number($input.val());
+        const value = $input.hasClass('[data-spellcasting-input^="focus"]')
+            ? Math.min(Number($input.val()), 3)
+            : $input.is('select')
+            ? String($input.val())
+            : Number($input.val());
         await this.actor.updateEmbeddedEntity('OwnedItem', {
             _id: itemId,
             [key]: value,
