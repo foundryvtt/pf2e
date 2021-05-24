@@ -68,7 +68,7 @@ declare module foundry {
 
         class SceneData<
             TDocument extends documents.BaseScene = documents.BaseScene,
-            TToken extends documents.BaseToken = documents.BaseToken
+            TToken extends documents.BaseToken = documents.BaseToken,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

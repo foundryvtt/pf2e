@@ -27,7 +27,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         for (const key of deletions) {
                             if (objectHasKey(actorData.data.martial, key)) {
                                 delete actorData.data.martial[key];
-                                ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                                (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                             }
                         }
                     }
@@ -40,7 +40,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as WeaponGroupProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
-                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;
@@ -52,7 +52,7 @@ export function prepareCleanup(listKey: ConfigPF2eListName, deletions: string[])
                         ) as BaseWeaponProficiencyKey[];
                         for (const key of proficiencyKeys) {
                             delete actorData.data.martial[key];
-                            ((actorData.data.martial as unknown) as Record<string, unknown>)[`-=${key}`] = null;
+                            (actorData.data.martial as unknown as Record<string, unknown>)[`-=${key}`] = null;
                         }
                     }
                     break;

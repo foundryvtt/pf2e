@@ -54,9 +54,7 @@ declare class ChatLog extends SidebarTab {
     /* -------------------------------------------- */
 
     /** @override */
-    getData(options?: {
-        stream?: boolean;
-    }): {
+    getData(options?: { stream?: boolean }): {
         user: User;
         rollMode: number;
         rollModes: number[];

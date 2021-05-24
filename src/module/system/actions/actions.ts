@@ -78,9 +78,7 @@ export class ActionsPF2e {
         actions.demoralize = demoralize;
     }
 
-    static resolveStat(
-        stat: string,
-    ): {
+    static resolveStat(stat: string): {
         checkType: CheckType;
         property: string;
         stat: string;

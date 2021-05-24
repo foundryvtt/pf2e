@@ -28,7 +28,7 @@ declare module foundry {
         }
 
         class PlaylistData<
-            TDocument extends documents.BasePlaylist = documents.BasePlaylist
+            TDocument extends documents.BasePlaylist = documents.BasePlaylist,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

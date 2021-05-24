@@ -13,7 +13,7 @@ import { ABCSheetData } from './data-types';
  * @category Other
  */
 export abstract class ABCSheetPF2e<
-    TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e
+    TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e,
 > extends ItemSheetPF2e<TItem> {
     /** @override */
     static get defaultOptions() {

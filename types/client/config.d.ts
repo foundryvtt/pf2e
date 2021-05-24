@@ -8,7 +8,7 @@ declare global {
         TCombatant extends Combatant = Combatant,
         TCombat extends Combat = Combat,
         TItem extends Item = Item,
-        TMacro extends Macro = Macro
+        TMacro extends Macro = Macro,
     > {
         /**
          * Configure debugging flags to display additional information

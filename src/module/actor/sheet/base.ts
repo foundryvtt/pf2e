@@ -1575,7 +1575,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                                     data: spellcastingEntity,
                                 };
 
-                                this.actor.createEmbeddedDocuments('Item', ([data] as unknown) as ItemDataPF2e[]);
+                                this.actor.createEmbeddedDocuments('Item', [data] as unknown as ItemDataPF2e[]);
                             },
                         },
                     },

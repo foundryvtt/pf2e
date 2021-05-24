@@ -320,7 +320,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
         if (!toggledAnything) {
             const newAbilityInfo = mAbilities[attackEffectName];
             if (newAbilityInfo) {
-                const newAction = ({
+                const newAction = {
                     name: attackEffectName,
                     type: 'action',
                     data: {
@@ -331,7 +331,7 @@ export class UpdatedNPCSheetPF2e extends NPCSheetPF2e {
                         traits: { value: [] },
                         actions: { value: newAbilityInfo.actionCost },
                     },
-                } as unknown) as PreCreate<ActionData>;
+                } as unknown as PreCreate<ActionData>;
 
                 const traitRegEx = /(?:Traits.aspx.+?">)(?:<\w+>)*(.+?)(?:<\/\w+>)*(?:<\/a>)/g;
                 const matchTraits: any[][] = [...newAbilityInfo.description.matchAll(traitRegEx)];

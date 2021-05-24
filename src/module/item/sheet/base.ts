@@ -473,7 +473,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                     origin: this.item.uuid,
                     disabled: false,
                 },
-                { parent: (this.item as unknown) as foundry.documents.BaseItem },
+                { parent: this.item as unknown as foundry.documents.BaseItem },
             );
             this.render();
             this.item.effects.get(newEffect?.id ?? '')!.sheet.render(true);

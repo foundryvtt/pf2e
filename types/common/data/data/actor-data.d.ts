@@ -38,7 +38,7 @@ declare module foundry {
         class ActorData<
             TDocument extends documents.BaseActor = documents.BaseActor,
             TItem extends documents.BaseItem = documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect
+            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

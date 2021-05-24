@@ -32,7 +32,7 @@ declare module foundry {
         }
 
         class TileData<
-            TDocument extends documents.BaseTile = documents.BaseTile
+            TDocument extends documents.BaseTile = documents.BaseTile,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

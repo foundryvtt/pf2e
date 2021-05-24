@@ -19,7 +19,7 @@ export class PF2RollNoteRuleElement extends RuleElementPF2e {
             }
             if (Array.isArray(this.ruleData.outcome)) {
                 note.outcome = this.ruleData.outcome.filter((outcome: string) =>
-                    ((DegreeOfSuccessText as unknown) as string[]).includes(outcome),
+                    (DegreeOfSuccessText as unknown as string[]).includes(outcome),
                 );
             }
             rollNotes[selector] = (rollNotes[selector] || []).concat(note);

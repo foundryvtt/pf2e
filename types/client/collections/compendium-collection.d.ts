@@ -51,7 +51,7 @@ declare type CompendiumDocument =
  * @param metadata The compendium metadata, an object provided by game.data
  */
 declare class CompendiumCollection<
-    TDocument extends CompendiumDocument = CompendiumDocument
+    TDocument extends CompendiumDocument = CompendiumDocument,
 > extends DocumentCollection<TDocument> {
     /**
      * The compendium metadata which defines the compendium content and location

@@ -38,7 +38,7 @@ function createItem({
     stackGroup?: string;
     size?: string;
 }): PhysicalItemData {
-    return ({
+    return {
         _id: id,
         type: type,
         data: {
@@ -76,7 +76,7 @@ function createItem({
                 value: stackGroup,
             },
         },
-    } as unknown) as PhysicalItemData;
+    } as unknown as PhysicalItemData;
 }
 
 describe('should calculate bulk', () => {

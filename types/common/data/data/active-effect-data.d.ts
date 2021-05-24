@@ -24,7 +24,7 @@ declare module foundry {
         }
 
         class ActiveEffectData<
-            TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect
+            TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

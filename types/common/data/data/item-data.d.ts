@@ -32,7 +32,7 @@ declare module foundry {
 
         class ItemData<
             TDocument extends documents.BaseItem = documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect
+            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;
