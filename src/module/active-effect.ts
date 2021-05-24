@@ -76,11 +76,11 @@ export class ActiveEffectPF2e extends ActiveEffect {
                     }
                 }
                 if (typeof parsedValue.modifier === 'number') {
-                    change.value = (new ModifierPF2e(
+                    change.value = new ModifierPF2e(
                         parsedValue.name,
                         parsedValue.modifier,
                         parsedValue.type,
-                    ) as unknown) as string; // 🤫 Don't tell Atro!
+                    ) as unknown as string; // 🤫 Don't tell Atro!
                 }
             }
         }

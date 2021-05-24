@@ -23,7 +23,7 @@ declare module foundry {
         }
 
         class CombatData<
-            TDocument extends documents.BaseCombat = documents.BaseCombat
+            TDocument extends documents.BaseCombat = documents.BaseCombat,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

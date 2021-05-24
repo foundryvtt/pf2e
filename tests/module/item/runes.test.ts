@@ -4,7 +4,7 @@ describe('test runes', () => {
     if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') {
         test('should get rune property slots', () => {
             expect(
-                getPropertySlots(({
+                getPropertySlots({
                     _id: 'ignore',
                     type: 'ignore',
                     data: {
@@ -15,11 +15,11 @@ describe('test runes', () => {
                             value: 0,
                         },
                     },
-                } as unknown) as WeaponData),
+                } as unknown as WeaponData),
             ).toBe(0);
 
             expect(
-                getPropertySlots(({
+                getPropertySlots({
                     _id: 'ignore',
                     type: 'ignore',
                     data: {
@@ -30,11 +30,11 @@ describe('test runes', () => {
                             value: 2,
                         },
                     },
-                } as unknown) as WeaponData),
+                } as unknown as WeaponData),
             ).toBe(2);
 
             expect(
-                getPropertySlots(({
+                getPropertySlots({
                     _id: 'ignore',
                     type: 'ignore',
                     data: {
@@ -45,11 +45,11 @@ describe('test runes', () => {
                             value: 0,
                         },
                     },
-                } as unknown) as WeaponData),
+                } as unknown as WeaponData),
             ).toBe(1);
 
             expect(
-                getPropertySlots(({
+                getPropertySlots({
                     _id: 'ignore',
                     type: 'ignore',
                     data: {
@@ -60,23 +60,23 @@ describe('test runes', () => {
                             value: 3,
                         },
                     },
-                } as unknown) as WeaponData),
+                } as unknown as WeaponData),
             ).toBe(4);
         });
     }
     test('should get property runes', () => {
         expect(
             getPropertyRunes(
-                ({
+                {
                     _id: 'ignore',
                     type: 'ignore',
                     data: {},
-                } as unknown) as WeaponData,
+                } as unknown as WeaponData,
                 3,
             ).length,
         ).toBe(0);
 
-        const item = ({
+        const item = {
             _id: 'ignore',
             type: 'ignore',
             data: {
@@ -96,7 +96,7 @@ describe('test runes', () => {
                     value: 'd',
                 },
             },
-        } as unknown) as WeaponData;
+        } as unknown as WeaponData;
 
         expect(getPropertyRunes(item, 0)).toEqual([]);
 
@@ -106,20 +106,20 @@ describe('test runes', () => {
     });
 
     test('bonus attack from potency runes', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 3,
             },
             bonus: {
                 value: 0,
             },
-        } as unknown) as WeaponDetailsData;
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData)).toBe(3);
     });
 
     test('bonus attack from bombs', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 3,
             },
@@ -129,59 +129,59 @@ describe('test runes', () => {
             group: {
                 value: 'bomb',
             },
-        } as unknown) as WeaponDetailsData;
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData)).toBe(2);
     });
 
     test('no bonus attack', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 0,
             },
             bonus: {
                 value: 0,
             },
-        } as unknown) as WeaponDetailsData;
+        } as unknown as WeaponDetailsData;
 
         expect(getAttackBonus(itemData)).toBe(0);
     });
 
     test('no bonus armor', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 0,
             },
             armor: {
                 value: 0,
             },
-        } as unknown) as ArmorDetailsData;
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData)).toBe(0);
     });
 
     test('no potency rune', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 0,
             },
             armor: {
                 value: 2,
             },
-        } as unknown) as ArmorDetailsData;
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData)).toBe(2);
     });
 
     test('potency rune', () => {
-        const itemData = ({
+        const itemData = {
             potencyRune: {
                 value: 1,
             },
             armor: {
                 value: 0,
             },
-        } as unknown) as ArmorDetailsData;
+        } as unknown as ArmorDetailsData;
 
         expect(getArmorBonus(itemData)).toBe(1);
     });

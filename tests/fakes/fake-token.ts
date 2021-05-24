@@ -6,7 +6,7 @@ export class FakeToken {
     constructor(public data: TokenData, public scene: Scene) {
         this.data = duplicate(data);
         this.scene = scene;
-        this.actor = (Actor.fromToken((this as unknown) as Token) as unknown) as ActorPF2e;
+        this.actor = Actor.fromToken(this as unknown as Token) as unknown as ActorPF2e;
     }
 
     get id() {

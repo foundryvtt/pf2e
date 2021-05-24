@@ -29,7 +29,7 @@ declare module foundry {
         }
 
         class FolderData<
-            TDocument extends documents.BaseFolder = documents.BaseFolder
+            TDocument extends documents.BaseFolder = documents.BaseFolder,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

@@ -3,7 +3,7 @@ import { ItemPF2e } from '@item/base';
 import { SelectableTagField, TagSelectorOptions } from './index';
 
 export abstract class TraitSelectorBase<
-    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e
+    EntityType extends ActorPF2e | ItemPF2e = ActorPF2e | ItemPF2e,
 > extends FormApplication<EntityType> {
     choices: Record<string, string>;
     objectProperty = '';

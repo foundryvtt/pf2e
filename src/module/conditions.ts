@@ -414,7 +414,7 @@ export class ConditionManager {
     }
 
     static async _addConditionEntity(condition: ConditionData, token: TokenPF2e) {
-        const item = ((await Item.create(condition, { parent: token.actor })) as unknown) as ConditionPF2e;
+        const item = (await Item.create(condition, { parent: token.actor })) as unknown as ConditionPF2e;
 
         let needsItemUpdate = false;
         const itemUpdate: any = {

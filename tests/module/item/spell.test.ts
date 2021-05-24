@@ -17,15 +17,15 @@ const litanyAgainstWrath = fetchSpell('litanyAgainstWrath');
 const spellcastingEntryItem = {
     data: spellcastingEntry,
 };
-const actor = ({
-    getOwnedItem: (jest.fn().mockImplementation(() => spellcastingEntryItem) as unknown) as SpellcastingEntryPF2e,
+const actor = {
+    getOwnedItem: jest.fn().mockImplementation(() => spellcastingEntryItem) as unknown as SpellcastingEntryPF2e,
     data: characterData,
     items: [],
     get level() {
         return characterData.data.details.level.value;
     },
     getAbilityMod: (_ability: string) => 3,
-} as any) as ActorPF2e;
+} as any as ActorPF2e;
 
 describe('#spellcastingEntry', () => {
     test.skip('returns the spellcasting entry it comes from', () => {

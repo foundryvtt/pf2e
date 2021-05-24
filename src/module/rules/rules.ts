@@ -29,34 +29,32 @@ export { RuleElementPF2e };
  * @category RuleElement
  */
 export class RuleElements {
-    static readonly builtin: Record<
-        string,
-        (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e
-    > = Object.freeze({
-        'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
-        'PF2E.RuleElement.MageArmor': (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
-        'PF2E.RuleElement.DexterityModifierCap': (ruleData, item) =>
-            new PF2DexterityModifierCapRuleElement(ruleData, item),
-        'PF2E.RuleElement.FixedProficiency': (ruleData, item) => new PF2FixedProficiencyRuleElement(ruleData, item),
-        'PF2E.RuleElement.TempHP': (ruleData, item) => new PF2TempHPRuleElement(ruleData, item),
-        'PF2E.RuleElement.DamageDice': (ruleData, item) => new PF2DamageDiceRuleElement(ruleData, item),
-        'PF2E.RuleElement.ToggleProperty': (ruleData, item) => new PF2TogglePropertyRuleElement(ruleData, item),
-        'PF2E.RuleElement.TokenEffectIcon': (ruleData, item) => new PF2TokenEffectIconRuleElement(ruleData, item),
-        'PF2E.RuleElement.TokenImage': (ruleData, item) => new PF2TokenImageRuleElement(ruleData, item),
-        'PF2E.RuleElement.TokenSize': (ruleData, item) => new PF2TokenSizeRuleElement(ruleData, item),
-        'PF2E.RuleElement.BaseSpeed': (ruleData, item) => new PF2BaseSpeedRuleElement(ruleData, item),
-        'PF2E.RuleElement.Sense': (ruleData, item) => new PF2SenseRuleElement(ruleData, item),
-        'PF2E.RuleElement.SetProperty': (ruleData, item) => new PF2SetPropertyRuleElement(ruleData, item),
-        'PF2E.RuleElement.Strike': (ruleData, item) => new PF2StrikeRuleElement(ruleData, item),
-        'PF2E.RuleElement.Striking': (ruleData, item) => new PF2StrikingRuleElement(ruleData, item),
-        'PF2E.RuleElement.Note': (ruleData, item) => new PF2RollNoteRuleElement(ruleData, item),
-        'PF2E.RuleElement.MultipleAttackPenalty': (ruleData, item) =>
-            new PF2MultipleAttackPenaltyRuleElement(ruleData, item),
-        'PF2E.RuleElement.EffectTarget': (ruleData, item) => new PF2EffectTargetRuleElement(ruleData, item),
-        'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
-        'PF2E.RuleElement.ActorTraits': (ruleData, item) => new PF2ActorTraits(ruleData, item),
-        'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
-    });
+    static readonly builtin: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e> =
+        Object.freeze({
+            'PF2E.RuleElement.FlatModifier': (ruleData, item) => new PF2FlatModifierRuleElement(ruleData, item),
+            'PF2E.RuleElement.MageArmor': (ruleData, item) => new PF2MageArmorRuleElement(ruleData, item),
+            'PF2E.RuleElement.DexterityModifierCap': (ruleData, item) =>
+                new PF2DexterityModifierCapRuleElement(ruleData, item),
+            'PF2E.RuleElement.FixedProficiency': (ruleData, item) => new PF2FixedProficiencyRuleElement(ruleData, item),
+            'PF2E.RuleElement.TempHP': (ruleData, item) => new PF2TempHPRuleElement(ruleData, item),
+            'PF2E.RuleElement.DamageDice': (ruleData, item) => new PF2DamageDiceRuleElement(ruleData, item),
+            'PF2E.RuleElement.ToggleProperty': (ruleData, item) => new PF2TogglePropertyRuleElement(ruleData, item),
+            'PF2E.RuleElement.TokenEffectIcon': (ruleData, item) => new PF2TokenEffectIconRuleElement(ruleData, item),
+            'PF2E.RuleElement.TokenImage': (ruleData, item) => new PF2TokenImageRuleElement(ruleData, item),
+            'PF2E.RuleElement.TokenSize': (ruleData, item) => new PF2TokenSizeRuleElement(ruleData, item),
+            'PF2E.RuleElement.BaseSpeed': (ruleData, item) => new PF2BaseSpeedRuleElement(ruleData, item),
+            'PF2E.RuleElement.Sense': (ruleData, item) => new PF2SenseRuleElement(ruleData, item),
+            'PF2E.RuleElement.SetProperty': (ruleData, item) => new PF2SetPropertyRuleElement(ruleData, item),
+            'PF2E.RuleElement.Strike': (ruleData, item) => new PF2StrikeRuleElement(ruleData, item),
+            'PF2E.RuleElement.Striking': (ruleData, item) => new PF2StrikingRuleElement(ruleData, item),
+            'PF2E.RuleElement.Note': (ruleData, item) => new PF2RollNoteRuleElement(ruleData, item),
+            'PF2E.RuleElement.MultipleAttackPenalty': (ruleData, item) =>
+                new PF2MultipleAttackPenaltyRuleElement(ruleData, item),
+            'PF2E.RuleElement.EffectTarget': (ruleData, item) => new PF2EffectTargetRuleElement(ruleData, item),
+            'PF2E.RuleElement.WeaponPotency': (ruleData, item) => new PF2WeaponPotencyRuleElement(ruleData, item),
+            'PF2E.RuleElement.ActorTraits': (ruleData, item) => new PF2ActorTraits(ruleData, item),
+            'PF2E.RuleElement.RecoveryCheckDC': (ruleData, item) => new PF2RecoveryCheckDCRuleElement(ruleData, item),
+        });
 
     static custom: Record<string, (ruleData: PF2RuleElementData, item: ItemDataPF2e) => RuleElementPF2e> = {};
 

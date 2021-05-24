@@ -57,7 +57,7 @@ declare interface FormApplicationOptions extends ApplicationOptions {
  */
 declare abstract class FormApplication<
     ObjectType extends {} = {},
-    OptionsType extends FormApplicationOptions = FormApplicationOptions
+    OptionsType extends FormApplicationOptions = FormApplicationOptions,
 > extends Application<OptionsType> {
     options: OptionsType;
 
