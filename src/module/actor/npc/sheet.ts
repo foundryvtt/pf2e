@@ -941,7 +941,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private onClickExpandPanel(event: JQuery.ClickEvent): void {
-        const $details = $(event.currentTarget).closest('li.item').find('[data-item-panel="content"]');
+        const $details = $(event.currentTarget).closest('li.item').find('[data-item-panel="content"]:first');
 
         const panelState = $details.attr('data-visibility');
         if (panelState == 'visible') {
