@@ -44,7 +44,7 @@ export abstract class MigrationBase {
      * Update the macro to the latest schema version.
      * @param macroData Macro data to update. This should be a `MacroData` from the previous version.
      */
-    async updateMacro(_macroData: MacroData): Promise<void> {}
+    async updateMacro(_macroData: foundry.data.MacroSource): Promise<void> {}
 
     /**
      * Update the chat message to the latest schema version.
@@ -56,7 +56,7 @@ export abstract class MigrationBase {
      * Update the rollable table to the latest schema version.
      * @param tableData Rolltable data to update. This should be a `RollTableData` from the previous version.
      */
-    async updateTable(_tableData: RollTableData): Promise<void> {}
+    async updateTable(_tableData: foundry.data.RollTableSource): Promise<void> {}
 
     /**
      * Update the token to the latest schema version.
@@ -68,7 +68,7 @@ export abstract class MigrationBase {
      * Update the user to the latest schema version.
      * @param userData User's data to update. This should be a `UserData` from the previous version.
      */
-    async updateUser(_userData: UserData): Promise<void> {}
+    async updateUser(_userData: foundry.data.UserSource): Promise<void> {}
 
     /**
      * Run migrations for this schema version.

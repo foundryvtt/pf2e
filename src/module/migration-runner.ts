@@ -74,7 +74,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldMacro(migrations: MigrationBase[], macro: MacroPF2e, pack?: Compendium<MacroPF2e>) {
         try {
-            const updatedMacro = await this.getUpdatedMacro(macro.toObject(), migrations);
+            const updatedMacro = await this.getUpdatedMacro(macro, migrations);
             const changes = diffObject(macro.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
                 pack
@@ -88,7 +88,7 @@ export class MigrationRunner extends MigrationRunnerBase {
 
     private async migrateWorldTable(migrations: MigrationBase[], table: RollTable, pack?: Compendium<RollTable>) {
         try {
-            const updatedMacro = await this.getUpdatedTable(table.toObject(), migrations);
+            const updatedMacro = await this.getUpdatedTable(table, migrations);
             const changes = diffObject(table.toObject(), updatedMacro);
             if (!isObjectEmpty(changes)) {
                 pack
@@ -103,7 +103,7 @@ export class MigrationRunner extends MigrationRunnerBase {
     private async migrateSceneToken(migrations: MigrationBase[], token: TokenDocument): Promise<void> {
         try {
             const updatedToken = await this.getUpdatedToken(token, migrations);
-            const changes = diffObject(token.data, updatedToken);
+            const changes = diffObject(token.toObject(), updatedToken);
 
             if (!isObjectEmpty(changes)) {
                 await token.update(changes);

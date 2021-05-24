@@ -1,11 +1,5 @@
 declare module foundry {
     module abstract {
-        interface DocumentConstructorContext<T extends Document | null = Document | null> {
-            parent?: T;
-            compendium?: CompendiumCollection | null;
-            [key: string]: unknown;
-        }
-
         /** The abstract base interface for all Document types. */
         abstract class Document {
             constructor(data: Partial<DocumentSource>, context?: DocumentConstructorContext);
@@ -103,7 +97,7 @@ declare module foundry {
              * @param user The User being tested
              * @returns A numeric permission level from CONST.ENTITY_PERMISSIONS or null
              */
-            getUserLevel(user: documents.BaseUser): DocumentPermission | null;
+            getUserLevel(user: documents.BaseUser): PermissionLevel | null;
 
             /**
              * Test whether a certain User has a requested permission level (or greater) over the Document
@@ -115,7 +109,7 @@ declare module foundry {
              */
             testUserPermission(
                 user: documents.BaseUser,
-                permission: DocumentPermission | string,
+                permission: DocumentPermission | UserAction,
                 { exact }?: { exact?: boolean },
             ): boolean;
 
@@ -243,19 +237,19 @@ declare module foundry {
              */
             static create<T extends Document>(
                 this: new (...args: any[]) => T,
-                data: Partial<T['data']['_source']>,
-                context?: DocumentModificationContext,
-            ): Promise<T>;
-            static create<T extends Document>(
-                this: new (...args: any[]) => T,
                 data: Partial<T['data']['_source']>[],
                 context?: DocumentModificationContext,
             ): Promise<T[]>;
             static create<T extends Document>(
                 this: new (...args: any[]) => T,
-                data: Partial<T['data']['_source']> | Partial<T['data']['_source']>[],
+                data: Partial<T['data']['_source']>,
                 context?: DocumentModificationContext,
-            ): Promise<T | T[]>;
+            ): Promise<T | undefined>;
+            static create<T extends Document>(
+                this: new (...args: any[]) => T,
+                data: Partial<T['data']['_source']>[] | Partial<T['data']['_source']>,
+                context?: DocumentModificationContext,
+            ): Promise<T[] | T | undefined>;
 
             /**
              * Update one or multiple existing entities using provided input data.
@@ -480,7 +474,7 @@ declare module foundry {
              * @param documents The Document instances which were created
              * @param context   The context for the modification operation
              */
-            static _onCreateDocuments<T extends Document>(
+            static _onCreateDocuments<T extends ClientDocument>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -493,7 +487,7 @@ declare module foundry {
              * @param documents The Document instances which were updated
              * @param context   The context for the modification operation
              */
-            protected static _onUpdateDocuments<T extends Document>(
+            protected static _onUpdateDocuments<T extends ClientDocument>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -506,7 +500,7 @@ declare module foundry {
              * @param documents The Document instances which were deleted
              * @param context   The context for the modification operation
              */
-            protected static _onDeleteDocuments<T extends Document>(
+            protected static _onDeleteDocuments<T extends ClientDocument>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -557,6 +551,12 @@ declare module foundry {
     }
 }
 
+interface DocumentConstructorContext<T extends foundry.abstract.Document | null = foundry.abstract.Document | null> {
+    parent?: T;
+    compendium?: CompendiumCollection | null;
+    [key: string]: unknown;
+}
+
 /**
  * @property [parent]            A parent Document within which these Documents should be embedded
  * @property [pack]              A Compendium pack identifier within which the Documents should be modified
@@ -583,12 +583,6 @@ declare interface DocumentModificationContext {
     isUndo?: boolean;
     deleteAll?: boolean;
 }
-
-declare type DocumentPermission =
-    | typeof CONST.ENTITY_PERMISSIONS[keyof typeof CONST.ENTITY_PERMISSIONS]
-    | 'create'
-    | 'update'
-    | 'delete';
 
 declare type Embedded<T extends foundry.abstract.Document> = T & {
     readonly parent: NonNullable<T['parent']>;

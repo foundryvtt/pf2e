@@ -272,7 +272,7 @@ declare class Entity {
      * @param options         Require the exact permission level requested?
      * @return                Does the user have this permission level over the Document?
      */
-    testUserPermission(user: User, permission: string | number, options?: { exact?: boolean }): boolean;
+    testUserPermission(user: User, permission: DocumentPermission | UserAction, options?: { exact?: boolean }): boolean;
 
     /* -------------------------------------------- */
     /*  Entity Management Methods                   */
@@ -648,7 +648,7 @@ declare class Entity {
     protected _initialize(): void;
     canUserModify(user: User, action: string): boolean;
     toObject(source?: boolean): this['data'];
-    getUserLevel(user: User): DocumentPermission | null;
+    getUserLevel(user: User): PermissionLevel | null;
     protected _preUpdate(
         data: EntityUpdateData<this['data']>,
         options: DocumentModificationContext,

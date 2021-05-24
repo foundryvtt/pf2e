@@ -109,12 +109,12 @@ declare global {
         PF2Check: typeof CheckPF2e;
     }
 
-    interface ChatMessage extends Entity {
+    interface ChatMessage {
         getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
         getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
     }
 
-    interface User extends Entity {
+    interface User {
         getFlag(
             scope: 'pf2e',
             key: 'settings',

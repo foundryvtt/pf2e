@@ -473,3 +473,8 @@ declare const CONST: {
     /** The supported file extensions for audio-type files */
     AUDIO_FILE_EXTENSIONS: ['flac', 'm4a', 'mp3', 'ogg', 'opus', 'wav', 'webm'];
 };
+
+declare type DocumentPermission = keyof typeof CONST.ENTITY_PERMISSIONS;
+declare type PermissionLevel = typeof CONST.ENTITY_PERMISSIONS[DocumentPermission];
+declare type UserPermission = keyof typeof CONST.USER_PERMISSIONS;
+declare type UserAction = 'create' | 'update' | 'delete';

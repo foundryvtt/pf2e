@@ -20,7 +20,11 @@ declare module foundry {
             ): Promise<void>;
 
             /** @override */
-            testUserPermission(user: BaseUser, permission: UserPermission, { exact }?: { exact?: boolean }): boolean;
+            testUserPermission(
+                user: BaseUser,
+                permission: DocumentPermission | UserAction,
+                { exact }?: { exact?: boolean },
+            ): boolean;
         }
 
         interface BaseActiveEffect {

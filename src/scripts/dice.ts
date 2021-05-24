@@ -61,12 +61,12 @@ export class DicePF2e {
         flavor?: any;
         onClose?: any;
         dialogOptions?: object;
-        rollMode?: string;
+        rollMode?: RollMode;
         rollType?: string;
     }) {
         // Inner roll function
         rollMode = rollMode || game.settings.get('core', 'rollMode');
-        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.settings.showRollDialogs');
+        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.showRollDialogs');
         const _roll = (rollParts, adv: number, form?) => {
             let flav = flavor instanceof Function ? flavor(rollParts, data) : title;
             if (adv === 1) {
@@ -224,9 +224,9 @@ export class DicePF2e {
     }) {
         // Inner roll function
         const rollMode = game.settings.get('core', 'rollMode');
-        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.settings.showRollDialogs');
+        const userSettingQuickD20Roll = !game.user.getFlag('pf2e', 'settings.showRollDialogs');
         let rolled = false;
-        const _roll = (rollParts, crit: boolean, form?) => {
+        const _roll = (rollParts: any, crit: boolean, form?: JQuery) => {
             // Don't include situational bonuses unless they are defined
             if (form) {
                 data.itemBonus = form.find('[name="itemBonus"]').val();
@@ -265,7 +265,7 @@ export class DicePF2e {
                     flavor: flav,
                 },
                 {
-                    rollMode: form ? form.find('[name="rollMode"]').val() : rollMode,
+                    rollMode: form ? (form.find<HTMLInputElement>('[name="rollMode"]').val() as RollMode) : rollMode,
                 },
             );
             rolled = true;

@@ -2,6 +2,7 @@
 
 import { ActorDataPF2e } from '@actor/data-definitions';
 import { ItemDataPF2e } from '@item/data/types';
+import { MacroPF2e } from './macro';
 import { MigrationBase } from './migrations/base';
 
 interface ItemsDiff {
@@ -102,8 +103,11 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedMacro(macroData: MacroData, migrations: MigrationBase[]): Promise<MacroData> {
-        const current = duplicate(macroData);
+    async getUpdatedMacro(
+        macroSource: foundry.data.MacroSource,
+        migrations: MigrationBase[],
+    ): Promise<foundry.data.MacroSource> {
+        const current = deepClone(macroSource);
 
         for (const migration of migrations) {
             try {
@@ -116,8 +120,11 @@ export class MigrationRunnerBase {
         return current;
     }
 
-    async getUpdatedTable(table: RollTableData, migrations: MigrationBase[]): Promise<RollTableData> {
-        const current = duplicate(table);
+    async getUpdatedTable(
+        tableSource: foundry.data.RollTableSource,
+        migrations: MigrationBase[],
+    ): Promise<RollTableData> {
+        const current = deepClone(tableSource);
 
         for (const migration of migrations) {
             try {
