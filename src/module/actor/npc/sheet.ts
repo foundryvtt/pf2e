@@ -829,9 +829,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         const ability = $label.parent().attr('data-attribute') as 'perception' | AbilityString;
         const skill = $label.parent().attr('data-skill') as SkillAbbreviation;
         const save = $label.parent().attr('data-save') as SaveString;
-        const action = $label.parent().parent().attr('data-action');
-        const item = $label.parent().parent().attr('data-item');
-        const spell = $label.parent().parent().attr('data-spell');
 
         if (ability) {
             switch (ability) {
@@ -845,8 +842,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
             this.rollNPCSkill(event, skill);
         } else if (save) {
             this.rollSave(event, save);
-        } else if (action || item || spell) {
-            this.onClickExpandable(event);
         }
     }
 
@@ -958,21 +953,6 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
         } else {
             $details.slideDown(200, () => {
                 $details.attr('data-visibility', 'visible');
-            });
-        }
-    }
-
-    private onClickExpandable(event: JQuery.ClickEvent): void {
-        const $details = $(event.currentTarget).closest('li.item').find('.sub-section.expandable');
-
-        const isExpanded = $details.hasClass('expanded');
-        if (isExpanded) {
-            $details.slideUp(200, () => {
-                $details.removeClass('expanded');
-            });
-        } else {
-            $details.slideDown(200, () => {
-                $details.addClass('expanded');
             });
         }
     }
