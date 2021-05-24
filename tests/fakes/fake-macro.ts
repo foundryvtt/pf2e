@@ -1,7 +1,8 @@
+// @ts-nocheck
 export class FakeMacro {
-    _data: MacroData;
+    _data: foundry.data.MacroData;
 
-    constructor(data: MacroData) {
+    constructor(data: foundry.data.MacroData) {
         this._data = duplicate(data);
     }
 

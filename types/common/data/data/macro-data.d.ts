@@ -1,6 +1,8 @@
 declare module foundry {
     module data {
         interface MacroSource extends abstract.DocumentSource {
+            _id: string;
+            name: string;
             type: 'chat' | 'script';
             img: string;
             actorIds: string[];
@@ -9,6 +11,8 @@ declare module foundry {
             scope: string;
             folder?: string | null;
             sort: number;
+            permission: Record<string, PermissionLevel>;
+            flags: Record<string, unknown>;
         }
 
         class MacroData<

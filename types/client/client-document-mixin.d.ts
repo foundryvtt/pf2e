@@ -1,5 +1,5 @@
 declare type ClientDocumentConstructor<T extends foundry.abstract.Document = foundry.abstract.Document> = {
-    new (data: Partial<T['data']['_source']>, context?: DocumentModificationContext): T;
+    new (data: Partial<T['data']['_source']>, context?: DocumentConstructorContext): T;
 
     /**
      * Present a Dialog form to create a new Document of this type.
@@ -84,7 +84,7 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
      * actor.data.permission; // {default: 1, "dkasjkkj23kjf": 2};
      * actor.permission; // 2
      */
-    get permission(): DocumentPermission;
+    get permission(): PermissionLevel;
 
     /** Lazily obtain a FormApplication instance used to configure this Document, or null if no sheet is available. */
     get sheet(): NonNullable<this['_sheet']>;
@@ -294,9 +294,19 @@ declare class ClientDocumentMixin<TDocument extends foundry.abstract.Document> {
 }
 
 declare namespace ClientDocumentMixin {
-    function create<T extends ClientDocument>(
+    function create<T extends foundry.abstract.Document>(
+        this: new (...args: any[]) => T,
+        data: Partial<T['data']['_source']>[],
+        context?: DocumentModificationContext,
+    ): Promise<T[]>;
+    function create<T extends foundry.abstract.Document>(
         this: new (...args: any[]) => T,
         data: Partial<T['data']['_source']>,
         context?: DocumentModificationContext,
-    ): Promise<T>;
+    ): Promise<T | undefined>;
+    function create<T extends foundry.abstract.Document>(
+        this: new (...args: any[]) => T,
+        data: Partial<T['data']['_source']>[] | Partial<T['data']['_source']>,
+        context?: DocumentModificationContext,
+    ): Promise<T[] | T | undefined>;
 }

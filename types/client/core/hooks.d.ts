@@ -38,7 +38,10 @@ declare type HookParamsRender<T extends Application, N extends string> = HookPar
     `render${N}`,
     [T, JQuery, ReturnType<T['getData']>]
 >;
-declare type HookParamsRenderChatMessage = HookParameters<'renderChatMessage', [ChatMessage, JQuery, ChatMessageData]>;
+declare type HookParamsRenderChatMessage = HookParameters<
+    'renderChatMessage',
+    [ChatMessage, JQuery, foundry.data.ChatMessageSource]
+>;
 declare type HookParamsUpdateCombat = HookParameters<
     'updateCombat',
     [Combat, object, { diff: boolean; advanceTime: number; [key: string]: any }, string]

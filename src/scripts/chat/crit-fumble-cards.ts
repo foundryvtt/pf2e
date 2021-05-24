@@ -22,7 +22,7 @@ export class CritFumbleCardsPF2e {
             Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
                 if (message.isAuthor && message.isRoll && (message as any).isContentVisible) {
                     const context = message.getFlag('pf2e', 'context');
-                    if (message.roll.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
+                    if (message.roll?.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
                         const critButton = $(
                             `<button class="dice-total-fullDamage-btn" style="width: 22px; height:22px; font-size:10px;line-height:1px"><i class="fas fa-thumbs-up" title="${game.i18n.localize(
                                 'PF2E.CriticalHitCardButtonTitle',
@@ -64,8 +64,8 @@ export class CritFumbleCardsPF2e {
         if (chatMessage && chatMessage.isAuthor && chatMessage.isRoll && chatMessage.isContentVisible) {
             const context = chatMessage.getFlag('pf2e', 'context');
             if (context?.type === 'attack-roll') {
-                const die = chatMessage.roll.dice[0];
-                if (die.faces === 20) {
+                const die = chatMessage.roll?.dice[0];
+                if (die?.faces === 20) {
                     if (die.total === 20) {
                         this.drawCard(this.critTable, chatMessage);
                     } else if (die.total === 1) {

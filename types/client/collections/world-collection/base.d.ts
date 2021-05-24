@@ -7,7 +7,7 @@ declare abstract class WorldCollection<
     TDocument extends ClientDocument = ClientDocument
 > extends DocumentCollection<TDocument> {
     /** @override */
-    constructor(data?: foundry.abstract.DocumentSource[]);
+    constructor(data?: TDocument['data']['_source'][]);
 
     /** The source data is, itself, a mapping of IDs to data objects */
     protected readonly _source: TDocument['data']['_source'];

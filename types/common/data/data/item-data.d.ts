@@ -26,7 +26,7 @@ declare module foundry {
             effects: foundry.data.ActiveEffectSource[];
             folder: string | null;
             sort: number;
-            permission: Record<string, DocumentPermission>;
+            permission: Record<string, PermissionLevel>;
             flags: Record<string, any>;
         }
 

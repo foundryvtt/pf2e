@@ -5,13 +5,13 @@ declare module foundry {
             /** @override */
             static get schema(): typeof data.PlaylistSoundData;
 
-            /** @inheritdoc */
+            /** @override */
             static get metadata(): PlaylistSoundMetadata;
 
-            /** @inheritdoc */
+            /** @override */
             testUserPermission(
                 user: documents.BaseUser,
-                permission: DocumentPermission,
+                permission: DocumentPermission | UserAction,
                 { exact }?: { exact?: boolean },
             ): boolean;
         }

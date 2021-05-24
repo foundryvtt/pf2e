@@ -93,7 +93,7 @@ declare global {
     const canvas: Canvas<ActorPF2e>;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ItemPF2e, CombatPF2e, MacroPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e>;
     }
 
     interface Window {
@@ -109,12 +109,14 @@ declare global {
         PF2Check: typeof CheckPF2e;
     }
 
-    interface ChatMessage extends Entity {
+    interface ChatMessage {
+        getFlag(scope: 'core', key: 'RollTable'): unknown;
         getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
         getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+        getFlag(scope: 'pf2e', key: 'context'): { type: string; rollMode?: RollMode } | undefined;
     }
 
-    interface User extends Entity {
+    interface User {
         getFlag(
             scope: 'pf2e',
             key: 'settings',

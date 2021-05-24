@@ -3,20 +3,19 @@ declare type ChatMessageType = typeof CONST.CHAT_MESSAGE_TYPES[keyof typeof CONS
 declare module foundry {
     module data {
         interface ChatMessageSource {
+            _id: string;
             type: ChatMessageType;
-            blind?: boolean;
-            content: string;
-            flavor?: string;
-            sound?: string;
-            speaker: {
-                actor?: string | null;
-                token?: string | null;
-                alias?: string;
-                scene?: string | null;
-            };
-            roll?: Roll | string;
             user: string;
-            whisper?: string[] | User[];
+            timestamp: string;
+            flavor?: string;
+            content: string;
+            speaker: ChatSpeakerSource;
+            whisper: string[];
+            blind: boolean;
+            roll: object;
+            sound: AudioPath;
+            emote?: boolean;
+            flags: Record<string, unknown>;
         }
 
         class ChatMessageData<

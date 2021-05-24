@@ -1,25 +1,28 @@
-declare class Messages<T extends ChatMessage> extends EntityCollection<T> {
+/**
+ * The Collection of ChatMessage documents which exist within the active World.
+ * This Collection is accessible within the Game object as game.messages.
+ * @see {@link ChatMessage} The ChatMessage entity
+ * @see {@link ChatLog} The ChatLog sidebar directory
+ */
+declare class Messages<TChatMessage extends ChatMessage = ChatMessage> extends WorldCollection<TChatMessage> {
     /** @override */
-    get documentName(): 'ChatMessage';
+    static documentName: 'ChatMessage';
 
-    /* -------------------------------------------- */
-    /*  Socket Listeners and Handlers
-    /* -------------------------------------------- */
+    /** @override */
+    render(force?: boolean): void;
 
     /**
      * If requested, dispatch a Chat Bubble UI for the newly created message
-     * @param response  The created ChatMessage response
+     * @param message The ChatMessage entity to say
      */
-    protected _sayBubble(response: object): void;
+    sayBubble(message: ChatMessage): void;
 
-    /**
-     * Handle export of the chat log to a text file
-     */
-    protected export(): void;
+    /** Handle export of the chat log to a text file */
+    export(): void;
 
     /**
      * Allow for bulk deletion of all chat messages, confirm first with a yes/no dialog.
      * @see {@link Dialog.confirm}
      */
-    flush(): Promise<any>;
+    flush(): Promise<unknown>;
 }

@@ -247,9 +247,9 @@ declare class Roll {
      *         chatData otherwise.
      */
     toMessage(
-        chatData?: Partial<ChatMessageData>,
+        chatData?: Partial<foundry.data.ChatMessageSource>,
         { rollMode, create }?: { rollMode?: string; create?: boolean },
-    ): Promise<ChatMessage | ChatMessageData>;
+    ): Promise<ChatMessage>;
 
     /* -------------------------------------------- */
     /*  Methods

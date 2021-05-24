@@ -60,17 +60,17 @@ const itemTypes = [
     'effect',
 ];
 
-const isActorData = (entityData: CompendiumEntity['data']): entityData is ActorDataPF2e => {
-    return 'type' in entityData && actorTypes.includes(entityData.type);
+const isActorData = (docSource: CompendiumEntity['data']): docSource is ActorDataPF2e => {
+    return 'type' in docSource && actorTypes.includes(docSource.type);
 };
-const isItemData = (entityData: CompendiumEntity['data']): entityData is ItemDataPF2e => {
-    return 'type' in entityData && itemTypes.includes(entityData.type);
+const isItemData = (docSource: CompendiumEntity['data']): docSource is ItemDataPF2e => {
+    return 'type' in docSource && itemTypes.includes(docSource.type);
 };
-const isMacroData = (entityData: CompendiumEntity['data']): entityData is MacroData => {
-    return 'type' in entityData && ['chat', 'script'].includes(entityData.type);
+const isMacroData = (docSource: CompendiumEntity['data']['_source']): docSource is foundry.data.MacroSource => {
+    return 'type' in docSource && ['chat', 'script'].includes(docSource.type);
 };
-const isTableData = (entityData: CompendiumEntity['data']): entityData is RollTableData => {
-    return 'results' in entityData && Array.isArray(entityData.results);
+const isTableData = (docSource: CompendiumEntity['data']['_source']): docSource is foundry.data.RollTableSource => {
+    return 'results' in docSource && Array.isArray(docSource.results);
 };
 
 function JSONstringifyOrder(obj: object): string {
@@ -131,7 +131,7 @@ async function migrate() {
         }
 
         // skip journal entries, rollable tables, and macros
-        let updatedEntity: ActorData | ItemDataPF2e | MacroData | RollTableData;
+        let updatedEntity: ActorData | ItemDataPF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
         if (isActorData(entity)) {
             updatedEntity = await migrationRunner.getUpdatedActor(entity, migrationRunner.migrations);
         } else if (isItemData(entity)) {

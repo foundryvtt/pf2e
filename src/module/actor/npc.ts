@@ -71,7 +71,7 @@ export class NPCPF2e extends CreaturePF2e {
      * Grant players limited permission on dead NPCs
      * @override
      */
-    testUserPermission(user: User, permission: string | ZeroToThree, options?: { exact?: boolean }) {
+    testUserPermission(user: User, permission: DocumentPermission | UserAction, options?: { exact?: boolean }) {
         // Temporary measure until a lootable view of the legacy sheet is ready
         const npcsAreLootable = game.settings.get('pf2e', 'automation.lootableNPCs');
         if (game.user.isGM || this.hitPoints.current > 0 || !npcsAreLootable) {

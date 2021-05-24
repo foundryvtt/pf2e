@@ -20,6 +20,7 @@ import { LocalizePF2e } from '@module/system/localize';
 import { ItemTransfer } from './item-transfer';
 import { TokenEffect } from '@module/rules/rule-element';
 import { ActorSheetPF2e } from './sheet/base';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 export const SKILL_DICTIONARY = Object.freeze({
     acr: 'acrobatics',
@@ -611,11 +612,11 @@ export class ActorPF2e extends Actor {
       </div>
       </div>
       `;
-            ChatMessage.create({
+            ChatMessagePF2e.create({
                 user: game.user.id,
                 speaker: { alias: token.name },
                 content: message,
-                whisper: ChatMessage.getWhisperRecipients('GM'),
+                whisper: ChatMessage.getWhisperRecipients('GM')?.map((user) => user.id),
                 type: CONST.CHAT_MESSAGE_TYPES.OTHER,
             });
 

@@ -137,7 +137,7 @@ declare class ChatLog extends SidebarTab {
      * @param message The original string of the message content
      * @return A Promise resolving to the prepared chat data object
      */
-    protected processMessage(message: string): Promise<ChatMessageData>;
+    protected processMessage(message: string): Promise<foundry.data.ChatMessageData>;
 
     /** @todo: Fill remaining properties */
 }

@@ -83,7 +83,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateMacro(macroData: MacroData): Promise<void> {
+    async updateMacro(macroData: foundry.data.MacroSource): Promise<void> {
         macroData.img = this.renameToWebP(macroData.img);
     }
 
@@ -92,7 +92,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         messageData.content = this.renameToWebP(messageData.content);
     }
 
-    async updateTable(tableData: RollTableData): Promise<void> {
+    async updateTable(tableData: foundry.data.RollTableSource): Promise<void> {
         tableData.img = this.renameToWebP(tableData.img);
         for (const result of tableData.results) {
             result.img = this.renameToWebP(result.img);
@@ -104,7 +104,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         tokenData.effects = tokenData.effects.filter((texture) => !this.regexp.test(texture));
     }
 
-    async updateUser(userData: UserData): Promise<void> {
+    async updateUser(userData: foundry.data.UserSource): Promise<void> {
         userData.img = this.renameToWebP(userData.img);
     }
 }

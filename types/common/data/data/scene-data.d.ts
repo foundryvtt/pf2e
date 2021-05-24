@@ -62,7 +62,7 @@ declare module foundry {
             // Permissions
             folder: string | null;
             sort: number;
-            permission: Record<string, DocumentPermission>;
+            permission: Record<string, PermissionLevel>;
             flags: Record<string, unknown>;
         }
 
