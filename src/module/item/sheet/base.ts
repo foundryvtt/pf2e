@@ -476,7 +476,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 { parent: (this.item as unknown) as foundry.documents.BaseItem },
             );
             this.render();
-            this.item.effects.get(newEffect.id)!.sheet.render(true);
+            this.item.effects.get(newEffect?.id ?? '')!.sheet.render(true);
         });
 
         const $aeControls = html.find('.tab.effects table tbody td.controls');

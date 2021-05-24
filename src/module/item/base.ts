@@ -27,6 +27,7 @@ import { TrickMagicItemPopup } from '@actor/sheet/trick-magic-item-popup';
 import { AbilityString, RawHazardData, RawNPCData } from '@actor/data-definitions';
 import { CheckPF2e } from '@system/rolls';
 import { ErrorPF2e, tupleHasValue } from '@module/utils';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 interface ItemConstructorOptionsPF2e extends ItemConstructorOptions<ActorPF2e> {
     pf2e?: {
@@ -188,7 +189,7 @@ export class ItemPF2e extends Item {
     /**
      * Roll the item to Chat, creating a chat card which contains follow up attack or damage roll options
      */
-    async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessage> {
+    async roll(this: Owned<ItemPF2e>, event?: JQuery.TriggeredEvent): Promise<ChatMessagePF2e | undefined> {
         // Basic template rendering data
         const template = `systems/pf2e/templates/chat/${this.data.type}-card.html`;
         const { token } = this.actor;
@@ -202,7 +203,7 @@ export class ItemPF2e extends Item {
         };
 
         // Basic chat message data
-        const chatData: Partial<ChatMessageData> = {
+        const chatData: Partial<foundry.data.ChatMessageSource> = {
             user: game.user.id,
             speaker: {
                 actor: this.actor.id,
@@ -220,14 +221,14 @@ export class ItemPF2e extends Item {
         // Toggle default roll mode
         const rollMode = game.settings.get('core', 'rollMode');
         if (['gmroll', 'blindroll'].includes(rollMode))
-            chatData.whisper = ChatMessage.getWhisperRecipients('GM').map((u) => u.id);
+            chatData.whisper = ChatMessagePF2e.getWhisperRecipients('GM').map((u) => u.id);
         if (rollMode === 'blindroll') chatData.blind = true;
 
         // Render the template
         chatData.content = await renderTemplate(template, templateData);
 
         // Create the chat message
-        return ChatMessage.create(chatData, { displaySheet: false });
+        return ChatMessagePF2e.create(chatData, { renderSheet: false });
     }
 
     /* -------------------------------------------- */
@@ -852,10 +853,10 @@ export class ItemPF2e extends Item {
                 new TrickMagicItemPopup(this);
             } else {
                 const content = game.i18n.format('PF2E.LackCastConsumableCapability', { name: this.name });
-                ChatMessage.create({
+                await ChatMessagePF2e.create({
                     user: game.user.id,
                     speaker: ChatMessage.getSpeaker({ actor: this.actor }),
-                    whisper: ChatMessage.getWhisperRecipients(this.actor.name),
+                    whisper: ChatMessage.getWhisperRecipients(this.actor.name).map((user) => user.id),
                     content,
                 });
             }
@@ -973,11 +974,11 @@ export class ItemPF2e extends Item {
             };
 
             // Basic chat message data
-            const chatData: any = {
+            const chatData: Partial<foundry.data.ChatMessageSource> = {
                 user: game.user.id,
                 speaker: {
                     actor: actor.id,
-                    token: actor.token,
+                    token: actor.token?.id,
                     alias: actor.name,
                 },
                 flags: {
@@ -998,7 +999,7 @@ export class ItemPF2e extends Item {
             chatData.content = await renderTemplate(template, templateData);
 
             // Create the chat message
-            await ChatMessage.create(chatData, { displaySheet: false });
+            await ChatMessagePF2e.create(chatData, { renderSheet: false });
         }
     }
 

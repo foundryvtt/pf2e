@@ -17,7 +17,10 @@ declare interface BaseEntitySheetData<TDocument extends Entity | foundry.abstrac
 /**
  * A simple implementation of the FormApplication pattern which is specialized in editing Entity instances
  */
-declare class BaseEntitySheet<TDocument extends Entity> extends FormApplication<TDocument, BaseEntitySheetOptions> {
+declare class BaseEntitySheet<TDocument extends Entity | ClientDocument> extends FormApplication<
+    TDocument,
+    BaseEntitySheetOptions
+> {
     /** @override */
     constructor(object: TDocument, options: Partial<BaseEntitySheetOptions>);
 

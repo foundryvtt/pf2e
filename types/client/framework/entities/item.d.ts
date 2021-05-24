@@ -67,7 +67,7 @@ declare class Item extends Entity {
      * OwnedItems have permission that the player has for the parent Actor.
      * @return  Whether or not the user has the permission for this item
      */
-    testUserPermission(...args: any[]): boolean;
+    testUserPermission(user: User, permission: DocumentPermission | UserAction, options?: { exact?: boolean }): boolean;
 
     /* -------------------------------------------- */
     /*  Socket Listeners and Handlers               */

@@ -1,12 +1,14 @@
 import { ActorPF2e } from '@module/actor/base';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /** Highlight critical success or failure on d20 rolls */
-export function listen(message: ChatMessage<ActorPF2e>, html: JQuery): void {
-    if (!message.isRoll || message.getFlag(game.system.id, 'damageRoll')) return;
-    const dice: any = message.roll.dice[0] ?? {};
+export function listen(message: ChatMessagePF2e, html: JQuery): void {
+    if (!message.isRoll || message.getFlag('pf2e', 'damageRoll')) return;
+    const roll = message.roll!;
+    const dice = roll.dice[0] ?? {};
     if (dice.faces !== 20) return;
 
-    if (message.roll.dice.length && (message as any).isContentVisible) {
+    if (roll.dice.length && (message as any).isContentVisible) {
         if (dice.total === 20) html.find('.dice-total').addClass('success');
         else if (dice.total === 1) html.find('.dice-total').addClass('failure');
 

@@ -4,6 +4,7 @@ import { ModifierPredicate, StatisticModifier } from '../modifiers';
 import { PF2CheckDC } from './check-degree-of-success';
 import { DamageTemplate } from '@system/damage/weapon';
 import { RollNotePF2e } from '@module/notes';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 /** Possible parameters of a RollFunction */
 export interface RollParameters {
@@ -98,7 +99,7 @@ export class CheckPF2e {
 
         await message.delete();
 
-        const oldRoll = message.roll;
+        const oldRoll = message.roll!;
         const newRoll = oldRoll.reroll();
 
         // Keep the new roll by default; Old roll is discarded
@@ -112,21 +113,21 @@ export class CheckPF2e {
             keepRoll = oldRoll;
         }
 
-        const newMessage = await ChatMessage.create(
+        const newMessage = await ChatMessagePF2e.create(
             {
                 roll: keepRoll,
                 content: `<div class="${oldRollClass}">${await CheckPF2e.renderReroll(
-                    oldRoll,
+                    oldRoll!,
                 )}</div><div class='pf2e-reroll-second ${newRollClass}'>${await CheckPF2e.renderReroll(newRoll)}</div>`,
                 flavor: `<i class='fa fa-dice pf2e-reroll-indicator' title="${rerollFlavor}"></i>${message.data.flavor}`,
                 sound: CONFIG.sounds.dice,
                 speaker: message.data.speaker,
             },
             {
-                rollMode: message.data.flags?.pf2e?.context?.rollMode ?? 'roll',
+                rollMode: message.getFlag('pf2e', 'context')?.rollMode ?? 'roll',
             },
         );
-        await newMessage.setFlag('pf2e', 'canReroll', false);
+        await newMessage?.setFlag('pf2e', 'canReroll', false);
     }
 
     /**

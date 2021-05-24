@@ -87,16 +87,16 @@ export interface FeatSheetData extends ItemSheetDataPF2e<FeatPF2e> {
 }
 
 export interface SpellSheetData extends ItemSheetDataPF2e<SpellPF2e> {
-    magicSchools: ConfigPF2e['magicSchools'];
-    spellCategories: ConfigPF2e['spellCategories'];
-    spellLevels: ConfigPF2e['spellLevels'];
-    spellTypes: ConfigPF2e['spellTypes'];
+    magicSchools: ConfigPF2e['PF2E']['magicSchools'];
+    spellCategories: ConfigPF2e['PF2E']['spellCategories'];
+    spellLevels: ConfigPF2e['PF2E']['spellLevels'];
+    spellTypes: ConfigPF2e['PF2E']['spellTypes'];
     magicTraditions: SheetOptions;
     spellComponents: string[];
     traits: SheetOptions;
     rarities: SheetOptions;
-    areaSizes: ConfigPF2e['areaSizes'];
-    areaTypes: ConfigPF2e['areaTypes'];
-    spellScalingModes: ConfigPF2e['spellScalingModes'];
+    areaSizes: ConfigPF2e['PF2E']['areaSizes'];
+    areaTypes: ConfigPF2e['PF2E']['areaTypes'];
+    spellScalingModes: ConfigPF2e['PF2E']['spellScalingModes'];
     isRitual: boolean;
 }

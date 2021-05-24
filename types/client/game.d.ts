@@ -21,10 +21,11 @@ declare const ui: {
  * @param socket    The open web-socket which should be used to transact game-state data
  */
 declare class Game<
-    ActorType extends Actor = Actor,
-    ItemType extends Item = Item,
-    CombatType extends Combat = Combat,
-    MacroType extends Macro = Macro
+    TActor extends Actor = Actor,
+    TChatMessage extends ChatMessage = ChatMessage,
+    TCombat extends Combat = Combat,
+    TItem extends Item = Item,
+    TMacro extends Macro = Macro
 > {
     /**
      * The named view which is currently active.
@@ -34,13 +35,13 @@ declare class Game<
 
     /** The object of world data passed from the server */
     data: {
-        actors: ActorType['data'][];
-        items: ItemType['data'][];
-        macros: MacroType['data'][];
-        messages: ChatMessageData[];
+        actors: TActor['data'][];
+        items: TItem['data'][];
+        macros: foundry.data.MacroSource[];
+        messages: foundry.data.ChatMessageSource[];
         packs: CompendiumMetadata[];
-        tables: RollTableData[];
-        users: UserData[];
+        tables: foundry.data.RollTableSource[];
+        users: foundry.data.UserSource[];
         version: string;
     };
 
@@ -94,18 +95,18 @@ declare class Game<
     /*  Entities
     /* -------------------------------------------- */
 
-    users: Users<User<ActorType>>;
-    messages: Messages<ChatMessage<ActorType>>;
+    users: Users<User<TActor>>;
+    messages: Messages<ChatMessage<TActor>>;
     scenes: Scenes;
-    actors: Actors<ActorType>;
-    items: Items<ItemType>;
+    actors: Actors<TActor>;
+    items: Items<TItem>;
     journal: Journal;
-    macros: Macros<MacroType>;
+    macros: Macros<TMacro>;
     playlists: Playlists;
     combats: CombatEncounters<Combat>;
     tables: RollTables;
     folders: Folders;
-    packs: Collection<Compendium<ActorType | ItemType | JournalEntry | MacroType | Playlist | RollTable | Scene>>;
+    packs: Collection<Compendium<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | Scene>>;
 
     constructor(view: string, worldData: {}, sessionId: string, socket: SocketIO.Socket);
 
@@ -173,7 +174,7 @@ declare class Game<
     /**
      * The currently connected User
      */
-    get user(): User<ActorType>;
+    get user(): User<TActor>;
 
     /**
      * Metadata regarding the current game World
@@ -243,7 +244,7 @@ declare class Game<
     };
 
     /** A convenience accessor for the currently active Combat encounter */
-    get combat(): CombatType | null;
+    get combat(): TCombat | null;
 
     /**
      * A state variable which tracks whether or not the game session is currently paused

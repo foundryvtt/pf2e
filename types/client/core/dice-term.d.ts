@@ -1,7 +1,8 @@
-interface DiceTermConstructorParams {
+interface DiceTermData {
     number?: number;
     faces?: number;
     modifiers?: string[];
+    results?: object[];
     options?: Record<string, unknown>;
 }
 
@@ -11,7 +12,19 @@ interface PlainRollResult {
 }
 
 type ComparisonOperatorString = '=' | '<' | '<=' | '>' | '>=';
+
+/**
+ * An abstract base class for any type of RollTerm which involves randomized input from dice, coins, or other devices.
+ * @param termData                 Data used to create the Dice Term, including the following:
+ * @param [termData.number=1] The number of dice of this term to roll, before modifiers are applied
+ * @param termData.faces The number of faces on each die of this type
+ * @param [termData.modifiers]   An array of modifiers applied to the results
+ * @param [termData.results]     An optional array of pre-cast results for the term
+ * @param [termData.options]       Additional options that modify the term
+ */
 declare abstract class DiceTerm {
+    constructor({ number, faces, modifiers, results, options }: DiceTermData);
+
     /**
      * The number of dice of this term to roll, before modifiers are applied
      */
@@ -66,8 +79,6 @@ declare abstract class DiceTerm {
      * A regular expression pattern which identifies part-specific flavor text
      */
     FLAVOR_TEXT_REGEX: string;
-
-    constructor({ number, faces, modifiers, options }: DiceTermConstructorParams);
 
     /**
      * Return the dice expression portion of the full term formula, excluding any flavor text.

@@ -9,7 +9,7 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseUser extends abstract.Document {
-            constructor(...args: [data.UserSource, data.UserData]);
+            constructor(data: Partial<data.UserSource>, context?: DocumentConstructorContext);
 
             readonly role: UserRole;
 
@@ -37,7 +37,7 @@ declare module foundry {
             can(action: UserAction): boolean;
 
             /** @override */
-            getUserLevel(user: BaseUser): DocumentPermission;
+            getUserLevel(user: BaseUser): PermissionLevel;
 
             /**
              * Test whether the User has at least a specific permission
