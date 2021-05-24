@@ -306,10 +306,7 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
         html.find('button').on('click', (event) => this.onButtonClicked(event));
         html.find('a.chat, .spell-icon.rollable').on('click', (event) => this.onClickToChat(event));
 
-        html.find('.attack')
-            .on('mouseenter', (event) => this.showControls(event))
-            .on('mouseleave', (event) => this.hideControls(event));
-        html.find('.action')
+        html.find('[data-item-controls="toggle"]')
             .on('mouseenter', (event) => this.showControls(event))
             .on('mouseleave', (event) => this.hideControls(event));
 
@@ -908,15 +905,15 @@ export class ActorSheetPF2eSimpleNPC extends CreatureSheetPF2e<NPCPF2e> {
     }
 
     private hideControls(event: JQuery.MouseLeaveEvent) {
-        const controls = $(event.currentTarget).find('.controls');
+        const controls = $(event.currentTarget).find('[data-item-controls="content"]');
         if (controls === undefined) return;
-        controls.removeClass('expanded');
+        controls.attr('data-visibility', 'hidden');
     }
 
     private showControls(event: JQuery.MouseEnterEvent) {
-        const controls = $(event.currentTarget).find('.controls');
+        const controls = $(event.currentTarget).find('[data-item-controls="content"]');
         if (controls === undefined) return;
-        controls.addClass('expanded');
+        controls.attr('data-visibility', 'visible');
     }
 
     private baseInputOnFocus(event: JQuery.FocusInEvent) {
