@@ -275,13 +275,11 @@ export function sellAllTreasure(actor: ActorPlaceholder): Promise<void[]> {
                 item.data?.denomination?.value !== null &&
                 item?.data?.stackGroup?.value !== 'coins',
         )
-        .map(
-            (item: ItemPlaceholder): Coins => {
-                treasureIds.push(item._id);
-                const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
-                return toCoins(item.data.denomination.value, value);
-            },
-        )
+        .map((item: ItemPlaceholder): Coins => {
+            treasureIds.push(item._id);
+            const value = (item.data?.value?.value ?? 1) * (item.data?.quantity?.value ?? 1);
+            return toCoins(item.data.denomination.value, value);
+        })
         .reduce(combineCoins, noCoins());
 
     return Promise.all([

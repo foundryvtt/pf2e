@@ -54,7 +54,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     /** Look through each pack and attempt to find the originating item */
     private async findCompendiumItem(itemData: ItemDataPF2e, collection?: string): Promise<ItemDataPF2e | undefined> {
         const identificationData = isPhysicalItem(itemData)
-            ? (((itemData.data.identification ?? null) as unknown) as {
+            ? ((itemData.data.identification ?? null) as unknown as {
                   status: string;
                   identified?: { name?: string };
               } | null)

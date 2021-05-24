@@ -7,7 +7,7 @@ declare module foundry {
          */
         class BaseActor<
             TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
-            TItem extends BaseItem = BaseItem
+            TItem extends BaseItem = BaseItem,
         > extends abstract.Document {
             /** @override */
             static get schema(): new (...args: any[]) => data.ActorData;
@@ -59,7 +59,7 @@ declare module foundry {
 
         interface BaseActor<
             TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
-            TItem extends BaseItem = BaseItem
+            TItem extends BaseItem = BaseItem,
         > extends abstract.Document {
             readonly data: data.ActorData<BaseActor<TActiveEffect, TItem>>;
             readonly parent: BaseToken | null;

@@ -68,7 +68,7 @@ export class FakeActor {
         const actor = game.actors.tokens[token.id];
         if (actor) return actor;
         const actorData = mergeObject(baseActor._data, token.data.actorData, { inplace: false }) as ActorDataPF2e;
-        return (new this(actorData, { token }) as unknown) as ActorPF2e;
+        return new this(actorData, { token }) as unknown as ActorPF2e;
     }
 
     update(changes: object) {

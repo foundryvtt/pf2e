@@ -36,7 +36,8 @@ declare global {
              * @param [document] The document to which this data object belongs
              */
             abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document | null>
-                implements DocumentSource {
+                implements DocumentSource
+            {
                 constructor(data?: DocumentSource, document?: TDocument | null);
 
                 /** An immutable reverse-reference to the Document to which this data belongs, possibly null. */

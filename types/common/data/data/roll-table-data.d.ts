@@ -34,7 +34,7 @@ declare module foundry {
 
         class RollTableData<
             TDocument extends documents.BaseRollTable = documents.BaseRollTable,
-            TResults extends documents.BaseTableResult = documents.BaseTableResult
+            TResults extends documents.BaseTableResult = documents.BaseTableResult,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

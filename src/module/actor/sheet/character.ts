@@ -390,8 +390,10 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
                 itemData.data.hover = CONFIG.PF2E.proficiencyLevels[(itemData.data.proficient || {}).value];
 
                 const rank = itemData.data.proficient?.value || 0;
-                const proficiency = ProficiencyModifier.fromLevelAndRank(actorData.data.details.level.value, rank)
-                    .modifier;
+                const proficiency = ProficiencyModifier.fromLevelAndRank(
+                    actorData.data.details.level.value,
+                    rank,
+                ).modifier;
                 const modifier = actorData.data.abilities.int.mod;
                 const itemBonus = Number((itemData.data.item || {}).value || 0);
                 itemData.data.itemBonus = itemBonus;

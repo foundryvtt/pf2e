@@ -24,7 +24,7 @@ declare module foundry {
         }
 
         class UserData<
-            TDocument extends documents.BaseUser = documents.BaseUser
+            TDocument extends documents.BaseUser = documents.BaseUser,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

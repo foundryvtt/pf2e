@@ -16,7 +16,7 @@ declare module foundry {
         }
 
         class MacroData<
-            TDocument extends documents.BaseMacro = documents.BaseMacro
+            TDocument extends documents.BaseMacro = documents.BaseMacro,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

@@ -4,7 +4,7 @@
  * @param data An array of data objects from which to create Document instances
  */
 declare abstract class WorldCollection<
-    TDocument extends ClientDocument = ClientDocument
+    TDocument extends ClientDocument = ClientDocument,
 > extends DocumentCollection<TDocument> {
     /** @override */
     constructor(data?: TDocument['data']['_source'][]);

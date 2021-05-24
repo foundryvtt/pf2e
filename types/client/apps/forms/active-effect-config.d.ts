@@ -18,9 +18,7 @@ declare class ActiveEffectConfig extends FormApplication<ActiveEffect> {
     static get defaultOptions(): ActiveEffectConfigOptions;
 
     /** @override */
-    getData(
-        options?: FormApplicationOptions,
-    ): FormApplicationData<ActiveEffect> & {
+    getData(options?: FormApplicationOptions): FormApplicationData<ActiveEffect> & {
         effect: ActiveEffectConfig['object']['data'];
         isActorEffect: boolean;
         isItemEffect: boolean;

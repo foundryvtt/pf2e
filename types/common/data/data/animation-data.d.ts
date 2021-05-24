@@ -13,7 +13,7 @@ declare module foundry {
         }
 
         class AnimationData<
-            TDocument extends abstract.Document = abstract.Document
+            TDocument extends abstract.Document = abstract.Document,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

@@ -2,7 +2,7 @@ import { TokenDocumentConstructor } from './constructors';
 
 declare global {
     class TokenDocument<
-        TActor extends foundry.documents.BaseActor = foundry.documents.BaseActor
+        TActor extends foundry.documents.BaseActor = foundry.documents.BaseActor,
     > extends TokenDocumentConstructor {
         /** @override */
         constructor(data: Partial<foundry.data.TokenSource>, context: DocumentModificationContext);

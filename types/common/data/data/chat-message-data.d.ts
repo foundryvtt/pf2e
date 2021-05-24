@@ -19,7 +19,7 @@ declare module foundry {
         }
 
         class ChatMessageData<
-            TDocument extends documents.BaseChatMessage = documents.BaseChatMessage
+            TDocument extends documents.BaseChatMessage = documents.BaseChatMessage,
         > extends abstract.DocumentData<TDocument> {
             /** @override */
             static defineSchema(): abstract.DocumentSchema;

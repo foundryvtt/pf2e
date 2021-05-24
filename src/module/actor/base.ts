@@ -147,7 +147,7 @@ export class ActorPF2e extends Actor {
     }
 
     get defaultImg(): string {
-        return ((this.constructor as unknown) as { defaultImg: string }).defaultImg;
+        return (this.constructor as unknown as { defaultImg: string }).defaultImg;
     }
 
     /** Get the actor's held shield. Meaningful implementation in `CreaturePF2e`'s override. */
