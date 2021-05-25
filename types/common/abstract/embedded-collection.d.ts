@@ -5,7 +5,7 @@ declare module foundry {
          * Used for the specific task of containing embedded Document instances within a parent Document.
          * @param sourceArray The source data array for the collection in the parent Document data
          */
-        abstract class EmbeddedCollection<TDocument extends Document> extends utils.Collection<Embedded<TDocument>> {
+        class EmbeddedCollection<TDocument extends Document> extends utils.Collection<Embedded<TDocument>> {
             /** @override */
             constructor(
                 sourceArray: TDocument['data']['_source'][],

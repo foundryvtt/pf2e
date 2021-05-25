@@ -37,53 +37,64 @@ export class ActiveEffectPF2e extends ActiveEffect {
                     }
                 }
             }
+        }
+    }
 
-            // Prepare changes with non-primitive values
-            if (typeof change.value === 'string' && change.value.startsWith('{')) {
-                type UnprocessedModifier = Omit<MinimalModifier, 'modifier'> & { modifier: string | number };
-                const parsedValue = ((): UnprocessedModifier => {
-                    try {
-                        return JSON.parse(change.value);
-                    } catch {
-                        const parenthetical = `(item ${this.data.origin} on actor ${this.uuid})`;
-                        ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
-                        this.data.disabled = true;
-                        return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
-                    }
-                })();
-                // Assign localized name to the effect from its originating item
-                if (!(this.parent instanceof ActorPF2e)) return;
+    /**
+     * Parse non-primitive change values just prior to application to the actor
+     * @override
+     */
+    apply(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
+        if (!(typeof change.value === 'string' && change.value.startsWith('{'))) return super.apply(actor, change);
 
-                const items: Collection<ItemPF2e> = this.parent.items;
-                const originItem = items.find((item) => item.uuid === this.data.origin);
-                parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : this.data.label;
+        // Prepare changes with non-primitive values
+        const effect = change.effect;
+        const parsedValue = ((): Record<string, unknown> => {
+            try {
+                return JSON.parse(change.value);
+            } catch {
+                const parenthetical = `(item ${effect.data.origin} on actor ${this.uuid})`;
+                ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                effect.data.disabled = true;
+                return { name: game.i18n.localize('Error'), type: 'untyped', modifier: 0 };
+            }
+        })();
 
-                // Evaluate dynamic changes
-                if (typeof parsedValue.modifier === 'string' && parsedValue.modifier.includes('@')) {
-                    let parsedModifier: number | null = null;
-                    try {
-                        parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue.modifier, this.parent.data));
-                    } catch (_error) {
-                        ui.notifications.error(`Failed to parse ActiveEffect formula value ${parsedValue.modifier}`);
-                    }
-                    if (parsedModifier !== null) {
-                        parsedValue.modifier = parsedModifier;
-                    } else {
-                        const parenthetical = `(item ${this.data.origin} on actor ${this.uuid})`;
-                        ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
-                        this.data.disabled = true;
-                        parsedValue.modifier = 0;
-                    }
-                }
-                if (typeof parsedValue.modifier === 'number') {
-                    change.value = new ModifierPF2e(
-                        parsedValue.name,
-                        parsedValue.modifier,
-                        parsedValue.type,
-                    ) as unknown as string; // 🤫 Don't tell Atro!
-                }
+        // Assign localized name to the effect from its originating item
+        const originItem = actor.items.find((item) => item.uuid === effect.data.origin);
+        parsedValue.name = originItem instanceof ItemPF2e ? originItem.name : effect.data.label;
+
+        // Evaluate dynamic changes
+        if (typeof parsedValue['modifier'] === 'string' && parsedValue['modifier'].includes('@')) {
+            let parsedModifier: number | null = null;
+            try {
+                parsedModifier = Roll.safeEval(Roll.replaceFormulaData(parsedValue['modifier'], actor.data));
+            } catch (_error) {
+                ui.notifications.error(`Failed to parse ActiveEffect formula value ${parsedValue.modifier}`);
+            }
+            if (parsedModifier !== null) {
+                parsedValue['modifier'] = parsedModifier;
+            } else {
+                const parenthetical = `(item ${effect.data.origin} on actor ${this.uuid})`;
+                ui.notifications.error(`Failed to parse ActiveEffect change value ${parenthetical}`);
+                effect.data.disabled = true;
+                parsedValue['modifier'] = 0;
             }
         }
+        const isMinimalModifier = (obj: Record<string, unknown>): obj is MinimalModifier => {
+            return typeof obj['name'] === 'string' && typeof obj['modifier'] === 'number';
+        };
+        if (isMinimalModifier(parsedValue)) {
+            change.value = new ModifierPF2e(
+                parsedValue.name,
+                parsedValue.modifier,
+                parsedValue.type,
+            ) as unknown as string;
+        } else {
+            change.value = parsedValue as unknown as string;
+        }
+
+        return super.apply(actor, change);
     }
 
     private valueIsLookupData(value: unknown): value is ItemLookupData {
