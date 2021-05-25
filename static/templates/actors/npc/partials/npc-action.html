@@ -1,14 +1,14 @@
-<li class="item action" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}">
+<li class="item" data-action="{{action._id}}" data-item-name="{{action.name}}" data-item-id="{{action._id}}" data-item-controls="toggle">
     <div class="item__header">
         <div class="rollable">
-            <a>
+            <a data-item-panel="toggle">
                 <h4 class="item__title">
                     {{action.name}}
                     <span class="activity-icon">{{action.glyph}}</span>
                 </h4>
             </a>
         </div>
-        <div class="controls expandable">
+        <div class="controls" data-item-controls="content" data-visibility="hidden">
             <a class="item-chat chat" title="{{ localize 'PF2E.NPC.SendToChat'}}"><i class="fas fa-comment-alt"></i></a>
             {{#if isEditable }}
             <a class="item-edit edit" title="{{ localize 'PF2E.NPC.Edit'}}"><i class="fas fa-edit"></i></a>
@@ -16,7 +16,7 @@
             {{/if}}
         </div>
     </div>
-    <div class="item__body sub-section expandable">
+    <div class="item__body" data-item-panel="content" data-visibility="hidden">
         <div class="item__description">{{{ enrichHTML action.data.description.value }}}</div>
         <div class="traits tag-list">
             {{#each action.traits as |trait traitIndex|}}

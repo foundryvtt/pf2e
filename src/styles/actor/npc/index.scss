@@ -107,10 +107,6 @@ $negative-modifer: #cc3311;
         }
     }
 
-    .controls {
-        color: var(--primary);
-    }
-
     @import 'scrollbar';
     @import 'forms';
     @import 'data-entry';
@@ -121,4 +117,19 @@ $negative-modifer: #cc3311;
     @import 'tabs';
     @import 'dead';
     @import 'data';
+
+    .controls {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.25em;
+        color: var(--primary);
+    }
+
+    [data-visibility='hidden'] {
+        display: none;
+    }
+
+    [data-visibility='visible'] {
+        display: revert;
+    }
 }
