@@ -213,7 +213,11 @@ declare module foundry {
              * const actor = await pack.getDocument(documentId);
              * const deleted = await Actor.deleteDocuments([actor.id], {pack: "mymodule.mypack"});
              */
-            static deleteDocuments(ids?: string[], context?: DocumentModificationContext): Promise<Document[]>;
+            static deleteDocuments<T extends Document>(
+                this: new (...args: any[]) => T,
+                ids?: string[],
+                context?: DocumentModificationContext,
+            ): Promise<T[]>;
 
             /**
              * Create a new Document using provided input data, saving it to the database.
@@ -474,7 +478,7 @@ declare module foundry {
              * @param documents The Document instances which were created
              * @param context   The context for the modification operation
              */
-            static _onCreateDocuments<T extends ClientDocument>(
+            protected static _onCreateDocuments<T extends Document>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -487,7 +491,7 @@ declare module foundry {
              * @param documents The Document instances which were updated
              * @param context   The context for the modification operation
              */
-            protected static _onUpdateDocuments<T extends ClientDocument>(
+            protected static _onUpdateDocuments<T extends Document>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -500,7 +504,7 @@ declare module foundry {
              * @param documents The Document instances which were deleted
              * @param context   The context for the modification operation
              */
-            protected static _onDeleteDocuments<T extends ClientDocument>(
+            protected static _onDeleteDocuments<T extends Document>(
                 this: (...args: any[]) => T,
                 documents: T[],
                 context: DocumentModificationContext,
@@ -551,8 +555,8 @@ declare module foundry {
     }
 }
 
-interface DocumentConstructorContext<T extends foundry.abstract.Document | null = foundry.abstract.Document | null> {
-    parent?: T;
+interface DocumentConstructorContext<T extends foundry.abstract.Document = foundry.abstract.Document> {
+    parent?: T['parent'];
     compendium?: CompendiumCollection | null;
     [key: string]: unknown;
 }
@@ -571,7 +575,7 @@ interface DocumentConstructorContext<T extends foundry.abstract.Document | null 
  * @property [deleteAll]         Whether to delete all documents of a given type, regardless of the array of ids provided. Only used during a delete operation.
  */
 declare interface DocumentModificationContext {
-    parent?: foundry.abstract.Document;
+    parent?: foundry.abstract.Document | null;
     pack?: string;
     noHook?: boolean;
     index?: boolean;

@@ -11,7 +11,7 @@ declare global {
      * @see {@link documents.Item}                      The Item document which contains ActiveEffect embedded documents
      *
      */
-    class ActiveEffect extends ActiveEffectConstructor {
+    class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
         /**
          * @param [data={}] Initial data provided to construct the ActiveEffect document
          * @param parent The parent document to which this ActiveEffect belongs
@@ -75,7 +75,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor, change: this['data']['changes'][number]): unknown;
+        apply(actor: Actor, change: ApplicableChangeData<this>): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -144,5 +144,22 @@ declare global {
 
     interface ActiveEffect {
         readonly data: foundry.data.ActiveEffectData<ActiveEffect>;
+    }
+
+    interface TemporaryEffect {
+        isTemporary: boolean;
+        data: {
+            disabled: boolean;
+            icon: string;
+            tint: string;
+        };
+
+        getFlag(scope: 'core', key: 'overlay'): string | undefined;
+        getFlag(scope: 'core', key: 'statusId'): string | undefined;
+        getFlag(scope: string, key: string): unknown;
+    }
+
+    interface ApplicableChangeData<T extends ActiveEffect> extends foundry.data.EffectChangeSource {
+        effect: T;
     }
 }
