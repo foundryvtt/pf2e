@@ -20,7 +20,7 @@ declare global {
         protected _actor: TActor | null;
 
         /** The current value of the special tracked resource which pertains to this Combatant */
-        resource: object | null;
+        resource: { value: number } | null;
 
         /* -------------------------------------------- */
         /*  Properties                                  */
@@ -97,7 +97,7 @@ declare global {
         prepareDerivedData(): void;
 
         /** Update the value of the tracked resource for this Combatant. */
-        updateResource(): object | null;
+        updateResource(): { value: number } | null;
 
         /**
          * Acquire the default dice formula which should be used to roll initiative for this combatant.
