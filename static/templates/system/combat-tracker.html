@@ -1,4 +1,4 @@
-<section class="sidebar-tab tab flexcol" id="combat" data-tab="combat">
+<section class="tab sidebar-tab directory flexcol" id="combat" data-tab="combat">
     <header id="combat-round">
         {{#if user.isGM}}
         <nav class="encounters flexrow">
@@ -56,7 +56,7 @@
 
     <ol id="combat-tracker" class="directory-list">
         {{#each turns}}
-        <li class="combatant actor directory-item flexrow {{this.css}}" data-combatant-id="{{this._id}}" data-token-id="{{this.tokenId}}">
+        <li class="combatant actor directory-item flexrow {{this.css}}" data-combatant-id="{{this.id}}" data-token-id="{{this.tokenId}}">
             <img class="token-image" src="{{this.img}}" title="{{this.name}}"/>
             <div class="token-name flexcol">
                 <h4>{{this.name}}</h4>
@@ -69,7 +69,7 @@
                     {{/if}}
 
                     <div class="token-effects">
-                        {{#each this.token.effects}}
+                        {{#each this.effects}}
                         <img class="token-effect" src="{{this}}?np"/>
                         {{/each}}
                     </div>
