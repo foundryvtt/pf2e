@@ -222,9 +222,7 @@ export abstract class RuleElementPF2e {
         }
 
         if (typeof value === 'string') {
-            const roll = new Roll(value, { ...actorData.data, item: item.data });
-            roll.roll();
-            value = roll.total!;
+            value = Roll.safeEval(Roll.replaceFormulaData(value, { ...actorData.data, item: item.data }));
         }
 
         if (Number.isInteger(Number(value))) {
