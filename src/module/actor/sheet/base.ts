@@ -863,10 +863,11 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * Handle clicking of stat levels. The max level is by default 4.
      * The max level can be set in the hidden input field with a data-max attribute. Eg: data-max="3"
      */
-    private onClickStatLevel(event: JQuery.TriggeredEvent) {
+    private async onClickStatLevel(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const field = $(event.currentTarget).siblings('input[type="hidden"]');
         const max = field.data('max') ?? 4;
+        const name = field.attr('name');
         const { statType, category } = field.data();
         if (this.actor.getFlag('pf2e', 'proficiencyLock') && category === 'proficiency') return;
 
@@ -892,8 +893,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
             return;
         }
-        field.val(newLevel);
-        this._onSubmit(event.originalEvent!);
+
+        if (name) {
+            await this.actor.update({ [name]: newLevel });
+        }
     }
 
     async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
