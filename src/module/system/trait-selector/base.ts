@@ -25,7 +25,7 @@ export abstract class TraitSelectorBase<
         });
     }
 
-    protected abstract _updateObject(_event: Event, _formData: FormData): Promise<void>;
+    protected abstract _updateObject(event: Event, formData: Record<string, unknown>): Promise<void>;
 
     /**
      * Builds an object of all keys of this.configTypes from CONFIG.PF2E
