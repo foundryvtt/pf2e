@@ -113,12 +113,15 @@ export class WorldClockSettings extends FormApplication {
     /** Settings to be registered and also later referenced during user updates */
     private static get settings(): Record<SettingsKey, ClientSettingsData> {
         // Advise the GM whether Global Illumination is enabled on the current scene.
-        const syncDarknessFormatting: { globalLight: string } = Object.defineProperty({}, 'globalLight', {
-            get: () =>
-                canvas.lighting.globalLight
-                    ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
-                    : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
-        });
+        const checkGlobalLight = () =>
+            canvas.lighting.globalLight
+                ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
+                : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff);
+        const syncDarknessFormatting: { globalLight: string } = Object.defineProperty(
+            { globalLight: checkGlobalLight() },
+            'globalLight',
+            { get: checkGlobalLight },
+        );
 
         return {
             // Date theme, currently one of Golarion (Absalom Reckoning), Earth (Material Plane, 95 years ago), or
