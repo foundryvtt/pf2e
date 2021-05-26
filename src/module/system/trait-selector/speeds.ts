@@ -61,17 +61,17 @@ export class TraitSelectorSpeeds extends TraitSelectorBase<ActorPF2e> {
     }
 
     /** @override */
-    protected async _updateObject(_event: Event, formData: FormData) {
+    protected async _updateObject(_event: Event, formData: Record<string, unknown>) {
         const update = this.getUpdateData(formData);
         if (update) {
             this.object.update({ [this.objectProperty]: update });
         }
     }
 
-    protected getUpdateData(formData: FormData) {
+    protected getUpdateData(formData: Record<string, unknown>) {
         type TagChoice = { type: string; label: string; value: string };
         const choices: TagChoice[] = [];
-        for (const [k, v] of Object.entries(formData)) {
+        for (const [k, v] of Object.entries(formData as Record<string, any>)) {
             if (v.length > 1 && Array.isArray(v) && v[0]) {
                 if (!Number.isNaN(Number(v[1])) && v[1]) {
                     const label = this.choices[k];
