@@ -315,7 +315,7 @@ export class ActorPF2e extends Actor {
         const tokens: TokenDocument[] = [];
         for (const scene of game.scenes) {
             for (const token of (scene as any).tokens as TokenDocument[]) {
-                if (token.isLinked && token.actor!.id === this.id) {
+                if (token.isLinked && token.actor?.id === this.id) {
                     tokens.push(token);
                 }
             }
