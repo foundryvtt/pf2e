@@ -13,8 +13,7 @@ export class ClassPF2e extends ABCItemPF2e {
     }
 
     async ensureClassFeaturesForLevel(actor: CharacterPF2e, minLevelInput?: number): Promise<void> {
-        const minLevel: number =
-            minLevelInput ?? (await this.getFlag(game.system.id, 'insertedClassFeaturesLevel')) ?? 0;
+        const minLevel: number = minLevelInput ?? this.getFlag(game.system.id, 'insertedClassFeaturesLevel') ?? 0;
         if (minLevel >= actor.level) {
             // no need to do anything, since we've seen it all
             return;
@@ -38,10 +37,8 @@ export class ClassPF2e extends ABCItemPF2e {
             feature.data.location = this.id;
         }
 
-        await Promise.all([
-            actor.createEmbeddedDocuments('Item', classFeaturesToCreate),
-            this.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level),
-        ]);
+        await actor.createEmbeddedDocuments('Item', classFeaturesToCreate);
+        this.setFlag(game.system.id, 'insertedClassFeaturesLevel', actor.level);
     }
 }
 
