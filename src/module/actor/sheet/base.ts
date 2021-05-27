@@ -1719,11 +1719,13 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * @override
      */
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
-        const overrides = deepClone(this.actor.overrides);
-        this.actor.overrides = {};
-        updateData = super._getSubmitData(updateData);
-        this.actor.overrides = overrides;
-        return updateData;
+        const overrides = this.actor.overrides;
+        try {
+            this.actor.overrides = {};
+            return super._getSubmitData(updateData);
+        } finally {
+            this.actor.overrides = overrides;
+        }
     }
 
     /** @override */
