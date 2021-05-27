@@ -866,6 +866,7 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     private onClickStatLevel(event: JQuery.TriggeredEvent) {
         event.preventDefault();
         const field = $(event.currentTarget).siblings('input[type="hidden"]');
+        const name = field.attr('name');
         const max = field.data('max') ?? 4;
         const { statType, category } = field.data();
         if (this.actor.getFlag('pf2e', 'proficiencyLock') && category === 'proficiency') return;
@@ -892,8 +893,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             }
             return;
         }
-        field.val(newLevel);
-        this._onSubmit(event.originalEvent!);
+
+        if (name) {
+            this.actor.update({ [name]: newLevel });
+        }
     }
 
     async onClickDeleteItem(event: JQuery.ClickEvent | JQuery.ContextMenuEvent): Promise<void> {
