@@ -113,14 +113,15 @@ export class WorldClockSettings extends FormApplication {
     /** Settings to be registered and also later referenced during user updates */
     private static get settings(): Record<SettingsKey, ClientSettingsData> {
         // Advise the GM whether Global Illumination is enabled on the current scene.
-        const checkGlobalLight = () =>
-            canvas.lighting.globalLight
-                ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
-                : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff);
-        const syncDarknessFormatting: { globalLight: string } = Object.defineProperty(
-            { globalLight: checkGlobalLight() },
+        const syncDarknessFormatting: { readonly globalLight: string } = Object.defineProperty(
+            { globalLight: '' },
             'globalLight',
-            { get: checkGlobalLight },
+            {
+                get: () =>
+                    canvas.lighting.globalLight
+                        ? game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOn)
+                        : game.i18n.localize(CONFIG.PF2E.SETTINGS.worldClock.syncDarkness.globalLightOff),
+            },
         );
 
         return {
