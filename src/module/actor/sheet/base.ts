@@ -1717,6 +1717,20 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         }
     }
 
+    /**
+     * Prevent `ActorSheet#_getSubmitData` from preventing submitting overridden values`
+     * @override
+     */
+    protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+        const overrides = this.actor.overrides;
+        try {
+            this.actor.overrides = {};
+            return super._getSubmitData(updateData);
+        } finally {
+            this.actor.overrides = overrides;
+        }
+    }
+
     /** @override */
     protected async _onSubmit(event: Event, options: OnSubmitFormOptions = {}): Promise<Record<string, unknown>> {
         // Limit HP value to data.attributes.hp.max value
