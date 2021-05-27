@@ -1715,19 +1715,15 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
     }
 
     /**
-     * Get an object of update data used to update the form's target object.
-     * This is an override to avoid the implementation in the ActorSheet, to prevent removal of
-     * active effect overriden data from the form data. It is a copy of the base _getSubmitData()
-     * @param updateData Additional data that should be merged with the form data
-     * @return The prepared update data
+     * Prevent `ActorSheet#_getSubmitData` from preventing submitting overridden values`
      * @override
      */
-    protected _getSubmitData(updateData = {}) {
-        if (!this.form) throw new Error(`The FormApplication subclass has no registered form element`);
-        const fd = new FormDataExtended(this.form, { editors: this.editors });
-        let data = fd.toObject();
-        if (updateData) data = foundry.utils.flattenObject(foundry.utils.mergeObject(data, updateData));
-        return data;
+    protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
+        const overrides = deepClone(this.actor.overrides);
+        this.actor.overrides = {};
+        updateData = super._getSubmitData(updateData);
+        this.actor.overrides = overrides;
+        return updateData;
     }
 
     /** @override */
