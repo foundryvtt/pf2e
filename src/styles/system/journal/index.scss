@@ -16,26 +16,12 @@
 
         @import 'header';
 
-        .editor {
-            height: calc(100% - 145px);
-        }
-
-        .editor-content {
-            --p-space: var(--space-l);
-            --max-width: 520px;
-            display: flex;
-            flex-direction: column;
-            font-family: 'Vollkorn', $serif;
-            font-size: 1.2em;
-            line-height: 1.5;
-            color: var(--body);
-            padding-bottom: 2em;
-
-            @import 'tinymce';
-        }
-
         > * + * {
             margin-top: var(--space-m);
+        }
+
+        .editor {
+            height: calc(100% - 145px);
         }
 
         button[type='submit'] {
@@ -58,4 +44,18 @@
             }
         }
     }
+}
+
+.editor-content {
+    --p-space: var(--space-l);
+    --max-width: 520px;
+    display: flex;
+    flex-direction: column;
+    font-family: 'Vollkorn', $serif;
+    font-size: 1.2em;
+    line-height: 1.5;
+    color: var(--body);
+    padding-bottom: 2em;
+
+    @import 'tinymce';
 }
