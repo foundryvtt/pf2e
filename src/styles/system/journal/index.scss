@@ -1,0 +1,17 @@
+.journal-sheet {
+    --space-s: 0.25em;
+    --space-m: 0.5em;
+
+    .window-content {
+        padding: var(--space-s) var(--space-m);
+    }
+
+    form {
+        @import 'header';
+        @import 'typography';
+
+        > * + * {
+            margin-top: var(--space-m);
+        }
+    }
+}
