@@ -246,11 +246,11 @@ export abstract class CreatureSheetPF2e<ActorType extends CreaturePF2e> extends 
                 targets.length === 1 && targets[0] instanceof CreaturePF2e ? (targets[0] as CreaturePF2e) : undefined;
             const options = this.actor.getRollOptions(rollNames);
             {
-                const conditions = this.actor.itemTypes.condition;
+                const conditions = this.actor.itemTypes.condition.filter((condition) => condition.fromSystem);
                 options.push(...conditions.map((item) => `self:${item.data.data.hud.statusName}`));
             }
             if (target) {
-                const conditions = target.itemTypes.condition;
+                const conditions = target.itemTypes.condition.filter((condition) => condition.fromSystem);
                 options.push(...conditions.map((item) => `target:${item.data.data.hud.statusName}`));
 
                 const traits = (target.data.data.traits.traits.custom ?? '')
