@@ -1,17 +1,61 @@
 .journal-sheet {
     --space-s: 0.25em;
     --space-m: 0.5em;
+    --space-l: 1em;
+    --space-xl: 1.5em;
+    --space-2xl: 2em;
+    --radius: 3px;
 
     .window-content {
         padding: var(--space-s) var(--space-m);
     }
 
     form {
+        display: flex;
+        flex-direction: column;
+
         @import 'header';
-        @import 'typography';
+
+        .editor {
+            height: calc(100% - 145px);
+        }
+
+        .editor-content {
+            --p-space: var(--space-l);
+            --max-width: 520px;
+            display: flex;
+            flex-direction: column;
+            font-family: 'Vollkorn', $serif;
+            font-size: 1.2em;
+            line-height: 1.5;
+            color: var(--body);
+            padding-bottom: 2em;
+
+            @import 'tinymce';
+        }
 
         > * + * {
             margin-top: var(--space-m);
+        }
+
+        button[type='submit'] {
+            border: none;
+            box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.2), inset 0 0 0 1px rgba(0, 0, 0, 0.4);
+            background-color: var(--alt);
+            color: white;
+            max-width: 50%;
+            font-family: $serif;
+            font-size: 1.2em;
+            margin: auto;
+            cursor: pointer;
+            text-shadow: 0 0 2px black;
+            line-height: 1;
+            padding: var(--space-m) 0;
+
+            &:hover {
+                text-shadow: 0 0 4px var(--primary);
+                background-color: lighten($alt-color, 10);
+            }
         }
     }
 }
