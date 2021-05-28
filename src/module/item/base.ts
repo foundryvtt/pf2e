@@ -598,7 +598,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.d20Roll logic for the core implementation
      */
     rollSpellAttack(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent, multiAttackPenalty = 1) {
-        let item = this.data.toObject();
+        let item = this.toObject();
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }
@@ -680,7 +680,7 @@ export class ItemPF2e extends Item<ActorPF2e> {
      * Rely upon the DicePF2e.damageRoll logic for the core implementation
      */
     rollSpellDamage(this: Embedded<ItemPF2e>, event: JQuery.ClickEvent) {
-        let item = this.data.toObject();
+        let item = this.toObject();
         if (item.type === 'consumable' && item.data.spell?.data) {
             item = item.data.spell.data;
         }

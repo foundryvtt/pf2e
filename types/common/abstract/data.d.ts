@@ -139,17 +139,20 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject(): this['_source'];
-                toObject(source: true): this['_source'];
-                toObject<T extends DocumentData<Document | null>>(this: T, source: false): RawObject<T>;
-                toObject<T extends DocumentData<Document | null>>(this: T, source: boolean): never;
+                toObject<D extends DocumentData, B extends true>(this: D, source?: B): D['_source'];
+                toObject<D extends DocumentData, B extends false>(this: D, source: B): RawObject<D>;
+                toObject<D extends DocumentData, B extends boolean>(source?: B): D['_source'] | RawObject<D>;
             }
         }
     }
 
     type RawObject<T extends foundry.abstract.DocumentData> = {
-        [P in keyof T['_source']]: T[P] extends foundry.abstract.EmbeddedCollection<infer V>
-            ? RawObject<V['data']>[]
+        [P in keyof T['_source']]: T[P] extends foundry.abstract.EmbeddedCollection<infer U>
+            ? RawObject<U['data']>[]
+            : T[P] extends foundry.abstract.DocumentData
+            ? RawObject<T[P]>
+            : T[P] extends foundry.abstract.DocumentData[]
+            ? RawObject<T[P][number]>[]
             : T[P];
     };
 }

@@ -535,10 +535,9 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject(): this['data']['_source'];
-                toObject(source: true): this['data']['_source'];
-                toObject(source: undefined): this['data']['_source'];
-                toObject(source: false): RawObject<this['data']>;
+                toObject<T extends true>(source?: T): this['data']['_source'];
+                toObject<T extends false>(source: T): RawObject<this['data']>;
+                toObject<T extends boolean>(source?: T): this['data']['_source'] | RawObject<this['data']>;
 
                 /**
                  * Serializing an Document should simply serialize its inner data, not the entire instance

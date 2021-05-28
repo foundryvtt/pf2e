@@ -13,7 +13,7 @@ import { RuleElementPF2e, RuleElements } from '@module/rules/rules';
 import { RollNotePF2e } from '@module/notes';
 import { adaptRoll } from '@system/rolls';
 import { CreaturePF2e, ActorPF2e } from '@actor/index';
-import { ActionSource, MeleeData } from '@item/data';
+import { MeleeData } from '@item/data';
 import { DamageType } from '@module/damage-calculation';
 import { sluggify } from '@module/utils';
 import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcasting-entry/data';
@@ -871,9 +871,9 @@ export class NPCPF2e extends CreaturePF2e {
                 if (compendium) {
                     const itemId =
                         (await compendium.getIndex())?.find((entry) => entry.name === attackEffect)?._id ?? '';
-                    const packItem = (await compendium.getDocument(itemId))?.toObject() as ActionSource | undefined;
-                    if (packItem) {
-                        const description = packItem.data.description.value;
+                    const packItem = await compendium.getDocument(itemId);
+                    if (packItem instanceof ItemPF2e) {
+                        const description = packItem.description;
                         note.text = `<div style="display: inline-block; font-weight: normal; line-height: 1.3em;" data-visibility="gm"><strong>${attackEffect}</strong> ${description}</div>`;
                         notes.push(note);
                     } else {
