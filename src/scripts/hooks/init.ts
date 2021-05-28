@@ -2,6 +2,7 @@ import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
 import { MystifiedTraits } from '@item/data/values';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
 import { CombatPF2e } from '@module/combat';
 import { CombatantPF2e } from '@module/combatant';
@@ -50,8 +51,7 @@ export function listen(): void {
 
         // Assign the PF2e Sidebar subclasses
         CONFIG.ui.combat = CombatTrackerPF2e;
-        /** @todo: Restore this after fixing folder metadata */
-        // CONFIG.ui.compendium = CompendiumDirectoryPF2e;
+        CONFIG.ui.compendium = CompendiumDirectoryPF2e;
 
         // configure the bundled TinyMCE editor with PF2-specific options
         CONFIG.TinyMCE.extended_valid_elements = 'pf2-action[action|glyph]';
