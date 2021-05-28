@@ -15,12 +15,11 @@ declare module foundry {
         class AnimationData<
             TDocument extends abstract.Document = abstract.Document,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
         interface AnimationData extends AnimationSource {
-            _source: AnimationSource;
+            readonly _source: AnimationSource;
         }
     }
 }

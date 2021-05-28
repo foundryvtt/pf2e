@@ -1,17 +1,20 @@
 import { TokenDocumentConstructor } from './constructors';
 
+type _Actor = Actor<TokenDocument<_Actor>>;
+
 declare global {
-    class TokenDocument<
-        TActor extends foundry.documents.BaseActor = foundry.documents.BaseActor,
-    > extends TokenDocumentConstructor {
+    class TokenDocument<TActor extends Actor = _Actor> extends TokenDocumentConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.TokenSource>, context: DocumentModificationContext);
+        constructor(
+            data: PreCreate<foundry.data.TokenSource>,
+            context?: TokenDocumentConstructionContext<TokenDocument>,
+        );
 
         /**
          * A cached reference to the Actor document that this Token modifies.
          * This may be a "synthetic" unlinked Token Actor which does not exist in the World.
          */
-        protected readonly _actor: TActor | null;
+        protected _actor: TActor | null;
 
         /**
          * A lazily evaluated reference to the Actor this Token modifies.
@@ -27,7 +30,7 @@ declare global {
         get isLinked(): this['data']['actorLink'];
 
         /** Return a reference to a Combatant that represents this Token, if one is present in the current encounter. */
-        get combatant(): 'Combatant' | null;
+        get combatant(): Combatant | null;
 
         /** An indicator for whether or not this Token is currently involved in the active combat encounter. */
         get inCombat(): boolean;
@@ -63,7 +66,10 @@ declare global {
          * @param options  Provided options which modify the update request
          * @returns The updated un-linked Actor instance
          */
-        modifyActorDocument(update: Record<string, unknown>, options: DocumentModificationContext): Promise<TActor[]>;
+        modifyActorDocument(
+            update: Record<string, unknown>,
+            options: DocumentModificationContext,
+        ): Promise<NonNullable<TActor>[]>;
 
         /** @override */
         // getEmbeddedCollection(embeddedName: 'Item' | 'ActiveEffect'): ReturnType<TActor['getEmbeddedCollection']>;
@@ -76,10 +82,10 @@ declare global {
          * @returns The created Embedded Document instances
          */
         createActorEmbeddedDocuments(
-            embeddedName: 'Actor' | 'Item',
-            data: Partial<foundry.data.ActorSource>[] | Partial<foundry.data.ActiveEffectSource>[],
+            embeddedName: 'ActiveEffect' | 'Item',
+            data: PreCreate<foundry.data.ActiveEffectSource>[] | Partial<foundry.data.ActiveEffectSource>[],
             options?: DocumentModificationContext,
-        ): foundry.abstract.Document[];
+        ): ActiveEffect | Item[];
 
         /**
          * Redirect updating of Documents within a synthetic Token Actor to instead update the tokenData override object.
@@ -89,10 +95,10 @@ declare global {
          * @returns The updated Embedded Document instances
          */
         updateActorEmbeddedDocuments(
-            embeddedName: 'Item' | 'ActiveEffect',
-            updates: Record<string, unknown>,
+            embeddedName: 'ActiveEffect' | 'Item',
+            updates: EmbeddedDocumentUpdateData<ActiveEffect | Item>,
             options: DocumentModificationContext,
-        ): Promise<foundry.documents.BaseItem[]> | Promise<foundry.documents.BaseActiveEffect[]>;
+        ): Promise<ActiveEffect[] | Item[]>;
 
         /**
          * Redirect deletion of Documents within a synthetic Token Actor to instead update the tokenData override object.
@@ -102,10 +108,10 @@ declare global {
          * @returns The updated Embedded Document instances
          */
         deleteActorEmbeddedDocuments(
-            embeddedName: 'Item' | 'ActiveEffect',
+            embeddedName: 'ActiveEffect' | 'Item',
             ids: string[],
             options: DocumentModificationContext,
-        ): Promise<foundry.documents.BaseItem[]> | Promise<foundry.documents.BaseActiveEffect[]>;
+        ): Promise<ActiveEffect[] | Item[]>;
 
         /* -------------------------------------------- */
         /*  Event Handlers                              */
@@ -115,7 +121,7 @@ declare global {
         protected _preUpdate(
             data: DocumentUpdateData<this>,
             options: DocumentModificationContext,
-            user: foundry.documents.BaseUser,
+            user: User,
         ): Promise<void>;
 
         /**
@@ -123,7 +129,7 @@ declare global {
          * @override
          */
         protected _preUpdateTokenActor(
-            data: DocumentUpdateData<TActor>,
+            data: DocumentUpdateData<NonNullable<TActor>>,
             options: DocumentModificationContext,
             userId: string,
         ): Promise<void>;
@@ -148,18 +154,24 @@ declare global {
         static getTrackedAttributeChoices(attributes: TokenAttributes): TokenAttributes;
     }
 
+    /** Merge declarations */
     interface TokenDocument {
-        readonly data: foundry.data.TokenData<TokenDocument>;
-        readonly parent: foundry.documents.BaseScene | null;
-        // readonly _sheet: TokenConfig<this> | null;
+        readonly data: foundry.data.TokenData<this>;
+
+        readonly parent: Scene | null;
+
+        _sheet: TokenConfig<this> | null;
+
+        readonly _object: Token<this> | null;
+    }
+
+    interface TokenDocumentConstructionContext<TTokenDocument extends TokenDocument>
+        extends DocumentConstructionContext<TTokenDocument> {
+        actor?: TTokenDocument['actor'];
     }
 
     namespace TokenDocument {
-        function _canUpdate(
-            user: foundry.documents.BaseUser,
-            doc: TokenDocument,
-            data: foundry.data.TokenData,
-        ): boolean;
+        function _canUpdate(user: User, doc: TokenDocument, data: foundry.data.TokenData<TokenDocument>): boolean;
     }
 
     interface TokenAttributes {

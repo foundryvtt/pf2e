@@ -5,23 +5,18 @@ declare module foundry {
          * @param    data Initial data from which to construct the document.
          * @property data The constructed data object for the document.
          */
-        class BaseActor<
-            TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
-            TItem extends BaseItem = BaseItem,
-        > extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.ActorData;
+        class BaseActor extends abstract.Document {
+            static get schema(): ConstructorOf<data.ActorData<BaseActor, BaseActiveEffect, BaseItem>>;
 
-            /** @override */
             static get metadata(): ActorMetadata;
 
             /**
              * A reference to the Collection of embedded ActiveEffect instances in the Actor document, indexed by _id.
              */
-            get effects(): abstract.EmbeddedCollection<TActiveEffect>;
+            get effects(): this['data']['effects'];
 
             /** A reference to the Collection of embedded Item instances in the Actor document, indexed by _id. */
-            get items(): abstract.EmbeddedCollection<TItem>;
+            get items(): this['data']['items'];
 
             /**
              * Migrate the system data object to conform to data model defined by the current system version.
@@ -42,26 +37,22 @@ declare module foundry {
                 enforceTypes?: boolean;
             }): this['data']['data'];
 
-            /** @override */
-            _preCreate(
-                data: Partial<this['data']['_source']>,
+            protected _preCreate(
+                data: PreCreate<this['data']['_source']>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
 
-            /** @override */
-            _preUpdate(
-                changed: DocumentUpdateData<this>,
+            protected _preUpdate(
+                changed: DocumentUpdateData<BaseActor>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
         }
 
-        interface BaseActor<
-            TActiveEffect extends BaseActiveEffect = BaseActiveEffect,
-            TItem extends BaseItem = BaseItem,
-        > extends abstract.Document {
-            readonly data: data.ActorData<BaseActor<TActiveEffect, TItem>>;
+        interface BaseActor {
+            readonly data: data.ActorData<BaseActor, BaseActiveEffect, BaseItem>;
+
             readonly parent: BaseToken | null;
         }
 

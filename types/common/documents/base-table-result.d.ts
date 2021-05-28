@@ -1,22 +1,14 @@
 declare module foundry {
     module documents {
-        /**
-         * The TableResult document model.
-         *
-         * @param data Initial data from which to construct the document.
-         * @property data The constructed data object for the document.
-         */
+        /** The TableResult document model. */
         class BaseTableResult extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.RollTableData;
+            static get schema(): typeof data.RollTableData;
 
-            /** @override */
             static get metadata(): TableResultMetadata;
 
             /** Is a user able to update an existing TableResult? */
             protected static _canUpdate(user: BaseUser, doc: BaseTableResult, data: data.TableResultData): boolean;
 
-            /** @override */
             testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
@@ -25,7 +17,9 @@ declare module foundry {
         }
 
         interface BaseTableResult {
-            readonly data: data.TableResultData<BaseTableResult>;
+            readonly data: data.TableResultData<this>;
+
+            readonly parent: BaseRollTable | null;
         }
 
         interface TableResultMetadata extends abstract.DocumentMetadata {

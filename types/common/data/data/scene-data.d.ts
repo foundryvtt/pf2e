@@ -23,14 +23,14 @@ declare module foundry {
                 scale: number;
             };
 
-            backgroundColor: ColorField;
+            backgroundColor: HexColorString;
 
             // Grid Configuration
             gridType: GridType;
             grid: number;
             shiftX: number;
             shiftY: number;
-            gridColor: ColorField;
+            gridColor: HexColorString;
             gridAlpha: number;
             gridDistance: number;
             gridUnits: string;
@@ -69,19 +69,25 @@ declare module foundry {
         class SceneData<
             TDocument extends documents.BaseScene = documents.BaseScene,
             TToken extends documents.BaseToken = documents.BaseToken,
+            TAmbientLight extends documents.BaseAmbientLight = documents.BaseAmbientLight,
+            TAmbientSound extends documents.BaseAmbientSound = documents.BaseAmbientSound,
+            TDrawing extends documents.BaseDrawing = documents.BaseDrawing,
+            TMeasuredTemplate extends documents.BaseMeasuredTemplate = documents.BaseMeasuredTemplate,
+            TNote extends documents.BaseNote = documents.BaseNote,
+            TTile extends documents.BaseTile = documents.BaseTile,
+            TWall extends documents.BaseWall = documents.BaseWall,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
             // Embedded Collections
-            drawings: abstract.EmbeddedCollection<documents.BaseDrawing>;
+            drawings: abstract.EmbeddedCollection<TDrawing>;
+            lights: abstract.EmbeddedCollection<TAmbientLight>;
+            notes: abstract.EmbeddedCollection<TNote>;
+            sounds: abstract.EmbeddedCollection<TAmbientSound>;
+            templates: abstract.EmbeddedCollection<TMeasuredTemplate>;
             tokens: abstract.EmbeddedCollection<TToken>;
-            lights: abstract.EmbeddedCollection<documents.BaseAmbientLight>;
-            notes: abstract.EmbeddedCollection<documents.BaseNote>;
-            sounds: abstract.EmbeddedCollection<documents.BaseAmbientSound>;
-            templates: abstract.EmbeddedCollection<documents.BaseMeasuredTemplate>;
-            tiles: abstract.EmbeddedCollection<documents.BaseTile>;
-            walls: abstract.EmbeddedCollection<documents.BaseWall>;
+            tiles: abstract.EmbeddedCollection<TTile>;
+            walls: abstract.EmbeddedCollection<TWall>;
 
             // Linked Documents
             playlist: documents.BasePlaylist | null;
@@ -92,7 +98,6 @@ declare module foundry {
         interface SceneData
             extends Omit<
                 SceneSource,
-                | '_id'
                 | 'drawings'
                 | 'tokens'
                 | 'lights'

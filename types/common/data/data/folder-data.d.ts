@@ -24,23 +24,20 @@ declare module foundry {
             parent: string | null;
             sorting: 'a' | 'm';
             sort: number;
-            color: ColorField;
+            color: HexColorString;
             flags: Record<string, unknown>;
         }
 
         class FolderData<
             TDocument extends documents.BaseFolder = documents.BaseFolder,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
             static SORTING_MODES: ['a', 'm'];
-
-            parent: documents.BaseFolder | null;
         }
 
-        interface FolderData extends Omit<FolderSource, '_id' | 'parent'> {
-            _source: FolderSource;
+        interface FolderData extends FolderSource {
+            readonly _source: FolderSource;
         }
     }
 }

@@ -24,15 +24,17 @@ declare module foundry {
 
         class CombatData<
             TDocument extends documents.BaseCombat = documents.BaseCombat,
+            TCombatant extends documents.BaseCombatant = documents.BaseCombatant,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            combatants: abstract.EmbeddedCollection<documents.BaseCombatant>;
+            combatants: abstract.EmbeddedCollection<TCombatant>;
         }
 
-        interface CombatData extends Omit<CombatSource, '_id' | 'combatants'> {
+        interface CombatData extends Omit<CombatSource, 'combatants'> {
             readonly _source: CombatSource;
+
+            readonly parent: null;
         }
     }
 }

@@ -17,7 +17,8 @@ declare global {
     }
 
     interface NoteDocument {
-        readonly data: foundry.data.NoteData<NoteDocument>;
-        readonly parent: foundry.documents.BaseScene;
+        readonly parent: Scene | null;
+
+        readonly _object: Note;
     }
 }

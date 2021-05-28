@@ -34,11 +34,10 @@ declare module foundry {
         class TileData<
             TDocument extends documents.BaseTile = documents.BaseTile,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface TileData extends Omit<TileSource, '_id'> {
+        interface TileData extends TileSource {
             readonly _source: TileSource;
         }
     }

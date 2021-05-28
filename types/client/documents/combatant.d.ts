@@ -9,15 +9,15 @@ declare global {
      * @see {@link data.CombatantData} The Combatant data schema
      * @see {@link documents.Combat}   The Combat document which contains Combatant embedded documents
      */
-    class Combatant<TActor extends Actor = Actor> extends CombatantConstructor {
+    class Combatant extends CombatantConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.CombatantData>, context?: DocumentModificationContext);
+        constructor(data: PreCreate<foundry.data.CombatantSource>, context?: DocumentConstructionContext<Combatant>);
 
         /** A cached reference to the Token which this Combatant represents, if any */
-        protected _token: Token | null;
+        _token: NonNullable<NonNullable<this['actor']>['parent']>['object'] | null;
 
         /** A cached reference to the Actor which this Combatant represents, if any */
-        protected _actor: TActor | null;
+        _actor: Actor | null;
 
         /** The current value of the special tracked resource which pertains to this Combatant */
         resource: { value: number } | null;
@@ -60,10 +60,10 @@ declare global {
         get name(): string;
 
         /** A reference to the Actor document which this Combatant represents, if any */
-        get actor(): TActor;
+        get actor(): this['_actor'];
 
         /** A reference to the Token document which this Combatant represents, if any */
-        get token(): Token<TActor> | null;
+        get token(): this['_token'];
 
         /** An array of User documents who have ownership of this Document */
         get players(): User[];
@@ -91,7 +91,7 @@ declare global {
          * @param [formula] A dice formula which overrides the default for this Combatant.
          * @return The Roll instance to use for the combatant.
          */
-        rollInitiative(formula: string): Roll;
+        rollInitiative(formula: string): Rolled<Roll>;
 
         /** @override */
         prepareDerivedData(): void;
@@ -104,14 +104,11 @@ declare global {
          * Modules or systems could choose to override or extend this to accommodate special situations.
          * @return The initiative formula to use for this combatant.
          */
-        protected _getInitiativeFormula(): string;
+        _getInitiativeFormula(): string;
     }
 
     interface Combatant {
-        /** @param [data={}] Initial data provided to construct the Combatant document */
-        readonly data: foundry.data.CombatantData<Combatant>;
-
-        /** @param parent The parent document to which this Combatant belongs */
-        parent: Combat;
+        readonly parent: Combat | null;
+        _sheet: CombatantConfig<this>;
     }
 }

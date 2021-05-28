@@ -9,7 +9,10 @@ declare global {
      */
     class ChatMessage<TActor extends Actor = Actor> extends ChatMessageConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.ChatMessageSource>, context?: DocumentConstructorContext);
+        constructor(
+            data: PreCreate<foundry.data.ChatMessageSource>,
+            context?: DocumentConstructionContext<ChatMessage>,
+        );
 
         /** If the chat message contains a Roll instance, cache it here */
         protected _roll: Rolled<Roll> | null;
@@ -179,18 +182,18 @@ declare global {
 
     namespace ChatMessage {
         function create<T extends ChatMessage>(
-            this: new (...args: any[]) => T,
-            data: Partial<foundry.data.ChatMessageSource>[],
+            this: ConstructorOf<T>,
+            data: PreCreate<T['data']['_source']>[],
             context?: ChatMessageModificationContext,
         ): Promise<T[]>;
         function create<T extends ChatMessage>(
-            this: new (...args: any[]) => T,
-            data: Partial<foundry.data.ChatMessageSource>,
+            this: ConstructorOf<T>,
+            data: PreCreate<T['data']['_source']>,
             context?: ChatMessageModificationContext,
         ): Promise<T | undefined>;
         function create<T extends ChatMessage>(
-            this: new (...args: any[]) => T,
-            data: Partial<foundry.data.ChatMessageSource>[] | Partial<foundry.data.ChatMessageSource>,
+            this: ConstructorOf<T>,
+            data: PreCreate<T['data']['_source']>[] | PreCreate<T['data']['_source']>,
             context?: ChatMessageModificationContext,
         ): Promise<T[] | T | undefined>;
     }

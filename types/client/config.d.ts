@@ -9,11 +9,12 @@ declare global {
         TCombat extends Combat = Combat,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
+        TTokenDocument extends TokenDocument = TokenDocument,
     > {
-        /**
-         * Configure debugging flags to display additional information
-         */
+        /** Configure debugging flags to display additional information */
         debug: {
+            dice: boolean;
+            documents: boolean;
             fog: boolean;
             hooks: boolean;
             sight: boolean;
@@ -24,11 +25,11 @@ declare global {
             time: boolean;
         };
 
-        /**
-         * Configuration for the default Actor entity class
-         */
+        /** Configuration for the Actor document */
         Actor: {
-            documentClass: { new (data: TActor['data'], options?: EntityConstructorOptions): TActor };
+            documentClass: {
+                new (data: PreCreate<TActor['data']['_source']>, options?: DocumentConstructionContext<TActor>): TActor;
+            };
             collection: Actors<TActor>;
             sheetClasses: Record<string, Record<string, typeof ActorSheet>>;
         };
@@ -39,8 +40,8 @@ declare global {
         ActiveEffect: {
             documentClass: {
                 new (
-                    data: Partial<TActiveEffect['data']['_source']>,
-                    context?: DocumentModificationContext,
+                    data: PreCreate<TActiveEffect['data']['_source']>,
+                    context?: DocumentConstructionContext<TActiveEffect>,
                 ): TActiveEffect;
             };
             sheetClass: typeof ActiveEffectConfig;
@@ -70,8 +71,8 @@ declare global {
             collection: typeof Messages;
             documentClass: {
                 new (
-                    data: Partial<TChatMessage['data']['_source']>,
-                    context?: DocumentConstructorContext,
+                    data: PreCreate<TChatMessage['data']['_source']>,
+                    context?: DocumentConstructionContext<TChatMessage>,
                 ): TChatMessage;
             };
             sidebarIcon: string;
@@ -82,28 +83,46 @@ declare global {
          * Configuration for the default Item entity class
          */
         Item: {
-            documentClass: { new (data: TItem['data'], options?: ItemConstructorOptions<TActor>): TItem };
-            collection: Items<TItem>;
+            documentClass: {
+                new (data: PreCreate<TItem['data']['_source']>, context?: DocumentConstructionContext<TItem>): TItem;
+            };
+            collection: typeof Items;
             sheetClasses: Record<string, Record<string, typeof ItemSheet>>;
         };
 
         /** Configuration for the Combatant document */
         Combatant: {
-            documentClass: new (data: TCombatant['data'], context?: DocumentModificationContext) => TCombatant;
+            documentClass: new (
+                data: PreCreate<TCombatant['data']['_source']>,
+                context?: DocumentConstructionContext<TCombatant>,
+            ) => TCombatant;
             sheetClass: typeof CombatantConfig;
+        };
+
+        /** Configuration for the Token embedded document type and its representation on the game Canvas */
+        Token: {
+            documentClass: new (
+                data: PreCreate<TTokenDocument['data']['_source']>,
+                context?: DocumentConstructionContext<TTokenDocument>,
+            ) => TTokenDocument;
+            objectClass: new (...args: any[]) => TTokenDocument['object'];
+            layerClass: typeof TokenLayer;
+            sheetClass: typeof TokenConfig;
         };
 
         /** Configuration for the Combat document */
         Combat: {
-            documentClass: new (
-                data: Partial<TCombat['data']['_source']>,
-                context?: DocumentModificationContext,
-            ) => TCombat;
+            documentClass: {
+                new (
+                    data: PreCreate<TCombat['data']['_source']>,
+                    context?: DocumentConstructionContext<TCombat>,
+                ): TCombat;
+            };
             collection: typeof CombatEncounters;
             defeatedStatusId: string;
             sidebarIcon: string;
             initiative: {
-                formula: ((combatant: Combatant) => string) | null;
+                formula: ((combatant: TCombatant) => string) | null;
                 decimals: number;
             };
         };
@@ -133,52 +152,41 @@ declare global {
             sidebarIcon: string;
         };
 
-        /**
-         * Configuration for the Macro entity
-         */
+        /** Configuration for the Macro document */
         Macro: {
             documentClass: {
-                new (data: Partial<TMacro['data']['_source']>, context?: DocumentConstructorContext): TMacro;
+                new (data: PreCreate<TMacro['data']['_source']>, context?: DocumentConstructionContext<TMacro>): TMacro;
             };
             collection: typeof Macros;
             sheetClass: typeof MacroConfig;
             sidebarIcon: string;
         };
 
-        /** Configuration for the default Scene entity class */
+        /** Configuration for Scene document */
         Scene: {
             documentClass: typeof Scene;
             collection: typeof Scenes;
-            sheetClass: any;
+            sheetClass: typeof SceneConfig;
             notesClass: any;
             sidebarIcon: string;
         };
 
-        /**
-         * Configuration for the User document
-         */
+        /** Configuration for the User document */
         User: {
-            documentClass: new (
-                data: Partial<User['data']['_source']>,
-                context?: DocumentConstructorContext,
-            ) => User<TActor>;
+            documentClass: typeof User;
             collection: typeof Users;
             // sheetClass: typeof UserConfig;
             permissions: undefined;
         };
 
-        /**
-         * Configuration for the default Playlist entity class
-         */
+        /** Configuration for the Playlist document */
         Playlist: {
             documentClass: typeof Playlist;
             sheetClass: typeof PlaylistConfig;
             sidebarIcon: string;
         };
 
-        /**
-         * Configuration for RollTable random draws
-         */
+        /** Configuration for RollTable random draws */
         RollTable: {
             documentClass: typeof RollTable;
             sheetClass: typeof RollTableConfig;

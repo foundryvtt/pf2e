@@ -24,7 +24,7 @@ declare type HookParamsGetChatLogEntryContext = HookParameters<
 declare type HookParamsHotbarDrop = HookParameters<'hotbarDrop', [Hotbar, unknown, string]>;
 declare type HookParamsPreCreateItem = HookParameters<
     'preCreateItem',
-    [PreCreate<ItemData>, EntityCreateOptions, string]
+    [PreCreate<foundry.data.ItemSource>, DocumentModificationContext, string]
 >;
 declare type HooksParamsPreUpdateCombat = HookParameters<
     'preUpdateCombat',
@@ -32,7 +32,7 @@ declare type HooksParamsPreUpdateCombat = HookParameters<
 >;
 declare type HookParamsPreUpdateToken = HookParameters<
     'preUpdateToken',
-    [Scene, TokenData, Partial<TokenData>, { diff: boolean; [key: string]: any }, string]
+    [Scene, foundry.data.TokenData, Partial<foundry.data.TokenData>, { diff: boolean; [key: string]: any }, string]
 >;
 declare type HookParamsRender<T extends Application, N extends string> = HookParameters<
     `render${N}`,

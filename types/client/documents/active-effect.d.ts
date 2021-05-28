@@ -5,11 +5,6 @@ declare global {
      * The ActiveEffect embedded document within an Actor or Item document which extends the BaseRollTable abstraction.
      * Each ActiveEffect belongs to the effects collection of its parent Document.
      * Each ActiveEffect contains a ActiveEffectData object which provides its source data.
-     *
-     * @see {@link data.ActiveEffectData}               The ActiveEffect data schema
-     * @see {@link documents.Actor}                     The Actor document which contains ActiveEffect embedded documents
-     * @see {@link documents.Item}                      The Item document which contains ActiveEffect embedded documents
-     *
      */
     class ActiveEffect extends ActiveEffectConstructor implements TemporaryEffect {
         /**
@@ -17,7 +12,10 @@ declare global {
          * @param parent The parent document to which this ActiveEffect belongs
          * @override
          */
-        constructor(data: Partial<foundry.data.ActiveEffectSource>, context?: DocumentModificationContext);
+        constructor(
+            data: PreCreate<foundry.data.ActiveEffectSource>,
+            context?: DocumentConstructionContext<ActiveEffect>,
+        );
 
         /** A cached reference to the source name to avoid recurring database lookups */
         _sourceName: string | null;
@@ -26,7 +24,7 @@ declare global {
          * A cached reference to the ActiveEffectConfig instance which configures this effect
          * @override
          */
-        _sheet: ActiveEffectConfig | null;
+        _sheet: ActiveEffectConfig<this> | null;
 
         /** Summarize the active effect duration */
         get duration(): {
@@ -75,7 +73,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        apply(actor: Actor, change: ApplicableChangeData<this>): unknown;
+        apply(actor: Actor, change: ApplicableChangeData): unknown;
 
         /**
          * Apply an ActiveEffect that uses an ADD application mode.
@@ -90,7 +88,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyAdd(actor: Actor, change: this['data']['changes'][number]): unknown;
+        protected _applyAdd(actor: Actor, change: ApplicableChangeData): unknown;
 
         /**
          * Apply an ActiveEffect that uses a MULTIPLY application mode.
@@ -99,7 +97,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyMultiply(actor: Actor, change: this['data']['changes'][number]): unknown;
+        protected _applyMultiply(actor: Actor, change: ApplicableChangeData): unknown;
 
         /**
          * Apply an ActiveEffect that uses an OVERRIDE application mode.
@@ -108,7 +106,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyOverride(actor: Actor, change: this['data']['changes'][number]): unknown;
+        _applyOverride(actor: Actor, change: ApplicableChangeData): unknown;
 
         /**
          * Apply an ActiveEffect that uses an UPGRADE, or DOWNGRADE application mode.
@@ -117,7 +115,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        protected _applyUpgrade(actor: Actor, change: this['data']['changes'][number]): unknown;
+        protected _applyUpgrade(actor: Actor, change: ApplicableChangeData): unknown;
 
         /**
          * Apply an ActiveEffect that uses a CUSTOM application mode.
@@ -125,7 +123,7 @@ declare global {
          * @param change The change data being applied
          * @return The resulting applied value
          */
-        _applyCustom(actor: Actor, change: this['data']['changes'][number]): unknown;
+        _applyCustom(actor: Actor, change: ApplicableChangeData): unknown;
 
         /** Get the name of the source of the Active Effect */
         _getSourceName(): Promise<string>;
@@ -136,14 +134,19 @@ declare global {
 
         /** @override */
         _preCreate(
-            data: Partial<foundry.data.ActiveEffectSource>,
+            data: PreCreate<foundry.data.ActiveEffectSource>,
             options: DocumentModificationContext,
-            user: foundry.documents.BaseUser,
+            user: User,
         ): Promise<void>;
     }
 
     interface ActiveEffect {
-        readonly data: foundry.data.ActiveEffectData<ActiveEffect>;
+        readonly data: foundry.data.ActiveEffectData<this>;
+        readonly parent: Actor | Item | null;
+
+        getFlag(scope: 'core', key: 'overlay'): string | undefined;
+        getFlag(scope: 'core', key: 'statusId'): string | undefined;
+        getFlag(scope: string, key: string): unknown;
     }
 
     interface TemporaryEffect {
@@ -153,13 +156,9 @@ declare global {
             icon: string;
             tint: string;
         };
-
-        getFlag(scope: 'core', key: 'overlay'): string | undefined;
-        getFlag(scope: 'core', key: 'statusId'): string | undefined;
-        getFlag(scope: string, key: string): unknown;
     }
 
-    interface ApplicableChangeData<T extends ActiveEffect> extends foundry.data.EffectChangeSource {
-        effect: T;
+    interface ApplicableChangeData extends foundry.data.EffectChangeSource {
+        effect: ActiveEffect;
     }
 }

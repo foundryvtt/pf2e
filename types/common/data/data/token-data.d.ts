@@ -83,10 +83,9 @@ declare module foundry {
         class TokenData<
             TDocument extends documents.BaseToken = documents.BaseToken,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
-        interface TokenData extends Omit<TokenSource, '_id'> {
+        interface TokenData extends TokenSource {
             readonly _source: TokenSource;
         }
     }

@@ -10,7 +10,7 @@ declare module foundry {
             constructor(
                 sourceArray: TDocument['data']['_source'][],
                 documentClass: {
-                    new (data: TDocument['data']['_source'], context?: DocumentConstructorContext): TDocument;
+                    new (data: TDocument['data']['_source'], context?: DocumentConstructionContext): TDocument;
                 },
             );
 

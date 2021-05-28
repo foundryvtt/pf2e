@@ -30,12 +30,11 @@ declare module foundry {
         class JournalEntryData<
             TDocument extends documents.BaseJournalEntry = documents.BaseJournalEntry,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface JournalEntryData extends Omit<JournalEntrySource, '_id'> {
-            _source: JournalEntrySource;
+        interface JournalEntryData extends JournalEntrySource {
+            readonly _source: JournalEntrySource;
         }
     }
 }

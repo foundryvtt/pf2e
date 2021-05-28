@@ -24,24 +24,29 @@ declare module foundry {
             img: ImagePath;
             data: object;
             effects: foundry.data.ActiveEffectSource[];
-            folder: string | null;
+            folder?: string | null;
             sort: number;
             permission: Record<string, PermissionLevel>;
             flags: Record<string, any>;
         }
 
         class ItemData<
-            TDocument extends documents.BaseItem = documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect,
+            TDocument extends documents.BaseItem,
+            TActiveEffect extends documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
+
+            /** The default icon used for newly created Item documents */
+            static DEFAULT_ICON: ImagePath;
+
+            protected _initializeSource(data: this['_source']): this['_source'];
 
             /** A collection of ActiveEffect embedded Documents */
             effects: abstract.EmbeddedCollection<TActiveEffect>;
         }
 
-        interface ItemData extends Omit<ItemSource, '_id' | 'effects'> {
+        interface ItemData<TDocument extends documents.BaseItem, TActiveEffect extends documents.BaseActiveEffect>
+            extends Omit<ItemSource, 'effects'> {
             readonly _source: ItemSource;
         }
     }

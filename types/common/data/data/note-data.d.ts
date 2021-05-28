@@ -29,23 +29,22 @@ declare module foundry {
             y: number;
             icon: ImagePath;
             iconSize: number;
-            iconTint: ColorField;
+            iconTint: HexColorString;
             text: string;
             fontFamily: string;
             fontSize: number;
             textAnchor: number;
-            textColor: ColorField;
+            textColor: HexColorString;
             flags: Record<string, unknown>;
         }
 
         class NoteData<
             TDocument extends documents.BaseNote = documents.BaseNote,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface NoteData extends Omit<NoteSource, '_id'> {
+        interface NoteData extends NoteSource {
             readonly _source: NoteSource;
         }
     }
