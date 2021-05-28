@@ -1,4 +1,6 @@
-export class CombatPF2e extends Combat {
+import { CombatantPF2e } from './combatant';
+
+export class CombatPF2e extends Combat<CombatantPF2e> {
     get active(): boolean {
         return this.data.active;
     }
@@ -6,9 +8,9 @@ export class CombatPF2e extends Combat {
     /** Exclude orphaned and loot-actor tokens from combat */
     async createEmbeddedDocuments(
         embeddedName: 'Combatant',
-        data: Partial<foundry.data.CombatantSource>[],
-        context?: DocumentModificationContext,
-    ): Promise<Combatant[]> {
+        data: PreCreate<foundry.data.CombatantSource>[],
+        context: DocumentModificationContext = {},
+    ): Promise<CombatantPF2e[]> {
         const createData = data.filter((datum) => {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === datum.tokenId);
             if (!token) return false;
@@ -24,4 +26,8 @@ export class CombatPF2e extends Combat {
         });
         return super.createEmbeddedDocuments(embeddedName, createData, context);
     }
+}
+
+export interface CombatPF2e {
+    readonly data: foundry.data.CombatData<this, CombatantPF2e>;
 }

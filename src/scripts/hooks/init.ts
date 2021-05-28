@@ -20,6 +20,7 @@ import { registerSettings } from '@module/settings';
 import { CombatTrackerPF2e } from '@module/system/combat-tracker';
 import { CheckPF2e } from '@module/system/rolls';
 import { loadPF2ETemplates } from '@module/templates';
+import { TokenDocumentPF2e } from '@module/token-document';
 import { PlayerConfigPF2e } from '@module/user/player-config';
 import { StatusEffects } from '../actor/status-effects';
 import { PF2ECONFIG } from '../config';
@@ -40,6 +41,7 @@ export function listen(): void {
         CONFIG.Combat.documentClass = CombatPF2e;
         CONFIG.Combatant.documentClass = CombatantPF2e;
         CONFIG.Macro.documentClass = MacroPF2e;
+        CONFIG.Token.documentClass = TokenDocumentPF2e;
 
         // Automatically advance world time by 6 seconds each round
         CONFIG.time.roundTime = 6;

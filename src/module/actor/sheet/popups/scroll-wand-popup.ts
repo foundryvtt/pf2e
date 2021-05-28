@@ -1,18 +1,19 @@
-import { ActorPF2e } from '../../base';
-import { SpellData } from '@item/data/types';
+import { ActorPF2e } from '@actor/index';
+import { SpellSource } from '@item/spell/data';
+import { ErrorPF2e } from '@module/utils';
 
 /**
  * @category Other
  */
 export class ScrollWandPopup extends FormApplication<ActorPF2e> {
-    onSubmitCallback: (a: number, b: string, spellData: SpellData) => void;
-    spellData?: SpellData;
+    onSubmitCallback: (a: number, b: string, spellData: SpellSource) => void;
+    spellData?: SpellSource;
 
     constructor(
         object: ActorPF2e,
         options: FormApplicationOptions,
-        callback: (a: number, b: string, c: SpellData) => void,
-        spellData: SpellData,
+        callback: (a: number, b: string, c: SpellSource) => void,
+        spellData: SpellSource,
     ) {
         super(object, options);
 
@@ -31,17 +32,15 @@ export class ScrollWandPopup extends FormApplication<ActorPF2e> {
         return options;
     }
 
-    getData() {
+    getData(): FormApplicationData<ActorPF2e> {
         const sheetData: FormApplicationData<ActorPF2e> & { validLevels?: number[] } = super.getData();
-        sheetData.validLevels = [];
 
         if (!this.spellData) {
-            throw Error('PF2E | ScrollWandPopup | Could not read spelldata');
+            throw ErrorPF2e('ScrollWandPopup | Could not read spelldata');
         }
 
-        for (let i = this.spellData.data.level.value; i <= 10; i++) {
-            sheetData.validLevels.push(i);
-        }
+        const levels = Array.from(Array(this.spellData.data.level.value).keys()).map((key) => key + 1);
+        sheetData.validLevels = levels;
         return sheetData;
     }
 

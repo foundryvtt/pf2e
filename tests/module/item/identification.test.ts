@@ -1,10 +1,10 @@
-import { Rarity } from '@item/data/types';
 import { ArmorPF2e } from '@item/armor';
-import { WeaponPF2e } from '@item/weapon';
-import { FakeItem } from 'tests/fakes/fake-item';
-import { identifyItem, isMagical } from '@item/identification';
-import { EquipmentPF2e } from '@item/equipment';
 import { ConsumablePF2e } from '@item/consumable';
+import { EquipmentPF2e } from '@item/equipment';
+import { identifyItem, isMagical } from '@item/identification';
+import { WeaponPF2e } from '@item/weapon';
+import { Rarity } from '@module/data';
+import { FakeItem } from 'tests/fakes/fake-item';
 
 interface TestItemData<T extends WeaponPF2e | ArmorPF2e | ConsumablePF2e = WeaponPF2e> {
     level: number;

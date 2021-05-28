@@ -1,5 +1,7 @@
+import { Size, SIZES } from '@module/data';
 import { add, applyNTimes, combineObjects, groupBy, isBlank, Optional } from '../utils';
-import { isPhysicalItem, ItemDataPF2e, PhysicalItemData, Size } from './data/types';
+import { ItemDataPF2e, PhysicalItemData } from './data';
+import { isPhysicalData } from './data/helpers';
 
 interface StackDefinition {
     size: number;
@@ -188,9 +190,8 @@ export class Bulk {
  * @param actorSize
  */
 export function convertBulkToSize(bulk: Bulk, itemSize: Size, actorSize: Size): Bulk {
-    const sizes: Size[] = ['tiny', 'med', 'lg', 'huge', 'grg'];
-    const itemSizeIndex = sizes.indexOf(itemSize === 'sm' ? 'med' : itemSize);
-    const actorSizeIndex = sizes.indexOf(actorSize === 'sm' ? 'med' : actorSize);
+    const itemSizeIndex = SIZES.indexOf(itemSize === 'sm' ? 'med' : itemSize);
+    const actorSizeIndex = SIZES.indexOf(actorSize === 'sm' ? 'med' : actorSize);
 
     if (itemSizeIndex === actorSizeIndex) {
         return bulk;
@@ -664,7 +665,7 @@ export function toBulkItems(items: PhysicalItemData[]): BulkItem[] {
  * @param actorData
  */
 export function itemsFromActorData(actorData: { items: ItemDataPF2e[] }): BulkItem[] {
-    return toBulkItems(actorData.items.filter(isPhysicalItem));
+    return toBulkItems(actorData.items.filter((itemData): itemData is PhysicalItemData => isPhysicalData(itemData)));
 }
 
 /**

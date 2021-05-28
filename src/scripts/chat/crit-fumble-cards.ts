@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/base';
+import { ChatMessagePF2e } from '@module/chat-message';
 
 export class CritFumbleCardsPF2e {
     static critTable: RollTable;
@@ -6,9 +6,9 @@ export class CritFumbleCardsPF2e {
     static diceSoNice: boolean;
 
     static async init() {
-        const rollableTables = game.packs.get<Compendium<RollTable>>('pf2e.rollable-tables')!;
-        this.critTable = (await rollableTables.getEntity('FTEpsIWWVrDj0jNG'))!;
-        this.fumbleTable = (await rollableTables.getEntity('WzMGWMIrrPvSp75D'))!;
+        const rollableTables = game.packs.get<CompendiumCollection<RollTable>>('pf2e.rollable-tables');
+        this.critTable = (await rollableTables?.getDocument('FTEpsIWWVrDj0jNG'))!;
+        this.fumbleTable = (await rollableTables?.getDocument('WzMGWMIrrPvSp75D'))!;
         this.diceSoNice = !!game.modules.get('dice-so-nice')?.active;
 
         if (game.settings.get('pf2e', 'drawCritFumble')) {
@@ -19,8 +19,8 @@ export class CritFumbleCardsPF2e {
         }
 
         if (game.settings.get('pf2e', 'critFumbleButtons')) {
-            Hooks.on('renderChatMessage', (message: ChatMessage, html: any) => {
-                if (message.isAuthor && message.isRoll && (message as any).isContentVisible) {
+            Hooks.on('renderChatMessage', (message: ChatMessagePF2e, html: JQuery) => {
+                if (message.isAuthor && message.isRoll && message.isContentVisible) {
                     const context = message.getFlag('pf2e', 'context');
                     if (message.roll?.dice[0]?.faces === 20 && context?.type === 'attack-roll') {
                         const critButton = $(
@@ -58,7 +58,7 @@ export class CritFumbleCardsPF2e {
         }
     }
 
-    static handleRoll(messageOrId: string | ChatMessage<ActorPF2e>) {
+    static handleRoll(messageOrId: string | ChatMessagePF2e) {
         // diceSoNiceRollComplete has a chat message id instead of the original chat message
         const chatMessage = typeof messageOrId === 'string' ? game.messages.get(messageOrId) : messageOrId;
         if (chatMessage && chatMessage.isAuthor && chatMessage.isRoll && chatMessage.isContentVisible) {
@@ -76,7 +76,7 @@ export class CritFumbleCardsPF2e {
         }
     }
 
-    static drawCard(table: RollTable, chatMessage: ChatMessage<ActorPF2e>) {
+    static drawCard(table: RollTable, chatMessage: ChatMessagePF2e) {
         // Remove roll sound of original chat message to avoid double sounds. Not needed for Dice so Nice.
         if (!this.diceSoNice) mergeObject(chatMessage.data, { '-=sound': null });
         table.draw();

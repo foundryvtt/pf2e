@@ -3,10 +3,11 @@ import Tagify from '@yaireo/tagify';
 import { prepareCleanup } from './cleanup-migration';
 import { LocalizePF2e } from '@module/system/localize';
 import { MigrationRunner } from '@module/migration-runner';
-import '@yaireo/tagify/src/tagify.scss';
-import { CharacterPF2e } from '@actor/character';
+import { CharacterPF2e } from '@actor/index';
 import { MigrationBase } from '@module/migrations/base';
-import { BaseWeaponType } from '@item/data/types';
+import { BaseWeaponType } from '@item/weapon/data';
+
+import '@yaireo/tagify/src/tagify.scss';
 
 export type ConfigPF2eListName = typeof HomebrewElements.SETTINGS[number];
 export type HomebrewSettingsKey = `homebrew.${ConfigPF2eListName}`;
@@ -174,7 +175,7 @@ export class HomebrewElements extends SettingsMenuPF2e {
         if (this.initialRefresh) {
             this.initialRefresh = false;
         } else {
-            const characters = game.actors.contents.filter((actor) => actor instanceof CharacterPF2e) ?? [];
+            const characters = game.actors.filter((actor) => actor instanceof CharacterPF2e) ?? [];
             for (const character of characters) {
                 character.prepareData();
                 character.sheet.render(false);

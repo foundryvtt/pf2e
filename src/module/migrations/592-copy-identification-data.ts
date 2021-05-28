@@ -1,10 +1,10 @@
-import { isPhysicalItem } from '@item/data/types';
+import { isPhysicalData } from '@item/data/helpers';
 import { MigrationBase } from './base';
 
 export class Migration592CopyIdentificationData extends MigrationBase {
     static version = 0.592;
     async updateItem(item: any) {
-        if (isPhysicalItem(item)) {
+        if (isPhysicalData(item)) {
             item = item as any;
             const unidentified = !item.data.identified?.value ?? false;
             const needsUpdate = !item.data.identification;

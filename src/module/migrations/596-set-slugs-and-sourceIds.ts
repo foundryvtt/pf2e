@@ -1,6 +1,7 @@
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
-import { ItemPF2e } from '../item/base';
+import { ItemSourcePF2e } from '@item/data';
+import { ItemPF2e } from '@item/index';
+import { isPhysicalData } from '@item/data/helpers';
 
 type ItemMap = Map<string, ItemPF2e>;
 type PackContent = Map<string, Promise<ItemMap>>;
@@ -11,7 +12,7 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     /** Only PF2e system compendia will be checked against */
     private sourceIdPattern = /^Compendium\.(pf2e\.[-\w]+)\.(\w+)$/;
 
-    private readonly itemPacks: Map<string, Compendium<ItemPF2e>>;
+    private readonly itemPacks: Map<string, CompendiumCollection<ItemPF2e>>;
 
     /** Cached compendium content */
     private static packContent: PackContent = new Map();
@@ -20,8 +21,8 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
         super();
         this.itemPacks = new Map(
             game.packs
-                .filter<Compendium<ItemPF2e>>((pack) => pack.documentName === 'Item')
-                .map((pack) => [pack.collection, pack]),
+                .filter((pack) => pack.documentName === 'Item')
+                .map((pack) => [pack.collection, pack as CompendiumCollection<ItemPF2e>]),
         );
     }
 
@@ -52,8 +53,11 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
     }
 
     /** Look through each pack and attempt to find the originating item */
-    private async findCompendiumItem(itemData: ItemDataPF2e, collection?: string): Promise<ItemDataPF2e | undefined> {
-        const identificationData = isPhysicalItem(itemData)
+    private async findCompendiumItem(
+        itemData: ItemSourcePF2e,
+        collection?: string,
+    ): Promise<ItemSourcePF2e | undefined> {
+        const identificationData = isPhysicalData(itemData)
             ? ((itemData.data.identification ?? null) as unknown as {
                   status: string;
                   identified?: { name?: string };
@@ -74,14 +78,14 @@ export class Migration596SetSlugSourceIds extends MigrationBase {
             );
 
             if (packItem instanceof ItemPF2e) {
-                return packItem.data;
+                return packItem.toObject();
             }
         }
 
         return undefined;
     }
 
-    async updateItem(itemData: ItemDataPF2e): Promise<void> {
+    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         const existingSourceId: string | undefined = itemData.flags.core?.sourceId;
         const match = this.sourceIdPattern.exec(existingSourceId ?? '');
         const collection = Array.isArray(match) ? match[1] : undefined;

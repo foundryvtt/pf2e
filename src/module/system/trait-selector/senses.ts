@@ -1,6 +1,5 @@
-import { ActorPF2e } from '@actor/base';
-import { NPCPF2e } from '@actor/npc';
-import { SenseData } from '@actor/data-definitions';
+import { SenseData } from '@actor/creature/data';
+import { ActorPF2e, NPCPF2e } from '@actor/index';
 import { TraitSelectorBase } from './base';
 import { SelectableTagField } from './index';
 

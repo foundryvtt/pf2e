@@ -1,24 +1,25 @@
-import { HazardPF2e } from '@module/actor/base';
-import { VehiclePF2e } from '@module/actor/vehicle';
-import { CharacterPF2e } from '@module/actor/character';
-import { LootPF2e } from '@module/actor/loot';
-import { NPCPF2e } from '@module/actor/npc';
-import { FamiliarPF2e } from '@module/actor/familiar';
-import { ActionPF2e } from '@item/action';
-import { AncestryPF2e } from '@module/item/ancestry';
-import { ArmorPF2e } from '@module/item/armor';
-import { BackgroundPF2e } from '@module/item/background';
-import { ClassPF2e } from '@module/item/class';
-import { ConsumablePF2e } from '@module/item/consumable';
-import { FeatPF2e } from '@module/item/feat';
-import { EquipmentPF2e } from '@item/equipment';
-import { KitPF2e } from '@item/kit';
-import { SpellPF2e } from '@module/item/spell';
-import { SpellcastingEntryPF2e } from '@module/item/spellcasting-entry';
-import { WeaponPF2e } from '@module/item/weapon';
-import { ContainerPF2e, ConditionPF2e, LorePF2e, MartialPF2e, MeleePF2e, TreasurePF2e } from '@module/item/others';
-import { EffectPF2e } from '@module/item/effect';
-import { AbilityString } from '@actor/data-definitions';
+import {
+    ActionPF2e,
+    AncestryPF2e,
+    BackgroundPF2e,
+    ArmorPF2e,
+    ClassPF2e,
+    ConditionPF2e,
+    ConsumablePF2e,
+    ContainerPF2e,
+    EffectPF2e,
+    EquipmentPF2e,
+    FeatPF2e,
+    KitPF2e,
+    LorePF2e,
+    MeleePF2e,
+    MartialPF2e,
+    SpellPF2e,
+    SpellcastingEntryPF2e,
+    TreasurePF2e,
+    WeaponPF2e,
+} from '@item/index';
+import { CharacterPF2e, NPCPF2e, FamiliarPF2e, HazardPF2e, LootPF2e, VehiclePF2e } from '@actor/index';
 
 export type StatusEffectIconType = 'default' | 'blackWhite' | 'legacy';
 
@@ -678,7 +679,7 @@ export const PF2ECONFIG = {
         fortitude: 'con',
         reflex: 'dex',
         will: 'wis',
-    } as { [save: string]: AbilityString },
+    } as const,
 
     currencies: {
         pp: 'PF2E.CurrencyPP',
@@ -2274,7 +2275,7 @@ export const PF2ECONFIG = {
     },
 
     Actor: {
-        entityClasses: {
+        documentClasses: {
             character: CharacterPF2e,
             npc: NPCPF2e,
             hazard: HazardPF2e,
@@ -2285,7 +2286,7 @@ export const PF2ECONFIG = {
     },
 
     Item: {
-        entityClasses: {
+        documentClasses: {
             backpack: ContainerPF2e,
             treasure: TreasurePF2e,
             weapon: WeaponPF2e,

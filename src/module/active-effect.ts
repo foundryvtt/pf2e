@@ -17,7 +17,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
     }
 
     async enable(): Promise<void> {
-        this.update({ disabled: false });
+        await this.update({ disabled: false });
     }
 
     prepareBaseData(): void {
@@ -44,9 +44,8 @@ export class ActiveEffectPF2e extends ActiveEffect {
      * Parse non-primitive change values just prior to application to the actor
      * @override
      */
-    apply(actor: ActorPF2e, change: ApplicableChangeData<this>): unknown {
-        if (!(typeof change.value === 'string' && change.value.startsWith('{'))) return super.apply(actor, change);
-
+    apply(actor: ActorPF2e, change: ApplicableChangeData): unknown {
+        if (!change.value.startsWith('{')) return super.apply(actor, change);
         // Prepare changes with non-primitive values
         const effect = change.effect;
         const parsedValue = ((): Record<string, unknown> => {
@@ -105,7 +104,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
         const toGrant =
             lookupData.pack === null
                 ? game.items.get(lookupData.id)
-                : await game.packs.get(lookupData.pack)?.getEntity(lookupData.id);
+                : await game.packs.get(lookupData.pack)?.getDocument(lookupData.id);
 
         const ownerAlreadyHas = (item: ItemPF2e) =>
             owner.items.some((ownedItem) => ownedItem.sourceId === item.sourceId);
@@ -125,7 +124,7 @@ export class ActiveEffectPF2e extends ActiveEffect {
 }
 
 export interface ActiveEffectPF2e {
-    readonly data: foundry.data.ActiveEffectData<ActiveEffectPF2e>;
+    readonly parent: ActorPF2e | ItemPF2e;
 
     getFlag(scope: string, key: string): unknown;
     getFlag(scope: 'core', key: 'overlay'): string | undefined;

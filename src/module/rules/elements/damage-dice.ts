@@ -1,6 +1,6 @@
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/data-definitions';
+import { CharacterData, NPCData } from '@actor/data';
 import { DamageDicePF2e } from '@module/modifiers';
 
 /**

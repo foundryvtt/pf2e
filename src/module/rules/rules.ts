@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 import { PF2RuleElementData } from './rules-data-definitions';
 import { RuleElementPF2e } from './rule-element';
 import { PF2FlatModifierRuleElement } from './elements/flatmodifier';

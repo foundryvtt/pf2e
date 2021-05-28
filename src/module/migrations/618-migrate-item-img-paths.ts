@@ -1,4 +1,4 @@
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemSourcePF2e } from '@item/data';
 import { MigrationBase } from './base';
 
 export class Migration618MigrateItemImagePaths extends MigrationBase {
@@ -64,7 +64,7 @@ export class Migration618MigrateItemImagePaths extends MigrationBase {
         'systems/pf2e/icons/equipment/weapons/cane.png': 'systems/pf2e/icons/equipment/weapons/cane.jpg',
     };
 
-    async updateItem(itemData: ItemDataPF2e) {
+    async updateItem(itemData: ItemSourcePF2e) {
         itemData.img = this.IMAGE_PATHS[itemData.img] ?? itemData.img;
     }
 }

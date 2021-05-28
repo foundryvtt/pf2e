@@ -6,7 +6,7 @@
  * See https://www.youtube.com/watch?v=MJ7gUq9InBk for interpretations
  */
 
-import { PhysicalItemData } from './data/types';
+import { PhysicalItemData } from './data';
 import { adjustDCByRarity, calculateDC, DCOptions } from '../dc';
 import { PhysicalItemPF2e } from './physical';
 
