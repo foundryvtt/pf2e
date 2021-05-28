@@ -22,14 +22,8 @@ body > * + * {
     margin-top: var(--p-space);
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-p {
-    max-width: var(--max-width);
+body > * {
+    max-width: min(90%, var(--max-width));
     width: 100%;
     margin-left: auto;
     margin-right: auto;
@@ -43,6 +37,7 @@ h4 {
     font-family: var(--serif);
     text-transform: capitalize;
     border-bottom: 1px solid var(--primary);
+    margin-bottom: 0;
 }
 
 P {
@@ -126,12 +121,16 @@ blockquote::before {
 .info p {
     font-size: 0.8em;
     margin: 0;
-    padding: 0 var(--space-l);
+    padding: 0 var(--space-xl);
 }
 
 .info p:first-of-type {
     padding-top: var(--space-m);
     border-top: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.info + * {
+    margin-top: var(--space-l);
 }
 
 .info + .info {
