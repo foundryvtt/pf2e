@@ -1,6 +1,6 @@
 import { CreatureSheetPF2e } from '../creature/sheet';
 import { DicePF2e } from '@scripts/dice';
-import { ABILITY_ABBREVIATIONS, SKILL_ABBREVIATIONS, SKILL_DICTIONARY } from '@actor/data/values';
+import { ABILITY_ABBREVIATIONS, SKILL_DICTIONARY } from '@actor/data/values';
 import { NPCSkillsEditor } from '@system/npc-skills-editor';
 import { ActorPF2e, NPCPF2e } from '@actor/index';
 import { identifyCreature, IdentifyCreatureData } from '@module/recall-knowledge';
@@ -403,7 +403,7 @@ export class NPCSheetPF2e extends CreatureSheetPF2e<NPCPF2e> {
     private prepareSkills(actorData: NPCSystemSheetData) {
         // Prepare a list of skill IDs sorted by their localized name
         // This will help in displaying the skills in alphabetical order in the sheet
-        const sortedSkillsIds = [...SKILL_ABBREVIATIONS];
+        const sortedSkillsIds = Object.keys(actorData.skills);
 
         const skills = actorData.skills;
         for (const skillId of sortedSkillsIds) {
