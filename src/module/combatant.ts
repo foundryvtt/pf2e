@@ -19,7 +19,10 @@ export class CombatantPF2e extends Combatant {
 
         if (actorData.type === 'hazard') {
             bonus = actorData.data.attributes.stealth.value;
-        } else if (actorData.type === 'character') {
+        } else if (
+            'initiative' in actorData.data.attributes &&
+            'totalModifier' in actorData.data.attributes.initiative
+        ) {
             bonus = actorData.data.attributes.initiative.totalModifier;
         } else if ('perception' in actorData.data.attributes) {
             bonus = actorData.data.attributes.perception.value;
