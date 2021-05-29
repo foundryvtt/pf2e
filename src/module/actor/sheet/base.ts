@@ -400,18 +400,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
      * @param spellLevel The level of the spell slot
      * @param spellSlot The number of the spell slot
      * @param spell The item details for the spell
+     * @param entryId The ID of the spellcastingEntry
      */
-    private async allocatePreparedSpellSlot(
-        spellLevel: number,
-        spellSlot: number,
-        spell: SpellSource,
-        entryId: string,
-    ) {
+    private allocatePreparedSpellSlot(spellLevel: number, spellSlot: number, spell: SpellSource, entryId: string) {
         if (spell.data.level.value > spellLevel) {
             console.warn(`Attempted to add level ${spell.data.level.value} spell to level ${spellLevel} spell slot.`);
             return;
         }
-        if (CONFIG.debug.hooks === true)
+        if (CONFIG.debug.hooks)
             console.debug(
                 `PF2e System | Updating location for spell ${spell.name} to match spellcasting entry ${entryId}`,
             );
@@ -436,8 +432,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     updates[key]['-=expended'] = null;
                 }
             }
-            this.actor.updateEmbeddedDocuments('Item', updates);
+            return this.actor.updateEmbeddedDocuments('Item', [updates]);
         }
+        return;
     }
 
     /**
@@ -1112,19 +1109,19 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                     }
                 }
             } else if (dropSlotType === 'spellSlot') {
-                if (CONFIG.debug.hooks === true)
-                    console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
+                if (CONFIG.debug.hooks) console.debug('PF2e System | ***** spell dropped on a spellSlot *****');
                 const dropId = Number($(event.target).parents('.item').attr('data-item-id'));
                 const spellLvl = Number($(event.target).parents('.item').attr('data-spell-lvl'));
                 const entryId = $(event.target).parents('.item').attr('data-entry-id') ?? '';
 
                 if (Number.isInteger(dropId) && Number.isInteger(spellLvl) && entryId) {
-                    this.allocatePreparedSpellSlot(spellLvl, dropId, itemData, entryId);
+                    const allocated = this.allocatePreparedSpellSlot(spellLvl, dropId, itemData, entryId);
+                    if (allocated) return allocated;
                 }
             } else if (dropContainerType === 'spellcastingEntry') {
                 // if the drop container target is a spellcastingEntry then check if the item is a spell and if so update its location.
                 // if the dragged item is a spell and is from the same actor
-                if (CONFIG.debug.hooks === true)
+                if (CONFIG.debug.hooks)
                     console.debug('PF2e System | ***** spell from same actor dropped on a spellcasting entry *****');
 
                 const dropId = $(event.target).parents('.item-container').attr('data-container-id');
