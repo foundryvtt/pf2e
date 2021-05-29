@@ -335,8 +335,8 @@ export class NPCLegacySheetPF2e extends NPCLegacyEditSheetPF2e {
 
                 for (let i = 0; i < matchTraits.length; i++) {
                     if (matchTraits[i] && matchTraits[i].length >= 2 && matchTraits[i][1]) {
-                        if (!newAction.data?.traits.value?.includes(matchTraits[i][1]))
-                            newAction.data?.traits.value?.push(matchTraits[i][1]);
+                        if (!newAction.data?.traits?.value?.includes(matchTraits[i][1]))
+                            newAction.data?.traits?.value?.push(matchTraits[i][1]);
                     }
                 }
 
