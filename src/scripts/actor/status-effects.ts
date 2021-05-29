@@ -3,6 +3,7 @@ import { ConditionManager } from '@module/conditions';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
 import { ErrorPF2e } from '@module/utils';
+import { ActorPF2e } from '@actor/base';
 
 /**
  * Class StatusEffects, which is the module to handle the status effects
@@ -102,10 +103,10 @@ export class StatusEffects {
             .on('contextmenu', '.pf2e-effect-control', this._setStatusValue.bind(token))
             .on('mouseover mouseout', '.pf2e-effect-control', this._showStatusDescr);
 
-        effects.off('click', '.effect-control').on('click', '.effect-control', this._toggleStatus.bind(token));
+        effects.off('click', '.effect-control').on('click', '.effect-control', this.toggleStatus.bind(token));
         effects
             .off('contextmenu', '.effect-control')
-            .on('contextmenu', '.effect-control', this._toggleStatus.bind(token))
+            .on('contextmenu', '.effect-control', this.toggleStatus.bind(token))
             .on('mouseover mouseout', '.effect-control', this._showStatusDescr);
     }
 
@@ -143,8 +144,8 @@ export class StatusEffects {
 
         const affectingConditions =
             token.actor?.itemTypes.condition
-                .filter((condition) => condition.fromSystem && condition.isActive && condition.data.data.sources.hud)
-                .map((c) => c.data) ?? [];
+                .filter((condition) => condition.fromSystem && condition.isActive && condition.isInHUD)
+                .map((condition) => condition.data) ?? [];
 
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
         this.setPF2eStatusEffectControls(html, token);
@@ -189,12 +190,11 @@ export class StatusEffects {
         }
     }
 
-    static async _updateHUD(html: JQuery, token: TokenPF2e) {
+    static async updateHUD(html: JQuery, actor: ActorPF2e) {
         const $statusIcons = html.find('img.effect-control, img.pf2e-effect-control');
-        const appliedConditions =
-            token.actor?.itemTypes.condition.filter(
-                (condition) => condition.fromSystem && condition.isActive && condition.data.data.sources.hud,
-            ) ?? [];
+        const appliedConditions = actor.itemTypes.condition.filter(
+            (condition) => condition.fromSystem && condition.isActive && condition.isInHUD,
+        );
 
         for (const icon of $statusIcons) {
             const $icon = $(icon);
@@ -288,7 +288,7 @@ export class StatusEffects {
             (condition) =>
                 condition.fromSystem &&
                 condition.data.name === status &&
-                condition.data.data.sources.hud &&
+                condition.isInHUD &&
                 condition.data.data.references.parent === undefined,
         )?.data;
 
@@ -309,7 +309,7 @@ export class StatusEffects {
                 this.statusEffectChanged = true;
                 await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
                 if (this.data.actorLink) {
-                    StatusEffects._updateHUD($icon.parent().parent(), this);
+                    StatusEffects.updateHUD($icon.parent().parent(), this.actor);
                 }
             }
         } else if (event.type === 'click') {
@@ -318,7 +318,7 @@ export class StatusEffects {
                 await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
 
                 if (this.data.actorLink) {
-                    StatusEffects._updateHUD($icon.parent().parent(), this);
+                    StatusEffects.updateHUD($icon.parent().parent(), this.actor);
                 }
             } else {
                 const newCondition = ConditionManager.getCondition(status).toObject();
@@ -329,7 +329,7 @@ export class StatusEffects {
         }
     }
 
-    static async _toggleStatus(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
+    private static async toggleStatus(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
         event.preventDefault();
         event.stopImmediatePropagation();
         if (event.shiftKey) {
@@ -344,7 +344,7 @@ export class StatusEffects {
         const condition = this.actor?.itemTypes.condition.find(
             (condition) =>
                 condition.data.name === status &&
-                condition.data.data.sources.hud &&
+                condition.isInHUD &&
                 condition.data.data.references.parent === undefined,
         )?.data;
 

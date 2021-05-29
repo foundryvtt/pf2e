@@ -369,11 +369,11 @@ declare global {
                  * @param [context={}] Additional context which customizes the deletion workflow
                  * @return An array of deleted Document instances
                  */
-                deleteEmbeddedDocuments(
+                deleteEmbeddedDocuments<T extends Document = Document>(
                     embeddedName: string,
                     dataId: string[],
                     context?: DocumentModificationContext,
-                ): Promise<Document[]>;
+                ): Promise<T[]>;
 
                 /* -------------------------------------------- */
                 /*  Flag Operations                             */
