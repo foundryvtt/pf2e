@@ -143,7 +143,7 @@ export class ConditionManager {
      * @param conditions A filtered list of conditions with the same base name.
      * @param updates    A running list of updates to make to embedded items.
      */
-    static __processValuedCondition(conditions: ConditionData[], updates: Map<string, ConditionData>): ConditionData {
+    static __processValuedCondition(conditions: ConditionData[], updates: Map<string, ConditionSource>): ConditionData {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
@@ -152,7 +152,7 @@ export class ConditionManager {
 
                 if (!condition.data.active) {
                     // New MAX is inactive, neet to make it active.
-                    const update = updates.get(condition._id) ?? deepClone(condition);
+                    const update = updates.get(condition._id) ?? condition.toObject();
                     update.data.active = true;
                     updates.set(update._id, update);
                 }
@@ -163,7 +163,7 @@ export class ConditionManager {
                     if (appliedCondition.data.active) {
                         // Condition came in active, need to deactivate it.
 
-                        const update = updates.get(appliedCondition._id) ?? deepClone(appliedCondition);
+                        const update = updates.get(appliedCondition._id) ?? condition.toObject();
                         update.data.active = false;
                         updates.set(update._id, update);
                     } else {
@@ -177,7 +177,7 @@ export class ConditionManager {
                 appliedCondition = condition;
             } else if (condition.data.active) {
                 // Not new max, but was active.
-                const update = updates.get(condition._id) ?? deepClone(condition);
+                const update = updates.get(condition._id) ?? condition.toObject();
                 update.data.active = false;
                 updates.set(update._id, update);
             }
@@ -194,7 +194,7 @@ export class ConditionManager {
      * @param conditions A filtered list of conditions with the same base name.
      * @param updates    A running list of updates to make to embedded items.
      */
-    static __processToggleCondition(conditions: ConditionData[], updates: Map<string, ConditionData>): ConditionData {
+    static __processToggleCondition(conditions: ConditionData[], updates: Map<string, ConditionSource>): ConditionData {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
@@ -205,12 +205,12 @@ export class ConditionManager {
 
             if (condition._id === appliedCondition._id && !condition.data.active) {
                 // Is the applied condition and not active
-                const update = updates.get(condition._id) ?? deepClone(condition);
+                const update = updates.get(condition._id) ?? condition.toObject();
                 update.data.active = true;
                 updates.set(update._id, update);
             } else if (condition._id !== appliedCondition._id && condition.data.active) {
                 // Is not the applied condition and is active
-                const update = updates.get(condition._id) ?? deepClone(condition);
+                const update = updates.get(condition._id) ?? condition.toObject();
                 update.data.active = false;
                 updates.set(update._id, update);
             }
@@ -227,10 +227,10 @@ export class ConditionManager {
      * @param condition The condition to check, and remove, any overrides.
      * @param updates   A running list of updates to make to embedded items.
      */
-    static __clearOverrides(condition: ConditionData, updates: Map<string, ConditionData>) {
+    static __clearOverrides(condition: ConditionData, updates: Map<string, ConditionSource>) {
         if (condition.data.references.overrides.length) {
             // Clear any overrides
-            const update = updates.get(condition._id) ?? deepClone(condition);
+            const update = updates.get(condition._id) ?? condition.toObject();
             update.data.references.overrides.splice(0, update.data.references.overriddenBy.length);
 
             updates.set(update._id, update);
@@ -238,18 +238,22 @@ export class ConditionManager {
 
         if (condition.data.references.overriddenBy.length) {
             // Was previous overridden.  Remove it for now.
-            const update = updates.get(condition._id) ?? deepClone(condition);
+            const update = updates.get(condition._id) ?? condition.toObject();
             update.data.references.overriddenBy.splice(0, update.data.references.overriddenBy.length);
 
             updates.set(update._id, update);
         }
     }
 
-    static __processOverride(overridden: ConditionData, overrider: ConditionData, updates: Map<string, ConditionData>) {
+    static __processOverride(
+        overridden: ConditionSource,
+        overrider: ConditionSource,
+        updates: Map<string, ConditionSource>,
+    ) {
         if (overridden.data.active) {
             // Condition was active.  Deactivate it.
 
-            const update = updates.get(overridden._id) ?? deepClone(overridden);
+            const update = updates.get(overridden._id) ?? duplicate(overridden);
             update.data.active = false;
 
             updates.set(update._id, update);
@@ -258,7 +262,7 @@ export class ConditionManager {
         if (!overridden.data.references.overriddenBy.some((i) => i.id === overrider._id)) {
             // Condition doesn't have overrider as part of overridenBy list.
 
-            const update = updates.get(overridden._id) ?? deepClone(overridden);
+            const update = updates.get(overridden._id) ?? duplicate(overridden);
             update.data.references.overriddenBy.push({ id: overrider._id, type: 'condition' });
             updates.set(update._id, update);
         }
@@ -266,7 +270,7 @@ export class ConditionManager {
         if (!overrider.data.references.overrides.some((i) => i.id === overridden._id)) {
             // Overrider does not have overriden condition in overrides list.
 
-            const update = updates.get(overrider._id) ?? deepClone(overrider);
+            const update = updates.get(overrider._id) ?? duplicate(overrider);
             update.data.references.overrides.push({ id: overridden._id, type: 'condition' });
             updates.set(update._id, update);
         }
@@ -279,7 +283,7 @@ export class ConditionManager {
                 .map((condition) => condition.data) ?? [];
 
         // Any updates to items go here.
-        const updates = new Map<string, ConditionData>();
+        const updates = new Map<string, ConditionSource>();
 
         // Map of applied conditions.
         const appliedConditions = new Map<string, ConditionData>();
@@ -320,7 +324,8 @@ export class ConditionManager {
         // Iterate the overriding bases.
         overriding.forEach((base) => {
             // Make sure to get the most recent version of a condition.
-            const overrider = updates.get(appliedConditions.get(base)?._id ?? '') ?? appliedConditions.get(base);
+            const overrider =
+                updates.get(appliedConditions.get(base)?._id ?? '') ?? appliedConditions.get(base)?.toObject();
 
             // Iterate the condition's overrides.
             overrider?.data.overrides.forEach((overriddenBase) => {
@@ -336,7 +341,7 @@ export class ConditionManager {
                         .forEach((c) => {
                             // List of conditions that have been overridden.
 
-                            const overridden = updates.get(c._id) ?? c;
+                            const overridden = updates.get(c._id) ?? c.toObject();
                             ConditionManager.__processOverride(overridden, overrider, updates);
                         });
                 }
@@ -401,6 +406,13 @@ export class ConditionManager {
     }
 
     static async _addConditionEntity(condition: ConditionSource, token: TokenPF2e) {
+        const exists = !!token?.actor?.itemTypes.condition.some(
+            (existing) => existing.data.data.base === condition?.data?.base && !condition.data?.references?.parent?.id,
+        );
+        if (exists) {
+            return;
+        }
+
         const item = await ConditionPF2e.create(condition, { parent: token.actor });
         if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
 
@@ -424,9 +436,10 @@ export class ConditionManager {
             conditionSource.data.sources.hud = condition.data.sources.hud;
 
             const linkedItem = await ConditionManager._addConditionEntity(conditionSource, token);
-
-            itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
-            needsItemUpdate = true;
+            if (linkedItem) {
+                itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
+                needsItemUpdate = true;
+            }
         }
 
         for await (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
