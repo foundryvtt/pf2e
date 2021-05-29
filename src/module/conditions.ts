@@ -410,7 +410,6 @@ export class ConditionManager {
             (existing) => existing.data.data.base === condition?.data?.base && !condition.data?.references?.parent?.id,
         );
         if (exists) {
-            console.log('cant add ', condition);
             return;
         }
 
