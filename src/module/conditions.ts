@@ -4,6 +4,7 @@ import { StatusEffects } from '@scripts/actor/status-effects';
 import type { ConditionData, ConditionSource } from '@item/condition/data';
 import { ConditionPF2e } from '@item/condition';
 import { ErrorPF2e } from './utils';
+import { ActorPF2e } from '@actor/base';
 
 /** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
@@ -17,7 +18,6 @@ export class ConditionManager {
 
     /**
      * Gets a collection of conditions.
-     *
      * @return A list of status names.
      */
     public static get conditions(): Map<string, ConditionData> {
@@ -84,7 +84,6 @@ export class ConditionManager {
 
     /**
      * Get a condition using the status name.
-     *
      * @param statusName A list of conditions
      */
     public static getConditionByStatusName(statusName: string): ConditionData | undefined {
@@ -143,7 +142,10 @@ export class ConditionManager {
      * @param conditions A filtered list of conditions with the same base name.
      * @param updates    A running list of updates to make to embedded items.
      */
-    static __processValuedCondition(conditions: ConditionData[], updates: Map<string, ConditionSource>): ConditionData {
+    private static processValuedCondition(
+        conditions: ConditionData[],
+        updates: Map<string, ConditionSource>,
+    ): ConditionData {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
@@ -182,7 +184,7 @@ export class ConditionManager {
                 updates.set(update._id, update);
             }
 
-            ConditionManager.__clearOverrides(condition, updates);
+            ConditionManager.clearOverrides(condition, updates);
         });
 
         return appliedCondition!;
@@ -194,7 +196,10 @@ export class ConditionManager {
      * @param conditions A filtered list of conditions with the same base name.
      * @param updates    A running list of updates to make to embedded items.
      */
-    static __processToggleCondition(conditions: ConditionData[], updates: Map<string, ConditionSource>): ConditionData {
+    private static processToggleCondition(
+        conditions: ConditionData[],
+        updates: Map<string, ConditionSource>,
+    ): ConditionData {
         let appliedCondition: ConditionData;
 
         conditions.forEach((condition) => {
@@ -215,7 +220,7 @@ export class ConditionManager {
                 updates.set(update._id, update);
             }
 
-            ConditionManager.__clearOverrides(condition, updates);
+            ConditionManager.clearOverrides(condition, updates);
         });
 
         return appliedCondition!;
@@ -227,7 +232,7 @@ export class ConditionManager {
      * @param condition The condition to check, and remove, any overrides.
      * @param updates   A running list of updates to make to embedded items.
      */
-    static __clearOverrides(condition: ConditionData, updates: Map<string, ConditionSource>) {
+    private static clearOverrides(condition: ConditionData, updates: Map<string, ConditionSource>): void {
         if (condition.data.references.overrides.length) {
             // Clear any overrides
             const update = updates.get(condition._id) ?? condition.toObject();
@@ -245,7 +250,7 @@ export class ConditionManager {
         }
     }
 
-    static __processOverride(
+    private static processOverride(
         overridden: ConditionSource,
         overrider: ConditionSource,
         updates: Map<string, ConditionSource>,
@@ -276,7 +281,7 @@ export class ConditionManager {
         }
     }
 
-    static async processConditions(token: TokenPF2e) {
+    private static async processConditions(token: TokenPF2e): Promise<void> {
         const conditions =
             token.actor?.itemTypes.condition
                 .filter((condition) => condition.fromSystem)
@@ -307,10 +312,10 @@ export class ConditionManager {
 
                 if (ConditionManager.getCondition(base).data.value.isValued) {
                     // Condition is normally valued.
-                    appliedCondition = ConditionManager.__processValuedCondition(list, updates);
+                    appliedCondition = ConditionManager.processValuedCondition(list, updates);
                 } else {
                     // Condition is not valued.
-                    appliedCondition = ConditionManager.__processToggleCondition(list, updates);
+                    appliedCondition = ConditionManager.processToggleCondition(list, updates);
                 }
 
                 appliedConditions.set(base, appliedCondition);
@@ -337,12 +342,12 @@ export class ConditionManager {
 
                     // Ensure all copies of overridden base are updated.
                     conditions
-                        .filter((c) => c.data.base === overriddenBase)
-                        .forEach((c) => {
+                        .filter((conditionData) => conditionData.data.base === overriddenBase)
+                        .forEach((conditionData) => {
                             // List of conditions that have been overridden.
 
-                            const overridden = updates.get(c._id) ?? c.toObject();
-                            ConditionManager.__processOverride(overridden, overrider, updates);
+                            const overridden = updates.get(conditionData._id) ?? conditionData.toObject();
+                            ConditionManager.processOverride(overridden, overrider, updates);
                         });
                 }
             });
@@ -355,8 +360,8 @@ export class ConditionManager {
 
         // Update token effects from applied conditions.
         const hudElement = canvas.tokens.hud?.element;
-        if (token.hasActiveHUD && hudElement) {
-            await StatusEffects._updateHUD(hudElement, token);
+        if (token.hasActiveHUD && hudElement && token.actor) {
+            await StatusEffects.updateHUD(hudElement, token.actor);
         }
     }
 
@@ -395,35 +400,34 @@ export class ConditionManager {
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param token The token to add the condition to.
      */
-    static async addConditionToToken(name: string | ConditionSource, token: TokenPF2e) {
-        const condition = typeof name === 'string' ? ConditionManager.getCondition(name).toObject() : name;
+    static async addConditionToToken(name: string | ConditionSource, token: TokenPF2e): Promise<ConditionPF2e | null> {
+        const conditionSource = typeof name === 'string' ? ConditionManager.getCondition(name).toObject() : name;
 
-        const returnValue = await ConditionManager._addConditionEntity(condition, token);
-
-        ConditionManager.processConditions(token);
-
-        return returnValue;
+        if (token.actor) {
+            const condition = await ConditionManager.createConditions(conditionSource, token.actor);
+            if (condition) ConditionManager.processConditions(token);
+            return condition;
+        }
+        return null;
     }
 
-    static async _addConditionEntity(condition: ConditionSource, token: TokenPF2e) {
-        const exists = !!token?.actor?.itemTypes.condition.some(
-            (existing) => existing.data.data.base === condition?.data?.base && !condition.data?.references?.parent?.id,
+    private static async createConditions(condition: ConditionSource, actor: ActorPF2e): Promise<ConditionPF2e | null> {
+        const exists = actor.itemTypes.condition.some(
+            (existing) => existing.data.data.base === condition.data.base && !condition.data.references.parent.id,
         );
-        if (exists) {
-            return;
-        }
+        if (exists) return null;
 
-        const item = await ConditionPF2e.create(condition, { parent: token.actor });
+        const item = await ConditionPF2e.create(condition, { parent: actor });
         if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
 
         let needsItemUpdate = false;
         const itemUpdate = {
             data: {
                 references: {
-                    children: [],
+                    children: [] as { id: string; type: 'condition' }[],
                 },
             },
-        } as unknown as Partial<ConditionSource>;
+        };
 
         // Needs synchronicity.
         for await (const linkedConditionName of condition.data.alsoApplies.linked) {
@@ -435,7 +439,8 @@ export class ConditionManager {
             conditionSource.data.references.parent = { id: item.id, type: 'condition' };
             conditionSource.data.sources.hud = condition.data.sources.hud;
 
-            const linkedItem = await ConditionManager._addConditionEntity(conditionSource, token);
+            const linkedItem = await ConditionManager.createConditions(conditionSource, actor);
+
             if (linkedItem) {
                 itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
                 needsItemUpdate = true;
@@ -451,10 +456,10 @@ export class ConditionManager {
 
             conditionSource.data.sources.hud = condition.data.sources.hud;
 
-            await ConditionManager._addConditionEntity(conditionSource, token);
+            await ConditionManager.createConditions(conditionSource, actor);
         }
 
-        if (needsItemUpdate && token.actor !== null) {
+        if (needsItemUpdate) {
             await item.update(itemUpdate);
         }
 
@@ -462,24 +467,24 @@ export class ConditionManager {
     }
 
     /**
-     * Adds a condition to a token.
-     *
+     * Removes a condition from a token.
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param token The token to add the condition to.
      */
-    static async removeConditionFromToken(id: string | string[], token: TokenPF2e) {
+    static async removeConditionFromToken(id: string | string[], token: TokenPF2e): Promise<void> {
         id = id instanceof Array ? id : [id];
-        await ConditionManager._deleteConditionEntity(id, token);
-
-        ConditionManager.processConditions(token);
+        if (token.actor) {
+            const deleted = await ConditionManager.deleteConditions(id, token.actor);
+            if (deleted.length > 0) ConditionManager.processConditions(token);
+        }
     }
 
-    static async _deleteConditionEntity(ids: string[], token: TokenPF2e) {
+    private static async deleteConditions(ids: string[], actor: ActorPF2e): Promise<ConditionPF2e[]> {
         const list: string[] = [];
-        const stack = new Array(...ids);
+        const stack = [...ids];
         while (stack.length) {
             const id = stack.pop() ?? '';
-            const condition = token.actor?.itemTypes.condition.find((i) => i.id === id);
+            const condition = actor.itemTypes.condition.find((condition) => condition.id === id);
 
             if (condition) {
                 list.push(id);
@@ -488,16 +493,16 @@ export class ConditionManager {
             }
         }
 
-        await token.actor?.deleteEmbeddedDocuments('Item', list);
+        return ConditionPF2e.deleteDocuments(list, { parent: actor });
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
         const condition = token.actor?.items.get(id);
 
-        if (condition instanceof ConditionPF2e) {
+        if (condition instanceof ConditionPF2e && token.actor) {
             if (value === 0) {
                 // Value is zero, remove the status.
-                await ConditionManager._deleteConditionEntity([id], token);
+                await ConditionManager.deleteConditions([id], token.actor);
             } else {
                 // Apply new value.
                 await condition.update({ 'data.value.value': value });
@@ -512,7 +517,7 @@ export class ConditionManager {
         const conditions = new Map<string, any>();
 
         items
-            .sort((a: ConditionData, b: ConditionData) => ConditionManager.__sortCondition(a, b))
+            .sort((a: ConditionData, b: ConditionData) => ConditionManager.sortCondition(a, b))
             .forEach((c: ConditionData) => {
                 // Sorted list of conditions.
                 // First by active, then by base (lexicographically), then by value (descending).
@@ -662,7 +667,7 @@ export class ConditionManager {
         return Array.from(conditions.values());
     }
 
-    static __sortCondition(a: ConditionData, b: ConditionData): number {
+    private static sortCondition(a: ConditionData, b: ConditionData): number {
         if (a.data.active === b.data.active) {
             // Both are active or both inactive.
 
