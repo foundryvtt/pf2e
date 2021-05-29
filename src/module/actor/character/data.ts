@@ -64,7 +64,7 @@ export interface CharacterSystemData extends CreatureSystemData {
         /** The diety that the character worships (and an image of the diety symbol). */
         deity: { value: string; image: ImagePath };
         /** Character background - their occupation, upbringing, etc. */
-        background: { value: string };
+        background: string;
         /** How old the character is (user-provided field). */
         age: { value: string };
         /** Character height (user-provided field). */
