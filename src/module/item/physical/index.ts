@@ -47,27 +47,34 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
     }
 
     get isInvested(): boolean | null {
-        return this.data.isInvested;
+        const traits: string[] = this.data.data.traits.value;
+        if (!traits.includes('invested')) return null;
+        return this.data.isEquipped && this.data.isIdentified && this.data.data.invested?.value === true;
     }
 
     get isCursed(): boolean {
-        return this.traits.has('cursed');
+        return this.data.isCursed;
     }
 
     get isInContainer(): boolean {
-        return !!this.data.data.containerId.value;
+        return !!this.actor?.items.get(this.data.data.containerId.value ?? '');
     }
 
     /** @override */
     prepareBaseData(): void {
         super.prepareBaseData();
 
-        // Disable active effects if the item isn't equipped and (if applicable) invested
-        if (!this.isEquipped || this.isInvested === false) {
-            for (const activeEffect of this.effects) {
-                activeEffect.data.disabled = true;
-            }
-        }
+        this.data.isEquipped = this.data.data.equipped.value;
+        this.data.isIdentified = this.data.data.identification.status === 'identified';
+
+        const traits: string[] = this.data.data.traits.value;
+        this.data.isAlchemical = traits.includes('alchemical');
+        this.data.isCursed = traits.includes('cursed');
+
+        // Magic and invested status is determined at the class-instance level since it can be updated later in data
+        // preparation
+        this.data.isMagical = this.isMagical;
+        this.data.isInvested = this.isInvested;
 
         // Update properties according to identification status
         const { data } = this;
@@ -77,6 +84,18 @@ export abstract class PhysicalItemPF2e extends ItemPF2e {
 
         // Fill gaps in unidentified data with defaults
         data.data.identification.unidentified = this.getMystifiedData('unidentified');
+    }
+
+    /** @override */
+    prepareEmbeddedEntities(): void {
+        // Disable active effects if the item isn't equipped and (if applicable) invested
+        if (!this.isEquipped || this.isInvested === false) {
+            for (const activeEffect of this.effects) {
+                activeEffect.data.disabled = true;
+            }
+        }
+
+        super.prepareEmbeddedEntities();
     }
 
     /** @override */

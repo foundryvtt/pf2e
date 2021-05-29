@@ -18,32 +18,12 @@ export class BasePhysicalItemData<
 > extends BaseItemDataPF2e<TItem> {
     /** Prepared data */
     readonly isPhysical: true = true;
-    isEquipped: boolean;
-    isIdentified: boolean;
-    isAlchemical: boolean;
-    isInvested: boolean | null;
+    isEquipped!: boolean;
+    isIdentified!: boolean;
+    isAlchemical!: boolean;
     isMagical!: boolean;
-    isCursed: boolean;
-
-    /** @override */
-    constructor(data?: Partial<BasePhysicalItemSource>, document?: TItem | null) {
-        super(data, document);
-
-        this.isEquipped = this.data.equipped.value;
-        this.isIdentified = this.data.identification.status === 'identified';
-        this.isAlchemical = this.data.traits.value.includes('alchemical');
-        this.isCursed = this.data.traits.value.includes('cursed');
-
-        this.isInvested = (() => {
-            if (!this.data.traits.value.includes('invested')) return null;
-            return (
-                document?.actor?.data.type === 'character' &&
-                this.isEquipped &&
-                this.isIdentified &&
-                this.data.invested?.value === true
-            );
-        })();
-    }
+    isInvested!: boolean | null;
+    isCursed!: boolean;
 }
 
 export interface BasePhysicalItemData<TItem extends PhysicalItemPF2e = PhysicalItemPF2e>
