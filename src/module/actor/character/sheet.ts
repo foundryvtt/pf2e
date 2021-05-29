@@ -1090,8 +1090,8 @@ export class CharacterSheetPF2e extends CreatureSheetPF2e<CharacterPF2e> {
         if (event?.currentTarget?.name === 'data.attributes.sp.value') {
             event.currentTarget.value = Math.clamped(
                 Number(event.currentTarget.value),
-                Number(this.actor.data.data.attributes?.sp?.min ?? 0),
-                Number(this.actor.data.data.attributes?.sp?.max ?? 0),
+                0,
+                Number(this.actor.data.data.attributes.sp?.max ?? 0),
             );
         }
 
