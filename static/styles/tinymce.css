@@ -160,3 +160,53 @@ blockquote::before {
     font-weight: 900;
     margin-right: var(--space-s);
 }
+
+.trait {
+    display: inline-flex;
+    font-size: 0.8em;
+    font-family: 'Roboto Condensed', $serif;
+    text-transform: uppercase;
+    color: white;
+    padding: var(--space-s) var(--space-m);
+    background-color: var(--primary);
+    margin-top: 0;
+    margin-bottom: 0;
+}
+
+.trait + .trait {
+    margin-right: var(--space-s);
+}
+
+.statblock {
+    font-family: 'Roboto Condensed', sans-serif;
+    color: black;
+    line-height: 1.2;
+}
+
+.statblock > * + * {
+    margin-top: var(--space-s);
+    margin-bottom: 0;
+}
+
+.statblock span.pf2-icon {
+    line-height: 1;
+}
+
+.statblock h1,
+.statblock h2,
+.statblock h3,
+.statblock h4 {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    border-bottom: 1px solid black;
+    font-family: 'Roboto Condensed', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: -0.05em;
+}
+
+.statblock hr {
+    border: none;
+    border-bottom: 1px solid black;
+}

@@ -91,6 +91,12 @@ export function listen(): void {
                     exact: true,
                     merge_siblings: false,
                 },
+                {
+                    title: 'Trait',
+                    inline: 'span',
+                    classes: 'trait',
+                    maerge_siblings: false,
+                },
             ],
         });
 
