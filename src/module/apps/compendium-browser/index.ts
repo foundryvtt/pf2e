@@ -1,7 +1,8 @@
 import { Progress } from './progress';
 import { PhysicalItemPF2e } from '@item/physical';
 import { KitPF2e } from '@item/kit';
-import { KitEntryData, MagicSchoolKey } from '@item/data/types';
+import { KitEntryData } from '@item/kit/data';
+import { MagicSchool } from '@item/spell/data';
 
 /** Provide a best-effort sort of an object (e.g. CONFIG.PF2E.monsterTraits) */
 function _sortedObject(obj: object) {
@@ -85,11 +86,11 @@ type TabData<T> = {
  */
 class CompendiumBrowser extends Application {
     sorters: any;
-    filters: Record<string, Record<string, boolean>>;
+    filters!: Record<string, Record<string, boolean>>;
     ranges: any;
-    settings: TabData<{ [key: string]: PackInfo }>;
+    settings!: TabData<{ [key: string]: PackInfo }>;
     navigationTab!: Tabs;
-    data: TabData<object>;
+    data!: TabData<object>;
 
     constructor(options = {}) {
         super(options);
@@ -537,7 +538,7 @@ class CompendiumBrowser extends Application {
 
         const spells = {};
         const classes: Set<string> = new Set();
-        const schools: Set<MagicSchoolKey> = new Set();
+        const schools: Set<MagicSchool> = new Set();
         const times: Set<string> = new Set();
         const classList = Object.keys(CONFIG.PF2E.classTraits);
 
@@ -658,7 +659,7 @@ class CompendiumBrowser extends Application {
             const id = entry.entryId;
             const compendium = entry.entryCompendium;
             const pack = game.packs.get(compendium);
-            pack?.getEntity(id).then((spell) => {
+            pack?.getDocument(id).then((spell) => {
                 spell!.sheet.render(true);
             });
         });
@@ -801,7 +802,7 @@ class CompendiumBrowser extends Application {
             console.error('PF2e System | Compendium not found');
             return null;
         }
-        const item = await pack?.getEntity(itemID);
+        const item = await pack?.getDocument(itemID);
         if (!(item instanceof PhysicalItemPF2e || item instanceof KitPF2e)) {
             console.error('PF2e System | Item from compendium not found');
             return null;

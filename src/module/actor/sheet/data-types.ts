@@ -1,16 +1,8 @@
-import {
-    ArmorData,
-    ConsumableData,
-    EquipmentData,
-    IdentificationData,
-    MystifiedData,
-    PhysicalItemData,
-    TreasureData,
-    WeaponData,
-} from '@item/data/types';
-import { getContainerMap } from '@item/container';
-import { Coins } from '@item/treasure';
 import { ActorPF2e } from '@actor/base';
+import { getContainerMap } from '@item/container/helpers';
+import { ArmorData, ConsumableData, EquipmentData, PhysicalItemData, TreasureData, WeaponData } from '@item/data';
+import { IdentificationData, MystifiedData } from '@item/physical/data';
+import { Coins } from '@item/treasure/helpers';
 
 type ContainerMap = ReturnType<typeof getContainerMap>;
 type SheetContainerData = ContainerMap extends Map<string, infer X> ? X : never;

@@ -1,5 +1,7 @@
+// @ts-nocheck
+
 import { populateFoundryUtilFunctions } from '../fixtures/foundryshim';
-import { ActorDataPF2e, CharacterData } from '@actor/data-definitions';
+import { ActorDataPF2e, CharacterData } from '@actor/data';
 import { MigrationRunner } from '@module/migration-runner';
 import { MigrationBase } from '@module/migrations/base';
 import { FakeActor } from 'tests/fakes/fake-actor';
@@ -11,8 +13,8 @@ import { FakeScene } from 'tests/fakes/scene';
 import { FakeChatMessage } from 'tests/fakes/fake-chat-message';
 
 import characterJSON from '../../packs/data/iconics.db/amiri-level-1.json';
-import * as armorJSON from '../../packs/data/equipment.db/scale-mail.json';
-import { ArmorData } from '@item/data/types';
+import armorJSON from '../../packs/data/equipment.db/scale-mail.json';
+import { ArmorData } from '@item/data';
 import { FoundryUtils } from 'tests/utils';
 import { FakeActors, FakeCollection, FakeEntityCollection } from 'tests/fakes/fake-collection';
 

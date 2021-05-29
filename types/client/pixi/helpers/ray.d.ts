@@ -3,6 +3,8 @@ declare interface Point {
     y: number;
 }
 
+declare type PointArray = [number, number];
+
 declare interface Vector2 {
     x: number;
     y: number;
@@ -25,63 +27,53 @@ declare class Ray {
     constructor(A: Point, B: Point);
 
     // Store points
-    public A: Point;
-    public B: Point;
+    A: Point;
+    B: Point;
 
     // Origins
-    public y0: number;
-    public x0: number;
+    y0: number;
+    x0: number;
 
     // Slopes
-    public dx: number;
-    public dy: number;
+    dx: number;
+    dy: number;
 
-    /**
-     * The slope of the ray, dy over dx
-     * @type {number}
-     */
-    public slope: number;
+    /** The slope of the ray, dy over dx */
+    slope: number;
 
-    /**
-     * The normalized angle of the ray in radians on the range (-PI, PI)
-     * @type {number}
-     */
-    public angle: number;
+    /** The normalized angle of the ray in radians on the range (-PI, PI) */
+    angle: number;
 
-    /**
-     * The distance of the ray
-     * @type {number}
-     */
-    public distance: number;
+    /** The distance of the ray */
+    distance: number;
 
     /**
      * Return the value of the angle normalized to the range (0, 2*PI)
      * This is useful for testing whether an angle falls between two others
-     * @type {number}
      */
-    public readonly normAngle: number;
+    readonly normAngle: number;
 
-    public static fromAngle(x: number, y: number, radians: number, distance: number): Ray;
+    static fromAngle(x: number, y: number, radians: number, distance: number): Ray;
 
-    public static fromArrays(A: [], B: []): Ray;
+    static fromArrays(A: [], B: []): Ray;
 
     /**
      * Project the Array by some proportion of it's initial distance.
      * Return the coordinates of that point along the path.
-     * @param {number} t    The distance along the Ray
-     * @return {Object}     The coordinates of the projected point
+     * @param t The distance along the Ray
+     * @return The coordinates of the projected point
      */
-    public project(t: number): Point;
+    project(t: number): Point;
 
-    public shiftAngle(angleOffset: number, distance: number): Ray;
+    shiftAngle(angleOffset: number, distance: number): Ray;
 
     /**
      * Find the point I[x,y] and distance t* on ray R(t) which intersects another ray
      * http://paulbourke.net/geometry/pointlineplane/
      */
-    public intersectSegment(coords: [number]): Vector2;
+    intersectSegment(coords: [number]): Vector2;
 
-    public static _getIntersection(
+    static _getIntersection(
         x1: number,
         y1: number,
         x2: number,
@@ -91,4 +83,18 @@ declare class Ray {
         x4: number,
         y4: number,
     ): Vector2;
+}
+
+/**
+ * @property x  The x-coordinate of intersection
+ * @property y  The y-coordinate of intersection
+ * @property t0 The proximity to the Ray origin, as a ratio of distance
+ * @property t1 The proximity to the Ray destination, as a ratio of distance
+ */
+
+declare interface RayIntersection {
+    x: number;
+    y: number;
+    t0: number;
+    t1: number;
 }

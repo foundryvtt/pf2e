@@ -1,28 +1,24 @@
 /**
- * The Collection of Item entities
- * The items collection is accessible within the game as game.items
+ * The Collection of Item documents which exist within the active World.
+ * This Collection is accessible within the Game object as game.items.
+ * @see {@link Item} The Item entity
+ * @see {@link ItemDirectory} The ItemDirectory sidebar directory
  */
-declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
-    get documentName(): 'Item';
-
-    /* -------------------------------------------- */
-    /*  Collection Properties                       */
-    /* -------------------------------------------- */
-
+declare class Items<TItem extends Item> extends WorldCollection<TItem> {
     /** @override */
-    get entity(): 'Item';
+    static documentName: 'Item';
 
     /* -------------------------------------------- */
-    /*  Methods
+    /*  Methods                                     */
     /* -------------------------------------------- */
 
     /**
-     * Register an Item sheet class as a candidate which can be used to display Items of a given type
+     * Register an Item sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
     static registerSheet(
         scope: string,
-        sheetClass: new (...args: any) => ItemSheet,
+        sheetClass: new (...args: any[]) => ItemSheet,
         options?: RegisterSheetOptions,
     ): void;
 
@@ -30,10 +26,10 @@ declare class Items<ItemType extends Item> extends EntityCollection<ItemType> {
      * Unregister an Item sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet(scope: string, sheetClass: typeof ItemSheet): void;
+    static unregisterSheet(scope: string, sheetClass: new (...args: any[]) => ItemSheet, types?: string[]): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type
      */
-    static get registeredSheets(): typeof ItemSheet[];
+    static get registeredSheets(): ItemSheet[];
 }

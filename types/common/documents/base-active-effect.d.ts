@@ -6,20 +6,16 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseActiveEffect extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.ActiveEffectData;
 
-            /** @override */
             static get metadata(): ActiveEffectMetadata;
 
-            /** @override */
-            _preCreate(
-                data: data.ActiveEffectSource,
+            protected _preCreate(
+                data: PreCreate<data.ActiveEffectSource>,
                 options: DocumentModificationContext,
                 user: BaseUser,
             ): Promise<void>;
 
-            /** @override */
             testUserPermission(
                 user: BaseUser,
                 permission: DocumentPermission | UserAction,
@@ -29,6 +25,7 @@ declare module foundry {
 
         interface BaseActiveEffect {
             readonly data: data.ActiveEffectData<BaseActiveEffect>;
+
             readonly parent: BaseActor | BaseItem | null;
         }
 

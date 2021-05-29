@@ -9,14 +9,12 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseUser extends abstract.Document {
-            constructor(data: Partial<data.UserSource>, context?: DocumentConstructorContext);
+            constructor(data: PreCreate<data.UserSource>, context?: DocumentConstructionContext);
 
             readonly role: UserRole;
 
-            /** @override */
             static get schema(): typeof data.UserData;
 
-            /** @override */
             static get metadata(): UserMetadata;
 
             /* ---------------------------------------- */
@@ -36,8 +34,7 @@ declare module foundry {
              */
             can(action: UserAction): boolean;
 
-            /** @override */
-            getUserLevel(user: BaseUser): PermissionLevel;
+            getUserLevel(user: this): PermissionLevel;
 
             /**
              * Test whether the User has at least a specific permission
@@ -56,7 +53,9 @@ declare module foundry {
         }
 
         interface BaseUser {
-            readonly data: data.UserData<BaseUser>;
+            readonly data: data.UserData<this>;
+
+            readonly parent: null;
         }
 
         interface UserMetadata extends abstract.DocumentMetadata {

@@ -1,6 +1,8 @@
 import { MigrationBase } from './base';
-import { BaseArmorType, isPhysicalItem, ItemDataPF2e } from '@item/data/types';
 import { sluggify } from '@module/utils';
+import { BaseArmorType } from '@item/armor/data';
+import { isPhysicalData } from '@item/data/helpers';
+import { ItemSourcePF2e } from '@item/data';
 
 /** Set the `baseItem` property of base armor and weapons for the benefit of better unidentified names */
 export class Migration629SetBaseItems extends MigrationBase {
@@ -190,8 +192,8 @@ export class Migration629SetBaseItems extends MigrationBase {
         'wooden-taws',
     ];
 
-    async updateItem(itemData: ItemDataPF2e) {
-        if (!isPhysicalItem(itemData)) return;
+    async updateItem(itemData: ItemSourcePF2e) {
+        if (!isPhysicalData(itemData)) return;
 
         const systemData: { slug: string | null; baseItem: string | null } = itemData.data;
 

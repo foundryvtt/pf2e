@@ -1,12 +1,15 @@
-import { IdentificationData, isPhysicalItem, ItemDataPF2e, MeleeDetailsData, MystifiedData } from '@item/data/types';
+import { ItemSourcePF2e } from '@item/data';
+import { isPhysicalData } from '@item/data/helpers';
+import { MeleeSystemData } from '@item/melee/data';
+import { IdentificationData, MystifiedData } from '@item/physical/data';
 import { MigrationBase } from './base';
 
-type ItemDataWithIdentification = ItemDataPF2e & {
+type ItemDataWithIdentification = ItemSourcePF2e & {
     'data.-=identification'?: null;
     'data.identification.unidentified.data.-=traits'?: null;
 };
 
-interface MeleeWithIdentification extends MeleeDetailsData {
+interface MeleeWithIdentification extends MeleeSystemData {
     identification?: IdentificationData;
 }
 
@@ -31,7 +34,7 @@ export class Migration633DeleteUnidentifiedTraits extends MigrationBase {
             }
         }
 
-        if (!isPhysicalItem(itemData)) return;
+        if (!isPhysicalData(itemData)) return;
 
         const unidentifiedDataData: UnidentifiedWithTraits = itemData.data.identification?.unidentified?.data;
         if (unidentifiedDataData?.traits) {

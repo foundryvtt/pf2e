@@ -29,6 +29,8 @@ declare global {
         TCombat extends Combat = Combat,
         TItem extends Item = Item,
         TMacro extends Macro = Macro,
+        TScene extends Scene = Scene,
+        TUser extends User = User,
     > {
         /**
          * The named view which is currently active.
@@ -98,18 +100,18 @@ declare global {
         /*  Entities
     /* -------------------------------------------- */
 
-        users: Users<User<TActor>>;
+        users: Users<TUser>;
         messages: Messages<TChatMessage>;
-        scenes: Scenes;
+        scenes: Scenes<TScene>;
         actors: Actors<TActor>;
         items: Items<TItem>;
         journal: Journal;
         macros: Macros<TMacro>;
         playlists: Playlists;
-        combats: CombatEncounters<Combat>;
+        combats: CombatEncounters<TCombat>;
         tables: RollTables;
         folders: Folders;
-        packs: Collection<Compendium<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | Scene>>;
+        packs: Collection<CompendiumCollection<TActor | TItem | JournalEntry | TMacro | Playlist | RollTable | TScene>>;
 
         constructor(view: string, worldData: {}, sessionId: string, socket: io.Socket);
 
@@ -177,7 +179,7 @@ declare global {
         /**
          * The currently connected User
          */
-        get user(): User<TActor>;
+        get user(): TUser;
 
         /**
          * Metadata regarding the current game World
@@ -213,7 +215,7 @@ declare global {
                 minimumCoreVersion: string;
                 name: string;
                 packs: {
-                    entity: CompendiumDocumentString;
+                    entity: CompendiumDocumentType;
                     label: string;
                     module: string;
                     name: string;

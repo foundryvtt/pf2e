@@ -20,7 +20,6 @@ declare global {
     }
 
     interface TableResult {
-        readonly data: foundry.data.TableResultData;
         readonly parent: RollTable | null;
     }
 }

@@ -1,9 +1,9 @@
 /** Item sheet form types */
 
+import { ABCFeatureEntryData } from '@item/abc/data';
 import { AncestryPF2e } from '@item/ancestry';
 import { BackgroundPF2e } from '@item/background';
 import { ClassPF2e } from '@item/class';
-import { ABCFeatureEntryData } from '@item/data/types';
 import { FeatPF2e } from '@item/feat';
 import { SpellPF2e } from '@item/spell';
 import { ItemSheetDataPF2e } from './base';
@@ -36,6 +36,8 @@ export interface AESheetData {
 }
 
 export interface ABCSheetData<TItem extends AncestryPF2e | BackgroundPF2e | ClassPF2e> extends ItemSheetData<TItem> {
+    item: RawObject<TItem['data']>;
+    data: RawObject<TItem['data']>['data'];
     activeEffects: AESheetData;
     hasSidebar: boolean;
     sidebarTemplate: () => string;

@@ -1,4 +1,4 @@
-import { ABCSheetPF2e } from './abc';
+import { ABCSheetPF2e } from '../abc/sheet';
 import { BackgroundPF2e } from '@item/background';
 import { BackgroundSheetData } from './data-types';
 

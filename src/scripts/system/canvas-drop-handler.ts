@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ActorSheetPF2e } from 'src/module/actor/sheet/base';
 
-Hooks.on('dropCanvasData', async (canvas: Canvas<ActorPF2e>, data) => {
+Hooks.on('dropCanvasData', async (canvas, data) => {
     const target = canvas.tokens.placeables.find((token) => {
         const maximumX = token.x + token.hitArea.right;
         const maximumY = token.y + token.hitArea.bottom;
@@ -15,7 +15,7 @@ Hooks.on('dropCanvasData', async (canvas: Canvas<ActorPF2e>, data) => {
 
     if (target?.actor) {
         if (['character', 'npc', 'loot'].includes(target.actor.type)) {
-            const sheet = target.actor.sheet as ActorSheetPF2e<ActorPF2e>;
+            const sheet = target.actor.sheet as unknown as ActorSheetPF2e<ActorPF2e>;
             if (data.type === 'Item') {
                 await sheet.onDropItem(data);
                 return true;

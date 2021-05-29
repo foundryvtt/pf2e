@@ -20,12 +20,12 @@ declare module foundry {
          * @property [permission] An object which configures user permissions to this Actor
          * @property [flags={}]   An object of optional key/value flags
          */
-        interface ActorSource {
+        interface ActorSource<TType extends string = string, TSystemData extends object = object> {
             _id: string;
             name: string;
-            type: string;
+            type: TType;
             img: ImagePath;
-            data: object;
+            data: TSystemData;
             token: TokenSource;
             items: ItemSource[];
             effects: ActiveEffectSource[];
@@ -36,21 +36,31 @@ declare module foundry {
         }
 
         class ActorData<
-            TDocument extends documents.BaseActor = documents.BaseActor,
-            TItem extends documents.BaseItem = documents.BaseItem,
-            TActiveEffect extends documents.BaseActiveEffect = documents.BaseActiveEffect,
+            TDocument extends documents.BaseActor,
+            TActiveEffect extends documents.BaseActiveEffect,
+            TItem extends documents.BaseItem,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
+
+            /** The default icon used for newly created Actor documents */
+            static DEFAULT_ICON: ImagePath;
+
+            /** A Collection of ActiveEffect embedded Documents */
+            effects: abstract.EmbeddedCollection<TActiveEffect>;
 
             /** A Collection of Item embedded Documents */
             items: abstract.EmbeddedCollection<TItem>;
 
-            /** A Collection of ActiveEffect embedded Documents */
-            effects: abstract.EmbeddedCollection<TActiveEffect>;
+            protected _initializeSource(data: ActorSource): this['_source'];
+
+            protected _initialize(): void;
         }
 
-        interface ActorData extends Omit<ActorSource, '_id' | 'effects' | 'items'> {
+        interface ActorData<
+            TDocument extends documents.BaseActor,
+            TActiveEffect extends documents.BaseActiveEffect,
+            TItem extends documents.BaseItem,
+        > extends Omit<ActorSource, 'effects' | 'items'> {
             readonly _source: ActorSource;
         }
     }

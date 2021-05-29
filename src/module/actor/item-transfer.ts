@@ -1,7 +1,8 @@
-import { PhysicalItemPF2e } from '@item/physical';
+import { PhysicalItemPF2e } from '@item/index';
 import { LocalizePF2e } from '@module/system/localize';
+import { UserPF2e } from '@module/user';
 import { ErrorPF2e } from '@module/utils';
-import { ActorPF2e, UserPF2e } from './base';
+import { ActorPF2e } from './index';
 
 export interface ItemTransferData {
     source: {
@@ -97,7 +98,7 @@ export class ItemTransfer implements ItemTransferData {
             const token = canvas.tokens.placeables.find((canvasToken) => canvasToken.id === tokenId);
             return token?.actor ?? null;
         }
-        return game.actors.find((actor) => actor.id === actorId) ?? null;
+        return game.actors.get(actorId) ?? null;
     }
 
     private getSource(): ActorPF2e | null {

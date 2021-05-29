@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /** The Combat document model. */
         class BaseCombat extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.CombatData;
 
-            /** @override */
             static get metadata(): CombatMetadata;
 
             /** A reference to the Collection of Combatant instances in the Combat document, indexed by id. */
@@ -16,7 +14,8 @@ declare module foundry {
         }
 
         interface BaseCombat {
-            readonly data: data.CombatData<BaseCombat>;
+            readonly data: data.CombatData<this, BaseCombatant>;
+            readonly parent: null;
         }
 
         interface CombatMetadata extends abstract.DocumentMetadata {

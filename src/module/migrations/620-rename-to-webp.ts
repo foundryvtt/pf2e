@@ -1,15 +1,7 @@
-// @ts-nocheck
-
-import { ActorDataPF2e } from '@actor/data-definitions';
-import {
-    ABCFeatureEntryData,
-    AncestryData,
-    BackgroundData,
-    ClassData,
-    ItemDataPF2e,
-    KitData,
-    KitEntryData,
-} from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { ABCFeatureEntryData } from '@item/abc/data';
+import { AncestrySource, BackgroundSource, ClassSource, ItemSourcePF2e, KitSource } from '@item/data';
+import { KitEntryData } from '@item/kit/data';
 import { MigrationBase } from './base';
 
 export class Migration620RenameToWebp extends MigrationBase {
@@ -27,12 +19,12 @@ export class Migration620RenameToWebp extends MigrationBase {
         return imgPath?.replace('icons/svg/mystery-man.svg', 'systems/pf2e/icons/default-icons/mystery-man.svg') as T;
     }
 
-    private isABCK(itemData: ItemDataPF2e): itemData is AncestryData | BackgroundData | ClassData | KitData {
+    private isABCK(itemData: ItemSourcePF2e): itemData is AncestrySource | BackgroundSource | ClassSource | KitSource {
         const ITEMS_WITH_ITEMS = ['ancestry', 'background', 'class', 'kit'];
         return ITEMS_WITH_ITEMS.includes(itemData.type);
     }
 
-    async updateActor(actorData: ActorDataPF2e): Promise<void> {
+    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         actorData.img = this.renameToWebP(actorData.img);
 
         if (typeof actorData.token?.img === 'string') {
@@ -49,7 +41,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemDataPF2e): Promise<void> {
+    async updateItem(itemData: ItemSourcePF2e): Promise<void> {
         itemData.img = this.renameToWebP(itemData.img);
 
         // Icons for active effects
@@ -87,7 +79,7 @@ export class Migration620RenameToWebp extends MigrationBase {
         macroData.img = this.renameToWebP(macroData.img);
     }
 
-    async updateMessage(messageData: ChatMessageData): Promise<void> {
+    async updateMessage(messageData: foundry.data.ChatMessageSource): Promise<void> {
         messageData.flavor = this.renameToWebP(messageData.flavor);
         messageData.content = this.renameToWebP(messageData.content);
     }

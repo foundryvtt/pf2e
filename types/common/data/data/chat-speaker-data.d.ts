@@ -24,12 +24,10 @@ declare module foundry {
         class ChatSpeakerData<
             TDocument extends documents.BaseChatMessage = documents.BaseChatMessage,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface ChatSpeakerData<TDocument extends documents.BaseChatMessage = documents.BaseChatMessage>
-            extends Omit<ChatMessageSource, '_id'> {
+        interface ChatSpeakerData extends ChatMessageSource {
             readonly _source: ChatMessageSource;
         }
     }

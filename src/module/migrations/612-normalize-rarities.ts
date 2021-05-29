@@ -1,11 +1,11 @@
 import { MigrationBase } from './base';
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { Rarity } from '@item/data/types';
+import { ActorSourcePF2e } from '@actor/data';
+import { Rarity } from '@module/data';
 
 export class Migration612NormalizeRarities extends MigrationBase {
     static version = 0.612;
 
-    async updateActor(actorData: ActorDataPF2e) {
+    async updateActor(actorData: ActorSourcePF2e) {
         const traits = actorData.data.traits;
         if (!(('rarity' in traits) as { rarity?: Rarity })) {
             traits.rarity = { value: 'common' };

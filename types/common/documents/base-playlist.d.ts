@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /** The Playlist document model. */
         class BasePlaylist extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.PlaylistData;
+            static get schema(): typeof data.PlaylistData;
 
-            /** @override */
             static get metadata(): PlaylistMetadata;
 
             /** A reference to the Collection of PlaylistSound instances in the Playlist document, indexed by _id. */
@@ -13,7 +11,9 @@ declare module foundry {
         }
 
         interface BasePlaylist {
-            readonly data: data.PlaylistData<BasePlaylist>;
+            readonly data: data.PlaylistData<this>;
+
+            readonly parent: null;
         }
 
         interface PlaylistMetadata extends abstract.DocumentMetadata {

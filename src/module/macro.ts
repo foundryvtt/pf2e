@@ -4,7 +4,3 @@ export class MacroPF2e extends Macro {
         return this.permission >= CONST.ENTITY_PERMISSIONS.OBSERVER;
     }
 }
-
-export interface MacroPF2e {
-    data: foundry.data.MacroData<MacroPF2e>;
-}

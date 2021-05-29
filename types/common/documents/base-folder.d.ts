@@ -7,15 +7,15 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseFolder extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.FolderData;
+            static get schema(): typeof data.FolderData;
 
-            /** @override */
             static get metadata(): FolderMetadata;
         }
 
         interface BaseFolder {
-            readonly data: data.FolderData<BaseFolder>;
+            readonly data: data.FolderData<this>;
+
+            readonly parent: null;
         }
 
         interface FolderMetadata extends abstract.DocumentMetadata {

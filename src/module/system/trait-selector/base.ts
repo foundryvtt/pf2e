@@ -1,5 +1,5 @@
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
+import { ActorPF2e } from '@actor/index';
+import { ItemPF2e } from '@item/index';
 import { SelectableTagField, TagSelectorOptions } from './index';
 
 export abstract class TraitSelectorBase<

@@ -28,18 +28,17 @@ declare module foundry {
             formula: string;
             replacement: boolean;
             displayRoll: boolean;
-            folder: string | null;
+            folder?: string | null;
             sort: number;
+            permission: Record<string, PermissionLevel>;
+            flags: Record<string, unknown>;
         }
 
         class RollTableData<
             TDocument extends documents.BaseRollTable = documents.BaseRollTable,
             TResults extends documents.BaseTableResult = documents.BaseTableResult,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
-
-            folder: documents.BaseFolder | null;
 
             /** The default icon used for newly created Macro documents */
             static DEFAULT_ICON: string;
@@ -48,8 +47,8 @@ declare module foundry {
             results: abstract.EmbeddedCollection<TResults>;
         }
 
-        interface RollTableData extends Omit<RollTableSource, '_id' | 'folder' | 'results'> {
-            _source: RollTableSource;
+        interface RollTableData extends Omit<RollTableSource, 'results'> {
+            readonly _source: RollTableSource;
         }
     }
 }

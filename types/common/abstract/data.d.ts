@@ -35,9 +35,7 @@ declare global {
              * @param [data={}]  Initial data used to construct the data object
              * @param [document] The document to which this data object belongs
              */
-            abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document | null>
-                implements DocumentSource
-            {
+            abstract class DocumentData<TDocument extends abstract.Document | null = abstract.Document | null> {
                 constructor(data?: DocumentSource, document?: TDocument | null);
 
                 /** An immutable reverse-reference to the Document to which this data belongs, possibly null. */
@@ -50,7 +48,7 @@ declare global {
                  * The primary identifier for the Document to which this data object applies.
                  * This identifier is unique within the parent collection which contains the Document.
                  */
-                readonly _id: string /* | null */;
+                _id: string /* | null */;
 
                 /**
                  * Define the data schema for documents of this type.
@@ -115,6 +113,12 @@ declare global {
                     strict?: boolean;
                 }): boolean;
 
+                /**
+                 * Jointly validate the overall document after each field has been individually validated.
+                 * Throw an Error if any issue is encountered.
+                 */
+                protected _validateDocument(): void;
+
                 /** Reset the state of this data instance back to mirror the contained source data, erasing any changes. */
                 reset(): boolean;
 
@@ -135,30 +139,20 @@ declare global {
                  * @param [source=true] Draw values from the underlying data source rather than transformed values
                  * @returns The extracted primitive object
                  */
-                toObject(): this['_source'];
-                toObject(source: true): this['_source'];
-                toObject<T extends DocumentData<Document | null>>(this: T, source: false): RawObject<T>;
-                toObject<T extends DocumentData<Document | null>>(this: T, source: boolean): never;
+                toObject<D extends DocumentData, B extends true>(this: D, source?: B): D['_source'];
+                toObject<D extends DocumentData, B extends false>(this: D, source: B): RawObject<D>;
+                toObject<D extends DocumentData, B extends boolean>(source?: B): D['_source'] | RawObject<D>;
             }
-
-            /* eslint-disable-next-line @typescript-eslint/no-empty-interface */
-            interface DocumentData extends Omit<abstract.DocumentSource, '_id'> {}
         }
     }
 
     type RawObject<T extends foundry.abstract.DocumentData> = {
-        [P in keyof T['_source']]: P extends FunctionKeys<T>
-            ? never
+        [P in keyof T['_source']]: T[P] extends foundry.abstract.EmbeddedCollection<infer U>
+            ? RawObject<U['data']>[]
             : T[P] extends foundry.abstract.DocumentData
             ? RawObject<T[P]>
-            : T[P] extends foundry.abstract.EmbeddedCollection<infer V>
-            ? RawObject<V['data']>[]
-            : T[P] extends Readonly<string>
-            ? string
+            : T[P] extends foundry.abstract.DocumentData[]
+            ? RawObject<T[P][number]>[]
             : T[P];
     };
 }
-
-type FunctionKeys<T> = {
-    [K in keyof T]: T[K] extends Function ? K : never;
-}[keyof T];

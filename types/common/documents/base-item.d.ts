@@ -1,25 +1,16 @@
 declare module foundry {
     module documents {
-        /**
-         * The Item document model.
-         * @extends Document
-         * @memberof documents
-         *
-         * @param data Initial data from which to construct the document.
-         * @property data The constructed data object for the document.
-         */
-        class BaseItem<TActiveEffect extends BaseActiveEffect = BaseActiveEffect> extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.ItemData;
+        /** The Item document model. */
+        class BaseItem extends abstract.Document {
+            static get schema(): ConstructorOf<data.ItemData<BaseItem, BaseActiveEffect>>;
 
-            /** @override */
             static get metadata(): ItemMetadata;
 
             /** A reference to the Collection of ActiveEffect instances in the Item document, indexed by _id. */
-            get effects(): abstract.EmbeddedCollection<TActiveEffect>;
+            get effects(): this['data']['effects'];
 
             /** @override */
-            canUserModify(user: BaseUser, action: UserAction, data: DocumentUpdateData<this>): boolean;
+            canUserModify(user: BaseUser, action: UserAction, data?: DocumentUpdateData<this>): boolean;
 
             /** @override */
             testUserPermission(
@@ -48,8 +39,10 @@ declare module foundry {
             }): this['data']['data'];
         }
 
-        interface BaseItem<TActiveEffect extends BaseActiveEffect = BaseActiveEffect> {
-            readonly data: data.ItemData<BaseItem<TActiveEffect>, TActiveEffect>;
+        interface BaseItem {
+            readonly data: data.ItemData<BaseItem, BaseActiveEffect>;
+
+            readonly parent: BaseActor | null;
         }
 
         interface ItemMetadata extends abstract.DocumentMetadata {

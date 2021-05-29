@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /**The MeasuredTemplate embedded document model. */
         class BaseMeasuredTemplate extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.MeasuredTemplateData;
 
-            /** @override */
             static get metadata(): MeasuredTemplateMetadata;
 
             /** Is a user able to update or delete an existing MeasuredTemplate? */
@@ -17,7 +15,9 @@ declare module foundry {
         }
 
         interface BaseMeasuredTemplate {
-            readonly data: data.MeasuredTemplateData<BaseMeasuredTemplate>;
+            readonly data: data.MeasuredTemplateData<this>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface MeasuredTemplateMetadata extends abstract.DocumentMetadata {

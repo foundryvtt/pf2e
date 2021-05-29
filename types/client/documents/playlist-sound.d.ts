@@ -12,7 +12,10 @@ declare global {
      */
     class PlaylistSound extends PlaylistSoundConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.PlaylistSoundSource>, context?: DocumentConstructorContext);
+        constructor(
+            data: PreCreate<foundry.data.PlaylistSoundSource>,
+            context?: DocumentConstructionContext<PlaylistSound>,
+        );
 
         /** The Sound which manages playback for this playlist sound */
         sound: Sound | null;
@@ -30,11 +33,9 @@ declare global {
     }
 
     interface PlaylistSound {
-        readonly data: foundry.data.PlaylistSoundData<PlaylistSound>;
-
-        /** @param parent The parent Playlist document to which this result belongs */
         readonly parent: Playlist | null;
     }
 
+    /** @todo: fill in */
     class Sound {}
 }

@@ -1,13 +1,11 @@
-import { ConditionData } from '@item/data/types';
-import { ConditionPF2e } from './item/others';
-import { TokenPF2e } from './actor/base';
+import type { TokenPF2e } from '@module/token-document';
 import { ModifierPF2e } from './modifiers';
-import { StatusEffects } from '../scripts/actor/status-effects';
+import { StatusEffects } from '@scripts/actor/status-effects';
+import type { ConditionData, ConditionSource } from '@item/condition/data';
+import { ConditionPF2e } from '@item/condition';
+import { ErrorPF2e } from './utils';
 
-/**
- * A helper class to manage PF2e Conditions.
- * @category PF2
- */
+/** A helper class to manage PF2e Conditions. */
 export class ConditionManager {
     static _compediumConditions: Map<string, ConditionData> = new Map();
     static _customConditions: Map<string, ConditionData> = new Map();
@@ -27,10 +25,10 @@ export class ConditionManager {
             ConditionManager.__conditionsCache = new Map<string, ConditionData>();
 
             ConditionManager._compediumConditions.forEach((condition, name) =>
-                ConditionManager.__conditionsCache.set(name, duplicate(condition)),
+                ConditionManager.__conditionsCache.set(name, deepClone(condition)),
             );
             ConditionManager._customConditions.forEach((condition, name) =>
-                ConditionManager.__conditionsCache.set(name, duplicate(condition)),
+                ConditionManager.__conditionsCache.set(name, deepClone(condition)),
             );
 
             Object.freeze(ConditionManager.__conditionsCache);
@@ -39,22 +37,14 @@ export class ConditionManager {
         return ConditionManager.__conditionsCache;
     }
 
-    /**
-     * Gets a list of condition names.
-     *
-     * @return {IterableIterator<string>}   A list of condition names.
-     */
+    /** Gets a list of condition names. */
     public static get conditionsNames(): IterableIterator<string> {
         return Array.from(ConditionManager._compediumConditions.keys())
             .concat(Array.from(ConditionManager._customConditions.keys()))
             .values();
     }
 
-    /**
-     * Gets a list of status names.
-     *
-     * @return {IterableIterator<string>}   A list of status names.
-     */
+    /** Gets a list of status names. */
     public static get statusNames(): IterableIterator<string> {
         return Array.from(ConditionManager._compendiumConditionStatusNames.keys())
             .concat(Array.from(ConditionManager._customStatusNames.keys()))
@@ -62,7 +52,8 @@ export class ConditionManager {
     }
 
     static async init() {
-        const content = (await game.packs.get<Compendium<ConditionPF2e>>('pf2e.conditionitems')?.getDocuments()) ?? [];
+        const content =
+            (await game.packs.get<CompendiumCollection<ConditionPF2e>>('pf2e.conditionitems')?.getDocuments()) ?? [];
 
         for (const condition of content) {
             ConditionManager._compediumConditions.set(condition.name.toLowerCase(), condition.data);
@@ -75,15 +66,14 @@ export class ConditionManager {
 
     /**
      * Get a condition using the condition name.
-     *
      * @param conditionKey A list of conditions
      */
     public static getCondition(conditionKey: string): ConditionData {
         conditionKey = conditionKey.toLocaleLowerCase();
 
-        const condition = ConditionManager._customConditions.has(conditionKey)
-            ? duplicate(ConditionManager._customConditions.get(conditionKey))
-            : duplicate(ConditionManager._compediumConditions.get(conditionKey));
+        const condition =
+            deepClone(ConditionManager._customConditions.get(conditionKey)) ??
+            deepClone(ConditionManager._compediumConditions.get(conditionKey));
 
         if (!condition) {
             throw Error('PF2e System | Unexpected failure looking up condition');
@@ -99,19 +89,18 @@ export class ConditionManager {
      */
     public static getConditionByStatusName(statusName: string): ConditionData | undefined {
         if (ConditionManager._customStatusNames.has(statusName)) {
-            return duplicate(ConditionManager._customStatusNames.get(statusName));
+            return deepClone(ConditionManager._customStatusNames.get(statusName));
         } else {
             const conditionData = ConditionManager._compendiumConditionStatusNames.get(statusName);
-            return conditionData === undefined ? undefined : duplicate(conditionData);
+            return conditionData === undefined ? undefined : deepClone(conditionData);
         }
     }
 
     /**
      * Creates a new custom condition object.
-     *
-     * @param {string} name          The name of the condition.
-     * @param {ConditionData} data   The condition data to use.
-     * @return {boolean}             True if the object was created.
+     * @param name The name of the condition.
+     * @param data The condition data to use.
+     * @return True if the object was created.
      */
     public static createCustomCondition(name: string, data: ConditionData): boolean {
         name = name.toLocaleLowerCase();
@@ -135,9 +124,8 @@ export class ConditionManager {
 
     /**
      * Deletes a custom condition object.
-     *
-     * @param {string} name   The name of the condition.
-     * @return {boolean}      True if the object was deleted.
+     * @param name The name of the condition.
+     * @return True if the object was deleted.
      */
     public static deleteCustomCondition(name: string): boolean {
         name = name.toLocaleLowerCase();
@@ -152,9 +140,8 @@ export class ConditionManager {
 
     /**
      * Takes a list of valued conditions with the same base and selects the highest value.
-     *
-     * @param {ConditionData[]} conditions           A filtered list of conditions with the same base name.
-     * @param {Map<string, ConditionData>} updates   A running list of updates to make to embedded items.
+     * @param conditions A filtered list of conditions with the same base name.
+     * @param updates    A running list of updates to make to embedded items.
      */
     static __processValuedCondition(conditions: ConditionData[], updates: Map<string, ConditionData>): ConditionData {
         let appliedCondition: ConditionData;
@@ -165,7 +152,7 @@ export class ConditionManager {
 
                 if (!condition.data.active) {
                     // New MAX is inactive, neet to make it active.
-                    const update = updates.get(condition._id) ?? duplicate(condition);
+                    const update = updates.get(condition._id) ?? deepClone(condition);
                     update.data.active = true;
                     updates.set(update._id, update);
                 }
@@ -176,7 +163,7 @@ export class ConditionManager {
                     if (appliedCondition.data.active) {
                         // Condition came in active, need to deactivate it.
 
-                        const update = updates.get(appliedCondition._id) ?? duplicate(appliedCondition);
+                        const update = updates.get(appliedCondition._id) ?? deepClone(appliedCondition);
                         update.data.active = false;
                         updates.set(update._id, update);
                     } else {
@@ -190,7 +177,7 @@ export class ConditionManager {
                 appliedCondition = condition;
             } else if (condition.data.active) {
                 // Not new max, but was active.
-                const update = updates.get(condition._id) ?? duplicate(condition);
+                const update = updates.get(condition._id) ?? deepClone(condition);
                 update.data.active = false;
                 updates.set(update._id, update);
             }
@@ -218,12 +205,12 @@ export class ConditionManager {
 
             if (condition._id === appliedCondition._id && !condition.data.active) {
                 // Is the applied condition and not active
-                const update = updates.get(condition._id) ?? duplicate(condition);
+                const update = updates.get(condition._id) ?? deepClone(condition);
                 update.data.active = true;
                 updates.set(update._id, update);
             } else if (condition._id !== appliedCondition._id && condition.data.active) {
                 // Is not the applied condition and is active
-                const update = updates.get(condition._id) ?? duplicate(condition);
+                const update = updates.get(condition._id) ?? deepClone(condition);
                 update.data.active = false;
                 updates.set(update._id, update);
             }
@@ -243,7 +230,7 @@ export class ConditionManager {
     static __clearOverrides(condition: ConditionData, updates: Map<string, ConditionData>) {
         if (condition.data.references.overrides.length) {
             // Clear any overrides
-            const update = updates.get(condition._id) ?? duplicate(condition);
+            const update = updates.get(condition._id) ?? deepClone(condition);
             update.data.references.overrides.splice(0, update.data.references.overriddenBy.length);
 
             updates.set(update._id, update);
@@ -251,7 +238,7 @@ export class ConditionManager {
 
         if (condition.data.references.overriddenBy.length) {
             // Was previous overridden.  Remove it for now.
-            const update = updates.get(condition._id) ?? duplicate(condition);
+            const update = updates.get(condition._id) ?? deepClone(condition);
             update.data.references.overriddenBy.splice(0, update.data.references.overriddenBy.length);
 
             updates.set(update._id, update);
@@ -262,7 +249,7 @@ export class ConditionManager {
         if (overridden.data.active) {
             // Condition was active.  Deactivate it.
 
-            const update = updates.get(overridden._id) ?? duplicate(overridden);
+            const update = updates.get(overridden._id) ?? deepClone(overridden);
             update.data.active = false;
 
             updates.set(update._id, update);
@@ -271,7 +258,7 @@ export class ConditionManager {
         if (!overridden.data.references.overriddenBy.some((i) => i.id === overrider._id)) {
             // Condition doesn't have overrider as part of overridenBy list.
 
-            const update = updates.get(overridden._id) ?? duplicate(overridden);
+            const update = updates.get(overridden._id) ?? deepClone(overridden);
             update.data.references.overriddenBy.push({ id: overrider._id, type: 'condition' });
             updates.set(update._id, update);
         }
@@ -279,7 +266,7 @@ export class ConditionManager {
         if (!overrider.data.references.overrides.some((i) => i.id === overridden._id)) {
             // Overrider does not have overriden condition in overrides list.
 
-            const update = updates.get(overrider._id) ?? duplicate(overrider);
+            const update = updates.get(overrider._id) ?? deepClone(overrider);
             update.data.references.overrides.push({ id: overridden._id, type: 'condition' });
             updates.set(update._id, update);
         }
@@ -403,8 +390,8 @@ export class ConditionManager {
      * @param name  A collection of conditions to retrieve modifiers from.
      * @param token The token to add the condition to.
      */
-    static async addConditionToToken(name: string | ConditionData, token: TokenPF2e) {
-        const condition: ConditionData = typeof name === 'string' ? ConditionManager.getCondition(name) : name;
+    static async addConditionToToken(name: string | ConditionSource, token: TokenPF2e) {
+        const condition = typeof name === 'string' ? ConditionManager.getCondition(name).toObject() : name;
 
         const returnValue = await ConditionManager._addConditionEntity(condition, token);
 
@@ -413,50 +400,49 @@ export class ConditionManager {
         return returnValue;
     }
 
-    static async _addConditionEntity(condition: ConditionData, token: TokenPF2e) {
-        const item = (await Item.create(condition, { parent: token.actor })) as unknown as ConditionPF2e;
+    static async _addConditionEntity(condition: ConditionSource, token: TokenPF2e) {
+        const item = await ConditionPF2e.create(condition, { parent: token.actor });
+        if (!item) throw ErrorPF2e('Unexpected failure creating new condition');
 
         let needsItemUpdate = false;
-        const itemUpdate: any = {
-            _id: item.id,
+        const itemUpdate = {
             data: {
                 references: {
                     children: [],
                 },
             },
-        };
+        } as unknown as Partial<ConditionSource>;
 
         // Needs synchronicity.
-        for (const linkedConditionName of condition.data.alsoApplies.linked) {
-            const c = ConditionManager.getCondition(linkedConditionName.condition);
+        for await (const linkedConditionName of condition.data.alsoApplies.linked) {
+            const conditionSource = ConditionManager.getCondition(linkedConditionName.condition).toObject();
             if (linkedConditionName.value) {
-                c.data.value.value = linkedConditionName.value;
+                conditionSource.data.value.value = linkedConditionName.value;
             }
 
-            c.data.references.parent = { id: item.id, type: 'condition' };
-            c.data.sources.hud = condition.data.sources.hud;
+            conditionSource.data.references.parent = { id: item.id, type: 'condition' };
+            conditionSource.data.sources.hud = condition.data.sources.hud;
 
-            const linkedItem = await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
+            const linkedItem = await ConditionManager._addConditionEntity(conditionSource, token);
 
-            itemUpdate.data.references.children.push({ id: linkedItem.id, type: 'condition' });
+            itemUpdate.data!.references.children.push({ id: linkedItem.id, type: 'condition' });
             needsItemUpdate = true;
         }
 
-        // Needs synchronicity.
-        for (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
-            const c = ConditionManager.getCondition(unlinkedConditionName.condition);
+        for await (const unlinkedConditionName of condition.data.alsoApplies.unlinked) {
+            const conditionSource = ConditionManager.getCondition(unlinkedConditionName.condition).toObject();
             if (unlinkedConditionName.value) {
-                c.name = `${c.name} ${c.data.value.value}`;
-                c.data.value.value = unlinkedConditionName.value;
+                conditionSource.name = `${conditionSource.name} ${conditionSource.data.value.value}`;
+                conditionSource.data.value.value = unlinkedConditionName.value;
             }
 
-            c.data.sources.hud = condition.data.sources.hud;
+            conditionSource.data.sources.hud = condition.data.sources.hud;
 
-            await ConditionManager._addConditionEntity(c, token); // eslint-disable-line no-await-in-loop
+            await ConditionManager._addConditionEntity(conditionSource, token);
         }
 
         if (needsItemUpdate && token.actor !== null) {
-            await token.actor.updateEmbeddedDocuments('Item', [itemUpdate]);
+            await item.update(itemUpdate);
         }
 
         return item;

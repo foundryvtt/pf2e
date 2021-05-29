@@ -159,10 +159,6 @@ declare global {
         static fromFolder(folder: Folder, options?: DocumentModificationContext): Promise<RollTable | undefined>;
     }
 
-    interface RollTable {
-        data: foundry.data.RollTableData<RollTable>;
-    }
-
     /**
      * @typedef RollTableDraw An object containing the executed Roll and the produced results
      * @property roll    The Dice roll which generated the draw

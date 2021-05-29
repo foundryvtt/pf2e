@@ -1,247 +1,206 @@
-declare type CompendiumDocumentString = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
-declare type CompendiumUUID = `${'Compendium' | CompendiumDocumentString}.${string}.${string}`;
-// declare function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
+export {};
 
-// declare interface CompendiumMetadata<T extends foundry.abstract.Document = foundry.abstract.Document> {
-//     absPath: string;
-//     readonly entity: T extends Actor
-//         ? 'Actor'
-//         : T extends Item
-//         ? 'Item'
-//         : T extends JournalEntry
-//         ? 'JournalEntry'
-//         : T extends Macro
-//         ? 'Macro'
-//         : T extends Playlist
-//         ? 'Playlist'
-//         : T extends RollTable
-//         ? 'RollTable'
-//         : T extends Scene
-//         ? 'Scene'
-//         : CompendiumDocumentString;
-//     label: string;
-//     module: string;
-//     name: string;
-//     package: string;
-//     path: string;
-//     system: string;
-// }
-
-declare type CompendiumIndex = {
-    _id: string;
-    name: string;
-    image: string;
-}[];
-
-declare type CompendiumDocument =
-    | foundry.documents.BaseActor
-    | foundry.documents.BaseItem
-    | foundry.documents.BaseJournalEntry
-    | foundry.documents.BaseMacro
-    | foundry.documents.BasePlaylist
-    | foundry.documents.BaseRollTable
-    | foundry.documents.BaseScene;
-
-/**
- * A singleton Collection of Compendium-level Document objects within the Foundry Virtual Tabletop.
- * Each Compendium pack has its own associated instance of the CompendiumCollection class which contains its contents.
- * @extends {DocumentCollection}
- * @abstract
- *
- * @param metadata The compendium metadata, an object provided by game.data
- */
-declare class CompendiumCollection<
-    TDocument extends CompendiumDocument = CompendiumDocument,
-> extends DocumentCollection<TDocument> {
+declare global {
     /**
-     * The compendium metadata which defines the compendium content and location
+     * A singleton Collection of Compendium-level Document objects within the Foundry Virtual Tabletop.
+     * Each Compendium pack has its own associated instance of the CompendiumCollection class which contains its contents.
+     * @param metadata The compendium metadata, an object provided by game.data
      */
-    // @ts-ignore
-    metadata: CompendiumMetadata<TDocument>;
+    abstract class CompendiumCollection<
+        TDocument extends CompendiumDocument = CompendiumDocument,
+    > extends DocumentCollection<TDocument> {
+        /** @override */
+        constructor(metadata: CompendiumMetadata<TDocument>, options?: ApplicationOptions);
 
-    /**
-     * Track whether the compendium pack is private
-     */
-    private: boolean;
+        /** The compendium metadata which defines the compendium content and location */
+        metadata: CompendiumMetadata<TDocument>;
 
-    /**
-     * The most recently retrieved index of the Compendium content
-     * This index is not guaranteed to be current - call getIndex() to reload the index
-     */
-    index: CompendiumIndex;
+        /** A subsidiary collection which contains the more minimal index of the pack */
+        index: CompendiumIndex;
 
-    /**
-     * Track whether the compendium pack is locked for editing
-     */
-    locked: boolean;
+        protected _flush: () => unknown;
+        /**
+         * The amount of time that Document instances within this CompendiumCollection are held in memory.
+         * Accessing the contents of the Compendium pack extends the duration of this lifetime.
+         */
+        static CACHE_LIFETIME_SECONDS: number;
 
-    // Internal flags
-    searchString: string | null;
-    protected _searchTime: number;
+        /** The named game setting which contains Compendium configurations. */
+        static CONFIG_SETTING: 'compendiumConfiguration';
 
-    // @ts-ignore
-    constructor(metadata: CompendiumMetadata<TDocument>, options?: ApplicationOptions);
+        /**
+         * Create a new Compendium Collection using provided metadata.
+         * @param metadata The compendium metadata used to create the new pack
+         * @param options  Additional options which modify the Compendium creation request
+         */
+        static createCompendium<T extends CompendiumDocument>(
+            metadata: CompendiumMetadata<T>,
+            options?: Record<string, unknown>,
+        ): Promise<CompendiumCollection<T>>;
 
-    static CONFIG_SETTING: 'compendiumConfiguration';
+        /** The canonical Compendium name - comprised of the originating package and the pack name */
+        get collection(): string;
 
-    /** @override */
-    get title(): string;
+        /** Access the compendium configuration data for this pack */
+        get config(): Record<string, unknown>;
 
-    /**
-     * The canonical Compendium name - comprised of the originating package and the pack name
-     * @return The canonical collection name
-     */
-    get collection(): string;
+        /** @override */
+        get documentName(): string;
 
-    /**
-     * The Entity type which is allowed to be stored in this collection
-     */
-    get documentName(): TDocument extends Actor
-        ? 'Actor'
-        : TDocument extends Item
-        ? 'Item'
-        : TDocument extends JournalEntry
-        ? 'JournalEntry'
-        : TDocument extends Macro
-        ? 'Macro'
-        : TDocument extends RollTable
-        ? 'RollTable'
-        : CompendiumDocumentString;
+        /** Track whether the Compendium Collection is locked for editing */
+        get locked(): boolean;
 
-    /**
-     * A reference to the Entity class object contained within this Compendium pack
-     */
-    get cls(): {
-        new (...args: any[]): CompendiumDocument | CompendiumDocument[];
-        create(
-            data: Partial<TDocument['data']> | Partial<TDocument['data']>[],
-            options?: DocumentModificationContext,
-        ): Promise<CompendiumDocument | CompendiumDocument[]>;
-    };
+        /** Track whether the Compendium Collection is private */
+        get private(): boolean;
 
-    /* ----------------------------------------- */
-    /*  Methods
-            /* ----------------------------------------- */
+        /** A convenience reference to the label which should be used as the title for the Compendium pack. */
+        get title(): string;
 
-    /**
-     * Create a new Compendium pack using provided
-     * @param metadata The compendium metadata used to create the new pack
-     */
-    static create(metadata: CompendiumMetadata, options?: {}): Promise<CompendiumCollection>;
+        /** @override */
+        get(key: string, options: Record<string, unknown>): TDocument | undefined;
 
-    /**
-     * Assign configuration metadata settings to the compendium pack
-     * @param settings The object of compendium settings to define
-     * @return A Promise which resolves once the setting is updated
-     */
-    configure(settings?: { locked?: boolean; private?: boolean }): Promise<{ locked: boolean; private: boolean }>;
+        /** @override */
+        set(id: string, document: TDocument): this;
 
-    /**
-     * Duplicate a compendium pack to the current World
-     * @param label
-     */
-    duplicate({ label }?: { label?: string }): Promise<CompendiumCollection>;
+        /** @override */
+        delete(id: string): boolean;
 
-    /**
-     * Get the Compendium index
-     * Contains names, images and IDs of all data in the compendium
-     *
-     * @return A Promise containing an index of all compendium entries
-     */
-    getIndex(): Promise<CompendiumIndex>;
+        /** Load the Compendium index and cache it as the keys and values of the Collection. */
+        getIndex(): Promise<CompendiumIndex>;
 
-    /**
-     * Get a single Document from this Compendium by ID.
-     * The document may already be locally cached, otherwise it is retrieved from the server.
-     * @param id The requested Document id
-     * @returns The retrieved Document instance
-     */
-    getDocument(id: string): Promise<TDocument | null>;
+        /**
+         * Get a single Document from this Compendium by ID.
+         * The document may already be locally cached, otherwise it is retrieved from the server.
+         * @param id The requested Document id
+         * @returns The retrieved Document instance
+         */
+        getDocument(id: string): Promise<TDocument | undefined>;
 
-    /**
-     * Load multiple documents from the Compendium pack using a provided query object.
-     * @param query A database query used to retrieve documents from the underlying database
-     * @returns The retrieved Document instances
-     */
-    getDocuments<D extends TDocument = TDocument>(query?: Record<string, unknown>): Promise<D[]>;
+        /**
+         * Load multiple documents from the Compendium pack using a provided query object.
+         * @param query A database query used to retrieve documents from the underlying database
+         * @returns The retrieved Document instances
+         */
+        getDocuments(query?: Record<string, unknown>): Promise<TDocument[]>;
 
-    /**
-     * Fully import the contents of a Compendium pack into a World folder.
-     * @param An existing Folder _id to use.
-     * @param [folderName] A new Folder name to create.
-     */
-    importAll({
-        folderId,
-        folderName,
-    }?: {
-        folderId?: string | null;
-        folderName?: string;
-    }): Promise<CompendiumDocument | CompendiumDocument[]>;
+        /**
+         * Import a Document into this Compendium Collection.
+         * @param document The existing Document you wish to import
+         * @return The imported Document instance
+         */
+        importDocument(document: TDocument): Promise<TDocument>;
 
-    /**
-     * Import a Document into this Compendium Collection.
-     * @param document The existing Document you wish to import
-     * @return The imported Document instance
-     */
-    importDocument(document: TDocument): Promise<TDocument>;
+        /**
+         * Fully import the contents of a Compendium pack into a World folder.
+         * @param [folderId]   An existing Folder _id to use.
+         * @param [folderName] A new Folder name to create.
+         * @param [options]    Additional options forwarded to Document.createDocuments
+         * @return The imported Documents, now existing within the World
+         */
+        importAll({
+            folderId,
+            folderName,
+            options,
+        }?: {
+            folderId?: string | null;
+            folderName?: string;
+            options?: Record<string, unknown>;
+        }): Promise<TDocument[]>;
 
-    /**
-     * Create a new Entity within this Compendium Pack using provided data
-     * @param data  Data with which to create the entry
-     * @return      A Promise which resolves to the created Entity once the operation is complete
-     */
-    createEntity(data: any): Promise<TDocument>;
+        /**
+         * Add a Document to the index, capturing it's relevant index attributes
+         * @param document The document to index
+         */
+        indexDocument(document: TDocument): void;
 
-    /**
-     * Delete a single Compendium entry by its provided _id
-     * @param id    The entry ID to delete
-     * @return      A Promise which resolves to the deleted entry ID once the operation is complete
-     */
-    deleteEntity(id: string): Promise<string>;
+        /**
+         * Assign configuration metadata settings to the compendium pack
+         * @param settings The object of compendium settings to define
+         * @return A Promise which resolves once the setting is updated
+         */
+        configure(settings?: Record<string, unknown>): Promise<void>;
 
-    /**
-     * Request that a Compendium pack be migrated to the latest System data template
-     */
-    migrate(options: any): Promise<CompendiumCollection>;
+        /**
+         * Delete an existing world-level Compendium Collection.
+         * This action may only be performed for world-level packs by a Gamemaster User.
+         */
+        deleteCompendium(): Promise<this>;
 
-    /**
-     * Customize Compendium closing behavior to toggle the sidebar folder status icon
-     */
-    close(): any;
+        /**
+         * Duplicate a compendium pack to the current World.
+         * @param label A new Compendium label
+         */
+        duplicateCompendium({ label }?: { label?: string }): Promise<this>;
 
-    /**
-     * Register event listeners for Compendium directories
-     */
-    activateListeners(html: JQuery): void;
+        /** Validate that the current user is able to modify content of this Compendium pack */
+        protected _assertUserCanModify(): boolean;
 
-    /**
-     * Handle compendium filtering through search field
-     * Toggle the visibility of indexed compendium entries by name (for now) match
-     */
-    protected _onSearch(searchString: string): void;
+        /** Request that a Compendium pack be migrated to the latest System data template */
+        migrate(options?: Record<string, unknown>): Promise<this>;
 
-    /**
-     * Handle opening a single compendium entry by invoking the configured entity class and its sheet
-     */
-    protected _onEntry(entryId: string): Promise<void>;
+        /** @override */
+        _onCreateDocuments(
+            documents: TDocument[],
+            result: TDocument['data']['_source'][],
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-    /**
-     * Handle a new drag event from the compendium, create a placeholder token for dropping the item
-     */
-    protected _onDragStart(event: Event | JQuery.Event): boolean;
+        /** @override */
+        _onUpdateDocuments(
+            documents: TDocument[],
+            result: TDocument['data']['_source'][],
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-    /**
-     * Allow data transfer events to be dragged over this as a drop zone
-     */
-    protected _onDragOver(event: Event | JQuery.Event): boolean;
+        /** @override */
+        _onDeleteDocuments(
+            documents: TDocument[],
+            result: TDocument['data']['_source'][],
+            options: DocumentModificationContext,
+            userId: string,
+        ): void;
 
-    /**
-     * Handle data being dropped into a Compendium pack
-     */
-    protected _onDrop(event: Event | JQuery.Event): Promise<boolean>;
+        /** Follow-up actions taken when Documents within this Compendium pack are modified */
+        protected _onModifyContents(documents: TDocument[], options: DocumentModificationContext, userId: string): void;
+    }
 
-    /**
-     * Render the ContextMenu which applies to each compendium entry
-     */
-    protected _contextMenu(html: JQuery | HTMLElement): void;
+    type CompendiumDocumentType = typeof CONST.COMPENDIUM_ENTITY_TYPES[number];
+    type CompendiumUUID = `${'Compendium' | CompendiumDocumentType}.${string}.${string}`;
+    function fromUuid(uuid: CompendiumUUID): Promise<CompendiumDocument | null>;
+
+    interface CompendiumMetadata<T extends CompendiumDocument = CompendiumDocument> {
+        absPath: string;
+        readonly entity: T extends Actor
+            ? 'Actor'
+            : T extends Item
+            ? 'Item'
+            : T extends JournalEntry
+            ? 'JournalEntry'
+            : T extends Macro
+            ? 'Macro'
+            : T extends Playlist
+            ? 'Playlist'
+            : T extends RollTable
+            ? 'RollTable'
+            : T extends Scene
+            ? 'Scene'
+            : CompendiumDocumentType;
+        label: string;
+        module: string;
+        name: string;
+        package: string;
+        path: string;
+        system: string;
+        private: string;
+    }
+
+    type CompendiumIndex = Collection<{
+        _id: string;
+        name: string;
+        image: string;
+    }>;
+
+    type CompendiumDocument = Actor | Item | JournalEntry | Macro | Playlist | RollTable | Scene;
 }

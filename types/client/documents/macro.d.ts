@@ -41,8 +41,4 @@ declare global {
          */
         protected _executeScript({ actor, token }?: { actor?: Actor; token?: Token }): void;
     }
-
-    interface Macro {
-        readonly data: foundry.data.MacroData<Macro>;
-    }
 }

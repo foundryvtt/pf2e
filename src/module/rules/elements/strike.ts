@@ -1,5 +1,5 @@
-import { CharacterData, NPCData } from '@actor/data-definitions';
-import { WeaponData } from '@item/data/types';
+import { CharacterData, NPCData } from '@actor/data';
+import { WeaponData } from '@item/data';
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 
