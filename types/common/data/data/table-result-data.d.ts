@@ -31,12 +31,11 @@ declare module foundry {
         class TableResultData<
             TDocument extends documents.BaseTableResult = documents.BaseTableResult,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface TableResultData extends Omit<TableResultSource, '_id'> {
-            _source: TableResultSource;
+        interface TableResultData extends TableResultSource {
+            readonly _source: TableResultSource;
         }
     }
 }

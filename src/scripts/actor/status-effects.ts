@@ -1,9 +1,8 @@
-import { ActorPF2e, TokenPF2e } from '@actor/base';
+import { ActorPF2e } from '@actor/index';
+import { TokenPF2e } from '@module/token-document';
 import { ConditionManager } from '@module/conditions';
-import { ConditionData } from '@item/data/types';
 import { LocalizePF2e } from '@system/localize';
 import { StatusEffectIconType } from '@scripts/config';
-import { ConditionPF2e } from '@item/others';
 import { ErrorPF2e } from '@module/utils';
 
 /**
@@ -340,31 +339,28 @@ export class StatusEffects {
                 const newCondition = ConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
 
-                await ConditionManager.addConditionToToken(newCondition, this);
+                await ConditionManager.addConditionToToken(newCondition.toObject(), this);
             }
         }
     }
 
-    static async _toggleStatus(event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
+    static async _toggleStatus(this: TokenPF2e, event: JQuery.ClickEvent | JQuery.ContextMenuEvent) {
         event.preventDefault();
         event.stopImmediatePropagation();
-        const token = this as any;
         if (event.shiftKey) {
-            StatusEffects._onToggleOverlay(event, token);
+            StatusEffects._onToggleOverlay(event, this);
             return;
         }
 
         const f = $(event.currentTarget);
-        const status = f.attr('data-condition');
-        const src = f.attr('src');
+        const status = f.attr('data-condition') ?? '';
+        const src = f.attr('src') ?? '';
 
-        const condition: ConditionData = token.actor.itemTypes.condition.find(
-            (i: ConditionPF2e) =>
-                i.data.flags.pf2e?.condition &&
-                i.data.type === 'condition' &&
-                i.data.name === status &&
-                i.data.data.sources.hud &&
-                i.data.data.references.parent === undefined,
+        const condition = this.actor?.itemTypes.condition.find(
+            (condition) =>
+                condition.data.name === status &&
+                condition.data.data.sources.hud &&
+                condition.data.data.references.parent === undefined,
         )?.data;
 
         const conditionIds: string[] = [];
@@ -373,29 +369,26 @@ export class StatusEffects {
             if (event.ctrlKey) {
                 // CTRL key pressed.
                 // Remove all conditions.
-                token.actor.itemTypes.condition
-                    .filter(
-                        (i: ConditionPF2e) =>
-                            i.data.flags.pf2e?.condition && i.data.type === 'condition' && i.data.data.base === status,
-                    )
-                    .forEach((i: ConditionPF2e) => conditionIds.push(i.id));
+                this.actor?.itemTypes.condition
+                    .filter((condition) => condition.fromSystem && condition.data.data.base === status)
+                    .forEach((condition) => conditionIds.push(condition.id));
             } else if (condition) {
                 conditionIds.push(condition._id);
             }
 
             if (conditionIds.length > 0) {
-                token.statusEffectChanged = true;
-                await ConditionManager.removeConditionFromToken(conditionIds, token);
-            } else if (token.data.effects.includes(src)) {
-                await token.toggleEffect(src);
+                this.statusEffectChanged = true;
+                await ConditionManager.removeConditionFromToken(conditionIds, this);
+            } else if (this.data.effects.includes(src)) {
+                await this.toggleEffect(src);
             }
         } else if (event.type === 'click') {
             if (!condition && status) {
                 const newCondition = ConditionManager.getCondition(status);
                 newCondition.data.sources.hud = true;
-                token.statusEffectChanged = true;
+                this.statusEffectChanged = true;
 
-                await ConditionManager.addConditionToToken(newCondition, token);
+                await ConditionManager.addConditionToToken(newCondition.toObject(), this);
             }
         }
     }
@@ -490,7 +483,7 @@ export class StatusEffects {
         const iconType = StatusEffects.SETTINGOPTIONS.iconTypes[chosenSetting];
         const lastIconType = StatusEffects.SETTINGOPTIONS.iconTypes[CONFIG.PF2E.statusEffects.lastIconType];
 
-        const promises: Promise<TokenData | TokenData[]>[] = [];
+        const promises: Promise<TokenDocument[]>[] = [];
         for (const scene of game.scenes) {
             const tokenUpdates: any[] = [];
 
@@ -512,7 +505,7 @@ export class StatusEffects {
                 }
                 tokenUpdates.push(update);
             }
-            promises.push(scene.updateEmbeddedEntity('Token', tokenUpdates));
+            promises.push(scene.updateEmbeddedDocuments('Token', tokenUpdates));
         }
         await Promise.all(promises);
 
@@ -537,7 +530,7 @@ export class StatusEffects {
      * Legacy function
      */
     static async setStatus(token: TokenPF2e, effects: any[] = []) {
-        for (const status of Object.values(effects)) {
+        for await (const status of Object.values(effects)) {
             const statusName = status.name;
             const value = status.value;
             const source = status.source ? status.source : 'PF2eStatusEffects.setStatus';
@@ -574,14 +567,14 @@ export class StatusEffects {
                         continue;
                     }
 
-                    await ConditionManager.updateConditionValue(effect._id, token, newValue); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.updateConditionValue(effect._id, token, newValue);
                 } else if (Number(value) > 0) {
                     // No effect, but value is a number and is greater than 0.
                     // Add a new condition with the value.
 
                     condition.data.source.value = source;
                     condition.data.value.value = Number(value);
-                    await ConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.addConditionToToken(condition.toObject(), token);
                 }
             } else if (!value) {
                 // Value was not provided.
@@ -594,13 +587,13 @@ export class StatusEffects {
                 if (effect !== undefined && status.toggle) {
                     // Condition exists and toggle was true
                     // Remove it.
-                    await ConditionManager.removeConditionFromToken([effect._id], token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.removeConditionFromToken([effect._id], token);
                 } else if (effect === undefined) {
                     // Effect does not exist.  Create it.
 
                     // Set the source to this function.
                     condition.data.source.value = source;
-                    await ConditionManager.addConditionToToken(condition, token); // eslint-disable-line no-await-in-loop
+                    await ConditionManager.addConditionToToken(condition.toObject(), token);
                 }
             }
         }

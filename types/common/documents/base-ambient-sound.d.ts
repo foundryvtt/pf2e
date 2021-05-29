@@ -2,15 +2,15 @@ declare module foundry {
     module documents {
         /**The AmbientSound embedded document model. */
         class BaseAmbientSound extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.AmbientSoundData;
 
-            /** @override */
             static get metadata(): AmbientSoundMetadata;
         }
 
         interface BaseAmbientSound {
-            readonly data: data.AmbientSoundData<BaseAmbientSound>;
+            readonly data: data.AmbientSoundData<this>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface AmbientSoundMetadata extends abstract.DocumentMetadata {

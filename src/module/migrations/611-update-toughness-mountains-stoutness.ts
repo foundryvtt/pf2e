@@ -1,9 +1,7 @@
-// @ts-nocheck
-
 import { MigrationBase } from './base';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorSourcePF2e } from '@actor/data';
 import { FeatPF2e } from '@item/feat';
-import { FeatData } from '@item/data/types';
+import { FeatSource } from '@item/data';
 
 export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase {
     static version = 0.611;
@@ -14,14 +12,14 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
 
     constructor() {
         super();
-        this.featsPromise = game.packs.get('pf2e.feats-srd')!.getDocuments();
+        this.featsPromise = game.packs.get<CompendiumCollection<FeatPF2e>>('pf2e.feats-srd')!.getDocuments();
     }
 
-    async updateActor(actorData: ActorDataPF2e) {
+    async updateActor(actorData: ActorSourcePF2e) {
         if (actorData.type !== 'character') return;
 
         const oldFeatsData = actorData.items.filter(
-            (itemData): itemData is FeatData =>
+            (itemData): itemData is FeatSource =>
                 this.featSlugs.includes(itemData.data.slug ?? '') && itemData.type === 'feat',
         );
         for await (const oldFeatData of oldFeatsData) {
@@ -38,7 +36,7 @@ export class Migration611UpdateToughnessMountainsStoutness extends MigrationBase
             }
             newFeat.data.data.location = oldFeatData.data.location;
             const oldFeatIndex = actorData.items.indexOf(oldFeatData);
-            actorData.items.splice(oldFeatIndex, 1, newFeat.data);
+            actorData.items.splice(oldFeatIndex, 1, newFeat.toObject());
         }
     }
 }

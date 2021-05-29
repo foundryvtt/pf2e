@@ -4,7 +4,7 @@
  * @param data An array of data objects from which to create Document instances
  */
 declare abstract class WorldCollection<
-    TDocument extends ClientDocument = ClientDocument,
+    TDocument extends foundry.abstract.Document,
 > extends DocumentCollection<TDocument> {
     /** @override */
     constructor(data?: TDocument['data']['_source'][]);
@@ -46,7 +46,7 @@ declare abstract class WorldCollection<
     get directory(): SidebarDirectory | null;
 
     /** Return a reference to the singleton instance of this WorldCollection, or null if it has not yet been created. */
-    static get instance(): WorldCollection;
+    static get instance(): WorldCollection<foundry.abstract.Document>;
 
     /* -------------------------------------------- */
     /*  Collection Methods                          */

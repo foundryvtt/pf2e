@@ -27,7 +27,7 @@ declare module foundry {
             dim: number;
             bright: number;
             angle: number;
-            tintColor: ColorField;
+            tintColor: HexColorString;
             tintAlpha: number;
             lightAnimation: AnimationSource;
             darknessThreshold: number;
@@ -38,13 +38,13 @@ declare module foundry {
         class AmbientLightData<
             TDocument extends documents.BaseAmbientLight = documents.BaseAmbientLight,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
+
+            lightAnimation: AnimationData<documents.BaseAmbientLight>;
         }
 
-        interface AmbientLightData extends Omit<AmbientLightSource, '_id' | 'lightAnimation'> {
+        interface AmbientLightData extends Omit<AmbientLightSource, 'lightAnimation'> {
             readonly _source: AmbientLightSource;
-            lightAnimation: AnimationData<documents.BaseAmbientLight>;
         }
     }
 }

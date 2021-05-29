@@ -1,27 +1,48 @@
-export const ActiveEffectConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseActiveEffect>>;
+export const AmbientLightDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseAmbientLight, null>;
 
-export const CombatantConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseCombatant>>;
+export const AmbientSoundDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseAmbientSound, null>;
 
-export const CombatConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseCombat>>;
+export const ActiveEffectConstructor: ClientDocumentMixin<typeof foundry.documents.BaseActiveEffect>;
 
-export const ChatMessageConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseChatMessage>>;
+export const ActorConstructor: ClientDocumentMixin<typeof foundry.documents.BaseActor>;
 
-export const JournalEntryConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseJournalEntry>>;
+export const CombatantConstructor: ClientDocumentMixin<typeof foundry.documents.BaseCombatant>;
 
-export const MacroConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseMacro>>;
+export const CombatConstructor: ClientDocumentMixin<typeof foundry.documents.BaseCombat>;
 
-export const PlaylistConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BasePlaylist>>;
+export const ChatMessageConstructor: ClientDocumentMixin<typeof foundry.documents.BaseChatMessage>;
 
-export const PlaylistSoundConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BasePlaylistSound>>;
+export const DrawingConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseDrawing, DrawingLayer>;
 
-export const RollTableConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseRollTable>>;
+export const FolderConstructor: ClientDocumentMixin<typeof foundry.documents.BaseFolder>;
 
-export const NoteDocumentConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseNote>>;
+export const ItemConstructor: ClientDocumentMixin<typeof foundry.documents.BaseItem>;
 
-export const TableResultConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseTableResult>>;
+export const JournalEntryConstructor: ClientDocumentMixin<typeof foundry.documents.BaseJournalEntry>;
 
-export const TokenDocumentConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseToken>>;
+export const MacroConstructor: ClientDocumentMixin<typeof foundry.documents.BaseMacro>;
 
-export const WallDocumentConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseWall>>;
+export const MeasuredTemplateDocumentConstructor: CanvasDocumentMixin<
+    typeof foundry.documents.BaseMeasuredTemplate,
+    TemplateLayer
+>;
 
-export const UserConstructor: ClientDocumentConstructor<ClientDocument<foundry.documents.BaseUser>>;
+export const PlaylistConstructor: ClientDocumentMixin<typeof foundry.documents.BasePlaylist>;
+
+export const PlaylistSoundConstructor: ClientDocumentMixin<typeof foundry.documents.BasePlaylistSound>;
+
+export const RollTableConstructor: ClientDocumentMixin<typeof foundry.documents.BaseRollTable>;
+
+export const NoteDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseNote, NotesLayer>;
+
+export const SceneConstructor: ClientDocumentMixin<typeof foundry.documents.BaseScene>;
+
+export const TableResultConstructor: ClientDocumentMixin<typeof foundry.documents.BaseTableResult>;
+
+export const TileDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseTile, TilesLayer>;
+
+export const TokenDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseToken, TokenLayer<Token>>;
+
+export const WallDocumentConstructor: CanvasDocumentMixin<typeof foundry.documents.BaseWall, WallsLayer>;
+
+export const UserConstructor: ClientDocumentMixin<typeof foundry.documents.BaseUser>;

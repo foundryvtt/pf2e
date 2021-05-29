@@ -1,7 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { SpellcastingEntryPF2e } from '@item/spellcasting-entry';
 import { fetchSpell } from 'tests/setup';
-import { SpellFacade } from '@item/spell-facade';
+import { SpellFacade } from '@item/spell/facade';
 
 import * as characterData from 'tests/fixtures/characterData.json';
 import * as spellcastingEntry from 'tests/fixtures/items/spellcastingEntry.json';

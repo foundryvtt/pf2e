@@ -17,14 +17,11 @@ declare module foundry {
         class EffectChangeData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface EffectChangeData extends Omit<EffectChangeSource, 'value'> {
-            _source: EffectDurationSource;
-
-            value: unknown;
+        interface EffectChangeData extends EffectChangeSource {
+            readonly _source: EffectDurationSource;
         }
     }
 }

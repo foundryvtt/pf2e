@@ -10,13 +10,13 @@ declare global {
      */
     class User<TActor extends Actor = Actor> extends UserConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.UserSource>, context?: DocumentConstructorContext);
+        constructor(data: PreCreate<foundry.data.UserSource>, context?: DocumentConstructionContext<User>);
 
         /** Track whether the user is currently active in the game */
         active: boolean;
 
         /** Track references to the current set of Tokens which are targeted by the User */
-        targets: Set<Token<TActor>>;
+        targets: Set<NonNullable<NonNullable<TActor['parent']>['_object']>>;
 
         /** Track the ID of the Scene that is currently being viewed by the User */
         viewedScene: string | null;
@@ -88,15 +88,9 @@ declare global {
          */
         updateTokenTargets(targetIds?: string[]): void;
 
-        /** @override  */
         protected _onUpdate(data: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
 
-        /** @override  */
         protected _onDelete(options: DocumentModificationContext, userId: string): void;
-    }
-
-    interface User {
-        readonly data: foundry.data.UserData<User>;
     }
 
     interface UserActivity {

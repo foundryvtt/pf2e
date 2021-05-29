@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /**The Wall embedded document model. */
         class BaseWall extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.WallData;
 
-            /** @override */
             static get metadata(): WallMetadata;
 
             /** Is a user able to update an existing Wall? */
@@ -13,7 +11,9 @@ declare module foundry {
         }
 
         interface BaseWall {
-            readonly data: data.WallData<BaseWall>;
+            readonly data: data.WallData<this>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface WallMetadata extends abstract.DocumentMetadata {

@@ -1,7 +1,6 @@
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data/types';
-import { MeleePF2e } from '@item/others';
+import { ItemSourcePF2e } from '@item/data';
+import { ItemPF2e, MeleePF2e } from '@item/index';
+import { ActorPF2e } from '@actor/index';
 import { StatisticModifier } from '@module/modifiers';
 
 export const ChatCards = {
@@ -25,9 +24,9 @@ export const ChatCards = {
             if (tokenKey) {
                 const [sceneId, tokenId] = tokenKey.split('.');
                 const scene = game.scenes.get(sceneId);
-                const token = scene?.data.tokens.get(tokenId);
+                const token = scene?.tokens.get(tokenId);
                 if (!token) return;
-                actor = token.actor as ActorPF2e | null;
+                actor = token.actor;
             } else {
                 actor = game.actors.get(card.attr('data-actor-id') ?? '') ?? null;
             }
@@ -37,14 +36,16 @@ export const ChatCards = {
             // Get the Item
             const itemId = card.attr('data-item-id') ?? '';
             const embeddedItemData = $(event.target).parents('.item-card').attr('data-embedded-item') || 'null';
-            const itemData: ItemDataPF2e | null = JSON.parse(embeddedItemData);
-            const item = itemData ? ItemPF2e.createOwned(itemData, actor) : actor.items.get(itemId);
+            const itemData: ItemSourcePF2e | null = JSON.parse(embeddedItemData);
+            const item = itemData
+                ? (new ItemPF2e(itemData, { parent: actor }) as Embedded<ItemPF2e> | undefined)
+                : actor.items.get(itemId);
 
             if (item) {
                 const strike: StatisticModifier = actor.data.data.actions?.find(
                     (a: StatisticModifier) => a.item === itemId,
                 );
-                const rollOptions = (actor as ActorPF2e)?.getRollOptions(['all', 'attack-roll']);
+                const rollOptions = actor.getRollOptions(['all', 'attack-roll']);
 
                 if (action === 'weaponAttack') {
                     if (strike && rollOptions) {

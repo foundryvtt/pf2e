@@ -1,10 +1,10 @@
-import { SKILL_DICTIONARY } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 import { EffectPF2e } from '@item/effect';
-import { SkillAbbreviation } from '@actor/data-definitions';
 import { MacroPF2e } from '@module/macro';
 import { ChatMessagePF2e } from '@module/chat-message';
+import { SKILL_DICTIONARY } from '@actor/data/values';
+import { SkillAbbreviation } from '@actor/creature/data';
 
 /**
  * Create a Macro from an Item drop.

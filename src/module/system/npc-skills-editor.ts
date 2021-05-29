@@ -1,15 +1,14 @@
-import { SKILL_EXPANDED } from '../actor/base';
-import { NPCSkillData } from '@actor/data-definitions';
-import { NPCPF2e } from '../actor/npc';
-import { ItemPF2e } from '../item/base';
-import { LorePF2e } from '@item/others';
+import { SKILL_EXPANDED } from '@actor/data/values';
+import { NPCSkillData } from '@actor/npc/data';
+import type { NPCPF2e } from '@actor/index';
+import type { ItemPF2e, LorePF2e } from '@item/index';
 import { ErrorPF2e } from '@module/utils';
 
 /**
  * Specialized form to setup skills for an NPC character.
  */
 export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
-    newItems: ItemPF2e[];
+    newItems: ItemPF2e[] = [];
 
     constructor(actor: NPCPF2e, options: FormApplicationOptions) {
         super(actor, options);
@@ -200,7 +199,7 @@ export class NPCSkillsEditor extends FormApplication<NPCPF2e> {
      * defining the skill. They are of 'lore' type, even for non-lore skills.
      * @param skillId ID of the skill to search for.
      */
-    findSkillItem(skillId: string): Owned<LorePF2e> | null {
+    findSkillItem(skillId: string): Embedded<LorePF2e> | null {
         const skill = this.npc.data.data.skills[skillId];
 
         if (skill === undefined) {

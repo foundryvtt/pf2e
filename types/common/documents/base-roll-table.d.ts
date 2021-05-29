@@ -6,10 +6,8 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseRollTable extends abstract.Document {
-            /** @override */
-            static get schema(): new (...args: any[]) => data.RollTableData;
+            static get schema(): typeof data.RollTableData;
 
-            /** @override */
             static get metadata(): RollTableMetadata;
 
             /** A reference to the Collection of TableResult instances in this document, indexed by _id. */
@@ -17,7 +15,9 @@ declare module foundry {
         }
 
         interface BaseRollTable {
-            readonly data: data.RollTableData<BaseRollTable>;
+            readonly data: data.RollTableData<this>;
+
+            readonly parent: null;
         }
 
         interface RollTableMetadata extends abstract.DocumentMetadata {

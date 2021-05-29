@@ -1,20 +1,19 @@
-// @ts-nocheck
-
 import { MigrationBase } from './base';
-import { isPhysicalItem, ItemDataPF2e } from '@item/data/types';
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ItemSourcePF2e } from '@item/data';
+import { ActorSourcePF2e } from '@actor/data';
+import { isPhysicalData } from '@item/data/helpers';
 
 /** Catch up actors and items to the current template.json spec */
 export class Migration605CatchUpToTemplateJSON extends MigrationBase {
     static version = 0.605;
 
-    private addEffects(entityData: ActorDataPF2e | ItemDataPF2e) {
+    private addEffects(entityData: ActorSourcePF2e | ItemSourcePF2e) {
         if (!Array.isArray(entityData.effects)) {
             entityData.effects = [];
         }
     }
 
-    async updateActor(actorData: ActorDataPF2e) {
+    async updateActor(actorData: ActorSourcePF2e) {
         this.addEffects(actorData);
 
         // Add custom trait property
@@ -55,7 +54,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
     }
 
-    async updateItem(itemData: ItemDataPF2e, actorData: ActorDataPF2e) {
+    async updateItem(itemData: ItemSourcePF2e, actorData: ActorSourcePF2e) {
         this.addEffects(itemData);
 
         // Add slugs to owned items
@@ -78,7 +77,7 @@ export class Migration605CatchUpToTemplateJSON extends MigrationBase {
         }
 
         // Add item-identification property
-        if (isPhysicalItem(itemData) && !itemData.data.identification) {
+        if (isPhysicalData(itemData) && !itemData.data.identification) {
             const withoutIdentifyData: { identification: { status: string } } = itemData.data;
             withoutIdentifyData.identification.status = 'identified';
         }

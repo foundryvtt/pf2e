@@ -8,7 +8,7 @@ interface CanvasDimensions {
     ratio: number;
 }
 
-declare class Canvas<ActorType extends Actor = Actor> {
+declare class Canvas<TToken extends Token = Token> {
     id: string;
     app: PIXI.Application;
     stage: PIXI.Container;
@@ -18,7 +18,7 @@ declare class Canvas<ActorType extends Actor = Actor> {
     dimensions: CanvasDimensions | null;
     grid: GridLayer;
     lighting: LightingLayer;
-    tokens: TokenLayer<ActorType>;
+    tokens: TokenLayer<TToken>;
     templates: TemplateLayer;
 
     /**
@@ -59,6 +59,6 @@ declare class Canvas<ActorType extends Actor = Actor> {
     constructor();
 }
 
-declare type DrawnCanvas<A extends Actor = Actor> = {
-    [K in keyof Canvas<A>]: NonNullable<Canvas<A>[K]>;
+declare type DrawnCanvas<T extends Token = Token> = {
+    [K in keyof Canvas<T>]: NonNullable<Canvas<T>[K]>;
 };

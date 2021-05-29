@@ -1,5 +1,5 @@
 import { MigrationBase } from './base';
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemSourcePF2e } from '@item/data';
 
 /** Correct any sense rule element selector values that are using the old lowercase selector values */
 export class Migration631FixSenseRuleElementSelector extends MigrationBase {
@@ -10,7 +10,7 @@ export class Migration631FixSenseRuleElementSelector extends MigrationBase {
         Tremorsense: 'tremorsense',
     } as const;
 
-    async updateItem(itemData: ItemDataPF2e) {
+    async updateItem(itemData: ItemSourcePF2e) {
         itemData.data.rules.forEach((rule) => {
             if (rule.key === 'PF2E.RuleElement.Sense' && rule.selector) {
                 rule.selector = this.SENSE_SELECTOR_CONVERSION[rule.selector] ?? rule.selector;

@@ -30,8 +30,8 @@ declare module foundry {
             direction: number;
             angle: number;
             width: number;
-            borderColor: ColorField;
-            fillColor: ColorField;
+            borderColor: HexColorString;
+            fillColor: HexColorString;
             texture: ImagePath;
             flags: Record<string, unknown>;
         }
@@ -39,20 +39,15 @@ declare module foundry {
         class MeasuredTemplateData<
             TDocument extends documents.BaseMeasuredTemplate = documents.BaseMeasuredTemplate,
         > extends abstract.DocumentData<TDocument> {
-            user: documents.BaseUser;
-
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            /** @override */
-            _initialize(): void;
+            protected _initialize(): void;
 
-            /** @inheritdoc */
-            _validateDocument(): void;
+            protected _validateDocument(): void;
         }
 
-        interface MeasuredTemplateData extends Omit<MeasuredTemplateSource, '_id' | 'user'> {
-            _source: MeasuredTemplateSource;
+        interface MeasuredTemplateData extends MeasuredTemplateSource {
+            readonly _source: MeasuredTemplateSource;
         }
     }
 }

@@ -63,18 +63,15 @@ declare module foundry {
         class DrawingData<
             TDocument extends documents.BaseDrawing = documents.BaseDrawing,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
 
-            /** @override */
-            _initialize(): void;
+            protected _initialize(): void;
 
-            /** @inheritdoc */
-            _validateDocument(): void;
+            protected _validateDocument(): void;
         }
 
-        interface DrawingData extends Omit<DrawingSource, '_id'> {
-            _source: DrawingSource;
+        interface DrawingData extends DrawingSource {
+            readonly _source: DrawingSource;
         }
     }
 }

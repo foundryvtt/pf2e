@@ -1,6 +1,5 @@
 import { ActorPF2e } from '@actor/base';
 import { ItemPF2e } from '@item/base';
-import { ItemType } from '@item/data/types';
 import { ActiveEffectPF2e } from '@module/active-effect';
 import { CompendiumDirectoryPF2e } from '@module/apps/ui/compendium-directory';
 import { ChatMessagePF2e } from '@module/chat-message';
@@ -29,10 +28,9 @@ import {
     ProficiencyModifier,
     StatisticModifier,
 } from './module/modifiers';
-
-type ItemTypeMap = {
-    [K in ItemType]: Owned<InstanceType<ConfigPF2e['PF2E']['Item']['entityClasses'][K]>>[];
-};
+import { TokenDocumentPF2e, TokenPF2e } from '@module/token-document';
+import { UserPF2e } from '@module/user';
+import { ScenePF2e } from '@module/scene';
 
 declare global {
     interface Game {
@@ -61,12 +59,17 @@ declare global {
         };
     }
 
-    interface Actor {
-        itemTypes: ItemTypeMap;
-    }
-
     interface ConfigPF2e
-        extends Config<ActiveEffectPF2e, ActorPF2e, ChatMessagePF2e, CombatantPF2e, CombatPF2e, ItemPF2e, MacroPF2e> {
+        extends Config<
+            ActiveEffectPF2e,
+            ActorPF2e,
+            ChatMessagePF2e,
+            CombatantPF2e,
+            CombatPF2e,
+            ItemPF2e,
+            MacroPF2e,
+            TokenDocumentPF2e
+        > {
         debug: Config['debug'] & {
             ruleElement: boolean;
         };
@@ -82,7 +85,8 @@ declare global {
             CombatantPF2e,
             CombatPF2e,
             ItemPF2e,
-            MacroPF2e
+            MacroPF2e,
+            TokenDocumentPF2e
         >['ui'] & {
             combat: typeof CombatTrackerPF2e;
             compendium: typeof CompendiumDirectoryPF2e;
@@ -90,10 +94,10 @@ declare global {
     }
 
     const CONFIG: ConfigPF2e;
-    const canvas: Canvas<ActorPF2e>;
+    const canvas: Canvas<TokenPF2e>;
     namespace globalThis {
         // eslint-disable-next-line no-var
-        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e>;
+        var game: Game<ActorPF2e, ChatMessagePF2e, CombatPF2e, ItemPF2e, MacroPF2e, ScenePF2e, UserPF2e>;
     }
 
     interface Window {
@@ -109,31 +113,10 @@ declare global {
         PF2Check: typeof CheckPF2e;
     }
 
-    interface ChatMessage {
-        getFlag(scope: 'core', key: 'RollTable'): unknown;
-        getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
-        getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
-        getFlag(scope: 'pf2e', key: 'context'): { type: string; rollMode?: RollMode } | undefined;
-    }
-
-    interface User {
-        getFlag(
-            scope: 'pf2e',
-            key: 'settings',
-        ): {
-            uiTheme: 'blue' | 'red' | 'original' | 'ui';
-            showEffectPanel: boolean;
-            showRollDialogs: boolean;
-        };
-        getFlag(scope: 'pf2e', key: 'settings.uiTheme'): 'blue' | 'red' | 'original' | 'ui';
-        getFlag(scope: 'pf2e', key: 'settings.showEffectPanel'): boolean;
-        getFlag(scope: 'pf2e', key: 'settings.showRollDialogs'): boolean;
-        getFlag(scope: 'pf2e', key: `compendiumFolders.${string}.expanded`): boolean | undefined;
-    }
-
     interface ClientSettings {
         get(module: 'pf2e', setting: 'ancestryParagonVariant'): boolean;
         get(module: 'pf2e', setting: 'automation.lootableNPCs'): boolean;
+        get(module: 'pf2e', setting: 'defaultTokenSettings'): boolean;
         get(module: 'pf2e', setting: 'defaultTokenSettingsBar'): number;
         get(module: 'pf2e', setting: 'defaultTokenSettingsName'): string;
         get(module: 'pf2e', setting: 'enabledRulesUI'): boolean;

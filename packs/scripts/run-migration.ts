@@ -1,12 +1,6 @@
-import * as fs from 'fs-extra';
-import * as path from 'path';
-import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
+import { ActorSourcePF2e } from '@actor/data';
+import { ItemSourcePF2e } from '@item/data';
 import { MigrationRunnerBase } from '@module/migration-runner-base';
-import { ItemDataPF2e } from '@item/data/types';
-import { ActorPF2e } from '@actor/base';
-import { ItemPF2e } from '@item/base';
-import { ActorDataPF2e } from '@actor/data-definitions';
-import { MigrationBase } from '@module/migrations/base';
 import { Migration621RemoveConfigSpellSchools } from '@module/migrations/621-remove-config-spellSchools';
 import { Migration623NumifyPotencyRunes } from '@module/migrations/623-numify-potency-runes';
 import { Migration625EnsurePresenceOfSaves } from '@module/migrations/625-ensure-presence-of-saves';
@@ -18,6 +12,10 @@ import { Migration630FixTalismanSpelling } from '@module/migrations/630-fix-tali
 import { Migration631FixSenseRuleElementSelector } from '@module/migrations/631-fix-sense-rule-element-selector';
 import { Migration632DeleteOrphanedSpells } from '@module/migrations/632-delete-orphaned-spells';
 import { Migration633DeleteUnidentifiedTraits } from '@module/migrations/633-delete-unidentified-traits';
+import { MigrationBase } from '@module/migrations/base';
+import * as fs from 'fs-extra';
+import * as path from 'path';
+import { populateFoundryUtilFunctions } from '../../tests/fixtures/foundryshim';
 
 const migrations: MigrationBase[] = [
     new Migration621RemoveConfigSpellSchools(),
@@ -35,7 +33,8 @@ const migrations: MigrationBase[] = [
 
 const packsDataPath = path.resolve(process.cwd(), 'packs/data');
 
-type CompendiumEntityPF2e = ActorPF2e | ItemPF2e | Exclude<CompendiumEntity, Actor | Item>;
+type CompendiumSource = CompendiumDocument['data']['_source'];
+
 const actorTypes = ['character', 'npc', 'hazard', 'loot', 'familiar', 'vehicle'];
 const itemTypes = [
     'backpack',
@@ -60,16 +59,16 @@ const itemTypes = [
     'effect',
 ];
 
-const isActorData = (docSource: CompendiumEntity['data']): docSource is ActorDataPF2e => {
+const isActorData = (docSource: CompendiumSource): docSource is ActorSourcePF2e => {
     return 'type' in docSource && actorTypes.includes(docSource.type);
 };
-const isItemData = (docSource: CompendiumEntity['data']): docSource is ItemDataPF2e => {
+const isItemData = (docSource: CompendiumSource): docSource is ItemSourcePF2e => {
     return 'type' in docSource && itemTypes.includes(docSource.type);
 };
-const isMacroData = (docSource: CompendiumEntity['data']['_source']): docSource is foundry.data.MacroSource => {
+const isMacroData = (docSource: CompendiumSource): docSource is foundry.data.MacroSource => {
     return 'type' in docSource && ['chat', 'script'].includes(docSource.type);
 };
-const isTableData = (docSource: CompendiumEntity['data']['_source']): docSource is foundry.data.RollTableSource => {
+const isTableData = (docSource: CompendiumSource): docSource is foundry.data.RollTableSource => {
     return 'results' in docSource && Array.isArray(docSource.results);
 };
 
@@ -122,29 +121,33 @@ async function migrate() {
     for (const filePath of allEntries) {
         const content = await fs.readFile(filePath, { encoding: 'utf-8' });
 
-        let entity: CompendiumEntityPF2e['data'];
+        let source: CompendiumSource;
         try {
             // Parse file content
-            entity = JSON.parse(content);
+            source = JSON.parse(content);
         } catch (e) {
             throw { message: `File ${filePath} could not be parsed. Error: ${e.message}` };
         }
 
         // skip journal entries, rollable tables, and macros
-        let updatedEntity: ActorData | ItemDataPF2e | foundry.data.MacroSource | foundry.data.RollTableSource;
-        if (isActorData(entity)) {
-            updatedEntity = await migrationRunner.getUpdatedActor(entity, migrationRunner.migrations);
-        } else if (isItemData(entity)) {
-            updatedEntity = await migrationRunner.getUpdatedItem(entity, migrationRunner.migrations);
-        } else if (isMacroData(entity)) {
-            updatedEntity = await migrationRunner.getUpdatedMacro(entity, migrationRunner.migrations);
-        } else if (isTableData(entity)) {
-            updatedEntity = await migrationRunner.getUpdatedTable(entity, migrationRunner.migrations);
+        let updatedEntity:
+            | foundry.data.ActorSource
+            | ItemSourcePF2e
+            | foundry.data.MacroSource
+            | foundry.data.RollTableSource;
+        if (isActorData(source)) {
+            updatedEntity = await migrationRunner.getUpdatedActor(source, migrationRunner.migrations);
+        } else if (isItemData(source)) {
+            updatedEntity = await migrationRunner.getUpdatedItem(source, migrationRunner.migrations);
+        } else if (isMacroData(source)) {
+            updatedEntity = await migrationRunner.getUpdatedMacro(source, migrationRunner.migrations);
+        } else if (isTableData(source)) {
+            updatedEntity = await migrationRunner.getUpdatedTable(source, migrationRunner.migrations);
         } else {
             continue;
         }
 
-        const origData = JSONstringifyOrder(entity);
+        const origData = JSONstringifyOrder(source);
         const outData = JSONstringifyOrder(updatedEntity);
 
         if (outData !== origData) {

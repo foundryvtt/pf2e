@@ -1,11 +1,10 @@
+import { ActorPF2e, NPCPF2e } from '@actor/index';
 import { CheckPF2e } from './module/system/rolls';
 import { RuleElements } from './module/rules/rules';
 import { PF2E } from './scripts/hooks';
-import { ActorPF2e } from './module/actor/base';
 
 import '@system/measure';
 import './styles/pf2e.scss';
-import { NPCPF2e } from '@actor/npc';
 // load in the scripts (that were previously just included by <script> tags instead of in the bundle
 require('./scripts/system/canvas-drop-handler');
 
@@ -61,7 +60,7 @@ Hooks.on('getChatLogEntryContext', (_html, options) => {
         const canReroll = !!message.getFlag('pf2e', 'canReroll');
         return (
             canReroll &&
-            !!actor &&
+            actor?.data.type === 'character' &&
             actor.isOwner &&
             actor.data.data.attributes.heroPoints?.rank >= 1 &&
             (message.isAuthor || game.user.isGM)
@@ -147,7 +146,7 @@ Hooks.on('updateUser', () => {
     game.pf2e.effectPanel.refresh();
 });
 
-Hooks.on('preCreateToken', (_scene: Scene, token: TokenData) => {
+Hooks.on('preCreateToken', (_scene: Scene, token: foundry.data.TokenData) => {
     const actor = game.actors.get(token.actorId);
     if (actor) {
         actor.items.forEach((item) => {

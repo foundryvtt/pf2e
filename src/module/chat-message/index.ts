@@ -1,4 +1,4 @@
-import { ActorPF2e } from '@actor/base';
+import type { ActorPF2e } from '@actor/index';
 import { ChatCards } from './listeners/cards';
 
 export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
@@ -12,5 +12,10 @@ export class ChatMessagePF2e extends ChatMessage<ActorPF2e> {
 }
 
 export interface ChatMessagePF2e {
-    readonly data: foundry.data.ChatMessageData<ChatMessagePF2e>;
+    readonly data: foundry.data.ChatMessageData<this>;
+
+    getFlag(scope: 'core', key: 'RollTable'): unknown;
+    getFlag(scope: 'pf2e', key: 'canReroll'): boolean | undefined;
+    getFlag(scope: 'pf2e', key: 'damageRoll'): object | undefined;
+    getFlag(scope: 'pf2e', key: 'context'): { type: string; rollMode?: RollMode } | undefined;
 }

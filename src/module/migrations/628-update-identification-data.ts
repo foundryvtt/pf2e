@@ -1,14 +1,10 @@
 import { MigrationBase } from './base';
-import {
-    IdentificationStatus,
-    isPhysicalItem,
-    ItemDataPF2e,
-    IdentificationData,
-    IdentifiedData,
-} from '@item/data/types';
+import { ItemSourcePF2e } from '@item/data';
+import { IdentificationData, IdentificationStatus, IdentifiedData } from '@item/physical/data';
+import { isPhysicalData } from '@item/data/helpers';
 
-type MaybeOldData = ItemDataPF2e & {
-    data: ItemDataPF2e['data'] & {
+type MaybeOldData = ItemSourcePF2e & {
+    data: ItemSourcePF2e['data'] & {
         identified?: unknown;
         identification: Partial<IdentificationData> & {
             status?: IdentificationStatus;
@@ -41,7 +37,7 @@ export class Migration628UpdateIdentificationData extends MigrationBase {
     }
 
     async updateItem(itemData: MaybeOldData): Promise<void> {
-        if (!isPhysicalItem(itemData)) return;
+        if (!isPhysicalData(itemData)) return;
 
         // Items are occasionally lack a `rarity` property due to missing a previous migration
         itemData.data.traits.rarity ??= { value: 'common' };

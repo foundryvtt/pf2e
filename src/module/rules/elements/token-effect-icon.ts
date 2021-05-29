@@ -1,7 +1,7 @@
-import { CreatureData } from '@actor/data-definitions';
+import { CreatureData } from '@actor/data';
 import { RuleElementPF2e, TokenEffect } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '@module/rules/rules-data-definitions';
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 
 /**
  * @category RuleElement
