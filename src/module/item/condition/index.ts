@@ -7,6 +7,11 @@ export class ConditionPF2e extends ItemPF2e {
         return ConditionData;
     }
 
+    /** Is the condition currently active? */
+    get isActive(): boolean {
+        return this.data.data.active;
+    }
+
     /** Is the condition from the pf2e system or a module? */
     get fromSystem(): boolean {
         return !!this.getFlag('pf2e', 'condition');
