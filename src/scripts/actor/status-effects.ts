@@ -527,12 +527,10 @@ export class StatusEffects {
                 continue;
             }
 
-            const effect = token.actor?.itemTypes.condition
-                .map((condition) => condition.data)
-                .find(
-                    (conditionData) =>
-                        conditionData.data.source.value === source && conditionData.data.hud.statusName === statusName,
-                );
+            const effect = token?.actor?.itemTypes?.condition?.find(
+                (condition) =>
+                    condition.data.data.source.value === source && condition.data.data.hud.statusName === statusName,
+            )?.data;
 
             if (typeof value === 'string' && condition.data.value.isValued) {
                 if (effect) {
@@ -556,10 +554,10 @@ export class StatusEffects {
                 } else if (Number(value) > 0) {
                     // No effect, but value is a number and is greater than 0.
                     // Add a new condition with the value.
-
-                    condition.data.source.value = source;
-                    condition.data.value.value = Number(value);
-                    await ConditionManager.addConditionToToken(condition.toObject(), token);
+                    const conditionData = condition.toObject();
+                    conditionData.data.source.value = source;
+                    conditionData.data.value.value = Number(value);
+                    await ConditionManager.addConditionToToken(conditionData, token);
                 }
             } else if (!value) {
                 // Value was not provided.
@@ -575,10 +573,10 @@ export class StatusEffects {
                     await ConditionManager.removeConditionFromToken([effect._id], token);
                 } else if (effect === undefined) {
                     // Effect does not exist.  Create it.
-
+                    const conditionData = condition.toObject();
                     // Set the source to this function.
-                    condition.data.source.value = source;
-                    await ConditionManager.addConditionToToken(condition.toObject(), token);
+                    conditionData.data.source.value = source;
+                    await ConditionManager.addConditionToToken(conditionData, token);
                 }
             }
         }
