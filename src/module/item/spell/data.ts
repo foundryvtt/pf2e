@@ -9,18 +9,9 @@ export type SpellSource = BaseNonPhysicalItemSource<'spell', SpellSystemData>;
 
 export class SpellData extends BaseNonPhysicalItemData<SpellPF2e> {
     /** Prepared data */
-    isCantrip: boolean;
-    isFocusSpell: boolean;
-    isRitual: boolean;
-
-    /** @override */
-    constructor(data?: Partial<SpellSource>, document?: SpellPF2e | null) {
-        super(data, document);
-
-        this.isCantrip = this.data.level.value === 0;
-        this.isFocusSpell = this.data.category.value === 'focus';
-        this.isRitual = this.data.category.value === 'ritual';
-    }
+    isCantrip!: boolean;
+    isFocusSpell!: boolean;
+    isRitual!: boolean;
 
     /** @override */
     static DEFAULT_ICON: ImagePath = 'systems/pf2e/icons/default-icons/spell.svg';
