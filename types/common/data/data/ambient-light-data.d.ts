@@ -31,6 +31,7 @@ declare module foundry {
             tintAlpha: number;
             lightAnimation: AnimationSource;
             darknessThreshold: number;
+            darkness: DarknessActivationSource;
             hidden: boolean;
             flags: Record<string, unknown>;
         }
@@ -41,9 +42,11 @@ declare module foundry {
             static defineSchema(): abstract.DocumentSchema;
 
             lightAnimation: AnimationData<documents.BaseAmbientLight>;
+
+            darkness: DarknessActivation;
         }
 
-        interface AmbientLightData extends Omit<AmbientLightSource, 'lightAnimation'> {
+        interface AmbientLightData extends Omit<AmbientLightSource, 'lightAnimation' | 'darknessActivation'> {
             readonly _source: AmbientLightSource;
         }
     }

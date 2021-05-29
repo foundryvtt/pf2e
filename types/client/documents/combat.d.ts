@@ -35,7 +35,7 @@ declare global {
         /* -------------------------------------------- */
 
         /** Get the Combatant who has the current turn. */
-        get combatant(): TCombatant;
+        get combatant(): TCombatant | undefined;
 
         /** The numeric round of the Combat encounter */
         get round(): number;
