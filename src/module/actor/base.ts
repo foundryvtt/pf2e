@@ -3,7 +3,7 @@ import { isCycle } from '@item/container/helpers';
 import { DicePF2e } from '@scripts/dice';
 import { ItemPF2e, SpellcastingEntryPF2e, PhysicalItemPF2e } from '@item/index';
 import type { ConditionPF2e, ArmorPF2e } from '@item/index';
-import { ItemDataPF2e, ConditionData, WeaponData, ItemSourcePF2e, ItemType } from '@item/data';
+import { ConditionData, WeaponData, ItemSourcePF2e, ItemType } from '@item/data';
 import { ErrorPF2e, objectHasKey } from '@module/utils';
 import type { ActiveEffectPF2e } from '@module/active-effect';
 import { LocalizePF2e } from '@module/system/localize';
@@ -1058,17 +1058,17 @@ export interface ActorPF2e {
     /** See implementation in class */
     createEmbeddedDocuments(
         embeddedName: 'ActiveEffect',
-        data: DeepPartial<foundry.data.ActiveEffectSource>[],
+        data: PreCreate<foundry.data.ActiveEffectSource>[],
         context?: DocumentModificationContext,
     ): Promise<ActiveEffectPF2e[]>;
     createEmbeddedDocuments(
         embeddedName: 'Item',
-        data: DeepPartial<ItemDataPF2e>[],
+        data: PreCreate<ItemSourcePF2e>[],
         context?: DocumentModificationContext,
     ): Promise<ItemPF2e[]>;
     createEmbeddedDocuments(
         embeddedName: 'ActiveEffect' | 'Item',
-        data: DeepPartial<foundry.data.ActiveEffectSource>[] | DeepPartial<ItemDataPF2e>[],
+        data: PreCreate<foundry.data.ActiveEffectSource>[] | PreCreate<ItemSourcePF2e>[],
         context?: DocumentModificationContext,
     ): Promise<ActiveEffectPF2e[] | ItemPF2e[]>;
 
