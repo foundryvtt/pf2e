@@ -91,9 +91,9 @@ export function listen(): void {
                 },
                 {
                     title: 'Trait',
-                    inline: 'span',
-                    classes: 'trait',
-                    maerge_siblings: false,
+                    block: 'section',
+                    classes: 'traits',
+                    wrapper: true,
                 },
                 {
                     title: 'Written Note',
