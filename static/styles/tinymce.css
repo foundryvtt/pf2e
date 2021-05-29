@@ -141,7 +141,7 @@ blockquote::before {
     margin-top: var(--space-m);
 }
 
-.info__header {
+.info h4 {
     font-size: 0.9em;
     font-weight: 400;
     line-height: 1.2;
@@ -154,7 +154,7 @@ blockquote::before {
     justify-content: space-between;
 }
 
-.info__header::after {
+.info h4::after {
     font-family: 'Font Awesome 5 Free';
     content: '\f05a';
     font-weight: 900;
@@ -181,6 +181,7 @@ blockquote::before {
     font-family: 'Roboto Condensed', sans-serif;
     color: black;
     line-height: 1.2;
+    margin-bottom: var(--space-m);
 }
 
 .statblock > * + * {
@@ -209,4 +210,13 @@ blockquote::before {
 .statblock hr {
     border: none;
     border-bottom: 1px solid black;
+}
+
+.statblock p {
+    margin-left: var(--space-m);
+    position: relative;
+}
+
+.statblock p strong:first-of-type {
+    margin-left: -0.5em;
 }

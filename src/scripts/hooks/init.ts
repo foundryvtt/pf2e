@@ -79,11 +79,6 @@ export function listen(): void {
                     merge_siblings: false,
                 },
                 {
-                    title: 'Info Header',
-                    block: 'h4',
-                    classes: 'info__header',
-                },
-                {
                     title: 'Stat Block',
                     block: 'section',
                     classes: 'statblock',
