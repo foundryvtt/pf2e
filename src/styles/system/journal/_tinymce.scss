@@ -156,6 +156,7 @@ blockquote::before {
         display: flex;
         align-items: center;
         justify-content: space-between;
+        text-transform: capitalize;
 
         &::after {
             font-family: 'Font Awesome 5 Free';
@@ -209,6 +210,10 @@ a.inline-roll {
         strong:first-of-type {
             margin-left: calc(var(--indent) * -1);
         }
+
+        .trait:first-of-type {
+            margin-left: calc(var(--indent) * -1 - 2px);
+        }
     }
 
     span.pf2-icon {
@@ -235,18 +240,20 @@ a.inline-roll {
     }
 }
 
-.trait {
+.traits {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-s);
+    padding: 0;
+}
+
+.traits p {
     display: inline-flex;
     font-size: 0.8em;
-    font-family: 'Roboto Condensed', $serif;
+    font-family: 'Roboto Condensed', serif;
     text-transform: uppercase;
     color: white;
     padding: var(--space-s) var(--space-m);
     background-color: var(--primary);
-    margin-top: 0;
-    margin-bottom: 0;
-
-    & + & {
-        margin-right: var(--space-s);
-    }
+    margin: 0 !important;
 }
