@@ -11,7 +11,7 @@ import type { ClassData, ClassSource } from '@item/class/data';
 export abstract class ABCItemPF2e extends ItemPF2e {
     protected async getFeature(entry: ABCFeatureEntryData): Promise<FeatSource> {
         if (entry.pack) {
-            const feat = game.packs.get(entry.pack)?.getDocument(entry.id);
+            const feat = await game.packs.get(entry.pack)?.getDocument(entry.id);
             return feat instanceof FeatPF2e
                 ? feat.toObject()
                 : Promise.reject(new Error('Invalid item type referenced in ABCFeatureEntryData'));
