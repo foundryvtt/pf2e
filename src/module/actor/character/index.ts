@@ -1151,7 +1151,7 @@ export class CharacterPF2e extends CreaturePF2e {
     }
 
     private prepareBackground() {
-        this.data.data.details.background.value = this.background?.name ?? '';
+        this.data.data.details.background = this.background?.name ?? '';
     }
 
     private prepareClass(): void {
