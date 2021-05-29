@@ -606,8 +606,8 @@ declare global {
     };
 
     type PreCreate<T extends foundry.abstract.DocumentSource> = T extends { name: string; type: string }
-        ? Partial<T> & { name: string; type: T['type'] }
-        : Partial<T>;
+        ? DeepPartial<T> & { name: string; type: T['type'] }
+        : DeepPartial<T>;
 
     type DocumentUpdateData<T extends foundry.abstract.Document = foundry.abstract.Document> =
         | Partial<T['data']['_source']>
