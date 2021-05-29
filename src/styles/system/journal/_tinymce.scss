@@ -14,14 +14,50 @@ h1,
 h2,
 h3,
 h4 {
+    margin-bottom: 0;
+}
+
+h1,
+h2 {
     font-family: $serif;
+}
+
+h1 {
+    font-size: 3em;
+    color: var(--primary);
+    border: none;
+    text-align: center;
+    margin-top: var(--space-l);
+    margin-bottom: var(--space-s);
+    line-height: 1;
+}
+
+h2 {
     text-transform: capitalize;
     border-bottom: 1px solid var(--primary);
-    margin-bottom: 0;
+}
+
+h3,
+h4 {
+    font-weight: 700;
+}
+
+:is(h3, h4) + p {
+    margin-top: var(--space-s);
+}
+
+h4 {
+    text-transform: uppercase;
 }
 
 P {
     font-weight: 400;
+}
+
+.message {
+    font-family: 'La Belle Aurore', cursive;
+    font-size: 2em;
+    line-height: 1.2;
 }
 
 blockquote {
