@@ -55,16 +55,10 @@ export interface CharacterSystemData extends CreatureSystemData {
 
         /** Character alignment (LN, N, NG, etc.) */
         alignment: { value: Alignment };
-        /** Character class ('barbarian', 'fighter', etc.) */
-        class: { value: string };
-        /** Character ancestry (their race, generally). */
-        ancestry: { value: string };
         /** Character heritage (what specific kind of race they are, like 'Warmarch Hobgoblin'). */
         heritage: { value: string };
         /** The diety that the character worships (and an image of the diety symbol). */
         deity: { value: string; image: ImagePath };
-        /** Character background - their occupation, upbringing, etc. */
-        background: string;
         /** How old the character is (user-provided field). */
         age: { value: string };
         /** Character height (user-provided field). */
@@ -99,6 +93,11 @@ export interface CharacterSystemData extends CreatureSystemData {
             /** The minimum level (almost always '1'). */
             min: number;
         };
+
+        /** Prepared/sheet data */
+        ancestry: string;
+        background: string;
+        class: string;
     };
 
     attributes: CharacterAttributes;

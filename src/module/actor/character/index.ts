@@ -1131,7 +1131,7 @@ export class CharacterPF2e extends CreaturePF2e {
         const ancestry = this.ancestry;
         if (ancestry) {
             const actorData = this.data;
-            actorData.data.details.ancestry.value = ancestry.name;
+            actorData.data.details.ancestry = ancestry.name;
             actorData.data.attributes.ancestryhp = ancestry.hitPoints;
             actorData.data.attributes.speed.value = String(ancestry.speed);
             actorData.data.traits.size.value = ancestry.size;
@@ -1158,8 +1158,8 @@ export class CharacterPF2e extends CreaturePF2e {
         const classItem = this.class;
 
         if (classItem) {
-            this.data.data.details.class.value = classItem.name;
-            this.data.data.attributes.classhp = classItem.hpPerLevel;
+            this.data.data.details.class = classItem.name ?? '';
+            this.data.data.attributes.classhp = classItem.hpPerLevel ?? 0;
         }
     }
 

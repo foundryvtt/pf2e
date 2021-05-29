@@ -29,6 +29,14 @@ export class SpellPF2e extends ItemPF2e {
         return this.data.isRitual;
     }
 
+    /** @override */
+    prepareBaseData() {
+        super.prepareBaseData();
+        this.data.isCantrip = this.data.data.level.value === 0;
+        this.data.isFocusSpell = this.data.data.category.value === 'focus';
+        this.data.isRitual = this.data.data.category.value === 'ritual';
+    }
+
     getChatData(
         this: Embedded<SpellPF2e>,
         htmlOptions: EnrichHTMLOptions = {},
