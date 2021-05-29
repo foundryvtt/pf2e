@@ -102,5 +102,5 @@ export interface ConditionSystemData extends ItemSystemData {
             },
         ];
     };
-    overrides: [];
+    overrides: string[];
 }

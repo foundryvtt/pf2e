@@ -16,6 +16,11 @@ export class ConditionPF2e extends ItemPF2e {
     get fromSystem(): boolean {
         return !!this.getFlag('pf2e', 'condition');
     }
+
+    /** Is the condition found in the token HUD menu? */
+    get isInHUD(): boolean {
+        return this.data.data.sources.hud;
+    }
 }
 
 export interface ConditionPF2e {
