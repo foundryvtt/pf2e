@@ -92,6 +92,11 @@ export function listen(): void {
                     classes: 'trait',
                     maerge_siblings: false,
                 },
+                {
+                    title: 'Written Note',
+                    block: 'p',
+                    classes: 'message',
+                },
             ],
         });
 
