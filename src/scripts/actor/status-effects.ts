@@ -369,11 +369,11 @@ export class StatusEffects {
             }
         } else if (event.type === 'click') {
             if (!condition && status) {
-                const newCondition = ConditionManager.getCondition(status);
+                const newCondition = ConditionManager.getCondition(status).toObject();
                 newCondition.data.sources.hud = true;
                 this.statusEffectChanged = true;
 
-                await ConditionManager.addConditionToToken(newCondition.toObject(), this);
+                await ConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }
