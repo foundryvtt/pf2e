@@ -1450,9 +1450,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
         const data: any = duplicate(header.dataset);
 
         if (data.type === 'feat') {
-            const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType?.value.capitalize()}`);
+            const featTypeString = game.i18n.localize(`PF2E.FeatType${data.featType.capitalize()}`);
             data.name = `${game.i18n.localize('PF2E.NewLabel')} ${featTypeString}`;
-            mergeObject(data, { 'data.featType.value': data.data.featType });
+            mergeObject(data, { 'data.featType.value': data.featType });
         } else if (data.type === 'action') {
             const newLabel = game.i18n.localize('PF2E.NewLabel');
             const actionTypeLabel = game.i18n.localize(`PF2E.ActionType${data.actionType.capitalize()}`);
@@ -1462,13 +1462,14 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
             mergeObject(data, { 'data.weaponType.value': data.actionType });
         } else if (data.type === 'spell') {
+            data.level = Number(data.level);
             // for prepared spellcasting entries, set showUnpreparedSpells to true to avoid the confusion of nothing appearing to happen.
             this.actor._setShowUnpreparedSpells(data.location, data.level);
 
             const newLabel = game.i18n.localize('PF2E.NewLabel');
-            const spellLevel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
+            const levelLabel = game.i18n.localize(`PF2E.SpellLevel${data.level}`);
             const spellLabel = data.level > 0 ? game.i18n.localize('PF2E.SpellLabel') : '';
-            data.name = `${newLabel} ${spellLevel} ${spellLabel}`;
+            data.name = `${newLabel} ${levelLabel} ${spellLabel}`;
             mergeObject(data, {
                 'data.level.value': data.level,
                 'data.location.value': data.location,
@@ -1484,10 +1485,10 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
                 },
             ]);
         } else if (data.type === 'lore') {
-            if (this.type === 'npc') {
-                data.name = game.i18n.localize('PF2E.SkillLabel');
-                data.img = '/icons/svg/d20-black.svg';
-            } else data.name = game.i18n.localize('PF2E.NewPlaceholders.Lore');
+            data.name =
+                this.type === 'npc'
+                    ? game.i18n.localize('PF2E.SkillLabel')
+                    : game.i18n.localize('PF2E.NewPlaceholders.Lore');
         } else {
             data.name = game.i18n.localize(`PF2E.NewPlaceholders.${data.type.capitalize()}`);
         }
