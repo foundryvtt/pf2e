@@ -52,7 +52,7 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
                 ChatMessage.create(
                     {
                         user: game.user.id,
-                        type: CHAT_MESSAGE_TYPES.ROLL,
+                        type: CONST.CHAT_MESSAGE_TYPES.ROLL,
                         flavor: `<strong>${rollType} Roll: Treat Wounds</strong> (${successLabel})`,
                         roll: healRoll,
                         speaker: ChatMessage.getSpeaker(),
@@ -66,7 +66,11 @@ const rollTreatWounds = async ({ DC, bonus, med, riskysurgery, mortalhealing }) 
 
 async function applyChanges($html) {
     for (const token of canvas.tokens.controlled) {
-        var { med } = token.actor.data.data.skills;
+        var med = token.actor.data.data.skills.med;
+        if (!med) {
+            ui.notifications.warn(`Token ${token.name} does not have the medicine skill`);
+            continue;
+        }
         const { name } = token;
         const mod = parseInt($html.find('[name="modifier"]').val()) || 0;
         const requestedProf = parseInt($html.find('[name="dc-type"]')[0].value) || 1;
