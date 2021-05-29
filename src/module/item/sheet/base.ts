@@ -202,15 +202,14 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
 
     /** An alternative to super.getData() for subclasses that don't need this class's `getData` */
     protected getBaseData(): ItemSheetDataPF2e<TItem> {
-        const document = this.item;
-        const documentData: ItemDataPF2e = document.data;
+        const itemData = this.item.data;
         const isEditable = this.isEditable;
         return {
             cssClass: isEditable ? 'editable' : 'locked',
             editable: isEditable,
-            document: document,
-            item: documentData,
-            data: documentData.data,
+            document: this.item,
+            item: itemData,
+            data: itemData.data,
             limited: this.item.limited,
             options: this.options,
             owner: this.item.isOwner,
@@ -224,25 +223,19 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected getActiveEffectsData(): AESheetData {
         const durationString = (duration: foundry.data.EffectDurationData): string => {
             const translations = LocalizePF2e.translations.PF2E.ActiveEffects;
-            type DurationEntry = [string, number | string | null];
-            const durationEntries: DurationEntry[] = Object.entries(duration).filter((entry: DurationEntry) =>
-                ['rounds', 'seconds', 'turns'].includes(entry[0]),
-            );
 
-            const [key, quantity] = durationEntries.find(
-                (entry: DurationEntry): entry is [string, number | null] => typeof entry[1] === 'number',
-            ) ?? ['permanent', null];
-
-            if (key === 'permanent') {
-                return translations.Duration.Permanent;
-            }
+            /** @todo use `as const` when fixed in typescript 4.3.3 */
+            const durationFields: ['rounds', 'seconds', 'turns'] = ['rounds', 'seconds', 'turns'];
+            const unit = durationFields.find((unit) => duration[unit] !== undefined);
+            const quantity = unit && duration[unit];
+            if (!(typeof unit === 'string' && typeof quantity === 'number')) return translations.Duration.Permanent;
 
             type UnitLabel = 'Second' | 'Seconds' | 'Round' | 'Rounds' | 'Turn' | 'Turns';
-            const unit =
+            const unitLabel =
                 quantity === 1
-                    ? ((key.slice(0, 1).toUpperCase() + key.slice(1, -1)) as UnitLabel)
-                    : ((key.slice(0, 1).toUpperCase() + key.slice(1)) as UnitLabel);
-            return game.i18n.format(translations.Duration[unit ?? 'seconds'], {
+                    ? ((unit.slice(0, 1).toUpperCase() + unit.slice(1, -1)) as UnitLabel)
+                    : ((unit.slice(0, 1).toUpperCase() + unit.slice(1)) as UnitLabel);
+            return game.i18n.format(translations.Duration[unitLabel], {
                 quantity,
             });
         };

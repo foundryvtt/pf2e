@@ -25,7 +25,7 @@ declare module foundry {
             volume: number;
             easing: boolean;
             hidden: boolean;
-            darkness: { min: number; max: number };
+            darkness: DarknessActivationSource;
             flags: Record<string, unknown>;
         }
 

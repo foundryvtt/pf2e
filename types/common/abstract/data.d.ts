@@ -18,9 +18,9 @@ declare global {
                 type: object;
                 required: boolean;
                 nullable?: boolean;
-                default?: Function | string | number | object | null;
+                default?: ((value: any) => string | number | object | null) | string | number | object | null;
                 clean?: (data: unknown) => void;
-                validate?: (data: unknown) => boolean;
+                validate?: (data: any) => boolean;
                 validationError?: string;
                 isCollection?: boolean;
             }
@@ -58,6 +58,8 @@ declare global {
 
                 /** Define the data schema for documents of this type. */
                 static get schema(): DocumentSchema;
+
+                _schema?: DocumentSchema;
 
                 /**
                  * Define the data schema for this document instance.
