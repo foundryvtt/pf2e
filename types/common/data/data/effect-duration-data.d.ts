@@ -12,22 +12,37 @@ declare module foundry {
          */
         interface EffectDurationSource {
             startTime: number;
-            seconds: number;
-            combat: string;
-            rounds: number;
-            turns: number;
-            startRound: number;
-            startTurn: number;
+            seconds: number | undefined;
+            combat?: string;
+            rounds: number | undefined;
+            turns: number | undefined;
+            startRound: number | null;
+            startTurn: number | null;
         }
 
         class EffectDurationData<
             TDocument extends documents.BaseActiveEffect = documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static defineSchema(): {
+                startTime: typeof fields.TIMESTAMP_FIELD;
+                seconds: typeof fields.NONNEGATIVE_INTEGER_FIELD;
+                combat: typeof fields.STRING_FIELD;
+                rounds: typeof fields.NONNEGATIVE_INTEGER_FIELD;
+                turns: typeof fields.NONNEGATIVE_INTEGER_FIELD;
+                startRound: typeof fields.NONNEGATIVE_INTEGER_FIELD;
+                startTurn: typeof fields.NONNEGATIVE_INTEGER_FIELD;
+            };
         }
 
         interface EffectDurationData extends EffectDurationSource {
-            _source: EffectDurationSource;
+            readonly _source: EffectDurationSource;
+
+            /** @todo uncomment when prettier is updated to support typescript 4.3 */
+            // get schema(): ReturnType<typeof EffectDurationData['defineSchema']>;
+        }
+
+        namespace EffectDurationData {
+            const schema: ReturnType<typeof EffectDurationData['defineSchema']>;
         }
     }
 }

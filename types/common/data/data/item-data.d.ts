@@ -34,7 +34,30 @@ declare module foundry {
             TDocument extends documents.BaseItem,
             TActiveEffect extends documents.BaseActiveEffect,
         > extends abstract.DocumentData<TDocument> {
-            static defineSchema(): abstract.DocumentSchema;
+            static defineSchema(): {
+                _id: typeof fields.DOCUMENT_ID;
+                name: typeof fields.REQUIRED_STRING;
+                type: {
+                    type: typeof String;
+                    required: true;
+                    validate: (t: string) => boolean;
+                    validationError: 'The provided Item type must be in the array of types defined by the game system';
+                };
+                img: typeof fields.IMAGE_FIELD;
+                data: typeof fields.OBJECT_FIELD;
+                effects: {
+                    type: {
+                        ActiveEffect: typeof documents.BaseActiveEffect;
+                    };
+                    required: true;
+                    default: never[];
+                    isCollection: true;
+                };
+                folder: fields.ForeignDocumentField<{ type: typeof documents.BaseFolder }>;
+                sort: typeof fields.INTEGER_SORT_FIELD;
+                permission: typeof fields.DOCUMENT_PERMISSIONS;
+                flags: typeof fields.OBJECT_FIELD;
+            };
 
             /** The default icon used for newly created Item documents */
             static DEFAULT_ICON: ImagePath;
@@ -48,6 +71,13 @@ declare module foundry {
         interface ItemData<TDocument extends documents.BaseItem, TActiveEffect extends documents.BaseActiveEffect>
             extends Omit<ItemSource, 'effects'> {
             readonly _source: ItemSource;
+
+            /** @todo uncomment when prettier is updated to support typescript 4.3 */
+            // get schema(): ReturnType<typeof ItemData['defineSchema']>;
+        }
+
+        namespace ItemData {
+            const schema: ReturnType<typeof ItemData['defineSchema']>;
         }
     }
 }
