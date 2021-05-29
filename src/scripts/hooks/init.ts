@@ -86,6 +86,14 @@ export function listen(): void {
                     block: 'h4',
                     classes: 'info__header',
                 },
+                {
+                    title: 'Stat Block',
+                    block: 'section',
+                    classes: 'statblock',
+                    wrapper: true,
+                    exact: true,
+                    merge_siblings: false,
+                },
             ],
         });
 

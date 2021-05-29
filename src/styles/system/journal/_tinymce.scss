@@ -1,5 +1,5 @@
 * + * {
-    margin-top: var(--p-space);
+    margin-top: var(--p-space, 1em);
 }
 
 > * {
@@ -152,4 +152,46 @@ a.inline-roll {
         font-size: 0.8em;
         color: var(--alt);
     }
+}
+
+.statblock {
+    font-family: $sans-serif;
+    color: black;
+    line-height: 1.2;
+
+
+
+    > * + * {
+        margin-top: var(--space-s);
+        margin-bottom: 0;
+    }
+
+    span.pf2-icon {
+        line-height: 1;
+    }
+
+    strong,
+    h1,
+    h2,
+    h3,
+    h4 {
+        font-family: 'Roboto Condensed', $sans-serif;
+        font-weight: 700;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4 {
+        border-bottom: 1px solid black;
+        text-transform: uppercase;
+    }
+}
+
+.trait {
+    font-family: 'Roboto Condensed', $serif;
+    text-transform: uppercase;
+    color: white;
+    padding: var(--space-s);
+    background-color: var(--primary);
 }
