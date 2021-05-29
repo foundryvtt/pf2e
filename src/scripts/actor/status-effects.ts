@@ -1,4 +1,3 @@
-import { ActorPF2e } from '@actor/index';
 import { TokenPF2e } from '@module/token-document';
 import { ConditionManager } from '@module/conditions';
 import { LocalizePF2e } from '@system/localize';
@@ -144,13 +143,7 @@ export class StatusEffects {
 
         const affectingConditions =
             token.actor?.itemTypes.condition
-                .filter(
-                    (i) =>
-                        i.data.flags.pf2e?.condition &&
-                        i.data.type === 'condition' &&
-                        i.data.data.active &&
-                        i.data.data.sources.hud,
-                )
+                .filter((condition) => condition.fromSystem && condition.isActive && condition.data.data.sources.hud)
                 .map((c) => c.data) ?? [];
 
         html.find('div.status-effects').append('<div class="status-effect-summary"></div>');
@@ -200,7 +193,7 @@ export class StatusEffects {
         const $statusIcons = html.find('img.effect-control, img.pf2e-effect-control');
         const appliedConditions =
             token.actor?.itemTypes.condition.filter(
-                (condition) => condition.fromSystem && condition.data.data.active && condition.data.data.sources.hud,
+                (condition) => condition.fromSystem && condition.isActive && condition.data.data.sources.hud,
             ) ?? [];
 
         for (const icon of $statusIcons) {
@@ -286,20 +279,17 @@ export class StatusEffects {
             return;
         }
 
-        const f = $(event.currentTarget);
-        const status = f.attr('data-condition') ?? 'undefined';
+        const $icon = $(event.currentTarget);
+        const status = $icon.attr('data-condition') ?? 'undefined';
 
-        if (!(this.actor instanceof ActorPF2e)) {
-            return;
-        }
+        if (!this.actor) return;
 
         const condition = this.actor.itemTypes.condition.find(
-            (i) =>
-                i.data.flags.pf2e?.condition &&
-                i.data.type === 'condition' &&
-                i.data.name === status &&
-                i.data.data.sources.hud &&
-                i.data.data.references.parent === undefined,
+            (condition) =>
+                condition.fromSystem &&
+                condition.data.name === status &&
+                condition.data.data.sources.hud &&
+                condition.data.data.references.parent === undefined,
         )?.data;
 
         if (event.type === 'contextmenu') {
@@ -308,23 +298,18 @@ export class StatusEffects {
                 // CTRL key pressed.
                 // Remove all conditions.
 
-                const conditionIds: string[] = [];
-
                 this.statusEffectChanged = true;
 
-                this.actor.itemTypes.condition
-                    .filter(
-                        (i) =>
-                            i.data.flags.pf2e?.condition && i.data.type === 'condition' && i.data.data.base === status,
-                    )
-                    .forEach((i) => conditionIds.push(i.id));
+                const conditionIds = this.actor.itemTypes.condition
+                    .filter((condition) => condition.fromSystem && condition.data.data.base === status)
+                    .map((condition) => condition.id);
 
                 await ConditionManager.removeConditionFromToken(conditionIds, this);
             } else if (condition) {
                 this.statusEffectChanged = true;
                 await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value - 1);
                 if (this.data.actorLink) {
-                    StatusEffects._updateHUD(f.parent().parent(), this);
+                    StatusEffects._updateHUD($icon.parent().parent(), this);
                 }
             }
         } else if (event.type === 'click') {
@@ -333,13 +318,13 @@ export class StatusEffects {
                 await ConditionManager.updateConditionValue(condition._id, this, condition.data.value.value + 1);
 
                 if (this.data.actorLink) {
-                    StatusEffects._updateHUD(f.parent().parent(), this);
+                    StatusEffects._updateHUD($icon.parent().parent(), this);
                 }
             } else {
-                const newCondition = ConditionManager.getCondition(status);
+                const newCondition = ConditionManager.getCondition(status).toObject();
                 newCondition.data.sources.hud = true;
 
-                await ConditionManager.addConditionToToken(newCondition.toObject(), this);
+                await ConditionManager.addConditionToToken(newCondition, this);
             }
         }
     }

@@ -479,20 +479,16 @@ export class ConditionManager {
     }
 
     static async updateConditionValue(id: string, token: TokenPF2e, value: number) {
-        const condition = token.actor?.itemTypes.condition.find((c) => c.id === id);
+        const condition = token.actor?.items.get(id);
 
-        if (condition) {
+        if (condition instanceof ConditionPF2e) {
             if (value === 0) {
                 // Value is zero, remove the status.
                 await ConditionManager._deleteConditionEntity([id], token);
             } else {
                 // Apply new value.
-                const update = condition.data._source;
-                update.data.value.value = value;
-
-                await token.actor?.updateEmbeddedDocuments('Item', [update]);
-
-                console.log(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
+                await condition.update({ 'data.value.value': value });
+                console.debug(`PF2e System | Setting condition '${condition.name}' to ${value}.`);
             }
         }
 
