@@ -1,16 +1,16 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorSourcePF2e } from '@actor/data';
 import { MigrationBase } from './base';
 
 export class Migration622RemoveOldTokenEffectIcons extends MigrationBase {
     static version = 0.622;
 
-    async updateActor(actorData: ActorDataPF2e): Promise<void> {
+    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         // remove deprecated condition token effects
         actorData.token.effects =
             actorData.token.effects?.filter((fx) => !fx.startsWith('systems/pf2e/icons/conditions/')) ?? [];
 
         // remove deprecated rule element token effects
-        const effects = actorData.flags?.pf2e?.token?.effects ?? {};
+        const effects = actorData.flags.pf2e?.token?.effects ?? {};
         for (const img of Object.keys(effects)) {
             if (actorData.token.effects?.map((fx) => fx.replace(/[.]/g, '-'))?.includes(img)) {
                 actorData.token.effects = actorData.token.effects.filter((fx) => fx.replace(/[.]/g, '-') !== img);

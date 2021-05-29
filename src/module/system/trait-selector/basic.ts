@@ -1,6 +1,6 @@
-import { ActorPF2e } from '@actor/base';
-import { ValuesList } from '@actor/data-definitions';
-import { ItemPF2e } from '@item/base';
+import { ActorPF2e } from '@actor/index';
+import { ItemPF2e } from '@item/index';
+import { ValuesList } from '@module/data';
 import { TraitSelectorBase } from './base';
 import { BasicSelectorOptions, SelectableTagField } from './index';
 

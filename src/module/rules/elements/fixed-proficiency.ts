@@ -1,6 +1,7 @@
-import { SKILL_EXPANDED } from '@actor/base';
-import { CharacterData, NPCData, SkillAbbreviation } from '@actor/data-definitions';
-import { ModifierPF2e, MODIFIER_TYPE } from '../../modifiers';
+import { SkillAbbreviation } from '@actor/creature/data';
+import type { CharacterData, NPCData } from '@actor/data';
+import { SKILL_EXPANDED } from '@actor/data/values';
+import { ModifierPF2e, MODIFIER_TYPE } from '@module/modifiers';
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
 

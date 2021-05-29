@@ -1,6 +1,5 @@
-import { ActorPF2e, HazardPF2e } from '@actor/base';
-import { NPCPF2e } from '@actor/npc';
-import { LabeledValue } from '@actor/data-definitions';
+import { ActorPF2e, NPCPF2e, HazardPF2e } from '@actor/index';
+import { LabeledValue } from '@module/data';
 import { TraitSelectorBase } from './base';
 import { SelectableTagField } from './index';
 

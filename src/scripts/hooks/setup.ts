@@ -1,7 +1,6 @@
 import { LocalizePF2e } from '@system/localize';
 import { registerSheets } from '../register-sheets';
 import { ActorPF2e } from '@actor/base';
-import { Rollable } from '@actor/data-definitions';
 import { PF2CheckDC } from '@system/check-degree-of-success';
 import { calculateXP } from '@scripts/macros/xp';
 import { launchTravelSheet } from '@scripts/macros/travel/travel-speed-sheet';
@@ -25,6 +24,7 @@ import { ConditionManager } from '@module/conditions';
 import { StatusEffects } from '@scripts/actor/status-effects';
 import { EffectPanel } from '@module/system/effect-panel';
 import { EffectTracker } from '@module/system/effect-tracker';
+import { Rollable } from '@actor/data/base';
 
 function resolveActors(): ActorPF2e[] {
     const actors: ActorPF2e[] = [];

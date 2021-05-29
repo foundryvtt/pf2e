@@ -3,7 +3,7 @@ import { EnfolderedSummaryData } from './index';
 interface DataParameters {
     id: string;
     name: string;
-    type: CompendiumDocumentString;
+    type: CompendiumDocumentType;
     parent?: PackFolderPF2e | null;
     expanded?: boolean;
 }
@@ -13,7 +13,7 @@ export class PackFolderPF2e extends Array<EnfolderedSummaryData> {
     /** The localized name of this folder */
     name: string;
     /** The compendium entity type */
-    type: CompendiumDocumentString;
+    type: CompendiumDocumentType;
     /** Whether the sidebar view of the folder is expanded or collapsed */
     expanded: boolean;
     /** The parent of this folder, if any */

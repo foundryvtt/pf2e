@@ -25,9 +25,6 @@ interface RerollOptions {
     keep?: 'new' | 'best' | 'worst';
 }
 
-/**
- * @category PF2
- */
 export class CheckPF2e {
     /**
      * Roll the given statistic, optionally showing the check modifier dialog if 'Shift' is held down.
@@ -70,7 +67,7 @@ export class CheckPF2e {
     }
 
     /** Reroll a rolled check given a chat message. */
-    static async rerollFromMessage(message: ChatMessage, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
+    static async rerollFromMessage(message: ChatMessagePF2e, { heroPoint = false, keep = 'new' }: RerollOptions = {}) {
         if (!(message.isAuthor || game.user.isGM)) {
             ui.notifications.error(game.i18n.localize('PF2E.RerollMenu.ErrorCantDelete'));
             return;
@@ -80,7 +77,7 @@ export class CheckPF2e {
         let rerollFlavor = game.i18n.localize(`PF2E.RerollMenu.MessageKeep.${keep}`);
         if (heroPoint) {
             // If the reroll costs a hero point, first check if the actor has one to spare and spend it
-            if (actor) {
+            if (actor?.data.type === 'character') {
                 const heroPointCount = actor.data.data.attributes.heroPoints.rank;
                 if (heroPointCount) {
                     await actor.update({

@@ -1,8 +1,7 @@
 import { ActorPF2e } from '@actor/base';
 import { ConditionManager } from '../conditions';
-import { ConditionData, EffectData } from '@item/data/types';
-import { ConditionPF2e } from '@item/others';
-import { EffectPF2e } from '@item/effect';
+import { ConditionData, EffectData } from '@item/data';
+import { ConditionPF2e, EffectPF2e } from '@item/index';
 
 interface EffectPanelData {
     conditions?: ConditionData[];

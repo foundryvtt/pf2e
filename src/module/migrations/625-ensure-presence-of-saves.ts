@@ -1,4 +1,4 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorSourcePF2e } from '@actor/data';
 import { MigrationBase } from './base';
 
 interface BaseSaveData {
@@ -17,7 +17,7 @@ interface BaseNPCSaves {
 export class Migration625EnsurePresenceOfSaves extends MigrationBase {
     static version = 0.625;
 
-    async updateActor(actorData: ActorDataPF2e): Promise<void> {
+    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         if (actorData.type !== 'npc') return;
 
         const saves: BaseNPCSaves = actorData.data.saves;

@@ -2,7 +2,7 @@ export {};
 
 declare global {
     type AudioPath = `${string}.${AudioFileExtension}`;
-    type ColorField = `#${string}`;
+    type HexColorString = `#${string}`;
     type GridType = typeof CONST.GRID_TYPES[keyof typeof CONST.GRID_TYPES];
     type ImagePath = `${string}.${ImageFileExtension}`;
     type VideoPath = `${string}.${VideoFileExtension}` | ImagePath;

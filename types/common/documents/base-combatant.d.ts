@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /** The Combat document model. */
         class BaseCombatant extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.CombatantData;
 
-            /** @override */
             static get metadata(): CombatantMetadata;
 
             /** Is a user able to update an existing Combatant? */
@@ -17,7 +15,8 @@ declare module foundry {
         }
 
         interface BaseCombatant {
-            readonly data: data.CombatantData<BaseCombatant>;
+            readonly data: foundry.data.CombatantData<this>;
+            readonly parent: BaseCombat | null;
         }
 
         interface CombatantMetadata extends abstract.DocumentMetadata {

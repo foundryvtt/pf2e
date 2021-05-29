@@ -25,11 +25,10 @@ declare module foundry {
         class CombatantData<
             TDocument extends documents.BaseCombatant = documents.BaseCombatant,
         > extends abstract.DocumentData<TDocument> {
-            /** @override */
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface CombatantData extends Omit<CombatantSource, '_id'> {
+        interface CombatantData extends CombatantSource {
             readonly _source: CombatantSource;
         }
     }

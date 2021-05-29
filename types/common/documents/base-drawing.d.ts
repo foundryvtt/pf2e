@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /**The Drawing embedded document model. */
         class BaseDrawing extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.DrawingData;
 
-            /** @override */
             static get metadata(): DrawingMetadata;
 
             /** Is a user able to update or delete an existing Drawing document? */
@@ -13,7 +11,9 @@ declare module foundry {
         }
 
         interface BaseDrawing {
-            readonly data: data.DrawingData<BaseDrawing>;
+            readonly data: data.DrawingData<this>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface DrawingMetadata extends abstract.DocumentMetadata {

@@ -1,5 +1,5 @@
-import { ValuesList } from '@actor/data-definitions';
-import { ItemDataPF2e, SpellDetailsData } from '@item/data/types';
+import type { ItemSourcePF2e, SpellData } from '@item/data';
+import { ValuesList } from '@module/data';
 import { MigrationBase } from './base';
 
 /**
@@ -9,9 +9,9 @@ import { MigrationBase } from './base';
 export class Migration626UpdateSpellCategory extends MigrationBase {
     static version = 0.626;
 
-    async updateItem(itemData: ItemDataPF2e) {
+    async updateItem(itemData: ItemSourcePF2e) {
         if (itemData.type === 'spell') {
-            interface MaybeCategorie extends Partial<SpellDetailsData> {
+            interface MaybeCategorie extends Partial<SpellData['data']> {
                 traditions: ValuesList<keyof ConfigPF2e['PF2E']['spellTraditions']>;
                 spellCategorie?: { value: 'spell' | 'focus' | 'ritual' | '' };
                 spellCategory?: { value: 'spell' | 'focus' | 'ritual' | '' };

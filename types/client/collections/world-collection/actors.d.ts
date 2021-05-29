@@ -7,7 +7,7 @@
  * @example <caption>Retrieve an existing Actor by its id</caption>
  * let actor = game.actors.get(actorId);
  */
-declare class Actors<TActor extends Actor> extends EntityCollection<TActor> {
+declare class Actors<TActor extends Actor> extends WorldCollection<TActor> {
     get documentName(): 'Actor';
 
     /**
@@ -24,15 +24,15 @@ declare class Actors<TActor extends Actor> extends EntityCollection<TActor> {
      * Register an Actor sheet class as a candidate which can be used to display Actors of a given type
      * See EntitySheetConfig.registerSheet for details
      */
-    static registerSheet<A extends Actor, I extends Item>(
+    static registerSheet<A extends ActorSheet>(
         scope: string,
-        sheetClass: new (...args: any[]) => ActorSheet<A, I>,
+        sheetClass: ConstructorOf<A>,
         options?: RegisterSheetOptions,
     ): void;
     /** Unregister an Actor sheet class, removing it from the list of avaliable sheet Applications to use
      * See EntitySheetConfig.unregisterSheet for details
      */
-    static unregisterSheet<TS extends typeof ActorSheet>(scope: string, sheetClass: TS): void;
+    static unregisterSheet<T extends ActorSheet>(scope: string, sheetClass: ConstructorOf<T>): void;
 
     /**
      * Return an Array of currently registered sheet classes for this Entity type

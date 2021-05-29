@@ -1,5 +1,6 @@
-import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '../../../src/module/item/runes';
-import { ArmorDetailsData, WeaponData, WeaponDetailsData } from '@item/data/types';
+import { getPropertyRunes, getPropertySlots, getAttackBonus, getArmorBonus } from '@item/runes';
+import type { ArmorData, WeaponData } from '@item/data';
+
 describe('test runes', () => {
     if (game.settings.get('pf2e', 'automaticBonusVariant') === 'noABP') {
         test('should get rune property slots', () => {
@@ -113,7 +114,7 @@ describe('test runes', () => {
             bonus: {
                 value: 0,
             },
-        } as unknown as WeaponDetailsData;
+        } as unknown as WeaponData['data'];
 
         expect(getAttackBonus(itemData)).toBe(3);
     });
@@ -129,7 +130,7 @@ describe('test runes', () => {
             group: {
                 value: 'bomb',
             },
-        } as unknown as WeaponDetailsData;
+        } as unknown as WeaponData['data'];
 
         expect(getAttackBonus(itemData)).toBe(2);
     });
@@ -142,7 +143,7 @@ describe('test runes', () => {
             bonus: {
                 value: 0,
             },
-        } as unknown as WeaponDetailsData;
+        } as unknown as WeaponData['data'];
 
         expect(getAttackBonus(itemData)).toBe(0);
     });
@@ -155,7 +156,7 @@ describe('test runes', () => {
             armor: {
                 value: 0,
             },
-        } as unknown as ArmorDetailsData;
+        } as unknown as ArmorData['data'];
 
         expect(getArmorBonus(itemData)).toBe(0);
     });
@@ -168,7 +169,7 @@ describe('test runes', () => {
             armor: {
                 value: 2,
             },
-        } as unknown as ArmorDetailsData;
+        } as unknown as ArmorData['data'];
 
         expect(getArmorBonus(itemData)).toBe(2);
     });
@@ -181,7 +182,7 @@ describe('test runes', () => {
             armor: {
                 value: 0,
             },
-        } as unknown as ArmorDetailsData;
+        } as unknown as ArmorData['data'];
 
         expect(getArmorBonus(itemData)).toBe(1);
     });
@@ -194,7 +195,7 @@ describe('test runes', () => {
             armor: {
                 value: 2,
             },
-        } as ArmorDetailsData;
+        } as ArmorData['data'];
 
         expect(getArmorBonus(itemData)).toBe(3);
     });

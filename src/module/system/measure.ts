@@ -6,13 +6,13 @@ function degtorad(degrees: number) {
 }
 
 // Use 90 degrees cone in PF2e style
-TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event) {
+TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event: ElementDragEvent) {
     PlaceablesLayer.prototype._onDragLeftStart.call(this, event);
 
     // Create the new preview template
     const tool = game.activeTool;
     const origin = event.data.origin;
-    let pos;
+    let pos: Point;
     if (['cone', 'circle'].includes(tool)) {
         pos = canvas.grid.getSnappedPosition(origin.x, origin.y, 2);
     } else pos = canvas.grid.getSnappedPosition(origin.x, origin.y, 2);
@@ -38,7 +38,7 @@ TemplateLayer.prototype._onDragLeftStart = function _onDragLeftStart(event) {
     template.draw();
 };
 
-TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event) {
+TemplateLayer.prototype._onDragLeftMove = function _onDragLeftMove(event: ElementDragEvent) {
     PlaceablesLayer.prototype._onDragLeftMove.call(this, event);
     if (event.data.createState >= 1) {
         // Snap the destination to the grid
@@ -104,7 +104,7 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
     const minAngle = (360 + ((this.data.direction - this.data.angle * 0.5) % 360)) % 360;
     const maxAngle = (360 + ((this.data.direction + this.data.angle * 0.5) % 360)) % 360;
 
-    const withinAngle = (min, max, value) => {
+    const withinAngle = (min: number, max: number, value: number) => {
         min = (360 + (min % 360)) % 360;
         max = (360 + (max % 360)) % 360;
         value = (360 + (value % 360)) % 360;
@@ -113,7 +113,7 @@ MeasuredTemplate.prototype.highlightGrid = function highlightGrid() {
         return value >= min || value <= max;
     };
 
-    const measureDistance = (p0, p1) => {
+    const measureDistance = (p0: number, p1: number) => {
         const gs = canvas.dimensions.size;
         const ray = new Ray(p0, p1);
         // How many squares do we travel across to get there? If 2.3, we should count that as 3 instead of 2; hence, Math.ceil

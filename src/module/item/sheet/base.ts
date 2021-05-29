@@ -1,9 +1,9 @@
 import { ActorPF2e } from '@actor/base';
 import { getPropertySlots } from '../runes';
-import { ItemDataPF2e, LoreDetailsData, WeaponTrait } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 import { LocalizePF2e } from '@system/localize';
 import { AESheetData, SheetOptions, SheetSelections } from './data-types';
-import { ItemPF2e } from '@item/base';
+import { ItemPF2e, LorePF2e } from '@item/index';
 import { PF2RuleElementData } from '@module/rules/rules-data-definitions';
 import Tagify from '@yaireo/tagify';
 import {
@@ -15,6 +15,7 @@ import {
 } from '@module/system/trait-selector';
 import { ErrorPF2e, sluggify, tupleHasValue } from '@module/utils';
 import { ActiveEffectPF2e } from '@module/active-effect';
+import { WeaponTrait } from '@item/weapon/data';
 
 export interface ItemSheetDataPF2e<TItem extends ItemPF2e> extends ItemSheetData<TItem> {
     user: { isGM: boolean };
@@ -228,10 +229,9 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
                 ['rounds', 'seconds', 'turns'].includes(entry[0]),
             );
 
-            const [key, quantity] =
-                durationEntries.find(
-                    (entry: DurationEntry): entry is [string, number | null] => typeof entry[1] === 'number',
-                ) ?? (['permanent', null] as const);
+            const [key, quantity] = durationEntries.find(
+                (entry: DurationEntry): entry is [string, number | null] => typeof entry[1] === 'number',
+            ) ?? ['permanent', null];
 
             if (key === 'permanent') {
                 return translations.Duration.Permanent;
@@ -446,7 +446,8 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
         });
 
         html.find('.add-skill-variant').on('click', (_event) => {
-            const variants = (this.actor?.items?.get(this.entity.id)?.data.data as LoreDetailsData)?.variants ?? {};
+            if (!(this.item instanceof LorePF2e)) return;
+            const variants = this.item.data.data.variants ?? {};
             const index = Object.keys(variants).length;
             this.item.update({
                 [`data.variants.${index}`]: { label: '+X in terrain', options: '' },
@@ -520,11 +521,7 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
             const effectId = getEffectId(event.target);
             const effect = effects.find((ownedEffect) => ownedEffect.id === effectId);
             if (effect instanceof ActiveEffect) {
-                if (actor instanceof ActorPF2e) {
-                    actor.deleteEmbeddedDocuments('ActiveEffect', effect.id);
-                } else {
-                    effect.delete();
-                }
+                effect.delete();
             }
         });
     }
@@ -533,15 +530,15 @@ export class ItemSheetPF2e<TItem extends ItemPF2e> extends ItemSheet<TItem> {
     protected _getSubmitData(updateData: Record<string, unknown> = {}): Record<string, unknown> {
         // create the expanded update data object
         const fd = new FormDataExtended(this.form, { editors: this.editors });
-        const data: Record<string, unknown> & { name?: string; img?: string; data?: ItemUpdateData } = updateData
+        const data: Record<string, unknown> & { data?: { rules?: string[] } } = updateData
             ? mergeObject(fd.toObject(), updateData)
             : expandObject(fd.toObject());
 
         // ensure all rules objects are parsed and saved as objects
-        if (data?.data && 'rules' in data?.data) {
-            data.data.rules = Object.entries(data.data.rules as PF2RuleElementData).map(([_, value]) => {
+        if (data.data?.rules) {
+            data.data.rules = Object.entries(data.data.rules).map(([_, value]) => {
                 try {
-                    return JSON.parse(value as string);
+                    return JSON.parse(value);
                 } catch (error) {
                     ui.notifications.warn('Syntax error in rule element definition.');
                     throw error;

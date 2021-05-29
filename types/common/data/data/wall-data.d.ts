@@ -31,7 +31,7 @@ declare module foundry {
             static defineSchema(): abstract.DocumentSchema;
         }
 
-        interface WallData extends Omit<WallSource, '_id'> {
+        interface WallData extends WallSource {
             readonly _source: WallSource;
         }
     }

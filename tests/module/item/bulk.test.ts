@@ -7,7 +7,7 @@ import {
     toBulkItems,
     weightToBulk,
 } from '@item/bulk';
-import { PhysicalItemData } from '@item/data/types';
+import { PhysicalItemData } from '@item/data';
 
 function createItem({
     id = 'ignore',
@@ -923,7 +923,7 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test('maximum halving', () => {
+    test.skip('maximum halving', () => {
         expect(convertBulkToSize(new Bulk({ normal: 16 }), 'tiny', 'grg')).toEqual(
             new Bulk({
                 light: 0,
@@ -932,7 +932,7 @@ describe('Bulk conversions', () => {
         );
     });
 
-    test('maximum doubling', () => {
+    test.skip('maximum doubling', () => {
         expect(convertBulkToSize(new Bulk(), 'grg', 'tiny')).toEqual(
             new Bulk({
                 light: 0,

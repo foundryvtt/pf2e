@@ -55,13 +55,9 @@ declare global {
         /* -------------------------------------------- */
 
         /** @override */
-        _onUpdate(data: foundry.data.JournalEntrySource, options: DocumentModificationContext, userId: string): void;
+        _onUpdate(changed: DocumentUpdateData<this>, options: DocumentModificationContext, userId: string): void;
 
         /** @override */
         _onDelete(options: DocumentModificationContext, userId: string): void;
-    }
-
-    interface JournalEntry {
-        data: foundry.data.JournalEntryData<JournalEntry>;
     }
 }

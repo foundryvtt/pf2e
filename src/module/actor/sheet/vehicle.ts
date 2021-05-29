@@ -1,9 +1,9 @@
 import { calculateBulk, formatBulk, indexBulkItemsById, itemsFromActorData } from '@item/bulk';
-import { getContainerMap } from '@item/container';
+import { getContainerMap } from '@item/container/helpers';
 import { ActorSheetPF2e } from './base';
-import { calculateWealth } from '@item/treasure';
+import { calculateWealth } from '@item/treasure/helpers';
 import { VehiclePF2e } from '@actor/vehicle';
-import { ItemDataPF2e } from '@item/data/types';
+import { ItemDataPF2e } from '@item/data';
 
 /**
  * @category Actor

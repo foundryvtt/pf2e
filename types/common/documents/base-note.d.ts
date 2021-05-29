@@ -2,10 +2,8 @@ declare module foundry {
     module documents {
         /**The Note embedded document model. */
         class BaseNote extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.NoteData;
 
-            /** @override */
             static get metadata(): NoteMetadata;
 
             /** Is a user able to update an existing Note? */
@@ -13,7 +11,9 @@ declare module foundry {
         }
 
         interface BaseNote {
-            readonly data: data.NoteData<BaseNote>;
+            readonly data: data.NoteData<this>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface NoteMetadata extends abstract.DocumentMetadata {

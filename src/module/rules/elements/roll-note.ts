@@ -1,6 +1,6 @@
 import { RuleElementPF2e } from '../rule-element';
 import { RuleElementSyntheticsPF2e } from '../rules-data-definitions';
-import { CharacterData, NPCData } from '@actor/data-definitions';
+import { CharacterData, NPCData } from '@actor/data';
 import { RollNotePF2e } from '@module/notes';
 import { ModifierPredicate } from '@module/modifiers';
 import { DegreeOfSuccessText } from '@system/check-degree-of-success';

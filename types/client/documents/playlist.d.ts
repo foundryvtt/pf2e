@@ -11,7 +11,7 @@ declare global {
      */
     class Playlist extends PlaylistConstructor {
         /** @override */
-        constructor(data: Partial<foundry.data.PlaylistSource>, context?: DocumentConstructorContext);
+        constructor(data: PreCreate<foundry.data.PlaylistSource>, context?: DocumentConstructionContext<Playlist>);
 
         /**
          * Each sound which is played within the Playlist has a created Howl instance.
@@ -146,9 +146,5 @@ declare global {
 
         /** @override */
         toCompendium(pack: CompendiumCollection<this>): foundry.data.PlaylistSource;
-    }
-
-    interface Playlist {
-        readonly data: foundry.data.PlaylistData<Playlist>;
     }
 }

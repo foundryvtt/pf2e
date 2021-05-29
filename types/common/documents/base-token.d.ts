@@ -6,10 +6,8 @@ declare module foundry {
          * @property data The constructed data object for the document.
          */
         class BaseToken extends abstract.Document {
-            /** @override */
             static get schema(): typeof data.TokenData;
 
-            /** @override */
             static get metadata(): TokenMetadata;
 
             /** A convenience reference to the name which should be displayed for the Token */
@@ -21,6 +19,8 @@ declare module foundry {
 
         interface BaseToken extends abstract.Document {
             readonly data: data.TokenData<BaseToken>;
+
+            readonly parent: BaseScene | null;
         }
 
         interface TokenMetadata extends abstract.DocumentMetadata {

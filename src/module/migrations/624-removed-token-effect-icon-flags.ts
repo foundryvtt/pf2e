@@ -1,10 +1,10 @@
-import { ActorDataPF2e } from '@actor/data-definitions';
+import { ActorSourcePF2e } from '@actor/data';
 import { MigrationBase } from './base';
 
 export class Migration624RemoveTokenEffectIconFlags extends MigrationBase {
     static version = 0.624;
 
-    async updateActor(actorData: ActorDataPF2e): Promise<void> {
+    async updateActor(actorData: ActorSourcePF2e): Promise<void> {
         // remove deprecated rule element token effect flags
         if (actorData.flags?.pf2e?.token?.effects) {
             delete actorData.flags.pf2e.token.effects;

@@ -24,7 +24,6 @@ interface UpdateData {
 }
 
 export class WorldClockSettings extends FormApplication {
-    /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             title: CONFIG.PF2E.SETTINGS.worldClock.name,
@@ -36,7 +35,6 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    /** @override */
     getData(): TemplateData {
         const visibleSettings = Object.entries(WorldClockSettings.settings).filter(([key]) => key !== 'worldCreatedOn');
 
@@ -77,7 +75,6 @@ export class WorldClockSettings extends FormApplication {
         game.settings.register('pf2e', 'worldClock.worldCreatedOn', this.settings.worldCreatedOn);
     }
 
-    /** @override */
     activateListeners($html: JQuery): void {
         super.activateListeners($html);
 
@@ -98,7 +95,6 @@ export class WorldClockSettings extends FormApplication {
         });
     }
 
-    /** @override */
     protected async _updateObject(_event: Event, data: UpdateData): Promise<void> {
         const keys: (keyof UpdateData)[] = ['dateTheme', 'timeConvention', 'playersCanView', 'syncDarkness'];
         for await (const key of keys) {
