@@ -3,7 +3,6 @@ import { MigrationBase } from './base';
 
 interface BaseSaveData {
     value: number;
-    rank: number;
     saveDetail: string;
 }
 
@@ -24,14 +23,10 @@ export class Migration625EnsurePresenceOfSaves extends MigrationBase {
         for (const key of ['fortitude', 'reflex', 'will'] as const) {
             saves[key] ??= {
                 value: 0,
-                rank: 0,
                 saveDetail: '',
             };
             if (typeof saves[key].value !== 'number') {
                 saves[key].value = Number(saves[key].value) || 0;
-            }
-            if (typeof saves[key].rank !== 'number') {
-                saves[key].rank = Number(saves[key].rank) || 0;
             }
             if (typeof saves[key].saveDetail !== 'string') {
                 saves[key].saveDetail = '';

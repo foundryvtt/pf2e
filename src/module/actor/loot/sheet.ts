@@ -5,7 +5,7 @@ import { getContainerMap } from '@item/container/helpers';
 import { DistributeCoinsPopup } from '../sheet/popups/distribute-coins-popup';
 import { ItemDataPF2e, PhysicalItemData } from '@item/data';
 import { LootNPCsPopup } from '../sheet/loot/loot-npcs-popup';
-import { InventoryItem } from '../sheet/data-types';
+import { ActorSheetDataPF2e, InventoryItem, LootSheetDataPF2e } from '../sheet/data-types';
 import { PhysicalItemType } from '@item/physical/data';
 import { isPhysicalData } from '@item/data/helpers';
 
@@ -33,8 +33,8 @@ export class LootSheetPF2e extends ActorSheetPF2e<LootPF2e> {
     }
 
     /** @override */
-    getData() {
-        const sheetData = super.getData();
+    getData(): LootSheetDataPF2e {
+        const sheetData: ActorSheetDataPF2e<LootPF2e> = super.getData();
         const isLoot = this.actor.data.data.lootSheetType === 'Loot';
         return { ...sheetData, isLoot };
     }

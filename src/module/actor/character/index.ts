@@ -19,6 +19,7 @@ import { SKILL_DICTIONARY } from '../data/values';
 import {
     BaseWeaponProficiencyKey,
     CharacterData,
+    CharacterProficiencyData,
     CharacterStrike,
     CharacterSystemData,
     CombatProficiencies,
@@ -39,13 +40,7 @@ import { AutomaticBonusProgression } from '@module/rules/automatic-bonus';
 import { SpellAttackRollModifier, SpellDifficultyClass } from '@item/spellcasting-entry/data';
 import { WeaponCategory, WeaponDamage, WeaponData } from '@item/weapon/data';
 import { ZeroToFour } from '@module/data';
-import {
-    AbilityString,
-    DexterityModifierCapData,
-    PerceptionData,
-    ProficiencyData,
-    StrikeTrait,
-} from '@actor/data/base';
+import { AbilityString, DexterityModifierCapData, PerceptionData, StrikeTrait } from '@actor/data/base';
 
 import { SkillAbbreviation, SkillData } from '@actor/creature/data';
 
@@ -79,6 +74,17 @@ export class CharacterPF2e extends CreaturePF2e {
     /** @override */
     prepareBaseData(): void {
         super.prepareBaseData();
+
+        // Add any homebrew categories
+        const { data } = this.data;
+        const homebrewCategories = game.settings.get('pf2e', 'homebrew.weaponCategories').map((tag) => tag.id);
+        for (const category of homebrewCategories) {
+            data.martial[category] ??= {
+                rank: 0,
+                value: 0,
+                breakdown: '',
+            };
+        }
 
         // Toggles
         this.data.data.toggles = {
@@ -622,17 +628,7 @@ export class CharacterPF2e extends CreaturePF2e {
 
         // Add any homebrew categories
         const homebrewCategoryTags = game.settings.get('pf2e', 'homebrew.weaponCategories');
-        for (const tag of homebrewCategoryTags) {
-            if (!(tag.id in data.martial)) {
-                data.martial[tag.id] = {
-                    rank: 0,
-                    value: 0,
-                    breakdown: '',
-                };
-            }
-        }
-
-        const homebrewCategories = homebrewCategoryTags.reduce(
+        const homebrewProficiencies = homebrewCategoryTags.reduce(
             (categories: Partial<Record<WeaponCategory, { name: string; rank: ZeroToFour }>>, category) =>
                 mergeObject(categories, {
                     [category.id]: {
@@ -643,7 +639,11 @@ export class CharacterPF2e extends CreaturePF2e {
             {},
         );
 
-        const proficiencies: Record<string, { name: string; rank: ZeroToFour }> = {
+        interface BaseProficiencyData {
+            name: string;
+            rank: ZeroToFour;
+        }
+        const proficiencies: Record<string, BaseProficiencyData> = {
             simple: {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.simple),
                 rank: data.martial.simple.rank ?? 0,
@@ -660,7 +660,7 @@ export class CharacterPF2e extends CreaturePF2e {
                 name: game.i18n.localize(CONFIG.PF2E.martialSkills.unarmed),
                 rank: data.martial.unarmed.rank ?? 0,
             },
-            ...homebrewCategories,
+            ...homebrewProficiencies,
             ...weaponProficiencies,
             ...groupProficiencies,
         };
@@ -699,6 +699,9 @@ export class CharacterPF2e extends CreaturePF2e {
             .filter((item) => item.data.data.consumableType.value === 'ammo')
             .map((ammo) => ammo.data);
 
+        const coreCategories = ['simple', 'martial', 'unarmed', 'advanced'] as const;
+        const allCategories = coreCategories.concat(homebrewCategoryTags.map((tag) => tag.id));
+
         this.itemTypes.weapon
             .map((weapon) => weapon.data)
             .concat([unarmed as WeaponData])
@@ -723,14 +726,28 @@ export class CharacterPF2e extends CreaturePF2e {
                     modifiers.push(AbilityModifier.fromAbilityScore(ability, score));
                 }
 
+                // If the character has an ancestral weapon familiarity, it will make weapons with their ancestry
+                // trait also count as a weapon of different category
+                const weaponCategory = item.data.weaponType.value ?? 'simple';
+                const categoryRank = data.martial[weaponCategory].rank;
+                const familiarityRank = (() => {
+                    const weaponTraits = item.data.traits.value;
+                    const familiarity = allCategories.find((category) => {
+                        const maybeFamiliarity = data.martial[category].familiarity;
+                        return (
+                            maybeFamiliarity &&
+                            maybeFamiliarity.category === weaponCategory &&
+                            weaponTraits.includes(maybeFamiliarity.trait)
+                        );
+                    });
+                    return familiarity ? data.martial[familiarity].rank : 0;
+                })();
+
+                const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank ?? 0;
                 const baseWeapon = item.data.baseItem ?? item.data.slug;
-                const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank;
-                const groupRank = proficiencies[`weapon-group-${item.data.group.value}`]?.rank;
-                const proficiencyRank = Math.max(
-                    proficiencies[item.data.weaponType.value ?? '']?.rank ?? 0,
-                    baseWeaponRank ?? 0,
-                    groupRank ?? 0,
-                );
+                const baseWeaponRank = proficiencies[`weapon-base-${baseWeapon}`]?.rank ?? 0;
+
+                const proficiencyRank = Math.max(categoryRank, familiarityRank, groupRank, baseWeaponRank);
                 modifiers.push(ProficiencyModifier.fromLevelAndRank(this.level, proficiencyRank));
 
                 const selectors = [
@@ -1177,7 +1194,7 @@ export class CharacterPF2e extends CreaturePF2e {
     async addCombatProficiency(key: BaseWeaponProficiencyKey | WeaponGroupProficiencyKey) {
         const currentProficiencies = this.data.data.martial;
         if (key in currentProficiencies) return;
-        const newProficiency: ProficiencyData = { rank: 0, value: 0, breakdown: '', custom: true };
+        const newProficiency: CharacterProficiencyData = { rank: 0, value: 0, breakdown: '', custom: true };
         await this.update({ [`data.martial.${key}`]: newProficiency });
     }
 

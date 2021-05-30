@@ -8,6 +8,7 @@ import * as Setup from './setup';
 import * as TurnChanges from './turn-changes';
 import * as UpdateScene from './update-scene';
 import * as UpdateWorldTime from './update-world-time';
+import * as RenderActorDirectory from './render-actor-directory';
 import * as RenderChatLog from './render-chat-log';
 import * as RenderChatMessage from './render-chat-message';
 
@@ -21,6 +22,7 @@ export namespace PF2E {
             Init.listen();
             HotbarDrop.listen();
             Ready.listen();
+            RenderActorDirectory.listen();
             RenderChatLog.listen();
             RenderChatMessage.listen();
             Setup.listen();

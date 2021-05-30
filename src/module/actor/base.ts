@@ -275,8 +275,8 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
      * @param skill {String}    The skill id
      */
     rollLoreSkill(event: JQuery.Event, item: Embedded<ItemPF2e>) {
-        const { data } = item;
-        if (data.type !== 'lore') {
+        const itemData = item.data;
+        if (itemData.type !== 'lore') {
             throw Error('Can only roll lore skills using lore items');
         }
 
@@ -284,16 +284,13 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
         const flavor = `${item.name} Skill Check`;
 
         let rollMod = 0;
-        let itemBonus = 0;
-        if (item.actor.data.type === 'character') {
-            const rank = data.data.proficient?.value || 0;
+        if (this.data.type === 'character') {
+            const rank = itemData.data.proficient.value || 0;
             const proficiency = ProficiencyModifier.fromLevelAndRank(this.data.data.details.level.value, rank).modifier;
             const modifier = this.data.data.abilities.int.mod;
-
-            itemBonus = Number((data.data.item || {}).value || 0);
             rollMod = modifier + proficiency;
-        } else if (item.actor.data.type === 'npc') {
-            rollMod = data.data.mod.value;
+        } else if (this.data.type === 'npc') {
+            rollMod = itemData.data.mod.value;
         }
 
         // Call the roll helper utility
@@ -302,7 +299,6 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
             parts,
             data: {
                 mod: rollMod,
-                itemBonus,
             },
             title: flavor,
             speaker: ChatMessage.getSpeaker({ actor: this }),
@@ -643,8 +639,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 }
             }
 
-            if (attribute === 'attributes.hp' && this.data.type === 'character') {
-                const { hp, sp } = this.data.data.attributes;
+            if (attribute === 'attributes.hp' && 'hp' in this.data.data.attributes) {
+                const { hp } = this.data.data.attributes;
+                const sp = 'sp' in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
                         const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });

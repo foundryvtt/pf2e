@@ -119,7 +119,7 @@ function runEarnIncome(actor, skill, assurance, level, days) {
             { actor, type: 'skill-check', options },
             event,
             (roll) => {
-                const dieValue = roll.results[0];
+                const dieValue = roll.dice[0].results[0].result;
                 const modifier = roll._total - dieValue;
                 calculateIncome(actor, skill, { dieValue, modifier }, level, days);
             },
