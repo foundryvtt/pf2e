@@ -311,7 +311,9 @@ export abstract class ActorSheetPF2e<TActor extends ActorPF2e> extends ActorShee
             spellData.data.isSignatureSpell = true;
 
             for (let spellLevel = spellData.data.level.value; spellLevel <= maxSpellLevelToShow; spellLevel++) {
-                spellbook[spellLevel].spells.push(spellData);
+                if (spellbook[spellLevel].slots) {
+                    spellbook[spellLevel].spells.push(spellData);
+                }
             }
         } else {
             spellbook[castingLevel].spells.push(spellData);
