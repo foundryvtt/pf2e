@@ -171,6 +171,7 @@ export class DamageRollModifiersDialog extends Application {
                 flavor,
                 content: content.trim(),
                 roll,
+                sound: 'sounds/dice.wav',
                 flags: {
                     core: {
                         canPopout: true,
