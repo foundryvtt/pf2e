@@ -639,8 +639,9 @@ export class ActorPF2e extends Actor<TokenDocumentPF2e> {
                 }
             }
 
-            if (attribute === 'attributes.hp' && this.data.type === 'character') {
-                const { hp, sp } = this.data.data.attributes;
+            if (attribute === 'attributes.hp' && 'hp' in this.data.data.attributes) {
+                const { hp } = this.data.data.attributes;
+                const sp = 'sp' in this.data.data.attributes ? this.data.data.attributes.sp : { value: 0 };
                 if (isDelta) {
                     if (value < 0) {
                         const { update, delta } = this._calculateHealthDelta({ hp, sp, delta: value });
